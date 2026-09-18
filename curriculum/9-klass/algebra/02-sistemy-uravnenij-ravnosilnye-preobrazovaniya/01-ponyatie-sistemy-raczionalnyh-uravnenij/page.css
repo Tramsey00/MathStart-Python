@@ -1,0 +1,103 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-pair {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 4px 13px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-compare-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 31px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-passport {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.78fr) minmax(0, 1.22fr);
+  gap: 0;
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-passport-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(145deg, #2563eb 0%, #4f46e5 100%);
+  color: #ffffff;
+}
+.ms-lesson-page .ms-passport-main span {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+  opacity: 0.86;
+}
+.ms-lesson-page .ms-passport-main strong {
+  display: block;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.ms-lesson-page .ms-passport-checks {
+  padding: 20px 22px;
+}
+.ms-lesson-page .ms-passport-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ms-lesson-page .ms-passport-row:last-child {
+  border-bottom: none;
+}
+.ms-lesson-page .ms-passport-number {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-passport-text {
+  color: #374151;
+  font-size: 15.5px;
+  line-height: 1.62;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-passport,
+  .ms-lesson-page .ms-compare {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-compare-symbol {
+    min-height: 34px;
+    transform: rotate(90deg);
+  }
+  .ms-lesson-page .ms-passport-main {
+    min-height: 190px;
+  }
+}

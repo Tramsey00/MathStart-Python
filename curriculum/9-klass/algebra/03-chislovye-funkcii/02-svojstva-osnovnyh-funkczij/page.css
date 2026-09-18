@@ -1,0 +1,71 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-radar {
+  display: grid;
+  grid-template-columns: 210px minmax(0,1fr);
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #fff;
+}
+.ms-lesson-page .ms-radar-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(145deg,#2563eb,#4f46e5);
+  color: #fff;
+}
+.ms-lesson-page .ms-radar-main span {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: .85;
+}
+.ms-lesson-page .ms-radar-main strong {
+  font-size: 22px;
+  line-height: 1.45;
+}
+.ms-lesson-page .ms-radar-list {
+  padding: 16px 21px;
+}
+.ms-lesson-page .ms-radar-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0,1fr);
+  gap: 11px;
+  padding: 11px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ms-lesson-page .ms-radar-row:last-child {
+  border-bottom: 0;
+}
+.ms-lesson-page .ms-radar-num {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-radar-row strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 16px;
+}
+.ms-lesson-page .ms-radar-row span {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.55;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-radar {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-radar-main {
+    min-height: 175px;
+  }
+}

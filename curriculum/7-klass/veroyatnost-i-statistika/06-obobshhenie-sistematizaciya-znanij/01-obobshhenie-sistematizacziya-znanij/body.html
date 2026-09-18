@@ -1,0 +1,630 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Обобщение · Тема 6.1</div>
+
+    <h1 class="ms-title">Обобщение, систематизация знаний</h1>
+
+    <p class="ms-subtitle">
+      Соберём курс в единую систему: повторим представление и анализ данных,
+      числовые характеристики, случайную изменчивость, графы, вероятность
+      и частоту события. Затем решим итоговые задания, где нужно самостоятельно
+      выбрать подходящий способ рассуждения.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#course-map">Повторить курс</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">
+        К темам вероятности и статистики
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#course-map"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Карта курса</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Универсальный маршрут исследования</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Один набор данных — несколько способов описания</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Формулы и правила, которые связывают курс</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Граф как модель связей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как выбрать между вероятностью и частотой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Итоговая самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="course-map" class="ms-section">
+    <h2>1. Карта курса</h2>
+
+    <p class="ms-text">
+      В течение года мы учились не просто выполнять отдельные вычисления,
+      а проходить полный путь от исходных наблюдений до обоснованного вывода.
+      Каждый раздел отвечает на свой тип вопросов.
+    </p>
+
+    <div class="ms-course-map">
+      <div class="ms-course-card ms-card">
+        <span class="ms-course-number">1</span>
+        <h3 class="ms-card-title">Представление данных</h3>
+        <p class="ms-card-text">Таблицы, круговые и столбчатые диаграммы помогают упорядочить сведения и увидеть сравнение величин.</p>
+      </div>
+
+      <div class="ms-course-card ms-card">
+        <span class="ms-course-number">2</span>
+        <h3 class="ms-card-title">Описательная статистика</h3>
+        <p class="ms-card-text">Среднее, медиана, минимум, максимум и размах описывают центр и общий разброс числового набора.</p>
+      </div>
+
+      <div class="ms-course-card ms-card">
+        <span class="ms-course-number">3</span>
+        <h3 class="ms-card-title">Случайная изменчивость</h3>
+        <p class="ms-card-text">Частоты, группировка и гистограммы позволяют исследовать различия между результатами наблюдений.</p>
+      </div>
+
+      <div class="ms-course-card ms-card">
+        <span class="ms-course-number">4</span>
+        <h3 class="ms-card-title">Теория графов</h3>
+        <p class="ms-card-text">Вершины и рёбра моделируют связи, маршруты, сети и задачи на обход без повторения рёбер.</p>
+      </div>
+
+      <div class="ms-course-card ms-card">
+        <span class="ms-course-number">5</span>
+        <h3 class="ms-card-title">Вероятность события</h3>
+        <p class="ms-card-text">Вероятность описывает возможность события в модели с равновозможными исходами.</p>
+      </div>
+
+      <div class="ms-course-card ms-card">
+        <span class="ms-course-number">6</span>
+        <h3 class="ms-card-title">Частота события</h3>
+        <p class="ms-card-text">Относительная частота показывает, как часто событие произошло в реальной серии испытаний.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Универсальный маршрут исследования</h2>
+
+    <p class="ms-text">
+      В задачах данные могут быть представлены по-разному, но общий порядок
+      работы обычно сохраняется.
+    </p>
+
+    <div class="ms-workflow">
+      <div class="ms-workflow-step">
+        <strong>1</strong>
+        <span>Понять, что измеряли или наблюдали.</span>
+      </div>
+
+      <div class="ms-workflow-step">
+        <strong>2</strong>
+        <span>Проверить данные и единицы измерения.</span>
+      </div>
+
+      <div class="ms-workflow-step">
+        <strong>3</strong>
+        <span>Выбрать таблицу, диаграмму, граф или формулу.</span>
+      </div>
+
+      <div class="ms-workflow-step">
+        <strong>4</strong>
+        <span>Выполнить вычисления и проверить результат.</span>
+      </div>
+
+      <div class="ms-workflow-step">
+        <strong>5</strong>
+        <span>Сформулировать вывод только по имеющимся данным.</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Корректный вывод не должен быть сильнее исходных данных. Например,
+      по одной короткой серии бросков нельзя надёжно судить о свойствах монеты.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Один набор данных — несколько способов описания</h2>
+
+    <p class="ms-text">
+      Рассмотрим число посетителей школьного математического кружка
+      за 12 занятий:
+    </p>
+
+    <div class="ms-data-layout">
+      <div class="ms-data-panel">
+        <h3>Исходные значения</h3>
+
+        <div class="ms-number-strip">
+          <span class="ms-number-token">14</span>
+          <span class="ms-number-token">16</span>
+          <span class="ms-number-token">15</span>
+          <span class="ms-number-token">18</span>
+          <span class="ms-number-token">17</span>
+          <span class="ms-number-token">15</span>
+          <span class="ms-number-token">16</span>
+          <span class="ms-number-token">19</span>
+          <span class="ms-number-token">15</span>
+          <span class="ms-number-token">20</span>
+          <span class="ms-number-token">16</span>
+          <span class="ms-number-token">19</span>
+        </div>
+
+        <p class="ms-text">
+          После упорядочивания получаем:
+          14, 15, 15, 15, 16, 16, 16, 17, 18, 19, 19, 20.
+        </p>
+
+        <div class="ms-stat-grid ms-card-grid ms-columns-2">
+          <div class="ms-stat-box">
+            <strong>Среднее</strong>
+            <span>200 / 12 = 16 2/3</span>
+          </div>
+
+          <div class="ms-stat-box">
+            <strong>Медиана</strong>
+            <span>(16 + 16) / 2 = 16</span>
+          </div>
+
+          <div class="ms-stat-box">
+            <strong>Минимум и максимум</strong>
+            <span>14 и 20</span>
+          </div>
+
+          <div class="ms-stat-box">
+            <strong>Размах</strong>
+            <span>20 − 14 = 6</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms-data-panel">
+        <h3>Частоты значений</h3>
+
+        
+        <div class="ms-svg-wrap">
+          <svg class="ms-svg ms-svg--compact" viewBox="0 0 460 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Столбчатая диаграмма частот значений от 14 до 20">
+            <rect x="0" y="0" width="460" height="340" rx="22" fill="#ffffff"/>
+            <rect x="58" y="32" width="372" height="248" rx="16" fill="#f9fafb" stroke="#dbeafe" stroke-width="2"/>
+
+            <!-- grid -->
+            <g stroke="#e5e7eb" stroke-width="1.5">
+              <line x1="96" y1="233" x2="408" y2="233"/>
+              <line x1="96" y1="176" x2="408" y2="176"/>
+              <line x1="96" y1="118.5" x2="408" y2="118.5"/>
+              <line x1="96" y1="61" x2="408" y2="61"/>
+            </g>
+
+            <!-- axes -->
+            <line x1="96" y1="290" x2="408" y2="290" stroke="#374151" stroke-width="3"/>
+            <line x1="96" y1="42" x2="96" y2="290" stroke="#374151" stroke-width="3"/>
+
+            <!-- y labels -->
+            <g fill="#4b5563" font-size="13" font-weight="700" text-anchor="end" dominant-baseline="middle">
+              <text x="82" y="233">1</text>
+              <text x="82" y="176">2</text>
+              <text x="82" y="118.5">3</text>
+              <text x="82" y="61">4</text>
+            </g>
+
+            <!-- bars -->
+            <g>
+              <!-- helper: baseline 290, unit = 57.5 -->
+              <g>
+                <rect x="108" y="232.5" width="32" height="57.5" rx="9" fill="url(#barGrad)"/>
+                <text x="124" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">1</text>
+                <text x="124" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">14</text>
+              </g>
+              <g>
+                <rect x="151" y="117.5" width="32" height="172.5" rx="9" fill="url(#barGrad)"/>
+                <text x="167" y="105" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">3</text>
+                <text x="167" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">15</text>
+              </g>
+              <g>
+                <rect x="194" y="117.5" width="32" height="172.5" rx="9" fill="url(#barGrad)"/>
+                <text x="210" y="105" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">3</text>
+                <text x="210" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">16</text>
+              </g>
+              <g>
+                <rect x="237" y="232.5" width="32" height="57.5" rx="9" fill="url(#barGrad)"/>
+                <text x="253" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">1</text>
+                <text x="253" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">17</text>
+              </g>
+              <g>
+                <rect x="280" y="232.5" width="32" height="57.5" rx="9" fill="url(#barGrad)"/>
+                <text x="296" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">1</text>
+                <text x="296" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">18</text>
+              </g>
+              <g>
+                <rect x="323" y="175" width="32" height="115" rx="9" fill="url(#barGrad)"/>
+                <text x="339" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">2</text>
+                <text x="339" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">19</text>
+              </g>
+              <g>
+                <rect x="366" y="232.5" width="32" height="57.5" rx="9" fill="url(#barGrad)"/>
+                <text x="382" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">1</text>
+                <text x="382" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#374151">20</text>
+              </g>
+            </g>
+
+            <defs>
+              <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#60a5fa"/>
+                <stop offset="100%" stop-color="#2563eb"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Среднее и медиана описывают центр набора, размах показывает расстояние
+      между крайними значениями, а диаграмма частот помогает увидеть,
+      какие значения встречаются чаще.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Формулы и правила, которые связывают курс</h2>
+
+    <div class="ms-formula-deck">
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Среднее арифметическое</strong>
+        <p class="ms-card-text">Сумма всех значений, делённая на их количество.</p>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Размах</strong>
+        <p class="ms-card-text">Наибольшее значение минус наименьшее.</p>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Относительная частота</strong>
+        <p class="ms-card-text">Число наступлений события, делённое на число испытаний.</p>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Вероятность</strong>
+        <p class="ms-card-text">Благоприятные равновозможные исходы, делённые на все исходы.</p>
+      </div>
+    </div>
+
+    <div class="ms-formula-deck">
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Сумма степеней</strong>
+        <p class="ms-card-text">В неориентированном графе равна удвоенному числу рёбер.</p>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Эйлеров цикл</strong>
+        <p class="ms-card-text">В связном графе возможен, когда степени всех вершин чётные.</p>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Эйлеров путь</strong>
+        <p class="ms-card-text">В связном графе возможен при нуле или двух нечётных вершинах.</p>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <strong class="ms-card-title">Границы вероятности</strong>
+        <p class="ms-card-text">Для любого события выполняется 0 ≤ P(A) ≤ 1.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Граф как модель связей</h2>
+
+    <p class="ms-text">
+      На рисунке показана сеть из пяти вершин. Выделенный маршрут
+      A–C–E является кратчайшим путём из A в E.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Связный граф с двумя нечётными вершинами</p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Граф с вершинами A, B, C, D, E и семью рёбрами">
+          <rect x="0" y="0" width="900" height="560" rx="24" fill="#f9fafb"></rect>
+          <rect x="65" y="55" width="770" height="425" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <g stroke="#cbd5e1" stroke-width="6" stroke-linecap="round">
+            <line x1="180" y1="220" x2="360" y2="120"></line>
+            <line x1="180" y1="220" x2="360" y2="340"></line>
+            <line x1="360" y1="120" x2="360" y2="340"></line>
+            <line x1="360" y1="120" x2="610" y2="210"></line>
+            <line x1="360" y1="340" x2="610" y2="210"></line>
+            <line x1="360" y1="340" x2="610" y2="390"></line>
+            <line x1="610" y1="210" x2="610" y2="390"></line>
+          </g>
+
+          <g stroke="#2563eb" stroke-width="9" stroke-linecap="round">
+            <line x1="180" y1="220" x2="360" y2="340"></line>
+            <line x1="360" y1="340" x2="610" y2="390"></line>
+          </g>
+
+          <g stroke="#ffffff" stroke-width="4">
+            <circle cx="180" cy="220" r="31" fill="#2563eb"></circle>
+            <circle cx="360" cy="120" r="31" fill="#7c3aed"></circle>
+            <circle cx="360" cy="340" r="34" fill="#15803d"></circle>
+            <circle cx="610" cy="210" r="31" fill="#f97316"></circle>
+            <circle cx="610" cy="390" r="31" fill="#0f766e"></circle>
+          </g>
+
+          <g fill="#ffffff" font-size="20" font-weight="800" text-anchor="middle" dominant-baseline="middle">
+            <text x="180" y="221">A</text>
+            <text x="360" y="121">B</text>
+            <text x="360" y="341">C</text>
+            <text x="610" y="211">D</text>
+            <text x="610" y="391">E</text>
+          </g>
+
+          <g font-size="14" font-weight="800" text-anchor="middle">
+            <g>
+              <rect x="120" y="145" width="92" height="34" rx="13" fill="#eff6ff" stroke="#bfdbfe"></rect>
+              <text x="166" y="167" fill="#1d4ed8">степень 2</text>
+            </g>
+
+            <g>
+              <rect x="300" y="56" width="92" height="34" rx="13" fill="#f7f4ff" stroke="#ddd6fe"></rect>
+              <text x="346" y="78" fill="#6d28d9">степень 3</text>
+            </g>
+
+            <g>
+              <rect x="278" y="393" width="92" height="34" rx="13" fill="#ecfdf5" stroke="#bbf7d0"></rect>
+              <text x="324" y="415" fill="#166534">степень 4</text>
+            </g>
+
+            <g>
+              <rect x="635" y="145" width="92" height="34" rx="13" fill="#fff7ed" stroke="#fed7aa"></rect>
+              <text x="681" y="167" fill="#c2410c">степень 3</text>
+            </g>
+
+            <g>
+              <rect x="635" y="405" width="92" height="34" rx="13" fill="#ecfeff" stroke="#a5f3fc"></rect>
+              <text x="681" y="427" fill="#0f766e">степень 2</text>
+            </g>
+          </g>
+
+          <rect x="240" y="495" width="420" height="40" rx="15" fill="#eff6ff" stroke="#bfdbfe"></rect>
+          <text x="450" y="521" text-anchor="middle" font-size="16" font-weight="800" fill="#1d4ed8">
+            Кратчайший путь A–C–E содержит два ребра
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-graph-facts">
+      <div class="ms-graph-fact">
+        <strong>Число рёбер</strong>
+        <span>(2 + 3 + 4 + 3 + 2) / 2 = 7.</span>
+      </div>
+
+      <div class="ms-graph-fact">
+        <strong>Нечётные вершины</strong>
+        <span>B и D имеют степень 3.</span>
+      </div>
+
+      <div class="ms-graph-fact">
+        <strong>Эйлеров обход</strong>
+        <span>Есть открытый путь от B к D или от D к B.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Как выбрать между вероятностью и частотой</h2>
+
+    <div class="ms-decision-grid ms-card-grid ms-columns-2">
+      <div class="ms-decision-card ms-card">
+        <h3 class="ms-card-title">Известна модель опыта</h3>
+        <p class="ms-card-text">
+          Перечисляем равновозможные исходы и вычисляем вероятность:
+          например, для правильной кости событию «число меньше 4»
+          благоприятствуют три исхода из шести.
+        </p>
+      </div>
+
+      <div class="ms-decision-card ms-card">
+        <h3 class="ms-card-title">Дана серия наблюдений</h3>
+        <p class="ms-card-text">
+          Делим число наступлений события на общее число испытаний.
+          Полученная частота может отличаться от теоретической вероятности.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-checklist">
+      <div class="ms-check-step-row">
+        <span class="ms-check-icon">1</span>
+        <div>
+          <strong>Проверьте равновозможность</strong>
+          <p>Классическую формулу вероятности нельзя применять автоматически к несимметричной модели.</p>
+        </div>
+      </div>
+
+      <div class="ms-check-step-row">
+        <span class="ms-check-icon">2</span>
+        <div>
+          <strong>Не смешивайте P(A) и W(A)</strong>
+          <p>Вероятность относится к модели, частота — к конкретной серии испытаний.</p>
+        </div>
+      </div>
+
+      <div class="ms-check-step-row">
+        <span class="ms-check-icon">3</span>
+        <div>
+          <strong>Проверьте границы</strong>
+          <p>И вероятность, и относительная частота должны находиться между 0 и 1.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Итоговая самопроверка</h2>
+
+    <p class="ms-text">
+      В этих заданиях специально смешаны разные темы курса.
+      Сначала определите, к какому разделу относится задача,
+      и только затем выбирайте формулу или способ рассуждения.
+    </p>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> В наборе 14, 16, 15, 18, 17, 15, 16, 19, 15, 20, 16, 19 определите частоту значения 16.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Число 16 встречается три раза.</p>
+          <p><strong>Ответ: 3.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Найдите среднее арифметическое этого набора.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Сумма всех значений равна 200, количество значений — 12.</p>
+          <p>
+            Среднее:
+            <span class="ms-frac"><span class="ms-frac-num">200</span><span class="ms-frac-den">12</span></span>
+            = 16
+            <span class="ms-frac"><span class="ms-frac-num">2</span><span class="ms-frac-den">3</span></span>.
+          </p>
+          <p><strong>Ответ: 16 2/3, примерно 16,7.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Найдите медиану набора.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Упорядочим данные: 14, 15, 15, 15, 16, 16, 16, 17, 18, 19, 19, 20.</p>
+          <p>Элементов 12, поэтому берём среднее шестого и седьмого значений: (16 + 16) / 2 = 16.</p>
+          <p><strong>Ответ: 16.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Найдите размах числового набора.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Наибольшее значение равно 20, наименьшее — 14.</p>
+          <p>20 − 14 = 6.</p>
+          <p><strong>Ответ: 6.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Сгруппируйте значения по интервалам [14; 16), [16; 18), [18; 20), [20; 22). Укажите частоты групп.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>[14; 16): 14 и три значения 15 — частота 4.</p>
+          <p>[16; 18): три значения 16 и значение 17 — частота 4.</p>
+          <p>[18; 20): 18 и два значения 19 — частота 3.</p>
+          <p>[20; 22): значение 20 — частота 1.</p>
+          <p><strong>Ответ: 4, 4, 3, 1.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Для графа на рисунке найдите число рёбер по степеням вершин: 2, 3, 4, 3, 2.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Сумма степеней: 2 + 3 + 4 + 3 + 2 = 14.</p>
+          <p>Каждое ребро учтено дважды, поэтому число рёбер равно 14 / 2 = 7.</p>
+          <p><strong>Ответ: 7 рёбер.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Имеет ли этот связный граф эйлеров путь? Может ли он иметь эйлеров цикл?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Нечётные степени имеют только вершины B и D. Значит, эйлеров путь существует и должен начинаться в одной из них, а заканчиваться в другой.</p>
+          <p>Эйлерова цикла нет, потому что для цикла степени всех вершин должны быть чётными.</p>
+          <p><strong>Ответ: эйлеров путь есть, эйлерова цикла нет.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Найдите кратчайший путь из A в E на изображённом графе.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Есть путь A–C–E, содержащий два ребра. Пути длины 1 нет, потому что ребра AE нет.</p>
+          <p><strong>Ответ: A–C–E, длина 2.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 9.</strong> Правильную игральную кость бросают один раз. Найдите вероятность события «выпало число меньше 4».</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Благоприятные исходы: 1, 2, 3. Всего исходов 6.</p>
+          <p>
+            P =
+            <span class="ms-frac"><span class="ms-frac-num">3</span><span class="ms-frac-den">6</span></span>
+            =
+            <span class="ms-frac"><span class="ms-frac-num">1</span><span class="ms-frac-den">2</span></span>.
+          </p>
+          <p><strong>Ответ: 1/2.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 10.</strong> В 120 испытаниях событие произошло 36 раз. Найдите относительную частоту и сравните её с вероятностью 1/3.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Частота: 36 / 120 = 0,3.</p>
+          <p>Вероятность 1/3 ≈ 0,333. Частота меньше примерно на 0,033.</p>
+          <p>Небольшое отличие возможно из-за случайных колебаний.</p>
+          <p><strong>Ответ: 0,3, или 30%.</strong></p>
+        </div>
+      </details>
+    </div>
+
+  </section>
+
+  <section class="ms-course-complete">
+    <h2>Что вы теперь умеете</h2>
+
+    <p>
+      Вы можете читать и строить таблицы и диаграммы, описывать числовые
+      данные с помощью среднего, медианы и размаха, исследовать частоты,
+      работать с гистограммами, анализировать графы, находить простейшие
+      вероятности и отличать их от результатов реального эксперимента.
+      Главное — не просто получать число, а понимать, что оно означает
+      и какой вывод действительно подтверждается данными.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-sobytiya/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn" href="/7-klass-veroyatnost-i-statistika/">
+        К темам вероятности и статистики
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

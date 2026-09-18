@@ -1,0 +1,235 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-transform-formula {
+  display: block;
+  margin-bottom: 10px;
+  color: #1d4ed8;
+  font-size: 22px;
+  line-height: 1.55;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-factor-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-factor-step {
+  position: relative;
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-factor-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-factor-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-factor-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-factor-step span {
+  display: block;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.58;
+}
+.ms-lesson-page .ms-like-radicals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-like-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-conjugate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-conjugate-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-conjugate-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 31px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-transform-errors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-transform-error {
+  padding: 18px;
+  border-radius: 19px;
+}
+.ms-lesson-page .ms-transform-error-bad {
+  border: 1px solid #fecaca;
+  background: #fff7f7;
+}
+.ms-lesson-page .ms-transform-error-good {
+  border: 1px solid #bbf7d0;
+  background: #f7fff9;
+}
+.ms-lesson-page .ms-transform-error strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 17px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-transform-error-bad strong {
+  color: #b91c1c;
+}
+.ms-lesson-page .ms-transform-error-good strong {
+  color: #15803d;
+}
+.ms-lesson-page .ms-transform-error span {
+  display: block;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-transform-route {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-transform-route-step {
+  position: relative;
+  min-height: 142px;
+  padding: 17px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-transform-route-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-transform-route-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-transform-route-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-transform-route-step span {
+  display: block;
+  color: #4b5563;
+  font-size: 13.5px;
+  line-height: 1.52;
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-factor-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-factor-step:nth-child(2)::after {
+    display: none;
+  }
+  .ms-lesson-page .ms-transform-route {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-transform-route-step:nth-child(3)::after {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-like-radicals,
+  .ms-lesson-page .ms-transform-errors,
+  .ms-lesson-page .ms-conjugate {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-conjugate-arrow {
+    transform: rotate(90deg);
+    min-height: 30px;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-factor-steps,
+  .ms-lesson-page .ms-transform-route {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-factor-step,
+  .ms-lesson-page .ms-transform-route-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-factor-step:not(:last-child)::after,
+  .ms-lesson-page .ms-transform-route-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-factor-step:nth-child(2)::after,
+  .ms-lesson-page .ms-transform-route-step:nth-child(3)::after {
+    display: block;
+  }
+}

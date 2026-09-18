@@ -1,0 +1,107 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-change-strip {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-change-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-power-lab {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background: linear-gradient(135deg,#f8fbff,#faf8ff);
+  box-shadow: 0 16px 34px rgba(37,99,235,.08);
+}
+.ms-lesson-page .ms-power-lab-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.ms-lesson-page .ms-power-fallback,
+.ms-lesson-page .ms-power-canvas {
+  grid-area: 1/1;
+}
+.ms-lesson-page .ms-power-fallback {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 480px;
+  min-height: 480px;
+  background: #fff;
+  pointer-events: none;
+}
+.ms-lesson-page .ms-power-canvas {
+  position: relative;
+  z-index: 2;
+  display: block !important;
+  width: 100% !important;
+  height: 480px !important;
+  min-height: 480px !important;
+  opacity: 0;
+  background: transparent;
+  touch-action: none;
+  user-select: none;
+}
+.ms-lesson-page .ms-power-lab[data-ready="true"] .ms-power-canvas,
+.ms-lesson-page .ms-power-lab[data-ready="true"] .ms-graph-readout {
+  opacity: 1;
+}
+.ms-lesson-page .ms-power-lab[data-ready="true"] .ms-power-canvas {
+  background: #fff;
+}
+.ms-lesson-page .ms-power-lab[data-ready="true"] .ms-power-fallback {
+  display: none;
+}
+.ms-lesson-page .ms-final-step {
+  padding: 19px;
+  border: 1px solid #dbeafe;
+  border-radius: 19px;
+  background: #fff;
+}
+.ms-lesson-page .ms-final-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-final-step span {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-final-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 28px;
+  font-weight: 800;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-change-strip {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-final-arrow {
+    transform: rotate(90deg);
+    min-height: 30px;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-power-lab {
+    padding: 13px;
+    border-radius: 20px;
+  }
+  .ms-lesson-page .ms-power-fallback,
+  .ms-lesson-page .ms-power-canvas {
+    height: 370px !important;
+    min-height: 370px !important;
+  }
+}

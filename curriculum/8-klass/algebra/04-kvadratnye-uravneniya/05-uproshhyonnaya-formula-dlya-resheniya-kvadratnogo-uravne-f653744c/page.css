@@ -1,0 +1,180 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-half-formula {
+  margin-top: 20px;
+  padding: 24px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+  text-align: center;
+}
+.ms-lesson-page .ms-half-formula-main {
+  display: block;
+  color: #1e3a8a;
+  font-size: clamp(24px, 4vw, 37px);
+  line-height: 1.5;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-half-formula-caption {
+  display: block;
+  margin-top: 9px;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-d1-value {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-derivation-step {
+  position: relative;
+  min-height: 150px;
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-derivation-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.ms-lesson-page .ms-derivation-number {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 0 11px 0;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.ms-lesson-page .ms-derivation-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-derivation-step span:last-child {
+  display: block;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.58;
+}
+.ms-lesson-page .ms-algorithm-step {
+  position: relative;
+  min-height: 158px;
+  padding: 17px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-algorithm-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.ms-lesson-page .ms-algorithm-number {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 0 11px 0;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.ms-lesson-page .ms-algorithm-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-algorithm-step span:last-child {
+  display: block;
+  color: #4b5563;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-compare-title {
+  display: block;
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 800;
+  text-align: center;
+}
+@media (max-width: 960px) {
+  .ms-lesson-page .ms-algorithm-step:nth-child(3)::after,
+  .ms-lesson-page .ms-derivation-step:nth-child(2)::after {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-algorithm-step,
+  .ms-lesson-page .ms-derivation-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-algorithm-step:not(:last-child)::after,
+  .ms-lesson-page .ms-derivation-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-algorithm-step:nth-child(3)::after,
+  .ms-lesson-page .ms-derivation-step:nth-child(2)::after {
+    display: block;
+  }
+}

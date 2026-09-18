@@ -1,0 +1,189 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-linear-lab {
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid #bfdbfe;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #f8fbff 0%, #faf8ff 100%);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.08);
+}
+.ms-lesson-page .ms-lab-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.ms-lesson-page .ms-lab-kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-lab-title {
+  margin: 10px 0 0 !important;
+  font-size: 24px !important;
+  line-height: 1.25 !important;
+}
+.ms-lesson-page .ms-lab-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.8fr);
+  gap: 18px;
+  align-items: start;
+}
+.ms-lesson-page .ms-canvas-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 21px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-canvas-shell {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-linear-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 760 / 560;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-canvas-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 12px;
+  color: #4b5563;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.ms-lesson-page .ms-legend-dot {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 11px;
+  border-radius: 50%;
+}
+.ms-lesson-page .ms-dot-line {
+  background: #2563eb;
+}
+.ms-lesson-page .ms-dot-intercept {
+  background: #7c3aed;
+}
+.ms-lesson-page .ms-dot-point {
+  background: #15803d;
+}
+.ms-lesson-page .ms-controls {
+  display: grid;
+  gap: 13px;
+}
+.ms-lesson-page .ms-control {
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 17px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-control-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.ms-lesson-page .ms-control-label {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-control-value {
+  min-width: 52px;
+  padding: 5px 9px;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-live-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ms-lesson-page .ms-live-card {
+  min-height: 78px;
+}
+.ms-lesson-page .ms-live-card-wide {
+  grid-column: 1 / -1;
+}
+.ms-lesson-page .ms-live-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ms-lesson-page .ms-live-value {
+  display: block;
+  color: #111827;
+  font-size: 15.5px;
+  line-height: 1.45;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.ms-lesson-page .ms-lab-reset {
+  width: 100%;
+  min-height: 43px;
+  padding: 0 16px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #2563eb;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.ms-lesson-page .ms-lab-reset:hover {
+  background: #eff6ff;
+}
+.ms-lesson-page .ms-lab-help {
+  margin: 14px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.6;
+}
+@media (max-width: 820px) {
+  .ms-lesson-page .ms-lab-layout {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-live-grid,
+  .ms-lesson-page .ms-lab-reset {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-controls {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-lab-head {
+    flex-direction: column;
+  }
+  .ms-lesson-page .ms-live-grid,
+  .ms-lesson-page .ms-lab-reset {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,618 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Случайная величина · Тема 4.3
+    </div>
+
+    <h1 class="ms-title">Понятие о законе больших чисел</h1>
+
+    <p class="ms-subtitle">
+      Разберём, почему отдельный результат остаётся случайным,
+      а относительные частоты и средние значения при большом числе
+      повторений становятся устойчивыми и приближаются
+      к теоретическим характеристикам.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/ponyatie-o-zakone-bolshih-chisel/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Случайность отдельного опыта и устойчивость серии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Относительная частота</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Содержание закона больших чисел</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как стабилизируется частота</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Среднее значение и математическое ожидание</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Приближённое прогнозирование</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Распространённые неверные выводы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Что закон говорит — и чего не обещает</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Случайность отдельного опыта и устойчивость серии</h2>
+
+    <p class="ms-text">
+      Невозможно заранее точно сказать, какой стороной упадёт монета
+      в следующем броске. Но при большом количестве бросков доля орлов
+      обычно оказывается близкой к вероятности 0,5.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Один опыт</span>
+        <h3 class="ms-card-title">Результат непредсказуем</h3>
+        <p class="ms-card-text">
+          Следующий бросок может дать орла или решку независимо
+          от того, что происходило раньше.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Большая серия</span>
+        <h3 class="ms-card-title">Частота становится устойчивой</h3>
+        <p class="ms-card-text">
+          При увеличении числа одинаковых независимых испытаний
+          относительная частота обычно приближается к вероятности.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Относительная частота</h2>
+
+    <p class="ms-text">
+      Если событие A произошло m раз в серии из n испытаний,
+      его относительная частота равна:
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        ν(A) =
+        <span class="ms-frac">
+          <span class="ms-num">m</span>
+          <span class="ms-den">n</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+      В 600 бросках монеты орёл выпал 312 раз:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          ν =
+          <span class="ms-frac">
+            <span class="ms-num">312</span>
+            <span class="ms-den">600</span>
+          </span>
+          = 0,52
+        </div>
+      </div>
+
+      Частота 0,52 близка к теоретической вероятности 0,5.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Содержание закона больших чисел</h2>
+
+    <div class="ms-rule-box">
+      При большом числе одинаковых независимых испытаний,
+      проводимых в неизменных условиях, относительная частота события
+      с высокой вероятностью оказывается близкой к вероятности
+      этого события.
+    </div>
+
+    <p class="ms-text">
+      Для случайной величины похожая устойчивость проявляется
+      у среднего арифметического результатов: при большом числе
+      повторений оно обычно становится близким к математическому
+      ожиданию.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Относительная частота события:
+        <strong>ν(A) ≈ P(A)</strong>
+      </div>
+
+      <div class="ms-math-row">
+        Среднее большого числа наблюдений:
+        <strong>x̄ ≈ E(X)</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Как стабилизируется частота</h2>
+
+    <p class="ms-text">
+      В таблице показан один возможный результат последовательной
+      серии бросков монеты. Частота не обязана приближаться к 0,5
+      монотонно, но при росте числа испытаний её отклонения обычно
+      становятся менее заметными.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Число бросков n</th>
+            <th>Число орлов m</th>
+            <th>Частота m/n</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>10</td>
+            <td>6</td>
+            <td>0,600</td>
+          </tr>
+
+          <tr>
+            <td>20</td>
+            <td>11</td>
+            <td>0,550</td>
+          </tr>
+
+          <tr>
+            <td>50</td>
+            <td>26</td>
+            <td>0,520</td>
+          </tr>
+
+          <tr>
+            <td>100</td>
+            <td>51</td>
+            <td>0,510</td>
+          </tr>
+
+          <tr>
+            <td>200</td>
+            <td>101</td>
+            <td>0,505</td>
+          </tr>
+
+          <tr>
+            <td>500</td>
+            <td>251</td>
+            <td>0,502</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Приближение относительной частоты орла к 0,5
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 860 450"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="График относительной частоты орла при увеличении числа бросков"
+        >
+          <rect x="1" y="1" width="858" height="448" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <line x1="105" y1="340" x2="790" y2="340" stroke="#94a3b8" stroke-width="3"></line>
+          <line x1="105" y1="65" x2="105" y2="340" stroke="#94a3b8" stroke-width="3"></line>
+
+          <g stroke="#e2e8f0" stroke-width="1.5">
+            <line x1="105" y1="280" x2="790" y2="280"></line>
+            <line x1="105" y1="220" x2="790" y2="220"></line>
+            <line x1="105" y1="160" x2="790" y2="160"></line>
+            <line x1="105" y1="100" x2="790" y2="100"></line>
+          </g>
+
+          <line x1="105" y1="220" x2="790" y2="220" stroke="#7c3aed" stroke-width="3" stroke-dasharray="10 8"></line>
+
+          <polyline
+            points="165,100 275,160 385,196 495,208 605,214 735,218"
+            fill="none"
+            stroke="#2563eb"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></polyline>
+
+          <g fill="#ffffff" stroke="#2563eb" stroke-width="4">
+            <circle cx="165" cy="100" r="8"></circle>
+            <circle cx="275" cy="160" r="8"></circle>
+            <circle cx="385" cy="196" r="8"></circle>
+            <circle cx="495" cy="208" r="8"></circle>
+            <circle cx="605" cy="214" r="8"></circle>
+            <circle cx="735" cy="218" r="8"></circle>
+          </g>
+
+          <g font-size="14" fill="#64748b">
+            <text x="55" y="345">0,40</text>
+            <text x="55" y="285">0,45</text>
+            <text x="55" y="225">0,50</text>
+            <text x="55" y="165">0,55</text>
+            <text x="55" y="105">0,60</text>
+          </g>
+
+          <g text-anchor="middle" font-size="14" font-weight="800" fill="#111827">
+            <text x="165" y="375">10</text>
+            <text x="275" y="375">20</text>
+            <text x="385" y="375">50</text>
+            <text x="495" y="375">100</text>
+            <text x="605" y="375">200</text>
+            <text x="735" y="375">500</text>
+          </g>
+
+          <text x="450" y="414" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">
+            Число испытаний n
+          </text>
+
+          <text x="615" y="205" font-size="15" font-weight="800" fill="#7c3aed">
+            P(орёл) = 0,5
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Среднее значение и математическое ожидание</h2>
+
+    <p class="ms-text">
+      Для правильного кубика математическое ожидание числа очков
+      равно 3,5. Среднее небольшого числа бросков может заметно
+      отличаться от 3,5, но в длинной серии обычно оказывается
+      близким к этому числу.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Число бросков</th>
+            <th>Сумма очков</th>
+            <th>Среднее</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>10</td>
+            <td>38</td>
+            <td>3,80</td>
+          </tr>
+
+          <tr>
+            <td>50</td>
+            <td>178</td>
+            <td>3,56</td>
+          </tr>
+
+          <tr>
+            <td>100</td>
+            <td>348</td>
+            <td>3,48</td>
+          </tr>
+
+          <tr>
+            <td>500</td>
+            <td>1755</td>
+            <td>3,51</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Приближённое прогнозирование</h2>
+
+    <p class="ms-text">
+      Закон больших чисел позволяет оценивать ожидаемое количество
+      наступлений события в длинной серии.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+      Вероятность успеха равна 0,3. В 1000 независимых испытаниях
+      ожидаемое число успехов примерно равно:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">1000 · 0,3 = 300</div>
+      </div>
+
+      Фактический результат не обязан быть ровно 300, но обычно
+      находится сравнительно близко к этому числу.
+    </div>
+
+    <div class="ms-rule-box">
+      Чем больше число испытаний, тем надёжнее относительная частота
+      характеризует вероятность. Однако закон больших чисел
+      не превращает случайный результат в заранее известный.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Распространённые неверные выводы</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Неверно</span>
+        <h3 class="ms-card-title">Частота всегда движется к p</h3>
+        <p class="ms-card-text">
+          Она может временно удаляться от вероятности и колебаться.
+          Речь идёт об общей устойчивости длинной серии.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Неверно</span>
+        <h3 class="ms-card-title">После серии неудач успех обязан наступить</h3>
+        <p class="ms-card-text">
+          В независимых испытаниях прошлые результаты не изменяют
+          вероятность следующего опыта.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Неверно</span>
+        <h3 class="ms-card-title">В большой серии частота точно равна p</h3>
+        <p class="ms-card-text">
+          Обычно частота лишь близка к вероятности. Точное совпадение
+          не гарантируется.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Верно</span>
+        <h3 class="ms-card-title">Большая выборка обычно надёжнее</h3>
+        <p class="ms-card-text">
+          Частота, полученная по большему числу одинаковых испытаний,
+          обычно устойчивее оценки по небольшой серии.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. В 600 бросках монеты орёл выпал 312 раз.
+        Найдите относительную частоту орла.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            ν =
+            <span class="ms-frac">
+              <span class="ms-num">312</span>
+              <span class="ms-den">600</span>
+            </span>
+            = <strong>0,52</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Вероятность успеха равна 0,3.
+        Сколько успехов можно приблизительно ожидать в 1000 испытаниях?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>1000 · 0,3 = <strong>300 успехов</strong>.</p>
+          <p>
+            Это приближённая оценка, а не обязательный точный результат.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. В первом опыте событие произошло 13 раз из 20,
+        а во втором — 512 раз из 1000. Какая оценка вероятности
+        обычно надёжнее?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Первая частота равна 0,65, вторая — 0,512.
+          </p>
+          <p>
+            Обычно надёжнее <strong>вторая оценка</strong>,
+            потому что она получена по значительно большему числу
+            испытаний.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Симметричная монета пять раз подряд выпала решкой.
+        Стала ли вероятность орла в следующем броске больше 0,5?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Нет. Броски независимы, поэтому вероятность орла
+            в следующем броске по-прежнему равна
+            <strong>0,5</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. При 1200 бросках кубика шестёрка выпала 198 раз.
+        Найдите её частоту и сравните с вероятностью 1/6.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            ν =
+            <span class="ms-frac">
+              <span class="ms-num">198</span>
+              <span class="ms-den">1200</span>
+            </span>
+            = <strong>0,165</strong>.
+          </p>
+          <p>
+            Теоретическая вероятность
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">6</span>
+            </span>
+            ≈ 0,1667. Значения близки.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. Сумма очков в 400 бросках кубика равна 1396.
+        Найдите среднее число очков и сравните с E(X) = 3,5.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            x̄ =
+            <span class="ms-frac">
+              <span class="ms-num">1396</span>
+              <span class="ms-den">400</span>
+            </span>
+            = <strong>3,49</strong>.
+          </p>
+          <p>Среднее близко к математическому ожиданию 3,5.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Вероятность события равна 0,08.
+        Сколько наступлений события можно приблизительно ожидать
+        в 5000 испытаниях?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>5000 · 0,08 = <strong>400</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Частоты события в сериях возрастающего объёма равны
+        0,62; 0,55; 0,51; 0,502. Какую вероятность можно предположить?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Частоты приближаются к числу 0,5.
+          </p>
+          <p>
+            Разумная оценка вероятности:
+            <strong>P(A) ≈ 0,5</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Что закон говорит — и чего не обещает</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Говорит об устойчивости</strong>
+        <span class="ms-card-text">
+          В длинных сериях относительная частота близка к вероятности,
+          а среднее значение — к математическому ожиданию.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Не предсказывает следующий исход</strong>
+        <span class="ms-card-text">
+          Даже после необычной серии результат следующего независимого
+          испытания остаётся случайным.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Не требует точного совпадения</strong>
+        <span class="ms-card-text">
+          Частота может колебаться и не обязана равняться вероятности
+          в любой конечной серии.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/matematicheskoe-ozhidanie-i-dispersiya-sluchajnoj-velichiny/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/obobshhenie-sistematizacziya-znanij-9-klass/"
+    >
+      Следующий раздел
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

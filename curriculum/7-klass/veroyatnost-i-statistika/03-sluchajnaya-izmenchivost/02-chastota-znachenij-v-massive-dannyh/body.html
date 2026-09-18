@@ -1,0 +1,106 @@
+<!-- wp:html -->
+
+
+
+
+
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Случайная изменчивость · Тема 3.2</div>
+    <h1 class="ms-title">Частота значений в массиве данных</h1>
+    <p class="ms-subtitle">Научимся считать, сколько раз встречается каждое значение, переводить частоты в доли и проценты, проверять таблицу и вычислять среднее без повторного выписывания всех данных.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/chastota-znachenij-v-massive-dannyh/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>От длинного списка к короткой таблице</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Абсолютная и относительная частоты</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Три обязательные проверки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как составить таблицу частот</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Среднее по таблице частот</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>От длинного списка к короткой таблице</h2>
+    <p class="ms-text">Рассмотрим десять оценок: 2, 3, 3, 4, 4, 4, 4, 5, 5, 5. В списке всего четыре различных значения, но они встречаются неодинаково часто. Чтобы увидеть структуру набора, для каждого значения подсчитывают число повторений.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Оценка</th><th>2</th><th>3</th><th>4</th><th>5</th><th>Всего</th></tr></thead>
+        <tbody>
+          <tr><th>Частота</th><td>1</td><td>2</td><td>4</td><td>3</td><td>10</td></tr>
+          <tr><th>Относительная частота</th><td>0,1</td><td>0,2</td><td>0,4</td><td>0,3</td><td>1</td></tr>
+          <tr><th>В процентах</th><td>10%</td><td>20%</td><td>40%</td><td>30%</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-insight">Чаще всего в этом наборе встречается оценка 4: её частота равна 4, а относительная частота — 0,4, то есть 40%.</div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>Абсолютная и относительная частоты</h2>
+    <div class="ms-frequency-pair">
+      <div class="ms-frequency-card ms-card"><span class="ms-frequency-symbol">n<sub>i</sub></span><h3 class="ms-card-title">Абсолютная частота</h3><p class="ms-card-text">Количество наблюдений, в которых встретилось данное значение. Это целое неотрицательное число.</p></div>
+      <div class="ms-frequency-card ms-card"><span class="ms-frequency-symbol">w<sub>i</sub></span><h3 class="ms-card-title">Относительная частота</h3><p class="ms-card-text">Доля данного значения во всём наборе. Её можно записать обыкновенной дробью, десятичной дробью или процентом.</p></div>
+    </div>
+    <div class="ms-formula">w<sub>i</sub> = <span class="ms-frac"><span class="ms-num">n<sub>i</sub></span><span class="ms-den">N</span></span>, где N — количество всех наблюдений</div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Значение 4 встретилось 4 раза из 10. Поэтому его относительная частота равна 4/10 = 0,4 = 40%.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>Три обязательные проверки</h2>
+    <p class="ms-text">Таблица частот считается согласованной, если выполняются контрольные равенства.</p>
+    <div class="ms-balance-strip">
+      <div class="ms-balance-item"><strong>Σn<sub>i</sub> = N</strong><span>Сумма абсолютных частот равна объёму набора.</span></div>
+      <div class="ms-balance-item"><strong>Σw<sub>i</sub> = 1</strong><span>Сумма относительных частот равна единице.</span></div>
+      <div class="ms-balance-item"><strong>Σp<sub>i</sub> = 100%</strong><span>Сумма процентных частот равна 100%.</span></div>
+    </div>
+    <div class="ms-note">Небольшое отличие от 1 или 100% иногда появляется из-за округления. Например, три частоты по 33,3% дают 99,9%. Это не означает, что одно наблюдение потеряно.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>Как составить таблицу частот</h2>
+    <div class="ms-process">
+      <div class="ms-process-step"><span class="ms-process-number">1</span><div><strong>Выпишите различные значения</strong><span>Расположите их по возрастанию, чтобы не пропустить ни одно.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">2</span><div><strong>Подсчитайте повторения</strong><span>Удобно ставить штрихи или сразу отмечать частоты в черновой таблице.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">3</span><div><strong>Найдите доли</strong><span>Каждую абсолютную частоту разделите на общее количество наблюдений.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">4</span><div><strong>Выполните контроль</strong><span>Проверьте суммы частот и соответствие процентов.</span></div></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>Среднее по таблице частот</h2>
+    <p class="ms-text">Когда значение повторяется много раз, его необязательно выписывать заново. Достаточно умножить каждое значение на его абсолютную частоту, сложить произведения и разделить на объём набора.</p>
+    <div class="ms-formula">x̄ = <span class="ms-frac"><span class="ms-num">x<sub>1</sub>n<sub>1</sub> + x<sub>2</sub>n<sub>2</sub> + … + x<sub>k</sub>n<sub>k</sub></span><span class="ms-den">N</span></span></div>
+    <div class="ms-example"><span class="ms-example-title">По таблице оценок</span>(2 · 1 + 3 · 2 + 4 · 4 + 5 · 3) : 10 = 39 : 10 = <strong>3,9</strong>.</div>
+    <p class="ms-text">То же вычисление можно выполнить с относительными частотами:</p>
+    <div class="ms-formula">x̄ = 2 · 0,1 + 3 · 0,2 + 4 · 0,4 + 5 · 0,3 = 3,9</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Самопроверка</h2>
+    <div class="ms-task"><p>1. Для набора 2, 2, 3, 3, 3, 5 найдите абсолютные частоты значений.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Частота 2 равна 2, частота 3 равна 3, частота 5 равна 1.</p></div></details></div>
+    <div class="ms-task"><p>2. В наборе 20 наблюдений значение 7 встретилось 5 раз. Найдите его относительную частоту.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>5 : 20 = 0,25 = <strong>25%</strong>.</p></div></details></div>
+    <div class="ms-task"><p>3. Относительная частота значения равна 0,35, а объём набора — 40. Сколько раз встретилось значение?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,35 · 40 = <strong>14 раз</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. Частоты четырёх значений равны 3, 7, 5 и 9. Чему равен объём набора?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>3 + 7 + 5 + 9 = <strong>24</strong>.</p></div></details></div>
+    <div class="ms-task"><p>5. Относительные частоты трёх значений равны 0,2; 0,45 и 0,35. Проверьте таблицу.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,2 + 0,45 + 0,35 = 1. Таблица проходит проверку.</p></div></details></div>
+    <div class="ms-task"><p>6. В таблице указаны частоты: для значения 1 — 2 раза, для 2 — 5 раз, для 3 — 3 раза. Найдите среднее.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Объём: 2 + 5 + 3 = 10.</p><p>(1 · 2 + 2 · 5 + 3 · 3) : 10 = 21 : 10 = <strong>2,1</strong>.</p></div></details></div>
+    <div class="ms-task"><p>7. Процентные частоты равны 25%, 25%, 30% и x%. Найдите x.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>x = 100% − 25% − 25% − 30% = <strong>20%</strong>.</p></div></details></div>
+    <div class="ms-task"><p>8. В наборе 50 значений. Частота числа 12 равна 8. Сколько значений не равны 12?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>50 − 8 = <strong>42 значения</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-recap-band">
+    <h2>Контрольные равенства темы</h2>
+    <p class="ms-text">Абсолютная частота отвечает на вопрос «сколько раз?», относительная — «какая доля?». Хорошая таблица частот всегда сохраняет общее число наблюдений.</p>
+    <div class="ms-check-row"><span class="ms-check-pill">Σn<sub>i</sub> = N</span><span class="ms-check-pill">Σw<sub>i</sub> = 1</span><span class="ms-check-pill">Σp<sub>i</sub> = 100%</span></div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/primery-sluchajnoj-izmenchivosti/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/gruppirovka-gistogrammy/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

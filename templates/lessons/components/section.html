@@ -1,0 +1,9 @@
+{% comment %}
+Power lesson 2.0 theory or summary section.
+Context: section.id is a stable, validated ID; section.title is plain text;
+section.number is an optional integer; section.soft selects the tinted card;
+section.body_html is trusted authored HTML already prepared for the shared
+lesson classes. Omit id and number for the unnumbered closing summary.
+Use: {% include "lessons/components/section.html" with section=section only %}
+{% endcomment %}
+<section{% if section.id %} id="{{ section.id }}"{% endif %} class="{% if section.soft %}ms-section-soft{% else %}ms-section{% endif %}"><h2>{% if section.number %}{{ section.number }}. {% endif %}{{ section.title }}</h2>{{ section.body_html|safe }}</section>

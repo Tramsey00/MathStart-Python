@@ -1,0 +1,1420 @@
+/* Общие учебные компоненты: доказательства, алгоритмы, результаты и подписи. */
+.ms-lesson-page .ms-lab-header {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-lab-header--overview {
+  grid-template-columns: minmax(0, 1fr) 210px;
+  align-items: center;
+  gap: 18px;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-lab-header { grid-template-columns: 1fr; }
+}
+.ms-lesson-page .ms-rule {
+  margin: 18px 0;
+  padding: 22px;
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+}
+.ms-lesson-page .ms-rule-title {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827;
+}
+.ms-lesson-page .ms-sign-grid:not(.ms-card-grid) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-sign-card {
+  text-align: center;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-sign-card {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+.ms-lesson-page .ms-caption-card-green {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+}
+.ms-lesson-page .ms-caption-card-blue {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+.ms-lesson-page .ms-caption-card-orange {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+.ms-lesson-page .ms-caption-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-caption-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+.ms-lesson-page .ms-step-number {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2563eb;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #93c5fd;
+  font-size: 17px;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.08);
+}
+.ms-lesson-page .ms-steps {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-steps {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-switch-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.ms-lesson-page .ms-switch-label-sum {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+.ms-lesson-page .ms-switch-label-prod {
+  background: #ecfdf5;
+  color: #15803d;
+}
+.ms-lesson-page .ms-switch-formula {
+  margin: 4px 0 10px;
+  font-size: 28px;
+  line-height: 1.35;
+  font-weight: 800;
+  color: #0f172a;
+}
+.ms-lesson-page .ms-switch-text {
+  margin: 0;
+  color: #475569;
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+.ms-lesson-page .ms-finish-step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1e40af;
+  font-size: 14px;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-route {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-route-step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 9px 15px;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1e40af;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-summary-band {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+}
+.ms-lesson-page .ms-summary-band strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #1e3a8a;
+  font-size: 19px;
+}
+.ms-lesson-page .ms-summary-band span {
+  display: block;
+  color: #475569;
+  line-height: 1.7;
+}
+.ms-lesson-page .ms-final-check {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 20px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ms-lesson-page .ms-final-check li {
+  position: relative;
+  padding-left: 27px;
+  color: #374151;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-final-check li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-final-line {
+  margin-top: 14px;
+  padding: 13px 16px;
+  border-left: 4px solid #2563eb;
+  border-radius: 14px;
+  background: #f8fbff;
+  color: #475569;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+@media (max-width: 850px) {
+  .ms-lesson-page .ms-final-check {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-proof-step {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin-top: 11px;
+}
+.ms-lesson-page .ms-verdict {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 21px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-property-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-property-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 13px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-property-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-property-row strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111827;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-property-row p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.62;
+}
+.ms-lesson-page .ms-final-message {
+  margin-top: 26px;
+  padding: 22px;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+}
+.ms-lesson-page .ms-final-message h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 27px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-final-message p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16.5px;
+  line-height: 1.68;
+}
+.ms-lesson-page .ms-proof {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid #ddd6fe;
+  border-radius: 18px;
+  background: #faf8ff;
+}
+.ms-lesson-page .ms-proof-title {
+  display: block;
+  margin-bottom: 9px;
+  color: #6d28d9;
+  font-size: 16px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-proof p {
+  margin: 7px 0;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.72;
+}
+.ms-lesson-page .ms-proof-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-proof-box {
+  padding: 17px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-proof-box h3 {
+  margin: 0 0 7px !important;
+  color: #1d4ed8;
+  font-size: 18px !important;
+  line-height: 1.35 !important;
+}
+.ms-lesson-page .ms-proof-box p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.68;
+}
+.ms-lesson-page .ms-summary-panel {
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+}
+.ms-lesson-page .ms-summary-panel h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 27px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-summary-panel p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.68;
+}
+.ms-lesson-page .ms-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 13px;
+  min-height: 40px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #fff;
+  color: #1d4ed8;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-proof-box + .ms-proof-box {
+  margin-top: 0;
+}
+.ms-lesson-page .ms-proof-duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+@media (max-width: 820px) {
+  .ms-lesson-page .ms-proof-duo {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-data-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 14px;
+}
+.ms-lesson-page .ms-data-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-correspondence {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-correspondence--diagram {
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  align-items: center;
+}
+.ms-lesson-page .ms-correspondence > span {
+  padding: 11px 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+@media (max-width: 820px) {
+  .ms-lesson-page .ms-correspondence {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-theorem-box {
+  margin: 18px 0;
+  padding: 22px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+.ms-lesson-page .ms-theorem-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 5px 12px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-theorem-box p {
+  margin: 0;
+  color: #1f2937;
+  font-size: 18px;
+  line-height: 1.72;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-proof-chain {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 15px;
+  object-fit: contain;
+}
+.ms-lesson-page .ms-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ms-lesson-page .ms-example-card {
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-route h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-route p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.ms-lesson-page .ms-direction-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-direction-arrow {
+  color: #2563eb;
+  font-size: 36px;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-proof-chain > div {
+  padding: 16px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-proof-chain strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #1d4ed8;
+  font-size: 16px;
+}
+.ms-lesson-page .ms-proof-chain p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.68;
+}
+.ms-lesson-page .ms-summary-band h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 1.25;
+}
+.ms-lesson-page .ms-summary-band p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.7;
+}
+@media (max-width: 820px) {
+  .ms-lesson-page .ms-direction-arrow {
+    transform: rotate(90deg);
+  }
+}
+.ms-lesson-page .ms-proof-flow {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-example-stack {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-checklist {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+.ms-lesson-page .ms-checkline {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+  background: #ffffff;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-checkline p {
+  margin: 3px 0 0;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.62;
+}
+.ms-lesson-page .ms-checkmark {
+  color: #15803d;
+  font-weight: 900;
+}
+.ms-lesson-page .ms-number-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+.ms-lesson-page .ms-number-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #1e3a8a;
+  font-size: 18px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-process {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-process-step {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 13px;
+  align-items: start;
+  padding: 14px 16px;
+  border: 1px solid #dbe3ef;
+  border-radius: 17px;
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+.ms-lesson-page .ms-process-step > div {
+  min-width: 0;
+}
+.ms-lesson-page .ms-process-number {
+  display: inline-flex;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-process-step strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.ms-lesson-page .ms-process-step > div > span {
+  display: block;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-number-chip.ms-center {
+  border-color: #7c3aed;
+  background: #f5f3ff;
+  color: #6d28d9;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-process-step {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: 15px;
+  }
+  .ms-lesson-page .ms-process-number {
+    width: 38px;
+    height: 38px;
+  }
+}
+.ms-lesson-page .ms-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-check-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  background: #f0fdf4;
+  color: #166534;
+  font-size: 14.5px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-insight {
+  margin: 16px 0;
+  padding: 17px 19px;
+  border-radius: 18px;
+  font-size: 16px;
+  line-height: 1.68;
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+.ms-lesson-page .ms-warning {
+  margin: 16px 0;
+  padding: 17px 19px;
+  border-radius: 18px;
+  font-size: 16px;
+  line-height: 1.68;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+.ms-lesson-page .ms-interval-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-compare-panel {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 19px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-compare-panel h3 {
+  margin: 0 0 9px !important;
+  color: #111827;
+  font-size: 19px !important;
+  line-height: 1.35 !important;
+}
+.ms-lesson-page .ms-compare-panel ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.ms-lesson-page .ms-route-step strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #1d4ed8;
+  font-size: 15px;
+}
+.ms-lesson-page .ms-route-step span {
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.55;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-route {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.ms-lesson-page .ms-plain-checklist {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ms-lesson-page .ms-plain-checklist li {
+  position: relative;
+  padding: 17px 18px 17px 50px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.65;
+  box-shadow: 0 5px 14px rgba(15, 23, 42, 0.035);
+}
+.ms-lesson-page .ms-plain-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 18px;
+  top: 17px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 22px;
+}
+.ms-lesson-page .ms-plain-checklist strong {
+  color: #111827;
+}
+.ms-lesson-page .ms-compare-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-compare-panel p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-compare-strip {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-route-arrow {
+  color: #94a3b8;
+  font-size: 22px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-compare-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-process-step span {
+  color: #374151;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-compare-pair {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-course-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 11px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-check-step-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-check-step-row strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #111827;
+  font-size: 16px;
+}
+.ms-lesson-page .ms-check-step-row p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-check-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+  color: #1d4ed8;
+  font-size: 17px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-check-content strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #111827;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-check-content span {
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.65;
+}
+@media (max-width: 640px) {
+  .ms-lesson-page .ms-check-step-row {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 11px;
+    padding: 15px;
+  }
+  .ms-lesson-page .ms-check-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+  .ms-lesson-page .ms-route-arrow {
+    transform: rotate(90deg);
+  }
+}
+@media (max-width: 700px) {
+  .ms-lesson-page .ms-verdict {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .ms-lesson-page .ms-proof-step {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 11px;
+    padding: 15px;
+  }
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-correspondence {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-direction-grid:not(.ms-card-grid) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-error-card-bad {
+  border: 1px solid #fecaca;
+  background: #fff7f7;
+}
+.ms-lesson-page .ms-error-card-good {
+  border: 1px solid #bbf7d0;
+  background: #f7fff9;
+}
+.ms-lesson-page .ms-error-card-bad strong {
+  color: #b91c1c;
+}
+.ms-lesson-page .ms-error-card-good strong {
+  color: #15803d;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-direction-grid:not(.ms-card-grid) {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-direction-arrow {
+    transform: rotate(90deg);
+    min-height: 30px;
+  }
+}
+.ms-lesson-page .ms-coefficient-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-standard-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-standard-step {
+  position: relative;
+  min-height: 150px;
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-standard-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-standard-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-standard-step span {
+  display: block;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.58;
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-standard-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-standard-step:nth-child(2)::after {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-standard-steps {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-standard-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-standard-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-standard-step:nth-child(2)::after {
+    display: block;
+  }
+}
+.ms-lesson-page .ms-final-route {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-final-route--steps {
+  grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr) 60px minmax(0, 1fr);
+  align-items: stretch;
+}
+.ms-lesson-page .ms-final-route--summary {
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  background: #ffffff;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-final-route {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .ms-lesson-page .ms-final-route {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-pair-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-approx-grid:not(.ms-card-grid) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 18px;
+  align-items: start;
+  margin-top: 20px;
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-approx-grid:not(.ms-card-grid) {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-method-card {
+  position: relative;
+  min-height: 150px;
+}
+.ms-lesson-page .ms-method-card:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.ms-lesson-page .ms-method-number {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 0 11px;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+@media (max-width: 940px) {
+  .ms-lesson-page .ms-method-card:nth-child(2)::after {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-method-card {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-method-card:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-method-card:nth-child(2)::after {
+    display: block;
+  }
+}
+.ms-lesson-page .ms-step {
+  position: relative;
+  min-height: 150px;
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg,#fff 0%,#f8fbff 100%);
+}
+.ms-lesson-page .ms-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.ms-lesson-page .ms-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-step span:last-child {
+  display: block;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.58;
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-steps {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .ms-lesson-page .ms-step:nth-child(2)::after {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-steps {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-step:nth-child(2)::after {
+    display: block;
+  }
+}
+.ms-lesson-page .ms-visual-card {
+  min-width: 0;
+}
+.ms-lesson-page .ms-visual-title {
+  display: block;
+  margin-bottom: 9px;
+  color: #1e3a8a;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-visual-caption {
+  margin-top: 9px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.55;
+  text-align: center;
+}
+.ms-lesson-page .ms-consequence-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-standard-step span:last-child {
+  display: block;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.58;
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-standard-steps {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-standard-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-standard-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-standard-step:nth-child(2)::after {
+    display: block;
+  }
+}
+.ms-lesson-page .ms-proof-step div:last-child {
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.68;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-proof-step {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+  .ms-lesson-page .ms-step-number {
+    width: 34px;
+    height: 34px;
+  }
+}
+.ms-lesson-page .ms-mini-label {
+  display: inline-block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-center {
+  text-align: center !important;
+}
+.ms-lesson-page .ms-warning-box {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid #fecaca;
+  border-radius: 18px;
+  background: #fef2f2;
+  color: #7f1d1d;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 42px;
+  margin-bottom: 10px;
+  padding: 0 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-course-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-algorithm {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: ms-step;
+}
+.ms-lesson-page .ms-algorithm li {
+  position: relative;
+  margin: 12px 0;
+  padding: 15px 16px 15px 58px;
+  border: 1px solid #dbeafe;
+  border-radius: 17px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.65;
+  counter-increment: ms-step;
+}
+.ms-lesson-page .ms-algorithm li::before {
+  content: counter(ms-step);
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-answer-box {
+  padding: 16px 18px;
+  border: 1px solid #bbf7d0;
+  border-radius: 18px;
+  background: #f0fdf4;
+  color: #166534;
+  font-size: 16.5px;
+  line-height: 1.65;
+  margin: 14px 0;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-verdict {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-parity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-parity-grid,
+  .ms-lesson-page .ms-final-route {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-property-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-final-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(145deg,#2563eb,#4f46e5);
+  color: #fff;
+}
+.ms-lesson-page .ms-final-main span {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: .85;
+}
+.ms-lesson-page .ms-final-main strong {
+  font-size: 22px;
+  line-height: 1.45;
+}
+.ms-lesson-page .ms-final-list {
+  padding: 18px 22px;
+}
+.ms-lesson-page .ms-final-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0,1fr);
+  gap: 11px;
+  padding: 11px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ms-lesson-page .ms-final-row:last-child {
+  border-bottom: 0;
+}
+.ms-lesson-page .ms-final-num {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-final-text {
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.6;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-final-check {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-final-main {
+    min-height: 180px;
+  }
+}
+.ms-lesson-page .ms-step-card {
+  position: relative;
+  padding-top: 56px;
+}
+.ms-lesson-page .ms-check-step-row span {
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-course-card {
+    min-height: 0;
+    text-align: left;
+  }
+  .ms-lesson-page .ms-course-number {
+    margin-right: 9px;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+}

@@ -1,0 +1,245 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">6 класс · Натуральные числа · Тема 1.1</div>
+<h1 class="ms-title">Наибольший общий делитель и наименьшее общее кратное</h1>
+<p class="ms-subtitle">
+      В этой теме разберём, что такое делители и кратные числа, как находить НОД и НОК,
+      зачем они нужны в задачах и как использовать разложение на простые множители.
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="#theory">Перейти к теории</a>
+<a class="ms-btn ms-btn-secondary" href="/6-klass/">К темам 6 класса</a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что нужно вспомнить</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Делители и кратные</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Наибольший общий делитель</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Наименьшее общее кратное</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>НОД и НОК через простые множители</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Связь НОД и НОК двух чисел</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Где это используется</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 3</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Короткая памятка</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="lesson-section-1">
+<h2>Что нужно вспомнить</h2>
+<p class="ms-text">
+      Чтобы уверенно находить НОД и НОК, нужно помнить признаки делимости,
+      уметь раскладывать числа на простые множители и понимать разницу между делителем и кратным.
+    </p>
+<ul class="ms-list">
+<li><strong>Делитель числа</strong> — это число, на которое данное число делится без остатка.</li>
+<li><strong>Кратное числа</strong> — это число, которое делится на данное число без остатка.</li>
+<li><strong>Простое число</strong> имеет ровно два делителя: 1 и само себя.</li>
+<li><strong>Составное число</strong> имеет больше двух делителей.</li>
+</ul>
+</section>
+<section class="ms-section" id="theory">
+<h2>1. Делители и кратные</h2>
+<p class="ms-text">
+      Делители помогают понять, из каких частей можно составить число.
+      Кратные показывают, какие числа получаются при умножении данного числа на натуральные числа.
+    </p>
+<div class="ms-figure">
+<p class="ms-figure-title">Схема по теме</p>
+<svg aria-label="Схема по теме НОД и НОК" class="ms-svg" fill="none" role="img" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F8FAFC" height="720" rx="36" width="1280"></rect>
+<rect fill="white" height="640" rx="32" stroke="#DBEAFE" stroke-width="2" width="1200" x="40" y="40"></rect>
+<rect fill="#EFF6FF" height="140" rx="28" stroke="#BFDBFE" stroke-width="3" width="360" x="90" y="88"></rect>
+<text fill="#111827" font-family="Arial" font-size="42" font-weight="700" text-anchor="middle" x="270" y="150">Делители</text>
+<text fill="#2563EB" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle" x="270" y="192">на что делится число</text>
+<rect fill="#FFF7ED" height="140" rx="28" stroke="#FED7AA" stroke-width="3" width="360" x="830" y="88"></rect>
+<text fill="#111827" font-family="Arial" font-size="42" font-weight="700" text-anchor="middle" x="1010" y="150">Кратные</text>
+<text fill="#D97706" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle" x="1010" y="192">что делится на число</text>
+<rect fill="#ECFDF5" height="120" rx="24" stroke="#BBF7D0" stroke-width="3" width="180" x="440" y="332"></rect>
+<text fill="#15803D" font-family="Arial" font-size="42" font-weight="700" text-anchor="middle" x="530" y="387">НОД</text>
+<text fill="#15803D" font-family="Arial" font-size="22" font-weight="700" text-anchor="middle" x="530" y="420">общий делитель</text>
+<rect fill="#F5F3FF" height="120" rx="24" stroke="#DDD6FE" stroke-width="3" width="180" x="660" y="332"></rect>
+<text fill="#7C3AED" font-family="Arial" font-size="42" font-weight="700" text-anchor="middle" x="750" y="387">НОК</text>
+<text fill="#7C3AED" font-family="Arial" font-size="22" font-weight="700" text-anchor="middle" x="750" y="420">общее кратное</text>
+<path d="M450 160C560 170 560 250 530 330" stroke="#93C5FD" stroke-linecap="round" stroke-width="8"></path>
+<path d="M830 160C720 170 720 250 750 330" stroke="#FDBA74" stroke-linecap="round" stroke-width="8"></path>
+<circle cx="220" cy="430" fill="#EFF6FF" r="66" stroke="#BFDBFE" stroke-width="3"></circle>
+<text fill="#2563EB" font-family="Arial" font-size="44" font-weight="700" text-anchor="middle" x="220" y="442">24</text>
+<text fill="#4B5563" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle" x="220" y="540">1, 2, 3, 4, 6, 8...</text>
+<circle cx="1060" cy="430" fill="#FFF7ED" r="66" stroke="#FED7AA" stroke-width="3"></circle>
+<text fill="#D97706" font-family="Arial" font-size="44" font-weight="700" text-anchor="middle" x="1060" y="442">6</text>
+<text fill="#4B5563" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle" x="1060" y="540">6, 12, 18, 24...</text>
+<rect fill="#F9FAFB" height="58" rx="20" stroke="#E5E7EB" stroke-width="2" width="980" x="150" y="590"></rect>
+<text fill="#111827" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle" x="640" y="628">НОД — самый большой общий делитель, НОК — самое маленькое общее кратное</text>
+</svg>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 1. Делители числа 24</span>
+<div class="ms-math-row">24 делится на 1, 2, 3, 4, 6, 8, 12 и 24.</div>
+<div class="ms-math-row"><strong>Делители числа 24:</strong> 1, 2, 3, 4, 6, 8, 12, 24.</div>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 2. Кратные числа 6</span>
+<div class="ms-math-row">6 · 1 = 6, 6 · 2 = 12, 6 · 3 = 18, 6 · 4 = 24, 6 · 5 = 30.</div>
+<div class="ms-math-row"><strong>Первые кратные числа 6:</strong> 6, 12, 18, 24, 30, 36, ...</div>
+</div>
+<div class="ms-note">
+      Делителей у натурального числа конечное количество, а кратных — бесконечно много.
+    </div>
+</section>
+<section class="ms-section" id="lesson-section-3">
+<h2>2. Наибольший общий делитель</h2>
+<p class="ms-text">
+      Общий делитель двух чисел — это число, на которое оба данных числа делятся без остатка.
+      Самый большой из общих делителей называется наибольшим общим делителем.
+    </p>
+<div class="ms-rule-box">
+<strong>НОД</strong> — это наибольший общий делитель нескольких чисел.
+      Запись <strong>НОД(18; 24) = 6</strong> означает, что 6 — самый большой делитель,
+      который подходит и для 18, и для 24.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 3. Найдём НОД(18; 24) через делители</span>
+<div class="ms-math-row">Делители 18: 1, 2, 3, 6, 9, 18.</div>
+<div class="ms-math-row">Делители 24: 1, 2, 3, 4, 6, 8, 12, 24.</div>
+<div class="ms-math-row">Общие делители: 1, 2, 3, 6.</div>
+<div class="ms-math-row"><strong class="ms-good">НОД(18; 24) = 6.</strong></div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-4">
+<h2>3. Наименьшее общее кратное</h2>
+<p class="ms-text">
+      Общее кратное двух чисел — это число, которое делится на каждое из данных чисел.
+      Самое маленькое из общих кратных называется наименьшим общим кратным.
+    </p>
+<div class="ms-rule-box">
+<strong>НОК</strong> — это наименьшее общее кратное нескольких чисел.
+      Запись <strong>НОК(6; 8) = 24</strong> означает, что 24 — наименьшее положительное число,
+      которое делится и на 6, и на 8.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 4. Найдём НОК(6; 8) через кратные</span>
+<div class="ms-math-row">Кратные 6: 6, 12, 18, 24, 30, 36, ...</div>
+<div class="ms-math-row">Кратные 8: 8, 16, 24, 32, 40, ...</div>
+<div class="ms-math-row">Первое общее кратное: 24.</div>
+<div class="ms-math-row"><strong class="ms-good">НОК(6; 8) = 24.</strong></div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-5">
+<h2>4. НОД и НОК через простые множители</h2>
+<p class="ms-text">
+      Для больших чисел удобнее не выписывать все делители и кратные, а разложить числа на простые множители.
+    </p>
+<div class="ms-rule-box">
+      Чтобы найти <strong>НОД</strong>, берут только общие простые множители в наименьших степенях.
+      Чтобы найти <strong>НОК</strong>, берут все простые множители, которые встретились в разложениях,
+      в наибольших степенях.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 5. Найдём НОД(36; 48) и НОК(36; 48)</span>
+<div class="ms-math-row">36 = 2 · 2 · 3 · 3 = 2² · 3².</div>
+<div class="ms-math-row">48 = 2 · 2 · 2 · 2 · 3 = 2⁴ · 3.</div>
+<div class="ms-math-row">НОД: берём общие множители в меньших степенях: 2² · 3 = 12.</div>
+<div class="ms-math-row">НОК: берём все множители в больших степенях: 2⁴ · 3² = 144.</div>
+<div class="ms-math-row"><strong class="ms-good">Ответ: НОД(36; 48) = 12, НОК(36; 48) = 144.</strong></div>
+</div>
+<div class="ms-table-wrap">
+<table class="ms-table">
+<thead>
+<tr>
+<th>Что ищем</th>
+<th>Какие множители берём</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>НОД</td>
+<td>Только общие множители</td>
+<td>Самый большой общий делитель чисел</td>
+</tr>
+<tr>
+<td>НОК</td>
+<td>Все множители, которые нужны хотя бы одному числу</td>
+<td>Наименьшее положительное число, которое делится на каждое из данных</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ms-note"><strong>Взаимно простые числа.</strong> Если общих простых множителей нет, НОД равен 1. Такие числа называют взаимно простыми. Например, 8 = 2³ и 15 = 3 · 5, поэтому НОД(8; 15) = 1, а НОК(8; 15) = 8 · 15 = 120. Если одно натуральное число делится на другое, их НОД равен меньшему, а НОК — большему.</div><h3>Как выбрать НОД или НОК в задаче</h3><div class="ms-example"><strong>Одинаковые наборы.</strong><p>Из 18 карандашей и 24 ручек составляют наибольшее число одинаковых наборов без остатка. Число наборов должно делить и 18, и 24, поэтому нужно найти НОД(18; 24) = 6. В каждом наборе 18 : 6 = 3 карандаша и 24 : 6 = 4 ручки.</p></div><div class="ms-example"><strong>Повторяющиеся события.</strong><p>Два сигнала звучат каждые 6 и 8 минут. Сейчас они прозвучали вместе. Следующее совпадение наступит через НОК(6; 8) = 24 минуты: это наименьшее положительное время, кратное обоим периодам.</p></div></section>
+<section class="ms-section" id="lesson-section-6">
+<h2>5. Связь НОД и НОК двух чисел</h2>
+<p class="ms-text">
+      Для двух натуральных чисел удобно помнить связь: произведение чисел равно произведению их НОД и НОК.
+    </p>
+<div class="ms-rule-box">
+      Для натуральных чисел a и b верно:
+      <strong>a · b = НОД(a; b) · НОК(a; b)</strong>.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 6. Проверим связь для чисел 18 и 24</span>
+<div class="ms-math-row">НОД(18; 24) = 6.</div>
+<div class="ms-math-row">НОК(18; 24) = 72.</div>
+<div class="ms-math-row">18 · 24 = 432.</div>
+<div class="ms-math-row">6 · 72 = 432.</div>
+<div class="ms-math-row"><strong class="ms-good">Произведения совпали, значит вычисления согласованы.</strong></div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-7">
+<h2>6. Где это используется</h2>
+<ul class="ms-list">
+<li><strong>НОД</strong> помогает сокращать дроби и делить предметы на одинаковые группы.</li>
+<li><strong>НОК</strong> помогает приводить дроби к общему знаменателю.</li>
+<li><strong>НОК</strong> встречается в задачах про повторяющиеся события: расписания, сигналы, круги, интервалы.</li>
+<li><strong>НОД</strong> встречается в задачах про одинаковые наборы, упаковки, разбиение на равные части.</li>
+</ul>
+</section>
+<section class="ms-section" id="lesson-section-8">
+<h2>7. Задания для самопроверки</h2>
+<div class="ms-task">
+<p><strong>Задание 1.</strong> Выпишите все делители числа 30.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          Проверяем натуральные числа, на которые 30 делится без остатка:
+          1, 2, 3, 5, 6, 10, 15, 30.
+          <br/><strong>Ответ: 1, 2, 3, 5, 6, 10, 15, 30.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>Задание 2.</strong> Найдите НОД(42; 70).</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          42 = 2 · 3 · 7.
+          <br/>70 = 2 · 5 · 7.
+          <br/>Общие множители: 2 и 7.
+          <br/>2 · 7 = 14.
+          <br/><strong>Ответ: НОД(42; 70) = 14.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>Задание 3.</strong> Найдите НОК(18; 24).</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          18 = 2 · 3².
+          <br/>24 = 2³ · 3.
+          <br/>Для НОК берём множители в наибольших степенях: 2³ · 3² = 8 · 9 = 72.
+          <br/><strong>Ответ: НОК(18; 24) = 72.</strong>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-9">
+<h2>8. Короткая памятка</h2>
+<div class="ms-rule-box">
+<strong>НОД</strong> — ищем общий делитель, то есть то, на что можно разделить числа.
+    <br/>
+<strong>НОК</strong> — ищем общее кратное, то есть число, которое делится на данные числа.
+    <br/>
+    В задачах про одинаковые группы чаще нужен НОД.
+    В задачах про повторение событий чаще нужен НОК.
+  </div>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/6-klass/">К темам 6 класса</a>
+<a class="ms-btn" href="/otnoshenie-dvuh-chisel/">Следующая тема</a>
+</div>
+</section>
+<!-- /wp:html --></div>

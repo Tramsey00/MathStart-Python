@@ -1,0 +1,576 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Геометрия · Четырёхугольники · Тема 1.1</div>
+    <h1 class="ms-title">Многоугольники и параллелограмм: определения, свойства и признаки</h1>
+    <p class="ms-subtitle">
+      Разберём элементы выпуклого многоугольника, сумму его углов,
+      устройство четырёхугольника, свойства параллелограмма и три способа доказать,
+      что данный четырёхугольник является параллелограммом.
+    </p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/mnogougolniki-i-parallelogramm-opredeleniya-svojstva-i-priznaki/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Многоугольник и его элементы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Сумма углов и количество диагоналей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Четырёхугольник</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Параллелограмм</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Свойства параллелограмма</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Признаки параллелограмма</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Как выбрать нужное утверждение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Итог: контрольная точка</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Многоугольник и его элементы</h2>
+    <p class="ms-text">
+      <strong>Многоугольник</strong> — замкнутая ломаная вместе с её внутренней областью.
+      Если у многоугольника <em>n</em> вершин, то у него также <em>n</em> сторон и <em>n</em> углов.
+    </p>
+
+    <div class="ms-mini-grid ms-card-grid ms-columns-3">
+      <div class="ms-mini-card ms-card">
+        <strong class="ms-card-title">Соседние вершины</strong>
+        <span class="ms-card-text">Две вершины, принадлежащие одной стороне.</span>
+      </div>
+      <div class="ms-mini-card ms-card">
+        <strong class="ms-card-title">Диагональ</strong>
+        <span class="ms-card-text">Отрезок, соединяющий две несоседние вершины.</span>
+      </div>
+      <div class="ms-mini-card ms-card">
+        <strong class="ms-card-title">Периметр</strong>
+        <span class="ms-card-text">Сумма длин всех сторон многоугольника.</span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Выпуклый многоугольник</strong> лежит по одну сторону от каждой прямой,
+      проходящей через две его соседние вершины. У невыпуклого многоугольника
+      хотя бы одна такая прямая разделяет фигуру на части.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Выпуклый и невыпуклый многоугольники</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Сравнение выпуклого и невыпуклого многоугольников">
+          <rect x="0" y="0" width="760" height="280" rx="24" fill="#f8fbff"/>
+          <g font-family="Arial, sans-serif">
+            <text x="190" y="38" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">Выпуклый</text>
+            <polygon points="78,198 116,82 225,54 304,128 260,220 142,232"
+                     fill="#eff6ff" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+            <line x1="78" y1="198" x2="225" y2="54" stroke="#7c3aed" stroke-width="3"/>
+            <line x1="116" y1="82" x2="260" y2="220" stroke="#7c3aed" stroke-width="3"/>
+            <text x="190" y="260" text-anchor="middle" font-size="16" fill="#4b5563">Все диагонали лежат внутри</text>
+
+            <text x="568" y="38" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">Невыпуклый</text>
+            <polygon points="436,204 460,82 568,126 660,66 632,220 544,168"
+                     fill="#f7f4ff" stroke="#7c3aed" stroke-width="4" stroke-linejoin="round"/>
+            <line x1="460" y1="82" x2="632" y2="220" stroke="#2563eb" stroke-width="3"/>
+            <text x="568" y="260" text-anchor="middle" font-size="16" fill="#4b5563">Есть «входящий» угол</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Сумма углов и количество диагоналей</h2>
+    <p class="ms-text">
+      Проведём из одной вершины выпуклого <em>n</em>-угольника все диагонали.
+      Многоугольник разделится на <strong>n − 2</strong> треугольника.
+      Сумма углов каждого треугольника равна 180°.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Сумма внутренних углов:</strong> (n − 2) · 180°</div>
+      <div class="ms-math-row"><strong>Сумма внешних углов:</strong> 360°</div>
+      <div class="ms-math-row">
+        <strong>Количество диагоналей:</strong>
+        <span class="ms-frac">
+          <span class="ms-frac-num">n(n − 3)</span>
+          <span class="ms-frac-den">2</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-proof">
+      <span class="ms-proof-title">Почему сумма углов равна (n − 2) · 180°</span>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">1</span>
+        <div>Из одной вершины проводим диагонали ко всем несоседним вершинам.</div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">2</span>
+        <div>Получаем n − 2 треугольника без наложений и промежутков.</div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">3</span>
+        <div>Складываем суммы их углов: (n − 2) · 180°. Эта сумма совпадает с суммой углов многоугольника.</div>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Шестиугольник разделён на четыре треугольника</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Разбиение шестиугольника диагоналями на четыре треугольника">
+          <rect width="760" height="310" rx="24" fill="#ffffff"/>
+          <polygon points="115,155 190,62 335,48 490,100 548,220 305,254"
+                   fill="#eff6ff" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          <line x1="115" y1="155" x2="335" y2="48" stroke="#7c3aed" stroke-width="3"/>
+          <line x1="115" y1="155" x2="490" y2="100" stroke="#7c3aed" stroke-width="3"/>
+          <line x1="115" y1="155" x2="548" y2="220" stroke="#7c3aed" stroke-width="3"/>
+          <g fill="#111827" font-size="17" font-weight="800" font-family="Arial, sans-serif">
+            <text x="92" y="158">A₁</text>
+            <text x="181" y="49">A₂</text>
+            <text x="332" y="34">A₃</text>
+            <text x="498" y="91">A₄</text>
+            <text x="558" y="226">A₅</text>
+            <text x="294" y="278">A₆</text>
+          </g>
+          <g fill="#2563eb" font-size="18" font-weight="800" font-family="Arial, sans-serif">
+            <text x="205" y="135">1</text>
+            <text x="326" y="127">2</text>
+            <text x="441" y="161">3</text>
+            <text x="319" y="211">4</text>
+          </g>
+          <rect x="585" y="93" width="132" height="112" rx="18" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"/>
+          <text x="651" y="133" text-anchor="middle" font-size="18" font-weight="800" fill="#6d28d9" font-family="Arial, sans-serif">n = 6</text>
+          <text x="651" y="164" text-anchor="middle" font-size="17" fill="#4b5563" font-family="Arial, sans-serif">n − 2 = 4</text>
+          <text x="651" y="190" text-anchor="middle" font-size="17" fill="#4b5563" font-family="Arial, sans-serif">треугольника</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-card-grid">
+      <div class="ms-example">
+        <span class="ms-example-title">Пример 1. Сумма углов девятиугольника</span>
+        (9 − 2) · 180° = 7 · 180° = <strong>1260°</strong>.
+      </div>
+      <div class="ms-example">
+        <span class="ms-example-title">Пример 2. Сколько сторон?</span>
+        Если сумма углов равна 1620°, то (n − 2) · 180° = 1620°.
+        Получаем n − 2 = 9, поэтому <strong>n = 11</strong>.
+      </div>
+      <div class="ms-example">
+        <span class="ms-example-title">Пример 3. Диагонали двенадцатиугольника</span>
+        12 · (12 − 3) : 2 = 12 · 9 : 2 = <strong>54 диагонали</strong>.
+      </div>
+      <div class="ms-example">
+        <span class="ms-example-title">Пример 4. Равные внешние углы</span>
+        Если у выпуклого многоугольника все внешние углы равны 30°,
+        то число вершин равно 360° : 30° = <strong>12</strong>.
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Четырёхугольник</h2>
+    <p class="ms-text">
+      У четырёхугольника четыре вершины, четыре стороны и две диагонали.
+      Стороны, не имеющие общей вершины, называются противоположными.
+      Вершины, не соединённые стороной, также называются противоположными.
+    </p>
+
+    <div class="ms-rule-box">
+      Сумма внутренних углов любого выпуклого четырёхугольника равна
+      <strong>(4 − 2) · 180° = 360°</strong>.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Элементы четырёхугольника ABCD</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Четырёхугольник ABCD с диагоналями">
+          <rect width="760" height="300" rx="24" fill="#f8fbff"/>
+          <polygon points="145,226 94,96 344,62 490,212"
+                   fill="#eff6ff" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          <line x1="145" y1="226" x2="344" y2="62" stroke="#7c3aed" stroke-width="3"/>
+          <line x1="94" y1="96" x2="490" y2="212" stroke="#7c3aed" stroke-width="3"/>
+          <g fill="#111827" font-size="18" font-weight="800" font-family="Arial, sans-serif">
+            <text x="124" y="252">A</text>
+            <text x="70" y="91">B</text>
+            <text x="350" y="52">C</text>
+            <text x="500" y="222">D</text>
+          </g>
+          <rect x="548" y="60" width="165" height="180" rx="18" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+          <g font-family="Arial, sans-serif">
+            <text x="570" y="96" font-size="17" font-weight="800" fill="#1d4ed8">Стороны</text>
+            <text x="570" y="122" font-size="16" fill="#4b5563">AB, BC, CD, DA</text>
+            <text x="570" y="158" font-size="17" font-weight="800" fill="#6d28d9">Диагонали</text>
+            <text x="570" y="184" font-size="16" fill="#4b5563">AC и BD</text>
+            <text x="570" y="220" font-size="17" font-weight="800" fill="#1d4ed8">Углы</text>
+            <text x="570" y="244" font-size="16" fill="#4b5563">A + B + C + D = 360°</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример. Углы пропорциональны числам 1 : 2 : 3 : 4</span>
+      Пусть углы равны x, 2x, 3x и 4x. Тогда 10x = 360°, откуда x = 36°.
+      Следовательно, углы равны <strong>36°, 72°, 108° и 144°</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Параллелограмм</h2>
+    <div class="ms-rule-box">
+      <strong>Параллелограмм</strong> — четырёхугольник, у которого противоположные стороны
+      попарно параллельны: AB ∥ CD и AD ∥ BC.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Параллелограмм ABCD и его диагонали</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Параллелограмм ABCD с диагоналями и точкой пересечения O">
+          <rect width="760" height="330" rx="24" fill="#ffffff"/>
+          <polygon points="122,245 330,245 478,78 270,78"
+                   fill="#eff6ff" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          <line x1="122" y1="245" x2="478" y2="78" stroke="#7c3aed" stroke-width="3"/>
+          <line x1="330" y1="245" x2="270" y2="78" stroke="#7c3aed" stroke-width="3"/>
+          <circle cx="300" cy="161.5" r="5" fill="#2563eb"/>
+          <g fill="#111827" font-size="18" font-weight="800" font-family="Arial, sans-serif">
+            <text x="98" y="266">A</text>
+            <text x="334" y="269">B</text>
+            <text x="486" y="72">C</text>
+            <text x="250" y="68">D</text>
+            <text x="311" y="155">O</text>
+          </g>
+          <g stroke="#1d4ed8" stroke-width="3" stroke-linecap="round">
+            <line x1="208" y1="239" x2="218" y2="251"/>
+            <line x1="375" y1="72" x2="385" y2="84"/>
+            <line x1="190" y1="157" x2="205" y2="161"/>
+            <line x1="200" y1="146" x2="215" y2="150"/>
+            <line x1="393" y1="164" x2="408" y2="168"/>
+            <line x1="403" y1="153" x2="418" y2="157"/>
+          </g>
+          <rect x="538" y="70" width="174" height="192" rx="18" fill="#f9fafb" stroke="#dbeafe" stroke-width="2"/>
+          <g font-family="Arial, sans-serif">
+            <text x="625" y="108" text-anchor="middle" font-size="18" font-weight="800" fill="#1d4ed8">Определение</text>
+            <text x="625" y="140" text-anchor="middle" font-size="16" fill="#4b5563">AB ∥ CD</text>
+            <text x="625" y="166" text-anchor="middle" font-size="16" fill="#4b5563">AD ∥ BC</text>
+            <text x="625" y="208" text-anchor="middle" font-size="18" font-weight="800" fill="#6d28d9">Диагонали</text>
+            <text x="625" y="236" text-anchor="middle" font-size="16" fill="#4b5563">AC и BD</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Свойства параллелограмма</h2>
+
+    <h3>Свойство 1. Противоположные стороны и углы равны</h3>
+    <div class="ms-rule-box">
+      В параллелограмме ABCD:
+      <strong>AB = CD</strong>, <strong>AD = BC</strong>,
+      <strong>∠A = ∠C</strong>, <strong>∠B = ∠D</strong>.
+    </div>
+
+    <div class="ms-proof">
+      <span class="ms-proof-title">Доказательство</span>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">1</span>
+        <div>Проведём диагональ AC. Она разделит параллелограмм на треугольники ABC и CDA.</div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">2</span>
+        <div>
+          AC — общая сторона. Углы BAC и ACD равны как накрест лежащие при AB ∥ CD,
+          а углы BCA и CAD равны как накрест лежащие при BC ∥ AD.
+        </div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">3</span>
+        <div>
+          Треугольники ABC и CDA равны по стороне и двум прилежащим углам.
+          Поэтому AB = CD, BC = AD и ∠B = ∠D.
+        </div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">4</span>
+        <div>
+          Угол A состоит из углов BAC и CAD, а угол C — из углов BCA и ACD.
+          Складывая попарно равные углы, получаем ∠A = ∠C.
+        </div>
+      </div>
+    </div>
+
+    <h3>Свойство 2. Диагонали делятся точкой пересечения пополам</h3>
+    <div class="ms-rule-box">
+      Если диагонали AC и BD пересекаются в точке O, то
+      <strong>AO = OC</strong> и <strong>BO = OD</strong>.
+    </div>
+
+    <div class="ms-proof">
+      <span class="ms-proof-title">Доказательство</span>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">1</span>
+        <div>Рассмотрим треугольники AOB и COD.</div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">2</span>
+        <div>
+          AB = CD по доказанному свойству. Углы BAO и DCO равны как накрест лежащие,
+          углы ABO и CDO также равны как накрест лежащие.
+        </div>
+      </div>
+      <div class="ms-proof-step">
+        <span class="ms-step-number">3</span>
+        <div>
+          Треугольники AOB и COD равны по стороне и двум прилежащим углам.
+          Следовательно, AO = OC и BO = OD.
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Соседние углы параллелограмма являются односторонними при параллельных прямых,
+      поэтому их сумма равна 180°. Если один угол равен α, соседний равен 180° − α.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Признаки параллелограмма</h2>
+    <p class="ms-text">
+      Свойство сообщает, что обязательно верно для уже известного параллелограмма.
+      Признак позволяет по данным условия доказать, что четырёхугольник является параллелограммом.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Признак</th>
+            <th>Что известно о четырёхугольнике</th>
+            <th>Почему этого достаточно</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>Одна пара противоположных сторон равна и параллельна.</td>
+            <td>После проведения диагонали два треугольника равны по двум сторонам и углу между ними.</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Противоположные стороны попарно равны.</td>
+            <td>Треугольники по диагонали равны по трём сторонам; одна пара сторон оказывается параллельной.</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>Диагонали пересекаются и точкой пересечения делятся пополам.</td>
+            <td>Противолежащие треугольники равны по двум сторонам и вертикальному углу.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Признак 1. Две стороны равны и параллельны</h3>
+    <div class="ms-proof">
+      <span class="ms-proof-title">Доказательство</span>
+      <p>
+        Пусть AB ∥ CD и AB = CD. Проведём AC.
+        В треугольниках ABC и CDA сторона AC общая,
+        AB = CD по условию, а ∠BAC = ∠ACD как накрест лежащие.
+        Треугольники равны по двум сторонам и углу между ними.
+        Значит, ∠BCA = ∠CAD, поэтому BC ∥ AD.
+        Обе пары противоположных сторон параллельны, следовательно, ABCD — параллелограмм.
+      </p>
+    </div>
+
+    <h3>Признак 2. Противоположные стороны попарно равны</h3>
+    <div class="ms-proof">
+      <span class="ms-proof-title">Доказательство</span>
+      <p>
+        Пусть AB = CD и BC = AD. Диагональ AC образует треугольники ABC и CDA.
+        Они равны по трём сторонам: AB = CD, BC = AD, AC — общая.
+        Поэтому ∠BAC = ∠ACD, откуда AB ∥ CD.
+        Теперь стороны AB и CD одновременно равны и параллельны,
+        поэтому по первому признаку ABCD — параллелограмм.
+      </p>
+    </div>
+
+    <h3>Признак 3. Диагонали делятся пополам</h3>
+    <div class="ms-proof">
+      <span class="ms-proof-title">Доказательство</span>
+      <p>
+        Пусть AO = OC и BO = OD. Треугольники AOB и COD равны по двум сторонам
+        и углу между ними: ∠AOB = ∠COD как вертикальные.
+        Поэтому AB = CD и ∠BAO = ∠DCO, следовательно, AB ∥ CD.
+        Получили равные и параллельные противоположные стороны,
+        значит, ABCD — параллелограмм.
+      </p>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Как выбрать нужное утверждение</h2>
+    <div class="ms-card-grid">
+      <div class="ms-example">
+        <span class="ms-example-title">Фигура уже названа параллелограммом</span>
+        Используйте <strong>свойства</strong>: равенство противоположных сторон и углов,
+        деление диагоналей пополам, сумму соседних углов 180°.
+      </div>
+      <div class="ms-example">
+        <span class="ms-example-title">Нужно доказать, что это параллелограмм</span>
+        Ищите один из <strong>трёх признаков</strong>: равные и параллельные стороны,
+        попарно равные противоположные стороны или деление диагоналей пополам.
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Стороны по периметру</span>
+      Периметр параллелограмма равен 46 см, одна сторона на 7 см больше другой.
+      Пусть меньшая сторона равна x, тогда большая равна x + 7.
+      <br>2x + 2(x + 7) = 46;
+      <br>4x = 32;
+      <br>x = 8.
+      <br><strong>Ответ: 8 см и 15 см.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Углы параллелограмма</span>
+      Один угол на 44° больше соседнего. Пусть меньший угол равен x,
+      тогда больший равен x + 44°. Соседние углы дают 180°:
+      <br>x + x + 44° = 180°;
+      <br>2x = 136°;
+      <br>x = 68°.
+      <br><strong>Углы: 68°, 112°, 68°, 112°.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Диагонали</span>
+      В параллелограмме AO = 7,5 см, BO = 4,2 см.
+      Так как O — середина обеих диагоналей:
+      <br>AC = 2AO = 15 см;
+      <br>BD = 2BO = 8,4 см.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Биссектриса угла</span>
+      В параллелограмме ABCD биссектриса угла A пересекает BC в точке K.
+      Пусть AB = 8 см, AD = 13 см.
+      Так как AD ∥ BC, ∠DAK = ∠AKB. Но AK — биссектриса, поэтому ∠DAK = ∠KAB.
+      Значит, ∠AKB = ∠KAB и треугольник ABK равнобедренный: BK = AB = 8 см.
+      Поскольку BC = AD = 13 см, получаем KC = 13 − 8 = <strong>5 см</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p><strong>1.</strong> Найдите сумму внутренних углов выпуклого десятиугольника.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>(10 − 2) · 180° = 8 · 180° = <strong>1440°</strong>.</p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>2.</strong> Сумма внутренних углов выпуклого многоугольника равна 1620°. Сколько у него сторон?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>(n − 2) · 180° = 1620°.</p>
+          <p>n − 2 = 9, поэтому <strong>n = 11</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>3.</strong> Сколько диагоналей можно провести в выпуклом пятнадцатиугольнике?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>15 · (15 − 3) : 2 = 15 · 12 : 2 = <strong>90 диагоналей</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>4.</strong> Углы выпуклого четырёхугольника пропорциональны числам 1, 2, 3 и 4. Найдите углы.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Пусть углы равны x, 2x, 3x и 4x. Тогда 10x = 360°, x = 36°.</p>
+          <p><strong>Ответ: 36°, 72°, 108°, 144°.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>5.</strong> Периметр параллелограмма равен 54 см, а соседние стороны относятся как 2 : 7. Найдите стороны.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Пусть стороны равны 2k и 7k. Полупериметр равен 27 см, поэтому 2k + 7k = 27.</p>
+          <p>9k = 27, k = 3. <strong>Стороны: 6 см и 21 см.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>6.</strong> Разность соседних углов параллелограмма равна 44°. Найдите все углы.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Пусть больший угол равен x, меньший — y. Тогда x + y = 180°, x − y = 44°.</p>
+          <p>Складываем: 2x = 224°, x = 112°, y = 68°.</p>
+          <p><strong>Ответ: 112°, 68°, 112°, 68°.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>7.</strong> Диагонали параллелограмма пересекаются в точке O. Известно, что AO = 6,4 см, BO = 4,1 см. Найдите AC и BD.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Диагонали точкой пересечения делятся пополам.</p>
+          <p>AC = 2 · 6,4 = <strong>12,8 см</strong>; BD = 2 · 4,1 = <strong>8,2 см</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>8.</strong> В четырёхугольнике ABCD диагонали AC и BD пересекаются в точке O, причём AO = OC и BO = OD. Докажите, что ABCD — параллелограмм.</p>
+      <details class="ms-answer">
+        <summary>Показать доказательство</summary>
+        <div>
+          <p>Треугольники AOB и COD равны по двум сторонам и углу между ними:</p>
+          <p>AO = OC, BO = OD, ∠AOB = ∠COD как вертикальные.</p>
+          <p>Отсюда AB = CD и ∠BAO = ∠DCO. Равенство накрест лежащих углов даёт AB ∥ CD.</p>
+          <p>В четырёхугольнике одна пара противоположных сторон равна и параллельна, следовательно, <strong>ABCD — параллелограмм</strong>.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Итог: контрольная точка</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Многоугольник</strong>
+        <span class="ms-card-text">Сумма внутренних углов равна (n − 2) · 180°, а сумма внешних углов равна 360°.</span>
+      </div>
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Свойства</strong>
+        <span class="ms-card-text">В параллелограмме противоположные стороны и углы равны, а диагонали делятся пополам.</span>
+      </div>
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Признаки</strong>
+        <span class="ms-card-text">Достаточно одного из трёх условий: равные и параллельные стороны, попарно равные стороны или деление диагоналей пополам.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+    <a class="ms-btn" href="/trapecziya-srednyaya-liniya-trapeczii/">Следующая тема</a>
+  </div>
+
+</div>
+<!-- /wp:html -->

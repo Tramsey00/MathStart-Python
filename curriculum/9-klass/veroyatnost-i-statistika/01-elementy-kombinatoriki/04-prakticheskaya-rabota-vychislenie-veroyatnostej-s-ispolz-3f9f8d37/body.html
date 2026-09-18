@@ -1,0 +1,672 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Элементы комбинаторики · Тема 1.4
+    </div>
+
+    <h1 class="ms-title">
+      Практическая работа «Вычисление вероятностей с использованием
+      комбинаторных функций»
+    </h1>
+
+    <p class="ms-subtitle">
+      Отработаем полный алгоритм: описать равновозможные исходы,
+      выбрать подходящую комбинаторную модель, подсчитать общее
+      и благоприятное число исходов и вычислить вероятность.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/prakticheskaya-rabota-vychislenie-veroyatnostej-s-ispolzovaniem-kombinatornyh-funkczij/#theory"
+      >
+        Перейти к работе
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Цель практической работы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Рабочий алгоритм</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Как выбрать комбинаторную модель</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Станция 1. Выбор группы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Станция 2. Выбор чисел</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Станция 3. Случайная перестановка</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Станция 4. Вероятность через дополнение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Мини-лаборатория: самостоятельная часть</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Цель практической работы</h2>
+
+    <p class="ms-text">
+      Комбинаторные формулы позволяют находить вероятность без
+      полного перечисления всех исходов. В этой работе нужно не
+      только получить числовой ответ, но и обосновать выбор способа
+      подсчёта.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Что повторяем</span>
+        <h3 class="ms-card-title">
+          Правило умножения и перестановки
+        </h3>
+        <p class="ms-card-text">
+          Используем, когда результат строится по шагам или когда
+          все различные объекты располагаются в некотором порядке.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Что применяем</span>
+        <h3 class="ms-card-title">
+          Сочетания и классическую вероятность
+        </h3>
+        <p class="ms-card-text">
+          Используем, когда выбирается группа без учёта порядка,
+          а все элементарные исходы равновозможны.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Рабочий алгоритм</h2>
+
+    <div class="ms-data-strip">
+      <span class="ms-data-chip">1. Описать случайный опыт</span>
+      <span class="ms-data-chip">
+        2. Проверить равновозможность исходов
+      </span>
+      <span class="ms-data-chip">3. Найти число всех исходов n</span>
+      <span class="ms-data-chip">
+        4. Найти число благоприятных исходов m
+      </span>
+      <span class="ms-data-chip">5. Вычислить P(A)</span>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">m</span>
+          <span class="ms-den">n</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>
+        Формула применяется только для равновозможных элементарных
+        исходов.
+      </strong>
+      В числителе и знаменателе нужно считать исходы одной и той же
+      природы: например, не смешивать отдельные предметы и группы
+      предметов.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Как выбрать комбинаторную модель</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Вопрос к задаче</th>
+            <th>Подходящая модель</th>
+            <th>Основная запись</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Результат строится последовательными выборами?</td>
+            <td>Правило умножения</td>
+            <td>n<sub>1</sub> · n<sub>2</sub> · …</td>
+          </tr>
+
+          <tr>
+            <td>
+              Используются все различные объекты и важен порядок?
+            </td>
+            <td>Перестановки</td>
+            <td>P<sub>n</sub> = n!</td>
+          </tr>
+
+          <tr>
+            <td>
+              Выбирается k объектов из n, порядок не важен?
+            </td>
+            <td>Сочетания</td>
+            <td>C<sub>n</sub><sup>k</sup></td>
+          </tr>
+
+          <tr>
+            <td>Нужно исключить нежелательный случай?</td>
+            <td>Дополнение</td>
+            <td>P(A) = 1 − P(Ā)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Станция 1. Выбор группы</h2>
+
+    <p class="ms-text">
+      В группе 7 учеников: 4 девочки и 3 мальчика. Случайно выбирают
+      двух дежурных. Найдём вероятность того, что выбраны две девочки.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Шаг 1. Все равновозможные пары
+      </span>
+      Любая пара учеников выбирается с одинаковой вероятностью.
+      Общее число пар:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          n = C<sub>7</sub><sup>2</sup> = 21
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Шаг 2. Благоприятные пары
+      </span>
+      Нужно выбрать двух девочек из четырёх:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          m = C<sub>4</sub><sup>2</sup> = 6
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">6</span>
+          <span class="ms-den">21</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">2</span>
+          <span class="ms-den">7</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Станция 2. Выбор чисел</h2>
+
+    <p class="ms-text">
+      Из карточек с числами от 1 до 10 случайно выбирают три разные
+      карточки. Найдём вероятность того, что все выбранные числа
+      чётные.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Все исходы</span>
+        <h3 class="ms-card-title">Выбрать 3 из 10</h3>
+        <p class="ms-card-text">
+          Порядок карточек не важен:
+          C<sub>10</sub><sup>3</sup> = 120.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Благоприятные исходы</span>
+        <h3 class="ms-card-title">Выбрать 3 из 5 чётных</h3>
+        <p class="ms-card-text">
+          Чётные числа: 2, 4, 6, 8, 10.
+          C<sub>5</sub><sup>3</sup> = 10.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">10</span>
+          <span class="ms-den">120</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">1</span>
+          <span class="ms-den">12</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Станция 3. Случайная перестановка</h2>
+
+    <p class="ms-text">
+      Пять разных карточек с буквами А, Б, В, Г, Д случайно
+      выкладывают в ряд. Найдём вероятность того, что А и Б
+      окажутся рядом.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Все перестановки</span>
+      Пять различных карточек можно расположить
+      5! = 120 способами.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Благоприятные перестановки
+      </span>
+      Считаем А и Б одним блоком. Вместе с В, Г, Д получаем четыре
+      объекта: 4! способов. Внутри блока возможны порядки АБ и БА,
+      поэтому m = 2 · 4! = 48.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">48</span>
+          <span class="ms-den">120</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">2</span>
+          <span class="ms-den">5</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Станция 4. Вероятность через дополнение</h2>
+
+    <p class="ms-text">
+      Из 6 девочек и 4 мальчиков случайно выбирают команду из трёх
+      человек. Найдём вероятность того, что в команде будет хотя бы
+      один мальчик.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Почему удобнее считать противоположное событие
+      </span>
+      Событие «хотя бы один мальчик» включает несколько случаев:
+      один, два или три мальчика. Проще вычесть из единицы вероятность
+      того, что выбраны только девочки.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Всего команд: C<sub>10</sub><sup>3</sup> = 120.
+      </div>
+
+      <div class="ms-math-row">
+        Команд только из девочек:
+        C<sub>6</sub><sup>3</sup> = 20.
+      </div>
+
+      <div class="ms-formula">
+        P(A) = 1 −
+        <span class="ms-frac">
+          <span class="ms-num">20</span>
+          <span class="ms-den">120</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">5</span>
+          <span class="ms-den">6</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>7. Мини-лаборатория: самостоятельная часть</h2>
+
+    <p class="ms-text">
+      Для каждой задачи сначала запишите модель подсчёта, затем
+      найдите n, m и вероятность. Решение раскрывается для проверки.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        1. Из восьми учеников случайно выбирают двух. Какова
+        вероятность того, что будут выбраны два заранее указанных
+        ученика?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего пар C<sub>8</sub><sup>2</sup> = 28.
+            Благоприятная пара только одна.
+          </p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">28</span>
+            </span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Из карточек с числами 1–9 случайно выбирают две разные
+        карточки. Какова вероятность того, что обе карточки содержат
+        нечётные числа?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего пар:
+            C<sub>9</sub><sup>2</sup> = 36.
+            Нечётных чисел пять: 1, 3, 5, 7, 9.
+            Благоприятных пар
+            C<sub>5</sub><sup>2</sup> = 10.
+          </p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">10</span>
+              <span class="ms-den">36</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">5</span>
+                <span class="ms-den">18</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Семь разных книг случайно расставляют на полке.
+        Какова вероятность того, что две заданные книги окажутся
+        рядом?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего перестановок 7!. Благоприятных: заданную пару
+            считаем блоком, поэтому 2 · 6!.
+          </p>
+          <p>
+            P = 2 · 6! : 7! =
+            <span class="ms-frac">
+              <span class="ms-num">2</span>
+              <span class="ms-den">7</span>
+            </span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Из колоды с карточками 1–12 случайно выбирают три разные
+        карточки. Какова вероятность того, что все числа делятся
+        на 3?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Числа, делящиеся на 3: 3, 6, 9, 12 — всего четыре.
+            Все тройки:
+            C<sub>12</sub><sup>3</sup> = 220.
+            Благоприятные:
+            C<sub>4</sub><sup>3</sup> = 4.
+          </p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">4</span>
+              <span class="ms-den">220</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">55</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. Из 5 девочек и 4 мальчиков случайно выбирают команду
+        из трёх человек. Какова вероятность того, что в команде
+        ровно две девочки?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего команд:
+            C<sub>9</sub><sup>3</sup> = 84.
+            Двух девочек выбирают
+            C<sub>5</sub><sup>2</sup> = 10 способами,
+            одного мальчика —
+            C<sub>4</sub><sup>1</sup> = 4 способами.
+          </p>
+          <p>
+            m = 10 · 4 = 40.
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">40</span>
+              <span class="ms-den">84</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">10</span>
+                <span class="ms-den">21</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. Четыре разные карточки случайно выкладывают в ряд.
+        Какова вероятность того, что заданная карточка окажется
+        первой?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего перестановок 4! = 24. Если заданная карточка стоит
+            первой, остальные три располагаются 3! = 6 способами.
+          </p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">6</span>
+              <span class="ms-den">24</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">4</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Из десяти билетов, среди которых три выигрышных,
+        случайно выбирают два. Какова вероятность выбрать хотя бы
+        один выигрышный билет?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего пар:
+            C<sub>10</sub><sup>2</sup> = 45.
+            Проще вычесть вероятность выбора двух проигрышных
+            билетов. Проигрышных билетов семь, таких пар:
+            C<sub>7</sub><sup>2</sup> = 21.
+          </p>
+          <p>
+            P = 1 −
+            <span class="ms-frac">
+              <span class="ms-num">21</span>
+              <span class="ms-den">45</span>
+            </span>
+            =
+            <span class="ms-frac">
+              <span class="ms-num">24</span>
+              <span class="ms-den">45</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">8</span>
+                <span class="ms-den">15</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Из цифр 1, 2, 3, 4, 5 случайно составляют пятизначное
+        число без повторений. Какова вероятность того, что число
+        начинается с нечётной цифры?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего чисел 5! = 120. Первую позицию можно заполнить
+            одной из трёх нечётных цифр: 1, 3 или 5.
+            Остальные цифры располагаются 4! способами.
+          </p>
+          <p>
+            m = 3 · 4! = 72.
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">72</span>
+              <span class="ms-den">120</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">3</span>
+                <span class="ms-den">5</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Итог</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Одинаковые исходы</strong>
+        <span class="ms-card-text">
+          В числителе и знаменателе считай объекты одного типа:
+          пары с парами, команды с командами, перестановки
+          с перестановками.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Правильная модель</strong>
+        <span class="ms-card-text">
+          Порядок важен — применяй последовательный выбор или
+          перестановки; порядок не важен — сочетания.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Контроль ответа</strong>
+        <span class="ms-card-text">
+          Вероятность должна находиться от 0 до 1. Дробь нужно
+          сократить и проверить смысл результата.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/sochetaniya-treugolnik-paskalya/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/geometricheskaya-veroyatnost/"
+    >
+      Следующий раздел
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,824 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Квадратные уравнения · Тема 4.2
+    </div>
+
+    <h1 class="ms-title">Способы решения квадратных уравнений</h1>
+
+    <p class="ms-subtitle">
+      Разберём универсальную формулу корней через дискриминант,
+      научимся определять количество корней, решать уравнения разложением
+      на множители и выделением полного квадрата, а также выбирать
+      наиболее удобный способ для конкретного уравнения.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Не каждое уравнение удобно решать одинаково</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Дискриминант квадратного уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Алгоритм решения через дискриминант</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Решение разложением на множители</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Решение выделением полного квадрата</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как выбрать удобный способ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Проверка найденных корней</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Быстрый выбор способа</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Не каждое уравнение удобно решать одинаково</h2>
+
+    <p class="ms-text">
+      Любое квадратное уравнение можно привести к виду ax² + bx + c = 0,
+      где a ≠ 0. После этого выбирают способ решения. Универсальным является
+      способ через дискриминант, но некоторые уравнения быстрее решаются
+      разложением на множители или выделением полного квадрата.
+    </p>
+
+    <div class="ms-method-grid ms-card-grid ms-columns-3">
+      <div class="ms-method-card ms-card">
+        <span class="ms-method-icon">D</span>
+        <strong class="ms-card-title">Через дискриминант</strong>
+        <span class="ms-card-text">
+          Универсальный способ для полного квадратного уравнения.
+        </span>
+      </div>
+
+      <div class="ms-method-card ms-card">
+        <span class="ms-method-icon">( )( )</span>
+        <strong class="ms-card-title">Разложением на множители</strong>
+        <span class="ms-card-text">
+          Удобен, когда трёхчлен легко представить произведением.
+        </span>
+      </div>
+
+      <div class="ms-method-card ms-card">
+        <span class="ms-method-icon">(x − m)²</span>
+        <strong class="ms-card-title">Выделением полного квадрата</strong>
+        <span class="ms-card-text">
+          Позволяет свести уравнение к виду (x − m)² = n.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Дискриминант квадратного уравнения</h2>
+
+    <p class="ms-text">
+      Для уравнения ax² + bx + c = 0 вычисляют число,
+      которое называется дискриминантом.
+    </p>
+
+    <div class="ms-discriminant-box">
+      <span class="ms-discriminant-main">D = b² − 4ac</span>
+      <span class="ms-discriminant-caption">
+        Знак дискриминанта определяет количество действительных корней.
+      </span>
+    </div>
+
+    <div class="ms-d-grid ms-card-grid ms-columns-3">
+      <div class="ms-d-card ms-card">
+        <span class="ms-d-value">D &gt; 0</span>
+        <strong class="ms-card-title">Два различных корня</strong>
+        <span class="ms-card-text">
+          Корень из D положителен, поэтому формулы дают два разных значения.
+        </span>
+      </div>
+
+      <div class="ms-d-card ms-card">
+        <span class="ms-d-value">D = 0</span>
+        <strong class="ms-card-title">Один корень</strong>
+        <span class="ms-card-text">
+          Два корня совпадают. Иногда говорят: один корень кратности два.
+        </span>
+      </div>
+
+      <div class="ms-d-card ms-card">
+        <span class="ms-d-value">D &lt; 0</span>
+        <strong class="ms-card-title">Действительных корней нет</strong>
+        <span class="ms-card-text">
+          Арифметический квадратный корень из отрицательного числа в R не существует.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-formula-stack">
+      <div class="ms-formula-row">
+        При D &gt; 0:
+        <math aria-label="икс один равен минус b минус квадратный корень из D делённое на два a">
+          <mrow>
+            <msub><mi>x</mi><mn>1</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mo>−</mo><mi>b</mi><mo>−</mo><msqrt><mi>D</mi></msqrt></mrow>
+              <mrow><mn>2</mn><mi>a</mi></mrow>
+            </mfrac>
+          </mrow>
+        </math>,
+        <math aria-label="икс два равен минус b плюс квадратный корень из D делённое на два a">
+          <mrow>
+            <msub><mi>x</mi><mn>2</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mo>−</mo><mi>b</mi><mo>+</mo><msqrt><mi>D</mi></msqrt></mrow>
+              <mrow><mn>2</mn><mi>a</mi></mrow>
+            </mfrac>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-formula-row">
+        При D = 0:
+        <math aria-label="икс равен минус b делённое на два a">
+          <mrow>
+            <mi>x</mi>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mo>−</mo><mi>b</mi></mrow>
+              <mrow><mn>2</mn><mi>a</mi></mrow>
+            </mfrac>
+          </mrow>
+        </math>.
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Алгоритм решения через дискриминант</h2>
+
+    <div class="ms-solution-steps">
+      <div class="ms-solution-step">
+        <span class="ms-solution-number">1</span>
+        <strong>Запишите стандартный вид</strong>
+        <span>Слева ax² + bx + c, справа нуль.</span>
+      </div>
+
+      <div class="ms-solution-step">
+        <span class="ms-solution-number">2</span>
+        <strong>Найдите a, b и c</strong>
+        <span>Обязательно учитывайте знаки коэффициентов.</span>
+      </div>
+
+      <div class="ms-solution-step">
+        <span class="ms-solution-number">3</span>
+        <strong>Вычислите D</strong>
+        <span>Подставьте коэффициенты в D = b² − 4ac.</span>
+      </div>
+
+      <div class="ms-solution-step">
+        <span class="ms-solution-number">4</span>
+        <strong>Определите число корней</strong>
+        <span>Сравните дискриминант с нулём.</span>
+      </div>
+
+      <div class="ms-solution-step">
+        <span class="ms-solution-number">5</span>
+        <strong>Найдите и проверьте корни</strong>
+        <span>Используйте формулу и при необходимости выполните подстановку.</span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Два различных корня</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      2x² − 7x + 3 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        a = 2, b = −7, c = 3.
+      </div>
+
+      <div class="ms-math-row">
+        D = (−7)² − 4 · 2 · 3 = 49 − 24 = 25.
+      </div>
+
+      <div class="ms-math-row">
+        D &gt; 0, поэтому уравнение имеет два корня.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс один равен семь минус пять делённое на четыре">
+          <mrow>
+            <msub><mi>x</mi><mn>1</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mn>7</mn><mo>−</mo><mn>5</mn></mrow>
+              <mn>4</mn>
+            </mfrac>
+            <mo>=</mo>
+            <mfrac><mn>1</mn><mn>2</mn></mfrac>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс два равен семь плюс пять делённое на четыре">
+          <mrow>
+            <msub><mi>x</mi><mn>2</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mn>7</mn><mo>+</mo><mn>5</mn></mrow>
+              <mn>4</mn>
+            </mfrac>
+            <mo>=</mo>
+            <mn>3</mn>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Ответ:
+          <math aria-label="одна вторая"><mfrac><mn>1</mn><mn>2</mn></mfrac></math>;
+          3.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Дискриминант равен нулю</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x² − 6x + 9 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        D = (−6)² − 4 · 1 · 9 = 36 − 36 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс равен шесть делённое на два">
+          <mrow>
+            <mi>x</mi>
+            <mo>=</mo>
+            <mfrac><mn>6</mn><mn>2</mn></mfrac>
+            <mo>=</mo>
+            <mn>3</mn>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 3.</span>
+      </div>
+    </div>
+
+    <h3>Пример 3. Отрицательный дискриминант</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        3x² + 2x + 4 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        D = 2² − 4 · 3 · 4 = 4 − 48 = −44.
+      </div>
+
+      <div class="ms-math-row">
+        D &lt; 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: действительных корней нет.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Решение разложением на множители</h2>
+
+    <p class="ms-text">
+      Если левую часть можно представить произведением,
+      используют свойство нулевого произведения:
+      если uv = 0, то u = 0 или v = 0.
+    </p>
+
+    <div class="ms-rule-box">
+      a(x − x₁)(x − x₂) = 0
+      <br><br>
+      ⇔ x = x₁ или x = x₂.
+    </div>
+
+    <h3>Пример 4. Разложение квадратного трёхчлена</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x² − 5x + 6 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x² − 5x + 6 = (x − 2)(x − 3).
+      </div>
+
+      <div class="ms-math-row">
+        (x − 2)(x − 3) = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x − 2 = 0 или x − 3 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 2; 3.</span>
+      </div>
+    </div>
+
+    <div class="ms-choice-grid ms-card-grid ms-columns-2">
+      <div class="ms-choice-card ms-card">
+        <span class="ms-choice-formula">ax² + bx = 0</span>
+        <strong class="ms-card-title">Вынесите x за скобки</strong>
+        <span class="ms-card-text">
+          x(ax + b) = 0. Этот способ был разобран для неполных уравнений.
+        </span>
+      </div>
+
+      <div class="ms-choice-card ms-card">
+        <span class="ms-choice-formula">u² − v² = 0</span>
+        <strong class="ms-card-title">Используйте разность квадратов</strong>
+        <span class="ms-card-text">
+          (u − v)(u + v) = 0. Например, x² − 16 = 0.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Разложение на множители удобно только тогда,
+      когда разложение видно или легко находится.
+      Если это не так, надёжнее использовать дискриминант.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Решение выделением полного квадрата</h2>
+
+    <p class="ms-text">
+      Способ основан на формуле квадрата суммы или разности.
+      Квадратный трёхчлен преобразуют так, чтобы получить
+      уравнение вида (x − m)² = n.
+    </p>
+
+    <div class="ms-square-completion">
+      <div class="ms-square-completion-step">
+        <strong>Оставьте x² и x</strong>
+        <span>Свободный член перенесите в правую часть.</span>
+      </div>
+
+      <div class="ms-square-completion-step">
+        <strong>Добавьте квадрат половины коэффициента</strong>
+        <span>Одно и то же число добавляют в обе части.</span>
+      </div>
+
+      <div class="ms-square-completion-step">
+        <strong>Сверните квадрат</strong>
+        <span>Используйте формулу (x − m)².</span>
+      </div>
+
+      <div class="ms-square-completion-step">
+        <strong>Извлеките квадратный корень</strong>
+        <span>Не забудьте два противоположных значения.</span>
+      </div>
+    </div>
+
+    <h3>Пример 5. Выделяем полный квадрат</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      x² − 8x + 7 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x² − 8x = −7.
+      </div>
+
+      <div class="ms-math-row">
+        Добавим в обе части 16:
+        x² − 8x + 16 = 9.
+      </div>
+
+      <div class="ms-math-row">
+        (x − 4)² = 9.
+      </div>
+
+      <div class="ms-math-row">
+        x − 4 = −3 или x − 4 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        x = 1 или x = 7.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 1; 7.</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      При переходе от (x − 4)² = 9 нельзя писать только x − 4 = 3.
+      Квадрат числа 3 и квадрат числа −3 равны 9.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Как выбрать удобный способ</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Вид уравнения</th>
+            <th>Удобный способ</th>
+            <th>Почему</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ax² + bx + c = 0 без очевидного разложения</td>
+            <td>Дискриминант</td>
+            <td>Формула работает для любого квадратного уравнения.</td>
+          </tr>
+          <tr>
+            <td>ax² + bx = 0</td>
+            <td>Вынесение x за скобки</td>
+            <td>Сразу получается нулевое произведение.</td>
+          </tr>
+          <tr>
+            <td>x² − m² = 0</td>
+            <td>Разность квадратов</td>
+            <td>Получается (x − m)(x + m) = 0.</td>
+          </tr>
+          <tr>
+            <td>Трёхчлен легко раскладывается</td>
+            <td>Разложение на множители</td>
+            <td>Решение получается без вычисления дискриминанта.</td>
+          </tr>
+          <tr>
+            <td>Коэффициент при x² равен 1, b — чётное число</td>
+            <td>Выделение полного квадрата</td>
+            <td>Половину коэффициента при x удобно возвести в квадрат.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Пример 6. Один пример — два способа</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      x² − 7x + 12 = 0.
+    </div>
+
+    <div class="ms-choice-grid ms-card-grid ms-columns-2">
+      <div class="ms-choice-card ms-card">
+        <span class="ms-choice-formula">Через множители</span>
+        <strong class="ms-card-title">(x − 3)(x − 4) = 0</strong>
+        <span class="ms-card-text">
+          Получаем x = 3 или x = 4.
+        </span>
+      </div>
+
+      <div class="ms-choice-card ms-card">
+        <span class="ms-choice-formula">Через дискриминант</span>
+        <strong class="ms-card-title">D = 49 − 48 = 1</strong>
+        <span class="ms-card-text">
+          Формула корней также даёт x = 3 и x = 4.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Проверка найденных корней</h2>
+
+    <p class="ms-text">
+      Корень уравнения — значение переменной, при котором левая
+      и правая части равны. Поэтому любой найденный корень можно проверить
+      прямой подстановкой в исходное уравнение.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Проверим x = 3 для уравнения 2x² − 7x + 3 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        2 · 3² − 7 · 3 + 3 = 18 − 21 + 3 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Значит, x = 3 действительно является корнем.</span>
+      </div>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Типичная ошибка</th>
+            <th>Как избежать</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>В D подставляют b без его знака.</td>
+            <td>Сначала отдельно выпишите a, b и c.</td>
+          </tr>
+          <tr>
+            <td>Забывают квадрат у b.</td>
+            <td>Записывайте формулу D = b² − 4ac полностью.</td>
+          </tr>
+          <tr>
+            <td>В знаменателе пишут только 2.</td>
+            <td>Знаменатель формулы корней равен 2a.</td>
+          </tr>
+          <tr>
+            <td>При D = 0 ищут два разных корня.</td>
+            <td>Оба значения совпадают: x = −b/(2a).</td>
+          </tr>
+          <tr>
+            <td>При извлечении корня из квадрата теряют один знак.</td>
+            <td>Из u² = n при n &gt; 0 следует u = ±√n.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Найдите дискриминант уравнения x² − 5x + 4 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          a = 1, b = −5, c = 4.
+          <br><br>
+          D = (−5)² − 4 · 1 · 4 = 25 − 16 = 9.
+          <br><br>
+          <strong>Ответ: 9.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Сколько действительных корней имеет уравнение 2x² + 3x + 5 = 0?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = 3² − 4 · 2 · 5 = 9 − 40 = −31.
+          <br><br>
+          D &lt; 0, поэтому действительных корней нет.
+          <br><br>
+          <strong>Ответ: 0.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Решите уравнение x² − 9x + 20 = 0 через дискриминант.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = (−9)² − 4 · 1 · 20 = 81 − 80 = 1.
+          <br><br>
+          x₁ = (9 − 1)/2 = 4,
+          x₂ = (9 + 1)/2 = 5.
+          <br><br>
+          <strong>Ответ: 4; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Решите уравнение 4x² − 12x + 9 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = (−12)² − 4 · 4 · 9 = 144 − 144 = 0.
+          <br><br>
+          x = 12/(2 · 4) = 3/2.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="три вторых"><mfrac><mn>3</mn><mn>2</mn></mfrac></math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Решите разложением на множители:
+        x² − 10x + 21 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x² − 10x + 21 = (x − 3)(x − 7).
+          <br><br>
+          (x − 3)(x − 7) = 0.
+          <br><br>
+          <strong>Ответ: 3; 7.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Решите уравнение x² − 25 = 0 наиболее коротким способом.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Используем разность квадратов:
+          <br><br>
+          (x − 5)(x + 5) = 0.
+          <br><br>
+          <strong>Ответ: −5; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Решите выделением полного квадрата:
+        x² − 4x − 5 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x² − 4x = 5.
+          <br>
+          x² − 4x + 4 = 9.
+          <br>
+          (x − 2)² = 9.
+          <br>
+          x − 2 = −3 или x − 2 = 3.
+          <br><br>
+          <strong>Ответ: −1; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Решите уравнение 3x² + x − 2 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = 1² − 4 · 3 · (−2) = 1 + 24 = 25.
+          <br><br>
+          x₁ = (−1 − 5)/6 = −1,
+          x₂ = (−1 + 5)/6 = 2/3.
+          <br><br>
+          <strong>
+            Ответ: −1;
+            <math aria-label="две третьих"><mfrac><mn>2</mn><mn>3</mn></mfrac></math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        При каком значении m уравнение x² − 6x + m = 0
+        имеет один действительный корень?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Один корень получается при D = 0.
+          <br><br>
+          D = (−6)² − 4 · 1 · m = 36 − 4m.
+          <br>
+          36 − 4m = 0, поэтому m = 9.
+          <br><br>
+          <strong>Ответ: 9.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Решите уравнение 6x² − 13x + 6 = 0
+        и проверьте меньший корень подстановкой.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = (−13)² − 4 · 6 · 6 = 169 − 144 = 25.
+          <br><br>
+          x₁ = (13 − 5)/12 = 2/3,
+          x₂ = (13 + 5)/12 = 3/2.
+          <br><br>
+          Проверка x = 2/3:
+          <br>
+          6 · (2/3)² − 13 · (2/3) + 6
+          = 8/3 − 26/3 + 18/3 = 0.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="две третьих"><mfrac><mn>2</mn><mn>3</mn></mfrac></math>;
+            <math aria-label="три вторых"><mfrac><mn>3</mn><mn>2</mn></mfrac></math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Быстрый выбор способа</h2>
+
+    <div class="ms-method-check">
+      <div class="ms-method-check-card ms-card">
+        <strong class="ms-card-title">Есть общий множитель?</strong>
+        <span class="ms-card-text">
+          Вынесите его за скобки и примените свойство нулевого произведения.
+        </span>
+      </div>
+
+      <div class="ms-method-check-card ms-card">
+        <strong class="ms-card-title">Видна разность квадратов?</strong>
+        <span class="ms-card-text">
+          Сразу разложите выражение на два сопряжённых множителя.
+        </span>
+      </div>
+
+      <div class="ms-method-check-card ms-card">
+        <strong class="ms-card-title">Трёхчлен легко раскладывается?</strong>
+        <span class="ms-card-text">
+          Используйте множители. Это обычно короче формулы.
+        </span>
+      </div>
+
+      <div class="ms-method-check-card ms-card">
+        <strong class="ms-card-title">Простой способ не виден?</strong>
+        <span class="ms-card-text">
+          Применяйте дискриминант: он работает для любого квадратного уравнения.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top: 20px;">
+      Универсальный маршрут:
+      <br>
+      стандартный вид → коэффициенты a, b, c →
+      дискриминант D → количество корней → формула корней → проверка.
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующей теме научимся решать рациональные уравнения,
+      которые после введения новой переменной или преобразований
+      сводятся к квадратному уравнению.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/kakie-byvayut-kvadratnye-uravneniya/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/reshenie-raczionalnogo-uravneniya-svodyashhegosya-k-kvadratnomu/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

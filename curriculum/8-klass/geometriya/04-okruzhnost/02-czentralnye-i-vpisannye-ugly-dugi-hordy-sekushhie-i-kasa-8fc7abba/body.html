@@ -1,0 +1,500 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">8 класс · Геометрия · Окружность · Тема 4.2</div>
+<h1 class="ms-title">Центральные и вписанные углы. Дуги, хорды, секущие и касательные</h1>
+<p class="ms-subtitle">
+      Свяжем углы с дугами окружности, докажем теорему о вписанном угле,
+      разберём свойства хорд и получим формулы для пересекающихся хорд,
+      секущих и касательных.
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="/czentralnye-i-vpisannye-ugly-dugi-hordy-sekushhie-i-kasatelnye/#theory">Перейти к материалу</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Дуга, хорда и центральный угол</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Вписанный угол</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Следствия из теоремы о вписанном угле</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Свойства хорд</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Углы между хордами, секущими и касательной</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Произведения отрезков</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Как выбрать нужную теорему</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Финальная схема: дуга определяет угол</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="theory">
+<h2>1. Дуга, хорда и центральный угол</h2>
+<p class="ms-text">
+      Две точки A и B делят окружность на две дуги. Если не указано иное,
+      под дугой AB обычно понимают меньшую дугу. Отрезок AB называется
+      <strong>хордой</strong>, а угол AOB с вершиной в центре окружности —
+      <strong>центральным углом</strong>.
+    </p>
+<div class="ms-rule-box">
+      Градусная мера меньшей дуги AB равна градусной мере центрального угла AOB,
+      который на неё опирается.
+    </div>
+<div class="ms-figure">
+<p class="ms-figure-title">Одна дуга связывает хорду и центральный угол</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Центральный угол AOB, хорда AB и дуга AB" class="ms-svg" role="img" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="480" rx="24" width="1000"></rect>
+<circle cx="305" cy="240" fill="#eff6ff" r="145" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="305" cy="240" fill="#2563eb" r="6"></circle>
+<line stroke="#7c3aed" stroke-width="4" x1="305" x2="179.4" y1="240" y2="312.5"></line>
+<line stroke="#7c3aed" stroke-width="4" x1="305" x2="430.6" y1="240" y2="312.5"></line>
+<line stroke="#16a34a" stroke-width="5" x1="179.4" x2="430.6" y1="312.5" y2="312.5"></line>
+<path d="M 179.4 312.5 A 145 145 0 0 0 430.6 312.5" fill="none" stroke="#f59e0b" stroke-linecap="round" stroke-width="9"></path>
+<circle cx="179.4" cy="312.5" fill="#16a34a" r="6"></circle>
+<circle cx="430.6" cy="312.5" fill="#16a34a" r="6"></circle>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="800">
+<text x="317" y="232">O</text>
+<text x="151" y="342">A</text>
+<text x="440" y="342">B</text>
+</g>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#6d28d9" font-size="19" text-anchor="middle" x="305" y="292">угол AOB</text>
+<text fill="#15803d" font-size="18" text-anchor="middle" x="305" y="343">хорда AB</text>
+<text fill="#b45309" font-size="18" text-anchor="middle" x="305" y="404">меньшая дуга AB</text>
+</g>
+<rect fill="#ffffff" height="270" rx="22" stroke="#dbeafe" stroke-width="2" width="350" x="585" y="92"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="19" font-weight="800" text-anchor="middle" x="760" y="137">Центральный угол</text>
+<text fill="#4b5563" font-size="17" text-anchor="middle" x="760" y="177">вершина находится в центре</text>
+<text fill="#15803d" font-size="19" font-weight="800" text-anchor="middle" x="760" y="227">Хорда</text>
+<text fill="#4b5563" font-size="17" text-anchor="middle" x="760" y="267">соединяет две точки окружности</text>
+<text fill="#b45309" font-size="19" font-weight="800" text-anchor="middle" x="760" y="317">Дуга AB = угол AOB</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-note">
+      Если центральный угол равен 120°, меньшая дуга равна 120°,
+      а большая дуга — 360° − 120° = 240°.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-2">
+<h2>2. Вписанный угол</h2>
+<p class="ms-text">
+      Угол называется <strong>вписанным</strong>, если его вершина лежит на окружности,
+      а стороны пересекают окружность. Дуга, заключённая между сторонами угла
+      и не содержащая его вершину, называется дугой, на которую опирается угол.
+    </p>
+<div class="ms-rule-box">
+      Вписанный угол равен половине градусной меры дуги, на которую он опирается:
+      <strong>угол ACB = дуга AB : 2</strong>.
+    </div>
+<div class="ms-figure">
+<p class="ms-figure-title">Центральный и вписанный углы опираются на одну дугу AB</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Центральный угол AOB и вписанный угол ACB на одной дуге" class="ms-svg" role="img" viewBox="0 0 1020 500" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="500" rx="24" width="1020"></rect>
+<circle cx="330" cy="250" fill="#eff6ff" r="165" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="330" cy="250" fill="#2563eb" r="6"></circle>
+<line stroke="#7c3aed" stroke-width="4" x1="330" x2="187.1" y1="250" y2="332.5"></line>
+<line stroke="#7c3aed" stroke-width="4" x1="330" x2="472.9" y1="250" y2="332.5"></line>
+<line stroke="#16a34a" stroke-width="4" x1="330" x2="187.1" y1="85" y2="332.5"></line>
+<line stroke="#16a34a" stroke-width="4" x1="330" x2="472.9" y1="85" y2="332.5"></line>
+<path d="M 187.1 332.5 A 165 165 0 0 0 472.9 332.5" fill="none" stroke="#f59e0b" stroke-linecap="round" stroke-width="10"></path>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="800">
+<text x="342" y="242">O</text>
+<text x="158" y="362">A</text>
+<text x="482" y="362">B</text>
+<text x="320" y="71">C</text>
+</g>
+<rect fill="#f9fafb" height="300" rx="22" stroke="#dbeafe" stroke-width="2" width="380" x="575" y="82"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#6d28d9" font-size="19" font-weight="800" text-anchor="middle" x="765" y="130">Центральный угол AOB</text>
+<text fill="#4b5563" font-size="18" text-anchor="middle" x="765" y="168">равен дуге AB</text>
+<text fill="#15803d" font-size="19" font-weight="800" text-anchor="middle" x="765" y="228">Вписанный угол ACB</text>
+<text fill="#4b5563" font-size="18" text-anchor="middle" x="765" y="266">равен половине дуги AB</text>
+<text fill="#b45309" font-size="20" font-weight="800" text-anchor="middle" x="765" y="328">угол AOB = 2угол ACB</text>
+</g>
+<text fill="#6d28d9" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="330" y="292">угол AOB</text>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="330" y="130">угол ACB</text>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство теоремы о вписанном угле</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>
+          Сначала рассмотрим случай, когда центр O лежит на стороне CA угла ACB. Тогда CA — диаметр, а точки C, O и A расположены на одной прямой именно в этом порядке.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>
+          В треугольнике OBC стороны OB и OC равны как радиусы,
+          поэтому углы OBC и BCO равны.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>
+          Центральный угол AOB является внешним углом треугольника OBC,
+          поэтому он равен сумме двух равных внутренних углов:
+          угол AOB = 2 · угол ACB.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>
+          В остальных положениях центра через вершину C проводят диаметр.
+          Вписанный угол представляют как сумму или разность двух углов рассмотренного вида.
+          Поэтому во всех случаях угол ACB равен половине дуги AB.
+        </div>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-3">
+<h2>3. Следствия из теоремы о вписанном угле</h2>
+<div class="ms-mini-grid ms-card-grid ms-columns-3">
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Одна хорда</strong>
+<span class="ms-card-text">Вписанные углы, опирающиеся на одну хорду с одной стороны, равны.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Диаметр</strong>
+<span class="ms-card-text">Вписанный угол, опирающийся на диаметр, равен 90°.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Вписанный четырёхугольник</strong>
+<span class="ms-card-text">Сумма противоположных углов равна 180°.</span>
+</div>
+</div>
+<div class="ms-figure">
+<p class="ms-figure-title">Три важных следствия на одном рисунке</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Равные вписанные углы, угол в полуокружности и вписанный четырёхугольник" class="ms-svg" role="img" viewBox="0 0 1100 430" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="430" rx="24" width="1100"></rect>
+<!-- 1 -->
+<rect fill="#ffffff" height="360" rx="22" stroke="#dbeafe" stroke-width="2" width="330" x="25" y="35"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="190" y="73">Углы на одной хорде</text>
+<circle cx="190" cy="220" fill="#eff6ff" r="110" stroke="#2563eb" stroke-width="4"></circle>
+<line stroke="#f59e0b" stroke-width="5" x1="103" x2="277" y1="287" y2="287"></line>
+<line stroke="#16a34a" stroke-width="3" x1="150" x2="103" y1="120" y2="287"></line>
+<line stroke="#16a34a" stroke-width="3" x1="150" x2="277" y1="120" y2="287"></line>
+<line stroke="#7c3aed" stroke-width="3" x1="230" x2="103" y1="120" y2="287"></line>
+<line stroke="#7c3aed" stroke-width="3" x1="230" x2="277" y1="120" y2="287"></line>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="150" y="157">α</text>
+<text fill="#6d28d9" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="230" y="157">α</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="190" y="366">оба угла опираются на хорду AB</text>
+<!-- 2 -->
+<rect fill="#ffffff" height="360" rx="22" stroke="#dbeafe" stroke-width="2" width="330" x="385" y="35"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="550" y="73">Угол в полуокружности</text>
+<circle cx="550" cy="220" fill="#f7f4ff" r="110" stroke="#7c3aed" stroke-width="4"></circle>
+<line stroke="#2563eb" stroke-width="5" x1="440" x2="660" y1="220" y2="220"></line>
+<line stroke="#16a34a" stroke-width="4" x1="550" x2="440" y1="110" y2="220"></line>
+<line stroke="#16a34a" stroke-width="4" x1="550" x2="660" y1="110" y2="220"></line>
+<polyline fill="none" points="535,125 550,140 565,125" stroke="#16a34a" stroke-width="3"></polyline>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="550" y="162">90°</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="550" y="366">дуга диаметра равна 180°</text>
+<!-- 3 -->
+<rect fill="#ffffff" height="360" rx="22" stroke="#dbeafe" stroke-width="2" width="330" x="745" y="35"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="910" y="73">Вписанный четырёхугольник</text>
+<circle cx="910" cy="220" fill="#f0fdf4" r="112" stroke="#16a34a" stroke-width="4"></circle>
+<polygon fill="none" points="835,135 1000,155 980,300 820,290" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<text fill="#6d28d9" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="850" y="176">α</text>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="952" y="278">β</text>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="910" y="366">α + β = 180°</text>
+</svg>
+</div>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 1. Угол, опирающийся на диаметр</span>
+      AB — диаметр окружности, C лежит на окружности.
+      Дуга AB равна 180°, поэтому угол ACB = 180° : 2 = <strong>90°</strong>.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-4">
+<h2>4. Свойства хорд</h2>
+<div class="ms-rule-box">
+      Перпендикуляр, проведённый из центра окружности к хорде,
+      делит эту хорду пополам.
+    </div>
+<div class="ms-figure">
+<p class="ms-figure-title">Расстояние от центра до хорды и равные хорды</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Две равные хорды и перпендикуляры из центра к хордам" class="ms-svg" role="img" viewBox="0 0 1040 500" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="500" rx="24" width="1040"></rect>
+<circle cx="330" cy="250" fill="#eff6ff" r="165" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="330" cy="250" fill="#2563eb" r="6"></circle>
+<!-- верхняя и нижняя хорды -->
+<line stroke="#f59e0b" stroke-width="5" x1="185.7" x2="474.3" y1="170" y2="170"></line>
+<line stroke="#16a34a" stroke-width="5" x1="185.7" x2="474.3" y1="330" y2="330"></line>
+<!-- перпендикуляры -->
+<line stroke="#93c5fd" stroke-width="4" x1="330" x2="330" y1="250" y2="170"></line>
+<line stroke="#7c3aed" stroke-width="4" x1="330" x2="330" y1="250" y2="330"></line>
+<!-- прямые углы -->
+<polyline fill="none" points="330,170 354,170 354,194" stroke="#93c5fd" stroke-linejoin="round" stroke-width="3"></polyline>
+<polyline fill="none" points="330,306 354,306 354,330" stroke="#7c3aed" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- штрихи равенства на нижней хорде -->
+<line stroke="#15803d" stroke-width="3" x1="255" x2="265" y1="322" y2="338"></line>
+<line stroke="#15803d" stroke-width="3" x1="395" x2="405" y1="322" y2="338"></line>
+<!-- штрихи равенства на верхней хорде -->
+<line stroke="#b45309" stroke-width="3" x1="255" x2="265" y1="162" y2="178"></line>
+<line stroke="#b45309" stroke-width="3" x1="395" x2="405" y1="162" y2="178"></line>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="19" font-weight="800">
+<text x="342" y="242">O</text>
+<text x="160" y="358">A</text>
+<text x="482" y="358">B</text>
+<text x="340" y="356">M</text>
+<text x="160" y="158">C</text>
+<text x="482" y="158">D</text>
+<text x="340" y="165">N</text>
+</g>
+<rect fill="#f9fafb" height="330" rx="22" stroke="#dbeafe" stroke-width="2" width="360" x="600" y="78"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="19" font-weight="800" text-anchor="middle" x="780" y="125">OM перпендикулярен AB</text>
+<text fill="#15803d" font-size="18" font-weight="800" text-anchor="middle" x="780" y="160">AM = MB</text>
+<text fill="#1d4ed8" font-size="19" font-weight="800" text-anchor="middle" x="780" y="215">ON перпендикулярен CD</text>
+<text fill="#b45309" font-size="18" font-weight="800" text-anchor="middle" x="780" y="250">CN = ND</text>
+<text fill="#6d28d9" font-size="19" font-weight="800" text-anchor="middle" x="780" y="305">OM = ON  ⇒  AB = CD</text>
+<text fill="#6d28d9" font-size="17" font-weight="800" text-anchor="middle" x="780" y="355">Чем ближе хорда к центру,</text>
+<text fill="#6d28d9" font-size="17" font-weight="800" text-anchor="middle" x="780" y="382">тем она длиннее</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство деления хорды пополам</span>
+<p>
+        Соединим центр O с концами хорды A и B.
+        Треугольники OMA и OMB прямоугольные.
+      </p>
+<p>
+        Их гипотенузы OA и OB равны как радиусы,
+        а катет OM общий. Следовательно, треугольники равны
+        по гипотенузе и катету, поэтому <strong>AM = MB</strong>.
+      </p>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-5">
+<h2>5. Углы между хордами, секущими и касательной</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Формулы для углов внутри и вне окружности</p>
+<div class="ms-image-wrap">
+<img alt="Формулы для углов между пересекающимися хордами, секущими и касательной" class="ms-img" decoding="async" loading="lazy" src="/media/uploads/2026/07/image-15.png" style="width:100%;max-width:100%;height:auto;display:block;object-fit:contain;"/>
+</div>
+</div>
+<div class="ms-rule-box">
+      Угол между касательной и хордой равен половине дуги,
+      заключённой внутри этого угла.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 2. Угол между касательной и хордой</span>
+      Дуга, заключённая между сторонами угла, равна 126°.
+      Тогда угол равен 126° : 2 = <strong>63°</strong>.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-6">
+<h2>6. Произведения отрезков</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Пересекающиеся хорды, две секущие и касательная с секущей</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Формулы произведений отрезков хорд, секущих и касательной" class="ms-svg" role="img" viewBox="0 0 1120 590" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="590" rx="24" width="1120"></rect>
+<!-- Хорды -->
+<rect fill="#f8fbff" height="510" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="25" y="35"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="195" y="73">Пересекающиеся хорды</text>
+<circle cx="195" cy="250" fill="#eff6ff" r="125" stroke="#2563eb" stroke-width="4"></circle>
+<line stroke="#7c3aed" stroke-width="4" x1="95" x2="295" y1="170" y2="330"></line>
+<line stroke="#16a34a" stroke-width="4" x1="100" x2="300" y1="330" y2="170"></line>
+<circle cx="197" cy="251" fill="#111827" r="6"></circle>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800">
+<text x="78" y="164">A</text>
+<text x="303" y="349">B</text>
+<text x="82" y="352">C</text>
+<text x="304" y="166">D</text>
+<text x="208" y="242">P</text>
+</g>
+<rect fill="#ffffff" height="78" rx="18" stroke="#dbeafe" stroke-width="2" width="270" x="60" y="410"></rect>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="195" y="458">PA · PB = PC · PD</text>
+<!-- Секущие -->
+<rect fill="#f8fbff" height="510" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="390" y="35"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="560" y="73">Две секущие из точки P</text>
+<circle cx="525" cy="260" fill="#f7f4ff" r="120" stroke="#7c3aed" stroke-width="4"></circle>
+<line stroke="#2563eb" stroke-width="4" x1="700" x2="420" y1="260" y2="170"></line>
+<line stroke="#16a34a" stroke-width="4" x1="700" x2="420" y1="260" y2="350"></line>
+<circle cx="700" cy="260" fill="#111827" r="6"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="714" y="252">P</text>
+<rect fill="#ffffff" height="78" rx="18" stroke="#dbeafe" stroke-width="2" width="270" x="425" y="410"></rect>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="560" y="458">PA · PB = PC · PD</text>
+<!-- Касательная и секущая -->
+<rect fill="#f8fbff" height="510" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="755" y="35"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="925" y="73">Касательная и секущая</text>
+<circle cx="900" cy="250" fill="#f0fdf4" r="115" stroke="#16a34a" stroke-width="4"></circle>
+<line stroke="#2563eb" stroke-width="4" x1="1060" x2="794" y1="300" y2="190"></line>
+<line stroke="#7c3aed" stroke-width="4" x1="1060" x2="930" y1="300" y2="360"></line>
+<circle cx="1060" cy="300" fill="#111827" r="6"></circle>
+<circle cx="930" cy="360" fill="#7c3aed" r="6"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="1071" y="292">P</text>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="941" y="385">T</text>
+<rect fill="#ffffff" height="78" rx="18" stroke="#dbeafe" stroke-width="2" width="270" x="790" y="410"></rect>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="925" y="458">PT² = PA · PB</text>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Почему произведения равны</span>
+<p>
+        Для пересекающихся хорд рассматривают пары треугольников,
+        образованных отрезками хорд. У них равны вертикальные углы,
+        а другие углы равны как вписанные, опирающиеся на одинаковые дуги.
+        Из подобия получается <strong>PA · PB = PC · PD</strong>.
+      </p>
+<p>
+        Для двух секущих из внешней точки доказательство также основано
+        на подобии треугольников и приводит к той же формуле.
+      </p>
+<p>
+        Для касательной PT и секущей PAB треугольники PTA и PBT подобны:
+        один угол общий, а угол между касательной и хордой равен вписанному углу,
+        опирающемуся на ту же дугу. Поэтому <strong>PT² = PA · PB</strong>.
+      </p>
+</div>
+<div class="ms-card-grid">
+<div class="ms-example">
+<span class="ms-example-title">Пример 3. Пересекающиеся хорды</span>
+        PA = 3 см, PB = 8 см, PC = 4 см.
+        <br/>3 · 8 = 4 · PD;
+        <br/><strong>PD = 6 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 4. Касательная и секущая</span>
+        PA = 4 см, PB = 9 см.
+        <br/>PT² = 4 · 9 = 36;
+        <br/><strong>PT = 6 см</strong>.
+      </div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-7">
+<h2>7. Как выбрать нужную теорему</h2>
+<div class="ms-table-wrap">
+<table class="ms-table">
+<thead>
+<tr>
+<th>Что изображено</th>
+<th>Что требуется</th>
+<th>Основная связь</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Центральный угол</td>
+<td>Найти дугу</td>
+<td>Угол равен дуге</td>
+</tr>
+<tr>
+<td>Вписанный угол</td>
+<td>Найти угол или дугу</td>
+<td>Угол равен половине дуги</td>
+</tr>
+<tr>
+<td>Перпендикуляр из центра к хорде</td>
+<td>Найти части хорды</td>
+<td>Хорда делится пополам</td>
+</tr>
+<tr>
+<td>Две пересекающиеся хорды</td>
+<td>Найти отрезок</td>
+<td>PA · PB = PC · PD</td>
+</tr>
+<tr>
+<td>Касательная и секущая</td>
+<td>Найти длину касательной</td>
+<td>PT² = PA · PB</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-8">
+<h2>Самопроверка</h2>
+<div class="ms-task">
+<p><strong>1.</strong> Центральный угол AOB равен 128°. Найдите градусную меру меньшей дуги AB.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>Меньшая дуга AB равна центральному углу: <strong>128°</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>2.</strong> Вписанный угол опирается на дугу 146°. Найдите этот угол.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>146° : 2 = <strong>73°</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>3.</strong> Вписанный угол равен 42°. Найдите дугу, на которую он опирается.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>Дуга в два раза больше угла: 42° · 2 = <strong>84°</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>4.</strong> AB — диаметр окружности, точка C лежит на окружности. Найдите угол ACB.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>Угол опирается на дугу 180°, поэтому равен <strong>90°</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>5.</strong> Вписанный четырёхугольник имеет угол 112°. Найдите противоположный угол.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>180° − 112° = <strong>68°</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>6.</strong> Перпендикуляр OM из центра окружности проведён к хорде AB. AB = 18 см. Найдите AM и MB.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>AM = MB = 18 : 2 = <strong>9 см</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>7.</strong> Хорды AB и CD пересекаются в точке P. PA = 4 см, PB = 6 см, PC = 3 см. Найдите PD.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>PA · PB = PC · PD.</p>
+<p>4 · 6 = 3 · PD, поэтому <strong>PD = 8 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>8.</strong> Из точки P проведены касательная PT и секущая PAB. PA = 5 см, PB = 20 см. Найдите PT.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>PT² = PA · PB = 5 · 20 = 100.</p>
+<p><strong>PT = 10 см</strong>.</p>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-9">
+<h2>Финальная схема: дуга определяет угол</h2>
+<div class="ms-final-grid">
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Углы</strong>
+<span class="ms-card-text">Центральный угол равен дуге, вписанный — половине дуги.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Хорды</strong>
+<span class="ms-card-text">Перпендикуляр из центра делит хорду пополам; равные хорды равноудалены от центра.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Секущие и касательные</strong>
+<span class="ms-card-text">Для длин используйте произведения отрезков, для углов — половину суммы или разности дуг.</span>
+</div>
+</div>
+</section>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/pryamaya-i-okruzhnost-kasatelnaya-vzaimnoe-raspolozhenie-dvuh-okruzhnostej/">Предыдущая тема</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn" href="/zamechatelnye-tochki-treugolnika-vpisannye-i-opisannye-chetyryohugolniki/">Следующая тема</a>
+</div>
+</div>
+<!-- /wp:html -->

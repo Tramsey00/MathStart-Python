@@ -1,0 +1,134 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .v2-lab {
+  background: #f5f8ff;
+  border: 1px solid #dbe4f4;
+  border-radius: 18px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.ms-lesson-page .v2-lab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+.ms-lesson-page .v2-lab-formula {
+  font-size: 25px;
+  font-family: 'Cambria Math',Cambria,serif;
+  color: #234c95;
+  background: white;
+  padding: 7px 18px;
+  border: 1px solid #dce6f6;
+  border-radius: 11px;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+}
+.ms-lesson-page .v2-small-button {
+  border: 1px solid #d7e1f1;
+  background: white;
+  color: #365f9e;
+  border-radius: 9px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 650;
+}
+.ms-lesson-page .v2-lab-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 258px;
+  gap: 18px;
+  align-items: start;
+}
+.ms-lesson-page .v2-plot-card {
+  background: white;
+  border: 1px solid #e2e8f2;
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 10px;
+}
+.ms-lesson-page .v2-live-plot {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 410px;
+  touch-action: pan-y;
+}
+.ms-lesson-page .v2-control-card {
+  background: white;
+  border: 1px solid #e0e7f2;
+  border-radius: 13px;
+  padding: 15px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.ms-lesson-page .v2-control-card label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #344d73;
+  display: block;
+  margin-bottom: 8px;
+}
+.ms-lesson-page .v2-control-card input[type=range] {
+  width: 100%;
+  accent-color: #3268d5;
+}
+.ms-lesson-page .v2-presets {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.ms-lesson-page .v2-presets button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 37px;
+  min-height: 36px;
+  border-radius: 8px;
+  border: 1px solid #dce4f1;
+  background: white;
+  color: #456287;
+  font-size: 15px;
+  padding: 5px 9px;
+}
+.ms-lesson-page .v2-presets button[aria-pressed=true] {
+  background: #2b62d0;
+  border-color: #2b62d0;
+  color: white;
+}
+.ms-lesson-page .v2-live-props {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20px;
+  padding: 8px 4px 0;
+  margin: 0;
+  font-size: 14px;
+}
+.ms-lesson-page .v2-live-props > div {
+  padding: 11px 0;
+  border-bottom: 1px solid #e2e8f4;
+}
+.ms-lesson-page .v2-live-props dt {
+  font-size: 12px;
+  color: #71829c;
+  margin-bottom: 3px;
+}
+.ms-lesson-page .v2-live-props dd {
+  margin: 0;
+  color: #2c4569;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.ms-lesson-page .v2-point-readout {
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 50px;
+  color: #455d7d;
+  padding: 7px 8px 0;
+}
+.ms-lesson-page .v2-lab-hint {
+  font-size: 13px;
+  color: #6c7e99;
+  margin: 12px 0 0;
+}

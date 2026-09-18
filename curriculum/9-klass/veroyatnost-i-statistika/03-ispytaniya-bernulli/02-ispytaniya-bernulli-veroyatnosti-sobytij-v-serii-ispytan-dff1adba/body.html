@@ -1,0 +1,547 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">
+      9 класс · Вероятность и статистика · Испытания Бернулли · Тема 3.2
+    </div>
+<h1 class="ms-title">
+      Испытания Бернулли. Вероятности событий в серии испытаний
+    </h1>
+<p class="ms-subtitle">
+      Научимся распознавать серию испытаний Бернулли, применять
+      формулу вероятности ровно k успехов и вычислять вероятности
+      событий «ни одного», «хотя бы один», «не менее» и «не более».
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="/ispytaniya-bernulli-veroyatnosti-sobytij-v-serii-ispytanij/#theory">
+        Перейти к материалу
+      </a>
+<a class="ms-btn ms-btn-secondary" href="/9-klass-veroyatnost-i-statistika/">
+        К темам предмета
+      </a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Когда возникает схема Бернулли</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Формула Бернулли</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Почему появляется число сочетаний</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Биномиальная картина для четырёх бросков монеты</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Основные типы событий</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Разобранные задачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Сравнение соседних вероятностей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Формульный навигатор</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="lesson-section-1">
+<h2>Когда возникает схема Бернулли</h2>
+<p class="ms-text">
+      Серией испытаний Бернулли называют фиксированное число
+      одинаковых независимых испытаний, в каждом из которых
+      возможны два исхода: успех и неудача.
+    </p>
+<div class="ms-card-grid">
+<div class="ms-card">
+<span class="ms-mini-label">Условие 1</span>
+<h3 class="ms-card-title">Два исхода</h3>
+<p class="ms-card-text">
+          В каждом испытании различают успех и неудачу.
+        </p>
+</div>
+<div class="ms-card">
+<span class="ms-mini-label">Условие 2</span>
+<h3 class="ms-card-title">Фиксированное число испытаний</h3>
+<p class="ms-card-text">
+          Заранее известно, сколько раз проводится опыт: n.
+        </p>
+</div>
+<div class="ms-card">
+<span class="ms-mini-label">Условие 3</span>
+<h3 class="ms-card-title">Постоянная вероятность</h3>
+<p class="ms-card-text">
+          Вероятность успеха p одинакова во всех испытаниях.
+        </p>
+</div>
+<div class="ms-card">
+<span class="ms-mini-label">Условие 4</span>
+<h3 class="ms-card-title">Независимость</h3>
+<p class="ms-card-text">
+          Результат одного испытания не меняет вероятности других.
+        </p>
+</div>
+</div>
+<div class="ms-rule-box">
+      Извлечение шара <strong>с возвращением</strong> обычно даёт
+      независимые испытания с постоянной вероятностью.
+      При извлечении <strong>без возвращения</strong> состав урны
+      меняется, поэтому схема Бернулли обычно неприменима.
+    </div>
+</section>
+<section class="ms-section-soft" id="theory">
+<h2>1. Формула Бернулли</h2>
+<p class="ms-text">
+      Пусть проводится n независимых испытаний. Вероятность успеха
+      в каждом испытании равна p, а вероятность неудачи q = 1 − p.
+      Тогда вероятность ровно k успехов равна:
+    </p>
+<div class="ms-math-box">
+<div class="ms-formula">
+        P<sub>n</sub>(k) =
+        C<sub>n</sub><sup>k</sup> ·
+        p<sup>k</sup> · q<sup>n−k</sup>
+</div>
+</div>
+<div class="ms-table-wrap">
+<table class="ms-table">
+<thead>
+<tr>
+<th>Множитель</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C<sub>n</sub><sup>k</sup></td>
+<td>
+              Число способов выбрать позиции k успехов среди n испытаний.
+            </td>
+</tr>
+<tr>
+<td>p<sup>k</sup></td>
+<td>Вероятность k успехов в выбранных позициях.</td>
+</tr>
+<tr>
+<td>q<sup>n−k</sup></td>
+<td>Вероятность остальных n − k неудач.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-3">
+<h2>2. Почему появляется число сочетаний</h2>
+<p class="ms-text">
+      Вероятность одной конкретной последовательности, содержащей
+      k успехов и n − k неудач, равна
+      p<sup>k</sup>q<sup>n−k</sup>. Но успехи могут занимать разные
+      позиции. Таких расположений
+      C<sub>n</sub><sup>k</sup>.
+    </p>
+<div class="ms-example">
+<span class="ms-example-title">
+        Два успеха в четырёх испытаниях
+      </span>
+      Возможны последовательности УУНН, УНУН, УННУ, НУУН, НУНУ,
+      ННУУ — всего C<sub>4</sub><sup>2</sup> = 6 вариантов.
+      Вероятность каждой равна p<sup>2</sup>q<sup>2</sup>.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-4">
+<h2>3. Биномиальная картина для четырёх бросков монеты</h2>
+<p class="ms-text">
+      Для симметричной монеты p = q = 0,5. При четырёх бросках
+      вероятности 0, 1, 2, 3 и 4 орлов образуют симметричное
+      распределение.
+    </p>
+<div class="ms-figure">
+<p class="ms-figure-title">
+        Вероятности числа орлов при четырёх бросках
+      </p>
+<div class="ms-svg-wrap">
+<svg aria-label="Столбчатая диаграмма биномиальных вероятностей для четырёх бросков монеты" class="ms-svg" role="img" viewBox="0 0 840 430" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="428" rx="22" stroke="#dbeafe" stroke-width="2" width="838" x="1" y="1"></rect>
+<line stroke="#94a3b8" stroke-width="3" x1="95" x2="785" y1="345" y2="345"></line>
+<line stroke="#94a3b8" stroke-width="3" x1="95" x2="95" y1="65" y2="345"></line>
+<g fill="#64748b" font-size="14">
+<text x="57" y="350">0</text>
+<text x="43" y="285">0,125</text>
+<text x="43" y="215">0,25</text>
+<text x="43" y="145">0,375</text>
+</g>
+<g stroke="#e2e8f0" stroke-width="1.5">
+<line x1="95" x2="785" y1="280" y2="280"></line>
+<line x1="95" x2="785" y1="210" y2="210"></line>
+<line x1="95" x2="785" y1="140" y2="140"></line>
+</g>
+<g fill="#dbeafe" stroke="#60a5fa" stroke-width="2">
+<rect height="35" rx="10" width="80" x="145" y="310"></rect>
+<rect height="140" rx="10" width="80" x="280" y="205"></rect>
+<rect height="210" rx="10" width="80" x="415" y="135"></rect>
+<rect height="140" rx="10" width="80" x="550" y="205"></rect>
+<rect height="35" rx="10" width="80" x="685" y="310"></rect>
+</g>
+<g fill="#1e3a8a" font-size="15" font-weight="800" text-anchor="middle">
+<text x="185" y="300">1/16</text>
+<text x="320" y="195">4/16</text>
+<text x="455" y="125">6/16</text>
+<text x="590" y="195">4/16</text>
+<text x="725" y="300">1/16</text>
+</g>
+<g fill="#111827" font-size="16" font-weight="800" text-anchor="middle">
+<text x="185" y="377">0</text>
+<text x="320" y="377">1</text>
+<text x="455" y="377">2</text>
+<text x="590" y="377">3</text>
+<text x="725" y="377">4</text>
+</g>
+<text fill="#2563eb" font-size="16" font-weight="800" text-anchor="middle" x="440" y="410">
+            Число успехов k
+          </text>
+</svg>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-5">
+<h2>4. Основные типы событий</h2>
+<div class="ms-table-wrap">
+<table class="ms-table">
+<thead>
+<tr>
+<th>Формулировка</th>
+<th>Как считать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ровно k успехов</td>
+<td>P<sub>n</sub>(k)</td>
+</tr>
+<tr>
+<td>Ни одного успеха</td>
+<td>P<sub>n</sub>(0) = q<sup>n</sup></td>
+</tr>
+<tr>
+<td>Хотя бы один успех</td>
+<td>1 − q<sup>n</sup></td>
+</tr>
+<tr>
+<td>Не менее k успехов</td>
+<td>
+              P<sub>n</sub>(k) + P<sub>n</sub>(k + 1) + … +
+              P<sub>n</sub>(n)
+            </td>
+</tr>
+<tr>
+<td>Не более k успехов</td>
+<td>
+              P<sub>n</sub>(0) + P<sub>n</sub>(1) + … +
+              P<sub>n</sub>(k)
+            </td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-6">
+<h2>5. Разобранные задачи</h2>
+<div class="ms-example">
+<span class="ms-example-title">
+        Задача 1. Ровно три успеха
+      </span>
+      Вероятность успеха равна 0,7. Проводят пять испытаний.
+      Найдём вероятность ровно трёх успехов:
+      <div class="ms-math-box">
+<div class="ms-formula">
+          P<sub>5</sub>(3) =
+          C<sub>5</sub><sup>3</sup> ·
+          0,7<sup>3</sup> · 0,3<sup>2</sup> =
+          10 · 0,343 · 0,09 = 0,3087
+        </div>
+</div>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">
+        Задача 2. Хотя бы один успех
+      </span>
+      Вероятность успеха равна 0,2. Проводят шесть испытаний:
+      <div class="ms-math-box">
+<div class="ms-formula">
+          P = 1 − 0,8<sup>6</sup> =
+          1 − 0,262144 = 0,737856
+        </div>
+</div>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">
+        Задача 3. Не менее четырёх успехов
+      </span>
+      Всхожесть семени равна 0,8. Высажено пять семян. Событие
+      «взойдут не менее четырёх» означает четыре или пять успехов:
+      <div class="ms-math-box">
+<div class="ms-formula">
+          P =
+          C<sub>5</sub><sup>4</sup> ·
+          0,8<sup>4</sup> · 0,2 +
+          0,8<sup>5</sup> =
+          0,4096 + 0,32768 = 0,73728
+        </div>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-7">
+<h2>6. Сравнение соседних вероятностей</h2>
+<p class="ms-text">
+      Иногда требуется сравнить вероятности k и k + 1 успехов, не вычисляя обе полностью. При 0 &lt; p &lt; 1 и целом 0 ≤ k &lt; n после сокращения получается:
+    </p>
+<div class="ms-math-box">
+<div class="ms-formula">
+<span class="ms-frac">
+<span class="ms-num">P<sub>n</sub>(k + 1)</span>
+<span class="ms-den">P<sub>n</sub>(k)</span>
+</span>
+        =
+        <span class="ms-frac">
+<span class="ms-num">n − k</span>
+<span class="ms-den">k + 1</span>
+</span>
+        ·
+        <span class="ms-frac">
+<span class="ms-num">p</span>
+<span class="ms-den">q</span>
+</span>
+</div>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">
+        Пример: 11 испытаний, p = 0,2
+      </span>
+      Сравним вероятности четырёх и трёх успехов:
+      <div class="ms-math-box">
+<div class="ms-formula">
+<span class="ms-frac">
+<span class="ms-num">P<sub>11</sub>(4)</span>
+<span class="ms-den">P<sub>11</sub>(3)</span>
+</span>
+          =
+          <span class="ms-frac">
+<span class="ms-num">8</span>
+<span class="ms-den">4</span>
+</span>
+          ·
+          <span class="ms-frac">
+<span class="ms-num">0,2</span>
+<span class="ms-den">0,8</span>
+</span>
+          = 0,5
+        </div>
+</div>
+      Значит, вероятность четырёх успехов в 2 раза меньше
+      вероятности трёх успехов.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-8">
+<h2>Самопроверка</h2>
+<div class="ms-task">
+<p>
+        1. Симметричную монету бросают четыре раза.
+        Найдите вероятность ровно двух орлов.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            P =
+            C<sub>4</sub><sup>2</sup> ·
+            0,5<sup>2</sup> · 0,5<sup>2</sup> =
+            6 ·
+            <span class="ms-frac">
+<span class="ms-num">1</span>
+<span class="ms-den">16</span>
+</span>
+            =
+            <strong>
+<span class="ms-frac">
+<span class="ms-num">3</span>
+<span class="ms-den">8</span>
+</span>
+</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        2. Вероятность успеха равна 0,3. Проводят шесть испытаний.
+        Найдите вероятность ни одного успеха.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            P = 0,7<sup>6</sup> =
+            <strong>0,117649</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        3. В условиях предыдущей задачи найдите вероятность
+        хотя бы одного успеха.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            P = 1 − 0,7<sup>6</sup> =
+            1 − 0,117649 =
+            <strong>0,882351</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        4. Вероятность успеха равна 0,8. Проводят пять испытаний.
+        Найдите вероятность ровно четырёх успехов.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            P =
+            C<sub>5</sub><sup>4</sup> ·
+            0,8<sup>4</sup> · 0,2 =
+            5 · 0,4096 · 0,2 =
+            <strong>0,4096</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        5. В условиях предыдущей задачи найдите вероятность
+        не менее четырёх успехов.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            P = P<sub>5</sub>(4) + P<sub>5</sub>(5).
+          </p>
+<p>
+            P = 0,4096 + 0,8<sup>5</sup> =
+            0,4096 + 0,32768 =
+            <strong>0,73728</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        6. Вероятность попадания равна 0,4.
+        Производят семь выстрелов. Найдите вероятность ровно
+        трёх попаданий.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            P =
+            C<sub>7</sub><sup>3</sup> ·
+            0,4<sup>3</sup> · 0,6<sup>4</sup>.
+          </p>
+<p>
+            P = 35 · 0,064 · 0,1296 =
+            <strong>0,290304</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        7. Проводят восемь испытаний, p = 0,25.
+        Что вероятнее: два или три успеха?
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            Сравним P<sub>8</sub>(3) и P<sub>8</sub>(2):
+          </p>
+<p>
+<span class="ms-frac">
+<span class="ms-num">P<sub>8</sub>(3)</span>
+<span class="ms-den">P<sub>8</sub>(2)</span>
+</span>
+            =
+            <span class="ms-frac">
+<span class="ms-num">6</span>
+<span class="ms-den">3</span>
+</span>
+            ·
+            <span class="ms-frac">
+<span class="ms-num">0,25</span>
+<span class="ms-den">0,75</span>
+</span>
+            =
+            <span class="ms-frac">
+<span class="ms-num">2</span>
+<span class="ms-den">3</span>
+</span>.
+          </p>
+<p>
+            Отношение меньше 1, поэтому
+            <strong>два успеха вероятнее трёх</strong>.
+          </p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+        8. В шести испытаниях вероятность успеха равна 0,7.
+        Найдите вероятность ровно двух неудач.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>
+            Две неудачи означают четыре успеха.
+          </p>
+<p>
+            P =
+            C<sub>6</sub><sup>4</sup> ·
+            0,7<sup>4</sup> · 0,3<sup>2</sup> =
+            <strong>0,324135</strong>.
+          </p>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-9">
+<h2>Формульный навигатор</h2>
+<div class="ms-final-grid">
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Ровно k</strong>
+<span class="ms-card-text">
+          Используй
+          C<sub>n</sub><sup>k</sup>p<sup>k</sup>q<sup>n−k</sup>
+          и проверь, что все четыре условия схемы Бернулли выполнены.
+        </span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Хотя бы один</strong>
+<span class="ms-card-text">
+          Не складывай много случаев без необходимости:
+          применяй противоположное событие 1 − q<sup>n</sup>.
+        </span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Диапазон значений</strong>
+<span class="ms-card-text">
+          «Не менее» и «не более» требуют сложить вероятности
+          всех допустимых значений числа успехов.
+        </span>
+</div>
+</div>
+</section>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/ispytanie-uspeh-i-neudacha-seriya-ispytanij-do-pervogo-uspeha/">
+      Предыдущая тема
+    </a>
+<a class="ms-btn ms-btn-secondary" href="/9-klass-veroyatnost-i-statistika/">
+      К темам предмета
+    </a>
+<a class="ms-btn" href="/prakticheskaya-rabota-ispytaniya-bernulli/">
+      Следующая тема
+    </a>
+</div>
+</div>
+<!-- /wp:html -->

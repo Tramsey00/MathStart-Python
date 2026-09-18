@@ -1,0 +1,86 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-memory-chain {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-memory-step {
+  position: relative;
+  min-height: 136px;
+  padding: 17px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-memory-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-memory-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 11px;
+  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-memory-title {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-memory-text {
+  display: block;
+  color: #4b5563;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+@media (max-width: 940px) {
+  .ms-lesson-page .ms-memory-chain {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-memory-step:nth-child(3)::after {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-memory-chain {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-memory-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-memory-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-memory-step:nth-child(3)::after {
+    display: block;
+  }
+}

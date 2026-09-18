@@ -1,0 +1,756 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">5 класс · Натуральные числа · Тема 1.3</div>
+
+    <h1 class="ms-title">Округление чисел. Прикидка и оценка результатов вычислений</h1>
+
+    <p class="ms-subtitle">
+      В этой теме разберём, как округлять натуральные числа до десятков, сотен,
+      тысяч и других разрядов. Научимся делать прикидку перед вычислением,
+      проверять разумность ответа и быстро оценивать результат в задачах.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/5-klass/">К темам 5 класса</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что нужно знать перед темой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Что значит округлить число</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Правило округления</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Алгоритм округления натурального числа</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Особый случай: когда справа стоит 5</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Прикидка результата</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Оценка результата вычислений</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 13</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Мини-итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что нужно знать перед темой</h2>
+
+    <p class="ms-text">
+      Перед изучением округления нужно уверенно понимать разряды натурального числа
+      и уметь выполнять простые действия с многозначными числами.
+    </p>
+
+    <ul class="ms-list">
+      <li>Число состоит из разрядов: единицы, десятки, сотни, тысячи и так далее.</li>
+      <li>В числе 3847 цифра 7 стоит в разряде единиц, 4 — в разряде десятков, 8 — в разряде сотен, 3 — в разряде тысяч.</li>
+      <li>Чем левее разряд, тем больше его значение.</li>
+      <li>На координатном луче большее число расположено правее меньшего.</li>
+      <li>При вычислениях важно уметь быстро понять, каким примерно должен быть ответ.</li>
+    </ul>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что значит округлить число</h2>
+
+    <p class="ms-text">
+      В жизни часто не нужна абсолютно точная величина. Например, если в городе живёт
+      498 732 человека, обычно говорят: «примерно 500 тысяч человек». Это и есть округление:
+      точное число заменяют близким, но более удобным числом.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Округлить число</strong> — значит заменить его ближайшим удобным числом
+      с нужным количеством разрядов.
+    </div>
+
+    <p class="ms-text">
+      Округлять можно до разных разрядов:
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>До какого разряда округляем</th>
+            <th>Что получаем</th>
+            <th>Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>До десятков</td>
+            <td>Число заканчивается на 0</td>
+            <td>347 ≈ 350</td>
+          </tr>
+          <tr>
+            <td>До сотен</td>
+            <td>Число заканчивается на два нуля</td>
+            <td>347 ≈ 300</td>
+          </tr>
+          <tr>
+            <td>До тысяч</td>
+            <td>Число заканчивается на три нуля</td>
+            <td>7348 ≈ 7000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      Знак <strong>≈</strong> читается как «приблизительно равно».
+      Например, запись <strong>347 ≈ 350</strong> означает: «347 приблизительно равно 350».
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Правило округления</h2>
+
+    <p class="ms-text">
+      Главное правило округления зависит от цифры, которая стоит сразу справа
+      от нужного разряда. Именно она показывает, нужно ли увеличивать выбранный разряд.
+    </p>
+
+    <div class="ms-rule">
+      <h3 class="ms-rule-title">Правило</h3>
+
+      <div class="ms-rule-box">
+        Если справа от нужного разряда стоит цифра <strong>0, 1, 2, 3 или 4</strong>,
+        то выбранный разряд <strong>не изменяется</strong>.
+        <br>
+        Если справа от нужного разряда стоит цифра <strong>5, 6, 7, 8 или 9</strong>,
+        то выбранный разряд <strong>увеличивается на 1</strong>.
+        <br>
+        Все цифры справа заменяются нулями.
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Округление числа 347 до десятков</p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 820 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Округление числа 347 до десятков на числовом луче">
+          <rect x="0" y="0" width="820" height="250" rx="24" fill="#f9fafb"/>
+
+          <line x1="90" y1="130" x2="730" y2="130" stroke="#111827" stroke-width="3"/>
+          <path d="M730 130 L712 120 L712 140 Z" fill="#111827"/>
+
+          <line x1="120" y1="102" x2="120" y2="158" stroke="#2563eb" stroke-width="3"/>
+          <line x1="680" y1="102" x2="680" y2="158" stroke="#2563eb" stroke-width="3"/>
+
+          <text x="102" y="188" font-size="24" font-weight="800" fill="#111827">340</text>
+          <text x="662" y="188" font-size="24" font-weight="800" fill="#111827">350</text>
+
+          <line x1="176" y1="112" x2="176" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="232" y1="112" x2="232" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="288" y1="112" x2="288" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="344" y1="112" x2="344" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="400" y1="112" x2="400" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="456" y1="112" x2="456" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="512" y1="112" x2="512" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="568" y1="112" x2="568" y2="148" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="624" y1="112" x2="624" y2="148" stroke="#9ca3af" stroke-width="2"/>
+
+          <circle cx="512" cy="130" r="6.5" fill="#2563eb"/>
+          <text x="512" y="86" text-anchor="middle" font-size="24" font-weight="800" fill="#2563eb">347</text>
+
+          <path d="M555 78 C600 40, 665 47, 690 88" fill="none" stroke="#2563eb" stroke-width="3"/>
+          <path d="M690 88 L671 84 L684 72 Z" fill="#2563eb"/>
+
+          <text x="410" y="226" text-anchor="middle" font-size="18" font-weight="700" fill="#374151">
+            347 ближе к 350, чем к 340
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Если округляем число 347 до десятков, смотрим на цифру единиц. Это 7.
+      Так как 7 больше 5, число округляется вверх: 347 ≈ 350.
+    </p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Алгоритм округления натурального числа</h2>
+
+    <p class="ms-text">
+      Чтобы не ошибаться, лучше действовать по одному и тому же алгоритму.
+    </p>
+
+    <div class="ms-rule">
+      <h3 class="ms-rule-title">Алгоритм</h3>
+
+      <div class="ms-rule-box">
+        1. Определи, до какого разряда нужно округлить число.
+        <br>
+        2. Найди цифру в этом разряде.
+        <br>
+        3. Посмотри на цифру справа от этого разряда.
+        <br>
+        4. Если справа 0, 1, 2, 3 или 4 — выбранный разряд оставь без изменений.
+        <br>
+        5. Если справа 5, 6, 7, 8 или 9 — выбранный разряд увеличь на 1.
+        <br>
+        6. Все цифры справа замени нулями.
+      </div>
+    </div>
+
+    <h3>Пример 1. Округлить 263 до десятков</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Округляем до десятков. Цифра десятков в числе 263 — это 6.</div>
+      <div class="ms-math-row">Смотрим на цифру справа, то есть на цифру единиц: 3.</div>
+      <div class="ms-math-row">Так как 3 меньше 5, цифру десятков не меняем.</div>
+      <div class="ms-math-row">Цифру единиц заменяем нулём.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: 263 ≈ 260.</span></div>
+    </div>
+
+    <h3>Пример 2. Округлить 478 до десятков</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Округляем до десятков. Цифра десятков — 7.</div>
+      <div class="ms-math-row">Справа стоит цифра 8.</div>
+      <div class="ms-math-row">Так как 8 больше 5, увеличиваем цифру десятков на 1:</div>
+      <div class="ms-math-row">7 превращается в 8.</div>
+      <div class="ms-math-row">Цифру единиц заменяем нулём.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: 478 ≈ 480.</span></div>
+    </div>
+
+    <h3>Пример 3. Округлить 2481 до сотен</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Округляем до сотен. Цифра сотен — 4.</div>
+      <div class="ms-math-row">Смотрим на цифру справа, то есть на цифру десятков: 8.</div>
+      <div class="ms-math-row">Так как 8 больше 5, увеличиваем цифру сотен на 1:</div>
+      <div class="ms-math-row">4 превращается в 5.</div>
+      <div class="ms-math-row">Десятки и единицы заменяем нулями.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: 2481 ≈ 2500.</span></div>
+    </div>
+
+    <h3>Пример 4. Округлить 7348 до тысяч</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Округляем до тысяч. Цифра тысяч — 7.</div>
+      <div class="ms-math-row">Справа стоит цифра сотен: 3.</div>
+      <div class="ms-math-row">Так как 3 меньше 5, цифру тысяч не меняем.</div>
+      <div class="ms-math-row">Остальные цифры заменяем нулями.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: 7348 ≈ 7000.</span></div>
+    </div>
+
+    <h3>Пример 5. Округлить 58 642 до тысяч</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Округляем до тысяч. Цифра тысяч — 8.</div>
+      <div class="ms-math-row">Справа стоит цифра сотен: 6.</div>
+      <div class="ms-math-row">Так как 6 больше 5, увеличиваем цифру тысяч на 1:</div>
+      <div class="ms-math-row">8 превращается в 9.</div>
+      <div class="ms-math-row">Сотни, десятки и единицы заменяем нулями.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: 58 642 ≈ 59 000.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Особый случай: когда справа стоит 5</h2>
+
+    <p class="ms-text">
+      Если справа от нужного разряда стоит 5, число округляют вверх.
+      Это правило нужно запомнить отдельно, потому что в задачах часто проверяют именно этот случай.
+    </p>
+
+    <div class="ms-rule-box">
+      Если справа от нужного разряда стоит <strong>5</strong>, выбранный разряд увеличивается на 1.
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Число</th>
+            <th>Как округляем</th>
+            <th>Результат</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>345</td>
+            <td>до десятков</td>
+            <td>350</td>
+          </tr>
+          <tr>
+            <td>650</td>
+            <td>до сотен</td>
+            <td>700</td>
+          </tr>
+          <tr>
+            <td>15 500</td>
+            <td>до тысяч</td>
+            <td>16 000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      Частая ошибка: округлить 345 до 340, потому что «5 посередине».
+      В школьном правиле округления при цифре 5 округляют вверх: 345 ≈ 350.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Прикидка результата</h2>
+
+    <p class="ms-text">
+      Прикидка — это быстрый приблизительный расчёт. Она нужна, чтобы заранее понять,
+      каким примерно должен быть ответ. Прикидка особенно полезна в текстовых задачах,
+      задачах на покупки, больших числах и проверке вычислений.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Прикидка</strong> — это приближённое вычисление, при котором числа заменяют
+      более удобными числами.
+    </div>
+
+    <p class="ms-text">
+      Например, нужно примерно найти сумму 397 + 612. Можно округлить числа:
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">397 ≈ 400</div>
+      <div class="ms-math-row">612 ≈ 600</div>
+      <div class="ms-math-row">400 + 600 = 1000</div>
+      <div class="ms-math-row"><span class="ms-good">Значит, 397 + 612 примерно равно 1000.</span></div>
+    </div>
+
+    <h3>Пример 6. Прикидка суммы</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Оценить результат: 482 + 319.</div>
+      <div class="ms-math-row">Округлим числа до сотен:</div>
+      <div class="ms-math-row">482 ≈ 500</div>
+      <div class="ms-math-row">319 ≈ 300</div>
+      <div class="ms-math-row">500 + 300 = 800</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: результат примерно равен 800.</span></div>
+    </div>
+
+    <h3>Пример 7. Прикидка разности</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Оценить результат: 912 − 386.</div>
+      <div class="ms-math-row">Округлим числа до сотен:</div>
+      <div class="ms-math-row">912 ≈ 900</div>
+      <div class="ms-math-row">386 ≈ 400</div>
+      <div class="ms-math-row">900 − 400 = 500</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: результат примерно равен 500.</span></div>
+    </div>
+
+    <h3>Пример 8. Прикидка покупки</h3>
+
+    <div class="ms-task">
+      <p>
+        Рюкзак стоит 1987 рублей, пенал — 412 рублей, набор тетрадей — 286 рублей.
+        Хватит ли примерно 2700 рублей на всю покупку?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сделаем прикидку:
+          <br>
+          1987 ≈ 2000
+          <br>
+          412 ≈ 400
+          <br>
+          286 ≈ 300
+          <br>
+          2000 + 400 + 300 = 2700.
+          <br>
+          По прикидке получается около 2700 рублей.
+          <br>
+          Проверим точнее:
+          <br>
+          1987 + 412 + 286 = 2685.
+          <br>
+          <strong>Ответ: да, 2700 рублей хватит.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Прикидка стоимости покупки</p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Прикидка стоимости покупки">
+          <rect x="0" y="0" width="820" height="280" rx="24" fill="#f9fafb"/>
+
+          <rect x="70" y="50" width="190" height="110" rx="20" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+          <rect x="315" y="50" width="190" height="110" rx="20" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+          <rect x="560" y="50" width="190" height="110" rx="20" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <text x="165" y="88" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">Рюкзак</text>
+          <text x="165" y="122" text-anchor="middle" font-size="24" font-weight="800" fill="#2563eb">1987 ₽</text>
+          <text x="165" y="148" text-anchor="middle" font-size="17" font-weight="700" fill="#6b7280">≈ 2000 ₽</text>
+
+          <text x="410" y="88" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">Пенал</text>
+          <text x="410" y="122" text-anchor="middle" font-size="24" font-weight="800" fill="#2563eb">412 ₽</text>
+          <text x="410" y="148" text-anchor="middle" font-size="17" font-weight="700" fill="#6b7280">≈ 400 ₽</text>
+
+          <text x="655" y="88" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">Тетради</text>
+          <text x="655" y="122" text-anchor="middle" font-size="24" font-weight="800" fill="#2563eb">286 ₽</text>
+          <text x="655" y="148" text-anchor="middle" font-size="17" font-weight="700" fill="#6b7280">≈ 300 ₽</text>
+
+          <line x1="165" y1="178" x2="165" y2="205" stroke="#2563eb" stroke-width="3"/>
+          <line x1="410" y1="178" x2="410" y2="205" stroke="#2563eb" stroke-width="3"/>
+          <line x1="655" y1="178" x2="655" y2="205" stroke="#2563eb" stroke-width="3"/>
+
+          <path d="M165 205 C250 235, 570 235, 655 205" fill="none" stroke="#2563eb" stroke-width="3"/>
+          <text x="410" y="253" text-anchor="middle" font-size="24" font-weight="800" fill="#111827">
+            2000 + 400 + 300 = 2700 ₽
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Оценка результата вычислений</h2>
+
+    <p class="ms-text">
+      Оценка результата помогает понять, не ошиблись ли мы в вычислениях.
+      Если точный ответ сильно отличается от прикидки, нужно проверить решение.
+    </p>
+
+    <div class="ms-rule-box">
+      Прикидка не заменяет точное решение, но помогает проверить,
+      выглядит ли ответ разумно.
+    </div>
+
+    <h3>Пример 9. Проверим ответ с помощью прикидки</h3>
+
+    <div class="ms-task">
+      <p>
+        Ученик посчитал: 596 + 408 = 1904. Проверьте, может ли такой ответ быть верным.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сделаем прикидку:
+          <br>
+          596 ≈ 600
+          <br>
+          408 ≈ 400
+          <br>
+          600 + 400 = 1000.
+          <br>
+          Точный ответ должен быть около 1000, а не около 1900.
+          <br>
+          Значит, ответ 1904 неверный.
+          <br>
+          Проверим точно:
+          <br>
+          596 + 408 = 1004.
+          <br>
+          <strong>Ответ: нет, 1904 — неверный ответ.</strong>
+        </div>
+      </details>
+    </div>
+
+    <h3>Пример 10. Выберем наиболее разумный ответ</h3>
+
+    <div class="ms-task">
+      <p>
+        Не выполняя точного вычисления, выберите наиболее подходящий ответ для выражения
+        398 + 605:
+        <br>
+        А) 403; Б) 1003; В) 1803.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сделаем прикидку:
+          <br>
+          398 ≈ 400
+          <br>
+          605 ≈ 600
+          <br>
+          400 + 600 = 1000.
+          <br>
+          Самый близкий вариант — 1003.
+          <br>
+          <strong>Ответ: Б) 1003.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Задания для самопроверки</h2>
+
+    <p class="ms-text">
+      Решите задания самостоятельно, а затем раскройте ответ. Задания идут от простых
+      к более сложным, но без отдельного деления по уровням.
+    </p>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Округлите число 73 до десятков.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          В числе 73 цифра единиц — 3.
+          <br>
+          Так как 3 меньше 5, число округляем вниз.
+          <br>
+          <strong>Ответ: 73 ≈ 70.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Округлите число 89 до десятков.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          В числе 89 цифра единиц — 9.
+          <br>
+          Так как 9 больше 5, увеличиваем число десятков.
+          <br>
+          <strong>Ответ: 89 ≈ 90.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Округлите число 426 до сотен.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Округляем до сотен. Смотрим на цифру десятков: 2.
+          <br>
+          Так как 2 меньше 5, сотни не изменяются.
+          <br>
+          <strong>Ответ: 426 ≈ 400.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Округлите число 681 до сотен.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Округляем до сотен. Смотрим на цифру десятков: 8.
+          <br>
+          Так как 8 больше 5, увеличиваем сотни на 1.
+          <br>
+          <strong>Ответ: 681 ≈ 700.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Округлите число 3487 до десятков, сотен и тысяч.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          До десятков: смотрим на единицы, это 7, значит округляем вверх:
+          <br>
+          3487 ≈ 3490.
+          <br><br>
+          До сотен: смотрим на десятки, это 8, значит округляем вверх:
+          <br>
+          3487 ≈ 3500.
+          <br><br>
+          До тысяч: смотрим на сотни, это 4, значит тысячный разряд не меняем:
+          <br>
+          3487 ≈ 3000.
+          <br>
+          <strong>Ответ: 3490; 3500; 3000.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Сделайте прикидку суммы 492 + 318, округлив числа до сотен.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          492 ≈ 500
+          <br>
+          318 ≈ 300
+          <br>
+          500 + 300 = 800.
+          <br>
+          <strong>Ответ: примерно 800.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Сделайте прикидку разности 1207 − 486, округлив числа до сотен.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          1207 ≈ 1200
+          <br>
+          486 ≈ 500
+          <br>
+          1200 − 500 = 700.
+          <br>
+          <strong>Ответ: примерно 700.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong> В магазине купили куртку за 3890 рублей и шапку за 740 рублей.
+        Оцените стоимость покупки, округляя цены до сотен.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          3890 ≈ 3900
+          <br>
+          740 ≈ 700
+          <br>
+          3900 + 700 = 4600.
+          <br>
+          <strong>Ответ: примерно 4600 рублей.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong> Ученик округлил число 657 до сотен и получил 600.
+        Верно ли он округлил? Объясните.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Округляем 657 до сотен. Смотрим на цифру десятков: 5.
+          <br>
+          Если справа стоит 5, округляем вверх.
+          <br>
+          Значит, 657 ≈ 700.
+          <br>
+          <strong>Ответ: ученик ошибся, правильно 700.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong> Не выполняя точного вычисления, выберите наиболее разумный ответ:
+        1987 + 3015.
+        <br>
+        А) 2002; Б) 5002; В) 8002.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сделаем прикидку:
+          <br>
+          1987 ≈ 2000
+          <br>
+          3015 ≈ 3000
+          <br>
+          2000 + 3000 = 5000.
+          <br>
+          Наиболее разумный ответ — 5002.
+          <br>
+          <strong>Ответ: Б) 5002.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 11.</strong> В школьной библиотеке 2496 учебников, 1184 сборника задач
+        и 806 художественных книг. Оцените, сколько всего книг, округляя каждое число до сотен.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          2496 ≈ 2500
+          <br>
+          1184 ≈ 1200
+          <br>
+          806 ≈ 800
+          <br>
+          2500 + 1200 + 800 = 4500.
+          <br>
+          <strong>Ответ: примерно 4500 книг.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 12.</strong> Придумайте два числа, которые при округлении до сотен дают 800:
+        одно меньше 800, другое больше 800.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать пример ответа</summary>
+        <div>
+          Число меньше 800: 761. Оно округляется до 800, потому что цифра десятков 6.
+          <br>
+          Число больше 800: 824. Оно округляется до 800, потому что цифра десятков 2.
+          <br>
+          <strong>Один из возможных ответов: 761 и 824.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 13.</strong> Поездка стоит 287 рублей в одну сторону.
+        Турист планирует 9 таких поездок. Оцените общую стоимость поездок,
+        округлив 287 до сотен. Какой вариант ближе всего?
+        <br>
+        А) 1800 рублей; Б) 2700 рублей; В) 3600 рублей.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Округлим 287 до сотен:
+          <br>
+          287 ≈ 300.
+          <br>
+          Тогда 9 поездок будут стоить примерно:
+          <br>
+          300 · 9 = 2700.
+          <br>
+          <strong>Ответ: Б) 2700 рублей.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Мини-итог</h2>
+
+    <ul class="ms-list">
+      <li>Округление заменяет точное число близким удобным числом.</li>
+      <li>Если справа от нужного разряда стоит 0, 1, 2, 3 или 4 — разряд не меняется.</li>
+      <li>Если справа стоит 5, 6, 7, 8 или 9 — разряд увеличивается на 1.</li>
+      <li>Прикидка помогает быстро оценить результат вычисления.</li>
+      <li>Если точный ответ сильно отличается от прикидки, вычисления нужно проверить.</li>
+    </ul>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/5-klass-koordinatnyy-luch/">Предыдущая тема</a>
+      <a class="ms-btn ms-btn-secondary" href="/5-klass/">К темам 5 класса</a>
+      <a class="ms-btn" href="/5-klass-zakony-arifmeticheskih-deystviy/">Следующая тема</a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,1563 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Алгебра · Системы уравнений · Тема 2.2
+    </div>
+
+    <h1 class="ms-title">
+      Методы решения систем рациональных уравнений
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся выбирать подходящий способ решения системы:
+      выражать переменную и подставлять, складывать уравнения,
+      вводить новые переменные и находить решения по графикам.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">
+        Перейти к теории
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Почему для систем нужны разные методы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Метод подстановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Метод алгебраического сложения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Разложение на множители внутри системы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Симметрические системы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Метод введения новых переменных</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Графический метод</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Дробно-рациональные системы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Как выбрать метод</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Экспресс-диагностика метода</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Почему для систем нужны разные методы</h2>
+
+    <p class="ms-text">
+      Одну и ту же систему иногда можно решить несколькими способами,
+      но эти способы будут различаться по длине и сложности вычислений.
+      Поэтому перед началом решения полезно изучить форму уравнений.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-method-badge">Метод 1</span>
+
+        <h3 class="ms-card-title">
+          Подстановка
+        </h3>
+
+        <p class="ms-card-text">
+          Удобна, если одна переменная уже выражена через другую
+          или её легко выразить.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-method-badge">Метод 2</span>
+
+        <h3 class="ms-card-title">
+          Алгебраическое сложение
+        </h3>
+
+        <p class="ms-card-text">
+          Применяется, если после сложения или вычитания уравнений
+          одна из переменных исчезает.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-method-badge">Метод 3</span>
+
+        <h3 class="ms-card-title">
+          Новые переменные
+        </h3>
+
+        <p class="ms-card-text">
+          Полезны, когда в системе несколько раз повторяются
+          одинаковые сложные выражения.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-method-badge">Метод 4</span>
+
+        <h3 class="ms-card-title">
+          Графический способ
+        </h3>
+
+        <p class="ms-card-text">
+          Решения системы находят как координаты точек пересечения
+          графиков её уравнений.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Лучший метод — не самый необычный, а тот, который быстрее
+      сводит систему к одному уравнению с одной переменной.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Метод подстановки</h2>
+
+    <p class="ms-text">
+      При подстановке одну переменную выражают через другую,
+      а затем полученное выражение подставляют во второе уравнение.
+    </p>
+
+    <ol class="ms-algorithm">
+      <li>
+        Выразите одну переменную из наиболее простого уравнения.
+      </li>
+
+      <li>
+        Подставьте полученное выражение вместо этой переменной
+        в другое уравнение.
+      </li>
+
+      <li>
+        Решите уравнение с одной переменной.
+      </li>
+
+      <li>
+        Для каждого найденного значения вычислите вторую переменную.
+      </li>
+
+      <li>
+        Запишите решения упорядоченными парами и выполните проверку.
+      </li>
+    </ol>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 1. Переменная уже выражена
+      </span>
+
+      Решим систему:
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              y = x + 1,
+            </div>
+
+            <div class="ms-system-line">
+              xy = 6.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Подставим y = x + 1 во второе уравнение:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          x(x + 1) = 6;
+        </div>
+
+        <div class="ms-math-row">
+          x² + x − 6 = 0;
+        </div>
+
+        <div class="ms-math-row">
+          (x − 2)(x + 3) = 0.
+        </div>
+      </div>
+
+      Получаем:
+
+      <div class="ms-math-row">
+        x₁ = 2, тогда y₁ = 2 + 1 = 3;
+      </div>
+
+      <div class="ms-math-row">
+        x₂ = −3, тогда y₂ = −3 + 1 = −2.
+      </div>
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (2; 3), (−3; −2).</strong>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Если после подстановки получилось квадратное уравнение,
+      нужно рассмотреть все его действительные корни.
+      Каждому допустимому значению x соответствует своя пара (x; y).
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Метод алгебраического сложения</h2>
+
+    <p class="ms-text">
+      При этом способе уравнения складывают или вычитают так,
+      чтобы одна из переменных или одно повторяющееся выражение исчезло.
+    </p>
+
+    <ol class="ms-algorithm">
+      <li>
+        Расположите одинаковые выражения друг под другом.
+      </li>
+
+      <li>
+        При необходимости умножьте одно или оба уравнения
+        на подходящие ненулевые числа.
+      </li>
+
+      <li>
+        Сложите или вычтите уравнения.
+      </li>
+
+      <li>
+        Решите полученное уравнение с одной переменной.
+      </li>
+
+      <li>
+        Подставьте найденные значения в любое исходное уравнение.
+      </li>
+    </ol>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 2. При сложении исчезает y
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              x² + y = 7,
+            </div>
+
+            <div class="ms-system-line">
+              x² − y = 1.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Сложим левые и правые части уравнений:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          x² + y + x² − y = 7 + 1;
+        </div>
+
+        <div class="ms-math-row">
+          2x² = 8;
+        </div>
+
+        <div class="ms-math-row">
+          x² = 4;
+        </div>
+
+        <div class="ms-math-row">
+          x = 2 или x = −2.
+        </div>
+      </div>
+
+      Найдём y из первого уравнения:
+
+      <div class="ms-math-row">
+        При x = 2: y = 7 − 4 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        При x = −2: y = 7 − 4 = 3.
+      </div>
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (2; 3), (−2; 3).</strong>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Из равенства x² = 4 следуют два значения:
+      x = 2 и x = −2. Потеря знака «±» приводит к потере решения.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Разложение на множители внутри системы</h2>
+
+    <p class="ms-text">
+      Иногда перед сложением или подстановкой полезно применить
+      формулу сокращённого умножения.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 3. Используем разность квадратов
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              x + y = 7,
+            </div>
+
+            <div class="ms-system-line">
+              x² − y² = 21.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Разложим разность квадратов:
+
+      <div class="ms-math-row">
+        x² − y² = (x − y)(x + y).
+      </div>
+
+      Поскольку x + y = 7, получаем:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          7(x − y) = 21;
+        </div>
+
+        <div class="ms-math-row">
+          x − y = 3.
+        </div>
+      </div>
+
+      Теперь решаем линейную систему:
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              x + y = 7,
+            </div>
+
+            <div class="ms-system-line">
+              x − y = 3.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Складываем уравнения:
+
+      <div class="ms-math-row">
+        2x = 10, поэтому x = 5.
+      </div>
+
+      <div class="ms-math-row">
+        y = 7 − 5 = 2.
+      </div>
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (5; 2).</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Симметрические системы</h2>
+
+    <p class="ms-text">
+      Система называется симметрической, если при перестановке x и y
+      её уравнения не изменяются. В таких системах часто используют
+      сумму x + y и произведение xy.
+    </p>
+
+    <div class="ms-rule-box">
+      Если известны s = x + y и p = xy,
+      то числа x и y являются корнями уравнения
+      <strong>t² − st + p = 0</strong>.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 4. Находим сумму и произведение
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              x + y = 5,
+            </div>
+
+            <div class="ms-system-line">
+              x² + y² = 13.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Используем формулу:
+
+      <div class="ms-math-row">
+        (x + y)² = x² + 2xy + y².
+      </div>
+
+      Подставляем известные значения:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          5² = 13 + 2xy;
+        </div>
+
+        <div class="ms-math-row">
+          25 = 13 + 2xy;
+        </div>
+
+        <div class="ms-math-row">
+          xy = 6.
+        </div>
+      </div>
+
+      Значит, x и y — корни уравнения:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          t² − 5t + 6 = 0;
+        </div>
+
+        <div class="ms-math-row">
+          (t − 2)(t − 3) = 0.
+        </div>
+      </div>
+
+      Числа равны 2 и 3. Поскольку порядок координат важен,
+      получаем две пары.
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (2; 3), (3; 2).</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Метод введения новых переменных</h2>
+
+    <p class="ms-text">
+      Если одинаковые выражения многократно повторяются,
+      их временно заменяют новыми переменными.
+      После решения упрощённой системы возвращаются к исходным x и y.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 5. Повторяются выражения x + y и xy
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              x + y + xy = 5,
+            </div>
+
+            <div class="ms-system-line">
+              (x + y)xy = 6.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Введём обозначения:
+
+      <div class="ms-math-row">
+        u = x + y, v = xy.
+      </div>
+
+      Получаем систему:
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              u + v = 5,
+            </div>
+
+            <div class="ms-system-line">
+              uv = 6.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Числа u и v имеют сумму 5 и произведение 6:
+
+      <div class="ms-math-row">
+        (u; v) = (2; 3) или (3; 2).
+      </div>
+
+      Рассмотрим оба случая.
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          1) x + y = 2, xy = 3.
+        </div>
+
+        <div class="ms-math-row">
+          Уравнение t² − 2t + 3 = 0 имеет D = −8.
+          Действительных решений нет.
+        </div>
+
+        <div class="ms-math-row">
+          2) x + y = 3, xy = 2.
+        </div>
+
+        <div class="ms-math-row">
+          t² − 3t + 2 = 0;
+          t = 1 или t = 2.
+        </div>
+      </div>
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (1; 2), (2; 1).</strong>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Новые переменные — временные обозначения.
+      После нахождения u и v решение ещё не закончено:
+      нужно обязательно вернуться к переменным x и y.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Графический метод</h2>
+
+    <p class="ms-text">
+      Каждое уравнение системы преобразуют к виду y = f(x),
+      строят оба графика и находят координаты их общих точек.
+    </p>
+
+    <ol class="ms-algorithm">
+      <li>
+        Выразите y через x в каждом уравнении, если это возможно.
+      </li>
+
+      <li>
+        Постройте графики полученных функций в одной системе координат.
+      </li>
+
+      <li>
+        Найдите точки пересечения графиков.
+      </li>
+
+      <li>
+        Запишите координаты точек как решения системы.
+      </li>
+    </ol>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 6. Парабола и прямая
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              y = x² − 1,
+            </div>
+
+            <div class="ms-system-line">
+              y = x + 1.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      Общие точки графиков имеют одинаковые ординаты,
+      поэтому приравняем правые части:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          x² − 1 = x + 1;
+        </div>
+
+        <div class="ms-math-row">
+          x² − x − 2 = 0;
+        </div>
+
+        <div class="ms-math-row">
+          (x − 2)(x + 1) = 0.
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        При x = −1 получаем y = 0.
+      </div>
+
+      <div class="ms-math-row">
+        При x = 2 получаем y = 3.
+      </div>
+
+      <div class="ms-figure">
+        <p class="ms-figure-title">
+          Точки пересечения графиков y = x² − 1 и y = x + 1
+        </p>
+
+        <div class="ms-svg-wrap">
+          <svg
+            class="ms-svg"
+            viewBox="0 0 900 450"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Парабола и прямая с точками пересечения минус один ноль и два три"
+          >
+            <defs>
+              <marker
+                id="ms-method-arrow"
+                markerWidth="10"
+                markerHeight="10"
+                refX="7"
+                refY="3"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path
+                  d="M0,0 L0,6 L8,3 z"
+                  fill="#64748b"
+                ></path>
+              </marker>
+            </defs>
+
+            <rect
+              x="0"
+              y="0"
+              width="900"
+              height="450"
+              rx="24"
+              fill="#ffffff"
+            ></rect>
+
+            <rect
+              x="25"
+              y="20"
+              width="850"
+              height="405"
+              rx="22"
+              fill="#f8fafc"
+              stroke="#e5e7eb"
+              stroke-width="2"
+            ></rect>
+
+            <g stroke="#e5e7eb" stroke-width="1">
+              <line x1="140" y1="50" x2="140" y2="405"></line>
+              <line x1="210" y1="50" x2="210" y2="405"></line>
+              <line x1="280" y1="50" x2="280" y2="405"></line>
+              <line x1="350" y1="50" x2="350" y2="405"></line>
+              <line x1="420" y1="50" x2="420" y2="405"></line>
+              <line x1="490" y1="50" x2="490" y2="405"></line>
+              <line x1="560" y1="50" x2="560" y2="405"></line>
+              <line x1="630" y1="50" x2="630" y2="405"></line>
+              <line x1="700" y1="50" x2="700" y2="405"></line>
+
+              <line x1="85" y1="60" x2="800" y2="60"></line>
+              <line x1="85" y1="105" x2="800" y2="105"></line>
+              <line x1="85" y1="150" x2="800" y2="150"></line>
+              <line x1="85" y1="195" x2="800" y2="195"></line>
+              <line x1="85" y1="240" x2="800" y2="240"></line>
+              <line x1="85" y1="285" x2="800" y2="285"></line>
+              <line x1="85" y1="330" x2="800" y2="330"></line>
+              <line x1="85" y1="375" x2="800" y2="375"></line>
+            </g>
+
+            <line
+              x1="75"
+              y1="330"
+              x2="815"
+              y2="330"
+              stroke="#64748b"
+              stroke-width="2.5"
+              marker-end="url(#ms-method-arrow)"
+            ></line>
+
+            <line
+              x1="420"
+              y1="412"
+              x2="420"
+              y2="42"
+              stroke="#64748b"
+              stroke-width="2.5"
+              marker-end="url(#ms-method-arrow)"
+            ></line>
+
+            <path
+              d="
+                M245 94
+                L280 195
+                L315 274
+                L350 330
+                L385 364
+                L420 375
+                L455 364
+                L490 330
+                L525 274
+                L560 195
+                L595 94
+              "
+              fill="none"
+              stroke="#2563eb"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+
+            <line
+              x1="210"
+              y1="420"
+              x2="700"
+              y2="105"
+              stroke="#7c3aed"
+              stroke-width="5"
+              stroke-linecap="round"
+            ></line>
+
+            <circle
+              cx="350"
+              cy="330"
+              r="8"
+              fill="#16a34a"
+              stroke="#ffffff"
+              stroke-width="4"
+            ></circle>
+
+            <circle
+              cx="560"
+              cy="195"
+              r="8"
+              fill="#16a34a"
+              stroke="#ffffff"
+              stroke-width="4"
+            ></circle>
+
+            <g
+              font-family="inherit"
+              font-size="16"
+              font-weight="800"
+              fill="#111827"
+            >
+              <text x="272" y="315">A(−1; 0)</text>
+              <text x="578" y="188">B(2; 3)</text>
+            </g>
+
+            <g
+              font-family="inherit"
+              font-size="15"
+              font-weight="700"
+              fill="#475569"
+              text-anchor="middle"
+            >
+              <text x="350" y="354">−1</text>
+              <text x="490" y="354">1</text>
+              <text x="560" y="354">2</text>
+
+              <text x="400" y="289">1</text>
+              <text x="400" y="244">2</text>
+              <text x="400" y="199">3</text>
+            </g>
+
+            <text
+              x="822"
+              y="337"
+              font-family="inherit"
+              font-size="18"
+              font-weight="800"
+              fill="#475569"
+            >
+              x
+            </text>
+
+            <text
+              x="431"
+              y="47"
+              font-family="inherit"
+              font-size="18"
+              font-weight="800"
+              fill="#475569"
+            >
+              y
+            </text>
+          </svg>
+        </div>
+
+        <div class="ms-legend">
+          <span class="ms-legend-item">
+            <span class="ms-legend-line ms-legend-blue"></span>
+            y = x² − 1
+          </span>
+
+          <span class="ms-legend-item">
+            <span class="ms-legend-line ms-legend-purple"></span>
+            y = x + 1
+          </span>
+
+          <span class="ms-legend-item">
+            <span class="ms-legend-line ms-legend-green"></span>
+            Решения системы
+          </span>
+        </div>
+      </div>
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (−1; 0), (2; 3).</strong>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      По рисунку не всегда можно определить координаты точно.
+      Графический способ особенно удобен для оценки количества решений,
+      а точные значения часто находят алгебраически.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Дробно-рациональные системы</h2>
+
+    <p class="ms-text">
+      В системах с дробями сначала записывают ОДЗ,
+      затем избавляются от знаменателей допустимыми преобразованиями.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 7. Используем сумму и произведение
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+
+          <div class="ms-system-lines">
+            <div class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">x</span>
+              </span>
+              +
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">y</span>
+              </span>
+              =
+              <span class="ms-frac">
+                <span class="ms-num">5</span>
+                <span class="ms-den">6</span>
+              </span>,
+            </div>
+
+            <div class="ms-system-line">
+              x + y = 5.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      ОДЗ:
+
+      <div class="ms-math-row">
+        x ≠ 0, y ≠ 0.
+      </div>
+
+      Приведём дроби к общему знаменателю:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          <span class="ms-frac">
+            <span class="ms-num">x + y</span>
+            <span class="ms-den">xy</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">5</span>
+            <span class="ms-den">6</span>.
+        </div>
+      </div>
+
+      Поскольку x + y = 5:
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          <span class="ms-frac">
+            <span class="ms-num">5</span>
+            <span class="ms-den">xy</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">5</span>
+            <span class="ms-den">6</span>;
+        </div>
+
+        <div class="ms-math-row">
+          xy = 6.
+        </div>
+      </div>
+
+      Числа x и y имеют сумму 5 и произведение 6,
+      поэтому равны 2 и 3.
+
+      <div class="ms-answer-box">
+        <strong>Ответ: (2; 3), (3; 2).</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Как выбрать метод</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Что видно в системе</th>
+            <th>Подходящий метод</th>
+            <th>Первое действие</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              Одна переменная уже выражена
+            </td>
+
+            <td>
+              <strong>Подстановка</strong>
+            </td>
+
+            <td>
+              Подставить выражение во второе уравнение
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Есть противоположные слагаемые
+            </td>
+
+            <td>
+              <strong>Алгебраическое сложение</strong>
+            </td>
+
+            <td>
+              Сложить или вычесть уравнения
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Повторяются x + y, xy или другие выражения
+            </td>
+
+            <td>
+              <strong>Новые переменные</strong>
+            </td>
+
+            <td>
+              Ввести короткие обозначения
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Уравнения задают знакомые функции
+            </td>
+
+            <td>
+              <strong>Графический метод</strong>
+            </td>
+
+            <td>
+              Построить графики в одной системе координат
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Есть x² − y², x² + 2xy + y²
+            </td>
+
+            <td>
+              <strong>Формулы сокращённого умножения</strong>
+            </td>
+
+            <td>
+              Разложить или свернуть выражение
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Типичные ошибки</h2>
+
+    <div class="ms-warning-grid ms-card-grid ms-columns-2">
+      <div class="ms-warning-card ms-card">
+        <strong class="ms-card-title">Потерян второй корень</strong>
+
+        <p class="ms-card-text">
+          Из x² = a при a &gt; 0 следуют два значения:
+          x = √a и x = −√a.
+        </p>
+      </div>
+
+      <div class="ms-warning-card ms-card">
+        <strong class="ms-card-title">Получены числа, но не пары</strong>
+
+        <p class="ms-card-text">
+          Ответ системы записывают в виде упорядоченных пар (x; y),
+          а не отдельным списком значений.
+        </p>
+      </div>
+
+      <div class="ms-warning-card ms-card">
+        <strong class="ms-card-title">Не выполнен возврат к замене</strong>
+
+        <p class="ms-card-text">
+          Найденные u и v ещё не являются значениями x и y.
+          Нужно решить обратную систему.
+        </p>
+      </div>
+
+      <div class="ms-warning-card ms-card">
+        <strong class="ms-card-title">Не учтено ОДЗ</strong>
+
+        <p class="ms-card-text">
+          После избавления от знаменателей запрещённые значения
+          не исчезают и не могут входить в ответ.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="practice">
+    <h2>11. Самопроверка</h2>
+
+    <p class="ms-text">
+      Сначала определите удобный метод, затем решите систему
+      и запишите ответ упорядоченными парами.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>1.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              y = x − 1,
+            </span>
+
+            <span class="ms-system-line">
+              xy = 6.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>Подставим y = x − 1:</p>
+
+          <p>
+            x(x − 1) = 6;<br>
+            x² − x − 6 = 0;<br>
+            (x − 3)(x + 2) = 0.
+          </p>
+
+          <p>
+            x = 3, y = 2;<br>
+            x = −2, y = −3.
+          </p>
+
+          <p>
+            <strong>Ответ: (3; 2), (−2; −3).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>2.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x² + y = 10,
+            </span>
+
+            <span class="ms-system-line">
+              x² − y = 8.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Складываем уравнения:
+            2x² = 18, поэтому x² = 9.
+          </p>
+
+          <p>x = 3 или x = −3.</p>
+
+          <p>
+            Из первого уравнения:
+            y = 10 − 9 = 1.
+          </p>
+
+          <p>
+            <strong>Ответ: (3; 1), (−3; 1).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>3.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x + y = 7,
+            </span>
+
+            <span class="ms-system-line">
+              x² − y² = 21.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            x² − y² = (x − y)(x + y).
+          </p>
+
+          <p>
+            7(x − y) = 21, поэтому x − y = 3.
+          </p>
+
+          <p>
+            Решаем систему x + y = 7, x − y = 3.
+          </p>
+
+          <p>
+            x = 5, y = 2.
+          </p>
+
+          <p>
+            <strong>Ответ: (5; 2).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>4.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x + y = 6,
+            </span>
+
+            <span class="ms-system-line">
+              xy = 8.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Числа x и y являются корнями уравнения:
+          </p>
+
+          <p>
+            t² − 6t + 8 = 0;<br>
+            (t − 2)(t − 4) = 0.
+          </p>
+
+          <p>
+            Числа равны 2 и 4.
+          </p>
+
+          <p>
+            <strong>Ответ: (2; 4), (4; 2).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>5.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">x</span>
+              </span>
+              +
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">y</span>
+              </span>
+              =
+              <span class="ms-frac">
+                <span class="ms-num">5</span>
+                <span class="ms-den">6</span>
+              </span>,
+            </span>
+
+            <span class="ms-system-line">
+              x + y = 5.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>ОДЗ: x ≠ 0, y ≠ 0.</p>
+
+          <p>
+            (x + y) / xy = 5 / 6.
+          </p>
+
+          <p>
+            Поскольку x + y = 5, получаем xy = 6.
+          </p>
+
+          <p>
+            Числа с суммой 5 и произведением 6 равны 2 и 3.
+          </p>
+
+          <p>
+            <strong>Ответ: (2; 3), (3; 2).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>6.</strong> Найдите точки пересечения графиков:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              y = x²,
+            </span>
+
+            <span class="ms-system-line">
+              y = 2x.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Приравниваем:
+            x² = 2x.
+          </p>
+
+          <p>
+            x² − 2x = 0;<br>
+            x(x − 2) = 0.
+          </p>
+
+          <p>
+            x = 0 или x = 2.
+          </p>
+
+          <p>
+            При x = 0: y = 0.<br>
+            При x = 2: y = 4.
+          </p>
+
+          <p>
+            <strong>Ответ: (0; 0), (2; 4).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>7.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x + y = 3,
+            </span>
+
+            <span class="ms-system-line">
+              x² + y² = 1.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            (x + y)² = x² + 2xy + y².
+          </p>
+
+          <p>
+            9 = 1 + 2xy, поэтому xy = 4.
+          </p>
+
+          <p>
+            x и y должны быть корнями уравнения:
+          </p>
+
+          <p>
+            t² − 3t + 4 = 0.
+          </p>
+
+          <p>
+            D = 9 − 16 = −7 &lt; 0.
+          </p>
+
+          <p>
+            <strong>Ответ: действительных решений нет.</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>8.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x + y + xy = 5,
+            </span>
+
+            <span class="ms-system-line">
+              (x + y)xy = 6.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Пусть u = x + y, v = xy.
+          </p>
+
+          <p>
+            Получаем u + v = 5, uv = 6.
+          </p>
+
+          <p>
+            Возможны пары (u; v) = (2; 3) и (3; 2).
+          </p>
+
+          <p>
+            При x + y = 2, xy = 3 действительных решений нет.
+          </p>
+
+          <p>
+            При x + y = 3, xy = 2 числа x и y равны 1 и 2.
+          </p>
+
+          <p>
+            <strong>Ответ: (1; 2), (2; 1).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-12">
+    <h2>12. Экспресс-диагностика метода</h2>
+
+    <p class="ms-text">
+      Перед вычислениями пройдите четыре строки сверху вниз.
+      Первая подходящая строка обычно подсказывает самый короткий путь.
+    </p>
+
+    <div class="ms-method-route">
+      <div class="ms-method-route-row">
+        <div class="ms-method-route-question">
+          Переменная уже выражена?
+        </div>
+
+        <div class="ms-method-route-action">
+          Подставьте готовое выражение в другое уравнение
+          и получите уравнение с одной переменной.
+        </div>
+
+        <div class="ms-method-route-result">
+          Подстановка
+        </div>
+      </div>
+
+      <div class="ms-method-route-row">
+        <div class="ms-method-route-question">
+          Слагаемые можно уничтожить?
+        </div>
+
+        <div class="ms-method-route-action">
+          Сложите или вычтите уравнения,
+          при необходимости предварительно умножив их на числа.
+        </div>
+
+        <div class="ms-method-route-result">
+          Сложение
+        </div>
+      </div>
+
+      <div class="ms-method-route-row">
+        <div class="ms-method-route-question">
+          Повторяются сложные выражения?
+        </div>
+
+        <div class="ms-method-route-action">
+          Обозначьте их новыми буквами,
+          решите упрощённую систему и вернитесь к x и y.
+        </div>
+
+        <div class="ms-method-route-result">
+          Новая переменная
+        </div>
+      </div>
+
+      <div class="ms-method-route-row">
+        <div class="ms-method-route-question">
+          Графики легко построить?
+        </div>
+
+        <div class="ms-method-route-action">
+          Изобразите обе зависимости и найдите координаты
+          всех общих точек.
+        </div>
+
+        <div class="ms-method-route-result">
+          Графический метод
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-answer-box">
+      Независимо от выбранного способа финальные действия одинаковы:
+      учесть ОДЗ, составить упорядоченные пары
+      и проверить их в исходной системе.
+    </div>
+
+    <p class="ms-text" style="margin-top: 18px;">
+      В следующей теме применим системы рациональных уравнений
+      к текстовым задачам на движение, работу, числа и геометрические величины.
+    </p>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/ponyatie-sistemy-raczionalnyh-uravnenij/"
+    >
+      ← Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-algebra/"
+    >
+      К темам алгебры
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/ispolzovanie-sistem-raczionalnyh-uravnenij-dlya-resheniya-zadach/"
+    >
+      Следующая тема →
+    </a>
+  </div>
+
+</div>
+<!-- /wp:html -->

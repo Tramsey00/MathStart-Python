@@ -1,0 +1,119 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-symbol-sign {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  height: 44px;
+  margin-bottom: 10px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-symbol-name {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 17px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-symbol-text {
+  display: block;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-translation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-translation-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2563eb;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ms-lesson-page .ms-translation-content {
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-translation-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 28px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-reader-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-reader-step {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 19px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-reader-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-reader-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.ms-lesson-page .ms-reader-step span {
+  display: block;
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-reader-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-translation {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-translation-arrow {
+    transform: rotate(90deg);
+    min-height: 28px;
+  }
+}
+@media (max-width: 480px) {
+  .ms-lesson-page .ms-reader-strip {
+    grid-template-columns: 1fr;
+  }
+}

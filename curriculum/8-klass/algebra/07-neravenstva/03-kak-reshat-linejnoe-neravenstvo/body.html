@@ -1,0 +1,486 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Алгебра · Неравенства · Тема 7.3</div>
+
+    <h1 class="ms-title">Как решать линейное неравенство</h1>
+
+    <p class="ms-subtitle">
+      Научимся решать линейные неравенства с одной переменной:
+      раскрывать скобки, переносить слагаемые,
+      приводить подобные члены, правильно делить на коэффициент при x
+      и записывать ответ числовым промежутком.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что называют линейным неравенством</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Равносильные преобразования</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Деление на отрицательный коэффициент</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Решение на координатной прямой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Неравенства с дробными коэффициентами</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Особые случаи после приведения подобных</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Линейное неравенство без ошибок</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что называют линейным неравенством</h2>
+
+    <p class="ms-text">
+      Линейное неравенство с одной переменной после преобразований
+      можно привести к виду ax &gt; b, ax &lt; b, ax ≥ b или ax ≤ b,
+      где a и b — числа.
+    </p>
+
+    <div class="ms-ineq-formula">
+      <span class="ms-ineq-formula-main">ax + b &gt; c</span>
+      <span class="ms-ineq-formula-caption">
+        Задача решения — оставить переменную x в одной части,
+        а известные числа перенести в другую.
+      </span>
+    </div>
+
+    <div class="ms-form-grid ms-card-grid ms-columns-2">
+      <div class="ms-form-card ms-card">
+        <strong class="ms-card-title">Решение неравенства</strong>
+        <span class="ms-card-text">
+          Любое значение x, при котором исходное сравнение становится верным.
+        </span>
+      </div>
+
+      <div class="ms-form-card ms-card">
+        <strong class="ms-card-title">Множество решений</strong>
+        <span class="ms-card-text">
+          Обычно это числовой промежуток или вся числовая прямая;
+          иногда решений нет.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Проверяем число</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Проверим x = 4 для неравенства 2x − 3 &gt; 4.</div>
+      <div class="ms-math-row">2 · 4 − 3 = 5, а 5 &gt; 4.</div>
+      <div class="ms-math-row"><span class="ms-good">Число 4 является решением.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Равносильные преобразования</h2>
+
+    <div class="ms-transform-grid ms-card-grid ms-columns-3">
+      <div class="ms-transform-card ms-card">
+        <span class="ms-transform-rule">a &lt; b ⇒ a + c &lt; b + c</span>
+        <strong class="ms-card-title">Прибавление или вычитание</strong>
+        <span class="ms-card-text">
+          Можно прибавить одно число к обеим частям;
+          знак не изменяется.
+        </span>
+      </div>
+
+      <div class="ms-transform-card ms-card">
+        <span class="ms-transform-rule">c &gt; 0 ⇒ ac &lt; bc</span>
+        <strong class="ms-card-title">Положительный множитель</strong>
+        <span class="ms-card-text">
+          При умножении или делении на положительное число
+          знак сохраняется.
+        </span>
+      </div>
+
+      <div class="ms-transform-card ms-card">
+        <span class="ms-transform-rule">c &lt; 0 ⇒ ac &gt; bc</span>
+        <strong class="ms-card-title">Отрицательный множитель</strong>
+        <span class="ms-card-text">
+          При умножении или делении на отрицательное число
+          знак меняется на противоположный.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Перенос слагаемого через знак неравенства —
+      это сокращённая запись прибавления противоположного числа
+      к обеим частям. Сам знак неравенства при переносе не меняется.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Алгоритм решения</h2>
+
+    <div class="ms-steps">
+      <div class="ms-step">
+        <span class="ms-step-number">1</span>
+        <strong>Раскройте скобки</strong>
+        <span>
+          Если они есть, примените распределительный закон.
+        </span>
+      </div>
+
+      <div class="ms-step">
+        <span class="ms-step-number">2</span>
+        <strong>Перенесите слагаемые</strong>
+        <span>
+          Члены с x соберите слева, числа — справа.
+        </span>
+      </div>
+
+      <div class="ms-step">
+        <span class="ms-step-number">3</span>
+        <strong>Приведите подобные</strong>
+        <span>
+          Получите неравенство вида ax &gt; b или ax ≤ b.
+        </span>
+      </div>
+
+      <div class="ms-step">
+        <span class="ms-step-number">4</span>
+        <strong>Разделите на a</strong>
+        <span>
+          При a &lt; 0 обязательно измените знак неравенства.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Положительный коэффициент при x</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">3x − 7 &gt; 8.</div>
+      <div class="ms-math-row">3x &gt; 15.</div>
+      <div class="ms-math-row">x &gt; 5.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (5; +∞).</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Деление на отрицательный коэффициент</h2>
+
+    <p class="ms-text">
+      Это главный момент при решении линейных неравенств:
+      если коэффициент при x отрицательный,
+      при делении знак нужно заменить на противоположный.
+    </p>
+
+    <h3>Пример 3. Меняем знак неравенства</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">−4x + 6 ≥ 18.</div>
+      <div class="ms-math-row">−4x ≥ 12.</div>
+      <div class="ms-math-row">
+        Делим на −4 и меняем ≥ на ≤:
+      </div>
+      <div class="ms-math-row">x ≤ −3.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; −3].</span></div>
+    </div>
+
+    <div class="ms-error-grid ms-card-grid ms-columns-2">
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Неправильно</strong>
+        <span class="ms-card-text">
+          −4x ≥ 12 ⇒ x ≥ −3.
+          Знак оставлен прежним, поэтому получен неверный ответ.
+        </span>
+      </div>
+
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Правильно</strong>
+        <span class="ms-card-text">
+          −4x ≥ 12 ⇒ x ≤ −3.
+          При делении на отрицательное число знак меняется.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Решение на координатной прямой</h2>
+
+    <div class="ms-solution-grid ms-card-grid ms-columns-2">
+      <div class="ms-solution-card ms-card">
+        <span class="ms-solution-title">Строгое неравенство x &gt; 3</span>
+        
+<svg class="ms-solution-svg" viewBox="0 0 620 300" role="img" aria-label="Решение x больше трёх на координатной прямой">
+  <defs>
+    <marker id="linineq-axis-r" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" refX="9.5" refY="5.5" orient="auto">
+      <path d="M1 1L1 10L10 5.5Z" fill="#475569"></path>
+    </marker>
+    <marker id="linineq-ray-r" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M1 2L1 14L15 8Z" fill="#2563eb"></path>
+    </marker>
+  </defs>
+  <rect width="620" height="300" rx="20" fill="#fbfdff" stroke="#dbeafe"></rect>
+  <g font-family="Arial,sans-serif">
+    <text x="30" y="42" fill="#1e3a8a" font-size="20" font-weight="700">x &gt; 3</text>
+    <line x1="62" y1="145" x2="558" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#linineq-axis-r)"></line>
+    <g stroke="#334155" stroke-width="2">
+      <line x1="145" y1="132" x2="145" y2="158"></line>
+      <line x1="250" y1="132" x2="250" y2="158"></line>
+      <line x1="355" y1="132" x2="355" y2="158"></line>
+      <line x1="460" y1="132" x2="460" y2="158"></line>
+    </g>
+    <g fill="#334155" font-size="15" text-anchor="middle">
+      <text x="145" y="185">1</text>
+      <text x="250" y="185">2</text>
+      <text x="355" y="185">3</text>
+      <text x="460" y="185">4</text>
+    </g>
+    <line x1="355" y1="145" x2="532" y2="145" stroke="#2563eb" stroke-width="7" stroke-linecap="round" marker-end="url(#linineq-ray-r)"></line>
+    <circle cx="355" cy="145" r="9" fill="#fff" stroke="#2563eb" stroke-width="4"></circle>
+    <text x="310" y="235" fill="#1e3a8a" font-size="19" font-weight="700" text-anchor="middle">x ∈ (3; +∞)</text>
+  </g>
+</svg>
+
+        <div class="ms-solution-caption">
+          Точка 3 пустая, луч направлен вправо.
+        </div>
+      </div>
+
+      <div class="ms-solution-card ms-card">
+        <span class="ms-solution-title">Нестрогое неравенство x ≤ −2</span>
+        
+<svg class="ms-solution-svg" viewBox="0 0 620 300" role="img" aria-label="Решение x меньше или равно минус двум на координатной прямой">
+  <defs>
+    <marker id="linineq-axis-l" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" refX="9.5" refY="5.5" orient="auto">
+      <path d="M1 1L1 10L10 5.5Z" fill="#475569"></path>
+    </marker>
+    <marker id="linineq-ray-l" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto-start-reverse">
+      <path d="M1 2L1 14L15 8Z" fill="#2563eb"></path>
+    </marker>
+  </defs>
+  <rect width="620" height="300" rx="20" fill="#fbfdff" stroke="#dbeafe"></rect>
+  <g font-family="Arial,sans-serif">
+    <text x="30" y="42" fill="#1e3a8a" font-size="20" font-weight="700">x ≤ −2</text>
+    <line x1="62" y1="145" x2="558" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#linineq-axis-l)"></line>
+    <g stroke="#334155" stroke-width="2">
+      <line x1="145" y1="132" x2="145" y2="158"></line>
+      <line x1="250" y1="132" x2="250" y2="158"></line>
+      <line x1="355" y1="132" x2="355" y2="158"></line>
+      <line x1="460" y1="132" x2="460" y2="158"></line>
+    </g>
+    <g fill="#334155" font-size="15" text-anchor="middle">
+      <text x="145" y="185">−4</text>
+      <text x="250" y="185">−3</text>
+      <text x="355" y="185">−2</text>
+      <text x="460" y="185">−1</text>
+    </g>
+    <line x1="88" y1="145" x2="355" y2="145" stroke="#2563eb" stroke-width="7" stroke-linecap="round" marker-start="url(#linineq-ray-l)"></line>
+    <circle cx="355" cy="145" r="9" fill="#2563eb"></circle>
+    <text x="310" y="235" fill="#1e3a8a" font-size="19" font-weight="700" text-anchor="middle">x ∈ (−∞; −2]</text>
+  </g>
+</svg>
+
+        <div class="ms-solution-caption">
+          Точка −2 закрашена, луч направлен влево.
+        </div>
+      </div>
+    </div>
+
+    <h3>Пример 4. Неравенство со скобками</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">2(3x − 1) &lt; 4x + 10.</div>
+      <div class="ms-math-row">6x − 2 &lt; 4x + 10.</div>
+      <div class="ms-math-row">2x &lt; 12.</div>
+      <div class="ms-math-row">x &lt; 6.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; 6).</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Неравенства с дробными коэффициентами</h2>
+
+    <p class="ms-text">
+      Дробные коэффициенты можно убрать умножением обеих частей
+      на общий положительный знаменатель.
+      Если умножитель положительный, знак сохраняется.
+    </p>
+
+    <h3>Пример 5. Убираем знаменатель</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">x</span><span class="ms-den">3</span></span>
+        − 2 &gt; 4.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">x</span><span class="ms-den">3</span></span>
+        &gt; 6.
+      </div>
+      <div class="ms-math-row">Умножим обе части на 3:</div>
+      <div class="ms-math-row">x &gt; 18.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (18; +∞).</span></div>
+    </div>
+
+    <h3>Пример 6. Переменная в обеих частях</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">7x − 5 ≤ 3x + 11.</div>
+      <div class="ms-math-row">7x − 3x ≤ 11 + 5.</div>
+      <div class="ms-math-row">4x ≤ 16.</div>
+      <div class="ms-math-row">x ≤ 4.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; 4].</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Особые случаи после приведения подобных</h2>
+
+    <div class="ms-special-grid ms-card-grid ms-columns-3">
+      <div class="ms-special-card ms-card">
+        <span class="ms-special-formula">0 · x &gt; 3</span>
+        <strong class="ms-card-title">Решений нет</strong>
+        <span class="ms-card-text">
+          Получается неверное сравнение 0 &gt; 3.
+        </span>
+      </div>
+
+      <div class="ms-special-card ms-card">
+        <span class="ms-special-formula">0 · x ≤ 3</span>
+        <strong class="ms-card-title">Подходит любое x</strong>
+        <span class="ms-card-text">
+          Сравнение 0 ≤ 3 верно при всех действительных x.
+        </span>
+      </div>
+
+      <div class="ms-special-card ms-card">
+        <span class="ms-special-formula">0 · x &lt; 0</span>
+        <strong class="ms-card-title">Решений нет</strong>
+        <span class="ms-card-text">
+          Строгое сравнение 0 &lt; 0 является неверным.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 7. Переменная исчезла</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">3(x + 2) &gt; 3x − 1.</div>
+      <div class="ms-math-row">3x + 6 &gt; 3x − 1.</div>
+      <div class="ms-math-row">6 &gt; −1 — верное неравенство.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; +∞).</span></div>
+    </div>
+
+    <div class="ms-note">
+      Нельзя делить неравенство на нулевой коэффициент.
+      Если после упрощения переменная исчезла,
+      нужно проверить получившееся числовое сравнение.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Решите неравенство 2x + 5 &gt; 13.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>2x &gt; 8, поэтому x &gt; 4.<br><br><strong>Ответ: (4; +∞).</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Решите неравенство 5x − 9 ≤ 6.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>5x ≤ 15, поэтому x ≤ 3.<br><br><strong>Ответ: (−∞; 3].</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Решите неравенство −3x &gt; 12.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>Делим на −3 и меняем знак.<br><br><strong>Ответ: x &lt; −4, то есть (−∞; −4).</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Решите неравенство 4 − 2x ≥ 10.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>−2x ≥ 6. Делим на −2 и меняем знак.<br><br><strong>Ответ: x ≤ −3, то есть (−∞; −3].</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Решите неравенство 3(x − 2) &lt; 2x + 5.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>3x − 6 &lt; 2x + 5.<br>x &lt; 11.<br><br><strong>Ответ: (−∞; 11).</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Решите неравенство 8x + 1 &gt; 5x + 16.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>3x &gt; 15, поэтому x &gt; 5.<br><br><strong>Ответ: (5; +∞).</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">x</span><span class="ms-den">4</span></span>
+        + 3 ≥ 5.
+      </p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>x/4 ≥ 2. Умножаем на 4.<br><br><strong>Ответ: x ≥ 8, то есть [8; +∞).</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Решите неравенство 2(x + 4) ≤ 2x + 1.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>2x + 8 ≤ 2x + 1.<br>8 ≤ 1 — неверно.<br><br><strong>Ответ: решений нет.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 9.</strong> Решите неравенство 5(x − 1) &gt; 5x − 8.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>5x − 5 &gt; 5x − 8.<br>−5 &gt; −8 — верно.<br><br><strong>Ответ: любое действительное x.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 10.</strong> Решите неравенство −2(3x − 1) &lt; 4x + 12.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>−6x + 2 &lt; 4x + 12.<br>−10x &lt; 10.<br>Делим на −10 и меняем знак.<br><br><strong>Ответ: x &gt; −1, то есть (−1; +∞).</strong></div></details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Линейное неравенство без ошибок</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Соберите переменную</strong>
+        <span class="ms-card-text">
+          Перенесите члены с x в одну часть, числа — в другую.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Следите за коэффициентом</strong>
+        <span class="ms-card-text">
+          При положительном коэффициенте знак сохраняется.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Меняйте знак вовремя</strong>
+        <span class="ms-card-text">
+          Деление на отрицательное число меняет направление неравенства.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Запишите промежуток</strong>
+        <span class="ms-card-text">
+          Учтите строгий знак, включение границы и направление луча.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top:20px">
+      ax &gt; b:
+      <br>
+      если a &gt; 0, то x &gt; b/a;
+      <br>
+      если a &lt; 0, то x &lt; b/a;
+      <br>
+      если a = 0, проверяют получившееся числовое неравенство.
+    </div>
+
+    <p class="ms-text" style="margin-top:20px">
+      В следующей теме разберём приближённые значения
+      по недостатку и по избытку.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/svojstva-chislovyh-neravenstv-svojstva-neravenstv-odinakovogo-smysla/">Предыдущая тема</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn" href="/priblizhyonnye-znacheniya-po-nedostatku-po-izbytku/">Следующая тема</a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,101 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-root-canvas {
+    height: 350px !important;
+  }
+}
+.ms-lesson-page .ms-root-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 820 / 460;
+  min-height: 410px;
+  background: #ffffff;
+  touch-action: none;
+  user-select: none;
+}
+.ms-lesson-page .ms-shift-route {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-shift-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 30px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-mini-check {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-mini-check {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-shift-route {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-shift-arrow {
+    transform: rotate(90deg);
+    min-height: 30px;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-root-canvas {
+    min-height: 350px;
+  }
+}
+@media (max-width: 460px) {
+  .ms-lesson-page .ms-mini-check {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-root-canvas {
+  grid-area: 1 / 1;
+}
+.ms-lesson-page .ms-root-canvas {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  background: transparent;
+}
+.ms-lesson-page .ms-graph-lab[data-ms-hyperbola-lab="true"][data-ready="true"] .ms-root-canvas,
+.ms-lesson-page .ms-graph-lab[data-ms-hyperbola-lab="true"][data-ready="true"] .ms-graph-readout {
+  opacity: 1;
+}
+.ms-lesson-page .ms-graph-lab[data-ms-hyperbola-lab="true"][data-ready="true"] .ms-root-canvas {
+  background: #ffffff;
+}
+.ms-lesson-page #ms-hyperbola-lab-621 .ms-graph-canvas-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+}
+.ms-lesson-page #ms-hyperbola-lab-621 .ms-root-canvas {
+  position: relative;
+  z-index: 2;
+  display: block !important;
+  width: 100% !important;
+  height: 460px !important;
+  min-height: 0;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: #ffffff !important;
+}
+.ms-lesson-page #ms-hyperbola-lab-621 .ms-graph-readout {
+  z-index: 3;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+@media (max-width: 620px) {
+  .ms-lesson-page #ms-hyperbola-lab-621 .ms-root-canvas {
+    min-height: 350px;
+  }
+}

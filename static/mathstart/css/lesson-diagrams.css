@@ -1,0 +1,282 @@
+/* Общие диаграммы данных, легенды, наборы исходов и схемы рассуждений. */
+.ms-lesson-page .ms-legend-item {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+.ms-lesson-page .ms-pie-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(260px, 1.2fr);
+  gap: 24px;
+  align-items: center;
+}
+.ms-lesson-page .ms-pie {
+  width: min(290px, 100%);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border: 10px solid #ffffff;
+  border-radius: 50%;
+  background: conic-gradient(
+      #2563eb 0 35%,
+      #7c3aed 35% 60%,
+      #0ea5e9 60% 80%,
+      #14b8a6 80% 95%,
+      #f59e0b 95% 100%
+    );
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+}
+.ms-lesson-page .ms-legend-list {
+  display: grid;
+  gap: 10px;
+}
+.ms-lesson-page .ms-legend-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+}
+.ms-lesson-page .ms-swatch-1 {
+  background: #2563eb;
+}
+.ms-lesson-page .ms-swatch-2 {
+  background: #7c3aed;
+}
+.ms-lesson-page .ms-swatch-3 {
+  background: #0ea5e9;
+}
+.ms-lesson-page .ms-swatch-4 {
+  background: #14b8a6;
+}
+.ms-lesson-page .ms-swatch-5 {
+  background: #f59e0b;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-pie-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-bars {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-bar-row {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) 42px;
+  gap: 12px;
+  align-items: center;
+}
+.ms-lesson-page .ms-bar-label {
+  color: #374151;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-bar-value {
+  color: #374151;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-align: right;
+}
+.ms-lesson-page .ms-bar-track {
+  height: 24px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #eff6ff;
+}
+.ms-lesson-page .ms-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-bar-row {
+    grid-template-columns: 82px minmax(0, 1fr) 38px;
+    gap: 8px;
+  }
+}
+.ms-lesson-page .ms-stat-card {
+  text-align: center;
+}
+.ms-lesson-page .ms-outcome-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+  gap: 18px;
+  margin-top: 18px;
+  align-items: stretch;
+}
+.ms-lesson-page .ms-outcome-panel {
+  padding: 19px;
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-outcome-panel h3 {
+  margin: 0 0 12px !important;
+  font-size: 20px !important;
+}
+.ms-lesson-page .ms-outcome-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ms-lesson-page .ms-outcome-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-size: 17px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-outcome-token--active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-outcome-board {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-signal-board {
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-signal-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: stretch;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ms-lesson-page .ms-signal-row:last-child {
+  border-bottom: none;
+}
+.ms-lesson-page .ms-signal-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 14px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-signal-text {
+  padding: 18px 20px;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.65;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-signal-row {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-signal-label {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+.ms-lesson-page .ms-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+.ms-lesson-page .ms-legend-line {
+  display: inline-block;
+  width: 28px;
+  height: 5px;
+  border-radius: 999px;
+}
+.ms-lesson-page .ms-legend-blue {
+  background: #2563eb;
+}
+.ms-lesson-page .ms-legend-purple {
+  background: #7c3aed;
+}
+.ms-lesson-page .ms-legend-green {
+  background: #16a34a;
+}
+.ms-lesson-page .ms-dashboard {
+  display: grid;
+  grid-template-columns: 230px minmax(0,1fr);
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #fff;
+}
+.ms-lesson-page .ms-dashboard-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(145deg,#2563eb,#4f46e5);
+  color: #fff;
+}
+.ms-lesson-page .ms-dashboard-main span {
+  margin-bottom: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: .85;
+}
+.ms-lesson-page .ms-dashboard-main strong {
+  font-size: 22px;
+  line-height: 1.45;
+}
+.ms-lesson-page .ms-dashboard-list {
+  padding: 18px 22px;
+}
+.ms-lesson-page .ms-dashboard-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0,1fr);
+  gap: 11px;
+  align-items: start;
+  padding: 11px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ms-lesson-page .ms-dashboard-row:last-child {
+  border-bottom: 0;
+}
+.ms-lesson-page .ms-dashboard-icon {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-dashboard-text {
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.6;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-dashboard {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-dashboard-main {
+    min-height: 180px;
+  }
+}

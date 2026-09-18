@@ -1,0 +1,706 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Элементы комбинаторики · Тема 1.3
+    </div>
+
+    <h1 class="ms-title">Сочетания. Треугольник Паскаля</h1>
+
+    <p class="ms-subtitle">
+      Научимся считать способы выбрать несколько объектов без учёта
+      порядка, применять формулу сочетаний и находить коэффициенты
+      по треугольнику Паскаля.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/sochetaniya-treugolnik-paskalya/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Когда порядок выбранных объектов не важен</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Определение сочетания</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Почему в формуле появляется деление на k!</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Основные свойства сочетаний</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Треугольник Паскаля</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Разобранные задачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Как отличить сочетание от перестановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Когда порядок выбранных объектов не важен</h2>
+
+    <p class="ms-text">
+      Из пяти учеников нужно выбрать двух дежурных. Пара «Аня и Борис»
+      не отличается от пары «Борис и Аня»: состав группы тот же.
+      Значит, перестановка выбранных учеников не создаёт нового
+      результата.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Порядок важен</span>
+        <h3 class="ms-card-title">Председатель и секретарь</h3>
+        <p class="ms-card-text">
+          Роли различаются. Назначения «Аня — председатель,
+          Борис — секретарь» и «Борис — председатель,
+          Аня — секретарь» являются разными.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Порядок не важен</span>
+        <h3 class="ms-card-title">Два участника команды</h3>
+        <p class="ms-card-text">
+          Важен только состав пары. Перестановка двух выбранных людей
+          не меняет команду.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>
+        Сочетания используются тогда, когда выбирают часть объектов
+        и порядок внутри выбранной группы не имеет значения.
+      </strong>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Определение сочетания</h2>
+
+    <p class="ms-text">
+      <strong>
+        Сочетанием из n различных элементов по k элементов
+      </strong>
+      называют выбор k элементов из n, при котором учитывается
+      только состав выбранной группы, но не порядок элементов.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        C<sub>n</sub><sup>k</sup> =
+        <span class="ms-frac">
+          <span class="ms-num">n!</span>
+          <span class="ms-den">k! · (n − k)!</span>
+        </span>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Запись C<sub>n</sub><sup>k</sup> читают:
+      «число сочетаний из n по k».
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+      Выберем двух учеников из пяти:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          C<sub>5</sub><sup>2</sup> =
+          <span class="ms-frac">
+            <span class="ms-num">5!</span>
+            <span class="ms-den">2! · 3!</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">5 · 4</span>
+            <span class="ms-den">2 · 1</span>
+          </span>
+          = 10
+        </div>
+      </div>
+
+      Получается <strong>10 различных пар</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Почему в формуле появляется деление на k!</h2>
+
+    <p class="ms-text">
+      Если сначала считать упорядоченные последовательности из
+      k выбранных объектов, каждая группа будет посчитана несколько
+      раз — по одному разу для каждого порядка её элементов.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пара Ани и Бориса</span>
+      При упорядоченном подсчёте появляются варианты АБ и БА.
+      Но как неупорядоченная пара это один и тот же выбор.
+      Поэтому результат нужно разделить на 2! = 2.
+    </div>
+
+    <div class="ms-rule-box">
+      Для группы из k элементов существует k! внутренних перестановок.
+      Деление на k! убирает повторный подсчёт одной и той же группы.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Основные свойства сочетаний</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Крайние значения</span>
+        <h3 class="ms-card-title">
+          C<sub>n</sub><sup>0</sup> =
+          C<sub>n</sub><sup>n</sup> = 1
+        </h3>
+        <p class="ms-card-text">
+          Пустую группу можно выбрать одним способом.
+          Все n элементов тоже можно выбрать одним способом.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Симметрия</span>
+        <h3 class="ms-card-title">
+          C<sub>n</sub><sup>k</sup> =
+          C<sub>n</sub><sup>n−k</sup>
+        </h3>
+        <p class="ms-card-text">
+          Выбрать k элементов — то же самое, что определить
+          n − k элементов, которые не вошли в группу.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        C<sub>n</sub><sup>k</sup> =
+        C<sub>n−1</sub><sup>k−1</sup> +
+        C<sub>n−1</sub><sup>k</sup>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Это равенство называют правилом Паскаля. Оно показывает,
+      как получить число в следующей строке треугольника Паскаля:
+      сложить два соседних числа над ним.
+    </p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Треугольник Паскаля</h2>
+
+    <p class="ms-text">
+      В строке с номером n записываются числа
+      C<sub>n</sub><sup>0</sup>,
+      C<sub>n</sub><sup>1</sup>, …,
+      C<sub>n</sub><sup>n</sup>.
+      Нумерация строк начинается с нуля.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Первые семь строк треугольника Паскаля
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 820 500"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Треугольник Паскаля от нулевой до шестой строки"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="818"
+            height="498"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <g font-size="15" font-weight="800" fill="#64748b">
+            <text x="55" y="68">n = 0</text>
+            <text x="55" y="128">n = 1</text>
+            <text x="55" y="188">n = 2</text>
+            <text x="55" y="248">n = 3</text>
+            <text x="55" y="308">n = 4</text>
+            <text x="55" y="368">n = 5</text>
+            <text x="55" y="428">n = 6</text>
+          </g>
+
+          <g fill="#eff6ff" stroke="#bfdbfe" stroke-width="2">
+            <circle cx="440" cy="62" r="23"></circle>
+
+            <circle cx="400" cy="122" r="23"></circle>
+            <circle cx="480" cy="122" r="23"></circle>
+
+            <circle cx="360" cy="182" r="23"></circle>
+            <circle cx="440" cy="182" r="23"></circle>
+            <circle cx="520" cy="182" r="23"></circle>
+
+            <circle cx="320" cy="242" r="23"></circle>
+            <circle cx="400" cy="242" r="23"></circle>
+            <circle cx="480" cy="242" r="23"></circle>
+            <circle cx="560" cy="242" r="23"></circle>
+
+            <circle cx="280" cy="302" r="23"></circle>
+            <circle cx="360" cy="302" r="23"></circle>
+            <circle cx="440" cy="302" r="23"></circle>
+            <circle cx="520" cy="302" r="23"></circle>
+            <circle cx="600" cy="302" r="23"></circle>
+
+            <circle cx="240" cy="362" r="23"></circle>
+            <circle cx="320" cy="362" r="23"></circle>
+            <circle cx="400" cy="362" r="23"></circle>
+            <circle cx="480" cy="362" r="23"></circle>
+            <circle cx="560" cy="362" r="23"></circle>
+            <circle cx="640" cy="362" r="23"></circle>
+
+            <circle cx="200" cy="422" r="23"></circle>
+            <circle cx="280" cy="422" r="23"></circle>
+            <circle cx="360" cy="422" r="23"></circle>
+            <circle cx="440" cy="422" r="23"></circle>
+            <circle cx="520" cy="422" r="23"></circle>
+            <circle cx="600" cy="422" r="23"></circle>
+            <circle cx="680" cy="422" r="23"></circle>
+          </g>
+
+          <g
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-size="16"
+            font-weight="800"
+            fill="#1e3a8a"
+          >
+            <text x="440" y="62">1</text>
+
+            <text x="400" y="122">1</text>
+            <text x="480" y="122">1</text>
+
+            <text x="360" y="182">1</text>
+            <text x="440" y="182">2</text>
+            <text x="520" y="182">1</text>
+
+            <text x="320" y="242">1</text>
+            <text x="400" y="242">3</text>
+            <text x="480" y="242">3</text>
+            <text x="560" y="242">1</text>
+
+            <text x="280" y="302">1</text>
+            <text x="360" y="302">4</text>
+            <text x="440" y="302">6</text>
+            <text x="520" y="302">4</text>
+            <text x="600" y="302">1</text>
+
+            <text x="240" y="362">1</text>
+            <text x="320" y="362">5</text>
+            <text x="400" y="362">10</text>
+            <text x="480" y="362">10</text>
+            <text x="560" y="362">5</text>
+            <text x="640" y="362">1</text>
+
+            <text x="200" y="422">1</text>
+            <text x="280" y="422">6</text>
+            <text x="360" y="422">15</text>
+            <text x="440" y="422">20</text>
+            <text x="520" y="422">15</text>
+            <text x="600" y="422">6</text>
+            <text x="680" y="422">1</text>
+          </g>
+
+          <g stroke="#7c3aed" stroke-width="3" fill="none">
+            <path d="M400 145 L424 162"></path>
+            <path d="M480 145 L456 162"></path>
+          </g>
+
+          <text
+            x="610"
+            y="170"
+            font-size="15"
+            font-weight="800"
+            fill="#7c3aed"
+          >
+            1 + 1 = 2
+          </text>
+
+          <text
+            x="440"
+            y="475"
+            text-anchor="middle"
+            font-size="16"
+            font-weight="800"
+            fill="#2563eb"
+          >
+            Каждое внутреннее число равно сумме двух чисел над ним
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Строка n</th>
+            <th>Коэффициенты</th>
+            <th>Примеры</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>1, 3, 3, 1</td>
+            <td>
+              C<sub>3</sub><sup>0</sup>,
+              C<sub>3</sub><sup>1</sup>,
+              C<sub>3</sub><sup>2</sup>,
+              C<sub>3</sub><sup>3</sup>
+            </td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>1, 4, 6, 4, 1</td>
+            <td>C<sub>4</sub><sup>2</sup> = 6</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>1, 5, 10, 10, 5, 1</td>
+            <td>
+              C<sub>5</sub><sup>2</sup> =
+              C<sub>5</sub><sup>3</sup> = 10
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Разобранные задачи</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Задача 1. Выбор команды</span>
+      Из восьми учеников выбирают трёх участников команды:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          C<sub>8</sub><sup>3</sup> =
+          <span class="ms-frac">
+            <span class="ms-num">8!</span>
+            <span class="ms-den">3! · 5!</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">8 · 7 · 6</span>
+            <span class="ms-den">3 · 2 · 1</span>
+          </span>
+          = 56
+        </div>
+      </div>
+
+      Команду можно выбрать <strong>56 способами</strong>.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Задача 2. Выбор задач</span>
+      Ученик должен выбрать четыре задачи из десяти. Порядок решения
+      не задаётся, поэтому число наборов равно:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          C<sub>10</sub><sup>4</sup> = 210
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Задача 3. Использование симметрии
+      </span>
+
+      C<sub>12</sub><sup>10</sup> =
+      C<sub>12</sub><sup>2</sup>. Выбрать десять участников
+      из двенадцати — то же самое, что определить двух невыбранных.
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          C<sub>12</sub><sup>2</sup> =
+          <span class="ms-frac">
+            <span class="ms-num">12 · 11</span>
+            <span class="ms-den">2</span>
+          </span>
+          = 66
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Как отличить сочетание от перестановки</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Ситуация</th>
+            <th>Что важно</th>
+            <th>Способ подсчёта</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Расставить все книги на полке</td>
+            <td>Порядок всех объектов</td>
+            <td>Перестановки</td>
+          </tr>
+
+          <tr>
+            <td>Выбрать несколько книг для чтения</td>
+            <td>Только состав выбранной группы</td>
+            <td>Сочетания</td>
+          </tr>
+
+          <tr>
+            <td>Выбрать капитана и помощника</td>
+            <td>Кто какую роль получил</td>
+            <td>Последовательный выбор</td>
+          </tr>
+
+          <tr>
+            <td>Выбрать двух дежурных</td>
+            <td>Только состав пары</td>
+            <td>Сочетания</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Проверочный вопрос:</strong> изменится ли результат,
+      если выбранные объекты поменять местами? Если нет, порядок
+      не важен и обычно нужны сочетания.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. Сколькими способами можно выбрать двух учеников из шести?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Порядок выбранных учеников не важен.</p>
+          <p>
+            C<sub>6</sub><sup>2</sup> = 6 · 5 : 2 =
+            <strong>15</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>2. Вычислите C<sub>7</sub><sup>3</sup>.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            C<sub>7</sub><sup>3</sup> =
+            7 · 6 · 5 : (3 · 2 · 1) =
+            210 : 6 = <strong>35</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Найдите C<sub>9</sub><sup>7</sup>, используя свойство
+        симметрии.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            C<sub>9</sub><sup>7</sup> =
+            C<sub>9</sub><sup>2</sup> =
+            9 · 8 : 2 = <strong>36</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. В какой строке треугольника Паскаля находятся числа
+        1, 6, 15, 20, 15, 6, 1?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            В строке с номером <strong>6</strong>, потому что в ней
+            записаны коэффициенты
+            C<sub>6</sub><sup>0</sup>–
+            C<sub>6</sub><sup>6</sup>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. Из десяти книг выбирают три для выставки.
+        Сколько существует наборов?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Порядок книг в выбранной тройке не важен.</p>
+          <p>
+            C<sub>10</sub><sup>3</sup> =
+            10 · 9 · 8 : 6 = <strong>120</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. В классе 12 учеников. Сколькими способами можно выбрать
+        комитет из 4 человек?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            C<sub>12</sub><sup>4</sup> =
+            12 · 11 · 10 · 9 : (4 · 3 · 2 · 1) =
+            11880 : 24 = <strong>495</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Найдите неизвестное число в фрагменте треугольника
+        Паскаля, если над ним стоят 10 и 5.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Внутреннее число равно сумме двух чисел над ним:
+            10 + 5 = <strong>15</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Из восьми учеников выбирают трёх для команды, а затем
+        среди выбранных назначают капитана. Сколько вариантов?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Сначала выбираем команду:
+            C<sub>8</sub><sup>3</sup> = 56.
+            Затем капитана можно выбрать одним из 3 способов.
+          </p>
+          <p>
+            56 · 3 = <strong>168</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Итог</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Порядок не важен</strong>
+        <span class="ms-card-text">
+          Сочетание определяется составом выбранной группы,
+          а не расположением её элементов.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Используй формулу</strong>
+        <span class="ms-card-text">
+          C<sub>n</sub><sup>k</sup> =
+          n! : (k! · (n − k)!), предварительно сокращая общие
+          факториалы.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверь Паскаля</strong>
+        <span class="ms-card-text">
+          Крайние числа равны 1, а каждое внутреннее число является
+          суммой двух чисел над ним.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/perestanovki-faktorial/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/prakticheskaya-rabota-vychislenie-veroyatnostej-s-ispolzovaniem-kombinatornyh-funkczij/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,171 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-reduction-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  height: 48px;
+  margin-bottom: 10px;
+  padding: 0 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 15px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 21px;
+  line-height: 1;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-substitution-box {
+  margin-top: 20px;
+  padding: 24px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+  text-align: center;
+}
+.ms-lesson-page .ms-substitution-main {
+  display: block;
+  color: #1e3a8a;
+  font-size: clamp(24px, 4vw, 36px);
+  line-height: 1.45;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-substitution-caption {
+  display: block;
+  margin-top: 9px;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-reduction-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-reduction-step {
+  position: relative;
+  min-height: 158px;
+  padding: 17px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-reduction-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-reduction-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-reduction-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-reduction-step span {
+  display: block;
+  color: #4b5563;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-return-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-return-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 31px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-equation-type-formula {
+  display: block;
+  margin-bottom: 10px;
+  color: #1d4ed8;
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-substitution-check {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 960px) {
+  .ms-lesson-page .ms-reduction-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-reduction-step:nth-child(3)::after {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-return-grid {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-return-arrow {
+    transform: rotate(90deg);
+    min-height: 30px;
+  }
+  .ms-lesson-page .ms-substitution-check {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-reduction-steps {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-reduction-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-reduction-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-reduction-step:nth-child(3)::after {
+    display: block;
+  }
+}
+@media (max-width: 480px) {
+  .ms-lesson-page .ms-substitution-check {
+    grid-template-columns: 1fr;
+  }
+}

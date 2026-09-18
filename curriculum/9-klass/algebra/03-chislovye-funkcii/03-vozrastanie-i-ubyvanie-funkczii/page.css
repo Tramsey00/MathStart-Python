@@ -1,0 +1,57 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-motion {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-motion-arrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #2563eb;
+  font-size: 26px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-compass {
+  display: grid;
+  grid-template-columns: 1fr 72px 1fr 72px 1fr;
+  align-items: stretch;
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #fff;
+}
+.ms-lesson-page .ms-compass-step {
+  padding: 20px;
+}
+.ms-lesson-page .ms-compass-step b {
+  display: block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-compass-step span {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-compass-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 30px;
+  font-weight: 800;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-motion,
+  .ms-lesson-page .ms-compass {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-compass-arrow {
+    min-height: 46px;
+    transform: rotate(90deg);
+  }
+}

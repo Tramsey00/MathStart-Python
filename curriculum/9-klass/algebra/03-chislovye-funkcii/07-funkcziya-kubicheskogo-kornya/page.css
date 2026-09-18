@@ -1,0 +1,16 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-legend-gray {
+  height: 3px;
+  background: #94a3b8;
+}
+.ms-lesson-page .ms-property-strip {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-property-strip {
+    grid-template-columns: 1fr;
+  }
+}

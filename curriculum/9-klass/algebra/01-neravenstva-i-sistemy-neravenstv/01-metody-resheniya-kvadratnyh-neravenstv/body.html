@@ -1,0 +1,695 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Алгебра · Неравенства и системы неравенств · Тема 1.1
+    </div>
+
+    <h1 class="ms-title">Методы решения квадратных неравенств</h1>
+
+    <p class="ms-subtitle">
+      Научимся связывать квадратный трёхчлен с графиком параболы,
+      определять его знаки по корням и коэффициенту при x²,
+      правильно учитывать строгий или нестрогий знак неравенства.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что называют квадратным неравенством</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Главная идея: определить знаки трёхчлена</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Выбор метода и алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Два различных корня: D &gt; 0</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Один корень: D = 0</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Действительных корней нет: D &lt; 0</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Быстрое решение после разложения на множители</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Таблица основных случаев</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что называют квадратным неравенством</h2>
+
+    <p class="ms-text">
+      Квадратным неравенством с одной переменной называют неравенство,
+      которое можно привести к одному из видов
+    </p>
+
+    <div class="ms-rule-box">
+      ax² + bx + c &gt; 0,&nbsp;&nbsp;
+      ax² + bx + c &lt; 0,&nbsp;&nbsp;
+      ax² + bx + c ≥ 0&nbsp;&nbsp;или&nbsp;&nbsp;
+      ax² + bx + c ≤ 0,
+      <br><br>
+      где a ≠ 0.
+    </div>
+
+    <p class="ms-text">
+      Решить такое неравенство — значит найти все значения x,
+      при которых квадратный трёхчлен ax² + bx + c имеет требуемый знак.
+      Для этого удобно рассматривать функцию y = ax² + bx + c.
+      Её график — парабола.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Выражение положительно</h3>
+        <p class="ms-card-text">
+          Ищем те значения x, при которых график параболы расположен
+          выше оси Ox.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Выражение отрицательно</h3>
+        <p class="ms-card-text">
+          Ищем те значения x, при которых график параболы расположен
+          ниже оси Ox.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Строгое неравенство</h3>
+        <p class="ms-card-text">
+          При знаках &gt; и &lt; корни квадратного трёхчлена
+          в ответ не включаются.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Нестрогое неравенство</h3>
+        <p class="ms-card-text">
+          При знаках ≥ и ≤ корни включаются, потому что в них
+          выражение равно нулю.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Главная идея: определить знаки трёхчлена</h2>
+
+    <p class="ms-text">
+      Если квадратное уравнение ax² + bx + c = 0 имеет два различных корня
+      x₁ и x₂, где x₁ &lt; x₂, то эти корни делят числовую прямую на три промежутка.
+      На каждом из них квадратный трёхчлен сохраняет знак.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Парабола с ветвями вверх: снаружи корней знак «+», между корнями знак «−»
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 760 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Парабола с двумя корнями и схема знаков квадратного трёхчлена">
+          <defs>
+            <marker id="ms-arrow-blue" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L8,3 z" fill="#64748b"></path>
+            </marker>
+          </defs>
+
+          <rect x="0" y="0" width="760" height="350" rx="24" fill="#ffffff"></rect>
+          <rect x="32" y="25" width="696" height="300" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+
+          <g stroke="#e5e7eb" stroke-width="1">
+            <line x1="100" y1="65" x2="100" y2="285"></line>
+            <line x1="180" y1="65" x2="180" y2="285"></line>
+            <line x1="260" y1="65" x2="260" y2="285"></line>
+            <line x1="340" y1="65" x2="340" y2="285"></line>
+            <line x1="420" y1="65" x2="420" y2="285"></line>
+            <line x1="500" y1="65" x2="500" y2="285"></line>
+            <line x1="580" y1="65" x2="580" y2="285"></line>
+            <line x1="660" y1="65" x2="660" y2="285"></line>
+            <line x1="70" y1="100" x2="690" y2="100"></line>
+            <line x1="70" y1="155" x2="690" y2="155"></line>
+            <line x1="70" y1="210" x2="690" y2="210"></line>
+            <line x1="70" y1="265" x2="690" y2="265"></line>
+          </g>
+
+          <line x1="62" y1="210" x2="704" y2="210" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-arrow-blue)"></line>
+          <line x1="380" y1="292" x2="380" y2="47" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-arrow-blue)"></line>
+
+          <path d="M116 72 Q182 155 248 210 Q380 260 512 210 Q578 155 644 72" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+          <circle cx="248" cy="210" r="6.5" fill="#ffffff" stroke="#2563eb" stroke-width="4"></circle>
+          <circle cx="512" cy="210" r="6.5" fill="#ffffff" stroke="#2563eb" stroke-width="4"></circle>
+
+          <line x1="248" y1="199" x2="248" y2="221" stroke="#111827" stroke-width="2"></line>
+          <line x1="512" y1="199" x2="512" y2="221" stroke="#111827" stroke-width="2"></line>
+
+          <text x="716" y="218" font-size="18" font-weight="700" fill="#475569">x</text>
+          <text x="390" y="55" font-size="18" font-weight="700" fill="#475569">y</text>
+          <text x="238" y="242" font-size="17" font-weight="800" fill="#111827">x₁</text>
+          <text x="502" y="242" font-size="17" font-weight="800" fill="#111827">x₂</text>
+
+          <rect x="82" y="278" width="143" height="34" rx="13" fill="#ecfdf5" stroke="#bbf7d0"></rect>
+          <rect x="309" y="278" width="143" height="34" rx="13" fill="#fef2f2" stroke="#fecaca"></rect>
+          <rect x="535" y="278" width="143" height="34" rx="13" fill="#ecfdf5" stroke="#bbf7d0"></rect>
+
+          <text x="153.5" y="301" text-anchor="middle" font-size="16" font-weight="800" fill="#15803d">f(x) &gt; 0</text>
+          <text x="380.5" y="301" text-anchor="middle" font-size="16" font-weight="800" fill="#b91c1c">f(x) &lt; 0</text>
+          <text x="606.5" y="301" text-anchor="middle" font-size="16" font-weight="800" fill="#15803d">f(x) &gt; 0</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Если a &gt; 0, ветви параболы направлены вверх:
+      знак квадратного трёхчлена снаружи корней положительный,
+      а между корнями — отрицательный.
+      <br><br>
+      Если a &lt; 0, ветви направлены вниз, поэтому все знаки меняются
+      на противоположные.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Выбор метода и алгоритм решения</h2>
+
+    <p class="ms-text">
+      Все способы основаны на одном факте: нужно определить знак квадратного
+      трёхчлена. Конкретная запись решения зависит от вида выражения.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Графический способ</h3>
+        <p class="ms-card-text">
+          Схематично изобразите параболу и выберите участки, расположенные
+          выше или ниже оси Ox. Точный масштаб обычно не требуется.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Схема знаков</h3>
+        <p class="ms-card-text">
+          Отметьте корни на числовой прямой и расставьте знаки трёхчлена
+          на полученных промежутках.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Разложение на множители</h3>
+        <p class="ms-card-text">
+          Если трёхчлен легко представить произведением, его нули находятся
+          без вычисления дискриминанта.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Анализ D и коэффициента a</h3>
+        <p class="ms-card-text">
+          При D ≤ 0 часто достаточно определить число корней и направление
+          ветвей параболы.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Шаг</th>
+            <th>Что нужно сделать</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Перенести все слагаемые в одну часть, чтобы в другой части остался ноль.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Найти корни квадратного трёхчлена ax² + bx + c или установить, что действительных корней нет.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Определить направление ветвей параболы по знаку коэффициента a.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Определить, на каких промежутках выражение положительно или отрицательно.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Выбрать промежутки, соответствующие знаку исходного неравенства.</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Включить корни при знаках ≥ или ≤ и исключить при знаках &gt; или &lt;.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      Перед поиском дискриминанта проверьте, нельзя ли быстро разложить трёхчлен
+      на множители или вынести общий множитель. Это часто сокращает решение.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Два различных корня: D &gt; 0</h2>
+
+    <h3>Пример 1. Ветви направлены вверх</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство x² − 5x + 6 &lt; 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Решим уравнение x² − 5x + 6 = 0.</div>
+      <div class="ms-math-row">x² − 5x + 6 = (x − 2)(x − 3), поэтому x₁ = 2, x₂ = 3.</div>
+      <div class="ms-math-row">Коэффициент при x² положительный: a = 1 &gt; 0. Ветви параболы направлены вверх.</div>
+      <div class="ms-math-row">Трёхчлен отрицателен между корнями.</div>
+      <div class="ms-math-row">Знак неравенства строгий, поэтому точки 2 и 3 не включаются.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (2; 3).</span></div>
+    </div>
+
+    <h3>Пример 2. Ветви направлены вниз</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство −2x² + x + 3 ≥ 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Решим уравнение −2x² + x + 3 = 0.</div>
+      <div class="ms-math-row">Умножим уравнение на −1: 2x² − x − 3 = 0.</div>
+      <div class="ms-math-row">D = (−1)² − 4 · 2 · (−3) = 25.</div>
+      <div class="ms-math-row">
+        x₁ =
+        <span class="ms-frac"><span class="ms-num">1 − 5</span><span class="ms-den">4</span></span>
+        = −1,
+        &nbsp;
+        x₂ =
+        <span class="ms-frac"><span class="ms-num">1 + 5</span><span class="ms-den">4</span></span>
+        =
+        <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>.
+      </div>
+      <div class="ms-math-row">В исходном трёхчлене a = −2 &lt; 0, поэтому ветви параболы направлены вниз.</div>
+      <div class="ms-math-row">Трёхчлен неотрицателен между корнями. Знак ≥ позволяет включить оба корня.</div>
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: x ∈ [−1;
+          <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>].
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Один корень: D = 0</h2>
+
+    <p class="ms-text">
+      Если D = 0, парабола касается оси Ox в одной точке x₀.
+      Во всех остальных точках знак трёхчлена совпадает со знаком коэффициента a.
+    </p>
+
+    <h3>Пример 3. Выражение обращается в ноль в одной точке</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство 4x² − 12x + 9 &gt; 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">4x² − 12x + 9 = (2x − 3)².</div>
+      <div class="ms-math-row">Квадрат выражения не может быть отрицательным.</div>
+      <div class="ms-math-row">
+        Он равен нулю только при 2x − 3 = 0, то есть при
+        x =
+        <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>.
+      </div>
+      <div class="ms-math-row">
+        Значит, выражение положительно при всех действительных x,
+        кроме x =
+        <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: x ∈ (−∞;
+          <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>)
+          ∪
+          (<span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>; +∞).
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      При D = 0 удобно представить трёхчлен в виде a(x − x₀)².
+      Квадрат неотрицателен, а знак всего выражения определяется коэффициентом a.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Действительных корней нет: D &lt; 0</h2>
+
+    <p class="ms-text">
+      Если D &lt; 0, парабола не пересекает ось Ox.
+      Поэтому квадратный трёхчлен не меняет знак:
+      при a &gt; 0 он положителен для всех x, а при a &lt; 0 — отрицателен для всех x.
+    </p>
+
+    <h3>Пример 4. Неравенство не имеет решений</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство 2x² + 3x + 5 ≤ 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">D = 3² − 4 · 2 · 5 = 9 − 40 = −31 &lt; 0.</div>
+      <div class="ms-math-row">Действительных корней нет, а a = 2 &gt; 0.</div>
+      <div class="ms-math-row">Следовательно, 2x² + 3x + 5 &gt; 0 при любом действительном x.</div>
+      <div class="ms-math-row">Требование 2x² + 3x + 5 ≤ 0 не выполняется ни при одном x.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: ∅.</span></div>
+    </div>
+
+    <h3>Пример 5. Решением являются все действительные числа</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство −x² + 4x − 7 &lt; 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">D = 4² − 4 · (−1) · (−7) = 16 − 28 = −12 &lt; 0.</div>
+      <div class="ms-math-row">Действительных корней нет, а a = −1 &lt; 0.</div>
+      <div class="ms-math-row">Значит, выражение отрицательно при всех действительных x.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ ℝ.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Быстрое решение после разложения на множители</h2>
+
+    <p class="ms-text">
+      Если квадратный трёхчлен уже разложен на множители или легко раскладывается,
+      его нули видны сразу. Затем можно расставить знаки на промежутках.
+    </p>
+
+    <h3>Пример 6. Неполное квадратное неравенство</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство x² − 9 ≥ 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">x² − 9 = (x − 3)(x + 3).</div>
+      <div class="ms-math-row">Нули выражения: x = −3 и x = 3.</div>
+      <div class="ms-math-row">Коэффициент при x² положительный, поэтому выражение неотрицательно снаружи корней.</div>
+      <div class="ms-math-row">Корни включаются, так как знак неравенства ≥.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; −3] ∪ [3; +∞).</span></div>
+    </div>
+
+    <div class="ms-note">
+      Умножать или делить неравенство на выражение с переменной без анализа его знака нельзя.
+      Например, нельзя просто «сократить на x», если неизвестно, положителен x или отрицателен.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Таблица основных случаев</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Условие</th>
+            <th>a &gt; 0</th>
+            <th>a &lt; 0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>D &gt; 0, корни x₁ &lt; x₂</td>
+            <td>«+» снаружи, «−» между корнями</td>
+            <td>«−» снаружи, «+» между корнями</td>
+          </tr>
+          <tr>
+            <td>D = 0, корень x₀</td>
+            <td>Выражение ≥ 0; ноль только при x = x₀</td>
+            <td>Выражение ≤ 0; ноль только при x = x₀</td>
+          </tr>
+          <tr>
+            <td>D &lt; 0</td>
+            <td>Выражение &gt; 0 при всех x</td>
+            <td>Выражение &lt; 0 при всех x</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Типичные ошибки</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Забыли знак коэффициента a</h3>
+        <p class="ms-card-text">
+          При a &lt; 0 ветви направлены вниз, поэтому знаки на промежутках
+          противоположны случаю a &gt; 0.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Неверно включили корни</h3>
+        <p class="ms-card-text">
+          Скобки зависят от знака неравенства: при ≥ и ≤ корни включаются,
+          при &gt; и &lt; — нет.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Сразу сделали вывод по D</h3>
+        <p class="ms-card-text">
+          При D &lt; 0 нужно обязательно посмотреть на знак a:
+          именно он определяет постоянный знак трёхчлена.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Потеряли часть решения</h3>
+        <p class="ms-card-text">
+          Если подходят два раздельных промежутка, их записывают через знак объединения ∪.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      <span class="ms-bad">Неверно:</span> если корни 2 и 5, то автоматически выбирать (2; 5).
+      <br>
+      <span class="ms-good">Верно:</span> сначала определить знак a и выяснить,
+      требуется положительное или отрицательное значение трёхчлена.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-10">
+    <h2>9. Самопроверка</h2>
+
+    <p class="ms-text">
+      Решите неравенства и только после этого раскройте решения.
+    </p>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Решите неравенство x² − 7x + 12 &lt; 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x² − 7x + 12 = (x − 3)(x − 4).
+          Корни: 3 и 4. Коэффициент при x² положительный,
+          поэтому выражение отрицательно между корнями.
+          <br><br>
+          <strong>Ответ: x ∈ (3; 4).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Решите неравенство x² + x − 6 ≥ 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x² + x − 6 = (x + 3)(x − 2).
+          Корни: −3 и 2. Ветви направлены вверх,
+          поэтому выражение неотрицательно снаружи корней.
+          Корни включаются.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; −3] ∪ [2; +∞).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Решите неравенство −x² + 5x − 6 &gt; 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          −x² + 5x − 6 = −(x − 2)(x − 3).
+          Корни: 2 и 3. Коэффициент при x² отрицательный,
+          поэтому выражение положительно между корнями.
+          <br><br>
+          <strong>Ответ: x ∈ (2; 3).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Решите неравенство 4x² − 12x + 9 ≤ 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          4x² − 12x + 9 = (2x − 3)².
+          Квадрат неотрицателен, поэтому условие ≤ 0 выполняется
+          только тогда, когда квадрат равен нулю.
+          <br><br>
+          2x − 3 = 0,
+          x =
+          <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>.
+          <br><br>
+          <strong>Ответ: {
+            <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">2</span></span>}.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Решите неравенство 3x² + 2x + 5 &lt; 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = 2² − 4 · 3 · 5 = 4 − 60 = −56 &lt; 0.
+          Корней нет, а a = 3 &gt; 0, поэтому трёхчлен положителен при всех x.
+          <br><br>
+          <strong>Ответ: ∅.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Решите неравенство −2x² + 4x − 5 ≤ 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          D = 4² − 4 · (−2) · (−5) = 16 − 40 = −24 &lt; 0.
+          Корней нет, а a = −2 &lt; 0, поэтому выражение отрицательно при всех x.
+          Следовательно, условие ≤ 0 выполняется для любого действительного числа.
+          <br><br>
+          <strong>Ответ: x ∈ ℝ.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Решите неравенство x(2x − 10) ≥ 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Нули множителей: x = 0 и 2x − 10 = 0, откуда x = 5.
+          После раскрытия скобок старший коэффициент положительный:
+          x(2x − 10) = 2x² − 10x.
+          Значит, выражение неотрицательно снаружи корней.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; 0] ∪ [5; +∞).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Решите неравенство (x + 1)² &gt; 0.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Квадрат выражения положителен при всех значениях x,
+          кроме того значения, при котором он равен нулю.
+          <br><br>
+          x + 1 = 0, значит, x = −1.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; −1) ∪ (−1; +∞).</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-11">
+    <h2>10. Итог</h2>
+
+    <p class="ms-text">
+      При решении квадратного неравенства нужно определить не только корни,
+      но и знак трёхчлена на промежутках.
+    </p>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Приведите к нулю</strong>
+        <span class="ms-card-text">Перенесите все слагаемые в одну часть и получите квадратный трёхчлен.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Найдите корни</strong>
+        <span class="ms-card-text">Используйте разложение на множители, дискриминант или формулу корней.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверьте знак a</strong>
+        <span class="ms-card-text">Он показывает, вверх или вниз направлены ветви параболы.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Выберите промежутки</strong>
+        <span class="ms-card-text">Сопоставьте знаки трёхчлена со знаком исходного неравенства.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Учтите границы</strong>
+        <span class="ms-card-text">При ≥ и ≤ корни включаются, а при &gt; и &lt; исключаются.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверьте особые случаи</strong>
+        <span class="ms-card-text">При D = 0 есть точка касания, а при D &lt; 0 знак выражения постоянен.</span>
+      </div>
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующей теме повторим решение линейных и квадратных неравенств
+      и научимся быстро выбирать подходящий способ.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-neravenstv/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

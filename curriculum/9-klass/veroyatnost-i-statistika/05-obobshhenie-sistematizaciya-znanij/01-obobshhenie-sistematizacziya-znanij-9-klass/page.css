@@ -1,0 +1,88 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-method-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-method-step {
+  position: relative;
+  padding: 17px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-method-step::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -11px;
+  z-index: 2;
+  transform: translateY(-50%);
+  color: #93c5fd;
+  font-size: 25px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-method-step:last-child::after {
+  content: none;
+}
+.ms-lesson-page .ms-method-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #1d4ed8;
+  font-size: 15.5px;
+}
+.ms-lesson-page .ms-method-step span {
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-case-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.ms-lesson-page .ms-case-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-case-title strong {
+  color: #111827;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-compact-list {
+  margin: 10px 0 0;
+  padding-left: 21px;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-compact-list li + li {
+  margin-top: 7px;
+}
+@media (max-width: 840px) {
+  .ms-lesson-page .ms-method-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-method-step:nth-child(2)::after {
+    content: none;
+  }
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-method-flow {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-method-step::after {
+    content: none;
+  }
+}

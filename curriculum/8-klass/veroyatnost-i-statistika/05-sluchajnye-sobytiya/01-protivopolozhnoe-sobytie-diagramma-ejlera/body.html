@@ -1,0 +1,108 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Случайные события · Тема 5.1</div>
+    <h1 class="ms-title">Противоположное событие. Диаграмма Эйлера</h1>
+    <p class="ms-subtitle">Разберём, как по событию построить его противоположность, увидеть её на диаграмме Эйлера и найти вероятность без нового подсчёта исходов.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/protivopolozhnoe-sobytie-diagramma-ejlera/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Событие и всё, что в него не входит</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Диаграмма Эйлера</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Вероятность противоположного события</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как построить противоположное событие</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Не путайте противоположные и просто несовместные события</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Итоговая опора: событие и его противоположность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Событие и всё, что в него не входит</h2>
+    <p class="ms-text">Пусть в случайном опыте рассматривается событие <strong>A</strong>. <strong>Противоположным событию A</strong> называют событие, которое происходит тогда и только тогда, когда событие A не происходит. Его обозначают <strong>Ā</strong>.</p>
+    <div class="ms-rule-box"><strong>Главная идея:</strong> в каждом опыте обязательно происходит ровно одно из двух событий — A или Ā.</div>
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">A</strong><span class="ms-card-text">На игральной кости выпало чётное число: {2, 4, 6}.</span></div>
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Ā</strong><span class="ms-card-text">На игральной кости выпало нечётное число: {1, 3, 5}.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Диаграмма Эйлера</h2>
+    <p class="ms-text">Прямоугольник изображает пространство всех элементарных исходов Ω. Область внутри круга — событие A, а часть прямоугольника вне круга — противоположное событие Ā.</p>
+    <div class="ms-figure">
+      <p class="ms-figure-title">События A и Ā полностью заполняют пространство Ω</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 860 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Диаграмма Эйлера для события A и противоположного события A с чертой">
+          <rect x="30" y="30" width="800" height="320" rx="26" fill="#f8fbff" stroke="#93c5fd" stroke-width="3"/>
+          <rect x="46" y="46" width="768" height="288" rx="20" fill="#ede9fe" opacity="0.72"/>
+          <circle cx="380" cy="190" r="118" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+          <text x="72" y="82" font-size="23" font-weight="800" fill="#1e3a8a">Ω</text>
+          <text x="380" y="182" text-anchor="middle" font-size="32" font-weight="900" fill="#1d4ed8">A</text>
+          <text x="380" y="218" text-anchor="middle" font-size="17" font-weight="700" fill="#1e40af">событие произошло</text>
+          <text x="665" y="177" text-anchor="middle" font-size="31" font-weight="900" fill="#6d28d9">Ā</text>
+          <text x="665" y="213" text-anchor="middle" font-size="17" font-weight="700" fill="#5b21b6">событие не произошло</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Вероятность противоположного события</h2>
+    <p class="ms-text">События A и Ā несовместны и вместе образуют достоверное событие. Поэтому сумма их вероятностей равна 1.</p>
+    <div class="ms-formula-banner">
+      <div class="ms-formula-main">P(A) + P(Ā) = 1</div>
+      <div class="ms-formula-note">Отсюда получаем удобную формулу: <strong>P(Ā) = 1 − P(A)</strong>.</div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Исправное изделие</span>Вероятность брака равна 0,07. Событие «изделие исправно» противоположно событию «изделие бракованное». Поэтому 1 − 0,07 = <strong>0,93</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Попадание и промах</span>Стрелок попадает в мишень с вероятностью 0,82. Вероятность промаха: 1 − 0,82 = <strong>0,18</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Как построить противоположное событие</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Назовите событие A</strong><span class="ms-card-text">Сформулируйте, что именно должно произойти.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Добавьте отрицание</strong><span class="ms-card-text">Опишите ситуацию «событие A не произошло».</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Проверьте полноту</strong><span class="ms-card-text">Других вариантов между A и Ā быть не должно.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Используйте единицу</strong><span class="ms-card-text">При известном P(A) вычислите 1 − P(A).</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Не путайте противоположные и просто несовместные события</h2>
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Противоположные</strong><span class="ms-card-text">Не могут произойти вместе и вдвоём охватывают все возможные исходы. Например, «выпало чётное» и «выпало нечётное».</span></div>
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Несовместные, но не противоположные</strong><span class="ms-card-text">Не могут произойти вместе, но не охватывают все исходы. Например, «выпала 1» и «выпала 6»: остаются исходы 2, 3, 4, 5.</span></div>
+    </div>
+    <div class="ms-warning-box"><strong>Проверка:</strong> если кроме двух названных событий возможен третий вариант, эти события не являются противоположными.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Самопроверка</h2>
+    <div class="ms-task"><p>1. Сформулируйте событие, противоположное событию A: «при броске кости выпало число больше 4».</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Ā: «выпало число не больше 4», то есть 1, 2, 3 или 4.</p></div></details></div>
+    <div class="ms-task"><p>2. Вероятность того, что автобус придёт вовремя, равна 0,86. Найдите вероятность опоздания.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>1 − 0,86 = <strong>0,14</strong>.</p></div></details></div>
+    <div class="ms-task"><p>3. Вероятность дождя завтра равна 0,35. Какова вероятность того, что дождя не будет?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>1 − 0,35 = <strong>0,65</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. Являются ли события «выпало число 2» и «выпало число 5» противоположными при броске кости?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет. Они несовместны, но не охватывают исходы 1, 3, 4 и 6.</p></div></details></div>
+    <div class="ms-task"><p>5. Известно, что P(Ā) = 0,27. Найдите P(A).</p><details class="ms-answer"><summary>Показать решение</summary><div><p>P(A) = 1 − 0,27 = <strong>0,73</strong>.</p></div></details></div>
+    <div class="ms-task"><p>6. При броске кости A = {1, 3, 6}. Запишите Ā.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Ω = {1, 2, 3, 4, 5, 6}, поэтому Ā = <strong>{2, 4, 5}</strong>.</p></div></details></div>
+    <div class="ms-task"><p>7. Вероятность успешного прохождения проверки равна 0,94. Какова вероятность не пройти проверку из 500 независимых попыток в среднем по доле?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Вероятность не пройти: 1 − 0,94 = 0,06. Ожидаемая доля — 6%, а 0,06 · 500 = <strong>30 случаев</strong>.</p></div></details></div>
+    <div class="ms-task"><p>8. События B и C противоположны. P(B) = 3P(C). Найдите их вероятности.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>P(B) + P(C) = 1. Пусть P(C) = x, тогда 3x + x = 1, x = 0,25. Значит, P(C) = <strong>0,25</strong>, P(B) = <strong>0,75</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Итоговая опора: событие и его противоположность</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Смысл</strong><span class="ms-card-text">Ā происходит именно тогда, когда A не происходит.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Диаграмма</strong><span class="ms-card-text">Круг A и внешняя область Ā вместе заполняют всё пространство Ω.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Формула</strong><span class="ms-card-text">P(Ā) = 1 − P(A), потому что P(A) + P(Ā) = 1.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/svojstvo-dereva-svyaz-mezhdu-chislom-vershin-i-chislom-ryober-pravilo-umnozheniya/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/obedinenie-i-peresechenie-sobytij/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

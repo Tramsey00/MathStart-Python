@@ -1,0 +1,153 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Описательная статистика · Тема 2.1</div>
+    <h1 class="ms-title">Числовые наборы. Среднее арифметическое</h1>
+    <p class="ms-subtitle">Разберём устройство числового набора, смысл среднего арифметического, алгоритм вычисления и обратные задачи на сумму и пропущенное значение.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/chislovye-nabory-srednee-arifmeticheskoe/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что такое числовой набор</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Среднее арифметическое</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Среднее как равномерное распределение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Обратные задачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как правильно понимать среднее</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Короткий итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что такое числовой набор</h2>
+    <p class="ms-text"><strong>Числовой набор</strong> — это несколько чисел, полученных при наблюдении, измерении, подсчёте или опросе. Например, температуры воздуха за неделю, число прочитанных страниц по дням или результаты серии бросков.</p>
+    <p class="ms-text">Каждое число называют <strong>элементом набора</strong>. Повторяющиеся значения нельзя выбрасывать: каждое наблюдение участвует в вычислениях. Для среднего арифметического порядок записи чисел не важен, а их количество — важно.</p>
+    <div class="ms-number-row">
+      <span class="ms-number-chip">14</span><span class="ms-number-chip">17</span><span class="ms-number-chip">15</span><span class="ms-number-chip">20</span><span class="ms-number-chip">19</span>
+    </div>
+    <div class="ms-stat-grid ms-card-grid ms-columns-4">
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">5</strong><span class="ms-card-text">чисел в наборе</span></div>
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">85</strong><span class="ms-card-text">сумма всех чисел</span></div>
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">17</strong><span class="ms-card-text">среднее арифметическое</span></div>
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">баланс</strong><span class="ms-card-text">условно равная доля каждого</span></div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Среднее арифметическое</h2>
+    <p class="ms-text"><strong>Среднее арифметическое</strong> числового набора — это сумма всех его чисел, делённая на количество чисел. Оно обозначается символом <strong>x̄</strong> и показывает, какое значение получилось бы при равномерном распределении общей суммы между всеми наблюдениями.</p>
+    <div class="ms-formula-panel">x̄ = <span class="ms-frac"><span class="ms-num">сумма всех чисел</span><span class="ms-den">количество чисел</span></span></div>
+    <div class="ms-process">
+      <div class="ms-process-step"><span class="ms-process-number">1</span><div><strong>Посчитайте элементы</strong><span>Определите, сколько чисел записано в наборе. Повторы считаются отдельно.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">2</span><div><strong>Найдите сумму</strong><span>Сложите все значения, внимательно учитывая отрицательные и десятичные числа.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">3</span><div><strong>Разделите сумму</strong><span>Разделите полученную сумму на количество элементов и укажите единицу измерения.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">4</span><div><strong>Проверьте смысл</strong><span>Среднее должно находиться между наименьшим и наибольшим значениями набора.</span></div></div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Для набора 14, 17, 15, 20, 19 сумма равна 85, а чисел пять. Поэтому x̄ = 85 : 5 = <strong>17</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Среднее как равномерное распределение</h2>
+    <p class="ms-text">Рассмотрим числа 12, 16 и 20. Их сумма равна 48. Если «переложить» 4 единицы от числа 20 к числу 12, получатся три одинаковых значения: 16, 16 и 16. Поэтому среднее равно 16.</p>
+    <div class="ms-equalizer">
+      <div class="ms-equalizer-item"><div class="ms-equalizer-bar" style="height:72px"></div><span class="ms-equalizer-label">12</span></div>
+      <div class="ms-equalizer-item"><div class="ms-equalizer-bar" style="height:96px"></div><span class="ms-equalizer-label">16</span></div>
+      <div class="ms-equalizer-item"><div class="ms-equalizer-bar" style="height:120px"></div><span class="ms-equalizer-label">20</span></div>
+      <div class="ms-equalizer-item"><div class="ms-equalizer-bar" style="height:96px"></div><span class="ms-equalizer-label">16</span></div>
+      <div class="ms-equalizer-item"><div class="ms-equalizer-bar" style="height:96px"></div><span class="ms-equalizer-label">16</span></div>
+    </div>
+    <div class="ms-note">Среднее арифметическое не обязано совпадать с одним из чисел набора и не обязано быть целым. Например, среднее число книг может равняться 3,5 — это характеристика группы, а не количество книг у конкретного человека.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Обратные задачи</h2>
+    <p class="ms-text">Формулу среднего можно использовать в обратную сторону. Если известны среднее и количество наблюдений, то легко найти общую сумму.</p>
+    <div class="ms-formula-panel">сумма = среднее арифметическое × количество чисел</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Найти сумму</span>За 6 дней ученик читал в среднем по 18 страниц. Всего он прочитал 18 · 6 = <strong>108 страниц</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Найти пропущенное значение</span>Среднее пяти результатов равно 14. Значит, их сумма равна 14 · 5 = 70. Четыре известных результата дают 11 + 15 + 13 + 16 = 55. Пропущенный результат: 70 − 55 = <strong>15</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Как правильно понимать среднее</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Единицы сохраняются</h3><p class="ms-card-text">Если данные измерены в минутах, то и среднее выражается в минутах; если в градусах — в градусах.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Каждое число влияет</h3><p class="ms-card-text">Очень большое или очень маленькое значение способно заметно изменить среднее.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Повторы важны</h3><p class="ms-card-text">В наборе 4, 4, 5, 5, 5 участвуют пять чисел, а не два различных значения.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Нужен контекст</h3><p class="ms-card-text">Среднее описывает набор в целом, но не сообщает, насколько сильно отдельные значения отличаются друг от друга.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Самопроверка</h2>
+    <div class="ms-task">
+      <p>1. Найдите среднее арифметическое чисел 8, 11, 13 и 12.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Сумма: 8 + 11 + 13 + 12 = 44. Чисел четыре.</p><p>x̄ = 44 : 4 = <strong>11</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>2. Температура за пять дней была 18 °C, 20 °C, 19 °C, 21 °C и 22 °C. Найдите среднюю температуру.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Сумма температур равна 100 °C. Делим на 5:</p><p>100 : 5 = <strong>20 °C</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>3. В течение 8 дней турист проходил в среднем по 7,5 км. Какой путь он прошёл за все дни?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общий путь равен произведению среднего на число дней:</p><p>7,5 · 8 = <strong>60 км</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>4. Среднее шести чисел равно 14. Пять из них: 12, 16, 15, 13 и 11. Найдите шестое число.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общая сумма: 14 · 6 = 84.</p><p>Сумма известных чисел: 12 + 16 + 15 + 13 + 11 = 67.</p><p>Шестое число: 84 − 67 = <strong>17</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>5. Среднее число прочитанных книг равно 3,5. Может ли такое среднее быть правильным, если книги считают целыми?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Да.</strong> Среднее характеризует всю группу и не обязано совпадать с количеством книг у отдельного человека.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>6. Найдите значение, до которого можно уравнять числа 10, 14, 18 и 22, сохранив их сумму.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Это среднее арифметическое:</p><p>(10 + 14 + 18 + 22) : 4 = 64 : 4 = <strong>16</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>7. Среднее чисел 6, 8 и 10 равно 8. К набору добавили число 14. Найдите новое среднее.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Новая сумма: 6 + 8 + 10 + 14 = 38. Теперь чисел четыре.</p><p>38 : 4 = <strong>9,5</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>8. Ученик нашёл среднее набора 4, 4, 5, 5, 5 так: (4 + 5) : 2 = 4,5. Объясните ошибку и найдите верный ответ.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Ученик использовал только различные значения, но нужно учитывать все пять наблюдений.</p><p>(4 + 4 + 5 + 5 + 5) : 5 = 23 : 5 = <strong>4,6</strong>.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Короткий итог</h2>
+    <p class="ms-text">Среднее арифметическое связывает три величины: <strong>общую сумму, количество элементов и условно равную долю каждого элемента</strong>. Для вычисления нужно сложить все числа и разделить сумму на их количество.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/prakticheskaya-rabota-diagrammy/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/mediana-chislovogo-nabora-ustojchivost-mediany/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

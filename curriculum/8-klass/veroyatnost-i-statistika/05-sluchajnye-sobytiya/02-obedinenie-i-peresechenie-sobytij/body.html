@@ -1,0 +1,119 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Случайные события · Тема 5.2</div>
+    <h1 class="ms-title">Объединение и пересечение событий</h1>
+    <p class="ms-subtitle">Научимся переводить слова «хотя бы одно» и «одновременно» на язык событий, находить объединение и пересечение по спискам исходов и диаграммам Эйлера.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/obedinenie-i-peresechenie-sobytij/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Две основные операции над событиями</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Пример с игральной костью</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Диаграммы Эйлера</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Алгоритм работы со списками исходов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Разобранные ситуации</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Быстрая сверка: «или» и «и»</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Две основные операции над событиями</h2>
+    <div class="ms-symbol-grid ms-card-grid ms-columns-3">
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">A ∪ B</span><strong class="ms-card-title">Объединение</strong><p class="ms-card-text">Произошло хотя бы одно из событий A или B, в том числе оба сразу.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">A ∩ B</span><strong class="ms-card-title">Пересечение</strong><p class="ms-card-text">События A и B произошли одновременно.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">∅</span><strong class="ms-card-title">Пустое событие</strong><p class="ms-card-text">Нет ни одного исхода, благоприятствующего указанному событию.</p></div>
+    </div>
+    <div class="ms-rule-box"><strong>Подсказка по словам:</strong> «хотя бы одно», «A или B» обычно указывают на объединение; «оба», «одновременно», «A и B» — на пересечение.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Пример с игральной костью</h2>
+    <p class="ms-text">Пусть Ω = {1, 2, 3, 4, 5, 6}, A — «выпало чётное число», B — «выпало число больше 3».</p>
+    <div class="ms-math-box">
+      <div class="ms-math-row">A = {2, 4, 6}</div>
+      <div class="ms-math-row">B = {4, 5, 6}</div>
+      <div class="ms-math-row"><strong>A ∪ B = {2, 4, 5, 6}</strong></div>
+      <div class="ms-math-row"><strong>A ∩ B = {4, 6}</strong></div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Почему 4 и 6 не записывают дважды в объединении?</span>Множество не содержит повторяющихся элементов. Общие исходы входят в A ∪ B только один раз.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Диаграммы Эйлера</h2>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Объединение и пересечение одних и тех же событий</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 940 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Диаграммы Эйлера для объединения и пересечения событий A и B">
+          <rect x="20" y="20" width="440" height="390" rx="24" fill="#f8fbff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="480" y="20" width="440" height="390" rx="24" fill="#f8fbff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="240" y="58" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">A ∪ B — хотя бы одно</text>
+          <text x="700" y="58" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">A ∩ B — оба события</text>
+
+          <defs>
+            <clipPath id="leftA"><circle cx="205" cy="220" r="112"></circle></clipPath>
+            <clipPath id="rightA"><circle cx="665" cy="220" r="112"></circle></clipPath>
+          </defs>
+
+          <circle cx="205" cy="220" r="112" fill="#bfdbfe" stroke="#2563eb" stroke-width="4"></circle>
+          <circle cx="285" cy="220" r="112" fill="#c4b5fd" fill-opacity="0.82" stroke="#7c3aed" stroke-width="4"></circle>
+          <text x="165" y="225" text-anchor="middle" font-size="28" font-weight="900" fill="#1d4ed8">A</text>
+          <text x="325" y="225" text-anchor="middle" font-size="28" font-weight="900" fill="#6d28d9">B</text>
+
+          <circle cx="665" cy="220" r="112" fill="#ffffff" stroke="#2563eb" stroke-width="4"></circle>
+          <circle cx="745" cy="220" r="112" fill="#ffffff" stroke="#7c3aed" stroke-width="4"></circle>
+          <circle cx="745" cy="220" r="112" fill="#8b5cf6" clip-path="url(#rightA)" opacity="0.78"></circle>
+          <text x="625" y="225" text-anchor="middle" font-size="28" font-weight="900" fill="#1d4ed8">A</text>
+          <text x="785" y="225" text-anchor="middle" font-size="28" font-weight="900" fill="#6d28d9">B</text>
+          <text x="705" y="350" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">Закрашена только общая часть</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Алгоритм работы со списками исходов</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Запишите Ω</strong><span class="ms-card-text">Перечислите все возможные исходы опыта.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Составьте A и B</strong><span class="ms-card-text">Отберите исходы для каждого события отдельно.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Для ∪ соберите всё</strong><span class="ms-card-text">Возьмите исходы из A или B, не повторяя общие.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Для ∩ найдите общее</strong><span class="ms-card-text">Оставьте только исходы, входящие одновременно в A и B.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Разобранные ситуации</h2>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Карточки от 1 до 10</span>A — число кратно 2, B — число кратно 3. Тогда A ∩ B = {6}, а A ∪ B = {2, 3, 4, 6, 8, 9, 10}.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Спортивные секции</span>A — ученик посещает футбол, B — ученик посещает плавание. A ∪ B — посещает хотя бы одну секцию; A ∩ B — посещает обе секции.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 3. Непересекающиеся события</span>A — на кости выпало 1, B — выпало 6. Общих исходов нет, поэтому A ∩ B = ∅.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Самопроверка</h2>
+    <div class="ms-task"><p>1. При броске кости A = {2, 4, 6}, B = {1, 2, 3}. Найдите A ∪ B.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>A ∪ B = <strong>{1, 2, 3, 4, 6}</strong>.</p></div></details></div>
+    <div class="ms-task"><p>2. Для тех же событий найдите A ∩ B.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Общий исход только один: A ∩ B = <strong>{2}</strong>.</p></div></details></div>
+    <div class="ms-task"><p>3. Карточку выбирают из чисел 1–12. A — число делится на 4, B — число делится на 6. Найдите пересечение.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>A = {4, 8, 12}, B = {6, 12}; A ∩ B = <strong>{12}</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. В классе A — ученики, изучающие английский, B — изучающие немецкий. Как словами описать A ∪ B?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Ученики, изучающие <strong>хотя бы один</strong> из двух языков.</p></div></details></div>
+    <div class="ms-task"><p>5. Как словами описать A ∩ B в предыдущей задаче?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Ученики, изучающие <strong>оба языка одновременно</strong>.</p></div></details></div>
+    <div class="ms-task"><p>6. A = {1, 3, 5}, B = {2, 4, 6}. Найдите A ∩ B и объясните результат.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Общих элементов нет, поэтому A ∩ B = <strong>∅</strong>.</p></div></details></div>
+    <div class="ms-task"><p>7. Ω = {1, 2, 3, 4, 5, 6, 7, 8}. A = {2, 4, 6, 8}, B = {5, 6, 7, 8}. Сколько элементов в A ∪ B?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>A ∪ B = {2, 4, 5, 6, 7, 8}; в нём <strong>6 элементов</strong>.</p></div></details></div>
+    <div class="ms-task"><p>8. В группе 18 человек играют в шахматы, 12 — в настольный теннис, 5 занимаются обоими видами. Сколько человек занимается хотя бы одним видом?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Общих участников нельзя считать дважды: 18 + 12 − 5 = <strong>25 человек</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Быстрая сверка: «или» и «и»</h2>
+    <div class="ms-checklist">
+      <div class="ms-checkline"><span class="ms-checkmark">✓</span><span><strong>A ∪ B</strong> означает: произошло хотя бы одно событие, возможно, оба.</span></div>
+      <div class="ms-checkline"><span class="ms-checkmark">✓</span><span><strong>A ∩ B</strong> означает: события произошли одновременно.</span></div>
+      <div class="ms-checkline"><span class="ms-checkmark">✓</span><span>При объединении общий исход записывается один раз, а при пересечении остаются только общие исходы.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/protivopolozhnoe-sobytie-diagramma-ejlera/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/nesovmestnye-sobytiya-formula-slozheniya-veroyatnostej/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

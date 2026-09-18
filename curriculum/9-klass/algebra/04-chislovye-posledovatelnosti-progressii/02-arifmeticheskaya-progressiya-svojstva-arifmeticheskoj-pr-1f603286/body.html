@@ -1,0 +1,242 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">9 класс · Алгебра · Числовые последовательности · Тема 4.2</div>
+    <h1 class="ms-title">Арифметическая прогрессия. Свойства арифметической прогрессии</h1>
+    <p class="ms-subtitle">Научимся распознавать арифметическую прогрессию, находить её разность и любой член, использовать характеристическое свойство, вычислять сумму первых n членов и решать практические задачи.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Определение арифметической прогрессии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как найти разность прогрессии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Наглядный смысл постоянной разности</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Формула n-го члена</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как восстановить неизвестные параметры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Характеристическое свойство</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Сумма первых n членов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Задача из реальной ситуации</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Формульный пульт прогрессии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Определение арифметической прогрессии</h2>
+    <p class="ms-text"><strong>Арифметическая прогрессия</strong> — числовая последовательность, в которой каждый следующий член, начиная со второго, получается прибавлением к предыдущему одного и того же числа.</p>
+    <div class="ms-rule-box"><strong>a<sub>n+1</sub>=a<sub>n</sub>+d</strong>, где d — постоянная разность арифметической прогрессии.</div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Пример прогрессии</h3><p class="ms-card-text">2, 5, 8, 11, 14, … Каждый следующий член больше предыдущего на 3, поэтому d=3.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Не является прогрессией</h3><p class="ms-card-text">1, 2, 4, 8, … Разности соседних членов равны 1, 2, 4 и не являются постоянными.</p></div>
+    </div>
+    <div class="ms-note">Постоянная последовательность тоже является арифметической прогрессией. Например, 7, 7, 7, … имеет разность d=0.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Как найти разность прогрессии</h2>
+    <p class="ms-text">Разность равна разности любого последующего и предыдущего членов.</p>
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>d=a<sub>n+1</sub>−a<sub>n</sub></strong></div>
+      <div class="ms-math-row">Для последовательности 17, 12, 7, 2, …:</div>
+      <div class="ms-math-row">d=12−17=−5.</div>
+    </div>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Знак d</th><th>Поведение прогрессии</th><th>Пример</th></tr></thead>
+        <tbody>
+          <tr><td><strong>d&gt;0</strong></td><td>Прогрессия возрастает</td><td>−1, 2, 5, 8, …</td></tr>
+          <tr><td><strong>d&lt;0</strong></td><td>Прогрессия убывает</td><td>10, 6, 2, −2, …</td></tr>
+          <tr><td><strong>d=0</strong></td><td>Прогрессия постоянна</td><td>4, 4, 4, 4, …</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Наглядный смысл постоянной разности</h2>
+    <p class="ms-text">Члены арифметической прогрессии расположены на числовой прямой через одинаковые промежутки.</p>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Прогрессия 2, 5, 8, 11, 14, … с разностью d=3</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 840 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Числа два, пять, восемь, одиннадцать и четырнадцать расположены на числовой прямой с одинаковым шагом три">
+          <defs><marker id="ms-ap-arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="#64748b"></path></marker></defs>
+          <rect width="840" height="340" rx="24" fill="#fff"></rect><rect x="24" y="20" width="792" height="295" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+          <line x1="80" y1="205" x2="770" y2="205" stroke="#64748b" stroke-width="3" marker-end="url(#ms-ap-arrow)"></line>
+          <g stroke="#94a3b8" stroke-width="2"><line x1="150" y1="190" x2="150" y2="220"></line><line x1="285" y1="190" x2="285" y2="220"></line><line x1="420" y1="190" x2="420" y2="220"></line><line x1="555" y1="190" x2="555" y2="220"></line><line x1="690" y1="190" x2="690" y2="220"></line></g>
+          <g fill="#2563eb" stroke="#fff" stroke-width="4"><circle cx="150" cy="205" r="10"></circle><circle cx="285" cy="205" r="10"></circle><circle cx="420" cy="205" r="10"></circle><circle cx="555" cy="205" r="10"></circle><circle cx="690" cy="205" r="10"></circle></g>
+          <g font-family="inherit" font-size="18" font-weight="800" fill="#111827" text-anchor="middle"><text x="150" y="248">2</text><text x="285" y="248">5</text><text x="420" y="248">8</text><text x="555" y="248">11</text><text x="690" y="248">14</text></g>
+          <g fill="none" stroke="#7c3aed" stroke-width="3"><path d="M160 155 Q218 105 275 155"></path><path d="M295 155 Q353 105 410 155"></path><path d="M430 155 Q488 105 545 155"></path><path d="M565 155 Q623 105 680 155"></path></g>
+          <g font-family="inherit" font-size="16" font-weight="800" fill="#6d28d9" text-anchor="middle"><text x="218" y="115">+3</text><text x="353" y="115">+3</text><text x="488" y="115">+3</text><text x="623" y="115">+3</text></g>
+          <text x="415" y="285" text-anchor="middle" font-family="inherit" font-size="16" font-weight="700" fill="#475569">одинаковый шаг между соседними членами</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Формула n-го члена</h2>
+    <p class="ms-text">Чтобы перейти от первого члена к n-му, нужно выполнить n−1 одинаковых шагов величиной d.</p>
+    <div class="ms-rule-box"><strong>a<sub>n</sub>=a<sub>1</sub>+(n−1)d</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Находим член с большим номером</span>
+      Дано: a<sub>1</sub>=7, d=−3. Найдём a<sub>12</sub>.
+      <div class="ms-math-box">
+        <div class="ms-math-row">a<sub>12</sub>=7+(12−1)·(−3);</div>
+        <div class="ms-math-row">a<sub>12</sub>=7−33=−26.</div>
+      </div>
+      <strong>Ответ: −26.</strong>
+    </div>
+    <div class="ms-note">В формуле стоит множитель n−1, а не n: от первого члена до n-го выполняется именно n−1 переходов.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Как восстановить неизвестные параметры</h2>
+    <div class="ms-formula-grid ms-card-grid ms-columns-2">
+      <div class="ms-formula-card ms-card">
+  <div class="ms-formula-line">
+    <span class="ms-formula-prefix">d =</span>
+    <span class="ms-frac">
+      <span class="ms-num">a<sub>n</sub> − a<sub>m</sub></span>
+      <span class="ms-den">n − m</span>
+    </span>
+  </div>
+  <span class="ms-card-text">Используется, если известны два члена прогрессии с разными номерами.</span>
+</div>
+      <div class="ms-formula-card ms-card"><strong class="ms-card-title">a<sub>1</sub>=a<sub>n</sub>−(n−1)d</strong><span class="ms-card-text">Позволяет восстановить первый член по любому другому члену и разности.</span></div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Известны два удалённых члена</span>
+      Пусть a<sub>5</sub>=18, a<sub>12</sub>=46.
+      <div class="ms-math-box">
+        <div class="ms-math-row">d=<span class="ms-frac"><span class="ms-num">46−18</span><span class="ms-den">12−5</span></span>=<span class="ms-frac"><span class="ms-num">28</span><span class="ms-den">7</span></span>=4;</div>
+        <div class="ms-math-row">a<sub>1</sub>=18−(5−1)·4=2.</div>
+      </div>
+      <strong>Ответ: d=4, a<sub>1</sub>=2.</strong>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Находим номер члена</span>
+      В прогрессии a<sub>1</sub>=5, d=4. Под каким номером находится число 49?
+      <div class="ms-math-box">
+        <div class="ms-math-row">5+(n−1)·4=49;</div>
+        <div class="ms-math-row">4n+1=49;</div>
+        <div class="ms-math-row">n=12.</div>
+      </div>
+      <strong>Ответ: число 49 является двенадцатым членом.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Характеристическое свойство</h2>
+    <p class="ms-text">Каждый член арифметической прогрессии, начиная со второго, равен среднему арифметическому соседних с ним членов.</p>
+    <div class="ms-rule-box"><strong>a<sub>n</sub>=<span class="ms-frac"><span class="ms-num">a<sub>n−1</sub>+a<sub>n+1</sub></span><span class="ms-den">2</span></span></strong>, или <strong>2a<sub>n</sub>=a<sub>n−1</sub>+a<sub>n+1</sub></strong>.</div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Находим средний член</span>
+      Известно, что a<sub>7</sub>=15 и a<sub>9</sub>=23. Тогда:
+      <div class="ms-math-box"><div class="ms-math-row">a<sub>8</sub>=<span class="ms-frac"><span class="ms-num">15+23</span><span class="ms-den">2</span></span>=19.</div></div>
+      <strong>Ответ: a<sub>8</sub>=19.</strong>
+    </div>
+    <div class="ms-answer-box">Более общее свойство: члены, расположенные на одинаковом расстоянии от некоторого среднего номера, имеют постоянную сумму. Например, a<sub>4</sub>+a<sub>10</sub>=a<sub>5</sub>+a<sub>9</sub>=2a<sub>7</sub>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Сумма первых n членов</h2>
+    <p class="ms-text">Сумму можно вычислить через первый и последний члены или через первый член и разность.</p>
+    <div class="ms-formula-grid ms-card-grid ms-columns-2">
+      <div class="ms-formula-card ms-card">
+  <div class="ms-formula-line">
+    <span class="ms-formula-prefix">S<sub>n</sub> =</span>
+    <span class="ms-frac">
+      <span class="ms-num">(a<sub>1</sub> + a<sub>n</sub>)n</span>
+      <span class="ms-den">2</span>
+    </span>
+  </div>
+  <span class="ms-card-text">Удобно, когда известны первый и последний из складываемых членов.</span>
+</div>
+      <div class="ms-formula-card ms-card">
+  <div class="ms-formula-line">
+    <span class="ms-formula-prefix">S<sub>n</sub> =</span>
+    <span class="ms-frac">
+      <span class="ms-num">(2a<sub>1</sub> + (n − 1)d)n</span>
+      <span class="ms-den">2</span>
+    </span>
+  </div>
+  <span class="ms-card-text">Используется, если известны a<sub>1</sub>, d и количество членов n.</span>
+</div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 5. Сумма двадцати членов</span>
+      Дано: a<sub>1</sub>=3, d=2, n=20.
+      <div class="ms-math-box">
+        <div class="ms-math-row">a<sub>20</sub>=3+19·2=41;</div>
+        <div class="ms-math-row">S<sub>20</sub>=<span class="ms-frac"><span class="ms-num">(3+41)·20</span><span class="ms-den">2</span></span>=440.</div>
+      </div>
+      <strong>Ответ: 440.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Задача из реальной ситуации</h2>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 6. Ряды в зрительном зале</span>
+      В первом ряду 18 мест, а в каждом следующем на 2 места больше. Всего 15 рядов. Сколько мест в зале?
+      <div class="ms-math-box">
+        <div class="ms-math-row">a<sub>1</sub>=18, d=2, n=15;</div>
+        <div class="ms-math-row">a<sub>15</sub>=18+14·2=46;</div>
+        <div class="ms-math-row">S<sub>15</sub>=<span class="ms-frac"><span class="ms-num">(18+46)·15</span><span class="ms-den">2</span></span>=480.</div>
+      </div>
+      <strong>Ответ: 480 мест.</strong>
+    </div>
+    <div class="ms-note">В задачах сначала установите, что изменяется на постоянную величину. Только после этого модель можно считать арифметической прогрессией.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Типичные ошибки</h2>
+    <div class="ms-error-grid ms-card-grid ms-columns-2">
+      <div class="ms-error-card ms-card ms-card--error"><strong class="ms-card-title">Используют n вместо n−1</strong><p class="ms-card-text">В формуле общего члена записывают a<sub>n</sub>=a<sub>1</sub>+(n−1)d.</p></div>
+      <div class="ms-error-card ms-card ms-card--error"><strong class="ms-card-title">Теряют знак разности</strong><p class="ms-card-text">Для убывающей прогрессии d отрицательно. Его подставляют вместе со знаком и скобками.</p></div>
+      <div class="ms-error-card ms-card ms-card--error"><strong class="ms-card-title">Путают a<sub>n</sub> и S<sub>n</sub></strong><p class="ms-card-text">a<sub>n</sub> — один член, S<sub>n</sub> — сумма первых n членов.</p></div>
+      <div class="ms-error-card ms-card ms-card--error"><strong class="ms-card-title">Не проверяют номер</strong><p class="ms-card-text">Если найденное n не является натуральным числом, заданное число не входит в прогрессию.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="practice">
+    <h2>10. Самопроверка</h2>
+    <p class="ms-text">Сначала определите известные величины a<sub>1</sub>, d, n и a<sub>n</sub>, затем выберите подходящую формулу.</p>
+
+    <div class="ms-task"><p><strong>1.</strong> Найдите разность прогрессии 12, 9, 6, 3, …</p><details class="ms-answer"><summary>Показать решение</summary><div><p>d=9−12=−3.</p><p><strong>Ответ: −3.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>2.</strong> Выпишите первые пять членов прогрессии, если a<sub>1</sub>=−4, d=5.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Последовательно прибавляем 5.</p><p><strong>Ответ: −4, 1, 6, 11, 16.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>3.</strong> Найдите a<sub>15</sub>, если a<sub>1</sub>=6, d=4.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>a<sub>15</sub>=6+(15−1)·4=6+56=62.</p><p><strong>Ответ: 62.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>4.</strong> Найдите первый член, если a<sub>9</sub>=25, d=3.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>a<sub>1</sub>=25−(9−1)·3=25−24=1.</p><p><strong>Ответ: 1.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>5.</strong> В прогрессии a<sub>1</sub>=2, d=5. Под каким номером находится число 47?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>2+(n−1)·5=47.</p><p>5n−3=47, поэтому n=10.</p><p><strong>Ответ: под номером 10.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>6.</strong> Известно, что a<sub>10</sub>=24 и a<sub>12</sub>=34. Найдите a<sub>11</sub>.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>a<sub>11</sub>=(24+34)/2=29.</p><p><strong>Ответ: 29.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>7.</strong> Найдите сумму первых 25 членов прогрессии, если a<sub>1</sub>=7, d=2.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>a<sub>25</sub>=7+24·2=55.</p><p>S<sub>25</sub>=(7+55)·25/2=775.</p><p><strong>Ответ: 775.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>8.</strong> В первом ряду театра 20 мест, в каждом следующем на 2 места больше. Сколько мест в 18 рядах?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>a<sub>18</sub>=20+17·2=54.</p><p>S<sub>18</sub>=(20+54)·18/2=666.</p><p><strong>Ответ: 666 мест.</strong></p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-11">
+    <h2>11. Формульный пульт прогрессии</h2>
+    <p class="ms-text">Выберите строку по тому, какую величину требуется найти.</p>
+    <div class="ms-dashboard">
+      <div class="ms-dashboard-main"><span>Главный признак</span><strong>Между соседними членами сохраняется одна и та же разность d.</strong></div>
+      <div class="ms-dashboard-list">
+        <div class="ms-dashboard-row"><div class="ms-dashboard-icon">d</div><div class="ms-dashboard-text"><strong>Нужна разность:</strong> вычтите из последующего члена предыдущий.</div></div>
+        <div class="ms-dashboard-row"><div class="ms-dashboard-icon">aₙ</div><div class="ms-dashboard-text"><strong>Нужен отдельный член:</strong> используйте a<sub>n</sub>=a<sub>1</sub>+(n−1)d.</div></div>
+        <div class="ms-dashboard-row"><div class="ms-dashboard-icon">↔</div><div class="ms-dashboard-text"><strong>Известны соседние члены:</strong> средний равен их полусумме.</div></div>
+        <div class="ms-dashboard-row"><div class="ms-dashboard-icon">Σ</div><div class="ms-dashboard-text"><strong>Нужна сумма:</strong> умножьте количество членов на среднее арифметическое первого и последнего.</div></div>
+      </div>
+    </div>
+    <div class="ms-answer-box"><strong>Финальный чек:</strong> перед вычислениями выпишите a<sub>1</sub>, d, n и a<sub>n</sub>. Это помогает не перепутать член прогрессии с суммой.</div>
+    <p class="ms-text" style="margin-top:18px">В следующей теме рассмотрим геометрическую прогрессию, в которой сохраняется не разность, а отношение соседних членов.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/ponyatie-chislovoj-posledovatelnosti-sposoby-zadaniya-posledovatelnostej/">← Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+    <a class="ms-btn" href="/geometricheskaya-progressiya-svojstva-geometricheskoj-progressii/">Следующая тема →</a>
+  </div>
+</div>
+<!-- /wp:html -->

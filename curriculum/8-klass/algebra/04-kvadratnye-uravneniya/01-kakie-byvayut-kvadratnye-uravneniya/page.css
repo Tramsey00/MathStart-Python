@@ -1,0 +1,107 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-equation-form {
+  margin-top: 20px;
+  padding: 24px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+  text-align: center;
+}
+.ms-lesson-page .ms-equation-main {
+  display: block;
+  color: #1e3a8a;
+  font-size: clamp(27px, 4vw, 40px);
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.ms-lesson-page .ms-equation-condition {
+  display: block;
+  margin-top: 9px;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-coefficient-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 15px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-type-formula {
+  display: block;
+  margin-bottom: 10px;
+  color: #1d4ed8;
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-standard-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-incomplete-formula {
+  display: block;
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-classifier {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-classifier-step {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 19px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-classifier-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 17px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-classifier-step span {
+  display: block;
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-classifier {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .ms-lesson-page .ms-classifier {
+    grid-template-columns: 1fr;
+  }
+}

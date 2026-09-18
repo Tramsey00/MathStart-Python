@@ -1,0 +1,130 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Случайные события · Тема 5.5</div>
+    <h1 class="ms-title">Представление случайного эксперимента в виде дерева</h1>
+    <p class="ms-subtitle">Научимся строить дерево вероятностей, записывать вероятности на ветвях и находить вероятность события по одному или нескольким полным путям.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/predstavlenie-sluchajnogo-eksperimenta-v-vide-dereva/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что показывает дерево случайного эксперимента</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Пример дерева: два выстрела</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Два правила чтения дерева</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Алгоритм построения дерева</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Зависимые ветви</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Разобранные примеры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Маршрут к ответу: прочитайте дерево целиком</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что показывает дерево случайного эксперимента</h2>
+    <p class="ms-text">Каждый уровень дерева соответствует очередному этапу опыта, ветви — возможным результатам этапа, а листья — полным элементарным исходам всего эксперимента.</p>
+    <div class="ms-symbol-grid ms-card-grid ms-columns-3">
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">●</span><strong class="ms-card-title">Вершина</strong><p class="ms-card-text">Состояние эксперимента до или после некоторого этапа.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">—</span><strong class="ms-card-title">Ветвь</strong><p class="ms-card-text">Один из возможных результатов следующего шага.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">1</span><strong class="ms-card-title">Сумма ветвей</strong><p class="ms-card-text">Вероятности всех ветвей из одной вершины должны давать 1.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Пример дерева: два выстрела</h2>
+    <p class="ms-text">Вероятность попадания при каждом выстреле равна 0,7, промаха — 0,3. Считаем выстрелы независимыми.</p>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Дерево двух последовательных испытаний</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Дерево вероятностей двух выстрелов с попаданием 0,7 и промахом 0,3">
+          <rect x="18" y="18" width="944" height="484" rx="26" fill="#f8fbff" stroke="#dbeafe" stroke-width="2"/>
+          <g stroke="#64748b" stroke-width="4" stroke-linecap="round">
+            <line x1="110" y1="260" x2="365" y2="145"/><line x1="110" y1="260" x2="365" y2="375"/>
+            <line x1="395" y1="145" x2="700" y2="85"/><line x1="395" y1="145" x2="700" y2="205"/>
+            <line x1="395" y1="375" x2="700" y2="315"/><line x1="395" y1="375" x2="700" y2="435"/>
+          </g>
+          <g fill="#ffffff" stroke="#2563eb" stroke-width="4">
+            <circle cx="110" cy="260" r="18"/><circle cx="380" cy="145" r="18"/><circle cx="380" cy="375" r="18"/>
+          </g>
+          <g fill="#ffffff" stroke="#7c3aed" stroke-width="4">
+            <circle cx="720" cy="85" r="17"/><circle cx="720" cy="205" r="17"/><circle cx="720" cy="315" r="17"/><circle cx="720" cy="435" r="17"/>
+          </g>
+          <g font-size="17" font-weight="800" fill="#111827">
+            <text x="110" y="225" text-anchor="middle">Старт</text>
+            <text x="380" y="108" text-anchor="middle">П</text><text x="380" y="418" text-anchor="middle">М</text>
+            <text x="750" y="90">ПП</text><text x="750" y="210">ПМ</text><text x="750" y="320">МП</text><text x="750" y="440">ММ</text>
+          </g>
+          <g font-size="16" font-weight="800" fill="#1d4ed8">
+            <text x="230" y="178">0,7</text><text x="230" y="348">0,3</text>
+            <text x="535" y="96">0,7</text><text x="535" y="192">0,3</text>
+            <text x="535" y="306">0,7</text><text x="535" y="422">0,3</text>
+          </g>
+          <g font-size="15" font-weight="700" fill="#5b21b6">
+            <text x="820" y="90">0,7 · 0,7 = 0,49</text>
+            <text x="820" y="210">0,7 · 0,3 = 0,21</text>
+            <text x="820" y="320">0,3 · 0,7 = 0,21</text>
+            <text x="820" y="440">0,3 · 0,3 = 0,09</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Два правила чтения дерева</h2>
+    <div class="ms-formula-banner"><div class="ms-formula-main">Вдоль пути — умножаем</div><div class="ms-formula-note">Вероятность одного полного исхода равна произведению вероятностей всех ветвей на пути к нему.</div></div>
+    <div class="ms-formula-banner"><div class="ms-formula-main">Подходящие пути — складываем</div><div class="ms-formula-note">Если событию соответствуют несколько разных листьев, вероятности этих несовместных путей складывают.</div></div>
+    <div class="ms-example"><span class="ms-example-title">Ровно одно попадание</span>Подходят пути ПМ и МП: 0,7 · 0,3 + 0,3 · 0,7 = 0,21 + 0,21 = <strong>0,42</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Алгоритм построения дерева</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Отметьте старт</strong><span class="ms-card-text">Изобразите начальное состояние опыта.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проведите ветви</strong><span class="ms-card-text">Для каждого возможного результата следующего этапа.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Подпишите вероятности</strong><span class="ms-card-text">Около ветвей; из одной вершины их сумма равна 1.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Найдите нужные пути</strong><span class="ms-card-text">Умножьте вдоль каждого и сложите подходящие результаты.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Зависимые ветви</h2>
+    <p class="ms-text">Дерево удобно и тогда, когда вероятности на втором этапе зависят от результата первого.</p>
+    <div class="ms-example"><span class="ms-example-title">Два шара без возвращения</span>В коробке 2 белых и 1 чёрный шар. Вероятность пути ББ равна 2/3 · 1/2 = <strong>1/3</strong>. После первого белого шара в коробке остаются один белый и один чёрный, поэтому вероятности второго шага изменяются.</div>
+    <div class="ms-path-box"><strong>Проверка дерева:</strong> на каждом разветвлении сумма вероятностей равна 1, а сумма вероятностей всех листьев всего дерева также равна 1.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Разобранные примеры</h2>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Две монеты</span>Четыре пути ОО, ОР, РО, РР имеют вероятность 1/4 каждый. Вероятность ровно одного орла: 1/4 + 1/4 = <strong>1/2</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Проверка качества</span>Изделие проходит первый тест с вероятностью 0,9. После успешного первого теста второй проходит с вероятностью 0,8. Вероятность пройти оба: 0,9 · 0,8 = <strong>0,72</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 3. Хотя бы одно попадание</span>Проще использовать противоположное событие: P(хотя бы одно попадание) = 1 − P(два промаха) = 1 − 0,3 · 0,3 = <strong>0,91</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+    <div class="ms-task"><p>1. Монету бросают дважды. Сколько листьев будет у полного дерева?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>На каждом из двух этапов по 2 исхода: 2 · 2 = <strong>4 листа</strong>.</p></div></details></div>
+    <div class="ms-task"><p>2. Вероятность успеха равна 0,6. Какую вероятность нужно подписать на ветви неудачи?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>1 − 0,6 = <strong>0,4</strong>.</p></div></details></div>
+    <div class="ms-task"><p>3. Для двух независимых попыток P(успеха) = 0,6. Найдите вероятность двух успехов.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,6 · 0,6 = <strong>0,36</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. Найдите вероятность ровно одного успеха в предыдущей задаче.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>УН или НУ: 0,6 · 0,4 + 0,4 · 0,6 = 0,24 + 0,24 = <strong>0,48</strong>.</p></div></details></div>
+    <div class="ms-task"><p>5. Найдите вероятность хотя бы одного успеха в двух попытках.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>1 − P(две неудачи) = 1 − 0,4 · 0,4 = 1 − 0,16 = <strong>0,84</strong>.</p></div></details></div>
+    <div class="ms-task"><p>6. Из урны с 3 белыми и 2 чёрными шарами вынимают два шара без возвращения. Найдите вероятность пути «белый, затем чёрный».</p><details class="ms-answer"><summary>Показать решение</summary><div><p>3/5 · 2/4 = 6/20 = <strong>3/10</strong>.</p></div></details></div>
+    <div class="ms-task"><p>7. В дереве из одной вершины выходят ветви с вероятностями 0,25; 0,35 и x. Найдите x.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,25 + 0,35 + x = 1, поэтому x = <strong>0,40</strong>.</p></div></details></div>
+    <div class="ms-task"><p>8. Вероятности четырёх листьев дерева равны 0,18; 0,27; 0,15 и x. Найдите x.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Сумма листьев равна 1: x = 1 − 0,18 − 0,27 − 0,15 = <strong>0,40</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>Маршрут к ответу: прочитайте дерево целиком</h2>
+    <div class="ms-compact-grid ms-card-grid ms-columns-3">
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Из одной вершины</strong><span class="ms-card-text">Сумма вероятностей всех выходящих ветвей равна 1.</span></div>
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">По одному пути</strong><span class="ms-card-text">Вероятности ветвей последовательно перемножаются.</span></div>
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">По нескольким путям</strong><span class="ms-card-text">Вероятности подходящих несовместных путей складываются.</span></div>
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Всё дерево</strong><span class="ms-card-text">Сумма вероятностей всех конечных исходов равна 1.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/pravilo-umnozheniya-veroyatnostej-uslovnaya-veroyatnost-nezavisimye-sobytiya/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/obobshhenie-sistematizacziya-znanij/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

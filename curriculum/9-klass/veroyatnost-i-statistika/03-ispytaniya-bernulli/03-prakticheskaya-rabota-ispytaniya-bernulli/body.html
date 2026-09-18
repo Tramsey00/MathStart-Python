@@ -1,0 +1,503 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Испытания Бернулли · Тема 3.3
+    </div>
+
+    <h1 class="ms-title">
+      Практическая работа «Испытания Бернулли»
+    </h1>
+
+    <p class="ms-subtitle">
+      Закрепим выбор модели и вычисление вероятностей в сериях
+      независимых испытаний: до первого успеха, ровно k успехов,
+      хотя бы один успех и заданный диапазон числа успехов.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/prakticheskaya-rabota-ispytaniya-bernulli/#work"
+      >
+        Перейти к работе
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Цель и порядок выполнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#work"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Карта выбора формулы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Учебная станция: первый успех</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Учебная станция: ровно k успехов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Учебная станция: хотя бы один успех</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Учебная станция: диапазон числа успехов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Практическая часть</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Разбор типичных несоответствий модели</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Финишная сверка практической работы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Цель и порядок выполнения</h2>
+
+    <p class="ms-text">
+      Для каждой задачи нужно определить вид серии, проверить условия
+      независимости и постоянства вероятности, выбрать формулу,
+      выполнить вычисления и проверить, что ответ находится от 0 до 1.
+    </p>
+
+    <div class="ms-data-strip">
+      <span class="ms-data-chip">1. Назначить успех</span>
+      <span class="ms-data-chip">2. Записать p и q</span>
+      <span class="ms-data-chip">3. Определить n и k</span>
+      <span class="ms-data-chip">4. Выбрать формулу</span>
+      <span class="ms-data-chip">5. Проверить ответ</span>
+    </div>
+  </section>
+
+  <section id="work" class="ms-section-soft">
+    <h2>1. Карта выбора формулы</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Ситуация</th>
+            <th>Формула</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Первый успех на k-м испытании</td>
+            <td>q<sup>k−1</sup>p</td>
+          </tr>
+
+          <tr>
+            <td>Ровно k успехов в n испытаниях</td>
+            <td>
+              C<sub>n</sub><sup>k</sup>p<sup>k</sup>q<sup>n−k</sup>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Ни одного успеха</td>
+            <td>q<sup>n</sup></td>
+          </tr>
+
+          <tr>
+            <td>Хотя бы один успех</td>
+            <td>1 − q<sup>n</sup></td>
+          </tr>
+
+          <tr>
+            <td>От a до b успехов</td>
+            <td>
+              P<sub>n</sub>(a) + P<sub>n</sub>(a + 1) + … +
+              P<sub>n</sub>(b)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Учебная станция: первый успех</h2>
+
+    <p class="ms-text">
+      Вероятность попадания при одном выстреле равна 0,6.
+      Какова вероятность, что первое попадание произойдёт
+      при третьем выстреле?
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Модель</span>
+      Первые два выстрела должны быть промахами, а третий —
+      попаданием. p = 0,6, q = 0,4.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P = 0,4<sup>2</sup> · 0,6 =
+        0,16 · 0,6 = 0,096
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Учебная станция: ровно k успехов</h2>
+
+    <p class="ms-text">
+      Вероятность успешного результата равна 0,7.
+      Проводят пять независимых испытаний. Найдём вероятность
+      ровно трёх успехов.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P<sub>5</sub>(3) =
+        C<sub>5</sub><sup>3</sup> ·
+        0,7<sup>3</sup> · 0,3<sup>2</sup> =
+        0,3087
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Степень p равна числу успехов, а степень q —
+      числу неудач. Их показатели в сумме должны давать n.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Учебная станция: хотя бы один успех</h2>
+
+    <p class="ms-text">
+      Вероятность успеха равна 0,25. Проводят восемь испытаний.
+      Вместо сложения вероятностей одного, двух, …, восьми успехов
+      используем противоположное событие.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        P(ни одного успеха) = 0,75<sup>8</sup> ≈ 0,1001
+      </div>
+
+      <div class="ms-formula">
+        P(хотя бы один успех) =
+        1 − 0,75<sup>8</sup> ≈ 0,8999
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Учебная станция: диапазон числа успехов</h2>
+
+    <p class="ms-text">
+      Вероятность исправной работы устройства равна 0,9.
+      Проверяют шесть независимых устройств. Найдём вероятность,
+      что исправными окажутся не менее пяти устройств.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        P = P<sub>6</sub>(5) + P<sub>6</sub>(6)
+      </div>
+
+      <div class="ms-formula">
+        P =
+        C<sub>6</sub><sup>5</sup> ·
+        0,9<sup>5</sup> · 0,1 +
+        0,9<sup>6</sup> =
+        0,885735
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Практическая часть</h2>
+
+    <p class="ms-text">
+      Решите задачи самостоятельно. В раскрывающемся блоке приведены
+      расчёты для проверки.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        1. Вероятность попадания равна 0,6. Найдите вероятность,
+        что первое попадание произойдёт при третьем выстреле.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P = 0,4<sup>2</sup> · 0,6 =
+            <strong>0,096</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Вероятность успеха равна 0,7. Проводят пять испытаний.
+        Найдите вероятность ровно трёх успехов.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P =
+            C<sub>5</sub><sup>3</sup> ·
+            0,7<sup>3</sup> · 0,3<sup>2</sup>.
+          </p>
+          <p>P = <strong>0,3087</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Вероятность успеха равна 0,25. Проводят восемь испытаний.
+        Найдите вероятность ни одного успеха.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P = 0,75<sup>8</sup> =
+            <strong>0,100112915…</strong>
+            ≈ <strong>0,1001</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. В условиях предыдущей задачи найдите вероятность
+        хотя бы одного успеха.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P = 1 − 0,75<sup>8</sup> =
+            <strong>0,899887084…</strong>
+            ≈ <strong>0,8999</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. Вероятность исправной работы устройства равна 0,9.
+        Проверяют шесть устройств. Найдите вероятность того,
+        что исправными окажутся не менее пяти.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P = P<sub>6</sub>(5) + P<sub>6</sub>(6).
+          </p>
+          <p>
+            P =
+            C<sub>6</sub><sup>5</sup> ·
+            0,9<sup>5</sup> · 0,1 +
+            0,9<sup>6</sup> =
+            <strong>0,885735</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. Симметричную монету бросают десять раз.
+        Найдите вероятность ровно четырёх орлов.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P =
+            C<sub>10</sub><sup>4</sup> ·
+            0,5<sup>4</sup> · 0,5<sup>6</sup> =
+            C<sub>10</sub><sup>4</sup> · 0,5<sup>10</sup>.
+          </p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">210</span>
+              <span class="ms-den">1024</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">105</span>
+                <span class="ms-den">512</span>
+              </span>
+            </strong>
+            ≈ <strong>0,2051</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Вероятность попадания равна 0,4.
+        Производят семь выстрелов. Найдите вероятность от двух
+        до четырёх попаданий включительно.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P =
+            P<sub>7</sub>(2) +
+            P<sub>7</sub>(3) +
+            P<sub>7</sub>(4).
+          </p>
+          <p>
+            P =
+            C<sub>7</sub><sup>2</sup> · 0,4<sup>2</sup> · 0,6<sup>5</sup>
+            +
+            C<sub>7</sub><sup>3</sup> · 0,4<sup>3</sup> · 0,6<sup>4</sup>
+            +
+            C<sub>7</sub><sup>4</sup> · 0,4<sup>4</sup> · 0,6<sup>3</sup>.
+          </p>
+          <p>P = <strong>0,7451136</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. В серии из 11 испытаний вероятность успеха равна 0,2.
+        Во сколько раз вероятность ровно четырёх успехов меньше
+        вероятности ровно трёх успехов?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            <span class="ms-frac">
+              <span class="ms-num">P<sub>11</sub>(4)</span>
+              <span class="ms-den">P<sub>11</sub>(3)</span>
+            </span>
+            =
+            <span class="ms-frac">
+              <span class="ms-num">8</span>
+              <span class="ms-den">4</span>
+            </span>
+            ·
+            <span class="ms-frac">
+              <span class="ms-num">0,2</span>
+              <span class="ms-den">0,8</span>
+            </span>
+            = 0,5.
+          </p>
+          <p>
+            Значит, вероятность четырёх успехов
+            <strong>в 2 раза меньше</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>7. Разбор типичных несоответствий модели</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Без возвращения</span>
+        <h3 class="ms-card-title">Вероятность меняется</h3>
+        <p class="ms-card-text">
+          Если предмет извлекают и не возвращают, состав множества
+          изменяется. Нельзя автоматически применять формулу Бернулли.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Зависимые результаты</span>
+        <h3 class="ms-card-title">Испытания влияют друг на друга</h3>
+        <p class="ms-card-text">
+          Если предыдущий результат изменяет условия следующего опыта,
+          независимость нарушена.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Неверная степень</span>
+        <h3 class="ms-card-title">p и q перепутаны</h3>
+        <p class="ms-card-text">
+          У p показатель равен числу успехов k, у q —
+          числу неудач n − k.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Забыто число способов</span>
+        <h3 class="ms-card-title">Нет коэффициента сочетаний</h3>
+        <p class="ms-card-text">
+          Для ровно k успехов нужно учесть все расположения успехов,
+          поэтому появляется C<sub>n</sub><sup>k</sup>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Финишная сверка практической работы</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Модель подтверждена</strong>
+        <span class="ms-card-text">
+          Есть два исхода, постоянная вероятность p,
+          независимость и заранее заданное число испытаний.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Формула соответствует фразе</strong>
+        <span class="ms-card-text">
+          Различай «первый успех», «ровно k», «хотя бы один»,
+          «не менее» и «не более».
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Ответ проверен</strong>
+        <span class="ms-card-text">
+          Вероятность лежит от 0 до 1, округление выполнено
+          только после основного вычисления.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/ispytaniya-bernulli-veroyatnosti-sobytij-v-serii-ispytanij/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/sluchajnaya-velichina-i-raspredelenie-veroyatnostej/"
+    >
+      Следующий раздел
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

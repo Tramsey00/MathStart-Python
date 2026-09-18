@@ -1,0 +1,65 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-outcome {
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #fff;
+  text-align: center;
+}
+.ms-lesson-page .ms-outcome strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 19px;
+}
+.ms-lesson-page .ms-outcome span {
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-prob-path {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-prob-step {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #fff;
+}
+.ms-lesson-page .ms-prob-step b {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+}
+.ms-lesson-page .ms-prob-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #111827;
+  font-size: 16.5px;
+  line-height: 1.4;
+}
+.ms-lesson-page .ms-prob-step span {
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.58;
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-prob-path {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-prob-path {
+    grid-template-columns: 1fr;
+  }
+}

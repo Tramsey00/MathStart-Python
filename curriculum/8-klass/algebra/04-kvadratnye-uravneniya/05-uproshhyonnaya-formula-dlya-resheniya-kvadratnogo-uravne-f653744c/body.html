@@ -1,0 +1,785 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Квадратные уравнения · Тема 4.5
+    </div>
+
+    <h1 class="ms-title">
+      Упрощённая формула для решения квадратного уравнения
+    </h1>
+
+    <p class="ms-subtitle">
+      Разберём сокращённую формулу корней для уравнений
+      с чётным вторым коэффициентом, научимся вычислять D₁,
+      определять количество корней и решать такие уравнения
+      быстрее, не работая с лишними множителями 2 и 4.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Когда можно использовать упрощённую формулу</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как получается упрощённая формула</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Количество корней по знаку D₁</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Отрицательный старший коэффициент</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Обычная и упрощённая формулы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Когда сокращённая формула действительно удобна</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Когда можно использовать упрощённую формулу</h2>
+
+    <p class="ms-text">
+      Если второй коэффициент b является чётным числом,
+      его удобно представить в виде b = 2k.
+      Тогда квадратное уравнение записывается как
+      ax² + 2kx + c = 0.
+    </p>
+
+    <div class="ms-half-formula">
+      <span class="ms-half-formula-main">
+        D₁ = k² − ac
+      </span>
+      <span class="ms-half-formula-caption">
+        Здесь k — половина второго коэффициента: k = b/2.
+      </span>
+    </div>
+
+    <div class="ms-rule-box">
+      Для уравнения ax² + 2kx + c = 0:
+      <br><br>
+      <math aria-label="икс один и икс два равны минус k плюс минус квадратный корень из D один делённое на a">
+        <mrow>
+          <msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mo>−</mo><mi>k</mi>
+              <mo>±</mo>
+              <msqrt><msub><mi>D</mi><mn>1</mn></msub></msqrt>
+            </mrow>
+            <mi>a</mi>
+          </mfrac>
+        </mrow>
+      </math>.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Как получается упрощённая формула</h2>
+
+    <div class="ms-derivation-grid ms-card-grid ms-columns-4">
+      <div class="ms-derivation-step">
+        <span class="ms-derivation-number">1</span>
+        <strong>Начинаем с обычного дискриминанта</strong>
+        <span>D = b² − 4ac.</span>
+      </div>
+
+      <div class="ms-derivation-step">
+        <span class="ms-derivation-number">2</span>
+        <strong>Подставляем b = 2k</strong>
+        <span>D = (2k)² − 4ac.</span>
+      </div>
+
+      <div class="ms-derivation-step">
+        <span class="ms-derivation-number">3</span>
+        <strong>Выносим общий множитель</strong>
+        <span>D = 4(k² − ac) = 4D₁.</span>
+      </div>
+
+      <div class="ms-derivation-step">
+        <span class="ms-derivation-number">4</span>
+        <strong>Сокращаем формулу корней</strong>
+        <span>
+          √D = 2√D₁, поэтому общий множитель 2 сокращается.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math aria-label="обычная формула корней">
+          <mrow>
+            <msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow>
+                <mo>−</mo><mn>2</mn><mi>k</mi>
+                <mo>±</mo>
+                <msqrt><mrow><mn>4</mn><msub><mi>D</mi><mn>1</mn></msub></mrow></msqrt>
+              </mrow>
+              <mrow><mn>2</mn><mi>a</mi></mrow>
+            </mfrac>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="после извлечения двойки">
+          <mrow>
+            <msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow>
+                <mo>−</mo><mn>2</mn><mi>k</mi>
+                <mo>±</mo>
+                <mn>2</mn><msqrt><msub><mi>D</mi><mn>1</mn></msub></msqrt>
+              </mrow>
+              <mrow><mn>2</mn><mi>a</mi></mrow>
+            </mfrac>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        После сокращения на 2:
+        <math aria-label="упрощённая формула корней">
+          <mrow>
+            <msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow>
+                <mo>−</mo><mi>k</mi>
+                <mo>±</mo>
+                <msqrt><msub><mi>D</mi><mn>1</mn></msub></msqrt>
+              </mrow>
+              <mi>a</mi>
+            </mfrac>
+          </mrow>
+        </math>.
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Количество корней по знаку D₁</h2>
+
+    <div class="ms-d1-grid ms-card-grid ms-columns-3">
+      <div class="ms-d1-card ms-card">
+        <span class="ms-d1-value">D₁ &gt; 0</span>
+        <strong class="ms-card-title">Два различных корня</strong>
+        <span class="ms-card-text">
+          Используют два знака: минус и плюс перед √D₁.
+        </span>
+      </div>
+
+      <div class="ms-d1-card ms-card">
+        <span class="ms-d1-value">D₁ = 0</span>
+        <strong class="ms-card-title">Один корень</strong>
+        <span class="ms-card-text">
+          Формула упрощается до x = −k/a.
+        </span>
+      </div>
+
+      <div class="ms-d1-card ms-card">
+        <span class="ms-d1-value">D₁ &lt; 0</span>
+        <strong class="ms-card-title">Действительных корней нет</strong>
+        <span class="ms-card-text">
+          Квадратный корень из отрицательного числа в R не существует.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Знак D₁ совпадает со знаком обычного дискриминанта,
+      потому что D = 4D₁, а число 4 положительно.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Алгоритм решения</h2>
+
+    <div class="ms-algorithm-grid ms-card-grid ms-columns-5">
+      <div class="ms-algorithm-step">
+        <span class="ms-algorithm-number">1</span>
+        <strong>Приведите к стандартному виду</strong>
+        <span>Запишите ax² + bx + c = 0.</span>
+      </div>
+
+      <div class="ms-algorithm-step">
+        <span class="ms-algorithm-number">2</span>
+        <strong>Проверьте b</strong>
+        <span>Убедитесь, что второй коэффициент чётный.</span>
+      </div>
+
+      <div class="ms-algorithm-step">
+        <span class="ms-algorithm-number">3</span>
+        <strong>Найдите k</strong>
+        <span>Разделите b на 2: k = b/2.</span>
+      </div>
+
+      <div class="ms-algorithm-step">
+        <span class="ms-algorithm-number">4</span>
+        <strong>Вычислите D₁</strong>
+        <span>Используйте D₁ = k² − ac.</span>
+      </div>
+
+      <div class="ms-algorithm-step">
+        <span class="ms-algorithm-number">5</span>
+        <strong>Найдите корни</strong>
+        <span>В знаменателе упрощённой формулы находится a, а не 2a.</span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Два корня</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      3x² − 10x + 3 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        a = 3, b = −10, c = 3.
+      </div>
+
+      <div class="ms-math-row">
+        b = 2k, поэтому k = −5.
+      </div>
+
+      <div class="ms-math-row">
+        D₁ = (−5)² − 3 · 3 = 25 − 9 = 16.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс один равен пять минус четыре делённое на три">
+          <mrow>
+            <msub><mi>x</mi><mn>1</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mn>5</mn><mo>−</mo><mn>4</mn></mrow>
+              <mn>3</mn>
+            </mfrac>
+            <mo>=</mo>
+            <mfrac><mn>1</mn><mn>3</mn></mfrac>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс два равен пять плюс четыре делённое на три">
+          <mrow>
+            <msub><mi>x</mi><mn>2</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mn>5</mn><mo>+</mo><mn>4</mn></mrow>
+              <mn>3</mn>
+            </mfrac>
+            <mo>=</mo>
+            <mn>3</mn>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Ответ:
+          <math aria-label="одна треть"><mfrac><mn>1</mn><mn>3</mn></mfrac></math>;
+          3.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Один корень</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        2x² + 4x + 2 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        k = 2.
+      </div>
+
+      <div class="ms-math-row">
+        D₁ = 2² − 2 · 2 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x = −k/a = −2/2 = −1.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: −1.</span>
+      </div>
+    </div>
+
+    <h3>Пример 3. Действительных корней нет</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        5x² + 6x + 5 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        k = 3.
+      </div>
+
+      <div class="ms-math-row">
+        D₁ = 3² − 5 · 5 = 9 − 25 = −16.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: действительных корней нет.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Отрицательный старший коэффициент</h2>
+
+    <p class="ms-text">
+      Упрощённая формула работает и при a &lt; 0.
+      Нужно только внимательно сохранить знак a в знаменателе.
+    </p>
+
+    <h3>Пример 4. Знаменатель формулы отрицателен</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      −2x² + 8x − 6 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        a = −2, b = 8, c = −6, k = 4.
+      </div>
+
+      <div class="ms-math-row">
+        D₁ = 4² − (−2) · (−6) = 16 − 12 = 4.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс один равен минус четыре минус два делённое на минус два">
+          <mrow>
+            <msub><mi>x</mi><mn>1</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mo>−</mo><mn>4</mn><mo>−</mo><mn>2</mn></mrow>
+              <mrow><mo>−</mo><mn>2</mn></mrow>
+            </mfrac>
+            <mo>=</mo>
+            <mn>3</mn>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <math aria-label="икс два равен минус четыре плюс два делённое на минус два">
+          <mrow>
+            <msub><mi>x</mi><mn>2</mn></msub>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mo>−</mo><mn>4</mn><mo>+</mo><mn>2</mn></mrow>
+              <mrow><mo>−</mo><mn>2</mn></mrow>
+            </mfrac>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 1; 3.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Обычная и упрощённая формулы</h2>
+
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card">
+        <span class="ms-compare-title">Обычная формула</span>
+        <span class="ms-card-text">
+          D = b² − 4ac,
+          <br><br>
+          x₁,₂ = (−b ± √D)/(2a).
+          <br><br>
+          Подходит для любого квадратного уравнения.
+        </span>
+      </div>
+
+      <div class="ms-compare-card ms-card">
+        <span class="ms-compare-title">Упрощённая формула</span>
+        <span class="ms-card-text">
+          b = 2k,
+          <br><br>
+          D₁ = k² − ac,
+          <br><br>
+          x₁,₂ = (−k ± √D₁)/a.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 5. Сравним количество вычислений</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Уравнение</span>
+      2x² − 12x + 10 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        По обычной формуле:
+        D = 144 − 80 = 64.
+      </div>
+
+      <div class="ms-math-row">
+        По упрощённой формуле:
+        k = −6,
+        D₁ = 36 − 20 = 16.
+      </div>
+
+      <div class="ms-math-row">
+        Во втором случае числа меньше:
+        √16 = 4 вместо √64 = 8,
+        а знаменатель равен 2 вместо 4.
+      </div>
+
+      <div class="ms-math-row">
+        Корни в обоих случаях одинаковы: 1 и 5.
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Упрощённая формула не является новым способом решения.
+      Это сокращённая запись обычной формулы для случая,
+      когда второй коэффициент чётный.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Типичные ошибки</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Ошибка</th>
+            <th>Почему неверно</th>
+            <th>Как правильно</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Берут k = b</td>
+            <td>k является половиной второго коэффициента.</td>
+            <td>k = b/2</td>
+          </tr>
+          <tr>
+            <td>Записывают D₁ = k² − 4ac</td>
+            <td>Множитель 4 уже учтён при переходе от D к D₁.</td>
+            <td>D₁ = k² − ac</td>
+          </tr>
+          <tr>
+            <td>В знаменателе пишут 2a</td>
+            <td>В упрощённой формуле общий множитель 2 сокращён.</td>
+            <td>Знаменатель равен a</td>
+          </tr>
+          <tr>
+            <td>Используют формулу при нечётном b</td>
+            <td>Тогда k = b/2 не является целым и упрощения обычно не получается.</td>
+            <td>Применить обычный дискриминант</td>
+          </tr>
+          <tr>
+            <td>Теряют знак k</td>
+            <td>Если b отрицателен, то k также отрицателен.</td>
+            <td>Выписать a, b, c и k отдельно</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Найдите k и D₁ для уравнения 2x² − 8x + 3 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          b = −8, поэтому k = −4.
+          <br><br>
+          D₁ = (−4)² − 2 · 3 = 16 − 6 = 10.
+          <br><br>
+          <strong>Ответ: k = −4, D₁ = 10.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Решите уравнение x² − 6x + 5 = 0
+        по упрощённой формуле.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = −3.
+          <br>
+          D₁ = 9 − 5 = 4.
+          <br><br>
+          x₁ = 3 − 2 = 1,
+          x₂ = 3 + 2 = 5.
+          <br><br>
+          <strong>Ответ: 1; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Решите уравнение 3x² + 12x + 9 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = 6.
+          <br>
+          D₁ = 36 − 27 = 9.
+          <br><br>
+          x₁ = (−6 − 3)/3 = −3,
+          x₂ = (−6 + 3)/3 = −1.
+          <br><br>
+          <strong>Ответ: −3; −1.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Решите уравнение 4x² − 4x + 1 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = −2.
+          <br>
+          D₁ = 4 − 4 = 0.
+          <br><br>
+          x = −k/a = 2/4 = 1/2.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="одна вторая">
+              <mfrac><mn>1</mn><mn>2</mn></mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Сколько действительных корней имеет уравнение
+        2x² + 4x + 7 = 0?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = 2.
+          <br>
+          D₁ = 4 − 14 = −10.
+          <br><br>
+          D₁ &lt; 0.
+          <br><br>
+          <strong>Ответ: действительных корней нет.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Решите уравнение −3x² + 12x − 9 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          a = −3, k = 6, c = −9.
+          <br>
+          D₁ = 36 − 27 = 9.
+          <br><br>
+          x₁ = (−6 − 3)/(−3) = 3,
+          x₂ = (−6 + 3)/(−3) = 1.
+          <br><br>
+          <strong>Ответ: 1; 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Решите уравнение 5x² − 20x + 15 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = −10.
+          <br>
+          D₁ = 100 − 75 = 25.
+          <br><br>
+          x₁ = (10 − 5)/5 = 1,
+          x₂ = (10 + 5)/5 = 3.
+          <br><br>
+          <strong>Ответ: 1; 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Можно ли удобно применить упрощённую формулу
+        к уравнению 2x² − 7x + 3 = 0?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Второй коэффициент b = −7 нечётный.
+          Формально k = −7/2, но вычисления не упрощаются.
+          <br><br>
+          <strong>Ответ: удобнее применить обычную формулу через D.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        При каком значении m уравнение
+        x² + 8x + m = 0
+        имеет один действительный корень?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = 4.
+          Один корень получается при D₁ = 0.
+          <br><br>
+          4² − m = 0.
+          <br>
+          m = 16.
+          <br><br>
+          <strong>Ответ: 16.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Решите уравнение 6x² − 14x + 4 = 0
+        и сократите дробные корни.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          k = −7.
+          <br>
+          D₁ = 49 − 24 = 25.
+          <br><br>
+          x₁ = (7 − 5)/6 = 2/6 = 1/3,
+          <br>
+          x₂ = (7 + 5)/6 = 12/6 = 2.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="одна треть">
+              <mfrac><mn>1</mn><mn>3</mn></mfrac>
+            </math>;
+            2.
+          </strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Когда сокращённая формула действительно удобна</h2>
+
+    <div class="ms-when-grid ms-card-grid ms-columns-4">
+      <div class="ms-when-card ms-card">
+        <strong class="ms-card-title">b — чётное число</strong>
+        <span class="ms-card-text">
+          Половина коэффициента k находится без дробей.
+        </span>
+      </div>
+
+      <div class="ms-when-card ms-card">
+        <strong class="ms-card-title">Числа в D слишком большие</strong>
+        <span class="ms-card-text">
+          Вычисление D₁ уменьшает квадраты и произведения.
+        </span>
+      </div>
+
+      <div class="ms-when-card ms-card">
+        <strong class="ms-card-title">Нужно решить устно быстрее</strong>
+        <span class="ms-card-text">
+          В формуле меньше множителей 2 и 4.
+        </span>
+      </div>
+
+      <div class="ms-when-card ms-card">
+        <strong class="ms-card-title">b — нечётное число</strong>
+        <span class="ms-card-text">
+          Обычно проще сразу использовать обычный дискриминант.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top: 20px;">
+      Запомните три строки:
+      <br>
+      b = 2k;
+      <br>
+      D₁ = k² − ac;
+      <br>
+      x₁,₂ = (−k ± √D₁)/a.
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующей теме разберём теорему Виета:
+      научимся находить сумму и произведение корней,
+      подбирать корни без вычисления дискриминанта
+      и составлять квадратное уравнение по заданным корням.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/ispolzovanie-raczionalnyh-uravnenij-dlya-resheniya-zadach/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/primenenie-teoremy-vieta/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,1239 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Алгебра · Неравенства и системы неравенств · Тема 1.5
+    </div>
+
+    <h1 class="ms-title">Системы рациональных неравенств</h1>
+
+    <p class="ms-subtitle">
+      Научимся решать каждое неравенство системы отдельно, изображать полученные множества
+      на числовой прямой и находить их пересечение без потери запрещённых значений и граничных точек.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что называют системой рациональных неравенств</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Главный алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Как решать отдельное рациональное неравенство</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Подробный пример: от двух решений к одному ответу</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Система со смешанными типами неравенств</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Особые результаты пересечения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Сокращение дроби и потерянная точка</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Итоговый светофор</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Что называют системой рациональных неравенств</h2>
+
+    <p class="ms-text">
+      <strong>Система неравенств</strong> — это несколько неравенств с одной переменной,
+      которые должны выполняться <strong>одновременно</strong>.
+      Фигурная скобка слева читается как слово «и».
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-system" aria-label="Система двух рациональных неравенств">
+        <div class="ms-system-brace">{</div>
+
+        <div class="ms-system-lines">
+          <div class="ms-system-line">
+            <span class="ms-frac">
+              <span class="ms-num">x − 1</span>
+              <span class="ms-den">x + 2</span>
+            </span>
+            ≥ 0,
+          </div>
+
+          <div class="ms-system-line">
+            <span class="ms-frac">
+              <span class="ms-num">x − 4</span>
+              <span class="ms-den">x − 3</span>
+            </span>
+            &lt; 0.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Решением системы является <strong>пересечение</strong> множеств решений всех её неравенств:
+      нужно оставить только те значения x, которые подходят каждому условию одновременно.
+    </div>
+
+    <div class="ms-note">
+      Не путайте систему и совокупность. В системе действует слово «и» и выполняется пересечение.
+      В совокупности действует слово «или» и выполняется объединение.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Главный алгоритм решения</h2>
+
+    <p class="ms-text">
+      Систему не нужно превращать в одно большое неравенство. Надёжнее последовательно решить
+      каждую строку, а затем сопоставить полученные промежутки.
+    </p>
+
+    <ol class="ms-algorithm">
+      <li>
+        <strong>Запишите ОДЗ.</strong>
+        Все нули знаменателей исключаются независимо от знака неравенства.
+      </li>
+
+      <li>
+        <strong>Решите первое неравенство.</strong>
+        Приведите его к одной дроби и примените метод интервалов.
+      </li>
+
+      <li>
+        <strong>Решите остальные неравенства.</strong>
+        Для каждой строки постройте собственную схему знаков.
+      </li>
+
+      <li>
+        <strong>Изобразите ответы на одной числовой прямой.</strong>
+        Так легче увидеть общую часть.
+      </li>
+
+      <li>
+        <strong>Найдите пересечение.</strong>
+        Оставьте только значения, принадлежащие всем найденным множествам.
+      </li>
+
+      <li>
+        <strong>Проверьте границы.</strong>
+        Нули знаменателей исключаются всегда, а нули числителей зависят от строгости знака.
+      </li>
+    </ol>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Как решать отдельное рациональное неравенство</h2>
+
+    <p class="ms-text">
+      В каждой строке системы используется тот же метод интервалов,
+      который применялся в предыдущей теме.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Нули числителя</h3>
+
+        <p class="ms-card-text">
+          Они могут войти в ответ при знаках ≤ или ≥.
+          При строгих знаках &lt; и &gt; такие точки исключаются.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Нули знаменателя</h3>
+
+        <p class="ms-card-text">
+          Они не принадлежат области допустимых значений
+          и всегда отмечаются пустыми точками.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Кратность корня</h3>
+
+        <p class="ms-card-text">
+          При нечётной кратности знак меняется,
+          при чётной — сохраняется.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Последний шаг</h3>
+
+        <p class="ms-card-text">
+          Ответы отдельных неравенств ещё не являются ответом системы:
+          их обязательно нужно пересечь.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Тип точки</th>
+            <th>Строгое неравенство</th>
+            <th>Нестрогое неравенство</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Нуль числителя</td>
+            <td>Не включается</td>
+            <td>Включается, если выражение определено</td>
+          </tr>
+
+          <tr>
+            <td>Нуль знаменателя</td>
+            <td>Не включается</td>
+            <td>Не включается</td>
+          </tr>
+
+          <tr>
+            <td>Обычная граница после пересечения</td>
+            <td colspan="2">
+              Берёт тип скобки из того условия, которое задаёт эту границу
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Подробный пример: от двух решений к одному ответу</h2>
+
+    <p class="ms-text">Решим систему:</p>
+
+    <div class="ms-math-box">
+      <div class="ms-system" aria-label="Система рациональных неравенств">
+        <div class="ms-system-brace">{</div>
+
+        <div class="ms-system-lines">
+          <div class="ms-system-line">
+            <span class="ms-frac">
+              <span class="ms-num">x − 1</span>
+              <span class="ms-den">x + 2</span>
+            </span>
+            ≥ 0,
+          </div>
+
+          <div class="ms-system-line">
+            <span class="ms-frac">
+              <span class="ms-num">x − 4</span>
+              <span class="ms-den">x − 3</span>
+            </span>
+            &lt; 0.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Первое неравенство</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-frac">
+          <span class="ms-num">x − 1</span>
+          <span class="ms-den">x + 2</span>
+        </span>
+        ≥ 0.
+      </div>
+
+      <div class="ms-math-row">
+        Критические точки: x = −2 и x = 1.
+      </div>
+
+      <div class="ms-math-row">
+        x = −2 запрещено, x = 1 включается.
+      </div>
+
+      <div class="ms-math-row">
+        <strong>x ∈ (−∞; −2) ∪ [1; +∞).</strong>
+      </div>
+    </div>
+
+    <h3>Второе неравенство</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-frac">
+          <span class="ms-num">x − 4</span>
+          <span class="ms-den">x − 3</span>
+        </span>
+        &lt; 0.
+      </div>
+
+      <div class="ms-math-row">
+        Критические точки: x = 3 и x = 4.
+      </div>
+
+      <div class="ms-math-row">
+        Обе границы исключаются: x = 3 запрещено,
+        а знак неравенства строгий.
+      </div>
+
+      <div class="ms-math-row">
+        <strong>x ∈ (3; 4).</strong>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Пересечение решений двух неравенств
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 900 330"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Числовые прямые с решениями двух неравенств и их пересечением"
+        >
+          <defs>
+            <marker
+              id="ms-axis-arrow"
+              markerWidth="10"
+              markerHeight="10"
+              refX="7"
+              refY="3"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0,0 L0,6 L8,3 z" fill="#64748b"></path>
+            </marker>
+          </defs>
+
+          <rect
+            x="0"
+            y="0"
+            width="900"
+            height="330"
+            rx="24"
+            fill="#ffffff"
+          ></rect>
+
+          <rect
+            x="24"
+            y="20"
+            width="852"
+            height="290"
+            rx="22"
+            fill="#f8fafc"
+            stroke="#e5e7eb"
+            stroke-width="2"
+          ></rect>
+
+          <g font-family="inherit" font-size="15" fill="#475569">
+            <text x="46" y="74" font-weight="800" fill="#1d4ed8">
+              1-е неравенство
+            </text>
+
+            <text x="46" y="164" font-weight="800" fill="#6d28d9">
+              2-е неравенство
+            </text>
+
+            <text x="46" y="254" font-weight="800" fill="#15803d">
+              Пересечение
+            </text>
+          </g>
+
+          <g
+            stroke="#64748b"
+            stroke-width="2.5"
+            marker-end="url(#ms-axis-arrow)"
+          >
+            <line x1="190" y1="70" x2="832" y2="70"></line>
+            <line x1="190" y1="160" x2="832" y2="160"></line>
+            <line x1="190" y1="250" x2="832" y2="250"></line>
+          </g>
+
+          <g stroke="#cbd5e1" stroke-width="1.5">
+            <line x1="310" y1="48" x2="310" y2="272"></line>
+            <line x1="460" y1="48" x2="460" y2="272"></line>
+            <line x1="610" y1="48" x2="610" y2="272"></line>
+            <line x1="700" y1="48" x2="700" y2="272"></line>
+          </g>
+
+          <g
+            font-family="inherit"
+            font-size="15"
+            font-weight="700"
+            fill="#475569"
+            text-anchor="middle"
+          >
+            <text x="310" y="296">−2</text>
+            <text x="460" y="296">1</text>
+            <text x="610" y="296">3</text>
+            <text x="700" y="296">4</text>
+          </g>
+
+          <g
+            stroke="#2563eb"
+            stroke-width="8"
+            stroke-linecap="round"
+          >
+            <line x1="205" y1="70" x2="300" y2="70"></line>
+            <line x1="470" y1="70" x2="820" y2="70"></line>
+          </g>
+
+          <circle
+            cx="310"
+            cy="70"
+            r="8"
+            fill="#ffffff"
+            stroke="#2563eb"
+            stroke-width="4"
+          ></circle>
+
+          <circle
+            cx="460"
+            cy="70"
+            r="8"
+            fill="#2563eb"
+            stroke="#2563eb"
+            stroke-width="4"
+          ></circle>
+
+          <line
+            x1="620"
+            y1="160"
+            x2="690"
+            y2="160"
+            stroke="#7c3aed"
+            stroke-width="8"
+            stroke-linecap="round"
+          ></line>
+
+          <circle
+            cx="610"
+            cy="160"
+            r="8"
+            fill="#ffffff"
+            stroke="#7c3aed"
+            stroke-width="4"
+          ></circle>
+
+          <circle
+            cx="700"
+            cy="160"
+            r="8"
+            fill="#ffffff"
+            stroke="#7c3aed"
+            stroke-width="4"
+          ></circle>
+
+          <line
+            x1="620"
+            y1="250"
+            x2="690"
+            y2="250"
+            stroke="#16a34a"
+            stroke-width="8"
+            stroke-linecap="round"
+          ></line>
+
+          <circle
+            cx="610"
+            cy="250"
+            r="8"
+            fill="#ffffff"
+            stroke="#16a34a"
+            stroke-width="4"
+          ></circle>
+
+          <circle
+            cx="700"
+            cy="250"
+            r="8"
+            fill="#ffffff"
+            stroke="#16a34a"
+            stroke-width="4"
+          ></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-intersection-box">
+      Общая часть множеств (−∞; −2) ∪ [1; +∞) и (3; 4) —
+      промежуток <strong>(3; 4)</strong>.<br>
+      <strong>Ответ: x ∈ (3; 4).</strong>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Система со смешанными типами неравенств</h2>
+
+    <p class="ms-text">
+      В одной системе могут встречаться дробно-рациональные
+      и целые рациональные неравенства.
+      Способ решения каждой строки выбирают отдельно.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 1. Квадратное и дробное неравенства
+      </span>
+
+      <div class="ms-math-row">
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x² − 9 ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 1</span>
+                <span class="ms-den">x + 2</span>
+              </span>
+              &gt; 0.
+            </span>
+          </span>
+        </span>
+      </div>
+
+      <div class="ms-math-row">
+        1) x² − 9 ≤ 0, значит x ∈ [−3; 3].
+      </div>
+
+      <div class="ms-math-row">
+        2)
+        <span class="ms-frac">
+          <span class="ms-num">x − 1</span>
+          <span class="ms-den">x + 2</span>
+        </span>
+        &gt; 0, значит x ∈ (−∞; −2) ∪ (1; +∞).
+      </div>
+
+      <div class="ms-math-row">
+        3) Пересекаем множества.
+      </div>
+
+      <div class="ms-math-row">
+        <strong>Ответ: [−3; −2) ∪ (1; 3].</strong>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 2. Система из трёх неравенств
+      </span>
+
+      <div class="ms-math-row">
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x + 2</span>
+                <span class="ms-den">x − 1</span>
+              </span>
+              &gt; 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 3</span>
+                <span class="ms-den">x + 4</span>
+              </span>
+              ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 2</span>
+                <span class="ms-den">x + 5</span>
+              </span>
+              ≥ 0.
+            </span>
+          </span>
+        </span>
+      </div>
+
+      <div class="ms-math-row">
+        Первое: (−∞; −2) ∪ (1; +∞).
+      </div>
+
+      <div class="ms-math-row">
+        Второе: (−4; 3].
+      </div>
+
+      <div class="ms-math-row">
+        Третье: (−∞; −5) ∪ [2; +∞).
+      </div>
+
+      <div class="ms-math-row">
+        Общая часть всех трёх множеств — [2; 3].
+      </div>
+
+      <div class="ms-math-row">
+        <strong>Ответ: [2; 3].</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Особые результаты пересечения</h2>
+
+    <p class="ms-text">
+      Пересечение не обязательно является одним промежутком.
+      Возможны несколько принципиально разных результатов.
+    </p>
+
+    <div class="ms-case-strip">
+      <div class="ms-case">
+        <strong>Один промежуток</strong>
+        <span>Например, (2; 7].</span>
+      </div>
+
+      <div class="ms-case">
+        <strong>Несколько промежутков</strong>
+        <span>Например, (−∞; −1) ∪ [3; 5).</span>
+      </div>
+
+      <div class="ms-case">
+        <strong>Одна точка</strong>
+        <span>Например, {2}.</span>
+      </div>
+
+      <div class="ms-case">
+        <strong>Пустое множество</strong>
+        <span>Общих решений нет: ∅.</span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 3. Единственное решение
+      </span>
+
+      Первое неравенство даёт [−1; 2],
+      второе — (−∞; −4) ∪ [2; +∞).<br>
+
+      Их общая часть состоит только из числа 2.<br>
+
+      <strong>Ответ: x = 2.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 4. Решений нет
+      </span>
+
+      Первое неравенство даёт (−∞; −5) ∪ (2; +∞),
+      второе — (−5; 1).<br>
+
+      Ни одно число не принадлежит обоим множествам одновременно.<br>
+
+      <strong>Ответ: ∅.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Сокращение дроби и потерянная точка</h2>
+
+    <p class="ms-text">
+      При сокращении одинакового множителя выражение упрощается,
+      но исходный нуль знаменателя остаётся запрещённым.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 5. Сокращаем, но сохраняем ОДЗ
+      </span>
+
+      <div class="ms-math-row">
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">(x − 2)(x + 1)</span>
+                <span class="ms-den">x − 2</span>
+              </span>
+              &gt; 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 4</span>
+                <span class="ms-den">x + 1</span>
+              </span>
+              ≤ 0.
+            </span>
+          </span>
+        </span>
+      </div>
+
+      <div class="ms-math-row">
+        Для первой дроби x ≠ 2.
+        После сокращения получаем x + 1 &gt; 0,
+        но точку 2 возвращать нельзя.
+      </div>
+
+      <div class="ms-math-row">
+        Первое множество: (−1; 2) ∪ (2; +∞).
+      </div>
+
+      <div class="ms-math-row">
+        Второе множество: (−1; 4].
+      </div>
+
+      <div class="ms-math-row">
+        <strong>Ответ: (−1; 2) ∪ (2; 4].</strong>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Запрещённое значение может оказаться внутри итогового промежутка.
+      Тогда ответ обязательно разбивается на две части.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Типичные ошибки</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">
+          Объединяют вместо пересечения
+        </h3>
+
+        <p class="ms-card-text">
+          Система требует выполнения всех условий,
+          поэтому ответы нужно пересекать, а не собирать вместе.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">
+          Решают только одну строку
+        </h3>
+
+        <p class="ms-card-text">
+          Значение x должно удовлетворять каждому неравенству системы.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">
+          Включают нуль знаменателя
+        </h3>
+
+        <p class="ms-card-text">
+          Даже при знаках ≤ и ≥ знаменатель не может быть равен нулю.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">
+          Теряют точку после сокращения
+        </h3>
+
+        <p class="ms-card-text">
+          Ограничение из исходной дроби сохраняется
+          после любых преобразований.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="practice">
+    <h2>9. Самопроверка</h2>
+
+    <p class="ms-text">
+      Решите каждое неравенство отдельно,
+      а затем найдите пересечение полученных множеств.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>1.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 2</span>
+                <span class="ms-den">x + 1</span>
+              </span>
+              &gt; 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 5</span>
+                <span class="ms-den">x − 3</span>
+              </span>
+              &lt; 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Первое неравенство:
+            x ∈ (−∞; −1) ∪ (2; +∞).
+          </p>
+
+          <p>
+            Второе неравенство:
+            x ∈ (3; 5).
+          </p>
+
+          <p>
+            Пересечение:
+            <strong>(3; 5)</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>2.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x + 4</span>
+                <span class="ms-den">x − 1</span>
+              </span>
+              ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 2</span>
+                <span class="ms-den">x + 3</span>
+              </span>
+              ≥ 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Первое неравенство:
+            x ∈ [−4; 1).
+          </p>
+
+          <p>
+            Второе неравенство:
+            x ∈ (−∞; −3) ∪ [2; +∞).
+          </p>
+
+          <p>
+            <strong>Ответ: [−4; −3).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>3.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              x² − 9 ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 1</span>
+                <span class="ms-den">x + 2</span>
+              </span>
+              &gt; 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            x² − 9 ≤ 0 при x ∈ [−3; 3].
+          </p>
+
+          <p>
+            Дробное неравенство выполняется
+            на (−∞; −2) ∪ (1; +∞).
+          </p>
+
+          <p>
+            <strong>Ответ: [−3; −2) ∪ (1; 3].</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>4.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              (x + 1)(x − 3) ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 3</span>
+                <span class="ms-den">x + 5</span>
+              </span>
+              ≥ 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Первое множество: [−1; 3].
+          </p>
+
+          <p>
+            Второе множество:
+            (−∞; −5) ∪ [3; +∞).
+          </p>
+
+          <p>
+            Общая часть состоит из одной точки.
+          </p>
+
+          <p>
+            <strong>Ответ: x = 3.</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>5.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 2</span>
+                <span class="ms-den">x + 5</span>
+              </span>
+              &gt; 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x + 5</span>
+                <span class="ms-den">x − 1</span>
+              </span>
+              &lt; 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Первое множество:
+            (−∞; −5) ∪ (2; +∞).
+          </p>
+
+          <p>
+            Второе множество:
+            (−5; 1).
+          </p>
+
+          <p>
+            Общих значений нет.
+          </p>
+
+          <p>
+            <strong>Ответ: ∅.</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>6.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">(x − 2)(x + 1)</span>
+                <span class="ms-den">x − 2</span>
+              </span>
+              &gt; 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 4</span>
+                <span class="ms-den">x + 1</span>
+              </span>
+              ≤ 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            После сокращения первой дроби получаем
+            x + 1 &gt; 0, но сохраняем ограничение x ≠ 2.
+          </p>
+
+          <p>
+            Первое множество:
+            (−1; 2) ∪ (2; +∞).
+          </p>
+
+          <p>
+            Второе множество:
+            (−1; 4].
+          </p>
+
+          <p>
+            <strong>Ответ: (−1; 2) ∪ (2; 4].</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>7.</strong> Решите систему из трёх неравенств:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x + 2</span>
+                <span class="ms-den">x − 1</span>
+              </span>
+              &gt; 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 3</span>
+                <span class="ms-den">x + 4</span>
+              </span>
+              ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 2</span>
+                <span class="ms-den">x + 5</span>
+              </span>
+              ≥ 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Первое множество:
+            (−∞; −2) ∪ (1; +∞).
+          </p>
+
+          <p>
+            Второе множество:
+            (−4; 3].
+          </p>
+
+          <p>
+            Третье множество:
+            (−∞; −5) ∪ [2; +∞).
+          </p>
+
+          <p>
+            <strong>Ответ: [2; 3].</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>8.</strong> Решите систему:
+
+        <span class="ms-system">
+          <span class="ms-system-brace">{</span>
+
+          <span class="ms-system-lines">
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x − 1</span>
+                <span class="ms-den">(x + 2)²</span>
+              </span>
+              ≤ 0,
+            </span>
+
+            <span class="ms-system-line">
+              <span class="ms-frac">
+                <span class="ms-num">x + 4</span>
+                <span class="ms-den">x − 3</span>
+              </span>
+              &gt; 0.
+            </span>
+          </span>
+        </span>
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            В первой дроби знаменатель положителен при всех x ≠ −2.
+            Поэтому нужно x − 1 ≤ 0 и x ≠ −2.
+          </p>
+
+          <p>
+            Первое множество:
+            (−∞; −2) ∪ (−2; 1].
+          </p>
+
+          <p>
+            Второе множество:
+            (−∞; −4) ∪ (3; +∞).
+          </p>
+
+          <p>
+            <strong>Ответ: (−∞; −4).</strong>
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Итоговый светофор</h2>
+
+    <p class="ms-text">
+      Перед записью ответа быстро проверьте решение по трём сигналам.
+    </p>
+
+    <div class="ms-signal-board">
+      <div class="ms-signal-row">
+        <div class="ms-signal-label ms-signal-label-green">
+          Можно записывать ответ
+        </div>
+
+        <div class="ms-signal-text">
+          Каждое неравенство решено отдельно,
+          множества изображены на одной прямой,
+          а в ответ взята только их общая часть.
+        </div>
+      </div>
+
+      <div class="ms-signal-row">
+        <div class="ms-signal-label ms-signal-label-yellow">
+          Нужно перепроверить
+        </div>
+
+        <div class="ms-signal-text">
+          Граница получилась из нуля числителя:
+          уточните, строгий ли знак и определено ли выражение в этой точке.
+        </div>
+      </div>
+
+      <div class="ms-signal-row">
+        <div class="ms-signal-label ms-signal-label-red">
+          Так делать нельзя
+        </div>
+
+        <div class="ms-signal-text">
+          Нельзя объединять ответы системы, включать нули знаменателей
+          или возвращать точку, исчезнувшую при сокращении дроби.
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-intersection-box">
+      <strong>Главная формула темы:</strong><br>
+      решение системы = решение первого неравенства
+      ∩ решение второго неравенства ∩ …
+    </div>
+
+    <p class="ms-text" style="margin-top: 18px;">
+      Далее переходим к системам рациональных уравнений
+      и равносильным преобразованиям.
+    </p>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mnozhestv/"
+    >
+      ← Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-algebra/"
+    >
+      К темам алгебры
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/ponyatie-sistemy-raczionalnyh-uravnenij/"
+    >
+      Следующая тема →
+    </a>
+  </div>
+
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,557 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Случайная величина · Тема 4.2
+    </div>
+
+    <h1 class="ms-title">
+      Математическое ожидание и дисперсия случайной величины
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся находить среднее ожидаемое значение случайной величины,
+      измерять рассеивание её значений и сравнивать распределения
+      с одинаковым центром, но разной изменчивостью.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/matematicheskoe-ozhidanie-i-dispersiya-sluchajnoj-velichiny/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Две характеристики распределения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Математическое ожидание</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Пример вычисления математического ожидания</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Дисперсия случайной величины</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Удобная формула дисперсии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Одинаковое ожидание — разное рассеивание</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Математическое ожидание выигрыша</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Чек-лист числовых характеристик</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Две характеристики распределения</h2>
+
+    <p class="ms-text">
+      Таблица распределения содержит всю информацию о дискретной
+      случайной величине, но иногда распределения удобно сравнивать
+      с помощью отдельных чисел.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Центр распределения</span>
+        <h3 class="ms-card-title">Математическое ожидание</h3>
+        <p class="ms-card-text">
+          Показывает среднее значение, около которого при большом
+          числе повторений располагаются результаты.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Рассеивание</span>
+        <h3 class="ms-card-title">Дисперсия</h3>
+        <p class="ms-card-text">
+          Показывает, насколько сильно возможные значения отклоняются
+          от математического ожидания.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Математическое ожидание</h2>
+
+    <p class="ms-text">
+      Пусть случайная величина X принимает значения
+      x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>
+      с вероятностями p<sub>1</sub>, p<sub>2</sub>, …,
+      p<sub>n</sub>. Математическое ожидание — это сумма произведений
+      каждого значения на его вероятность.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        E(X) =
+        x<sub>1</sub>p<sub>1</sub> +
+        x<sub>2</sub>p<sub>2</sub> + … +
+        x<sub>n</sub>p<sub>n</sub>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Математическое ожидание не обязано быть одним из возможных
+      значений. Например, среднее число очков правильного кубика равно
+      3,5, хотя грань с 3,5 очками не существует.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Пример вычисления математического ожидания</h2>
+
+    <p class="ms-text">
+      Случайная величина X принимает значения −2, 1 и 4
+      с вероятностями 0,2; 0,5 и 0,3.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>x<sub>i</sub></th>
+            <th>p<sub>i</sub></th>
+            <th>x<sub>i</sub>p<sub>i</sub></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>−2</td>
+            <td>0,2</td>
+            <td>−0,4</td>
+          </tr>
+
+          <tr>
+            <td>1</td>
+            <td>0,5</td>
+            <td>0,5</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>0,3</td>
+            <td>1,2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        E(X) = −0,4 + 0,5 + 1,2 = 1,3
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Дисперсия случайной величины</h2>
+
+    <p class="ms-text">
+      Сначала находят отклонение каждого значения от математического
+      ожидания, затем возводят отклонение в квадрат и вычисляют
+      среднее взвешенное полученных квадратов.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        D(X) =
+        (x<sub>1</sub> − E(X))<sup>2</sup>p<sub>1</sub> + … +
+        (x<sub>n</sub> − E(X))<sup>2</sup>p<sub>n</sub>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Дисперсия всегда неотрицательна. Она равна нулю только тогда,
+      когда случайная величина фактически постоянна и всегда принимает
+      одно значение.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Удобная формула дисперсии</h2>
+
+    <p class="ms-text">
+      В вычислениях часто удобнее сначала найти математическое
+      ожидание квадрата случайной величины.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        E(X<sup>2</sup>) =
+        x<sub>1</sub><sup>2</sup>p<sub>1</sub> + … +
+        x<sub>n</sub><sup>2</sup>p<sub>n</sub>
+      </div>
+
+      <div class="ms-formula">
+        D(X) = E(X<sup>2</sup>) − (E(X))<sup>2</sup>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Продолжение предыдущего примера
+      </span>
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          E(X<sup>2</sup>) =
+          4 · 0,2 + 1 · 0,5 + 16 · 0,3 =
+          0,8 + 0,5 + 4,8 = 6,1
+        </div>
+
+        <div class="ms-formula">
+          D(X) = 6,1 − 1,3<sup>2</sup> =
+          6,1 − 1,69 = 4,41
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Одинаковое ожидание — разное рассеивание</h2>
+
+    <p class="ms-text">
+      Две случайные величины могут иметь одно и то же математическое
+      ожидание, но отличаться устойчивостью результатов.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Величина A</span>
+        <h3 class="ms-card-title">0 или 2 с вероятностями 0,5</h3>
+        <p class="ms-card-text">
+          E(A) = 1, но результаты всегда отстоят от центра на единицу.
+          D(A) = 1.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Величина B</span>
+        <h3 class="ms-card-title">Всегда принимает значение 1</h3>
+        <p class="ms-card-text">
+          E(B) = 1 и отклонений от центра нет.
+          D(B) = 0.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Одинаковый центр, но различное рассеивание
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 840 420"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Сравнение двух распределений с одинаковым математическим ожиданием и разной дисперсией"
+        >
+          <rect x="1" y="1" width="838" height="418" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <text x="60" y="65" font-size="18" font-weight="800" fill="#111827">
+            Величина A
+          </text>
+          <text x="60" y="240" font-size="18" font-weight="800" fill="#111827">
+            Величина B
+          </text>
+
+          <line x1="180" y1="155" x2="760" y2="155" stroke="#94a3b8" stroke-width="3"></line>
+          <line x1="180" y1="330" x2="760" y2="330" stroke="#94a3b8" stroke-width="3"></line>
+
+          <g stroke="#cbd5e1" stroke-width="2">
+            <line x1="260" y1="140" x2="260" y2="170"></line>
+            <line x1="470" y1="140" x2="470" y2="170"></line>
+            <line x1="680" y1="140" x2="680" y2="170"></line>
+
+            <line x1="260" y1="315" x2="260" y2="345"></line>
+            <line x1="470" y1="315" x2="470" y2="345"></line>
+            <line x1="680" y1="315" x2="680" y2="345"></line>
+          </g>
+
+          <line x1="470" y1="85" x2="470" y2="360" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 7"></line>
+
+          <g fill="#dbeafe" stroke="#60a5fa" stroke-width="2">
+            <circle cx="260" cy="155" r="25"></circle>
+            <circle cx="680" cy="155" r="25"></circle>
+          </g>
+
+          <circle cx="470" cy="330" r="29" fill="#dcfce7" stroke="#4ade80" stroke-width="2"></circle>
+
+          <g text-anchor="middle" font-size="16" font-weight="800" fill="#111827">
+            <text x="260" y="202">0</text>
+            <text x="470" y="202">1</text>
+            <text x="680" y="202">2</text>
+
+            <text x="260" y="377">0</text>
+            <text x="470" y="377">1</text>
+            <text x="680" y="377">2</text>
+          </g>
+
+          <g text-anchor="middle" font-size="15" font-weight="800">
+            <text x="260" y="160" fill="#1e3a8a">0,5</text>
+            <text x="680" y="160" fill="#1e3a8a">0,5</text>
+            <text x="470" y="335" fill="#047857">1</text>
+          </g>
+
+          <text x="492" y="104" font-size="15" font-weight="800" fill="#7c3aed">
+            E = 1
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Математическое ожидание выигрыша</h2>
+
+    <p class="ms-text">
+      Если значения случайной величины измеряются в рублях,
+      математическое ожидание показывает средний результат одной игры
+      при очень большом числе одинаковых игр.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+
+      Игрок теряет 100 рублей с вероятностью 0,4 и получает
+      80 рублей с вероятностью 0,6.
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          E(X) = −100 · 0,4 + 80 · 0,6 =
+          −40 + 48 = 8
+        </div>
+      </div>
+
+      Математическое ожидание равно 8 рублям. Это не означает,
+      что в каждой игре игрок получает 8 рублей: возможны только
+      результаты −100 и 80.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. X принимает значения 0, 1 и 2 с вероятностями
+        0,2; 0,5 и 0,3. Найдите E(X).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            E(X) = 0 · 0,2 + 1 · 0,5 + 2 · 0,3.
+          </p>
+          <p>E(X) = 0,5 + 0,6 = <strong>1,1</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. X принимает значения −1 и 2 с вероятностями
+        0,4 и 0,6. Найдите E(X).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            E(X) = −1 · 0,4 + 2 · 0,6 =
+            −0,4 + 1,2 = <strong>0,8</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Для распределения X = 0, 1, 2 с вероятностями
+        0,2; 0,5; 0,3 найдите D(X).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>E(X) = 1,1.</p>
+          <p>
+            E(X<sup>2</sup>) =
+            0 · 0,2 + 1 · 0,5 + 4 · 0,3 = 1,7.
+          </p>
+          <p>
+            D(X) = 1,7 − 1,1<sup>2</sup> =
+            1,7 − 1,21 = <strong>0,49</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Случайная величина всегда равна 5. Найдите её
+        математическое ожидание и дисперсию.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>E(X) = <strong>5</strong>.</p>
+          <p>
+            Отклонений от значения 5 нет, поэтому
+            D(X) = <strong>0</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. X равно числу очков при одном броске правильного кубика.
+        Найдите E(X).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Все шесть значений равновероятны:
+          </p>
+          <p>
+            E(X) =
+            <span class="ms-frac">
+              <span class="ms-num">1 + 2 + 3 + 4 + 5 + 6</span>
+              <span class="ms-den">6</span>
+            </span>
+            =
+            <span class="ms-frac">
+              <span class="ms-num">21</span>
+              <span class="ms-den">6</span>
+            </span>
+            = <strong>3,5</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. В игре участник теряет 100 рублей с вероятностью 0,4
+        и выигрывает 80 рублей с вероятностью 0,6.
+        Найдите математическое ожидание результата.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            E(X) = −100 · 0,4 + 80 · 0,6 =
+            −40 + 48 = <strong>8 рублей</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Величина A принимает значения 0 и 2 с вероятностями 0,5,
+        а величина B всегда равна 1. Сравните E(A), E(B), D(A) и D(B).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>E(A) = E(B) = <strong>1</strong>.</p>
+          <p>
+            Для A: D(A) = 1. Для B: D(B) = 0.
+          </p>
+          <p>
+            Величина B устойчивее, потому что её значение
+            не отклоняется от математического ожидания.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. X принимает значения 0, a и 4 с вероятностями
+        0,25; 0,5 и 0,25. Известно, что E(X) = 2.
+        Найдите a.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            0 · 0,25 + a · 0,5 + 4 · 0,25 = 2.
+          </p>
+          <p>0,5a + 1 = 2, поэтому <strong>a = 2</strong>.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Чек-лист числовых характеристик</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Сначала найди центр</strong>
+        <span class="ms-card-text">
+          Умножь каждое значение на его вероятность и сложи
+          результаты: так находится E(X).
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Затем оцени рассеивание</strong>
+        <span class="ms-card-text">
+          Используй квадраты отклонений или более удобную формулу
+          D(X) = E(X²) − (E(X))².
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Интерпретируй числа</strong>
+        <span class="ms-card-text">
+          Ожидание показывает центр распределения, а большая дисперсия
+          означает более сильный разброс возможных результатов.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/sluchajnaya-velichina-i-raspredelenie-veroyatnostej/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/ponyatie-o-zakone-bolshih-chisel/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

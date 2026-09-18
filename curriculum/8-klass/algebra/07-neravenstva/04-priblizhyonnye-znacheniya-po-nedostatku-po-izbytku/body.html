@@ -1,0 +1,502 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Алгебра · Неравенства · Тема 7.4</div>
+
+    <h1 class="ms-title">Приближённые значения по недостатку и по избытку</h1>
+
+    <p class="ms-subtitle">
+      Научимся заключать точное число между двумя десятичными приближениями,
+      находить приближение по недостатку и по избытку
+      с заданным количеством знаков,
+      правильно работать с отрицательными числами
+      и отличать направленное приближение от обычного округления.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Точное и приближённое значение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Что означает заданная точность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Положительные числа</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Отрицательные числа</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Связь с обычным округлением</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Алгоритм нахождения двух приближений</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Приближение без путаницы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Точное и приближённое значение</h2>
+
+    <p class="ms-text">
+      Точное значение полностью задаёт число.
+      Приближённое значение заменяет его более простой десятичной записью
+      и отличается от точного на небольшую величину.
+    </p>
+
+    <div class="ms-approx-formula">
+      <span class="ms-approx-formula-main">a ≤ x ≤ b</span>
+      <span class="ms-approx-formula-caption">
+        a — приближение по недостатку,
+        b — приближение по избытку для точного числа x.
+      </span>
+    </div>
+
+    <div class="ms-approx-grid ms-card-grid ms-columns-2">
+      <div class="ms-approx-card ms-card">
+        <span class="ms-approx-symbol">a ≤ x</span>
+        <strong class="ms-card-title">По недостатку</strong>
+        <span class="ms-card-text">
+          Берут число, которое не превосходит точное значение.
+          Оно находится левее точного числа на координатной прямой.
+        </span>
+      </div>
+
+      <div class="ms-approx-card ms-card">
+        <span class="ms-approx-symbol">x ≤ b</span>
+        <strong class="ms-card-title">По избытку</strong>
+        <span class="ms-card-text">
+          Берут число, которое не меньше точного значения.
+          Оно находится правее точного числа.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Заключаем число между сотыми</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Число 4,376 находится между 4,37 и 4,38.</div>
+      <div class="ms-math-row">4,37 &lt; 4,376 &lt; 4,38.</div>
+      <div class="ms-math-row"><span class="ms-good">До сотых: 4,37 — по недостатку, 4,38 — по избытку.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Что означает заданная точность</h2>
+
+    <div class="ms-place-grid ms-card-grid ms-columns-4">
+      <div class="ms-place-card ms-card">
+        <strong class="ms-card-title">До единиц</strong>
+        <span class="ms-card-text">Шаг между соседними приближениями равен 1.</span>
+      </div>
+
+      <div class="ms-place-card ms-card">
+        <strong class="ms-card-title">До десятых</strong>
+        <span class="ms-card-text">Шаг равен 0,1.</span>
+      </div>
+
+      <div class="ms-place-card ms-card">
+        <strong class="ms-card-title">До сотых</strong>
+        <span class="ms-card-text">Шаг равен 0,01.</span>
+      </div>
+
+      <div class="ms-place-card ms-card">
+        <strong class="ms-card-title">До тысячных</strong>
+        <span class="ms-card-text">Шаг равен 0,001.</span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      При приближении до сотых точное число заключают
+      между двумя соседними числами с двумя знаками после запятой.
+      При приближении до тысячных используют три знака после запятой.
+    </div>
+
+    <h3>Пример 2. Приближение числа π</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">π = 3,141592…</div>
+      <div class="ms-math-row">До десятых: 3,1 &lt; π &lt; 3,2.</div>
+      <div class="ms-math-row">До сотых: 3,14 &lt; π &lt; 3,15.</div>
+      <div class="ms-math-row"><span class="ms-good">Чем больше сохранено разрядов, тем уже промежуток.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Положительные числа</h2>
+
+    <div class="ms-visual-grid ms-card-grid ms-columns-2">
+      <div class="ms-visual-card ms-card">
+        <span class="ms-visual-title">
+          <math class="ms-root" aria-label="квадратный корень из двух"><msqrt><mn>2</mn></msqrt></math>
+          до сотых
+        </span>
+        
+<svg class="ms-approx-svg" viewBox="0 0 620 310" role="img" aria-label="Приближение квадратного корня из двух по недостатку и по избытку">
+  <defs>
+    <marker id="approx-axis-pos" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" refX="9.5" refY="5.5" orient="auto">
+      <path d="M1 1L1 10L10 5.5Z" fill="#475569"></path>
+    </marker>
+  </defs>
+  <rect width="620" height="310" rx="20" fill="#fbfdff" stroke="#dbeafe"></rect>
+  <g font-family="Arial,sans-serif">
+    <text x="30" y="42" fill="#1e3a8a" font-size="19" font-weight="700">1,41 &lt; корень из 2 &lt; 1,42</text>
+    <line x1="68" y1="156" x2="554" y2="156" stroke="#475569" stroke-width="2" marker-end="url(#approx-axis-pos)"></line>
+    <line x1="180" y1="141" x2="180" y2="171" stroke="#334155" stroke-width="2"></line>
+    <line x1="440" y1="141" x2="440" y2="171" stroke="#334155" stroke-width="2"></line>
+    <line x1="180" y1="156" x2="440" y2="156" stroke="#bfdbfe" stroke-width="8" stroke-linecap="round"></line>
+    <circle cx="180" cy="156" r="9" fill="#7c3aed"></circle>
+    <circle cx="310" cy="156" r="9" fill="#fff" stroke="#111827" stroke-width="3"></circle>
+    <circle cx="440" cy="156" r="9" fill="#2563eb"></circle>
+    <text x="180" y="197" text-anchor="middle" fill="#7c3aed" font-size="16" font-weight="700">1,41</text>
+    <text x="310" y="122" text-anchor="middle" fill="#111827" font-size="17" font-weight="700">корень из 2 ≈ 1,414…</text>
+    <text x="440" y="197" text-anchor="middle" fill="#2563eb" font-size="16" font-weight="700">1,42</text>
+    <text x="180" y="244" text-anchor="middle" fill="#7c3aed" font-size="14" font-weight="700">по недостатку</text>
+    <text x="440" y="244" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">по избытку</text>
+  </g>
+</svg>
+
+        <div class="ms-visual-caption">
+          Точное число расположено между нижней и верхней сотой.
+        </div>
+      </div>
+
+      <div class="ms-visual-card ms-card">
+        <span class="ms-visual-title">Число 6,2831 до тысячных</span>
+        <div class="ms-math-box" style="margin-top:34px">
+          <div class="ms-math-row">6,283 &lt; 6,2831 &lt; 6,284.</div>
+          <div class="ms-math-row">По недостатку: 6,283.</div>
+          <div class="ms-math-row">По избытку: 6,284.</div>
+        </div>
+        <div class="ms-visual-caption">
+          Разность между соседними тысячными равна 0,001.
+        </div>
+      </div>
+    </div>
+
+    <h3>Пример 3. Квадратный корень</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из семи"><msqrt><mn>7</mn></msqrt></math>
+        ≈ 2,64575…
+      </div>
+      <div class="ms-math-row">
+        До сотых:
+        2,64 &lt;
+        <math class="ms-root" aria-label="квадратный корень из семи"><msqrt><mn>7</mn></msqrt></math>
+        &lt; 2,65.
+      </div>
+      <div class="ms-math-row"><span class="ms-good">По недостатку: 2,64; по избытку: 2,65.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Отрицательные числа</h2>
+
+    <p class="ms-text">
+      Для отрицательных чисел нельзя механически считать отброшенную запись
+      приближением по недостатку. Нужно смотреть на порядок чисел:
+      более отрицательное число меньше.
+    </p>
+
+    <div class="ms-visual-card ms-card">
+      <span class="ms-visual-title">Приближение числа −3,147 до сотых</span>
+      
+<svg class="ms-approx-svg" viewBox="0 0 620 310" role="img" aria-label="Приближение отрицательного числа по недостатку и по избытку">
+  <defs>
+    <marker id="approx-axis-neg" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" refX="9.5" refY="5.5" orient="auto">
+      <path d="M1 1L1 10L10 5.5Z" fill="#475569"></path>
+    </marker>
+  </defs>
+  <rect width="620" height="310" rx="20" fill="#fbfdff" stroke="#dbeafe"></rect>
+  <g font-family="Arial,sans-serif">
+    <text x="30" y="42" fill="#1e3a8a" font-size="19" font-weight="700">−3,15 &lt; −3,147 &lt; −3,14</text>
+    <line x1="68" y1="156" x2="554" y2="156" stroke="#475569" stroke-width="2" marker-end="url(#approx-axis-neg)"></line>
+    <line x1="180" y1="141" x2="180" y2="171" stroke="#334155" stroke-width="2"></line>
+    <line x1="440" y1="141" x2="440" y2="171" stroke="#334155" stroke-width="2"></line>
+    <line x1="180" y1="156" x2="440" y2="156" stroke="#bfdbfe" stroke-width="8" stroke-linecap="round"></line>
+    <circle cx="180" cy="156" r="9" fill="#7c3aed"></circle>
+    <circle cx="258" cy="156" r="9" fill="#fff" stroke="#111827" stroke-width="3"></circle>
+    <circle cx="440" cy="156" r="9" fill="#2563eb"></circle>
+    <text x="180" y="197" text-anchor="middle" fill="#7c3aed" font-size="16" font-weight="700">−3,15</text>
+    <text x="258" y="122" text-anchor="middle" fill="#111827" font-size="17" font-weight="700">−3,147</text>
+    <text x="440" y="197" text-anchor="middle" fill="#2563eb" font-size="16" font-weight="700">−3,14</text>
+    <text x="180" y="244" text-anchor="middle" fill="#7c3aed" font-size="14" font-weight="700">по недостатку</text>
+    <text x="440" y="244" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">по избытку</text>
+  </g>
+</svg>
+
+      <div class="ms-visual-caption">
+        −3,15 меньше точного числа, а −3,14 больше него.
+      </div>
+    </div>
+
+    <h3>Пример 4. Главная ловушка со знаком минус</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">x = −8,263.</div>
+      <div class="ms-math-row">−8,27 &lt; −8,263 &lt; −8,26.</div>
+      <div class="ms-math-row"><span class="ms-good">До сотых: −8,27 — по недостатку, −8,26 — по избытку.</span></div>
+    </div>
+
+    <div class="ms-note">
+      Слово «недостаток» означает меньшее числовое значение,
+      а не меньшее количество цифр и не приближение к нулю.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Связь с обычным округлением</h2>
+
+    <div class="ms-round-grid ms-card-grid ms-columns-3">
+      <div class="ms-round-card ms-card">
+        <strong class="ms-card-title">Следующая цифра 0–4</strong>
+        <span class="ms-card-text">
+          Обычное округление оставляет выбранный разряд без изменения
+          и для положительного числа даёт приближение по недостатку.
+        </span>
+      </div>
+
+      <div class="ms-round-card ms-card">
+        <strong class="ms-card-title">Следующая цифра 5–9</strong>
+        <span class="ms-card-text">
+          Выбранный разряд увеличивают на единицу;
+          для положительного числа получается приближение по избытку.
+        </span>
+      </div>
+
+      <div class="ms-round-card ms-card">
+        <strong class="ms-card-title">Не смешивайте правила</strong>
+        <span class="ms-card-text">
+          В задании «по недостатку» или «по избытку»
+          направление задано заранее и обычное округление может не подойти.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 5. Три разных результата</h3>
+
+    <div class="ms-table-wrap">
+      <table class="ms-values-table">
+        <thead>
+          <tr>
+            <th>Число</th>
+            <th>По недостатку до сотых</th>
+            <th>По избытку до сотых</th>
+            <th>Округление до сотых</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>5,437</td>
+            <td>5,43</td>
+            <td>5,44</td>
+            <td>5,44</td>
+          </tr>
+          <tr>
+            <td>5,432</td>
+            <td>5,43</td>
+            <td>5,44</td>
+            <td>5,43</td>
+          </tr>
+          <tr>
+            <td>−5,437</td>
+            <td>−5,44</td>
+            <td>−5,43</td>
+            <td>−5,44</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Алгоритм нахождения двух приближений</h2>
+
+    <div class="ms-step-compact">
+      <div class="ms-step-compact-card ms-card">
+        <span class="ms-step-compact-number">1</span>
+        <strong class="ms-card-title">Определите разряд</strong>
+        <span class="ms-card-text">
+          Установите, до единиц, десятых, сотых или тысячных нужно приближать.
+        </span>
+      </div>
+
+      <div class="ms-step-compact-card ms-card">
+        <span class="ms-step-compact-number">2</span>
+        <strong class="ms-card-title">Найдите соседние числа</strong>
+        <span class="ms-card-text">
+          Выберите два ближайших числа с нужным количеством знаков.
+        </span>
+      </div>
+
+      <div class="ms-step-compact-card ms-card">
+        <span class="ms-step-compact-number">3</span>
+        <strong class="ms-card-title">Сравните с точным</strong>
+        <span class="ms-card-text">
+          Запишите меньшее число слева, большее — справа.
+        </span>
+      </div>
+
+      <div class="ms-step-compact-card ms-card">
+        <span class="ms-step-compact-number">4</span>
+        <strong class="ms-card-title">Назовите приближения</strong>
+        <span class="ms-card-text">
+          Левое — по недостатку, правое — по избытку.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 6. Число задано неравенством</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Известно: 1,732 &lt; x &lt; 1,733.</div>
+      <div class="ms-math-row">Число x заключено между соседними тысячными.</div>
+      <div class="ms-math-row"><span class="ms-good">1,732 — по недостатку, 1,733 — по избытку до тысячных.</span></div>
+    </div>
+
+    <h3>Пример 7. Практическая величина</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Длина детали равна 12,468 см.</div>
+      <div class="ms-math-row">До десятых: 12,4 &lt; 12,468 &lt; 12,5.</div>
+      <div class="ms-math-row"><span class="ms-good">По недостатку: 12,4 см; по избытку: 12,5 см.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Типичные ошибки</h2>
+
+    <div class="ms-error-grid ms-card-grid ms-columns-2">
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Обычное округление вместо направленного</strong>
+        <span class="ms-card-text">
+          Для 7,234 до сотых округление равно 7,23,
+          но приближение по избытку равно 7,24.
+        </span>
+      </div>
+
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Неверный порядок отрицательных чисел</strong>
+        <span class="ms-card-text">
+          Для −2,678 приближение по недостатку до сотых — −2,68,
+          а не −2,67.
+        </span>
+      </div>
+
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Лишние знаки после запятой</strong>
+        <span class="ms-card-text">
+          При точности до сотых ответ должен иметь два знака после запятой.
+        </span>
+      </div>
+
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Одинаковые границы для неточного числа</strong>
+        <span class="ms-card-text">
+          Если число не записывается точно в выбранном разряде,
+          нижнее и верхнее приближения различаются на единицу этого разряда.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Найдите приближения числа 6,784 по недостатку и по избытку до десятых.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>6,7 &lt; 6,784 &lt; 6,8.<br><br><strong>Ответ: 6,7 и 6,8.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Найдите приближения числа 2,316 по недостатку и по избытку до сотых.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>2,31 &lt; 2,316 &lt; 2,32.<br><br><strong>Ответ: 2,31 и 2,32.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Найдите приближения числа −4,583 до сотых.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>−4,59 &lt; −4,583 &lt; −4,58.<br><br><strong>Ответ: по недостатку −4,59; по избытку −4,58.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Запишите приближение числа π по недостатку до тысячных.</p>
+      <details class="ms-answer"><summary>Показать ответ</summary><div>π = 3,141592…<br><br><strong>Ответ: 3,141.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Запишите приближение числа π по избытку до тысячных.</p>
+      <details class="ms-answer"><summary>Показать ответ</summary><div>Следующая тысячная после 3,141 равна 3,142.<br><br><strong>Ответ: 3,142.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Известно 5,09 &lt; x &lt; 5,10. Какие приближения числа x до сотых указаны?</p>
+      <details class="ms-answer"><summary>Показать ответ</summary><div><strong>Ответ: 5,09 — по недостатку; 5,10 — по избытку.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Число 8,261 округлили до сотых. Получено ли приближение по недостатку или по избытку?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>8,261 ≈ 8,26, а 8,26 &lt; 8,261.<br><br><strong>Ответ: по недостатку.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Число 8,268 округлили до сотых. Получено ли приближение по недостатку или по избытку?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>8,268 ≈ 8,27, а 8,27 &gt; 8,268.<br><br><strong>Ответ: по избытку.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 9.</strong> Исправьте ошибку: для −1,236 приближение по недостатку до сотых равно −1,23.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>−1,23 больше числа −1,236, поэтому это приближение по избытку.<br><br><strong>Ответ: по недостатку нужно взять −1,24.</strong></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 10.</strong> Найдите приближения
+        <math class="ms-root" aria-label="квадратный корень из трёх"><msqrt><mn>3</mn></msqrt></math>
+        ≈ 1,73205… до тысячных.
+      </p>
+      <details class="ms-answer"><summary>Показать решение</summary><div>1,732 &lt; <math class="ms-root" aria-label="квадратный корень из трёх"><msqrt><mn>3</mn></msqrt></math> &lt; 1,733.<br><br><strong>Ответ: 1,732 и 1,733.</strong></div></details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Приближение без путаницы</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">По недостатку</strong>
+        <span class="ms-card-text">Берите ближайшее допустимое число, не превосходящее точное.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">По избытку</strong>
+        <span class="ms-card-text">Берите ближайшее допустимое число, не меньшее точного.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Следите за знаком</strong>
+        <span class="ms-card-text">Для отрицательных чисел более отрицательное значение меньше.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Не путайте с округлением</strong>
+        <span class="ms-card-text">Округление выбирает ближайшее число, а не заданное направление.</span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top:20px">
+      До сотых:
+      <br>
+      a ≤ x ≤ a + 0,01;
+      <br>
+      a — приближение по недостатку,
+      a + 0,01 — приближение по избытку,
+      если x не совпадает точно с сотой.
+    </div>
+
+    <p class="ms-text" style="margin-top:20px">
+      В следующей теме разберём понятие степени
+      с отрицательным целым показателем.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/kak-reshat-linejnoe-neravenstvo/">Предыдущая тема</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn" href="/ponyatie-stepeni-s-otriczatelnym-czelym-pokazatelem/">Следующая тема</a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

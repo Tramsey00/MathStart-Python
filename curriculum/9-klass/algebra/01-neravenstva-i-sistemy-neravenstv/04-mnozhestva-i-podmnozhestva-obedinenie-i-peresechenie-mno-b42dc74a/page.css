@@ -1,0 +1,94 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-symbol-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+.ms-lesson-page .ms-symbol-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.ms-lesson-page .ms-symbol-chip strong {
+  color: #1d4ed8;
+  font-size: 18px;
+}
+.ms-lesson-page .ms-set-line {
+  margin: 12px 0;
+  padding: 14px 16px;
+  border-left: 4px solid #2563eb;
+  border-radius: 0 16px 16px 0;
+  background: #eff6ff;
+  color: #1f2937;
+  font-size: 17px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.ms-lesson-page .ms-finish-board {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+}
+.ms-lesson-page .ms-finish-route {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.ms-lesson-page .ms-finish-arrow {
+  display: flex;
+  align-items: center;
+  color: #2563eb;
+  font-size: 24px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-finish-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #374151;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-finish-table td {
+  padding: 11px 12px;
+  border-top: 1px solid #dbeafe;
+  vertical-align: top;
+}
+.ms-lesson-page .ms-finish-table td:first-child {
+  width: 96px;
+  color: #1d4ed8;
+  font-size: 18px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.ms-lesson-page .ms-final-signal {
+  margin: 18px 0 0;
+  padding: 13px 16px;
+  border-radius: 16px;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 700;
+  text-align: center;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-finish-route {
+    flex-direction: column;
+  }
+  .ms-lesson-page .ms-finish-arrow {
+    justify-content: center;
+    transform: rotate(90deg);
+  }
+}

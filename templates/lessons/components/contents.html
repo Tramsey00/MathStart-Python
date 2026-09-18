@@ -1,0 +1,12 @@
+{% comment %}
+Power lesson 2.0 contents panel.
+Context: contents.entries is an ordered list of objects with id (a stable,
+validated section ID), title (plain text), optional note (plain text), optional
+integer number, and optional practice (boolean). The list includes the practice
+entry when a lesson has exercises. Link numbers default to the list position.
+Use: {% include "lessons/components/contents.html" with contents=lesson.contents only %}
+{% endcomment %}
+<details class="ms-lesson-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока">{% for entry in contents.entries %}<a class="ms-toc-link{% if entry.practice or entry.id == 'practice' %} ms-toc-practice{% endif %}" href="#{{ entry.id }}"><span class="ms-toc-number">{{ entry.number|default:forloop.counter|stringformat:"02d" }}</span><span class="ms-toc-copy"><strong>{{ entry.title }}</strong>{% if entry.note %}<small>{{ entry.note }}</small>{% endif %}</span><span class="ms-toc-arrow" aria-hidden="true">→</span></a>{% endfor %}</nav></details>

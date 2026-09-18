@@ -1,0 +1,52 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-course-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 42px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-result-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-result-item {
+  padding: 15px 13px;
+  border: 1px solid #dbeafe;
+  border-radius: 17px;
+  background: #ffffff;
+  text-align: center;
+}
+.ms-lesson-page .ms-result-item strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #2563eb;
+  font-size: 20px;
+  line-height: 1.25;
+}
+.ms-lesson-page .ms-result-item span {
+  color: #4b5563;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+@media (max-width: 860px) {
+  .ms-lesson-page .ms-result-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 680px) {
+  .ms-lesson-page .ms-result-strip {
+    grid-template-columns: 1fr;
+  }
+}

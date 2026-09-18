@@ -1,0 +1,804 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">
+      8 класс · Алгебра · Квадратные уравнения · Тема 4.3
+    </div>
+<h1 class="ms-title">
+      Решение рационального уравнения, сводящегося к квадратному
+    </h1>
+<p class="ms-subtitle">
+      Научимся распознавать уравнения, которые после преобразований
+      или введения новой переменной превращаются в квадратные:
+      дробные рациональные, биквадратные и уравнения
+      с повторяющимся выражением.
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="#theory">Перейти к теории</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что означает «сводится к квадратному»</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Общий алгоритм сведения к квадратному уравнению</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Биквадратные уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Замена повторяющегося выражения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Дробное рациональное уравнение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Посторонние и потерянные корни</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Более сложная замена</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Как заметить удачную замену</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="lesson-section-1">
+<h2>Что означает «сводится к квадратному»</h2>
+<p class="ms-text">
+      Исходное уравнение может содержать дроби, четвёртую степень
+      или несколько одинаковых сложных выражений. После допустимых
+      преобразований оно принимает вид At² + Bt + C = 0,
+      где t — исходная переменная или новое выражение.
+    </p>
+<div class="ms-reduction-grid ms-card-grid ms-columns-3">
+<div class="ms-reduction-card ms-card">
+<span class="ms-reduction-symbol">x⁴</span>
+<strong class="ms-card-title">Биквадратное уравнение</strong>
+<span class="ms-card-text">
+          Степени x⁴ и x² позволяют выполнить замену t = x².
+        </span>
+</div>
+<div class="ms-reduction-card ms-card">
+<span class="ms-reduction-symbol">f(x)</span>
+<strong class="ms-card-title">Повторяющееся выражение</strong>
+<span class="ms-card-text">
+          Одинаковую часть заменяют новой переменной:
+          t = f(x).
+        </span>
+</div>
+<div class="ms-reduction-card ms-card">
+<span class="ms-reduction-symbol">P/Q</span>
+<strong class="ms-card-title">Дробное рациональное уравнение</strong>
+<span class="ms-card-text">
+          Учитывают ОДЗ и после избавления от знаменателей
+          получают квадратное уравнение.
+        </span>
+</div>
+</div>
+<div class="ms-note">
+      Новая переменная временно упрощает запись.
+      После решения квадратного уравнения обязательно нужно вернуться к x.
+    </div>
+</section>
+<section class="ms-section" id="theory">
+<h2>1. Общий алгоритм сведения к квадратному уравнению</h2>
+<div class="ms-reduction-steps">
+<div class="ms-reduction-step">
+<span class="ms-reduction-number">1</span>
+<strong>Найдите ОДЗ</strong>
+<span>
+          Знаменатели не должны обращаться в нуль.
+        </span>
+</div>
+<div class="ms-reduction-step">
+<span class="ms-reduction-number">2</span>
+<strong>Упростите структуру</strong>
+<span>
+          Раскройте скобки, приведите дроби или выделите повторяющееся выражение.
+        </span>
+</div>
+<div class="ms-reduction-step">
+<span class="ms-reduction-number">3</span>
+<strong>Введите t</strong>
+<span>
+          Замените повторяющуюся часть новой переменной.
+        </span>
+</div>
+<div class="ms-reduction-step">
+<span class="ms-reduction-number">4</span>
+<strong>Решите квадратное уравнение</strong>
+<span>
+          Найдите допустимые значения t.
+        </span>
+</div>
+<div class="ms-reduction-step">
+<span class="ms-reduction-number">5</span>
+<strong>Вернитесь к x</strong>
+<span>
+          Решите обратные уравнения и выполните проверку.
+        </span>
+</div>
+</div>
+<div class="ms-substitution-box">
+<span class="ms-substitution-main">
+        сложное уравнение → замена t = f(x) → квадратное уравнение
+      </span>
+<span class="ms-substitution-caption">
+        После нахождения t решают уравнение f(x) = t.
+      </span>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-3">
+<h2>2. Биквадратные уравнения</h2>
+<p class="ms-text">
+      Биквадратным называют уравнение вида ax⁴ + bx² + c = 0,
+      где a ≠ 0. Оно является квадратным относительно выражения x².
+    </p>
+<div class="ms-rule-box">
+      ax⁴ + bx² + c = 0
+      <br/><br/>
+      t = x², причём t ≥ 0
+      <br/><br/>
+      at² + bt + c = 0.
+    </div>
+<h3>Пример 1. Четыре действительных корня</h3>
+<div class="ms-example">
+<span class="ms-example-title">Решить</span>
+      x⁴ − 5x² + 4 = 0.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        Введём t = x². Тогда t ≥ 0.
+      </div>
+<div class="ms-math-row">
+        t² − 5t + 4 = 0.
+      </div>
+<div class="ms-math-row">
+        (t − 1)(t − 4) = 0.
+      </div>
+<div class="ms-math-row">
+        t₁ = 1, t₂ = 4.
+      </div>
+<div class="ms-math-row">
+        x² = 1 ⇒ x = −1 или x = 1.
+      </div>
+<div class="ms-math-row">
+        x² = 4 ⇒ x = −2 или x = 2.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: −2; −1; 1; 2.</span>
+</div>
+</div>
+<h3>Пример 2. Отбор значений новой переменной</h3>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        x⁴ + 3x² − 4 = 0.
+      </div>
+<div class="ms-math-row">
+        t² + 3t − 4 = 0.
+      </div>
+<div class="ms-math-row">
+        t₁ = 1, t₂ = −4.
+      </div>
+<div class="ms-math-row">
+        Значение t = −4 не подходит, потому что t = x² ≥ 0.
+      </div>
+<div class="ms-math-row">
+        x² = 1.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: −1; 1.</span>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-4">
+<h2>3. Замена повторяющегося выражения</h2>
+<p class="ms-text">
+      Если в уравнении несколько раз встречаются f(x) и [f(x)]²,
+      удобно положить t = f(x). Полученное уравнение становится
+      квадратным относительно t.
+    </p>
+<div class="ms-equation-type-grid ms-card-grid ms-columns-2">
+<div class="ms-equation-type-card ms-card">
+<span class="ms-equation-type-formula">
+          [f(x)]² + p·f(x) + q = 0
+        </span>
+<strong class="ms-card-title">Прямое повторение</strong>
+<span class="ms-card-text">
+          Используется замена t = f(x).
+        </span>
+</div>
+<div class="ms-equation-type-card ms-card">
+<span class="ms-equation-type-formula">
+          [f(x)]⁴ + p[f(x)]² + q = 0
+        </span>
+<strong class="ms-card-title">Квадрат повторяющегося квадрата</strong>
+<span class="ms-card-text">
+          Можно положить t = [f(x)]², причём t ≥ 0.
+        </span>
+</div>
+</div>
+<h3>Пример 3. Повторяется выражение (x − 1)²</h3>
+<div class="ms-example">
+<span class="ms-example-title">Решить</span>
+      (x − 1)⁴ − 5(x − 1)² + 4 = 0.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        Пусть t = (x − 1)², тогда t ≥ 0.
+      </div>
+<div class="ms-math-row">
+        t² − 5t + 4 = 0.
+      </div>
+<div class="ms-math-row">
+        t = 1 или t = 4.
+      </div>
+<div class="ms-math-row">
+        (x − 1)² = 1 ⇒ x − 1 = ±1 ⇒ x = 0 или x = 2.
+      </div>
+<div class="ms-math-row">
+        (x − 1)² = 4 ⇒ x − 1 = ±2 ⇒ x = −1 или x = 3.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: −1; 0; 2; 3.</span>
+</div>
+</div>
+<h3>Пример 4. Замена линейного выражения</h3>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        (2x + 3)² − 7(2x + 3) + 10 = 0.
+      </div>
+<div class="ms-math-row">
+        Пусть t = 2x + 3.
+      </div>
+<div class="ms-math-row">
+        t² − 7t + 10 = 0.
+      </div>
+<div class="ms-math-row">
+        t = 2 или t = 5.
+      </div>
+<div class="ms-math-row">
+        2x + 3 = 2 ⇒ x = −
+        <math aria-label="одна вторая">
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+</math>.
+      </div>
+<div class="ms-math-row">
+        2x + 3 = 5 ⇒ x = 1.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">
+          Ответ: −
+          <math aria-label="одна вторая">
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+</math>;
+          1.
+        </span>
+</div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-5">
+<h2>4. Дробное рациональное уравнение</h2>
+<p class="ms-text">
+      В дробном рациональном уравнении переменная находится
+      в знаменателе. Сначала записывают ОДЗ, затем умножают обе части
+      на общий знаменатель и решают полученное целое уравнение.
+    </p>
+<div class="ms-odz-grid ms-card-grid ms-columns-3">
+<div class="ms-odz-card ms-card">
+<strong class="ms-card-title">1. ОДЗ</strong>
+<span class="ms-card-text">
+          Выпишите все значения x, при которых хотя бы один знаменатель равен нулю.
+        </span>
+</div>
+<div class="ms-odz-card ms-card">
+<strong class="ms-card-title">2. Общий знаменатель</strong>
+<span class="ms-card-text">
+          Умножьте обе части только после фиксации запрещённых значений.
+        </span>
+</div>
+<div class="ms-odz-card ms-card">
+<strong class="ms-card-title">3. Отбор корней</strong>
+<span class="ms-card-text">
+          Исключите значения, не принадлежащие ОДЗ исходного уравнения.
+        </span>
+</div>
+</div>
+<h3>Пример 5. После избавления от знаменателя получается квадратное уравнение</h3>
+<div class="ms-example">
+<span class="ms-example-title">Решить</span>
+<math aria-label="дробь x плюс 6 делённое на x">
+<mfrac>
+<mrow><mi>x</mi><mo>+</mo><mn>6</mn></mrow>
+<mi>x</mi>
+</mfrac>
+</math>
+      = x.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        ОДЗ: x ≠ 0.
+      </div>
+<div class="ms-math-row">
+        Умножим обе части на x:
+        x + 6 = x².
+      </div>
+<div class="ms-math-row">
+        x² − x − 6 = 0.
+      </div>
+<div class="ms-math-row">
+        (x − 3)(x + 2) = 0.
+      </div>
+<div class="ms-math-row">
+        x = 3 или x = −2. Оба значения принадлежат ОДЗ.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: −2; 3.</span>
+</div>
+</div>
+<div class="ms-note">
+      Не каждое дробное рациональное уравнение после избавления
+      от знаменателей становится квадратным. Важно смотреть
+      на степень полученного целого уравнения.
+    </div>
+<h3>Пример 6. Уравнение со взаимно обратными выражениями</h3>
+<div class="ms-example">
+<span class="ms-example-title">Решить</span>
+      x +
+      <math aria-label="дробь 4 делённое на x">
+<mfrac><mn>4</mn><mi>x</mi></mfrac>
+</math>
+      = 5.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        ОДЗ: x ≠ 0.
+      </div>
+<div class="ms-math-row">
+        Умножим уравнение на x:
+        x² + 4 = 5x.
+      </div>
+<div class="ms-math-row">
+        x² − 5x + 4 = 0.
+      </div>
+<div class="ms-math-row">
+        (x − 1)(x − 4) = 0.
+      </div>
+<div class="ms-math-row">
+        x = 1 или x = 4. Оба значения принадлежат ОДЗ.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: 1; 4.</span>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-6">
+<h2>5. Посторонние и потерянные корни</h2>
+<p class="ms-text">
+      При умножении уравнения на выражение, содержащее x,
+      необходимо заранее исключить нули этого выражения.
+      Иначе среди корней преобразованного уравнения может оказаться
+      значение, при котором исходная дробь не существует.
+    </p>
+<h3>Пример 7. Корень не проходит по ОДЗ</h3>
+<div class="ms-example">
+<span class="ms-example-title">Решить</span>
+<math aria-label="дробь x в квадрате минус 4 делённое на x минус 2">
+<mfrac>
+<mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn></mrow>
+<mrow><mi>x</mi><mo>−</mo><mn>2</mn></mrow>
+</mfrac>
+</math>
+      = 0.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        ОДЗ: x ≠ 2.
+      </div>
+<div class="ms-math-row">
+        Дробь равна нулю, когда числитель равен нулю,
+        а знаменатель не равен нулю.
+      </div>
+<div class="ms-math-row">
+        x² − 4 = 0.
+      </div>
+<div class="ms-math-row">
+        (x − 2)(x + 2) = 0.
+      </div>
+<div class="ms-math-row">
+        Получаем x = 2 или x = −2.
+      </div>
+<div class="ms-math-row">
+        x = 2 исключается по ОДЗ.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: −2.</span>
+</div>
+</div>
+<div class="ms-return-grid">
+<div class="ms-return-card ms-card">
+<strong class="ms-card-title">Решение вспомогательного уравнения</strong>
+<span class="ms-card-text">
+          Даёт возможные значения t или x.
+        </span>
+</div>
+<div class="ms-return-arrow">→</div>
+<div class="ms-return-card ms-card">
+<strong class="ms-card-title">Отбор для исходного уравнения</strong>
+<span class="ms-card-text">
+          Учитываются ОДЗ, условие t ≥ 0 и проверка подстановкой.
+        </span>
+</div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-7">
+<h2>6. Более сложная замена</h2>
+<p class="ms-text">
+      Иногда новая переменная сама является квадратом,
+      а уравнение содержит взаимно обратные выражения.
+      Тогда нужно следить одновременно за ОДЗ и условием t ≥ 0.
+    </p>
+<div class="ms-example">
+<span class="ms-example-title">Решить</span>
+      x² +
+      <math aria-label="дробь 9 делённое на x в квадрате">
+<mfrac>
+<mn>9</mn>
+<msup><mi>x</mi><mn>2</mn></msup>
+</mfrac>
+</math>
+      = 10.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row">
+        ОДЗ: x ≠ 0.
+      </div>
+<div class="ms-math-row">
+        Пусть t = x². Тогда t &gt; 0.
+      </div>
+<div class="ms-math-row">
+        t +
+        <math aria-label="дробь 9 делённое на t">
+<mfrac><mn>9</mn><mi>t</mi></mfrac>
+</math>
+        = 10.
+      </div>
+<div class="ms-math-row">
+        Умножим на t:
+        t² − 10t + 9 = 0.
+      </div>
+<div class="ms-math-row">
+        t = 1 или t = 9.
+      </div>
+<div class="ms-math-row">
+        x² = 1 ⇒ x = ±1.
+      </div>
+<div class="ms-math-row">
+        x² = 9 ⇒ x = ±3.
+      </div>
+<div class="ms-math-row">
+<span class="ms-good">Ответ: −3; −1; 1; 3.</span>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-8">
+<h2>7. Самопроверка</h2>
+<div class="ms-task">
+<p>
+<strong>Задание 1.</strong>
+        Решите уравнение x⁴ − 13x² + 36 = 0.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          Пусть t = x², t ≥ 0.
+          <br/><br/>
+          t² − 13t + 36 = 0.
+          <br/>
+          (t − 4)(t − 9) = 0.
+          <br/>
+          t = 4 или t = 9.
+          <br/><br/>
+          x = ±2 или x = ±3.
+          <br/><br/>
+<strong>Ответ: −3; −2; 2; 3.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 2.</strong>
+        Решите уравнение x⁴ + 5x² + 4 = 0.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          t = x², t ≥ 0.
+          <br/><br/>
+          t² + 5t + 4 = 0.
+          <br/>
+          t = −1 или t = −4.
+          <br/><br/>
+          Оба значения отрицательны и не могут равняться x².
+          <br/><br/>
+<strong>Ответ: действительных корней нет.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 3.</strong>
+        Решите уравнение (x + 2)⁴ − 10(x + 2)² + 9 = 0.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          Пусть t = (x + 2)², t ≥ 0.
+          <br/><br/>
+          t² − 10t + 9 = 0.
+          <br/>
+          t = 1 или t = 9.
+          <br/><br/>
+          (x + 2)² = 1 ⇒ x = −3 или x = −1.
+          <br/>
+          (x + 2)² = 9 ⇒ x = −5 или x = 1.
+          <br/><br/>
+<strong>Ответ: −5; −3; −1; 1.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 4.</strong>
+        Решите уравнение (3x − 1)² − 5(3x − 1) + 6 = 0.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          Пусть t = 3x − 1.
+          <br/><br/>
+          t² − 5t + 6 = 0.
+          <br/>
+          t = 2 или t = 3.
+          <br/><br/>
+          3x − 1 = 2 ⇒ x = 1.
+          <br/>
+          3x − 1 = 3 ⇒ x =
+          <math aria-label="четыре третьих">
+<mfrac><mn>4</mn><mn>3</mn></mfrac>
+</math>.
+          <br/><br/>
+<strong>
+            Ответ: 1;
+            <math aria-label="четыре третьих">
+<mfrac><mn>4</mn><mn>3</mn></mfrac>
+</math>.
+          </strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 5.</strong>
+        Решите уравнение
+        x +
+        <math aria-label="дробь 6 делённое на x">
+<mfrac><mn>6</mn><mi>x</mi></mfrac>
+</math>
+        = 5.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          ОДЗ: x ≠ 0.
+          <br/><br/>
+          x² − 5x + 6 = 0.
+          <br/>
+          (x − 2)(x − 3) = 0.
+          <br/><br/>
+<strong>Ответ: 2; 3.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 6.</strong>
+        Решите уравнение
+        <math aria-label="дробь x в квадрате минус 9 делённое на x минус 3">
+<mfrac>
+<mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>9</mn></mrow>
+<mrow><mi>x</mi><mo>−</mo><mn>3</mn></mrow>
+</mfrac>
+</math>
+        = 0.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          ОДЗ: x ≠ 3.
+          <br/><br/>
+          x² − 9 = 0 ⇒ x = −3 или x = 3.
+          <br/>
+          Значение x = 3 запрещено.
+          <br/><br/>
+<strong>Ответ: −3.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 7.</strong>
+        Решите уравнение
+        <math aria-label="дробь один делённое на x минус 1">
+<mfrac><mn>1</mn><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac>
+</math>
+        +
+        <math aria-label="дробь один делённое на x плюс 1">
+<mfrac><mn>1</mn><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></mfrac>
+</math>
+        = 1.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          ОДЗ: x ≠ −1, x ≠ 1.
+          <br/><br/>
+          Умножим на (x − 1)(x + 1):
+          <br/>
+          (x + 1) + (x − 1) = x² − 1.
+          <br/>
+          x² − 2x − 1 = 0.
+          <br/><br/>
+          x = 1 ±
+          <math aria-label="квадратный корень из 2" class="ms-root">
+<msqrt><mn>2</mn></msqrt>
+</math>.
+          Оба значения принадлежат ОДЗ.
+          <br/><br/>
+<strong>
+            Ответ:
+            1 −
+            <math aria-label="квадратный корень из 2" class="ms-root">
+<msqrt><mn>2</mn></msqrt>
+</math>;
+            1 +
+            <math aria-label="квадратный корень из 2" class="ms-root">
+<msqrt><mn>2</mn></msqrt>
+</math>.
+          </strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 8.</strong>
+        Решите уравнение
+        x² +
+        <math aria-label="дробь 16 делённое на x в квадрате">
+<mfrac>
+<mn>16</mn>
+<msup><mi>x</mi><mn>2</mn></msup>
+</mfrac>
+</math>
+        = 8.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          ОДЗ: x ≠ 0.
+          <br/><br/>
+          Пусть t = x², t &gt; 0.
+          <br/>
+          t + 16/t = 8.
+          <br/>
+          t² − 8t + 16 = 0.
+          <br/>
+          (t − 4)² = 0, поэтому t = 4.
+          <br/><br/>
+          x² = 4 ⇒ x = −2 или x = 2.
+          <br/><br/>
+<strong>Ответ: −2; 2.</strong>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 9.</strong>
+        При каком значении m уравнение
+        x⁴ − 6x² + m = 0
+        после замены t = x² имеет ровно один положительный корень t?
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>После замены получаем t² − 6t + m = 0. Нужно посчитать именно положительные корни, а не все действительные.</p><ul><li>При m &lt; 0 произведение корней отрицательно, поэтому один корень положительный, а другой отрицательный.</li><li>При m = 0 корни равны 0 и 6: положительный корень только один.</li><li>При 0 &lt; m &lt; 9 дискриминант D = 36 − 4m &gt; 0, сумма корней 6 и произведение m положительны: оба корня положительны.</li><li>При m = 9 есть единственный корень t = 3, он положителен.</li><li>При m &gt; 9 действительных корней нет.</li></ul><p><strong>Ответ: m ∈ (−∞; 0] ∪ {9}.</strong></p></div>
+</details>
+</div>
+<div class="ms-task">
+<p>
+<strong>Задание 10.</strong>
+        Решите уравнение
+        (x² − 1)² − 5(x² − 1) + 4 = 0.
+      </p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+          Пусть t = x² − 1.
+          <br/><br/>
+          t² − 5t + 4 = 0.
+          <br/>
+          t = 1 или t = 4.
+          <br/><br/>
+          x² − 1 = 1 ⇒ x² = 2 ⇒ x = ±
+          <math aria-label="квадратный корень из 2" class="ms-root">
+<msqrt><mn>2</mn></msqrt>
+</math>.
+          <br/><br/>
+          x² − 1 = 4 ⇒ x² = 5 ⇒ x = ±
+          <math aria-label="квадратный корень из 5" class="ms-root">
+<msqrt><mn>5</mn></msqrt>
+</math>.
+          <br/><br/>
+<strong>
+            Ответ:
+            −
+            <math aria-label="квадратный корень из 5" class="ms-root">
+<msqrt><mn>5</mn></msqrt>
+</math>;
+            −
+            <math aria-label="квадратный корень из 2" class="ms-root">
+<msqrt><mn>2</mn></msqrt>
+</math>;
+            <math aria-label="квадратный корень из 2" class="ms-root">
+<msqrt><mn>2</mn></msqrt>
+</math>;
+            <math aria-label="квадратный корень из 5" class="ms-root">
+<msqrt><mn>5</mn></msqrt>
+</math>.
+          </strong>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-9">
+<h2>8. Как заметить удачную замену</h2>
+<div class="ms-substitution-check">
+<div class="ms-substitution-check-card ms-card">
+<strong class="ms-card-title">Повторяется одно выражение</strong>
+<span class="ms-card-text">
+          Встречаются f(x) и [f(x)]² — положите t = f(x).
+        </span>
+</div>
+<div class="ms-substitution-check-card ms-card">
+<strong class="ms-card-title">Есть x⁴ и x²</strong>
+<span class="ms-card-text">
+          Используйте t = x² и обязательно учтите t ≥ 0.
+        </span>
+</div>
+<div class="ms-substitution-check-card ms-card">
+<strong class="ms-card-title">Переменная в знаменателе</strong>
+<span class="ms-card-text">
+          Сначала запишите ОДЗ, затем избавляйтесь от дробей.
+        </span>
+</div>
+<div class="ms-substitution-check-card ms-card">
+<strong class="ms-card-title">Ответ получен</strong>
+<span class="ms-card-text">
+          Вернитесь к x и проверьте каждый корень в исходном уравнении.
+        </span>
+</div>
+</div>
+<div class="ms-rule-box" style="margin-top: 20px;">
+      Главный принцип:
+      <br/>
+      заметить повторяющуюся структуру →
+      заменить её одной буквой →
+      решить квадратное уравнение →
+      выполнить обратную замену →
+      отобрать допустимые корни.
+    </div>
+<p class="ms-text" style="margin-top: 20px;">
+      В следующей теме применим рациональные и квадратные уравнения
+      к текстовым задачам на движение, работу, геометрические величины
+      и другие реальные зависимости.
+    </p>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/sposoby-resheniya-kvadratnyh-uravnenij/">
+        Предыдущая тема
+      </a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+<a class="ms-btn" href="/ispolzovanie-raczionalnyh-uravnenij-dlya-resheniya-zadach/">
+        Следующая тема
+      </a>
+</div>
+</section>
+</div>
+<!-- /wp:html -->

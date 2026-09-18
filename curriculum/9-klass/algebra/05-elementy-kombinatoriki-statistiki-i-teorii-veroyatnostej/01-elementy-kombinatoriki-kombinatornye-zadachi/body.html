@@ -1,0 +1,472 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">9 класс · Алгебра · Комбинаторика и вероятность · Тема 5.1</div>
+    <h1 class="ms-title">Элементы комбинаторики. Комбинаторные задачи</h1>
+    <p class="ms-subtitle">Научимся подсчитывать количество вариантов без полного перебора: применять правила суммы и произведения, строить дерево возможностей, использовать факториал, перестановки, размещения и сочетания.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что изучает комбинаторика</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Правило суммы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Правило произведения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Задачи на цифры и коды</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Факториал</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Перестановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Размещения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Сочетания</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Как выбрать нужный способ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Комбинаторный маршрутизатор</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Что изучает комбинаторика</h2>
+    <p class="ms-text"><strong>Комбинаторика</strong> изучает способы подсчёта количества вариантов, которые можно составить из заданных объектов при определённых условиях.</p>
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Что может быть вариантом</h3>
+        <p class="ms-card-text">Маршрут, код, расписание, команда, набор предметов, порядок участников или число, составленное из цифр.</p>
+      </div>
+      <div class="ms-card">
+        <h3 class="ms-card-title">Главная цель</h3>
+        <p class="ms-card-text">Найти число возможных вариантов, не выписывая каждый из них вручную.</p>
+      </div>
+    </div>
+    <div class="ms-rule-box">Перед вычислениями ответьте на три вопроса: <strong>выбор выполняется по этапам или по альтернативам, важен ли порядок и разрешены ли повторения?</strong></div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Правило суммы</h2>
+    <p class="ms-text">Если объект можно выбрать одним из нескольких <strong>взаимоисключающих</strong> способов, количества вариантов складывают.</p>
+    <div class="ms-rule-box"><strong>m способов или n способов → m+n способов.</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Выбор книги</span>
+      На полке стоят 6 сборников рассказов и 4 романа. Нужно выбрать одну книгу.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Сборник можно выбрать 6 способами.</div>
+        <div class="ms-math-row">Роман можно выбрать 4 способами.</div>
+        <div class="ms-math-row">Всего: 6+4=10.</div>
+      </div>
+      <strong>Ответ: 10 способов.</strong>
+    </div>
+    <div class="ms-note">Складывать можно только альтернативы, которые не выполняются одновременно. Слова «либо», «или», «один из вариантов» часто указывают на правило суммы.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Правило произведения</h2>
+    <p class="ms-text">Если выбор состоит из нескольких последовательных этапов и после каждого варианта первого этапа второй этап можно выполнить одинаковым числом способов, количества вариантов перемножают.</p>
+    <div class="ms-rule-box"><strong>m способов на первом этапе и n способов на втором → m·n способов.</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Составляем комплект одежды</span>
+      Есть 3 футболки и 2 пары брюк. Сколько различных комплектов «футболка + брюки» можно составить?
+      <div class="ms-math-box">
+        <div class="ms-math-row">Футболку выбирают 3 способами.</div>
+        <div class="ms-math-row">Для каждой футболки брюки выбирают 2 способами.</div>
+        <div class="ms-math-row">Всего: 3·2=6.</div>
+      </div>
+      <strong>Ответ: 6 комплектов.</strong>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Дерево вариантов для трёх футболок и двух пар брюк</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Дерево из трёх вариантов футболок и двух вариантов брюк, образующее шесть комплектов">
+          <rect width="900" height="430" rx="24" fill="#ffffff"></rect>
+          <rect x="24" y="20" width="852" height="385" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+
+          <g stroke="#94a3b8" stroke-width="3" fill="none">
+            <line x1="120" y1="210" x2="320" y2="90"></line>
+            <line x1="120" y1="210" x2="320" y2="210"></line>
+            <line x1="120" y1="210" x2="320" y2="330"></line>
+
+            <line x1="365" y1="90" x2="620" y2="55"></line>
+            <line x1="365" y1="90" x2="620" y2="125"></line>
+            <line x1="365" y1="210" x2="620" y2="175"></line>
+            <line x1="365" y1="210" x2="620" y2="245"></line>
+            <line x1="365" y1="330" x2="620" y2="295"></line>
+            <line x1="365" y1="330" x2="620" y2="365"></line>
+          </g>
+
+          <g font-family="inherit" font-weight="800" text-anchor="middle">
+            <rect x="63" y="181" width="114" height="58" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"></rect>
+            <text x="120" y="217" font-size="17" fill="#1d4ed8">Начало</text>
+
+            <rect x="300" y="61" width="130" height="58" rx="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"></rect>
+            <rect x="300" y="181" width="130" height="58" rx="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"></rect>
+            <rect x="300" y="301" width="130" height="58" rx="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"></rect>
+
+            <text x="365" y="96" font-size="16" fill="#6d28d9">Футболка 1</text>
+            <text x="365" y="216" font-size="16" fill="#6d28d9">Футболка 2</text>
+            <text x="365" y="336" font-size="16" fill="#6d28d9">Футболка 3</text>
+
+            <g fill="#ecfdf5" stroke="#86efac" stroke-width="2">
+              <rect x="620" y="31" width="200" height="48" rx="16"></rect>
+              <rect x="620" y="101" width="200" height="48" rx="16"></rect>
+              <rect x="620" y="151" width="200" height="48" rx="16"></rect>
+              <rect x="620" y="221" width="200" height="48" rx="16"></rect>
+              <rect x="620" y="271" width="200" height="48" rx="16"></rect>
+              <rect x="620" y="341" width="200" height="48" rx="16"></rect>
+            </g>
+
+            <g font-size="15" fill="#15803d">
+              <text x="720" y="61">Футболка 1 + брюки 1</text>
+              <text x="720" y="131">Футболка 1 + брюки 2</text>
+              <text x="720" y="181">Футболка 2 + брюки 1</text>
+              <text x="720" y="251">Футболка 2 + брюки 2</text>
+              <text x="720" y="301">Футболка 3 + брюки 1</text>
+              <text x="720" y="371">Футболка 3 + брюки 2</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Задачи на цифры и коды</h2>
+    <p class="ms-text">В таких задачах каждая позиция является отдельным этапом выбора. Нужно внимательно проверить, можно ли использовать ноль в начале и разрешены ли повторения.</p>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Трёхзначные чётные числа без повторений</span>
+      Сколько трёхзначных чётных чисел можно составить из цифр 1, 2, 3, 4, 5, если цифры не повторяются?
+      <div class="ms-math-box">
+        <div class="ms-math-row">Последняя цифра должна быть чётной: 2 или 4 — 2 способа.</div>
+        <div class="ms-math-row">Первую цифру выбирают из четырёх оставшихся — 4 способа.</div>
+        <div class="ms-math-row">Среднюю цифру выбирают из трёх оставшихся — 3 способа.</div>
+        <div class="ms-math-row">Всего: 2·4·3=24.</div>
+      </div>
+      <strong>Ответ: 24 числа.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Код с повторениями</span>
+      Сколько четырёхзначных PIN-кодов можно составить из цифр от 0 до 9, если цифры могут повторяться?
+      <div class="ms-math-box">
+        <div class="ms-math-row">На каждой из четырёх позиций можно поставить любую из 10 цифр.</div>
+        <div class="ms-math-row">Количество кодов: 10·10·10·10=10⁴=10 000.</div>
+      </div>
+      <strong>Ответ: 10 000 кодов.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Факториал</h2>
+    <p class="ms-text">Произведение всех натуральных чисел от 1 до n называют <strong>факториалом числа n</strong>.</p>
+    <div class="ms-rule-box"><strong>n!=1·2·3·…·n, при этом 0!=1.</strong></div>
+    <div class="ms-math-box">
+      <div class="ms-math-row">4!=1·2·3·4=24;</div>
+      <div class="ms-math-row">6!=1·2·3·4·5·6=720;</div>
+      <div class="ms-math-row">
+        <span class="ms-frac">
+          <span class="ms-num">8!</span>
+          <span class="ms-den">6!</span>
+        </span>
+        =8·7=56.
+      </div>
+    </div>
+    <div class="ms-note">При сокращении факториалов не нужно вычислять огромные числа полностью. Например, 10!/8!=10·9.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Перестановки</h2>
+    <p class="ms-text"><strong>Перестановка</strong> — способ расположить все n различных элементов в определённом порядке.</p>
+    <div class="ms-rule-box"><strong>P<sub>n</sub>=n!</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 5. Расставляем книги</span>
+      Сколькими способами можно расставить в ряд 6 разных книг?
+      <div class="ms-math-box">
+        <div class="ms-math-row">На первое место можно поставить любую из 6 книг.</div>
+        <div class="ms-math-row">На второе — одну из 5 оставшихся, затем 4, 3, 2 и 1.</div>
+        <div class="ms-math-row">P<sub>6</sub>=6!=720.</div>
+      </div>
+      <strong>Ответ: 720 способов.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Размещения</h2>
+    <p class="ms-text"><strong>Размещение из n элементов по k</strong> — упорядоченный выбор k различных элементов из n. Важны и состав, и порядок выбранных элементов.</p>
+    <div class="ms-formula-grid ms-card-grid ms-columns-2">
+      <div class="ms-formula-card ms-card">
+        <div class="ms-formula-line">
+          <span class="ms-formula-prefix">A<sub>n</sub><sup>k</sup> =</span>
+          <span class="ms-frac">
+            <span class="ms-num">n!</span>
+            <span class="ms-den">(n−k)!</span>
+          </span>
+        </div>
+        <span class="ms-card-text">Выбирают k элементов из n и распределяют между различными ролями или местами.</span>
+      </div>
+      <div class="ms-formula-card ms-card">
+        <div class="ms-formula-line">
+          <span class="ms-formula-prefix">A<sub>n</sub><sup>k</sup> =</span>
+          <span>n(n−1)…(n−k+1)</span>
+        </div>
+        <span class="ms-card-text">Такая запись удобна для быстрого вычисления без полного раскрытия факториалов.</span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 6. Две разные должности</span>
+      Из 8 учеников нужно выбрать капитана и его заместителя.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Капитана можно выбрать 8 способами.</div>
+        <div class="ms-math-row">После этого заместителя — 7 способами.</div>
+        <div class="ms-math-row">A<sub>8</sub><sup>2</sup>=8·7=56.</div>
+      </div>
+      <strong>Ответ: 56 способов.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Сочетания</h2>
+    <p class="ms-text"><strong>Сочетание из n элементов по k</strong> — выбор k различных элементов из n, при котором порядок выбранных элементов не имеет значения.</p>
+    <div class="ms-rule-box">
+      <strong>
+        C<sub>n</sub><sup>k</sup>=
+        <span class="ms-frac">
+          <span class="ms-num">n!</span>
+          <span class="ms-den">k!(n−k)!</span>
+        </span>
+      </strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 7. Выбираем команду</span>
+      Из 10 учеников нужно выбрать трёх участников команды.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Порядок выбора участников не важен.</div>
+        <div class="ms-math-row">
+          C<sub>10</sub><sup>3</sup>=
+          <span class="ms-frac">
+            <span class="ms-num">10!</span>
+            <span class="ms-den">3!·7!</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">10·9·8</span>
+            <span class="ms-den">3·2·1</span>
+          </span>
+          =120.
+        </div>
+      </div>
+      <strong>Ответ: 120 команд.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 8. Выбор по группам</span>
+      В классе 5 девочек и 6 мальчиков. Сколькими способами можно выбрать команду из двух девочек и двух мальчиков?
+      <div class="ms-math-box">
+        <div class="ms-math-row">Двух девочек выбирают C<sub>5</sub><sup>2</sup>=10 способами.</div>
+        <div class="ms-math-row">Двух мальчиков выбирают C<sub>6</sub><sup>2</sup>=15 способами.</div>
+        <div class="ms-math-row">Выборы выполняются совместно: 10·15=150.</div>
+      </div>
+      <strong>Ответ: 150 способов.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Как выбрать нужный способ</h2>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Ситуация</th>
+            <th>Что использовать</th>
+            <th>Ключевой вопрос</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Выбирают один вариант из нескольких непересекающихся групп</td>
+            <td><strong>Правило суммы</strong></td>
+            <td>В условии действует «или»?</td>
+          </tr>
+          <tr>
+            <td>Выбор выполняют последовательно по этапам</td>
+            <td><strong>Правило произведения</strong></td>
+            <td>Нужно выполнить первый и второй этапы?</td>
+          </tr>
+          <tr>
+            <td>Упорядочивают все n элементов</td>
+            <td><strong>Перестановки P<sub>n</sub></strong></td>
+            <td>Используются все элементы?</td>
+          </tr>
+          <tr>
+            <td>Выбирают k элементов и распределяют по ролям</td>
+            <td><strong>Размещения A<sub>n</sub><sup>k</sup></strong></td>
+            <td>Изменится ли вариант при перестановке выбранных элементов?</td>
+          </tr>
+          <tr>
+            <td>Просто выбирают группу из k элементов</td>
+            <td><strong>Сочетания C<sub>n</sub><sup>k</sup></strong></td>
+            <td>Порядок выбранных элементов не важен?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-answer-box"><strong>Главное различие:</strong> капитан и заместитель — размещение, потому что роли разные; два участника команды — сочетание, потому что порядок не важен.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Типичные ошибки</h2>
+    <div class="ms-error-grid ms-card-grid ms-columns-2">
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Складывают этапы выбора</strong>
+        <p class="ms-card-text">Если нужно выполнить несколько последовательных действий, количества вариантов перемножают.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Не учитывают порядок</strong>
+        <p class="ms-card-text">Пары «капитан — заместитель» и «заместитель — капитан» являются разными назначениями.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Считают один набор несколько раз</strong>
+        <p class="ms-card-text">При выборе обычной команды порядок перечисления участников не создаёт новый вариант.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Забывают ограничения на цифры</strong>
+        <p class="ms-card-text">Многозначное число не начинается с нуля, а запрет повторений уменьшает число вариантов на следующих позициях.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="practice">
+    <h2>11. Самопроверка</h2>
+    <p class="ms-text">Перед вычислением определите: действует правило суммы или произведения, важен ли порядок и допускаются ли повторения.</p>
+
+    <div class="ms-task">
+      <p><strong>1.</strong> В магазине есть 7 видов тетрадей в клетку и 5 видов тетрадей в линейку. Сколькими способами можно выбрать одну тетрадь?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Выбирается либо тетрадь в клетку, либо в линейку.</p>
+          <p>7+5=12.</p>
+          <p><strong>Ответ: 12 способов.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>2.</strong> Есть 4 маршрута от дома до станции и 3 маршрута от станции до школы. Сколькими способами можно составить полный маршрут?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Для каждого пути до станции можно выбрать один из трёх путей до школы.</p>
+          <p>4·3=12.</p>
+          <p><strong>Ответ: 12 способов.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>3.</strong> Сколько двузначных чисел можно составить из цифр 1, 2, 3, 4, 5 без повторений?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Первую цифру выбирают 5 способами, вторую — 4 способами.</p>
+          <p>5·4=20.</p>
+          <p><strong>Ответ: 20 чисел.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>4.</strong> Сколькими способами можно расставить в ряд 7 разных фотографий?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Используются все семь фотографий, порядок важен.</p>
+          <p>P<sub>7</sub>=7!=5040.</p>
+          <p><strong>Ответ: 5040 способов.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>5.</strong> Из 9 учеников выбирают председателя и секретаря. Сколько существует назначений?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Должности различаются, поэтому порядок важен.</p>
+          <p>A<sub>9</sub><sup>2</sup>=9·8=72.</p>
+          <p><strong>Ответ: 72 назначения.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>6.</strong> Из 12 учеников нужно выбрать четырёх участников команды. Сколькими способами это можно сделать?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Порядок участников не важен.</p>
+          <p>C<sub>12</sub><sup>4</sup>=12!/(4!·8!)=495.</p>
+          <p><strong>Ответ: 495 способов.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>7.</strong> В кружке занимаются 5 девочек и 4 мальчика. Сколькими способами можно выбрать двух девочек и одного мальчика?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Двух девочек выбирают C<sub>5</sub><sup>2</sup>=10 способами.</p>
+          <p>Одного мальчика выбирают 4 способами.</p>
+          <p>10·4=40.</p>
+          <p><strong>Ответ: 40 способов.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>8.</strong> Сколько четырёхзначных чётных чисел можно составить из цифр 0, 1, 2, 3, 4 без повторений?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p><strong>Случай 1:</strong> последняя цифра 0. Первую цифру выбирают 4 способами, две средние — 3·2 способами. Получаем 4·3·2=24.</p>
+          <p><strong>Случай 2:</strong> последняя цифра 2 или 4 — 2 способа. Первую цифру нельзя выбирать равной 0 или использованной последней цифре: 3 способа. Две средние цифры выбирают 3·2 способами.</p>
+          <p>Получаем 2·3·3·2=36.</p>
+          <p>Всего: 24+36=60.</p>
+          <p><strong>Ответ: 60 чисел.</strong></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-12">
+    <h2>12. Комбинаторный маршрутизатор</h2>
+    <p class="ms-text">Начинайте решение не с формулы, а с анализа устройства выбора.</p>
+    <div class="ms-dashboard">
+      <div class="ms-dashboard-main">
+        <span>Главная проверка</span>
+        <strong>Новый порядок выбранных элементов создаёт новый вариант или нет?</strong>
+      </div>
+      <div class="ms-dashboard-list">
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">+</div>
+          <div class="ms-dashboard-text"><strong>Альтернативы:</strong> если выбирают один вариант из непересекающихся групп, применяйте правило суммы.</div>
+        </div>
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">×</div>
+          <div class="ms-dashboard-text"><strong>Этапы:</strong> если выбор состоит из последовательных действий, применяйте правило произведения.</div>
+        </div>
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">↕</div>
+          <div class="ms-dashboard-text"><strong>Порядок важен:</strong> все элементы дают перестановки, часть элементов — размещения.</div>
+        </div>
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">{ }</div>
+          <div class="ms-dashboard-text"><strong>Порядок не важен:</strong> выбор группы без ролей и мест подсчитывают сочетаниями.</div>
+        </div>
+      </div>
+    </div>
+    <div class="ms-answer-box"><strong>Финальный чек:</strong> формула должна отражать смысл задачи, а не выбираться только по словам «выбрать» или «расположить».</div>
+    <p class="ms-text" style="margin-top:18px">В следующей теме перейдём к статистике: научимся упорядочивать данные, находить среднее значение, медиану, размах и представлять информацию в таблицах и диаграммах.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/geometricheskaya-progressiya-svojstva-geometricheskoj-progressii/">← Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+    <a class="ms-btn" href="/elementy-statistiki-metody-obrabotki-informaczii/">Следующая тема →</a>
+  </div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,192 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Теория графов · Тема 4.2</div>
+    <h1 class="ms-title">Степень вершины</h1>
+    <p class="ms-subtitle">Научимся считать рёбра, подходящие к вершине, различать чётные и нечётные вершины и применять важное правило: сумма степеней всех вершин вдвое больше числа рёбер.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что показывает степень вершины</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Особые вершины</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Почему сумма степеней связана с числом рёбер</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как находить неизвестное число рёбер</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Связь, которая проверяет ответ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что показывает степень вершины</h2>
+    <div class="ms-rule-box"><strong>Степень вершины</strong> — это количество рёбер, которые имеют данную вершину своим концом. Степень вершины A обозначают deg A.</div>
+    <p class="ms-text">Чтобы найти степень, достаточно последовательно пересчитать все линии, подходящие к вершине. Каждое такое ребро учитывают один раз.</p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Определяем степени вершин по числу подходящих рёбер</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 570" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Граф с шестью вершинами, у которых степени 2, 4, 2, 3, 3 и 2">
+          <rect x="0" y="0" width="900" height="570" rx="24" fill="#f9fafb"/>
+          <rect x="35" y="45" width="830" height="470" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <g stroke="#94a3b8" stroke-width="6" stroke-linecap="round">
+            <line x1="145" y1="160" x2="360" y2="105"/>
+            <line x1="360" y1="105" x2="625" y2="160"/>
+            <line x1="625" y1="160" x2="625" y2="390"/>
+            <line x1="625" y1="390" x2="360" y2="455"/>
+            <line x1="360" y1="455" x2="145" y2="390"/>
+            <line x1="145" y1="390" x2="145" y2="160"/>
+            <line x1="360" y1="105" x2="625" y2="390"/>
+            <line x1="360" y1="105" x2="360" y2="455"/>
+          </g>
+
+          <g>
+            <circle cx="145" cy="160" r="29" fill="#2563eb" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="360" cy="105" r="29" fill="#7c3aed" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="625" cy="160" r="29" fill="#0f766e" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="625" cy="390" r="29" fill="#f97316" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="360" cy="455" r="29" fill="#15803d" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="145" cy="390" r="29" fill="#db2777" stroke="#ffffff" stroke-width="4"/>
+            <g fill="#ffffff" font-size="19" font-weight="800" text-anchor="middle" dominant-baseline="middle">
+              <text x="145" y="161">A</text><text x="360" y="106">B</text><text x="625" y="161">C</text><text x="625" y="391">D</text><text x="360" y="456">E</text><text x="145" y="391">F</text>
+            </g>
+          </g>
+
+          <g font-size="15" font-weight="800" text-anchor="middle">
+            <rect x="73" y="103" width="112" height="34" rx="13" fill="#eff6ff" stroke="#bfdbfe"/>
+            <text x="129" y="126" fill="#1d4ed8">deg A = 2</text>
+            <rect x="304" y="48" width="112" height="34" rx="13" fill="#f7f4ff" stroke="#ddd6fe"/>
+            <text x="360" y="71" fill="#6d28d9">deg B = 4</text>
+            <rect x="658" y="103" width="112" height="34" rx="13" fill="#ecfeff" stroke="#a5f3fc"/>
+            <text x="714" y="126" fill="#0f766e">deg C = 2</text>
+            <rect x="658" y="413" width="112" height="34" rx="13" fill="#fff7ed" stroke="#fed7aa"/>
+            <text x="714" y="436" fill="#c2410c">deg D = 3</text>
+            <rect x="304" y="492" width="112" height="34" rx="13" fill="#ecfdf5" stroke="#bbf7d0"/>
+            <text x="360" y="515" fill="#166534">deg E = 3</text>
+            <rect x="73" y="413" width="112" height="34" rx="13" fill="#fdf2f8" stroke="#fbcfe8"/>
+            <text x="129" y="436" fill="#be185d">deg F = 2</text>
+          </g>
+
+          <rect x="232" y="532" width="436" height="28" rx="12" fill="#eff6ff"/>
+          <text x="450" y="552" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1d4ed8">Сумма степеней: 2 + 4 + 2 + 3 + 3 + 2 = 16</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Особые вершины</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Изолированная вершина</h3><p class="ms-card-text">Не имеет рёбер. Её степень равна 0.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Висячая вершина</h3><p class="ms-card-text">Соединена с графом только одним ребром. Её степень равна 1.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Чётная вершина</h3><p class="ms-card-text">Имеет чётную степень: 0, 2, 4, 6 и так далее.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Нечётная вершина</h3><p class="ms-card-text">Имеет нечётную степень: 1, 3, 5 и так далее.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Почему сумма степеней связана с числом рёбер</h2>
+    <p class="ms-text">У каждого ребра два конца. При подсчёте степеней одно ребро будет учтено дважды: один раз у первой вершины и один раз у второй.</p>
+    <div class="ms-formula-banner"><span class="ms-formula-main">Сумма степеней всех вершин = 2 · число рёбер</span><span class="ms-formula-caption">Если в графе m рёбер, сумма степеней равна 2m.</span></div>
+    <div class="ms-example"><span class="ms-example-title">Проверка графа на рисунке</span>В нём 8 рёбер. Сумма степеней равна 16, и действительно 16 = 2 · 8.</div>
+    <div class="ms-note">Из формулы сразу следует: сумма степеней всегда чётная. Поэтому вершин нечётной степени в любом графе должно быть чётное количество.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Как находить неизвестное число рёбер</h2>
+    <p class="ms-text">Если известны степени всех вершин, сложите их и разделите результат на 2.</p>
+    <div class="ms-math-box">
+      <div class="ms-math-row">Степени вершин: 3, 3, 2, 2, 2.</div>
+      <div class="ms-math-row">Сумма: 3 + 3 + 2 + 2 + 2 = 12.</div>
+      <div class="ms-math-row">Число рёбер: 12 : 2 = <strong>6</strong>.</div>
+    </div>
+    <p class="ms-text">Если сумма степеней получилась нечётной, значит в данных или подсчёте есть ошибка: половина нечётного числа не может быть целым числом рёбер.</p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Задания для самопроверки</h2>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> К вершине A подходят рёбра AB, AC, AD и AE. Найдите степень вершины A.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>К A подходит четыре ребра, поэтому <strong>deg A = 4</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Вершина P не соединена ни с одной другой вершиной. Какова её степень и как называется такая вершина?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Её степень равна <strong>0</strong>. Такая вершина называется <strong>изолированной</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> В графе 7 рёбер. Чему равна сумма степеней всех его вершин?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Каждое ребро учитывается у двух концов: 2 · 7 = <strong>14</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Степени пяти вершин равны 2, 3, 3, 4 и 2. Сколько рёбер в графе?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Сумма степеней: 2 + 3 + 3 + 4 + 2 = 14. Число рёбер: 14 : 2 = <strong>7</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Может ли существовать граф со степенями вершин 1, 2, 2 и 2?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Сумма степеней равна 7, а она должна быть чётной. Поэтому такого неориентированного графа <strong>не существует</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> В графе есть ровно три вершины нечётной степени. Возможно ли это?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Количество вершин нечётной степени всегда чётно.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> В графе 8 вершин степени 3. Найдите число рёбер, если других вершин нет.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Сумма степеней: 8 · 3 = 24. Число рёбер: 24 : 2 = <strong>12</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> У графа 10 рёбер. Известны степени четырёх вершин: 5, 4, 3 и 2. Какова сумма степеней остальных вершин?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общая сумма степеней равна 2 · 10 = 20. Известные степени дают 5 + 4 + 3 + 2 = 14. Осталось: 20 − 14 = <strong>6</strong>.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Связь, которая проверяет ответ</h2>
+    <p class="ms-text">Подсчёт степеней — удобный способ проверить рисунок и восстановить число рёбер без повторного просмотра всей схемы.</p>
+    <div class="ms-compare-strip">
+      <div class="ms-compare-panel"><h3>Известны рёбра</h3><p>Умножьте их количество на 2 и получите сумму степеней.</p></div>
+      <div class="ms-compare-panel"><h3>Известны степени</h3><p>Сложите их и разделите сумму на 2, чтобы найти число рёбер.</p></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/vvedenie-v-teoriyu-grafov/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/czepi-i-czikl-puti-v-grafe/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

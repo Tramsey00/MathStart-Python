@@ -1,0 +1,233 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Теория графов · Тема 4.4</div>
+    <h1 class="ms-title">Понятие эйлерова графа. Ориентированные графы</h1>
+    <p class="ms-subtitle">Узнаем, когда граф можно обвести одним росчерком без повторения рёбер, как степени вершин помогают заранее проверить возможность обхода и чем ориентированный граф отличается от обычного.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Обход каждого ребра ровно один раз</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как степени вершин предсказывают обход</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Ориентированные графы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Входящие и исходящие дуги</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Карта понятий раздела</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Обход каждого ребра ровно один раз</h2>
+    <p class="ms-text">Во многих задачах требуется пройти по всем дорогам, линиям или участкам сети, не повторяя ни один из них. На языке графов нужно построить особую цепь, содержащую все рёбра.</p>
+    <div class="ms-rule-box"><strong>Эйлеров путь</strong> проходит по каждому ребру графа ровно один раз. Если он заканчивается в той же вершине, где начался, такой путь называют <strong>эйлеровым циклом</strong>.</div>
+    <p class="ms-text"><strong>Эйлеров граф</strong> — связный граф, в котором существует эйлеров цикл.</p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Эйлеров цикл проходит по каждому ребру ровно один раз</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Два треугольника с общей вершиной C и последовательность обхода A B C D E C A">
+          <rect x="0" y="0" width="900" height="500" rx="24" fill="#f9fafb"/>
+          <rect x="35" y="45" width="830" height="390" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+          <g stroke="#2563eb" stroke-width="8" stroke-linecap="round">
+            <line x1="110" y1="280" x2="275" y2="120"/>
+            <line x1="275" y1="120" x2="450" y2="280"/>
+            <line x1="450" y1="280" x2="110" y2="280"/>
+            <line x1="450" y1="280" x2="625" y2="120"/>
+            <line x1="625" y1="120" x2="790" y2="280"/>
+            <line x1="790" y1="280" x2="450" y2="280"/>
+          </g>
+          <g stroke="#ffffff" stroke-width="4">
+            <circle cx="110" cy="280" r="30" fill="#2563eb"/>
+            <circle cx="275" cy="120" r="30" fill="#7c3aed"/>
+            <circle cx="450" cy="280" r="34" fill="#15803d"/>
+            <circle cx="625" cy="120" r="30" fill="#f97316"/>
+            <circle cx="790" cy="280" r="30" fill="#0f766e"/>
+          </g>
+          <g fill="#ffffff" font-size="19" font-weight="800" text-anchor="middle" dominant-baseline="middle">
+            <text x="110" y="281">A</text><text x="275" y="121">B</text><text x="450" y="281">C</text><text x="625" y="121">D</text><text x="790" y="281">E</text>
+          </g>
+          <g font-size="14" font-weight="800" text-anchor="middle">
+            <g><circle cx="190" cy="188" r="16" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/><text x="190" y="193" fill="#1d4ed8">1</text></g>
+            <g><circle cx="360" cy="188" r="16" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/><text x="360" y="193" fill="#1d4ed8">2</text></g>
+            <g><circle cx="535" cy="188" r="16" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/><text x="535" y="193" fill="#1d4ed8">3</text></g>
+            <g><circle cx="710" cy="188" r="16" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/><text x="710" y="193" fill="#1d4ed8">4</text></g>
+            <g><circle cx="620" cy="310" r="16" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/><text x="620" y="315" fill="#1d4ed8">5</text></g>
+            <g><circle cx="280" cy="310" r="16" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/><text x="280" y="315" fill="#1d4ed8">6</text></g>
+          </g>
+          <rect x="225" y="370" width="450" height="42" rx="15" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="450" y="397" text-anchor="middle" font-size="17" font-weight="800" fill="#1d4ed8">A–B–C–D–E–C–A</text>
+          <text x="450" y="462" text-anchor="middle" font-size="15" font-weight="700" fill="#4b5563">Степени вершин: 2, 2, 4, 2, 2 — все чётные</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Как степени вершин предсказывают обход</h2>
+    <p class="ms-text">В промежуточную вершину мы входим по одному ребру и выходим по другому. Использованные рёбра образуют пары, поэтому степень такой вершины должна быть чётной.</p>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Все степени чётные</h3><p class="ms-card-text">В связном графе существует эйлеров цикл. Начать можно в любой вершине.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Ровно две нечётные</h3><p class="ms-card-text">Существует открытый эйлеров путь: он начинается в одной нечётной вершине и заканчивается в другой.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Нечётных больше двух</h3><p class="ms-card-text">Пройти все рёбра ровно один раз невозможно.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Проверяем связность</h3><p class="ms-card-text">Все рёбра должны принадлежать одной связной части графа.</p></div>
+    </div>
+    <div class="ms-note">Вершины в эйлеровом обходе могут повторяться. Запрещено повторять именно рёбра.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Ориентированные графы</h2>
+    <div class="ms-rule-box"><strong>Ориентированный граф</strong> — граф, у каждого ребра которого указано направление. Направленное ребро часто называют дугой и изображают стрелкой.</div>
+    <p class="ms-text">Такие графы используют для односторонних дорог, переходов между страницами, последовательности действий и перевозок, где направление имеет смысл.</p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">В ориентированном графе направление ребра обязательно</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ориентированный граф из пяти вершин с направленными стрелками">
+          <defs>
+            <marker id="arrowBlue" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10.5" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,6 L0,12 Z" fill="#2563eb"/>
+            </marker>
+            <marker id="arrowPurple" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10.5" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,6 L0,12 Z" fill="#7c3aed"/>
+            </marker>
+          </defs>
+          <rect x="0" y="0" width="900" height="590" rx="24" fill="#f9fafb"/>
+          <rect x="55" y="45" width="790" height="480" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <g fill="none" stroke="#2563eb" stroke-width="4.5" stroke-linecap="round" marker-end="url(#arrowBlue)">
+            <line x1="475" y1="122" x2="653" y2="221"/>
+            <line x1="687" y1="267" x2="612" y2="403"/>
+            <line x1="563" y1="428" x2="337" y2="428"/>
+            <line x1="287" y1="402" x2="214" y2="266"/>
+            <line x1="246" y1="221" x2="424" y2="122"/>
+          </g>
+          <g fill="none" stroke="#7c3aed" stroke-width="4.5" stroke-linecap="round" marker-end="url(#arrowPurple)">
+            <line x1="460" y1="132" x2="572" y2="393"/>
+            <line x1="328" y1="392" x2="440" y2="132"/>
+          </g>
+
+          <g stroke="#ffffff" stroke-width="4">
+            <circle cx="450" cy="95" r="30" fill="#2563eb"/>
+            <circle cx="700" cy="240" r="30" fill="#0f766e"/>
+            <circle cx="600" cy="430" r="30" fill="#f97316"/>
+            <circle cx="300" cy="430" r="30" fill="#15803d"/>
+            <circle cx="200" cy="240" r="30" fill="#7c3aed"/>
+          </g>
+          <g fill="#ffffff" font-size="19" font-weight="800" text-anchor="middle" dominant-baseline="middle">
+            <text x="450" y="96">A</text><text x="700" y="241">B</text><text x="600" y="431">C</text><text x="300" y="431">D</text><text x="200" y="241">E</text>
+          </g>
+
+          <rect x="190" y="535" width="520" height="36" rx="14" fill="#ffffff" stroke="#dbeafe"/>
+          <text x="450" y="559" text-anchor="middle" font-size="15" font-weight="700" fill="#374151">Например, по стрелке A → B пройти можно, а B → A — нельзя</text>
+        </svg>
+      </div>
+    </div>
+    <div class="ms-compare-strip">
+      <div class="ms-compare-panel"><h3>Неориентированное ребро AB</h3><p>Связь действует в обе стороны: из A в B и из B в A.</p></div>
+      <div class="ms-compare-panel"><h3>Дуга A → B</h3><p>Переход разрешён из A в B. Обратное направление возможно только при наличии отдельной стрелки B → A.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Входящие и исходящие дуги</h2>
+    <p class="ms-text">Для вершины ориентированного графа отдельно считают стрелки, которые входят в неё, и стрелки, которые выходят из неё.</p>
+    <div class="ms-definition-grid ms-card-grid ms-columns-3">
+      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Входящая степень</strong><p class="ms-card-text">Количество дуг, направленных к данной вершине.</p></div>
+      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Исходящая степень</strong><p class="ms-card-text">Количество дуг, направленных из данной вершины.</p></div>
+      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Направленный путь</strong><p class="ms-card-text">Последовательность дуг, по которым можно двигаться только по стрелкам.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Задания для самопроверки</h2>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Что называют эйлеровым циклом?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Это замкнутый обход, который проходит по <strong>каждому ребру графа ровно один раз</strong> и возвращается в начальную вершину.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Связный граф имеет степени вершин 2, 4, 2, 2. Является ли он эйлеровым?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Да.</strong> Все степени чётные, поэтому в связном графе существует эйлеров цикл.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> В связном графе ровно две нечётные вершины A и D. Где должен начинаться и заканчиваться эйлеров путь?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Он должен начаться в одной нечётной вершине и закончиться в другой: <strong>из A в D или из D в A</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Можно ли пройти каждое ребро ровно один раз, если в связном графе четыре нечётные вершины?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Для открытого эйлерова пути допустимы ровно две нечётные вершины, а для цикла — ни одной.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Для графа на рисунке запишите эйлеров цикл, начинающийся в A.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Один из вариантов: <strong>A–B–C–D–E–C–A</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> В ориентированном графе есть стрелки A → B и B → C. Можно ли пройти из C в A по этим двум дугам?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Направления стрелок ведут из A в B и из B в C, а обратный проход не разрешён.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> У вершины P три входящие и две исходящие дуги. Назовите её входящую и исходящую степени.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Входящая степень равна <strong>3</strong>, исходящая — <strong>2</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Почему при проверке эйлерова обхода нельзя считать только вершины?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Условие относится к <strong>рёбрам</strong>: каждое ребро должно быть пройдено ровно один раз. Вершины при этом могут встречаться несколько раз.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Карта понятий раздела</h2>
+    <div class="ms-concept-map">
+      <div class="ms-concept-item"><strong>Вершины и рёбра</strong><p>Описывают объекты и связи между ними.</p></div>
+      <div class="ms-concept-item"><strong>Степень вершины</strong><p>Показывает число подходящих рёбер и помогает считать рёбра графа.</p></div>
+      <div class="ms-concept-item"><strong>Путь, цепь, цикл</strong><p>Описывают движение по рёбрам и замкнутые маршруты.</p></div>
+      <div class="ms-concept-item"><strong>Эйлеров обход</strong><p>Использует каждое ребро ровно один раз; направление стрелок в ориентированном графе учитывать обязательно.</p></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/czepi-i-czikl-puti-v-grafe/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/sluchajnyj-opyt-i-sluchajnoe-sobytie/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->

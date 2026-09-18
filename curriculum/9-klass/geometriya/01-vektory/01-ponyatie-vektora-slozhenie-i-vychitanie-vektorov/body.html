@@ -1,0 +1,1601 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">9 класс · Геометрия · Векторы · Тема 1.1</div>
+
+    <h1 class="ms-title">Понятие вектора. Сложение и вычитание векторов</h1>
+
+    <p class="ms-subtitle">
+      Разберём, чем вектор отличается от обычного отрезка, как определяются
+      его направление и длина, какие векторы считаются равными и как находить
+      сумму, разность и сумму нескольких векторов.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-geometriya/">
+        К темам геометрии
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что называют вектором</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Коллинеарные, сонаправленные и равные векторы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Откладывание вектора от данной точки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Сложение двух векторов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Законы сложения векторов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Сумма нескольких векторов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Вычитание векторов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Разобранные примеры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Частые ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что называют вектором</h2>
+
+    <p class="ms-text">
+      У обычного отрезка важна только его длина. У вектора, кроме длины,
+      обязательно указывается направление. Поэтому один и тот же отрезок
+      можно направить двумя различными способами: от первой точки ко второй
+      или от второй точки к первой.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Вектор</strong>, или направленный отрезок, — это отрезок,
+      для которого указано, какая из его граничных точек является началом,
+      а какая — концом.
+    </div>
+
+    <p class="ms-text">
+      Вектор с началом в точке <strong>A</strong> и концом в точке
+      <strong>B</strong> обозначается
+      <span class="ms-vec">AB</span>. Первая буква всегда показывает начало,
+      вторая — конец. Тот же вектор можно обозначить одной строчной буквой,
+      например <span class="ms-vec">a</span>.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Начало, конец, направление и длина вектора
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 430"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Векторы AB и BA, вектор a и нулевой вектор MM"
+        >
+          <defs>
+            <marker
+              id="ms-v1-blue"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"></path>
+            </marker>
+
+            <marker
+              id="ms-v1-purple"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"></path>
+            </marker>
+          </defs>
+
+          <rect width="920" height="430" rx="24" fill="#f9fafb"></rect>
+
+          <rect
+            x="45"
+            y="45"
+            width="830"
+            height="335"
+            rx="24"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <text
+            x="230"
+            y="90"
+            text-anchor="middle"
+            fill="#111827"
+            font-size="21"
+            font-weight="800"
+          >
+            Противоположные направления
+          </text>
+
+          <line
+            x1="105"
+            y1="155"
+            x2="355"
+            y2="155"
+            stroke="#2563eb"
+            stroke-width="6"
+            stroke-linecap="round"
+            marker-end="url(#ms-v1-blue)"
+          ></line>
+
+          <circle cx="105" cy="155" r="9" fill="#2563eb"></circle>
+
+          <text x="89" y="191" fill="#111827" font-size="20" font-weight="800">A</text>
+          <text x="356" y="191" fill="#111827" font-size="20" font-weight="800">B</text>
+          <text x="230" y="136" text-anchor="middle" fill="#1d4ed8" font-size="19" font-weight="800">AB</text>
+
+          <line
+            x1="355"
+            y1="245"
+            x2="105"
+            y2="245"
+            stroke="#7c3aed"
+            stroke-width="6"
+            stroke-linecap="round"
+            marker-end="url(#ms-v1-purple)"
+          ></line>
+
+          <circle cx="355" cy="245" r="9" fill="#7c3aed"></circle>
+
+          <text x="89" y="281" fill="#111827" font-size="20" font-weight="800">A</text>
+          <text x="356" y="281" fill="#111827" font-size="20" font-weight="800">B</text>
+          <text x="230" y="226" text-anchor="middle" fill="#7c3aed" font-size="19" font-weight="800">BA</text>
+
+          <line
+            x1="463"
+            y1="65"
+            x2="463"
+            y2="355"
+            stroke="#e5e7eb"
+            stroke-width="2"
+          ></line>
+
+          <text
+            x="650"
+            y="90"
+            text-anchor="middle"
+            fill="#111827"
+            font-size="21"
+            font-weight="800"
+          >
+            Вектор и его длина
+          </text>
+
+          <line
+            x1="535"
+            y1="245"
+            x2="755"
+            y2="135"
+            stroke="#2563eb"
+            stroke-width="6"
+            stroke-linecap="round"
+            marker-end="url(#ms-v1-blue)"
+          ></line>
+
+          <circle cx="535" cy="245" r="9" fill="#2563eb"></circle>
+
+          <text x="515" y="279" fill="#111827" font-size="20" font-weight="800">C</text>
+          <text x="762" y="130" fill="#111827" font-size="20" font-weight="800">D</text>
+          <text x="650" y="171" fill="#1d4ed8" font-size="20" font-weight="800">a</text>
+
+          <rect
+            x="540"
+            y="285"
+            width="220"
+            height="48"
+            rx="17"
+            fill="#eff6ff"
+            stroke="#bfdbfe"
+            stroke-width="2"
+          ></rect>
+
+          <text
+            x="650"
+            y="315"
+            text-anchor="middle"
+            fill="#1d4ed8"
+            font-size="17"
+            font-weight="800"
+          >
+            |a| = CD
+          </text>
+
+          <circle
+            cx="810"
+            cy="265"
+            r="11"
+            fill="#f97316"
+            stroke="#ffffff"
+            stroke-width="3"
+          ></circle>
+
+          <text
+            x="810"
+            y="302"
+            text-anchor="middle"
+            fill="#111827"
+            font-size="17"
+            font-weight="800"
+          >
+            MM = 0
+          </text>
+
+          <text
+            x="810"
+            y="326"
+            text-anchor="middle"
+            fill="#6b7280"
+            font-size="15"
+            font-weight="700"
+          >
+            нулевой вектор
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-note-grid ms-card-grid ms-columns-3">
+      <div class="ms-note-card ms-card">
+        <strong class="ms-card-title">Начало</strong>
+        <p class="ms-card-text">
+          Точка, из которой выходит стрелка. У вектора
+          <span class="ms-vec">AB</span> это точка A.
+        </p>
+      </div>
+
+      <div class="ms-note-card ms-card">
+        <strong class="ms-card-title">Конец</strong>
+        <p class="ms-card-text">
+          Точка, в которую направлена стрелка. У вектора
+          <span class="ms-vec">AB</span> это точка B.
+        </p>
+      </div>
+
+      <div class="ms-note-card ms-card">
+        <strong class="ms-card-title">Длина</strong>
+        <p class="ms-card-text">
+          Длина, или модуль, вектора
+          <span class="ms-vec">AB</span> равна длине отрезка AB:
+          |<span class="ms-vec">AB</span>| = AB.
+        </p>
+      </div>
+    </div>
+
+    <h3>Нулевой вектор</h3>
+
+    <p class="ms-text">
+      Если начало и конец вектора совпадают, получается
+      <strong>нулевой вектор</strong>. Например,
+      <span class="ms-vec">MM</span> — нулевой вектор.
+      Его обозначают также символом
+      <span class="ms-vec">0</span>, а его длина равна нулю.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        |<span class="ms-vec">0</span>| = 0
+      </div>
+
+      <div class="ms-math-row">
+        Начало нулевого вектора совпадает с его концом.
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Коллинеарные, сонаправленные и равные векторы</h2>
+
+    <p class="ms-text">
+      Для сравнения векторов необходимо учитывать не только их длины,
+      но и направления.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3>Коллинеарные векторы</h3>
+        <p>
+          Ненулевые векторы называются коллинеарными, если они лежат
+          на одной прямой или на параллельных прямых. Нулевой вектор
+          считается коллинеарным любому вектору.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3>Сонаправленные векторы</h3>
+        <p>
+          Коллинеарные векторы, направленные в одну сторону,
+          называются сонаправленными. Используется запись
+          <span class="ms-vec">a</span> ↑↑ <span class="ms-vec">b</span>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3>Противоположно направленные</h3>
+        <p>
+          Коллинеарные векторы, направленные в разные стороны,
+          называются противоположно направленными:
+          <span class="ms-vec">a</span> ↑↓ <span class="ms-vec">b</span>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3>Равные векторы</h3>
+        <p>
+          Векторы равны, если они сонаправлены и имеют равные длины.
+          Одного равенства длин для равенства векторов недостаточно.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Равенство векторов:</strong><br>
+      <span class="ms-vec">a</span> =
+      <span class="ms-vec">b</span>, если одновременно
+      <span class="ms-vec">a</span> ↑↑
+      <span class="ms-vec">b</span> и
+      |<span class="ms-vec">a</span>| =
+      |<span class="ms-vec">b</span>|.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Сравнение векторов по направлению и длине
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 440"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Сонаправленные, противоположно направленные, равные и неколлинеарные векторы"
+        >
+          <defs>
+            <marker
+              id="ms-v2-blue"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"></path>
+            </marker>
+
+            <marker
+              id="ms-v2-purple"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"></path>
+            </marker>
+
+            <marker
+              id="ms-v2-green"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#15803d"></path>
+            </marker>
+
+            <marker
+              id="ms-v2-orange"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#f97316"></path>
+            </marker>
+          </defs>
+
+          <rect width="920" height="440" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="35" y="35" width="405" height="170" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="480" y="35" width="405" height="170" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="35" y="235" width="405" height="170" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="480" y="235" width="405" height="170" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <text x="237" y="70" text-anchor="middle" fill="#111827" font-size="19" font-weight="800">Сонаправленные</text>
+
+          <line x1="90" y1="112" x2="260" y2="112" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-blue)"></line>
+          <line x1="145" y1="160" x2="355" y2="160" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-purple)"></line>
+
+          <text x="170" y="103" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="800">a</text>
+          <text x="245" y="151" text-anchor="middle" fill="#7c3aed" font-size="17" font-weight="800">b</text>
+
+          <text x="682" y="70" text-anchor="middle" fill="#111827" font-size="19" font-weight="800">Противоположно направленные</text>
+
+          <line x1="535" y1="112" x2="755" y2="112" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-blue)"></line>
+          <line x1="830" y1="160" x2="610" y2="160" stroke="#f97316" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-orange)"></line>
+
+          <text x="640" y="103" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="800">a</text>
+          <text x="720" y="151" text-anchor="middle" fill="#c2410c" font-size="17" font-weight="800">c</text>
+
+          <text x="237" y="270" text-anchor="middle" fill="#111827" font-size="19" font-weight="800">Равные</text>
+
+          <line x1="90" y1="315" x2="270" y2="315" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-blue)"></line>
+          <line x1="150" y1="365" x2="330" y2="365" stroke="#15803d" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-green)"></line>
+
+          <line x1="170" y1="305" x2="180" y2="325" stroke="#111827" stroke-width="3"></line>
+          <line x1="230" y1="355" x2="240" y2="375" stroke="#111827" stroke-width="3"></line>
+
+          <text x="180" y="300" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="800">p</text>
+          <text x="240" y="350" text-anchor="middle" fill="#15803d" font-size="17" font-weight="800">q</text>
+
+          <text x="682" y="270" text-anchor="middle" fill="#111827" font-size="19" font-weight="800">Неколлинеарные</text>
+
+          <line x1="545" y1="360" x2="715" y2="300" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-blue)"></line>
+          <line x1="610" y1="290" x2="790" y2="370" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v2-purple)"></line>
+
+          <text x="620" y="321" fill="#1d4ed8" font-size="17" font-weight="800">m</text>
+          <text x="718" y="327" fill="#7c3aed" font-size="17" font-weight="800">n</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Векторы одинаковой длины могут быть неравными. Например, два вектора
+      могут иметь равные длины, но быть направленными в противоположные стороны.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Откладывание вектора от данной точки</h2>
+
+    <p class="ms-text">
+      Вектор можно перенести в другую часть плоскости, не изменяя его длину
+      и направление. Именно поэтому равные векторы, расположенные в разных
+      местах, можно рассматривать как один и тот же вектор, отложенный
+      от разных точек.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Утверждение.</strong> От любой точки M можно отложить вектор,
+      равный данному вектору <span class="ms-vec">a</span>, и притом
+      только один.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Как отложить вектор, равный данному
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 400"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Построение вектора MN, равного вектору AB, от заданной точки M"
+        >
+          <defs>
+            <marker
+              id="ms-v3-blue"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"></path>
+            </marker>
+
+            <marker
+              id="ms-v3-purple"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"></path>
+            </marker>
+          </defs>
+
+          <rect width="920" height="400" rx="24" fill="#f9fafb"></rect>
+          <rect x="55" y="45" width="810" height="305" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <line x1="120" y1="260" x2="365" y2="145" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v3-blue)"></line>
+          <circle cx="120" cy="260" r="9" fill="#2563eb"></circle>
+
+          <text x="100" y="294" fill="#111827" font-size="20" font-weight="800">A</text>
+          <text x="373" y="143" fill="#111827" font-size="20" font-weight="800">B</text>
+          <text x="230" y="184" fill="#1d4ed8" font-size="19" font-weight="800">a</text>
+
+          <line x1="515" y1="265" x2="760" y2="150" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v3-purple)"></line>
+          <circle cx="515" cy="265" r="9" fill="#7c3aed"></circle>
+
+          <text x="493" y="299" fill="#111827" font-size="20" font-weight="800">M</text>
+          <text x="768" y="148" fill="#111827" font-size="20" font-weight="800">N</text>
+
+          <line x1="120" y1="294" x2="515" y2="294" stroke="#bfdbfe" stroke-width="2" stroke-dasharray="8 8"></line>
+          <line x1="365" y1="109" x2="760" y2="109" stroke="#ddd6fe" stroke-width="2" stroke-dasharray="8 8"></line>
+
+          <rect x="270" y="313" width="380" height="36" rx="14" fill="#eff6ff" stroke="#bfdbfe"></rect>
+          <text x="460" y="337" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="800">MN = AB: длины и направления совпадают</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-proof-grid">
+      <div class="ms-proof-box">
+        <h3>Построение</h3>
+        <p>
+          Через точку M проводят прямую, параллельную прямой, на которой
+          расположен данный ненулевой вектор. На этой прямой откладывают
+          от точки M отрезок, равный длине данного вектора, выбирая нужное
+          направление.
+        </p>
+      </div>
+
+      <div class="ms-proof-box">
+        <h3>Почему вектор существует</h3>
+        <p>
+          На проведённой прямой можно отложить от точки M отрезок заданной
+          длины. Из двух возможных направлений выбирают то, которое совпадает
+          с направлением данного вектора.
+        </p>
+      </div>
+
+      <div class="ms-proof-box">
+        <h3>Почему вектор единственный</h3>
+        <p>
+          На выбранном луче от его начала можно отложить отрезок заданной
+          длины только одним способом. Поэтому второго равного вектора
+          с тем же началом быть не может.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Сложение двух векторов</h2>
+
+    <p class="ms-text">
+      Представим движение: сначала объект переместился из точки A в точку B,
+      а затем из B в C. Итоговое перемещение ведёт непосредственно из A в C.
+      Поэтому вектор <span class="ms-vec">AC</span> считается суммой
+      векторов <span class="ms-vec">AB</span> и
+      <span class="ms-vec">BC</span>.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Правило треугольника.</strong> Чтобы сложить векторы
+      <span class="ms-vec">a</span> и <span class="ms-vec">b</span>,
+      нужно от конца первого вектора отложить второй. Вектор, соединяющий
+      начало первого вектора с концом второго, является их суммой.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span> =
+        <span class="ms-vec">AC</span>
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-vec">a</span> +
+        <span class="ms-vec">0</span> =
+        <span class="ms-vec">a</span>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Правило треугольника и правило параллелограмма
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 960 500"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Сложение векторов по правилу треугольника и правилу параллелограмма"
+        >
+          <defs>
+            <marker
+              id="ms-v4-blue"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"></path>
+            </marker>
+
+            <marker
+              id="ms-v4-purple"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"></path>
+            </marker>
+
+            <marker
+              id="ms-v4-green"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#15803d"></path>
+            </marker>
+          </defs>
+
+          <rect width="960" height="500" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="25" y="45" width="440" height="405" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="495" y="45" width="440" height="405" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <text x="245" y="85" text-anchor="middle" fill="#111827" font-size="21" font-weight="800">Правило треугольника</text>
+
+          <line x1="90" y1="345" x2="260" y2="345" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v4-blue)"></line>
+          <line x1="260" y1="345" x2="385" y2="155" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v4-purple)"></line>
+          <line x1="90" y1="345" x2="385" y2="155" stroke="#15803d" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v4-green)"></line>
+
+          <g fill="#111827" font-size="19" font-weight="800">
+            <text x="70" y="379">A</text>
+            <text x="257" y="379">B</text>
+            <text x="392" y="151">C</text>
+          </g>
+
+          <text x="170" y="329" fill="#1d4ed8" font-size="18" font-weight="800">a</text>
+          <text x="333" y="246" fill="#7c3aed" font-size="18" font-weight="800">b</text>
+          <text x="205" y="229" fill="#15803d" font-size="18" font-weight="800">a + b</text>
+
+          <rect x="70" y="400" width="350" height="34" rx="14" fill="#eff6ff" stroke="#bfdbfe"></rect>
+          <text x="245" y="423" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="800">AB + BC = AC</text>
+
+          <text x="715" y="85" text-anchor="middle" fill="#111827" font-size="21" font-weight="800">Правило параллелограмма</text>
+
+          <polygon points="565,345 760,345 865,165 670,165" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></polygon>
+
+          <line x1="565" y1="345" x2="760" y2="345" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v4-blue)"></line>
+          <line x1="565" y1="345" x2="670" y2="165" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v4-purple)"></line>
+          <line x1="565" y1="345" x2="865" y2="165" stroke="#15803d" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v4-green)"></line>
+
+          <line x1="760" y1="345" x2="865" y2="165" stroke="#93c5fd" stroke-width="4" stroke-dasharray="8 7"></line>
+          <line x1="670" y1="165" x2="865" y2="165" stroke="#c4b5fd" stroke-width="4" stroke-dasharray="8 7"></line>
+
+          <g fill="#111827" font-size="19" font-weight="800">
+            <text x="545" y="379">A</text>
+            <text x="757" y="379">B</text>
+            <text x="656" y="150">D</text>
+            <text x="872" y="160">C</text>
+          </g>
+
+          <text x="655" y="329" fill="#1d4ed8" font-size="18" font-weight="800">a</text>
+          <text x="600" y="242" fill="#7c3aed" font-size="18" font-weight="800">b</text>
+          <text x="730" y="235" fill="#15803d" font-size="18" font-weight="800">a + b</text>
+
+          <rect x="540" y="400" width="350" height="34" rx="14" fill="#f7f4ff" stroke="#ddd6fe"></rect>
+          <text x="715" y="423" text-anchor="middle" fill="#7c3aed" font-size="16" font-weight="800">AB + AD = AC</text>
+        </svg>
+      </div>
+    </div>
+
+    <h3>Правило параллелограмма</h3>
+
+    <p class="ms-text">
+      Если два неколлинеарных вектора отложены от одной точки, их сумму
+      можно построить как диагональ параллелограмма, выходящую из общего
+      начала этих векторов.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Важно различать два построения</span>
+
+      При правиле треугольника второй вектор начинается в конце первого.
+      При правиле параллелограмма оба вектора имеют общее начало.
+      Результат в обоих случаях один и тот же.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Законы сложения векторов</h2>
+
+    <div class="ms-rule-box">
+      Для любых векторов
+      <span class="ms-vec">a</span>,
+      <span class="ms-vec">b</span> и
+      <span class="ms-vec">c</span> выполняются законы:
+    </div>
+
+    <div class="ms-formula-strip">
+      <div class="ms-formula-chip">
+        <span class="ms-vec">a</span> +
+        <span class="ms-vec">b</span> =
+        <span class="ms-vec">b</span> +
+        <span class="ms-vec">a</span>
+      </div>
+
+      <div class="ms-formula-chip">
+        (<span class="ms-vec">a</span> +
+        <span class="ms-vec">b</span>) +
+        <span class="ms-vec">c</span> =
+        <span class="ms-vec">a</span> +
+        (<span class="ms-vec">b</span> +
+        <span class="ms-vec">c</span>)
+      </div>
+    </div>
+
+    <div class="ms-proof-duo">
+      <div class="ms-card">
+        <h3>Переместительный закон</h3>
+        <p>
+          В параллелограмме ABCD диагональ
+          <span class="ms-vec">AC</span> можно получить двумя путями:
+          <span class="ms-vec">AB</span> +
+          <span class="ms-vec">BC</span> или
+          <span class="ms-vec">AD</span> +
+          <span class="ms-vec">DC</span>. Поэтому порядок двух
+          слагаемых можно менять.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3>Сочетательный закон</h3>
+        <p>
+          При последовательном движении по векторам
+          <span class="ms-vec">a</span>,
+          <span class="ms-vec">b</span> и
+          <span class="ms-vec">c</span> итоговый вектор соединяет
+          начальную точку с конечной независимо от расстановки скобок.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Законы сложения позволяют менять порядок векторов и группировать их
+      удобным способом, но направление каждого вектора при этом сохраняется.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Сумма нескольких векторов</h2>
+
+    <p class="ms-text">
+      Чтобы сложить три или больше векторов, их последовательно откладывают
+      так, чтобы конец каждого вектора совпадал с началом следующего.
+      Сумма соединяет начало первого вектора с концом последнего.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Правило многоугольника:</strong><br>
+      <span class="ms-vec">A₁A₂</span> +
+      <span class="ms-vec">A₂A₃</span> + … +
+      <span class="ms-vec">Aₙ₋₁Aₙ</span> =
+      <span class="ms-vec">A₁Aₙ</span>.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Правило многоугольника и замкнутая цепочка
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 940 440"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Сумма нескольких векторов по правилу многоугольника и сумма векторов замкнутого контура"
+        >
+          <defs>
+            <marker
+              id="ms-v5-blue"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"></path>
+            </marker>
+
+            <marker
+              id="ms-v5-purple"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"></path>
+            </marker>
+
+            <marker
+              id="ms-v5-green"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#15803d"></path>
+            </marker>
+
+            <marker
+              id="ms-v5-orange"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#f97316"></path>
+            </marker>
+          </defs>
+
+          <rect width="940" height="440" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="35" y="40" width="420" height="355" rx="23" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="485" y="40" width="420" height="355" rx="23" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <text x="245" y="78" text-anchor="middle" fill="#111827" font-size="20" font-weight="800">Сумма четырёх векторов</text>
+
+          <line x1="85" y1="320" x2="185" y2="225" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-blue)"></line>
+          <line x1="185" y1="225" x2="285" y2="255" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-purple)"></line>
+          <line x1="285" y1="255" x2="350" y2="145" stroke="#15803d" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-green)"></line>
+          <line x1="350" y1="145" x2="410" y2="190" stroke="#f97316" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-orange)"></line>
+
+          <line x1="85" y1="320" x2="410" y2="190" stroke="#111827" stroke-width="4" stroke-dasharray="9 8" marker-end="url(#ms-v5-blue)"></line>
+
+          <g fill="#111827" font-size="18" font-weight="800">
+            <text x="65" y="350">A₁</text>
+            <text x="168" y="214">A₂</text>
+            <text x="282" y="286">A₃</text>
+            <text x="332" y="135">A₄</text>
+            <text x="414" y="185">A₅</text>
+          </g>
+
+          <rect x="70" y="345" width="350" height="32" rx="14" fill="#eff6ff" stroke="#bfdbfe"></rect>
+          <text x="245" y="367" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="800">A₁A₂ + A₂A₃ + A₃A₄ + A₄A₅ = A₁A₅</text>
+
+          <text x="695" y="78" text-anchor="middle" fill="#111827" font-size="20" font-weight="800">Замкнутая цепочка</text>
+
+          <line x1="570" y1="300" x2="690" y2="130" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-blue)"></line>
+          <line x1="690" y1="130" x2="830" y2="285" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-purple)"></line>
+          <line x1="830" y1="285" x2="570" y2="300" stroke="#15803d" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v5-green)"></line>
+
+          <g fill="#111827" font-size="18" font-weight="800">
+            <text x="545" y="331">A</text>
+            <text x="680" y="117">B</text>
+            <text x="837" y="315">C</text>
+          </g>
+
+          <rect x="545" y="345" width="300" height="32" rx="14" fill="#f7f4ff" stroke="#ddd6fe"></rect>
+          <text x="695" y="367" text-anchor="middle" fill="#7c3aed" font-size="16" font-weight="800">AB + BC + CA = 0</text>
+        </svg>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Если после последовательного сложения мы возвращаемся в исходную точку,
+      результирующий вектор является нулевым.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span> +
+        <span class="ms-vec">CA</span> =
+        <span class="ms-vec">AA</span> =
+        <span class="ms-vec">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Вычитание векторов</h2>
+
+    <div class="ms-rule-box">
+      <strong>Разностью</strong> векторов
+      <span class="ms-vec">a</span> и
+      <span class="ms-vec">b</span> называется такой вектор, сумма которого
+      с вектором <span class="ms-vec">b</span> равна
+      <span class="ms-vec">a</span>.
+    </div>
+
+    <p class="ms-text">
+      Вектор, имеющий ту же длину, что и
+      <span class="ms-vec">a</span>, но противоположное направление,
+      называется <strong>противоположным</strong> вектору
+      <span class="ms-vec">a</span> и обозначается
+      −<span class="ms-vec">a</span>.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-vec">a</span> +
+        (−<span class="ms-vec">a</span>) =
+        <span class="ms-vec">0</span>
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-vec">a</span> −
+        <span class="ms-vec">b</span> =
+        <span class="ms-vec">a</span> +
+        (−<span class="ms-vec">b</span>)
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Построение разности двух векторов
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 430"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Построение разности векторов a и b, отложенных от общего начала O"
+        >
+          <defs>
+            <marker
+              id="ms-v6-blue"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"></path>
+            </marker>
+
+            <marker
+              id="ms-v6-purple"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"></path>
+            </marker>
+
+            <marker
+              id="ms-v6-green"
+              markerWidth="8"
+              markerHeight="8"
+              refX="7"
+              refY="4"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0 0 L8 4 L0 8 Z" fill="#15803d"></path>
+            </marker>
+          </defs>
+
+          <rect width="920" height="430" rx="24" fill="#f9fafb"></rect>
+          <rect x="65" y="45" width="790" height="335" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <circle cx="455" cy="315" r="10" fill="#111827"></circle>
+
+          <line x1="455" y1="315" x2="695" y2="145" stroke="#2563eb" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v6-blue)"></line>
+          <line x1="455" y1="315" x2="225" y2="160" stroke="#7c3aed" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v6-purple)"></line>
+          <line x1="225" y1="160" x2="695" y2="145" stroke="#15803d" stroke-width="6" stroke-linecap="round" marker-end="url(#ms-v6-green)"></line>
+
+          <g fill="#111827" font-size="21" font-weight="800">
+            <text x="438" y="351">O</text>
+            <text x="704" y="142">A</text>
+            <text x="197" y="157">B</text>
+          </g>
+
+          <text x="585" y="218" fill="#1d4ed8" font-size="19" font-weight="800">a</text>
+          <text x="323" y="226" fill="#7c3aed" font-size="19" font-weight="800">b</text>
+          <text x="445" y="132" text-anchor="middle" fill="#15803d" font-size="19" font-weight="800">a − b</text>
+
+          <rect x="260" y="335" width="390" height="34" rx="14" fill="#eff6ff" stroke="#bfdbfe"></rect>
+          <text x="455" y="358" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="800">OA = a, OB = b, поэтому BA = a − b</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Если векторы <span class="ms-vec">OA</span> =
+      <span class="ms-vec">a</span> и
+      <span class="ms-vec">OB</span> =
+      <span class="ms-vec">b</span> отложены от общего начала O, то
+      <span class="ms-vec">a</span> −
+      <span class="ms-vec">b</span> =
+      <span class="ms-vec">BA</span>.
+    </div>
+
+    <div class="ms-proof-grid">
+      <div class="ms-proof-box">
+        <h3>Почему получается вектор BA</h3>
+        <p>
+          По правилу треугольника
+          <span class="ms-vec">OB</span> +
+          <span class="ms-vec">BA</span> =
+          <span class="ms-vec">OA</span>.
+          Значит, сумма вектора
+          <span class="ms-vec">BA</span> и вектора
+          <span class="ms-vec">b</span> равна
+          <span class="ms-vec">a</span>. Следовательно,
+          <span class="ms-vec">BA</span> =
+          <span class="ms-vec">a</span> −
+          <span class="ms-vec">b</span>.
+        </p>
+      </div>
+
+      <div class="ms-proof-box">
+        <h3>В каком направлении проводить разность</h3>
+        <p>
+          Если оба вектора имеют общее начало, разность
+          <span class="ms-vec">a</span> −
+          <span class="ms-vec">b</span> направлена от конца вычитаемого
+          вектора <span class="ms-vec">b</span> к концу уменьшаемого
+          вектора <span class="ms-vec">a</span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Разобранные примеры</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Равные векторы в параллелограмме</span>
+
+      В параллелограмме ABCD укажите пары равных векторов,
+      образованных его сторонами.
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          Противоположные стороны параллелограмма равны и параллельны.
+        </div>
+
+        <div class="ms-math-row">
+          <span class="ms-vec">AB</span> =
+          <span class="ms-vec">DC</span>,
+          потому что оба вектора направлены от левой стороны
+          параллелограмма к правой.
+        </div>
+
+        <div class="ms-math-row">
+          <span class="ms-vec">AD</span> =
+          <span class="ms-vec">BC</span>.
+        </div>
+      </div>
+
+      <strong>Ответ:</strong>
+      <span class="ms-vec">AB</span> =
+      <span class="ms-vec">DC</span> и
+      <span class="ms-vec">AD</span> =
+      <span class="ms-vec">BC</span>.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Упрощение суммы</span>
+
+      Упростим выражение
+      <span class="ms-vec">AB</span> +
+      <span class="ms-vec">BC</span> +
+      <span class="ms-vec">CD</span>.
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          <span class="ms-vec">AB</span> +
+          <span class="ms-vec">BC</span> =
+          <span class="ms-vec">AC</span>.
+        </div>
+
+        <div class="ms-math-row">
+          <span class="ms-vec">AC</span> +
+          <span class="ms-vec">CD</span> =
+          <span class="ms-vec">AD</span>.
+        </div>
+
+        <div class="ms-math-row ms-good">
+          Поэтому
+          <span class="ms-vec">AB</span> +
+          <span class="ms-vec">BC</span> +
+          <span class="ms-vec">CD</span> =
+          <span class="ms-vec">AD</span>.
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Сумма в равностороннем треугольнике</span>
+
+      В равностороннем треугольнике ABC сторона равна 7 см.
+      Найдём длину вектора
+      <span class="ms-vec">AB</span> +
+      <span class="ms-vec">BC</span>.
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          По правилу треугольника
+          <span class="ms-vec">AB</span> +
+          <span class="ms-vec">BC</span> =
+          <span class="ms-vec">AC</span>.
+        </div>
+
+        <div class="ms-math-row">
+          Поэтому
+          |<span class="ms-vec">AB</span> +
+          <span class="ms-vec">BC</span>| =
+          |<span class="ms-vec">AC</span>| = AC = 7 см.
+        </div>
+      </div>
+
+      <strong>Ответ: 7 см.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Построение разности</span>
+
+      От точки O отложены векторы
+      <span class="ms-vec">OA</span> =
+      <span class="ms-vec">a</span> и
+      <span class="ms-vec">OB</span> =
+      <span class="ms-vec">b</span>. Найдём
+      <span class="ms-vec">a</span> −
+      <span class="ms-vec">b</span>.
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          <span class="ms-vec">OB</span> +
+          <span class="ms-vec">BA</span> =
+          <span class="ms-vec">OA</span>.
+        </div>
+
+        <div class="ms-math-row">
+          Следовательно,
+          <span class="ms-vec">BA</span> =
+          <span class="ms-vec">OA</span> −
+          <span class="ms-vec">OB</span>.
+        </div>
+
+        <div class="ms-math-row ms-good">
+          Значит,
+          <span class="ms-vec">a</span> −
+          <span class="ms-vec">b</span> =
+          <span class="ms-vec">BA</span>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Частые ошибки</h2>
+
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-card">
+        <h3 class="ms-bad">Сравнивают только длины</h3>
+        <p>
+          Равные длины ещё не означают равенство векторов.
+          Необходимо дополнительно проверить, что направления совпадают.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-bad">Путают начало и конец</h3>
+        <p>
+          В записи <span class="ms-vec">AB</span> первая буква — начало,
+          вторая — конец. Векторы
+          <span class="ms-vec">AB</span> и
+          <span class="ms-vec">BA</span> противоположно направлены.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-bad">Неправильно складывают</h3>
+        <p>
+          При правиле треугольника начало второго вектора должно совпасть
+          с концом первого. Складывать два произвольно расположенных
+          отрезка нельзя.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-bad">Неверно направляют разность</h3>
+        <p>
+          При общем начале вектор
+          <span class="ms-vec">a</span> −
+          <span class="ms-vec">b</span> идёт от конца
+          <span class="ms-vec">b</span> к концу
+          <span class="ms-vec">a</span>.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Векторное равенство и равенство длин — разные записи:
+      <span class="ms-vec">a</span> =
+      <span class="ms-vec">b</span> означает совпадение длины и направления,
+      а |<span class="ms-vec">a</span>| =
+      |<span class="ms-vec">b</span>| говорит только о равенстве длин.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Задания для самопроверки</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        У вектора <span class="ms-vec">MN</span> назовите начало и конец.
+        Как обозначается его длина?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Первая буква обозначает начало, поэтому начало вектора —
+            точка M. Вторая буква обозначает конец, поэтому конец вектора —
+            точка N.
+          </p>
+
+          <p>
+            Длина вектора обозначается
+            |<span class="ms-vec">MN</span>| и равна длине отрезка MN.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        В параллелограмме ABCD определите, равны ли векторы
+        <span class="ms-vec">AB</span> и
+        <span class="ms-vec">CD</span>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Противоположные стороны параллелограмма AB и CD имеют равные
+            длины и параллельны, но векторы
+            <span class="ms-vec">AB</span> и
+            <span class="ms-vec">CD</span> направлены в противоположные
+            стороны.
+          </p>
+
+          <p>
+            Поэтому эти векторы не равны. Верное равенство:
+            <span class="ms-vec">AB</span> =
+            <span class="ms-vec">DC</span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Упростите:
+        <span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Векторы расположены последовательно: конец первого совпадает
+            с началом второго. По правилу треугольника:
+          </p>
+
+          <p>
+            <span class="ms-vec">AB</span> +
+            <span class="ms-vec">BC</span> =
+            <span class="ms-vec">AC</span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Упростите:
+        <span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span> +
+        <span class="ms-vec">CD</span> +
+        <span class="ms-vec">DE</span>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>Используем правило многоугольника:</p>
+
+          <p>
+            <span class="ms-vec">AB</span> +
+            <span class="ms-vec">BC</span> +
+            <span class="ms-vec">CD</span> +
+            <span class="ms-vec">DE</span> =
+            <span class="ms-vec">AE</span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Найдите сумму
+        <span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span> +
+        <span class="ms-vec">CA</span>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Векторы образуют замкнутую цепочку: движение начинается
+            и заканчивается в точке A.
+          </p>
+
+          <p>
+            Поэтому
+            <span class="ms-vec">AB</span> +
+            <span class="ms-vec">BC</span> +
+            <span class="ms-vec">CA</span> =
+            <span class="ms-vec">AA</span> =
+            <span class="ms-vec">0</span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        В параллелограмме ABCD у векторов
+        <span class="ms-vec">AB</span> и
+        <span class="ms-vec">AD</span> общее начало A.
+        Чему равна их сумма?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            По правилу параллелограмма сумма двух векторов с общим началом
+            изображается диагональю, выходящей из этого начала.
+          </p>
+
+          <p>
+            Поэтому
+            <span class="ms-vec">AB</span> +
+            <span class="ms-vec">AD</span> =
+            <span class="ms-vec">AC</span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        От точки O отложены векторы
+        <span class="ms-vec">OA</span> =
+        <span class="ms-vec">a</span> и
+        <span class="ms-vec">OB</span> =
+        <span class="ms-vec">b</span>.
+        Каким вектором изображается
+        <span class="ms-vec">a</span> −
+        <span class="ms-vec">b</span>?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Разность направляется от конца вычитаемого вектора
+            <span class="ms-vec">b</span> к концу уменьшаемого вектора
+            <span class="ms-vec">a</span>.
+          </p>
+
+          <p>
+            Поэтому
+            <span class="ms-vec">a</span> −
+            <span class="ms-vec">b</span> =
+            <span class="ms-vec">BA</span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        В равностороннем треугольнике ABC сторона равна 8 см.
+        Найдите
+        |<span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span>|.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            По правилу треугольника:
+            <span class="ms-vec">AB</span> +
+            <span class="ms-vec">BC</span> =
+            <span class="ms-vec">AC</span>.
+          </p>
+
+          <p>
+            Следовательно,
+            |<span class="ms-vec">AB</span> +
+            <span class="ms-vec">BC</span>| =
+            |<span class="ms-vec">AC</span>| = AC = 8 см.
+          </p>
+
+          <p><strong>Ответ: 8 см.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Верно ли утверждение: если два вектора имеют равные длины,
+        то они равны?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            Нет. Для равенства векторов необходимо выполнение двух условий:
+            равенство длин и совпадение направлений.
+          </p>
+
+          <p>
+            Векторы одинаковой длины могут быть противоположно направленными
+            или неколлинеарными. В таком случае они не равны.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Упростите выражение:
+        <span class="ms-vec">AB</span> +
+        <span class="ms-vec">BC</span> −
+        <span class="ms-vec">AC</span>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+
+        <div>
+          <p>
+            По правилу треугольника:
+            <span class="ms-vec">AB</span> +
+            <span class="ms-vec">BC</span> =
+            <span class="ms-vec">AC</span>.
+          </p>
+
+          <p>
+            Поэтому выражение принимает вид:
+            <span class="ms-vec">AC</span> −
+            <span class="ms-vec">AC</span> =
+            <span class="ms-vec">0</span>.
+          </p>
+
+          <p><strong>Ответ: нулевой вектор.</strong></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-summary-panel">
+    <h2>Итог</h2>
+
+    <p>
+      Вектор определяется не только длиной, но и направлением. Равные векторы
+      имеют одинаковые длины и направления. Сумма строится по правилу
+      треугольника, параллелограмма или многоугольника, а вычитание заменяется
+      сложением с противоположным вектором.
+    </p>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Вектор</strong>
+        <span class="ms-card-text">
+          Направленный отрезок с началом, концом, длиной и направлением.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Сложение</strong>
+        <span class="ms-card-text">
+          Второй вектор откладывают от конца первого, а результат соединяет
+          начало первого с концом второго.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Вычитание</strong>
+        <span class="ms-card-text">
+          Разность равна сумме с противоположным вектором:
+          a − b = a + (−b).
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-nav">
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-geometriya/"
+      >
+        К темам геометрии
+      </a>
+
+      <a
+        class="ms-btn"
+        href="/umnozhenie-vektora-na-chislo-primenenie-vektorov-k-resheniyu-zadach/"
+      >
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

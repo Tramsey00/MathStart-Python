@@ -1,0 +1,65 @@
+/* Shared contents panel for the detailed lessons. */
+.ms-lesson-page .ms-lesson-toc {
+  margin: 0 0 26px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #f8fbff, #faf9ff);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .04);
+  overflow: hidden;
+}
+.ms-lesson-page .ms-lesson-toc > summary {
+  display: flex; align-items: center; gap: 14px;
+  padding: 23px 26px; cursor: pointer; list-style: none;
+}
+.ms-lesson-page .ms-lesson-toc > summary::-webkit-details-marker { display: none; }
+.ms-lesson-page .ms-toc-icon {
+  display: grid; place-items: center; flex: 0 0 44px; height: 44px;
+  border: 1px solid #dbeafe; border-radius: 14px;
+  background: #fff; color: #2563eb;
+}
+.ms-lesson-page .ms-toc-icon svg { width: 23px; height: 23px; }
+.ms-lesson-page .ms-toc-heading { flex: 1; }
+.ms-lesson-page .ms-toc-heading strong {
+  display: block; color: #102a56; font-size: 21px; line-height: 1.35; font-weight: 800;
+}
+.ms-lesson-page .ms-toc-heading small {
+  display: block; margin-top: 4px; color: #64748b; font-size: 13px; line-height: 1.4;
+}
+.ms-lesson-page .ms-toc-chevron {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  border-radius: 50%; background: #eff6ff; color: #2563eb;
+}
+.ms-lesson-page .ms-toc-chevron::before {
+  content: ''; width: 8px; height: 8px; margin-top: -4px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); transition: transform .2s ease;
+}
+.ms-lesson-page .ms-lesson-toc[open] .ms-toc-chevron::before { transform: rotate(225deg); margin-top: 4px; }
+.ms-lesson-page .ms-lesson-links {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px; padding: 0 20px 20px;
+}
+.ms-lesson-page .ms-toc-link {
+  display: flex; align-items: center; gap: 12px; min-height: 86px;
+  padding: 14px; border: 1px solid #e2e8f0; border-radius: 15px;
+  background: #fff; text-decoration: none; color: #334155;
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.ms-lesson-page .ms-toc-link:hover {
+  border-color: #93c5fd; background: #f8fbff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, .07);
+}
+.ms-lesson-page .ms-toc-number {
+  display: grid; place-items: center; flex: 0 0 32px; height: 32px;
+  border-radius: 10px; color: #2563eb; background: #eff6ff;
+  font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.ms-lesson-page .ms-toc-copy { flex: 1; min-width: 0; }
+.ms-lesson-page .ms-toc-copy strong { display: block; font-size: 15px; line-height: 1.4; font-weight: 700; }
+.ms-lesson-page .ms-toc-copy small { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.45; color: #64748b; }
+.ms-lesson-page .ms-toc-arrow { color: #94a3b8; font-size: 19px; }
+.ms-lesson-page .ms-toc-practice { background: #eff6ff; border-color: #bfdbfe; }
+.ms-lesson-page .ms-toc-practice .ms-toc-number { background: #2563eb; color: #fff; }
+.ms-lesson-page .ms-toc-practice:nth-child(odd):last-child { grid-column: 1 / -1; }
+.ms-lesson-page .ms-toc-link:focus-visible,
+.ms-lesson-page .ms-lesson-toc > summary:focus-visible { outline: 3px solid #93c5fd; outline-offset: -3px; }

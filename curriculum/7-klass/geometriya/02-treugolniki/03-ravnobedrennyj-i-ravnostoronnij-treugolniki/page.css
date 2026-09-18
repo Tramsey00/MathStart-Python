@@ -1,0 +1,68 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-proof-item {
+  padding: 17px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #fff;
+}
+.ms-lesson-page .ms-proof-item h3 {
+  margin: 0 0 7px !important;
+  color: #1d4ed8;
+  font-size: 18px !important;
+  line-height: 1.35 !important;
+}
+.ms-lesson-page .ms-proof-item p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.67;
+}
+.ms-lesson-page .ms-relation-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-relation-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 13px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #fff;
+  color: #1d4ed8;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-compare-two {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-final-focus {
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: linear-gradient(135deg,#eff6ff 0%,#f7f4ff 100%);
+}
+.ms-lesson-page .ms-final-focus h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 27px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-final-focus p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.68;
+}
+@media (max-width: 800px) {
+  .ms-lesson-page .ms-compare-two {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,49 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-intersection-box {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid #bbf7d0;
+  border-radius: 18px;
+  background: #f0fdf4;
+  color: #166534;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-case-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-case {
+  padding: 15px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: center;
+}
+.ms-lesson-page .ms-case strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #1d4ed8;
+  font-size: 16px;
+}
+.ms-lesson-page .ms-case span {
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.ms-lesson-page .ms-signal-label-green {
+  background: #15803d;
+}
+.ms-lesson-page .ms-signal-label-yellow {
+  background: #ca8a04;
+}
+.ms-lesson-page .ms-signal-label-red {
+  background: #b91c1c;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-case-strip {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,281 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">9 класс · Алгебра · Числовые функции · Тема 3.4</div>
+    <h1 class="ms-title">Чётные и нечётные функции. Определение чётности и нечётности</h1>
+    <p class="ms-subtitle">Научимся проверять симметричность области определения, вычислять f(−x), различать чётные и нечётные функции по формуле и распознавать их по симметрии графика.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что означает чётность функции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Симметричная область определения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Симметрия графиков</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Алгоритм исследования на чётность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Чётные функции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Нечётные функции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Функция ни чётная, ни нечётная</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Особые случаи и действия с функциями</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Три вопроса перед вердиктом</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Что означает чётность функции</h2>
+    <p class="ms-text">Чётность и нечётность описывают связь между значениями функции в противоположных точках x и −x. Исследование всегда начинается с области определения.</p>
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Чётная функция</h3>
+        <p class="ms-card-text">Для каждого допустимого x выполняется равенство f(−x)=f(x). Противоположным аргументам соответствуют одинаковые значения.</p>
+      </div>
+      <div class="ms-card">
+        <h3 class="ms-card-title">Нечётная функция</h3>
+        <p class="ms-card-text">Для каждого допустимого x выполняется равенство f(−x)=−f(x). Значения в противоположных точках также противоположны.</p>
+      </div>
+    </div>
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Чётная:</strong> f(−x)=f(x).</div>
+      <div class="ms-math-row"><strong>Нечётная:</strong> f(−x)=−f(x).</div>
+      <div class="ms-math-row"><strong>Ни чётная, ни нечётная:</strong> не выполняется ни одно из двух равенств.</div>
+    </div>
+    <div class="ms-note">Слова «чётная» и «нечётная» относятся к функции, а не к отдельному значению x. Проверка должна выполняться для всех аргументов из области определения.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Симметричная область определения</h2>
+    <p class="ms-text">Область определения называется симметричной относительно нуля, если вместе с каждым числом x она содержит и число −x.</p>
+    <div class="ms-rule-box"><strong>Обязательное условие:</strong> чётная или нечётная функция должна иметь симметричную область определения.</div>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Область определения</th><th>Симметрична?</th><th>Вывод</th></tr></thead>
+        <tbody>
+          <tr><td>ℝ</td><td>Да</td><td>Исследование можно продолжать.</td></tr>
+          <tr><td>(−5;5)</td><td>Да</td><td>Вместе с x входит −x.</td></tr>
+          <tr><td>(−∞;−2) ∪ (2;+∞)</td><td>Да</td><td>Промежутки зеркальны относительно нуля.</td></tr>
+          <tr><td>[0;+∞)</td><td>Нет</td><td>Функция не может быть ни чётной, ни нечётной.</td></tr>
+          <tr><td>(−3;4)</td><td>Нет</td><td>Например, 3,5 входит, а −3,5 не входит.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Почему функция √x не относится ни к одному виду</span>Для f(x)=√x область определения равна [0;+∞). Она несимметрична относительно нуля, поэтому функция не является ни чётной, ни нечётной.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Симметрия графиков</h2>
+    <p class="ms-text">Формулы чётности имеют наглядный геометрический смысл.</p>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Чётная и нечётная функции на координатной плоскости</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="График четной функции симметричен относительно оси ординат, график нечетной функции симметричен относительно начала координат">
+  <defs>
+    <marker id="ms-sym-arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"></path>
+    </marker>
+  </defs>
+
+  <rect width="900" height="450" rx="24" fill="#fff"></rect>
+  <rect x="22" y="20" width="856" height="405" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+
+  <line x1="450" y1="42" x2="450" y2="405" stroke="#dbeafe" stroke-width="3"></line>
+
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="70" y1="90" x2="410" y2="90"></line>
+    <line x1="70" y1="150" x2="410" y2="150"></line>
+    <line x1="70" y1="210" x2="410" y2="210"></line>
+    <line x1="70" y1="270" x2="410" y2="270"></line>
+    <line x1="70" y1="330" x2="410" y2="330"></line>
+
+    <line x1="110" y1="55" x2="110" y2="370"></line>
+    <line x1="170" y1="55" x2="170" y2="370"></line>
+    <line x1="230" y1="55" x2="230" y2="370"></line>
+    <line x1="290" y1="55" x2="290" y2="370"></line>
+    <line x1="350" y1="55" x2="350" y2="370"></line>
+
+    <line x1="490" y1="90" x2="830" y2="90"></line>
+    <line x1="490" y1="150" x2="830" y2="150"></line>
+    <line x1="490" y1="210" x2="830" y2="210"></line>
+    <line x1="490" y1="270" x2="830" y2="270"></line>
+    <line x1="490" y1="330" x2="830" y2="330"></line>
+
+    <line x1="530" y1="55" x2="530" y2="370"></line>
+    <line x1="590" y1="55" x2="590" y2="370"></line>
+    <line x1="650" y1="55" x2="650" y2="370"></line>
+    <line x1="710" y1="55" x2="710" y2="370"></line>
+    <line x1="770" y1="55" x2="770" y2="370"></line>
+  </g>
+
+  <line x1="62" y1="300" x2="420" y2="300" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-sym-arrow)"></line>
+  <line x1="230" y1="380" x2="230" y2="42" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-sym-arrow)"></line>
+
+  <line x1="482" y1="210" x2="840" y2="210" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-sym-arrow)"></line>
+  <line x1="650" y1="380" x2="650" y2="42" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-sym-arrow)"></line>
+
+  <!-- Чётная функция -->
+  <path d="M80 70 Q230 265 380 70" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round"></path>
+
+  <!-- Нечётная функция -->
+  <path d="M505 345 C545 345 560 300 590 270 C620 240 635 220 650 210 C665 200 680 180 710 150 C740 120 755 75 795 75" fill="none" stroke="#7c3aed" stroke-width="6" stroke-linecap="round"></path>
+
+  <!-- Точки на графиках -->
+  <circle cx="170" cy="152" r="7" fill="#16a34a" stroke="#fff" stroke-width="3"></circle>
+  <circle cx="290" cy="152" r="7" fill="#16a34a" stroke="#fff" stroke-width="3"></circle>
+
+  <circle cx="590" cy="270" r="7" fill="#16a34a" stroke="#fff" stroke-width="3"></circle>
+  <circle cx="710" cy="150" r="7" fill="#16a34a" stroke="#fff" stroke-width="3"></circle>
+
+  <g font-family="inherit" font-size="17" font-weight="800" text-anchor="middle">
+    <text x="230" y="404" fill="#1d4ed8">чётная: симметрия относительно Oy</text>
+    <text x="650" y="404" fill="#6d28d9">нечётная: симметрия относительно O</text>
+  </g>
+
+  <g font-family="inherit" font-size="15" font-weight="700" fill="#475569">
+    <text x="160" y="178">(−x;y)</text>
+    <text x="300" y="178">(x;y)</text>
+    <text x="520" y="365">(−x;−y)</text>
+    <text x="718" y="142">(x;y)</text>
+  </g>
+</svg>
+      </div>
+    </div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Чётная функция</h3><p class="ms-card-text">График симметричен относительно оси Oy. Если точка (x;y) лежит на графике, то точка (−x;y) тоже лежит на нём.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Нечётная функция</h3><p class="ms-card-text">График симметричен относительно начала координат. Вместе с точкой (x;y) график содержит точку (−x;−y).</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Алгоритм исследования на чётность</h2>
+    <ol class="ms-test">
+      <li><strong>Найдите D(f).</strong> Проверьте, симметрична ли область определения относительно нуля.</li>
+      <li><strong>Замените x на −x.</strong> Аккуратно запишите выражение f(−x), используя скобки.</li>
+      <li><strong>Упростите f(−x).</strong> Раскройте скобки, приведите подобные слагаемые и сократите дробь, если это допустимо.</li>
+      <li><strong>Сравните результаты.</strong> При f(−x)=f(x) функция чётная; при f(−x)=−f(x) — нечётная.</li>
+      <li><strong>Сделайте полный вывод.</strong> Если ни одно равенство не выполняется, функция ни чётная, ни нечётная.</li>
+    </ol>
+    <div class="ms-note">Нельзя начинать сразу с подстановки −x, пропуская область определения. Несимметричная область определения сразу исключает оба варианта.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Чётные функции</h2>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Многочлен с чётными степенями</span>
+      Исследуем f(x)=x⁴−3x²+2. Область определения — ℝ, она симметрична.
+      <div class="ms-math-box">
+        <div class="ms-math-row">f(−x)=(−x)⁴−3(−x)²+2;</div>
+        <div class="ms-math-row">f(−x)=x⁴−3x²+2=f(x).</div>
+      </div>
+      <div class="ms-answer-box"><strong>Функция чётная.</strong></div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Дробно-рациональная функция</span>
+      Исследуем f(x)=(x²+1)/(x²−4). Область определения: x≠−2 и x≠2. Она симметрична.
+      <div class="ms-math-box"><div class="ms-math-row">f(−x)=((−x)²+1)/((−x)²−4)=(x²+1)/(x²−4)=f(x).</div></div>
+      <div class="ms-answer-box"><strong>Функция чётная.</strong></div>
+    </div>
+    <div class="ms-rule-box">Многочлен, содержащий только чётные степени x и свободный член, является чётной функцией. Но это удобный признак, а не замена общей проверки.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Нечётные функции</h2>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Многочлен с нечётными степенями</span>
+      Исследуем g(x)=2x³−5x. Область определения — ℝ.
+      <div class="ms-math-box">
+        <div class="ms-math-row">g(−x)=2(−x)³−5(−x);</div>
+        <div class="ms-math-row">g(−x)=−2x³+5x=−(2x³−5x)=−g(x).</div>
+      </div>
+      <div class="ms-answer-box"><strong>Функция нечётная.</strong></div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 5. Обратная пропорциональность</span>
+      Для h(x)=1/x область определения равна (−∞;0)∪(0;+∞), она симметрична.
+      <div class="ms-math-box"><div class="ms-math-row">h(−x)=1/(−x)=−1/x=−h(x).</div></div>
+      <div class="ms-answer-box"><strong>Функция нечётная.</strong></div>
+    </div>
+    <div class="ms-rule-box">Многочлен без свободного члена, содержащий только нечётные степени x, является нечётной функцией.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Функция ни чётная, ни нечётная</h2>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 6. Смешанные степени</span>
+      Исследуем f(x)=x²+x. Область определения — ℝ.
+      <div class="ms-math-box">
+        <div class="ms-math-row">f(−x)=(−x)²+(−x)=x²−x;</div>
+        <div class="ms-math-row">f(−x)≠x²+x=f(x);</div>
+        <div class="ms-math-row">f(−x)≠−x²−x=−f(x).</div>
+      </div>
+      <div class="ms-answer-box"><strong>Функция ни чётная, ни нечётная.</strong></div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 7. Горизонтальный сдвиг разрушает симметрию</span>
+      Функция y=(x−2)² не является чётной относительно оси Oy: её график симметричен относительно прямой x=2. Она также не является нечётной.
+    </div>
+    <div class="ms-note">Наличие собственной оси симметрии ещё не означает чётность. Для чётной функции осью симметрии должна быть именно ось Oy.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Особые случаи и действия с функциями</h2>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Ситуация</th><th>Результат</th><th>Пример</th></tr></thead>
+        <tbody>
+          <tr><td>Сумма двух чётных функций</td><td>Чётная функция</td><td>x⁴+x²</td></tr>
+          <tr><td>Сумма двух нечётных функций</td><td>Нечётная функция</td><td>x³+2x</td></tr>
+          <tr><td>Произведение двух нечётных функций</td><td>Чётная функция</td><td>x·x³=x⁴</td></tr>
+          <tr><td>Произведение чётной и нечётной функций</td><td>Нечётная функция</td><td>x²·x³=x⁵</td></tr>
+          <tr><td>Сумма чётной и нечётной ненулевых частей</td><td>Обычно ни чётная, ни нечётная</td><td>x²+x</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-zero-box"><strong>Нулевая функция y=0 — особый случай.</strong> Для неё одновременно выполняются равенства f(−x)=f(x) и f(−x)=−f(x), поэтому она является и чётной, и нечётной.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Типичные ошибки</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Не проверили D(f)</h3><p class="ms-card-text">При несимметричной области определения функция не может быть чётной или нечётной, даже если формула кажется подходящей.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Потеряли скобки</h3><p class="ms-card-text">В выражении f(−x) число −x нужно подставлять вместо каждого x целиком: (−x)², (−x)³ и так далее.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Проверили одно число</h3><p class="ms-card-text">Совпадение для одного аргумента ничего не доказывает. Равенство должно выполняться для каждого допустимого x.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Перепутали виды симметрии</h3><p class="ms-card-text">Ось Oy соответствует чётной функции, а начало координат — нечётной.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="practice">
+    <h2>10. Самопроверка</h2>
+    <p class="ms-text">В каждом задании сначала проверьте область определения, затем найдите f(−x).</p>
+
+    <div class="ms-task"><p><strong>1.</strong> Определите чётность функции f(x)=x⁶−4x²+7.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>D(f)=ℝ.</p><p>f(−x)=(−x)⁶−4(−x)²+7=x⁶−4x²+7=f(x).</p><p><strong>Ответ: функция чётная.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>2.</strong> Определите чётность функции g(x)=3x⁵−2x³+x.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>D(g)=ℝ.</p><p>g(−x)=−3x⁵+2x³−x=−g(x).</p><p><strong>Ответ: функция нечётная.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>3.</strong> Исследуйте функцию h(x)=x²+3x−1.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>h(−x)=x²−3x−1.</p><p>Полученное выражение не равно ни h(x), ни −h(x).</p><p><strong>Ответ: функция ни чётная, ни нечётная.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>4.</strong> Определите чётность функции f(x)=1/x³.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>D(f)=ℝ\{0}; область определения симметрична.</p><p>f(−x)=1/(−x)³=−1/x³=−f(x).</p><p><strong>Ответ: функция нечётная.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>5.</strong> Может ли функция f(x)=√(x+2) быть чётной или нечётной?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>D(f)=[−2;+∞).</p><p>Область определения несимметрична относительно нуля.</p><p><strong>Ответ: функция ни чётная, ни нечётная.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>6.</strong> Функция чётная, и f(4)=−7. Найдите f(−4).</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Для чётной функции f(−x)=f(x).</p><p>Следовательно, f(−4)=f(4)=−7.</p><p><strong>Ответ: −7.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>7.</strong> Функция нечётная, и g(−3)=5. Найдите g(3).</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Для нечётной функции g(−3)=−g(3).</p><p>5=−g(3), поэтому g(3)=−5.</p><p><strong>Ответ: −5.</strong></p></div></details></div>
+
+    <div class="ms-task"><p><strong>8.</strong> Известно, что график функции симметричен относительно оси Oy и проходит через точку (6;2). Какая ещё точка обязательно принадлежит графику?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Симметрия относительно оси Oy означает чётность.</p><p>Точке (x;y) соответствует точка (−x;y).</p><p><strong>Ответ: (−6;2).</strong></p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-11">
+    <h2>11. Три вопроса перед вердиктом</h2>
+    <p class="ms-text">Не пытайтесь определять чётность только по внешнему виду формулы. Последовательно ответьте на три вопроса.</p>
+    <div class="ms-card-grid ms-columns-3">
+      <div class="ms-verdict-card ms-card"><strong class="ms-card-title">1. D(f) симметрична?</strong><span class="ms-card-text">Если нет, исследование закончено: функция ни чётная, ни нечётная.</span></div>
+      <div class="ms-verdict-card ms-card"><strong class="ms-card-title">2. Чему равно f(−x)?</strong><span class="ms-card-text">Подставьте −x вместо каждого аргумента и полностью упростите выражение.</span></div>
+      <div class="ms-verdict-card ms-card"><strong class="ms-card-title">3. С чем совпал результат?</strong><span class="ms-card-text">С f(x) — чётная; с −f(x) — нечётная; ни с чем — третий случай.</span></div>
+    </div>
+    <div class="ms-answer-box"><strong>Финальный ориентир:</strong> чётная функция зеркальна относительно Oy, нечётная — относительно начала координат.</div>
+    <p class="ms-text" style="margin-top:18px">В следующей теме рассмотрим степенную функцию с натуральным показателем и увидим, как чётность показателя определяет форму её графика.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/vozrastanie-i-ubyvanie-funkczii/">← Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+    <a class="ms-btn" href="/stepennaya-funkcziya-s-naturalnym-pokazatelem/">Следующая тема →</a>
+  </div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,1257 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      7 класс · Алгебра · Системы уравнений · Тема 3.3
+    </div>
+
+    <h1 class="ms-title">
+      Решение систем линейных уравнений методом сложения
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся складывать и вычитать уравнения системы так, чтобы одна
+      переменная исчезла. Разберём системы с готовыми противоположными
+      коэффициентами, умножение одного или обоих уравнений и особые случаи,
+      когда решений нет или их бесконечно много.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/7-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что нужно знать перед темой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Идея метода сложения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Алгоритм метода сложения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Коэффициенты уже противоположны</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Когда удобнее вычитать уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Умножаем одно уравнение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Умножаем оба уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Как выбрать переменную для исключения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Особые случаи после сложения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Проверка найденной пары</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Ошибки, которые нельзя допускать</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 13</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-13"><span class="ms-toc-number">13</span><span class="ms-toc-copy"><strong>Как выбрать рациональный ход решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что нужно знать перед темой</h2>
+
+    <p class="ms-text">
+      Метод сложения основан на почленном сложении или вычитании двух
+      уравнений. Перед началом полезно повторить действия с отрицательными
+      числами и равносильные преобразования уравнений.
+    </p>
+
+    <ul class="ms-list">
+      <li>Складывать коэффициенты при одинаковых переменных.</li>
+      <li>Вычитать одно уравнение из другого почленно.</li>
+      <li>Умножать обе части уравнения на одно и то же ненулевое число.</li>
+      <li>Раскрывать скобки и приводить подобные слагаемые.</li>
+      <li>Решать линейные уравнения с одной переменной.</li>
+      <li>Проверять найденную пару в исходной системе.</li>
+    </ul>
+
+    <div class="ms-note">
+      Главная цель метода — получить противоположные коэффициенты при одной
+      переменной. Тогда при сложении эта переменная уничтожится:
+      3y + (−3y) = 0.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Идея метода сложения</h2>
+
+    <p class="ms-text">
+      Если сложить левые части двух верных равенств и отдельно сложить
+      правые части, получится новое верное равенство. Коэффициенты при
+      одинаковых переменных складываются.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Противоположные слагаемые взаимно уничтожаются
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 930 510"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="При сложении уравнений три y и минус три y уничтожаются"
+        >
+          <rect x="0" y="0" width="930" height="510" rx="24" fill="#f9fafb"></rect>
+
+          <text x="465" y="48" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">
+            Складываем уравнения почленно
+          </text>
+
+          <rect x="65" y="105" width="320" height="90" rx="20" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="225" y="160" text-anchor="middle" font-size="23" font-weight="800" fill="#2563eb">
+            2x + 3y = 13
+          </text>
+
+          <rect x="65" y="225" width="320" height="90" rx="20" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="225" y="280" text-anchor="middle" font-size="23" font-weight="800" fill="#7c3aed">
+            5x − 3y = 8
+          </text>
+
+          <line x1="410" y1="210" x2="505" y2="210" stroke="#93c5fd" stroke-width="6" stroke-linecap="round"></line>
+          <path d="M505 210 L488 200 L488 220 Z" fill="#93c5fd"></path>
+
+          <rect x="530" y="95" width="335" height="230" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <text x="697.5" y="145" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">
+            (2x + 5x) + (3y − 3y)
+          </text>
+
+          <text x="697.5" y="202" text-anchor="middle" font-size="25" font-weight="800" fill="#15803d">
+            7x + 0y = 21
+          </text>
+
+          <text x="697.5" y="260" text-anchor="middle" font-size="27" font-weight="800" fill="#1e40af">
+            7x = 21
+          </text>
+
+          <rect x="185" y="375" width="560" height="82" rx="21" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="465" y="408" text-anchor="middle" font-size="19" font-weight="800" fill="#166534">
+            <tspan x="465" dy="0">Переменная y исчезла,</tspan>
+            <tspan x="465" dy="28">осталось уравнение только с x</tspan>
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Если коэффициенты при одной переменной противоположны, уравнения
+      складывают. Если коэффициенты одинаковы, удобно вычесть одно уравнение
+      из другого.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Алгоритм метода сложения</h2>
+
+    <div class="ms-rule-box">
+      <strong>Шаг 1.</strong> Выберите переменную, которую удобнее исключить.
+      <br><br>
+      <strong>Шаг 2.</strong> При необходимости умножьте одно или оба уравнения
+      на подходящие числа, чтобы получить противоположные коэффициенты.
+      <br><br>
+      <strong>Шаг 3.</strong> Сложите уравнения почленно. Если коэффициенты
+      одинаковы, можно вычесть уравнения.
+      <br><br>
+      <strong>Шаг 4.</strong> Решите полученное уравнение с одной переменной.
+      <br><br>
+      <strong>Шаг 5.</strong> Подставьте найденное значение в любое исходное
+      уравнение и найдите вторую переменную.
+      <br><br>
+      <strong>Шаг 6.</strong> Запишите ответ парой (x; y) и выполните проверку.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Последовательность действий
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 940 680"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Алгоритм решения системы методом сложения"
+        >
+          <rect x="0" y="0" width="940" height="680" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="225" y="35" width="490" height="82" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="470" y="69" text-anchor="middle" font-size="18" font-weight="800" fill="#6d28d9">
+            <tspan x="470" dy="0">1. Выбрать переменную</tspan>
+            <tspan x="470" dy="27">для исключения</tspan>
+          </text>
+
+          <line x1="470" y1="127" x2="470" y2="157" stroke="#c4b5fd" stroke-width="5"></line>
+          <path d="M470 167 L460 150 L480 150 Z" fill="#c4b5fd"></path>
+
+          <rect x="225" y="177" width="490" height="82" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="470" y="211" text-anchor="middle" font-size="18" font-weight="800" fill="#1e40af">
+            <tspan x="470" dy="0">2. Уравнять модули</tspan>
+            <tspan x="470" dy="27">коэффициентов</tspan>
+          </text>
+
+          <line x1="470" y1="269" x2="470" y2="299" stroke="#93c5fd" stroke-width="5"></line>
+          <path d="M470 309 L460 292 L480 292 Z" fill="#93c5fd"></path>
+
+          <rect x="225" y="319" width="490" height="82" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="353" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">
+            <tspan x="470" dy="0">3. Сложить или вычесть</tspan>
+            <tspan x="470" dy="27">уравнения почленно</tspan>
+          </text>
+
+          <line x1="470" y1="411" x2="470" y2="441" stroke="#86efac" stroke-width="5"></line>
+          <path d="M470 451 L460 434 L480 434 Z" fill="#86efac"></path>
+
+          <rect x="65" y="465" width="360" height="92" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="245" y="502" text-anchor="middle" font-size="18" font-weight="800" fill="#166534">
+            <tspan x="245" dy="0">4. Найти первую</tspan>
+            <tspan x="245" dy="27">переменную</tspan>
+          </text>
+
+          <rect x="515" y="465" width="360" height="92" rx="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="695" y="502" text-anchor="middle" font-size="18" font-weight="800" fill="#c2410c">
+            <tspan x="695" dy="0">5. Найти вторую</tspan>
+            <tspan x="695" dy="27">переменную</tspan>
+          </text>
+
+          <line x1="425" y1="511" x2="505" y2="511" stroke="#86efac" stroke-width="5"></line>
+          <path d="M515 511 L498 501 L498 521 Z" fill="#86efac"></path>
+
+          <rect x="220" y="595" width="500" height="58" rx="19" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="631" text-anchor="middle" font-size="17" font-weight="800" fill="#374151">
+            6. Записать ответ и проверить обе строки
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Коэффициенты уже противоположны</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + y = 7,</div>
+          <div class="ms-system-line">x − y = 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Коэффициенты при y равны 1 и −1. Сложим уравнения:
+      </div>
+
+      <div class="ms-math-row">
+        (x + y) + (x − y) = 7 + 1.
+      </div>
+
+      <div class="ms-math-row">
+        2x = 8.
+      </div>
+
+      <div class="ms-math-row">
+        x = 4.
+      </div>
+
+      <div class="ms-math-row">
+        Подставим x = 4 в первое уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        4 + y = 7.
+      </div>
+
+      <div class="ms-math-row">
+        y = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (4; 3).</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Когда удобнее вычитать уравнения</h2>
+
+    <p class="ms-text">
+      Если коэффициенты при выбранной переменной одинаковы, можно вычесть
+      второе уравнение из первого. Тогда одинаковые слагаемые исчезнут.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">4x + 3y = 18,</div>
+          <div class="ms-system-line">x + 3y = 9.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Коэффициенты при y одинаковы. Вычтем второе уравнение из первого:
+      </div>
+
+      <div class="ms-math-row">
+        (4x + 3y) − (x + 3y) = 18 − 9.
+      </div>
+
+      <div class="ms-math-row">
+        3x = 9.
+      </div>
+
+      <div class="ms-math-row">
+        x = 3.
+      </div>
+
+      <div class="ms-math-row">
+        Подставим в x + 3y = 9:
+      </div>
+
+      <div class="ms-math-row">
+        3 + 3y = 9.
+      </div>
+
+      <div class="ms-math-row">
+        3y = 6, поэтому y = 2.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (3; 2).</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      При вычитании скобки обязательны: знак минус должен изменить знаки
+      всех слагаемых вычитаемого уравнения.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Умножаем одно уравнение</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + 2y = 8,</div>
+          <div class="ms-system-line">3x − y = 3.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Коэффициенты при y равны 2 и −1. Умножим второе уравнение на 2,
+      чтобы получить −2y.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Умножение всей строки системы
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 520"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Второе уравнение умножают на два и получают противоположные коэффициенты"
+        >
+          <rect x="0" y="0" width="920" height="520" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="60" y="105" width="290" height="95" rx="20" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="205" y="162" text-anchor="middle" font-size="22" font-weight="800" fill="#2563eb">
+            x + 2y = 8
+          </text>
+
+          <rect x="60" y="235" width="290" height="95" rx="20" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="205" y="292" text-anchor="middle" font-size="22" font-weight="800" fill="#7c3aed">
+            3x − y = 3
+          </text>
+
+          <rect x="395" y="230" width="120" height="105" rx="20" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="455" y="270" text-anchor="middle" font-size="17" font-weight="800" fill="#c2410c">
+            умножить
+          </text>
+          <text x="455" y="310" text-anchor="middle" font-size="26" font-weight="800" fill="#ea580c">
+            на 2
+          </text>
+
+          <line x1="535" y1="282" x2="610" y2="282" stroke="#93c5fd" stroke-width="6" stroke-linecap="round"></line>
+          <path d="M610 282 L593 272 L593 292 Z" fill="#93c5fd"></path>
+
+          <rect x="635" y="225" width="230" height="115" rx="21" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="750" y="273" text-anchor="middle" font-size="23" font-weight="800" fill="#15803d">
+            6x − 2y = 6
+          </text>
+          <text x="750" y="310" text-anchor="middle" font-size="15" font-weight="800" fill="#166534">
+            умножены все члены
+          </text>
+
+          <line x1="205" y1="355" x2="205" y2="395" stroke="#c4b5fd" stroke-width="5"></line>
+          <line x1="750" y1="355" x2="750" y2="395" stroke="#86efac" stroke-width="5"></line>
+
+          <rect x="210" y="405" width="500" height="72" rx="20" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="460" y="435" text-anchor="middle" font-size="18" font-weight="800" fill="#1e40af">
+            <tspan x="460" dy="0">Теперь 2y и −2y противоположны:</tspan>
+            <tspan x="460" dy="27">уравнения можно сложить</tspan>
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + 2y = 8,</div>
+          <div class="ms-system-line">6x − 2y = 6.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Складываем:
+      </div>
+
+      <div class="ms-math-row">
+        7x = 14.
+      </div>
+
+      <div class="ms-math-row">
+        x = 2.
+      </div>
+
+      <div class="ms-math-row">
+        2 + 2y = 8.
+      </div>
+
+      <div class="ms-math-row">
+        2y = 6, y = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (2; 3).</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Умножаем оба уравнения</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">2x + 3y = 7,</div>
+          <div class="ms-system-line">3x − 2y = 4.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Для исключения y нужно получить коэффициенты 6 и −6.
+      Умножим первое уравнение на 2, а второе — на 3.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">4x + 6y = 14,</div>
+          <div class="ms-system-line">9x − 6y = 12.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Сложим уравнения:
+      </div>
+
+      <div class="ms-math-row">
+        13x = 26.
+      </div>
+
+      <div class="ms-math-row">
+        x = 2.
+      </div>
+
+      <div class="ms-math-row">
+        Подставим в первое исходное уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2 · 2 + 3y = 7.
+      </div>
+
+      <div class="ms-math-row">
+        4 + 3y = 7.
+      </div>
+
+      <div class="ms-math-row">
+        y = 1.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (2; 1).</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Умножая уравнение на число, нужно умножить каждый член обеих частей,
+      включая свободный член.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Как выбрать переменную для исключения</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Уже есть противоположные коэффициенты</h3>
+        <p class="ms-card-text">
+          Сразу складывайте уравнения.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Коэффициенты одинаковы</h3>
+        <p class="ms-card-text">
+          Вычитайте одно уравнение из другого.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Один коэффициент кратен другому</h3>
+        <p class="ms-card-text">
+          Обычно достаточно умножить только одно уравнение.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Оба коэффициента неудобны</h3>
+        <p class="ms-card-text">
+          Найдите их наименьшее общее кратное и умножьте обе строки.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Сложить или вычесть?
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 470"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Выбор между сложением и вычитанием уравнений"
+        >
+          <rect x="0" y="0" width="920" height="470" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="60" y="85" width="345" height="140" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="232.5" y="130" text-anchor="middle" font-size="20" font-weight="800" fill="#15803d">
+            Противоположные знаки
+          </text>
+          <text x="232.5" y="179" text-anchor="middle" font-size="24" font-weight="800" fill="#166534">
+            +3y и −3y
+          </text>
+
+          <rect x="515" y="85" width="345" height="140" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="687.5" y="130" text-anchor="middle" font-size="20" font-weight="800" fill="#7c3aed">
+            Одинаковые знаки
+          </text>
+          <text x="687.5" y="179" text-anchor="middle" font-size="24" font-weight="800" fill="#6d28d9">
+            +3y и +3y
+          </text>
+
+          <line x1="232.5" y1="240" x2="232.5" y2="285" stroke="#86efac" stroke-width="5"></line>
+          <path d="M232.5 295 L222.5 278 L242.5 278 Z" fill="#86efac"></path>
+
+          <line x1="687.5" y1="240" x2="687.5" y2="285" stroke="#c4b5fd" stroke-width="5"></line>
+          <path d="M687.5 295 L677.5 278 L697.5 278 Z" fill="#c4b5fd"></path>
+
+          <rect x="95" y="305" width="275" height="90" rx="21" fill="#ffffff" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="232.5" y="360" text-anchor="middle" font-size="24" font-weight="800" fill="#15803d">
+            СКЛАДЫВАЕМ
+          </text>
+
+          <rect x="550" y="305" width="275" height="90" rx="21" fill="#ffffff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="687.5" y="360" text-anchor="middle" font-size="24" font-weight="800" fill="#7c3aed">
+            ВЫЧИТАЕМ
+          </text>
+
+          <rect x="190" y="420" width="540" height="34" rx="14" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="460" y="443" text-anchor="middle" font-size="15" font-weight="800" fill="#374151">
+            В обоих случаях выбранная переменная должна исчезнуть
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Особые случаи после сложения</h2>
+
+    <p class="ms-text">
+      Иногда после исключения переменной исчезают обе переменные.
+      Тогда нужно оценить получившееся числовое равенство.
+    </p>
+
+    <h3>Система не имеет решений</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">2x + y = 5,</div>
+          <div class="ms-system-line">−2x − y = 1.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Сложим уравнения:
+      </div>
+
+      <div class="ms-math-row">
+        0x + 0y = 6.
+      </div>
+
+      <div class="ms-math-row">
+        0 = 6 — неверное равенство.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-bad">Система не имеет решений.</span>
+      </div>
+    </div>
+
+    <h3>Система имеет бесконечно много решений</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">2x + y = 5,</div>
+          <div class="ms-system-line">−4x − 2y = −10.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Умножим первое уравнение на 2:
+      </div>
+
+      <div class="ms-math-row">
+        4x + 2y = 10.
+      </div>
+
+      <div class="ms-math-row">
+        Сложим со вторым:
+      </div>
+
+      <div class="ms-math-row">
+        0 = 0 — верное равенство.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Система имеет бесконечно много решений.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-10">
+    <h2>9. Проверка найденной пары</h2>
+
+    <p class="ms-text">
+      Проверка особенно важна после умножения уравнений и действий
+      с отрицательными коэффициентами.
+    </p>
+
+    <div class="ms-rule-box">
+      Подставьте найденные значения x и y в оба исходных уравнения.
+      Если обе строки превращаются в верные равенства, решение найдено верно.
+    </div>
+
+    <div class="ms-example">
+      Проверим решение (2; 3) системы
+      x + 2y = 8 и 3x − y = 3.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Первое уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2 + 2 · 3 = 2 + 6 = 8.
+      </div>
+
+      <div class="ms-math-row">
+        Второе уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        3 · 2 − 3 = 6 − 3 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Оба равенства верны.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-11">
+    <h2>10. Ошибки, которые нельзя допускать</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Умножена не вся строка</h3>
+        <p class="ms-card-text">
+          При умножении уравнения изменяются все коэффициенты и свободный член.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Неправильное вычитание</h3>
+        <p class="ms-card-text">
+          Знак минус перед скобкой меняет знаки всех членов второго уравнения.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Переменная не исчезла</h3>
+        <p class="ms-card-text">
+          Значит, коэффициенты подготовлены неверно или выбрано не то действие.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Найдена только одна координата</h3>
+        <p class="ms-card-text">
+          После первого ответа нужно обязательно найти вторую переменную.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Перед почленным сложением полезно записывать подобные члены строго
+      друг под другом: x под x, y под y, числа под числами.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-12">
+    <h2>11. Задания для самопроверки</h2>
+
+    <p class="ms-text">
+      В каждом задании сначала решите, какую переменную удобнее исключить.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Какие слагаемые исчезнут при сложении уравнений
+        2x + 5y = 9 и 3x − 5y = 6?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Коэффициенты при y противоположны:
+          5y + (−5y) = 0.
+          <br><br>
+          <strong>Ответ: слагаемые 5y и −5y.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        На какое число нужно умножить уравнение 3x − y = 4,
+        чтобы коэффициент при y стал равен −4?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Коэффициент −1 нужно умножить на 4.
+          <br><br>
+          Получится 12x − 4y = 16.
+          <br><br>
+          <strong>Ответ: на 4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + y = 9,</div>
+            <div class="ms-system-line">x − y = 3.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Складываем:
+          <br><br>
+          2x = 12, x = 6.
+          <br><br>
+          6 + y = 9, y = 3.
+          <br><br>
+          <strong>Ответ: (6; 3).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">3x + 2y = 13,</div>
+            <div class="ms-system-line">3x − 2y = 5.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Складываем:
+          <br><br>
+          6x = 18, x = 3.
+          <br><br>
+          3 · 3 + 2y = 13.
+          <br><br>
+          2y = 4, y = 2.
+          <br><br>
+          <strong>Ответ: (3; 2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Решите систему вычитанием.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">5x + 4y = 23,</div>
+            <div class="ms-system-line">2x + 4y = 14.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Вычтем второе уравнение из первого:
+          <br><br>
+          3x = 9, x = 3.
+          <br><br>
+          2 · 3 + 4y = 14.
+          <br><br>
+          4y = 8, y = 2.
+          <br><br>
+          <strong>Ответ: (3; 2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Решите систему, предварительно умножив одно уравнение.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + 3y = 11,</div>
+            <div class="ms-system-line">2x − y = 1.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Умножим второе уравнение на 3:
+          <br><br>
+          6x − 3y = 3.
+          <br><br>
+          Сложим с первым:
+          <br><br>
+          7x = 14, x = 2.
+          <br><br>
+          2 + 3y = 11, y = 3.
+          <br><br>
+          <strong>Ответ: (2; 3).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">2x + y = 4,</div>
+            <div class="ms-system-line">3x − 2y = 5.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Умножим первое уравнение на 2:
+          <br><br>
+          4x + 2y = 8.
+          <br><br>
+          Сложим:
+          <br><br>
+          7x = 13, поэтому
+          x =
+          <span class="ms-frac">
+            <span class="ms-num">13</span>
+            <span class="ms-den">7</span>
+          </span>.
+          <br><br>
+          Из 2x + y = 4:
+          <br><br>
+          y = 4 −
+          <span class="ms-frac">
+            <span class="ms-num">26</span>
+            <span class="ms-den">7</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">2</span>
+            <span class="ms-den">7</span>
+          </span>.
+          <br><br>
+          <strong>
+            Ответ:
+            (
+            <span class="ms-frac">
+              <span class="ms-num">13</span>
+              <span class="ms-den">7</span>
+            </span>;
+            <span class="ms-frac">
+              <span class="ms-num">2</span>
+              <span class="ms-den">7</span>
+            </span>
+            ).
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Решите систему, умножив оба уравнения.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">2x + 3y = 12,</div>
+            <div class="ms-system-line">5x − 2y = 11.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Умножим первое уравнение на 2:
+          <br>
+          4x + 6y = 24.
+          <br><br>
+          Умножим второе уравнение на 3:
+          <br>
+          15x − 6y = 33.
+          <br><br>
+          Складываем:
+          <br>
+          19x = 57, x = 3.
+          <br><br>
+          2 · 3 + 3y = 12.
+          <br>
+          3y = 6, y = 2.
+          <br><br>
+          <strong>Ответ: (3; 2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Определите количество решений системы.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">3x + y = 7,</div>
+            <div class="ms-system-line">−3x − y = 2.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сложим уравнения:
+          <br><br>
+          0 = 9 — неверное равенство.
+          <br><br>
+          <strong>Ответ: решений нет.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Определите количество решений системы.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x − 2y = 4,</div>
+            <div class="ms-system-line">−2x + 4y = −8.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Умножим первое уравнение на 2:
+          <br><br>
+          2x − 4y = 8.
+          <br><br>
+          Сложим со вторым:
+          <br><br>
+          0 = 0 — верное равенство.
+          <br><br>
+          <strong>Ответ: бесконечно много решений.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 11.</strong>
+        Найдите ошибку: уравнение 2x − 3y = 5 умножили на −2
+        и получили −4x − 6y = −10.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          При умножении −3y на −2 получается +6y.
+          <br><br>
+          Правильная строка:
+          <br>
+          −4x + 6y = −10.
+          <br><br>
+          <strong>Ошибка допущена в знаке коэффициента при y.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 12.</strong>
+        Решите систему и выполните проверку.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">4x + 3y = 17,</div>
+            <div class="ms-system-line">2x − 3y = 1.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Складываем:
+          <br><br>
+          6x = 18, x = 3.
+          <br><br>
+          2 · 3 − 3y = 1.
+          <br><br>
+          −3y = −5,
+          y =
+          <span class="ms-frac">
+            <span class="ms-num">5</span>
+            <span class="ms-den">3</span>
+          </span>.
+          <br><br>
+          Проверка:
+          <br>
+          4 · 3 + 3 ·
+          <span class="ms-frac">
+            <span class="ms-num">5</span>
+            <span class="ms-den">3</span>
+          </span>
+          = 12 + 5 = 17;
+          <br>
+          2 · 3 − 3 ·
+          <span class="ms-frac">
+            <span class="ms-num">5</span>
+            <span class="ms-den">3</span>
+          </span>
+          = 6 − 5 = 1.
+          <br><br>
+          <strong>
+            Ответ:
+            (3;
+            <span class="ms-frac">
+              <span class="ms-num">5</span>
+              <span class="ms-den">3</span>
+            </span>
+            ).
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 13.</strong>
+        Каким способом удобнее решить систему: подстановкой или сложением?
+        Объясните выбор.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">7x + 4y = 20,</div>
+            <div class="ms-system-line">3x − 4y = 0.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Удобнее метод сложения: коэффициенты при y уже противоположны.
+          <br><br>
+          После сложения сразу получаем 10x = 20.
+          <br><br>
+          <strong>Ответ: метод сложения.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-13">
+    <h2>12. Как выбрать рациональный ход решения</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Сравните коэффициенты</strong>
+        <span class="ms-card-text">
+          Сначала ищите одинаковые, противоположные или кратные числа.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Избегайте больших множителей</strong>
+        <span class="ms-card-text">
+          Исключайте ту переменную, для которой числа подготавливаются проще.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Контролируйте знаки</strong>
+        <span class="ms-card-text">
+          При умножении и вычитании проверяйте каждый член отдельно.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Метод сложения особенно эффективен, когда коэффициенты при одной
+      переменной уже противоположны или легко становятся противоположными
+      после умножения уравнений.
+    </div>
+
+    <div class="ms-nav">
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/reshenie-sistem-linejnyh-uravnenij-metod-podstanovki/"
+      >
+        Предыдущая тема
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/7-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn"
+        href="/sistema-linejnyh-uravnenij-kak-matematicheskaya-model/"
+      >
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

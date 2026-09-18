@@ -1,0 +1,155 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Описательная статистика · Тема 2.2</div>
+    <h1 class="ms-title">Медиана числового набора. Устойчивость медианы</h1>
+    <p class="ms-subtitle">Научимся находить середину упорядоченного набора, различать случаи чётного и нечётного количества данных и сравнивать медиану со средним.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/mediana-chislovogo-nabora-ustojchivost-mediany/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Зачем нужна медиана</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Нечётное количество чисел</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Чётное количество чисел</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Алгоритм нахождения медианы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Устойчивость медианы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Среднее и медиана описывают набор по-разному</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Короткий итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Зачем нужна медиана</h2>
+    <p class="ms-text">Среднее арифметическое учитывает каждое число, поэтому сильно реагирует на необычно большие или маленькие значения. Чтобы описать «середину» набора другим способом, используют <strong>медиану</strong>.</p>
+    <p class="ms-text"><strong>Медиана</strong> — серединное значение упорядоченного числового набора. Перед её нахождением числа обязательно располагают по неубыванию: от меньшего к большему.</p>
+    <div class="ms-rule-box"><strong>Главное правило:</strong> сначала упорядочить данные, затем определить одно или два центральных места. Искать середину в неупорядоченной записи нельзя.</div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Нечётное количество чисел</h2>
+    <p class="ms-text">Если элементов нечётное количество, после упорядочивания остаётся одно центральное число. Слева и справа от него находится одинаковое количество элементов.</p>
+    <div class="ms-number-row">
+      <span class="ms-number-chip">3</span><span class="ms-number-chip">6</span><span class="ms-number-chip ms-center">8</span><span class="ms-number-chip">11</span><span class="ms-number-chip">19</span>
+    </div>
+    <p class="ms-text">В наборе пять чисел. Третье число занимает центральное место, поэтому медиана равна <strong>8</strong>.</p>
+    <div class="ms-formula-panel">при 5 числах медиана находится на месте (5 + 1) : 2 = 3</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Чётное количество чисел</h2>
+    <p class="ms-text">Если элементов чётное количество, одного центрального места нет. В центре находятся два числа, а медиана равна их среднему арифметическому.</p>
+    <div class="ms-number-row">
+      <span class="ms-number-chip">2</span><span class="ms-number-chip">5</span><span class="ms-number-chip ms-center">7</span><span class="ms-number-chip ms-center">10</span><span class="ms-number-chip">13</span><span class="ms-number-chip">20</span>
+    </div>
+    <div class="ms-formula-panel">Me = (7 + 10) : 2 = 8,5</div>
+    <div class="ms-note">При чётном количестве элементов медиана может отсутствовать среди исходных значений. Число 8,5 не записано в наборе, но правильно делит его на две равные по количеству части.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Алгоритм нахождения медианы</h2>
+    <div class="ms-process">
+      <div class="ms-process-step"><span class="ms-process-number">1</span><div><strong>Упорядочьте числа</strong><span>Расположите их от наименьшего к наибольшему, не удаляя повторов.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">2</span><div><strong>Посчитайте элементы</strong><span>Определите, чётное или нечётное количество чисел в наборе.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">3</span><div><strong>Выберите центр</strong><span>При нечётном количестве возьмите одно центральное число; при чётном — два центральных.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">4</span><div><strong>Вычислите медиану</strong><span>Для двух центральных чисел найдите их среднее арифметическое.</span></div></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Устойчивость медианы</h2>
+    <p class="ms-text"><strong>Выброс</strong> — значение, которое резко отличается от большинства остальных. Выброс заметно влияет на среднее арифметическое, но часто почти не меняет медиану.</p>
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Обычный набор</strong><p class="ms-card-text">35, 38, 40, 42, 45</p><p class="ms-card-text">Среднее: 40</p><p class="ms-card-text">Медиана: 40</p></div>
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">После появления выброса</strong><p class="ms-card-text">35, 38, 40, 42, 200</p><p class="ms-card-text">Среднее: 71</p><p class="ms-card-text">Медиана: 40</p></div>
+    </div>
+    <p class="ms-text">Среднее изменилось на 31, а медиана не изменилась. Такое свойство называют <strong>устойчивостью медианы</strong>. Поэтому медиану часто используют для цен, доходов, времени ожидания и других данных, где встречаются редкие экстремальные значения.</p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Среднее и медиана описывают набор по-разному</h2>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Характеристика</th><th>Как находится</th><th>Что учитывает</th><th>Реакция на выброс</th></tr></thead>
+        <tbody>
+          <tr><td>Среднее арифметическое</td><td>Сумма делится на количество</td><td>Все значения</td><td>Может сильно измениться</td></tr>
+          <tr><td>Медиана</td><td>Берётся центр упорядоченного ряда</td><td>Положение значений</td><td>Обычно изменяется слабее</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-note">Нельзя говорить, что одна характеристика всегда лучше другой. Выбор зависит от задачи: среднее удобно для общей суммы, медиана — для устойчивого описания типичного значения.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+    <div class="ms-task">
+      <p>1. Найдите медиану набора 7, 2, 9, 4, 5.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Упорядочим: 2, 4, 5, 7, 9.</p><p>Центральное число — <strong>5</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>2. Найдите медиану набора 12, 3, 8, 10.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Упорядочим: 3, 8, 10, 12.</p><p>Два центральных числа — 8 и 10. Их среднее: (8 + 10) : 2 = <strong>9</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>3. Найдите медиану набора 4, 4, 4, 9, 12.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Набор уже упорядочен. Центральное, третье число равно <strong>4</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>4. В наборе 10, 11, 12, 13, 14 число 14 заменили числом 100. Как изменилась медиана?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>После замены получаем 10, 11, 12, 13, 100.</p><p>Центральное число осталось равным <strong>12</strong>, поэтому медиана не изменилась.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>5. Упорядоченный набор имеет вид 2, 5, x, 11, 14. Его медиана равна 8. Найдите x.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>В наборе пять чисел, поэтому медиана — третье число.</p><p>Следовательно, <strong>x = 8</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>6. Найдите медиану температур 18, 18, 19, 20 и 35 °C.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Значения уже расположены по возрастанию. Центральное число — <strong>19 °C</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>7. Какую характеристику разумнее использовать для описания типичной цены квартир, если в наборе есть одна очень дорогая квартира?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Разумнее использовать <strong>медиану</strong>, потому что она устойчивее к единичному очень большому значению.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>8. Сравните наборы A: 5, 6, 7 и B: 5, 6, 70. Найдите их медианы и средние.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Медиана обоих наборов равна <strong>6</strong>.</p><p>Среднее A: (5 + 6 + 7) : 3 = 6.</p><p>Среднее B: (5 + 6 + 70) : 3 = 81 : 3 = <strong>27</strong>.</p><p>Выброс 70 сильно изменил среднее, но не медиану.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>Короткий итог</h2>
+    <p class="ms-text">Медиана находится только после упорядочивания данных. При нечётном количестве чисел это одно центральное значение, при чётном — среднее двух центральных. Медиана устойчива к выбросам.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/chislovye-nabory-srednee-arifmeticheskoe/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/prakticheskaya-rabota-srednie-znacheniya/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

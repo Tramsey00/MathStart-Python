@@ -1,0 +1,210 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Теория графов · Тема 4.1</div>
+    <h1 class="ms-title">Введение в теорию графов</h1>
+    <p class="ms-subtitle">Познакомимся с графом как с моделью связей. Научимся различать вершины и рёбра, определять смежные вершины, читать простые схемы и переводить жизненную ситуацию на язык графов.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Графы помогают увидеть связи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Читаем граф по рисунку</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Как записывают граф</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как построить граф по условию</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Что в рисунке важно, а что нет</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Графы помогают увидеть связи</h2>
+    <p class="ms-text">Во многих задачах важны не размеры и внешний вид объектов, а то, <strong>какие объекты связаны между собой</strong>. Города соединяют дороги, станции — маршруты, страницы сайта — ссылки, а людей — знакомства. Такие отношения удобно изображать графом.</p>
+    <div class="ms-rule-box"><strong>Граф</strong> — это схема, состоящая из вершин и рёбер. Вершины обозначают объекты, а рёбра показывают связи между ними.</div>
+    <div class="ms-definition-grid ms-card-grid ms-columns-3">
+      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Вершина</strong><p class="ms-card-text">Точка графа. Она представляет один объект: город, человека, станцию, страницу или состояние.</p></div>
+      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Ребро</strong><p class="ms-card-text">Линия, соединяющая две вершины. Она обозначает связь, дорогу, переход или другое отношение.</p></div>
+      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Смежные вершины</strong><p class="ms-card-text">Две вершины называют смежными, если они соединены одним ребром.</p></div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Читаем граф по рисунку</h2>
+    <p class="ms-text">На схеме ниже пять объектов обозначены буквами A, B, C, D, E. Каждая проведённая линия означает, что между соответствующими объектами есть прямой маршрут.</p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Схема связей между объектами</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Граф с пятью вершинами, изображающий связи между школой, библиотекой, парком, стадионом и музеем">
+          <rect x="0" y="0" width="900" height="520" rx="24" fill="#f9fafb"/>
+          <rect x="35" y="55" width="560" height="410" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+          <rect x="625" y="55" width="240" height="410" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <text x="315" y="92" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">Граф маршрутов</text>
+          <text x="745" y="92" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">Что обозначают вершины</text>
+
+          <g stroke="#94a3b8" stroke-width="6" stroke-linecap="round">
+            <line x1="135" y1="260" x2="300" y2="130"/>
+            <line x1="135" y1="260" x2="300" y2="390"/>
+            <line x1="300" y1="130" x2="300" y2="390"/>
+            <line x1="300" y1="130" x2="500" y2="130"/>
+            <line x1="300" y1="390" x2="500" y2="390"/>
+            <line x1="500" y1="130" x2="500" y2="390"/>
+          </g>
+
+          <g>
+            <circle cx="135" cy="260" r="29" fill="#2563eb" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="300" cy="130" r="29" fill="#7c3aed" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="300" cy="390" r="29" fill="#0f766e" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="500" cy="130" r="29" fill="#f97316" stroke="#ffffff" stroke-width="4"/>
+            <circle cx="500" cy="390" r="29" fill="#15803d" stroke="#ffffff" stroke-width="4"/>
+            <g fill="#ffffff" font-size="19" font-weight="800" text-anchor="middle" dominant-baseline="middle">
+              <text x="135" y="261">A</text><text x="300" y="131">B</text><text x="300" y="391">C</text><text x="500" y="131">D</text><text x="500" y="391">E</text>
+            </g>
+          </g>
+
+          <g font-size="15.5" font-weight="700" fill="#374151">
+            <rect x="650" y="120" width="190" height="48" rx="14" fill="#eff6ff" stroke="#bfdbfe"/>
+            <text x="675" y="151">A — школа</text>
+            <rect x="650" y="180" width="190" height="48" rx="14" fill="#f7f4ff" stroke="#ddd6fe"/>
+            <text x="675" y="211">B — библиотека</text>
+            <rect x="650" y="240" width="190" height="48" rx="14" fill="#ecfeff" stroke="#a5f3fc"/>
+            <text x="675" y="271">C — парк</text>
+            <rect x="650" y="300" width="190" height="48" rx="14" fill="#fff7ed" stroke="#fed7aa"/>
+            <text x="675" y="331">D — стадион</text>
+            <rect x="650" y="360" width="190" height="48" rx="14" fill="#ecfdf5" stroke="#bbf7d0"/>
+            <text x="675" y="391">E — музей</text>
+          </g>
+
+          <rect x="165" y="435" width="300" height="30" rx="12" fill="#eff6ff"/>
+          <text x="315" y="456" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1d4ed8">Ребро означает прямой маршрут</text>
+        </svg>
+      </div>
+    </div>
+    <p class="ms-text">Например, вершины A и B смежны, потому что между ними есть ребро AB. Вершины A и E не смежны: прямого ребра AE нет, хотя из A в E можно добраться через другие вершины.</p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Как записывают граф</h2>
+    <p class="ms-text">Небольшой граф можно задать перечислением вершин и рёбер. Для схемы выше получим:</p>
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Вершины:</strong> A, B, C, D, E.</div>
+      <div class="ms-math-row"><strong>Рёбра:</strong> AB, AC, BC, BD, CE, DE.</div>
+    </div>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Вершина</th><th>С какими вершинами она смежна</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>B, C</td></tr>
+          <tr><td>B</td><td>A, C, D</td></tr>
+          <tr><td>C</td><td>A, B, E</td></tr>
+          <tr><td>D</td><td>B, E</td></tr>
+          <tr><td>E</td><td>C, D</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-note">Если две линии пересеклись на рисунке, но точка пересечения не обозначена как вершина, считать её вершиной нельзя. Рёбра просто проходят одно над другим.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Как построить граф по условию</h2>
+    <p class="ms-text">Перед рисунком нужно определить, что именно станет вершинами и какое условие означает наличие ребра.</p>
+    <ul class="ms-plain-checklist">
+      <li><strong>Выберите объекты.</strong> Каждый объект обозначьте отдельной вершиной.</li>
+      <li><strong>Сформулируйте правило связи.</strong> Например: «проводим ребро, если между городами есть прямая дорога».</li>
+      <li><strong>Проведите только нужные рёбра.</strong> Не добавляйте связь, которой нет в условии.</li>
+      <li><strong>Проверьте подписи.</strong> Названия вершин должны однозначно соответствовать объектам.</li>
+    </ul>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>В кружке четыре секции: шахматы, робототехника, театр и волейбол. Ребро соединяет две секции, если хотя бы один ученик посещает обе. Вершинами будут секции, а рёбрами — наличие общего участника.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Что в рисунке важно, а что нет</h2>
+    <div class="ms-compare-strip">
+      <div class="ms-compare-panel"><h3>Важно</h3><p>Какие вершины есть в графе и какие пары вершин соединены рёбрами.</p></div>
+      <div class="ms-compare-panel"><h3>Неважно</h3><p>Точная длина и изгиб рёбер, расстояния между вершинами и поворот всего рисунка.</p></div>
+    </div>
+    <p class="ms-text" style="margin-top:16px;">Поэтому один и тот же граф можно нарисовать по-разному. Если набор связей сохранился, математическая модель не изменилась.</p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Задания для самопроверки</h2>
+    <p class="ms-text">В каждом задании сначала определяйте объекты, затем связи между ними.</p>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Назовите вершины и рёбра графа, в котором вершины A, B, C, D, а рёбра AB, AC, BC и CD.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Вершины: <strong>A, B, C, D</strong>. Рёбра: <strong>AB, AC, BC, CD</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Какие вершины смежны с вершиной B, если рёбра графа — AB, BC, BD и CD?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>С вершиной B соединены рёбра AB, BC и BD. Поэтому смежные с B вершины: <strong>A, C и D</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Можно ли считать точки пересечения двух рёбер вершиной, если на рисунке она не отмечена и в условии не названа?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Обычное пересечение линий на рисунке не становится вершиной автоматически. Вершина должна быть явно обозначена.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> В классе четыре ученика. Ребро соединяет двух учеников, если они обменялись книгами. Что обозначают вершины и рёбра?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Вершины обозначают <strong>учеников</strong>, а рёбра — <strong>факт обмена книгами между двумя учениками</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> У графа 6 вершин и 7 рёбер. Изменится ли граф, если его вершины расположить на рисунке иначе, но сохранить все соединения?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Форма рисунка может измениться, но граф остаётся тем же, если сохраняются вершины и пары соединённых вершин.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> По схеме из теории укажите два разных маршрута из A в E.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Например: <strong>A–C–E</strong> и <strong>A–B–D–E</strong>. Возможен также маршрут A–B–C–E.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> В графе есть рёбра MN, NP, PQ и MQ. Соседствуют ли вершины M и P?</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Ребра MP нет. Между M и P существует путь M–N–P, но смежными эти вершины не являются.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Постройте граф для трёх станций A, B, C, если есть прямые дороги A–B и B–C, а дороги A–C нет.</p>
+      
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Нужно изобразить три вершины A, B, C и провести два ребра: <strong>AB</strong> и <strong>BC</strong>. Получится цепочка A–B–C.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <p class="ms-text" style="margin-top:24px;">Теперь вы умеете читать основу графа. В следующей теме будем считать, сколько рёбер подходит к каждой вершине.</p>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/prakticheskaya-rabota-sluchajnaya-izmenchivost/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/stepen-vershiny/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

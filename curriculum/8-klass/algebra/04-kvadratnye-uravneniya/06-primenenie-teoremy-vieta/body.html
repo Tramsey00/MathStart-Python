@@ -1,0 +1,798 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Квадратные уравнения · Тема 4.6
+    </div>
+
+    <h1 class="ms-title">Применение теоремы Виета</h1>
+
+    <p class="ms-subtitle">
+      Научимся находить сумму и произведение корней квадратного уравнения
+      без непосредственного решения, подбирать целые корни,
+      составлять квадратное уравнение по заданным корням
+      и использовать обратную теорему Виета.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Теорема Виета для квадратного уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Теорема Виета для приведённого уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Подбор целых корней</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Теорема Виета для неприведённого уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Обратная теорема Виета</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как найти второй корень</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Где теорема Виета особенно полезна</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Четыре задачи, которые решает теорема Виета</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Теорема Виета для квадратного уравнения</h2>
+
+    <p class="ms-text">
+      Пусть квадратное уравнение ax² + bx + c = 0 имеет корни x₁ и x₂.
+      Тогда сумма и произведение корней выражаются через коэффициенты уравнения.
+    </p>
+
+    <div class="ms-vieta-formula">
+      <span class="ms-vieta-formula-main">
+        x₁ + x₂ = −
+        <math aria-label="дробь b делённое на a">
+          <mfrac><mi>b</mi><mi>a</mi></mfrac>
+        </math>,
+        &nbsp;&nbsp;
+        x₁x₂ =
+        <math aria-label="дробь c делённое на a">
+          <mfrac><mi>c</mi><mi>a</mi></mfrac>
+        </math>
+      </span>
+
+      <span class="ms-vieta-formula-caption">
+        Формулы применяются к корням квадратного уравнения ax² + bx + c = 0.
+      </span>
+    </div>
+
+    <div class="ms-vieta-grid ms-card-grid ms-columns-2">
+      <div class="ms-vieta-card ms-card">
+        <span class="ms-vieta-card-formula">
+          x₁ + x₂ = −b/a
+        </span>
+        <strong class="ms-card-title">Сумма корней</strong>
+        <span class="ms-card-text">
+          Нужно взять второй коэффициент с противоположным знаком
+          и разделить на старший коэффициент.
+        </span>
+      </div>
+
+      <div class="ms-vieta-card ms-card">
+        <span class="ms-vieta-card-formula">
+          x₁x₂ = c/a
+        </span>
+        <strong class="ms-card-title">Произведение корней</strong>
+        <span class="ms-card-text">
+          Свободный член делят на старший коэффициент,
+          не изменяя его знак.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Теорема Виета для приведённого уравнения</h2>
+
+    <p class="ms-text">
+      Для приведённого квадратного уравнения x² + px + q = 0
+      старший коэффициент равен единице, поэтому формулы становятся проще.
+    </p>
+
+    <div class="ms-rule-box">
+      x² + px + q = 0
+      <br><br>
+      x₁ + x₂ = −p,
+      <br>
+      x₁x₂ = q.
+    </div>
+
+    <h3>Пример 1. Находим сумму и произведение, не решая уравнение</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x² − 9x + 14 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        p = −9, q = 14.
+      </div>
+
+      <div class="ms-math-row">
+        x₁ + x₂ = −(−9) = 9.
+      </div>
+
+      <div class="ms-math-row">
+        x₁x₂ = 14.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: сумма корней 9, произведение 14.</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Теорема Виета позволяет узнать сумму и произведение корней,
+      даже если сами корни не требуется находить.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Подбор целых корней</h2>
+
+    <p class="ms-text">
+      Для приведённого уравнения нужно найти два числа,
+      сумма которых равна −p, а произведение равно q.
+      Особенно удобно применять этот способ, когда корни целые.
+    </p>
+
+    <div class="ms-vieta-steps">
+      <div class="ms-vieta-step">
+        <span class="ms-vieta-number">1</span>
+        <strong>Посмотрите на q</strong>
+        <span>Выпишите пары целых множителей свободного члена.</span>
+      </div>
+
+      <div class="ms-vieta-step">
+        <span class="ms-vieta-number">2</span>
+        <strong>Определите знаки</strong>
+        <span>Произведение подсказывает, одинаковы знаки или различны.</span>
+      </div>
+
+      <div class="ms-vieta-step">
+        <span class="ms-vieta-number">3</span>
+        <strong>Проверьте сумму</strong>
+        <span>Подходящая пара должна давать значение −p.</span>
+      </div>
+
+      <div class="ms-vieta-step">
+        <span class="ms-vieta-number">4</span>
+        <strong>Запишите корни</strong>
+        <span>При необходимости проверьте их подстановкой.</span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Положительное произведение</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      x² − 7x + 12 = 0.
+    </div>
+
+    <div class="ms-pair-grid ms-card-grid ms-columns-3">
+      <div class="ms-pair-card ms-card">
+        <strong class="ms-card-title">1 и 12</strong>
+        <span class="ms-card-text">Сумма равна 13 — не подходит.</span>
+      </div>
+
+      <div class="ms-pair-card ms-card">
+        <strong class="ms-card-title">2 и 6</strong>
+        <span class="ms-card-text">Сумма равна 8 — не подходит.</span>
+      </div>
+
+      <div class="ms-pair-card ms-card">
+        <strong class="ms-card-title">3 и 4</strong>
+        <span class="ms-card-text">Сумма равна 7 — подходит.</span>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x₁ + x₂ = 7, x₁x₂ = 12.
+      </div>
+
+      <div class="ms-math-row">
+        Подходящая пара: 3 и 4.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 3; 4.</span>
+      </div>
+    </div>
+
+    <h3>Пример 3. Отрицательное произведение</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x² + x − 12 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x₁ + x₂ = −1, x₁x₂ = −12.
+      </div>
+
+      <div class="ms-math-row">
+        Корни имеют разные знаки.
+      </div>
+
+      <div class="ms-math-row">
+        3 + (−4) = −1,
+        3 · (−4) = −12.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: −4; 3.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Теорема Виета для неприведённого уравнения</h2>
+
+    <p class="ms-text">
+      Если a ≠ 1, можно сразу использовать общие формулы
+      или сначала разделить уравнение на a и получить приведённый вид.
+    </p>
+
+    <h3>Пример 4. Сумма и произведение дробных корней</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Дано уравнение</span>
+      2x² − 5x − 3 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        a = 2, b = −5, c = −3.
+      </div>
+
+      <div class="ms-math-row">
+        x₁ + x₂ =
+        −
+        <math aria-label="дробь минус пять делённое на два">
+          <mfrac><mrow><mo>−</mo><mn>5</mn></mrow><mn>2</mn></mfrac>
+        </math>
+        =
+        <math aria-label="пять вторых">
+          <mfrac><mn>5</mn><mn>2</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        x₁x₂ =
+        <math aria-label="минус три вторых">
+          <mfrac><mrow><mo>−</mo><mn>3</mn></mrow><mn>2</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        Корни: 3 и −
+        <math aria-label="одна вторая">
+          <mfrac><mn>1</mn><mn>2</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Проверка:
+          3 −
+          <math aria-label="одна вторая">
+            <mfrac><mn>1</mn><mn>2</mn></mfrac>
+          </math>
+          =
+          <math aria-label="пять вторых">
+            <mfrac><mn>5</mn><mn>2</mn></mfrac>
+          </math>,
+          а
+          3 · (−
+          <math aria-label="одна вторая">
+            <mfrac><mn>1</mn><mn>2</mn></mfrac>
+          </math>)
+          =
+          −
+          <math aria-label="три вторых">
+            <mfrac><mn>3</mn><mn>2</mn></mfrac>
+          </math>.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Обратная теорема Виета</h2>
+
+    <p class="ms-text">
+      Если два числа имеют сумму −p и произведение q,
+      то эти числа являются корнями уравнения x² + px + q = 0.
+      Это утверждение называют обратной теоремой Виета.
+    </p>
+
+    <div class="ms-inverse-vieta">
+      <div class="ms-inverse-card ms-card">
+        <strong class="ms-card-title">Даны корни x₁ и x₂</strong>
+        <span class="ms-card-text">
+          Найдите их сумму S = x₁ + x₂
+          и произведение P = x₁x₂.
+        </span>
+      </div>
+
+      <div class="ms-inverse-arrow">→</div>
+
+      <div class="ms-inverse-card ms-card">
+        <strong class="ms-card-title">Составьте уравнение</strong>
+        <span class="ms-card-text">
+          x² − Sx + P = 0.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 5. Составление уравнения по корням</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Даны корни</span>
+      x₁ = −2, x₂ = 5.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        S = −2 + 5 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        P = (−2) · 5 = −10.
+      </div>
+
+      <div class="ms-math-row">
+        x² − Sx + P = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x² − 3x − 10 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: x² − 3x − 10 = 0.</span>
+      </div>
+    </div>
+
+    <h3>Пример 6. Уравнение с дробным корнем</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Корни:
+        <math aria-label="одна вторая">
+          <mfrac><mn>1</mn><mn>2</mn></mfrac>
+        </math>
+        и 3.
+      </div>
+
+      <div class="ms-math-row">
+        S =
+        <math aria-label="семь вторых">
+          <mfrac><mn>7</mn><mn>2</mn></mfrac>
+        </math>,
+        P =
+        <math aria-label="три вторых">
+          <mfrac><mn>3</mn><mn>2</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        x² −
+        <math aria-label="семь вторых">
+          <mfrac><mn>7</mn><mn>2</mn></mfrac>
+        </math>x
+        +
+        <math aria-label="три вторых">
+          <mfrac><mn>3</mn><mn>2</mn></mfrac>
+        </math>
+        = 0.
+      </div>
+
+      <div class="ms-math-row">
+        Умножим всё уравнение на 2:
+        2x² − 7x + 3 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 2x² − 7x + 3 = 0.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Как найти второй корень</h2>
+
+    <p class="ms-text">
+      Если один корень известен, второй можно найти по сумме
+      или произведению корней, не решая уравнение заново.
+    </p>
+
+    <div class="ms-rule-box">
+      x₂ =
+      −
+      <math aria-label="дробь b делённое на a">
+        <mfrac><mi>b</mi><mi>a</mi></mfrac>
+      </math>
+      − x₁
+      <br><br>
+      или
+      <br><br>
+      x₂ =
+      <math aria-label="дробь c делённое на a умножить на x один">
+        <mfrac>
+          <mi>c</mi>
+          <mrow><mi>a</mi><msub><mi>x</mi><mn>1</mn></msub></mrow>
+        </mfrac>
+      </math>,
+      если x₁ ≠ 0.
+    </div>
+
+    <h3>Пример 7. Один корень известен</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Один из корней уравнения 3x² − 11x + 6 = 0 равен 3.
+      Найдите второй корень.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        x₁ + x₂ =
+        <math aria-label="одиннадцать третьих">
+          <mfrac><mn>11</mn><mn>3</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        3 + x₂ =
+        <math aria-label="одиннадцать третьих">
+          <mfrac><mn>11</mn><mn>3</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        x₂ =
+        <math aria-label="две третьих">
+          <mfrac><mn>2</mn><mn>3</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Ответ:
+          <math aria-label="две третьих">
+            <mfrac><mn>2</mn><mn>3</mn></mfrac>
+          </math>.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Где теорема Виета особенно полезна</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Задача</th>
+            <th>Как помогает теорема Виета</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Найти сумму или произведение корней</td>
+            <td>Не нужно вычислять сами корни.</td>
+          </tr>
+          <tr>
+            <td>Подобрать целые корни</td>
+            <td>Достаточно проверить пары множителей свободного члена.</td>
+          </tr>
+          <tr>
+            <td>Найти второй корень</td>
+            <td>Используют известную сумму или произведение.</td>
+          </tr>
+          <tr>
+            <td>Составить уравнение по корням</td>
+            <td>Применяют формулу x² − Sx + P = 0.</td>
+          </tr>
+          <tr>
+            <td>Проверить найденные корни</td>
+            <td>Сравнивают их сумму и произведение с коэффициентами.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      Теорема Виета не заменяет формулу корней во всех случаях.
+      Если подходящая пара чисел не находится быстро,
+      используйте дискриминант.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Не решая уравнение x² − 11x + 24 = 0,
+        найдите сумму и произведение его корней.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          x₁ + x₂ = 11,
+          x₁x₂ = 24.
+          <br><br>
+          <strong>Ответ: 11 и 24.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Не решая уравнение 3x² + 7x − 2 = 0,
+        найдите сумму и произведение корней.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          x₁ + x₂ = −7/3,
+          x₁x₂ = −2/3.
+          <br><br>
+          <strong>
+            Ответ:
+            −
+            <math aria-label="семь третьих">
+              <mfrac><mn>7</mn><mn>3</mn></mfrac>
+            </math>
+            и
+            −
+            <math aria-label="две третьих">
+              <mfrac><mn>2</mn><mn>3</mn></mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Решите по теореме Виета:
+        x² − 8x + 15 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Нужно найти два числа с суммой 8 и произведением 15.
+          <br><br>
+          Это числа 3 и 5.
+          <br><br>
+          <strong>Ответ: 3; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Решите по теореме Виета:
+        x² + 2x − 35 = 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сумма корней равна −2, произведение равно −35.
+          <br><br>
+          Подходят числа 5 и −7.
+          <br><br>
+          <strong>Ответ: −7; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Составьте приведённое квадратное уравнение,
+        корни которого равны 4 и −6.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          S = 4 + (−6) = −2.
+          <br>
+          P = 4 · (−6) = −24.
+          <br><br>
+          x² − Sx + P = 0.
+          <br>
+          x² + 2x − 24 = 0.
+          <br><br>
+          <strong>Ответ: x² + 2x − 24 = 0.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Составьте квадратное уравнение с целыми коэффициентами,
+        корни которого равны
+        <math aria-label="одна треть">
+          <mfrac><mn>1</mn><mn>3</mn></mfrac>
+        </math>
+        и 2.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          S = 7/3, P = 2/3.
+          <br><br>
+          x² − (7/3)x + 2/3 = 0.
+          <br>
+          Умножим на 3:
+          <br><br>
+          <strong>Ответ: 3x² − 7x + 2 = 0.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Один корень уравнения 2x² − 9x + 4 = 0 равен 4.
+        Найдите второй корень.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x₁ + x₂ = 9/2.
+          <br><br>
+          4 + x₂ = 9/2.
+          <br>
+          x₂ = 1/2.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="одна вторая">
+              <mfrac><mn>1</mn><mn>2</mn></mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        При каком значении m корни уравнения
+        x² − 10x + m = 0 имеют произведение 21?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Для приведённого уравнения произведение корней равно свободному члену.
+          <br><br>
+          m = 21.
+          <br><br>
+          <strong>Ответ: 21.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        При каком значении p сумма корней уравнения
+        x² + px − 18 = 0 равна 3?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x₁ + x₂ = −p.
+          <br><br>
+          −p = 3, поэтому p = −3.
+          <br><br>
+          <strong>Ответ: −3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Корни уравнения имеют сумму −5 и произведение 6.
+        Найдите корни и составьте уравнение.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Два числа с суммой −5 и произведением 6 — это −2 и −3.
+          <br><br>
+          Уравнение:
+          x² − (−5)x + 6 = 0.
+          <br><br>
+          <strong>Ответ: корни −3 и −2; уравнение x² + 5x + 6 = 0.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Четыре задачи, которые решает теорема Виета</h2>
+
+    <div class="ms-vieta-use-grid ms-card-grid ms-columns-4">
+      <div class="ms-vieta-use-card ms-card">
+        <strong class="ms-card-title">Найти сумму и произведение</strong>
+        <span class="ms-card-text">
+          Используйте коэффициенты, не вычисляя сами корни.
+        </span>
+      </div>
+
+      <div class="ms-vieta-use-card ms-card">
+        <strong class="ms-card-title">Подобрать целые корни</strong>
+        <span class="ms-card-text">
+          Проверяйте пары множителей свободного члена.
+        </span>
+      </div>
+
+      <div class="ms-vieta-use-card ms-card">
+        <strong class="ms-card-title">Найти неизвестный корень</strong>
+        <span class="ms-card-text">
+          Вычтите известный корень из суммы или разделите произведение.
+        </span>
+      </div>
+
+      <div class="ms-vieta-use-card ms-card">
+        <strong class="ms-card-title">Составить уравнение</strong>
+        <span class="ms-card-text">
+          По сумме S и произведению P запишите x² − Sx + P = 0.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top: 20px;">
+      Для ax² + bx + c = 0:
+      <br>
+      x₁ + x₂ = −b/a,
+      <br>
+      x₁x₂ = c/a.
+      <br><br>
+      Для уравнения по корням:
+      <br>
+      x² − (x₁ + x₂)x + x₁x₂ = 0.
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующей теме научимся решать иррациональные уравнения,
+      которые после изоляции квадратного корня и возведения в квадрат
+      сводятся к квадратному уравнению.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/uproshhyonnaya-formula-dlya-resheniya-kvadratnogo-uravneniya/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/reshenie-irraczionalnogo-uravneniya-svodyashhegosya-k-kvadratnomu/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

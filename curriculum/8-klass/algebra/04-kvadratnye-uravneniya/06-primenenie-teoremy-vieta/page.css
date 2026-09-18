@@ -1,0 +1,145 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-vieta-formula {
+  margin-top: 20px;
+  padding: 24px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+  text-align: center;
+}
+.ms-lesson-page .ms-vieta-formula-main {
+  display: block;
+  color: #1e3a8a;
+  font-size: clamp(24px, 4vw, 37px);
+  line-height: 1.55;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-vieta-formula-caption {
+  display: block;
+  margin-top: 9px;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+.ms-lesson-page .ms-vieta-card-formula {
+  display: block;
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-vieta-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-vieta-step {
+  position: relative;
+  min-height: 148px;
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.ms-lesson-page .ms-vieta-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 800;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.ms-lesson-page .ms-vieta-number {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 0 11px 0;
+  padding: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.ms-lesson-page .ms-vieta-step strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-vieta-step span:last-child {
+  display: block;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.58;
+}
+.ms-lesson-page .ms-inverse-vieta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-inverse-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 31px;
+  font-weight: 800;
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-vieta-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ms-lesson-page .ms-vieta-step:nth-child(2)::after {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-inverse-vieta {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-inverse-arrow {
+    transform: rotate(90deg);
+    min-height: 30px;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-vieta-steps {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-vieta-step {
+    min-height: auto;
+  }
+  .ms-lesson-page .ms-vieta-step:not(:last-child)::after {
+    content: "↓";
+    right: 50%;
+    top: auto;
+    bottom: -12px;
+    transform: translateX(50%);
+  }
+  .ms-lesson-page .ms-vieta-step:nth-child(2)::after {
+    display: block;
+  }
+}

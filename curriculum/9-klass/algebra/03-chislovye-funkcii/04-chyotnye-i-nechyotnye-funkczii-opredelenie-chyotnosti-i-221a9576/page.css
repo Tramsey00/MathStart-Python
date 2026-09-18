@@ -1,0 +1,45 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-test {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: ms-test;
+}
+.ms-lesson-page .ms-test li {
+  position: relative;
+  margin: 12px 0;
+  padding: 15px 16px 15px 58px;
+  border: 1px solid #dbeafe;
+  border-radius: 17px;
+  background: #fff;
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.65;
+  counter-increment: ms-test;
+}
+.ms-lesson-page .ms-test li::before {
+  content: counter(ms-test);
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-zero-box {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid #ddd6fe;
+  border-radius: 19px;
+  background: #f5f3ff;
+  color: #5b21b6;
+  font-size: 16px;
+  line-height: 1.65;
+}

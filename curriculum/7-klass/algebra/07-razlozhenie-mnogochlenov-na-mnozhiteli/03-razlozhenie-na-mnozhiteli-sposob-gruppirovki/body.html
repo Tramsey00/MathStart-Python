@@ -1,0 +1,770 @@
+<!-- wp:html -->
+
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      7 класс · Алгебра · Разложение многочленов на множители · Тема 7.3
+    </div>
+
+    <h1 class="ms-title">
+      Разложение на множители способом группировки
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся объединять члены многочлена в подходящие группы,
+      выносить общий множитель из каждой группы и получать одинаковую
+      скобку, которую затем можно вынести как общий множитель.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Идея способа группировки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Три действия метода</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Подробный разбор основного примера</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Почему скобки должны совпасть</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Группировка с отрицательными членами</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Когда приходится выносить минус</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Перестановка членов перед группировкой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Группировка более чем четырёх членов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Проверка раскрытием скобок</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Применение в уравнениях</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 13</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Быстрая самопроверка решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>Идея способа группировки</h2>
+
+    <p class="ms-text">
+      Иногда у всего многочлена нет одного общего множителя, зато его можно
+      разделить на несколько групп. После вынесения множителя из каждой группы
+      должны появиться одинаковые скобки.
+    </p>
+
+    <div class="ms-switch-grid ms-card-grid ms-columns-2">
+      <div class="ms-switch-card ms-card">
+        <span class="ms-switch-label ms-switch-label-sum">исходный многочлен</span>
+        <div class="ms-switch-formula">ax + ay + bx + by</div>
+        <p class="ms-switch-text">
+          Общего множителя у всех четырёх членов нет. Объединим первые два
+          и последние два слагаемых.
+        </p>
+      </div>
+
+      <div class="ms-switch-card ms-card">
+        <span class="ms-switch-label ms-switch-label-prod">после группировки</span>
+        <div class="ms-switch-formula">(a + b)(x + y)</div>
+        <p class="ms-switch-text">
+          В каждой группе появилась одинаковая скобка x + y,
+          поэтому её удалось вынести за скобки.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Способ группировки</strong> — это разложение многочлена на множители,
+      при котором его члены объединяют в группы, выносят общий множитель
+      из каждой группы, а затем выносят общую скобку.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>1. Три действия метода</h2>
+
+    <div class="ms-mini-grid ms-card-grid ms-columns-3">
+      <div class="ms-mini-card ms-card">
+        <strong class="ms-card-title">Составить группы</strong>
+        <span class="ms-card-text">
+          Объедините члены так, чтобы внутри каждой группы можно было
+          вынести общий множитель.
+        </span>
+      </div>
+
+      <div class="ms-mini-card ms-card">
+        <strong class="ms-card-title">Вынести множители</strong>
+        <span class="ms-card-text">
+          Разложите каждую группу отдельно и внимательно сохраните
+          знаки перед скобками.
+        </span>
+      </div>
+
+      <div class="ms-mini-card ms-card">
+        <strong class="ms-card-title">Получить общую скобку</strong>
+        <span class="ms-card-text">
+          Если скобки совпали, вынесите их как общий множитель
+          всего выражения.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Если после первого шага одинаковые скобки не появились,
+      попробуйте переставить члены или составить группы по-другому.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Подробный разбор основного примера</h2>
+
+    <div class="ms-example">
+      Разложить на множители:
+      x² + 3x + 2x + 6.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Объединим первые два и последние два члена:
+      </div>
+
+      <div class="ms-math-row">
+        (x² + 3x) + (2x + 6).
+      </div>
+
+      <div class="ms-math-row">
+        Вынесем общий множитель из каждой группы:
+      </div>
+
+      <div class="ms-math-row">
+        x(x + 3) + 2(x + 3).
+      </div>
+
+      <div class="ms-math-row">
+        Общая скобка равна x + 3:
+      </div>
+
+      <div class="ms-math-row">
+        (x + 3)(x + 2).
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (x + 2)(x + 3).</span>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Одинаковая скобка становится общим множителем
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 940 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Разложение многочлена способом группировки">
+          <rect x="0" y="0" width="940" height="590" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="90" y="55" width="760" height="80" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="105" text-anchor="middle" font-size="27" font-weight="800" fill="#111827">
+            x² + 3x + 2x + 6
+          </text>
+
+          <rect x="90" y="180" width="350" height="110" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="265" y="222" text-anchor="middle" font-size="18" font-weight="800" fill="#1e40af">
+            Первая группа
+          </text>
+          <text x="265" y="262" text-anchor="middle" font-size="26" font-weight="800" fill="#2563eb">
+            x(x + 3)
+          </text>
+
+          <rect x="500" y="180" width="350" height="110" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="675" y="222" text-anchor="middle" font-size="18" font-weight="800" fill="#6d28d9">
+            Вторая группа
+          </text>
+          <text x="675" y="262" text-anchor="middle" font-size="26" font-weight="800" fill="#7c3aed">
+            2(x + 3)
+          </text>
+
+          <rect x="195" y="350" width="550" height="90" rx="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="470" y="388" text-anchor="middle" font-size="18" font-weight="800" fill="#c2410c">
+            Общий множитель обеих групп
+          </text>
+          <text x="470" y="422" text-anchor="middle" font-size="27" font-weight="800" fill="#ea580c">
+            x + 3
+          </text>
+
+          <rect x="245" y="485" width="450" height="62" rx="20" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="470" y="525" text-anchor="middle" font-size="29" font-weight="800" fill="#15803d">
+            (x + 3)(x + 2)
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Почему скобки должны совпасть</h2>
+
+    <p class="ms-text">
+      После первого вынесения множителей выражение обычно принимает вид
+      A·C + B·C. Здесь C — одинаковое выражение в двух слагаемых.
+      По распределительному свойству его можно вынести за скобки.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        A·C + B·C = C(A + B).
+      </div>
+
+      <div class="ms-math-row">
+        Например:
+      </div>
+
+      <div class="ms-math-row">
+        x(x + 3) + 2(x + 3) = (x + 3)(x + 2).
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Если скобки получились разными, разложение ещё не завершено.
+      Нужно проверить знаки, порядок членов и выбранную группировку.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Группировка с отрицательными членами</h2>
+
+    <div class="ms-example">
+      Разложить на множители:
+      3a² − 6ab + 2ac − 4bc.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Составим две группы:
+      </div>
+
+      <div class="ms-math-row">
+        (3a² − 6ab) + (2ac − 4bc).
+      </div>
+
+      <div class="ms-math-row">
+        Вынесем общий множитель из каждой группы:
+      </div>
+
+      <div class="ms-math-row">
+        3a(a − 2b) + 2c(a − 2b).
+      </div>
+
+      <div class="ms-math-row">
+        Общая скобка a − 2b:
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (a − 2b)(3a + 2c).</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Знак минус внутри общей скобки должен быть одинаковым в обеих группах.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Когда приходится выносить минус</h2>
+
+    <div class="ms-example">
+      Разложить на множители:
+      x² − 3x − 2x + 6.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Сгруппируем члены:
+      </div>
+
+      <div class="ms-math-row">
+        (x² − 3x) + (−2x + 6).
+      </div>
+
+      <div class="ms-math-row">
+        Из первой группы вынесем x, а из второй — число −2:
+      </div>
+
+      <div class="ms-math-row">
+        x(x − 3) − 2(x − 3).
+      </div>
+
+      <div class="ms-math-row">
+        Теперь скобки совпадают:
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (x − 3)(x − 2).</span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Иногда отрицательный множитель выносят специально,
+      чтобы получить такую же скобку, как в другой группе.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Перестановка членов перед группировкой</h2>
+
+    <p class="ms-text">
+      Члены многочлена можно переставлять, потому что сложение обладает
+      переместительным свойством. Это часто помогает увидеть подходящие пары.
+    </p>
+
+    <div class="ms-example">
+      Разложить на множители:
+      2a² + ab − 6a − 3b.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Удобно объединить первый член с третьим,
+        а второй — с четвёртым:
+      </div>
+
+      <div class="ms-math-row">
+        (2a² − 6a) + (ab − 3b).
+      </div>
+
+      <div class="ms-math-row">
+        2a(a − 3) + b(a − 3).
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (a − 3)(2a + b).</span>
+      </div>
+    </div>
+
+    <div class="ms-switch-grid ms-card-grid ms-columns-2">
+      <div class="ms-switch-card ms-card">
+        <span class="ms-switch-label ms-switch-label-sum">неудобно</span>
+        <div class="ms-switch-formula">(2a² + ab) + (−6a − 3b)</div>
+        <p class="ms-switch-text">
+          После вынесения множителей одинаковые скобки сразу не появляются.
+        </p>
+      </div>
+
+      <div class="ms-switch-card ms-card">
+        <span class="ms-switch-label ms-switch-label-prod">удобно</span>
+        <div class="ms-switch-formula">(2a² − 6a) + (ab − 3b)</div>
+        <p class="ms-switch-text">
+          В обеих группах получается скобка a − 3.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>7. Группировка более чем четырёх членов</h2>
+
+    <p class="ms-text">
+      Группы не обязаны состоять ровно из двух членов. Главное,
+      чтобы после вынесения множителей возник общий множитель-многочлен.
+    </p>
+
+    <div class="ms-example">
+      Разложить на множители:
+      ax + ay + az + bx + by + bz.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Объединим первые три и последние три члена:
+      </div>
+
+      <div class="ms-math-row">
+        (ax + ay + az) + (bx + by + bz).
+      </div>
+
+      <div class="ms-math-row">
+        a(x + y + z) + b(x + y + z).
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (a + b)(x + y + z).</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Проверка раскрытием скобок</h2>
+
+    <p class="ms-text">
+      После разложения перемножьте полученные множители. Если восстановился
+      исходный многочлен, группировка выполнена верно.
+    </p>
+
+    <div class="ms-example">
+      Проверить:
+      2m² + 6m − mn − 3n = (2m − n)(m + 3).
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Раскроем скобки:
+      </div>
+
+      <div class="ms-math-row">
+        (2m − n)(m + 3)
+        = 2m² + 6m − mn − 3n.
+      </div>
+
+      <div class="ms-math-row">
+        Получили исходный многочлен.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Разложение выполнено правильно.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>9. Применение в уравнениях</h2>
+
+    <div class="ms-example">
+      Решить уравнение:
+      x² + 5x + 2x + 10 = 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Сгруппируем члены:
+      </div>
+
+      <div class="ms-math-row">
+        x(x + 5) + 2(x + 5) = 0.
+      </div>
+
+      <div class="ms-math-row">
+        (x + 5)(x + 2) = 0.
+      </div>
+
+      <div class="ms-math-row">
+        Произведение равно нулю, если хотя бы один множитель равен нулю:
+      </div>
+
+      <div class="ms-math-row">
+        x + 5 = 0
+        &nbsp;&nbsp;или&nbsp;&nbsp;
+        x + 2 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: −5; −2.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-11">
+    <h2>10. Задания для самопроверки</h2>
+
+    <p class="ms-text">
+      В решении показывайте выбранные группы, вынесенные множители
+      и получившуюся общую скобку.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Разложите на множители: ax + ay + bx + by.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сгруппируем:
+          <br><br>
+          (ax + ay) + (bx + by).
+          <br><br>
+          a(x + y) + b(x + y).
+          <br><br>
+          <strong>Ответ: (a + b)(x + y).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Разложите на множители: x² + 4x + 3x + 12.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (x² + 4x) + (3x + 12)
+          = x(x + 4) + 3(x + 4).
+          <br><br>
+          <strong>Ответ: (x + 3)(x + 4).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Разложите на множители: 2a² + 6a + ab + 3b.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (2a² + 6a) + (ab + 3b)
+          = 2a(a + 3) + b(a + 3).
+          <br><br>
+          <strong>Ответ: (2a + b)(a + 3).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Разложите на множители: 5x² − 10x + 3xy − 6y.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (5x² − 10x) + (3xy − 6y)
+          = 5x(x − 2) + 3y(x − 2).
+          <br><br>
+          <strong>Ответ: (x − 2)(5x + 3y).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Разложите на множители: x² − 7x − 2x + 14.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (x² − 7x) + (−2x + 14)
+          = x(x − 7) − 2(x − 7).
+          <br><br>
+          <strong>Ответ: (x − 7)(x − 2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Разложите на множители: 6a² − 9ab + 4ac − 6bc.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (6a² − 9ab) + (4ac − 6bc)
+          = 3a(2a − 3b) + 2c(2a − 3b).
+          <br><br>
+          <strong>Ответ: (2a − 3b)(3a + 2c).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Переставьте члены и разложите на множители:
+        3x² + 2xy − 12x − 8y.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Удобная группировка:
+          <br><br>
+          (3x² − 12x) + (2xy − 8y).
+          <br><br>
+          3x(x − 4) + 2y(x − 4).
+          <br><br>
+          <strong>Ответ: (x − 4)(3x + 2y).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Разложите на множители:
+        am + an + bm + bn + cm + cn.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (am + an) + (bm + bn) + (cm + cn)
+          = a(m + n) + b(m + n) + c(m + n).
+          <br><br>
+          <strong>Ответ: (a + b + c)(m + n).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Проверьте раскрытием скобок:
+        4x² + 12x − xy − 3y = (4x − y)(x + 3).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (4x − y)(x + 3)
+          = 4x² + 12x − xy − 3y.
+          <br><br>
+          Получили исходный многочлен.
+          <br><br>
+          <strong>Равенство верно.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Решите уравнение:
+        x² + 6x + 3x + 18 = 0.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x(x + 6) + 3(x + 6) = 0.
+          <br><br>
+          (x + 6)(x + 3) = 0.
+          <br><br>
+          <strong>Ответ: −6; −3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 11.</strong>
+        Найдите такую группировку и разложите:
+        2x² + xy − 10x − 5y.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (2x² − 10x) + (xy − 5y)
+          = 2x(x − 5) + y(x − 5).
+          <br><br>
+          <strong>Ответ: (x − 5)(2x + y).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 12.</strong>
+        Разложите на множители:
+        3a³ + 6a²b − 5ac − 10bc.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (3a³ + 6a²b) + (−5ac − 10bc).
+          <br><br>
+          3a²(a + 2b) − 5c(a + 2b).
+          <br><br>
+          <strong>Ответ: (a + 2b)(3a² − 5c).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 13.</strong>
+        Разложите на множители и решите уравнение:
+        2x² − 8x + 3x − 12 = 0.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сгруппируем:
+          <br><br>
+          (2x² − 8x) + (3x − 12) = 0.
+          <br><br>
+          2x(x − 4) + 3(x − 4) = 0.
+          <br><br>
+          (x − 4)(2x + 3) = 0.
+          <br><br>
+          x = 4
+          &nbsp;&nbsp;или&nbsp;&nbsp;
+          x = −
+          <span class="ms-frac">
+            <span class="ms-num">3</span>
+            <span class="ms-den">2</span>
+          </span>.
+          <br><br>
+          <strong>
+            Ответ: 4; −
+            <span class="ms-frac">
+              <span class="ms-num">3</span>
+              <span class="ms-den">2</span>
+            </span>.
+          </strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-12">
+    <h2>11. Быстрая самопроверка решения</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Все члены использованы</strong>
+        <span class="ms-card-text">
+          Ни один член исходного многочлена не потерян и не записан дважды.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Скобки совпали</strong>
+        <span class="ms-card-text">
+          После вынесения множителей внутри групп получено одно и то же выражение.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверка восстановила многочлен</strong>
+        <span class="ms-card-text">
+          После раскрытия итоговых скобок получается исходная запись.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Следующая тема посвящена разложению многочленов на множители
+      с помощью формул сокращённого умножения.
+    </div>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/razlozhenie-na-mnozhiteli-vynesenie-obshhego-mnozhitelya-za-skobki/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/razlozhenie-na-mnozhiteli-ispolzovanie-formul-sokrashhyonnogo-umnozheniya/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

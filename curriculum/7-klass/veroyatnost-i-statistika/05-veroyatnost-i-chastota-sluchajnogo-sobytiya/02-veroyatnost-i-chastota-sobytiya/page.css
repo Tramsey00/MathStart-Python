@@ -1,0 +1,56 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-probability-scale {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0;
+}
+.ms-lesson-page .ms-scale-end {
+  min-width: 100px;
+  padding: 12px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: center;
+}
+.ms-lesson-page .ms-scale-end strong {
+  display: block;
+  color: #1d4ed8;
+  font-size: 20px;
+}
+.ms-lesson-page .ms-scale-end span {
+  color: #4b5563;
+  font-size: 13.5px;
+}
+.ms-lesson-page .ms-scale-track {
+  position: relative;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fee2e2 0%, #dbeafe 50%, #dcfce7 100%);
+  border: 1px solid #d1d5db;
+}
+.ms-lesson-page .ms-scale-track::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 2px;
+  height: 26px;
+  background: #2563eb;
+}
+.ms-lesson-page .ms-process-line {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-process-line,
+  .ms-lesson-page .ms-probability-scale {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-scale-track {
+    min-height: 18px;
+  }
+}

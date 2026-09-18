@@ -1,0 +1,94 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Случайные события · Тема 5.4</div>
+    <h1 class="ms-title">Правило умножения вероятностей. Условная вероятность. Независимые события</h1>
+    <p class="ms-subtitle">Разберём, как находить вероятность последовательности событий, учитывать изменившиеся условия и отличать независимые опыты от зависимых.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/pravilo-umnozheniya-veroyatnostej-uslovnaya-veroyatnost-nezavisimye-sobytiya/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Вероятность события при известном условии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Общее правило умножения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Независимые события</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Независимость и несовместность — разные понятия</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как выбрать нужную формулу</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Разобранные примеры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Контроль формул: условие определяет правило</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Вероятность события при известном условии</h2>
+    <p class="ms-text"><strong>Условная вероятность P(B | A)</strong> — вероятность события B при условии, что событие A уже произошло.</p>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>В коробке 5 красных и 3 синих шара. После извлечения красного шара без возвращения остаются 4 красных и 3 синих. Вероятность снова вынуть красный шар изменилась с 5/8 на <strong>4/7</strong>.</div>
+    <div class="ms-rule-box">Вертикальная черта читается «при условии»: P(B | A) — вероятность B при условии A.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Общее правило умножения</h2>
+    <p class="ms-text">Чтобы найти вероятность совместного наступления A и B, вероятность первого события умножают на вероятность второго после наступления первого.</p>
+    <div class="ms-formula-banner"><div class="ms-formula-main">P(A ∩ B) = P(A) · P(B | A)</div><div class="ms-formula-note">Сначала происходит A, затем в изменившихся условиях рассматривается B.</div></div>
+    <div class="ms-example"><span class="ms-example-title">Два красных шара без возвращения</span>P(первый красный) = 5/8. После этого P(второй красный | первый красный) = 4/7. Значит, P = 5/8 · 4/7 = 20/56 = <strong>5/14</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Независимые события</h2>
+    <p class="ms-text">События A и B называют <strong>независимыми</strong>, если наступление A не изменяет вероятность B. Тогда P(B | A) = P(B).</p>
+    <div class="ms-formula-banner"><div class="ms-formula-main">P(A ∩ B) = P(A) · P(B)</div><div class="ms-formula-note">Эта сокращённая формула верна именно для независимых событий.</div></div>
+    <div class="ms-example"><span class="ms-example-title">Монета и игральная кость</span>A — выпал орёл, P(A) = 1/2. B — на кости выпало число, кратное 3, P(B) = 2/6 = 1/3. Опыты независимы, поэтому P(A ∩ B) = 1/2 · 1/3 = <strong>1/6</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Два независимых устройства</span>Вероятность отказа каждого устройства равна 0,08. Вероятность одновременного отказа: 0,08 · 0,08 = <strong>0,0064</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Независимость и несовместность — разные понятия</h2>
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Независимые события</strong><span class="ms-card-text">Могут произойти одновременно. Одно не меняет вероятность другого.</span></div>
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Несовместные события</strong><span class="ms-card-text">Не могут произойти одновременно: A ∩ B = ∅.</span></div>
+    </div>
+    <div class="ms-warning-box">Если два события имеют положительные вероятности и несовместны, они не являются независимыми: наступление одного делает вероятность другого равной нулю.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Как выбрать нужную формулу</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Определите порядок</strong><span class="ms-card-text">Какие события происходят последовательно?</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проверьте изменение условий</strong><span class="ms-card-text">Меняется ли состав, количество или вероятность после первого события?</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Возьмите условную вероятность</strong><span class="ms-card-text">При зависимости используйте P(B | A).</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Перемножьте</strong><span class="ms-card-text">Вероятности вдоль последовательности событий умножаются.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Разобранные примеры</h2>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Две монеты</span>Вероятность двух орлов: 1/2 · 1/2 = <strong>1/4</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Два изделия без возвращения</span>Среди 10 изделий 2 бракованных. Вероятность выбрать подряд два бракованных: 2/10 · 1/9 = <strong>1/45</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 3. Условная вероятность по исходам</span>Из чисел 1–12 случайно выбрано чётное число. Вероятность того, что оно делится на 3: среди чётных {2, 4, 6, 8, 10, 12} подходят {6, 12}; P = 2/6 = <strong>1/3</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+    <div class="ms-task"><p>1. Монету бросают дважды. Найдите вероятность двух решек.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Броски независимы: 1/2 · 1/2 = <strong>1/4</strong>.</p></div></details></div>
+    <div class="ms-task"><p>2. Кость бросают дважды. Найдите вероятность, что оба раза выпадет 6.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>1/6 · 1/6 = <strong>1/36</strong>.</p></div></details></div>
+    <div class="ms-task"><p>3. В коробке 4 белых и 6 чёрных шаров. Два шара вынимают без возвращения. Найдите вероятность двух белых.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>4/10 · 3/9 = 12/90 = <strong>2/15</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. В той же коробке первый шар вернули. Найдите вероятность двух белых.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>После возвращения вероятность не меняется: 4/10 · 4/10 = 16/100 = <strong>4/25</strong>.</p></div></details></div>
+    <div class="ms-task"><p>5. P(A) = 0,7, P(B | A) = 0,4. Найдите P(A ∩ B).</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,7 · 0,4 = <strong>0,28</strong>.</p></div></details></div>
+    <div class="ms-task"><p>6. Независимы ли события «выпал орёл на монете» и «на кости выпало 5»?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Да. Результат монеты не влияет на результат кости.</p></div></details></div>
+    <div class="ms-task"><p>7. Из чисел 1–20 случайно выбрано число, кратное 2. Найдите условную вероятность того, что оно кратно 5.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Чётных чисел 10: 2, 4, ..., 20. Среди них кратны 5 числа 10 и 20. Вероятность 2/10 = <strong>1/5</strong>.</p></div></details></div>
+    <div class="ms-task"><p>8. Два независимых датчика срабатывают с вероятностями 0,9 и 0,8. Найдите вероятность, что сработают оба.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,9 · 0,8 = <strong>0,72</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>Контроль формул: условие определяет правило</h2>
+    <div class="ms-rule-box"><strong>Зависимые события:</strong> P(A ∩ B) = P(A) · P(B | A).</div>
+    <div class="ms-rule-box"><strong>Независимые события:</strong> P(A ∩ B) = P(A) · P(B).</div>
+    <div class="ms-note">Перед умножением всегда спросите: изменились ли условия после первого события?</div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/nesovmestnye-sobytiya-formula-slozheniya-veroyatnostej/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/predstavlenie-sluchajnogo-eksperimenta-v-vide-dereva/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

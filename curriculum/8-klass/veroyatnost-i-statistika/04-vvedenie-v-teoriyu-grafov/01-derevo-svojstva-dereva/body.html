@@ -1,0 +1,157 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Введение в теорию графов · Тема 4.1</div>
+    <h1 class="ms-title">Дерево. Свойства дерева</h1>
+    <p class="ms-subtitle">Познакомимся с деревом как особым графом, научимся находить пути, листья и циклы, а также быстро определять, является ли данная схема деревом.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/derevo-svojstva-dereva/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Из чего состоит граф</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Что называют деревом</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Дерево и два похожих графа</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Основные элементы дерева</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Четыре свойства, которые помогают решать задачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как проверить граф</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Финишная памятка: дерево распознано</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Из чего состоит граф</h2>
+    <p class="ms-text"><strong>Граф</strong> — это схема, состоящая из вершин и соединяющих их рёбер. Граф помогает изображать дороги, связи между объектами, последовательность решений и другие системы.</p>
+    <div class="ms-term-grid ms-card-grid ms-columns-3">
+      <div class="ms-term-card ms-card"><strong class="ms-card-title">Вершина</strong><span class="ms-card-text">Точка графа. Она обозначает объект, состояние или этап.</span></div>
+      <div class="ms-term-card ms-card"><strong class="ms-card-title">Ребро</strong><span class="ms-card-text">Линия между двумя вершинами. Она показывает, что вершины связаны.</span></div>
+      <div class="ms-term-card ms-card"><strong class="ms-card-title">Путь</strong><span class="ms-card-text">Последовательность рёбер, по которым можно пройти от одной вершины к другой.</span></div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Если вершины обозначают населённые пункты, а рёбра — дороги между ними, то путь показывает маршрут из одного пункта в другой.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Что называют деревом</h2>
+    <div class="ms-rule-box"><strong>Дерево</strong> — это связный граф без циклов.</div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Связность</h3><p class="ms-card-text">Из любой вершины можно пройти по рёбрам в любую другую вершину.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Отсутствие циклов</h3><p class="ms-card-text">Нельзя выйти из вершины, пройти по нескольким различным рёбрам и вернуться в неё же.</p></div>
+    </div>
+    <div class="ms-note">Для дерева необходимы оба условия одновременно. Связный граф с циклом и граф без циклов, состоящий из нескольких частей, деревьями не являются.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Дерево и два похожих графа</h2>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Сравните три схемы</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Сравнение дерева, связного графа с циклом и несвязного графа">
+          <rect x="18" y="18" width="274" height="314" rx="24" fill="#f8fbff" stroke="#bfdbfe" stroke-width="2"/>
+          <rect x="313" y="18" width="274" height="314" rx="24" fill="#fffaf5" stroke="#fed7aa" stroke-width="2"/>
+          <rect x="608" y="18" width="274" height="314" rx="24" fill="#fafafa" stroke="#e5e7eb" stroke-width="2"/>
+
+          <text x="155" y="55" text-anchor="middle" font-size="21" font-weight="800" fill="#111827">Дерево</text>
+          <text x="450" y="55" text-anchor="middle" font-size="21" font-weight="800" fill="#111827">Есть цикл</text>
+          <text x="745" y="55" text-anchor="middle" font-size="21" font-weight="800" fill="#111827">Нет связности</text>
+
+          <g stroke="#64748b" stroke-width="4" stroke-linecap="round">
+            <line x1="155" y1="94" x2="92" y2="164"/><line x1="155" y1="94" x2="218" y2="164"/>
+            <line x1="92" y1="164" x2="62" y2="250"/><line x1="92" y1="164" x2="128" y2="250"/>
+            <line x1="218" y1="164" x2="196" y2="250"/><line x1="218" y1="164" x2="255" y2="250"/>
+          </g>
+          <g fill="#ffffff" stroke="#2563eb" stroke-width="4">
+            <circle cx="155" cy="94" r="13"/><circle cx="92" cy="164" r="13"/><circle cx="218" cy="164" r="13"/>
+            <circle cx="62" cy="250" r="13"/><circle cx="128" cy="250" r="13"/><circle cx="196" cy="250" r="13"/><circle cx="255" cy="250" r="13"/>
+          </g>
+          <text x="155" y="302" text-anchor="middle" font-size="16" font-weight="700" fill="#15803d">Связный, без циклов</text>
+
+          <g stroke="#64748b" stroke-width="4" stroke-linecap="round">
+            <line x1="450" y1="95" x2="380" y2="210"/><line x1="380" y1="210" x2="520" y2="210"/><line x1="520" y1="210" x2="450" y2="95"/>
+            <line x1="520" y1="210" x2="550" y2="270"/>
+          </g>
+          <g fill="#ffffff" stroke="#f97316" stroke-width="4">
+            <circle cx="450" cy="95" r="13"/><circle cx="380" cy="210" r="13"/><circle cx="520" cy="210" r="13"/><circle cx="550" cy="270" r="13"/>
+          </g>
+          <text x="450" y="302" text-anchor="middle" font-size="16" font-weight="700" fill="#c2410c">Треугольник образует цикл</text>
+
+          <g stroke="#64748b" stroke-width="4" stroke-linecap="round">
+            <line x1="670" y1="130" x2="720" y2="205"/><line x1="720" y1="205" x2="660" y2="270"/>
+            <line x1="790" y1="125" x2="835" y2="205"/>
+          </g>
+          <g fill="#ffffff" stroke="#64748b" stroke-width="4">
+            <circle cx="670" cy="130" r="13"/><circle cx="720" cy="205" r="13"/><circle cx="660" cy="270" r="13"/>
+            <circle cx="790" cy="125" r="13"/><circle cx="835" cy="205" r="13"/>
+          </g>
+          <text x="745" y="302" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">Две отдельные части</text>
+        </svg>
+      </div>
+      <div class="ms-graph-key"><span class="ms-key-item"><span class="ms-key-dot"></span>вершина</span><span class="ms-key-item"><span class="ms-key-line"></span>ребро</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Основные элементы дерева</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Лист, или висячая вершина</h3><p class="ms-card-text">Вершина, из которой выходит только одно ребро. У любого конечного дерева с двумя и более вершинами есть не менее двух листьев.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Ветвь</h3><p class="ms-card-text">Часть дерева, отходящая от некоторой вершины. В задачах ветвью часто называют один из возможных вариантов продолжения.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Корень</h3><p class="ms-card-text">Выбранная начальная вершина. После выбора корня дерево удобно читать по уровням сверху вниз.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Цепочка, или путь</h3><p class="ms-card-text">Маршрут по соседним рёбрам. В дереве между двумя вершинами существует ровно один путь.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Четыре свойства, которые помогают решать задачи</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Путь единственный</strong><span class="ms-card-text">Между любыми двумя вершинами дерева нельзя выбрать два разных маршрута.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Удаление ребра</strong><span class="ms-card-text">Если убрать любое ребро дерева, граф распадётся на две несвязанные части.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Добавление ребра</strong><span class="ms-card-text">Если соединить две уже существующие вершины новым ребром, появится ровно один цикл.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Есть листья</strong><span class="ms-card-text">В конечном дереве с несколькими вершинами обязательно найдутся висячие вершины.</span></div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Почему путь единственный</span>Если бы между вершинами A и B существовали два разных пути, то, пройдя по одному пути туда, а по другому обратно, мы получили бы цикл. Но в дереве циклов нет.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Как проверить граф</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Отметьте все вершины</strong><span class="ms-card-text">Убедитесь, что ни одна точка схемы не пропущена.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проверьте связность</strong><span class="ms-card-text">Попробуйте добраться из любой вершины в каждую другую.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Поищите цикл</strong><span class="ms-card-text">Проверьте, можно ли вернуться в исходную вершину по другим рёбрам.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Сделайте вывод</strong><span class="ms-card-text">Связный граф без циклов является деревом.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task"><p>1. Граф имеет вершины A, B, C, D и рёбра AB, BC, CD. Является ли он деревом?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Граф связный: из каждой вершины можно пройти в любую другую. Циклов нет. Следовательно, это <strong>дерево</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>2. В графе есть рёбра AB, BC, CA и CD. Почему этот граф не является деревом?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Рёбра AB, BC и CA образуют цикл A–B–C–A. Поэтому граф <strong>не является деревом</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>3. В дереве заданы рёбра AB, AC, CD, CE и EF. Назовите все листья.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Только одно ребро выходит из вершин B, D и F. Значит, листья — <strong>B, D и F</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>4. Что произойдёт, если удалить любое ребро из дерева?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Единственный путь между некоторыми вершинами будет разрушен, поэтому граф распадётся на <strong>две несвязанные части</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>5. Что произойдёт, если соединить новым ребром две вершины одного дерева?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Между этими вершинами уже существовал единственный путь. Новое ребро вместе с этим путём образует <strong>ровно один цикл</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>6. Может ли в дереве существовать два различных пути между одними и теми же вершинами?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет. Два различных пути образовали бы цикл, а дерево циклов не содержит.</p></div></details></div>
+
+    <div class="ms-task"><p>7. Может ли конечное дерево с шестью вершинами не иметь ни одного листа?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет. Любое конечное дерево, содержащее не менее двух вершин, имеет как минимум <strong>два листа</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>8. Постройте пример дерева с пятью вершинами, у которого четыре листа.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Возьмём центральную вершину O и соединим её с A, B, C и D. Получится дерево-звезда. Вершины <strong>A, B, C и D</strong> будут листьями.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>Финишная памятка: дерево распознано</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Два главных условия</strong><span class="ms-card-text">Дерево обязательно связано и не содержит ни одного цикла.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Один маршрут</strong><span class="ms-card-text">Между любыми двумя вершинами дерева существует единственный путь.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Чувствительность к ребру</strong><span class="ms-card-text">Удаление ребра нарушает связность, а добавление нового ребра создаёт цикл.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/opyty-s-ravnovozmozhnymi-elementarnymi-sobytiyami/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/svojstvo-dereva-svyaz-mezhdu-chislom-vershin-i-chislom-ryober-pravilo-umnozheniya/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

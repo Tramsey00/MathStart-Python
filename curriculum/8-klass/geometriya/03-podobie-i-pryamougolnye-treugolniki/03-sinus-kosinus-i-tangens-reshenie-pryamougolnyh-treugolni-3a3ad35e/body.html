@@ -1,0 +1,584 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">8 класс · Геометрия · Подобие · Тема 3.3</div>
+<h1 class="ms-title">Синус, косинус и тангенс. Решение прямоугольных треугольников</h1>
+<p class="ms-subtitle">
+      Введём тригонометрические отношения острого угла, докажем,
+      что они зависят только от величины угла, выведем основные связи
+      и научимся находить стороны и углы прямоугольного треугольника.
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="/sinus-kosinus-i-tangens-reshenie-pryamougolnyh-treugolnikov/#theory">Перейти к материалу</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Стороны относительно острого угла</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Синус, косинус и тангенс</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Основные связи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Значения для углов 30°, 45° и 60°</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как найти сторону</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Решение прямоугольного треугольника</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Применение в задачах</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Итог: выберите отношение по сторонам</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="theory">
+<h2>1. Стороны относительно острого угла</h2>
+<p class="ms-text">
+      Названия катетов зависят от того, относительно какого острого угла
+      рассматривается треугольник. Гипотенуза при этом не меняется:
+      она всегда лежит напротив прямого угла.
+    </p>
+<div class="ms-figure">
+<p class="ms-figure-title">Стороны прямоугольного треугольника относительно угла α</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Прямоугольный треугольник и стороны относительно угла альфа" class="ms-svg" role="img" viewbox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="450" rx="24" width="1000"></rect>
+<polygon fill="#eff6ff" points="140,355 140,100 625,355" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<polyline fill="none" points="140,329 166,329 166,355" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="800">
+<text x="110" y="386">A</text>
+<text x="110" y="89">B</text>
+<text x="636" y="386">C</text>
+</g>
+<rect fill="#ffffff" height="86" rx="18" stroke="#dbeafe" stroke-width="2" width="180" x="24" y="175"></rect>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#7c3aed" font-size="17" text-anchor="middle" x="114" y="211">противолежащий</text>
+<text fill="#7c3aed" font-size="17" text-anchor="middle" x="114" y="239">катет AB</text>
+<text fill="#15803d" font-size="18" text-anchor="middle" x="383" y="394">прилежащий катет AC</text>
+<text fill="#1d4ed8" font-size="18" text-anchor="middle" x="420" y="186">гипотенуза BC</text>
+<text fill="#b45309" font-size="22" x="565" y="343">α</text>
+</g>
+<rect fill="#ffffff" height="248" rx="22" stroke="#dbeafe" stroke-width="2" width="285" x="685" y="86"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="18" font-weight="800" text-anchor="middle" x="828" y="127">Относительно угла α</text>
+<text fill="#7c3aed" font-size="17" font-weight="800" text-anchor="middle" x="828" y="171">AB — противолежащий катет</text>
+<text fill="#15803d" font-size="17" font-weight="800" text-anchor="middle" x="828" y="214">AC — прилежащий катет</text>
+<text fill="#2563eb" font-size="17" font-weight="800" text-anchor="middle" x="828" y="257">BC — гипотенуза</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="828" y="304">прямой угол находится при A</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-note">
+      Для другого острого угла катеты поменяются ролями:
+      противолежащий станет прилежащим, а прилежащий — противолежащим.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-2">
+<h2>2. Синус, косинус и тангенс</h2>
+<div class="ms-math-box">
+<div class="ms-math-row">
+<strong>sin α</strong> =
+        противолежащий катет : гипотенуза.
+      </div>
+<div class="ms-math-row">
+<strong>cos α</strong> =
+        прилежащий катет : гипотенуза.
+      </div>
+<div class="ms-math-row">
+<strong>tg α</strong> =
+        противолежащий катет : прилежащий катет.
+      </div>
+</div>
+<div class="ms-rule-box">
+      В треугольнике ABC с прямым углом A и острым углом C = α:
+      <strong>sin α = AB : BC</strong>,
+      <strong>cos α = AC : BC</strong>,
+      <strong>tg α = AB : AC</strong>.
+    </div>
+<div class="ms-figure">
+<p class="ms-figure-title">Почему тригонометрические отношения зависят только от угла</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Два подобных прямоугольных треугольника с одинаковым острым углом" class="ms-svg" role="img" viewbox="0 0 1040 480" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="480" rx="24" width="1040"></rect>
+<polygon fill="#eff6ff" points="90,370 90,180 430,370" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<polyline fill="none" points="90,346 114,346 114,370" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<polygon fill="#f7f4ff" points="585,350 585,228 835,350" stroke="#7c3aed" stroke-linejoin="round" stroke-width="4"></polygon>
+<polyline fill="none" points="585,328 607,328 607,350" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="19" font-weight="800">
+<text x="61" y="399">A</text>
+<text x="61" y="168">B</text>
+<text x="444" y="396">C</text>
+<text x="551" y="378">A₁</text>
+<text x="551" y="216">B₁</text>
+<text x="846" y="382">C₁</text>
+</g>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#b45309" font-size="19" text-anchor="middle" x="394" y="360">α</text>
+<text fill="#b45309" font-size="19" text-anchor="middle" x="801" y="339">α</text>
+</g>
+<rect fill="#f9fafb" height="112" rx="20" stroke="#dbeafe" stroke-width="2" width="390" x="330" y="28"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="18" font-weight="800" text-anchor="middle" x="525" y="66">Два прямых угла и равные углы α</text>
+<text fill="#4b5563" font-size="17" text-anchor="middle" x="525" y="96">треугольники подобны по двум углам</text>
+<text fill="#15803d" font-size="17" font-weight="800" text-anchor="middle" x="525" y="126">отношения сторон одинаковы</text>
+</g>
+<rect fill="#ffffff" height="126" rx="19" stroke="#dbeafe" stroke-width="2" width="222" x="785" y="64"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#7c3aed" font-size="16" font-weight="800" text-anchor="middle" x="896" y="101">AB : BC = A₁B₁ : B₁C₁</text>
+<text fill="#15803d" font-size="16" font-weight="800" text-anchor="middle" x="896" y="136">AC : BC = A₁C₁ : B₁C₁</text>
+<text fill="#b45309" font-size="16" font-weight="800" text-anchor="middle" x="896" y="171">AB : AC = A₁B₁ : A₁C₁</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Обоснование определений</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>
+          Возьмём два прямоугольных треугольника с одинаковым острым углом α.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>
+          Они подобны по двум углам: прямые углы равны, углы α также равны.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>
+          Соответствующие стороны подобных треугольников пропорциональны.
+          Поэтому отношение противолежащего катета к гипотенузе,
+          прилежащего катета к гипотенузе и двух катетов одинаково
+          для всех прямоугольных треугольников с углом α.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>
+          Следовательно, sin α, cos α и tg α определяются только величиной угла α,
+          а не размерами конкретного треугольника.
+        </div>
+</div>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-3">
+<h2>3. Основные связи</h2>
+<h3>Основное тригонометрическое тождество</h3>
+<div class="ms-rule-box">
+      Для любого острого угла:
+      <strong>sin² α + cos² α = 1</strong>.
+    </div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство</span>
+<p>
+        Пусть катеты прямоугольного треугольника равны a и b,
+        гипотенуза — c. Тогда sin α = a : c, cos α = b : c.
+      </p>
+<p>
+        sin² α + cos² α = a² : c² + b² : c² =
+        (a² + b²) : c².
+      </p>
+<p>
+        По теореме Пифагора a² + b² = c², поэтому
+        (a² + b²) : c² = 1.
+      </p>
+</div>
+<h3>Связь тангенса с синусом и косинусом</h3>
+<div class="ms-rule-box">
+<strong>tg α = sin α : cos α</strong>.
+    </div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство</span>
+<p>
+        tg α = a : b.
+        Одновременно sin α = a : c, cos α = b : c.
+      </p>
+<p>
+        sin α : cos α = (a : c) : (b : c) = a : b = tg α.
+      </p>
+</div>
+<div class="ms-mini-grid ms-card-grid ms-columns-3">
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Синус и косинус</strong>
+<span class="ms-card-text">Для острого угла находятся между 0 и 1.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Тангенс</strong>
+<span class="ms-card-text">Для острого угла является положительным числом.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Дополнительные углы</strong>
+<span class="ms-card-text">sin α = cos(90° − α), cos α = sin(90° − α).</span>
+</div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-4">
+<h2>4. Значения для углов 30°, 45° и 60°</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Треугольники, из которых получают точные значения</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Равнобедренный прямоугольный треугольник и половина равностороннего треугольника" class="ms-svg" role="img" viewbox="0 0 1080 520" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="520" rx="24" width="1080"></rect>
+<rect fill="#ffffff" height="420" rx="22" stroke="#dbeafe" stroke-width="2" width="470" x="35" y="45"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle" x="270" y="85">Угол 45°</text>
+<polygon fill="#eff6ff" points="105,390 105,165 340,390" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<polyline fill="none" points="105,366 129,366 129,390" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#111827" font-size="18" x="77" y="420">A</text>
+<text fill="#111827" font-size="18" x="77" y="155">B</text>
+<text fill="#111827" font-size="18" x="350" y="420">C</text>
+<text fill="#15803d" font-size="18" x="76" y="282">1</text>
+<text fill="#15803d" font-size="18" x="218" y="418">1</text>
+<text fill="#7c3aed" font-size="18" x="246" y="262">√2</text>
+<text fill="#b45309" font-size="20" x="292" y="374">45°</text>
+</g>
+<rect fill="#f9fafb" height="68" rx="18" stroke="#dbeafe" stroke-width="2" width="280" x="130" y="105"></rect>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="270" y="134">катеты равны 1</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="270" y="158">гипотенуза равна √2</text>
+<rect fill="#ffffff" height="420" rx="22" stroke="#dbeafe" stroke-width="2" width="490" x="555" y="45"></rect>
+<text fill="#6d28d9" font-family="Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle" x="800" y="85">Углы 30° и 60°</text>
+<rect fill="#f9fafb" height="66" rx="18" stroke="#dbeafe" stroke-width="2" width="260" x="670" y="104"></rect>
+<text fill="#7c3aed" font-family="Arial, sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="800" y="132">стороны AC и BC равны 2</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="800" y="156">CH = √3, AH = 1, HB = 1</text>
+<polygon fill="#f7f4ff" points="625,390 975,390 800,185" stroke="#7c3aed" stroke-linejoin="round" stroke-width="4"></polygon>
+<line stroke="#16a34a" stroke-width="3" x1="800" x2="800" y1="185" y2="390"></line>
+<polyline fill="none" points="800,366 824,366 824,390" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#111827" font-size="18" x="595" y="420">A</text>
+<text fill="#111827" font-size="18" x="985" y="420">B</text>
+<text fill="#111827" font-size="18" x="793" y="174">C</text>
+<text fill="#111827" font-size="18" x="793" y="418">H</text>
+<text fill="#7c3aed" font-size="18" x="680" y="288">2</text>
+<text fill="#7c3aed" font-size="18" x="910" y="288">2</text>
+<text fill="#15803d" font-size="18" x="706" y="414">1</text>
+<text fill="#15803d" font-size="18" x="866" y="414">1</text>
+<text fill="#16a34a" font-size="18" x="816" y="285">√3</text>
+<text fill="#b45309" font-size="20" x="653" y="361">60°</text>
+<text fill="#b45309" font-size="20" x="897" y="361">60°</text>
+<text fill="#b45309" font-size="20" x="828" y="232">30°</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Как получаются значения для 45°</span>
+<p>
+        В равнобедренном прямоугольном треугольнике катеты можно принять равными 1.
+        По теореме Пифагора гипотенуза равна √2.
+      </p>
+<p>
+        sin 45° = 1 : √2 = √2 : 2;
+        cos 45° = √2 : 2;
+        tg 45° = 1.
+      </p>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Как получаются значения для 30° и 60°</span>
+<p>
+        Высота равностороннего треугольника со стороной 2 делит его
+        на два прямоугольных треугольника. Гипотенуза равна 2,
+        меньший катет — 1, второй катет по теореме Пифагора равен √3.
+      </p>
+<p>
+        Для угла 30°:
+        sin 30° = 1 : 2,
+        cos 30° = √3 : 2,
+        tg 30° = √3 : 3.
+      </p>
+<p>
+        Для угла 60°:
+        sin 60° = √3 : 2,
+        cos 60° = 1 : 2,
+        tg 60° = √3.
+      </p>
+</div>
+<div class="ms-table-wrap">
+<table class="ms-table">
+<thead>
+<tr>
+<th>Угол</th>
+<th>sin</th>
+<th>cos</th>
+<th>tg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30°</td>
+<td>1 : 2</td>
+<td>√3 : 2</td>
+<td>√3 : 3</td>
+</tr>
+<tr>
+<td>45°</td>
+<td>√2 : 2</td>
+<td>√2 : 2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>60°</td>
+<td>√3 : 2</td>
+<td>1 : 2</td>
+<td>√3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-5">
+<h2>5. Как найти сторону</h2>
+<div class="ms-proof">
+<span class="ms-proof-title">Алгоритм</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>
+          Отметьте известный острый угол и определите относительно него
+          противолежащий и прилежащий катеты.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>
+          Выберите отношение, в которое входят известная и неизвестная стороны.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>
+          Подставьте значения sin, cos или tg и решите полученное уравнение.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>
+          Проверьте: гипотенуза должна быть больше каждого катета.
+        </div>
+</div>
+</div>
+<div class="ms-figure">
+<p class="ms-figure-title">Выбор отношения по известным данным</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Прямоугольный треугольник с углом альфа и подписями формул" class="ms-svg" role="img" viewbox="0 0 1040 460" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="460" rx="24" width="1040"></rect>
+<polygon fill="#eff6ff" points="110,355 110,108 590,355" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<polyline fill="none" points="110,329 136,329 136,355" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="20" font-weight="800">
+<text x="80" y="386">A</text>
+<text x="80" y="97">B</text>
+<text x="600" y="386">C</text>
+</g>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#b45309" font-size="22" x="533" y="343">α</text>
+<text fill="#7c3aed" font-size="18" text-anchor="middle" x="75" y="235">a</text>
+<text fill="#15803d" font-size="18" text-anchor="middle" x="350" y="398">b</text>
+<text fill="#2563eb" font-size="18" text-anchor="middle" x="390" y="190">c</text>
+</g>
+<rect fill="#ffffff" height="286" rx="22" stroke="#dbeafe" stroke-width="2" width="300" x="685" y="74"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="18" font-weight="800" text-anchor="middle" x="835" y="116">Известны a и c</text>
+<text fill="#4b5563" font-size="17" text-anchor="middle" x="835" y="147">sin α = a : c</text>
+<text fill="#15803d" font-size="18" font-weight="800" text-anchor="middle" x="835" y="196">Известны b и c</text>
+<text fill="#4b5563" font-size="17" text-anchor="middle" x="835" y="227">cos α = b : c</text>
+<text fill="#6d28d9" font-size="18" font-weight="800" text-anchor="middle" x="835" y="276">Известны a и b</text>
+<text fill="#4b5563" font-size="17" text-anchor="middle" x="835" y="307">tg α = a : b</text>
+<text fill="#b45309" font-size="15" text-anchor="middle" x="835" y="343">a — противолежащий катет</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-card-grid">
+<div class="ms-example">
+<span class="ms-example-title">Пример 1. Гипотенуза и угол 30°</span>
+        Гипотенуза равна 20 см. Найдём противолежащий катет:
+        <br/>a = 20 · sin 30° = 20 · 1 : 2 = <strong>10 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 2. Прилежащий катет и угол 45°</span>
+        Прилежащий катет равен 12 см.
+        <br/>cos 45° = 12 : c;
+        <br/>c = 12 : (√2 : 2) = <strong>12√2 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 3. Известен тангенс</span>
+        tg α = 3 : 4, прилежащий катет равен 20 см.
+        <br/>a : 20 = 3 : 4;
+        <br/>a = <strong>15 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 4. Найти угол</span>
+        Если sin α = 1 : 2 и α — острый угол,
+        то по таблице точных значений <strong>α = 30°</strong>.
+      </div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-6">
+<h2>6. Решение прямоугольного треугольника</h2>
+<p class="ms-text">
+<strong>Решить прямоугольный треугольник</strong> — значит найти
+      все его неизвестные стороны и углы.
+    </p>
+<div class="ms-mini-grid ms-card-grid ms-columns-3">
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Даны две стороны</strong>
+<span class="ms-card-text">Третью сторону найдите по теореме Пифагора, затем определите углы.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Даны сторона и угол</strong>
+<span class="ms-card-text">Выберите sin, cos или tg и найдите две оставшиеся стороны.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Второй острый угол</strong>
+<span class="ms-card-text">Равен 90° минус известный острый угол.</span>
+</div>
+</div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 5. Даны гипотенуза и угол</span>
+      В прямоугольном треугольнике c = 16 см, α = 60°.
+      <br/>Противолежащий катет:
+      a = 16 · sin 60° = 16 · √3 : 2 = <strong>8√3 см</strong>.
+      <br/>Прилежащий катет:
+      b = 16 · cos 60° = 16 · 1 : 2 = <strong>8 см</strong>.
+      <br/>Второй острый угол равен 30°.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 6. Даны два катета</span>
+      Катеты равны 9 см и 12 см.
+      <br/>Гипотенуза:
+      c = √(9² + 12²) = 15 см.
+      <br/>Для угла α, противолежащего катету 9 см:
+      sin α = 9 : 15 = 3 : 5.
+      Значение угла находят по таблице или калькулятору.
+    </div>
+</section>
+<section class="ms-section" id="lesson-section-7">
+<h2>7. Применение в задачах</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Высота объекта через расстояние и угол подъёма</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Определение высоты объекта по расстоянию и углу подъёма" class="ms-svg" role="img" viewbox="0 0 1060 470" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="470" rx="24" width="1060"></rect>
+<line stroke="#2563eb" stroke-width="5" x1="80" x2="760" y1="375" y2="375"></line>
+<line stroke="#16a34a" stroke-width="6" x1="710" x2="710" y1="375" y2="85"></line>
+<polyline fill="none" points="686,375 686,351 710,351" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<line stroke="#7c3aed" stroke-width="4" x1="155" x2="710" y1="375" y2="85"></line>
+<circle cx="145" cy="342" fill="#bfdbfe" r="15" stroke="#2563eb" stroke-width="3"></circle>
+<line stroke="#2563eb" stroke-width="4" x1="145" x2="145" y1="357" y2="375"></line>
+<g font-family="Arial, sans-serif" font-weight="800">
+<text fill="#b45309" font-size="21" x="178" y="368">α</text>
+<text fill="#1d4ed8" font-size="18" text-anchor="middle" x="425" y="408">расстояние d</text>
+<text fill="#15803d" font-size="18" text-anchor="end" x="694" y="236">высота h</text>
+</g>
+<rect fill="#f9fafb" height="240" rx="22" stroke="#dbeafe" stroke-width="2" width="225" x="800" y="90"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="18" font-weight="800" text-anchor="middle" x="912" y="132">Используем тангенс</text>
+<text fill="#6d28d9" font-size="18" font-weight="800" text-anchor="middle" x="912" y="177">tg α = h : d</text>
+<text fill="#15803d" font-size="18" font-weight="800" text-anchor="middle" x="912" y="222">h = d · tg α</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="912" y="270">горизонтальное расстояние</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="912" y="298">перпендикулярно высоте</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-card-grid">
+<div class="ms-example">
+<span class="ms-example-title">Пример 7. Высота башни</span>
+        Расстояние до башни равно 18 м, угол подъёма равен 45°.
+        <br/>h = 18 · tg 45° = 18 · 1 = <strong>18 м</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 8. Длина ската</span>
+        Высота крыши равна 4 м, скат образует с горизонталью угол 30°.
+        Скат является гипотенузой:
+        <br/>sin 30° = 4 : c;
+        <br/>c = 4 : (1 : 2) = <strong>8 м</strong>.
+      </div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-8">
+<h2>Самопроверка</h2>
+<div class="ms-task">
+<p><strong>1.</strong> В прямоугольном треугольнике относительно угла α противолежащий катет равен 6 см, гипотенуза — 10 см. Найдите sin α.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>sin α = 6 : 10 = <strong>3 : 5</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>2.</strong> Прилежащий катет равен 12 см, гипотенуза — 13 см. Найдите cos α.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>cos α = <strong>12 : 13</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>3.</strong> Противолежащий катет равен 15 см, прилежащий — 20 см. Найдите tg α.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>tg α = 15 : 20 = <strong>3 : 4</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>4.</strong> Гипотенуза равна 14 см, угол α равен 30°. Найдите противолежащий катет.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>a = 14 · sin 30° = 14 · 1 : 2 = <strong>7 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>5.</strong> Прилежащий катет равен 9 см, угол α равен 45°. Найдите противолежащий катет.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>tg 45° = a : 9.</p>
+<p>1 = a : 9, поэтому <strong>a = 9 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>6.</strong> Гипотенуза равна 18 см, угол α равен 60°. Найдите прилежащий катет.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>b = 18 · cos 60° = 18 · 1 : 2 = <strong>9 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>7.</strong> Найдите sin α, если cos α = 3 : 5 и α — острый угол.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>sin² α + cos² α = 1.</p>
+<p>sin² α = 1 − 9 : 25 = 16 : 25.</p>
+<p>Так как α острый, sin α положителен: <strong>sin α = 4 : 5</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>8.</strong> Наблюдатель находится в 25 м от дерева. Угол подъёма к вершине равен 45°. Найдите высоту дерева, считая уровень наблюдения совпадающим с уровнем земли.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>h = 25 · tg 45° = 25 · 1 = <strong>25 м</strong>.</p>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-9">
+<h2>Итог: выберите отношение по сторонам</h2>
+<div class="ms-final-grid">
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Синус</strong>
+<span class="ms-card-text">Связывает противолежащий катет и гипотенузу.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Косинус</strong>
+<span class="ms-card-text">Связывает прилежащий катет и гипотенузу.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Тангенс</strong>
+<span class="ms-card-text">Связывает противолежащий и прилежащий катеты.</span>
+</div>
+</div>
+</section>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/priznaki-podobiya-treugolnikov-otnoshenie-ploshhadej-srednyaya-liniya-i-mediany/">Предыдущая тема</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn" href="/pryamaya-i-okruzhnost-kasatelnaya-vzaimnoe-raspolozhenie-dvuh-okruzhnostej/">Следующая тема</a>
+</div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,1042 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Квадратные уравнения · Тема 4.7
+    </div>
+
+    <h1 class="ms-title">
+      Решение иррационального уравнения, сводящегося к квадратному
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся решать уравнения с переменной под знаком квадратного корня:
+      определять допустимые значения, изолировать радикал,
+      правильно возводить обе части в квадрат,
+      решать полученное квадратное уравнение
+      и исключать посторонние корни.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что называют иррациональным уравнением</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Общий алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Уравнение вида √f(x) = g(x)</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Сначала изолируем квадратный корень</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Равенство двух квадратных корней</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Почему возникают посторонние корни</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Уравнение с двумя квадратными корнями</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Контроль перед окончательным ответом</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что называют иррациональным уравнением</h2>
+
+    <p class="ms-text">
+      Иррациональным называют уравнение, в котором переменная находится
+      под знаком корня. В этой теме рассматриваются уравнения
+      с арифметическим квадратным корнем.
+    </p>
+
+    <div class="ms-irr-form">
+      <span class="ms-irr-form-main">
+        <math class="ms-root" aria-label="квадратный корень из f от x">
+          <msqrt><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+        </math>
+        = g(x)
+      </span>
+
+      <span class="ms-irr-form-caption">
+        Левая часть всегда неотрицательна, поэтому для корня уравнения обязательно g(x) ≥ 0.
+      </span>
+    </div>
+
+    <div class="ms-irr-type-grid ms-card-grid ms-columns-3">
+      <div class="ms-irr-type-card ms-card">
+        <span class="ms-irr-type-formula">
+          <math class="ms-root" aria-label="квадратный корень из f от x">
+            <msqrt><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+          </math>
+          = g(x)
+        </span>
+        <strong class="ms-card-title">Один изолированный корень</strong>
+        <span class="ms-card-text">
+          После возведения в квадрат часто получается квадратное уравнение.
+        </span>
+      </div>
+
+      <div class="ms-irr-type-card ms-card">
+        <span class="ms-irr-type-formula">
+          <math class="ms-root" aria-label="квадратный корень из f от x">
+            <msqrt><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+          </math>
+          =
+          <math class="ms-root" aria-label="квадратный корень из g от x">
+            <msqrt><mrow><mi>g</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+          </math>
+        </span>
+        <strong class="ms-card-title">Два равных радикала</strong>
+        <span class="ms-card-text">
+          При допустимых подкоренных выражениях можно сравнить их содержимое.
+        </span>
+      </div>
+
+      <div class="ms-irr-type-card ms-card">
+        <span class="ms-irr-type-formula">
+          <math class="ms-root" aria-label="квадратный корень из f от x">
+            <msqrt><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+          </math>
+          +
+          <math class="ms-root" aria-label="квадратный корень из g от x">
+            <msqrt><mrow><mi>g</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+          </math>
+          = a
+        </span>
+        <strong class="ms-card-title">Два корня в одной части</strong>
+        <span class="ms-card-text">
+          Обычно требуется изоляция одного радикала и два последовательных возведения в квадрат.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Общий алгоритм решения</h2>
+
+    <div class="ms-irr-steps">
+      <div class="ms-irr-step">
+        <span class="ms-irr-number">1</span>
+        <strong>Найдите допустимые значения</strong>
+        <span>
+          Каждое подкоренное выражение должно быть неотрицательным.
+        </span>
+      </div>
+
+      <div class="ms-irr-step">
+        <span class="ms-irr-number">2</span>
+        <strong>Изолируйте один корень</strong>
+        <span>
+          В одной части оставьте радикал, остальные слагаемые перенесите.
+        </span>
+      </div>
+
+      <div class="ms-irr-step">
+        <span class="ms-irr-number">3</span>
+        <strong>Проверьте знак второй части</strong>
+        <span>
+          Она должна быть неотрицательной, потому что равна арифметическому корню.
+        </span>
+      </div>
+
+      <div class="ms-irr-step">
+        <span class="ms-irr-number">4</span>
+        <strong>Возведите обе части в квадрат</strong>
+        <span>
+          Решите полученное рациональное или квадратное уравнение.
+        </span>
+      </div>
+
+      <div class="ms-irr-step">
+        <span class="ms-irr-number">5</span>
+        <strong>Проверьте каждый корень</strong>
+        <span>
+          Подставьте значения именно в исходное уравнение.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Возведение в квадрат может добавить посторонние корни.
+      Поэтому проверка в исходном уравнении является обязательной частью решения.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Уравнение вида √f(x) = g(x)</h2>
+
+    <div class="ms-equivalence-grid">
+      <div class="ms-equivalence-card ms-card">
+        <strong class="ms-card-title">Исходное уравнение</strong>
+        <span class="ms-card-text">
+          <math class="ms-root" aria-label="квадратный корень из f от x">
+            <msqrt><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+          </math>
+          = g(x).
+        </span>
+      </div>
+
+      <div class="ms-equivalence-arrow">⇒</div>
+
+      <div class="ms-equivalence-card ms-card">
+        <strong class="ms-card-title">После возведения в квадрат</strong>
+        <span class="ms-card-text">
+          f(x) = [g(x)]², но дополнительно нужно учитывать условие g(x) ≥ 0.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Один допустимый корень</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      <math class="ms-root" aria-label="квадратный корень из x плюс 5">
+        <msqrt><mrow><mi>x</mi><mo>+</mo><mn>5</mn></mrow></msqrt>
+      </math>
+      = x − 1.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Правая часть должна быть неотрицательной:
+        x − 1 ≥ 0, поэтому x ≥ 1.
+      </div>
+
+      <div class="ms-math-row">
+        Возводим обе части в квадрат:
+        x + 5 = (x − 1)².
+      </div>
+
+      <div class="ms-math-row">
+        x² − 3x − 4 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        (x − 4)(x + 1) = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x = 4 или x = −1.
+      </div>
+
+      <div class="ms-math-row">
+        Условию x ≥ 1 соответствует только x = 4.
+      </div>
+
+      <div class="ms-math-row">
+        Проверка:
+        <math class="ms-root" aria-label="квадратный корень из 9">
+          <msqrt><mn>9</mn></msqrt>
+        </math>
+        = 3, а 4 − 1 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 4.</span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Посторонний отрицательный корень</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из 3 x плюс 4">
+          <msqrt><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>4</mn></mrow></msqrt>
+        </math>
+        = x.
+      </div>
+
+      <div class="ms-math-row">
+        Так как корень равен x, необходимо x ≥ 0.
+      </div>
+
+      <div class="ms-math-row">
+        3x + 4 = x².
+      </div>
+
+      <div class="ms-math-row">
+        x² − 3x − 4 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x = 4 или x = −1.
+      </div>
+
+      <div class="ms-math-row">
+        x = −1 не подходит, потому что правая часть исходного уравнения отрицательна.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 4.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Сначала изолируем квадратный корень</h2>
+
+    <p class="ms-text">
+      Если рядом с корнем есть числа или выражения,
+      радикал сначала оставляют в одной части уравнения.
+      После этого проверяют знак второй части.
+    </p>
+
+    <h3>Пример 3. Квадратное уравнение с иррациональными корнями</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      <math class="ms-root" aria-label="квадратный корень из 2 x минус 1">
+        <msqrt><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msqrt>
+      </math>
+      + 1 = x.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Изолируем корень:
+        <math class="ms-root" aria-label="квадратный корень из 2 x минус 1">
+          <msqrt><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msqrt>
+        </math>
+        = x − 1.
+      </div>
+
+      <div class="ms-math-row">
+        Необходимо x − 1 ≥ 0, то есть x ≥ 1.
+      </div>
+
+      <div class="ms-math-row">
+        2x − 1 = (x − 1)².
+      </div>
+
+      <div class="ms-math-row">
+        x² − 4x + 2 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x = 2 ±
+        <math class="ms-root" aria-label="квадратный корень из 2">
+          <msqrt><mn>2</mn></msqrt>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        Число 2 −
+        <math class="ms-root" aria-label="квадратный корень из 2">
+          <msqrt><mn>2</mn></msqrt>
+        </math>
+        меньше 1 и не подходит.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Ответ:
+          2 +
+          <math class="ms-root" aria-label="квадратный корень из 2">
+            <msqrt><mn>2</mn></msqrt>
+          </math>.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Равенство двух квадратных корней</h2>
+
+    <p class="ms-text">
+      Если оба радикала определены, равенство арифметических квадратных корней
+      равносильно равенству подкоренных выражений.
+    </p>
+
+    <div class="ms-rule-box">
+      <math class="ms-root" aria-label="квадратный корень из f от x">
+        <msqrt><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+      </math>
+      =
+      <math class="ms-root" aria-label="квадратный корень из g от x">
+        <msqrt><mrow><mi>g</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt>
+      </math>
+      <br><br>
+      ⇔ f(x) = g(x),
+      при f(x) ≥ 0 и g(x) ≥ 0.
+    </div>
+
+    <h3>Пример 4. Подкоренные выражения линейные</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из 2 x плюс 3">
+          <msqrt><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn></mrow></msqrt>
+        </math>
+        =
+        <math class="ms-root" aria-label="квадратный корень из x плюс 8">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>8</mn></mrow></msqrt>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        ОДЗ:
+        2x + 3 ≥ 0 и x + 8 ≥ 0.
+      </div>
+
+      <div class="ms-math-row">
+        2x + 3 = x + 8.
+      </div>
+
+      <div class="ms-math-row">
+        x = 5.
+      </div>
+
+      <div class="ms-math-row">
+        Значение x = 5 принадлежит ОДЗ.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 5.</span>
+      </div>
+    </div>
+
+    <h3>Пример 5. Удобная замена t = √(x + 1)</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        2
+        <math class="ms-root" aria-label="квадратный корень из x плюс 1">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msqrt>
+        </math>
+        = x + 1.
+      </div>
+
+      <div class="ms-math-row">
+        Пусть
+        t =
+        <math class="ms-root" aria-label="квадратный корень из x плюс 1">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msqrt>
+        </math>,
+        тогда t ≥ 0 и x + 1 = t².
+      </div>
+
+      <div class="ms-math-row">
+        2t = t².
+      </div>
+
+      <div class="ms-math-row">
+        t(t − 2) = 0.
+      </div>
+
+      <div class="ms-math-row">
+        t = 0 или t = 2.
+      </div>
+
+      <div class="ms-math-row">
+        x + 1 = 0 ⇒ x = −1.
+      </div>
+
+      <div class="ms-math-row">
+        x + 1 = 4 ⇒ x = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: −1; 3.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Почему возникают посторонние корни</h2>
+
+    <p class="ms-text">
+      Равные числа имеют равные квадраты, но из равенства квадратов
+      не всегда следует равенство исходных чисел. Например,
+      3² = (−3)², хотя 3 ≠ −3.
+    </p>
+
+    <div class="ms-check-grid ms-card-grid ms-columns-3">
+      <div class="ms-check-card ms-card">
+        <strong class="ms-card-title">До возведения в квадрат</strong>
+        <span class="ms-card-text">
+          Арифметический корень всегда неотрицателен.
+        </span>
+      </div>
+
+      <div class="ms-check-card ms-card">
+        <strong class="ms-card-title">После возведения в квадрат</strong>
+        <span class="ms-card-text">
+          Информация о знаке второй части может исчезнуть.
+        </span>
+      </div>
+
+      <div class="ms-check-card ms-card">
+        <strong class="ms-card-title">После решения</strong>
+        <span class="ms-card-text">
+          Каждый кандидат обязательно подставляют в исходное уравнение.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 6. Корень квадратного уравнения не является корнем исходного</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из x плюс 1">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msqrt>
+        </math>
+        = x − 3.
+      </div>
+
+      <div class="ms-math-row">
+        Необходимо x ≥ 3.
+      </div>
+
+      <div class="ms-math-row">
+        x + 1 = (x − 3)².
+      </div>
+
+      <div class="ms-math-row">
+        x² − 7x + 8 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        x =
+        <math aria-label="семь плюс минус квадратный корень из 17 делённое на 2">
+          <mfrac>
+            <mrow><mn>7</mn><mo>±</mo><msqrt><mn>17</mn></msqrt></mrow>
+            <mn>2</mn>
+          </mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        Меньшее значение меньше 3 и не подходит.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Ответ:
+          <math aria-label="семь плюс квадратный корень из 17 делённое на 2">
+            <mfrac>
+              <mrow><mn>7</mn><mo>+</mo><msqrt><mn>17</mn></msqrt></mrow>
+              <mn>2</mn>
+            </mfrac>
+          </math>.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Уравнение с двумя квадратными корнями</h2>
+
+    <p class="ms-text">
+      Если в уравнении два радикала, после первого возведения в квадрат
+      обычно остаётся один корень. Его снова изолируют и только затем
+      возводят обе части в квадрат второй раз.
+    </p>
+
+    <div class="ms-two-square-grid ms-card-grid ms-columns-4">
+      <div class="ms-two-square-step">
+        <strong>Изолируйте сумму корней</strong>
+        <span>Запишите исходное уравнение и найдите ОДЗ.</span>
+      </div>
+
+      <div class="ms-two-square-step">
+        <strong>Возведите в квадрат первый раз</strong>
+        <span>Раскройте квадрат суммы и оставьте один радикал.</span>
+      </div>
+
+      <div class="ms-two-square-step">
+        <strong>Изолируйте оставшийся корень</strong>
+        <span>Проверьте неотрицательность второй части.</span>
+      </div>
+
+      <div class="ms-two-square-step">
+        <strong>Возведите в квадрат второй раз</strong>
+        <span>Решите уравнение и проверьте все найденные значения.</span>
+      </div>
+    </div>
+
+    <h3>Пример 7. Два последовательных возведения в квадрат</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить</span>
+      <math class="ms-root" aria-label="квадратный корень из x плюс 4">
+        <msqrt><mrow><mi>x</mi><mo>+</mo><mn>4</mn></mrow></msqrt>
+      </math>
+      +
+      <math class="ms-root" aria-label="квадратный корень из x минус 1">
+        <msqrt><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msqrt>
+      </math>
+      = 5.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        ОДЗ: x ≥ 1.
+      </div>
+
+      <div class="ms-math-row">
+        Возведём обе части в квадрат:
+        2x + 3 +
+        2
+        <math class="ms-root" aria-label="квадратный корень из произведения x плюс 4 и x минус 1">
+          <msqrt>
+            <mrow>
+              <mo>(</mo><mi>x</mi><mo>+</mo><mn>4</mn><mo>)</mo>
+              <mo>(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>)</mo>
+            </mrow>
+          </msqrt>
+        </math>
+        = 25.
+      </div>
+
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из произведения x плюс 4 и x минус 1">
+          <msqrt>
+            <mrow>
+              <mo>(</mo><mi>x</mi><mo>+</mo><mn>4</mn><mo>)</mo>
+              <mo>(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>)</mo>
+            </mrow>
+          </msqrt>
+        </math>
+        = 11 − x.
+      </div>
+
+      <div class="ms-math-row">
+        Отсюда дополнительно x ≤ 11.
+      </div>
+
+      <div class="ms-math-row">
+        Возводим в квадрат второй раз:
+        (x + 4)(x − 1) = (11 − x)².
+      </div>
+
+      <div class="ms-math-row">
+        x² + 3x − 4 = x² − 22x + 121.
+      </div>
+
+      <div class="ms-math-row">
+        25x = 125, поэтому x = 5.
+      </div>
+
+      <div class="ms-math-row">
+        Проверка:
+        <math class="ms-root" aria-label="квадратный корень из 9">
+          <msqrt><mn>9</mn></msqrt>
+        </math>
+        +
+        <math class="ms-root" aria-label="квадратный корень из 4">
+          <msqrt><mn>4</mn></msqrt>
+        </math>
+        = 3 + 2 = 5.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 5.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из x плюс 2">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></msqrt>
+        </math>
+        = x.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Необходимо x ≥ 0.
+          <br><br>
+          x + 2 = x².
+          <br>
+          x² − x − 2 = 0.
+          <br>
+          (x − 2)(x + 1) = 0.
+          <br><br>
+          Подходит только x = 2.
+          <br><br>
+          <strong>Ответ: 2.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из 2 x плюс 3">
+          <msqrt><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn></mrow></msqrt>
+        </math>
+        = x + 1.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Необходимо x + 1 ≥ 0.
+          <br><br>
+          2x + 3 = (x + 1)².
+          <br>
+          x² − 2 = 0.
+          <br>
+          x = ±
+          <math class="ms-root" aria-label="квадратный корень из 2">
+            <msqrt><mn>2</mn></msqrt>
+          </math>.
+          <br><br>
+          Значение −
+          <math class="ms-root" aria-label="квадратный корень из 2">
+            <msqrt><mn>2</mn></msqrt>
+          </math>
+          не подходит, потому что x + 1 &lt; 0.
+          <br><br>
+          <strong>
+            Ответ:
+            <math class="ms-root" aria-label="квадратный корень из 2">
+              <msqrt><mn>2</mn></msqrt>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из 5 x минус 1">
+          <msqrt><mrow><mn>5</mn><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msqrt>
+        </math>
+        = x + 1.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          5x − 1 = (x + 1)².
+          <br>
+          x² − 3x + 2 = 0.
+          <br>
+          (x − 1)(x − 2) = 0.
+          <br><br>
+          Оба значения подходят.
+          <br><br>
+          <strong>Ответ: 1; 2.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из x плюс 7">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>7</mn></mrow></msqrt>
+        </math>
+        = 3 − x.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Необходимо −7 ≤ x ≤ 3.
+          <br><br>
+          x + 7 = (3 − x)².
+          <br>
+          x² − 7x + 2 = 0.
+          <br><br>
+          x =
+          <math aria-label="семь плюс минус квадратный корень из 41 делённое на 2">
+            <mfrac>
+              <mrow><mn>7</mn><mo>±</mo><msqrt><mn>41</mn></msqrt></mrow>
+              <mn>2</mn>
+            </mfrac>
+          </math>.
+          <br><br>
+          Условию x ≤ 3 соответствует только меньшее значение.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="семь минус квадратный корень из 41 делённое на 2">
+              <mfrac>
+                <mrow><mn>7</mn><mo>−</mo><msqrt><mn>41</mn></msqrt></mrow>
+                <mn>2</mn>
+              </mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из 3 x плюс 10">
+          <msqrt><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>10</mn></mrow></msqrt>
+        </math>
+        =
+        <math class="ms-root" aria-label="квадратный корень из 5 x минус 2">
+          <msqrt><mrow><mn>5</mn><mi>x</mi><mo>−</mo><mn>2</mn></mrow></msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          При допустимых подкоренных выражениях:
+          <br><br>
+          3x + 10 = 5x − 2.
+          <br>
+          2x = 12.
+          <br>
+          x = 6.
+          <br><br>
+          <strong>Ответ: 6.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из x плюс 1">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></msqrt>
+        </math>
+        + 1 = x.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Изолируем корень:
+          √(x + 1) = x − 1, поэтому x ≥ 1.
+          <br><br>
+          x + 1 = (x − 1)².
+          <br>
+          x² − 3x = 0.
+          <br>
+          x = 0 или x = 3.
+          <br><br>
+          Подходит только x = 3.
+          <br><br>
+          <strong>Ответ: 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из x плюс 4">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>4</mn></mrow></msqrt>
+        </math>
+        −
+        <math class="ms-root" aria-label="квадратный корень из x">
+          <msqrt><mi>x</mi></msqrt>
+        </math>
+        = 2.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          ОДЗ: x ≥ 0.
+          <br><br>
+          √(x + 4) = √x + 2.
+          <br>
+          После возведения в квадрат:
+          x + 4 = x + 4√x + 4.
+          <br>
+          √x = 0.
+          <br>
+          x = 0.
+          <br><br>
+          <strong>Ответ: 0.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из x плюс 9">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>9</mn></mrow></msqrt>
+        </math>
+        +
+        <math class="ms-root" aria-label="квадратный корень из x">
+          <msqrt><mi>x</mi></msqrt>
+        </math>
+        = 5.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          ОДЗ: x ≥ 0.
+          <br><br>
+          После первого возведения в квадрат:
+          √(x(x + 9)) = 8 − x.
+          <br><br>
+          После второго возведения:
+          x(x + 9) = (8 − x)².
+          <br>
+          25x = 64.
+          <br>
+          x = 64/25.
+          <br><br>
+          Проверка подтверждает равенство.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="шестьдесят четыре двадцать пятых">
+              <mfrac><mn>64</mn><mn>25</mn></mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Решите:
+        3
+        <math class="ms-root" aria-label="квадратный корень из x минус 1">
+          <msqrt><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msqrt>
+        </math>
+        = x + 1.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          ОДЗ: x ≥ 1.
+          <br><br>
+          9(x − 1) = (x + 1)².
+          <br>
+          x² − 7x + 10 = 0.
+          <br>
+          (x − 2)(x − 5) = 0.
+          <br><br>
+          Оба корня подходят.
+          <br><br>
+          <strong>Ответ: 2; 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Решите:
+        <math class="ms-root" aria-label="квадратный корень из x плюс 6">
+          <msqrt><mrow><mi>x</mi><mo>+</mo><mn>6</mn></mrow></msqrt>
+        </math>
+        = x − 2.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Необходимо x ≥ 2.
+          <br><br>
+          x + 6 = (x − 2)².
+          <br>
+          x² − 5x − 2 = 0.
+          <br><br>
+          x =
+          <math aria-label="пять плюс минус квадратный корень из 33 делённое на 2">
+            <mfrac>
+              <mrow><mn>5</mn><mo>±</mo><msqrt><mn>33</mn></msqrt></mrow>
+              <mn>2</mn>
+            </mfrac>
+          </math>.
+          <br><br>
+          Условию x ≥ 2 соответствует только большее значение.
+          <br><br>
+          <strong>
+            Ответ:
+            <math aria-label="пять плюс квадратный корень из 33 делённое на 2">
+              <mfrac>
+                <mrow><mn>5</mn><mo>+</mo><msqrt><mn>33</mn></msqrt></mrow>
+                <mn>2</mn>
+              </mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Контроль перед окончательным ответом</h2>
+
+    <div class="ms-irr-final-grid ms-card-grid ms-columns-4">
+      <div class="ms-irr-final-card ms-card">
+        <strong class="ms-card-title">Корни определены?</strong>
+        <span class="ms-card-text">
+          Все подкоренные выражения неотрицательны.
+        </span>
+      </div>
+
+      <div class="ms-irr-final-card ms-card">
+        <strong class="ms-card-title">Радикал изолирован?</strong>
+        <span class="ms-card-text">
+          Перед возведением в квадрат в выбранной части находится один корень.
+        </span>
+      </div>
+
+      <div class="ms-irr-final-card ms-card">
+        <strong class="ms-card-title">Вторая часть неотрицательна?</strong>
+        <span class="ms-card-text">
+          Отрицательное выражение не может равняться арифметическому корню.
+        </span>
+      </div>
+
+      <div class="ms-irr-final-card ms-card">
+        <strong class="ms-card-title">Выполнена проверка?</strong>
+        <span class="ms-card-text">
+          Каждый найденный кандидат подставлен в исходное уравнение.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top: 20px;">
+      Надёжный маршрут:
+      <br>
+      ОДЗ → изоляция корня → условие неотрицательности →
+      возведение в квадрат → решение квадратного уравнения →
+      обязательная проверка.
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующем разделе перейдём к квадратичной функции y = x²:
+      изучим её свойства, построим параболу
+      и научимся читать информацию по графику.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/primenenie-teoremy-vieta/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/kvadratichnaya-funkcziya-i-eyo-grafik/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

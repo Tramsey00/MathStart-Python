@@ -1,0 +1,993 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      7 класс · Алгебра · Системы уравнений · Тема 3.1
+    </div>
+
+    <h1 class="ms-title">
+      Понятие системы линейных уравнений с двумя переменными
+    </h1>
+
+    <p class="ms-subtitle">
+      Узнаем, что называют системой уравнений и её решением, научимся
+      проверять пары чисел и понимать графический смысл системы. Разберём,
+      почему система может иметь одно решение, не иметь решений или иметь
+      бесконечно много решений.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что нужно знать перед темой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Что называют системой уравнений</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Решение системы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Когда пара не является решением</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Графический смысл системы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Сколько решений может иметь система</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Как проверить готовое решение</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Как записывают ответ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Система как описание одной ситуации</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 12</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Как рассуждать при знакомстве с системой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что нужно знать перед темой</h2>
+
+    <p class="ms-text">
+      Система объединяет два уравнения, которые должны выполняться
+      одновременно. Поэтому важно уметь проверять принадлежность точки
+      графику и находить общие точки двух прямых.
+    </p>
+
+    <ul class="ms-list">
+      <li>Решение уравнения с двумя переменными записывают парой (x; y).</li>
+      <li>Для проверки пары координаты подставляют вместо x и y.</li>
+      <li>Графиком линейного уравнения с двумя переменными является прямая.</li>
+      <li>Общая точка двух графиков принадлежит обеим прямым.</li>
+      <li>Различные непараллельные прямые пересекаются в одной точке.</li>
+      <li>Параллельные различные прямые не имеют общих точек.</li>
+    </ul>
+
+    <div class="ms-note">
+      Слово «одновременно» является ключевым: пара должна превращать
+      в верные равенства каждое уравнение системы, а не только одно из них.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что называют системой уравнений</h2>
+
+    <p class="ms-text">
+      Если требуется найти значения переменных, которые одновременно
+      удовлетворяют нескольким уравнениям, эти уравнения объединяют
+      фигурной скобкой.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Система двух линейных уравнений с двумя переменными</strong> —
+      это два линейных уравнения, рассматриваемые совместно.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-system" aria-label="Система уравнений x плюс y равно пять и два x минус y равно один">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + y = 5,</div>
+          <div class="ms-system-line">2x − y = 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Фигурная скобка</h3>
+        <p class="ms-card-text">
+          Показывает, что уравнения нужно выполнять одновременно.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Две переменные</h3>
+        <p class="ms-card-text">
+          В школьных задачах обычно требуется найти пару значений x и y.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Каждая строка</h3>
+        <p class="ms-card-text">
+          Представляет отдельное линейное уравнение с двумя переменными.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Общее условие</h3>
+        <p class="ms-card-text">
+          Искомая пара должна подходить сразу к обеим строкам.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Решение системы</h2>
+
+    <div class="ms-rule-box">
+      <strong>Решением системы</strong> называют пару значений (x; y),
+      которая является решением каждого уравнения системы.
+    </div>
+
+    <p class="ms-text">
+      Решение записывают в круглых скобках: сначала значение x,
+      затем значение y.
+    </p>
+
+    <h3>Пример 1. Проверим пару (2; 3)</h3>
+
+    <div class="ms-example">
+      Является ли пара (2; 3) решением системы?
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + y = 5,</div>
+          <div class="ms-system-line">2x − y = 1.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Подставим x = 2 и y = 3 в первое уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2 + 3 = 5 — верно.
+      </div>
+
+      <div class="ms-math-row">
+        Проверим второе уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2 · 2 − 3 = 4 − 3 = 1 — верно.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Пара (2; 3) является решением системы.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Когда пара не является решением</h2>
+
+    <p class="ms-text">
+      Достаточно получить неверное равенство хотя бы в одной строке,
+      чтобы пара не была решением всей системы.
+    </p>
+
+    <h3>Пример 2. Проверим пару (1; 4)</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + y = 5,</div>
+          <div class="ms-system-line">2x − y = 1.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Первое уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        1 + 4 = 5 — верно.
+      </div>
+
+      <div class="ms-math-row">
+        Второе уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2 · 1 − 4 = −2, а должно получиться 1.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-bad">
+          Пара подходит только к первому уравнению и не является решением системы.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Нельзя прекращать проверку после первого верного равенства:
+      необходимо проверить все уравнения системы.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Графический смысл системы</h2>
+
+    <p class="ms-text">
+      Каждому линейному уравнению соответствует прямая. Решение системы —
+      это координаты точки, принадлежащей обоим графикам.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Решить систему графически</strong> — значит построить оба
+      графика и найти координаты их общих точек.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Решение системы как общая точка двух прямых
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Две прямые пересекаются в точке два три, которая является решением системы">
+          <rect x="0" y="0" width="900" height="630" rx="24" fill="#f9fafb"></rect>
+
+          <text x="450" y="48" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">
+            Общая точка A(2; 3)
+          </text>
+
+          <g stroke="#e5e7eb" stroke-width="1.3">
+            <line x1="115" y1="90" x2="115" y2="535"></line>
+            <line x1="175" y1="90" x2="175" y2="535"></line>
+            <line x1="235" y1="90" x2="235" y2="535"></line>
+            <line x1="295" y1="90" x2="295" y2="535"></line>
+            <line x1="355" y1="90" x2="355" y2="535"></line>
+            <line x1="415" y1="90" x2="415" y2="535"></line>
+            <line x1="475" y1="90" x2="475" y2="535"></line>
+            <line x1="535" y1="90" x2="535" y2="535"></line>
+            <line x1="595" y1="90" x2="595" y2="535"></line>
+            <line x1="655" y1="90" x2="655" y2="535"></line>
+            <line x1="715" y1="90" x2="715" y2="535"></line>
+            <line x1="775" y1="90" x2="775" y2="535"></line>
+
+            <line x1="85" y1="100" x2="805" y2="100"></line>
+            <line x1="85" y1="160" x2="805" y2="160"></line>
+            <line x1="85" y1="220" x2="805" y2="220"></line>
+            <line x1="85" y1="280" x2="805" y2="280"></line>
+            <line x1="85" y1="340" x2="805" y2="340"></line>
+            <line x1="85" y1="400" x2="805" y2="400"></line>
+            <line x1="85" y1="460" x2="805" y2="460"></line>
+            <line x1="85" y1="520" x2="805" y2="520"></line>
+          </g>
+
+          <line x1="75" y1="400" x2="825" y2="400" stroke="#374151" stroke-width="4"></line>
+          <line x1="415" y1="550" x2="415" y2="70" stroke="#374151" stroke-width="4"></line>
+
+          <!-- y = x + 1; passes through (2,3) -->
+          <line x1="235" y1="520" x2="655" y2="100" stroke="#2563eb" stroke-width="6" stroke-linecap="round"></line>
+
+          <!-- y = -2x + 7; passes through (2,3) -->
+          <line x1="475" y1="100" x2="685" y2="520" stroke="#f97316" stroke-width="6" stroke-linecap="round"></line>
+
+          <line x1="535" y1="220" x2="535" y2="400" stroke="#86efac" stroke-width="3" stroke-dasharray="9 8"></line>
+          <line x1="415" y1="220" x2="535" y2="220" stroke="#86efac" stroke-width="3" stroke-dasharray="9 8"></line>
+
+          <circle cx="535" cy="220" r="11" fill="#15803d" stroke="#ffffff" stroke-width="2"></circle>
+
+          <rect x="570" y="178" width="165" height="58" rx="17" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="652.5" y="214" text-anchor="middle" font-size="18" font-weight="800" fill="#15803d">
+            A(2; 3)
+          </text>
+
+          <rect x="640" y="90" width="190" height="54" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="735" y="124" text-anchor="middle" font-size="17" font-weight="800" fill="#2563eb">
+            y = x + 1
+          </text>
+
+          <rect x="90" y="105" width="210" height="54" rx="16" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="195" y="139" text-anchor="middle" font-size="17" font-weight="800" fill="#c2410c">
+            y = −2x + 7
+          </text>
+
+          <rect x="185" y="575" width="530" height="38" rx="15" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="450" y="600" text-anchor="middle" font-size="16" font-weight="800" fill="#374151">
+            Координаты общей точки являются решением системы
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Сколько решений может иметь система</h2>
+
+    <p class="ms-text">
+      Количество решений зависит от взаимного расположения графиков
+      двух уравнений.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Один, ноль или бесконечно много решений
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 960 555" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Три случая количества решений системы линейных уравнений">
+          <rect x="0" y="0" width="960" height="555" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="25" y="78" width="290" height="410" rx="23" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="335" y="78" width="290" height="410" rx="23" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <rect x="645" y="78" width="290" height="410" rx="23" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+
+          <text x="170" y="48" text-anchor="middle" font-size="22" font-weight="800" fill="#2563eb">
+            Одно решение
+          </text>
+          <text x="480" y="48" text-anchor="middle" font-size="22" font-weight="800" fill="#7c3aed">
+            Решений нет
+          </text>
+          <text x="790" y="48" text-anchor="middle" font-size="22" font-weight="800" fill="#15803d">
+            Бесконечно много
+          </text>
+
+          <!-- Пересекающиеся -->
+          <line x1="55" y1="285" x2="285" y2="285" stroke="#374151" stroke-width="3"></line>
+          <line x1="170" y1="435" x2="170" y2="115" stroke="#374151" stroke-width="3"></line>
+          <line x1="65" y1="400" x2="275" y2="170" stroke="#2563eb" stroke-width="6" stroke-linecap="round"></line>
+          <line x1="65" y1="160" x2="275" y2="405" stroke="#f97316" stroke-width="6" stroke-linecap="round"></line>
+          <circle cx="169" cy="282" r="9" fill="#15803d"></circle>
+
+          <rect x="70" y="435" width="200" height="36" rx="14" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="170" y="459" text-anchor="middle" font-size="15" font-weight="800" fill="#166534">
+            одна общая точка
+          </text>
+
+          <!-- Параллельные -->
+          <line x1="365" y1="285" x2="595" y2="285" stroke="#374151" stroke-width="3"></line>
+          <line x1="480" y1="435" x2="480" y2="115" stroke="#374151" stroke-width="3"></line>
+          <line x1="370" y1="400" x2="590" y2="180" stroke="#7c3aed" stroke-width="6" stroke-linecap="round"></line>
+          <line x1="370" y1="445" x2="590" y2="225" stroke="#2563eb" stroke-width="6" stroke-linecap="round"></line>
+
+          <rect x="385" y="435" width="190" height="36" rx="14" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="480" y="459" text-anchor="middle" font-size="15" font-weight="800" fill="#6d28d9">
+            общих точек нет
+          </text>
+
+          <!-- Совпадающие -->
+          <line x1="675" y1="285" x2="905" y2="285" stroke="#374151" stroke-width="3"></line>
+          <line x1="790" y1="435" x2="790" y2="115" stroke="#374151" stroke-width="3"></line>
+          <line x1="680" y1="405" x2="900" y2="170" stroke="#2563eb" stroke-width="10" stroke-linecap="round"></line>
+          <line x1="680" y1="405" x2="900" y2="170" stroke="#15803d" stroke-width="4" stroke-dasharray="12 9" stroke-linecap="round"></line>
+
+          <rect x="675" y="435" width="230" height="36" rx="14" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="790" y="459" text-anchor="middle" font-size="15" font-weight="800" fill="#166534">
+            все точки общие
+          </text>
+
+          <rect x="170" y="510" width="620" height="32" rx="13" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="480" y="532" text-anchor="middle" font-size="15" font-weight="800" fill="#374151">
+            Число решений системы равно числу общих точек графиков
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Расположение прямых</th>
+            <th>Общие точки</th>
+            <th>Решения системы</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Пересекаются</td>
+            <td>Одна</td>
+            <td>Одно решение</td>
+          </tr>
+
+          <tr>
+            <td>Параллельны и различны</td>
+            <td>Нет</td>
+            <td>Решений нет</td>
+          </tr>
+
+          <tr>
+            <td>Совпадают</td>
+            <td>Бесконечно много</td>
+            <td>Бесконечно много решений</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Как проверить готовое решение</h2>
+
+    <div class="ms-rule-box">
+      <strong>Алгоритм проверки пары (x; y):</strong>
+      <br><br>
+      1. Подставьте координаты в первое уравнение.
+      <br>
+      2. Убедитесь, что получилось верное равенство.
+      <br>
+      3. Подставьте те же координаты во второе уравнение.
+      <br>
+      4. Сделайте вывод только после проверки обеих строк.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Одна пара — две обязательные проверки
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 920 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Схема проверки пары чисел в двух уравнениях системы">
+          <rect x="0" y="0" width="920" height="500" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="65" y="160" width="220" height="120" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="175" y="207" text-anchor="middle" font-size="19" font-weight="800" fill="#1e40af">
+            Подставляем
+          </text>
+          <text x="175" y="250" text-anchor="middle" font-size="28" font-weight="800" fill="#2563eb">
+            (x; y)
+          </text>
+
+          <line x1="305" y1="220" x2="385" y2="150" stroke="#93c5fd" stroke-width="5" stroke-linecap="round"></line>
+          <path d="M393 143 L374 148 L386 161 Z" fill="#93c5fd"></path>
+
+          <line x1="305" y1="220" x2="385" y2="300" stroke="#c4b5fd" stroke-width="5" stroke-linecap="round"></line>
+          <path d="M393 308 L386 290 L374 302 Z" fill="#c4b5fd"></path>
+
+          <rect x="405" y="70" width="250" height="130" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="530" y="112" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">
+            Первое уравнение
+          </text>
+          <text x="530" y="160" text-anchor="middle" font-size="22" font-weight="800" fill="#15803d">
+            верно?
+          </text>
+
+          <rect x="405" y="250" width="250" height="130" rx="22" fill="#ffffff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="530" y="292" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">
+            Второе уравнение
+          </text>
+          <text x="530" y="340" text-anchor="middle" font-size="22" font-weight="800" fill="#15803d">
+            верно?
+          </text>
+
+          <line x1="675" y1="135" x2="745" y2="220" stroke="#86efac" stroke-width="5" stroke-linecap="round"></line>
+          <line x1="675" y1="315" x2="745" y2="230" stroke="#86efac" stroke-width="5" stroke-linecap="round"></line>
+
+          <rect x="755" y="160" width="125" height="120" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="817.5" y="205" text-anchor="middle" font-size="18" font-weight="800" fill="#166534">
+            Решение
+          </text>
+          <text x="817.5" y="247" text-anchor="middle" font-size="30" font-weight="800" fill="#15803d">
+            ✓
+          </text>
+
+          <rect x="190" y="425" width="540" height="38" rx="15" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="460" y="450" text-anchor="middle" font-size="16" font-weight="800" fill="#374151">
+            Оба равенства должны быть верными одновременно
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Как записывают ответ</h2>
+
+    <p class="ms-text">
+      Если система имеет одно решение, ответ обычно записывают парой
+      координат.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Одно решение</h3>
+        <p class="ms-card-text">
+          Например: <strong>(2; 3)</strong>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Решений нет</h3>
+        <p class="ms-card-text">
+          Пишут: <strong>система не имеет решений</strong>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Бесконечно много</h3>
+        <p class="ms-card-text">
+          Пишут: <strong>система имеет бесконечно много решений</strong>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Порядок координат</h3>
+        <p class="ms-card-text">
+          Сначала записывают x, затем y: <strong>(x; y)</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Записи (2; 3) и (3; 2) обозначают разные пары. Менять координаты
+      местами нельзя.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Система как описание одной ситуации</h2>
+
+    <p class="ms-text">
+      В прикладных задачах два уравнения часто описывают разные условия
+      одной и той же ситуации. Решение системы должно удовлетворять каждому
+      условию.
+    </p>
+
+    <h3>Пример 3. Две величины и два условия</h3>
+
+    <div class="ms-example">
+      Сумма двух чисел равна 11, а их разность равна 3.
+      Обозначим первое число через x, второе — через y.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Условие о сумме:
+      </div>
+
+      <div class="ms-math-row">
+        x + y = 11.
+      </div>
+
+      <div class="ms-math-row">
+        Условие о разности:
+      </div>
+
+      <div class="ms-math-row">
+        x − y = 3.
+      </div>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + y = 11,</div>
+          <div class="ms-system-line">x − y = 3.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Пока мы только составили систему. Способы её вычислительного решения
+      будут изучены в следующих темах.
+    </p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-10">
+    <h2>9. Задания для самопроверки</h2>
+
+    <p class="ms-text">
+      В заданиях на проверку обязательно подставляйте пару в каждую строку.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Объясните, что означает фигурная скобка в записи системы.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Фигурная скобка показывает, что уравнения рассматриваются совместно
+          и должны выполняться одновременно.
+          <br><br>
+          <strong>Ответ: нужно найти общие значения переменных для всех уравнений.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Является ли пара (3; 2) решением системы?
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + y = 5,</div>
+            <div class="ms-system-line">x − y = 1.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Первое уравнение:
+          <br>
+          3 + 2 = 5 — верно.
+          <br><br>
+          Второе уравнение:
+          <br>
+          3 − 2 = 1 — верно.
+          <br><br>
+          <strong>Ответ: да.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Является ли пара (4; 1) решением системы?
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + y = 5,</div>
+            <div class="ms-system-line">2x + y = 7.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Первое уравнение:
+          <br>
+          4 + 1 = 5 — верно.
+          <br><br>
+          Второе уравнение:
+          <br>
+          2 · 4 + 1 = 9, а не 7.
+          <br><br>
+          <strong>Ответ: нет.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Какая из пар является решением системы:
+        (1; 3), (2; 2) или (3; 1)?
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + y = 4,</div>
+            <div class="ms-system-line">2x − y = 2.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Все три пары удовлетворяют первому уравнению.
+          <br><br>
+          Проверим второе:
+          <br>
+          для (1; 3): 2 · 1 − 3 = −1;
+          <br>
+          для (2; 2): 2 · 2 − 2 = 2;
+          <br>
+          для (3; 1): 2 · 3 − 1 = 5.
+          <br><br>
+          <strong>Ответ: (2; 2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Известно, что графики двух уравнений пересекаются в точке A(−2; 5).
+        Каково решение системы?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Координаты общей точки являются решением системы.
+          <br><br>
+          <strong>Ответ: (−2; 5).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Сколько решений имеет система, если её графики являются различными
+        параллельными прямыми?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Различные параллельные прямые не имеют общих точек.
+          <br><br>
+          <strong>Ответ: система не имеет решений.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Сколько решений имеет система, если графики её уравнений совпадают?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Каждая точка одной прямой принадлежит и другой прямой.
+          Общих точек бесконечно много.
+          <br><br>
+          <strong>Ответ: бесконечно много решений.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Проверить, является ли пара (0; 4) решением системы.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">3x + y = 4,</div>
+            <div class="ms-system-line">x − 2y = −8.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Первое уравнение:
+          <br>
+          3 · 0 + 4 = 4 — верно.
+          <br><br>
+          Второе уравнение:
+          <br>
+          0 − 2 · 4 = −8 — верно.
+          <br><br>
+          <strong>Ответ: да.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Составьте систему по условию: сумма x и y равна 9,
+        а удвоенное x на 1 больше y.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Первое условие:
+          <br>
+          x + y = 9.
+          <br><br>
+          «Удвоенное x на 1 больше y»:
+          <br>
+          2x = y + 1, или 2x − y = 1.
+          <br><br>
+          <div class="ms-system">
+            <div class="ms-system-brace">{</div>
+            <div class="ms-system-lines">
+              <div class="ms-system-line">x + y = 9,</div>
+              <div class="ms-system-line">2x − y = 1.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Какая ошибка допущена в рассуждении: «Пара (2; 1) подходит
+        к первому уравнению системы, значит она является решением системы»?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Проверено только одно уравнение. Для решения системы пара должна
+          удовлетворять всем её уравнениям.
+          <br><br>
+          <strong>Ответ: необходимо проверить второе уравнение.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 11.</strong>
+        По рисунку определите решение системы и проверьте его подстановкой.
+      </p>
+
+      <div class="ms-figure">
+        <p class="ms-figure-title">
+          Найдите координаты общей точки
+        </p>
+
+        <div class="ms-svg-wrap">
+          <svg class="ms-svg" viewBox="0 0 840 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Графики пересекаются в точке один два">
+            <rect x="0" y="0" width="840" height="600" rx="22" fill="#f9fafb"></rect>
+
+            <g stroke="#e5e7eb" stroke-width="1.3">
+              <line x1="105" y1="80" x2="105" y2="505"></line>
+              <line x1="165" y1="80" x2="165" y2="505"></line>
+              <line x1="225" y1="80" x2="225" y2="505"></line>
+              <line x1="285" y1="80" x2="285" y2="505"></line>
+              <line x1="345" y1="80" x2="345" y2="505"></line>
+              <line x1="405" y1="80" x2="405" y2="505"></line>
+              <line x1="465" y1="80" x2="465" y2="505"></line>
+              <line x1="525" y1="80" x2="525" y2="505"></line>
+              <line x1="585" y1="80" x2="585" y2="505"></line>
+              <line x1="645" y1="80" x2="645" y2="505"></line>
+              <line x1="705" y1="80" x2="705" y2="505"></line>
+
+              <line x1="75" y1="95" x2="735" y2="95"></line>
+              <line x1="75" y1="155" x2="735" y2="155"></line>
+              <line x1="75" y1="215" x2="735" y2="215"></line>
+              <line x1="75" y1="275" x2="735" y2="275"></line>
+              <line x1="75" y1="335" x2="735" y2="335"></line>
+              <line x1="75" y1="395" x2="735" y2="395"></line>
+              <line x1="75" y1="455" x2="735" y2="455"></line>
+            </g>
+
+            <line x1="65" y1="335" x2="760" y2="335" stroke="#374151" stroke-width="4"></line>
+            <line x1="405" y1="520" x2="405" y2="60" stroke="#374151" stroke-width="4"></line>
+
+            <!-- y = x + 1; through (1,2) -->
+            <line x1="165" y1="515" x2="585" y2="95" stroke="#2563eb" stroke-width="6" stroke-linecap="round"></line>
+
+            <!-- y = -x + 3; through (1,2) -->
+            <line x1="345" y1="95" x2="725" y2="475" stroke="#f97316" stroke-width="6" stroke-linecap="round"></line>
+
+            <line x1="465" y1="215" x2="465" y2="335" stroke="#86efac" stroke-width="3" stroke-dasharray="9 8"></line>
+            <line x1="405" y1="215" x2="465" y2="215" stroke="#86efac" stroke-width="3" stroke-dasharray="9 8"></line>
+
+            <circle cx="465" cy="215" r="11" fill="#15803d" stroke="#ffffff" stroke-width="2"></circle>
+
+            <rect x="500" y="175" width="165" height="58" rx="17" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+            <text x="582.5" y="211" text-anchor="middle" font-size="18" font-weight="800" fill="#15803d">
+              A(1; 2)
+            </text>
+
+            <rect x="585" y="80" width="185" height="52" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+            <text x="677.5" y="113" text-anchor="middle" font-size="17" font-weight="800" fill="#2563eb">
+              y = x + 1
+            </text>
+
+            <rect x="85" y="100" width="185" height="52" rx="16" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+            <text x="177.5" y="133" text-anchor="middle" font-size="17" font-weight="800" fill="#c2410c">
+              y = −x + 3
+            </text>
+
+            <rect x="165" y="545" width="510" height="38" rx="15" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+            <text x="420" y="570" text-anchor="middle" font-size="16" font-weight="800" fill="#374151">
+              Запишите координаты точки и проверьте обе формулы
+            </text>
+          </svg>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          По рисунку общая точка имеет координаты (1; 2).
+          <br><br>
+          Проверим y = x + 1:
+          <br>
+          2 = 1 + 1 — верно.
+          <br><br>
+          Проверим y = −x + 3:
+          <br>
+          2 = −1 + 3 — верно.
+          <br><br>
+          <strong>Ответ: (1; 2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 12.</strong>
+        Графики двух уравнений совпадают. Может ли система иметь ровно
+        два решения?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Нет. Если прямые совпадают, каждая их точка является общей.
+          Поэтому решений бесконечно много, а не два.
+          <br><br>
+          <strong>Ответ: не может.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-11">
+    <h2>10. Как рассуждать при знакомстве с системой</h2>
+
+    <p class="ms-text">
+      До изучения вычислительных методов важно научиться правильно понимать
+      саму запись системы и смысл ответа.
+    </p>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Ищем одну пару</strong>
+        <span class="ms-card-text">
+          Одни и те же значения x и y подставляются во все уравнения.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверяем каждую строку</strong>
+        <span class="ms-card-text">
+          Одного верного равенства недостаточно для решения системы.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Смотрим на общие точки</strong>
+        <span class="ms-card-text">
+          Графически решения системы — это точки пересечения графиков.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      В следующих темах научимся находить решение системы без точного
+      построения графиков: сначала методом подстановки, затем методом сложения.
+    </div>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/vzaimnoe-raspolozhenie-grafikov-linejnyh-funkczij/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/reshenie-sistem-linejnyh-uravnenij-metod-podstanovki/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

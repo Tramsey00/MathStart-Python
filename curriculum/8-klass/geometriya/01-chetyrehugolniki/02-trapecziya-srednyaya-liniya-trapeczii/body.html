@@ -1,0 +1,487 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">8 класс · Геометрия · Четырёхугольники · Тема 1.2</div>
+<h1 class="ms-title">Трапеция. Средняя линия трапеции</h1>
+<p class="ms-subtitle">
+      Изучим элементы и виды трапеций, свойства равнобедренной трапеции,
+      углы при основаниях и теорему о средней линии. Отдельно разберём,
+      как диагональ делит среднюю линию на два отрезка.
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="/trapecziya-srednyaya-liniya-trapeczii/#theory">Перейти к материалу</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Определение и элементы трапеции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Виды трапеций</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Средняя линия треугольника — опора для доказательства</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Средняя линия трапеции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как диагональ делит среднюю линию</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Итог: формула, свойства и чертёж</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="theory">
+<h2>1. Определение и элементы трапеции</h2>
+<div class="ms-rule-box">
+<strong>Трапеция</strong> — четырёхугольник, у которого две стороны параллельны,
+      а две другие стороны не параллельны.
+    </div>
+<p class="ms-text">
+      Параллельные стороны называются <strong>основаниями</strong>,
+      две другие стороны — <strong>боковыми сторонами</strong>.
+      Перпендикуляр между прямыми, содержащими основания, называется
+      <strong>высотой трапеции</strong>.
+    </p>
+<div class="ms-figure">
+<p class="ms-figure-title">Трапеция ABCD: AD ∥ BC</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Трапеция ABCD с основаниями, боковыми сторонами и высотой" class="ms-svg" role="img" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="330" rx="24" width="760"></rect>
+<polygon fill="#eff6ff" points="115,248 215,86 475,86 620,248" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<line stroke="#7c3aed" stroke-dasharray="8 7" stroke-width="3" x1="215" x2="215" y1="86" y2="248"></line>
+<polyline fill="none" points="215,229 234,229 234,248" stroke="#7c3aed" stroke-linejoin="round" stroke-width="3"></polyline>
+<g stroke="#1d4ed8" stroke-linecap="round" stroke-width="3">
+<line x1="332" x2="342" y1="80" y2="92"></line>
+<line x1="356" x2="366" y1="80" y2="92"></line>
+<line x1="345" x2="355" y1="242" y2="254"></line>
+<line x1="369" x2="379" y1="242" y2="254"></line>
+</g>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800">
+<text x="91" y="270">A</text>
+<text x="198" y="75">B</text>
+<text x="482" y="75">C</text>
+<text x="628" y="270">D</text>
+<text x="196" y="273">H</text>
+</g>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="17" font-weight="800" text-anchor="middle" x="345" y="63">меньшее основание BC</text>
+<text fill="#1d4ed8" font-size="17" font-weight="800" text-anchor="middle" x="367" y="292">большее основание AD</text>
+<text fill="#6d28d9" font-size="17" font-weight="800" text-anchor="middle" x="185" y="169">h</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" transform="rotate(-58 86 162)" x="86" y="162">AB</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" transform="rotate(48 599 161)" x="599" y="161">CD</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-mini-grid ms-card-grid ms-columns-3">
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Основания</strong>
+<span class="ms-card-text">Параллельные стороны AD и BC.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Боковые стороны</strong>
+<span class="ms-card-text">Непараллельные стороны AB и CD.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">Высота</strong>
+<span class="ms-card-text">Расстояние между прямыми AD и BC.</span>
+</div>
+</div>
+<div class="ms-note">
+      Углы, прилежащие к одной боковой стороне, в сумме дают 180°:
+      ∠A + ∠B = 180°, ∠C + ∠D = 180°.
+    </div>
+</section>
+<section class="ms-section-soft" id="lesson-section-2">
+<h2>2. Виды трапеций</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Прямоугольная и равнобедренная трапеции</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Прямоугольная и равнобедренная трапеции" class="ms-svg" role="img" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="330" rx="24" width="760"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#111827" font-size="20" font-weight="800" text-anchor="middle" x="190" y="42">Прямоугольная</text>
+<polygon fill="#eff6ff" points="78,244 78,88 252,88 316,244" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<polyline fill="none" points="78,107 97,107 97,88" stroke="#7c3aed" stroke-linejoin="round" stroke-width="3"></polyline>
+<polyline fill="none" points="78,225 97,225 97,244" stroke="#7c3aed" stroke-linejoin="round" stroke-width="3"></polyline>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="190" y="282">Два угла равны 90°</text>
+<text fill="#111827" font-size="20" font-weight="800" text-anchor="middle" x="568" y="42">Равнобедренная</text>
+<polygon fill="#f7f4ff" points="420,244 482,88 650,88 714,244" stroke="#7c3aed" stroke-linejoin="round" stroke-width="4"></polygon>
+<g stroke="#2563eb" stroke-linecap="round" stroke-width="3">
+<line x1="447" x2="463" y1="171" y2="177"></line>
+<line x1="670" x2="686" y1="177" y2="171"></line>
+</g>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="568" y="282">Боковые стороны равны</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-card-grid">
+<div class="ms-example">
+<span class="ms-example-title">Прямоугольная трапеция</span>
+        Одна боковая сторона перпендикулярна основаниям.
+        Эта сторона одновременно является высотой трапеции.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Равнобедренная трапеция</span>
+        Боковые стороны равны. В ней углы при каждом основании равны,
+        а диагонали имеют одинаковую длину.
+      </div>
+</div>
+<h3>Свойство равнобедренной трапеции: углы при основании равны</h3>
+<div class="ms-figure">
+<p class="ms-figure-title">Высоты BF и CE делят фигуру на прямоугольник и два равных треугольника</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Доказательство равенства углов равнобедренной трапеции" class="ms-svg" role="img" viewBox="0 0 760 350" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="350" rx="24" width="760"></rect>
+<polygon fill="#eff6ff" points="112,270 218,78 500,78 648,270" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<line stroke="#7c3aed" stroke-width="3" x1="218" x2="218" y1="78" y2="270"></line>
+<line stroke="#7c3aed" stroke-width="3" x1="500" x2="500" y1="78" y2="270"></line>
+<polyline fill="none" points="218,251 237,251 237,270" stroke="#7c3aed" stroke-linejoin="round" stroke-width="3"></polyline>
+<polyline fill="none" points="500,251 519,251 519,270" stroke="#7c3aed" stroke-linejoin="round" stroke-width="3"></polyline>
+<g stroke="#1d4ed8" stroke-linecap="round" stroke-width="3">
+<line x1="158" x2="175" y1="171" y2="180"></line>
+<line x1="565" x2="582" y1="180" y2="171"></line>
+</g>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800">
+<text x="88" y="294">A</text>
+<text x="201" y="66">B</text>
+<text x="507" y="66">C</text>
+<text x="656" y="294">D</text>
+<text x="205" y="294">F</text>
+<text x="491" y="294">E</text>
+</g>
+<rect fill="#ffffff" height="112" rx="18" stroke="#dbeafe" stroke-width="2" width="205" x="270" y="127"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="17" font-weight="800" text-anchor="middle" x="372" y="160">AB = CD</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="372" y="192">BF = CE</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="372" y="222">Треугольники равны</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>Из вершин B и C проведём высоты BF и CE к основанию AD.</div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>
+          BF = CE, потому что это расстояния между параллельными прямыми BC и AD.
+          Кроме того, AB = CD по определению равнобедренной трапеции.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>
+          Прямоугольные треугольники ABF и DCE равны по гипотенузе и катету.
+          Поэтому ∠A = ∠D.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>
+          Так как ∠A + ∠B = 180° и ∠C + ∠D = 180°, из равенства ∠A = ∠D
+          следует ∠B = ∠C.
+        </div>
+</div>
+</div>
+<h3>Свойство равнобедренной трапеции: диагонали равны</h3>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство</span>
+<p>
+        Рассмотрим треугольники ABD и DCA.
+        В них AB = CD, сторона AD общая, а ∠BAD = ∠CDA как углы при основании
+        равнобедренной трапеции. Треугольники равны по двум сторонам и углу между ними.
+        Следовательно, <strong>BD = AC</strong>.
+      </p>
+</div>
+<div class="ms-rule-box">
+<strong>Признак равнобедренной трапеции:</strong>
+      если углы при одном основании трапеции равны, то её боковые стороны равны.
+    </div>
+</section>
+<section class="ms-section" id="lesson-section-3">
+<h2>3. Средняя линия треугольника — опора для доказательства</h2>
+<div class="ms-rule-box">
+      Отрезок, соединяющий середины двух сторон треугольника,
+      параллелен третьей стороне и равен половине этой стороны.
+    </div>
+<div class="ms-proof">
+<span class="ms-proof-title">Краткое доказательство через параллелограмм</span>
+<p>
+        В треугольнике ABC точки M и N — середины AB и AC.
+        Продолжим MN за точку N до точки K так, чтобы NK = MN.
+        Треугольники AMN и CKN равны по двум сторонам и углу между ними.
+        Поэтому AM = CK и AM ∥ CK. Но AM = MB, значит, MB = CK и MB ∥ CK.
+        Четырёхугольник MBCK — параллелограмм, поэтому MK ∥ BC и MK = BC.
+        Так как MN = NK, получаем MN = MK : 2 = BC : 2.
+      </p>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-4">
+<h2>4. Средняя линия трапеции</h2>
+<div class="ms-rule-box">
+<strong>Средняя линия трапеции</strong> — отрезок, соединяющий середины её боковых сторон.
+    </div>
+<div class="ms-math-box">
+<div class="ms-math-row"><strong>MN ∥ AD ∥ BC</strong></div>
+<div class="ms-math-row">
+<strong>MN =</strong>
+<span class="ms-frac">
+<span class="ms-frac-num">AD + BC</span>
+<span class="ms-frac-den">2</span>
+</span>
+</div>
+</div>
+<div class="ms-figure">
+<p class="ms-figure-title">Средняя линия MN и вспомогательная точка F</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Доказательство теоремы о средней линии трапеции" class="ms-svg" role="img" viewBox="0 0 760 390" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="390" rx="24" width="760"></rect>
+<polygon fill="#eff6ff" points="120,292 260,104 440,104 560,292" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon><line stroke="#2563eb" stroke-dasharray="10 8" stroke-linecap="round" stroke-width="4" x1="560" x2="740" y1="292" y2="292"></line>
+<line stroke="#7c3aed" stroke-width="3" x1="260" x2="740" y1="104" y2="292"></line>
+<line stroke="#16a34a" stroke-width="4" x1="190" x2="500" y1="198" y2="198"></line><line stroke="#1d4ed8" stroke-linecap="round" stroke-width="3" x1="150" x2="165" y1="245" y2="252"></line><line stroke="#1d4ed8" stroke-linecap="round" stroke-width="3" x1="212" x2="227" y1="151" y2="158"></line><line stroke="#1d4ed8" stroke-linecap="round" stroke-width="3" x1="461" x2="476" y1="151" y2="158"></line><line stroke="#1d4ed8" stroke-linecap="round" stroke-width="3" x1="469" x2="484" y1="143" y2="150"></line><line stroke="#1d4ed8" stroke-linecap="round" stroke-width="3" x1="522" x2="537" y1="245" y2="252"></line><line stroke="#1d4ed8" stroke-linecap="round" stroke-width="3" x1="530" x2="545" y1="237" y2="244"></line>
+<circle cx="190" cy="198" fill="#16a34a" r="5"></circle>
+<circle cx="500" cy="198" fill="#16a34a" r="5"></circle>
+<circle cx="740" cy="292" fill="#7c3aed" r="5"></circle>
+<g stroke="#1d4ed8" stroke-linecap="round" stroke-width="3">
+
+
+
+
+</g>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800">
+<text x="96" y="316">A</text>
+<text x="243" y="92">B</text>
+<text x="447" y="92">C</text>
+<text x="568" y="316">D</text>
+<text x="167" y="191">M</text>
+<text x="508" y="191">N</text>
+<text x="748" y="316">F</text>
+</g>
+<rect fill="#f9fafb" height="128" rx="18" stroke="#dbeafe" stroke-width="2" width="170" x="555" y="48"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="17" font-weight="800" text-anchor="middle" x="640" y="80">BN = NF</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="640" y="108">BC = DF</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="640" y="138">M — середина AB</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="640" y="164">N — середина BF</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство теоремы</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>
+          Пусть M и N — середины боковых сторон AB и CD. Проведём прямую BN
+          до пересечения с продолжением основания AD в точке F.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>
+          Треугольники BCN и FDN равны:
+          CN = ND; ∠BCN = ∠FDN как накрест лежащие при BC ∥ AD;
+          ∠BNC = ∠FND как вертикальные.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>
+          Из равенства треугольников получаем BN = NF и BC = DF.
+          Значит, N — середина BF.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>
+          В треугольнике ABF точки M и N — середины сторон AB и BF.
+          Поэтому MN — средняя линия треугольника:
+          MN ∥ AF и MN = AF : 2.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">5</span>
+<div>
+          AF = AD + DF = AD + BC.
+          Следовательно, MN ∥ AD ∥ BC и
+          MN = (AD + BC) : 2.
+        </div>
+</div>
+</div>
+<div class="ms-note">
+      Формула работает в обе стороны:
+      сумма оснований равна 2MN, а неизвестное основание можно найти как
+      2MN минус известное основание.
+    </div>
+</section>
+<section class="ms-section" id="lesson-section-5">
+<h2>5. Как диагональ делит среднюю линию</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Диагональ AC пересекает среднюю линию MN в точке K</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Диагональ трапеции делит среднюю линию на половины оснований" class="ms-svg" role="img" viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="340" rx="24" width="760"></rect>
+<polygon fill="#eff6ff" points="112,264 220,84 470,84 624,264" stroke="#2563eb" stroke-linejoin="round" stroke-width="4"></polygon>
+<line stroke="#7c3aed" stroke-width="3" x1="112" x2="470" y1="264" y2="84"></line>
+<line stroke="#16a34a" stroke-width="4" x1="166" x2="547" y1="174" y2="174"></line>
+<circle cx="166" cy="174" fill="#16a34a" r="5"></circle>
+<circle cx="291" cy="174" fill="#7c3aed" r="5"></circle>
+<circle cx="547" cy="174" fill="#16a34a" r="5"></circle>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="18" font-weight="800">
+<text x="87" y="289">A</text>
+<text x="203" y="72">B</text>
+<text x="477" y="72">C</text>
+<text x="632" y="289">D</text>
+<text x="143" y="166">M</text>
+<text x="280" y="164">K</text>
+<text x="555" y="166">N</text>
+</g>
+<g font-family="Arial, sans-serif">
+<text fill="#6d28d9" font-size="17" font-weight="800" text-anchor="middle" x="255" y="228">MK = BC : 2</text>
+<text fill="#1d4ed8" font-size="17" font-weight="800" text-anchor="middle" x="438" y="228">KN = AD : 2</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Почему появляются половины оснований</span>
+<p>
+        В треугольнике ABC точка M — середина AB, а MK ∥ BC.
+        Поэтому K — середина AC и MK — средняя линия треугольника:
+        <strong>MK = BC : 2</strong>.
+      </p>
+<p>
+        Теперь в треугольнике ACD точки K и N — середины AC и CD.
+        Значит, KN — средняя линия этого треугольника:
+        <strong>KN = AD : 2</strong>.
+      </p>
+</div>
+<div class="ms-card-grid">
+<div class="ms-example">
+<span class="ms-example-title">Пример 1. Средняя линия</span>
+        Основания равны 8 см и 18 см.
+        <br>MN = (8 + 18) : 2 = <strong>13 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 2. Неизвестное основание</span>
+        Средняя линия равна 11 см, меньшее основание — 7 см.
+        <br>AD + BC = 22 см;
+        <br>AD = 22 − 7 = <strong>15 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 3. Диагональ и средняя линия</span>
+        Основания равны 10 см и 24 см.
+        Диагональ делит среднюю линию на отрезки
+        <strong>5 см и 12 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 4. Периметр</span>
+        Средняя линия равна 14 см, боковые стороны — 9 см и 11 см.
+        Сумма оснований равна 28 см.
+        <br>P = 28 + 9 + 11 = <strong>48 см</strong>.
+      </div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-6">
+<h2>Самопроверка</h2>
+<div class="ms-task">
+<p><strong>1.</strong> В трапеции ABCD основания AD и BC. Известно, что ∠A = 64°, ∠C = 117°. Найдите ∠B и ∠D.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>∠A + ∠B = 180°, поэтому ∠B = 180° − 64° = <strong>116°</strong>.</p>
+<p>∠C + ∠D = 180°, поэтому ∠D = 180° − 117° = <strong>63°</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>2.</strong> Один угол равнобедренной трапеции равен 72°. Найдите остальные углы.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>Углы при одном основании равны, а соседние углы при боковой стороне в сумме дают 180°.</p>
+<p>Вторая величина: 180° − 72° = 108°.</p>
+<p><strong>Ответ: 72°, 72°, 108°, 108°.</strong></p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>3.</strong> Основания трапеции равны 9 см и 21 см. Найдите среднюю линию.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>(9 + 21) : 2 = <strong>15 см</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>4.</strong> Средняя линия трапеции равна 17 см, одно основание равно 12 см. Найдите другое основание.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>Сумма оснований равна 2 · 17 = 34 см.</p>
+<p>Второе основание: 34 − 12 = <strong>22 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>5.</strong> Боковые стороны трапеции равны 13 см и 15 см, периметр равен 48 см. Найдите среднюю линию.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>Сумма оснований: 48 − 13 − 15 = 20 см.</p>
+<p>Средняя линия равна половине суммы оснований: 20 : 2 = <strong>10 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>6.</strong> Основания трапеции равны 6 см и 20 см. Диагональ пересекает среднюю линию. Найдите два получившихся отрезка.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>Отрезки равны половинам оснований:</p>
+<p>6 : 2 = <strong>3 см</strong>; 20 : 2 = <strong>10 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>7.</strong> Диагональ делит среднюю линию трапеции на отрезки 4 см и 9 см. Найдите основания и длину всей средней линии.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>Основания в два раза больше получившихся отрезков:</p>
+<p>2 · 4 = <strong>8 см</strong>; 2 · 9 = <strong>18 см</strong>.</p>
+<p>Средняя линия: 4 + 9 = <strong>13 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>8.</strong> В трапеции углы при одном основании равны. Докажите, что трапеция равнобедренная.</p>
+<details class="ms-answer">
+<summary>Показать доказательство</summary>
+<div>
+<p>Проведём из вершин другого основания перпендикуляры к данному основанию.</p>
+<p>Полученные прямоугольные треугольники имеют равные острые углы и равные перпендикуляры — расстояния между параллельными основаниями.</p>
+<p>Треугольники равны по катету и прилежащему острому углу, поэтому их гипотенузы — боковые стороны трапеции — равны.</p>
+<p>Следовательно, <strong>трапеция равнобедренная</strong>.</p>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-7">
+<h2>Итог: формула, свойства и чертёж</h2>
+<div class="ms-final-grid">
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Углы</strong>
+<span class="ms-card-text">Сумма углов при каждой боковой стороне равна 180°.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Равнобедренная трапеция</strong>
+<span class="ms-card-text">Углы при основаниях попарно равны, диагонали равны.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Средняя линия</strong>
+<span class="ms-card-text">Параллельна основаниям и равна их полусумме.</span>
+</div>
+</div>
+</section>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/mnogougolniki-i-parallelogramm-opredeleniya-svojstva-i-priznaki/">Предыдущая тема</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn" href="/pryamougolnik-romb-i-kvadrat-svojstva-priznaki-i-simmetriya/">Следующая тема</a>
+</div>
+</div>
+<!-- /wp:html -->

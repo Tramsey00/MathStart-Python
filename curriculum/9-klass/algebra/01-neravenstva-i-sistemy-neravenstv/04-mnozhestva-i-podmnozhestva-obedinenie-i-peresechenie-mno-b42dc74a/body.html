@@ -1,0 +1,505 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Алгебра · Неравенства и системы неравенств · Тема 1.4
+    </div>
+
+    <h1 class="ms-title">Множества и подмножества. Объединение и пересечение множеств</h1>
+
+    <p class="ms-subtitle">
+      Разберём язык множеств, научимся читать символы принадлежности и включения,
+      находить объединение и пересечение, а затем применять эти операции к числовым промежуткам и неравенствам.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что называют множеством</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как задать множество</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Подмножество</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Пустое и универсальное множества</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Объединение множеств</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Пересечение множеств</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Круги Эйлера: три ключевые ситуации</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Операции с числовыми промежутками</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Множества в системах и совокупностях неравенств</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Количество элементов объединения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Финишная схема: прочитайте запись без ошибок</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Что называют множеством</h2>
+
+    <p class="ms-text">
+      <strong>Множество</strong> — это совокупность объектов, рассматриваемых как единое целое.
+      Объекты, из которых составлено множество, называются его <strong>элементами</strong>.
+    </p>
+
+    <p class="ms-text">
+      Множества обычно обозначают заглавными латинскими буквами
+      <strong>A, B, C</strong>, а их элементы записывают внутри фигурных скобок.
+    </p>
+
+    <div class="ms-set-line">
+      A = {2; 4; 6; 8} — множество первых четырёх положительных чётных чисел.
+    </div>
+
+    <div class="ms-symbol-strip">
+      <span class="ms-symbol-chip"><strong>∈</strong> принадлежит множеству</span>
+      <span class="ms-symbol-chip"><strong>∉</strong> не принадлежит множеству</span>
+      <span class="ms-symbol-chip"><strong>∅</strong> пустое множество</span>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Принадлежность элемента</span>
+      Пусть A = {−3; 0; 2; 7}. Тогда 2 ∈ A, 0 ∈ A, но 5 ∉ A.
+      Запись 2 ∈ A читают: «число 2 принадлежит множеству A».
+    </div>
+
+    <div class="ms-note">
+      Один и тот же элемент в множестве записывают только один раз. Порядок элементов значения не имеет:
+      {1; 3; 5} = {5; 1; 3}.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Как задать множество</h2>
+
+    <p class="ms-text">Множество можно задать двумя основными способами.</p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Перечислением элементов</h3>
+        <p class="ms-card-text">
+          Подходит для небольшого конечного множества:<br>
+          A = {1; 4; 9; 16}.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Описанием свойства</h3>
+        <p class="ms-card-text">
+          Указывают общее свойство всех элементов:<br>
+          B = {x ∈ ℤ | −2 ≤ x &lt; 3}.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Переход от свойства к перечислению</span>
+      B = {x ∈ ℤ | −2 ≤ x &lt; 3}. Здесь выбирают только целые числа от −2 включительно до 3 не включительно.
+      Поэтому B = {−2; −1; 0; 1; 2}.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Подмножество</h2>
+
+    <p class="ms-text">
+      Множество A называется <strong>подмножеством</strong> множества B, если каждый элемент A принадлежит B.
+      Это записывают так: <strong>A ⊆ B</strong>.
+    </p>
+
+    <div class="ms-rule-box">
+      Чтобы проверить A ⊆ B, нужно проверить не отдельные элементы, а <strong>каждый</strong> элемент множества A.
+      Если хотя бы одного элемента A нет в B, включение неверно.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Проверка включения</span>
+      A = {2; 4}, B = {1; 2; 3; 4; 5}. Оба элемента A находятся в B, значит A ⊆ B.
+      Но B ⊆ A неверно, так как, например, 1 ∈ B и 1 ∉ A.
+    </div>
+
+    <p class="ms-text">
+      Любое множество является подмножеством самого себя. Пустое множество ∅ является подмножеством любого множества.
+    </p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Пустое и универсальное множества</h2>
+
+    <p class="ms-text">
+      <strong>Пустое множество</strong> не содержит ни одного элемента и обозначается символом ∅.
+      Например, множество действительных решений уравнения x² + 1 = 0 пусто.
+    </p>
+
+    <p class="ms-text">
+      <strong>Универсальное множество</strong> содержит все объекты, рассматриваемые в данной задаче.
+      Его часто обозначают буквой U. Например, при работе с целыми числами можно принять U = ℤ.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">A ∩ ∅ = ∅</div>
+      <div class="ms-math-row">A ∪ ∅ = A</div>
+      <div class="ms-math-row">A ∩ U = A</div>
+      <div class="ms-math-row">A ∪ U = U</div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Объединение множеств</h2>
+
+    <p class="ms-text">
+      <strong>Объединением</strong> множеств A и B называется множество, состоящее из всех элементов,
+      которые принадлежат хотя бы одному из множеств A или B.
+    </p>
+
+    <div class="ms-rule-box">
+      A ∪ B читают: «объединение множеств A и B». Ключевое слово — <strong>«или»</strong>.
+      Общие элементы записывают только один раз.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Находим объединение</span>
+      A = {1; 2; 4; 6}, B = {2; 3; 4; 5}.<br>
+      Собираем все элементы из двух множеств без повторений:<br>
+      <strong>A ∪ B = {1; 2; 3; 4; 5; 6}.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Пересечение множеств</h2>
+
+    <p class="ms-text">
+      <strong>Пересечением</strong> множеств A и B называется множество, состоящее из элементов,
+      которые одновременно принадлежат и A, и B.
+    </p>
+
+    <div class="ms-rule-box">
+      A ∩ B читают: «пересечение множеств A и B». Ключевое слово — <strong>«и»</strong>.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 5. Находим пересечение</span>
+      Для A = {1; 2; 4; 6} и B = {2; 3; 4; 5} общими являются числа 2 и 4.<br>
+      Поэтому <strong>A ∩ B = {2; 4}</strong>.
+    </div>
+
+    <div class="ms-note">
+      Если общих элементов нет, множества называют непересекающимися, а их пересечение равно ∅.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Круги Эйлера: три ключевые ситуации</h2>
+
+    <p class="ms-text">
+      Круги Эйлера позволяют увидеть отношения между множествами: включение, объединение и пересечение.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Подмножество, объединение и пересечение на одной схеме</p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Круги Эйлера для подмножества, объединения и пересечения">
+          <defs>
+            <clipPath id="ms-clip-intersection-b">
+              <circle cx="748" cy="162" r="76"></circle>
+            </clipPath>
+          </defs>
+
+          <rect x="0" y="0" width="900" height="330" rx="24" fill="#ffffff"></rect>
+
+          <g>
+            <rect x="18" y="22" width="270" height="286" rx="22" fill="#f8fafc" stroke="#dbeafe" stroke-width="2"></rect>
+            <text x="153" y="57" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">A ⊆ B</text>
+            <circle cx="153" cy="174" r="91" fill="#eff6ff" stroke="#2563eb" stroke-width="4"></circle>
+            <circle cx="153" cy="174" r="48" fill="#ede9fe" stroke="#7c3aed" stroke-width="4"></circle>
+            <text x="153" y="181" text-anchor="middle" font-size="22" font-weight="800" fill="#6d28d9">A</text>
+            <text x="221" y="116" text-anchor="middle" font-size="22" font-weight="800" fill="#1d4ed8">B</text>
+            <text x="153" y="286" text-anchor="middle" font-size="15" font-weight="700" fill="#475569">A целиком находится в B</text>
+          </g>
+
+          <g>
+            <rect x="315" y="22" width="270" height="286" rx="22" fill="#f8fafc" stroke="#dbeafe" stroke-width="2"></rect>
+            <text x="450" y="57" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">A ∪ B</text>
+            <circle cx="414" cy="166" r="76" fill="#bfdbfe" fill-opacity="0.8" stroke="#2563eb" stroke-width="4"></circle>
+            <circle cx="486" cy="166" r="76" fill="#c4b5fd" fill-opacity="0.72" stroke="#7c3aed" stroke-width="4"></circle>
+            <text x="385" y="171" text-anchor="middle" font-size="21" font-weight="800" fill="#1d4ed8">A</text>
+            <text x="515" y="171" text-anchor="middle" font-size="21" font-weight="800" fill="#6d28d9">B</text>
+            <text x="450" y="286" text-anchor="middle" font-size="15" font-weight="700" fill="#475569">всё, что входит в A или B</text>
+          </g>
+
+          <g>
+            <rect x="612" y="22" width="270" height="286" rx="22" fill="#f8fafc" stroke="#dbeafe" stroke-width="2"></rect>
+            <text x="747" y="57" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">A ∩ B</text>
+            <circle cx="700" cy="162" r="76" fill="#ffffff" stroke="#2563eb" stroke-width="4"></circle>
+            <circle cx="748" cy="162" r="76" fill="#ffffff" stroke="#7c3aed" stroke-width="4"></circle>
+            <circle cx="700" cy="162" r="76" fill="#8b5cf6" fill-opacity="0.72" clip-path="url(#ms-clip-intersection-b)"></circle>
+            <text x="666" y="166" text-anchor="middle" font-size="21" font-weight="800" fill="#1d4ed8">A</text>
+            <text x="782" y="166" text-anchor="middle" font-size="21" font-weight="800" fill="#6d28d9">B</text>
+            <text x="747" y="286" text-anchor="middle" font-size="15" font-weight="700" fill="#475569">только общая часть A и B</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Операции с числовыми промежутками</h2>
+
+    <p class="ms-text">
+      Числовой промежуток тоже является множеством. Поэтому к промежуткам применяют объединение и пересечение.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 6. Пересечение промежутков</span>
+      A = (−∞; 3], B = (1; 6). Общие числа должны одновременно лежать в обоих промежутках.<br>
+      <strong>A ∩ B = (1; 3].</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 7. Объединение промежутков</span>
+      A = (−∞; 3], B = (1; 6). Промежутки перекрываются и вместе покрывают все числа меньше 6.<br>
+      <strong>A ∪ B = (−∞; 6).</strong>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Слово в условии</th>
+            <th>Операция</th>
+            <th>Что нужно оставить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>«и», «одновременно»</td>
+            <td>Пересечение ∩</td>
+            <td>Только общую часть множеств</td>
+          </tr>
+          <tr>
+            <td>«или», «хотя бы одно»</td>
+            <td>Объединение ∪</td>
+            <td>Все элементы обоих множеств</td>
+          </tr>
+          <tr>
+            <td>«входит в», «содержится в»</td>
+            <td>Включение ⊆</td>
+            <td>Проверить каждый элемент меньшего множества</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Множества в системах и совокупностях неравенств</h2>
+
+    <p class="ms-text">
+      Каждое неравенство задаёт множество решений. Поэтому решение системы — это пересечение,
+      а решение совокупности — объединение множеств решений.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Система: выполняются оба условия</h3>
+        <p class="ms-card-text">
+          x ≥ −1 и x &lt; 4.<br>
+          [−1; +∞) ∩ (−∞; 4) = <strong>[−1; 4)</strong>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Совокупность: достаточно одного условия</h3>
+        <p class="ms-card-text">
+          x ≤ −2 или x &gt; 3.<br>
+          (−∞; −2] ∪ (3; +∞).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Количество элементов объединения</h2>
+
+    <p class="ms-text">
+      При сложении количества элементов A и B общие элементы учитываются дважды.
+      Поэтому количество общих элементов нужно один раз вычесть.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>|A ∪ B| = |A| + |B| − |A ∩ B|.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 8. Два кружка</span>
+      В классе 30 учеников. Математический кружок посещают 18 учеников, кружок программирования — 15,
+      а оба кружка — 8 учеников.<br>
+      |A ∪ B| = 18 + 15 − 8 = 25.<br>
+      Значит, хотя бы один кружок посещают 25 учеников, а ни один — 30 − 25 = 5 учеников.
+    </div>
+  </section>
+
+  <section class="ms-section" id="practice">
+    <h2>11. Самопроверка</h2>
+
+    <p class="ms-text">
+      Сначала выполните задания самостоятельно, затем раскройте решение.
+    </p>
+
+    <div class="ms-task">
+      <p><strong>1.</strong> Дано A = {−4; −1; 0; 5}. Определите, верны ли записи: −1 ∈ A, 3 ∈ A, 5 ∉ A.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>−1 ∈ A — верно.</p>
+          <p>3 ∈ A — неверно, так как числа 3 в множестве нет.</p>
+          <p>5 ∉ A — неверно, потому что 5 ∈ A.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>2.</strong> Перечислите элементы множества B = {x ∈ ℤ | −3 &lt; x ≤ 2}.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Подходящие целые числа: −2, −1, 0, 1, 2.</p>
+          <p><strong>Ответ:</strong> B = {−2; −1; 0; 1; 2}.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>3.</strong> Дано A = {3; 6; 9}, B = {0; 3; 6; 9; 12}. Верно ли A ⊆ B?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Каждый элемент A — числа 3, 6 и 9 — принадлежит B.</p>
+          <p><strong>Ответ:</strong> да, A ⊆ B.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>4.</strong> A = {1; 2; 5; 7}, B = {2; 4; 5; 8}. Найдите A ∪ B и A ∩ B.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>В объединение входят все элементы без повторений:</p>
+          <p>A ∪ B = {1; 2; 4; 5; 7; 8}.</p>
+          <p>Общие элементы — 2 и 5:</p>
+          <p><strong>A ∩ B = {2; 5}.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>5.</strong> Найдите пересечение промежутков [−4; 2) и (−1; 5].</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Общая часть начинается после −1 и заканчивается перед 2.</p>
+          <p>Обе границы исключены.</p>
+          <p><strong>Ответ:</strong> (−1; 2).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>6.</strong> Найдите объединение промежутков (−∞; 1] и (−2; 4).</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Промежутки пересекаются. Вместе они покрывают все числа, меньшие 4.</p>
+          <p><strong>Ответ:</strong> (−∞; 4).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>7.</strong> Найдите множество чисел, для которых одновременно выполняются x &gt; −3 и x ≤ 5.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Нужно пересечь промежутки (−3; +∞) и (−∞; 5].</p>
+          <p><strong>Ответ:</strong> (−3; 5].</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>8.</strong> В группе 28 человек. Английский изучают 17 человек, немецкий — 13, оба языка — 6. Сколько человек изучают хотя бы один из этих языков?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>|A ∪ B| = |A| + |B| − |A ∩ B|.</p>
+          <p>|A ∪ B| = 17 + 13 − 6 = 24.</p>
+          <p><strong>Ответ:</strong> 24 человека.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-12">
+    <h2>12. Финишная схема: прочитайте запись без ошибок</h2>
+
+    <p class="ms-text">
+      В этой теме важнее всего не заучить символы отдельно, а связать каждый знак с точным смыслом.
+    </p>
+
+    <div class="ms-finish-board">
+      <div class="ms-finish-route">
+        <div class="ms-finish-step">Определите элементы множеств</div>
+        <div class="ms-finish-arrow">→</div>
+        <div class="ms-finish-step">Выберите слово «и», «или» или «входит»</div>
+        <div class="ms-finish-arrow">→</div>
+        <div class="ms-finish-step">Запишите ∩, ∪ или ⊆</div>
+      </div>
+
+      <table class="ms-finish-table">
+        <tbody>
+          <tr>
+            <td>x ∈ A</td>
+            <td>Элемент x принадлежит множеству A.</td>
+          </tr>
+          <tr>
+            <td>A ⊆ B</td>
+            <td>Каждый элемент A принадлежит B.</td>
+          </tr>
+          <tr>
+            <td>A ∩ B</td>
+            <td>Оставляем только элементы, которые входят одновременно в A и B.</td>
+          </tr>
+          <tr>
+            <td>A ∪ B</td>
+            <td>Собираем элементы, входящие хотя бы в одно из множеств A или B.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="ms-final-signal">
+        Система условий означает пересечение, совокупность условий — объединение.
+      </p>
+    </div>
+
+    <p class="ms-text" style="margin-top: 18px;">
+      В следующей теме этот язык будет использоваться при решении систем рациональных неравенств.
+    </p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/reshenie-raczionalnyh-neravenstv-metodom-intervalov/">
+      ← Предыдущая тема
+    </a>
+
+    <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+      К темам алгебры
+    </a>
+
+    <a class="ms-btn" href="/sistemy-raczionalnyh-neravenstv/">
+      Следующая тема →
+    </a>
+  </div>
+
+</div>
+<!-- /wp:html -->

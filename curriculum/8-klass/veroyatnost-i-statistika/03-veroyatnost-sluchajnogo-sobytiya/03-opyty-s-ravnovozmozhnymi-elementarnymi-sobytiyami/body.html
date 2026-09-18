@@ -1,0 +1,125 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Вероятность случайного события · Тема 3.3</div>
+    <h1 class="ms-title">Опыты с равновозможными элементарными событиями</h1>
+    <p class="ms-subtitle">Разберём классическую формулу вероятности, научимся проверять равновозможность исходов и считать все благоприятствующие варианты без пропусков и повторов.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/opyty-s-ravnovozmozhnymi-elementarnymi-sobytiyami/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Какие исходы называют равновозможными</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Классическая формула вероятности</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Разобранные примеры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Два броска кости: таблица исходов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Типичные ошибки в подсчёте</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Проверка перед ответом: все исходы учтены</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Какие исходы называют равновозможными</h2>
+    <p class="ms-text"><strong>Равновозможные элементарные события</strong> имеют одинаковые вероятности. Обычно это следует из симметрии и одинаковых условий опыта.</p>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Равновозможные</h3><p class="ms-card-text">Орёл и решка у однородной симметричной монеты; числа 1–6 у правильной игральной кости; одинаковые карточки после тщательного перемешивания.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Не обязаны быть равновозможными</h3><p class="ms-card-text">Секторы разной площади, неодинаковые предметы при выборе на ощупь, несимметричная или специально утяжелённая кость.</p></div>
+    </div>
+    <div class="ms-note">Нельзя объявлять исходы равновозможными только потому, что их немного. Нужно объяснить, почему ни один исход не имеет преимущества.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Классическая формула вероятности</h2>
+    <p class="ms-text">Если опыт имеет n равновозможных элементарных событий и ровно m из них благоприятствуют событию A, то:</p>
+    <div class="ms-math-box ms-center">
+      <strong>P(A) = <span class="ms-frac"><span class="ms-num">m</span><span class="ms-den">n</span></span></strong>
+    </div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Знаменатель n</h3><p class="ms-card-text">Общее число всех равновозможных элементарных событий опыта.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Числитель m</h3><p class="ms-card-text">Число исходов, при которых происходит интересующее нас событие A.</p></div>
+    </div>
+    <div class="ms-rule-box">Так как 0 ≤ m ≤ n, дробь m/n всегда находится между 0 и 1.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Алгоритм решения</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Опишите Ω</strong><span class="ms-card-text">Поймите, какие элементарные исходы возможны.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проверьте равновозможность</strong><span class="ms-card-text">Убедитесь, что все исходы имеют одинаковый шанс.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Найдите n и m</strong><span class="ms-card-text">Посчитайте все исходы и благоприятствующие событию.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Запишите и сократите</strong><span class="ms-card-text">Вычислите m/n и при необходимости переведите в десятичную дробь.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Разобранные примеры</h2>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Число больше четырёх на кости</span>Всего n = 6 равновозможных исходов. Благоприятствуют числа 5 и 6, поэтому m = 2. Получаем P(A) = 2/6 = <strong>1/3</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Карточка с числом, кратным четырём</span>Из карточек 1–20 подходят 4, 8, 12, 16 и 20. Поэтому n = 20, m = 5, P(A) = 5/20 = <strong>1/4</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 3. Ровно один орёл при двух бросках</span>Ω = {ОО, ОР, РО, РР}. Подходят ОР и РО. Значит, P(A) = 2/4 = <strong>1/2</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Два броска кости: таблица исходов</h2>
+    <p class="ms-text">Исход удобно записывать упорядоченной парой: первое число показывает результат первого броска, второе — второго. Всего получается 6 · 6 = 36 равновозможных пар.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th class="ms-cell-head">1-й \ 2-й</th><th class="ms-cell-head">1</th><th class="ms-cell-head">2</th><th class="ms-cell-head">3</th><th class="ms-cell-head">4</th><th class="ms-cell-head">5</th><th class="ms-cell-head">6</th></tr></thead>
+        <tbody>
+          <tr><th class="ms-cell-head">1</th><td class="ms-center">(1;1)</td><td class="ms-center">(1;2)</td><td class="ms-center">(1;3)</td><td class="ms-center">(1;4)</td><td class="ms-center">(1;5)</td><td class="ms-cell-good ms-center">(1;6)</td></tr>
+          <tr><th class="ms-cell-head">2</th><td class="ms-center">(2;1)</td><td class="ms-center">(2;2)</td><td class="ms-center">(2;3)</td><td class="ms-center">(2;4)</td><td class="ms-cell-good ms-center">(2;5)</td><td class="ms-center">(2;6)</td></tr>
+          <tr><th class="ms-cell-head">3</th><td class="ms-center">(3;1)</td><td class="ms-center">(3;2)</td><td class="ms-center">(3;3)</td><td class="ms-cell-good ms-center">(3;4)</td><td class="ms-center">(3;5)</td><td class="ms-center">(3;6)</td></tr>
+          <tr><th class="ms-cell-head">4</th><td class="ms-center">(4;1)</td><td class="ms-center">(4;2)</td><td class="ms-cell-good ms-center">(4;3)</td><td class="ms-center">(4;4)</td><td class="ms-center">(4;5)</td><td class="ms-center">(4;6)</td></tr>
+          <tr><th class="ms-cell-head">5</th><td class="ms-center">(5;1)</td><td class="ms-cell-good ms-center">(5;2)</td><td class="ms-center">(5;3)</td><td class="ms-center">(5;4)</td><td class="ms-center">(5;5)</td><td class="ms-center">(5;6)</td></tr>
+          <tr><th class="ms-cell-head">6</th><td class="ms-cell-good ms-center">(6;1)</td><td class="ms-center">(6;2)</td><td class="ms-center">(6;3)</td><td class="ms-center">(6;4)</td><td class="ms-center">(6;5)</td><td class="ms-center">(6;6)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Сумма равна 7</span>Зелёным выделены 6 исходов: (1;6), (2;5), (3;4), (4;3), (5;2), (6;1). Поэтому P(A) = 6/36 = <strong>1/6</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Типичные ошибки в подсчёте</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Перепутали m и n</h3><p class="ms-card-text">В числителе стоят благоприятствующие исходы, в знаменателе — все равновозможные исходы.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Не учли порядок</h3><p class="ms-card-text">При двух бросках исходы (2;5) и (5;2) различны, если важен номер броска.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Пропустили слово «хотя бы»</h3><p class="ms-card-text">«Хотя бы один орёл» включает ОО, ОР и РО, а не только случаи с одним орлом.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Применили формулу без равновозможности</h3><p class="ms-card-text">Для неравных секторов нельзя делить число подходящих цветов на число цветов.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task"><p>1. Симметричную монету подбрасывают один раз. Найдите вероятность выпадения орла.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Два равновозможных исхода, один благоприятствующий: P = <strong>1/2</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>2. Игральную кость бросают один раз. Найдите вероятность выпадения чётного числа.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Подходят 2, 4 и 6: P = 3/6 = <strong>1/2</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>3. Наугад выбирают одну карточку с числом от 1 до 12. Найдите вероятность выбрать простое число.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Простые числа: 2, 3, 5, 7, 11. Поэтому P = 5/12.</p></div></details></div>
+
+    <div class="ms-task"><p>4. Круг разделён на 8 равных секторов, из которых 3 синие. Найдите вероятность остановки указателя на синем секторе.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>P = <strong>3/8</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>5. Монету подбрасывают два раза. Найдите вероятность того, что орёл выпадет хотя бы один раз.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Ω = {ОО, ОР, РО, РР}. Подходят ОО, ОР и РО: P = <strong>3/4</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>6. Две кости бросают одновременно. Найдите вероятность того, что сумма очков равна 10.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Подходят (4;6), (5;5), (6;4): m = 3, n = 36. P = 3/36 = <strong>1/12</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>7. Случайно выбирают целое число от 10 до 30 включительно. Найдите вероятность выбрать число, кратное 5.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Всего 30 − 10 + 1 = 21 число. Подходят 10, 15, 20, 25, 30 — пять чисел. P = <strong>5/21</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>8. Указатель вращается на круге, разделённом на один большой красный сектор и два маленьких синих сектора. Можно ли найти вероятность красного цвета как 1/3 только по числу цветов?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет. Секторы имеют разные площади, поэтому исходы «красный», «синий № 1», «синий № 2» не обоснованы как равновозможные. Нужны размеры секторов или заданные вероятности.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>Проверка перед ответом: все исходы учтены</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Сначала равновозможность</strong><span class="ms-card-text">Формулу m/n применяют только после обоснования одинаковых шансов всех элементарных исходов.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Затем полный подсчёт</strong><span class="ms-card-text">n — все исходы, m — только те, которые удовлетворяют условию события.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">В конце проверка</strong><span class="ms-card-text">Ответ должен находиться между 0 и 1, а дробь полезно сократить.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/veroyatnosti-sobytij/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/derevo-svojstva-dereva/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

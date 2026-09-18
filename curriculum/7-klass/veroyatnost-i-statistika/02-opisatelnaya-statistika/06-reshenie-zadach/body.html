@@ -1,0 +1,157 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Описательная статистика · Тема 2.6</div>
+    <h1 class="ms-title">Решение задач</h1>
+    <p class="ms-subtitle">Объединим среднее, медиану, крайние значения и размах в многошаговых задачах на анализ, восстановление и сравнение данных.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/reshenie-zadach/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Как выбирать статистическую характеристику</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Универсальный план решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Комплексный разбор набора</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Восстановление неизвестного значения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Объединение групп</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Сравнение наборов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Короткий итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Как выбирать статистическую характеристику</h2>
+    <p class="ms-text">В задачах по описательной статистике важно не только выполнить вычисления, но и понять, <strong>какую информацию требуется получить</strong>. Разные характеристики отвечают на разные вопросы.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Вопрос задачи</th><th>Подходящая характеристика</th><th>Почему</th></tr></thead>
+        <tbody>
+          <tr><td>Какова условно равная доля?</td><td>Среднее арифметическое</td><td>Связывает сумму и количество</td></tr>
+          <tr><td>Каково типичное значение при выбросах?</td><td>Медиана</td><td>Устойчива к крайним значениям</td></tr>
+          <tr><td>Насколько далеко расположены крайние результаты?</td><td>Размах</td><td>Измеряет расстояние между min и max</td></tr>
+          <tr><td>Как полностью описать набор?</td><td>Несколько характеристик</td><td>Центр и разброс дополняют друг друга</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Универсальный план решения</h2>
+    <div class="ms-process">
+      <div class="ms-process-step"><span class="ms-process-number">1</span><div><strong>Прочитайте условие</strong><span>Определите, что означают числа и в каких единицах они записаны.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">2</span><div><strong>Подготовьте данные</strong><span>При необходимости упорядочьте набор и проверьте подозрительные значения.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">3</span><div><strong>Выберите характеристику</strong><span>Среднее связано с суммой, медиана — с положением, размах — с крайними значениями.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">4</span><div><strong>Выполните вычисления</strong><span>Записывайте промежуточные суммы и проверяйте результат по смыслу.</span></div></div>
+      <div class="ms-process-step"><span class="ms-process-number">5</span><div><strong>Сделайте вывод</strong><span>Укажите единицу измерения и объясните, что показывает найденное число.</span></div></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Комплексный разбор набора</h2>
+    <p class="ms-text">Результаты пяти попыток: 8, 9, 9, 10, 14.</p>
+    <div class="ms-stat-grid ms-card-grid ms-columns-4">
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">10</strong><span class="ms-card-text">среднее</span></div>
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">9</strong><span class="ms-card-text">медиана</span></div>
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">8</strong><span class="ms-card-text">минимум</span></div>
+      <div class="ms-stat-card ms-card"><strong class="ms-card-title">6</strong><span class="ms-card-text">размах</span></div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Вычисления</span>Среднее: (8 + 9 + 9 + 10 + 14) : 5 = 50 : 5 = 10. Медиана — третье число 9. Размах: 14 − 8 = 6.</div>
+    <p class="ms-text">Среднее больше медианы, потому что высокий результат 14 тянет его вверх. Размах показывает, что крайние попытки отличаются на 6 единиц.</p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Восстановление неизвестного значения</h2>
+    <p class="ms-text">Если известны среднее и количество чисел, сначала восстановите общую сумму. Затем вычтите сумму известных элементов.</p>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Среднее шести результатов равно 18. Общая сумма: 18 · 6 = 108. Пять результатов дают сумму 85. Неизвестный результат: 108 − 85 = <strong>23</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Объединение групп</h2>
+    <p class="ms-text">Для объединённых данных средние нужно «взвесить» численностями групп. Большая группа вносит больший вклад.</p>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>В классе A 24 ученика, средний результат 72. В классе B 26 учеников, средний результат 68. Общая сумма: 24 · 72 + 26 · 68 = 1728 + 1768 = 3496. Всего 50 учеников. Общее среднее: 3496 : 50 = <strong>69,92</strong>.</div>
+    <div class="ms-note">Нельзя брать (72 + 68) : 2 = 70, потому что численности групп различаются.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Сравнение наборов</h2>
+    <p class="ms-text">Для содержательного сравнения полезно указать и центр, и разброс. Одинаковое среднее не означает одинаковое распределение результатов.</p>
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Набор A</strong><p class="ms-card-text">9, 10, 10, 10, 11</p><p class="ms-card-text">Среднее: 10</p><p class="ms-card-text">Медиана: 10</p><p class="ms-card-text">Размах: 2</p></div>
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Набор B</strong><p class="ms-card-text">2, 8, 10, 14, 16</p><p class="ms-card-text">Среднее: 10</p><p class="ms-card-text">Медиана: 10</p><p class="ms-card-text">Размах: 14</p></div>
+    </div>
+    <p class="ms-text">Оба набора имеют одинаковый центр, но результаты набора B значительно менее однородны.</p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+    <div class="ms-task">
+      <p>1. Для набора 6, 7, 8, 9, 20 найдите среднее, медиану и размах.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Среднее: (6 + 7 + 8 + 9 + 20) : 5 = 50 : 5 = <strong>10</strong>.</p><p>Медиана — центральное число <strong>8</strong>.</p><p>Размах: 20 − 6 = <strong>14</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>2. В наборе цен жилья есть одна квартира стоимостью в десять раз выше остальных. Какая характеристика лучше описывает типичную цену?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Лучше использовать <strong>медиану</strong>, поскольку она менее чувствительна к очень дорогой квартире-выбросу.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>3. За 7 дней ученик решал в среднем по 18 задач. За первые 6 дней он решил 104 задачи. Сколько задач решено в седьмой день?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общее количество: 18 · 7 = 126.</p><p>В седьмой день: 126 − 104 = <strong>22 задачи</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>4. У 15 участников средний результат равен 12. Добавился участник с результатом 18. Найдите новое среднее.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Старая сумма: 15 · 12 = 180.</p><p>Новая сумма: 180 + 18 = 198. Участников стало 16.</p><p>198 : 16 = <strong>12,375</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>5. В первой группе 8 человек со средним 14, во второй — 12 человек со средним 11. Найдите общее среднее.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Сумма первой группы: 8 · 14 = 112.</p><p>Сумма второй: 12 · 11 = 132.</p><p>Общая сумма 244, человек 20. 244 : 20 = <strong>12,2</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>6. Исходные характеристики набора: среднее 15, медиана 14, размах 8. Ко всем значениям прибавили 3. Найдите новые характеристики.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Среднее: 15 + 3 = <strong>18</strong>.</p><p>Медиана: 14 + 3 = <strong>17</strong>.</p><p>Размах не изменится и останется равным <strong>8</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>7. Упорядоченный набор имеет вид 4, 8, 10, 13, x. Его среднее равно 10. Найдите x и размах.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общая сумма должна быть 10 · 5 = 50.</p><p>Сумма известных чисел: 4 + 8 + 10 + 13 = 35.</p><p>x = 50 − 35 = <strong>15</strong>.</p><p>Размах: 15 − 4 = <strong>11</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>8. Сравните наборы A: 9, 10, 10, 10, 11 и B: 2, 8, 10, 14, 16.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>У обоих наборов среднее и медиана равны 10.</p><p>Размах A равен 2, размах B равен 14.</p><p>Следовательно, <strong>набор B имеет значительно больший разброс</strong>.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>Короткий итог</h2>
+    <p class="ms-text">Полное описание данных строится из нескольких характеристик: среднее и медиана показывают центр, минимум и максимум задают границы, а размах оценивает общий разброс.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/svojstva-srednih/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/primery-sluchajnoj-izmenchivosti/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

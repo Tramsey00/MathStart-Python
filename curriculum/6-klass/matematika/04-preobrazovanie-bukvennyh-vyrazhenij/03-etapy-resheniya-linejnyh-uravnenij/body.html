@@ -1,0 +1,878 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">6 класс · Преобразование буквенных выражений · Тема 4.3</div>
+
+    <h1 class="ms-title">Этапы решения линейных уравнений</h1>
+
+    <p class="ms-subtitle">
+      В этой теме соберём все правила в один понятный алгоритм: как решать линейные уравнения
+      со скобками, переносом слагаемых, подобными членами и проверкой ответа.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к алгоритму</a>
+      <a class="ms-btn ms-btn-secondary" href="/6-klass/">К темам 6 класса</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Зачем нужен алгоритм</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Общий алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Пример без скобок</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Уравнение со скобками</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Уравнение с минусом перед скобками</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Когда в уравнении дроби</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Проверка после решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Особые случаи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Ошибки на разных этапах</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 12</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Карта решения уравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Зачем нужен алгоритм</h2>
+
+    <p class="ms-text">
+      Линейные уравнения могут выглядеть по-разному: где-то есть скобки, где-то переменная стоит в обеих частях,
+      где-то встречаются отрицательные числа. Но почти любое такое уравнение можно решать по одному маршруту.
+    </p>
+
+    <ul class="ms-list">
+      <li>Сначала выражение нужно привести к удобному виду.</li>
+      <li>Скобки раскрываются до переноса слагаемых.</li>
+      <li>Слагаемые с переменной лучше собирать в одной части.</li>
+      <li>Числа без переменной лучше собирать в другой части.</li>
+      <li>После приведения должно получиться уравнение вида ax = b.</li>
+      <li>Последний шаг — деление на коэффициент при x и проверка.</li>
+    </ul>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Общий алгоритм решения</h2>
+
+    <p class="ms-text">
+      Алгоритм нужен для того, чтобы не решать уравнение хаотично. Если каждый раз идти по одним и тем же шагам,
+      меньше риск потерять знак, забыть раскрыть скобки или неправильно перенести слагаемое.
+    </p>
+
+    <div class="ms-steps-grid ms-card-grid ms-columns-3">
+      <div class="ms-step-card ms-card">
+        <div class="ms-step-num">1</div>
+        <strong class="ms-card-title">Раскрыть скобки</strong>
+        Если скобок нет, этот шаг просто пропускаем.
+      </div>
+
+      <div class="ms-step-card ms-card">
+        <div class="ms-step-num">2</div>
+        <strong class="ms-card-title">Привести подобные</strong>
+        Упростить левую и правую части отдельно.
+      </div>
+
+      <div class="ms-step-card ms-card">
+        <div class="ms-step-num">3</div>
+        <strong class="ms-card-title">Собрать x</strong>
+        Переменные перенести в одну часть уравнения.
+      </div>
+
+      <div class="ms-step-card ms-card">
+        <div class="ms-step-num">4</div>
+        <strong class="ms-card-title">Собрать числа</strong>
+        Числа без x перенести в другую часть.
+      </div>
+
+      <div class="ms-step-card ms-card">
+        <div class="ms-step-num">5</div>
+        <strong class="ms-card-title">Получить ax = b</strong>
+        Должно остаться простое уравнение.
+      </div>
+
+      <div class="ms-step-card ms-card">
+        <div class="ms-step-num">6</div>
+        <strong class="ms-card-title">Найти и проверить</strong>
+        Разделить на коэффициент и подставить ответ.
+      </div>
+    </div>
+
+    <div class="ms-figure">
+  <p class="ms-figure-title">Схема: маршрут решения линейного уравнения</p>
+
+  <div class="ms-svg-wrap">
+    <svg class="ms-svg" viewBox="0 0 840 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Этапы решения линейного уравнения">
+      <rect x="0" y="0" width="840" height="520" rx="24" fill="#f9fafb"></rect>
+
+      <text x="420" y="48" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">
+        Этапы решения уравнения
+      </text>
+
+      <!-- Верхний ряд -->
+      <rect x="85" y="95" width="190" height="72" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="3"></rect>
+      <text x="180" y="125" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">1</text>
+      <text x="180" y="150" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">скобки</text>
+
+      <rect x="325" y="95" width="190" height="72" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="3"></rect>
+      <text x="420" y="125" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">2</text>
+      <text x="420" y="150" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">подобные</text>
+
+      <rect x="565" y="95" width="190" height="72" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="3"></rect>
+      <text x="660" y="125" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">3</text>
+      <text x="660" y="150" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">перенос x</text>
+
+      <!-- Стрелки верхнего ряда -->
+      <line x1="278" y1="131" x2="318" y2="131" stroke="#2563eb" stroke-width="5" stroke-linecap="round"></line>
+      <path d="M302 116 L322 131 L302 146" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+      <line x1="518" y1="131" x2="558" y2="131" stroke="#2563eb" stroke-width="5" stroke-linecap="round"></line>
+      <path d="M542 116 L562 131 L542 146" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+      <!-- Нижний ряд -->
+      <rect x="85" y="285" width="190" height="72" rx="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="3"></rect>
+      <text x="180" y="315" text-anchor="middle" font-size="18" font-weight="800" fill="#d97706">4</text>
+      <text x="180" y="340" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">числа</text>
+
+      <rect x="325" y="285" width="190" height="72" rx="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="3"></rect>
+      <text x="420" y="315" text-anchor="middle" font-size="18" font-weight="800" fill="#d97706">5</text>
+      <text x="420" y="340" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">ax = b</text>
+
+      <rect x="565" y="285" width="190" height="72" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="3"></rect>
+      <text x="660" y="315" text-anchor="middle" font-size="18" font-weight="800" fill="#15803d">6</text>
+      <text x="660" y="340" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">ответ</text>
+
+      <!-- Стрелки нижнего ряда -->
+      <line x1="278" y1="321" x2="318" y2="321" stroke="#d97706" stroke-width="5" stroke-linecap="round"></line>
+      <path d="M302 306 L322 321 L302 336" fill="none" stroke="#d97706" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+      <line x1="518" y1="321" x2="558" y2="321" stroke="#15803d" stroke-width="5" stroke-linecap="round"></line>
+      <path d="M542 306 L562 321 L542 336" fill="none" stroke="#15803d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+
+      <!-- Исправленная большая стрелка 3 -> 4 -->
+      <path d="M660 180
+               C660 235, 470 235, 310 255
+               C250 263, 215 273, 190 295"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="6"
+            stroke-linecap="round"></path>
+
+      <path d="M205 275 L185 298 L214 293"
+            fill="none"
+            stroke="#94a3b8"
+            stroke-width="6"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+
+      <!-- Подпись -->
+      <rect x="215" y="420" width="410" height="48" rx="20" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"></rect>
+      <text x="420" y="451" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">
+        В конце обязательно проверяем корень
+      </text>
+    </svg>
+  </div>
+</div>
+
+    <div class="ms-rule-box">
+      Главное правило: каждый перенос через знак равенства меняет знак слагаемого.
+      <br>
+      <strong>+a</strong> становится <strong>−a</strong>, а <strong>−a</strong> становится <strong>+a</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Пример без скобок</h2>
+
+    <p class="ms-text">
+      Начнём с уравнения, где переменная встречается в обеих частях. Здесь не нужно раскрывать скобки,
+      поэтому сразу собираем переменные и числа.
+    </p>
+
+    <h3>Пример 1. Переменная в обеих частях</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 7x + 4 = 3x + 20.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Перенесём 3x в левую часть со знаком минус.</div>
+      <div class="ms-math-row">7x − 3x + 4 = 20.</div>
+      <div class="ms-math-row">4x + 4 = 20.</div>
+      <div class="ms-math-row">Перенесём +4 в правую часть со знаком минус.</div>
+      <div class="ms-math-row">4x = 20 − 4.</div>
+      <div class="ms-math-row">4x = 16.</div>
+      <div class="ms-math-row">x = 16 : 4.</div>
+      <div class="ms-math-row">x = 4.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 4.</span></div>
+    </div>
+
+    <h3>Проверка</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Подставим x = 4 в исходное уравнение.</div>
+      <div class="ms-math-row">Левая часть: 7 · 4 + 4 = 28 + 4 = 32.</div>
+      <div class="ms-math-row">Правая часть: 3 · 4 + 20 = 12 + 20 = 32.</div>
+      <div class="ms-math-row">Левая часть равна правой части.</div>
+      <div class="ms-math-row"><span class="ms-good">Значит, x = 4 найдено верно.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Уравнение со скобками</h2>
+
+    <p class="ms-text">
+      Если в уравнении есть скобки, не нужно сразу переносить слагаемые. Сначала раскрываем скобки,
+      а затем решаем получившееся уравнение обычным способом.
+    </p>
+
+    <div class="ms-rule-box">
+      Скобки раскрываются до переноса слагаемых.
+      <br>
+      Это помогает не запутаться в знаках и коэффициентах.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Схема: сначала скобки, потом перенос</p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 840 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Сначала раскрыть скобки потом переносить">
+          <rect x="0" y="0" width="840" height="470" rx="24" fill="#f9fafb"></rect>
+
+          <text x="420" y="48" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">
+            Работа со скобками
+          </text>
+
+          <rect x="110" y="95" width="620" height="64" rx="24" fill="#ffffff" stroke="#bfdbfe" stroke-width="3"></rect>
+          <text x="420" y="136" text-anchor="middle" font-size="28" font-weight="800" fill="#111827">
+            3(x + 5) = 2x + 25
+          </text>
+
+          <path d="M420 175 L420 215" fill="none" stroke="#2563eb" stroke-width="7" stroke-linecap="round"></path>
+          <path d="M400 198 L420 222 L440 198" fill="none" stroke="#2563eb" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+
+          <rect x="110" y="240" width="620" height="64" rx="24" fill="#eff6ff" stroke="#bfdbfe" stroke-width="3"></rect>
+          <text x="420" y="281" text-anchor="middle" font-size="28" font-weight="800" fill="#111827">
+            3x + 15 = 2x + 25
+          </text>
+
+          <path d="M420 320 L420 360" fill="none" stroke="#d97706" stroke-width="7" stroke-linecap="round"></path>
+          <path d="M400 343 L420 367 L440 343" fill="none" stroke="#d97706" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+
+          <rect x="230" y="385" width="380" height="48" rx="20" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"></rect>
+          <text x="420" y="416" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">
+            Теперь переносим и решаем
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <h3>Пример 2. Скобки в одной части</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 3(x + 5) = 2x + 25.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Раскрываем скобки в левой части.</div>
+      <div class="ms-math-row">3x + 15 = 2x + 25.</div>
+      <div class="ms-math-row">Перенесём 2x в левую часть.</div>
+      <div class="ms-math-row">3x − 2x + 15 = 25.</div>
+      <div class="ms-math-row">x + 15 = 25.</div>
+      <div class="ms-math-row">Перенесём +15 в правую часть.</div>
+      <div class="ms-math-row">x = 25 − 15.</div>
+      <div class="ms-math-row">x = 10.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 10.</span></div>
+    </div>
+
+    <h3>Пример 3. Скобки в обеих частях</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 2(x − 4) = 5x − 17.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Раскрываем скобки.</div>
+      <div class="ms-math-row">2x − 8 = 5x − 17.</div>
+      <div class="ms-math-row">Перенесём 5x в левую часть, а −8 в правую.</div>
+      <div class="ms-math-row">2x − 5x = −17 + 8.</div>
+      <div class="ms-math-row">−3x = −9.</div>
+      <div class="ms-math-row">x = −9 : (−3).</div>
+      <div class="ms-math-row">x = 3.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 3.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Уравнение с минусом перед скобками</h2>
+
+    <p class="ms-text">
+      Минус перед скобками — один из самых частых источников ошибок. При раскрытии таких скобок нужно изменить
+      знаки всех слагаемых внутри скобок.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Минус перед скобками меняет все знаки внутри скобок:</strong>
+      <br>
+      −(x + 7) = −x − 7
+      <br>
+      −(x − 7) = −x + 7
+    </div>
+
+    <h3>Пример 4. Минус перед скобками</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 18 − (x + 4) = 7.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Раскрываем скобки: перед скобками стоит минус.</div>
+      <div class="ms-math-row">18 − x − 4 = 7.</div>
+      <div class="ms-math-row">Приведём подобные числа: 18 − 4 = 14.</div>
+      <div class="ms-math-row">14 − x = 7.</div>
+      <div class="ms-math-row">Перенесём 14 в правую часть.</div>
+      <div class="ms-math-row">−x = 7 − 14.</div>
+      <div class="ms-math-row">−x = −7.</div>
+      <div class="ms-math-row">x = 7.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 7.</span></div>
+    </div>
+
+    <h3>Пример 5. Минус перед разностью</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 12 − (2x − 5) = 3.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Раскрываем скобки: 2x становится −2x, а −5 становится +5.</div>
+      <div class="ms-math-row">12 − 2x + 5 = 3.</div>
+      <div class="ms-math-row">17 − 2x = 3.</div>
+      <div class="ms-math-row">Перенесём 17 в правую часть.</div>
+      <div class="ms-math-row">−2x = 3 − 17.</div>
+      <div class="ms-math-row">−2x = −14.</div>
+      <div class="ms-math-row">x = −14 : (−2).</div>
+      <div class="ms-math-row">x = 7.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 7.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Когда в уравнении дроби</h2>
+
+    <p class="ms-text">
+      Если в уравнении есть дробные коэффициенты, можно решать обычным способом. В 6 классе чаще всего
+      достаточно аккуратно выполнить действия с дробями и в конце разделить на коэффициент при переменной.
+    </p>
+
+    <div class="ms-rule-box">
+      Если получилось
+      <strong>
+        <span class="ms-frac"><span class="ms-num">a</span><span class="ms-den">b</span></span>x = c
+      </strong>,
+      то x можно найти делением:
+      <strong>
+        x = c :
+        <span class="ms-frac"><span class="ms-num">a</span><span class="ms-den">b</span></span>
+      </strong>.
+    </div>
+
+    <h3>Пример 6. Дробный коэффициент при x</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение
+      <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>x + 3 = 8.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Перенесём +3 в правую часть.</div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>x = 8 − 3.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>x = 5.
+      </div>
+      <div class="ms-math-row">
+        Чтобы найти x, нужно 5 разделить на
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>.
+      </div>
+      <div class="ms-math-row">
+        x = 5 :
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>
+        = 5 · 2 = 10.
+      </div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 10.</span></div>
+    </div>
+
+    <h3>Пример 7. Дроби в обеих частях</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение
+      <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">4</span></span>x − 2 =
+      <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">4</span></span>x + 4.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Перенесём дробное слагаемое с x в левую часть, а −2 в правую.</div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">4</span></span>x
+        −
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">4</span></span>x
+        = 4 + 2.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">2</span><span class="ms-den">4</span></span>x = 6.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>x = 6.
+      </div>
+      <div class="ms-math-row">
+        x = 6 :
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">2</span></span>
+        = 12.
+      </div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x = 12.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Проверка после решения</h2>
+
+    <p class="ms-text">
+      Проверка особенно важна в уравнениях со скобками и отрицательными числами. Проверять нужно не по последней
+      строке решения, а по исходному уравнению.
+    </p>
+
+    <div class="ms-rule-box">
+      Для проверки подставляем найденное значение x в исходное уравнение.
+      Если левая часть равна правой, ответ верный.
+    </div>
+
+    <h3>Пример 8. Проверим решение</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Проверить x = 7 для уравнения 12 − (2x − 5) = 3.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Проверка.</strong></div>
+      <div class="ms-math-row">Подставим x = 7 в исходное уравнение.</div>
+      <div class="ms-math-row">Левая часть: 12 − (2 · 7 − 5).</div>
+      <div class="ms-math-row">12 − (14 − 5) = 12 − 9 = 3.</div>
+      <div class="ms-math-row">Правая часть равна 3.</div>
+      <div class="ms-math-row">Левая часть равна правой части.</div>
+      <div class="ms-math-row"><span class="ms-good">Значит, x = 7 найдено верно.</span></div>
+    </div>
+
+    <div class="ms-note">
+      Если при проверке левая и правая части не совпали, нужно искать ошибку выше:
+      чаще всего это знак перед скобками или перенос через знак равенства.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Особые случаи</h2>
+
+    <p class="ms-text">
+      Иногда после преобразований переменная исчезает. Тогда нужно внимательно посмотреть, какое равенство получилось.
+      Такие случаи встречаются реже, но их полезно знать.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Что получилось</th>
+            <th>Что это значит</th>
+            <th>Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0 = 0</td>
+            <td>Равенство верно всегда</td>
+            <td>Решением является любое число</td>
+          </tr>
+          <tr>
+            <td>0 = 5</td>
+            <td>Равенство неверно</td>
+            <td>Корней нет</td>
+          </tr>
+          <tr>
+            <td>ax = b, a ≠ 0</td>
+            <td>Обычный случай</td>
+            <td>Один корень</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Пример 9. Любое число подходит</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 2(x + 3) = 2x + 6.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Раскрываем скобки: 2x + 6 = 2x + 6.</div>
+      <div class="ms-math-row">Перенесём 2x в левую часть.</div>
+      <div class="ms-math-row">2x − 2x + 6 = 6.</div>
+      <div class="ms-math-row">6 = 6.</div>
+      <div class="ms-math-row">Получилось верное равенство.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: подходит любое число.</span></div>
+    </div>
+
+    <h3>Пример 10. Корней нет</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить уравнение 3(x − 2) = 3x + 5.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Раскрываем скобки: 3x − 6 = 3x + 5.</div>
+      <div class="ms-math-row">Перенесём 3x в левую часть.</div>
+      <div class="ms-math-row">3x − 3x − 6 = 5.</div>
+      <div class="ms-math-row">−6 = 5.</div>
+      <div class="ms-math-row">Получилось неверное равенство.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: корней нет.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Ошибки на разных этапах</h2>
+
+    <p class="ms-text">
+      У каждого этапа решения есть своя типичная ошибка. Если решение не сходится, удобно проверять его именно по этапам.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Этап</th>
+            <th>Частая ошибка</th>
+            <th>Как избежать</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Раскрытие скобок</td>
+            <td>Множитель подействовал не на все слагаемые</td>
+            <td>Умножать каждое слагаемое внутри скобок</td>
+          </tr>
+          <tr>
+            <td>Минус перед скобками</td>
+            <td>Изменили только первый знак</td>
+            <td>Менять знаки у всех слагаемых внутри скобок</td>
+          </tr>
+          <tr>
+            <td>Перенос</td>
+            <td>Не поменяли знак при переходе через равенство</td>
+            <td>Каждый перенос сопровождается сменой знака</td>
+          </tr>
+          <tr>
+            <td>Деление</td>
+            <td>Забыли знак коэффициента при x</td>
+            <td>Если −3x = 12, то x = 12 : (−3)</td>
+          </tr>
+          <tr>
+            <td>Проверка</td>
+            <td>Проверили не в исходном уравнении</td>
+            <td>Подставлять ответ именно в начальную запись</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-10">
+    <h2>9. Задания для самопроверки</h2>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Решите уравнение 6x + 5 = 2x + 21.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Перенесём 2x влево, 5 вправо.
+          <br>
+          6x − 2x = 21 − 5.
+          <br>
+          4x = 16.
+          <br>
+          x = 4.
+          <br>
+          <strong>Ответ: x = 4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Решите уравнение 9x − 7 = 4x + 18.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          9x − 4x = 18 + 7.
+          <br>
+          5x = 25.
+          <br>
+          x = 5.
+          <br>
+          <strong>Ответ: x = 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Решите уравнение 3(x + 4) = 24.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          3x + 12 = 24.
+          <br>
+          3x = 24 − 12.
+          <br>
+          3x = 12.
+          <br>
+          x = 4.
+          <br>
+          <strong>Ответ: x = 4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Решите уравнение 5(x − 2) = 3x + 8.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          5x − 10 = 3x + 8.
+          <br>
+          5x − 3x = 8 + 10.
+          <br>
+          2x = 18.
+          <br>
+          x = 9.
+          <br>
+          <strong>Ответ: x = 9.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Решите уравнение 4(x + 1) = 2(x + 7).</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          4x + 4 = 2x + 14.
+          <br>
+          4x − 2x = 14 − 4.
+          <br>
+          2x = 10.
+          <br>
+          x = 5.
+          <br>
+          <strong>Ответ: x = 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Решите уравнение 20 − (x + 6) = 9.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          20 − x − 6 = 9.
+          <br>
+          14 − x = 9.
+          <br>
+          −x = 9 − 14.
+          <br>
+          −x = −5.
+          <br>
+          x = 5.
+          <br>
+          <strong>Ответ: x = 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Решите уравнение 15 − (2x − 3) = 6.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          15 − 2x + 3 = 6.
+          <br>
+          18 − 2x = 6.
+          <br>
+          −2x = 6 − 18.
+          <br>
+          −2x = −12.
+          <br>
+          x = 6.
+          <br>
+          <strong>Ответ: x = 6.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Решите уравнение −3x + 8 = 23.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          −3x = 23 − 8.
+          <br>
+          −3x = 15.
+          <br>
+          x = 15 : (−3).
+          <br>
+          x = −5.
+          <br>
+          <strong>Ответ: x = −5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Решите уравнение
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">3</span></span>x + 2 = 7.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Перенесём +2 вправо:
+          <br>
+          <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">3</span></span>x = 5.
+          <br>
+          x = 5 :
+          <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">3</span></span>
+          = 15.
+          <br>
+          <strong>Ответ: x = 15.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Решите уравнение
+        <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">5</span></span>x − 1 =
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">5</span></span>x + 7.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Перенесём дробное слагаемое с x влево, −1 вправо:
+          <br>
+          <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">5</span></span>x
+          −
+          <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">5</span></span>x
+          = 7 + 1.
+          <br>
+          <span class="ms-frac"><span class="ms-num">2</span><span class="ms-den">5</span></span>x = 8.
+          <br>
+          x = 8 :
+          <span class="ms-frac"><span class="ms-num">2</span><span class="ms-den">5</span></span>
+          = 20.
+          <br>
+          <strong>Ответ: x = 20.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 11.</strong> Решите уравнение 2(x + 5) = 2x + 10.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Раскроем скобки:
+          <br>
+          2x + 10 = 2x + 10.
+          <br>
+          Получилось верное равенство при любом x.
+          <br>
+          <strong>Ответ: подходит любое число.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 12.</strong> Решите уравнение 4(x − 1) = 4x + 3.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Раскроем скобки:
+          <br>
+          4x − 4 = 4x + 3.
+          <br>
+          Перенесём 4x влево:
+          <br>
+          4x − 4x − 4 = 3.
+          <br>
+          −4 = 3.
+          <br>
+          Получилось неверное равенство.
+          <br>
+          <strong>Ответ: корней нет.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-11">
+    <h2>10. Карта решения уравнения</h2>
+
+    <p class="ms-text">
+      Уравнение удобно решать как задачу на наведение порядка: сначала убрать лишние конструкции,
+      потом разложить слагаемые по сторонам, затем получить простое уравнение.
+    </p>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Сначала упрощаем</strong>
+        Раскрываем скобки и приводим подобные слагаемые отдельно в каждой части уравнения.
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Потом разделяем</strong>
+        Все слагаемые с x собираем в одной части, числа без x — в другой части.
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Затем находим x</strong>
+        Когда получилось ax = b, делим обе части на коэффициент a.
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">После этого проверяем</strong>
+        Подставляем найденное значение в исходное уравнение, а не в сокращённую запись.
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Если решение запуталось, вернитесь к началу и проверьте только два места:
+      раскрытие скобок и перенос слагаемых через знак равенства.
+    </div>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/reshenie-linejnyh-uravnenij/">Предыдущая тема</a>
+      <a class="ms-btn ms-btn-secondary" href="/6-klass/">К темам 6 класса</a>
+      <a class="ms-btn" href="/nachalnye-ponyatiya-i-fakty-kursa-geometrii/">Следующая тема</a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

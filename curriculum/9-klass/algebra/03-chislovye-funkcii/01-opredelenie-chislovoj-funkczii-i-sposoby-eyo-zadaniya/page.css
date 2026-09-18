@@ -1,0 +1,75 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-function-map {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.75fr) minmax(0, 1.25fr);
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-function-map-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px;
+  background: linear-gradient(145deg, #2563eb 0%, #4f46e5 100%);
+  color: #ffffff;
+}
+.ms-lesson-page .ms-function-map-main span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+.ms-lesson-page .ms-function-map-main strong {
+  display: block;
+  font-size: 23px;
+  line-height: 1.45;
+}
+.ms-lesson-page .ms-function-map-questions {
+  padding: 18px 22px;
+}
+.ms-lesson-page .ms-function-map-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 13px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.ms-lesson-page .ms-function-map-row:last-child {
+  border-bottom: none;
+}
+.ms-lesson-page .ms-function-map-number {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-function-map-text strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111827;
+  font-size: 16px;
+}
+.ms-lesson-page .ms-function-map-text span {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.58;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-function-map {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-function-map-main {
+    min-height: 190px;
+  }
+}

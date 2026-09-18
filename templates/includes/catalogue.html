@@ -1,0 +1,31 @@
+<div class="ms-support-page ms-catalogue">
+  <section>
+    <h2>Основные разделы</h2>
+    <ul class="ms-catalogue-links">
+      {% for item in catalogue_pages %}
+        <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% regroup catalogue_topics by grade as grades %}
+  {% for grade in grades %}
+    <section>
+      <h2>{{ grade.grouper.title|default:'Учебные темы' }}</h2>
+      {% regroup grade.list by subject as subjects %}
+      {% for subject in subjects %}
+        <h3>{{ subject.grouper.title|default:'Математика' }}</h3>
+        {% regroup subject.list by section as sections %}
+        {% for section in sections %}
+          <details class="ms-catalogue-section">
+            <summary>{{ section.grouper.title|default:'Темы' }} <span>{{ section.list|length }}</span></summary>
+            <ul>
+              {% for topic in section.list %}
+                <li><a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </details>
+        {% endfor %}
+      {% endfor %}
+    </section>
+  {% endfor %}
+</div>

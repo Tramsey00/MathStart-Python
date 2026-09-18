@@ -1,0 +1,667 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Функции · Тема 6.2
+    </div>
+
+    <h1 class="ms-title">
+      Функция y = k/x и её свойства. Гипербола
+    </h1>
+
+    <p class="ms-subtitle">
+      Разберём, как выглядит гипербола, какие у неё область определения и множество значений,
+      как знак коэффициента k влияет на расположение ветвей,
+      а также посмотрим на вертикальный сдвиг графика y = k/x + b
+      с помощью интерактивного тренажёра с ползунками.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#interactive-lab">Перейти к интерактиву</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#interactive-lab"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Интерактивный график y = k/x + b</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Основные свойства функции y = k/x</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Как знак коэффициента k влияет на расположение ветвей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Что делает параметр b в формуле y = k/x + b</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Краткий алгоритм построения гиперболы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Гипербола за минуту</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="interactive-lab" class="ms-section">
+    <h2>1. Интерактивный график y = k/x + b</h2>
+
+    <p class="ms-text">
+      Передвигайте ползунки и наблюдайте, как меняется график.
+      Параметр k отвечает за форму и расположение ветвей,
+      а параметр b сдвигает гиперболу вверх или вниз.
+    </p>
+
+    <div class="ms-graph-lab" id="ms-hyperbola-lab-621" data-ms-hyperbola-lab="true">
+      <div class="ms-graph-lab-head">
+        <div class="ms-live-formula" aria-live="polite">
+          <span>y =</span>
+          <span data-role="formula-sign"></span>
+          <span class="ms-frac" data-role="formula-fraction">
+            <span class="ms-num" data-role="formula-k">1</span>
+            <span class="ms-den">x</span>
+          </span>
+          <span data-role="formula-b"></span>
+        </div>
+
+        <button class="ms-reset-graph" type="button" data-role="reset">
+          Вернуть y = 1/x
+        </button>
+      </div>
+
+      <div class="ms-graph-layout">
+        <div class="ms-graph-canvas-card">
+
+
+          <canvas class="ms-root-canvas" width="820" height="460" data-role="canvas" aria-label="Интерактивный график функции y равно k делённое на x плюс b">
+            Ваш браузер не поддерживает элемент canvas.
+          </canvas>
+
+          <div class="ms-graph-readout" data-role="readout">
+            x = 1,00<br>
+            y = 1,00
+          </div>
+        </div>
+
+        <div class="ms-graph-controls">
+          <div class="ms-slider-card">
+            <div class="ms-slider-head">
+              <span class="ms-slider-name">Коэффициент k</span>
+              <output class="ms-slider-value" data-role="k-output">1,0</output>
+            </div>
+
+            <input class="ms-range" type="range" min="-10" max="10" step="0.1" value="1" aria-label="Коэффициент k" data-role="k-range">
+
+            <div class="ms-range-scale">
+              <span>−10</span>
+              <span>0</span>
+              <span>10</span>
+            </div>
+          </div>
+
+          <div class="ms-slider-card">
+            <div class="ms-slider-head">
+              <span class="ms-slider-name">Сдвиг b</span>
+              <output class="ms-slider-value" data-role="b-output">0,0</output>
+            </div>
+
+            <input class="ms-range" type="range" min="-10" max="10" step="0.1" value="0" aria-label="Сдвиг b" data-role="b-range">
+
+            <div class="ms-range-scale">
+              <span>−10</span>
+              <span>0</span>
+              <span>10</span>
+            </div>
+          </div>
+
+          <div class="ms-live-properties">
+            <div class="ms-live-property">
+              <strong>Область определения</strong>
+              <span data-role="domain">x ≠ 0</span>
+            </div>
+
+            <div class="ms-live-property">
+              <strong>Множество значений</strong>
+              <span data-role="range">y ≠ 0</span>
+            </div>
+
+            <div class="ms-live-property">
+              <strong>Изменение функции</strong>
+              <span data-role="monotonic">Убывает на (−∞; 0) и (0; +∞)</span>
+            </div>
+
+            <div class="ms-live-property">
+              <strong>Асимптоты</strong>
+              <span data-role="asymptotes">x = 0, y = 0</span>
+            </div>
+
+            <div class="ms-live-property">
+              <strong>Расположение ветвей</strong>
+              <span data-role="branches">I и III четверти относительно центра</span>
+            </div>
+
+            <div class="ms-live-property">
+              <strong>Центр симметрии</strong>
+              <span data-role="center">(0; 0)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms-live-table">
+        <div class="ms-live-table-cell">
+          <strong>x = −4</strong>
+          <span data-role="table-value" data-x="-4">−0,25</span>
+        </div>
+
+        <div class="ms-live-table-cell">
+          <strong>x = −2</strong>
+          <span data-role="table-value" data-x="-2">−0,5</span>
+        </div>
+
+        <div class="ms-live-table-cell">
+          <strong>x = −1</strong>
+          <span data-role="table-value" data-x="-1">−1</span>
+        </div>
+
+        <div class="ms-live-table-cell">
+          <strong>x = 1</strong>
+          <span data-role="table-value" data-x="1">1</span>
+        </div>
+
+        <div class="ms-live-table-cell">
+          <strong>x = 2</strong>
+          <span data-role="table-value" data-x="2">0,5</span>
+        </div>
+
+        <div class="ms-live-table-cell">
+          <strong>x = 4</strong>
+          <span data-role="table-value" data-x="4">0,25</span>
+        </div>
+      </div>
+
+      <div class="ms-graph-hint">
+        Синяя кривая перестраивается сразу после перемещения ползунка.
+        Пунктирная горизонтальная линия показывает асимптоту y = b.
+        При наведении на график можно увидеть координаты точки.
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Для изучения гиперболы нас интересует случай k ≠ 0.
+      Если в интерактивном окне сделать k = 0, вы увидите вырождение в почти горизонтальную линию y = b.
+    </div>
+  </section>
+
+
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Основные свойства функции y = k/x</h2>
+
+    <div class="ms-property-grid ms-card-grid ms-columns-3">
+      <div class="ms-property-card ms-card">
+        <strong class="ms-card-title">Область определения</strong>
+        <span class="ms-card-text">
+          x ≠ 0, потому что делить на нуль нельзя.
+        </span>
+      </div>
+
+      <div class="ms-property-card ms-card">
+        <strong class="ms-card-title">Множество значений</strong>
+        <span class="ms-card-text">
+          y ≠ 0, так как при k ≠ 0 дробь k/x не может быть равна нулю.
+        </span>
+      </div>
+
+      <div class="ms-property-card ms-card">
+        <strong class="ms-card-title">Асимптоты</strong>
+        <span class="ms-card-text">
+          Оси координат x = 0 и y = 0 являются асимптотами графика.
+        </span>
+      </div>
+
+      <div class="ms-property-card ms-card">
+        <strong class="ms-card-title">Центр симметрии</strong>
+        <span class="ms-card-text">
+          Точка O(0; 0). Если повернуть график на 180° вокруг этой точки, он совпадёт сам с собой.
+        </span>
+      </div>
+
+      <div class="ms-property-card ms-card">
+        <strong class="ms-card-title">Чётность</strong>
+        <span class="ms-card-text">
+          Функция нечётная, потому что f(−x) = −f(x).
+        </span>
+      </div>
+
+      <div class="ms-property-card ms-card">
+        <strong class="ms-card-title">Нулей нет</strong>
+        <span class="ms-card-text">
+          Уравнение k/x = 0 решений не имеет при k ≠ 0.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Проверяем принадлежность точки графику</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Проверим точку A(2; −3) для функции y = −6/x.
+      </div>
+      <div class="ms-math-row">
+        y = −6/2 = −3.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-good">Точка A принадлежит графику.</span>
+      </div>
+      <div class="ms-math-row">
+        Проверим точку B(−3; 1): −6/(−3) = 2, а не 1.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-bad">Следовательно, точка B не принадлежит графику.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Как знак коэффициента k влияет на расположение ветвей</h2>
+
+    <div class="ms-sign-grid ms-card-grid ms-columns-2">
+      <div class="ms-sign-card ms-card">
+        <strong class="ms-card-title">Если k &gt; 0</strong>
+        <span class="ms-card-text">
+          Ветви гиперболы расположены в I и III четвертях
+          относительно центра симметрии. Функция убывает на каждом из промежутков
+          (−∞; 0) и (0; +∞).
+        </span>
+      </div>
+
+      <div class="ms-sign-card ms-card">
+        <strong class="ms-card-title">Если k &lt; 0</strong>
+        <span class="ms-card-text">
+          Ветви гиперболы расположены во II и IV четвертях
+          относительно центра симметрии. Функция возрастает на каждом из промежутков
+          (−∞; 0) и (0; +∞).
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Определяем четверти по формуле</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Для y = 5/x коэффициент k = 5 &gt; 0.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-good">Ветви находятся в I и III четвертях.</span>
+      </div>
+      <div class="ms-math-row">
+        Для y = −5/x коэффициент k = −5 &lt; 0.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-good">Ветви находятся во II и IV четвертях.</span>
+      </div>
+    </div>
+
+    <h3>Пример 3. Составляем таблицу значений</h3>
+
+    <div class="ms-table-wrap">
+      <table class="ms-values-table">
+        <thead>
+          <tr>
+            <th>x</th>
+            <th>−4</th>
+            <th>−2</th>
+            <th>−1</th>
+            <th>1</th>
+            <th>2</th>
+            <th>4</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>y = 4/x</td>
+            <td>−1</td>
+            <td>−2</td>
+            <td>−4</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="ms-text" style="margin-top: 16px;">
+      Таблица помогает увидеть симметрию: значения при противоположных x тоже противоположны.
+    </p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Что делает параметр b в формуле y = k/x + b</h2>
+
+    <p class="ms-text">
+      Если к функции y = k/x прибавить число b, график сдвигается
+      вдоль оси Oy:
+    </p>
+
+    <div class="ms-shift-route">
+      <div class="ms-shift-card ms-card">
+        <strong class="ms-card-title">Было: y = k/x</strong>
+        <span class="ms-card-text">
+          Горизонтальная асимптота — y = 0.
+          Центр симметрии — точка (0; 0).
+        </span>
+      </div>
+
+      <div class="ms-shift-arrow">→</div>
+
+      <div class="ms-shift-card ms-card">
+        <strong class="ms-card-title">Стало: y = k/x + b</strong>
+        <span class="ms-card-text">
+          Горизонтальная асимптота переходит в y = b,
+          а центр симметрии — в точку (0; b).
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 4. Сдвиг вверх</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Рассмотрим функцию y = 2/x + 3.
+      </div>
+      <div class="ms-math-row">
+        Это график y = 2/x, сдвинутый вверх на 3 единицы.
+      </div>
+      <div class="ms-math-row">
+        Горизонтальная асимптота: y = 3.
+      </div>
+      <div class="ms-math-row">
+        Центр симметрии: (0; 3).
+      </div>
+    </div>
+
+    <h3>Пример 5. Находим коэффициент k по точке</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Точка A(2; 6) принадлежит графику функции y = k/x + 1.
+      Найдите k.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Подставим координаты точки:
+        6 = k/2 + 1.
+      </div>
+      <div class="ms-math-row">
+        k/2 = 5.
+      </div>
+      <div class="ms-math-row">
+        k = 10.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: k = 10.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Краткий алгоритм построения гиперболы</h2>
+
+    <div class="ms-checklist">
+      <div class="ms-check-step-row">
+        <span class="ms-check-number">1</span>
+        <div class="ms-check-content">
+          <strong>Определите асимптоты</strong>
+          <span>
+            Для y = k/x это x = 0 и y = 0, а для y = k/x + b — x = 0 и y = b.
+          </span>
+        </div>
+      </div>
+
+      <div class="ms-check-step-row">
+        <span class="ms-check-number">2</span>
+        <div class="ms-check-content">
+          <strong>Посмотрите на знак k</strong>
+          <span>
+            Он подскажет, в каких четвертях будут лежать ветви.
+          </span>
+        </div>
+      </div>
+
+      <div class="ms-check-step-row">
+        <span class="ms-check-number">3</span>
+        <div class="ms-check-content">
+          <strong>Составьте таблицу</strong>
+          <span>
+            Возьмите удобные значения x: ±1, ±2, ±4 и вычислите y.
+          </span>
+        </div>
+      </div>
+
+      <div class="ms-check-step-row">
+        <span class="ms-check-number">4</span>
+        <div class="ms-check-content">
+          <strong>Нанесите точки и соедините плавно</strong>
+          <span>
+            Ветви должны приближаться к асимптотам, но не пересекать их.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Назовите область определения функции y = 7/x.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Делитель не может быть равен нулю.
+          <br><br>
+          <strong>Ответ: x ≠ 0.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Укажите множество значений функции y = −3/x + 2.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Для функции y = k/x + b значение y не может быть равно b.
+          <br><br>
+          <strong>Ответ: y ≠ 2.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        В каких четвертях расположены ветви графика y = 9/x?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Так как k &gt; 0, ветви лежат в I и III четвертях.
+          <br><br>
+          <strong>Ответ: в I и III.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        В каких четвертях расположены ветви графика y = −9/x?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Так как k &lt; 0, ветви лежат во II и IV четвертях.
+          <br><br>
+          <strong>Ответ: во II и IV.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Найдите значение функции y = 12/x при x = −3.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          y = 12/(−3) = −4.
+          <br><br>
+          <strong>Ответ: −4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Принадлежит ли точка A(−2; 4) графику y = −8/x?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          −8/(−2) = 4.
+          <br><br>
+          <strong>Ответ: да, принадлежит.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        На сколько единиц и в каком направлении сдвинут график y = 1/x − 5
+        по сравнению с y = 1/x?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Число b = −5 задаёт вертикальный сдвиг вниз.
+          <br><br>
+          <strong>Ответ: вниз на 5 единиц.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Найдите горизонтальную асимптоту графика y = 4/x + 3.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Для функции y = k/x + b горизонтальная асимптота равна y = b.
+          <br><br>
+          <strong>Ответ: y = 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        График функции y = k/x проходит через точку (4; −2).
+        Найдите k.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          −2 = k/4.
+          <br>
+          k = −8.
+          <br><br>
+          <strong>Ответ: −8.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Найдите b, если точка (1; 5) принадлежит графику y = 2/x + b.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          5 = 2/1 + b.
+          <br>
+          5 = 2 + b.
+          <br>
+          b = 3.
+          <br><br>
+          <strong>Ответ: 3.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Гипербола за минуту</h2>
+
+    <div class="ms-mini-check">
+      <div class="ms-mini-check-card ms-card">
+        <strong class="ms-card-title">Область определения</strong>
+        <span class="ms-card-text">
+          x ≠ 0.
+        </span>
+      </div>
+
+      <div class="ms-mini-check-card ms-card">
+        <strong class="ms-card-title">Знак k</strong>
+        <span class="ms-card-text">
+          Определяет, в каких четвертях лежат ветви и возрастает или убывает функция.
+        </span>
+      </div>
+
+      <div class="ms-mini-check-card ms-card">
+        <strong class="ms-card-title">Параметр b</strong>
+        <span class="ms-card-text">
+          Сдвигает график вверх или вниз и задаёт горизонтальную асимптоту y = b.
+        </span>
+      </div>
+
+      <div class="ms-mini-check-card ms-card">
+        <strong class="ms-card-title">Главная идея</strong>
+        <span class="ms-card-text">
+          Ветви гиперболы приближаются к асимптотам, но не пересекают их.
+        </span>
+      </div>
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующей теме научимся строить график функции y = f(x + m)
+      по уже известному графику y = f(x).
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/kvadratichnaya-funkcziya-y-ax2-i-eyo-svojstva-parabola/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/kak-postroit-grafik-funkczii-u-fx-m/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

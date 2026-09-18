@@ -1,0 +1,992 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Квадратные корни и функции · Тема 3.3
+    </div>
+
+    <h1 class="ms-title">Базовые свойства квадратных корней</h1>
+
+    <p class="ms-subtitle">
+      Разберём основные равенства для арифметического квадратного корня:
+      квадрат корня, корень из квадрата, корень из произведения и дроби.
+      Научимся обязательно учитывать условия применения каждого свойства
+      и отличать верные преобразования от внешне похожих ошибок.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Четыре опорных свойства</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Квадрат арифметического квадратного корня</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Корень из квадрата числа</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Квадратный корень из произведения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Квадратный корень из дроби</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Несколько свойств в одном вычислении</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Свойства, которых нет</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Как выбрать нужное свойство</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Четыре опорных свойства</h2>
+
+    <p class="ms-text">
+      Все дальнейшие преобразования выражений с квадратными корнями
+      строятся на нескольких базовых равенствах. Важно запоминать
+      не только формулу, но и условия, при которых она верна.
+    </p>
+
+    <div class="ms-root-laws">
+      <div class="ms-root-law">
+        <span class="ms-root-law-formula">
+          (
+          <math class="ms-root" aria-label="квадратный корень из a">
+            <msqrt><mi>a</mi></msqrt>
+          </math>
+          )² = a
+        </span>
+        <strong>Квадрат арифметического корня</strong>
+        <span>Свойство применяется при a ≥ 0.</span>
+      </div>
+
+      <div class="ms-root-law">
+        <span class="ms-root-law-formula">
+          <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+            <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+          </math>
+          = |a|
+        </span>
+        <strong>Корень из квадрата</strong>
+        <span>Равен модулю числа a при любом действительном a.</span>
+      </div>
+
+      <div class="ms-root-law">
+        <span class="ms-root-law-formula">
+          <math class="ms-root" aria-label="квадратный корень из произведения a и b">
+            <msqrt><mrow><mi>a</mi><mo>·</mo><mi>b</mi></mrow></msqrt>
+          </math>
+          =
+          <math class="ms-root" aria-label="квадратный корень из a">
+            <msqrt><mi>a</mi></msqrt>
+          </math>
+          ·
+          <math class="ms-root" aria-label="квадратный корень из b">
+            <msqrt><mi>b</mi></msqrt>
+          </math>
+        </span>
+        <strong>Корень из произведения</strong>
+        <span>Свойство верно при a ≥ 0 и b ≥ 0.</span>
+      </div>
+
+      <div class="ms-root-law">
+        <span class="ms-root-law-formula">
+          <math class="ms-root" aria-label="квадратный корень из дроби a делённое на b">
+            <msqrt><mfrac><mi>a</mi><mi>b</mi></mfrac></msqrt>
+          </math>
+          =
+          <math aria-label="дробь: квадратный корень из a делённый на квадратный корень из b">
+            <mfrac>
+              <msqrt><mi>a</mi></msqrt>
+              <msqrt><mi>b</mi></msqrt>
+            </mfrac>
+          </math>
+        </span>
+        <strong>Корень из дроби</strong>
+        <span>Необходимо a ≥ 0 и b &gt; 0.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Квадрат арифметического квадратного корня</h2>
+
+    <div class="ms-rule-box">
+      Если a ≥ 0, то
+      <br><br>
+      (
+      <math class="ms-root" aria-label="квадратный корень из a">
+        <msqrt><mi>a</mi></msqrt>
+      </math>
+      )² = a.
+    </div>
+
+    <p class="ms-text">
+      По определению
+      <math class="ms-root" aria-label="квадратный корень из a">
+        <msqrt><mi>a</mi></msqrt>
+      </math>
+      — это неотрицательное число, квадрат которого равен a.
+      Поэтому возведение арифметического корня в квадрат возвращает
+      исходное подкоренное число.
+    </p>
+
+    <h3>Пример 1. Знак перед корнем имеет значение</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        (
+        <math class="ms-root" aria-label="квадратный корень из 13">
+          <msqrt><mn>13</mn></msqrt>
+        </math>
+        )² = 13.
+      </div>
+
+      <div class="ms-math-row">
+        (−
+        <math class="ms-root" aria-label="квадратный корень из 7">
+          <msqrt><mn>7</mn></msqrt>
+        </math>
+        )² = 7.
+      </div>
+
+      <div class="ms-math-row">
+        −(
+        <math class="ms-root" aria-label="квадратный корень из 7">
+          <msqrt><mn>7</mn></msqrt>
+        </math>
+        )² = −7.
+      </div>
+    </div>
+
+    <div class="ms-note">
+      В выражении
+      (−
+      <math class="ms-root" aria-label="квадратный корень из 7">
+        <msqrt><mn>7</mn></msqrt>
+      </math>
+      )²
+      знак минус входит в основание степени. В записи
+      −(
+      <math class="ms-root" aria-label="квадратный корень из 7">
+        <msqrt><mn>7</mn></msqrt>
+      </math>
+      )²
+      минус остаётся перед результатом.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Корень из квадрата числа</h2>
+
+    <div class="ms-rule-box">
+      Для любого действительного a:
+      <br><br>
+      <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+        <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+      </math>
+      = |a|.
+    </div>
+
+    <p class="ms-text">
+      Квадрат числа a не зависит от его знака, а арифметический квадратный
+      корень всегда неотрицателен. Поэтому результатом является модуль,
+      а не просто число a.
+    </p>
+
+    <h3>Пример 2. Отрицательное число под квадратом</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из минус девяти в квадрате">
+          <msqrt>
+            <msup>
+              <mrow><mo>(</mo><mo>−</mo><mn>9</mn><mo>)</mo></mrow>
+              <mn>2</mn>
+            </msup>
+          </msqrt>
+        </math>
+        =
+        <math class="ms-root" aria-label="квадратный корень из 81">
+          <msqrt><mn>81</mn></msqrt>
+        </math>
+        = 9.
+      </div>
+
+      <div class="ms-math-row">
+        |−9| = 9.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Следовательно,
+          <math class="ms-root" aria-label="квадратный корень из минус девяти в квадрате">
+            <msqrt>
+              <msup>
+                <mrow><mo>(</mo><mo>−</mo><mn>9</mn><mo>)</mo></mrow>
+                <mn>2</mn>
+              </msup>
+            </msqrt>
+          </math>
+          = |−9|.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-condition-strip">
+      <div class="ms-condition-card ms-card">
+        <strong class="ms-card-title">a &gt; 0</strong>
+        <span class="ms-card-text">
+          |a| = a, поэтому
+          <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+            <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+          </math>
+          = a.
+        </span>
+      </div>
+
+      <div class="ms-condition-card ms-card">
+        <strong class="ms-card-title">a = 0</strong>
+        <span class="ms-card-text">
+          <math class="ms-root" aria-label="квадратный корень из нуля в квадрате">
+            <msqrt><msup><mn>0</mn><mn>2</mn></msup></msqrt>
+          </math>
+          = 0.
+        </span>
+      </div>
+
+      <div class="ms-condition-card ms-card">
+        <strong class="ms-card-title">a &lt; 0</strong>
+        <span class="ms-card-text">
+          |a| = −a, поэтому
+          <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+            <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+          </math>
+          = −a.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Квадратный корень из произведения</h2>
+
+    <div class="ms-rule-box">
+      Если a ≥ 0 и b ≥ 0, то
+      <br><br>
+      <math class="ms-root" aria-label="квадратный корень из произведения a и b">
+        <msqrt><mrow><mi>a</mi><mo>·</mo><mi>b</mi></mrow></msqrt>
+      </math>
+      =
+      <math class="ms-root" aria-label="квадратный корень из a">
+        <msqrt><mi>a</mi></msqrt>
+      </math>
+      ·
+      <math class="ms-root" aria-label="квадратный корень из b">
+        <msqrt><mi>b</mi></msqrt>
+      </math>.
+    </div>
+
+    <div class="ms-proof-mini">
+      <div class="ms-proof-mini-card ms-card">
+        <span class="ms-proof-mini-number">1</span>
+        <strong class="ms-card-title">Проверяем знак</strong>
+        <span class="ms-card-text">
+          Оба корня неотрицательны, поэтому их произведение
+          также неотрицательно.
+        </span>
+      </div>
+
+      <div class="ms-proof-mini-card ms-card">
+        <span class="ms-proof-mini-number">2</span>
+        <strong class="ms-card-title">Проверяем квадрат</strong>
+        <span class="ms-card-text">
+          (
+          <math class="ms-root" aria-label="квадратный корень из a">
+            <msqrt><mi>a</mi></msqrt>
+          </math>
+          ·
+          <math class="ms-root" aria-label="квадратный корень из b">
+            <msqrt><mi>b</mi></msqrt>
+          </math>
+          )² = a · b.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 3. Вычисление корня из произведения</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из произведения 4 и 25">
+          <msqrt><mrow><mn>4</mn><mo>·</mo><mn>25</mn></mrow></msqrt>
+        </math>
+        =
+        <math class="ms-root" aria-label="квадратный корень из 4">
+          <msqrt><mn>4</mn></msqrt>
+        </math>
+        ·
+        <math class="ms-root" aria-label="квадратный корень из 25">
+          <msqrt><mn>25</mn></msqrt>
+        </math>
+        = 2 · 5 = 10.
+      </div>
+    </div>
+
+    <div class="ms-direction-grid">
+      <div class="ms-direction-card ms-card">
+        <strong class="ms-card-title">Разделить один корень</strong>
+        <span class="ms-card-text">
+          <math class="ms-root" aria-label="квадратный корень из произведения a и b">
+            <msqrt><mrow><mi>a</mi><mo>·</mo><mi>b</mi></mrow></msqrt>
+          </math>
+          →
+          <math class="ms-root" aria-label="квадратный корень из a">
+            <msqrt><mi>a</mi></msqrt>
+          </math>
+          ·
+          <math class="ms-root" aria-label="квадратный корень из b">
+            <msqrt><mi>b</mi></msqrt>
+          </math>.
+        </span>
+      </div>
+
+      <div class="ms-direction-arrow">⇔</div>
+
+      <div class="ms-direction-card ms-card">
+        <strong class="ms-card-title">Объединить произведение корней</strong>
+        <span class="ms-card-text">
+          <math class="ms-root" aria-label="квадратный корень из a">
+            <msqrt><mi>a</mi></msqrt>
+          </math>
+          ·
+          <math class="ms-root" aria-label="квадратный корень из b">
+            <msqrt><mi>b</mi></msqrt>
+          </math>
+          →
+          <math class="ms-root" aria-label="квадратный корень из произведения a и b">
+            <msqrt><mrow><mi>a</mi><mo>·</mo><mi>b</mi></mrow></msqrt>
+          </math>.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Квадратный корень из дроби</h2>
+
+    <div class="ms-rule-box">
+      Если a ≥ 0 и b &gt; 0, то
+      <br><br>
+      <math class="ms-root" aria-label="квадратный корень из дроби a делённое на b">
+        <msqrt><mfrac><mi>a</mi><mi>b</mi></mfrac></msqrt>
+      </math>
+      =
+      <math aria-label="дробь: квадратный корень из a делённый на квадратный корень из b">
+        <mfrac>
+          <msqrt><mi>a</mi></msqrt>
+          <msqrt><mi>b</mi></msqrt>
+        </mfrac>
+      </math>.
+    </div>
+
+    <p class="ms-text">
+      Знаменатель должен быть строго положительным. При b = 0 дробь
+      не определена, а при b &lt; 0 подкоренная дробь не удовлетворяет
+      условиям свойства в школьном курсе действительных чисел.
+    </p>
+
+    <h3>Пример 4. Корень из числовой дроби</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из дроби 81 делённое на 121">
+          <msqrt><mfrac><mn>81</mn><mn>121</mn></mfrac></msqrt>
+        </math>
+        =
+        <math aria-label="дробь девять одиннадцатых">
+          <mfrac><mn>9</mn><mn>11</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        Действительно:
+        <math class="ms-root" aria-label="квадратный корень из 81">
+          <msqrt><mn>81</mn></msqrt>
+        </math>
+        = 9,
+        <math class="ms-root" aria-label="квадратный корень из 121">
+          <msqrt><mn>121</mn></msqrt>
+        </math>
+        = 11.
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Свойство работает и в обратную сторону:
+      частное двух арифметических корней можно объединить под одним знаком корня,
+      если выполнены условия a ≥ 0 и b &gt; 0.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Несколько свойств в одном вычислении</h2>
+
+    <p class="ms-text">
+      В одном выражении свойства часто применяются последовательно.
+      Сначала определите структуру: квадрат, произведение или дробь,
+      затем выполните преобразования по шагам.
+    </p>
+
+    <h3>Пример 5. Последовательное применение свойств</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Вычислить</span>
+      <math class="ms-root" aria-label="квадратный корень из произведения 0,25 и 144">
+        <msqrt><mrow><mn>0.25</mn><mo>·</mo><mn>144</mn></mrow></msqrt>
+      </math>
+      +
+      <math class="ms-root" aria-label="квадратный корень из дроби 49 делённое на 100">
+        <msqrt><mfrac><mn>49</mn><mn>100</mn></mfrac></msqrt>
+      </math>.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из произведения 0,25 и 144">
+          <msqrt><mrow><mn>0.25</mn><mo>·</mo><mn>144</mn></mrow></msqrt>
+        </math>
+        =
+        <math class="ms-root" aria-label="квадратный корень из 0,25">
+          <msqrt><mn>0.25</mn></msqrt>
+        </math>
+        ·
+        <math class="ms-root" aria-label="квадратный корень из 144">
+          <msqrt><mn>144</mn></msqrt>
+        </math>
+        = 0,5 · 12 = 6.
+      </div>
+
+      <div class="ms-math-row">
+        <math class="ms-root" aria-label="квадратный корень из дроби 49 делённое на 100">
+          <msqrt><mfrac><mn>49</mn><mn>100</mn></mfrac></msqrt>
+        </math>
+        =
+        <math aria-label="дробь семь десятых">
+          <mfrac><mn>7</mn><mn>10</mn></mfrac>
+        </math>
+        = 0,7.
+      </div>
+
+      <div class="ms-math-row">
+        6 + 0,7 = 6,7.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 6,7.</span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Для нескольких неотрицательных множителей:
+      <br><br>
+      <math class="ms-root" aria-label="квадратный корень из произведения a b c">
+        <msqrt>
+          <mrow>
+            <mi>a</mi><mo>·</mo><mi>b</mi><mo>·</mo><mi>c</mi>
+          </mrow>
+        </msqrt>
+      </math>
+      =
+      <math class="ms-root" aria-label="квадратный корень из a"><msqrt><mi>a</mi></msqrt></math>
+      ·
+      <math class="ms-root" aria-label="квадратный корень из b"><msqrt><mi>b</mi></msqrt></math>
+      ·
+      <math class="ms-root" aria-label="квадратный корень из c"><msqrt><mi>c</mi></msqrt></math>.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Свойства, которых нет</h2>
+
+    <p class="ms-text">
+      Корень распределяется по произведению и положительной дроби,
+      но в общем случае не распределяется по сумме или разности.
+    </p>
+
+    <h3>Пример 6. Проверяем предполагаемое равенство</h3>
+
+    <div class="ms-error-pair">
+      <div class="ms-error-card ms-error-card-bad ms-card ms-card--error">
+        <strong class="ms-card-title">Неверно</strong>
+        <span class="ms-card-text">
+          <math class="ms-root" aria-label="квадратный корень из суммы 9 и 16">
+            <msqrt><mrow><mn>9</mn><mo>+</mo><mn>16</mn></mrow></msqrt>
+          </math>
+          =
+          <math class="ms-root" aria-label="квадратный корень из 9"><msqrt><mn>9</mn></msqrt></math>
+          +
+          <math class="ms-root" aria-label="квадратный корень из 16"><msqrt><mn>16</mn></msqrt></math>.
+        </span>
+      </div>
+
+      <div class="ms-error-card ms-error-card-good ms-card ms-card--error ms-card--success">
+        <strong class="ms-card-title">Проверка</strong>
+        <span class="ms-card-text">
+          Левая часть равна
+          <math class="ms-root" aria-label="квадратный корень из 25"><msqrt><mn>25</mn></msqrt></math>
+          = 5, а правая часть равна 3 + 4 = 7.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Запись</th>
+            <th>Оценка</th>
+            <th>Причина</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <math class="ms-root" aria-label="квадратный корень из a плюс b">
+                <msqrt><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></msqrt>
+              </math>
+              =
+              <math class="ms-root" aria-label="квадратный корень из a"><msqrt><mi>a</mi></msqrt></math>
+              +
+              <math class="ms-root" aria-label="квадратный корень из b"><msqrt><mi>b</mi></msqrt></math>
+            </td>
+            <td><span class="ms-bad">В общем случае неверно</span></td>
+            <td>Свойства корня из суммы нет.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <math class="ms-root" aria-label="квадратный корень из a минус b">
+                <msqrt><mrow><mi>a</mi><mo>−</mo><mi>b</mi></mrow></msqrt>
+              </math>
+              =
+              <math class="ms-root" aria-label="квадратный корень из a"><msqrt><mi>a</mi></msqrt></math>
+              −
+              <math class="ms-root" aria-label="квадратный корень из b"><msqrt><mi>b</mi></msqrt></math>
+            </td>
+            <td><span class="ms-bad">В общем случае неверно</span></td>
+            <td>Свойства корня из разности нет.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+                <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+              </math>
+              = a
+            </td>
+            <td><span class="ms-bad">Не всегда</span></td>
+            <td>Правильно:
+              <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+                <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+              </math>
+              = |a|.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Вычислите:
+        (
+        <math class="ms-root" aria-label="квадратный корень из 17">
+          <msqrt><mn>17</mn></msqrt>
+        </math>
+        )².
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          По свойству квадрата арифметического корня:
+          <br><br>
+          (
+          <math class="ms-root" aria-label="квадратный корень из 17">
+            <msqrt><mn>17</mn></msqrt>
+          </math>
+          )² = 17.
+          <br><br>
+          <strong>Ответ: 17.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Вычислите:
+        <math class="ms-root" aria-label="квадратный корень из минус двенадцати в квадрате">
+          <msqrt>
+            <msup>
+              <mrow><mo>(</mo><mo>−</mo><mn>12</mn><mo>)</mo></mrow>
+              <mn>2</mn>
+            </msup>
+          </msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Корень из квадрата равен модулю основания:
+          <br><br>
+          <math class="ms-root" aria-label="квадратный корень из минус двенадцати в квадрате">
+            <msqrt>
+              <msup>
+                <mrow><mo>(</mo><mo>−</mo><mn>12</mn><mo>)</mo></mrow>
+                <mn>2</mn>
+              </msup>
+            </msqrt>
+          </math>
+          = |−12| = 12.
+          <br><br>
+          <strong>Ответ: 12.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Вычислите:
+        <math class="ms-root" aria-label="квадратный корень из произведения 9 и 16">
+          <msqrt><mrow><mn>9</mn><mo>·</mo><mn>16</mn></mrow></msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <math class="ms-root" aria-label="квадратный корень из произведения 9 и 16">
+            <msqrt><mrow><mn>9</mn><mo>·</mo><mn>16</mn></mrow></msqrt>
+          </math>
+          =
+          <math class="ms-root" aria-label="квадратный корень из 9"><msqrt><mn>9</mn></msqrt></math>
+          ·
+          <math class="ms-root" aria-label="квадратный корень из 16"><msqrt><mn>16</mn></msqrt></math>
+          = 3 · 4 = 12.
+          <br><br>
+          <strong>Ответ: 12.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Вычислите:
+        <math class="ms-root" aria-label="квадратный корень из дроби 49 делённое на 81">
+          <msqrt><mfrac><mn>49</mn><mn>81</mn></mfrac></msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <math class="ms-root" aria-label="квадратный корень из дроби 49 делённое на 81">
+            <msqrt><mfrac><mn>49</mn><mn>81</mn></mfrac></msqrt>
+          </math>
+          =
+          <math aria-label="дробь семь девятых">
+            <mfrac><mn>7</mn><mn>9</mn></mfrac>
+          </math>.
+          <br><br>
+          <strong>Ответ:
+            <math aria-label="дробь семь девятых">
+              <mfrac><mn>7</mn><mn>9</mn></mfrac>
+            </math>.
+          </strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Вычислите:
+        <math class="ms-root" aria-label="квадратный корень из произведения 0,36 и 25">
+          <msqrt><mrow><mn>0.36</mn><mo>·</mo><mn>25</mn></mrow></msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <math class="ms-root" aria-label="квадратный корень из 0,36"><msqrt><mn>0.36</mn></msqrt></math>
+          = 0,6,
+          <math class="ms-root" aria-label="квадратный корень из 25"><msqrt><mn>25</mn></msqrt></math>
+          = 5.
+          <br><br>
+          0,6 · 5 = 3.
+          <br><br>
+          <strong>Ответ: 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Вычислите:
+        (−
+        <math class="ms-root" aria-label="квадратный корень из 11">
+          <msqrt><mn>11</mn></msqrt>
+        </math>
+        )².
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Минус входит в основание квадрата:
+          <br><br>
+          (−
+          <math class="ms-root" aria-label="квадратный корень из 11">
+            <msqrt><mn>11</mn></msqrt>
+          </math>
+          )²
+          =
+          (
+          <math class="ms-root" aria-label="квадратный корень из 11">
+            <msqrt><mn>11</mn></msqrt>
+          </math>
+          )²
+          = 11.
+          <br><br>
+          <strong>Ответ: 11.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Упростите:
+        <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+          <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+        </math>,
+        если a &lt; 0.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+            <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+          </math>
+          = |a|.
+          При a &lt; 0 модуль равен −a.
+          <br><br>
+          <strong>Ответ: −a.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Упростите:
+        <math class="ms-root" aria-label="квадратный корень из произведения 4 и b в квадрате">
+          <msqrt>
+            <mrow>
+              <mn>4</mn><mo>·</mo><msup><mi>b</mi><mn>2</mn></msup>
+            </mrow>
+          </msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <math class="ms-root" aria-label="квадратный корень из произведения 4 и b в квадрате">
+            <msqrt>
+              <mrow>
+                <mn>4</mn><mo>·</mo><msup><mi>b</mi><mn>2</mn></msup>
+              </mrow>
+            </msqrt>
+          </math>
+          =
+          <math class="ms-root" aria-label="квадратный корень из 4"><msqrt><mn>4</mn></msqrt></math>
+          ·
+          <math class="ms-root" aria-label="квадратный корень из b в квадрате">
+            <msqrt><msup><mi>b</mi><mn>2</mn></msup></msqrt>
+          </math>
+          = 2|b|.
+          <br><br>
+          <strong>Ответ: 2|b|.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Ученик записал:
+        <math class="ms-root" aria-label="квадратный корень из суммы 4 и 5">
+          <msqrt><mrow><mn>4</mn><mo>+</mo><mn>5</mn></mrow></msqrt>
+        </math>
+        =
+        <math class="ms-root" aria-label="квадратный корень из 4"><msqrt><mn>4</mn></msqrt></math>
+        +
+        <math class="ms-root" aria-label="квадратный корень из 5"><msqrt><mn>5</mn></msqrt></math>.
+        Найдите ошибку.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Квадратный корень не распределяется по сумме.
+          <br><br>
+          Левая часть:
+          <math class="ms-root" aria-label="квадратный корень из 9"><msqrt><mn>9</mn></msqrt></math>
+          = 3.
+          <br>
+          Правая часть: 2 +
+          <math class="ms-root" aria-label="квадратный корень из 5"><msqrt><mn>5</mn></msqrt></math>,
+          что не равно 3.
+          <br><br>
+          <strong>Ответ: использовано несуществующее свойство корня из суммы.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Вычислите:
+        (
+        <math class="ms-root" aria-label="квадратный корень из 18">
+          <msqrt><mn>18</mn></msqrt>
+        </math>
+        )²
+        +
+        <math class="ms-root" aria-label="квадратный корень из произведения 25 и 4">
+          <msqrt><mrow><mn>25</mn><mo>·</mo><mn>4</mn></mrow></msqrt>
+        </math>
+        −
+        <math class="ms-root" aria-label="квадратный корень из дроби 81 делённое на 9">
+          <msqrt><mfrac><mn>81</mn><mn>9</mn></mfrac></msqrt>
+        </math>.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (
+          <math class="ms-root" aria-label="квадратный корень из 18">
+            <msqrt><mn>18</mn></msqrt>
+          </math>
+          )² = 18.
+          <br><br>
+          <math class="ms-root" aria-label="квадратный корень из произведения 25 и 4">
+            <msqrt><mrow><mn>25</mn><mo>·</mo><mn>4</mn></mrow></msqrt>
+          </math>
+          = 5 · 2 = 10.
+          <br><br>
+          <math class="ms-root" aria-label="квадратный корень из дроби 81 делённое на 9">
+            <msqrt><mfrac><mn>81</mn><mn>9</mn></mfrac></msqrt>
+          </math>
+          =
+          <math class="ms-root" aria-label="квадратный корень из 9"><msqrt><mn>9</mn></msqrt></math>
+          = 3.
+          <br><br>
+          18 + 10 − 3 = 25.
+          <br><br>
+          <strong>Ответ: 25.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Как выбрать нужное свойство</h2>
+
+    <p class="ms-text">
+      Сначала посмотрите не на числа, а на устройство выражения.
+      Вид записи подсказывает подходящее свойство.
+    </p>
+
+    <div class="ms-law-selector">
+      <div class="ms-law-selector-card ms-card">
+        <strong class="ms-card-title">Корень возводят в квадрат</strong>
+        <span class="ms-card-text">
+          Используйте (
+          <math class="ms-root" aria-label="квадратный корень из a"><msqrt><mi>a</mi></msqrt></math>
+          )² = a при a ≥ 0.
+        </span>
+      </div>
+
+      <div class="ms-law-selector-card ms-card">
+        <strong class="ms-card-title">Под корнем стоит квадрат</strong>
+        <span class="ms-card-text">
+          Используйте
+          <math class="ms-root" aria-label="квадратный корень из a в квадрате">
+            <msqrt><msup><mi>a</mi><mn>2</mn></msup></msqrt>
+          </math>
+          = |a|.
+        </span>
+      </div>
+
+      <div class="ms-law-selector-card ms-card">
+        <strong class="ms-card-title">Под корнем произведение</strong>
+        <span class="ms-card-text">
+          Разделяйте корень только при неотрицательных множителях.
+        </span>
+      </div>
+
+      <div class="ms-law-selector-card ms-card">
+        <strong class="ms-card-title">Под корнем дробь</strong>
+        <span class="ms-card-text">
+          Числитель должен быть неотрицательным, знаменатель — положительным.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top: 20px;">
+      Всегда выполняйте три проверки:
+      <br>
+      1. Как устроено выражение?
+      <br>
+      2. Выполнены ли условия свойства?
+      <br>
+      3. Не заменили ли вы произведение суммой или разностью?
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующей теме применим эти свойства для вынесения множителя
+      из-под знака корня, внесения множителя под корень,
+      упрощения подобных радикалов и других преобразований
+      иррациональных выражений.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/preobrazovanie-irraczionalnyh-vyrazhenij/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

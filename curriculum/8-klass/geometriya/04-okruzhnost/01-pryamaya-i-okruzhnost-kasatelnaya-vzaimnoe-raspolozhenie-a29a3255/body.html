@@ -1,0 +1,556 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+<div class="ms-badge">8 класс · Геометрия · Окружность · Тема 4.1</div>
+<h1 class="ms-title">Прямая и окружность. Касательная. Взаимное расположение двух окружностей</h1>
+<p class="ms-subtitle">
+      Сравним расстояние от центра окружности до прямой с радиусом,
+      докажем свойства касательной, разберём равенство касательных отрезков
+      и научимся определять взаимное расположение двух окружностей по их радиусам
+      и расстоянию между центрами.
+    </p>
+<div class="ms-hero-actions">
+<a class="ms-btn" href="/pryamaya-i-okruzhnost-kasatelnaya-vzaimnoe-raspolozhenie-dvuh-okruzhnostej/#theory">Перейти к материалу</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+</div>
+</section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Прямая и окружность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Касательная к окружности</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Касательные от одной внешней точки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Взаимное расположение двух окружностей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Удобная шкала для сравнения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Разобранные задачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Итог: сравните расстояние с радиусами</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+<section class="ms-section" id="theory">
+<h2>1. Прямая и окружность</h2>
+<p class="ms-text">
+      Пусть дана окружность радиуса <strong>r</strong> с центром O
+      и прямая l. Обозначим через <strong>d</strong> расстояние от центра O
+      до прямой l. Количество общих точек прямой и окружности определяется
+      сравнением d и r.
+    </p>
+<div class="ms-figure">
+<p class="ms-figure-title">Три возможных положения прямой относительно окружности</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Прямая вне окружности, касательная и секущая" class="ms-svg" role="img" viewBox="0 0 1080 430" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="430" rx="24" width="1080"></rect>
+<!-- Панель 1 -->
+<rect fill="#ffffff" height="360" rx="22" stroke="#dbeafe" stroke-width="2" width="324" x="24" y="34"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="186" y="72">Общих точек нет</text>
+<circle cx="186" cy="190" fill="#eff6ff" r="76" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="186" cy="190" fill="#2563eb" r="5"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="198" y="181">O</text>
+<line stroke="#7c3aed" stroke-width="4" x1="72" x2="300" y1="314" y2="314"></line>
+<line stroke="#16a34a" stroke-dasharray="8 7" stroke-width="3" x1="186" x2="186" y1="190" y2="314"></line>
+<polyline fill="none" points="186,292 208,292 208,314" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="200" y="258">d</text>
+<text fill="#2563eb" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="223" y="219">r</text>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="186" y="367">d &gt; r</text>
+<!-- Панель 2 -->
+<rect fill="#ffffff" height="360" rx="22" stroke="#dbeafe" stroke-width="2" width="324" x="378" y="34"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="540" y="72">Одна общая точка</text>
+<circle cx="540" cy="206" fill="#f7f4ff" r="76" stroke="#7c3aed" stroke-width="4"></circle>
+<circle cx="540" cy="206" fill="#7c3aed" r="5"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="552" y="197">O</text>
+<line stroke="#2563eb" stroke-width="4" x1="426" x2="654" y1="282" y2="282"></line>
+<line stroke="#16a34a" stroke-width="4" x1="540" x2="540" y1="206" y2="282"></line>
+<circle cx="540" cy="282" fill="#16a34a" r="5"></circle>
+<polyline fill="none" points="540,260 562,260 562,282" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="552" y="274">T</text>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="553" y="246">r</text>
+<text fill="#2563eb" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="540" y="325">касательная</text>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="540" y="367">d = r</text>
+<!-- Панель 3 -->
+<rect fill="#ffffff" height="360" rx="22" stroke="#dbeafe" stroke-width="2" width="324" x="732" y="34"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="894" y="72">Две общие точки</text>
+<circle cx="894" cy="206" fill="#f0fdf4" r="82" stroke="#16a34a" stroke-width="4"></circle>
+<circle cx="894" cy="206" fill="#16a34a" r="5"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="904" y="194">O</text>
+<line stroke="#7c3aed" stroke-width="4" x1="774" x2="1014" y1="248" y2="248"></line>
+<circle cx="824" cy="248" fill="#7c3aed" r="5"></circle>
+<circle cx="964" cy="248" fill="#7c3aed" r="5"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="807" y="275">A</text>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="970" y="275">B</text>
+<line stroke="#2563eb" stroke-dasharray="7 6" stroke-width="3" x1="894" x2="894" y1="206" y2="248"></line>
+<polyline fill="none" points="894,228 914,228 914,248" stroke="#2563eb" stroke-linejoin="round" stroke-width="3"></polyline>
+<text fill="#2563eb" font-family="Arial, sans-serif" font-size="17" font-weight="800" x="902" y="223">d</text>
+<text fill="#7c3aed" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="894" y="325">секущая</text>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="894" y="367">d &lt; r</text>
+</svg>
+</div>
+</div>
+<div class="ms-mini-grid ms-card-grid ms-columns-3">
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">d больше r</strong>
+<span class="ms-card-text">Прямая проходит вне окружности и не имеет с ней общих точек.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">d равно r</strong>
+<span class="ms-card-text">Прямая имеет одну общую точку с окружностью и является касательной.</span>
+</div>
+<div class="ms-mini-card ms-card">
+<strong class="ms-card-title">d меньше r</strong>
+<span class="ms-card-text">Прямая пересекает окружность в двух точках и является секущей.</span>
+</div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-2">
+<h2>2. Касательная к окружности</h2>
+<div class="ms-rule-box">
+      Прямая, имеющая с окружностью ровно одну общую точку,
+      называется <strong>касательной</strong>. Общая точка называется
+      <strong>точкой касания</strong>.
+    </div>
+<div class="ms-figure">
+<p class="ms-figure-title">Радиус, проведённый в точку касания, перпендикулярен касательной</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Радиус OT перпендикулярен касательной l" class="ms-svg" role="img" viewBox="0 0 960 430" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="430" rx="24" width="960"></rect>
+<circle cx="330" cy="190" fill="#eff6ff" r="118" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="330" cy="190" fill="#2563eb" r="6"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="19" font-weight="800" x="344" y="182">O</text>
+<line stroke="#16a34a" stroke-width="5" x1="330" x2="330" y1="190" y2="308"></line>
+<line stroke="#7c3aed" stroke-width="5" x1="120" x2="590" y1="308" y2="308"></line>
+<circle cx="330" cy="308" fill="#16a34a" r="6"></circle>
+<polyline fill="none" points="330,282 356,282 356,308" stroke="#16a34a" stroke-linejoin="round" stroke-width="3"></polyline>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="19" font-weight="800" x="344" y="301">T</text>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="343" y="254">r</text>
+<text fill="#7c3aed" font-family="Arial, sans-serif" font-size="18" font-weight="800" x="575" y="296">l</text>
+<rect fill="#f9fafb" height="245" rx="22" stroke="#dbeafe" stroke-width="2" width="260" x="650" y="82"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="18" font-weight="800" text-anchor="middle" x="780" y="125">Главное свойство</text>
+<text fill="#15803d" font-size="18" font-weight="800" text-anchor="middle" x="780" y="172">OT перпендикулярен l</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="780" y="215">OT — радиус</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="780" y="246">T — точка касания</text>
+<text fill="#6d28d9" font-size="17" font-weight="800" text-anchor="middle" x="780" y="289">расстояние от O до l равно r</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство свойства касательной</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>
+          Пусть l касается окружности в точке T. Предположим, что OT
+          не перпендикулярен l.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>
+          Проведём из O перпендикуляр OH к прямой l. Тогда H не совпадает с T,
+          а перпендикуляр OH короче наклонной OT.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>
+          Получается OH &lt; OT = r. Значит, точка H находится внутри окружности.
+        </div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>
+          Прямая, проходящая через внутреннюю точку окружности, пересекает её
+          в двух точках. Это противоречит тому, что l — касательная.
+          Следовательно, OT перпендикулярен l.
+        </div>
+</div>
+</div>
+<div class="ms-rule-box">
+<strong>Обратное утверждение:</strong>
+      если прямая проходит через точку T окружности и перпендикулярна радиусу OT,
+      то эта прямая является касательной.
+    </div>
+<div class="ms-proof">
+<span class="ms-proof-title">Почему обратное утверждение верно</span>
+<p>
+        Возьмём любую точку X прямой, отличную от T.
+        В прямоугольном треугольнике OTX гипотенуза OX больше катета OT.
+      </p>
+<p>
+        Поэтому OX &gt; OT = r, то есть любая точка X, кроме T,
+        находится вне окружности. Следовательно, прямая имеет с окружностью
+        только одну общую точку T и является касательной.
+      </p>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-3">
+<h2>3. Касательные от одной внешней точки</h2>
+<div class="ms-rule-box">
+      Отрезки касательных, проведённых из одной внешней точки к окружности,
+      равны.
+    </div>
+<div class="ms-figure">
+<p class="ms-figure-title">Из точки P проведены касательные PA и PB</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Равные касательные PA и PB из внешней точки P" class="ms-svg" role="img" viewBox="0 0 1040 500" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f8fbff" height="500" rx="24" width="1040"></rect>
+<circle cx="330" cy="250" fill="#eff6ff" r="120" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="330" cy="250" fill="#2563eb" r="6"></circle>
+<text fill="#111827" font-family="Arial, sans-serif" font-size="19" font-weight="800" x="344" y="242">O</text>
+<!-- Точки касания для P(720,250), O(330,250), r=120 -->
+<line stroke="#7c3aed" stroke-width="4" x1="720" x2="366.92" y1="250" y2="135.82"></line>
+<line stroke="#16a34a" stroke-width="4" x1="720" x2="366.92" y1="250" y2="364.18"></line>
+<line stroke="#2563eb" stroke-width="3" x1="330" x2="366.92" y1="250" y2="135.82"></line>
+<line stroke="#2563eb" stroke-width="3" x1="330" x2="366.92" y1="250" y2="364.18"></line>
+<line stroke="#93c5fd" stroke-dasharray="8 7" stroke-width="3" x1="330" x2="720" y1="250" y2="250"></line>
+<circle cx="366.92" cy="135.82" fill="#7c3aed" r="6"></circle>
+<circle cx="366.92" cy="364.18" fill="#16a34a" r="6"></circle>
+<circle cx="720" cy="250" fill="#111827" r="6"></circle>
+<g fill="#111827" font-family="Arial, sans-serif" font-size="19" font-weight="800">
+<text x="347" y="124">A</text>
+<text x="347" y="392">B</text>
+<text x="735" y="258">P</text>
+</g>
+<text fill="#7c3aed" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="555" y="168">PA</text>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="555" y="350">PB</text>
+<rect fill="#ffffff" height="290" rx="22" stroke="#dbeafe" stroke-width="2" width="250" x="760" y="92"></rect>
+<g font-family="Arial, sans-serif">
+<text fill="#1d4ed8" font-size="18" font-weight="800" text-anchor="middle" x="885" y="135">PA = PB</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="885" y="179">OA = OB = r</text>
+<text fill="#4b5563" font-size="16" text-anchor="middle" x="885" y="212">OP — общая сторона</text>
+<text fill="#7c3aed" font-size="15" font-weight="800" text-anchor="middle" x="885" y="254">OA перпендикулярен PA</text>
+<text fill="#15803d" font-size="15" font-weight="800" text-anchor="middle" x="885" y="287">OB перпендикулярен PB</text>
+<text fill="#4b5563" font-size="15" text-anchor="middle" x="885" y="334">треугольники OAP и OBP равны</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Доказательство равенства касательных отрезков</span>
+<p>
+        Радиусы OA и OB перпендикулярны касательным PA и PB.
+        Поэтому треугольники OAP и OBP прямоугольные.
+      </p>
+<p>
+        Их гипотенуза OP общая, а катеты OA и OB равны как радиусы одной окружности.
+        Следовательно, треугольники равны по гипотенузе и катету.
+      </p>
+<p>
+        Отсюда <strong>PA = PB</strong>. Кроме того, OP делит пополам угол APB
+        и угол AOB.
+      </p>
+</div>
+<div class="ms-card-grid">
+<div class="ms-example">
+<span class="ms-example-title">Пример 1. Равные касательные</span>
+        Из точки P проведены касательные PA и PB.
+        Если PA = 11 см, то <strong>PB = 11 см</strong>.
+      </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 2. Длина касательной</span>
+        OP = 13 см, радиус OA = 5 см.
+        В прямоугольном треугольнике OAP:
+        <br/>PA = √(13² − 5²) = √144 = <strong>12 см</strong>.
+      </div>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-4">
+<h2>4. Взаимное расположение двух окружностей</h2>
+<p class="ms-text">
+      Пусть радиусы двух окружностей равны R и r, причём R не меньше r,
+      а расстояние между их центрами равно d.
+      Сравнивать нужно d с суммой R + r и разностью R − r.
+    </p>
+<div class="ms-figure">
+<p class="ms-figure-title">Пять основных положений двух окружностей</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Пять положений двух окружностей" class="ms-svg" role="img" viewBox="0 0 1120 710" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="710" rx="24" width="1120"></rect>
+<!-- 1. Раздельно -->
+<rect fill="#f8fbff" height="300" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="25" y="28"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="195" y="66">Нет общих точек</text>
+<circle cx="120" cy="175" fill="#eff6ff" r="62" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="275" cy="175" fill="#f7f4ff" r="45" stroke="#7c3aed" stroke-width="4"></circle>
+<circle cx="120" cy="175" fill="#2563eb" r="5"></circle>
+<circle cx="275" cy="175" fill="#7c3aed" r="5"></circle>
+<line stroke="#93c5fd" stroke-dasharray="8 7" stroke-width="3" x1="120" x2="275" y1="175" y2="175"></line>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="195" y="258">d &gt; R + r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="195" y="292">окружности расположены раздельно</text>
+<!-- 2. Внешнее касание -->
+<rect fill="#f8fbff" height="300" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="390" y="28"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="560" y="66">Внешнее касание</text>
+<circle cx="490" cy="175" fill="#eff6ff" r="66" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="600" cy="175" fill="#f7f4ff" r="44" stroke="#7c3aed" stroke-width="4"></circle>
+<circle cx="490" cy="175" fill="#2563eb" r="5"></circle>
+<circle cx="600" cy="175" fill="#7c3aed" r="5"></circle>
+<circle cx="556" cy="175" fill="#16a34a" r="6"></circle>
+<line stroke="#93c5fd" stroke-dasharray="8 7" stroke-width="3" x1="490" x2="600" y1="175" y2="175"></line>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="560" y="258">d = R + r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="560" y="292">одна общая точка между центрами</text>
+<!-- 3. Две точки -->
+<rect fill="#f8fbff" height="300" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="755" y="28"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="925" y="66">Две общие точки</text>
+<circle cx="875" cy="175" fill="#eff6ff" fill-opacity="0.75" r="70" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="960" cy="175" fill="#f7f4ff" fill-opacity="0.65" r="58" stroke="#7c3aed" stroke-width="4"></circle>
+<circle cx="875" cy="175" fill="#2563eb" r="5"></circle>
+<circle cx="960" cy="175" fill="#7c3aed" r="5"></circle>
+<circle cx="926.54" cy="127.63" fill="#16a34a" r="5"></circle>
+<circle cx="926.54" cy="222.37" fill="#16a34a" r="5"></circle>
+<line stroke="#93c5fd" stroke-dasharray="8 7" stroke-width="3" x1="875" x2="960" y1="175" y2="175"></line>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="925" y="258">R − r &lt; d &lt; R + r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="925" y="292">окружности пересекаются</text>
+<!-- 4. Внутреннее касание -->
+<rect fill="#f8fbff" height="300" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="205" y="370"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="375" y="408">Внутреннее касание</text>
+<circle cx="360" cy="530" fill="#eff6ff" r="84" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="408" cy="530" fill="#f7f4ff" r="36" stroke="#7c3aed" stroke-width="4"></circle>
+<circle cx="360" cy="530" fill="#2563eb" r="5"></circle>
+<circle cx="408" cy="530" fill="#7c3aed" r="5"></circle>
+<circle cx="444" cy="530" fill="#16a34a" r="6"></circle>
+<line stroke="#93c5fd" stroke-dasharray="8 7" stroke-width="3" x1="360" x2="408" y1="530" y2="530"></line>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="375" y="620">d = R − r &gt; 0</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="375" y="650">одна окружность касается другой изнутри</text>
+<!-- 5. Внутри без касания -->
+<rect fill="#f8fbff" height="300" rx="22" stroke="#dbeafe" stroke-width="2" width="340" x="575" y="370"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="745" y="408">Нет общих точек</text>
+<circle cx="720" cy="530" fill="#eff6ff" r="88" stroke="#2563eb" stroke-width="4"></circle>
+<circle cx="755" cy="530" fill="#f7f4ff" r="34" stroke="#7c3aed" stroke-width="4"></circle>
+<circle cx="720" cy="530" fill="#2563eb" r="5"></circle>
+<circle cx="755" cy="530" fill="#7c3aed" r="5"></circle>
+<line stroke="#93c5fd" stroke-dasharray="8 7" stroke-width="3" x1="720" x2="755" y1="530" y2="530"></line>
+<text fill="#b45309" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="745" y="620">d &lt; R − r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" x="745" y="650">меньшая окружность лежит внутри большей</text>
+</svg>
+</div>
+</div>
+<div class="ms-note">
+      Особые случаи: если d = 0 и R не равно r, окружности концентрические
+      и не имеют общих точек. Если d = 0 и R = r, окружности совпадают
+      и имеют бесконечно много общих точек.
+    </div>
+</section>
+<section class="ms-section" id="lesson-section-5">
+<h2>5. Удобная шкала для сравнения</h2>
+<div class="ms-figure">
+<p class="ms-figure-title">Положение окружностей определяется местом числа d на шкале</p>
+<div class="ms-svg-wrap">
+<svg aria-label="Шкала расстояния между центрами окружностей" class="ms-svg" role="img" viewBox="0 0 1080 360" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="360" rx="24" width="1080"></rect>
+<line stroke="#2563eb" stroke-width="5" x1="100" x2="980" y1="190" y2="190"></line>
+<line stroke="#7c3aed" stroke-width="4" x1="365" x2="365" y1="166" y2="214"></line>
+<line stroke="#16a34a" stroke-width="4" x1="735" x2="735" y1="166" y2="214"></line>
+<circle cx="365" cy="190" fill="#7c3aed" r="8"></circle>
+<circle cx="735" cy="190" fill="#16a34a" r="8"></circle>
+<text fill="#7c3aed" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="365" y="245">R − r</text>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="18" font-weight="800" text-anchor="middle" x="735" y="245">R + r</text>
+<rect fill="#f7f4ff" height="70" rx="18" stroke="#ddd6fe" stroke-width="2" width="240" x="105" y="70"></rect>
+<text fill="#6d28d9" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="225" y="100">d &lt; R − r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" x="225" y="127">одна окружность внутри другой</text>
+<rect fill="#eff6ff" height="70" rx="18" stroke="#bfdbfe" stroke-width="2" width="300" x="400" y="70"></rect>
+<text fill="#1d4ed8" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="550" y="100">R − r &lt; d &lt; R + r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" x="550" y="127">две общие точки</text>
+<rect fill="#f0fdf4" height="70" rx="18" stroke="#bbf7d0" stroke-width="2" width="220" x="755" y="70"></rect>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="17" font-weight="800" text-anchor="middle" x="865" y="100">d &gt; R + r</text>
+<text fill="#4b5563" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" x="865" y="127">окружности раздельны</text>
+<rect fill="#ffffff" height="50" rx="16" stroke="#ddd6fe" stroke-width="2" width="215" x="258" y="280"></rect>
+<text fill="#7c3aed" font-family="Arial, sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="365" y="311">внутреннее касание</text>
+<rect fill="#ffffff" height="50" rx="16" stroke="#bbf7d0" stroke-width="2" width="215" x="628" y="280"></rect>
+<text fill="#15803d" font-family="Arial, sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="735" y="311">внешнее касание</text>
+</svg>
+</div>
+</div>
+<div class="ms-proof">
+<span class="ms-proof-title">Алгоритм определения взаимного положения</span>
+<div class="ms-proof-step">
+<span class="ms-step-number">1</span>
+<div>Определите больший радиус R, меньший радиус r и расстояние d между центрами.</div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">2</span>
+<div>Вычислите сумму R + r и разность R − r.</div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">3</span>
+<div>Сравните d сначала с R + r, затем с R − r.</div>
+</div>
+<div class="ms-proof-step">
+<span class="ms-step-number">4</span>
+<div>По полученному равенству или неравенству определите число общих точек.</div>
+</div>
+</div>
+<div class="ms-table-wrap">
+<table class="ms-table">
+<thead>
+<tr>
+<th>Условие</th>
+<th>Общие точки</th>
+<th>Положение</th>
+<th>Общие касательные</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d &gt; R + r</td>
+<td>0</td>
+<td>Окружности раздельны</td>
+<td>4</td>
+</tr>
+<tr>
+<td>d = R + r</td>
+<td>1</td>
+<td>Внешнее касание</td>
+<td>3</td>
+</tr>
+<tr>
+<td>R − r &lt; d &lt; R + r</td>
+<td>2</td>
+<td>Пересечение</td>
+<td>2</td>
+</tr>
+<tr>
+<td>d = R − r &gt; 0</td>
+<td>1</td>
+<td>Внутреннее касание</td>
+<td>1</td>
+</tr>
+<tr>
+<td>d &lt; R − r</td>
+<td>0</td>
+<td>Одна окружность внутри другой</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="ms-section-soft" id="lesson-section-6">
+<h2>6. Разобранные задачи</h2>
+<div class="ms-example">
+<span class="ms-example-title">Пример 3. Положение прямой</span>
+      Радиус окружности равен 7 см, расстояние от центра до прямой — 9 см.
+      Поскольку 9 &gt; 7, прямая не имеет с окружностью общих точек.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 4. Прямая является касательной</span>
+      Расстояние от центра окружности до прямой равно 6 см,
+      радиус окружности также равен 6 см.
+      Значит, d = r и прямая является касательной.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 5. Внешнее касание окружностей</span>
+      Радиусы равны 8 см и 3 см, расстояние между центрами — 11 см.
+      <br/>R + r = 8 + 3 = 11.
+      <br/>Следовательно, окружности касаются внешним образом.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 6. Две общие точки</span>
+      Радиусы равны 9 см и 5 см, расстояние между центрами — 8 см.
+      <br/>R − r = 4, R + r = 14.
+      <br/>Так как 4 &lt; 8 &lt; 14, окружности пересекаются в двух точках.
+    </div>
+<div class="ms-example">
+<span class="ms-example-title">Пример 7. Внутреннее касание</span>
+      Радиусы равны 10 см и 4 см, расстояние между центрами — 6 см.
+      <br/>R − r = 10 − 4 = 6.
+      <br/>Окружности касаются внутренним образом.
+    </div>
+</section>
+<section class="ms-section" id="lesson-section-7">
+<h2>Самопроверка</h2>
+<div class="ms-task">
+<p><strong>1.</strong> Радиус окружности равен 6 см, расстояние от центра до прямой — 8 см. Сколько общих точек имеют прямая и окружность?</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>8 &gt; 6, то есть d &gt; r.</p>
+<p>Прямая и окружность <strong>не имеют общих точек</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>2.</strong> Расстояние от центра окружности до прямой равно радиусу 5 см. Как называется эта прямая?</p>
+<details class="ms-answer">
+<summary>Показать ответ</summary>
+<div>
+<p>При d = r прямая имеет одну общую точку с окружностью.</p>
+<p>Она является <strong>касательной</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>3.</strong> Из точки P к окружности проведены касательные PA и PB. PA = 14 см. Найдите PB.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div><p>Касательные отрезки из одной точки равны, поэтому <strong>PB = 14 см</strong>.</p></div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>4.</strong> OP = 17 см, радиус окружности OA = 8 см, PA — касательная. Найдите PA.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>Треугольник OAP прямоугольный.</p>
+<p>PA = √(17² − 8²) = √(289 − 64) = √225 = <strong>15 см</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>5.</strong> Радиусы двух окружностей равны 7 см и 3 см, расстояние между центрами — 10 см. Определите их взаимное положение.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>R + r = 7 + 3 = 10 = d.</p>
+<p>Окружности имеют <strong>внешнее касание</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>6.</strong> Радиусы равны 8 см и 5 см, расстояние между центрами — 7 см. Сколько общих точек имеют окружности?</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>R − r = 3, R + r = 13.</p>
+<p>3 &lt; 7 &lt; 13, поэтому окружности имеют <strong>две общие точки</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>7.</strong> Радиусы равны 9 см и 4 см, расстояние между центрами — 5 см. Определите взаимное положение окружностей.</p>
+<details class="ms-answer">
+<summary>Показать решение</summary>
+<div>
+<p>R − r = 9 − 4 = 5 = d.</p>
+<p>Окружности имеют <strong>внутреннее касание</strong>.</p>
+</div>
+</details>
+</div>
+<div class="ms-task">
+<p><strong>8.</strong> Точка T лежит на окружности с центром O. Прямая l проходит через T и перпендикулярна OT. Докажите, что l является касательной.</p>
+<details class="ms-answer">
+<summary>Показать доказательство</summary>
+<div>
+<p>Возьмём любую точку X прямой l, отличную от T.</p>
+<p>Треугольник OTX прямоугольный, поэтому его гипотенуза OX больше катета OT = r.</p>
+<p>Следовательно, X находится вне окружности. Единственная общая точка прямой l и окружности — T.</p>
+<p>Значит, l является <strong>касательной</strong>.</p>
+</div>
+</details>
+</div>
+</section>
+<section class="ms-section" id="lesson-section-8">
+<h2>Итог: сравните расстояние с радиусами</h2>
+<div class="ms-final-grid">
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Прямая и окружность</strong>
+<span class="ms-card-text">Сравните расстояние d от центра до прямой с радиусом r.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Касательная</strong>
+<span class="ms-card-text">Радиус в точку касания перпендикулярен касательной; касательные из одной точки равны.</span>
+</div>
+<div class="ms-final-card ms-card">
+<strong class="ms-card-title">Две окружности</strong>
+<span class="ms-card-text">Сравните d с R + r и R − r, предварительно выбрав R не меньше r.</span>
+</div>
+</div>
+</section>
+<div class="ms-nav">
+<a class="ms-btn ms-btn-secondary" href="/sinus-kosinus-i-tangens-reshenie-pryamougolnyh-treugolnikov/">Предыдущая тема</a>
+<a class="ms-btn ms-btn-secondary" href="/8-klass-geometriya/">К темам геометрии</a>
+<a class="ms-btn" href="/czentralnye-i-vpisannye-ugly-dugi-hordy-sekushhie-i-kasatelnye/">Следующая тема</a>
+</div>
+</div>
+<!-- /wp:html -->

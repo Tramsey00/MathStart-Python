@@ -1,0 +1,491 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">9 класс · Алгебра · Комбинаторика и вероятность · Тема 5.4</div>
+    <h1 class="ms-title">Относительная частота и статистическая вероятность события</h1>
+    <p class="ms-subtitle">Научимся описывать результаты реальных испытаний, находить абсолютную и относительную частоты события, сравнивать экспериментальные данные с теоретической вероятностью и использовать статистическую вероятность для приближённых прогнозов.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Абсолютная частота события</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Относительная частота</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Теоретическая вероятность и частота</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Стабилизация относительной частоты</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Статистическая вероятность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Прогноз по относительной частоте</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Противоположное событие</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Объединение результатов нескольких серий</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Как сравнивать эксперименты</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Экспериментальный протокол</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Абсолютная частота события</h2>
+    <p class="ms-text">Пусть один и тот же случайный опыт провели N раз. Если событие A произошло M раз, число M называют <strong>абсолютной частотой</strong> события A.</p>
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Число испытаний N</h3>
+        <p class="ms-card-text">Показывает, сколько раз был проведён случайный опыт.</p>
+      </div>
+      <div class="ms-card">
+        <h3 class="ms-card-title">Число наступлений M</h3>
+        <p class="ms-card-text">Показывает, сколько раз в проведённой серии произошло событие A.</p>
+      </div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Серия бросков монеты</span>
+      Монету бросили 60 раз. Орёл выпал 34 раза.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Число испытаний: N=60.</div>
+        <div class="ms-math-row">Абсолютная частота выпадения орла: M=34.</div>
+      </div>
+    </div>
+    <div class="ms-note">Абсолютную частоту нельзя сравнивать без учёта общего числа испытаний. Например, 30 успехов из 50 — это большая доля, чем 40 успехов из 100.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Относительная частота</h2>
+    <p class="ms-text"><strong>Относительная частота</strong> показывает, какую долю всех испытаний составили испытания, в которых произошло событие A.</p>
+    <div class="ms-rule-box">
+      <strong>
+        W(A)=
+        <span class="ms-frac">
+          <span class="ms-num">M</span>
+          <span class="ms-den">N</span>
+        </span>,
+      </strong>
+      где M — абсолютная частота события, N — число испытаний.
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Относительная частота выпадения орла</span>
+      В 60 бросках орёл выпал 34 раза.
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          W(A)=
+          <span class="ms-frac">
+            <span class="ms-num">34</span>
+            <span class="ms-den">60</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">17</span>
+            <span class="ms-den">30</span>
+          </span>
+          ≈0,567.
+        </div>
+        <div class="ms-math-row">В процентах: 0,567·100%≈56,7%.</div>
+      </div>
+      <strong>Ответ: приблизительно 0,567, или 56,7%.</strong>
+    </div>
+    <div class="ms-answer-box">Для любого события выполняется <strong>0≤W(A)≤1</strong>. Относительная частота 0 означает, что событие не произошло ни разу, а частота 1 — что оно произошло во всех испытаниях.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Теоретическая вероятность и частота</h2>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Характеристика</th>
+            <th>Как получают</th>
+            <th>Что описывает</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Теоретическая вероятность P(A)</strong></td>
+            <td>Вычисляют по математической модели опыта.</td>
+            <td>Шанс наступления события до проведения серии испытаний.</td>
+          </tr>
+          <tr>
+            <td><strong>Относительная частота W(A)</strong></td>
+            <td>Находят по фактическим результатам серии испытаний.</td>
+            <td>Долю испытаний, в которых событие реально произошло.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-rule-box">При большом числе однотипных испытаний относительная частота события обычно стабилизируется около его теоретической вероятности.</div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Кубик: теория и эксперимент</span>
+      Событие A — выпадение числа, большего 4.
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          Теоретически:
+          P(A)=
+          <span class="ms-frac">
+            <span class="ms-num">2</span>
+            <span class="ms-den">6</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">1</span>
+            <span class="ms-den">3</span>
+          </span>
+          ≈0,333.
+        </div>
+        <div class="ms-math-row">В эксперименте из 300 бросков событие произошло 96 раз.</div>
+        <div class="ms-math-row">
+          W(A)=
+          <span class="ms-frac">
+            <span class="ms-num">96</span>
+            <span class="ms-den">300</span>
+          </span>
+          =0,32.
+        </div>
+      </div>
+      Значения 0,333 и 0,32 близки, но не обязаны совпадать точно.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Стабилизация относительной частоты</h2>
+    <p class="ms-text">В короткой серии случайные отклонения могут быть заметными. При увеличении числа испытаний относительная частота обычно колеблется всё ближе к вероятности события.</p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Число бросков N</th>
+            <th>Число орлов M</th>
+            <th>Относительная частота M/N</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>10</td><td>7</td><td>0,700</td></tr>
+          <tr><td>20</td><td>12</td><td>0,600</td></tr>
+          <tr><td>50</td><td>27</td><td>0,540</td></tr>
+          <tr><td>100</td><td>52</td><td>0,520</td></tr>
+          <tr><td>200</td><td>101</td><td>0,505</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Относительная частота орла приближается к 0,5</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="График относительной частоты орла при десяти, двадцати, пятидесяти, ста и двухстах бросках, приближающийся к вероятности ноль целых пять десятых">
+          <defs>
+            <marker id="ms-freq-arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L8,3 z" fill="#64748b"></path>
+            </marker>
+          </defs>
+
+          <rect width="900" height="480" rx="24" fill="#ffffff"></rect>
+          <rect x="24" y="20" width="852" height="430" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+
+          <g stroke="#e5e7eb" stroke-width="1">
+            <line x1="110" y1="370" x2="825" y2="370"></line>
+            <line x1="110" y1="310" x2="825" y2="310"></line>
+            <line x1="110" y1="250" x2="825" y2="250"></line>
+            <line x1="110" y1="190" x2="825" y2="190"></line>
+            <line x1="110" y1="130" x2="825" y2="130"></line>
+            <line x1="110" y1="70" x2="825" y2="70"></line>
+          </g>
+
+          <line x1="100" y1="395" x2="840" y2="395" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-freq-arrow)"></line>
+          <line x1="110" y1="405" x2="110" y2="48" stroke="#64748b" stroke-width="2.5" marker-end="url(#ms-freq-arrow)"></line>
+
+          <line x1="110" y1="250" x2="825" y2="250" stroke="#16a34a" stroke-width="3" stroke-dasharray="10 8"></line>
+
+          <polyline points="180,130 330,190 480,226 630,238 780,247" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+
+          <g fill="#7c3aed" stroke="#ffffff" stroke-width="4">
+            <circle cx="180" cy="130" r="8"></circle>
+            <circle cx="330" cy="190" r="8"></circle>
+            <circle cx="480" cy="226" r="8"></circle>
+            <circle cx="630" cy="238" r="8"></circle>
+            <circle cx="780" cy="247" r="8"></circle>
+          </g>
+
+          <g font-family="inherit" font-size="15" font-weight="700" fill="#475569" text-anchor="middle">
+            <text x="180" y="426">10</text>
+            <text x="330" y="426">20</text>
+            <text x="480" y="426">50</text>
+            <text x="630" y="426">100</text>
+            <text x="780" y="426">200</text>
+
+            <text x="82" y="375">0,3</text>
+            <text x="82" y="315">0,4</text>
+            <text x="82" y="255">0,5</text>
+            <text x="82" y="195">0,6</text>
+            <text x="82" y="135">0,7</text>
+          </g>
+
+          <g font-family="inherit" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">
+            <text x="180" y="115">0,70</text>
+            <text x="330" y="175">0,60</text>
+            <text x="480" y="211">0,54</text>
+            <text x="630" y="223">0,52</text>
+            <text x="780" y="232">0,505</text>
+          </g>
+
+          <text x="610" y="236" font-family="inherit" font-size="15" font-weight="800" fill="#15803d">P(орёл)=0,5</text>
+          <text x="800" y="453" text-anchor="end" font-family="inherit" font-size="16" font-weight="800" fill="#475569">число бросков</text>
+          <text x="118" y="44" font-family="inherit" font-size="16" font-weight="800" fill="#475569">частота</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-note">Стабилизация не означает, что после некоторого номера испытания частота станет точно равной вероятности и больше не изменится. Колебания продолжаются, но обычно становятся менее заметными.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Статистическая вероятность</h2>
+    <p class="ms-text">Если теоретическую вероятность события трудно вычислить, её оценивают по большой серии опытов. Устойчивое значение относительной частоты называют <strong>статистической вероятностью</strong> события.</p>
+    <div class="ms-rule-box"><strong>P<sub>стат</sub>(A)≈W(A).</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Доля бракованных изделий</span>
+      При проверке 4000 изделий обнаружили 120 бракованных.
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          W(A)=
+          <span class="ms-frac">
+            <span class="ms-num">120</span>
+            <span class="ms-den">4000</span>
+          </span>
+          =0,03=3%.
+        </div>
+      </div>
+      Статистическую вероятность брака можно оценить числом 0,03.
+    </div>
+    <div class="ms-answer-box">Статистическая вероятность является приближённой оценкой, основанной на наблюдениях. Новая серия испытаний может дать немного другое значение.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Прогноз по относительной частоте</h2>
+    <p class="ms-text">Если условия опыта сохраняются, статистическую вероятность можно использовать для приближённого прогноза числа наступлений события.</p>
+    <div class="ms-rule-box"><strong>Ожидаемое число наступлений ≈ N·P<sub>стат</sub>(A).</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 5. Оценка количества брака</span>
+      По предыдущим данным доля брака составляет приблизительно 3%. Оценим число бракованных изделий в партии из 7500 изделий.
+      <div class="ms-math-box">
+        <div class="ms-math-row">7500·0,03=225.</div>
+      </div>
+      <strong>Прогноз: примерно 225 изделий.</strong>
+    </div>
+    <div class="ms-note">Это не точное обещание результата. Фактическое число может отличаться из-за случайных колебаний и изменения условий производства.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Противоположное событие</h2>
+    <p class="ms-text">Если в каждом испытании событие A либо происходит, либо не происходит, абсолютные частоты событий A и Ā в сумме дают N.</p>
+    <div class="ms-rule-box"><strong>W(Ā)=1−W(A).</strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 6. Орёл и решка</span>
+      В 200 бросках монеты орёл выпал 94 раза.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Решка выпала 200−94=106 раз.</div>
+        <div class="ms-math-row">W(орёл)=94/200=0,47.</div>
+        <div class="ms-math-row">W(решка)=106/200=0,53=1−0,47.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Объединение результатов нескольких серий</h2>
+    <p class="ms-text">Для объединённой серии нужно сложить абсолютные частоты и числа испытаний, а затем вычислить одно общее отношение.</p>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 7. Две серии опытов</span>
+      В первой серии событие произошло 18 раз в 50 испытаниях, во второй — 60 раз в 150 испытаниях.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Общее число наступлений: 18+60=78.</div>
+        <div class="ms-math-row">Общее число испытаний: 50+150=200.</div>
+        <div class="ms-math-row">
+          W(A)=
+          <span class="ms-frac">
+            <span class="ms-num">78</span>
+            <span class="ms-den">200</span>
+          </span>
+          =0,39.
+        </div>
+      </div>
+      <strong>Ответ: 0,39.</strong>
+    </div>
+    <div class="ms-note">Нельзя просто усреднять частоты 0,36 и 0,40, если серии имеют разное число испытаний. Более длинная серия должна иметь больший вес.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Как сравнивать эксперименты</h2>
+    <div class="ms-exp-grid ms-card-grid ms-columns-3">
+      <div class="ms-exp-card ms-card">
+        <strong class="ms-card-title">Сравнивайте доли</strong>
+        <span class="ms-card-text">Для серий разной длины используют относительные, а не абсолютные частоты.</span>
+      </div>
+      <div class="ms-exp-card ms-card">
+        <strong class="ms-card-title">Учитывайте объём</strong>
+        <span class="ms-card-text">Частота в длинной серии обычно является более устойчивой оценкой.</span>
+      </div>
+      <div class="ms-exp-card ms-card">
+        <strong class="ms-card-title">Проверяйте условия</strong>
+        <span class="ms-card-text">Объединять серии разумно только при одинаковых или сопоставимых условиях опыта.</span>
+      </div>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 8. Какая доля больше</span>
+      В первой серии получено 25 успехов из 40, во второй — 58 из 100.
+      <div class="ms-math-box">
+        <div class="ms-math-row">Первая частота: 25/40=0,625.</div>
+        <div class="ms-math-row">Вторая частота: 58/100=0,58.</div>
+      </div>
+      Несмотря на меньшее абсолютное число успехов, относительная частота в первой серии выше.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Типичные ошибки</h2>
+    <div class="ms-error-grid ms-card-grid ms-columns-2">
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Путают M и N</strong>
+        <p class="ms-card-text">В числителе находится число наступлений события, в знаменателе — число всех испытаний.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Сравнивают абсолютные частоты</strong>
+        <p class="ms-card-text">Для серий разной длины число успехов само по себе не показывает, где событие происходило чаще.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Считают частоту точной вероятностью</strong>
+        <p class="ms-card-text">Относительная частота зависит от конкретной серии и может измениться в новом эксперименте.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Делают точный прогноз</strong>
+        <p class="ms-card-text">Статистическая вероятность позволяет оценивать ожидаемое количество, но не гарантирует его.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="practice">
+    <h2>11. Самопроверка</h2>
+    <p class="ms-text">Во всех заданиях сначала определите абсолютную частоту M и число испытаний N.</p>
+
+    <div class="ms-task">
+      <p><strong>1.</strong> Событие произошло 18 раз в 50 испытаниях. Найдите относительную частоту.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>W(A)=18/50=0,36.</p>
+          <p><strong>Ответ: 0,36.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>2.</strong> Среди 2400 изделий обнаружили 72 бракованных. Найдите относительную частоту брака в виде десятичной дроби и процентов.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>W(A)=72/2400=0,03.</p>
+          <p>0,03·100%=3%.</p>
+          <p><strong>Ответ: 0,03, или 3%.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>3.</strong> Монету бросили 200 раз, орёл выпал 94 раза. Найдите относительную частоту решки.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Решка выпала 200−94=106 раз.</p>
+          <p>W=106/200=0,53.</p>
+          <p><strong>Ответ: 0,53.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>4.</strong> В первой серии событие произошло 25 раз в 40 опытах, во второй — 58 раз в 100 опытах. В какой серии относительная частота выше?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Первая серия: 25/40=0,625.</p>
+          <p>Вторая серия: 58/100=0,58.</p>
+          <p><strong>Ответ: в первой серии.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>5.</strong> В первой серии событие произошло 30 раз в 80 испытаниях, во второй — 50 раз в 120 испытаниях. Найдите общую относительную частоту.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Всего наступлений: 30+50=80.</p>
+          <p>Всего испытаний: 80+120=200.</p>
+          <p>W=80/200=0,4.</p>
+          <p><strong>Ответ: 0,4.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>6.</strong> Статистическая вероятность дефекта равна 0,04. Сколько дефектных деталей можно ожидать примерно среди 2500 деталей?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>2500·0,04=100.</p>
+          <p><strong>Ответ: примерно 100 деталей.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>7.</strong> При 600 бросках кубика число 6 выпало 92 раза. Найдите относительную частоту и сравните её с теоретической вероятностью 1/6.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>W=92/600≈0,153.</p>
+          <p>P=1/6≈0,167.</p>
+          <p>Экспериментальная частота немного меньше теоретической вероятности.</p>
+          <p><strong>Ответ: приблизительно 0,153.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>8.</strong> В 500 испытаниях событие произошло 205 раз. Найдите относительную частоту противоположного события.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>W(A)=205/500=0,41.</p>
+          <p>W(Ā)=1−0,41=0,59.</p>
+          <p><strong>Ответ: 0,59.</strong></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-12">
+    <h2>12. Экспериментальный протокол</h2>
+    <p class="ms-text">От сырых результатов до статистической вероятности ведут четыре последовательных шага.</p>
+    <div class="ms-protocol">
+      <div class="ms-protocol-step">
+        <b>1</b>
+        <strong>Зафиксируйте N</strong>
+        <span>Запишите общее количество проведённых испытаний.</span>
+      </div>
+      <div class="ms-protocol-step">
+        <b>2</b>
+        <strong>Посчитайте M</strong>
+        <span>Определите, сколько раз произошло интересующее событие.</span>
+      </div>
+      <div class="ms-protocol-step">
+        <b>3</b>
+        <strong>Найдите M/N</strong>
+        <span>Вычислите относительную частоту и при необходимости переведите её в проценты.</span>
+      </div>
+      <div class="ms-protocol-step">
+        <b>4</b>
+        <strong>Сделайте вывод</strong>
+        <span>Сравните с теоретической вероятностью или используйте как приближённую оценку.</span>
+      </div>
+    </div>
+    <div class="ms-answer-box"><strong>Контрольная мысль:</strong> вероятность относится к модели случайного опыта, а относительная частота — к результатам конкретной серии испытаний.</div>
+    <p class="ms-text" style="margin-top:18px">Раздел завершает связь между теоретической вероятностью и реальными экспериментальными данными.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/elementy-teorii-veroyatnosti-nahozhdenie-veroyatnosti/">← Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+  </div>
+</div>
+<!-- /wp:html -->

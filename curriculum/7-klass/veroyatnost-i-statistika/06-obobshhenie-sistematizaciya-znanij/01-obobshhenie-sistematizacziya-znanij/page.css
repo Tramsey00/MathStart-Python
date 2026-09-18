@@ -1,0 +1,153 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-course-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-workflow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-workflow-step {
+  padding: 15px 12px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+  text-align: center;
+}
+.ms-lesson-page .ms-workflow-step strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 9px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 15px;
+  line-height: 1;
+}
+.ms-lesson-page .ms-workflow-step span {
+  display: block;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.ms-lesson-page .ms-data-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+  gap: 18px;
+  margin-top: 18px;
+  align-items: stretch;
+}
+.ms-lesson-page .ms-data-panel {
+  padding: 20px;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-data-panel h3 {
+  margin: 0 0 12px !important;
+  color: #111827;
+  font-size: 21px !important;
+  line-height: 1.35 !important;
+}
+.ms-lesson-page .ms-number-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 14px 0;
+}
+.ms-lesson-page .ms-number-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 16px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-stat-box {
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 17px;
+  background: #f9fafb;
+}
+.ms-lesson-page .ms-stat-box strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #1d4ed8;
+  font-size: 15px;
+}
+.ms-lesson-page .ms-stat-box span {
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.ms-lesson-page .ms-formula-deck {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-graph-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-graph-fact {
+  padding: 15px 16px;
+  border: 1px solid #dbeafe;
+  border-radius: 17px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-graph-fact strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #1d4ed8;
+  font-size: 15.5px;
+}
+.ms-lesson-page .ms-graph-fact span {
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.ms-lesson-page .ms-course-complete {
+  margin-top: 26px;
+  padding: 26px;
+  border: 1px solid #bfdbfe;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+}
+.ms-lesson-page .ms-course-complete h2 {
+  margin: 0 0 12px;
+  color: #111827;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-course-complete p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.7;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-course-map,
+  .ms-lesson-page .ms-formula-deck,
+  .ms-lesson-page .ms-graph-facts,
+  .ms-lesson-page .ms-workflow,
+  .ms-lesson-page .ms-data-layout {
+    grid-template-columns: 1fr;
+  }
+}

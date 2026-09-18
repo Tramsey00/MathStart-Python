@@ -1,0 +1,159 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-root-visual {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.2fr);
+  gap: 22px;
+  align-items: center;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-square-model {
+  position: relative;
+  width: min(100%, 290px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border: 3px solid #60a5fa;
+  border-radius: 24px;
+  background: linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+      linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+  background-size: 36px 36px, 36px 36px, auto;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.08);
+}
+.ms-lesson-page .ms-square-area {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-size: 21px;
+  line-height: 1.35;
+  font-weight: 800;
+  text-align: center;
+}
+.ms-lesson-page .ms-square-side {
+  position: absolute;
+  color: #1e3a8a;
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-square-side-bottom {
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+}
+.ms-lesson-page .ms-square-side-left {
+  left: -48px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+}
+.ms-lesson-page .ms-root-condition {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 19px;
+  background: #ffffff;
+  text-align: center;
+}
+.ms-lesson-page .ms-root-condition strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 20px;
+  line-height: 1.3;
+}
+.ms-lesson-page .ms-root-condition span {
+  display: block;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-radical-parts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-radical-part {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 19px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-radical-part-symbol {
+  display: block;
+  margin-bottom: 9px;
+  color: #2563eb;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-radical-part strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-radical-part span {
+  display: block;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ms-lesson-page .ms-memory-contrast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.ms-lesson-page .ms-memory-side {
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #dbeafe;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-memory-side strong {
+  display: block;
+  margin-bottom: 9px;
+  color: #2563eb;
+  font-size: 20px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-memory-side span {
+  display: block;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-memory-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 30px;
+  font-weight: 800;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-root-visual {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .ms-lesson-page .ms-radical-parts {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-memory-contrast {
+    grid-template-columns: 1fr;
+  }
+  .ms-lesson-page .ms-memory-divider {
+    transform: rotate(90deg);
+    min-height: 28px;
+  }
+  .ms-lesson-page .ms-square-model {
+    width: min(82%, 260px);
+  }
+}

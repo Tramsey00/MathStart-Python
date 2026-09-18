@@ -1,0 +1,18 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-compare-table {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-route-band {
+  padding: 23px;
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-compare-table {
+    grid-template-columns: 1fr;
+  }
+}

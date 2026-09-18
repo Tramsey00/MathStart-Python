@@ -1,0 +1,217 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Множества · Тема 2.2</div>
+    <h1 class="ms-title">Свойства операций над множествами. Графическое представление множеств</h1>
+    <p class="ms-subtitle">Разберём основные свойства объединения и пересечения, научимся читать диаграммы Эйлера и решать задачи, не считая общие элементы дважды.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/svojstva-operaczij-nad-mnozhestvami-graficheskoe-predstavlenie-mnozhestv/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Свойства объединения и пересечения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как выглядят отношения между множествами</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Операции на диаграммах Эйлера</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Дополнение множества</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как считать элементы объединения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Финальный чек-ап: формула и рисунок говорят об одном</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Свойства объединения и пересечения</h2>
+    <p class="ms-text">Свойства операций помогают преобразовывать выражения с множествами и заранее понимать, каким будет результат.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Свойство</th><th>Объединение</th><th>Пересечение</th></tr></thead>
+        <tbody>
+          <tr><td>Переместительное</td><td>A ∪ B = B ∪ A</td><td>A ∩ B = B ∩ A</td></tr>
+          <tr><td>Сочетательное</td><td>(A ∪ B) ∪ C = A ∪ (B ∪ C)</td><td>(A ∩ B) ∩ C = A ∩ (B ∩ C)</td></tr>
+          <tr><td>С самим собой</td><td>A ∪ A = A</td><td>A ∩ A = A</td></tr>
+          <tr><td>С пустым множеством</td><td>A ∪ ∅ = A</td><td>A ∩ ∅ = ∅</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Почему порядок не важен</span>Если A = {1, 2, 3}, B = {3, 4}, то и A ∪ B, и B ∪ A равны {1, 2, 3, 4}. Аналогично A ∩ B = B ∩ A = {3}.</div>
+    <div class="ms-rule-box">Если <strong>B ⊆ A</strong>, то <strong>A ∪ B = A</strong>, а <strong>A ∩ B = B</strong>: добавление подмножества не расширяет A, а общая часть совпадает с B.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Как выглядят отношения между множествами</h2>
+    <p class="ms-text">На диаграммах Эйлера множества изображают замкнутыми областями. Положение областей показывает отношение между множествами.</p>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Подмножество, пересекающиеся и непересекающиеся множества</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 840 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Три диаграммы Эйлера: подмножество, пересекающиеся и непересекающиеся множества">
+          <rect x="1" y="1" width="838" height="328" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <g transform="translate(25 28)">
+            <rect x="0" y="0" width="250" height="270" rx="20" fill="#f8fbff" stroke="#e5e7eb"/>
+            <text x="125" y="34" text-anchor="middle" font-size="17" font-weight="800" fill="#111827">B ⊆ A</text>
+            <circle cx="125" cy="145" r="82" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+            <circle cx="125" cy="145" r="39" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+            <text x="72" y="94" font-size="18" font-weight="800" fill="#2563eb">A</text>
+            <text x="125" y="151" text-anchor="middle" font-size="18" font-weight="800" fill="#7c3aed">B</text>
+            <text x="125" y="246" text-anchor="middle" font-size="14" fill="#64748b">B целиком находится внутри A</text>
+          </g>
+
+          <g transform="translate(295 28)">
+            <rect x="0" y="0" width="250" height="270" rx="20" fill="#f8fbff" stroke="#e5e7eb"/>
+            <text x="125" y="34" text-anchor="middle" font-size="17" font-weight="800" fill="#111827">A ∩ B ≠ ∅</text>
+            <circle cx="95" cy="145" r="66" fill="#dbeafe" fill-opacity="0.85" stroke="#2563eb" stroke-width="3"/>
+            <circle cx="155" cy="145" r="66" fill="#ede9fe" fill-opacity="0.75" stroke="#7c3aed" stroke-width="3"/>
+            <text x="63" y="145" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">A</text>
+            <text x="187" y="145" text-anchor="middle" font-size="18" font-weight="800" fill="#7c3aed">B</text>
+            <text x="125" y="246" text-anchor="middle" font-size="14" fill="#64748b">Есть общая часть</text>
+          </g>
+
+          <g transform="translate(565 28)">
+            <rect x="0" y="0" width="250" height="270" rx="20" fill="#f8fbff" stroke="#e5e7eb"/>
+            <text x="125" y="34" text-anchor="middle" font-size="17" font-weight="800" fill="#111827">A ∩ B = ∅</text>
+            <circle cx="75" cy="145" r="54" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+            <circle cx="175" cy="145" r="54" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+            <text x="75" y="151" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">A</text>
+            <text x="175" y="151" text-anchor="middle" font-size="18" font-weight="800" fill="#7c3aed">B</text>
+            <text x="125" y="246" text-anchor="middle" font-size="14" fill="#64748b">Общих элементов нет</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Операции на диаграммах Эйлера</h2>
+    <p class="ms-text">Закрашенная область показывает, какие элементы входят в результат операции.</p>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Объединение, пересечение, разность и дополнение</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 840 610" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Четыре диаграммы Эйлера для объединения, пересечения, разности и дополнения множеств">
+          <defs>
+            <clipPath id="clipA22"><circle cx="576" cy="165" r="78"/></clipPath>
+          </defs>
+          <rect x="1" y="1" width="838" height="608" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <g>
+            <rect x="28" y="28" width="378" height="255" rx="20" fill="#f8fbff" stroke="#e5e7eb"/>
+            <text x="217" y="61" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">A ∪ B — объединение</text>
+            <circle cx="170" cy="165" r="78" fill="#93c5fd" fill-opacity="0.78" stroke="#2563eb" stroke-width="3"/>
+            <circle cx="264" cy="165" r="78" fill="#93c5fd" fill-opacity="0.78" stroke="#2563eb" stroke-width="3"/>
+            <text x="137" y="165" font-size="18" font-weight="800" fill="#1e3a8a">A</text>
+            <text x="290" y="165" font-size="18" font-weight="800" fill="#1e3a8a">B</text>
+            <text x="217" y="258" text-anchor="middle" font-size="14" fill="#64748b">Закрашены обе области целиком</text>
+          </g>
+
+          <g>
+            <rect x="434" y="28" width="378" height="255" rx="20" fill="#f8fbff" stroke="#e5e7eb"/>
+            <text x="623" y="61" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">A ∩ B — пересечение</text>
+            <circle cx="576" cy="165" r="78" fill="#ffffff" stroke="#2563eb" stroke-width="3"/>
+            <circle cx="670" cy="165" r="78" fill="#ffffff" stroke="#7c3aed" stroke-width="3"/>
+            <circle cx="670" cy="165" r="78" fill="#8b5cf6" fill-opacity="0.75" clip-path="url(#clipA22)"/>
+            <text x="543" y="165" font-size="18" font-weight="800" fill="#2563eb">A</text>
+            <text x="696" y="165" font-size="18" font-weight="800" fill="#7c3aed">B</text>
+            <text x="623" y="258" text-anchor="middle" font-size="14" fill="#64748b">Закрашена только общая часть</text>
+          </g>
+
+          <g>
+            <rect x="28" y="315" width="378" height="255" rx="20" fill="#f8fbff" stroke="#e5e7eb"/>
+            <text x="217" y="348" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">A ∖ B — разность</text>
+            <circle cx="170" cy="452" r="78" fill="#93c5fd" fill-opacity="0.85" stroke="#2563eb" stroke-width="3"/>
+            <circle cx="264" cy="452" r="78" fill="#f8fbff" stroke="#7c3aed" stroke-width="3"/>
+            <text x="137" y="452" font-size="18" font-weight="800" fill="#1e3a8a">A</text>
+            <text x="290" y="452" font-size="18" font-weight="800" fill="#7c3aed">B</text>
+            <text x="217" y="545" text-anchor="middle" font-size="14" fill="#64748b">Остаётся часть A вне B</text>
+          </g>
+
+          <g>
+            <rect x="434" y="315" width="378" height="255" rx="20" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+            <text x="623" y="348" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">U ∖ A — дополнение A</text>
+            <text x="458" y="376" font-size="17" font-weight="800" fill="#1e3a8a">U</text>
+            <circle cx="623" cy="452" r="78" fill="#ffffff" stroke="#7c3aed" stroke-width="3"/>
+            <text x="623" y="458" text-anchor="middle" font-size="18" font-weight="800" fill="#7c3aed">A</text>
+            <text x="623" y="545" text-anchor="middle" font-size="14" fill="#1e3a8a">Закрашена часть U, не входящая в A</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="ms-rule-box"><strong>Алгоритм чтения диаграммы:</strong> сначала назовите все области, затем определите, какие из них закрашены, и только после этого запишите операцию.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Дополнение множества</h2>
+    <p class="ms-text">Пусть U — универсальное множество всех рассматриваемых объектов, а A ⊆ U. <strong>Дополнением A</strong> называют множество элементов U, которые не входят в A.</p>
+    <div class="ms-math-box"><div><strong>Дополнение A = U ∖ A</strong></div></div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>U = {1, 2, 3, 4, 5, 6, 7, 8}, A = {2, 4, 6, 8}. Тогда U ∖ A = {1, 3, 5, 7}.</div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">A ∪ (U ∖ A) = U</h3><p class="ms-card-text">Множество A и все элементы вне A вместе дают универсальное множество.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">A ∩ (U ∖ A) = ∅</h3><p class="ms-card-text">Элемент не может одновременно входить в A и не входить в A.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Как считать элементы объединения</h2>
+    <p class="ms-text">При сложении количеств элементов общая часть попадает в сумму дважды. Поэтому её нужно вычесть один раз.</p>
+    <div class="ms-math-box"><div class="ms-formula">|A ∪ B| = |A| + |B| − |A ∩ B|</div></div>
+    <div class="ms-example"><span class="ms-example-title">Задача</span>В классе 18 учеников занимаются шахматами, 14 — волейболом, а 6 посещают обе секции. Хотя бы одну секцию посещают 18 + 14 − 6 = <strong>26 учеников</strong>.</div>
+    <div class="ms-rule-box"><strong>Почему вычитаем пересечение:</strong> шесть учеников из общей части были учтены и среди шахматистов, и среди волейболистов.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>1. A = {1, 2, 3}, B = {3, 4}. Проверьте переместительное свойство для объединения и пересечения.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A ∪ B = B ∪ A = <strong>{1, 2, 3, 4}</strong>.</p><p>A ∩ B = B ∩ A = <strong>{3}</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>2. Чему равны A ∪ ∅ и A ∩ ∅, если A = {5, 7, 9}?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A ∪ ∅ = <strong>{5, 7, 9}</strong>, A ∩ ∅ = <strong>∅</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>3. B = {2, 4}, A = {1, 2, 3, 4, 5}. Найдите A ∪ B и A ∩ B, используя то, что B ⊆ A.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A ∪ B = <strong>A = {1, 2, 3, 4, 5}</strong>.</p><p>A ∩ B = <strong>B = {2, 4}</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>4. На диаграмме закрашена только область, общая для кругов A и B. Какую операцию изображает рисунок?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>Это <strong>пересечение A ∩ B</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>5. В классе 30 учеников. Шахматами занимаются 18 человек, волейболом — 14, обе секции посещают 6. Сколько учеников посещают хотя бы одну секцию и сколько не посещают ни одну?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>Хотя бы одну: 18 + 14 − 6 = <strong>26</strong>.</p><p>Ни одну: 30 − 26 = <strong>4 ученика</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>6. U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, A — множество чётных элементов U. Найдите U ∖ A.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A = {2, 4, 6, 8, 10}, поэтому U ∖ A = <strong>{1, 3, 5, 7, 9}</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>7. A = {1, 2, 3}, B = {3, 4}, C = {2, 3, 4}. Найдите (A ∪ B) ∩ C и (A ∩ C) ∪ (B ∩ C).</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>(A ∪ B) ∩ C = {1, 2, 3, 4} ∩ {2, 3, 4} = <strong>{2, 3, 4}</strong>.</p><p>(A ∩ C) ∪ (B ∩ C) = {2, 3} ∪ {3, 4} = <strong>{2, 3, 4}</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>8. Множества A и B не имеют общих элементов, |A| = 9, |B| = 7. Найдите |A ∪ B|.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A ∩ B = ∅, поэтому |A ∪ B| = 9 + 7 = <strong>16</strong>.</p></div></details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Финальный чек-ап: формула и рисунок говорят об одном</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Порядок не важен</strong><span class="ms-card-text">A ∪ B = B ∪ A и A ∩ B = B ∩ A.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Закраска показывает результат</strong><span class="ms-card-text">Общая область означает пересечение, обе области — объединение, часть одного круга — разность.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Общих не считают дважды</strong><span class="ms-card-text">В формуле мощности объединения количество элементов пересечения вычитают один раз.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/mnozhestvo-podmnozhestvo-operaczii-nad-mnozhestvami/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/elementarnye-sobytiya-vidy-sobytij/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

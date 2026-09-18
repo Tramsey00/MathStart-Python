@@ -1,0 +1,668 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Алгебра · Неравенства и системы неравенств · Тема 1.3
+    </div>
+
+    <h1 class="ms-title">Решение рациональных неравенств методом интервалов</h1>
+
+    <p class="ms-subtitle">
+      Научимся приводить рациональное неравенство к одной дроби, находить критические точки,
+      определять знаки выражения на промежутках и правильно учитывать нули знаменателя.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Зачем нужен метод интервалов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Что называют рациональным неравенством</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Алгоритм метода интервалов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как расставлять знаки на числовой прямой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Базовые рациональные неравенства</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Если в неравенстве несколько дробей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Сокращение дроби и потерянные ограничения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Кратные корни и изменение знака</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Контрольная точка темы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Зачем нужен метод интервалов</h2>
+
+    <p class="ms-text">
+      В рациональном неравенстве знак выражения зависит одновременно от числителя и знаменателя.
+      После нахождения их нулей числовая прямая разбивается на промежутки, внутри каждого из которых
+      знак дроби не меняется. Остаётся определить этот знак и выбрать подходящие промежутки.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Одна дробь</h3>
+        <p class="ms-card-text">
+          Все слагаемые переносят в одну часть и приводят к виду
+          <span class="ms-frac"><span class="ms-num">P(x)</span><span class="ms-den">Q(x)</span></span> ⊙ 0.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Критические точки</h3>
+        <p class="ms-card-text">
+          Это нули числителя и нули знаменателя. Именно в них выражение может стать нулём
+          или потерять смысл.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Знаки на промежутках</h3>
+        <p class="ms-card-text">
+          Между соседними критическими точками каждый множитель сохраняет знак,
+          поэтому знак всей дроби также постоянен.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Особые границы</h3>
+        <p class="ms-card-text">
+          Нули числителя иногда входят в ответ, а нули знаменателя не входят никогда,
+          потому что деление на ноль невозможно.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Что называют рациональным неравенством</h2>
+
+    <p class="ms-text">
+      Рациональное неравенство после преобразований можно записать в одном из видов:
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">P(x)</span><span class="ms-den">Q(x)</span></span> &gt; 0,
+        &nbsp;
+        <span class="ms-frac"><span class="ms-num">P(x)</span><span class="ms-den">Q(x)</span></span> &lt; 0,
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">P(x)</span><span class="ms-den">Q(x)</span></span> ≥ 0,
+        &nbsp;
+        <span class="ms-frac"><span class="ms-num">P(x)</span><span class="ms-den">Q(x)</span></span> ≤ 0,
+      </div>
+      <div class="ms-math-row">где P(x) и Q(x) — многочлены, а Q(x) ≠ 0.</div>
+    </div>
+
+    <div class="ms-rule-box">
+      Область допустимых значений задаётся знаменателем:
+      все корни уравнения Q(x) = 0 нужно исключить ещё до выбора ответа.
+    </div>
+
+    <h3>Пример 1. Определяем допустимые значения</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Указать область допустимых значений выражения
+      <span class="ms-frac"><span class="ms-num">x − 3</span><span class="ms-den">(x + 1)(x − 5)</span></span>.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Знаменатель не должен обращаться в ноль:</div>
+      <div class="ms-math-row">(x + 1)(x − 5) ≠ 0.</div>
+      <div class="ms-math-row">Следовательно, x ≠ −1 и x ≠ 5.</div>
+      <div class="ms-math-row"><span class="ms-good">ОДЗ: x ∈ ℝ \ {−1; 5}.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Алгоритм метода интервалов</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Шаг</th>
+            <th>Что нужно сделать</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Перенести все выражения в левую часть, чтобы справа остался ноль.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Привести левую часть к одной рациональной дроби.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Разложить числитель и знаменатель на множители.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Найти нули числителя и нули знаменателя.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Отметить все критические точки на числовой прямой в порядке возрастания.</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Определить знак дроби на каждом промежутке.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Выбрать промежутки нужного знака и проверить включение границ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      <span class="ms-good">Нули числителя:</span> могут входить в ответ при знаках ≥ и ≤.
+      <br>
+      <span class="ms-bad">Нули знаменателя:</span> всегда отмечаются пустыми точками и никогда не входят в ответ.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Как расставлять знаки на числовой прямой</h2>
+
+    <p class="ms-text">
+      Рассмотрим выражение
+      <span class="ms-frac"><span class="ms-num">(x + 3)(x − 3)</span><span class="ms-den">x − 1</span></span>.
+      Его критические точки: −3, 1 и 3. Точки −3 и 3 являются нулями числителя,
+      а точка 1 — нулём знаменателя.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Схема знаков выражения на четырёх промежутках</p>
+
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Метод интервалов для рационального выражения с критическими точками минус три, один и три">
+          <defs>
+            <marker id="ms-arrow-interval-right" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L8,3 z" fill="#64748b"></path>
+            </marker>
+            <marker id="ms-arrow-interval-left" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M8,0 L8,6 L0,3 z" fill="#64748b"></path>
+            </marker>
+          </defs>
+
+          <rect x="0" y="0" width="760" height="320" rx="24" fill="#ffffff"></rect>
+          <rect x="32" y="24" width="696" height="270" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+
+          <text x="380" y="66" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">
+            (x + 3)(x − 3) / (x − 1)
+          </text>
+
+          <line x1="82" y1="160" x2="682" y2="160" stroke="#64748b" stroke-width="3" marker-end="url(#ms-arrow-interval-right)"></line>
+          <line x1="82" y1="160" x2="60" y2="160" stroke="#64748b" stroke-width="3" marker-end="url(#ms-arrow-interval-left)"></line>
+
+          <line x1="220" y1="144" x2="220" y2="176" stroke="#111827" stroke-width="2"></line>
+          <line x1="420" y1="144" x2="420" y2="176" stroke="#111827" stroke-width="2"></line>
+          <line x1="560" y1="144" x2="560" y2="176" stroke="#111827" stroke-width="2"></line>
+
+          <circle cx="220" cy="160" r="9" fill="#2563eb" stroke="#2563eb" stroke-width="4"></circle>
+          <circle cx="420" cy="160" r="9" fill="#f8fafc" stroke="#dc2626" stroke-width="4"></circle>
+          <circle cx="560" cy="160" r="9" fill="#2563eb" stroke="#2563eb" stroke-width="4"></circle>
+
+          <text x="208" y="204" font-size="18" font-weight="800" fill="#111827">−3</text>
+          <text x="415" y="204" font-size="18" font-weight="800" fill="#111827">1</text>
+          <text x="555" y="204" font-size="18" font-weight="800" fill="#111827">3</text>
+
+          <rect x="82" y="94" width="110" height="38" rx="14" fill="#fef2f2" stroke="#fecaca"></rect>
+          <rect x="252" y="94" width="110" height="38" rx="14" fill="#ecfdf5" stroke="#bbf7d0"></rect>
+          <rect x="448" y="94" width="84" height="38" rx="14" fill="#fef2f2" stroke="#fecaca"></rect>
+          <rect x="596" y="94" width="92" height="38" rx="14" fill="#ecfdf5" stroke="#bbf7d0"></rect>
+
+          <text x="137" y="120" text-anchor="middle" font-size="20" font-weight="800" fill="#b91c1c">−</text>
+          <text x="307" y="120" text-anchor="middle" font-size="20" font-weight="800" fill="#15803d">+</text>
+          <text x="490" y="120" text-anchor="middle" font-size="20" font-weight="800" fill="#b91c1c">−</text>
+          <text x="642" y="120" text-anchor="middle" font-size="20" font-weight="800" fill="#15803d">+</text>
+
+          <text x="220" y="245" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">нуль числителя</text>
+          <text x="420" y="245" text-anchor="middle" font-size="15" font-weight="700" fill="#dc2626">нуль знаменателя</text>
+          <text x="560" y="245" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">нуль числителя</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Знак можно определить подстановкой любого удобного числа из промежутка.
+      Если все множители имеют первую степень, после прохождения каждой критической точки знак меняется.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Базовые рациональные неравенства</h2>
+
+    <h3>Пример 2. Строгое неравенство</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство
+      <span class="ms-frac"><span class="ms-num">x − 3</span><span class="ms-den">x + 1</span></span> &gt; 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Нуль числителя: x = 3.</div>
+      <div class="ms-math-row">Нуль знаменателя: x = −1, эта точка исключается.</div>
+      <div class="ms-math-row">На промежутках получаем знаки: +, −, +.</div>
+      <div class="ms-math-row">Выбираем промежутки со знаком «+».</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; −1) ∪ (3; +∞).</span></div>
+    </div>
+
+    <h3>Пример 3. Нестрогое неравенство</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство
+      <span class="ms-frac"><span class="ms-num">2x + 4</span><span class="ms-den">x − 5</span></span> ≤ 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">2x + 4 = 2(x + 2).</div>
+      <div class="ms-math-row">Критические точки: x = −2 и x = 5.</div>
+      <div class="ms-math-row">Знаки дроби: + на (−∞; −2), − на (−2; 5), + на (5; +∞).</div>
+      <div class="ms-math-row">Точка −2 входит в ответ, потому что обнуляет числитель.</div>
+      <div class="ms-math-row">Точка 5 не входит, потому что обнуляет знаменатель.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ [−2; 5).</span></div>
+    </div>
+
+    <h3>Пример 4. Три критические точки</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство
+      <span class="ms-frac"><span class="ms-num">x² − 9</span><span class="ms-den">x − 1</span></span> ≥ 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">x² − 9 = (x − 3)(x + 3).</div>
+      <div class="ms-math-row">Критические точки: −3, 1 и 3.</div>
+      <div class="ms-math-row">Знаки по промежуткам: −, +, −, +.</div>
+      <div class="ms-math-row">Точки −3 и 3 включаются, точка 1 исключается.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ [−3; 1) ∪ [3; +∞).</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Если в неравенстве несколько дробей</h2>
+
+    <p class="ms-text">
+      Нельзя решать каждую дробь отдельно. Сначала все выражения переносят в одну часть,
+      находят общий знаменатель и получают одну дробь.
+    </p>
+
+    <h3>Пример 5. Приведение к общему знаменателю</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство
+      <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">x − 2</span></span>
+      &gt;
+      <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">x + 1</span></span>.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">ОДЗ: x ≠ 2, x ≠ −1.</div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">x − 2</span></span>
+        −
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">x + 1</span></span>
+        &gt; 0.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">x + 1 − (x − 2)</span><span class="ms-den">(x − 2)(x + 1)</span></span>
+        &gt; 0.
+      </div>
+      <div class="ms-math-row">
+        <span class="ms-frac"><span class="ms-num">3</span><span class="ms-den">(x − 2)(x + 1)</span></span>
+        &gt; 0.
+      </div>
+      <div class="ms-math-row">Числитель положителен, поэтому знаменатель должен быть положительным.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−∞; −1) ∪ (2; +∞).</span></div>
+    </div>
+
+    <div class="ms-note">
+      <span class="ms-bad">Нельзя</span> умножать неравенство сразу на выражение
+      (x − 2)(x + 1), не определив его знак. Иначе можно неверно сохранить или изменить знак неравенства.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Сокращение дроби и потерянные ограничения</h2>
+
+    <p class="ms-text">
+      Общий множитель в числителе и знаменателе можно сократить только после записи ОДЗ.
+      Точка, в которой исходный знаменатель равен нулю, остаётся запрещённой даже после сокращения.
+    </p>
+
+    <h3>Пример 6. Выколотая точка после сокращения</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство
+      <span class="ms-frac"><span class="ms-num">(x − 1)(x + 3)</span><span class="ms-den">x − 1</span></span> ≥ 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">ОДЗ: x ≠ 1.</div>
+      <div class="ms-math-row">При x ≠ 1 дробь равна x + 3.</div>
+      <div class="ms-math-row">Решаем x + 3 ≥ 0 и получаем x ≥ −3.</div>
+      <div class="ms-math-row">Из найденного промежутка обязательно исключаем x = 1.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ [−3; 1) ∪ (1; +∞).</span></div>
+    </div>
+
+    <div class="ms-rule-box">
+      Сокращение меняет внешний вид дроби, но не восстанавливает значение исходного выражения
+      в точке, где знаменатель был равен нулю.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>7. Кратные корни и изменение знака</h2>
+
+    <p class="ms-text">
+      Если множитель встречается в нечётной степени, при прохождении соответствующей точки знак меняется.
+      Если степень чётная, знак по обе стороны от точки остаётся одинаковым.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Нечётная степень</h3>
+        <p class="ms-card-text">
+          Множители (x − a), (x − a)³ и другие нечётные степени меняют знак при переходе через a.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Чётная степень</h3>
+        <p class="ms-card-text">
+          Множители (x − a)², (x − a)⁴ и другие чётные степени не меняют знак при переходе через a.
+        </p>
+      </div>
+    </div>
+
+    <h3>Пример 7. Знак не меняется у двойного корня</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      Решить неравенство
+      <span class="ms-frac"><span class="ms-num">(x − 2)²(x + 1)</span><span class="ms-den">x − 4</span></span> &lt; 0.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row"><strong>Решение.</strong></div>
+      <div class="ms-math-row">Критические точки: −1, 2 и 4.</div>
+      <div class="ms-math-row">Точка 2 имеет чётную кратность, поэтому знак возле неё не меняется.</div>
+      <div class="ms-math-row">Знаки по промежуткам: +, −, −, +.</div>
+      <div class="ms-math-row">Точка 2 не входит в ответ, потому что неравенство строгое.</div>
+      <div class="ms-math-row">Точка 4 исключается как нуль знаменателя.</div>
+      <div class="ms-math-row"><span class="ms-good">Ответ: x ∈ (−1; 2) ∪ (2; 4).</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Типичные ошибки</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Забыли ОДЗ</h3>
+        <p class="ms-card-text">
+          Нули знаменателя ошибочно включают в ответ при нестрогом знаке.
+          Они не входят никогда.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Не перенесли всё в одну часть</h3>
+        <p class="ms-card-text">
+          Метод интервалов применяют к выражению, сравниваемому с нулём,
+          а не к двум отдельным частям неравенства.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Умножили на знаменатель</h3>
+        <p class="ms-card-text">
+          Знак выражения с переменной заранее неизвестен,
+          поэтому нельзя без разбора умножать на него обе части.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Потеряли выколотую точку</h3>
+        <p class="ms-card-text">
+          После сокращения общий множитель исчезает из записи,
+          но его нуль всё равно остаётся запрещённым.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Автоматически чередовали знаки</h3>
+        <p class="ms-card-text">
+          При чётной кратности корня знак не меняется,
+          поэтому простое чередование может дать неверный ответ.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Неверно включили границу</h3>
+        <p class="ms-card-text">
+          Нуль числителя включают только при ≥ или ≤,
+          а при строгих знаках &gt; и &lt; он исключается.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>9. Самопроверка</h2>
+
+    <p class="ms-text">
+      Решите неравенства методом интервалов. Сначала выпишите критические точки,
+      затем определите знаки и только после этого запишите ответ.
+    </p>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">x − 4</span><span class="ms-den">x + 2</span></span> &gt; 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Критические точки: −2 и 4. Знаки дроби: +, −, +.
+          Точка −2 запрещена, точка 4 не входит из-за строгого знака.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; −2) ∪ (4; +∞).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">x + 1</span><span class="ms-den">x − 3</span></span> ≤ 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Критические точки: −1 и 3. Дробь неположительна между ними.
+          Точка −1 включается, точка 3 исключается.
+          <br><br>
+          <strong>Ответ: x ∈ [−1; 3).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">(x − 2)(x + 5)</span><span class="ms-den">x + 1</span></span> ≥ 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Критические точки: −5, −1 и 2. Знаки: −, +, −, +.
+          Нули числителя −5 и 2 включаются, нуль знаменателя −1 исключается.
+          <br><br>
+          <strong>Ответ: x ∈ [−5; −1) ∪ [2; +∞).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">2</span><span class="ms-den">x − 1</span></span> &lt; 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Числитель положителен, поэтому дробь отрицательна при x − 1 &lt; 0.
+          Точка 1 не входит в область определения.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; 1).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">x + 2</span></span>
+        ≥
+        <span class="ms-frac"><span class="ms-num">1</span><span class="ms-den">x − 1</span></span>.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Переносим всё влево:
+          <span class="ms-frac"><span class="ms-num">−3</span><span class="ms-den">(x + 2)(x − 1)</span></span> ≥ 0.
+          Числитель отрицателен, поэтому знаменатель должен быть отрицательным.
+          <br><br>
+          <strong>Ответ: x ∈ (−2; 1).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">x² − 1</span><span class="ms-den">x − 1</span></span> &gt; 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          ОДЗ: x ≠ 1. После сокращения получаем x + 1 &gt; 0, то есть x &gt; −1.
+          Из ответа исключаем x = 1.
+          <br><br>
+          <strong>Ответ: x ∈ (−1; 1) ∪ (1; +∞).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">(x − 2)²</span><span class="ms-den">x + 3</span></span> ≤ 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          При x &lt; −3 знаменатель отрицателен, а числитель положителен, поэтому дробь отрицательна.
+          При x = 2 числитель равен нулю, поэтому эта точка также входит в ответ.
+          x = −3 исключается.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; −3) ∪ {2}.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Решите неравенство
+        <span class="ms-frac"><span class="ms-num">x² − 4</span><span class="ms-den">x² − 9</span></span> ≥ 0.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Разложим на множители:
+          <span class="ms-frac"><span class="ms-num">(x − 2)(x + 2)</span><span class="ms-den">(x − 3)(x + 3)</span></span> ≥ 0.
+          Критические точки: −3, −2, 2, 3. Знаки: +, −, +, −, +.
+          Точки ±2 включаются, точки ±3 исключаются.
+          <br><br>
+          <strong>Ответ: x ∈ (−∞; −3) ∪ [−2; 2] ∪ (3; +∞).</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-11">
+    <h2>10. Контрольная точка темы</h2>
+
+    <p class="ms-text">
+      Перед переходом к множествам и системам неравенств проверьте,
+      что весь метод интервалов складывается в одну последовательную схему.
+    </p>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Сведите к нулю</strong>
+        <span class="ms-card-text">Перенесите все выражения в одну часть и получите одну рациональную дробь.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Разложите на множители</strong>
+        <span class="ms-card-text">Так легче увидеть все нули числителя, знаменателя и кратность каждого корня.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Отметьте критические точки</strong>
+        <span class="ms-card-text">Расположите их по возрастанию; нули знаменателя сразу обозначьте как запрещённые.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Определите знаки</strong>
+        <span class="ms-card-text">Используйте пробную точку или отслеживайте изменение знака каждого множителя.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Учтите кратность</strong>
+        <span class="ms-card-text">У корня нечётной кратности знак меняется, у корня чётной кратности — сохраняется.</span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверьте границы</strong>
+        <span class="ms-card-text">Нули числителя зависят от строгости знака, а нули знаменателя исключаются всегда.</span>
+      </div>
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      Следующая тема вводит язык множеств, который понадобится для компактной записи решений
+      и дальнейшей работы с системами рациональных неравенств.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-neravenstv/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mnozhestv/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,725 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Геометрическая вероятность · Тема 2.1
+    </div>
+
+    <h1 class="ms-title">Геометрическая вероятность</h1>
+
+    <p class="ms-subtitle">
+      Научимся находить вероятность случайного попадания точки в часть
+      отрезка, фигуры или углового сектора. Вместо подсчёта отдельных
+      исходов будем сравнивать длины, площади и другие геометрические меры.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/geometricheskaya-veroyatnost/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Почему обычного подсчёта исходов иногда недостаточно</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Основная идея</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Линейная геометрическая вероятность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Вероятность как отношение площадей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Круглая мишень</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Угловая геометрическая вероятность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Геометрическая вероятность в задачах на время</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Когда формулу применять нельзя</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Финальный чек-ап перед ответом</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Почему обычного подсчёта исходов иногда недостаточно</h2>
+
+    <p class="ms-text">
+      При броске кубика возможных исходов конечное число: 1, 2, 3, 4, 5
+      или 6. Но если точку случайно выбирают на отрезке, различных положений
+      бесконечно много. Перечислить их невозможно, поэтому вероятность
+      находят по доле длины или площади, соответствующей событию.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Конечное число исходов</span>
+        <h3 class="ms-card-title">Классическая вероятность</h3>
+        <p class="ms-card-text">
+          Сравнивают количество благоприятных равновозможных исходов
+          с количеством всех равновозможных исходов.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Бесконечно много положений</span>
+        <h3 class="ms-card-title">Геометрическая вероятность</h3>
+        <p class="ms-card-text">
+          Сравнивают длину, площадь или другую меру благоприятной части
+          с мерой всей области случайного выбора.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Основная идея</h2>
+
+    <p class="ms-text">
+      Пусть точка случайно выбирается в некоторой области <strong>G</strong>.
+      Событие <strong>A</strong> происходит, когда точка попадает в часть
+      <strong>g</strong>, расположенную внутри области G.
+    </p>
+
+    <div class="ms-rule-box">
+      Предполагается, что точка выбирается <strong>равномерно</strong>:
+      вероятность попадания в некоторую часть области зависит от её размера,
+      но не зависит от формы и расположения этой части.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Для отрезка:
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">длина благоприятной части</span>
+          <span class="ms-den">длина всего отрезка</span>
+        </span>
+      </div>
+
+      <div class="ms-math-row">
+        Для фигуры:
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">площадь благоприятной области</span>
+          <span class="ms-den">площадь всей области</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-data-strip">
+      <span class="ms-data-chip">1. Найти всю область</span>
+      <span class="ms-data-chip">2. Выделить благоприятную часть</span>
+      <span class="ms-data-chip">3. Вычислить обе меры</span>
+      <span class="ms-data-chip">4. Составить отношение</span>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Линейная геометрическая вероятность</h2>
+
+    <p class="ms-text">
+      Точку равномерно выбирают на отрезке AB длиной 12 см. Событие A
+      состоит в том, что точка попадёт на выделенный участок длиной 5 см.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Благоприятная часть занимает 5 см из 12 см
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 820 270"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Отрезок длиной 12 сантиметров с выделенной частью длиной 5 сантиметров"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="818"
+            height="268"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <line
+            x1="95"
+            y1="135"
+            x2="725"
+            y2="135"
+            stroke="#94a3b8"
+            stroke-width="8"
+            stroke-linecap="round"
+          ></line>
+
+          <line
+            x1="252.5"
+            y1="135"
+            x2="515"
+            y2="135"
+            stroke="#2563eb"
+            stroke-width="12"
+            stroke-linecap="round"
+          ></line>
+
+          <g fill="#111827">
+            <circle cx="95" cy="135" r="8"></circle>
+            <circle cx="252.5" cy="135" r="8"></circle>
+            <circle cx="515" cy="135" r="8"></circle>
+            <circle cx="725" cy="135" r="8"></circle>
+          </g>
+
+          <g font-size="17" font-weight="800" fill="#111827" text-anchor="middle">
+            <text x="95" y="105">A</text>
+            <text x="252.5" y="105">C</text>
+            <text x="515" y="105">D</text>
+            <text x="725" y="105">B</text>
+          </g>
+
+          <text
+            x="383.75"
+            y="185"
+            font-size="18"
+            font-weight="800"
+            fill="#2563eb"
+            text-anchor="middle"
+          >
+            CD = 5 см
+          </text>
+
+          <text
+            x="410"
+            y="230"
+            font-size="18"
+            font-weight="800"
+            fill="#475569"
+            text-anchor="middle"
+          >
+            AB = 12 см
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">5</span>
+          <span class="ms-den">12</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример с числовым промежутком</span>
+      Число x равномерно выбирают из промежутка [−2; 8]. Найдём вероятность
+      события 1 ≤ x ≤ 6. Длина всего промежутка равна 8 − (−2) = 10,
+      а длина благоприятной части равна 6 − 1 = 5. Поэтому
+      P(A) = 5 : 10 = <strong>1/2</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Вероятность как отношение площадей</h2>
+
+    <p class="ms-text">
+      Точку равномерно выбирают внутри прямоугольника размером 10 × 6.
+      Событие A состоит в попадании точки во внутренний прямоугольник
+      размером 4 × 3.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Вся область и благоприятная часть внутри неё
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 820 460"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Прямоугольник десять на шесть и внутренний прямоугольник четыре на три"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="818"
+            height="458"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="120"
+            y="85"
+            width="580"
+            height="290"
+            rx="10"
+            fill="#eff6ff"
+            stroke="#2563eb"
+            stroke-width="4"
+          ></rect>
+
+          <rect
+            x="294"
+            y="157.5"
+            width="232"
+            height="145"
+            rx="10"
+            fill="#ddd6fe"
+            stroke="#7c3aed"
+            stroke-width="4"
+          ></rect>
+
+          <text
+            x="410"
+            y="135"
+            text-anchor="middle"
+            font-size="18"
+            font-weight="800"
+            fill="#1e3a8a"
+          >
+            Вся область G: 10 × 6
+          </text>
+
+          <text
+            x="410"
+            y="225"
+            text-anchor="middle"
+            font-size="18"
+            font-weight="800"
+            fill="#5b21b6"
+          >
+            Область g
+          </text>
+
+          <text
+            x="410"
+            y="255"
+            text-anchor="middle"
+            font-size="17"
+            font-weight="800"
+            fill="#5b21b6"
+          >
+            4 × 3
+          </text>
+
+          <line x1="120" y1="405" x2="700" y2="405" stroke="#64748b" stroke-width="2"></line>
+          <line x1="120" y1="395" x2="120" y2="415" stroke="#64748b" stroke-width="2"></line>
+          <line x1="700" y1="395" x2="700" y2="415" stroke="#64748b" stroke-width="2"></line>
+          <text x="410" y="435" text-anchor="middle" font-size="17" font-weight="800" fill="#475569">10</text>
+
+          <line x1="85" y1="85" x2="85" y2="375" stroke="#64748b" stroke-width="2"></line>
+          <line x1="75" y1="85" x2="95" y2="85" stroke="#64748b" stroke-width="2"></line>
+          <line x1="75" y1="375" x2="95" y2="375" stroke="#64748b" stroke-width="2"></line>
+          <text x="55" y="237" text-anchor="middle" font-size="17" font-weight="800" fill="#475569">6</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">S(G) = 10 · 6 = 60.</div>
+      <div class="ms-math-row">S(g) = 4 · 3 = 12.</div>
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">12</span>
+          <span class="ms-den">60</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">1</span>
+          <span class="ms-den">5</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Круглая мишень</h2>
+
+    <p class="ms-text">
+      На круглой мишени радиуса 5 см выделен центральный круг радиуса
+      2 см. Попадание считается равномерным по всей площади большой мишени.
+      Найдём вероятность попадания в центральный круг.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Вся мишень</span>
+        <h3 class="ms-card-title">S = π · 5² = 25π</h3>
+        <p class="ms-card-text">
+          Это площадь всей области, в которую может попасть точка.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Центральная зона</span>
+        <h3 class="ms-card-title">S = π · 2² = 4π</h3>
+        <p class="ms-card-text">
+          Это площадь благоприятной части круглой мишени.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">4π</span>
+          <span class="ms-den">25π</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">4</span>
+          <span class="ms-den">25</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Если обе площади содержат общий множитель π, он сокращается.
+      Поэтому во многих задачах с концентрическими кругами достаточно
+      сравнить квадраты радиусов.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Угловая геометрическая вероятность</h2>
+
+    <p class="ms-text">
+      Стрелка может остановиться в любом направлении с одинаковой
+      вероятностью. Благоприятному событию соответствует сектор в 90°.
+      Полный угол равен 360°.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">90°</span>
+          <span class="ms-den">360°</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">1</span>
+          <span class="ms-den">4</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Связь с длиной дуги</span>
+      У секторов одной окружности отношение площадей равно отношению
+      центральных углов. Поэтому вероятность можно находить по углам,
+      не вычисляя площади секторов отдельно.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Геометрическая вероятность в задачах на время</h2>
+
+    <p class="ms-text">
+      Автобус приходит через случайный промежуток времени от 0 до 20 минут.
+      Все моменты на этом промежутке считаются равновозможными. Найдём
+      вероятность того, что ожидание составит не более 6 минут.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">Весь промежуток ожидания: 20 минут.</div>
+      <div class="ms-math-row">Благоприятный промежуток: от 0 до 6 минут, его длина 6 минут.</div>
+      <div class="ms-formula">
+        P(A) =
+        <span class="ms-frac">
+          <span class="ms-num">6</span>
+          <span class="ms-den">20</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">3</span>
+          <span class="ms-den">10</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Временной промежуток можно рассматривать как отрезок. Поэтому задачи
+      на случайный момент времени решаются так же, как задачи на случайную
+      точку на числовой прямой.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>7. Когда формулу применять нельзя</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Неравномерный выбор</span>
+        <h3 class="ms-card-title">Точки выбираются не одинаково</h3>
+        <p class="ms-card-text">
+          Если некоторые участки встречаются чаще других, отношение длин
+          или площадей уже не описывает вероятность.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Неверная область</span>
+        <h3 class="ms-card-title">Знаменатель выбран неправильно</h3>
+        <p class="ms-card-text">
+          В знаменателе должна стоять мера всей области, где действительно
+          может оказаться случайная точка.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Типичная проверка</span>
+      Если найденная благоприятная площадь больше площади всей области,
+      модель или вычисления содержат ошибку. Вероятность всегда находится
+      в пределах от 0 до 1.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. Точку равномерно выбирают на отрезке длиной 20 см.
+        Благоприятный участок имеет длину 7 см. Найдите вероятность
+        попадания на этот участок.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P(A) =
+            <span class="ms-frac">
+              <span class="ms-num">7</span>
+              <span class="ms-den">20</span>
+            </span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Число x равномерно выбирают из промежутка [−4; 6].
+        Найдите вероятность события x &gt; 1.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Длина всего промежутка равна 6 − (−4) = 10.
+            Условию x &gt; 1 соответствует промежуток от 1 до 6
+            длиной 5.
+          </p>
+          <p>
+            P(A) = 5 : 10 = <strong>1/2</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. В квадрате со стороной 8 см расположен квадрат со стороной
+        4 см. Точку равномерно выбирают внутри большого квадрата.
+        Найдите вероятность попадания в малый квадрат.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Площадь большого квадрата: 8² = 64.
+            Площадь малого квадрата: 4² = 16.
+          </p>
+          <p>
+            P(A) = 16 : 64 = <strong>1/4</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. В прямоугольнике размером 12 × 5 выделена полоса шириной
+        3, проходящая через всю высоту прямоугольника. Найдите вероятность
+        попадания случайной точки в полосу.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Площадь всей области: 12 · 5 = 60.
+            Площадь полосы: 3 · 5 = 15.
+          </p>
+          <p>
+            P(A) = 15 : 60 = <strong>1/4</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. В круге радиуса 6 см расположен концентрический круг
+        радиуса 3 см. Найдите вероятность попадания случайной точки
+        в малый круг.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P(A) = 3² : 6² = 9 : 36 = <strong>1/4</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. Квадрат разделён диагональю на два треугольника.
+        Точку равномерно выбирают внутри квадрата. Какова вероятность,
+        что она попадёт в один заранее выбранный треугольник?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Диагональ делит квадрат на два равных треугольника.
+            Благоприятная площадь составляет половину площади квадрата.
+          </p>
+          <p>
+            P(A) = <strong>1/2</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Направление луча равномерно выбирают от 0° до 360°.
+        Найдите вероятность того, что угол окажется от 40° до 100°.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Благоприятный угловой промежуток имеет величину
+            100° − 40° = 60°.
+          </p>
+          <p>
+            P(A) = 60° : 360° = <strong>1/6</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Точку равномерно выбирают внутри квадрата со стороной 10 см.
+        Найдите вероятность того, что расстояние от точки хотя бы до одной
+        стороны квадрата меньше 2 см.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Проще найти площадь противоположного события. Точки,
+            расстояние от которых до каждой стороны не меньше 2 см,
+            образуют внутренний квадрат со стороной 10 − 2 − 2 = 6 см.
+          </p>
+          <p>
+            Площадь благоприятной приграничной области:
+            10² − 6² = 100 − 36 = 64.
+          </p>
+          <p>
+            P(A) =
+            <span class="ms-frac">
+              <span class="ms-num">64</span>
+              <span class="ms-den">100</span>
+            </span>
+            = <strong>16/25</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>Финальный чек-ап перед ответом</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Равномерность выбора</strong>
+        <span class="ms-card-text">
+          Убедись, что любая часть одинакового размера действительно
+          имеет одинаковый шанс быть выбранной.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Одинаковая геометрическая мера</strong>
+        <span class="ms-card-text">
+          Сравнивай длину с длиной, площадь с площадью, угол с полным
+          углом — не смешивай разные величины.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Проверка результата</strong>
+        <span class="ms-card-text">
+          Благоприятная часть не может быть больше всей области,
+          поэтому полученная вероятность должна лежать от 0 до 1.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/prakticheskaya-rabota-vychislenie-veroyatnostej-s-ispolzovaniem-kombinatornyh-funkczij/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/ispytanie-uspeh-i-neudacha-seriya-ispytanij-do-pervogo-uspeha/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

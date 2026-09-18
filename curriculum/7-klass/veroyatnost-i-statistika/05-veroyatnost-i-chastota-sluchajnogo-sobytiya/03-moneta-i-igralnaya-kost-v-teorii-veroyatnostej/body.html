@@ -1,0 +1,205 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+<section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Вероятность события · Тема 5.3</div>
+    <h1 class="ms-title">Монета и игральная кость в теории вероятностей</h1>
+    <p class="ms-subtitle">Разберём две основные модели: правильную монету и правильную игральную кость. Научимся перечислять исходы и вычислять вероятности простых событий.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что означает «математическая монета»</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Два броска монеты</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Правильная игральная кость</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Что обязательно проверить</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Что означает «математическая монета»</h2>
+    <p class="ms-text">В вероятностной модели монета считается симметричной: ни одна сторона не имеет преимущества. Поэтому два исхода — орёл и решка — равновозможны.</p>
+    <div class="ms-coin-row">
+      <span class="ms-coin">Орёл</span>
+      <span class="ms-coin">Решка</span>
+    </div>
+    <div class="ms-rule-box"><strong>Один бросок:</strong> P(орёл) = 1/2 и P(решка) = 1/2.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Два броска монеты</h2>
+    <p class="ms-text">При повторении опыта результат записывают в порядке появления. Поэтому ОР и РО — разные исходы.</p>
+    <div class="ms-outcome-matrix">
+      <div class="ms-matrix-cell ms-matrix-head">1-й / 2-й</div>
+      <div class="ms-matrix-cell ms-matrix-head">О</div>
+      <div class="ms-matrix-cell ms-matrix-head">Р</div>
+      <div class="ms-matrix-cell ms-matrix-head">О</div>
+      <div class="ms-matrix-cell">ОО</div>
+      <div class="ms-matrix-cell">ОР</div>
+      <div class="ms-matrix-cell ms-matrix-head">Р</div>
+      <div class="ms-matrix-cell">РО</div>
+      <div class="ms-matrix-cell">РР</div>
+    </div>
+    <p class="ms-text">Всего четыре равновозможных исхода. Например, событию «ровно один орёл» благоприятствуют ОР и РО, поэтому вероятность равна 2/4 = 1/2.</p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Правильная игральная кость</h2>
+    <p class="ms-text">У правильной шестигранной кости шесть равновозможных исходов: 1, 2, 3, 4, 5 и 6 очков.</p>
+    <div class="ms-die-grid">
+      <span class="ms-die">1</span><span class="ms-die">2</span><span class="ms-die">3</span>
+      <span class="ms-die">4</span><span class="ms-die">5</span><span class="ms-die">6</span>
+    </div>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Событие</th><th>Благоприятные исходы</th><th>Вероятность</th></tr></thead>
+        <tbody>
+          <tr><td>Выпало 6</td><td>6</td><td>1/6</td></tr>
+          <tr><td>Выпало чётное число</td><td>2, 4, 6</td><td>3/6 = 1/2</td></tr>
+          <tr><td>Выпало число больше 2</td><td>3, 4, 5, 6</td><td>4/6 = 2/3</td></tr>
+          <tr><td>Выпало число меньше 7</td><td>1, 2, 3, 4, 5, 6</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Две простые вероятностные модели</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 920 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Математическая монета с двумя исходами и правильная игральная кость с шестью исходами">
+          <rect x="0" y="0" width="920" height="520" rx="24" fill="#f9fafb"/>
+          <rect x="35" y="45" width="390" height="420" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+          <rect x="495" y="45" width="390" height="420" rx="24" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
+
+          <text x="230" y="88" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">Правильная монета</text>
+          <text x="690" y="88" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">Правильная кость</text>
+
+          <circle cx="165" cy="225" r="72" fill="#fef3c7" stroke="#fbbf24" stroke-width="9"/>
+          <circle cx="295" cy="225" r="72" fill="#fef3c7" stroke="#fbbf24" stroke-width="9"/>
+          <text x="165" y="236" text-anchor="middle" font-size="34" font-weight="800" fill="#92400e">О</text>
+          <text x="295" y="236" text-anchor="middle" font-size="34" font-weight="800" fill="#92400e">Р</text>
+          <text x="165" y="330" text-anchor="middle" font-size="17" font-weight="800" fill="#1d4ed8">P = 1/2</text>
+          <text x="295" y="330" text-anchor="middle" font-size="17" font-weight="800" fill="#1d4ed8">P = 1/2</text>
+
+          <g font-size="20" font-weight="800" text-anchor="middle" dominant-baseline="middle">
+            <g><rect x="550" y="135" width="74" height="74" rx="17" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="587" y="173" fill="#1d4ed8">1</text></g>
+            <g><rect x="653" y="135" width="74" height="74" rx="17" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="690" y="173" fill="#1d4ed8">2</text></g>
+            <g><rect x="756" y="135" width="74" height="74" rx="17" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="793" y="173" fill="#1d4ed8">3</text></g>
+            <g><rect x="550" y="245" width="74" height="74" rx="17" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="587" y="283" fill="#1d4ed8">4</text></g>
+            <g><rect x="653" y="245" width="74" height="74" rx="17" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="690" y="283" fill="#1d4ed8">5</text></g>
+            <g><rect x="756" y="245" width="74" height="74" rx="17" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/><text x="793" y="283" fill="#1d4ed8">6</text></g>
+          </g>
+          <rect x="566" y="355" width="248" height="48" rx="17" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="690" y="385" text-anchor="middle" font-size="17" font-weight="800" fill="#1d4ed8">каждая грань: P = 1/6</text>
+
+          <rect x="170" y="420" width="600" height="34" rx="14" fill="#ffffff" stroke="#dbeafe"/>
+          <text x="470" y="443" text-anchor="middle" font-size="15" font-weight="700" fill="#374151">Равновозможность следует из симметрии математической модели</text>
+        </svg>
+      </div>
+    </div>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Что обязательно проверить</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Правильность модели</h3><p class="ms-card-text">Монета должна считаться симметричной, а кость — правильной. Иначе равновозможность не гарантирована.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Полный список исходов</h3><p class="ms-card-text">При нескольких бросках учитывайте порядок и не теряйте возможные комбинации.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Благоприятные исходы</h3><p class="ms-card-text">Выбирайте только те результаты, которые действительно удовлетворяют событию.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Сокращение дроби</h3><p class="ms-card-text">После подсчёта исходов сократите дробь и проверьте границы от 0 до 1.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Задания для самопроверки</h2>
+
+    <div class="ms-task">
+      <p><strong>Задание 1.</strong> Каковы элементарные исходы одного броска правильной монеты?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Орёл и решка.</strong> Для математической правильной монеты они равновозможны.</p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 2.</strong> Найдите вероятность выпадения решки при одном броске правильной монеты.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Один благоприятный исход из двух. <strong>P = 1 / 2.</strong></p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 3.</strong> Монету бросают дважды. Перечислите все упорядоченные исходы.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>ОО, ОР, РО, РР.</strong> Порядок результатов учитывается.</p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 4.</strong> При двух бросках монеты найдите вероятность того, что орёл выпадет ровно один раз.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Благоприятны исходы ОР и РО — 2 из 4. <strong>P = 2 / 4 = 1 / 2.</strong></p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 5.</strong> Найдите вероятность выпадения числа 5 на правильной игральной кости.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Один благоприятный исход из шести. <strong>P = 1 / 6.</strong></p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 6.</strong> На кости событие A: «выпало число не меньше 4». Найдите вероятность.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Благоприятные исходы 4, 5, 6 — всего 3 из 6. <strong>P = 1 / 2.</strong></p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 7.</strong> На кости событие B: «выпало простое число». Какие исходы благоприятствуют событию B?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Простые числа среди 1–6: <strong>2, 3, 5</strong>. Поэтому P(B) = 3 / 6 = 1 / 2.</p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 8.</strong> Почему обычную повреждённую монету нельзя автоматически считать математической правильной монетой?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Повреждение может нарушить симметрию и сделать стороны неравновозможными. Тогда модель P(орёл) = P(решка) = 1/2 требует отдельного обоснования.</p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 9.</strong> При двух бросках кости рассматривают исход (2; 5). Отличается ли он от (5; 2)?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Да. В первом исходе сначала выпало 2, затем 5; во втором — наоборот. Это разные упорядоченные исходы.</p></div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>Задание 10.</strong> Какова вероятность события «на правильной кости выпало число от 1 до 6»?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Событие достоверное: благоприятны все 6 исходов из 6. <strong>P = 1.</strong></p></div>
+      </details>
+    </div>
+
+  </section>
+  <div class="ms-note">В задачах с монетой и костью не угадывают ответ: сначала строят полный набор равновозможных исходов, затем отмечают благоприятные.</div>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/veroyatnost-i-chastota-sobytiya/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-sobytiya/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

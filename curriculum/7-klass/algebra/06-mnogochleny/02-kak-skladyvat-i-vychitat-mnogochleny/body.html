@@ -1,0 +1,999 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      7 класс · Алгебра · Многочлены · Тема 6.2
+    </div>
+
+    <h1 class="ms-title">
+      Как складывать и вычитать многочлены
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся находить сумму и разность многочленов, правильно раскрывать
+      скобки, учитывать знаки каждого члена, объединять подобные слагаемые
+      и проверять результат подстановкой числовых значений.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/7-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что нужно знать перед темой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Сумма многочленов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Разность многочленов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Зачем нужны скобки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Горизонтальный способ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Запись по степеням</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Сложение и вычитание нескольких многочленов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Многочлены с несколькими переменными</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Нулевой результат и противоположные многочлены</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Нахождение неизвестного многочлена</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Проверка результата подстановкой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Частые ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-13"><span class="ms-toc-number">13</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 13</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-14"><span class="ms-toc-number">14</span><span class="ms-toc-copy"><strong>Как проверить ответ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что нужно знать перед темой</h2>
+
+    <p class="ms-text">
+      При сложении и вычитании многочленов основная работа выполняется
+      со знаками и подобными членами.
+    </p>
+
+    <ul class="ms-list">
+      <li>Каждый член многочлена читается вместе со своим знаком.</li>
+      <li>Подобные члены имеют одинаковую буквенную часть.</li>
+      <li>При сложении подобных членов изменяются только коэффициенты.</li>
+      <li>Плюс перед скобками не изменяет знаки внутри.</li>
+      <li>Минус перед скобками меняет знак каждого члена.</li>
+      <li>После раскрытия скобок результат приводят к стандартному виду.</li>
+    </ul>
+
+    <div class="ms-note">
+      В окончательном ответе не должны оставаться скобки и подобные члены,
+      которые ещё можно объединить.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Сумма многочленов</h2>
+
+    <div class="ms-rule-box">
+      Чтобы сложить многочлены:
+      <br><br>
+      <strong>1.</strong> запишите их сумму;
+      <br>
+      <strong>2.</strong> раскройте скобки, не меняя знаков;
+      <br>
+      <strong>3.</strong> найдите подобные члены;
+      <br>
+      <strong>4.</strong> приведите подобные слагаемые.
+    </div>
+
+    <p class="ms-text">
+      Если перед скобками стоит знак «+», скобки можно убрать,
+      сохранив все знаки внутри.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        При сложении знаки внутри скобок сохраняются
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 940 560"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Сложение двух многочленов"
+        >
+          <rect x="0" y="0" width="940" height="560" rx="24" fill="#f9fafb"></rect>
+
+          <text x="470" y="55" text-anchor="middle" font-size="27" font-weight="800" fill="#111827">
+            (3x² − 2x + 5) + (4x² + 7x − 1)
+          </text>
+
+          <rect x="75" y="120" width="790" height="100" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="470" y="159" text-anchor="middle" font-size="19" font-weight="800" fill="#1e40af">
+            <tspan x="470" dy="0">Убираем скобки без изменения знаков</tspan>
+            <tspan x="470" dy="31">3x² − 2x + 5 + 4x² + 7x − 1</tspan>
+          </text>
+
+          <rect x="75" y="260" width="790" height="120" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="470" y="300" text-anchor="middle" font-size="19" font-weight="800" fill="#6d28d9">
+            <tspan x="470" dy="0">Объединяем подобные члены</tspan>
+            <tspan x="470" dy="31">(3 + 4)x² + (−2 + 7)x + (5 − 1)</tspan>
+          </text>
+
+          <rect x="245" y="425" width="450" height="70" rx="20" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="470" y="469" text-anchor="middle" font-size="30" font-weight="800" fill="#15803d">
+            7x² + 5x + 4
+          </text>
+
+          <rect x="220" y="515" width="500" height="28" rx="12" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="535" text-anchor="middle" font-size="14" font-weight="800" fill="#374151">
+            Складываются коэффициенты одинаковых степеней
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <h3>Пример 1</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        (5x² − 3x + 4) + (2x² + 6x − 9).
+      </div>
+
+      <div class="ms-math-row">
+        = 5x² − 3x + 4 + 2x² + 6x − 9.
+      </div>
+
+      <div class="ms-math-row">
+        = (5 + 2)x² + (−3 + 6)x + (4 − 9).
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 7x² + 3x − 5.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Разность многочленов</h2>
+
+    <div class="ms-rule-box">
+      Чтобы вычесть один многочлен из другого:
+      <br><br>
+      <strong>1.</strong> запишите разность в скобках;
+      <br>
+      <strong>2.</strong> измените знак каждого члена вычитаемого;
+      <br>
+      <strong>3.</strong> уберите скобки;
+      <br>
+      <strong>4.</strong> приведите подобные слагаемые.
+    </div>
+
+    <p class="ms-text">
+      Минус перед скобками означает умножение каждого члена внутри
+      на число −1.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        При вычитании знаки второго многочлена меняются
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 940 590"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Вычитание многочленов с изменением знаков"
+        >
+          <rect x="0" y="0" width="940" height="590" rx="24" fill="#f9fafb"></rect>
+
+          <text x="470" y="55" text-anchor="middle" font-size="27" font-weight="800" fill="#111827">
+            (6x² + x − 3) − (2x² − 5x + 4)
+          </text>
+
+          <rect x="65" y="115" width="810" height="105" rx="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="470" y="155" text-anchor="middle" font-size="19" font-weight="800" fill="#c2410c">
+            <tspan x="470" dy="0">Меняем знак каждого члена второго многочлена</tspan>
+            <tspan x="470" dy="31">−2x² + 5x − 4</tspan>
+          </text>
+
+          <rect x="65" y="260" width="810" height="105" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="470" y="300" text-anchor="middle" font-size="19" font-weight="800" fill="#1e40af">
+            <tspan x="470" dy="0">После раскрытия скобок</tspan>
+            <tspan x="470" dy="31">6x² + x − 3 − 2x² + 5x − 4</tspan>
+          </text>
+
+          <rect x="65" y="405" width="810" height="80" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="470" y="454" text-anchor="middle" font-size="21" font-weight="800" fill="#6d28d9">
+            (6 − 2)x² + (1 + 5)x + (−3 − 4)
+          </text>
+
+          <rect x="255" y="515" width="430" height="52" rx="18" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="470" y="548" text-anchor="middle" font-size="27" font-weight="800" fill="#15803d">
+            4x² + 6x − 7
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <h3>Пример 2</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        (8a² − 3a + 1) − (5a² + 2a − 6).
+      </div>
+
+      <div class="ms-math-row">
+        = 8a² − 3a + 1 − 5a² − 2a + 6.
+      </div>
+
+      <div class="ms-math-row">
+        = 3a² − 5a + 7.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 3a² − 5a + 7.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Зачем нужны скобки</h2>
+
+    <p class="ms-text">
+      Скобки показывают, какой многочлен вычитается целиком.
+      Без них легко изменить знак только первого члена и получить неверный ответ.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Правильно</h3>
+        <p class="ms-card-text">
+          A − (b − c + d) = A − b + c − d.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Неправильно</h3>
+        <p class="ms-card-text">
+          A − (b − c + d) не равно A − b − c + d.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      Раскрыть скобки:
+      7x − (3x² − 4x − 5).
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Знаки внутри скобок:
+        +3x², −4x, −5.
+      </div>
+
+      <div class="ms-math-row">
+        После вычитания они становятся:
+        −3x², +4x, +5.
+      </div>
+
+      <div class="ms-math-row">
+        7x − 3x² + 4x + 5.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: −3x² + 11x + 5.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Горизонтальный способ</h2>
+
+    <p class="ms-text">
+      При горизонтальной записи многочлены последовательно раскрывают,
+      а затем объединяют подобные члены.
+    </p>
+
+    <div class="ms-rule-box">
+      Удобный порядок:
+      <br><br>
+      <strong>1.</strong> раскрыть все скобки;
+      <br>
+      <strong>2.</strong> переставить подобные члены рядом;
+      <br>
+      <strong>3.</strong> выполнить действия с коэффициентами;
+      <br>
+      <strong>4.</strong> записать стандартный вид.
+    </div>
+
+    <h3>Пример 3</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        (4x³ − 2x + 6) + (x² + 5x − 1) − (3x³ − 2x² + 4).
+      </div>
+
+      <div class="ms-math-row">
+        = 4x³ − 2x + 6 + x² + 5x − 1 − 3x³ + 2x² − 4.
+      </div>
+
+      <div class="ms-math-row">
+        = (4x³ − 3x³) + (x² + 2x²) + (−2x + 5x) + (6 − 1 − 4).
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: x³ + 3x² + 3x + 1.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Запись по степеням</h2>
+
+    <p class="ms-text">
+      Чтобы не пропустить подобные члены, полезно располагать многочлены
+      по убыванию степеней и мысленно сопоставлять одинаковые степени.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table ms-table-large">
+        <thead>
+          <tr>
+            <th>Степень</th>
+            <th>Первый многочлен</th>
+            <th>Второй многочлен</th>
+            <th>Сумма коэффициентов</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>x³</td>
+            <td>2x³</td>
+            <td>−x³</td>
+            <td>x³</td>
+          </tr>
+
+          <tr>
+            <td>x²</td>
+            <td>Нет члена</td>
+            <td>4x²</td>
+            <td>4x²</td>
+          </tr>
+
+          <tr>
+            <td>x</td>
+            <td>−5x</td>
+            <td>3x</td>
+            <td>−2x</td>
+          </tr>
+
+          <tr>
+            <td>Число</td>
+            <td>7</td>
+            <td>−2</td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      Отсутствующий член можно мысленно считать членом с коэффициентом 0:
+      например, 2x³ − 5x + 7 содержит 0x².
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Сложение и вычитание нескольких многочленов</h2>
+
+    <p class="ms-text">
+      Если выражение содержит несколько скобок, знак перед каждой скобкой
+      применяется только к содержимому этой скобки.
+    </p>
+
+    <div class="ms-example">
+      Упростить:
+      (2x² − 3x + 4) − (x² + 5x − 2) + (4x² − x + 1).
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Раскроем скобки:
+      </div>
+
+      <div class="ms-math-row">
+        2x² − 3x + 4 − x² − 5x + 2 + 4x² − x + 1.
+      </div>
+
+      <div class="ms-math-row">
+        Члены с x²:
+        2 − 1 + 4 = 5.
+      </div>
+
+      <div class="ms-math-row">
+        Члены с x:
+        −3 − 5 − 1 = −9.
+      </div>
+
+      <div class="ms-math-row">
+        Свободные члены:
+        4 + 2 + 1 = 7.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 5x² − 9x + 7.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Многочлены с несколькими переменными</h2>
+
+    <p class="ms-text">
+      Правило не меняется: объединяются только члены с полностью
+      совпадающей буквенной частью.
+    </p>
+
+    <h3>Пример 4</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        (3a²b − 5ab² + 2b³) + (4a²b + 7ab² − b³).
+      </div>
+
+      <div class="ms-math-row">
+        = (3 + 4)a²b + (−5 + 7)ab² + (2 − 1)b³.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 7a²b + 2ab² + b³.</span>
+      </div>
+    </div>
+
+    <h3>Пример 5</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        (6x²y − 3xy²) − (2x²y + 5xy²).
+      </div>
+
+      <div class="ms-math-row">
+        = 6x²y − 3xy² − 2x²y − 5xy².
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 4x²y − 8xy².</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Нулевой результат и противоположные многочлены</h2>
+
+    <div class="ms-rule-box">
+      Два многочлена называются <strong>противоположными</strong>,
+      если сумма их соответствующих членов равна нулю.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        P = 3x² − 5x + 7.
+      </div>
+
+      <div class="ms-math-row">
+        Противоположный многочлен:
+      </div>
+
+      <div class="ms-math-row">
+        −P = −3x² + 5x − 7.
+      </div>
+
+      <div class="ms-math-row">
+        P + (−P) = 0.
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Чтобы записать многочлен, противоположный данному,
+      нужно изменить знак каждого его члена.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-10">
+    <h2>9. Нахождение неизвестного многочлена</h2>
+
+    <p class="ms-text">
+      Сложение и вычитание многочленов позволяют находить неизвестное
+      слагаемое, уменьшаемое или вычитаемое.
+    </p>
+
+    <div class="ms-example">
+      Найти многочлен Q, если
+      Q + (2x² − 3x + 1) = 5x² + x − 4.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Неизвестное слагаемое равно разности суммы и известного слагаемого:
+      </div>
+
+      <div class="ms-math-row">
+        Q = (5x² + x − 4) − (2x² − 3x + 1).
+      </div>
+
+      <div class="ms-math-row">
+        Q = 5x² + x − 4 − 2x² + 3x − 1.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: Q = 3x² + 4x − 5.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-11">
+    <h2>10. Проверка результата подстановкой</h2>
+
+    <p class="ms-text">
+      Равносильность исходного и упрощённого выражений можно проверить,
+      подставив одно и то же число вместо переменной.
+    </p>
+
+    <div class="ms-example">
+      Проверить при x = 2:
+      <br><br>
+      (3x² − x + 4) − (x² + 2x − 1)
+      = 2x² − 3x + 5.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Левая часть:
+      </div>
+
+      <div class="ms-math-row">
+        (3 · 2² − 2 + 4) − (2² + 2 · 2 − 1)
+        = 14 − 7 = 7.
+      </div>
+
+      <div class="ms-math-row">
+        Правая часть:
+      </div>
+
+      <div class="ms-math-row">
+        2 · 2² − 3 · 2 + 5
+        = 8 − 6 + 5 = 7.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Значения совпали.</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Совпадение при одном значении не является полным доказательством,
+      но помогает обнаружить вычислительную ошибку.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-12">
+    <h2>11. Частые ошибки</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Изменён только первый знак</h3>
+        <p class="ms-card-text">
+          После минуса перед скобками меняется знак каждого члена.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Сложены неподобные члены</h3>
+        <p class="ms-card-text">
+          x² и x нельзя объединять в один одночлен.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Потерян отсутствующий член</h3>
+        <p class="ms-card-text">
+          Следите за степенями, которых нет в одном из многочленов.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Ответ не приведён к стандартному виду</h3>
+        <p class="ms-card-text">
+          После раскрытия скобок нужно объединить все подобные члены.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Различие между плюсом и минусом перед скобками
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 940 530"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Сравнение раскрытия скобок после плюса и минуса"
+        >
+          <rect x="0" y="0" width="940" height="530" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="50" y="75" width="400" height="350" rx="24" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <rect x="490" y="75" width="400" height="350" rx="24" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+
+          <text x="250" y="125" text-anchor="middle" font-size="23" font-weight="800" fill="#166534">
+            Плюс перед скобками
+          </text>
+
+          <text x="690" y="125" text-anchor="middle" font-size="23" font-weight="800" fill="#c2410c">
+            Минус перед скобками
+          </text>
+
+          <rect x="95" y="170" width="310" height="85" rx="20" fill="#ffffff" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="250" y="223" text-anchor="middle" font-size="25" font-weight="800" fill="#15803d">
+            +(a − b + c)
+          </text>
+
+          <rect x="535" y="170" width="310" height="85" rx="20" fill="#ffffff" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="690" y="223" text-anchor="middle" font-size="25" font-weight="800" fill="#ea580c">
+            −(a − b + c)
+          </text>
+
+          <rect x="95" y="295" width="310" height="75" rx="20" fill="#ffffff" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="250" y="342" text-anchor="middle" font-size="25" font-weight="800" fill="#15803d">
+            a − b + c
+          </text>
+
+          <rect x="535" y="295" width="310" height="75" rx="20" fill="#ffffff" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="690" y="342" text-anchor="middle" font-size="25" font-weight="800" fill="#b91c1c">
+            −a + b − c
+          </text>
+
+          <rect x="175" y="465" width="590" height="34" rx="14" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="488" text-anchor="middle" font-size="15" font-weight="800" fill="#374151">
+            Перед раскрытием скобок сначала определите внешний знак
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-13">
+    <h2>12. Задания для самопроверки</h2>
+
+    <p class="ms-text">
+      Сначала раскрывайте скобки отдельной строкой, а уже затем
+      объединяйте подобные члены.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Найдите сумму:
+        (3x² + 5x − 2) + (4x² − 2x + 7).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          3x² + 5x − 2 + 4x² − 2x + 7.
+          <br><br>
+          (3 + 4)x² + (5 − 2)x + (−2 + 7).
+          <br><br>
+          <strong>Ответ: 7x² + 3x + 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Найдите разность:
+        (8x² − 3x + 1) − (5x² + x − 4).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          8x² − 3x + 1 − 5x² − x + 4.
+          <br><br>
+          <strong>Ответ: 3x² − 4x + 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Упростите:
+        (2a²b − 5ab²) + (7a²b + 3ab²).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (2 + 7)a²b + (−5 + 3)ab².
+          <br><br>
+          <strong>Ответ: 9a²b − 2ab².</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Упростите:
+        (6x²y + 4xy²) − (2x²y − 5xy²).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          6x²y + 4xy² − 2x²y + 5xy².
+          <br><br>
+          <strong>Ответ: 4x²y + 9xy².</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Раскройте скобки и упростите:
+        4x² − (x² − 3x + 5).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          4x² − x² + 3x − 5.
+          <br><br>
+          <strong>Ответ: 3x² + 3x − 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Упростите:
+        (5x³ − 2x + 1) + (3x² + 4x − 6) − (2x³ − x² + 3).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Раскроем скобки:
+          <br><br>
+          5x³ − 2x + 1 + 3x² + 4x − 6 − 2x³ + x² − 3.
+          <br><br>
+          Объединим подобные члены:
+          <br><br>
+          3x³ + 4x² + 2x − 8.
+          <br><br>
+          <strong>Ответ: 3x³ + 4x² + 2x − 8.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Запишите многочлен, противоположный
+        4x³ − 7x² + 2x − 5.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Изменяем знак каждого члена:
+          <br><br>
+          <strong>Ответ: −4x³ + 7x² − 2x + 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Найдите P + Q, если
+        P = 2x² − 5x + 3,
+        Q = −2x² + 8x − 7.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          P + Q =
+          2x² − 5x + 3 − 2x² + 8x − 7.
+          <br><br>
+          Члены с x² взаимно уничтожаются.
+          <br><br>
+          <strong>Ответ: 3x − 4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Найдите P − Q, если
+        P = 3a² + 2a − 1,
+        Q = a² − 5a + 4.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          P − Q =
+          3a² + 2a − 1 − a² + 5a − 4.
+          <br><br>
+          <strong>Ответ: 2a² + 7a − 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Найдите многочлен Q, если
+        Q + (x² − 4x + 6) = 5x² + x − 2.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Q = (5x² + x − 2) − (x² − 4x + 6).
+          <br><br>
+          Q = 5x² + x − 2 − x² + 4x − 6.
+          <br><br>
+          <strong>Ответ: Q = 4x² + 5x − 8.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 11.</strong>
+        Найдите значение выражения
+        (2x² + 3x − 1) − (x² − x + 4)
+        при x = −2.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Сначала упростим:
+          <br><br>
+          x² + 4x − 5.
+          <br><br>
+          Подставим x = −2:
+          <br><br>
+          (−2)² + 4 · (−2) − 5
+          = 4 − 8 − 5
+          = −9.
+          <br><br>
+          <strong>Ответ: −9.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 12.</strong>
+        Найдите ошибку:
+        (5x² − 3x + 2) − (2x² + x − 4)
+        = 3x² − 2x − 2.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          После минуса перед скобками знаки второго многочлена должны измениться:
+          <br><br>
+          5x² − 3x + 2 − 2x² − x + 4.
+          <br><br>
+          <strong>Правильный ответ: 3x² − 4x + 6.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 13.</strong>
+        Упростите:
+        (4x³ − 2x² + 5x − 1)
+        − (x³ + 3x² − 2x + 4)
+        + (2x³ − x² − 6x + 7).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Раскроем скобки:
+          <br><br>
+          4x³ − 2x² + 5x − 1
+          − x³ − 3x² + 2x − 4
+          + 2x³ − x² − 6x + 7.
+          <br><br>
+          Члены с x³:
+          4 − 1 + 2 = 5.
+          <br><br>
+          Члены с x²:
+          −2 − 3 − 1 = −6.
+          <br><br>
+          Члены с x:
+          5 + 2 − 6 = 1.
+          <br><br>
+          Свободные члены:
+          −1 − 4 + 7 = 2.
+          <br><br>
+          <strong>Ответ: 5x³ − 6x² + x + 2.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-14">
+    <h2>13. Как проверить ответ</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Скобки раскрыты</strong>
+        <span class="ms-card-text">
+          Перед минусом изменены знаки каждого члена второго многочлена.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Подобные члены объединены</strong>
+        <span class="ms-card-text">
+          В результате не осталось членов с одинаковой буквенной частью.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Стандартный вид</strong>
+        <span class="ms-card-text">
+          Члены расположены в удобном порядке по убыванию степеней.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      При сложении многочленов знаки внутри скобок сохраняются,
+      а при вычитании — меняются на противоположные. В следующей теме
+      разберём умножение многочлена на одночлен.
+    </div>
+
+    <div class="ms-nav">
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/ponyatie-mnogochlena-privedenie-mnogochlena-k-standartnomu-vidu/"
+      >
+        Предыдущая тема
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/7-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn"
+        href="/kak-umnozhat-mnogochlen-na-odnochlen/"
+      >
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

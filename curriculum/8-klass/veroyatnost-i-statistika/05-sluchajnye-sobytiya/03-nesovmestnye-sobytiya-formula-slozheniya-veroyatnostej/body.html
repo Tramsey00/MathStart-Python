@@ -1,0 +1,94 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Случайные события · Тема 5.3</div>
+    <h1 class="ms-title">Несовместные события. Формула сложения вероятностей</h1>
+    <p class="ms-subtitle">Научимся распознавать события, которые не могут произойти одновременно, и правильно складывать их вероятности.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/nesovmestnye-sobytiya-formula-slozheniya-veroyatnostej/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Какие события называют несовместными</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Формула сложения вероятностей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Несколько попарно несовместных событий</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Противоположные события — особый случай</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Алгоритм решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Финишный фильтр: можно ли складывать?</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Какие события называют несовместными</h2>
+    <div class="ms-rule-box"><strong>Несовместные события</strong> — события, которые не могут произойти одновременно в одном и том же случайном опыте.</div>
+    <p class="ms-text">У несовместных событий нет общих благоприятствующих исходов, поэтому их пересечение пусто:</p>
+    <div class="ms-formula-banner"><div class="ms-formula-main">A ∩ B = ∅</div><div class="ms-formula-note">Если произошёл исход из A, он уже не может одновременно принадлежать B.</div></div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>При одном броске кости события «выпало 2» и «выпало 5» несовместны. Но события «выпало чётное» и «выпало больше 3» совместны: исходы 4 и 6 подходят обоим.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Формула сложения вероятностей</h2>
+    <p class="ms-text">Если A и B несовместны, вероятность события «произошло A или B» равна сумме вероятностей.</p>
+    <div class="ms-formula-banner"><div class="ms-formula-main">P(A ∪ B) = P(A) + P(B)</div><div class="ms-formula-note">Формула применяется только после проверки несовместности событий.</div></div>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Один вопрос на экзамене</span>Вероятность получить вопрос по геометрии равна 0,24, по статистике — 0,16. Один вопрос не относится сразу к обеим темам. Тогда P = 0,24 + 0,16 = <strong>0,40</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Игральная кость</span>Вероятность выпадения 1 или 6: 1/6 + 1/6 = <strong>1/3</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Несколько попарно несовместных событий</h2>
+    <p class="ms-text">Если ни одна пара событий не может произойти одновременно, их называют попарно несовместными. Вероятность их объединения равна сумме вероятностей.</p>
+    <div class="ms-math-box">
+      <div class="ms-math-row">A₁, A₂, A₃ — попарно несовместны</div>
+      <div class="ms-math-row"><strong>P(A₁ ∪ A₂ ∪ A₃) = P(A₁) + P(A₂) + P(A₃)</strong></div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Автобус может прийти раньше расписания с вероятностью 0,12, точно вовремя — 0,70, опоздать не более чем на 5 минут — 0,11. Эти три временных варианта не пересекаются. Вероятность одного из них: 0,12 + 0,70 + 0,11 = <strong>0,93</strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Противоположные события — особый случай</h2>
+    <p class="ms-text">Противоположные события несовместны и вместе охватывают все исходы. Поэтому для них сумма вероятностей равна 1.</p>
+    <div class="ms-compare-grid ms-card-grid ms-columns-2">
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Несовместные</strong><span class="ms-card-text">P(A ∪ B) = P(A) + P(B), но сумма может быть меньше 1.</span></div>
+      <div class="ms-compare-card ms-card"><strong class="ms-card-title">Противоположные</strong><span class="ms-card-text">P(A) + P(Ā) = 1, потому что другого исхода нет.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Алгоритм решения</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Назовите A и B</strong><span class="ms-card-text">Чётко сформулируйте оба события.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проверьте совместность</strong><span class="ms-card-text">Могут ли они произойти в одном опыте одновременно?</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Сложите вероятности</strong><span class="ms-card-text">Если общих исходов нет, примените формулу сложения.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Проверьте границы</strong><span class="ms-card-text">Ответ должен находиться от 0 до 1.</span></div>
+    </div>
+    <div class="ms-warning-box"><strong>Типичная ошибка:</strong> нельзя просто складывать вероятности совместных событий — общая часть окажется учтена дважды.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Самопроверка</h2>
+    <div class="ms-task"><p>1. Совместны ли события «на кости выпало 1» и «на кости выпало 4»?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет, при одном броске не могут выпасть два разных числа. События <strong>несовместны</strong>.</p></div></details></div>
+    <div class="ms-task"><p>2. Совместны ли события «выпало чётное число» и «выпало число больше 3»?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Да. Исходы 4 и 6 подходят обоим событиям, значит, события <strong>совместны</strong>.</p></div></details></div>
+    <div class="ms-task"><p>3. P(A) = 0,28, P(B) = 0,35, события несовместны. Найдите P(A ∪ B).</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,28 + 0,35 = <strong>0,63</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. Вероятность выпадения 2 равна 1/6, выпадения 3 — 1/6. Найдите вероятность выпадения 2 или 3.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>События несовместны: 1/6 + 1/6 = <strong>1/3</strong>.</p></div></details></div>
+    <div class="ms-task"><p>5. Три несовместных события имеют вероятности 0,14; 0,22; 0,31. Найдите вероятность наступления хотя бы одного из них.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,14 + 0,22 + 0,31 = <strong>0,67</strong>.</p></div></details></div>
+    <div class="ms-task"><p>6. Противоположные события имеют вероятности x и 2x. Найдите x.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>x + 2x = 1, поэтому 3x = 1 и <strong>x = 1/3</strong>.</p></div></details></div>
+    <div class="ms-task"><p>7. Может ли для несовместных событий быть P(A) = 0,7 и P(B) = 0,5?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет. Тогда P(A ∪ B) = 1,2, что невозможно, поскольку вероятность не превышает 1.</p></div></details></div>
+    <div class="ms-task"><p>8. Вероятность получить задание первого типа равна 0,25, второго — 0,18, третьего — 0,12. Типы не пересекаются. Найдите вероятность получить один из этих типов.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>0,25 + 0,18 + 0,12 = <strong>0,55</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Финишный фильтр: можно ли складывать?</h2>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Да</h3><p class="ms-card-text">События не имеют общих исходов, поэтому A ∩ B = ∅ и вероятности складываются.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Нет</h3><p class="ms-card-text">События могут произойти вместе. Простая сумма посчитает общие исходы дважды.</p></div>
+    </div>
+    <div class="ms-rule-box"><strong>Итоговая формула для несовместных событий:</strong> P(A ∪ B) = P(A) + P(B).</div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/obedinenie-i-peresechenie-sobytij/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/pravilo-umnozheniya-veroyatnostej-uslovnaya-veroyatnost-nezavisimye-sobytiya/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

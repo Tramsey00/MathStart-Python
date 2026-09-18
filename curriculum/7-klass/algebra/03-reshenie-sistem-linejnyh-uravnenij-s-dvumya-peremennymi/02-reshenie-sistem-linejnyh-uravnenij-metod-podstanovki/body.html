@@ -1,0 +1,1235 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      7 класс · Алгебра · Системы уравнений · Тема 3.2
+    </div>
+
+    <h1 class="ms-title">
+      Решение систем линейных уравнений методом подстановки
+    </h1>
+
+    <p class="ms-subtitle">
+      Научимся выражать одну переменную через другую, выполнять подстановку,
+      получать уравнение с одной переменной и находить обе координаты решения.
+      Разберём простые системы, системы со скобками и случаи с дробными ответами.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/7-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что нужно знать перед темой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Идея метода подстановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Алгоритм метода подстановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как выбрать переменную для выражения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Пример: переменная уже выражена</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Пример: сначала выразим переменную</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Пример со скобками</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Пример с дробным ответом</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Что может получиться после подстановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Проверка найденной пары</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-11"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Ошибки, которые меняют ответ</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Задания для самопроверки</strong><small>Заданий с решениями: 13</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-13"><span class="ms-toc-number">13</span><span class="ms-toc-copy"><strong>Как сделать решение короче и надёжнее</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что нужно знать перед темой</h2>
+
+    <p class="ms-text">
+      Метод подстановки превращает систему из двух уравнений с двумя
+      переменными в обычное линейное уравнение с одной переменной.
+    </p>
+
+    <ul class="ms-list">
+      <li>Уметь выражать одну переменную через другую.</li>
+      <li>Правильно переносить слагаемые из одной части уравнения в другую.</li>
+      <li>Раскрывать скобки по распределительному закону.</li>
+      <li>Приводить подобные слагаемые.</li>
+      <li>Решать линейные уравнения с одной переменной.</li>
+      <li>Проверять найденную пару в обоих уравнениях системы.</li>
+    </ul>
+
+    <div class="ms-note">
+      Подстановка означает замену переменной равным ей выражением.
+      Например, если y = 7 − x, то во втором уравнении вместо y можно
+      записать 7 − x.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Идея метода подстановки</h2>
+
+    <p class="ms-text">
+      Пусть из одного уравнения удалось выразить y через x. Тогда в другом
+      уравнении переменную y заменяют полученным выражением. После такой
+      замены остаётся только одна переменная.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Как система превращается в одно уравнение
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 930 520"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Схема метода подстановки"
+        >
+          <rect x="0" y="0" width="930" height="520" rx="24" fill="#f9fafb"></rect>
+
+          <text x="465" y="48" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">
+            Заменяем одну переменную равным ей выражением
+          </text>
+
+          <rect x="55" y="120" width="235" height="170" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="172.5" y="164" text-anchor="middle" font-size="18" font-weight="800" fill="#6d28d9">
+            Система
+          </text>
+          <text x="172.5" y="212" text-anchor="middle" font-size="22" font-weight="800" fill="#7c3aed">
+            <tspan x="172.5" dy="0">y = 7 − x</tspan>
+            <tspan x="172.5" dy="36">2x − y = 2</tspan>
+          </text>
+
+          <line x1="315" y1="205" x2="390" y2="205" stroke="#93c5fd" stroke-width="6" stroke-linecap="round"></line>
+          <path d="M390 205 L373 195 L373 215 Z" fill="#93c5fd"></path>
+
+          <rect x="410" y="105" width="250" height="200" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="535" y="150" text-anchor="middle" font-size="18" font-weight="800" fill="#1e40af">
+            Подставляем вместо y
+          </text>
+          <text x="535" y="205" text-anchor="middle" font-size="23" font-weight="800" fill="#2563eb">
+            2x − (7 − x) = 2
+          </text>
+          <text x="535" y="257" text-anchor="middle" font-size="17" font-weight="800" fill="#1e40af">
+            Осталась одна переменная
+          </text>
+
+          <line x1="685" y1="205" x2="750" y2="205" stroke="#86efac" stroke-width="6" stroke-linecap="round"></line>
+          <path d="M750 205 L733 195 L733 215 Z" fill="#86efac"></path>
+
+          <rect x="770" y="120" width="110" height="170" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="825" y="170" text-anchor="middle" font-size="18" font-weight="800" fill="#166534">
+            Решаем
+          </text>
+          <text x="825" y="224" text-anchor="middle" font-size="25" font-weight="800" fill="#15803d">
+            x = 3
+          </text>
+
+          <rect x="180" y="360" width="570" height="92" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="465" y="397" text-anchor="middle" font-size="19" font-weight="800" fill="#1e40af">
+            <tspan x="465" dy="0">После нахождения x возвращаемся к выражению</tspan>
+            <tspan x="465" dy="29">y = 7 − x и находим y</tspan>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Алгоритм метода подстановки</h2>
+
+    <div class="ms-rule-box">
+      <strong>Шаг 1.</strong> Выразите одну переменную через другую
+      из одного уравнения.
+      <br><br>
+      <strong>Шаг 2.</strong> Подставьте полученное выражение вместо этой
+      переменной во второе уравнение.
+      <br><br>
+      <strong>Шаг 3.</strong> Решите получившееся уравнение с одной переменной.
+      <br><br>
+      <strong>Шаг 4.</strong> Подставьте найденное значение в выражение
+      из первого шага и найдите вторую переменную.
+      <br><br>
+      <strong>Шаг 5.</strong> Запишите ответ парой (x; y) и выполните проверку.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Пять последовательных действий
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 940 650"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Пошаговый алгоритм метода подстановки"
+        >
+          <rect x="0" y="0" width="940" height="650" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="225" y="35" width="490" height="84" rx="22" fill="#f7f4ff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="470" y="70" text-anchor="middle" font-size="18" font-weight="800" fill="#6d28d9">
+            <tspan x="470" dy="0">1. Выразить переменную</tspan>
+            <tspan x="470" dy="27">например, y = ...</tspan>
+          </text>
+
+          <line x1="470" y1="130" x2="470" y2="160" stroke="#c4b5fd" stroke-width="5"></line>
+          <path d="M470 170 L460 153 L480 153 Z" fill="#c4b5fd"></path>
+
+          <rect x="225" y="180" width="490" height="84" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="470" y="215" text-anchor="middle" font-size="18" font-weight="800" fill="#1e40af">
+            <tspan x="470" dy="0">2. Подставить выражение</tspan>
+            <tspan x="470" dy="27">во второе уравнение</tspan>
+          </text>
+
+          <line x1="470" y1="275" x2="470" y2="305" stroke="#93c5fd" stroke-width="5"></line>
+          <path d="M470 315 L460 298 L480 298 Z" fill="#93c5fd"></path>
+
+          <rect x="225" y="325" width="490" height="84" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="360" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">
+            <tspan x="470" dy="0">3. Решить уравнение</tspan>
+            <tspan x="470" dy="27">с одной переменной</tspan>
+          </text>
+
+          <line x1="470" y1="420" x2="470" y2="450" stroke="#86efac" stroke-width="5"></line>
+          <path d="M470 460 L460 443 L480 443 Z" fill="#86efac"></path>
+
+          <rect x="75" y="475" width="360" height="92" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="255" y="512" text-anchor="middle" font-size="18" font-weight="800" fill="#166534">
+            <tspan x="255" dy="0">4. Найти вторую</tspan>
+            <tspan x="255" dy="27">переменную</tspan>
+          </text>
+
+          <rect x="505" y="475" width="360" height="92" rx="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          <text x="685" y="512" text-anchor="middle" font-size="18" font-weight="800" fill="#c2410c">
+            <tspan x="685" dy="0">5. Записать пару</tspan>
+            <tspan x="685" dy="27">и проверить</tspan>
+          </text>
+
+          <line x1="435" y1="521" x2="495" y2="521" stroke="#86efac" stroke-width="5"></line>
+          <path d="M505 521 L488 511 L488 531 Z" fill="#86efac"></path>
+
+          <rect x="205" y="595" width="530" height="36" rx="14" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="470" y="619" text-anchor="middle" font-size="15" font-weight="800" fill="#374151">
+            Не меняйте порядок координат: ответ записывается как (x; y)
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Как выбрать переменную для выражения</h2>
+
+    <p class="ms-text">
+      Теоретически можно выразить любую переменную из любого уравнения,
+      если коэффициент при ней не равен нулю. На практике выбирают вариант,
+      который даёт более короткие вычисления.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Коэффициент равен 1</h3>
+        <p class="ms-card-text">
+          Из уравнения x + 2y = 7 удобнее выразить x:
+          x = 7 − 2y.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Коэффициент равен −1</h3>
+        <p class="ms-card-text">
+          Из уравнения 3x − y = 5 удобно выразить y:
+          y = 3x − 5.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Переменная уже выражена</h3>
+        <p class="ms-card-text">
+          Если записано y = 4x + 1, первый шаг уже выполнен.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Избегайте лишних дробей</h3>
+        <p class="ms-card-text">
+          Сначала ищите переменную с коэффициентом 1 или −1.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Выбираем наиболее удобную строку
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 470"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Схема выбора переменной для выражения"
+        >
+          <rect x="0" y="0" width="920" height="470" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="70" y="95" width="300" height="115" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="220" y="140" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">
+            3x + 2y = 11
+          </text>
+          <text x="220" y="178" text-anchor="middle" font-size="16" font-weight="800" fill="#6b7280">
+            оба коэффициента неудобны
+          </text>
+
+          <rect x="550" y="95" width="300" height="115" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="700" y="140" text-anchor="middle" font-size="20" font-weight="800" fill="#15803d">
+            x − y = 1
+          </text>
+          <text x="700" y="178" text-anchor="middle" font-size="16" font-weight="800" fill="#166534">
+            коэффициенты 1 и −1
+          </text>
+
+          <line x1="370" y1="152" x2="530" y2="152" stroke="#86efac" stroke-width="6" stroke-linecap="round"></line>
+          <path d="M530 152 L513 142 L513 162 Z" fill="#86efac"></path>
+
+          <rect x="250" y="285" width="420" height="110" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="460" y="326" text-anchor="middle" font-size="20" font-weight="800" fill="#1e40af">
+            Выразим x = y + 1
+          </text>
+          <text x="460" y="365" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">
+            Дроби на первом шаге не появились
+          </text>
+
+          <line x1="700" y1="220" x2="600" y2="275" stroke="#93c5fd" stroke-width="5" stroke-linecap="round"></line>
+          <path d="M590 281 L603 264 L612 281 Z" fill="#93c5fd"></path>
+
+          <rect x="185" y="420" width="550" height="34" rx="14" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="460" y="443" text-anchor="middle" font-size="15" font-weight="800" fill="#374151">
+            Удобный выбор сокращает решение, но не меняет ответ
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Пример: переменная уже выражена</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">y = 3x − 5,</div>
+          <div class="ms-system-line">2x + y = 15.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Переменная y уже выражена. Подставим 3x − 5 вместо y
+        во второе уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2x + (3x − 5) = 15.
+      </div>
+
+      <div class="ms-math-row">
+        5x − 5 = 15.
+      </div>
+
+      <div class="ms-math-row">
+        5x = 20.
+      </div>
+
+      <div class="ms-math-row">
+        x = 4.
+      </div>
+
+      <div class="ms-math-row">
+        Найдём y:
+      </div>
+
+      <div class="ms-math-row">
+        y = 3 · 4 − 5 = 12 − 5 = 7.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (4; 7).</span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Скобки вокруг выражения при подстановке помогают не потерять знаки,
+      особенно если выражение начинается с минуса.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Пример: сначала выразим переменную</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">x + y = 7,</div>
+          <div class="ms-system-line">2x − y = 2.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Из первого уравнения выразим y:
+      </div>
+
+      <div class="ms-math-row">
+        y = 7 − x.
+      </div>
+
+      <div class="ms-math-row">
+        Подставим 7 − x вместо y во второе уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2x − (7 − x) = 2.
+      </div>
+
+      <div class="ms-math-row">
+        Раскроем скобки:
+      </div>
+
+      <div class="ms-math-row">
+        2x − 7 + x = 2.
+      </div>
+
+      <div class="ms-math-row">
+        3x = 9.
+      </div>
+
+      <div class="ms-math-row">
+        x = 3.
+      </div>
+
+      <div class="ms-math-row">
+        y = 7 − 3 = 4.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (3; 4).</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Пример со скобками</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">2(x + y) = 14,</div>
+          <div class="ms-system-line">y = x − 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Подставим x − 1 вместо y в первое уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2(x + x − 1) = 14.
+      </div>
+
+      <div class="ms-math-row">
+        2(2x − 1) = 14.
+      </div>
+
+      <div class="ms-math-row">
+        4x − 2 = 14.
+      </div>
+
+      <div class="ms-math-row">
+        4x = 16.
+      </div>
+
+      <div class="ms-math-row">
+        x = 4.
+      </div>
+
+      <div class="ms-math-row">
+        y = 4 − 1 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: (4; 3).</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Пример с дробным ответом</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Решить систему</span>
+
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">3x + 2y = 12,</div>
+          <div class="ms-system-line">x − y = 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Из второго уравнения выразим x:
+      </div>
+
+      <div class="ms-math-row">
+        x = y + 1.
+      </div>
+
+      <div class="ms-math-row">
+        Подставим в первое уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        3(y + 1) + 2y = 12.
+      </div>
+
+      <div class="ms-math-row">
+        3y + 3 + 2y = 12.
+      </div>
+
+      <div class="ms-math-row">
+        5y = 9.
+      </div>
+
+      <div class="ms-math-row">
+        y =
+        <span class="ms-frac">
+          <span class="ms-num">9</span>
+          <span class="ms-den">5</span>
+        </span>.
+      </div>
+
+      <div class="ms-math-row">
+        x = y + 1 =
+        <span class="ms-frac">
+          <span class="ms-num">9</span>
+          <span class="ms-den">5</span>
+        </span>
+        +
+        <span class="ms-frac">
+          <span class="ms-num">5</span>
+          <span class="ms-den">5</span>
+        </span>
+        =
+        <span class="ms-frac">
+          <span class="ms-num">14</span>
+          <span class="ms-den">5</span>
+        </span>.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Ответ:
+          (
+          <span class="ms-frac">
+            <span class="ms-num">14</span>
+            <span class="ms-den">5</span>
+          </span>;
+          <span class="ms-frac">
+            <span class="ms-num">9</span>
+            <span class="ms-den">5</span>
+          </span>
+          ).
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Дробный ответ не означает ошибку. Если вычисления выполнены правильно,
+      система может иметь решение с дробными координатами.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-9">
+    <h2>8. Что может получиться после подстановки</h2>
+
+    <p class="ms-text">
+      После упрощения обычно получается уравнение с одним числовым ответом.
+      Но иногда переменная исчезает полностью.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Обычное уравнение</h3>
+        <p class="ms-card-text">
+          Например, 3x = 9. Система имеет одно решение.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Неверное равенство</h3>
+        <p class="ms-card-text">
+          Например, 0 = 5. Система не имеет решений.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Верное равенство</h3>
+        <p class="ms-card-text">
+          Например, 0 = 0. Уравнения задают одну и ту же прямую.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Обязательный вывод</h3>
+        <p class="ms-card-text">
+          Нельзя писать значение переменной, если после упрощения она исчезла.
+        </p>
+      </div>
+    </div>
+
+    <h3>Пример: решений нет</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">y = 2x + 1,</div>
+          <div class="ms-system-line">y = 2x − 4.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Приравняем выражения:
+      </div>
+
+      <div class="ms-math-row">
+        2x + 1 = 2x − 4.
+      </div>
+
+      <div class="ms-math-row">
+        1 = −4 — неверное равенство.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-bad">Система не имеет решений.</span>
+      </div>
+    </div>
+
+    <h3>Пример: бесконечно много решений</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-system">
+        <div class="ms-system-brace">{</div>
+        <div class="ms-system-lines">
+          <div class="ms-system-line">y = 3x − 2,</div>
+          <div class="ms-system-line">2y = 6x − 4.</div>
+        </div>
+      </div>
+
+      <div class="ms-math-row">
+        Подставим y = 3x − 2 во второе уравнение:
+      </div>
+
+      <div class="ms-math-row">
+        2(3x − 2) = 6x − 4.
+      </div>
+
+      <div class="ms-math-row">
+        6x − 4 = 6x − 4 — верно при любом x.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Система имеет бесконечно много решений.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-10">
+    <h2>9. Проверка найденной пары</h2>
+
+    <p class="ms-text">
+      После решения подставьте найденные значения в исходные уравнения,
+      а не только в преобразованные записи.
+    </p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Проверка завершает решение
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 920 470"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Схема проверки решения системы"
+        >
+          <rect x="0" y="0" width="920" height="470" rx="24" fill="#f9fafb"></rect>
+
+          <rect x="55" y="150" width="200" height="120" rx="22" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"></rect>
+          <text x="155" y="195" text-anchor="middle" font-size="18" font-weight="800" fill="#1e40af">
+            Найдена пара
+          </text>
+          <text x="155" y="238" text-anchor="middle" font-size="28" font-weight="800" fill="#2563eb">
+            (3; 4)
+          </text>
+
+          <line x1="275" y1="210" x2="360" y2="135" stroke="#93c5fd" stroke-width="5" stroke-linecap="round"></line>
+          <path d="M368 128 L349 133 L361 146 Z" fill="#93c5fd"></path>
+
+          <line x1="275" y1="210" x2="360" y2="285" stroke="#c4b5fd" stroke-width="5" stroke-linecap="round"></line>
+          <path d="M368 292 L361 274 L349 287 Z" fill="#c4b5fd"></path>
+
+          <rect x="385" y="55" width="270" height="140" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="520" y="98" text-anchor="middle" font-size="17" font-weight="800" fill="#111827">
+            Первое уравнение
+          </text>
+          <text x="520" y="145" text-anchor="middle" font-size="20" font-weight="800" fill="#15803d">
+            3 + 4 = 7 ✓
+          </text>
+
+          <rect x="385" y="245" width="270" height="140" rx="22" fill="#ffffff" stroke="#ddd6fe" stroke-width="2"></rect>
+          <text x="520" y="288" text-anchor="middle" font-size="17" font-weight="800" fill="#111827">
+            Второе уравнение
+          </text>
+          <text x="520" y="335" text-anchor="middle" font-size="20" font-weight="800" fill="#15803d">
+            2 · 3 − 4 = 2 ✓
+          </text>
+
+          <line x1="675" y1="125" x2="745" y2="205" stroke="#86efac" stroke-width="5" stroke-linecap="round"></line>
+          <line x1="675" y1="315" x2="745" y2="225" stroke="#86efac" stroke-width="5" stroke-linecap="round"></line>
+
+          <rect x="755" y="155" width="120" height="120" rx="22" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="2"></rect>
+          <text x="815" y="202" text-anchor="middle" font-size="18" font-weight="800" fill="#166534">
+            Ответ
+          </text>
+          <text x="815" y="245" text-anchor="middle" font-size="30" font-weight="800" fill="#15803d">
+            верен
+          </text>
+
+          <rect x="185" y="415" width="550" height="36" rx="14" fill="#ffffff" stroke="#dbeafe" stroke-width="2"></rect>
+          <text x="460" y="439" text-anchor="middle" font-size="15" font-weight="800" fill="#374151">
+            Проверяем исходную систему, а не только промежуточные равенства
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-11">
+    <h2>10. Ошибки, которые меняют ответ</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Нет скобок при подстановке</h3>
+        <p class="ms-card-text">
+          В выражении 2x − (7 − x) скобки обязательны:
+          минус меняет знаки внутри.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Подстановка в ту же строку</h3>
+        <p class="ms-card-text">
+          Выражение из одного уравнения нужно подставить в другое уравнение.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Найдена только одна переменная</h3>
+        <p class="ms-card-text">
+          После нахождения x необходимо вычислить y и записать пару.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Перепутан порядок ответа</h3>
+        <p class="ms-card-text">
+          Даже если сначала найден y, ответ всё равно записывают как (x; y).
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      При переносе выражения через знак равенства меняются знаки слагаемых,
+      а при подстановке отрицательного выражения особенно важно использовать
+      скобки.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-12">
+    <h2>11. Задания для самопроверки</h2>
+
+    <p class="ms-text">
+      Сначала выберите удобную переменную, затем выполняйте шаги алгоритма.
+    </p>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Из уравнения x + 3y = 10 выразите x.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Перенесём 3y в правую часть:
+          <br><br>
+          <strong>Ответ: x = 10 − 3y.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Из уравнения 4x − y = 9 выразите y.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          −y = 9 − 4x.
+          <br><br>
+          Умножим обе части на −1:
+          <br><br>
+          <strong>Ответ: y = 4x − 9.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Решите систему методом подстановки.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">y = 2x + 1,</div>
+            <div class="ms-system-line">x + y = 10.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x + (2x + 1) = 10.
+          <br><br>
+          3x + 1 = 10.
+          <br><br>
+          3x = 9, x = 3.
+          <br><br>
+          y = 2 · 3 + 1 = 7.
+          <br><br>
+          <strong>Ответ: (3; 7).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Решите систему методом подстановки.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x − y = 4,</div>
+            <div class="ms-system-line">2x + y = 11.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Из первого уравнения: x = y + 4.
+          <br><br>
+          2(y + 4) + y = 11.
+          <br><br>
+          3y + 8 = 11.
+          <br><br>
+          y = 1.
+          <br><br>
+          x = 1 + 4 = 5.
+          <br><br>
+          <strong>Ответ: (5; 1).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">3x + y = 8,</div>
+            <div class="ms-system-line">y = 2 − x.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          3x + (2 − x) = 8.
+          <br><br>
+          2x + 2 = 8.
+          <br><br>
+          x = 3.
+          <br><br>
+          y = 2 − 3 = −1.
+          <br><br>
+          <strong>Ответ: (3; −1).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">2(x + y) = 18,</div>
+            <div class="ms-system-line">y = x + 1.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          2(x + x + 1) = 18.
+          <br><br>
+          2(2x + 1) = 18.
+          <br><br>
+          4x + 2 = 18.
+          <br><br>
+          x = 4.
+          <br><br>
+          y = 5.
+          <br><br>
+          <strong>Ответ: (4; 5).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + 2y = 1,</div>
+            <div class="ms-system-line">x = 5 − y.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          (5 − y) + 2y = 1.
+          <br><br>
+          5 + y = 1.
+          <br><br>
+          y = −4.
+          <br><br>
+          x = 5 − (−4) = 9.
+          <br><br>
+          <strong>Ответ: (9; −4).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Решите систему.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">2x + 3y = 4,</div>
+            <div class="ms-system-line">x − y = 2.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Из второго уравнения x = y + 2.
+          <br><br>
+          2(y + 2) + 3y = 4.
+          <br><br>
+          5y + 4 = 4.
+          <br><br>
+          y = 0.
+          <br><br>
+          x = 2.
+          <br><br>
+          <strong>Ответ: (2; 0).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Решите систему с дробным ответом.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">2x + y = 5,</div>
+            <div class="ms-system-line">x − y = 1.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Из второго уравнения x = y + 1.
+          <br><br>
+          2(y + 1) + y = 5.
+          <br><br>
+          3y = 3.
+          <br><br>
+          y = 1, x = 2.
+          <br><br>
+          В этой системе ответ оказался целым.
+          <br><br>
+          <strong>Ответ: (2; 1).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Определите количество решений системы.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">y = 4x + 2,</div>
+            <div class="ms-system-line">y = 4x − 5.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Приравняем выражения:
+          <br><br>
+          4x + 2 = 4x − 5.
+          <br><br>
+          2 = −5 — неверное равенство.
+          <br><br>
+          <strong>Ответ: решений нет.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 11.</strong>
+        Определите количество решений системы.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">y = 2x − 3,</div>
+            <div class="ms-system-line">3y = 6x − 9.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Подставим y = 2x − 3:
+          <br><br>
+          3(2x − 3) = 6x − 9.
+          <br><br>
+          6x − 9 = 6x − 9 — верно при любом x.
+          <br><br>
+          <strong>Ответ: бесконечно много решений.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 12.</strong>
+        Найдите ошибку:
+        из y = 6 − x и 3x − y = 2 записали 3x − 6 − x = 2.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Выражение 6 − x подставляется вместо y целиком:
+          <br><br>
+          3x − (6 − x) = 2.
+          <br><br>
+          После раскрытия скобок получается 3x − 6 + x = 2.
+          <br><br>
+          <strong>Ошибка: не поставлены скобки и потерян знак плюс перед x.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 13.</strong>
+        Решите систему и выполните проверку.
+      </p>
+
+      <div class="ms-math-box">
+        <div class="ms-system">
+          <div class="ms-system-brace">{</div>
+          <div class="ms-system-lines">
+            <div class="ms-system-line">x + y = 8,</div>
+            <div class="ms-system-line">3x − 2y = 4.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Из первого уравнения y = 8 − x.
+          <br><br>
+          3x − 2(8 − x) = 4.
+          <br><br>
+          3x − 16 + 2x = 4.
+          <br><br>
+          5x = 20, x = 4.
+          <br><br>
+          y = 8 − 4 = 4.
+          <br><br>
+          Проверка:
+          <br>
+          4 + 4 = 8;
+          <br>
+          3 · 4 − 2 · 4 = 12 − 8 = 4.
+          <br><br>
+          <strong>Ответ: (4; 4).</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-13">
+    <h2>12. Как сделать решение короче и надёжнее</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Ищите коэффициент 1 или −1</strong>
+        <span class="ms-card-text">
+          Такая переменная выражается без дробей и лишних преобразований.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Ставьте скобки</strong>
+        <span class="ms-card-text">
+          Заменяемое выражение должно восприниматься как единое целое.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Возвращайтесь к простой формуле</strong>
+        <span class="ms-card-text">
+          Вторую переменную удобнее находить по уже выраженной зависимости.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Метод подстановки особенно удобен, когда одна переменная уже выражена
+      или легко выражается из уравнения. В следующей теме рассмотрим метод
+      сложения, который часто быстрее работает при противоположных
+      коэффициентах.
+    </div>
+
+    <div class="ms-nav">
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/ponyatie-sistemy-linejnyh-uravnenij-s-dvumya-peremennymi/"
+      >
+        Предыдущая тема
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/7-klass-algebra/"
+      >
+        К темам алгебры
+      </a>
+
+      <a
+        class="ms-btn"
+        href="/reshenie-sistem-linejnyh-uravnenij-metod-slozheniya/"
+      >
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

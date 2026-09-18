@@ -1,0 +1,810 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Элементы комбинаторики · Тема 1.1
+    </div>
+
+    <h1 class="ms-title">Комбинаторное правило умножения</h1>
+
+    <p class="ms-subtitle">
+      Научимся считать количество возможных вариантов без полного
+      перебора: разбирать выбор на последовательные шаги, определять
+      число возможностей на каждом шаге и перемножать эти числа.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/kombinatornoe-pravilo-umnozheniya/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Как считать варианты без длинного перебора</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Комбинаторное правило умножения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Пример с последовательным выбором</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Таблица и дерево вариантов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Повторения разрешены и запрещены</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Когда умножать, а когда складывать</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Разобранные задачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Как считать варианты без длинного перебора</h2>
+
+    <p class="ms-text">
+      Во многих задачах результат составляется из нескольких
+      последовательных выборов. Например, сначала выбирают рубашку,
+      затем брюки; сначала выбирают дорогу до пересадочного пункта,
+      затем дорогу до места назначения; последовательно задают символы
+      кода.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Одежда</span>
+        <h3 class="ms-card-title">3 рубашки и 2 пары брюк</h3>
+        <p class="ms-card-text">
+          К каждой рубашке подходят обе пары брюк, поэтому получается
+          3 · 2 = 6 комплектов.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Маршрут</span>
+        <h3 class="ms-card-title">4 пути до B и 3 пути от B до C</h3>
+        <p class="ms-card-text">
+          Каждый первый участок можно продолжить тремя способами:
+          всего 4 · 3 = 12 маршрутов.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Дерево вариантов: три рубашки и две пары брюк
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 820 390"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Дерево из шести комплектов одежды: три рубашки и две пары брюк"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="818"
+            height="388"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <text
+            x="54"
+            y="52"
+            font-size="18"
+            font-weight="800"
+            fill="#111827"
+          >
+            Начало
+          </text>
+
+          <text
+            x="270"
+            y="52"
+            font-size="18"
+            font-weight="800"
+            fill="#111827"
+          >
+            Выбор рубашки
+          </text>
+
+          <text
+            x="592"
+            y="52"
+            font-size="18"
+            font-weight="800"
+            fill="#111827"
+          >
+            Выбор брюк
+          </text>
+
+          <circle cx="92" cy="206" r="17" fill="#2563eb"></circle>
+
+          <line
+            x1="109"
+            y1="201"
+            x2="270"
+            y2="105"
+            stroke="#94a3b8"
+            stroke-width="3"
+          ></line>
+
+          <line
+            x1="109"
+            y1="206"
+            x2="270"
+            y2="206"
+            stroke="#94a3b8"
+            stroke-width="3"
+          ></line>
+
+          <line
+            x1="109"
+            y1="211"
+            x2="270"
+            y2="307"
+            stroke="#94a3b8"
+            stroke-width="3"
+          ></line>
+
+          <rect
+            x="270"
+            y="78"
+            width="150"
+            height="54"
+            rx="16"
+            fill="#eff6ff"
+            stroke="#bfdbfe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="270"
+            y="179"
+            width="150"
+            height="54"
+            rx="16"
+            fill="#eff6ff"
+            stroke="#bfdbfe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="270"
+            y="280"
+            width="150"
+            height="54"
+            rx="16"
+            fill="#eff6ff"
+            stroke="#bfdbfe"
+            stroke-width="2"
+          ></rect>
+
+          <text
+            x="345"
+            y="112"
+            font-size="16"
+            font-weight="800"
+            text-anchor="middle"
+            fill="#1e3a8a"
+          >
+            Рубашка 1
+          </text>
+
+          <text
+            x="345"
+            y="213"
+            font-size="16"
+            font-weight="800"
+            text-anchor="middle"
+            fill="#1e3a8a"
+          >
+            Рубашка 2
+          </text>
+
+          <text
+            x="345"
+            y="314"
+            font-size="16"
+            font-weight="800"
+            text-anchor="middle"
+            fill="#1e3a8a"
+          >
+            Рубашка 3
+          </text>
+
+          <g stroke="#94a3b8" stroke-width="2.6">
+            <line x1="420" y1="99" x2="585" y2="81"></line>
+            <line x1="420" y1="111" x2="585" y2="129"></line>
+
+            <line x1="420" y1="200" x2="585" y2="182"></line>
+            <line x1="420" y1="212" x2="585" y2="230"></line>
+
+            <line x1="420" y1="301" x2="585" y2="283"></line>
+            <line x1="420" y1="313" x2="585" y2="331"></line>
+          </g>
+
+          <rect
+            x="585"
+            y="58"
+            width="170"
+            height="46"
+            rx="15"
+            fill="#f7f4ff"
+            stroke="#ddd6fe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="585"
+            y="106"
+            width="170"
+            height="46"
+            rx="15"
+            fill="#f7f4ff"
+            stroke="#ddd6fe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="585"
+            y="159"
+            width="170"
+            height="46"
+            rx="15"
+            fill="#f7f4ff"
+            stroke="#ddd6fe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="585"
+            y="207"
+            width="170"
+            height="46"
+            rx="15"
+            fill="#f7f4ff"
+            stroke="#ddd6fe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="585"
+            y="260"
+            width="170"
+            height="46"
+            rx="15"
+            fill="#f7f4ff"
+            stroke="#ddd6fe"
+            stroke-width="2"
+          ></rect>
+
+          <rect
+            x="585"
+            y="308"
+            width="170"
+            height="46"
+            rx="15"
+            fill="#f7f4ff"
+            stroke="#ddd6fe"
+            stroke-width="2"
+          ></rect>
+
+          <g
+            font-size="15"
+            font-weight="800"
+            text-anchor="middle"
+            fill="#5b21b6"
+          >
+            <text x="670" y="87">Брюки 1</text>
+            <text x="670" y="135">Брюки 2</text>
+
+            <text x="670" y="188">Брюки 1</text>
+            <text x="670" y="236">Брюки 2</text>
+
+            <text x="670" y="289">Брюки 1</text>
+            <text x="670" y="337">Брюки 2</text>
+          </g>
+
+          <text
+            x="54"
+            y="365"
+            font-size="16"
+            font-weight="800"
+            fill="#2563eb"
+          >
+            3 ветви · 2 продолжения = 6 конечных вариантов
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Комбинаторное правило умножения</h2>
+
+    <p class="ms-text">
+      Пусть некоторый результат получают последовательно в несколько
+      шагов. Если первый шаг можно выполнить
+      <strong>n<sub>1</sub></strong> способами, после каждого такого
+      выбора второй шаг —
+      <strong>n<sub>2</sub></strong> способами, затем третий —
+      <strong>n<sub>3</sub></strong> способами и так далее, то общее
+      число результатов равно произведению чисел способов на всех
+      шагах.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Правило умножения:</strong> если выбор состоит из
+      последовательных шагов и для каждого варианта предыдущих шагов
+      число продолжений одинаково, то количество полных вариантов
+      находят умножением.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        N = n<sub>1</sub> · n<sub>2</sub> · … · n<sub>k</sub>
+      </div>
+    </div>
+
+    <div class="ms-data-strip">
+      <span class="ms-data-chip">1. Выделить шаги</span>
+      <span class="ms-data-chip">
+        2. Посчитать варианты каждого шага
+      </span>
+      <span class="ms-data-chip">3. Перемножить</span>
+      <span class="ms-data-chip">4. Проверить ограничения</span>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Пример с последовательным выбором</h2>
+
+    <p class="ms-text">
+      В школьной столовой предлагают 2 супа, 3 вторых блюда и
+      2 напитка. Сколько различных обедов можно составить, если выбрать
+      по одному блюду каждого вида?
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Шаг</th>
+            <th>Что выбираем</th>
+            <th>Количество способов</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Суп</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Второе блюдо</td>
+            <td>3</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>Напиток</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        N = 2 · 3 · 2 = 12.
+      </div>
+    </div>
+
+    <p class="ms-text">
+      Каждый из двух супов можно соединить с любым из трёх вторых
+      блюд, а каждую полученную пару — с любым из двух напитков.
+      Поэтому получается <strong>12 различных обедов</strong>.
+    </p>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Таблица и дерево вариантов</h2>
+
+    <p class="ms-text">
+      Когда шагов немного, варианты можно показать таблицей или
+      деревом. Эти способы помогают увидеть, почему возникает
+      произведение.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Таблица</h3>
+        <p class="ms-card-text">
+          Подходит для двух выборов. Строки соответствуют вариантам
+          первого выбора, столбцы — вариантам второго. Каждая клетка
+          задаёт один результат.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <h3 class="ms-card-title">Дерево</h3>
+        <p class="ms-card-text">
+          Подходит для последовательности из нескольких шагов. Каждый
+          путь от начала до конечной вершины соответствует одному
+          полному варианту.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      При большом количестве вариантов таблица и дерево становятся
+      громоздкими. Правило умножения позволяет сразу получить число
+      результатов, не выписывая каждый из них.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Повторения разрешены и запрещены</h2>
+
+    <p class="ms-text">
+      Перед умножением важно выяснить, меняется ли число вариантов
+      после каждого выбора.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Повторения разрешены</span>
+        <h3 class="ms-card-title">
+          Трёхзначный код из цифр 0–9
+        </h3>
+        <p class="ms-card-text">
+          На каждой позиции доступно 10 цифр:
+          10 · 10 · 10 = <strong>1000</strong> кодов.
+          Код может начинаться с нуля.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Повторения запрещены</span>
+        <h3 class="ms-card-title">
+          Три разные буквы из пяти
+        </h3>
+        <p class="ms-card-text">
+          Для первой позиции есть 5 вариантов, для второй остаётся 4,
+          для третьей — 3:
+          5 · 4 · 3 = <strong>60</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Главная проверка:</strong> на каждом шаге нужно считать
+      только те варианты, которые действительно остаются допустимыми
+      после предыдущих выборов.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Когда умножать, а когда складывать</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">
+          Последовательно: «и»
+        </span>
+
+        <h3 class="ms-card-title">
+          Используем умножение
+        </h3>
+
+        <p class="ms-card-text">
+          Нужно выбрать рубашку <strong>и</strong> брюки; пройти первый
+          участок <strong>и</strong> второй; задать первую, вторую
+          <strong>и</strong> третью позиции кода.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">
+          Один из вариантов: «или»
+        </span>
+
+        <h3 class="ms-card-title">
+          Используем сложение
+        </h3>
+
+        <p class="ms-card-text">
+          Можно выбрать один из 4 автобусов <strong>или</strong> один
+          из 3 поездов. Если варианты не пересекаются, всего
+          4 + 3 = 7 способов.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Смешанный пример</span>
+      До города можно добраться либо одним из 3 прямых автобусов,
+      либо сначала одним из 2 поездов до станции B, а затем одним из
+      4 автобусов до города. Число способов:
+      3 + 2 · 4 = <strong>11</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Разобранные задачи</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Задача 1. Маршруты</span>
+      Из A в B ведут 5 дорог, а из B в C — 4 дороги. Маршрут
+      обязательно проходит через B. Первый участок выбирают
+      5 способами, после него второй — 4 способами. Поэтому
+      N = 5 · 4 = <strong>20</strong> маршрутов.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Задача 2. Трёхзначные числа
+      </span>
+      Сколько трёхзначных чисел можно составить из цифр
+      0, 2, 4, 6, если цифры могут повторяться? Первая цифра
+      не может быть нулём, поэтому для неё есть 3 варианта.
+      Для второй и третьей цифр доступно по 4 варианта.
+      Получаем N = 3 · 4 · 4 = <strong>48</strong>.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Задача 3. Выбор представителей
+      </span>
+      Из 6 девятиклассников и 4 восьмиклассников выбирают одного
+      представителя от каждого класса. Представителя 9 класса можно
+      выбрать 6 способами, а представителя 8 класса — 4 способами.
+      Всего 6 · 4 = <strong>24</strong> пары.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. В кафе есть 4 вида сэндвичей и 3 вида напитков.
+        Сколько различных наборов «сэндвич и напиток» можно составить?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Сэндвич выбирают 4 способами, напиток — 3 способами.
+          </p>
+          <p>
+            N = 4 · 3 = <strong>12</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Из посёлка A в B ведут 3 дороги, из B в C — 2 дороги,
+        а из C в D — 4 дороги. Сколько маршрутов из A в D проходит
+        через B и C?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Маршрут состоит из трёх последовательных участков.
+          </p>
+          <p>
+            N = 3 · 2 · 4 = <strong>24</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Сколько четырёхзначных кодов можно составить из цифр
+        0–9, если цифры могут повторяться?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Код, в отличие от четырёхзначного числа, может начинаться
+            с нуля. На каждой из четырёх позиций есть 10 вариантов.
+          </p>
+          <p>
+            N = 10 · 10 · 10 · 10 =
+            <strong>10 000</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Сколько трёхзначных чисел можно составить из цифр
+        1, 2, 3, 4, 5 без повторений?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Для первой цифры есть 5 вариантов, для второй остаётся 4,
+            для третьей — 3.
+          </p>
+          <p>
+            N = 5 · 4 · 3 = <strong>60</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. В школьной форме разрешены 3 цвета рубашек,
+        2 цвета жилетов и 2 вида галстуков. Сколько различных
+        комплектов можно составить?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Выбор состоит из трёх последовательных шагов.
+          </p>
+          <p>
+            N = 3 · 2 · 2 = <strong>12</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. В меню есть 2 супа, 4 горячих блюда и 3 десерта.
+        Ученик выбирает либо только один суп, либо одно горячее блюдо
+        и один десерт. Сколько вариантов заказа?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Только суп можно выбрать 2 способами.
+          </p>
+          <p>
+            Пару «горячее блюдо и десерт» можно выбрать
+            4 · 3 = 12 способами.
+          </p>
+          <p>
+            Эти два случая не пересекаются, поэтому
+            2 + 12 = <strong>14</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Сколько трёхзначных чётных чисел можно составить из цифр
+        0, 1, 2, 3, 4 без повторений?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Разделим варианты на случаи по последней цифре.
+          </p>
+          <p>
+            Если последняя цифра равна 0, первую цифру выбираем
+            4 способами, вторую — 3 способами:
+            4 · 3 = 12.
+          </p>
+          <p>
+            Если последняя цифра равна 2 или 4, её выбираем
+            2 способами. Первую цифру можно выбрать из трёх
+            оставшихся ненулевых цифр, а вторую — из трёх
+            оставшихся цифр:
+            2 · 3 · 3 = 18.
+          </p>
+          <p>
+            Всего:
+            12 + 18 = <strong>30</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Пароль состоит из двух разных букв из набора
+        А, Б, В, Г и одной цифры от 0 до 9. Буквы записываются
+        первыми. Сколько паролей можно составить?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Первую букву выбирают 4 способами, вторую —
+            3 способами, цифру — 10 способами.
+          </p>
+          <p>
+            N = 4 · 3 · 10 = <strong>120</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Итог</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Разбей выбор на шаги</strong>
+        <span class="ms-card-text">
+          Определи, какие решения принимаются последовательно и что
+          считается полным результатом.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Посчитай продолжения</strong>
+        <span class="ms-card-text">
+          На каждом шаге учитывай ограничения, запрет повторений и
+          невозможность нуля в начале числа.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Перемножь числа способов</strong>
+        <span class="ms-card-text">
+          Если нужно выполнить первый шаг и второй, применяется
+          правило умножения; для непересекающихся случаев «или»
+          результаты складывают.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам вероятности и статистики
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/perestanovki-faktorial/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

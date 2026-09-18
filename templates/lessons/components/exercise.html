@@ -1,0 +1,9 @@
+{% comment %}
+Power lesson 2.0 self-check exercise with its native details/summary control.
+Context: exercise.number is the displayed integer; exercise.question_html and
+exercise.answer_html are trusted authored HTML prepared for the shared lesson
+classes. question_html must be phrasing content suitable inside a paragraph;
+answer_html may contain blocks. exercise.id is an optional stable, validated ID.
+Use: {% include "lessons/components/exercise.html" with exercise=exercise only %}
+{% endcomment %}
+<div{% if exercise.id %} id="{{ exercise.id }}"{% endif %} class="ms-task v2-task"><p><strong>Задание {{ exercise.number }}.</strong> {{ exercise.question_html|safe }}</p><details class="ms-answer v2-answer"><summary aria-label="Показать решение задания {{ exercise.number }}">Показать решение</summary><div>{{ exercise.answer_html|safe }}</div></details></div>

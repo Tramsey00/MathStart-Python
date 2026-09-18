@@ -1,0 +1,153 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Описательная статистика · Тема 2.5</div>
+    <h1 class="ms-title">Свойства средних</h1>
+    <p class="ms-subtitle">Разберём, как меняются среднее, медиана и размах при одинаковом преобразовании всех данных, изменении одного элемента и объединении групп.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/svojstva-srednih/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Зачем нужны свойства средних</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Границы среднего</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Прибавление одного числа ко всем значениям</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Умножение всех значений</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Изменение одного элемента</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Среднее объединённых групп</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Среднее как точка равновесия</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Короткий итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Зачем нужны свойства средних</h2>
+    <p class="ms-text">Иногда пересчитывать весь набор не требуется. Если известно, как изменились данные, среднее арифметическое, медиану и размах можно найти с помощью общих свойств.</p>
+    <div class="ms-rule-box"><strong>Основная идея:</strong> одинаковое преобразование всех чисел предсказуемо изменяет характеристики набора.</div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Границы среднего</h2>
+    <p class="ms-text">Среднее арифметическое не может быть меньше минимального значения или больше максимального. Оно всегда находится внутри промежутка от минимума до максимума.</p>
+    <div class="ms-formula-panel">min ≤ x̄ ≤ max</div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Если все результаты находятся от 8 до 14, то среднее 11 возможно, а среднее 16 — невозможно.</div>
+    <p class="ms-text">Если все числа равны одному и тому же значению a, то их среднее и медиана также равны a, а размах равен нулю.</p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Прибавление одного числа ко всем значениям</h2>
+    <p class="ms-text">Если к каждому элементу прибавить одно и то же число c, то весь набор сдвигается на c. Среднее и медиана изменяются на c, а расстояние между максимумом и минимумом не меняется.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Характеристика</th><th>До изменения</th><th>После прибавления c</th></tr></thead>
+        <tbody>
+          <tr><td>Среднее</td><td>x̄</td><td>x̄ + c</td></tr>
+          <tr><td>Медиана</td><td>Me</td><td>Me + c</td></tr>
+          <tr><td>Размах</td><td>R</td><td>R</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Среднее набора равно 12, медиана 11, размах 7. Если к каждому числу прибавить 5, получим среднее 17, медиану 16 и прежний размах 7.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Умножение всех значений</h2>
+    <p class="ms-text">Если каждое число умножить на одно и то же положительное число k, то среднее, медиана и размах также умножаются на k.</p>
+    <div class="ms-formula-panel">x̄ → kx̄ &nbsp;&nbsp; Me → kMe &nbsp;&nbsp; R → kR</div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Длины записали в метрах, а затем перевели в сантиметры, умножив каждое значение на 100. Среднее, медиана и размах в числовом выражении также увеличатся в 100 раз.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Изменение одного элемента</h2>
+    <p class="ms-text">Если в наборе из n чисел только одно значение увеличили на d, общая сумма увеличится на d. Поэтому среднее увеличится не на d, а на d : n.</p>
+    <div class="ms-formula-panel">изменение среднего = <span class="ms-frac"><span class="ms-num">изменение суммы</span><span class="ms-den">количество элементов</span></span></div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>В наборе пять чисел. Одно значение увеличили на 15. Среднее увеличится на 15 : 5 = <strong>3</strong>.</div>
+    <div class="ms-note">Медиана при изменении одного элемента может как сохраниться, так и измениться — это зависит от нового порядка чисел.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Среднее объединённых групп</h2>
+    <p class="ms-text">Нельзя просто сложить средние двух групп и разделить на два, если в группах разное количество элементов. Сначала восстанавливают суммы каждой группы.</p>
+    <div class="ms-formula-panel">общее среднее = <span class="ms-frac"><span class="ms-num">n₁x̄₁ + n₂x̄₂</span><span class="ms-den">n₁ + n₂</span></span></div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>В первой группе 10 учеников со средним баллом 4, во второй — 20 учеников со средним баллом 5. Общая сумма баллов: 10 · 4 + 20 · 5 = 140. Общее среднее: 140 : 30 = <strong>4 <span class="ms-frac"><span class="ms-num">2</span><span class="ms-den">3</span></span></strong>.</div>
+    <div class="ms-note">Простое среднее чисел 4 и 5 равно 4,5, но оно неверно: вторая группа вдвое больше и сильнее влияет на общий результат.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Среднее как точка равновесия</h2>
+    <p class="ms-text">Если из каждого значения вычесть среднее, получатся отклонения: положительные для чисел выше среднего и отрицательные для чисел ниже среднего. Сумма всех таких отклонений равна нулю.</p>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>У чисел 8, 10, 12 среднее равно 10. Отклонения: −2, 0 и +2. Их сумма равна 0.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+    <div class="ms-task">
+      <p>1. Среднее набора равно 12. К каждому числу прибавили 5. Чему равно новое среднее?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Среднее увеличится на 5:</p><p>12 + 5 = <strong>17</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>2. Среднее набора равно 8. Каждое число умножили на 3. Найдите новое среднее.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Среднее также умножится на 3:</p><p>8 · 3 = <strong>24</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>3. Медиана набора равна 10. Каждое число уменьшили на 4. Найдите новую медиану.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Весь набор сдвинулся на 4 влево:</p><p>10 − 4 = <strong>6</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>4. Размах набора равен 7. Все числа умножили на 4. Чему равен новый размах?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Размах умножится на 4:</p><p>7 · 4 = <strong>28</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>5. В наборе пять чисел. Одно число увеличили на 15. На сколько изменилось среднее?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общая сумма увеличилась на 15. Делим изменение суммы на количество чисел:</p><p>15 : 5 = <strong>3</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>6. В первой группе 10 человек со средним результатом 4, во второй — 20 человек со средним результатом 5. Найдите общее среднее.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>Общая сумма: 10 · 4 + 20 · 5 = 40 + 100 = 140.</p><p>Всего 30 человек. 140 : 30 = <strong>4 <span class="ms-frac"><span class="ms-num">2</span><span class="ms-den">3</span></span></strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>7. Две группы одинаковы по численности. Их средние равны 12 и 18. Найдите среднее объединённой группы.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p>При равной численности можно найти обычное среднее двух средних:</p><p>(12 + 18) : 2 = <strong>15</strong>.</p></div>
+      </details>
+    </div>
+    <div class="ms-task">
+      <p>8. Минимум набора равен 2, максимум — 14. Может ли среднее равняться 16?</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div><p><strong>Нет.</strong> Среднее должно находиться между минимумом и максимумом: 2 ≤ x̄ ≤ 14.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Короткий итог</h2>
+    <p class="ms-text">Одинаковое прибавление сдвигает среднее и медиану, но сохраняет размах. Умножение на положительное число масштабирует все три характеристики. Для объединения групп нужно учитывать их численность.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/naibolshee-i-naimenshee-znacheniya-chislovogo-nabora-razmah/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/reshenie-zadach/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

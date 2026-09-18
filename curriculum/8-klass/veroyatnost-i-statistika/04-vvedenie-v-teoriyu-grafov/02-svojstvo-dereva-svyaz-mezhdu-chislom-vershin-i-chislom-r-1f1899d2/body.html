@@ -1,0 +1,167 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Введение в теорию графов · Тема 4.2</div>
+    <h1 class="ms-title">Связь между числом вершин и числом рёбер. Правило умножения</h1>
+    <p class="ms-subtitle">Выведем основную числовую формулу дерева и научимся считать количество составных вариантов по ветвящейся схеме без полного перебора.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/svojstvo-dereva-svyaz-mezhdu-chislom-vershin-i-chislom-ryober-pravilo-umnozheniya/#theory">Перейти к материалу</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Главное числовое свойство дерева</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Почему формула работает</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Формула — необходимая проверка, но числа не всегда достаточны</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Правило умножения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Дерево вариантов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как применять правило умножения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Разобранные примеры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Финальный чек-ап: посчитано без перебора</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Главное числовое свойство дерева</h2>
+    <p class="ms-text">Обозначим число вершин буквой <strong>V</strong>, а число рёбер — буквой <strong>E</strong>. Для любого конечного дерева выполняется:</p>
+    <div class="ms-formula-banner">
+      <span class="ms-formula-main">E = V − 1</span>
+      <span class="ms-formula-note">Число рёбер дерева всегда на единицу меньше числа его вершин.</span>
+    </div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Известны вершины</h3><p class="ms-card-text">В дереве с 14 вершинами: E = 14 − 1 = <strong>13 рёбер</strong>.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Известны рёбра</h3><p class="ms-card-text">Если дерево имеет 20 рёбер, то V = 20 + 1 = <strong>21 вершина</strong>.</p></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Почему формула работает</h2>
+    <p class="ms-text">Начнём с одной вершины. У неё нет рёбер. Чтобы добавить новую вершину и сохранить дерево, её нужно соединить с уже построенной частью ровно одним новым ребром.</p>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Одна вершина</strong><span class="ms-card-text">V = 1, E = 0. Равенство E = V − 1 выполняется.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Добавили вершину</strong><span class="ms-card-text">Одновременно добавляем одно ребро, чтобы новая вершина была связана с деревом.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Повторяем построение</strong><span class="ms-card-text">При каждом шаге V и E увеличиваются на единицу.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Разность сохраняется</strong><span class="ms-card-text">Число вершин всё время остаётся на единицу больше числа рёбер.</span></div>
+    </div>
+    <div class="ms-rule-box">Если новую вершину не соединить ни с чем, пропадёт связность. Если соединить её двумя рёбрами с построенным деревом, появится цикл. Поэтому требуется ровно одно ребро.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Формула — необходимая проверка, но числа не всегда достаточны</h2>
+    <p class="ms-text">Для дерева равенство E = V − 1 выполняется обязательно. Однако одних чисел без дополнительной информации может быть недостаточно.</p>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Связный граф и E = V − 1</h3><p class="ms-card-text">Такой граф обязательно является деревом: лишнего ребра для цикла в нём нет.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Только E = V − 1</h3><p class="ms-card-text">Вывод делать нельзя. Граф может состоять из цикла и отдельной несвязанной части.</p></div>
+    </div>
+    <div class="ms-warning-box"><strong>Контрпример:</strong> треугольник и отдельно стоящая вершина дают V = 4 и E = 3, то есть E = V − 1. Но граф несвязный и потому не является деревом.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Правило умножения</h2>
+    <p class="ms-text">Пусть первый выбор можно сделать <strong>a</strong> способами, а после каждого варианта первого выбора второй выбор — <strong>b</strong> способами. Тогда общее число составных вариантов равно:</p>
+    <div class="ms-formula-banner">
+      <span class="ms-formula-main">a · b</span>
+      <span class="ms-formula-note">Количество вариантов на последовательных независимых этапах перемножают.</span>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Пример</span>Есть 3 футболки и 2 пары брюк. Для каждой футболки можно выбрать любую из 2 пар брюк. Поэтому число комплектов равно 3 · 2 = <strong>6</strong>.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Дерево вариантов</h2>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Три варианта первого выбора и два варианта второго</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 940 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Дерево вариантов: три первых выбора и два продолжения для каждого, всего шесть результатов">
+          <rect x="18" y="18" width="904" height="434" rx="26" fill="#f8fbff" stroke="#dbeafe" stroke-width="2"/>
+
+          <g stroke="#64748b" stroke-width="4" stroke-linecap="round">
+            <line x1="105" y1="235" x2="335" y2="100"/><line x1="105" y1="235" x2="335" y2="235"/><line x1="105" y1="235" x2="335" y2="370"/>
+            <line x1="365" y1="100" x2="680" y2="65"/><line x1="365" y1="100" x2="680" y2="135"/>
+            <line x1="365" y1="235" x2="680" y2="200"/><line x1="365" y1="235" x2="680" y2="270"/>
+            <line x1="365" y1="370" x2="680" y2="335"/><line x1="365" y1="370" x2="680" y2="405"/>
+          </g>
+
+          <g fill="#ffffff" stroke="#2563eb" stroke-width="4">
+            <circle cx="105" cy="235" r="18"/>
+            <circle cx="350" cy="100" r="18"/><circle cx="350" cy="235" r="18"/><circle cx="350" cy="370" r="18"/>
+          </g>
+
+          <g fill="#ffffff" stroke="#7c3aed" stroke-width="4">
+            <circle cx="700" cy="65" r="17"/><circle cx="700" cy="135" r="17"/>
+            <circle cx="700" cy="200" r="17"/><circle cx="700" cy="270" r="17"/>
+            <circle cx="700" cy="335" r="17"/><circle cx="700" cy="405" r="17"/>
+          </g>
+
+          <g font-size="17" font-weight="800" fill="#111827">
+            <text x="105" y="200" text-anchor="middle">Старт</text>
+            <text x="350" y="66" text-anchor="middle">A</text><text x="350" y="201" text-anchor="middle">B</text><text x="350" y="336" text-anchor="middle">C</text>
+          </g>
+
+          <g font-size="16" font-weight="800" fill="#6d28d9">
+            <text x="738" y="70">A1</text><text x="738" y="140">A2</text>
+            <text x="738" y="205">B1</text><text x="738" y="275">B2</text>
+            <text x="738" y="340">C1</text><text x="738" y="410">C2</text>
+          </g>
+
+          <text x="240" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">3 первых выбора</text>
+          <text x="520" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">по 2 продолжения</text>
+          <rect x="785" y="185" width="105" height="96" rx="20" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/>
+          <text x="837.5" y="220" text-anchor="middle" font-size="16" font-weight="700" fill="#5b21b6">Всего</text>
+          <text x="837.5" y="255" text-anchor="middle" font-size="27" font-weight="900" fill="#6d28d9">3 · 2 = 6</text>
+        </svg>
+      </div>
+    </div>
+    <div class="ms-choice-total">Каждый полный путь от начальной вершины к листу соответствует одному составному варианту.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Как применять правило умножения</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-4">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Разделите выбор на этапы</strong><span class="ms-card-text">Определите, что выбирается сначала, а что затем.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Посчитайте ветви</strong><span class="ms-card-text">Найдите число вариантов на каждом последовательном этапе.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Перемножьте числа</strong><span class="ms-card-text">Если число продолжений одинаково для каждого предыдущего выбора, примените произведение.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Проверьте листья</strong><span class="ms-card-text">Количество конечных путей должно совпасть с полученным произведением.</span></div>
+    </div>
+    <div class="ms-note">Если из разных ветвей выходит неодинаковое число продолжений, сначала считают варианты внутри каждой ветви, а затем складывают полученные количества.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Разобранные примеры</h2>
+    <div class="ms-example"><span class="ms-example-title">Пример 1. Код из трёх символов</span>Первый символ выбирают двумя способами, второй — тремя, третий — четырьмя. Число кодов: 2 · 3 · 4 = <strong>24</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 2. Маршрут с тремя этапами</span>На первом участке есть 3 дороги, после каждой из них — 2 дороги, а после каждой дороги второго этапа — 5 продолжений. Всего 3 · 2 · 5 = <strong>30 маршрутов</strong>.</div>
+    <div class="ms-example"><span class="ms-example-title">Пример 3. Неодинаковое ветвление</span>Из точки S можно пойти в A или B. Из A выходят 3 допустимых продолжения, из B — 4. Полных маршрутов 3 + 4 = <strong>7</strong>. Умножать 2 на одно общее число здесь нельзя, потому что ветви имеют разную длину списка продолжений.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task"><p>1. Сколько рёбер имеет дерево с 12 вершинами?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>E = V − 1 = 12 − 1 = <strong>11 рёбер</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>2. В дереве 17 рёбер. Сколько в нём вершин?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>V = E + 1 = 17 + 1 = <strong>18 вершин</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>3. В графе 9 вершин и 8 рёбер. Можно ли только по этим данным утверждать, что граф является деревом?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Нет. Равенство E = V − 1 выполнено, но граф может быть несвязным. Например, можно получить цикл в одной части и дерево в другой. Нужна дополнительная проверка связности или отсутствия циклов.</p></div></details></div>
+
+    <div class="ms-task"><p>4. Дерево строят с одной вершины. Затем семь раз добавляют по одной новой вершине, соединяя её одним ребром с уже построенной частью. Сколько получится вершин и рёбер?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Вершин: 1 + 7 = 8. При каждом добавлении возникает одно ребро, поэтому рёбер 7. Ответ: <strong>8 вершин и 7 рёбер</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>5. У ученика есть 4 футболки и 3 пары брюк. Сколько разных комплектов из одной футболки и одной пары брюк можно составить?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Для каждой из 4 футболок есть 3 выбора брюк: 4 · 3 = <strong>12 комплектов</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>6. Код состоит из трёх символов. Первый выбирают 2 способами, второй — 3 способами, третий — 4 способами. Сколько кодов возможно?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>2 · 3 · 4 = <strong>24 кода</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>7. В дереве вариантов на первом уровне 3 ветви, затем из каждой выходят 2 ветви, а из каждой полученной вершины — ещё 5. Сколько листьев будет на последнем уровне?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>3 · 2 · 5 = <strong>30 листьев</strong>.</p></div></details></div>
+
+    <div class="ms-task"><p>8. Из стартовой точки можно перейти в A или B. Из A есть 3 дальнейших маршрута, а из B — 4. Сколько полных маршрутов выходит из старта?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Через A проходят 3 маршрута, через B — 4. Эти группы не пересекаются, поэтому всего 3 + 4 = <strong>7 маршрутов</strong>.</p></div></details></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Финальный чек-ап: посчитано без перебора</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Для дерева</strong><span class="ms-card-text">E = V − 1, поэтому V = E + 1. Формула связывает общее число вершин и рёбер.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Для последовательных выборов</strong><span class="ms-card-text">Количество вариантов на этапах перемножают, если каждое продолжение доступно после каждого предыдущего выбора.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Для неодинаковых ветвей</strong><span class="ms-card-text">Сначала считают варианты в каждой ветви, затем складывают количества непересекающихся групп.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/derevo-svojstva-dereva/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/protivopolozhnoe-sobytie-diagramma-ejlera/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,149 @@
+<!-- wp:html -->
+
+
+
+
+
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">7 класс · Вероятность и статистика · Случайная изменчивость · Тема 3.4</div>
+    <h1 class="ms-title">Практическая работа «Случайная изменчивость»</h1>
+    <p class="ms-subtitle">Проведём небольшое статистическое исследование: обработаем 24 наблюдения, составим интервальную таблицу, построим гистограмму и сформулируем вывод без преувеличений.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/prakticheskaya-rabota-sluchajnaya-izmenchivost/#practice">Начать работу</a>
+      <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Исследовательская задача</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Шаг 1. Исходные данные</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Шаг 2. Числовые характеристики</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Шаг 3. Группировка и частоты</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Шаг 4. Гистограмма</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Проверь исследование</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Исследовательская задача</h2>
+    <p class="ms-text">Ученик в течение 24 учебных дней записывал время пути от дома до школы. Нужно определить типичную продолжительность поездки, оценить изменчивость и представить данные в компактной форме.</p>
+    <div class="ms-lab-header">
+      <div class="ms-lab-tag"><strong>Объект</strong><span>24 поездки по одному маршруту</span></div>
+      <div class="ms-lab-tag"><strong>Признак</strong><span>продолжительность пути</span></div>
+      <div class="ms-lab-tag"><strong>Единица</strong><span>минута</span></div>
+      <div class="ms-lab-tag"><strong>Цель</strong><span>описать центр и разброс</span></div>
+    </div>
+    <div class="ms-note">Чтобы сравнение было корректным, наблюдения должны относиться к похожим условиям: одному маршруту и обычным учебным дням.</div>
+  </section>
+
+  <section id="practice" class="ms-section-soft">
+    <h2>Шаг 1. Исходные данные</h2>
+    <div class="ms-data-strip">
+      <span class="ms-data-chip">18</span><span class="ms-data-chip">20</span><span class="ms-data-chip">22</span><span class="ms-data-chip">19</span><span class="ms-data-chip">21</span><span class="ms-data-chip">24</span><span class="ms-data-chip">20</span><span class="ms-data-chip">23</span><span class="ms-data-chip">25</span><span class="ms-data-chip">19</span><span class="ms-data-chip">22</span><span class="ms-data-chip">21</span><span class="ms-data-chip">18</span><span class="ms-data-chip">26</span><span class="ms-data-chip">24</span><span class="ms-data-chip">20</span><span class="ms-data-chip">23</span><span class="ms-data-chip">22</span><span class="ms-data-chip">19</span><span class="ms-data-chip">25</span><span class="ms-data-chip">21</span><span class="ms-data-chip">20</span><span class="ms-data-chip">24</span><span class="ms-data-chip">23</span>
+    </div>
+    <p class="ms-text">Сначала проверяем количество значений, единицы измерения и диапазон. Здесь N = 24, минимум равен 18 минутам, максимум — 26 минутам.</p>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>Шаг 2. Числовые характеристики</h2>
+    <div class="ms-three-grid ms-card-grid ms-columns-3">
+      <div class="ms-card"><h3>Среднее</h3><p>519 : 24 = 21,625 мин. При разумном округлении — около 21,6 мин.</p></div>
+      <div class="ms-card"><h3>Медиана</h3><p>После упорядочивания два средних значения равны 21 и 22, поэтому медиана — 21,5 мин.</p></div>
+      <div class="ms-card"><h3>Размах</h3><p>26 − 18 = 8 мин. Именно на столько отличаются крайние наблюдения.</p></div>
+    </div>
+    <div class="ms-insight">Среднее 21,625 и медиана 21,5 близки. Это позволяет считать 21–22 минуты разумной оценкой типичного времени пути для данной серии наблюдений.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>Шаг 3. Группировка и частоты</h2>
+    <p class="ms-text">Выберем три соседних интервала одинаковой длины — 3 минуты.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Интервал времени</th><th>[18; 21)</th><th>[21; 24)</th><th>[24; 27)</th><th>Всего</th></tr></thead>
+        <tbody>
+          <tr><th>Абсолютная частота</th><td>9</td><td>9</td><td>6</td><td>24</td></tr>
+          <tr><th>Относительная частота</th><td>0,375</td><td>0,375</td><td>0,25</td><td>1</td></tr>
+          <tr><th>В процентах</th><td>37,5%</td><td>37,5%</td><td>25%</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-check-row"><span class="ms-check-pill">9 + 9 + 6 = 24</span><span class="ms-check-pill">0,375 + 0,375 + 0,25 = 1</span><span class="ms-check-pill">37,5% + 37,5% + 25% = 100%</span></div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>Шаг 4. Гистограмма</h2>
+    <p class="ms-text">Столбцы соприкасаются, потому что интервалы образуют непрерывную числовую шкалу. Их высоты равны числу дней в каждой группе.</p>
+    <div class="ms-figure">
+      <div class="ms-figure-title">Распределение времени пути за 24 дня</div>
+      <div class="ms-svg-wrap">
+<svg class="ms-svg" viewBox="0 0 760 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Гистограмма времени пути до школы">
+  <rect x="0" y="0" width="760" height="390" rx="24" fill="#ffffff"/>
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="100" y1="300" x2="670" y2="300"/>
+    <line x1="100" y1="250" x2="670" y2="250"/>
+    <line x1="100" y1="200" x2="670" y2="200"/>
+    <line x1="100" y1="150" x2="670" y2="150"/>
+    <line x1="100" y1="100" x2="670" y2="100"/>
+    <line x1="100" y1="50" x2="670" y2="50"/>
+  </g>
+  <g stroke="#111827" stroke-width="2">
+    <line x1="100" y1="320" x2="670" y2="320"/>
+    <line x1="100" y1="320" x2="100" y2="40"/>
+  </g>
+  <g fill="#4b5563" font-size="14" font-family="Arial, sans-serif">
+    <text x="80" y="325" text-anchor="end">0</text>
+    <text x="80" y="275" text-anchor="end">2</text>
+    <text x="80" y="225" text-anchor="end">4</text>
+    <text x="80" y="175" text-anchor="end">6</text>
+    <text x="80" y="125" text-anchor="end">8</text>
+    <text x="80" y="75" text-anchor="end">10</text>
+    <text x="195" y="350" text-anchor="middle">[18; 21)</text>
+    <text x="385" y="350" text-anchor="middle">[21; 24)</text>
+    <text x="575" y="350" text-anchor="middle">[24; 27)</text>
+    <text x="385" y="380" text-anchor="middle">Время, мин</text>
+    <text x="25" y="185" text-anchor="middle" transform="rotate(-90 25 185)">Число дней</text>
+  </g>
+  <g fill="#7c3aed">
+    <rect x="100" y="95" width="190" height="225" rx="4"/>
+    <rect x="290" y="95" width="190" height="225" rx="4"/>
+    <rect x="480" y="170" width="190" height="150" rx="4"/>
+  </g>
+  <g fill="#ffffff" font-size="18" font-weight="700" font-family="Arial, sans-serif">
+    <text x="195" y="125" text-anchor="middle">9</text>
+    <text x="385" y="125" text-anchor="middle">9</text>
+    <text x="575" y="200" text-anchor="middle">6</text>
+  </g>
+</svg>
+</div>
+    </div>
+    <div class="ms-example"><span class="ms-example-title">Чтение результата</span>18 дней из 24, то есть 75%, поездка занимала меньше 24 минут. В 6 днях время находилось в интервале от 24 до 26 минут включительно.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>Проверь исследование</h2>
+    <div class="ms-task"><p>1. Сколько наблюдений содержит исходный набор?</p><details class="ms-answer"><summary>Показать решение</summary><div><p><strong>24 наблюдения.</strong></p></div></details></div>
+    <div class="ms-task"><p>2. Найдите минимальное и максимальное время пути.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Минимум — 18 минут, максимум — 26 минут.</p></div></details></div>
+    <div class="ms-task"><p>3. Чему равен размах?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>26 − 18 = <strong>8 минут</strong>.</p></div></details></div>
+    <div class="ms-task"><p>4. Сколько поездок попало в интервал [21; 24)?</p><details class="ms-answer"><summary>Показать решение</summary><div><p><strong>9 поездок.</strong> В интервал входят 21, 22 и 23 минуты.</p></div></details></div>
+    <div class="ms-task"><p>5. Какова относительная частота интервала [24; 27)?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>6 : 24 = 0,25 = <strong>25%</strong>.</p></div></details></div>
+    <div class="ms-task"><p>6. Сколько дней путь занимал меньше 24 минут?</p><details class="ms-answer"><summary>Показать решение</summary><div><p>9 + 9 = <strong>18 дней</strong>.</p></div></details></div>
+    <div class="ms-task"><p>7. Можно ли по этой выборке утверждать, что дорога всегда занимает не более 26 минут?</p><details class="ms-answer"><summary>Показать решение</summary><div><p><strong>Нет.</strong> В данной серии максимум равен 26 минутам, но в будущем может появиться большее значение.</p></div></details></div>
+    <div class="ms-task"><p>8. Сформулируйте краткий корректный вывод по исследованию.</p><details class="ms-answer"><summary>Показать решение</summary><div><p>Например: «В исследованной серии типичное время пути составляло около 21–22 минут; 75% поездок заняли меньше 24 минут, а общий размах равен 8 минутам».</p></div></details></div>
+  </section>
+
+  <section class="ms-lab-result">
+    <h2>Лабораторный вывод</h2>
+    <div class="ms-lab-fields">
+      <div class="ms-lab-field"><strong>Что обнаружено</strong><span>Отдельные поездки различаются, но большая часть значений сосредоточена около 21–23 минут.</span></div>
+      <div class="ms-lab-field"><strong>Как представлено</strong><span>Использованы числовые характеристики, интервальная таблица и гистограмма.</span></div>
+      <div class="ms-lab-field"><strong>Что можно утверждать</strong><span>Для этих 24 дней типичное время пути — примерно 21–22 минуты.</span></div>
+      <div class="ms-lab-field"><strong>Чего утверждать нельзя</strong><span>Нельзя гарантировать, что будущая поездка обязательно попадёт в найденный диапазон.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/gruppirovka-gistogrammy/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/7-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+    <a class="ms-btn" href="/vvedenie-v-teoriyu-grafov/">Следующая тема</a>
+  </div>
+</div>
+<!-- /wp:html -->

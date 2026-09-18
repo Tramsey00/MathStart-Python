@@ -1,0 +1,635 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Случайная величина · Тема 4.1
+    </div>
+
+    <h1 class="ms-title">Случайная величина и распределение вероятностей</h1>
+
+    <p class="ms-subtitle">
+      Научимся описывать числовой результат случайного опыта,
+      находить возможные значения случайной величины, составлять
+      таблицу распределения и вычислять вероятности событий по ней.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/sluchajnaya-velichina-i-raspredelenie-veroyatnostej/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>От исхода опыта — к числу</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Возможные значения случайной величины</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Распределение вероятностей</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Распределение числа орлов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как находить вероятность события по таблице</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как восстановить неизвестную вероятность</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Проверка распределения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>От исхода опыта — к числу</h2>
+
+    <p class="ms-text">
+      Результат случайного опыта не всегда удобно описывать словами.
+      Часто каждому исходу ставят в соответствие число. Например,
+      при двух бросках монеты можно подсчитать число выпавших орлов.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Случайный опыт</span>
+        <h3 class="ms-card-title">Два броска монеты</h3>
+        <p class="ms-card-text">
+          Элементарные исходы: ОО, ОР, РО, РР, где О — орёл,
+          Р — решка.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Числовой результат</span>
+        <h3 class="ms-card-title">Число орлов</h3>
+        <p class="ms-card-text">
+          Величина X принимает значения 0, 1 или 2 в зависимости
+          от результата опыта.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Случайная величина</strong> — числовая величина,
+      значение которой определяется результатом случайного опыта.
+      До проведения опыта её точное значение неизвестно.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Возможные значения случайной величины</h2>
+
+    <p class="ms-text">
+      Все числа, которые случайная величина может принять,
+      называют её возможными значениями.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Случайная величина X</th>
+            <th>Возможные значения</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Число орлов при двух бросках монеты</td>
+            <td>0, 1, 2</td>
+          </tr>
+
+          <tr>
+            <td>Число шестёрок при трёх бросках кубика</td>
+            <td>0, 1, 2, 3</td>
+          </tr>
+
+          <tr>
+            <td>Число исправных деталей среди четырёх проверенных</td>
+            <td>0, 1, 2, 3, 4</td>
+          </tr>
+
+          <tr>
+            <td>Число очков при одном броске кубика</td>
+            <td>1, 2, 3, 4, 5, 6</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-rule-box">
+      Случайная величина — это не одно событие. Она объединяет
+      несколько событий вида X = x<sub>i</sub>, каждое из которых
+      имеет свою вероятность.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Распределение вероятностей</h2>
+
+    <p class="ms-text">
+      Чтобы полностью описать дискретную случайную величину,
+      указывают все её возможные значения и вероятность каждого
+      значения.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        P(X = x<sub>1</sub>) = p<sub>1</sub>,
+        P(X = x<sub>2</sub>) = p<sub>2</sub>, …,
+        P(X = x<sub>n</sub>) = p<sub>n</sub>
+      </div>
+
+      <div class="ms-formula">
+        p<sub>1</sub> + p<sub>2</sub> + … + p<sub>n</sub> = 1
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Таблица, в которой каждому возможному значению случайной
+      величины сопоставлена его вероятность, называется
+      <strong>распределением вероятностей</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Распределение числа орлов</h2>
+
+    <p class="ms-text">
+      Рассмотрим два броска симметричной монеты. Все четыре исхода
+      ОО, ОР, РО, РР равновозможны.
+    </p>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Значение X</th>
+            <th>Благоприятные исходы</th>
+            <th>Вероятность</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>0</td>
+            <td>РР</td>
+            <td>
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">4</span>
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>1</td>
+            <td>ОР, РО</td>
+            <td>
+              <span class="ms-frac">
+                <span class="ms-num">2</span>
+                <span class="ms-den">4</span>
+              </span>
+              =
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">2</span>
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>ОО</td>
+            <td>
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">4</span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        <span class="ms-frac">
+          <span class="ms-num">1</span>
+          <span class="ms-den">4</span>
+        </span>
+        +
+        <span class="ms-frac">
+          <span class="ms-num">1</span>
+          <span class="ms-den">2</span>
+        </span>
+        +
+        <span class="ms-frac">
+          <span class="ms-num">1</span>
+          <span class="ms-den">4</span>
+        </span>
+        = 1
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Распределение случайной величины X — числа орлов
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 820 430"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Столбчатая диаграмма распределения числа орлов при двух бросках монеты"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="818"
+            height="428"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <line x1="110" y1="335" x2="750" y2="335" stroke="#94a3b8" stroke-width="3"></line>
+          <line x1="110" y1="75" x2="110" y2="335" stroke="#94a3b8" stroke-width="3"></line>
+
+          <g stroke="#e2e8f0" stroke-width="1.5">
+            <line x1="110" y1="205" x2="750" y2="205"></line>
+            <line x1="110" y1="75" x2="750" y2="75"></line>
+          </g>
+
+          <g font-size="15" fill="#64748b">
+            <text x="62" y="340">0</text>
+            <text x="52" y="210">0,25</text>
+            <text x="52" y="80">0,50</text>
+          </g>
+
+          <g fill="#dbeafe" stroke="#60a5fa" stroke-width="2">
+            <rect x="190" y="205" width="110" height="130" rx="13"></rect>
+            <rect x="355" y="75" width="110" height="260" rx="13"></rect>
+            <rect x="520" y="205" width="110" height="130" rx="13"></rect>
+          </g>
+
+          <g text-anchor="middle" font-size="16" font-weight="800" fill="#1e3a8a">
+            <text x="245" y="192">0,25</text>
+            <text x="410" y="62">0,50</text>
+            <text x="575" y="192">0,25</text>
+          </g>
+
+          <g text-anchor="middle" font-size="17" font-weight="800" fill="#111827">
+            <text x="245" y="372">X = 0</text>
+            <text x="410" y="372">X = 1</text>
+            <text x="575" y="372">X = 2</text>
+          </g>
+
+          <text
+            x="430"
+            y="405"
+            text-anchor="middle"
+            font-size="16"
+            font-weight="800"
+            fill="#2563eb"
+          >
+            Высота столбца равна вероятности значения
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Как находить вероятность события по таблице</h2>
+
+    <p class="ms-text">
+      Если событие включает несколько возможных значений случайной
+      величины, соответствующие вероятности складывают.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Вероятность хотя бы одного орла
+      </span>
+
+      Событие X ≥ 1 включает значения X = 1 и X = 2:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          P(X ≥ 1) =
+          P(X = 1) + P(X = 2) =
+          <span class="ms-frac">
+            <span class="ms-num">1</span>
+            <span class="ms-den">2</span>
+          </span>
+          +
+          <span class="ms-frac">
+            <span class="ms-num">1</span>
+            <span class="ms-den">4</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">3</span>
+            <span class="ms-den">4</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Вероятность не более одного орла
+      </span>
+
+      Событие X ≤ 1 включает значения X = 0 и X = 1:
+
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          P(X ≤ 1) =
+          <span class="ms-frac">
+            <span class="ms-num">1</span>
+            <span class="ms-den">4</span>
+          </span>
+          +
+          <span class="ms-frac">
+            <span class="ms-num">1</span>
+            <span class="ms-den">2</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">3</span>
+            <span class="ms-den">4</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Как восстановить неизвестную вероятность</h2>
+
+    <p class="ms-text">
+      Сумма всех вероятностей распределения равна единице.
+      Это свойство позволяет находить пропущенное значение.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+
+      Случайная величина принимает значения −1, 0 и 2
+      с вероятностями 0,2; 0,5 и a.
+
+      <div class="ms-math-box">
+        <div class="ms-math-row">0,2 + 0,5 + a = 1</div>
+        <div class="ms-formula">a = 1 − 0,7 = 0,3</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. Кубик бросают три раза. Случайная величина X равна числу
+        выпавших шестёрок. Какие значения может принимать X?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Шестёрка может не выпасть ни разу, выпасть один,
+            два или три раза.
+          </p>
+          <p><strong>X = 0, 1, 2, 3.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Случайная величина принимает значения −1, 0 и 2
+        с вероятностями 0,2; 0,5 и a. Найдите a.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>0,2 + 0,5 + a = 1.</p>
+          <p><strong>a = 0,3.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Для числа орлов при двух бросках монеты найдите
+        P(X ≥ 1).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P(X ≥ 1) = P(X = 1) + P(X = 2).
+          </p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>
+            +
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">4</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">3</span>
+                <span class="ms-den">4</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Составьте распределение числа решек при двух бросках
+        симметричной монеты.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Возможные значения: 0, 1, 2.
+          </p>
+          <p>
+            Вероятности соответственно:
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">4</span>
+            </span>,
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>,
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">4</span>
+            </span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. Кубик бросают один раз. X = 1, если выпало чётное число,
+        и X = 0, если выпало нечётное число. Найдите распределение X.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Чётных и нечётных граней по три.
+          </p>
+          <p>
+            P(X = 0) =
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>,
+            P(X = 1) =
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. X принимает значения −2, 0 и 3 с вероятностями
+        0,15; 0,50 и 0,35. Найдите P(X ≠ 0).
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P(X ≠ 0) = P(X = −2) + P(X = 3).
+          </p>
+          <p>P = 0,15 + 0,35 = <strong>0,50</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Может ли набор вероятностей 0,2; 0,3; 0,4 задавать
+        полное распределение случайной величины?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            0,2 + 0,3 + 0,4 = 0,9, а сумма должна быть равна 1.
+          </p>
+          <p><strong>Нет, такое распределение неполно.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Две монеты бросают одновременно. X = 1, если результаты
+        на монетах различны, и X = 0, если одинаковы.
+        Найдите распределение X.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Одинаковые результаты: ОО, РР — два исхода из четырёх.
+            Различные: ОР, РО — также два исхода.
+          </p>
+          <p>
+            P(X = 0) = 0,5, P(X = 1) = 0,5.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Проверка распределения</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Перечислены все значения</strong>
+        <span class="ms-card-text">
+          В таблице должны присутствовать все возможные значения
+          случайной величины и не должно быть невозможных значений.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Вероятности допустимы</strong>
+        <span class="ms-card-text">
+          Каждая вероятность находится от 0 до 1, а сумма всех
+          вероятностей распределения равна единице.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Событие переведено на язык X</strong>
+        <span class="ms-card-text">
+          Для условий «не менее», «не более» и «между» сложены
+          вероятности всех подходящих значений.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/prakticheskaya-rabota-ispytaniya-bernulli/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/matematicheskoe-ozhidanie-i-dispersiya-sluchajnoj-velichiny/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

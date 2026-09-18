@@ -1,0 +1,500 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">9 класс · Алгебра · Числовые последовательности · Тема 4.3</div>
+    <h1 class="ms-title">Геометрическая прогрессия. Свойства геометрической прогрессии</h1>
+    <p class="ms-subtitle">Научимся распознавать геометрическую прогрессию, находить её знаменатель и любой член, применять характеристическое свойство, вычислять сумму первых n членов и моделировать многократное увеличение или уменьшение величины.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+      <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Определение геометрической прогрессии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как найти знаменатель прогрессии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Одинаковый множитель между соседними членами</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Формула n-го члена</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Как восстановить параметры прогрессии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Характеристическое свойство</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Сумма первых n членов</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Бесконечно убывающая геометрическая прогрессия</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Практическая модель многократного роста</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-10"><span class="ms-toc-number">10</span><span class="ms-toc-copy"><strong>Типичные ошибки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#practice"><span class="ms-toc-number">11</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-12"><span class="ms-toc-number">12</span><span class="ms-toc-copy"><strong>Панель геометрического изменения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="theory">
+    <h2>1. Определение геометрической прогрессии</h2>
+    <p class="ms-text"><strong>Геометрическая прогрессия</strong> — последовательность отличных от нуля чисел, в которой каждый следующий член, начиная со второго, получается умножением предыдущего на одно и то же ненулевое число.</p>
+    <div class="ms-rule-box"><strong>b<sub>n+1</sub>=b<sub>n</sub>q</strong>, где q — постоянный знаменатель геометрической прогрессии.</div>
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <h3 class="ms-card-title">Геометрическая прогрессия</h3>
+        <p class="ms-card-text">2, 6, 18, 54, … Каждый следующий член получается умножением предыдущего на 3, поэтому q=3.</p>
+      </div>
+      <div class="ms-card">
+        <h3 class="ms-card-title">Не является прогрессией</h3>
+        <p class="ms-card-text">2, 4, 12, 24, … Отношения соседних членов равны 2, 3 и 2, поэтому постоянного знаменателя нет.</p>
+      </div>
+    </div>
+    <div class="ms-note">Постоянная ненулевая последовательность также является геометрической прогрессией: например, 7, 7, 7, … имеет знаменатель q=1.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Как найти знаменатель прогрессии</h2>
+    <p class="ms-text">Знаменатель равен отношению любого члена прогрессии, начиная со второго, к предыдущему члену.</p>
+    <div class="ms-rule-box">
+      <strong>
+        q=
+        <span class="ms-frac">
+          <span class="ms-num">b<sub>n+1</sub></span>
+          <span class="ms-den">b<sub>n</sub></span>
+        </span>
+      </strong>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 1. Находим q по соседним членам</span>
+      Для последовательности 96, 48, 24, 12, …:
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          q=
+          <span class="ms-frac">
+            <span class="ms-num">48</span>
+            <span class="ms-den">96</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">1</span>
+            <span class="ms-den">2</span>
+          </span>.
+        </div>
+      </div>
+      Каждый следующий член вдвое меньше предыдущего.
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Значение q</th>
+            <th>Поведение членов прогрессии</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>q&gt;1</strong></td>
+            <td>При положительном b<sub>1</sub> члены возрастают по модулю и сохраняют знак.</td>
+          </tr>
+          <tr>
+            <td><strong>0&lt;q&lt;1</strong></td>
+            <td>Члены сохраняют знак, а их модули уменьшаются и приближаются к нулю.</td>
+          </tr>
+          <tr>
+            <td><strong>q&lt;0</strong></td>
+            <td>Знаки членов чередуются; последовательность обычно не является монотонной.</td>
+          </tr>
+          <tr>
+            <td><strong>q=1</strong></td>
+            <td>Все члены равны первому члену.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Одинаковый множитель между соседними членами</h2>
+    <div class="ms-figure">
+      <p class="ms-figure-title">Последовательность 2, 6, 18, 54, …</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 840 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Члены геометрической прогрессии два, шесть, восемнадцать и пятьдесят четыре, между которыми выполняется умножение на три">
+          <rect width="840" height="320" rx="24" fill="#ffffff"></rect>
+          <rect x="24" y="20" width="792" height="275" rx="22" fill="#f8fafc" stroke="#e5e7eb" stroke-width="2"></rect>
+
+          <g stroke="#94a3b8" stroke-width="3">
+            <line x1="110" y1="200" x2="730" y2="200"></line>
+          </g>
+
+          <g fill="#ffffff" stroke="#2563eb" stroke-width="4">
+            <circle cx="150" cy="200" r="30"></circle>
+            <circle cx="330" cy="200" r="30"></circle>
+            <circle cx="510" cy="200" r="30"></circle>
+            <circle cx="690" cy="200" r="30"></circle>
+          </g>
+
+          <g font-family="inherit" font-size="18" font-weight="800" fill="#1d4ed8" text-anchor="middle">
+            <text x="150" y="207">2</text>
+            <text x="330" y="207">6</text>
+            <text x="510" y="207">18</text>
+            <text x="690" y="207">54</text>
+          </g>
+
+          <g fill="none" stroke="#7c3aed" stroke-width="3">
+            <path d="M180 178 Q240 105 300 178"></path>
+            <path d="M360 178 Q420 105 480 178"></path>
+            <path d="M540 178 Q600 105 660 178"></path>
+          </g>
+
+          <g font-family="inherit" font-size="17" font-weight="800" fill="#6d28d9" text-anchor="middle">
+            <text x="240" y="118">×3</text>
+            <text x="420" y="118">×3</text>
+            <text x="600" y="118">×3</text>
+          </g>
+
+          <text x="420" y="266" text-anchor="middle" font-family="inherit" font-size="16" font-weight="700" fill="#475569">
+            каждый переход означает умножение на один и тот же знаменатель q
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Формула n-го члена</h2>
+    <p class="ms-text">От первого члена до n-го выполняется n−1 умножений на q.</p>
+    <div class="ms-rule-box"><strong>b<sub>n</sub>=b<sub>1</sub>q<sup>n−1</sup></strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 2. Находим член с большим номером</span>
+      Дано: b<sub>1</sub>=5, q=−2. Найдём b<sub>7</sub>.
+      <div class="ms-math-box">
+        <div class="ms-math-row">b<sub>7</sub>=5·(−2)<sup>7−1</sup>;</div>
+        <div class="ms-math-row">b<sub>7</sub>=5·64=320.</div>
+      </div>
+      <strong>Ответ: 320.</strong>
+    </div>
+    <div class="ms-note">Отрицательный знаменатель обязательно заключают в скобки. Чётность показателя n−1 определяет знак результата.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Как восстановить параметры прогрессии</h2>
+    <div class="ms-formula-grid ms-card-grid ms-columns-2">
+      <div class="ms-formula-card ms-card">
+        <div class="ms-formula-line">
+          <span class="ms-formula-prefix">q<sup>n−m</sup> =</span>
+          <span class="ms-frac">
+            <span class="ms-num">b<sub>n</sub></span>
+            <span class="ms-den">b<sub>m</sub></span>
+          </span>
+        </div>
+        <span class="ms-card-text">Используется, если известны два члена с разными номерами.</span>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <div class="ms-formula-line">
+          <span class="ms-formula-prefix">b<sub>1</sub> =</span>
+          <span class="ms-frac">
+            <span class="ms-num">b<sub>n</sub></span>
+            <span class="ms-den">q<sup>n−1</sup></span>
+          </span>
+        </div>
+        <span class="ms-card-text">Позволяет восстановить первый член по b<sub>n</sub> и знаменателю q.</span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 3. Известны два удалённых члена</span>
+      Пусть b<sub>3</sub>=12, b<sub>6</sub>=324.
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          q<sup>6−3</sup>=
+          <span class="ms-frac">
+            <span class="ms-num">324</span>
+            <span class="ms-den">12</span>
+          </span>
+          =27;
+        </div>
+        <div class="ms-math-row">q³=27, поэтому q=3;</div>
+        <div class="ms-math-row">
+          b<sub>1</sub>=
+          <span class="ms-frac">
+            <span class="ms-num">12</span>
+            <span class="ms-den">3²</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">4</span>
+            <span class="ms-den">3</span>
+          </span>.
+        </div>
+      </div>
+      <strong>Ответ: q=3, b<sub>1</sub>=4/3.</strong>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 4. Находим номер члена</span>
+      В прогрессии b<sub>1</sub>=3, q=2. Под каким номером находится число 192?
+      <div class="ms-math-box">
+        <div class="ms-math-row">3·2<sup>n−1</sup>=192;</div>
+        <div class="ms-math-row">2<sup>n−1</sup>=64=2⁶;</div>
+        <div class="ms-math-row">n−1=6, поэтому n=7.</div>
+      </div>
+      <strong>Ответ: число 192 является седьмым членом.</strong>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Характеристическое свойство</h2>
+    <p class="ms-text">Квадрат каждого члена геометрической прогрессии, начиная со второго, равен произведению соседних с ним членов.</p>
+    <div class="ms-rule-box"><strong>b<sub>n</sub>²=b<sub>n−1</sub>b<sub>n+1</sub></strong></div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 5. Находим положительный средний член</span>
+      В положительной геометрической прогрессии b<sub>5</sub>=12, b<sub>7</sub>=48.
+      <div class="ms-math-box">
+        <div class="ms-math-row">b<sub>6</sub>²=12·48=576;</div>
+        <div class="ms-math-row">b<sub>6</sub>=24, так как все члены прогрессии положительны.</div>
+      </div>
+      <strong>Ответ: 24.</strong>
+    </div>
+    <div class="ms-note">Без дополнительного условия о знаке из равенства b<sub>n</sub>²=A могут получиться два значения: b<sub>n</sub>=±√A.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Сумма первых n членов</h2>
+    <p class="ms-text">При q≠1 сумму первых n членов вычисляют по одной из двух равносильных формул.</p>
+    <div class="ms-formula-grid ms-card-grid ms-columns-2">
+      <div class="ms-formula-card ms-card">
+        <div class="ms-formula-line">
+          <span class="ms-formula-prefix">S<sub>n</sub> =</span>
+          <span class="ms-frac">
+            <span class="ms-num">b<sub>1</sub>(q<sup>n</sup>−1)</span>
+            <span class="ms-den">q−1</span>
+          </span>
+        </div>
+        <span class="ms-card-text">Удобная запись, когда q&gt;1 или выражение q<sup>n</sup>−1 получается положительным.</span>
+      </div>
+
+      <div class="ms-formula-card ms-card">
+        <div class="ms-formula-line">
+          <span class="ms-formula-prefix">S<sub>n</sub> =</span>
+          <span class="ms-frac">
+            <span class="ms-num">b<sub>1</sub>(1−q<sup>n</sup>)</span>
+            <span class="ms-den">1−q</span>
+          </span>
+        </div>
+        <span class="ms-card-text">Часто удобна при 0&lt;q&lt;1. Обе формулы дают одинаковый результат.</span>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 6. Сумма шести членов</span>
+      Дано: b<sub>1</sub>=3, q=2, n=6.
+      <div class="ms-math-box">
+        <div class="ms-math-row">
+          S<sub>6</sub>=
+          <span class="ms-frac">
+            <span class="ms-num">3·(2⁶−1)</span>
+            <span class="ms-den">2−1</span>
+          </span>;
+        </div>
+        <div class="ms-math-row">S<sub>6</sub>=3·63=189.</div>
+      </div>
+      <strong>Ответ: 189.</strong>
+    </div>
+
+    <div class="ms-answer-box">Особый случай: если q=1, то все члены равны b<sub>1</sub>, поэтому <strong>S<sub>n</sub>=nb<sub>1</sub></strong>.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>8. Бесконечно убывающая геометрическая прогрессия</h2>
+    <p class="ms-text">Если |q|&lt;1, модули членов приближаются к нулю. Такая прогрессия имеет конечную сумму всех бесконечно многих членов.</p>
+    <div class="ms-rule-box">
+      <strong>
+        S=
+        <span class="ms-frac">
+          <span class="ms-num">b<sub>1</sub></span>
+          <span class="ms-den">1−q</span>
+        </span>,
+        если |q|&lt;1
+      </strong>
+    </div>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 7. Сумма бесконечной прогрессии</span>
+      Дана прогрессия 12, 4, 4/3, 4/9, …
+      <div class="ms-math-box">
+        <div class="ms-math-row">b<sub>1</sub>=12, q=1/3;</div>
+        <div class="ms-math-row">
+          S=
+          <span class="ms-frac">
+            <span class="ms-num">12</span>
+            <span class="ms-den">1−1/3</span>
+          </span>
+          =
+          <span class="ms-frac">
+            <span class="ms-num">12</span>
+            <span class="ms-den">2/3</span>
+          </span>
+          =18.
+        </div>
+      </div>
+      <strong>Ответ: 18.</strong>
+    </div>
+    <div class="ms-note">Формулу бесконечной суммы нельзя применять при |q|≥1: в этом случае члены не стремятся к нулю.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>9. Практическая модель многократного роста</h2>
+    <div class="ms-example">
+      <span class="ms-example-title">Пример 8. Увеличение количества клеток</span>
+      В начале наблюдения было 150 клеток. Каждые 20 минут их количество удваивается. Сколько клеток будет через 100 минут?
+      <div class="ms-math-box">
+        <div class="ms-math-row">За 100 минут произойдёт 100:20=5 удвоений.</div>
+        <div class="ms-math-row">Начальное количество соответствует b<sub>1</sub>=150.</div>
+        <div class="ms-math-row">После пяти удвоений: 150·2⁵=4800.</div>
+      </div>
+      <strong>Ответ: 4800 клеток.</strong>
+    </div>
+    <div class="ms-note">В задачах на проценты знаменатель равен коэффициенту изменения. Например, увеличение на 8% за каждый период соответствует q=1,08, а уменьшение на 8% — q=0,92.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-10">
+    <h2>10. Типичные ошибки</h2>
+    <div class="ms-error-grid ms-card-grid ms-columns-2">
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Используют показатель n</strong>
+        <p class="ms-card-text">В формуле общего члена должно быть q<sup>n−1</sup>, потому что от первого члена выполняется n−1 переходов.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Вычитают соседние члены</strong>
+        <p class="ms-card-text">В геометрической прогрессии постоянным является отношение, а не разность соседних членов.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Теряют знак q</strong>
+        <p class="ms-card-text">При отрицательном знаменателе знаки чередуются, поэтому q подставляют в скобках.</p>
+      </div>
+      <div class="ms-error-card ms-card ms-card--error">
+        <strong class="ms-card-title">Применяют бесконечную сумму при |q|≥1</strong>
+        <p class="ms-card-text">Формула S=b<sub>1</sub>/(1−q) работает только для бесконечно убывающей прогрессии.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="practice">
+    <h2>11. Самопроверка</h2>
+    <p class="ms-text">Сначала определите b<sub>1</sub>, q, n и требуемую величину, затем выберите формулу общего члена, характеристического свойства или суммы.</p>
+
+    <div class="ms-task">
+      <p><strong>1.</strong> Найдите знаменатель прогрессии 3, 12, 48, 192, …</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>q=12/3=4.</p>
+          <p><strong>Ответ: 4.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>2.</strong> Выпишите первые пять членов прогрессии, если b<sub>1</sub>=80, q=1/2.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Каждый следующий член вдвое меньше предыдущего.</p>
+          <p><strong>Ответ: 80, 40, 20, 10, 5.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>3.</strong> Найдите b<sub>7</sub>, если b<sub>1</sub>=5, q=−2.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>b<sub>7</sub>=5·(−2)⁶=5·64=320.</p>
+          <p><strong>Ответ: 320.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>4.</strong> Известно, что b<sub>3</sub>=12, b<sub>6</sub>=324. Найдите q.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>q³=324/12=27.</p>
+          <p>q=3.</p>
+          <p><strong>Ответ: 3.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>5.</strong> Найдите b<sub>8</sub>, если b<sub>5</sub>=24, q=2.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>От b<sub>5</sub> до b<sub>8</sub> выполняются три умножения на 2.</p>
+          <p>b<sub>8</sub>=24·2³=192.</p>
+          <p><strong>Ответ: 192.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>6.</strong> В положительной геометрической прогрессии b<sub>5</sub>=12, b<sub>7</sub>=48. Найдите b<sub>6</sub>.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>b<sub>6</sub>²=12·48=576.</p>
+          <p>Так как прогрессия положительная, b<sub>6</sub>=24.</p>
+          <p><strong>Ответ: 24.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>7.</strong> Найдите сумму первых шести членов, если b<sub>1</sub>=3, q=2.</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>S<sub>6</sub>=3(2⁶−1)/(2−1)=3·63=189.</p>
+          <p><strong>Ответ: 189.</strong></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p><strong>8.</strong> Найдите сумму бесконечной прогрессии 12, 4, 4/3, 4/9, …</p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>b<sub>1</sub>=12, q=1/3, поэтому |q|&lt;1.</p>
+          <p>S=12/(1−1/3)=18.</p>
+          <p><strong>Ответ: 18.</strong></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-12">
+    <h2>12. Панель геометрического изменения</h2>
+    <p class="ms-text">Определите, что требуется найти, и выберите соответствующую строку.</p>
+    <div class="ms-dashboard">
+      <div class="ms-dashboard-main">
+        <span>Главный признак</span>
+        <strong>Каждый следующий член получается умножением на один и тот же знаменатель q.</strong>
+      </div>
+      <div class="ms-dashboard-list">
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">q</div>
+          <div class="ms-dashboard-text"><strong>Проверить прогрессию:</strong> сравните отношения соседних ненулевых членов.</div>
+        </div>
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">b</div>
+          <div class="ms-dashboard-text"><strong>Найти отдельный член:</strong> примените b<sub>n</sub>=b<sub>1</sub>q<sup>n−1</sup>.</div>
+        </div>
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">S</div>
+          <div class="ms-dashboard-text"><strong>Найти конечную сумму:</strong> используйте формулу S<sub>n</sub> при q≠1 или S<sub>n</sub>=nb<sub>1</sub> при q=1.</div>
+        </div>
+        <div class="ms-dashboard-row">
+          <div class="ms-dashboard-icon">∞</div>
+          <div class="ms-dashboard-text"><strong>Найти бесконечную сумму:</strong> сначала обязательно проверьте условие |q|&lt;1.</div>
+        </div>
+      </div>
+    </div>
+    <div class="ms-answer-box"><strong>Финальный чек:</strong> разность относится к арифметической прогрессии, а отношение — к геометрической.</div>
+    <p class="ms-text" style="margin-top:18px">В следующем разделе перейдём к элементам комбинаторики и научимся подсчитывать количество возможных вариантов без полного перебора.</p>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/arifmeticheskaya-progressiya-svojstva-arifmeticheskoj-progressii/">← Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/9-klass-algebra/">К темам алгебры</a>
+    <a class="ms-btn" href="/elementy-kombinatoriki-kombinatornye-zadachi/">Следующая тема →</a>
+  </div>
+</div>
+<!-- /wp:html -->

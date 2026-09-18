@@ -1,0 +1,31 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-concept-map {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-concept-item {
+  padding: 17px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-concept-item strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #1d4ed8;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.ms-lesson-page .ms-concept-item p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-concept-map {
+    grid-template-columns: 1fr;
+  }
+}

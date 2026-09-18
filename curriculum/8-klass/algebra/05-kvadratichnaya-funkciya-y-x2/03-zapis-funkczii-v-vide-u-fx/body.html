@@ -1,0 +1,732 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">
+      8 класс · Алгебра · Квадратичная функция · Тема 5.3
+    </div>
+
+    <h1 class="ms-title">Запись функции в виде y = f(x)</h1>
+
+    <p class="ms-subtitle">
+      Научимся понимать функциональную запись, различать аргумент
+      и значение функции, вычислять f(a), находить допустимые значения x,
+      определять нули функции и читать информацию,
+      заданную формулой, таблицей или графиком.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="#theory">Перейти к теории</a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Что означает буква f</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Как вычислить значение функции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Функция как «машина»</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Область определения функции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Нули функции</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Что можно узнать из записи f(a) = b</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Типичные ошибки в функциональной записи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 10</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Шпаргалка по функциональной записи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Что означает буква f</h2>
+
+    <p class="ms-text">
+      Запись y = f(x) означает, что значение переменной y
+      зависит от выбранного значения x по некоторому правилу.
+      Буквой f обозначают само правило соответствия.
+    </p>
+
+    <div class="ms-function-notation">
+      <span class="ms-function-notation-main">
+        y = f(x)
+      </span>
+
+      <span class="ms-function-notation-caption">
+        Читается: «игрек равен эф от икс» или «значение функции f в точке x».
+      </span>
+    </div>
+
+    <div class="ms-function-role-grid ms-card-grid ms-columns-3">
+      <div class="ms-function-role-card ms-card">
+        <span class="ms-function-role-symbol">x</span>
+        <strong class="ms-card-title">Аргумент</strong>
+        <span class="ms-card-text">
+          Независимая переменная, значение которой выбирают.
+        </span>
+      </div>
+
+      <div class="ms-function-role-card ms-card">
+        <span class="ms-function-role-symbol">f</span>
+        <strong class="ms-card-title">Функция</strong>
+        <span class="ms-card-text">
+          Правило, по которому аргументу ставят в соответствие значение.
+        </span>
+      </div>
+
+      <div class="ms-function-role-card ms-card">
+        <span class="ms-function-role-symbol">f(x)</span>
+        <strong class="ms-card-title">Значение функции</strong>
+        <span class="ms-card-text">
+          Результат применения правила к выбранному значению x.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-note">
+      Запись f(x) не означает произведение f · x.
+      Это единое обозначение значения функции при аргументе x.
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section">
+    <h2>1. Как вычислить значение функции</h2>
+
+    <p class="ms-text">
+      Чтобы найти f(a), вместо каждого x в формуле подставляют число a
+      и выполняют действия в правильном порядке.
+    </p>
+
+    <div class="ms-evaluation-steps">
+      <div class="ms-evaluation-step">
+        <span class="ms-evaluation-number">1</span>
+        <strong>Запишите формулу</strong>
+        <span>
+          Например, f(x) = 2x² − 3x + 1.
+        </span>
+      </div>
+
+      <div class="ms-evaluation-step">
+        <span class="ms-evaluation-number">2</span>
+        <strong>Замените x числом</strong>
+        <span>
+          Для f(2) вместо каждого x подставьте 2.
+        </span>
+      </div>
+
+      <div class="ms-evaluation-step">
+        <span class="ms-evaluation-number">3</span>
+        <strong>Используйте скобки</strong>
+        <span>
+          Особенно важно заключать в скобки отрицательные числа и дроби.
+        </span>
+      </div>
+
+      <div class="ms-evaluation-step">
+        <span class="ms-evaluation-number">4</span>
+        <strong>Выполните вычисления</strong>
+        <span>
+          Сначала степени, затем умножение, сложение и вычитание.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 1. Положительный аргумент</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        f(x) = 2x² − 3x + 1.
+      </div>
+
+      <div class="ms-math-row">
+        f(2) = 2 · 2² − 3 · 2 + 1.
+      </div>
+
+      <div class="ms-math-row">
+        f(2) = 8 − 6 + 1 = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: f(2) = 3.</span>
+      </div>
+    </div>
+
+    <h3>Пример 2. Отрицательный аргумент</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        g(x) = x² + 4x − 5.
+      </div>
+
+      <div class="ms-math-row">
+        g(−3) = (−3)² + 4 · (−3) − 5.
+      </div>
+
+      <div class="ms-math-row">
+        g(−3) = 9 − 12 − 5 = −8.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: g(−3) = −8.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-3">
+    <h2>2. Функция как «машина»</h2>
+
+    <p class="ms-text">
+      Функцию удобно представлять как правило обработки числа:
+      на вход поступает аргумент, затем выполняются действия,
+      и на выходе получается значение функции.
+    </p>
+
+    <div class="ms-function-machine">
+      <div class="ms-function-machine-card ms-card">
+        <strong class="ms-card-title">Вход</strong>
+        <span class="ms-card-text">x = 3</span>
+      </div>
+
+      <div class="ms-function-machine-arrow">→</div>
+
+      <div class="ms-function-machine-card ms-card">
+        <strong class="ms-card-title">Правило</strong>
+        <span class="ms-card-text">f(x) = 2x − 1</span>
+      </div>
+
+      <div class="ms-function-machine-arrow">→</div>
+
+      <div class="ms-function-machine-card ms-card">
+        <strong class="ms-card-title">Выход</strong>
+        <span class="ms-card-text">f(3) = 5</span>
+      </div>
+    </div>
+
+    <h3>Пример 3. Составляем таблицу значений</h3>
+
+    <div class="ms-table-wrap">
+      <table class="ms-values-table">
+        <thead>
+          <tr>
+            <th>x</th>
+            <th>−2</th>
+            <th>−1</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>f(x) = 2x − 1</td>
+            <td>−5</td>
+            <td>−3</td>
+            <td>−1</td>
+            <td>1</td>
+            <td>3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        Например, при x = −2:
+        f(−2) = 2 · (−2) − 1 = −5.
+      </div>
+
+      <div class="ms-math-row">
+        При x = 2:
+        f(2) = 2 · 2 − 1 = 3.
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-4">
+    <h2>3. Область определения функции</h2>
+
+    <p class="ms-text">
+      Область определения — множество всех значений аргумента x,
+      при которых формула функции имеет смысл.
+    </p>
+
+    <div class="ms-domain-grid ms-card-grid ms-columns-3">
+      <div class="ms-domain-card ms-card">
+        <span class="ms-domain-formula">f(x) = x² − 3x + 1</span>
+        <strong class="ms-card-title">Многочлен</strong>
+        <span class="ms-card-text">
+          Допустимы все действительные числа:
+          D(f) = R.
+        </span>
+      </div>
+
+      <div class="ms-domain-card ms-card">
+        <span class="ms-domain-formula">
+          g(x) =
+          <math aria-label="один делённое на x минус 4">
+            <mfrac>
+              <mn>1</mn>
+              <mrow><mi>x</mi><mo>−</mo><mn>4</mn></mrow>
+            </mfrac>
+          </math>
+        </span>
+        <strong class="ms-card-title">Переменная в знаменателе</strong>
+        <span class="ms-card-text">
+          Знаменатель не равен нулю:
+          x ≠ 4.
+        </span>
+      </div>
+
+      <div class="ms-domain-card ms-card">
+        <span class="ms-domain-formula">
+          h(x) =
+          <math class="ms-root" aria-label="квадратный корень из x плюс 2">
+            <msqrt><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></msqrt>
+          </math>
+        </span>
+        <strong class="ms-card-title">Квадратный корень</strong>
+        <span class="ms-card-text">
+          Подкоренное выражение неотрицательно:
+          x ≥ −2.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 4. Значение существует не при каждом x</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        g(x) =
+        <math aria-label="пять делённое на x минус 3">
+          <mfrac>
+            <mn>5</mn>
+            <mrow><mi>x</mi><mo>−</mo><mn>3</mn></mrow>
+          </mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        g(5) =
+        <math aria-label="пять делённое на два">
+          <mfrac><mn>5</mn><mn>2</mn></mfrac>
+        </math>.
+      </div>
+
+      <div class="ms-math-row">
+        g(3) не существует, потому что знаменатель равен нулю.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">
+          Область определения: все x, кроме 3.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-5">
+    <h2>4. Нули функции</h2>
+
+    <p class="ms-text">
+      Нулём функции называют значение аргумента,
+      при котором значение функции равно нулю.
+    </p>
+
+    <div class="ms-zero-grid">
+      <div class="ms-zero-card ms-card">
+        <strong class="ms-card-title">Функциональная запись</strong>
+        <span class="ms-card-text">f(x) = 0</span>
+      </div>
+
+      <div class="ms-zero-arrow">⇔</div>
+
+      <div class="ms-zero-card ms-card">
+        <strong class="ms-card-title">Графический смысл</strong>
+        <span class="ms-card-text">
+          Абсцисса точки пересечения графика функции с осью Ox.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 5. Находим нули квадратного трёхчлена</h3>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        f(x) = x² − 5x + 6.
+      </div>
+
+      <div class="ms-math-row">
+        Ищем значения, при которых f(x) = 0:
+      </div>
+
+      <div class="ms-math-row">
+        x² − 5x + 6 = 0.
+      </div>
+
+      <div class="ms-math-row">
+        (x − 2)(x − 3) = 0.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Нули функции: 2 и 3.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-6">
+    <h2>5. Что можно узнать из записи f(a) = b</h2>
+
+    <p class="ms-text">
+      Равенство f(a) = b означает, что при аргументе a
+      значение функции равно b. На графике этому соответствует точка (a; b).
+    </p>
+
+    <div class="ms-notation-read-grid ms-card-grid ms-columns-4">
+      <div class="ms-notation-read-card ms-card">
+        <strong class="ms-card-title">f(2) = 7</strong>
+        <span class="ms-card-text">
+          При x = 2 значение функции равно 7.
+        </span>
+      </div>
+
+      <div class="ms-notation-read-card ms-card">
+        <strong class="ms-card-title">f(0) = −3</strong>
+        <span class="ms-card-text">
+          График пересекает ось Oy в точке (0; −3).
+        </span>
+      </div>
+
+      <div class="ms-notation-read-card ms-card">
+        <strong class="ms-card-title">f(5) = 0</strong>
+        <span class="ms-card-text">
+          Число 5 является нулём функции.
+        </span>
+      </div>
+
+      <div class="ms-notation-read-card ms-card">
+        <strong class="ms-card-title">f(−a) = f(a)</strong>
+        <span class="ms-card-text">
+          Такая запись характерна для чётной функции.
+        </span>
+      </div>
+    </div>
+
+    <h3>Пример 6. Находим параметр по значению функции</h3>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Условие</span>
+      f(x) = kx + 2 и f(3) = 11. Найдите k.
+    </div>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        f(3) = 3k + 2.
+      </div>
+
+      <div class="ms-math-row">
+        3k + 2 = 11.
+      </div>
+
+      <div class="ms-math-row">
+        3k = 9, поэтому k = 3.
+      </div>
+
+      <div class="ms-math-row">
+        <span class="ms-good">Ответ: 3.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-7">
+    <h2>6. Типичные ошибки в функциональной записи</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Ошибка</th>
+            <th>Почему неверно</th>
+            <th>Как правильно</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Считают f(x) произведением f · x</td>
+            <td>Буква f обозначает правило зависимости.</td>
+            <td>Читать «значение функции f в точке x».</td>
+          </tr>
+
+          <tr>
+            <td>При f(−2) пишут −2²</td>
+            <td>Без скобок знак минус не возводится в квадрат.</td>
+            <td>Подставлять (−2) вместо каждого x.</td>
+          </tr>
+
+          <tr>
+            <td>Путают f(2) и f(x) = 2</td>
+            <td>В первом случае известен аргумент, во втором — значение функции.</td>
+            <td>f(2): подставить x = 2; f(x) = 2: решить уравнение.</td>
+          </tr>
+
+          <tr>
+            <td>Не проверяют область определения</td>
+            <td>Формула может не иметь смысла при некоторых x.</td>
+            <td>Проверять знаменатели и подкоренные выражения.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ms-note">
+      Записи f(2) и f(x) = 2 отвечают на разные вопросы:
+      первая просит найти значение функции,
+      вторая — найти аргументы, при которых значение равно 2.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-8">
+    <h2>7. Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 1.</strong>
+        Найдите f(3), если f(x) = 2x + 5.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          f(3) = 2 · 3 + 5 = 11.
+          <br><br>
+          <strong>Ответ: 11.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 2.</strong>
+        Найдите g(−2), если g(x) = x² − 3x + 1.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          g(−2) = (−2)² − 3 · (−2) + 1.
+          <br>
+          g(−2) = 4 + 6 + 1 = 11.
+          <br><br>
+          <strong>Ответ: 11.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 3.</strong>
+        Найдите h(0), если h(x) = 4 − x².
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          h(0) = 4 − 0² = 4.
+          <br><br>
+          <strong>Ответ: 4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 4.</strong>
+        Найдите область определения функции
+        f(x) = 7/(x + 2).
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          Знаменатель не должен быть равен нулю:
+          x + 2 ≠ 0.
+          <br><br>
+          <strong>Ответ: x ≠ −2.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 5.</strong>
+        Найдите область определения функции
+        <math aria-label="эф от икс равно квадратный корень из x минус 5">
+          <mrow>
+            <mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo>
+            <mo>=</mo>
+            <msqrt><mrow><mi>x</mi><mo>−</mo><mn>5</mn></mrow></msqrt>
+          </mrow>
+        </math>.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x − 5 ≥ 0.
+          <br><br>
+          <strong>Ответ: x ≥ 5.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 6.</strong>
+        Найдите нули функции f(x) = x² − 9.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          x² − 9 = 0.
+          <br>
+          (x − 3)(x + 3) = 0.
+          <br><br>
+          <strong>Ответ: −3; 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 7.</strong>
+        Решите уравнение f(x) = 5,
+        если f(x) = 2x − 1.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          2x − 1 = 5.
+          <br>
+          2x = 6, поэтому x = 3.
+          <br><br>
+          <strong>Ответ: 3.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 8.</strong>
+        Известно, что f(4) = −2.
+        Какая точка графика функции известна?
+      </p>
+      <details class="ms-answer">
+        <summary>Показать ответ</summary>
+        <div>
+          Аргумент равен 4, значение функции равно −2.
+          <br><br>
+          <strong>Ответ: точка (4; −2).</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 9.</strong>
+        Функция задана формулой f(x) = ax + 1.
+        Известно, что f(2) = 9. Найдите a.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          2a + 1 = 9.
+          <br>
+          2a = 8, поэтому a = 4.
+          <br><br>
+          <strong>Ответ: 4.</strong>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        <strong>Задание 10.</strong>
+        Вычислите f(−1) + f(1),
+        если f(x) = x² + 2x.
+      </p>
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          f(−1) = (−1)² + 2 · (−1) = −1.
+          <br>
+          f(1) = 1² + 2 · 1 = 3.
+          <br>
+          f(−1) + f(1) = 2.
+          <br><br>
+          <strong>Ответ: 2.</strong>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>8. Шпаргалка по функциональной записи</h2>
+
+    <div class="ms-notation-final-grid ms-card-grid ms-columns-4">
+      <div class="ms-notation-final-card ms-card">
+        <strong class="ms-card-title">f(a)</strong>
+        <span class="ms-card-text">
+          Подставить число a вместо каждого x и вычислить результат.
+        </span>
+      </div>
+
+      <div class="ms-notation-final-card ms-card">
+        <strong class="ms-card-title">f(x) = b</strong>
+        <span class="ms-card-text">
+          Решить уравнение и найти аргументы, при которых значение равно b.
+        </span>
+      </div>
+
+      <div class="ms-notation-final-card ms-card">
+        <strong class="ms-card-title">f(a) = b</strong>
+        <span class="ms-card-text">
+          График функции проходит через точку (a; b).
+        </span>
+      </div>
+
+      <div class="ms-notation-final-card ms-card">
+        <strong class="ms-card-title">f(x) = 0</strong>
+        <span class="ms-card-text">
+          Найти нули функции — абсциссы точек пересечения с осью Ox.
+        </span>
+      </div>
+    </div>
+
+    <div class="ms-rule-box" style="margin-top: 20px;">
+      Запомните:
+      <br>
+      x — аргумент;
+      <br>
+      f(x) — значение функции;
+      <br>
+      f(a) получают подстановкой x = a;
+      <br>
+      запись f(a) = b соответствует точке (a; b).
+    </div>
+
+    <p class="ms-text" style="margin-top: 20px;">
+      В следующем разделе перейдём к функции y = ax²:
+      разберём влияние коэффициента a на направление ветвей,
+      ширину параболы и основные свойства графика.
+    </p>
+
+    <div class="ms-nav">
+      <a class="ms-btn ms-btn-secondary" href="/reshenie-uravnenij-graficheskim-metodom/">
+        Предыдущая тема
+      </a>
+
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-algebra/">
+        К темам алгебры
+      </a>
+
+      <a class="ms-btn" href="/kvadratichnaya-funkcziya-y-ax2-i-eyo-svojstva-parabola/">
+        Следующая тема
+      </a>
+    </div>
+  </section>
+
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,587 @@
+<!-- wp:html -->
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Испытания Бернулли · Тема 3.1
+    </div>
+
+    <h1 class="ms-title">
+      Испытание. Успех и неудача. Серия испытаний до первого успеха
+    </h1>
+
+    <p class="ms-subtitle">
+      Разберём случайные опыты с двумя исходами, научимся назначать
+      «успех» и «неудачу» и вычислять вероятность того, что первый
+      успех произойдёт на заданном испытании или не позднее него.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/ispytanie-uspeh-i-neudacha-seriya-ispytanij-do-pervogo-uspeha/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Два исхода одного испытания</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Вероятности успеха и неудачи</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Серия испытаний до первого успеха</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Ни одного успеха и хотя бы один успех</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Разобранные примеры</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Что важно проверить в условии</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Быстрая проверка перед решением</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Два исхода одного испытания</h2>
+
+    <p class="ms-text">
+      Во многих случайных опытах нас интересует наступление одного
+      определённого события. Его условно называют
+      <strong>успехом</strong>, а противоположный исход —
+      <strong>неудачей</strong>.
+    </p>
+
+    <div class="ms-rule-box">
+      Слова «успех» и «неудача» не дают оценку результату.
+      Успехом считается именно то событие, которое выбрано в условии.
+      Например, при проверке качества успехом можно назвать как
+      появление исправного изделия, так и обнаружение брака.
+    </div>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Испытание</th>
+            <th>Назначенный успех</th>
+            <th>Неудача</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Бросок монеты</td>
+            <td>Выпал орёл</td>
+            <td>Выпала решка</td>
+          </tr>
+
+          <tr>
+            <td>Бросок кубика</td>
+            <td>Выпало число больше 4</td>
+            <td>Выпало число не больше 4</td>
+          </tr>
+
+          <tr>
+            <td>Проверка детали</td>
+            <td>Деталь исправна</td>
+            <td>Деталь имеет дефект</td>
+          </tr>
+
+          <tr>
+            <td>Выстрел по мишени</td>
+            <td>Попадание</td>
+            <td>Промах</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Вероятности успеха и неудачи</h2>
+
+    <p class="ms-text">
+      Обозначим вероятность успеха в одном испытании буквой
+      <strong>p</strong>. Неудача является противоположным событием,
+      поэтому её вероятность обозначают буквой
+      <strong>q</strong>.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">q = 1 − p, &nbsp;&nbsp; p + q = 1</div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+      Вероятность попадания баскетболиста со штрафного броска равна
+      0,75. Тогда p = 0,75, а вероятность промаха:
+      q = 1 − 0,75 = <strong>0,25</strong>.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Серия испытаний до первого успеха</h2>
+
+    <p class="ms-text">
+      Испытания проводят последовательно и прекращают сразу после
+      первого успеха. Чтобы первый успех произошёл именно на
+      k-м испытании, до него должны произойти k − 1 неудач, а затем
+      один успех.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P(первый успех на k-м испытании) =
+        q<sup>k−1</sup> · p
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Порядок здесь фиксирован:
+      <strong>неудача, неудача, …, неудача, успех</strong>.
+      Поэтому коэффициент сочетаний не нужен.
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Серия до первого успеха при p = 0,3 и q = 0,7
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 860 420"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Дерево серии испытаний до первого успеха"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="858"
+            height="418"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <text x="44" y="47" font-size="18" font-weight="800" fill="#111827">
+            Начало
+          </text>
+
+          <circle cx="82" cy="210" r="15" fill="#2563eb"></circle>
+
+          <g stroke="#94a3b8" stroke-width="3" fill="none">
+            <line x1="97" y1="204" x2="220" y2="92"></line>
+            <line x1="97" y1="216" x2="220" y2="210"></line>
+
+            <line x1="350" y1="210" x2="470" y2="132"></line>
+            <line x1="350" y1="218" x2="470" y2="258"></line>
+
+            <line x1="600" y1="258" x2="710" y2="208"></line>
+            <line x1="600" y1="268" x2="710" y2="326"></line>
+          </g>
+
+          <g>
+            <rect x="220" y="66" width="130" height="52" rx="15" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"></rect>
+            <rect x="220" y="184" width="130" height="52" rx="15" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+
+            <rect x="470" y="106" width="130" height="52" rx="15" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"></rect>
+            <rect x="470" y="232" width="130" height="52" rx="15" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+
+            <rect x="710" y="182" width="110" height="52" rx="15" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"></rect>
+            <rect x="710" y="300" width="110" height="52" rx="15" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"></rect>
+          </g>
+
+          <g text-anchor="middle" font-size="15" font-weight="800">
+            <text x="285" y="97" fill="#047857">Успех</text>
+            <text x="285" y="215" fill="#c2410c">Неудача</text>
+
+            <text x="535" y="137" fill="#047857">Успех</text>
+            <text x="535" y="263" fill="#c2410c">Неудача</text>
+
+            <text x="765" y="213" fill="#047857">Успех</text>
+            <text x="765" y="331" fill="#c2410c">Неудача</text>
+          </g>
+
+          <g font-size="14" font-weight="700" fill="#64748b">
+            <text x="135" y="125">p = 0,3</text>
+            <text x="135" y="224">q = 0,7</text>
+
+            <text x="390" y="154">p = 0,3</text>
+            <text x="390" y="247">q = 0,7</text>
+
+            <text x="640" y="220">p = 0,3</text>
+            <text x="640" y="306">q = 0,7</text>
+          </g>
+
+          <g font-size="15" font-weight="800" fill="#1e3a8a">
+            <text x="220" y="145">1-е испытание: 0,3</text>
+            <text x="470" y="184">2-е испытание: 0,7 · 0,3 = 0,21</text>
+            <text x="550" y="381">3-е испытание: 0,7² · 0,3 = 0,147</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Ни одного успеха и хотя бы один успех</h2>
+
+    <p class="ms-text">
+      Если в первых n испытаниях успех ни разу не произошёл,
+      все n результатов являются неудачами.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">
+        P(ни одного успеха в n испытаниях) = q<sup>n</sup>
+      </div>
+
+      <div class="ms-math-row">
+        P(хотя бы одного успеха в n испытаниях) =
+        1 − q<sup>n</sup>
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      Событие «хотя бы один успех» удобно находить через
+      противоположное событие «ни одного успеха».
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Разобранные примеры</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 1. Первая исправная деталь
+      </span>
+      Вероятность того, что проверяемая деталь исправна, равна 0,8.
+      Найдём вероятность того, что первая исправная деталь встретится
+      при третьей проверке. Первые две детали должны оказаться
+      бракованными, а третья — исправной:
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          P = 0,2<sup>2</sup> · 0,8 = 0,032
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 2. Хотя бы одно попадание
+      </span>
+      Вероятность попадания равна 0,6. Производят четыре независимых
+      выстрела. Вероятность промаха q = 0,4. Найдём вероятность хотя бы
+      одного попадания:
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          P = 1 − 0,4<sup>4</sup> = 1 − 0,0256 = 0,9744
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Пример 3. Первый успех на втором или третьем испытании
+      </span>
+      Пусть p = 0,3, q = 0,7. Два случая несовместны, поэтому их
+      вероятности складываются:
+      <div class="ms-math-box">
+        <div class="ms-formula">
+          P = 0,7 · 0,3 + 0,7<sup>2</sup> · 0,3 =
+          0,21 + 0,147 = 0,357
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Что важно проверить в условии</h2>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Постоянная вероятность</span>
+        <h3 class="ms-card-title">Одинаково ли значение p?</h3>
+        <p class="ms-card-text">
+          Вероятность успеха должна сохраняться от испытания
+          к испытанию.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Независимость</span>
+        <h3 class="ms-card-title">Влияет ли прошлый результат?</h3>
+        <p class="ms-card-text">
+          При независимых испытаниях результат одного опыта
+          не изменяет вероятности следующего.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Момент остановки</span>
+        <h3 class="ms-card-title">Когда серия прекращается?</h3>
+        <p class="ms-card-text">
+          В серии до первого успеха дальнейшие испытания после успеха
+          уже не проводят.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Точный порядок</span>
+        <h3 class="ms-card-title">Сколько неудач перед успехом?</h3>
+        <p class="ms-card-text">
+          Для успеха на k-м испытании требуется ровно k − 1 неудача
+          перед ним.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. Вероятность успеха равна 0,7. Найдите вероятность того,
+        что первый успех произойдёт во втором испытании.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>q = 1 − 0,7 = 0,3.</p>
+          <p>P = q · p = 0,3 · 0,7 = <strong>0,21</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        2. Вероятность успеха равна 0,4. Найдите вероятность первого
+        успеха в четвёртом испытании.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Перед успехом должны произойти три неудачи.</p>
+          <p>
+            P = 0,6<sup>3</sup> · 0,4 =
+            0,216 · 0,4 = <strong>0,0864</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Вероятность успеха равна 0,25. Какова вероятность,
+        что в трёх испытаниях успех не произойдёт ни разу?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>q = 0,75.</p>
+          <p>
+            P = 0,75<sup>3</sup> =
+            <strong>0,421875</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Вероятность попадания равна 0,2. Найдите вероятность
+        хотя бы одного попадания за пять выстрелов.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Вероятность пяти промахов равна 0,8<sup>5</sup>.</p>
+          <p>
+            P = 1 − 0,8<sup>5</sup> =
+            1 − 0,32768 = <strong>0,67232</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. Симметричную монету бросают до первого орла.
+        Какова вероятность, что первый орёл выпадет при третьем броске?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>Нужна последовательность: решка, решка, орёл.</p>
+          <p>
+            P =
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>
+            ·
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>
+            ·
+            <span class="ms-frac">
+              <span class="ms-num">1</span>
+              <span class="ms-den">2</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">1</span>
+                <span class="ms-den">8</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. Кубик бросают два раза. Успехом считают выпадение шестёрки.
+        Найдите вероятность хотя бы одного успеха.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Вероятность неудачи:
+            q =
+            <span class="ms-frac">
+              <span class="ms-num">5</span>
+              <span class="ms-den">6</span>
+            </span>.
+          </p>
+          <p>
+            P = 1 −
+            <span class="ms-frac">
+              <span class="ms-num">25</span>
+              <span class="ms-den">36</span>
+            </span>
+            =
+            <strong>
+              <span class="ms-frac">
+                <span class="ms-num">11</span>
+                <span class="ms-den">36</span>
+              </span>
+            </strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        7. Вероятность обнаружить дефект при одной проверке равна 0,1.
+        Найдите вероятность того, что первый дефект обнаружат
+        при пятой проверке.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Первые четыре проверки должны завершиться без дефекта,
+            а пятая — обнаружением дефекта.
+          </p>
+          <p>
+            P = 0,9<sup>4</sup> · 0,1 =
+            <strong>0,06561</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Вероятность успеха равна 0,3. Найдите вероятность того,
+        что первый успех произойдёт во втором или третьем испытании.
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            P = 0,7 · 0,3 + 0,7<sup>2</sup> · 0,3.
+          </p>
+          <p>
+            P = 0,21 + 0,147 = <strong>0,357</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Быстрая проверка перед решением</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Назначь успех</strong>
+        <span class="ms-card-text">
+          Чётко определи, какое из двух событий считается успехом,
+          и запиши p и q = 1 − p.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Посчитай неудачи</strong>
+        <span class="ms-card-text">
+          Если успех должен произойти на k-м испытании,
+          перед ним находятся ровно k − 1 неудача.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Используй дополнение</strong>
+        <span class="ms-card-text">
+          Вероятность хотя бы одного успеха за n испытаний
+          удобно находить по формуле 1 − q<sup>n</sup>.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/geometricheskaya-veroyatnost/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/ispytaniya-bernulli-veroyatnosti-sobytij-v-serii-ispytanij/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,265 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+
+  <section class="ms-hero">
+    <div class="ms-badge">8 класс · Вероятность и статистика · Обобщение · Тема 6.1</div>
+    <h1 class="ms-title">Обобщение и систематизация знаний</h1>
+    <p class="ms-subtitle">Соберём курс в единую систему: от числовых данных и множеств до вероятностей, графов и деревьев случайного эксперимента.</p>
+    <div class="ms-hero-actions">
+      <a class="ms-btn" href="/obobshhenie-sistematizacziya-znanij/#theory">Перейти к повторению</a>
+      <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам предмета</a>
+      <a class="ms-btn ms-btn-secondary" href="/glavnaya/">На главную</a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Пять инструментов курса</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-2"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Формулы и условия их применения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Разбор: одинаковое среднее — разное рассеивание</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Разбор: множества превращаются в вероятности</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Разбор: дерево опыта без возвращения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Как выбрать способ решения</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Проверка условий перед вычислением</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка по всему курсу</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Финальный компас курса: условие подсказывает инструмент</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section id="theory" class="ms-section">
+    <h2>1. Пять инструментов курса</h2>
+    <p class="ms-text">Перед решением определите, с каким объектом вы работаете. От этого зависит язык записи, формула и способ проверки ответа.</p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Карта курса: один вопрос — разные математические инструменты</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Карта курса вероятности и статистики: данные, множества, вероятность, графы и деревья">
+          <rect x="18" y="18" width="944" height="524" rx="28" fill="#f8fbff" stroke="#dbeafe" stroke-width="2"/>
+
+          <g stroke="#93c5fd" stroke-width="4" stroke-linecap="round">
+            <line x1="440" y1="245" x2="220" y2="150"/>
+            <line x1="490" y1="215" x2="490" y2="130"/>
+            <line x1="540" y1="245" x2="760" y2="150"/>
+            <line x1="447" y1="328" x2="300" y2="420"/>
+            <line x1="533" y1="328" x2="680" y2="420"/>
+          </g>
+
+          <circle cx="490" cy="285" r="76" fill="#2563eb"/>
+          <text x="490" y="277" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="800">Условие</text>
+          <text x="490" y="307" text-anchor="middle" fill="#dbeafe" font-size="16" font-weight="700">Что дано?</text>
+
+          <g>
+            <rect x="85" y="72" width="270" height="112" rx="22" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/>
+            <text x="220" y="117" text-anchor="middle" fill="#111827" font-size="22" font-weight="800">Числовые данные</text>
+            <text x="220" y="151" text-anchor="middle" fill="#2563eb" font-size="18" font-weight="800">x̄, D, σ</text>
+          </g>
+
+          <g>
+            <rect x="365" y="40" width="250" height="112" rx="22" fill="#ffffff" stroke="#ddd6fe" stroke-width="2"/>
+            <text x="490" y="85" text-anchor="middle" fill="#111827" font-size="22" font-weight="800">Множества</text>
+            <text x="490" y="119" text-anchor="middle" fill="#7c3aed" font-size="20" font-weight="800">∪  ∩  \</text>
+          </g>
+
+          <g>
+            <rect x="625" y="72" width="270" height="112" rx="22" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/>
+            <text x="760" y="117" text-anchor="middle" fill="#111827" font-size="22" font-weight="800">Вероятность</text>
+            <text x="760" y="151" text-anchor="middle" fill="#2563eb" font-size="19" font-weight="800">P(A)</text>
+          </g>
+
+          <g>
+            <rect x="150" y="396" width="300" height="112" rx="22" fill="#ffffff" stroke="#ddd6fe" stroke-width="2"/>
+            <text x="300" y="441" text-anchor="middle" fill="#111827" font-size="22" font-weight="800">Графы</text>
+            <text x="300" y="475" text-anchor="middle" fill="#7c3aed" font-size="18" font-weight="800">вершины V · рёбра E</text>
+          </g>
+
+          <g>
+            <rect x="530" y="396" width="300" height="112" rx="22" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/>
+            <text x="680" y="441" text-anchor="middle" fill="#111827" font-size="22" font-weight="800">Деревья</text>
+            <text x="680" y="475" text-anchor="middle" fill="#2563eb" font-size="18" font-weight="800">ветви · пути · исходы</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-course-grid ms-card-grid ms-columns-5">
+      <div class="ms-course-card ms-card"><span class="ms-course-symbol">D</span><strong class="ms-card-title">Рассеивание</strong><span class="ms-card-text">Отклонения, дисперсия и стандартное отклонение.</span></div>
+      <div class="ms-course-card ms-card"><span class="ms-course-symbol">∪</span><strong class="ms-card-title">Множества</strong><span class="ms-card-text">Объединение, пересечение, разность и дополнение.</span></div>
+      <div class="ms-course-card ms-card"><span class="ms-course-symbol">P</span><strong class="ms-card-title">События</strong><span class="ms-card-text">Исходы, вероятность и операции над событиями.</span></div>
+      <div class="ms-course-card ms-card"><span class="ms-course-symbol">V—E</span><strong class="ms-card-title">Графы</strong><span class="ms-card-text">Связность, циклы и свойства дерева.</span></div>
+      <div class="ms-course-card ms-card"><span class="ms-course-symbol">↗</span><strong class="ms-card-title">Деревья опыта</strong><span class="ms-card-text">Умножение вдоль пути и сложение подходящих путей.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-2">
+    <h2>2. Формулы и условия их применения</h2>
+    <p class="ms-text">Формулу нельзя выбирать только по знакомым словам. Сначала проверяют условия, при которых она верна.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr><th>Ситуация</th><th>Запись</th><th>Что обязательно проверить</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Дисперсия набора</td><td><strong>D = ((x₁ − x̄)² + … + (xₙ − x̄)²) : n</strong></td><td>Сначала найдено среднее x̄; делим на число элементов n.</td></tr>
+          <tr><td>Стандартное отклонение</td><td><strong>σ = √D</strong></td><td>D ≥ 0; σ выражено в единицах исходной величины.</td></tr>
+          <tr><td>Равновозможные исходы</td><td><strong>P(A) = m : n</strong></td><td>Все n исходов равновозможны; m из них благоприятствуют A.</td></tr>
+          <tr><td>Противоположное событие</td><td><strong>P(Ā) = 1 − P(A)</strong></td><td>A и Ā вместе образуют все исходы и не пересекаются.</td></tr>
+          <tr><td>Несовместные события</td><td><strong>P(A ∪ B) = P(A) + P(B)</strong></td><td>A и B не могут произойти одновременно.</td></tr>
+          <tr><td>Последовательные события</td><td><strong>P(A ∩ B) = P(A) · P(B | A)</strong></td><td>Вторая вероятность берётся после наступления A.</td></tr>
+          <tr><td>Независимые события</td><td><strong>P(A ∩ B) = P(A) · P(B)</strong></td><td>Наступление A не меняет вероятность B.</td></tr>
+          <tr><td>Дерево как граф</td><td><strong>E = V − 1</strong></td><td>Граф связен и не содержит циклов.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-note"><strong>Главная проверка:</strong> одинаковая формула может выглядеть подходящей, но быть неприменимой из-за несовместности, зависимости, неравновозможности исходов или отсутствия свойства дерева.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>3. Разбор: одинаковое среднее — разное рассеивание</h2>
+    <p class="ms-text">Сравним два набора: A = {2, 2, 4, 4} и B = {1, 3, 3, 5}. Среднее каждого набора равно 3.</p>
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead><tr><th>Набор</th><th>Отклонения от 3</th><th>Квадраты отклонений</th><th>D</th><th>σ</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>−1, −1, 1, 1</td><td>1, 1, 1, 1</td><td>4 : 4 = <strong>1</strong></td><td><strong>1</strong></td></tr>
+          <tr><td>B</td><td>−2, 0, 0, 2</td><td>4, 0, 0, 4</td><td>8 : 4 = <strong>2</strong></td><td><strong>√2 ≈ 1,41</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ms-rule-box">У набора A меньше дисперсия и стандартное отклонение, поэтому его значения расположены ближе к среднему. Одного среднего значения для сравнения наборов недостаточно.</div>
+    <div class="ms-compact-grid ms-card-grid ms-columns-3">
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Дисперсия</strong><span class="ms-card-text">Сравнивает средний квадрат отклонения от среднего.</span></div>
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Стандартное отклонение</strong><span class="ms-card-text">Возвращает меру разброса в исходные единицы.</span></div>
+      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Диаграмма рассеивания</strong><span class="ms-card-text">Показывает расположение пар (x; y) и направление связи.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>4. Разбор: множества превращаются в вероятности</h2>
+    <p class="ms-text">В классе 20 учеников. Шахматами занимаются 12 человек, программированием — 9, а обоими направлениями — 5.</p>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">Диаграмма Эйлера для двух кружков</p>
+      <div class="ms-svg-wrap">
+        <svg class="ms-svg" viewBox="0 0 980 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Диаграмма Эйлера: 7 только шахматы, 5 оба кружка, 4 только программирование и 4 ни одного">
+          <rect x="35" y="35" width="910" height="410" rx="28" fill="#f8fbff" stroke="#93c5fd" stroke-width="3"/>
+          <text x="70" y="78" fill="#2563eb" font-size="21" font-weight="800">Ω = 20 учеников</text>
+          <circle cx="405" cy="250" r="150" fill="#dbeafe" fill-opacity="0.76" stroke="#2563eb" stroke-width="4"/>
+          <circle cx="575" cy="250" r="150" fill="#ede9fe" fill-opacity="0.76" stroke="#7c3aed" stroke-width="4"/>
+          <text x="330" y="125" text-anchor="middle" fill="#1d4ed8" font-size="21" font-weight="800">A: шахматы</text>
+          <text x="650" y="125" text-anchor="middle" fill="#6d28d9" font-size="21" font-weight="800">B: программирование</text>
+          <text x="350" y="265" text-anchor="middle" fill="#111827" font-size="36" font-weight="800">7</text>
+          <text x="490" y="265" text-anchor="middle" fill="#111827" font-size="36" font-weight="800">5</text>
+          <text x="630" y="265" text-anchor="middle" fill="#111827" font-size="36" font-weight="800">4</text>
+          <text x="830" y="375" text-anchor="middle" fill="#111827" font-size="32" font-weight="800">4</text>
+          <text x="830" y="405" text-anchor="middle" fill="#4b5563" font-size="17" font-weight="700">ни одного</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ms-result-strip">
+      <div class="ms-result-item"><strong>7</strong><span>только шахматы: 12 − 5</span></div>
+      <div class="ms-result-item"><strong>4</strong><span>только программирование: 9 − 5</span></div>
+      <div class="ms-result-item"><strong>16</strong><span>хотя бы один кружок: 12 + 9 − 5</span></div>
+      <div class="ms-result-item"><strong>4</strong><span>ни одного кружка: 20 − 16</span></div>
+    </div>
+
+    <div class="ms-example"><span class="ms-example-title">Случайно выбранный ученик</span>P(A ∪ B) = 16 : 20 = <strong>0,8</strong>. Вероятность не посещать ни один из двух кружков равна 4 : 20 = <strong>0,2</strong>. Эти события противоположны, поэтому 0,8 + 0,2 = 1.</div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>5. Разбор: дерево опыта без возвращения</h2>
+    <p class="ms-text">В коробке 3 синих и 2 оранжевых шара. Два шара извлекают подряд без возвращения.</p>
+    <div class="ms-formula-banner">
+      <div class="ms-formula-main">P(СС) = 3/5 · 2/4 = 3/10</div>
+      <div class="ms-formula-note">После первого синего шара в коробке остаются 2 синих шара из 4, поэтому вероятность на втором шаге изменилась.</div>
+    </div>
+    <div class="ms-formula-banner">
+      <div class="ms-formula-main">P(ровно один синий) = 3/5</div>
+      <div class="ms-formula-note">Подходят два пути: СО и ОС. Их вероятности равны 3/5 · 2/4 и 2/5 · 3/4; результаты складываются.</div>
+    </div>
+    <div class="ms-card-grid">
+      <div class="ms-card"><h3 class="ms-card-title">Вдоль одного пути</h3><p class="ms-card-text">Вероятности последовательных ветвей перемножаются.</p></div>
+      <div class="ms-card"><h3 class="ms-card-title">Несколько подходящих путей</h3><p class="ms-card-text">Вероятности несовместных конечных путей складываются.</p></div>
+    </div>
+    <div class="ms-rule-box"><strong>Связь с теорией графов:</strong> дерево опыта является связным графом без циклов. Если в нём V вершин, то число рёбер равно V − 1.</div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>6. Как выбрать способ решения</h2>
+    <div class="ms-step-grid ms-card-grid ms-columns-3">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Определите объект</strong><span class="ms-card-text">Числовой набор, множества, случайное событие, граф или многоэтапный опыт?</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Запишите данные</strong><span class="ms-card-text">Перечислите значения, исходы, вершины, рёбра или элементы множеств.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Проверьте условие</strong><span class="ms-card-text">Равновозможность, несовместность, независимость, связность и отсутствие циклов.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Выберите инструмент</strong><span class="ms-card-text">Формула, диаграмма Эйлера, таблица, граф или дерево вероятностей.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">5</span><strong class="ms-card-title">Проверьте ответ</strong><span class="ms-card-text">Вероятность лежит от 0 до 1, количества согласованы, единицы указаны.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>7. Проверка условий перед вычислением</h2>
+    <div class="ms-check-grid ms-card-grid ms-columns-2">
+      <div class="ms-check-card ms-card"><strong class="ms-card-title">Дисперсия</strong><span class="ms-card-text">Отклонения возводятся в квадрат, затем их сумма делится на количество элементов.</span></div>
+      <div class="ms-check-card ms-card"><strong class="ms-card-title">Множества</strong><span class="ms-card-text">Элементы пересечения нельзя второй раз учитывать при подсчёте объединения.</span></div>
+      <div class="ms-check-card ms-card"><strong class="ms-card-title">Сложение вероятностей</strong><span class="ms-card-text">Простая сумма применяется только к несовместным событиям.</span></div>
+      <div class="ms-check-card ms-card"><strong class="ms-card-title">Независимость</strong><span class="ms-card-text">Независимые события могут произойти вместе; это не то же самое, что несовместность.</span></div>
+      <div class="ms-check-card ms-card"><strong class="ms-card-title">Дерево вероятностей</strong><span class="ms-card-text">Сумма вероятностей ветвей, выходящих из одной вершины, равна 1.</span></div>
+      <div class="ms-check-card ms-card"><strong class="ms-card-title">Формула E = V − 1</strong><span class="ms-card-text">Она описывает дерево, а не любой граф с подходящими числами.</span></div>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка по всему курсу</h2>
+
+    <div class="ms-task">
+      <p>1. Для набора {1, 3, 3, 5} найдите среднее, дисперсию и стандартное отклонение.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>Среднее: (1 + 3 + 3 + 5) : 4 = 3.</p><p>Отклонения: −2, 0, 0, 2. Квадраты: 4, 0, 0, 4.</p><p>D = (4 + 0 + 0 + 4) : 4 = <strong>2</strong>, σ = √2 ≈ <strong>1,41</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>2. Наборы A = {2, 2, 4, 4} и B = {1, 3, 3, 5} имеют среднее 3. Какой набор менее рассеян?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>Для A: D = (1 + 1 + 1 + 1) : 4 = 1.</p><p>Для B: D = (4 + 0 + 0 + 4) : 4 = 2.</p><p>Меньше рассеян набор <strong>A</strong>, поскольку 1 &lt; 2.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>3. Даны A = {1, 2, 3, 5} и B = {2, 4, 5}. Найдите A ∪ B, A ∩ B и A \ B.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A ∪ B = <strong>{1, 2, 3, 4, 5}</strong>.</p><p>A ∩ B = <strong>{2, 5}</strong>.</p><p>A \ B = <strong>{1, 3}</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>4. Из 28 учеников 17 изучают испанский язык, 13 — китайский, 6 — оба языка. Сколько учеников изучают хотя бы один язык и сколько не изучают ни один?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>Хотя бы один: 17 + 13 − 6 = <strong>24</strong>.</p><p>Ни один: 28 − 24 = <strong>4</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>5. Бросают правильный кубик. A — выпало простое число, B — выпало число больше 4. Найдите P(A ∪ B) и P(A ∩ B).</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>A = {2, 3, 5}, B = {5, 6}.</p><p>A ∪ B = {2, 3, 5, 6}, поэтому P(A ∪ B) = 4/6 = <strong>2/3</strong>.</p><p>A ∩ B = {5}, поэтому P(A ∩ B) = <strong>1/6</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>6. P(A) = 0,38. Событие B несовместно с A и P(B) = 0,27. Найдите P(Ā) и P(A ∪ B).</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>P(Ā) = 1 − 0,38 = <strong>0,62</strong>.</p><p>События несовместны, поэтому P(A ∪ B) = 0,38 + 0,27 = <strong>0,65</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>7. В коробке 4 белых и 2 чёрных шара. Два шара извлекают без возвращения. Найдите вероятность получить два чёрных шара и вероятность получить ровно один чёрный.</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>Два чёрных: 2/6 · 1/5 = <strong>1/15</strong>.</p><p>Ровно один чёрный: 2/6 · 4/5 + 4/6 · 2/5 = 8/30 + 8/30 = 16/30 = <strong>8/15</strong>.</p></div></details>
+    </div>
+
+    <div class="ms-task">
+      <p>8. На первом шаге дерева выбора есть 4 варианта, после каждого — 3 варианта, затем после каждого — ещё 2. Сколько конечных исходов? Во всём дереве 1 + 4 + 12 + 24 = 41 вершина. Сколько в нём рёбер?</p>
+      <details class="ms-answer"><summary>Показать решение</summary><div><p>По правилу умножения число исходов: 4 · 3 · 2 = <strong>24</strong>.</p><p>Дерево имеет 41 вершину, поэтому E = V − 1 = 41 − 1 = <strong>40 рёбер</strong>.</p></div></details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Финальный компас курса: условие подсказывает инструмент</h2>
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Дан числовой набор</strong><span class="ms-card-text">Найдите среднее, отклонения, D и σ; сравните разброс.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Даны группы объектов</strong><span class="ms-card-text">Используйте множества, пересечение, объединение и диаграмму Эйлера.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Исходы равновозможны</strong><span class="ms-card-text">Посчитайте благоприятные исходы и примените P(A) = m/n.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Опыт состоит из этапов</strong><span class="ms-card-text">Постройте дерево: вдоль пути умножайте, подходящие пути складывайте.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Дан граф без циклов</strong><span class="ms-card-text">Проверьте связность; для дерева выполняется E = V − 1.</span></div>
+      <div class="ms-final-card ms-card"><strong class="ms-card-title">Ответ получен</strong><span class="ms-card-text">Проверьте диапазон вероятности, единицы и соответствие условию.</span></div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a class="ms-btn ms-btn-secondary" href="/predstavlenie-sluchajnogo-eksperimenta-v-vide-dereva/">Предыдущая тема</a>
+    <a class="ms-btn ms-btn-secondary" href="/8-klass-veroyatnost-i-statistika/">К темам вероятности и статистики</a>
+  </div>
+
+</div>
+<!-- /wp:html -->

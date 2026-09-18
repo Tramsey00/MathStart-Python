@@ -1,0 +1,447 @@
+
+.ms-lesson-page .ms-math-box {
+    margin: 14px 0;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+.ms-lesson-page .ms-math-row {
+    margin: 7px 0;
+    overflow-wrap: anywhere;
+  }
+.ms-lesson-page .ms-frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 1;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 3px;
+  }
+.ms-lesson-page .ms-frac .ms-num {
+    display: block;
+    padding: 0 5px 4px;
+    border-bottom: 2px solid currentColor;
+    font-size: 0.92em;
+    white-space: nowrap;
+  }
+.ms-lesson-page .ms-frac .ms-den {
+    display: block;
+    padding: 4px 5px 0;
+    font-size: 0.92em;
+    white-space: nowrap;
+  }
+.ms-lesson-page .ms-system {
+    display: inline-grid;
+    grid-template-columns: 26px auto;
+    align-items: stretch;
+    gap: 10px;
+    max-width: 100%;
+    margin: 10px 0;
+    vertical-align: middle;
+  }
+.ms-lesson-page .ms-system-brace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 66px;
+    font-weight: 400;
+    line-height: 0.8;
+    transform: scaleY(1.22);
+    transform-origin: center;
+  }
+.ms-lesson-page .ms-system-lines {
+    display: grid;
+    align-content: center;
+    gap: 7px;
+    min-width: 0;
+  }
+.ms-lesson-page .ms-system-line {
+    color: #111827;
+    font-size: 19px;
+    line-height: 1.45;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+.ms-lesson-page .ms-figure {
+    margin: 18px 0;
+    padding: 18px;
+    border: 1px solid #dbeafe;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  }
+.ms-lesson-page .ms-figure-title {
+    margin: 0 0 12px;
+    color: #111827;
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 800;
+  }
+.ms-lesson-page .ms-svg-wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
+.ms-lesson-page .ms-svg {
+    display: block;
+    width: 100%;
+    min-width: 760px;
+    height: auto;
+  }
+.ms-lesson-page .ms-table-wrap {
+    width: 100%;
+    margin-top: 14px;
+    overflow-x: auto;
+  }
+.ms-lesson-page .ms-table {
+    width: 100%;
+    min-width: 680px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 18px;
+    background: #ffffff;
+    color: #374151;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+.ms-lesson-page .ms-table th,
+.ms-lesson-page .ms-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    vertical-align: top;
+  }
+.ms-lesson-page .ms-table th {
+    background: #eff6ff;
+    color: #111827;
+    font-weight: 800;
+  }
+.ms-lesson-page .ms-table tr:last-child td {
+    border-bottom: none;
+  }
+/* Additions for the power lesson; the main cards use the lesson 6.6 stylesheet. */
+.ms-lesson-page h1,.ms-lesson-page h2,.ms-lesson-page h3{hyphens:none;overflow-wrap:normal}
+.ms-lesson-page [id]{scroll-margin-top:24px}
+.ms-lesson-page .ms-example-title{line-height:1.65}
+.ms-lesson-page .ms-note p,.ms-lesson-page .ms-rule-box p{color:inherit;margin:8px 0;font-size:inherit;line-height:inherit}
+.ms-lesson-page .ms-example p{font-size:16px;line-height:1.65;margin:8px 0}
+.ms-lesson-page .ms-card p+p{margin-top:12px}
+.ms-lesson-page .ms-card .ms-figure{padding:14px;margin:16px 0}
+.ms-lesson-page .ms-figure svg{display:block;max-width:100%;height:auto;margin:auto}
+.ms-lesson-page .ms-power-caption{margin-top:14px}
+.ms-lesson-page .ms-list li+li{margin-top:8px}
+.ms-lesson-page .ms-table{min-width:0}
+.ms-lesson-page .ms-table td,.ms-lesson-page .ms-table th{vertical-align:middle}
+.ms-lesson-page .v2-frac{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;line-height:1;text-align:center;margin:0 .16em;font-family:'Cambria Math',Cambria,'Times New Roman',serif;font-weight:inherit;color:inherit}
+.ms-lesson-page .v2-frac>span{display:block;padding:.12em .22em;white-space:nowrap;font-size:.94em}
+.ms-lesson-page .v2-frac>span:first-child{border-bottom:1.3px solid currentColor}
+.ms-lesson-page .v2-power{display:inline-block;white-space:nowrap;font-family:'Cambria Math',Cambria,'Times New Roman',serif;line-height:1.2}
+.ms-lesson-page .v2-power>sup{display:inline-block;font-size:.65em;line-height:1;vertical-align:.55em;margin-left:.03em}
+.ms-lesson-page .v2-power>sup:has(.v2-frac){vertical-align:1.55em}
+.ms-lesson-page .v2-power>sup .v2-frac{margin:0 .04em;vertical-align:middle}
+.ms-lesson-page .v2-power>sup .v2-frac>span{padding:.08em .16em;font-size:1em}
+.ms-lesson-page .v2-root{display:inline-flex;align-items:baseline;white-space:nowrap;font-family:'Cambria Math',Cambria,serif}
+.ms-lesson-page .v2-root>sup{font-size:.6em;align-self:flex-start;margin-right:-.15em}
+.ms-lesson-page .v2-root-sign{font-size:1.18em;line-height:1.2}
+.ms-lesson-page .v2-radicand{border-top:1px solid currentColor;padding:0 .12em;line-height:1.2}
+.ms-lesson-page .ms-math-box{font-family:'Cambria Math',Cambria,'Times New Roman',serif;font-size:21px;line-height:2}
+.ms-lesson-page .ms-math-row{overflow-wrap:normal}
+.ms-lesson-page .ms-card .ms-math-box{padding:14px}
+.ms-lesson-page .ms-task>p{line-height:1.95}
+
+/* Parentheses and exponents around a stacked fractional base. */
+.ms-lesson-page .ms-fraction-power {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+.ms-lesson-page .ms-fraction-power > .ms-power-base {
+  display: inline-flex;
+  align-items: center;
+}
+.ms-lesson-page .ms-fraction-power .ms-tall-paren {
+  font-size: 1.9em;
+  font-weight: 400;
+  line-height: 1;
+}
+.ms-lesson-page .ms-fraction-power > sup {
+  align-self: flex-start;
+  margin-top: -.1em;
+  margin-left: .06em;
+}
+.ms-lesson-page .ms-root-fraction {
+  align-items: center;
+  vertical-align: middle;
+}
+.ms-lesson-page .ms-root-fraction > .v2-root-sign { font-size: 2.1em; line-height: 1; }
+.ms-lesson-page .ms-root-fraction > .v2-radicand { padding: .08em .08em 0; }
+.ms-lesson-page .ms-root-fraction .v2-frac { margin: 0; }
+
+/* Математические блоки, используемые в остальных уроках. */
+.ms-lesson-page .ms-mixed {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+  font-weight: 800;
+  color: #111827;
+}
+.ms-lesson-page .ms-power {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 800;
+  color: currentColor;
+}
+.ms-lesson-page .ms-power sup {
+  font-size: .68em;
+  line-height: 0;
+  vertical-align: .62em;
+}
+.ms-lesson-page .ms-formula-main {
+  color: #1d4ed8;
+  font-size: 29px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-formula-main {
+    white-space: normal;
+  }
+}
+.ms-lesson-page .ms-formula-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-formula-chip {
+  padding: 10px 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-size: 15px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-formula-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+  padding: 20px;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+  color: #1e3a8a;
+  font-size: 23px;
+  line-height: 1.5;
+  font-weight: 800;
+  text-align: center;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-formula-panel {
+    font-size: 19px;
+  }
+}
+.ms-lesson-page .ms-formula-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 24px;
+  margin: 18px 0;
+  padding: 22px;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f7f4ff 100%);
+  text-align: center;
+}
+.ms-lesson-page .ms-formula-caption {
+  display: block;
+  margin-top: 8px;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-formula-main {
+    font-size: 23px;
+  }
+}
+.ms-lesson-page .ms-root {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0 0.02em;
+  vertical-align: -0.12em;
+  color: currentColor;
+  font-family: "Cambria Math", "STIX Two Math", "Times New Roman", serif;
+  font-size: 1.08em;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-clip-path: inset(1px 0.02em 0 0);
+  clip-path: inset(1px 0.02em 0 0);
+}
+.ms-lesson-page .ms-root msqrt,
+.ms-lesson-page .ms-root mn,
+.ms-lesson-page .ms-root mi {
+  font-family: inherit;
+}
+.ms-lesson-page .ms-values-table {
+  display: table;
+  width: 100%;
+  min-width: 560px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+  table-layout: fixed;
+}
+.ms-lesson-page .ms-values-table th,
+.ms-lesson-page .ms-values-table td {
+  padding: 16px 14px;
+  border-right: 1px solid #dbeafe;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.ms-lesson-page .ms-values-table th:last-child,
+.ms-lesson-page .ms-values-table td:last-child {
+  border-right: none;
+}
+.ms-lesson-page .ms-values-table thead th {
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+  color: #1e3a8a;
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 800;
+  border-bottom: 1px solid #dbeafe;
+}
+.ms-lesson-page .ms-values-table th:first-child,
+.ms-lesson-page .ms-values-table td:first-child {
+  width: 200px;
+}
+.ms-lesson-page .ms-values-table tbody td {
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 600;
+  background: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+.ms-lesson-page .ms-values-table tbody td:first-child {
+  background: #f8fbff;
+  color: #1e3a8a;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-values-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-values-table {
+    min-width: 650px;
+  }
+}
+.ms-lesson-page .ms-formula-note {
+  max-width: 520px;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+@media (max-width: 480px) {
+  .ms-lesson-page .ms-formula-main {
+    font-size: 26px;
+  }
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-formula-main {
+    font-size: 25px;
+  }
+}
+@media (max-width: 680px) {
+  .ms-lesson-page .ms-formula-main {
+    font-size: 22px;
+  }
+}
+.ms-lesson-page .ms-formula-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.ms-lesson-page .ms-formula-card {
+  text-align: center;
+}
+@media (max-width: 720px) {
+  .ms-lesson-page .ms-formula-strip {
+    grid-template-columns: 1fr;
+  }
+}
+.ms-lesson-page .ms-formula-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-formula-prefix {
+  color: #2563eb;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-formula-line .ms-frac {
+  margin: 0;
+  color: #111827;
+}
+.ms-lesson-page .ms-vec {
+  position: relative;
+  display: inline-block;
+  min-width: 1em;
+  padding-top: 0.08em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+}
+.ms-lesson-page .ms-vec::after {
+  content: "→";
+  position: absolute;
+  top: -0.72em;
+  left: 0;
+  width: 100%;
+  color: currentColor;
+  font-family: Arial, sans-serif;
+  font-size: 0.78em;
+  font-style: normal;
+  line-height: 1;
+  text-align: center;
+}
+.ms-lesson-page .ms-coord {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.04em;
+}
+.ms-lesson-page .ms-formula-card .ms-math-box {
+  margin-bottom: 0;
+}

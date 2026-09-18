@@ -1,0 +1,103 @@
+/* Особенности схем и интерактивов. Общие блоки оформляются в static/mathstart/css/. */
+.ms-lesson-page .ms-definition-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-definition-box {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 19px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+}
+.ms-lesson-page .ms-definition-box strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #1d4ed8;
+  font-size: 17px;
+  line-height: 1.35;
+}
+.ms-lesson-page .ms-definition-box p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.ms-lesson-page .ms-event-spectrum {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-event-card {
+  min-height: 184px;
+}
+.ms-lesson-page .ms-event-card--certain {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+.ms-lesson-page .ms-event-card--random {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+.ms-lesson-page .ms-event-card--impossible {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+.ms-lesson-page .ms-event-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 13.5px;
+  font-weight: 800;
+}
+.ms-lesson-page .ms-question-route {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.ms-lesson-page .ms-question-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 13px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+.ms-lesson-page .ms-question-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ms-lesson-page .ms-question-row strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111827;
+  font-size: 17px;
+}
+.ms-lesson-page .ms-question-row > div > span {
+  color: #4b5563;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+@media (max-width: 760px) {
+  .ms-lesson-page .ms-definition-row,
+  .ms-lesson-page .ms-event-spectrum {
+    grid-template-columns: 1fr;
+  }
+}

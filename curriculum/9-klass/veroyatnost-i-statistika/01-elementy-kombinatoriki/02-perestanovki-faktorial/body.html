@@ -1,0 +1,796 @@
+<!-- wp:html -->
+
+
+<div class="ms-post ms-lesson-page ms-legacy-lesson" data-lesson-theme="power-v2" data-lesson-layout="legacy">
+  <section class="ms-hero">
+    <div class="ms-badge">
+      9 класс · Вероятность и статистика · Элементы комбинаторики · Тема 1.2
+    </div>
+
+    <h1 class="ms-title">Перестановки. Факториал</h1>
+
+    <p class="ms-subtitle">
+      Разберём, как подсчитывать способы упорядочить несколько
+      различных объектов, почему число перестановок равно факториалу
+      и как учитывать дополнительные условия.
+    </p>
+
+    <div class="ms-hero-actions">
+      <a
+        class="ms-btn"
+        href="/perestanovki-faktorial/#theory"
+      >
+        Перейти к материалу
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/9-klass-veroyatnost-i-statistika/"
+      >
+        К темам предмета
+      </a>
+
+      <a
+        class="ms-btn ms-btn-secondary"
+        href="/glavnaya/"
+      >
+        На главную
+      </a>
+    </div>
+  </section>
+<details class="ms-lesson-toc ms-desktop-toc" open><summary>
+    <span class="ms-toc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+    <span class="ms-toc-heading"><strong>Содержание урока</strong><small>Теория, примеры и задания для самостоятельной работы</small></span><span class="ms-toc-chevron" aria-hidden="true"></span></summary>
+    <nav class="ms-lesson-links" aria-label="Содержание урока"><a class="ms-toc-link" href="#lesson-section-1"><span class="ms-toc-number">01</span><span class="ms-toc-copy"><strong>Одни и те же объекты — разный порядок</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#theory"><span class="ms-toc-number">02</span><span class="ms-toc-copy"><strong>Что называют перестановкой</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-3"><span class="ms-toc-number">03</span><span class="ms-toc-copy"><strong>Формула числа перестановок</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-4"><span class="ms-toc-number">04</span><span class="ms-toc-copy"><strong>Как вычислять факториалы</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-5"><span class="ms-toc-number">05</span><span class="ms-toc-copy"><strong>Базовые задачи на перестановки</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-6"><span class="ms-toc-number">06</span><span class="ms-toc-copy"><strong>Перестановки с дополнительным условием</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-7"><span class="ms-toc-number">07</span><span class="ms-toc-copy"><strong>Перестановка или другой вид выбора?</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link ms-toc-practice" href="#lesson-section-8"><span class="ms-toc-number">08</span><span class="ms-toc-copy"><strong>Самопроверка</strong><small>Заданий с решениями: 8</small></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a><a class="ms-toc-link" href="#lesson-section-9"><span class="ms-toc-number">09</span><span class="ms-toc-copy"><strong>Итог</strong></span><span class="ms-toc-arrow" aria-hidden="true">→</span></a></nav></details>
+
+
+  <section class="ms-section" id="lesson-section-1">
+    <h2>Одни и те же объекты — разный порядок</h2>
+
+    <p class="ms-text">
+      Пусть имеются три разные карточки: А, Б и В. Во всех вариантах
+      используются те же три карточки, но их порядок может меняться.
+    </p>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Первые три варианта</span>
+        <h3 class="ms-card-title">АБВ, АВБ, БАВ</h3>
+        <p class="ms-card-text">
+          Состав объектов одинаков, но последовательности различаются
+          расположением букв.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Ещё три варианта</span>
+        <h3 class="ms-card-title">БВА, ВАБ, ВБА</h3>
+        <p class="ms-card-text">
+          Всего для трёх различных объектов получается шесть способов
+          упорядочивания.
+        </p>
+      </div>
+    </div>
+
+    <div class="ms-figure">
+      <p class="ms-figure-title">
+        Как возникает число перестановок трёх объектов
+      </p>
+
+      <div class="ms-svg-wrap">
+        <svg
+          class="ms-svg"
+          viewBox="0 0 820 390"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Дерево перестановок трёх букв А, Б и В"
+        >
+          <rect
+            x="1"
+            y="1"
+            width="818"
+            height="388"
+            rx="22"
+            fill="#ffffff"
+            stroke="#dbeafe"
+            stroke-width="2"
+          ></rect>
+
+          <text
+            x="48"
+            y="48"
+            font-size="18"
+            font-weight="800"
+            fill="#111827"
+          >
+            Первая позиция
+          </text>
+
+          <text
+            x="305"
+            y="48"
+            font-size="18"
+            font-weight="800"
+            fill="#111827"
+          >
+            Вторая позиция
+          </text>
+
+          <text
+            x="610"
+            y="48"
+            font-size="18"
+            font-weight="800"
+            fill="#111827"
+          >
+            Готовые перестановки
+          </text>
+
+          <circle cx="92" cy="205" r="17" fill="#2563eb"></circle>
+
+          <g stroke="#94a3b8" stroke-width="3">
+            <line x1="109" y1="199" x2="250" y2="93"></line>
+            <line x1="109" y1="205" x2="250" y2="205"></line>
+            <line x1="109" y1="211" x2="250" y2="317"></line>
+          </g>
+
+          <g>
+            <rect
+              x="250"
+              y="68"
+              width="90"
+              height="50"
+              rx="15"
+              fill="#eff6ff"
+              stroke="#bfdbfe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="250"
+              y="180"
+              width="90"
+              height="50"
+              rx="15"
+              fill="#eff6ff"
+              stroke="#bfdbfe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="250"
+              y="292"
+              width="90"
+              height="50"
+              rx="15"
+              fill="#eff6ff"
+              stroke="#bfdbfe"
+              stroke-width="2"
+            ></rect>
+
+            <text
+              x="295"
+              y="101"
+              text-anchor="middle"
+              font-size="18"
+              font-weight="800"
+              fill="#1e3a8a"
+            >
+              А
+            </text>
+
+            <text
+              x="295"
+              y="213"
+              text-anchor="middle"
+              font-size="18"
+              font-weight="800"
+              fill="#1e3a8a"
+            >
+              Б
+            </text>
+
+            <text
+              x="295"
+              y="325"
+              text-anchor="middle"
+              font-size="18"
+              font-weight="800"
+              fill="#1e3a8a"
+            >
+              В
+            </text>
+          </g>
+
+          <g stroke="#94a3b8" stroke-width="2.5">
+            <line x1="340" y1="88" x2="490" y2="72"></line>
+            <line x1="340" y1="104" x2="490" y2="130"></line>
+            <line x1="340" y1="200" x2="490" y2="184"></line>
+            <line x1="340" y1="216" x2="490" y2="242"></line>
+            <line x1="340" y1="312" x2="490" y2="296"></line>
+            <line x1="340" y1="328" x2="490" y2="354"></line>
+          </g>
+
+          <g>
+            <rect
+              x="490"
+              y="51"
+              width="86"
+              height="42"
+              rx="13"
+              fill="#f7f4ff"
+              stroke="#ddd6fe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="490"
+              y="109"
+              width="86"
+              height="42"
+              rx="13"
+              fill="#f7f4ff"
+              stroke="#ddd6fe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="490"
+              y="163"
+              width="86"
+              height="42"
+              rx="13"
+              fill="#f7f4ff"
+              stroke="#ddd6fe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="490"
+              y="221"
+              width="86"
+              height="42"
+              rx="13"
+              fill="#f7f4ff"
+              stroke="#ddd6fe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="490"
+              y="275"
+              width="86"
+              height="42"
+              rx="13"
+              fill="#f7f4ff"
+              stroke="#ddd6fe"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="490"
+              y="333"
+              width="86"
+              height="42"
+              rx="13"
+              fill="#f7f4ff"
+              stroke="#ddd6fe"
+              stroke-width="2"
+            ></rect>
+
+            <g
+              text-anchor="middle"
+              font-size="16"
+              font-weight="800"
+              fill="#5b21b6"
+            >
+              <text x="533" y="79">Б</text>
+              <text x="533" y="137">В</text>
+              <text x="533" y="191">А</text>
+              <text x="533" y="249">В</text>
+              <text x="533" y="303">А</text>
+              <text x="533" y="361">Б</text>
+            </g>
+          </g>
+
+          <g>
+            <rect
+              x="620"
+              y="51"
+              width="145"
+              height="42"
+              rx="13"
+              fill="#ecfdf5"
+              stroke="#a7f3d0"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="620"
+              y="109"
+              width="145"
+              height="42"
+              rx="13"
+              fill="#ecfdf5"
+              stroke="#a7f3d0"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="620"
+              y="163"
+              width="145"
+              height="42"
+              rx="13"
+              fill="#ecfdf5"
+              stroke="#a7f3d0"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="620"
+              y="221"
+              width="145"
+              height="42"
+              rx="13"
+              fill="#ecfdf5"
+              stroke="#a7f3d0"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="620"
+              y="275"
+              width="145"
+              height="42"
+              rx="13"
+              fill="#ecfdf5"
+              stroke="#a7f3d0"
+              stroke-width="2"
+            ></rect>
+
+            <rect
+              x="620"
+              y="333"
+              width="145"
+              height="42"
+              rx="13"
+              fill="#ecfdf5"
+              stroke="#a7f3d0"
+              stroke-width="2"
+            ></rect>
+
+            <g
+              text-anchor="middle"
+              font-size="16"
+              font-weight="800"
+              fill="#047857"
+            >
+              <text x="692" y="79">АБВ</text>
+              <text x="692" y="137">АВБ</text>
+              <text x="692" y="191">БАВ</text>
+              <text x="692" y="249">БВА</text>
+              <text x="692" y="303">ВАБ</text>
+              <text x="692" y="361">ВБА</text>
+            </g>
+          </g>
+
+          <g stroke="#cbd5e1" stroke-width="2">
+            <line x1="576" y1="72" x2="620" y2="72"></line>
+            <line x1="576" y1="130" x2="620" y2="130"></line>
+            <line x1="576" y1="184" x2="620" y2="184"></line>
+            <line x1="576" y1="242" x2="620" y2="242"></line>
+            <line x1="576" y1="296" x2="620" y2="296"></line>
+            <line x1="576" y1="354" x2="620" y2="354"></line>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory" class="ms-section-soft">
+    <h2>1. Что называют перестановкой</h2>
+
+    <p class="ms-text">
+      <strong>Перестановкой из n различных элементов</strong>
+      называют последовательность, в которой использованы все
+      n элементов ровно по одному разу.
+    </p>
+
+    <div class="ms-rule-box">
+      <strong>Главный признак перестановки:</strong> набор объектов
+      не меняется, меняется только порядок их расположения.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Пример</span>
+      Из букв М, И, Р можно составить перестановки МИР, МРИ, ИМР,
+      ИРМ, РМИ, РИМ. Все три буквы каждый раз используются ровно
+      по одному разу.
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-3">
+    <h2>2. Формула числа перестановок</h2>
+
+    <p class="ms-text">
+      Для первой позиции можно выбрать любой из n элементов.
+      После этого для второй позиции остаётся n − 1 элемент,
+      для третьей — n − 2 и так далее. На последнюю позицию
+      остаётся один элемент.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-formula">
+        P<sub>n</sub> = n · (n − 1) · (n − 2) · … · 2 · 1 = n!
+      </div>
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Факториал числа n</strong> — произведение всех
+      натуральных чисел от 1 до n включительно.
+    </div>
+
+    <div class="ms-data-strip">
+      <span class="ms-data-chip">1! = 1</span>
+      <span class="ms-data-chip">2! = 2</span>
+      <span class="ms-data-chip">3! = 6</span>
+      <span class="ms-data-chip">4! = 24</span>
+      <span class="ms-data-chip">5! = 120</span>
+      <span class="ms-data-chip">6! = 720</span>
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Почему 0! = 1</span>
+      Пустой набор можно упорядочить единственным способом —
+      ничего не переставлять. Поэтому по определению принимают
+      <strong>0! = 1</strong>. Это соглашение также делает
+      комбинаторные формулы единообразными.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-4">
+    <h2>3. Как вычислять факториалы</h2>
+
+    <p class="ms-text">
+      Необязательно каждый раз раскрывать факториал полностью.
+      Часто удобно использовать связь соседних факториалов.
+    </p>
+
+    <div class="ms-math-box">
+      <div class="ms-math-row">n! = n · (n − 1)!</div>
+      <div class="ms-math-row">7! = 7 · 6!</div>
+      <div class="ms-math-row">8! = 8 · 7 · 6!</div>
+    </div>
+
+    <div class="ms-card-grid">
+      <div class="ms-card">
+        <span class="ms-mini-label">Сокращение</span>
+        <h3 class="ms-card-title">8! : 6!</h3>
+        <p class="ms-card-text">
+          8! = 8 · 7 · 6!, поэтому 8! : 6! = 8 · 7 =
+          <strong>56</strong>.
+        </p>
+      </div>
+
+      <div class="ms-card">
+        <span class="ms-mini-label">Сравнение</span>
+        <h3 class="ms-card-title">6! и 5!</h3>
+        <p class="ms-card-text">
+          6! = 6 · 5!, значит, 6! в <strong>6 раз</strong>
+          больше 5!.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-5">
+    <h2>4. Базовые задачи на перестановки</h2>
+
+    <div class="ms-example">
+      <span class="ms-example-title">Задача 1. Книги на полке</span>
+      Пять разных книг можно расставить на полке
+      5! = 120 способами.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Задача 2. Очерёдность выступлений
+      </span>
+      Для шести участников все места различаются: первый, второй,
+      третий и так далее. Число порядков равно 6! = 720.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Задача 3. Четырёхзначные числа
+      </span>
+      Из цифр 1, 3, 5, 7 без повторений составляют четырёхзначные
+      числа. Используются все четыре цифры, поэтому число вариантов
+      равно 4! = 24.
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-6">
+    <h2>5. Перестановки с дополнительным условием</h2>
+
+    <p class="ms-text">
+      Если некоторые объекты должны стоять рядом, их временно
+      объединяют в один блок. Затем считают перестановки блоков
+      и учитывают порядок объектов внутри блока.
+    </p>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Два человека должны стоять рядом
+      </span>
+      В ряд становятся Аня, Борис, Вера, Глеб и Дима. Аня и Борис
+      должны стоять рядом. Считаем пару АБ одним блоком: вместе
+      с тремя остальными людьми получаем 4 объекта, которые можно
+      упорядочить 4! способами. Внутри пары возможны порядки АБ
+      и БА. Поэтому число расстановок равно
+      2 · 4! = <strong>48</strong>.
+    </div>
+
+    <div class="ms-example">
+      <span class="ms-example-title">
+        Два человека не должны стоять рядом
+      </span>
+      Всего пять человек могут встать 5! = 120 способами.
+      Из них 48 расстановок содержат соседнюю пару. Поэтому
+      подходящих расстановок 120 − 48 = <strong>72</strong>.
+    </div>
+
+    <div class="ms-rule-box">
+      <strong>Полезный приём:</strong> условие «не рядом» часто
+      проще считать как «все варианты минус варианты, в которых
+      стоят рядом».
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-7">
+    <h2>6. Перестановка или другой вид выбора?</h2>
+
+    <div class="ms-table-wrap">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th>Вопрос</th>
+            <th>Перестановка?</th>
+            <th>Почему</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Расставить 7 разных книг</td>
+            <td>Да</td>
+            <td>Используются все 7 книг, важен порядок.</td>
+          </tr>
+
+          <tr>
+            <td>Выбрать 3 книги из 7</td>
+            <td>Нет</td>
+            <td>Используется только часть объектов.</td>
+          </tr>
+
+          <tr>
+            <td>Назначить председателя и секретаря из 7 человек</td>
+            <td>Нет</td>
+            <td>Выбираются не все люди, а роли различаются.</td>
+          </tr>
+
+          <tr>
+            <td>Определить порядок финиша 7 бегунов</td>
+            <td>Да</td>
+            <td>Все участники занимают разные позиции.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ms-section-soft" id="lesson-section-8">
+    <h2>Самопроверка</h2>
+
+    <div class="ms-task">
+      <p>
+        1. Сколькими способами можно расставить на полке четыре
+        разные книги?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Используются все четыре книги, важен порядок.
+            P<sub>4</sub> = 4! = 4 · 3 · 2 · 1 =
+            <strong>24</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>2. Вычислите 7! : 5!.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            7! = 7 · 6 · 5!, поэтому 7! : 5! = 7 · 6 =
+            <strong>42</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        3. Сколько шестизначных чисел можно составить из цифр
+        1, 2, 3, 4, 5, 6, используя каждую ровно один раз?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Любая перестановка шести цифр задаёт одно шестизначное
+            число. Число вариантов: 6! =
+            <strong>720</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        4. Сколькими способами семь спортсменов могут занять места
+        с первого по седьмое, если ничьих нет?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Нужно упорядочить семь различных спортсменов:
+            7! = <strong>5040</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        5. В ряд становятся шесть человек. Сколько расстановок
+        возможно, если Маша и Оля должны стоять рядом?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Считаем Машу и Олю одним блоком. Вместе с четырьмя
+            остальными людьми получаем 5 объектов: 5! способов.
+            Внутри пары возможны два порядка.
+          </p>
+          <p>
+            2 · 5! = 2 · 120 = <strong>240</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        6. В ряд становятся пять человек. Сколько расстановок
+        возможно, если Петя не должен стоять первым?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            Всего 5! = 120 расстановок. Если Петя стоит первым,
+            остальные четверо располагаются 4! = 24 способами.
+          </p>
+          <p>
+            120 − 24 = <strong>96</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>7. Найдите n, если n! = 720.</p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            6! = 6 · 5 · 4 · 3 · 2 · 1 = 720.
+            Следовательно, <strong>n = 6</strong>.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="ms-task">
+      <p>
+        8. Из букв С, Т, А, Р, Т составляют пятибуквенные
+        последовательности, используя все карточки. Карточки
+        с буквой Т считаются различимыми. Сколько
+        последовательностей получится?
+      </p>
+
+      <details class="ms-answer">
+        <summary>Показать решение</summary>
+        <div>
+          <p>
+            По условию все пять карточек различимы, поэтому считаем
+            перестановки пяти объектов: 5! =
+            <strong>120</strong>.
+          </p>
+          <p>
+            Если бы одинаковые буквы Т не различались, потребовалась
+            бы другая формула; она в этой теме не используется.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="ms-section" id="lesson-section-9">
+    <h2>Итог</h2>
+
+    <div class="ms-final-grid">
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Узнай перестановку</strong>
+        <span class="ms-card-text">
+          Используются все различные объекты, каждый ровно один раз,
+          а результат зависит от порядка.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Применяй факториал</strong>
+        <span class="ms-card-text">
+          Число перестановок n объектов равно P<sub>n</sub> = n!,
+          причём 0! = 1.
+        </span>
+      </div>
+
+      <div class="ms-final-card ms-card">
+        <strong class="ms-card-title">Учитывай условия</strong>
+        <span class="ms-card-text">
+          Соседние объекты объединяй в блок, а запрет удобно считать
+          вычитанием из общего числа вариантов.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ms-nav">
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/kombinatornoe-pravilo-umnozheniya/"
+    >
+      Предыдущая тема
+    </a>
+
+    <a
+      class="ms-btn ms-btn-secondary"
+      href="/9-klass-veroyatnost-i-statistika/"
+    >
+      К темам предмета
+    </a>
+
+    <a
+      class="ms-btn"
+      href="/sochetaniya-treugolnik-paskalya/"
+    >
+      Следующая тема
+    </a>
+  </div>
+</div>
+<!-- /wp:html -->
