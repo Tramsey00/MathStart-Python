@@ -1,7 +1,8 @@
-"""Lossless HTML lesson bundles. Export never overwrites an authored source.
+"""Filesystem lesson sources for MathStart.
 
-This adapter deliberately does not parse or reserialize lesson markup. Embedded
-styles, scripts, SVG and whitespace retain their exact order and content.
+The curriculum directory is the editable source of truth.
+Lesson markup is read without unnecessary reserialization so authored
+HTML, CSS, JavaScript, SVG, whitespace and line endings remain intact.
 """
 import hashlib
 import json
@@ -43,41 +44,12 @@ def page_snapshot(page):
     return data
 
 
-def page_origin(page):
-    result = {key: getattr(page, key) for key in ("wordpress_id", "legacy_url", "source_file")}
-    for key in ("original_created_at", "original_updated_at"):
-        value = getattr(page, key)
-        result[key] = value.isoformat() if value else None
-    return result
-
-
-def folder_slug(value):
-    if not isinstance(value, str) or not SLUG.fullmatch(value):
-        raise LessonSourceError(f"Недопустимый slug для папки: {value!r}")
-    if len(value) <= 56:
-        return value
-    return value[:56].rstrip("-") + "-" + hashlib.sha256(value.encode()).hexdigest()[:8]
-
-
-def relative_directory(page):
-    if not page.grade or not page.subject or not page.section:
-        raise LessonSourceError(f"{page.slug}: не заполнены класс, предмет или раздел.")
-    if page.subject.grade_id != page.grade_id or page.section.subject_id != page.subject_id:
-        raise LessonSourceError(f"{page.slug}: противоречивые связи класса, предмета и раздела.")
-    return Path(
-        folder_slug(page.grade.slug), folder_slug(page.subject.slug),
-        f"{page.section.order:02}-{folder_slug(page.section.slug)}",
-        f"{page.order:02}-{folder_slug(page.slug)}",
-    )
 
 
 def read_utf8(path):
     # Path.read_text() normalizes CRLF even when encoding='utf-8'.
     return path.read_bytes().decode("utf-8")
 
-
-def json_bytes(value):
-    return (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
 
 def inside(root, path):
@@ -103,17 +75,32 @@ def load_bundle(path, root):
     try:
         inside(root, path)
         metadata = json.loads(read_utf8(path))
-        if not isinstance(metadata, dict) or set(metadata) != {"schema_version", "format", "page", "origin", "baseline_digest"}:
-            raise LessonSourceError(f"{path}: неверные поля lesson.json.")
-        if metadata["schema_version"] != 1 or metadata["format"] not in ("legacy_html", "component_html", "themed_html"):
-            raise LessonSourceError(f"{path}: неподдерживаемая версия или формат урока.")
+        if (
+                not isinstance(metadata, dict)
+                or set(metadata)
+                != {
+            "schema_version",
+            "format",
+            "page",
+        }
+        ):
+            raise LessonSourceError(
+                f"{path}: неверные поля lesson.json."
+            )
+
+        if (
+                metadata["schema_version"] != 2
+                or metadata["format"]
+                not in (
+                "html",
+                "component_html",
+                "themed_html",
+        )
+        ):
+            raise LessonSourceError(
+                f"{path}: неподдерживаемая версия или формат урока."
+            )
         data = metadata["page"]
-        if not isinstance(data, dict) or set(data) != set(PAGE_FIELDS):
-            raise LessonSourceError(f"{path}: неверные поля page.")
-        if not isinstance(metadata["baseline_digest"], str) or not re.fullmatch(r"[0-9a-f]{64}", metadata["baseline_digest"]):
-            raise LessonSourceError(f"{path}: неверная исходная контрольная сумма.")
-        if not isinstance(metadata["origin"], dict):
-            raise LessonSourceError(f"{path}: origin должен быть объектом.")
         if data["page_type"] != "topic":
             raise LessonSourceError(f"{path}: допускаются только учебные темы.")
         for field in ("slug", "grade", "subject", "section"):
@@ -129,9 +116,12 @@ def load_bundle(path, root):
             file = inside(root, path.parent / filename)
             snapshot[field] = "" if field in OPTIONAL_PAYLOADS and not file.exists() else read_utf8(file)
         if metadata["format"] in ("component_html", "themed_html"):
-            from .lesson_components import render_component_lesson, render_legacy_contents
+            from .lesson_components import (
+                render_component_lesson,
+                render_themed_contents,
+            )
             try:
-                renderer = render_component_lesson if metadata["format"] == "component_html" else render_legacy_contents
+                renderer = render_component_lesson if metadata["format"] == "component_html" else render_themed_contents
                 snapshot["body_html"] = renderer(snapshot["body_html"])
             except (ValueError, StopIteration) as exc:
                 raise LessonSourceError(f"{path}: не удалось собрать компоненты урока: {exc}") from exc
@@ -169,47 +159,6 @@ def load_bundles(root, slugs=None, all_lessons=False):
     if not selected:
         raise LessonSourceError("Не найдено ни одного исходника урока.")
     return selected
-
-
-def export_lessons(root=None, slugs=None, all_lessons=False):
-    root = source_root(root)
-    pages = select_pages(slugs, all_lessons)
-    existing = {}
-    if root.exists():
-        for path in root.rglob("lesson.json"):
-            bundle = load_bundle(path, root)
-            if bundle.slug in existing:
-                raise LessonSourceError(f"Два исходника для одного адреса: {bundle.slug}")
-            existing[bundle.slug] = bundle
-    planned = []
-    for page in pages:
-        snapshot = page_snapshot(page)
-        if page.slug in existing:
-            bundle = existing[page.slug]
-            if snapshot != bundle.snapshot or page_origin(page) != bundle.metadata["origin"]:
-                raise LessonSourceError(f"{page.slug}: исходник отличается от базы; экспорт не перезаписывает правки.")
-            continue
-        directory = inside(root, root / relative_directory(page))
-        if directory.exists():
-            raise LessonSourceError(f"Каталог уже существует без полного исходника: {directory}")
-        metadata = {
-            "schema_version": 1, "format": "legacy_html",
-            "page": {field: snapshot[field] for field in PAGE_FIELDS},
-            "origin": page_origin(page), "baseline_digest": digest(snapshot),
-        }
-        planned.append((directory, metadata, snapshot))
-    # Validate the entire selection before creating any bundle. Never rewrite an
-    # existing author file; even a repeated export after editing is an error.
-    for directory, metadata, snapshot in planned:
-        directory.mkdir(parents=True, exist_ok=False)
-        for field, filename in PAYLOAD_FILES.items():
-            if field in OPTIONAL_PAYLOADS and not snapshot[field]:
-                continue
-            with (directory / filename).open("xb") as handle:
-                handle.write(snapshot[field].encode("utf-8"))
-        with (directory / "lesson.json").open("xb") as handle:
-            handle.write(json_bytes(metadata))
-    return {"selected": len(pages), "created": len(planned), "unchanged": len(pages) - len(planned)}
 
 
 def write_lesson_index(root=None):

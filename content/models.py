@@ -127,7 +127,6 @@ class ContentPage(models.Model):
         GRADE = "grade", "Страница класса"
         SUBJECT = "subject", "Страница предмета"
         TOPIC = "topic", "Учебная тема"
-        OGE = "oge", "Подготовка к ОГЭ"
         STATIC = "static", "Обычная страница"
 
     title = models.CharField(
@@ -204,38 +203,7 @@ class ContentPage(models.Model):
         default=True,
     )
 
-    wordpress_id = models.PositiveBigIntegerField(
-        "ID в WordPress",
-        null=True,
-        blank=True,
-        unique=True,
-    )
-    legacy_url = models.CharField(
-        "Старый URL",
-        max_length=500,
-        blank=True,
-    )
-    source_file = models.CharField(
-        "Исходный файл",
-        max_length=500,
-        blank=True,
-    )
-    content_checksum = models.CharField(
-        "Контрольная сумма",
-        max_length=64,
-        blank=True,
-    )
 
-    original_created_at = models.DateTimeField(
-        "Дата создания в WordPress",
-        null=True,
-        blank=True,
-    )
-    original_updated_at = models.DateTimeField(
-        "Дата изменения в WordPress",
-        null=True,
-        blank=True,
-    )
 
     created_at = models.DateTimeField(
         "Создано в Django",
@@ -297,13 +265,6 @@ class ContentPage(models.Model):
         if custom_description:
             return custom_description
 
-        if self.page_type == self.PageType.HOME:
-            return (
-                "MathStart — образовательный сайт по математике "
-                "для 5–9 классов и первые разделы алгебры 10 класса. "
-                "Теория, примеры, задания для самопроверки и подготовка к ОГЭ."
-            )
-
         if self.page_type == self.PageType.GRADE:
             grade_title = (
                 self.grade.title
@@ -343,12 +304,6 @@ class ContentPage(models.Model):
                 "на образовательном сайте MathStart."
             )
 
-        if self.page_type == self.PageType.OGE:
-            return (
-                "Подготовка к ОГЭ по математике: теория, "
-                "памятки, разборы заданий и материалы "
-                "для самостоятельной подготовки."
-            )
 
         return (
             f"{self.title} — информация на образовательном "
@@ -372,7 +327,7 @@ class LessonPublication(models.Model):
 
 
 class MediaAsset(models.Model):
-    """Изображение, PDF или другой файл из WordPress."""
+    """Изображение, PDF или другой медиафайл."""
 
     title = models.CharField(
         "Название",
@@ -382,12 +337,9 @@ class MediaAsset(models.Model):
     file = models.FileField(
         "Файл",
         upload_to="uploads/",
+        unique=True,
     )
-    old_url = models.CharField(
-        "Старый URL",
-        max_length=500,
-        blank=True,
-    )
+
     alt_text = models.CharField(
         "Альтернативный текст",
         max_length=255,
@@ -401,12 +353,7 @@ class MediaAsset(models.Model):
         null=True,
         blank=True,
     )
-    wordpress_id = models.PositiveBigIntegerField(
-        "ID в WordPress",
-        null=True,
-        blank=True,
-        unique=True,
-    )
+
     created_at = models.DateTimeField(
         "Добавлено",
         auto_now_add=True,

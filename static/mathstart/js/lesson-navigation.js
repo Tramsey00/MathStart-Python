@@ -3,7 +3,7 @@
   const root = document.querySelector('.ms-lesson-page');
   if (!root || root.dataset.navigationReady === 'true') return;
   root.addEventListener('click', function (event) {
-    if (root.classList.contains('ms-legacy-lesson') &&
+    if (root.dataset.lessonLayout === 'themed' &&
         !window.matchMedia('(min-width: 901px)').matches) return;
     const link = event.target.closest('a[href^="#"]');
     if (!link || !root.contains(link) || event.button !== 0 ||

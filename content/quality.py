@@ -11,7 +11,7 @@ AUTHORING_MARKERS = re.compile(
     r'далее\s+здесь|здесь\s+можно\s+(?:изменить|редактировать|вставить|добавить)'
     r'|(?:изменить|редактировать|вставить)\s+html'
     r'|html[-\s]*код|\bTODO\b|заглушк|контент\s+будет\s+добавлен'
-    r'|страница\s+в\s+разработке|example@|WordPress'
+    r'|страница\s+в\s+разработке|example@'
     r'|\[(?:contact-form-7|metaslider|ml_gallery|wshs_list)\b',
     re.IGNORECASE,
 )

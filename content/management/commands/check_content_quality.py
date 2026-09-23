@@ -26,8 +26,27 @@ class Command(BaseCommand):
                 result = inspect_html(response.content.decode('utf-8'))
                 report['svg_checked'] += result['svg_count']
                 report['issues'].extend({'page': page.slug, **issue} for issue in result['issues'])
-        path = Path(settings.BASE_DIR) / 'data' / 'content_quality_report.json'
-        path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
-        self.stdout.write(f"Проверено страниц: {report['pages_checked']}; SVG: {report['svg_checked']}; проблем: {len(report['issues'])}.")
-        if report['issues']:
-            raise CommandError('Подробности: ' + str(path))
+        report_dir = Path(settings.BASE_DIR) / "var" / "reports"
+        report_dir.mkdir(parents=True, exist_ok=True)
+
+        path = report_dir / "content_quality_report.json"
+
+        path.write_text(
+            json.dumps(
+                report,
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+
+        self.stdout.write(
+            f"Проверено страниц: {report['pages_checked']}; "
+            f"SVG: {report['svg_checked']}; "
+            f"проблем: {len(report['issues'])}."
+        )
+
+        if report["issues"]:
+            raise CommandError(
+                "Подробности: " + str(path)
+            )

@@ -13,17 +13,9 @@ from django.db.models import Count
 from content.models import ContentPage, MediaAsset, Redirect
 
 
-OLD_WORDPRESS_MARKERS = (
-    "localhost/mathstart",
-    "127.0.0.1/mathstart",
-    "cy874851.tw1.ru",
-    "wp-content/uploads",
-)
-
 INTERNAL_HOSTS = {
     "localhost",
     "127.0.0.1",
-    "cy874851.tw1.ru",
 }
 
 IGNORED_SCHEMES = {
@@ -65,7 +57,6 @@ def normalize_internal_path(raw_url):
         value = "https:" + value
 
     parsed = urlparse(value)
-
     scheme = parsed.scheme.lower()
 
     if scheme in IGNORED_SCHEMES:
@@ -98,15 +89,10 @@ def normalize_page_path(path):
     Нормализует адрес страницы к формату /slug/.
     Пути к файлам не изменяет.
     """
-    if not path:
+    if not path or path == "/":
         return "/"
 
-    if path == "/":
-        return "/"
-
-    suffix = PurePosixPath(path).suffix
-
-    if suffix:
+    if PurePosixPath(path).suffix:
         return path
 
     return "/" + path.strip("/") + "/"
@@ -148,9 +134,7 @@ def extract_page_references(page):
                 }
             )
 
-    for tag in soup.find_all(
-        attrs={"srcset": True},
-    ):
+    for tag in soup.find_all(attrs={"srcset": True}):
         srcset = tag.get("srcset", "")
 
         for item in srcset.split(","):
@@ -194,7 +178,10 @@ def static_file_exists(relative_path):
         "STATICFILES_DIRS",
         [],
     ):
-        candidate = Path(static_directory) / relative_path
+        candidate = (
+            Path(static_directory)
+            / relative_path
+        )
 
         if candidate.is_file():
             return True
@@ -206,7 +193,10 @@ def static_file_exists(relative_path):
     )
 
     if static_root:
-        candidate = Path(static_root) / relative_path
+        candidate = (
+            Path(static_root)
+            / relative_path
+        )
 
         if candidate.is_file():
             return True
@@ -217,7 +207,7 @@ def static_file_exists(relative_path):
 class Command(BaseCommand):
     help = (
         "Проверяет структуру, внутренние ссылки, "
-        "медиафайлы и остаточные адреса WordPress."
+        "статические ресурсы и медиафайлы."
     )
 
     def handle(self, *args, **options):
@@ -256,13 +246,19 @@ class Command(BaseCommand):
 
             if old_path:
                 known_page_paths.add(
-                    normalize_page_path(old_path)
+                    normalize_page_path(
+                        old_path
+                    )
                 )
 
         duplicate_slugs = list(
             ContentPage.objects.values("slug")
-            .annotate(total=Count("id"))
-            .filter(total__gt=1)
+            .annotate(
+                total=Count("id")
+            )
+            .filter(
+                total__gt=1
+            )
             .order_by("slug")
         )
 
@@ -273,7 +269,9 @@ class Command(BaseCommand):
                 "slug": page.slug,
             }
             for page in pages
-            if not (page.body_html or "").strip()
+            if not (
+                page.body_html or ""
+            ).strip()
         ]
 
         empty_slug_pages = [
@@ -282,13 +280,18 @@ class Command(BaseCommand):
                 "title": page.title,
             }
             for page in pages
-            if not (page.slug or "").strip()
+            if not (
+                page.slug or ""
+            ).strip()
         ]
 
         topics = [
             page
             for page in pages
-            if page.page_type == ContentPage.PageType.TOPIC
+            if (
+                page.page_type
+                == ContentPage.PageType.TOPIC
+            )
         ]
 
         topics_without_grade = [
@@ -312,60 +315,46 @@ class Command(BaseCommand):
         broken_internal_links = []
         broken_media_references = []
         broken_static_references = []
-        old_marker_details = []
 
         referenced_media_paths = set()
         checked_reference_count = 0
 
         for page in pages:
-            combined_content = "\n".join(
-                (
-                    page.body_html or "",
-                    page.page_css or "",
-                    page.page_js or "",
+            references = (
+                extract_page_references(
+                    page
                 )
             )
 
-            lower_content = combined_content.lower()
-
-            for marker in OLD_WORDPRESS_MARKERS:
-                occurrence_count = lower_content.count(
-                    marker.lower()
-                )
-
-                if occurrence_count:
-                    old_marker_details.append(
-                        {
-                            "page": page.slug,
-                            "marker": marker,
-                            "count": occurrence_count,
-                        }
-                    )
-
-            references = extract_page_references(page)
-
             for reference in references:
                 raw_url = reference["url"]
-                path = normalize_internal_path(raw_url)
+
+                path = normalize_internal_path(
+                    raw_url
+                )
 
                 if path is None:
                     continue
 
                 checked_reference_count += 1
 
-                if path.startswith(settings.MEDIA_URL):
+                if path.startswith(
+                    settings.MEDIA_URL
+                ):
                     relative_path = path[
-                        len(settings.MEDIA_URL):
+                        len(
+                            settings.MEDIA_URL
+                        ):
                     ].lstrip("/")
 
                     referenced_media_paths.add(
-                        f"uploads/{relative_path[len('uploads/'):]}"
-                        if relative_path.startswith("uploads/")
-                        else relative_path
+                        relative_path
                     )
 
                     file_path = (
-                        Path(settings.MEDIA_ROOT)
+                        Path(
+                            settings.MEDIA_ROOT
+                        )
                         / relative_path
                     )
 
@@ -373,44 +362,73 @@ class Command(BaseCommand):
                         broken_media_references.append(
                             {
                                 "page": page.slug,
-                                "kind": reference["kind"],
+                                "kind": (
+                                    reference[
+                                        "kind"
+                                    ]
+                                ),
                                 "url": raw_url,
-                                "expected_file": str(file_path),
+                                "expected_file": str(
+                                    file_path
+                                ),
                             }
                         )
 
                     continue
 
-                if path.startswith(settings.STATIC_URL):
+                if path.startswith(
+                    settings.STATIC_URL
+                ):
                     relative_path = path[
-                        len(settings.STATIC_URL):
+                        len(
+                            settings.STATIC_URL
+                        ):
                     ].lstrip("/")
 
-                    if not static_file_exists(relative_path):
+                    if not static_file_exists(
+                        relative_path
+                    ):
                         broken_static_references.append(
                             {
                                 "page": page.slug,
-                                "kind": reference["kind"],
+                                "kind": (
+                                    reference[
+                                        "kind"
+                                    ]
+                                ),
                                 "url": raw_url,
                             }
                         )
 
                     continue
 
-                if path.startswith("/admin/"):
+                if path.startswith(
+                    "/admin/"
+                ):
                     continue
 
-                normalized_path = normalize_page_path(
-                    path
+                normalized_path = (
+                    normalize_page_path(
+                        path
+                    )
                 )
 
-                if normalized_path not in known_page_paths:
+                if (
+                    normalized_path
+                    not in known_page_paths
+                ):
                     broken_internal_links.append(
                         {
                             "page": page.slug,
-                            "kind": reference["kind"],
+                            "kind": (
+                                reference[
+                                    "kind"
+                                ]
+                            ),
                             "url": raw_url,
-                            "normalized_path": normalized_path,
+                            "normalized_path": (
+                                normalized_path
+                            ),
                         }
                     )
 
@@ -419,8 +437,10 @@ class Command(BaseCommand):
         for asset in media_assets:
             if (
                 not asset.file
-                or not asset.file.storage.exists(
-                    asset.file.name
+                or not (
+                    asset.file.storage.exists(
+                        asset.file.name
+                    )
                 )
             ):
                 missing_media_assets.append(
@@ -444,8 +464,10 @@ class Command(BaseCommand):
             for asset in media_assets
             if (
                 asset.file
-                and asset.file.name
-                not in referenced_media_paths
+                and (
+                    asset.file.name
+                    not in referenced_media_paths
+                )
             )
         ]
 
@@ -456,11 +478,21 @@ class Command(BaseCommand):
 
         report = {
             "summary": {
-                "pages_total": len(pages),
-                "topics_total": len(topics),
-                "media_assets_total": len(media_assets),
-                "checked_references": checked_reference_count,
-                "duplicate_slugs": len(duplicate_slugs),
+                "pages_total": len(
+                    pages
+                ),
+                "topics_total": len(
+                    topics
+                ),
+                "media_assets_total": len(
+                    media_assets
+                ),
+                "checked_references": (
+                    checked_reference_count
+                ),
+                "duplicate_slugs": len(
+                    duplicate_slugs
+                ),
                 "empty_content_pages": len(
                     empty_content_pages
                 ),
@@ -482,13 +514,11 @@ class Command(BaseCommand):
                 "broken_media_references": len(
                     broken_media_references
                 ),
-                "broken_static_references": len(broken_static_references),
+                "broken_static_references": len(
+                    broken_static_references
+                ),
                 "missing_media_assets": len(
                     missing_media_assets
-                ),
-                "old_wordpress_markers": sum(
-                    item["count"]
-                    for item in old_marker_details
                 ),
                 "unused_media_assets": len(
                     unused_media_assets
@@ -497,27 +527,47 @@ class Command(BaseCommand):
             "page_type_counts": dict(
                 page_type_counts
             ),
-            "duplicate_slugs": duplicate_slugs,
-            "empty_content_pages": empty_content_pages,
-            "empty_slug_pages": empty_slug_pages,
-            "topics_without_grade": topics_without_grade,
-            "topics_without_subject": topics_without_subject,
-            "topics_without_section": topics_without_section,
-            "broken_internal_links": broken_internal_links,
+            "duplicate_slugs": (
+                duplicate_slugs
+            ),
+            "empty_content_pages": (
+                empty_content_pages
+            ),
+            "empty_slug_pages": (
+                empty_slug_pages
+            ),
+            "topics_without_grade": (
+                topics_without_grade
+            ),
+            "topics_without_subject": (
+                topics_without_subject
+            ),
+            "topics_without_section": (
+                topics_without_section
+            ),
+            "broken_internal_links": (
+                broken_internal_links
+            ),
             "broken_media_references": (
                 broken_media_references
             ),
             "broken_static_references": (
                 broken_static_references
             ),
-            "missing_media_assets": missing_media_assets,
-            "old_marker_details": old_marker_details,
-            "unused_media_assets": unused_media_assets,
+            "missing_media_assets": (
+                missing_media_assets
+            ),
+            "unused_media_assets": (
+                unused_media_assets
+            ),
         }
 
         report_path = (
-            Path(settings.BASE_DIR)
-            / "data"
+            Path(
+                settings.BASE_DIR
+            )
+            / "var"
+            / "reports"
             / "site_integrity_report.json"
         )
 
@@ -540,80 +590,120 @@ class Command(BaseCommand):
         self.stdout.write(
             "Проверка целостности MathStart:"
         )
+
         self.stdout.write(
-            f"  Всего материалов: "
+            "  Всего материалов: "
             f"{summary['pages_total']}"
         )
+
         self.stdout.write(
-            f"  Учебных тем: "
+            "  Учебных тем: "
             f"{summary['topics_total']}"
         )
+
         self.stdout.write(
-            f"  Медиафайлов: "
+            "  Медиафайлов: "
             f"{summary['media_assets_total']}"
         )
+
         self.stdout.write(
-            f"  Проверено ссылок и ресурсов: "
+            "  Проверено ссылок и ресурсов: "
             f"{summary['checked_references']}"
         )
+
         self.stdout.write("")
+
         self.stdout.write(
-            f"  Дубликатов slug: "
+            "  Дубликатов slug: "
             f"{summary['duplicate_slugs']}"
         )
+
         self.stdout.write(
-            f"  Пустых материалов: "
+            "  Пустых материалов: "
             f"{summary['empty_content_pages']}"
         )
+
         self.stdout.write(
-            f"  Тем без класса: "
+            "  Пустых slug: "
+            f"{summary['empty_slug_pages']}"
+        )
+
+        self.stdout.write(
+            "  Тем без класса: "
             f"{summary['topics_without_grade']}"
         )
+
         self.stdout.write(
-            f"  Тем без предмета: "
+            "  Тем без предмета: "
             f"{summary['topics_without_subject']}"
         )
+
         self.stdout.write(
-            f"  Тем без раздела: "
+            "  Тем без раздела: "
             f"{summary['topics_without_section']}"
         )
+
         self.stdout.write(
-            f"  Битых внутренних ссылок: "
+            "  Битых внутренних ссылок: "
             f"{summary['broken_internal_links']}"
         )
+
         self.stdout.write(
-            f"  Битых ссылок на медиа: "
+            "  Битых ссылок на медиа: "
             f"{summary['broken_media_references']}"
         )
+
         self.stdout.write(
-            f"  Отсутствующих MediaAsset-файлов: "
+            "  Битых ссылок на static: "
+            f"{summary['broken_static_references']}"
+        )
+
+        self.stdout.write(
+            "  Отсутствующих "
+            "MediaAsset-файлов: "
             f"{summary['missing_media_assets']}"
         )
+
         self.stdout.write(
-            f"  Остатков WordPress-адресов: "
-            f"{summary['old_wordpress_markers']}"
-        )
-        self.stdout.write(
-            f"  Неиспользуемых медиафайлов: "
+            "  Неиспользуемых медиафайлов: "
             f"{summary['unused_media_assets']}"
         )
+
         self.stdout.write("")
+
         self.stdout.write(
             f"Полный отчёт: {report_path}"
         )
 
         critical_error_count = (
             summary["duplicate_slugs"]
-            + summary["empty_content_pages"]
-            + summary["empty_slug_pages"]
-            + summary["topics_without_grade"]
-            + summary["topics_without_subject"]
-            + summary["topics_without_section"]
-            + summary["broken_internal_links"]
-            + summary["broken_media_references"]
-            + summary["broken_static_references"]
-            + summary["missing_media_assets"]
-            + summary["old_wordpress_markers"]
+            + summary[
+                "empty_content_pages"
+            ]
+            + summary[
+                "empty_slug_pages"
+            ]
+            + summary[
+                "topics_without_grade"
+            ]
+            + summary[
+                "topics_without_subject"
+            ]
+            + summary[
+                "topics_without_section"
+            ]
+            + summary[
+                "broken_internal_links"
+            ]
+            + summary[
+                "broken_media_references"
+            ]
+            + summary[
+                "broken_static_references"
+            ]
+            + summary[
+                "missing_media_assets"
+            ]
         )
 
         self.stdout.write("")
@@ -621,9 +711,14 @@ class Command(BaseCommand):
         if critical_error_count == 0:
             self.stdout.write(
                 self.style.SUCCESS(
-                    "Критических проблем целостности "
-                    "сайта не обнаружено."
+                    "Критических проблем "
+                    "целостности сайта "
+                    "не обнаружено."
                 )
             )
         else:
-            raise CommandError("Найдены проблемы. Подробности записаны в JSON-отчёт.")
+            raise CommandError(
+                "Найдены проблемы. "
+                "Подробности записаны "
+                "в JSON-отчёт."
+            )

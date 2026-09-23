@@ -11,25 +11,38 @@ from .models import (
 )
 
 
+class SourceManagedAdminMixin:
+    """Source-controlled content is view-only in Django admin."""
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Grade)
-class GradeAdmin(admin.ModelAdmin):
+class GradeAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
     list_display = (
         "title",
         "slug",
         "order",
     )
-    list_editable = ("order",)
     search_fields = (
         "title",
         "slug",
     )
-    prepopulated_fields = {
-        "slug": ("title",),
-    }
+    ordering = (
+        "order",
+        "title",
+    )
 
 
 @admin.register(Subject)
-class SubjectAdmin(admin.ModelAdmin):
+class SubjectAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
     list_display = (
         "title",
         "grade",
@@ -37,19 +50,20 @@ class SubjectAdmin(admin.ModelAdmin):
         "order",
     )
     list_filter = ("grade",)
-    list_editable = ("order",)
     search_fields = (
         "title",
         "slug",
     )
-    prepopulated_fields = {
-        "slug": ("title",),
-    }
-    autocomplete_fields = ("grade",)
+    ordering = (
+        "grade__order",
+        "order",
+        "title",
+    )
+    list_select_related = ("grade",)
 
 
 @admin.register(Section)
-class SectionAdmin(admin.ModelAdmin):
+class SectionAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
     list_display = (
         "title",
         "subject",
@@ -60,19 +74,24 @@ class SectionAdmin(admin.ModelAdmin):
         "subject__grade",
         "subject",
     )
-    list_editable = ("order",)
     search_fields = (
         "title",
         "slug",
     )
-    prepopulated_fields = {
-        "slug": ("title",),
-    }
-    autocomplete_fields = ("subject",)
+    ordering = (
+        "subject__grade__order",
+        "subject__order",
+        "order",
+        "title",
+    )
+    list_select_related = (
+        "subject",
+        "subject__grade",
+    )
 
 
 @admin.register(ContentPage)
-class ContentPageAdmin(admin.ModelAdmin):
+class ContentPageAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
     list_display = (
         "title",
         "page_type",
@@ -93,53 +112,40 @@ class ContentPageAdmin(admin.ModelAdmin):
         "title",
         "slug",
         "body_html",
-        "legacy_url",
     )
-    # Use the detail form for standalone pages; managed lessons are read-only.
-    list_editable = ()
-    prepopulated_fields = {
-        "slug": ("title",),
-    }
-    autocomplete_fields = (
+    ordering = (
+        "page_type",
+        "grade__order",
+        "subject__order",
+        "section__order",
+        "order",
+        "title",
+    )
+    list_select_related = (
         "grade",
         "subject",
         "section",
     )
+
     readonly_fields = (
+        "source_location",
+        "title",
+        "slug",
+        "page_type",
+        "is_published",
+        "grade",
+        "subject",
+        "section",
+        "order",
+        "body_html",
+        "page_css",
+        "page_js",
+        "seo_title",
+        "seo_description",
         "created_at",
         "updated_at",
-        "content_checksum",
-        "lesson_source",
     )
 
-    @admin.display(description="Редактируемый исходник урока")
-    def lesson_source(self, obj):
-        if obj and obj.pk:
-            state = LessonPublication.objects.filter(page_id=obj.pk).first()
-            if state:
-                return "curriculum/" + state.source_path + " — содержимое и метаданные редактируются в файлах; публикация: manage.py publish_lessons --slug " + obj.slug
-        return "Страница редактируется в админке."
-
-    def get_readonly_fields(self, request, obj=None):
-        fields = super().get_readonly_fields(request, obj)
-        if obj and LessonPublication.objects.filter(page_id=obj.pk).exists():
-            fields += (
-                "title", "slug", "page_type", "is_published", "grade", "subject",
-                "section", "order", "body_html", "page_css", "page_js", "seo_title",
-                "seo_description", "wordpress_id", "legacy_url", "source_file",
-                "original_created_at", "original_updated_at",
-            )
-        return fields
-
-    def get_prepopulated_fields(self, request, obj=None):
-        if obj and LessonPublication.objects.filter(page_id=obj.pk).exists():
-            return {}
-        return super().get_prepopulated_fields(request, obj)
-
-    def has_change_permission(self, request, obj=None):
-        if obj and LessonPublication.objects.filter(page_id=obj.pk).exists():
-            return False
-        return super().has_change_permission(request, obj)
     fieldsets = (
         (
             "Основные данные",
@@ -164,10 +170,17 @@ class ContentPageAdmin(admin.ModelAdmin):
             },
         ),
         (
+            "Источник",
+            {
+                "fields": (
+                    "source_location",
+                ),
+            },
+        ),
+        (
             "Содержимое",
             {
                 "fields": (
-                    "lesson_source",
                     "body_html",
                     "page_css",
                     "page_js",
@@ -184,21 +197,7 @@ class ContentPageAdmin(admin.ModelAdmin):
             },
         ),
         (
-            "Данные миграции",
-            {
-                "classes": ("collapse",),
-                "fields": (
-                    "wordpress_id",
-                    "legacy_url",
-                    "source_file",
-                    "content_checksum",
-                    "original_created_at",
-                    "original_updated_at",
-                ),
-            },
-        ),
-        (
-            "Служебные даты",
+            "Служебные данные",
             {
                 "classes": ("collapse",),
                 "fields": (
@@ -209,26 +208,65 @@ class ContentPageAdmin(admin.ModelAdmin):
         ),
     )
 
+    @admin.display(description="Источник данных")
+    def source_location(self, obj):
+        if not obj or not obj.pk:
+            return "—"
+
+        publication = (
+            LessonPublication.objects
+            .filter(page_id=obj.pk)
+            .only("source_path")
+            .first()
+        )
+
+        if publication:
+            return f"curriculum/{publication.source_path}"
+
+        return f"site_content/pages/{obj.slug}/"
+
+
+@admin.register(LessonPublication)
+class LessonPublicationAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
+    list_display = (
+        "page",
+        "source_path",
+        "published_at",
+    )
+    search_fields = (
+        "page__title",
+        "page__slug",
+        "source_path",
+        "published_digest",
+    )
+    ordering = ("source_path",)
+    list_select_related = ("page",)
+
+    readonly_fields = (
+        "page",
+        "source_path",
+        "published_digest",
+        "published_at",
+    )
+
 
 @admin.register(MediaAsset)
-class MediaAssetAdmin(admin.ModelAdmin):
+class MediaAssetAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
     list_display = (
         "title",
         "file",
         "related_page",
-        "wordpress_id",
     )
     search_fields = (
         "title",
         "file",
-        "old_url",
         "alt_text",
     )
-    autocomplete_fields = ("related_page",)
+    list_select_related = ("related_page",)
 
 
 @admin.register(Redirect)
-class RedirectAdmin(admin.ModelAdmin):
+class RedirectAdmin(SourceManagedAdminMixin, admin.ModelAdmin):
     list_display = (
         "old_path",
         "new_path",
@@ -239,16 +277,13 @@ class RedirectAdmin(admin.ModelAdmin):
         "is_permanent",
         "is_active",
     )
-    list_editable = (
-        "is_permanent",
-        "is_active",
-    )
     search_fields = (
         "old_path",
         "new_path",
     )
+    ordering = ("old_path",)
 
 
-admin.site.site_header = "Администрирование MathStart"
+admin.site.site_header = "MathStart"
 admin.site.site_title = "MathStart"
-admin.site.index_title = "Управление содержимым сайта"
+admin.site.index_title = "Содержимое сайта"

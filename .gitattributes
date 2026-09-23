@@ -1,4 +1,13 @@
-# Preserve lesson payloads exactly, including their original newline convention.
+# Default text files use LF in the repository.
+* text=auto eol=lf
+
+# Windows command files use CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Lesson payloads are published and compared byte-for-byte.
+# Do not normalize their line endings automatically.
 curriculum/**/body.html -text
 curriculum/**/page.css -text
 curriculum/**/page.js -text

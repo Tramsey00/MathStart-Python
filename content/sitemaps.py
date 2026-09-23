@@ -16,11 +16,10 @@ class ContentPageSitemap(Sitemap):
     def location(self, page):
         return page.get_absolute_url()
 
+
     def lastmod(self, page):
-        return (
-            page.original_updated_at
-            or page.updated_at
-        )
+        return page.updated_at
+
 
     def changefreq(self, page):
         if page.page_type == ContentPage.PageType.HOME:

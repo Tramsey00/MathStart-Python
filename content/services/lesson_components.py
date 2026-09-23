@@ -88,10 +88,17 @@ def component(name, value):
     return render_to_string(f"lessons/components/{name}.html", {name: value}).strip()
 
 
-def render_legacy_contents(source):
+def render_themed_contents(source):
     """Build the shared contents from real section headings on every publish."""
     tree = SourceTree(source)
-    root = next((node for node in tree.elements if node.has_class("ms-legacy-lesson")), None)
+    root = next(
+        (
+            node
+            for node in tree.elements
+            if node.has_class("ms-lesson-page")
+        ),
+        None,
+    )
     toc = next((node for node in tree.elements if node.has_class("ms-desktop-toc")), None)
     if not root or not toc:
         raise ValueError("В уроке отсутствует общий блок содержания.")
@@ -141,8 +148,16 @@ def render_exercises(fragment):
 def render_component_lesson(source):
     tree = SourceTree(source)
     root = next((node for node in tree.elements if node.has_class("ms-lesson-page")), None)
-    if not root or root.attrs.get("data-lesson-theme") != "power-v2":
-        raise ValueError("Урок должен использовать общий шаблон power-v2.")
+    if not root or not root.has_class("ms-lesson-page"):
+        raise ValueError(
+            "Не найден корневой элемент урока."
+        )
+
+    if root.attrs.get("data-lesson-layout") != "components":
+        raise ValueError(
+            "Компонентный урок должен использовать "
+            'data-lesson-layout="components".'
+        )
     changes = []
     for section in root.children:
         if section.tag != "section" or not (section.has_class("ms-section") or section.has_class("ms-section-soft")):

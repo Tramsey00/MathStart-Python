@@ -62,11 +62,17 @@
 
   <link rel="stylesheet" href="{% static 'mathstart/css/site.css' %}">
 
-  {% if page.page_css and not theme_enabled %}
-    <style>
-      {{ page.page_css|safe }}
-    </style>
-  {% endif %}
+  <link rel="stylesheet" href="{% static 'mathstart/css/site.css' %}">
+
+    {% for stylesheet in theme_before %}
+      <link rel="stylesheet" href="{% static stylesheet %}">
+    {% endfor %}
+
+    {% if page.page_css %}
+      <style data-lesson-page-css>
+        {{ page.page_css|safe }}
+      </style>
+    {% endif %}
 </head>
 
 <body>
@@ -78,8 +84,6 @@
       <a href="/karta-sajta/">Все темы</a>
     </div>
   </nav>
-  {% for stylesheet in theme_before %}<link rel="stylesheet" href="{% static stylesheet %}">{% endfor %}
-  {% if theme_enabled and page.page_css %}<style data-lesson-page-css>{{ page.page_css|safe }}</style>{% endif %}
   {{ page.body_html|safe }}
 
   {% if page.slug == 'karta-sajta' %}
