@@ -1,6 +1,6 @@
 # EXEC PLAN R03: Knowledge Graph and Exact Progress Contract
 
-- **Status:** Active (contract accepted; awaiting PR merge into main)
+- **Status:** Completed (contract accepted; PR #7 merged into main; main CI green)
 - **Owner:** Ruslan
 - **Backup owner:** Vladimir
 - **Created:** 2026-09-24
@@ -11,7 +11,9 @@
 - **Window:** W1
 - **Estimate:** 12 hours
 - **Target milestone:** R03 / W1
-- **Human gate required:** Contract gate ACCEPTED; PR merge into main pending; C-16 official submission remains a separate human gate
+- **Merged PR:** [#7 — R03: Knowledge Graph and Progress contract phase](https://github.com/Tramsey00/MathStart-Python/pull/7)
+- **Merge commit:** `61042ddb2a1b78a9955eae2a96b523e859d3f948`
+- **Human gate:** Contract ACCEPTED; final merge APPROVED and completed. C-16 official submission remains a separate human gate
 
 ## 1. Objective and current authorization
 
@@ -148,13 +150,13 @@ All cases below must execute through `tests/test_r03_contract.py` and be covered
 - **Semantic review:** Completed on 2026-09-24 with the required corrections recorded in sections 5-6.
 - **Revised-plan gate:** Approved with final metadata and replay corrections. An initial planning/audit commit precedes contract-file work.
 - **ADR-0003:** Required in the contract phase. It must document `pilot-v1`, edge meaning, `basic_arithmetic`, `ProgressEvent` semantics, replay, idempotency, difficulty normalization and one-penalty rule, and explicitly preserve the numerical Progress v1 baseline.
-- **R03 contract gate:** The first contract review required depth-2 ancestors, canonical `UserSkillState` fields, normalized single-negative ProgressEvents, valid completion timing on both sides of occurrence, and independent literal test expectations. These corrections are implemented, verified and ACCEPTED by the final human contract review. R03 remains active until its PR is merged into main.
+- **R03 contract gate:** The first contract review required depth-2 ancestors, canonical `UserSkillState` fields, normalized single-negative ProgressEvents, valid completion timing on both sides of occurrence, and independent literal test expectations. These corrections are implemented, verified and ACCEPTED by the final human contract review. The final merge gate was APPROVED; PR #7 is merged into main.
 - **C-16 official submission:** Separate human gate before 2026-10-09. The contract phase creates only a draft/checklist; missing full names and groups remain placeholders until supplied.
 
 ## 11. Risks, dependencies and remaining blockers
 
 - **Planning baseline:** Issue #6 exists; `R03-knowledge-progress` started at the same commit as updated local and remote `main`. The intact R03 audit/plan files were preserved in planning commit `37417a1` before contract work.
-- **Contract review gate:** ACCEPTED: the completed ADR/spec/fixture/test package is approved for commit and PR. Merge into main remains pending.
+- **Contract review gate:** ACCEPTED: the completed ADR/spec/fixture/test package is approved for commit and PR. PR #7 was merged into main; push-to-main CI passed.
 - **Terminology dependency:** The audit found older event wording in `ARCHITECTURE.md`, `PRODUCT.md`, `AGENTS.md` and templates. The contract-phase edits and accepted ADR-0003 reconcile it without rewriting accepted R01/R02 history; final contract acceptance is recorded.
 - **Persistence dependency:** The exact Topic FK and user-evidence schema are deferred; no duplicate Topic model or invented migration is allowed here. Assessment attempts and PostgreSQL readiness also remain later implementation work.
 - **Submission information:** Full names and groups are not in the repository. They block a complete official C-16 submission, not the draft checklist. The deadline and official gate must be visible in that draft.
@@ -162,4 +164,14 @@ All cases below must execute through `tests/test_r03_contract.py` and be covered
 
 ## 12. Verification and current gate
 
-Planning/audit commit `37417a1` preceded contract work. After the first contract human-review corrections, the suite ran with bundled Python 3.12.14 and passed 18 tests. All 10 JSON fixtures parsed. The full `scripts/verify_repo.py` run passed 7/7 checks: Django check; migration consistency (`No changes detected`); 263 lesson sources; content quality; site integrity; 15 Django tests; and 18 R03 contract tests. `git diff --check` passed with the new files included as Git intent-to-add. The normal project `.venv` launcher still references absent Python 3.10, so verification used the bundled interpreter with the project's site-packages. Exact commands and results are recorded in the trace. These checks verify the pure contract and existing Django baseline; they do not verify PostgreSQL, runtime Knowledge/Progress behavior, or database persistence. The final human contract gate is **ACCEPTED**. Commit and PR creation are authorized. **Keep R03 active until the PR is merged into main**, then record merge evidence and complete the plan.
+Planning/audit commit `37417a1` preceded contract work. After the first contract human-review corrections, the suite ran with bundled Python 3.12.14 and passed 18 tests. All 10 JSON fixtures parsed. The full `scripts/verify_repo.py` run passed 7/7 checks: Django check; migration consistency (`No changes detected`); 263 lesson sources; content quality; site integrity; 15 Django tests; and 18 R03 contract tests. `git diff --check` passed with the new files included as Git intent-to-add. The normal project `.venv` launcher still references absent Python 3.10, so verification used the bundled interpreter with the project's site-packages. Exact commands and results are recorded in the trace. These checks verify the pure contract and existing Django baseline; they do not verify PostgreSQL, runtime Knowledge/Progress behavior, or database persistence. The final human contract gate was **ACCEPTED** and the final merge gate was **APPROVED**. PR #7 and both CI runs are recorded in section 13.
+
+## 13. Completion and Definition of Done
+
+The final human contract gate was **ACCEPTED**, and the final human merge gate was **APPROVED**. [PR #7](https://github.com/Tramsey00/MathStart-Python/pull/7) was merged into `main` by a normal merge commit, `61042ddb2a1b78a9955eae2a96b523e859d3f948`, preserving the R03 planning, contract and CI commits. Local `main` was fast-forwarded to the same `origin/main` commit.
+
+The pre-merge [Harness verification run 36055134471](https://github.com/Tramsey00/MathStart-Python/actions/runs/36055134471) and post-merge push-to-main [Harness verification run 36056921530](https://github.com/Tramsey00/MathStart-Python/actions/runs/36056921530) both completed with **success**. The post-merge Harness passed all seven checks, including migration consistency, 263 lesson sources, content quality, site integrity, 15 Django tests and 18 R03 contract tests.
+
+The accepted Knowledge contract defines exactly 10 pilot Skills and 13 edges, the external `basic_arithmetic` prerequisite, and deterministic depth-2 ancestors. The accepted Progress contract retains the numerical Progress v1 baseline and covers all eight `ProgressEvent` kinds, canonical `UserSkillState`, replay, idempotency, evidence normalization and rounding. ADR-0003 and both R03 specs are Accepted. The executable contract tests, fixtures and trace are present in the merged repository. No R01/R02 history was rewritten.
+
+**R03 status: COMPLETED for the approved contract phase.** No Django Knowledge/Progress models, migrations, services, runtime seed or database persistence were implemented, and no PostgreSQL persistence verification is claimed. Future persistence work is outside this phase. Official C-16 submission remains a separate human gate before 2026-10-09.
