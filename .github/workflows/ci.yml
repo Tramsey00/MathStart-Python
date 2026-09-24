@@ -22,5 +22,7 @@ jobs:
         run: |
           python manage.py migrate --noinput
           python manage.py bootstrap_site
+      - name: Collect static files
+        run: python manage.py collectstatic --noinput
       - name: Verify repository
         run: python scripts/verify_repo.py
