@@ -25,7 +25,7 @@ MathStart should support the following learning loop:
 3. MathStart validates the answer or solution steps;
 4. when supported, MathStart identifies the first confirmed problematic step;
 5. the system links confirmed evidence to one or more skills;
-6. Progress Engine updates the student's knowledge state using validated knowledge events;
+6. Progress Engine updates the student's knowledge state using validated `ProgressEvent` evidence;
 7. if a prerequisite is weak, Adaptive Practice temporarily switches the student to targeted practice;
 8. AI Tutor provides hint-first help using relevant topic and progress context;
 9. after successful practice, the student returns to the original topic.
@@ -341,9 +341,9 @@ It is not updated directly by AI Tutor or an LLM provider.
 
 ---
 
-## 14. Knowledge events
+## 14. Progress events
 
-Long-term progress changes are driven by explicit knowledge events.
+Long-term progress changes are driven by explicit `ProgressEvent` records.
 
 Baseline event types include:
 
@@ -515,7 +515,7 @@ Expected system flow:
 7. Solution Analyzer classifies the confirmed problem into a controlled mistake type, when evidence is sufficient;
 8. the mistake is linked to the relevant skill;
 9. structured analysis passes validation/confidence gates;
-10. a validated knowledge event is created;
+10. a validated `ProgressEvent` is created;
 11. Progress Engine updates the affected skill state;
 12. prerequisite state is inspected;
 13. if a prerequisite is weak, Adaptive Practice starts targeted practice;
@@ -595,7 +595,7 @@ The MVP includes:
 - first-problematic-step detection where supported;
 - controlled mistake taxonomy;
 - confirmed mistake -> skill mapping;
-- knowledge events;
+- `ProgressEvent` evidence;
 - user skill state;
 - prerequisite graph;
 - AI Tutor;
@@ -649,7 +649,7 @@ At minimum, the demonstration should prove that:
 4. a supported step-by-step solution can be analyzed;
 5. the system can locate a problematic step or explicitly state that it cannot;
 6. a confirmed error can be connected to a skill;
-7. progress changes through knowledge events;
+7. progress changes through `ProgressEvent` records;
 8. weak prerequisites can trigger adaptive practice;
 9. AI Tutor uses relevant context without directly modifying progress;
 10. the student can return to the original topic after targeted practice;

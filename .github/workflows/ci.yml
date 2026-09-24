@@ -1,0 +1,28 @@
+name: Harness verification
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SECRET_KEY: ci-only-key-for-harness-verification
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Migrate and bootstrap site
+        run: |
+          python manage.py migrate --noinput
+          python manage.py bootstrap_site
+      - name: Collect static files
+        run: python manage.py collectstatic --noinput
+      - name: Verify repository
+        run: python scripts/verify_repo.py

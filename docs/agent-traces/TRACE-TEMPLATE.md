@@ -129,7 +129,7 @@ Examples:
 - public DTO leaked `answer_key`;
 - graph validation found a cycle;
 - analyzer output failed Pydantic validation;
-- test exposed duplicate knowledge events.
+- test exposed duplicate `ProgressEvent` records.
 
 If there were none:
 
