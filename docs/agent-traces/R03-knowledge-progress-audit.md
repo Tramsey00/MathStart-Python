@@ -1,15 +1,16 @@
 # TRACE R03: Knowledge Graph and Progress Contract Audit
 
 - **Date:** 2026-09-24
-- **Task ID:** R03 audit/exec-plan phase
+- **Task ID:** R03 Knowledge Graph and Progress contract package
 - **Owner:** Ruslan / MathStart team
 - **Coding agent / surface:** Codex desktop
-- **Related spec:** `specs/progress/BASELINE-v1.md`
+- **Related specs:** `specs/knowledge/R03-knowledge-graph.md`, `specs/progress/R03-progress-contract.md`; numerical baseline `specs/progress/BASELINE-v1.md`
 - **Related exec plan:** `docs/exec-plans/active/R03-knowledge-progress-contract.md`
 - **Related issue:** https://github.com/Tramsey00/MathStart-Python/issues/6
 - **Related ADRs:** ADR-0001, ADR-0002; ADR-0003 Accepted
-- **PR / commit:** initial planning/audit commit `37417a1`; no PR
-- **Human review status:** Final human contract gate = ACCEPTED; approved for commit and PR; merge pending
+- **Contract commit:** `961403958b5816071b795a2170f080051dd1bf9f` (`feat(r03): add executable knowledge and progress contracts`)
+- **PR:** [#7 — R03: Knowledge Graph and Progress contract phase](https://github.com/Tramsey00/MathStart-Python/pull/7), open
+- **Human contract gate:** ACCEPTED; merge pending
 
 ## 1. Task and inputs
 
@@ -100,3 +101,9 @@ Final verification used `C:\Users\Tramsey\.cache\codex-runtimes\codex-primary-ru
 - Full `scripts/verify_repo.py`: **PASS, 7/7 checks**. Django system check passed; migration check reported `No changes detected`; 263 lesson sources passed; content quality and site integrity passed; **15 Django tests** passed in 36.723s; **18 R03 contract tests** passed.
 
 The accepted package is authorized for commit `feat(r03): add executable knowledge and progress contracts` and PR `R03: Knowledge Graph and Progress contract phase`, referencing Issue #6. Keep the plan in `active/` until the PR is merged into main and merge evidence is recorded. This acceptance does not claim PostgreSQL or Django Knowledge/Progress persistence verification. C-16 official submission remains a separate human gate before 2026-10-09.
+
+## 10. PR process gate: repository CI
+
+The process review found that PR #7 initially had no GitHub Actions workflow or CI checks. Issue #6 was updated to reflect the accepted contract, 18 passing R03 tests, open PR #7, pending merge, deferred Django persistence and separate C-16 submission gate. Added `.github/workflows/ci.yml` to run on PRs to `main` and pushes to `main`: Python 3.12, `requirements.txt`, `migrate --noinput`, `bootstrap_site`, then the complete `python scripts/verify_repo.py`. The fresh database and content bootstrap follow `README.md`; the verification skill now identifies this command as the CI gate.
+
+Before pushing CI, a fresh local SQLite database at ignored `var/r03-ci-smoke.sqlite3` was migrated and bootstrapped successfully: 263 lessons and 29 media records were restored. The full Harness then passed **7/7 checks** on that fresh database, including 15 Django tests and 18 R03 tests. The local interpreter was the bundled Python 3.12.14 with the project's site-packages. GitHub Actions result and final merge gate remain pending; PR #7 must not be merged during this process update.

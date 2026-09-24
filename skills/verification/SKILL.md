@@ -49,6 +49,11 @@ The Harness verification entry point is:
 python scripts/verify_repo.py
 ```
 
+`.github/workflows/ci.yml` runs this same entry point for pull requests to
+`main` and pushes to `main`. The CI job first installs `requirements.txt`,
+migrates the fresh SQLite database, and runs `bootstrap_site` so content checks
+exercise the full site. A green CI job is required before merge.
+
 For a faster pass without the full Django test suite:
 
 ```bash
