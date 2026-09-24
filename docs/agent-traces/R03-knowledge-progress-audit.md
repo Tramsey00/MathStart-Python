@@ -5,12 +5,12 @@
 - **Owner:** Ruslan / MathStart team
 - **Coding agent / surface:** Codex desktop
 - **Related specs:** `specs/knowledge/R03-knowledge-graph.md`, `specs/progress/R03-progress-contract.md`; numerical baseline `specs/progress/BASELINE-v1.md`
-- **Related exec plan:** `docs/exec-plans/active/R03-knowledge-progress-contract.md`
+- **Related exec plan:** `docs/exec-plans/completed/R03-knowledge-progress-contract.md`
 - **Related issue:** https://github.com/Tramsey00/MathStart-Python/issues/6
 - **Related ADRs:** ADR-0001, ADR-0002; ADR-0003 Accepted
 - **Contract commit:** `961403958b5816071b795a2170f080051dd1bf9f` (`feat(r03): add executable knowledge and progress contracts`)
-- **PR:** [#7 — R03: Knowledge Graph and Progress contract phase](https://github.com/Tramsey00/MathStart-Python/pull/7), open
-- **Human contract gate:** ACCEPTED; merge pending
+- **PR:** [#7 — R03: Knowledge Graph and Progress contract phase](https://github.com/Tramsey00/MathStart-Python/pull/7), merged
+- **Human contract gate:** ACCEPTED; final merge gate APPROVED; R03 COMPLETED
 
 ## 1. Task and inputs
 
@@ -24,7 +24,7 @@ Subsequent Git normalization fast-forwarded local `main` to `origin/main` at `95
 
 ## 3. Files changed
 
-- Added `docs/exec-plans/active/R03-knowledge-progress-contract.md`.
+- Added `docs/exec-plans/completed/R03-knowledge-progress-contract.md`.
 - Added this audit trace.
 - Revised the exec plan with the 2026-09-24 human review decisions; updated this trace with observable Git/Issue and review state.
 - No product code, schema, seed, baseline spec, R01/R02 artifact, dependency, or database data was changed by the audit.
@@ -111,3 +111,9 @@ Before pushing CI, a fresh local SQLite database at ignored `var/r03-ci-smoke.sq
 The first GitHub Actions run, [36054685514](https://github.com/Tramsey00/MathStart-Python/actions/runs/36054685514), **failed 1/7 Harness checks**: `check_content_quality` rendered the home page with WhiteNoise's `CompressedManifestStaticFilesStorage`, but fresh CI had no collected staticfiles manifest (`Missing staticfiles manifest entry for 'mathstart/css/site.css'`). Checkout, Python setup, dependency install, migrations, bootstrap and the other six Harness checks passed, including 15 Django tests and 18 R03 tests. This was an environment setup gap, not a contract failure. The workflow now runs `collectstatic --noinput` before the full Harness; the verification skill documents that prerequisite. A new CI result is required before merge.
 
 The missing-manifest fix was checked locally with `DJANGO_DEBUG=False`: `collectstatic --noinput` copied 140 static files and post-processed 420; `check_content_quality` then passed for 281 pages and 840 SVGs with zero errors. This verifies the failing setup path without changing domain code or weakening the Harness.
+
+## 11. Merge and final R03 closeout evidence
+
+The final human merge gate was **APPROVED**. Immediately before merge, [PR #7](https://github.com/Tramsey00/MathStart-Python/pull/7) was open, mergeable, based on `main`, and at head `88e60d8395def94237f6f6562b70ea719ee3959f`. Pre-merge [Harness verification run 36055134471](https://github.com/Tramsey00/MathStart-Python/actions/runs/36055134471) had completed with **success**. PR #7 was merged with the normal merge method, preserving the separate R03 planning, contract and CI commits. The merge commit is `61042ddb2a1b78a9955eae2a96b523e859d3f948` (2026-09-24 20:44:38 UTC). Local `main` was fast-forwarded to that exact `origin/main` commit.
+
+The push-to-main [Harness verification run 36056921530](https://github.com/Tramsey00/MathStart-Python/actions/runs/36056921530) for the merge commit completed with **success**: all seven Harness checks passed, including migration consistency, 263 lesson sources, content quality, site integrity, 15 Django tests and 18 R03 contract tests. The approved R03 contract-phase status is **COMPLETED**. No Django Knowledge/Progress model, migration, service, runtime seed or database persistence was implemented; PostgreSQL persistence verification was outside this phase. Official C-16 submission remains a separate human gate before 2026-10-09. This closeout records evidence only and does not change ADR/spec semantics or the numerical baseline.
