@@ -1,0 +1,54 @@
+{
+  "fixture_type": "public_exercise_dto",
+  "id": "exercise-structured-solution-001",
+  "code": "probability_structured_001",
+  "contract_version": 1,
+  "topic": {
+    "id": "topic-probability",
+    "slug": "elementary-probability"
+  },
+  "statement": "A fair die is rolled. Find the probability of an even result.",
+  "interaction_mode": "STRUCTURED_SOLUTION",
+  "difficulty": "medium",
+  "input_schema": {
+    "type": "object",
+    "fields": [
+      {"name": "total_outcomes", "input_type": "positive_integer", "required": true},
+      {"name": "favorable_outcomes", "input_type": "positive_integer", "required": true},
+      {"name": "answer", "input_type": "math_text", "required": true}
+    ]
+  },
+  "step_schema": {
+    "type": "ordered_steps",
+    "allowed_step_types": [
+      "STRUCTURED_FIELDS",
+      "FINAL_STATEMENT"
+    ],
+    "ordering": {
+      "field": "step_no",
+      "direction": "ascending"
+    },
+    "serialization": [
+      {
+        "step_type": "STRUCTURED_FIELDS",
+        "payload_fields": ["total_outcomes", "favorable_outcomes"]
+      },
+      {
+        "step_type": "FINAL_STATEMENT",
+        "payload_fields": ["answer"]
+      }
+    ]
+  },
+  "parser_profile": "probability_fraction_v1",
+  "hint_policy": {
+    "allowed": true,
+    "levels": [1, 2, 3]
+  },
+  "reveal_policy": {
+    "allowed": true,
+    "confirmation_required": true
+  },
+  "presentation": {
+    "add_step_label": "Add part"
+  }
+}
