@@ -1,0 +1,130 @@
+{
+  "fixture_version": "progress-v1",
+  "description": "Golden contract examples; values follow unchanged BASELINE-v1.md.",
+  "cases": [
+    {
+      "id": "mixed_baseline_events",
+      "user_id": "student-1",
+      "skill_id": "negative_numbers",
+      "events": [
+        {
+          "event_id": "m-001", "user_id": "student-1", "skill_id": "negative_numbers",
+          "event_kind": "SELF_REPORTED_KNOWN", "occurred_at": "2026-09-24T10:00:00Z",
+          "policy_version": "progress-v1"
+        },
+        {
+          "event_id": "m-002", "user_id": "student-1", "skill_id": "negative_numbers",
+          "event_kind": "CORRECT_FIRST_TRY", "occurred_at": "2026-09-24T10:01:00Z",
+          "policy_version": "progress-v1", "attempt_id": "attempt-1", "evidence_ref": "answer-1",
+          "difficulty": 4, "completed_at": "2026-09-24T10:01:00Z"
+        },
+        {
+          "event_id": "m-003", "user_id": "student-1", "skill_id": "negative_numbers",
+          "event_kind": "CORRECT_AFTER_HINT", "occurred_at": "2026-09-24T10:02:00Z",
+          "policy_version": "progress-v1", "attempt_id": "attempt-2", "evidence_ref": "answer-1",
+          "difficulty": "easy", "hint_used": true, "completed_at": "2026-09-24T10:02:00Z"
+        },
+        {
+          "event_id": "m-004", "user_id": "student-1", "skill_id": "negative_numbers",
+          "event_kind": "WRONG_ATTEMPT", "occurred_at": "2026-09-24T10:03:00Z",
+          "policy_version": "progress-v1", "attempt_id": "attempt-3", "evidence_ref": "answer-1",
+          "difficulty": 3, "source_kind": "FINAL_ANSWER", "completed_at": "2026-09-24T10:03:00Z"
+        },
+        {
+          "event_id": "m-005", "user_id": "student-1", "skill_id": "negative_numbers",
+          "event_kind": "ANSWER_REVEALED", "occurred_at": "2026-09-24T10:04:00Z",
+          "policy_version": "progress-v1", "attempt_id": "attempt-4", "evidence_ref": "reveal-1",
+          "reveal_used": true, "completed_at": "2026-09-24T10:04:00Z"
+        }
+      ],
+      "expected": {
+        "mastery": "67.60", "confidence": "27.00", "evidence_count": 4,
+        "status": "LEARNING",
+        "last_updated": "2026-09-24T10:03:00.000000Z", "reducer_version": "progress-v1"
+      },
+      "expected_recent_independent_correct_count": 1
+    },
+    {
+      "id": "misconception_repeat_reset_and_normalized_evidence",
+      "user_id": "student-2",
+      "skill_id": "expand_parentheses",
+      "events": [
+        {
+          "event_id": "r-001", "user_id": "student-2", "skill_id": "expand_parentheses",
+          "event_kind": "SELF_REPORTED_KNOWN", "occurred_at": "2026-09-24T11:00:00Z",
+          "policy_version": "progress-v1"
+        },
+        {
+          "event_id": "r-002", "user_id": "student-2", "skill_id": "expand_parentheses",
+          "event_kind": "MISCONCEPTION_DETECTED", "occurred_at": "2026-09-24T11:01:00Z",
+          "policy_version": "progress-v1", "attempt_id": "r-attempt-1", "evidence_ref": "step-1",
+          "difficulty": 1, "misconception_code": "missing_distribution", "confirmed": true,
+          "source_kind": "STEP", "completed_at": "2026-09-24T11:01:00Z"
+        },
+        {
+          "event_id": "r-003", "user_id": "student-2", "skill_id": "expand_parentheses",
+          "event_kind": "MISCONCEPTION_DETECTED", "occurred_at": "2026-09-24T11:02:00Z",
+          "policy_version": "progress-v1", "attempt_id": "r-attempt-2", "evidence_ref": "step-1",
+          "difficulty": 2, "misconception_code": "missing_distribution", "confirmed": true,
+          "source_kind": "STEP", "completed_at": "2026-09-24T11:02:00Z"
+        },
+        {
+          "event_id": "r-005", "user_id": "student-2", "skill_id": "expand_parentheses",
+          "event_kind": "MISCONCEPTION_DETECTED", "occurred_at": "2026-09-24T11:03:00Z",
+          "policy_version": "progress-v1", "attempt_id": "r-attempt-3", "evidence_ref": "step-1",
+          "difficulty": 2, "misconception_code": "missing_distribution", "confirmed": true,
+          "source_kind": "STEP", "completed_at": "2026-09-24T11:03:00Z"
+        },
+        {
+          "event_id": "r-006", "user_id": "student-2", "skill_id": "expand_parentheses",
+          "event_kind": "CORRECT_FIRST_TRY", "occurred_at": "2026-09-24T11:04:00Z",
+          "policy_version": "progress-v1", "attempt_id": "r-attempt-4", "evidence_ref": "answer-1",
+          "difficulty": 3, "completed_at": "2026-09-24T11:04:00Z"
+        },
+        {
+          "event_id": "r-007", "user_id": "student-2", "skill_id": "expand_parentheses",
+          "event_kind": "MISCONCEPTION_DETECTED", "occurred_at": "2026-09-24T11:05:00Z",
+          "policy_version": "progress-v1", "attempt_id": "r-attempt-5", "evidence_ref": "step-1",
+          "difficulty": 3, "misconception_code": "missing_distribution", "confirmed": true,
+          "source_kind": "STEP", "completed_at": "2026-09-24T11:05:00Z"
+        }
+      ],
+      "expected": {
+        "mastery": "46.00", "confidence": "40.00", "evidence_count": 6,
+        "status": "WEAK",
+        "last_updated": "2026-09-24T11:05:00.000000Z", "reducer_version": "progress-v1"
+      },
+      "expected_recent_independent_correct_count": 1
+    },
+    {
+      "id": "diagnostics_and_completion_time_independence",
+      "user_id": "student-3",
+      "skill_id": "equation_balance",
+      "events": [
+        {
+          "event_id": "d-001", "user_id": "student-3", "skill_id": "equation_balance",
+          "event_kind": "DIAGNOSTIC_CORRECT", "occurred_at": "2026-09-24T13:01:00Z",
+          "policy_version": "progress-v1", "attempt_id": "d-attempt-1", "evidence_ref": "answer-1",
+          "difficulty": 4, "completed_at": "2026-09-24T13:00:00Z"
+        },
+        {
+          "event_id": "d-002", "user_id": "student-3", "skill_id": "equation_balance",
+          "event_kind": "DIAGNOSTIC_WRONG", "occurred_at": "2026-09-24T13:02:00Z",
+          "policy_version": "progress-v1", "attempt_id": "d-attempt-2", "evidence_ref": "answer-1",
+          "difficulty": 1, "completed_at": "2026-09-24T13:05:00Z"
+        }
+      ],
+      "expected": {
+        "mastery": "4.80", "confidence": "16.00", "evidence_count": 2,
+        "status": "LEARNING",
+        "last_updated": "2026-09-24T13:02:00.000000Z", "reducer_version": "progress-v1"
+      },
+      "expected_recent_independent_correct_count": 1
+    }
+  ],
+  "arithmetic_cases": [
+    {"input": "49.995", "expected": "50.00"},
+    {"input": "-0.005", "expected": "0.00"},
+    {"input": "100.005", "expected": "100.00"}
+  ]
+}

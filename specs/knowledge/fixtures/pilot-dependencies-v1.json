@@ -1,0 +1,18 @@
+{
+  "graph_version": "pilot-v1",
+  "edges": [
+    {"prerequisite": "integer_number_line", "dependent": "negative_numbers", "weight": 1.0},
+    {"prerequisite": "negative_numbers", "dependent": "sign_rules_add_sub", "weight": 1.0},
+    {"prerequisite": "negative_numbers", "dependent": "sign_rules_mul_div", "weight": 1.0},
+    {"prerequisite": "sign_rules_add_sub", "dependent": "distributive_property", "weight": 1.0},
+    {"prerequisite": "sign_rules_mul_div", "dependent": "distributive_property", "weight": 1.0},
+    {"prerequisite": "distributive_property", "dependent": "expand_parentheses", "weight": 1.0},
+    {"prerequisite": "sign_rules_add_sub", "dependent": "combine_like_terms", "weight": 1.0},
+    {"prerequisite": "expand_parentheses", "dependent": "combine_like_terms", "weight": 1.0},
+    {"prerequisite": "combine_like_terms", "dependent": "equation_balance", "weight": 1.0},
+    {"prerequisite": "equation_balance", "dependent": "linear_one_step", "weight": 1.0},
+    {"prerequisite": "linear_one_step", "dependent": "linear_parentheses", "weight": 1.0},
+    {"prerequisite": "expand_parentheses", "dependent": "linear_parentheses", "weight": 1.0},
+    {"prerequisite": "combine_like_terms", "dependent": "linear_parentheses", "weight": 1.0}
+  ]
+}

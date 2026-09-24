@@ -158,7 +158,7 @@ Examples:
 - solution steps;
 - hint/reveal events;
 - detected mistakes;
-- knowledge events;
+- `ProgressEvent` records;
 - user skill state;
 - adaptive practice sessions;
 - AI conversations;
@@ -254,7 +254,7 @@ MathStart-Python/
 ├── users/                    # student profile/onboarding domain
 ├── knowledge/                # skills + prerequisite graph
 ├── assessment/               # exercises, attempts, steps, diagnostics
-├── progress/                 # knowledge events + projections
+├── progress/                 # ProgressEvent records + projections
 ├── solution_analyzer/        # analysis orchestration
 ├── math_validation/          # deterministic math validation
 ├── ai_tutor/                 # tutor conversations/context/policy
@@ -300,7 +300,7 @@ The intended ownership is:
 | `assessment` | exercises, validation records, attempts, steps, diagnostics, mistakes |
 | `math_validation` | parser, normalizer, deterministic/domain validation |
 | `solution_analyzer` | analysis orchestration and confidence gating |
-| `progress` | knowledge events and `UserSkillState` projection |
+| `progress` | `ProgressEvent` records and `UserSkillState` projection |
 | `adaptive_practice` | practice sessions and item selection |
 | `ai_tutor` | tutor context, conversation, tutor policy |
 | `llm` | provider abstraction, provider adapters, retries/timeouts, AI run metadata |
@@ -343,11 +343,11 @@ The existing runtime represents an educational topic through `ContentPage` where
 page_type == TOPIC
 ```
 
-The final intelligent-layer topic persistence and reference contract will be
-fixed by the relevant R02/V02 spec/ADR after inspecting `content/models.py`
-and the existing `ContentPage` relationships. Avoid duplicate sources of truth.
-R01 neither selects a separate `Topic` model nor permanently forbids one.
-Any resulting schema transition must include its migration plan.
+R03's `pilot-v1` Knowledge contract references this Content-owned topic
+abstraction and does not create a duplicate `Topic` model. The exact
+intelligent-layer database FK/persistence shape remains for a later scoped
+implementation plan. Any resulting schema transition must include its
+migration plan.
 
 ### 9.3. File-managed content
 
@@ -727,11 +727,11 @@ Progress is the **only owner of long-term student knowledge state**.
 Expected core entities:
 
 ```text
-KnowledgeEvent
+ProgressEvent
 UserSkillState
 ```
 
-### 17.1. `KnowledgeEvent`
+### 17.1. `ProgressEvent`
 
 Append-oriented evidence record.
 
@@ -751,7 +751,7 @@ Expected concepts include:
 - occurrence time;
 - algorithm/spec version when needed for reproducibility.
 
-Every automatic progress change must be explainable through one or more knowledge events.
+Every automatic progress change must be explainable through one or more `ProgressEvent` records. ADR-0003 and `specs/progress/R03-progress-contract.md` define the current canonical term and exact contract. Older `KnowledgeEvent` wording in accepted historical documents is superseded terminology, not a second event type.
 
 ### 17.2. `UserSkillState`
 
@@ -794,7 +794,7 @@ sequenceDiagram
     A->>V: validated attempt/step facts
     V-->>A: validated result
     A->>P: evidence command
-    P->>DB: append KnowledgeEvent
+    P->>DB: append ProgressEvent
     P->>DB: update UserSkillState projection
     P-->>A: resulting progress state
 ```
@@ -1098,8 +1098,8 @@ erDiagram
     SOLUTION_ATTEMPT ||--o{ ATTEMPT_EVENT : records
     SOLUTION_ATTEMPT ||--o{ DETECTED_MISTAKE : analyzed
 
-    USER ||--o{ KNOWLEDGE_EVENT : receives
-    SKILL ||--o{ KNOWLEDGE_EVENT : evidence_for
+    USER ||--o{ PROGRESS_EVENT : receives
+    SKILL ||--o{ PROGRESS_EVENT : evidence_for
     USER ||--o{ USER_SKILL_STATE : owns
     SKILL ||--o{ USER_SKILL_STATE : projects
 
@@ -1151,7 +1151,7 @@ Where applicable, one logical submission may need to preserve consistency across
 - submitted step/final answer;
 - attempt event;
 - detected mistake;
-- emitted knowledge event;
+- emitted `ProgressEvent`;
 - resulting progress projection.
 
 Do not keep an external LLM network call inside a long database transaction.
@@ -1173,7 +1173,7 @@ Student write endpoints may be retried by browsers, proxies, or JavaScript.
 
 The architecture must prevent duplicate evidence.
 
-Operations that create knowledge events from an attempt/step should have a deterministic source identity or another idempotency mechanism.
+Operations that create `ProgressEvent` records from an attempt/step should have a deterministic source identity or another idempotency mechanism.
 
 A repeated HTTP request must not accidentally count one answer twice.
 
@@ -1397,7 +1397,7 @@ Examples:
 - knowledge graph contains no cycles;
 - public exercise serializer never includes server validation secrets;
 - LLM provider modules do not mutate progress storage;
-- every projection mutation has a corresponding knowledge event;
+- every projection mutation has a corresponding `ProgressEvent`;
 - no missing Django migrations;
 - seed files match schemas;
 - pilot exercises reference valid skills/topics.
@@ -1562,7 +1562,7 @@ view/controller
     -> Assessment service
     -> validated evidence
     -> Progress service
-    -> KnowledgeEvent + projection update
+    -> ProgressEvent + projection update
 ```
 
 Controllers/views should orchestrate HTTP concerns, not contain core domain rules.
@@ -1579,7 +1579,7 @@ The following are non-negotiable unless changed by an accepted ADR.
 4. Existing curriculum/site source pipelines are preserved.
 5. User evidence is not managed by content bootstrap.
 6. Progress is changed only through Progress domain logic.
-7. Every automatic progress change has a knowledge event.
+7. Every automatic progress change has a `ProgressEvent`.
 8. AI Tutor never directly updates mastery/confidence.
 9. LLM provider code never owns progress decisions.
 10. LLM structured outputs that affect domain decisions are schema-validated.
@@ -1660,7 +1660,7 @@ No unnecessary application rewrite.
 
 ### Stage E — Progress
 
-- knowledge events;
+- `ProgressEvent` records;
 - user skill projection;
 - diagnostics;
 - progress UI.

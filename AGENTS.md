@@ -36,7 +36,7 @@ domains and tooling are introduced in scoped tasks, not implied to exist now.
 - Preserve the modular monolith and domain ownership in `ARCHITECTURE.md`.
   Content owns topic-to-skill mappings and depends on Knowledge for them.
 - Only Progress changes long-term knowledge state, through validated
-  `knowledge_event` evidence. Reading a topic never increases mastery.
+  `ProgressEvent` evidence. Reading a topic never increases mastery.
   Tutor, Analyzer, frontend, and LLM providers must not directly mutate it.
 - Prefer deterministic mathematical validation. Preserve raw input separately
   from normalized data; unsupported parsing is not a misconception.

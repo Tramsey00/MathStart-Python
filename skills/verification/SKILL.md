@@ -68,7 +68,7 @@ Multiple groups may be combined.
 
 ---
 
-## Current R01 verification groups
+## Configured verification groups
 
 ### Backend
 
@@ -96,7 +96,14 @@ python manage.py check_site_integrity
 
 ```bash
 python manage.py test
+python -m unittest discover -s tests -p test_r03_contract.py
 ```
+
+The second command is the R03 contract/reference suite. It uses only the Python
+standard library and specification JSON fixtures; it does not need Django
+models, a database, PostgreSQL, or a live LLM. `scripts/verify_repo.py` runs it
+under the `tests` group after the Django suite. A passing contract suite proves
+the documented graph/projection reference behavior, not runtime persistence.
 
 ---
 
@@ -111,7 +118,7 @@ Examples:
 - mypy
 - pytest / pytest-django
 - fresh PostgreSQL migrations
-- knowledge graph cycle validation
+- persisted knowledge graph validation after the Django Knowledge app exists
 - exercise contract validation
 - public exercise DTO secret-leak regression
 - frontend lint/unit checks

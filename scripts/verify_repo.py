@@ -2,7 +2,7 @@
 """
 MathStart repository verification entry point.
 
-R01 / Harness v1 baseline.
+R01 / Harness v1 baseline, extended with the R03 pure contract suite.
 
 This script intentionally runs only checks that are already part of the current
 MathStart repository workflow. It does not pretend that future tooling
@@ -86,6 +86,20 @@ CHECKS: tuple[Check, ...] = (
             sys.executable,
             "manage.py",
             "test",
+        ),
+        group="tests",
+    ),
+    Check(
+        name="R03 contract suite",
+        command=(
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_r03_contract.py",
         ),
         group="tests",
     ),

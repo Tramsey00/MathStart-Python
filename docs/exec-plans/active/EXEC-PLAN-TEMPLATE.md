@@ -216,7 +216,7 @@ Also verify the full migration chain against a clean PostgreSQL database.
 
 ### Historical-data protection
 
-Explain how attempts, knowledge events, detected mistakes, or other historical evidence are preserved.
+Explain how attempts, `ProgressEvent` records, detected mistakes, or other historical evidence are preserved.
 
 ---
 
