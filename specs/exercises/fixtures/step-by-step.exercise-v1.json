@@ -1,0 +1,40 @@
+{
+  "fixture_type": "public_exercise_dto",
+  "id": "exercise-step-by-step-001",
+  "code": "linear_parentheses_steps_001",
+  "contract_version": 1,
+  "topic": {
+    "id": "topic-linear-equations",
+    "slug": "linear-equations"
+  },
+  "statement": "Solve step by step: 2(x + 3) = 10.",
+  "interaction_mode": "STEP_BY_STEP",
+  "difficulty": "medium",
+  "input_schema": null,
+  "step_schema": {
+    "type": "ordered_steps",
+    "allowed_step_types": [
+      "MATH_EXPRESSION",
+      "EQUATION_STATE",
+      "FINAL_STATEMENT"
+    ],
+    "step_fields": [
+      {"name": "step_no", "input_type": "positive_integer", "required": true},
+      {"name": "step_type", "input_type": "enum", "required": true},
+      {"name": "payload", "input_type": "object", "required": true},
+      {"name": "raw_text", "input_type": "text", "required": false}
+    ]
+  },
+  "parser_profile": "algebra_linear_v1",
+  "hint_policy": {
+    "allowed": true,
+    "levels": [1, 2, 3]
+  },
+  "reveal_policy": {
+    "allowed": true,
+    "confirmation_required": true
+  },
+  "presentation": {
+    "add_step_label": "Add step"
+  }
+}
