@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathstart.local/specs/harness/hook-v1.draft.schema.json",
+  "title": "MathStart Harness Hook v1 Draft",
+  "description": "Draft declaration contract for Harness lifecycle hooks. Final fail-closed execution is implemented by R06.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "schema_version",
+    "hook_id",
+    "event",
+    "kind",
+    "handler",
+    "timeout_ms",
+    "failure_action"
+  ],
+
+  "properties": {
+    "schema_version": {
+      "const": "harness-hook-v1-draft"
+    },
+
+    "hook_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+
+    "event": {
+      "enum": [
+        "run_started",
+        "before_model",
+        "after_model",
+        "before_tool",
+        "after_tool",
+        "before_verification",
+        "after_verification",
+        "before_review_bundle",
+        "run_finished",
+        "run_error"
+      ]
+    },
+
+    "kind": {
+      "enum": [
+        "blocking",
+        "audit"
+      ]
+    },
+
+    "handler": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 60000
+    },
+
+    "failure_action": {
+      "enum": [
+        "DENY",
+        "WARN"
+      ]
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "blocking"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "failure_action": {
+            "const": "DENY"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "audit"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "failure_action": {
+            "const": "WARN"
+          }
+        }
+      }
+    }
+  ]
+}

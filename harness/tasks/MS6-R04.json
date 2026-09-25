@@ -1,0 +1,78 @@
+{
+  "schema_version": "harness-task-v1",
+  "task_id": "MS6-R04",
+  "issue_ref": "https://github.com/Tramsey00/MathStart-Python/issues/9",
+  "owner": "Руслан",
+  "base_sha": "e410a4e29de2eb800b3325667df94b200bdae22b",
+  "branch": "ms6-r04-cli-runner",
+  "workflow": "implementation",
+  "profile": "bootstrap",
+
+  "accepted_spec_refs": [
+    {
+      "path": "PRODUCT.md",
+      "digest": "sha256:696da346aaa6b81ad8a779046b0a84c70176a81a6dd2e13f8dfb911f350c78d8"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "digest": "sha256:f6da0b2d210b2ad0ef0652939a14c43cdd20c2c2fd422073d38d7c2b470e6967"
+    },
+    {
+      "path": "specs/knowledge/R03-knowledge-graph.md",
+      "digest": "sha256:e6114118d66664c3e27b82fb501ee2f1d69007e8006067393348fa44f8ed0112"
+    },
+    {
+      "path": "specs/progress/R03-progress-contract.md",
+      "digest": "sha256:2ec8098921b8fef99f7be567ea64810636ac4b75c8d32cd9feb56417f6245a5e"
+    }
+  ],
+
+  "plan_ref": {
+    "path": "docs/exec-plans/active/MS6-R04.md",
+    "digest": "sha256:7a7689d1452e11778ec563a9a318318badba4085dc87fd68c44fd9697ee36fb3"
+  },
+
+  "writable_paths": [
+    "harness/**",
+    "specs/harness/**",
+    "tests/harness/**",
+    "docs/exec-plans/active/MS6-R04.md",
+    "docs/agent-traces/MS6-R04.md"
+  ],
+
+  "protected_paths": [
+    ".git/**",
+    ".env",
+    "content/**",
+    "curriculum/**",
+    "specs/exercises/**",
+    "specs/knowledge/**",
+    "specs/progress/**"
+  ],
+
+  "required_checks": [
+    "repo-baseline",
+    "harness-unit",
+    "harness-cli-smoke"
+  ],
+
+  "expected_outputs": [
+    "runner-skeleton",
+    "task-manifest-contract",
+    "run-result-contract",
+    "adapter-protocol",
+    "fake-adapter",
+    "fixture-run",
+    "cli-tests",
+    "setup-guide"
+  ],
+
+  "limits": {
+    "max_turns": 30,
+    "wall_time_seconds": 1800
+  },
+
+  "human_gates": [
+    "review"
+  ]
+}
