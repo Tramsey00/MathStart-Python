@@ -33,5 +33,11 @@ class ModelAdapter(Protocol):
     ) -> ModelEvent:
         ...
 
+    def continue_after_message(
+        self,
+        request: ModelRequest,
+    ) -> ModelEvent:
+        ...
+
     def cancel(self) -> None:
         ...

@@ -4,14 +4,16 @@ import hashlib
 import json
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from harness.adapters.base import ModelAdapter
 from harness.adapters.fake import FakeAdapter
 from harness.contracts.adapter import (
+    ADAPTER_PROTOCOL_VERSION,
     ErrorEvent,
     FinishedEvent,
     MessageEvent,
+    ModelEvent,
     ModelRequest,
     ToolRequest,
 )
@@ -115,6 +117,13 @@ def _capabilities_dict(
     }
 
 
+class _BudgetExceeded(Exception):
+    def __init__(self, code: str, message: str) -> None:
+        self.code = code
+        self.message = message
+        super().__init__(message)
+
+
 def execute_bootstrap_run(
     repo_root: Path,
     manifest: dict[str, Any],
@@ -122,11 +131,7 @@ def execute_bootstrap_run(
 ) -> tuple[dict[str, Any], int]:
     started_perf = time.monotonic()
     started_at = utc_now()
-
-    workspace = create_run_workspace(
-        repo_root
-    )
-
+    workspace = create_run_workspace(repo_root)
     if adapter is None:
         adapter = FakeAdapter(scenario="happy")
 
@@ -136,6 +141,50 @@ def execute_bootstrap_run(
     events: list[dict[str, Any]] = []
     patches: list[str] = []
     turns_used = 0
+    verification_started = False
+    deadline = started_perf + manifest["limits"]["wall_time_seconds"]
+
+    def require_wall_time() -> None:
+        if time.monotonic() >= deadline:
+            raise _BudgetExceeded(
+                "WALL_TIME_EXCEEDED", "Run wall-time limit was exhausted.",
+            )
+
+    def model_step(invoke: Callable[[], ModelEvent]) -> ModelEvent:
+        nonlocal turns_used
+        require_wall_time()
+        if turns_used >= manifest["limits"]["max_turns"]:
+            raise _BudgetExceeded(
+                "MODEL_LIMIT_EXCEEDED", "Next model step would exceed max_turns.",
+            )
+        turns_used += 1
+        event = invoke()
+        # A blocking adapter call is not preempted. Its returned event must
+        # never trigger another action once the shared deadline has expired.
+        require_wall_time()
+        return event
+
+    def request(messages: tuple[dict[str, Any], ...] = ()) -> ModelRequest:
+        return ModelRequest(
+            run_id=workspace.run_id, task_id=manifest["task_id"],
+            turn=turns_used, messages=messages,
+        )
+
+    def finish(status: str, exit_code: int, blockers: list[dict[str, str]],
+               verification_status: str = "NOT_RUN",
+               next_gate: str | None = None) -> tuple[dict[str, Any], int]:
+        for artifact in check_artifacts:
+            if artifact not in artifacts:
+                artifacts.append(artifact)
+        return _finish_run(
+            repo_root=repo_root, manifest=manifest, workspace=workspace,
+            started_at=started_at, started_perf=started_perf, adapter=adapter,
+            artifacts=artifacts, turns_used=turns_used, status=status,
+            blockers=blockers, final_patch="".join(patches), events=events,
+            verification_status=verification_status,
+            verification_checks=verification_checks, next_gate=next_gate,
+            exit_code=exit_code,
+        )
 
     try:
         initial_status = working_tree_status(
@@ -200,438 +249,106 @@ def execute_bootstrap_run(
             }
         )
 
-        capabilities = _capabilities_dict(
-            adapter
-        )
+        if adapter.identity.protocol_version != ADAPTER_PROTOCOL_VERSION:
+            return finish("BLOCKED_CONFIGURATION", 2, [{
+                "code": "ADAPTER_PROTOCOL_VERSION_UNSUPPORTED",
+                "message": (
+                    "Unsupported adapter protocol version: "
+                    f"{adapter.identity.protocol_version}"
+                ),
+            }])
 
-        if not (
-            capabilities["tool_calls"]
-            and capabilities[
-                "tool_call_interception"
-            ]
-        ):
-            return _finish_run(
-                repo_root=repo_root,
-                manifest=manifest,
-                workspace=workspace,
-                started_at=started_at,
-                started_perf=started_perf,
-                adapter=adapter,
-                artifacts=artifacts,
-                turns_used=0,
-                status="BLOCKED_CONFIGURATION",
-                blockers=[
-                    {
-                        "code": (
-                            "ADAPTER_INTERCEPTION_REQUIRED"
-                        ),
-                        "message": (
-                            "Configured adapter cannot "
-                            "intercept tool calls."
-                        ),
-                    }
-                ],
-                final_patch="",
-                events=[],
-                verification_status="NOT_RUN",
-                exit_code=2,
-            )
+        capabilities = _capabilities_dict(adapter)
+        if not (capabilities["tool_calls"] and capabilities["tool_call_interception"]):
+            return finish("BLOCKED_CONFIGURATION", 2, [{
+                "code": "ADAPTER_INTERCEPTION_REQUIRED",
+                "message": "Configured adapter cannot intercept tool calls.",
+            }])
 
-        max_turns = manifest["limits"][
-            "max_turns"
-        ]
-
-        wall_limit_seconds = manifest[
-            "limits"
-        ]["wall_time_seconds"]
-
-        def wall_time_exceeded() -> bool:
-            return (
-                time.monotonic()
-                - started_perf
-                >= wall_limit_seconds
-            )
-
-        def before_model_step() -> (
-            tuple[str, int] | None
-        ):
-            nonlocal turns_used
-
-            if wall_time_exceeded():
-                return (
-                    "BUDGET_EXCEEDED",
-                    4,
-                )
-
-            if turns_used >= max_turns:
-                return (
-                    "BUDGET_EXCEEDED",
-                    4,
-                )
-
-            turns_used += 1
-            return None
-
-        limit_result = before_model_step()
-
-        if limit_result is not None:
-            status, exit_code = limit_result
-
-            return _finish_run(
-                repo_root=repo_root,
-                manifest=manifest,
-                workspace=workspace,
-                started_at=started_at,
-                started_perf=started_perf,
-                adapter=adapter,
-                artifacts=artifacts,
-                turns_used=turns_used,
-                status=status,
-                blockers=[
-                    {
-                        "code": "MODEL_LIMIT_EXCEEDED",
-                        "message": (
-                            "Model step could not start "
-                            "within configured limits."
-                        ),
-                    }
-                ],
-                final_patch="",
-                events=events,
-                verification_status="NOT_RUN",
-                exit_code=exit_code,
-            )
-
-        event = adapter.start(
-            ModelRequest(
-                run_id=workspace.run_id,
-                task_id=manifest["task_id"],
-                turn=turns_used,
-            )
-        )
-
+        event = model_step(lambda: adapter.start(request()))
         while True:
-            events.append(
-                {
-                    "turn": turns_used,
-                    "type": event.type,
-                }
-            )
-
-            if isinstance(
-                event,
-                ToolRequest,
-            ):
-                execution = execute_basic_tool(
-                    repo_root,
-                    manifest,
-                    event,
-                )
-
-                events[-1].update(
-                    {
-                        "call_id": event.call_id,
-                        "tool_name": event.tool_name,
-                        "tool_status": (
-                            execution.result.status
-                        ),
-                    }
-                )
-
+            events.append({"turn": turns_used, "type": event.type})
+            if isinstance(event, ToolRequest):
+                require_wall_time()
+                execution = execute_basic_tool(repo_root, manifest, event)
+                events[-1].update({
+                    "call_id": event.call_id, "tool_name": event.tool_name,
+                    "tool_status": execution.result.status,
+                })
                 if execution.patch:
-                    patches.append(
-                        execution.patch
-                    )
-
-                if (
-                    execution.result.status
-                    != "OK"
-                ):
-                    return _finish_run(
-                        repo_root=repo_root,
-                        manifest=manifest,
-                        workspace=workspace,
-                        started_at=started_at,
-                        started_perf=started_perf,
-                        adapter=adapter,
-                        artifacts=artifacts,
-                        turns_used=turns_used,
-                        status="FAIL",
-                        blockers=[
-                            {
-                                "code": (
-                                    "TOOL_EXECUTION_FAILED"
-                                ),
-                                "message": (
-                                    f"{event.tool_name}: "
-                                    f"{execution.result.output}"
-                                ),
-                            }
-                        ],
-                        final_patch="".join(
-                            patches
-                        ),
-                        events=events,
-                        verification_status=(
-                            "NOT_RUN"
-                        ),
-                        exit_code=1,
-                    )
-
-                limit_result = (
-                    before_model_step()
-                )
-
-                if limit_result is not None:
-                    status, exit_code = (
-                        limit_result
-                    )
-
-                    return _finish_run(
-                        repo_root=repo_root,
-                        manifest=manifest,
-                        workspace=workspace,
-                        started_at=started_at,
-                        started_perf=started_perf,
-                        adapter=adapter,
-                        artifacts=artifacts,
-                        turns_used=turns_used,
-                        status=status,
-                        blockers=[
-                            {
-                                "code": (
-                                    "MODEL_LIMIT_EXCEEDED"
-                                ),
-                                "message": (
-                                    "Next model step "
-                                    "would exceed "
-                                    "configured limits."
-                                ),
-                            }
-                        ],
-                        final_patch="".join(
-                            patches
-                        ),
-                        events=events,
-                        verification_status=(
-                            "NOT_RUN"
-                        ),
-                        exit_code=exit_code,
-                    )
-
-                event = (
-                    adapter
-                    .continue_with_tool_result(
-                        execution.result
-                    )
+                    patches.append(execution.patch)
+                require_wall_time()
+                if execution.result.status != "OK":
+                    return finish("FAIL", 1, [{
+                        "code": "TOOL_EXECUTION_FAILED",
+                        "message": f"{event.tool_name}: {execution.result.output}",
+                    }])
+                event = model_step(
+                    lambda: adapter.continue_with_tool_result(execution.result)
                 )
                 continue
 
-            if isinstance(
-                event,
-                FinishedEvent,
-            ):
-                events[-1]["summary"] = event.summary
+            if isinstance(event, MessageEvent):
+                events[-1]["content"] = event.content
+                messages = ({"role": "assistant", "content": event.content},)
+                event = model_step(lambda: adapter.continue_after_message(request(messages)))
+                continue
 
+            if isinstance(event, FinishedEvent):
+                events[-1]["summary"] = event.summary
+                require_wall_time()
+                verification_started = True
                 verification = run_required_checks(
-                    repo_root,
-                    workspace.path,
-                    manifest["required_checks"],
-                    deadline=started_perf + wall_limit_seconds,
-                    checks_out=verification_checks,
+                    repo_root, workspace.path, manifest["required_checks"],
+                    deadline=deadline, checks_out=verification_checks,
                     artifacts_out=check_artifacts,
                 )
                 verification_checks = verification.checks
-                artifacts.extend(verification.artifacts)
-                failed_checks = [
-                    check["id"] for check in verification.checks
-                    if check["status"] == "FAIL"
-                ]
-                checks_complete = [
-                    check["id"] for check in verification.checks
-                ] == manifest["required_checks"]
+                check_artifacts = verification.artifacts
+                require_wall_time()
+                if verification.budget_exceeded:
+                    raise _BudgetExceeded(
+                        "WALL_TIME_EXCEEDED",
+                        "Run wall-time limit was exhausted during verification.",
+                    )
+                checks_complete = [check["id"] for check in verification.checks] == manifest["required_checks"]
                 verification_passed = verification.status == "PASS" and checks_complete
-                blockers = [
-                    {
-                        "code": "REQUIRED_CHECK_FAILED",
-                        "message": f"Required check failed: {check_id}",
-                    }
-                    for check_id in failed_checks
-                ]
+                blockers = [{
+                    "code": "REQUIRED_CHECK_FAILED",
+                    "message": f"Required check failed: {check['id']}",
+                } for check in verification.checks if check["status"] == "FAIL"]
                 if not checks_complete:
                     blockers.append({
                         "code": "REQUIRED_CHECKS_INCOMPLETE",
                         "message": "Verification did not record every required check.",
                     })
-                if verification.budget_exceeded:
-                    blockers.append({
-                        "code": "WALL_TIME_EXCEEDED",
-                        "message": "Run wall-time limit was exhausted during verification.",
-                    })
-                final_status = (
-                    "BUDGET_EXCEEDED" if verification.budget_exceeded
-                    else "READY_FOR_REVIEW" if verification_passed
-                    else "FAIL"
+                require_wall_time()
+                return finish(
+                    "READY_FOR_REVIEW" if verification_passed else "FAIL",
+                    0 if verification_passed else 1, blockers,
+                    "PASS" if verification_passed else "FAIL",
+                    "HUMAN_REVIEW" if verification_passed else None,
                 )
 
-                return _finish_run(
-                    repo_root=repo_root,
-                    manifest=manifest,
-                    workspace=workspace,
-                    started_at=started_at,
-                    started_perf=started_perf,
-                    adapter=adapter,
-                    artifacts=artifacts,
-                    turns_used=turns_used,
-                    status=final_status,
-                    blockers=blockers,
-                    final_patch="".join(patches),
-                    events=events,
-                    verification_status="PASS" if verification_passed else "FAIL",
-                    verification_checks=verification.checks,
-                    next_gate="HUMAN_REVIEW" if verification_passed else None,
-                    exit_code=4 if verification.budget_exceeded else 0 if verification_passed else 1,
-                )
+            if isinstance(event, ErrorEvent):
+                events[-1].update({"code": event.code, "retryable": event.retryable})
+                interrupted = event.code == "ADAPTER_CANCELLED"
+                return finish("INTERRUPTED" if interrupted else "FAIL",
+                              4 if interrupted else 1,
+                              [{"code": event.code, "message": event.message}])
 
-            if isinstance(
-                event,
-                ErrorEvent,
-            ):
-                events[-1].update(
-                    {
-                        "code": event.code,
-                        "retryable": (
-                            event.retryable
-                        ),
-                    }
-                )
-
-                status = (
-                    "INTERRUPTED"
-                    if event.code
-                    == "ADAPTER_CANCELLED"
-                    else "FAIL"
-                )
-
-                exit_code = (
-                    4
-                    if status == "INTERRUPTED"
-                    else 1
-                )
-
-                return _finish_run(
-                    repo_root=repo_root,
-                    manifest=manifest,
-                    workspace=workspace,
-                    started_at=started_at,
-                    started_perf=started_perf,
-                    adapter=adapter,
-                    artifacts=artifacts,
-                    turns_used=turns_used,
-                    status=status,
-                    blockers=[
-                        {
-                            "code": event.code,
-                            "message": event.message,
-                        }
-                    ],
-                    final_patch="".join(
-                        patches
-                    ),
-                    events=events,
-                    verification_status=(
-                        "NOT_RUN"
-                    ),
-                    exit_code=exit_code,
-                )
-
-            if isinstance(
-                event,
-                MessageEvent,
-            ):
-                return _finish_run(
-                    repo_root=repo_root,
-                    manifest=manifest,
-                    workspace=workspace,
-                    started_at=started_at,
-                    started_perf=started_perf,
-                    adapter=adapter,
-                    artifacts=artifacts,
-                    turns_used=turns_used,
-                    status="FAIL",
-                    blockers=[
-                        {
-                            "code": (
-                                "UNSUPPORTED_MESSAGE_FLOW"
-                            ),
-                            "message": (
-                                "R04 runner does not "
-                                "support intermediate MESSAGE "
-                                "events."
-                            ),
-                        }
-                    ],
-                    final_patch="".join(
-                        patches
-                    ),
-                    events=events,
-                    verification_status=(
-                        "NOT_RUN"
-                    ),
-                    exit_code=1,
-                )
-
-            return _finish_run(
-                repo_root=repo_root,
-                manifest=manifest,
-                workspace=workspace,
-                started_at=started_at,
-                started_perf=started_perf,
-                adapter=adapter,
-                artifacts=artifacts,
-                turns_used=turns_used,
-                status="FAIL",
-                blockers=[
-                    {
-                        "code": (
-                            "UNKNOWN_ADAPTER_EVENT"
-                        ),
-                        "message": (
-                            "Adapter returned an "
-                            "unsupported event."
-                        ),
-                    }
-                ],
-                final_patch="".join(
-                    patches
-                ),
-                events=events,
-                verification_status="NOT_RUN",
-                exit_code=1,
-            )
-
+            return finish("FAIL", 1, [{
+                "code": "UNKNOWN_ADAPTER_EVENT",
+                "message": "Adapter returned an unsupported event.",
+            }])
+    except _BudgetExceeded as exc:
+        return finish("BUDGET_EXCEEDED", 4,
+                      [{"code": exc.code, "message": exc.message}],
+                      "FAIL" if verification_started else "NOT_RUN")
     except KeyboardInterrupt:
-        artifacts.extend(item for item in check_artifacts if item not in artifacts)
-        return _finish_run(
-            repo_root=repo_root,
-            manifest=manifest,
-            workspace=workspace,
-            started_at=started_at,
-            started_perf=started_perf,
-            adapter=adapter,
-            artifacts=artifacts,
-            turns_used=turns_used,
-            status="INTERRUPTED",
-            blockers=[{
-                "code": "KEYBOARD_INTERRUPT",
-                "message": "Run was interrupted by the user.",
-            }],
-            final_patch="".join(patches),
-            events=events,
-            verification_status="FAIL" if verification_checks else "NOT_RUN",
-            verification_checks=verification_checks,
-            exit_code=4,
-        )
+        return finish("INTERRUPTED", 4, [{
+            "code": "KEYBOARD_INTERRUPT", "message": "Run was interrupted by the user.",
+        }], "FAIL" if verification_started else "NOT_RUN")
 
 
 def _finish_run(
@@ -798,10 +515,33 @@ def _finish_run(
         "next_gate": next_gate,
     }
 
-    validate_run_result(
-        repo_root,
-        result,
-    )
+    final_wall_ms = int((time.monotonic() - started_perf) * 1000)
+    result["execution"]["wall_time_ms"] = final_wall_ms
+    result["budget"]["wall_time_ms"] = final_wall_ms
+
+    def downgrade_expired_ready() -> bool:
+        nonlocal exit_code
+        if result["status"] != "READY_FOR_REVIEW" or time.monotonic() < (
+            started_perf + manifest["limits"]["wall_time_seconds"]
+        ):
+            return False
+        result["status"] = "BUDGET_EXCEEDED"
+        result["verification"]["status"] = "FAIL"
+        result["next_gate"] = None
+        if not any(blocker["code"] == "WALL_TIME_EXCEEDED" for blocker in result["blockers"]):
+            result["blockers"].append({
+                "code": "WALL_TIME_EXCEEDED",
+                "message": "Run wall-time limit was exhausted before result publication.",
+            })
+        exit_code = 4
+        return True
+
+    downgrade_expired_ready()
+    validate_run_result(repo_root, result)
+    # Validation may consume the remaining budget. Validate any resulting
+    # downgrade again so the persisted object has no unvalidated mutations.
+    if downgrade_expired_ready():
+        validate_run_result(repo_root, result)
 
     write_json(
         workspace.result_path,

@@ -19,7 +19,7 @@ from harness.contracts.checks import (
 
 
 CHECK_COMMANDS: dict[str, tuple[str, ...]] = {
-    REPO_BASELINE: ("scripts/verify_repo.py",),
+    REPO_BASELINE: ("scripts/verify_repo.py", "--exclude-group", "harness"),
     HARNESS_UNIT: (
         "-m", "unittest", "discover", "-s", "tests/harness", "-t", ".", "-v",
     ),

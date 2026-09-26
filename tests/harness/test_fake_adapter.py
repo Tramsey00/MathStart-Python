@@ -6,6 +6,7 @@ from harness.adapters.base import ModelAdapter
 from harness.adapters.fake import FakeAdapter
 from harness.contracts.adapter import (
     FinishedEvent,
+    MessageEvent,
     ModelRequest,
     ToolRequest,
     ToolResult,
@@ -95,6 +96,26 @@ class FakeAdapterTests(unittest.TestCase):
             third.summary,
             "fixture complete",
         )
+
+    def test_message_scenario_continues_to_tool_then_finished(self) -> None:
+        adapter = FakeAdapter("message")
+        first = adapter.start(ModelRequest("run-test", "MS6-R04", 1))
+        self.assertIsInstance(first, MessageEvent)
+        second = adapter.continue_after_message(ModelRequest("run-test", "MS6-R04", 2))
+        self.assertIsInstance(second, ToolRequest)
+        third = adapter.continue_with_tool_result(ToolResult(second.call_id, "OK", {}))
+        self.assertIsInstance(third, FinishedEvent)
+
+    def test_message_continuation_before_start_is_protocol_error(self) -> None:
+        adapter = FakeAdapter("message")
+        event = adapter.continue_after_message(ModelRequest("run-test", "MS6-R04", 1))
+        self.assertEqual(event.code, "PROTOCOL_STATE")
+
+    def test_tool_result_cannot_replace_message_continuation(self) -> None:
+        adapter = FakeAdapter("message")
+        adapter.start(ModelRequest("run-test", "MS6-R04", 1))
+        event = adapter.continue_with_tool_result(ToolResult("message-tool", "OK", {}))
+        self.assertEqual(event.code, "PROTOCOL_STATE")
 
     def test_error_scenario(self) -> None:
         adapter = FakeAdapter(

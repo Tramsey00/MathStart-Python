@@ -43,8 +43,28 @@ python -m harness status <run-id>
 - Локальные результаты: `var/harness/runs/<run-id>/result.json`; там же initial/final Git evidence, events и ограниченные `checks/*.stdout.txt` / `*.stderr.txt`.
 - `var/harness/` — локальное runtime state, не история runs для коммита.
 
-Три R04 check ID (`repo-baseline`, `harness-unit`, `harness-cli-smoke`) сопоставлены фиксированным argv-командам; произвольный shell не исполняется. `repo-baseline` использует `scripts/verify_repo.py`. Подробности общей проверки находятся в [verification skill](../../skills/verification/SKILL.md).
+Три R04 check ID (`repo-baseline`, `harness-unit`, `harness-cli-smoke`) сопоставлены фиксированным argv-командам; произвольный shell не исполняется. Обычный `python scripts/verify_repo.py` и CI запускают 8 checks в 5 группах,
+включая `harness`. Внутренний `repo-baseline` использует
+`python scripts/verify_repo.py --exclude-group harness` (7 checks в 4 группах),
+а `harness-unit` отдельно запускает Harness suite. Это исключает рекурсию.
+CLI dry-run smoke использует fixture и работает независимо от branch checkout;
+реальная команда MS6-R04 требует ветку из manifest. Подробности общей проверки находятся в [verification skill](../../skills/verification/SKILL.md).
 
 ## Граница этапа
 
 R04 `read_file` и `write_fixture` — ограниченные basic tools для FakeAdapter, не production Tool Registry. R05 добавляет Context Layer и typed tools; R06 — policy, hooks, sandbox и trace enforcement. Непрозрачный внешний CLI subprocess без перехвата tool calls не является enforcement-capable. Текущий R04 не подтверждает G1.
+
+## Deadline и MESSAGE
+
+Runner блокирует несовместимый adapter protocol до start. MESSAGE сохраняется
+как промежуточный output и продолжает сессию через `continue_after_message`;
+он не означает PASS. Все adapter calls учитывают turn budget.
+
+Wall-time проверяется до и после adapter calls, до и после tool handler,
+перед verification и перед публикацией READY_FOR_REVIEW. Checks используют
+remaining timeout. После expiry новый model/tool/check action не начинается;
+RunResult сохраняется как BUDGET_EXCEEDED, exit 4. Blocking adapter/tool calls,
+которые уже начались, не прерываются на уровне ОС в R04.
+
+PR #10 после REQUEST_CHANGES требует повторного human review. Human gate PENDING;
+актуальные test counts и fixture run ID находятся в [trace](../../docs/agent-traces/MS6-R04.md).

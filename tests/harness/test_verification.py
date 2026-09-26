@@ -43,7 +43,7 @@ class RegistryTests(unittest.TestCase):
                 self.assertFalse(call.kwargs["shell"])
                 self.assertEqual(call.args[0][0], __import__("sys").executable)
             self.assertEqual(
-                run.call_args_list[0].args[0][1:], ["scripts/verify_repo.py"]
+                run.call_args_list[0].args[0][1:], ["scripts/verify_repo.py", "--exclude-group", "harness"]
             )
             self.assertTrue((run_path / "checks/repo-baseline.stdout.txt").is_file())
             self.assertEqual(len(outcome.artifacts), 6)
@@ -94,9 +94,28 @@ class RegistryTests(unittest.TestCase):
                 ),
             )
 
+    def test_remaining_time_limits_checks_and_prevents_process_after_deadline(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            completed = subprocess.CompletedProcess(args=[], returncode=0, stdout="ok", stderr="")
+            with (
+                patch("harness.runner.verification.time.monotonic", side_effect=[3.0, 7.0, 10.0, 10.0]),
+                patch("harness.runner.verification.subprocess.run", return_value=completed) as run,
+            ):
+                outcome = run_required_checks(ROOT, Path(directory), CHECK_IDS, deadline=10.0)
+            self.assertEqual(run.call_count, 2)
+            self.assertEqual([call.kwargs["timeout"] for call in run.call_args_list], [7.0, 3.0])
+            self.assertEqual(outcome.checks[-1]["status"], "NOT_RUN")
+            self.assertTrue(outcome.budget_exceeded)
+            self.assertEqual(outcome.status, "FAIL")
+
 
 class ExecuteVerificationTests(unittest.TestCase):
     def setUp(self) -> None:
+        # A persisted fixture has a branch even when CI checks out detached HEAD.
+        # Manifest branch enforcement belongs to separate semantic tests.
+        branch = patch("harness.runner.engine.current_branch", return_value="test-branch")
+        branch.start()
+        self.addCleanup(branch.stop)
         self.temp = tempfile.TemporaryDirectory()
         run_id = create_run_id()
         path = Path(self.temp.name) / run_id

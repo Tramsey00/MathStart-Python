@@ -6,6 +6,7 @@ from harness.contracts.adapter import (
     AdapterIdentity,
     ErrorEvent,
     FinishedEvent,
+    MessageEvent,
     ModelEvent,
     ModelRequest,
     ToolRequest,
@@ -29,6 +30,12 @@ class FakeAdapter:
         keep requesting read_file calls until Runner
         enforces max_turns
 
+    message
+        MESSAGE -> read PRODUCT.md -> FINISHED
+
+    message-loop
+        keep returning MESSAGE until Runner enforces max_turns
+
     Cancellation is simulated through cancel().
     """
 
@@ -40,6 +47,8 @@ class FakeAdapter:
             "happy",
             "error",
             "loop",
+            "message",
+            "message-loop",
         }:
             raise ValueError(
                 f"unsupported FakeAdapter scenario: {scenario}"
@@ -153,6 +162,21 @@ class FakeAdapter:
                         ),
                     )
 
+        if self._scenario == "message" and (
+            self._step != 2 or result.call_id != "message-tool" or result.status != "OK"
+        ):
+            return ErrorEvent(code="PROTOCOL_STATE", message="Expected successful message-tool result.")
+        if self._scenario == "message-loop":
+            return ErrorEvent(code="PROTOCOL_STATE", message="Expected MESSAGE continuation.")
+        return self._next_event()
+
+    def continue_after_message(self, request: ModelRequest) -> ModelEvent:
+        if not self._started or self._scenario not in {"message", "message-loop"}:
+            return ErrorEvent(code="PROTOCOL_STATE", message="No MESSAGE to continue.")
+        if self._scenario == "message" and self._step != 1:
+            return ErrorEvent(code="PROTOCOL_STATE", message="Expected a tool result.")
+        if request.protocol_version != ADAPTER_PROTOCOL_VERSION:
+            return ErrorEvent(code="PROTOCOL_VERSION", message="Unsupported protocol version.")
         return self._next_event()
 
     def cancel(self) -> None:
@@ -161,6 +185,17 @@ class FakeAdapter:
     def _next_event(self) -> ModelEvent:
         if self._cancelled:
             return self._cancelled_event()
+
+        if self._scenario in {"message", "message-loop"}:
+            self._step += 1
+            if self._scenario == "message-loop" or self._step == 1:
+                return MessageEvent(content="Deterministic intermediate message.")
+            if self._step == 2:
+                return ToolRequest(call_id="message-tool", tool_name="read_file",
+                                   arguments={"path": "PRODUCT.md"})
+            if self._step == 3:
+                return FinishedEvent(summary="message fixture complete")
+            return ErrorEvent(code="PROTOCOL_STATE", message="MESSAGE script exhausted.")
 
         if self._scenario == "error":
             self._step += 1

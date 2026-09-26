@@ -196,6 +196,13 @@ class ManifestValidationTests(unittest.TestCase):
             )
         )
 
+    def test_plan_digest_mismatch_is_blocked(self) -> None:
+        self.plan_path.write_text("changed plan\n", encoding="utf-8")
+        with self.assertRaises(ManifestValidationError) as context:
+            self._load()
+        self.assertTrue(any("digest mismatch" in error and "PLAN.md" in error
+                            for error in context.exception.errors))
+
     def test_missing_spec_is_blocked(self) -> None:
         self.spec_path.unlink()
 
@@ -294,6 +301,36 @@ class ManifestValidationTests(unittest.TestCase):
                 in context.exception.errors
             )
         )
+
+
+class CheckedInManifestTests(unittest.TestCase):
+    def test_checked_in_r04_manifest_validates_actual_reference_bytes(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        task = json.loads((root / "harness/tasks/MS6-R04.json").read_text(encoding="utf-8"))
+        self.assertEqual(task["plan_ref"]["digest"], _sha256(root / task["plan_ref"]["path"]))
+        # .gitattributes uses LF; avoid a digest that changes on a Linux checkout.
+        self.assertNotIn(b"\r\n", (root / task["plan_ref"]["path"]).read_bytes())
+        # Pin only Git metadata so this byte-integrity regression also runs on
+        # main and PR detached HEAD. Real branch rejection is tested above.
+        with (
+            patch("harness.contracts.manifest.current_branch", return_value=task["branch"]),
+            patch("harness.contracts.manifest.head_sha", return_value="b" * 40),
+            patch("harness.contracts.manifest.commit_exists", return_value=True),
+            patch("harness.contracts.manifest.is_ancestor", return_value=True),
+        ):
+            loaded = load_and_validate_manifest(root, "MS6-R04")
+        self.assertEqual(loaded["plan_ref"], task["plan_ref"])
+
+    def test_r04_documents_are_readable_utf8(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        for name in ("docs/exec-plans/active/MS6-R04.md",
+                     "specs/harness/adapter-protocol-v1.md", "docs/agent-traces/MS6-R04.md"):
+            with self.subTest(path=name):
+                text = (root / name).read_bytes().decode("utf-8", errors="strict")
+                self.assertNotIn("\ufffd", text)
+                self.assertNotIn("\u0420\u00a0", text)
+                self.assertNotIn("вЂ", text)
+                self.assertNotIn("Рџ", text)
 
 
 if __name__ == "__main__":

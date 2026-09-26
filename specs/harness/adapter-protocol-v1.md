@@ -5,26 +5,26 @@ Protocol version: `adapter-protocol-v1`
 
 ## 1. Purpose
 
-Adapter Protocol РѕС‚РґРµР»СЏРµС‚ MathStart Harness Runner РѕС‚ РєРѕРЅРєСЂРµС‚РЅРѕР№ coding model РёР»Рё provider implementation.
+Adapter Protocol отделяет MathStart Harness Runner от конкретной coding model или provider implementation.
 
-Runner РІР»Р°РґРµРµС‚:
+Runner владеет:
 
-- Р¶РёР·РЅРµРЅРЅС‹Рј С†РёРєР»РѕРј run;
+- жизненным циклом run;
 - TaskManifest;
 - RunResult;
-- Р»РёРјРёС‚Р°РјРё;
-- СЂР°Р·СЂРµС€РµРЅРёРµРј tool execution;
+- лимитами;
+- разрешением tool execution;
 - repository state;
 - verification;
-- РёС‚РѕРіРѕРІС‹Рј СЃС‚Р°С‚СѓСЃРѕРј.
+- итоговым статусом.
 
-Adapter РІР»Р°РґРµРµС‚ С‚РѕР»СЊРєРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµРј provider-specific model interaction РІ РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅС‹Рµ СЃРѕР±С‹С‚РёСЏ Harness.
+Adapter владеет только преобразованием provider-specific model interaction в нормализованные события Harness.
 
-Adapter РЅРµ РїРѕР»СѓС‡Р°РµС‚ РїСЂР°РІРѕ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РѕР±С…РѕРґРёС‚СЊ Runner Рё РёР·РјРµРЅСЏС‚СЊ repository state С‡РµСЂРµР· СЃРєСЂС‹С‚С‹Рµ РёРЅСЃС‚СЂСѓРјРµРЅС‚С‹, РµСЃР»Рё С‚Р°РєРѕР№ СЂРµР¶РёРј РѕР±СЉСЏРІР»СЏРµС‚СЃСЏ enforcement-capable.
+Adapter не получает право самостоятельно обходить Runner и изменять repository state через скрытые инструменты, если такой режим объявляется enforcement-capable.
 
 ## 2. RunStatus v1
 
-Р¤РёРЅР°Р»СЊРЅС‹Рµ СЃС‚Р°С‚СѓСЃС‹ RunResult:
+Финальные статусы RunResult:
 
 - `READY_FOR_REVIEW`
 - `FAIL`
@@ -33,7 +33,7 @@ Adapter РЅРµ РїРѕР»СѓС‡Р°РµС‚ РїСЂР°РІРѕ СЃР�
 - `INTERRUPTED`
 - `BUDGET_EXCEEDED`
 
-Р’РЅРµС€РЅРµРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РІ process exit code:
+Внешнее отображение в process exit code:
 
 | RunStatus | Exit code |
 |---|---:|
@@ -44,25 +44,25 @@ Adapter РЅРµ РїРѕР»СѓС‡Р°РµС‚ РїСЂР°РІРѕ СЃР�
 | `INTERRUPTED` | 4 |
 | `BUDGET_EXCEEDED` | 4 |
 
-`READY_FOR_REVIEW` РѕР·РЅР°С‡Р°РµС‚ С‚РѕР»СЊРєРѕ СѓСЃРїРµС€РЅРѕРµ РїСЂРѕС…РѕР¶РґРµРЅРёРµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕР№ С‡Р°СЃС‚Рё С‚РµРєСѓС‰РµРіРѕ run.
+`READY_FOR_REVIEW` означает только успешное прохождение автоматической части текущего run.
 
-РћРЅ РЅРµ РѕР·РЅР°С‡Р°РµС‚:
+Он не означает:
 
 - merge;
 - DONE;
 - human acceptance;
-- РїСЂРѕС…РѕР¶РґРµРЅРёРµ G1;
-- СЂР°Р·СЂРµС€РµРЅРёРµ deploy/push.
+- прохождение G1;
+- разрешение deploy/push.
 
 ## 3. Adapter identity
 
-РљР°Р¶РґС‹Р№ adapter РѕР±СЉСЏРІР»СЏРµС‚:
+Каждый adapter объявляет:
 
 - `name`;
 - `version`;
 - `protocol_version`.
 
-РџСЂРёРјРµСЂ:
+Пример:
 
 ```json
 {
@@ -74,9 +74,9 @@ Adapter РЅРµ РїРѕР»СѓС‡Р°РµС‚ РїСЂР°РІРѕ СЃР�
 
 ## 4. AdapterCapabilities v1
 
-Adapter РѕР±СЏР·Р°РЅ РґРѕ model invocation РѕР±СЉСЏРІРёС‚СЊ capabilities.
+Adapter обязан до model invocation объявить capabilities.
 
-РќРѕСЂРјР°С‚РёРІРЅС‹Рµ capability fields:
+Нормативные capability fields:
 
 ```json
 {
@@ -90,41 +90,41 @@ Adapter РѕР±СЏР·Р°РЅ РґРѕ model invocation РѕР±СЉСЏРІ�
 }
 ```
 
-Р—РЅР°С‡РµРЅРёРµ РєР°Р¶РґРѕРіРѕ capability СЏРІР»СЏРµС‚СЃСЏ С„Р°РєС‚РёС‡РµСЃРєРѕР№ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊСЋ adapter, Р° РЅРµ РїРѕР¶РµР»Р°РЅРёРµРј Runner.
+Значение каждого capability является фактической возможностью adapter, а не пожеланием Runner.
 
 ### 4.1. Capability meanings
 
 `tool_calls`
 
-Adapter СЃРїРѕСЃРѕР±РµРЅ РІРµСЂРЅСѓС‚СЊ РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ РјРѕРґРµР»Рё РЅР° РІС‹Р·РѕРІ РёРЅСЃС‚СЂСѓРјРµРЅС‚Р°.
+Adapter способен вернуть нормализованный запрос модели на вызов инструмента.
 
 `tool_call_interception`
 
-Harness РїРѕР»СѓС‡Р°РµС‚ tool request РґРѕ РІС‹РїРѕР»РЅРµРЅРёСЏ РґРµР№СЃС‚РІРёСЏ Рё РјРѕР¶РµС‚ СЂР°Р·СЂРµС€РёС‚СЊ РёР»Рё РѕС‚РєР»РѕРЅРёС‚СЊ РµРіРѕ.
+Harness получает tool request до выполнения действия и может разрешить или отклонить его.
 
 `usage_reporting`
 
-Adapter СЃРїРѕСЃРѕР±РµРЅ РІРµСЂРЅСѓС‚СЊ С„Р°РєС‚РёС‡РµСЃРєРёРµ usage fields, РґРѕСЃС‚СѓРїРЅС‹Рµ provider. Р•СЃР»Рё provider РЅРµ РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ, Runner РЅРµ РІС‹РґСѓРјС‹РІР°РµС‚ РµРіРѕ.
+Adapter способен вернуть фактические usage fields, доступные provider. Если provider не предоставляет значение, Runner не выдумывает его.
 
 `cancellation`
 
-Adapter РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РєРѕРЅС‚СЂРѕР»РёСЂСѓРµРјРѕРµ РїСЂРµРєСЂР°С‰РµРЅРёРµ Р°РєС‚РёРІРЅРѕРіРѕ model interaction.
+Adapter поддерживает контролируемое прекращение активного model interaction.
 
 `structured_output`
 
-Adapter СЃРїРѕСЃРѕР±РµРЅ РїРµСЂРµРґР°РІР°С‚СЊ РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅС‹Рµ СЃС‚СЂСѓРєС‚СѓСЂРёСЂРѕРІР°РЅРЅС‹Рµ РѕС‚РІРµС‚С‹, С‚СЂРµР±СѓРµРјС‹Рµ protocol.
+Adapter способен передавать нормализованные структурированные ответы, требуемые protocol.
 
 `streaming`
 
-Adapter РїРѕРґРґРµСЂР¶РёРІР°РµС‚ stream provider events. Streaming РЅРµ СЏРІР»СЏРµС‚СЃСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рј РґР»СЏ R04.
+Adapter поддерживает stream provider events. Streaming не является обязательным для R04.
 
 `resume`
 
-Adapter РїРѕРґРґРµСЂР¶РёРІР°РµС‚ provider-level РїСЂРѕРґРѕР»Р¶РµРЅРёРµ СЂР°РЅРµРµ СЃСѓС‰РµСЃС‚РІРѕРІР°РІС€РµР№ СЃРµСЃСЃРёРё. Р­С‚Рѕ РЅРµ С‚Рѕ Р¶Рµ СЃР°РјРѕРµ, С‡С‚Рѕ Harness `resume` run.
+Adapter поддерживает provider-level продолжение ранее существовавшей сессии. Это не то же самое, что Harness `resume` run.
 
 ## 5. Enforcement capability
 
-Adapter СЃС‡РёС‚Р°РµС‚СЃСЏ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕ РїСЂРёРіРѕРґРЅС‹Рј РґР»СЏ enforcement С‚РѕР»СЊРєРѕ РµСЃР»Рё:
+Adapter считается потенциально пригодным для enforcement только если:
 
 ```text
 tool_calls = true
@@ -132,9 +132,9 @@ AND
 tool_call_interception = true
 ```
 
-РћРґРЅРѕРіРѕ Р·Р°РїСѓСЃРєР° РІРЅРµС€РЅРµРіРѕ CLI subprocess РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ.
+Одного запуска внешнего CLI subprocess недостаточно.
 
-Р•СЃР»Рё РІРЅРµС€РЅРёР№ coding-agent process РІС‹РїРѕР»РЅСЏРµС‚ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рµ СЃРєСЂС‹С‚С‹Рµ tool calls, РєРѕС‚РѕСЂС‹Рµ MathStart Runner РЅРµ РјРѕР¶РµС‚ РїРµСЂРµС…РІР°С‚РёС‚СЊ РґРѕ РґРµР№СЃС‚РІРёСЏ, С‚Р°РєРѕР№ adapter РѕР±СЏР·Р°РЅ РѕР±СЉСЏРІРёС‚СЊ:
+Если внешний coding-agent process выполняет собственные скрытые tool calls, которые MathStart Runner не может перехватить до действия, такой adapter обязан объявить:
 
 ```json
 {
@@ -142,26 +142,26 @@ tool_call_interception = true
 }
 ```
 
-РўР°РєРѕР№ adapter РјРѕР¶РµС‚ РїСЂРёРјРµРЅСЏС‚СЊСЃСЏ С‚РѕР»СЊРєРѕ РІ СЏРІРЅРѕ РѕР±РѕР·РЅР°С‡РµРЅРЅРѕРј advisory/bootstrap СЂРµР¶РёРјРµ Рё РЅРµ СЏРІР»СЏРµС‚СЃСЏ РґРѕРєР°Р·Р°С‚РµР»СЊСЃС‚РІРѕРј РїРѕР»РЅРѕРіРѕ Harness enforcement.
+Такой adapter может применяться только в явно обозначенном advisory/bootstrap режиме и не является доказательством полного Harness enforcement.
 
 ## 6. Normalized model events
 
-Adapter РІРѕР·РІСЂР°С‰Р°РµС‚ Runner СЂРѕРІРЅРѕ РѕРґРёРЅ РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅС‹Р№ event Р·Р° protocol step.
+Adapter возвращает Runner ровно один нормализованный event за protocol step.
 
-Р”РѕРїСѓСЃС‚РёРјС‹Рµ С‚РёРїС‹ v1:
+Допустимые типы v1:
 
 - `MESSAGE`
 - `TOOL_REQUEST`
 - `FINISHED`
 - `ERROR`
 
-РќРµРёР·РІРµСЃС‚РЅС‹Р№ event type СЏРІР»СЏРµС‚СЃСЏ protocol error.
+Неизвестный event type является protocol error.
 
 ## 7. MESSAGE
 
-`MESSAGE` РїРµСЂРµРґР°С‘С‚ РІРёРґРёРјС‹Р№ model output, РєРѕС‚РѕСЂС‹Р№ РЅРµ С‚СЂРµР±СѓРµС‚ tool execution.
+`MESSAGE` передаёт видимый model output, который не требует tool execution.
 
-РњРёРЅРёРјР°Р»СЊРЅР°СЏ С„РѕСЂРјР°:
+Минимальная форма:
 
 ```json
 {
@@ -170,13 +170,22 @@ Adapter РІРѕР·РІСЂР°С‰Р°РµС‚ Runner СЂРѕРІРЅРѕ �
 }
 ```
 
-R04 РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚ MESSAGE РєР°Рє РґРѕРєР°Р·Р°С‚РµР»СЊСЃС‚РІРѕ СѓСЃРїРµС€РЅРѕР№ verification.
+Runner сохраняет `MESSAGE.content` в protocol events evidence. MESSAGE является
+промежуточным событием и сам по себе не запускает verification и не назначает PASS.
 
-Model summary РЅРµ Р·Р°РјРµРЅСЏРµС‚ С„Р°РєС‚РёС‡РµСЃРєРёР№ СЂРµР·СѓР»СЊС‚Р°С‚ check.
+После MESSAGE Runner вызывает `continue_after_message(ModelRequest)` для следующего
+protocol step. Adapter сохраняет состояние сессии; request содержит текущий run/task,
+новый номер turn и последний MESSAGE в `messages` как assistant content. Следующее
+событие может быть MESSAGE, TOOL_REQUEST, FINISHED или ERROR. Каждый вызов учитывается
+в max_turns и общем deadline, включая MESSAGE-only loops.
+
+R04 не использует MESSAGE как доказательство успешной verification.
+
+Model summary не заменяет фактический результат check.
 
 ## 8. TOOL_REQUEST
 
-РњРёРЅРёРјР°Р»СЊРЅР°СЏ С„РѕСЂРјР°:
+Минимальная форма:
 
 ```json
 {
@@ -189,23 +198,23 @@ Model summary РЅРµ Р·Р°РјРµРЅСЏРµС‚ С„Р°РєС‚Рё�
 }
 ```
 
-РўСЂРµР±РѕРІР°РЅРёСЏ:
+Требования:
 
-- `call_id` СѓРЅРёРєР°Р»РµРЅ РІРЅСѓС‚СЂРё run;
-- `tool_name` РЅРµ РїСѓСЃС‚;
-- `arguments` СЏРІР»СЏРµС‚СЃСЏ object;
-- adapter РЅРµ РёСЃРїРѕР»РЅСЏРµС‚ tool СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РІ interception-capable СЂРµР¶РёРјРµ;
-- Runner РїРѕР»СѓС‡Р°РµС‚ request РґРѕ handler execution.
+- `call_id` уникален внутри run;
+- `tool_name` не пуст;
+- `arguments` является object;
+- adapter не исполняет tool самостоятельно в interception-capable режиме;
+- Runner получает request до handler execution.
 
-Р’ R04 РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ fake tool set С‚РѕР»СЊРєРѕ РґР»СЏ РїСЂРѕРІРµСЂРєРё control loop.
+В R04 используется минимальный fake tool set только для проверки control loop.
 
-РџРѕР»РЅС‹Р№ typed Tool Registry РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє R05.
+Полный typed Tool Registry относится к R05.
 
 ## 9. ToolResult
 
-РџРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё `TOOL_REQUEST` Runner РІРѕР·РІСЂР°С‰Р°РµС‚ adapter РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅС‹Р№ ToolResult.
+После обработки `TOOL_REQUEST` Runner возвращает adapter нормализованный ToolResult.
 
-Р¤РѕСЂРјР°:
+Форма:
 
 ```json
 {
@@ -217,21 +226,21 @@ Model summary РЅРµ Р·Р°РјРµРЅСЏРµС‚ С„Р°РєС‚Рё�
 }
 ```
 
-Р”РѕРїСѓСЃС‚РёРјС‹Рµ status v1:
+Допустимые status v1:
 
 - `OK`
 - `DENIED`
 - `ERROR`
 
-`call_id` РѕР±СЏР·Р°РЅ СЃРѕРІРїР°РґР°С‚СЊ СЃ РёСЃС…РѕРґРЅС‹Рј `TOOL_REQUEST`.
+`call_id` обязан совпадать с исходным `TOOL_REQUEST`.
 
-Р’ R04 `DENIED` РјРѕР¶РµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ С‚РѕР»СЊРєРѕ РґР»СЏ Р±Р°Р·РѕРІС‹С… contract/scope smoke cases.
+В R04 `DENIED` может использоваться только для базовых contract/scope smoke cases.
 
-РџРѕР»РЅС‹Р№ policy/hook deny pipeline РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє R06.
+Полный policy/hook deny pipeline относится к R06.
 
 ## 10. FINISHED
 
-Р¤РѕСЂРјР°:
+Форма:
 
 ```json
 {
@@ -240,21 +249,21 @@ Model summary РЅРµ Р·Р°РјРµРЅСЏРµС‚ С„Р°РєС‚Рё�
 }
 ```
 
-`FINISHED` Р·Р°РІРµСЂС€Р°РµС‚ model loop, РЅРѕ РЅРµ РЅР°Р·РЅР°С‡Р°РµС‚ RunStatus.
+`FINISHED` завершает model loop, но не назначает RunStatus.
 
-РџРѕСЃР»Рµ `FINISHED` Runner СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ:
+После `FINISHED` Runner самостоятельно:
 
-1. С„РёРєСЃРёСЂСѓРµС‚ repository state;
-2. РІС‹РїРѕР»РЅСЏРµС‚ С‚СЂРµР±СѓРµРјС‹Рµ РїСЂРѕРІРµСЂРєРё;
-3. С„РѕСЂРјРёСЂСѓРµС‚ verification result;
-4. РѕРїСЂРµРґРµР»СЏРµС‚ РёС‚РѕРіРѕРІС‹Р№ RunStatus;
-5. СЃРѕС…СЂР°РЅСЏРµС‚ RunResult.
+1. фиксирует repository state;
+2. выполняет требуемые проверки;
+3. формирует verification result;
+4. определяет итоговый RunStatus;
+5. сохраняет RunResult.
 
-Adapter РЅРµ РјРѕР¶РµС‚ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РѕР±СЉСЏРІРёС‚СЊ `READY_FOR_REVIEW`.
+Adapter не может самостоятельно объявить `READY_FOR_REVIEW`.
 
 ## 11. ERROR
 
-Р¤РѕСЂРјР°:
+Форма:
 
 ```json
 {
@@ -265,13 +274,13 @@ Adapter РЅРµ РјРѕР¶РµС‚ СЃР°РјРѕСЃС‚РѕСЏС‚Р�
 }
 ```
 
-Adapter error РЅРµ РґРѕР»Р¶РµРЅ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°С‚СЊСЃСЏ РІ success.
+Adapter error не должен автоматически преобразовываться в success.
 
-Runner СЃРѕРїРѕСЃС‚Р°РІР»СЏРµС‚ РѕС€РёР±РєСѓ СЃ РёС‚РѕРіРѕРІС‹Рј СЃС‚Р°С‚СѓСЃРѕРј СЃРѕРіР»Р°СЃРЅРѕ lifecycle rules.
+Runner сопоставляет ошибку с итоговым статусом согласно lifecycle rules.
 
 ## 12. Model request
 
-РњРёРЅРёРјР°Р»СЊРЅС‹Р№ ModelRequest v1 СЃРѕРґРµСЂР¶РёС‚:
+Минимальный ModelRequest v1 содержит:
 
 ```json
 {
@@ -283,13 +292,13 @@ Runner СЃРѕРїРѕСЃС‚Р°РІР»СЏРµС‚ РѕС€РёР±Рє�
 }
 ```
 
-R04 РЅРµ СЃС‚Р°РЅРґР°СЂС‚РёР·РёСЂСѓРµС‚ С„РёРЅР°Р»СЊРЅС‹Р№ Context Layer.
+R04 не стандартизирует финальный Context Layer.
 
-РџРѕР»РЅС‹Р№ pinned context, compaction Рё budget accounting РѕС‚РЅРѕСЃСЏС‚СЃСЏ Рє R05.
+Полный pinned context, compaction и budget accounting относятся к R05.
 
 ## 13. Tool loop
 
-РќРѕСЂРјР°С‚РёРІРЅР°СЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ:
+Нормативная последовательность:
 
 ```text
 Runner
@@ -311,9 +320,22 @@ Adapter
 Runner
 ```
 
-Runner СѓРІРµР»РёС‡РёРІР°РµС‚ СЃС‡С‘С‚С‡РёРє turn СЃРѕРіР»Р°СЃРЅРѕ РѕРґРЅРѕРјСѓ РїСЂРёРЅСЏС‚РѕРјСѓ protocol step.
+Минимальный синхронный интерфейс ModelAdapter:
 
-РџСЂРё РїСЂРµРІС‹С€РµРЅРёРё `max_turns` РґР°Р»СЊРЅРµР№С€РёР№ model step РЅРµ РЅР°С‡РёРЅР°РµС‚СЃСЏ Рё run Р·Р°РІРµСЂС€Р°РµС‚СЃСЏ РєР°Рє:
+- `identity: AdapterIdentity`;
+- `capabilities: AdapterCapabilities`;
+- `start(ModelRequest) -> ModelEvent`;
+- `continue_with_tool_result(ToolResult) -> ModelEvent`;
+- `continue_after_message(ModelRequest) -> ModelEvent`;
+- `cancel() -> None`.
+
+Runner до `start` сравнивает identity.protocol_version с ADAPTER_PROTOCOL_VERSION.
+Несовпадение даёт BLOCKED_CONFIGURATION / exit 2 без model/tool/verification вызовов.
+
+Runner увеличивает счётчик turn перед каждым вызовом start или continuation.
+`continue_after_message` продолжает текущую сессию и не является provider-level resume.
+
+При превышении `max_turns` дальнейший model step не начинается и run завершается как:
 
 ```text
 BUDGET_EXCEEDED
@@ -321,32 +343,44 @@ BUDGET_EXCEEDED
 
 ## 14. Interruption
 
-Р•СЃР»Рё РІС‹РїРѕР»РЅРµРЅРёРµ РїСЂРµСЂРІР°РЅРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј, wall-time limit РёР»Рё РєРѕРЅС‚СЂРѕР»РёСЂСѓРµРјРѕР№ cancellation:
+Если выполнение прервано пользователем, wall-time limit или контролируемой cancellation:
 
-- Р°РєС‚РёРІРЅРѕРµ РІС‹РїРѕР»РЅРµРЅРёРµ РїСЂРµРєСЂР°С‰Р°РµС‚СЃСЏ;
-- run РЅРµ РјРѕР¶РµС‚ РїРѕР»СѓС‡РёС‚СЊ `READY_FOR_REVIEW`;
-- СЂРµР·СѓР»СЊС‚Р°С‚ СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РєР°Рє `INTERRUPTED` Р»РёР±Рѕ `BUDGET_EXCEEDED` СЃРѕРіР»Р°СЃРЅРѕ РїСЂРёС‡РёРЅРµ;
-- РґРѕСЃС‚СѓРїРЅС‹Рµ РґРёР°РіРЅРѕСЃС‚РёС‡РµСЃРєРёРµ РґР°РЅРЅС‹Рµ СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ Р±РµР· Р·Р°СЏРІР»РµРЅРёСЏ Рѕ PASS.
+- активное выполнение прекращается;
+- run не может получить `READY_FOR_REVIEW`;
+- результат сохраняется как `INTERRUPTED` либо `BUDGET_EXCEEDED` согласно причине;
+- доступные диагностические данные сохраняются без заявления о PASS.
+
+Deadline общий для run: Runner проверяет его до model invocation, сразу после
+возврата start/обоих continuation methods, непосредственно перед tool handler,
+после handler, перед verification и перед публикацией READY_FOR_REVIEW. Verification
+процессы получают remaining timeout. Expiry даёт BUDGET_EXCEEDED / exit 4; поздний
+TOOL_REQUEST не исполняется, поздний FINISHED не запускает verification.
+
+R04 не прерывает уже начавшийся blocking adapter/tool call на уровне ОС.
+После обнаруженной expiry допускается сохранение диагностического результата,
+но новое model/tool/check действие не начинается.
 
 ## 15. FakeAdapter v1
 
-R04 РѕР±СЏР·Р°РЅР° РїСЂРµРґРѕСЃС‚Р°РІРёС‚СЊ deterministic FakeAdapter.
+R04 обязана предоставить deterministic FakeAdapter.
 
 FakeAdapter:
 
-- РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚ СЃРµС‚СЊ;
-- РЅРµ С‚СЂРµР±СѓРµС‚ API key;
-- РёРјРµРµС‚ С„РёРєСЃРёСЂРѕРІР°РЅРЅСѓСЋ identity;
-- РѕР±СЉСЏРІР»СЏРµС‚ capabilities;
-- РІС‹РїРѕР»РЅСЏРµС‚ Р·Р°СЂР°РЅРµРµ Р·Р°РґР°РЅРЅС‹Р№ СЃС†РµРЅР°СЂРёР№;
-- СЃРїРѕСЃРѕР±РµРЅ РІРµСЂРЅСѓС‚СЊ `TOOL_REQUEST`;
-- СЃРїРѕСЃРѕР±РµРЅ РїСЂРёРЅСЏС‚СЊ ToolResult;
-- СЃРїРѕСЃРѕР±РµРЅ РІРµСЂРЅСѓС‚СЊ `FINISHED`;
-- СЃРїРѕСЃРѕР±РµРЅ СЃРёРјСѓР»РёСЂРѕРІР°С‚СЊ `ERROR`;
-- СЃРїРѕСЃРѕР±РµРЅ СЃРёРјСѓР»РёСЂРѕРІР°С‚СЊ interruption;
-- СЃРїРѕСЃРѕР±РµРЅ РёСЃС‡РµСЂРїР°С‚СЊ `max_turns`.
+- не использует сеть;
+- не требует API key;
+- имеет фиксированную identity;
+- объявляет capabilities;
+- выполняет заранее заданный сценарий;
+- способен вернуть `MESSAGE` и продолжить его через `continue_after_message`;
+- имеет сценарии `message` (MESSAGE -> TOOL_REQUEST -> FINISHED) и `message-loop`;
+- способен вернуть `TOOL_REQUEST`;
+- способен принять ToolResult;
+- способен вернуть `FINISHED`;
+- способен симулировать `ERROR`;
+- способен симулировать interruption;
+- способен исчерпать `max_turns`.
 
-Р РµРєРѕРјРµРЅРґСѓРµРјС‹Рµ capabilities FakeAdapter v1:
+Рекомендуемые capabilities FakeAdapter v1:
 
 ```json
 {
@@ -360,28 +394,30 @@ FakeAdapter:
 }
 ```
 
-Fake usage СЏРІР»СЏРµС‚СЃСЏ СЏРІРЅРѕ СЃРёРЅС‚РµС‚РёС‡РµСЃРєРёРј test metadata Рё РЅРµ РІС‹РґР°С‘С‚СЃСЏ Р·Р° provider billing.
+Fake usage является явно синтетическим test metadata и не выдаётся за provider billing.
 
 ## 16. Real adapters
 
-РљРѕРЅРєСЂРµС‚РЅС‹Р№ provider РёР»Рё coding-agent implementation РЅРµ СЏРІР»СЏРµС‚СЃСЏ С‡Р°СЃС‚СЊСЋ Adapter Protocol.
+Конкретный provider или coding-agent implementation не является частью Adapter Protocol.
 
-Р‘СѓРґСѓС‰РёРµ adapters РґРѕР»Р¶РЅС‹ СЂРµР°Р»РёР·РѕРІС‹РІР°С‚СЊ СЌС‚РѕС‚ Р¶Рµ protocol Р±РµР· РёР·РјРµРЅРµРЅРёСЏ Runner domain contract.
+Будущие adapters должны реализовывать этот же protocol без изменения Runner domain contract.
 
-Р•СЃР»Рё Codex CLI РёР»Рё РґСЂСѓРіРѕР№ РІРЅРµС€РЅРёР№ agent runtime РЅРµ РїРѕР·РІРѕР»СЏРµС‚ MathStart РїРµСЂРµС…РІР°С‚С‹РІР°С‚СЊ РєР°Р¶РґС‹Р№ tool request РґРѕ РІС‹РїРѕР»РЅРµРЅРёСЏ, adapter РѕР±СЏР·Р°РЅ РѕР±СЉСЏРІРёС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ РѕС‚СЃСѓС‚СЃС‚РІРёРµ capability Рё РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РєР°Рє РґРѕРєР°Р·Р°С‚РµР»СЊСЃС‚РІРѕ enforcement.
+Если Codex CLI или другой внешний agent runtime не позволяет MathStart перехватывать каждый tool request до выполнения, adapter обязан объявить соответствующее отсутствие capability и не используется как доказательство enforcement.
 
 ## 17. Versioning
 
-Breaking РёР·РјРµРЅРµРЅРёРµ:
+Breaking изменение:
 
 - event types;
-- РѕР±СЏР·Р°С‚РµР»СЊРЅС‹С… event fields;
+- обязательных event fields;
 - semantics capabilities;
 - ToolResult statuses;
 - ownership tool execution;
 
-С‚СЂРµР±СѓРµС‚ РЅРѕРІРѕР№ РІРµСЂСЃРёРё protocol.
+требует новой версии protocol.
 
-Р”РѕР±Р°РІР»РµРЅРёРµ provider-specific metadata РЅРµ РґРѕР»Р¶РЅРѕ РјРµРЅСЏС‚СЊ РЅРѕСЂРјР°С‚РёРІРЅСѓСЋ semantics v1.
+Добавление provider-specific metadata не должно менять нормативную semantics v1.
 
-РќРµРёР·РІРµСЃС‚РЅР°СЏ protocol version Р±Р»РѕРєРёСЂСѓРµС‚ execute РґРѕ model invocation.
+Неизвестная protocol version блокирует execute до model invocation.
+
+Протокол остаётся DRAFT: MESSAGE continuation согласован в review-correction R04 до принятия v1.

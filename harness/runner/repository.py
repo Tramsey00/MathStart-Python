@@ -14,6 +14,7 @@ def run_git(repo_root: Path, *args: str) -> str:
         cwd=repo_root,
         capture_output=True,
         text=True,
+        encoding="utf-8",
         shell=False,
         check=False,
     )
@@ -43,6 +44,7 @@ def commit_exists(repo_root: Path, sha: str) -> bool:
         cwd=repo_root,
         capture_output=True,
         text=True,
+        encoding="utf-8",
         shell=False,
         check=False,
     )
@@ -55,6 +57,7 @@ def is_ancestor(repo_root: Path, ancestor_sha: str, descendant_sha: str) -> bool
         cwd=repo_root,
         capture_output=True,
         text=True,
+        encoding="utf-8",
         shell=False,
         check=False,
     )

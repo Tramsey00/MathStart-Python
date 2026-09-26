@@ -40,8 +40,8 @@ The verification script does not migrate or bootstrap the local database.
 If setup is missing, report it rather than changing data during an audit that
 forbids database changes.
 
-The entry point runs runtime checks, not Harness link/artifact validation.
-Audit document paths, templates, and plan acceptance separately.
+The entry point runs runtime checks and the Harness suite, including manifest
+digest validation. Audit wider document links and human acceptance separately.
 
 The Harness verification entry point is:
 
@@ -55,7 +55,7 @@ migrates the fresh SQLite database, runs `bootstrap_site`, and collects static
 files so manifest-backed page rendering works during content checks. A green CI
 job is required before merge.
 
-For a faster pass without the full Django test suite:
+For a faster pass without the Django, R03, and Harness test suites:
 
 ```bash
 python scripts/verify_repo.py --skip-tests
@@ -68,9 +68,14 @@ python scripts/verify_repo.py --group backend
 python scripts/verify_repo.py --group database
 python scripts/verify_repo.py --group content
 python scripts/verify_repo.py --group tests
+python scripts/verify_repo.py --group harness
 ```
 
-Multiple groups may be combined.
+Multiple groups may be combined. Default selection runs 8 checks across 5 groups.
+`--list` shows selected argv commands; `--exclude-group` removes a group.
+The runner's nested `repo-baseline` uses `--exclude-group harness` (7 checks),
+while its separate `harness-unit` runs the Harness suite. This prevents recursive
+verification. Normal CI keeps the default selection including Harness tests.
 
 ---
 
@@ -112,6 +117,16 @@ under the `tests` group after the Django suite. A passing contract suite proves
 the documented graph/projection reference behavior, not runtime persistence.
 
 ---
+
+### Harness
+
+```bash
+python -m unittest discover -s tests/harness -t . -v
+```
+
+This group uses deterministic adapters and mocked runner verification; no live
+LLM or task-branch checkout is required. The CLI smoke dry-run uses a fixture.
+Production TaskManifest branch enforcement is tested separately and retained.
 
 ## Future checks
 
