@@ -2,15 +2,20 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from config.database import database_config
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Editable lesson sources and generated publication backups have separate homes.
 LESSON_SOURCE_ROOT = BASE_DIR / "curriculum"
-LESSON_BACKUP_ROOT = BASE_DIR / "var" / "backups"
 
 load_dotenv(BASE_DIR / ".env")
+
+# Containers and smoke runs can isolate all generated runtime files.
+RUNTIME_ROOT = Path(os.getenv("DJANGO_RUNTIME_ROOT", str(BASE_DIR))).resolve()
+LESSON_BACKUP_ROOT = RUNTIME_ROOT / "var" / "backups"
+REPORT_ROOT = RUNTIME_ROOT / "var" / "reports"
 
 
 def env_bool(name, default=False):
@@ -137,22 +142,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
 
-database_path_from_env = os.getenv(
-    "DJANGO_DB_PATH",
-    "",
-).strip()
-
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": (
-            Path(database_path_from_env)
-            if database_path_from_env
-            else BASE_DIR / "db.sqlite3"
-        ),
-    },
-}
+DATABASES = {"default": database_config(BASE_DIR)}
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -198,7 +188,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = RUNTIME_ROOT / "staticfiles"
 
 
 STORAGES = {
@@ -219,7 +209,7 @@ STORAGES = {
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = RUNTIME_ROOT / "media"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

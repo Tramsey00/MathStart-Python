@@ -295,8 +295,10 @@ def publication_plan(
     )
 
     if lock:
+        # Lock the pages being published, not nullable catalogue outer joins.
+        # Publication state/source-owner rows are locked separately below.
         page_query = (
-            page_query.select_for_update()
+            page_query.select_for_update(of=("self",))
         )
 
     pages = {

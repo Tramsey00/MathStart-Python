@@ -30,23 +30,39 @@ MathStart — образовательный сайт по математике 
 
 ## Установка
 
+Основной dev/test путь MS6-V01 — Python 3.12+ и PostgreSQL 16+.
+Docker Compose, disposable smoke, диагностика и ограничения проверки описаны в
+[`docs/runbooks/postgres-dev-test.md`](docs/runbooks/postgres-dev-test.md).
+Это инфраструктура разработки, не production deployment. Локальный Docker/PostgreSQL
+путь проверен; результаты и отдельные статусы GitHub CI/human acceptance — в
+[`trace MS6-V01`](docs/agent-traces/MS6-V01-postgres-ci.md).
+
 Создайте и активируйте виртуальное окружение:
 
 ```powershell
-py -m venv .venv
+py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
 Установите зависимости:
 
 ```powershell
-pip install -r requirements.txt
+python -m pip install --no-deps -r requirements.lock
+python -m pip check
 ```
 
 Создайте локальный `.env` на основе `.env.example`:
 
 ```powershell
 Copy-Item .env.example .env
+```
+
+Замените placeholders локальными значениями. Запустите PostgreSQL и проверьте
+подключение (для Docker нужен установленный Docker Compose v2):
+
+```powershell
+docker compose up -d --wait db
+python scripts/check_database.py
 ```
 
 Примените миграции:
@@ -59,6 +75,7 @@ python manage.py migrate
 
 ```powershell
 python manage.py bootstrap_site
+python manage.py collectstatic --noinput
 ```
 
 Запустите сервер:
@@ -92,7 +109,12 @@ python manage.py bootstrap_site
 
 Команда идемпотентна: повторный запуск на синхронизированном проекте не создаёт дубликатов.
 
-Проверка bootstrap без записи:
+SQLite доступен только при явном `DJANGO_DB_BACKEND=sqlite`; можно задать
+`DJANGO_DB_PATH`. Ошибки PostgreSQL не переключают backend на SQLite.
+Для отдельного runtime-каталога задайте `DJANGO_RUNTIME_ROOT`.
+
+Проверка bootstrap с откатом транзакции (выполняет SQL-записи до rollback;
+не является read-only проверкой и не доказывает идемпотентность):
 
 ```powershell
 python manage.py bootstrap_site --dry-run
