@@ -151,6 +151,55 @@ class RunnerBoundaryTests(unittest.TestCase):
             result, code, tool, verify = self.execute(ScriptedAdapter([FINISHED]))
         self.assert_budget(result, code)
 
+    def test_expiry_during_result_persistence_cannot_publish_ready(self) -> None:
+        from harness.runner.lifecycle import write_json
+        persisted_paths = []
+        canonical_statuses = []
+        replace_path = Path.replace
+
+        def publish(source, destination):
+            published = replace_path(source, destination)
+            if destination == self.workspace.result_path:
+                canonical = json.loads(destination.read_text(encoding="utf-8"))
+                self.assertNotEqual(canonical["status"], "READY_FOR_REVIEW")
+                canonical_statuses.append(canonical["status"])
+            return published
+
+        def persist(path, result):
+            if not persisted_paths:
+                self.assertEqual(self.manifest["limits"]["wall_time_seconds"], 1)
+                self.assertEqual(self.now, 0.0)
+                self.assertEqual(result["status"], "READY_FOR_REVIEW")
+                self.assertFalse(self.workspace.result_path.exists())
+                self.expire()
+            write_json(path, result)
+            persisted_paths.append(path)
+            if self.workspace.result_path.exists():
+                canonical = json.loads(self.workspace.result_path.read_text(encoding="utf-8"))
+                self.assertNotEqual(canonical["status"], "READY_FOR_REVIEW")
+            else:
+                self.assertNotEqual(path, self.workspace.result_path)
+
+        with (
+            patch("harness.runner.engine.write_json", side_effect=persist) as write,
+            patch.object(Path, "replace", autospec=True, side_effect=publish),
+        ):
+            result, code, tool, verify = self.execute(ScriptedAdapter([FINISHED]))
+        self.assert_budget(result, code)
+        self.assertEqual(sum(blocker["code"] == "WALL_TIME_EXCEEDED"
+                             for blocker in result["blockers"]), 1)
+        self.assertEqual(write.call_count, 2)
+        self.assertNotEqual(persisted_paths[0], self.workspace.result_path)
+        self.assertEqual(persisted_paths[0].parent, self.workspace.path)
+        self.assertEqual(persisted_paths[1], self.workspace.result_path)
+        self.assertEqual(canonical_statuses, ["BUDGET_EXCEEDED"])
+        limit_ms = result["budget"]["wall_time_limit_ms"]
+        self.assertGreaterEqual(result["execution"]["wall_time_ms"], limit_ms)
+        self.assertGreaterEqual(result["budget"]["wall_time_ms"], limit_ms)
+        persisted_text = self.workspace.result_path.read_text(encoding="utf-8")
+        self.assertEqual(json.loads(persisted_text), result)
+        self.assertNotIn("READY_FOR_REVIEW", persisted_text)
+
     def test_unsupported_protocol_blocked_before_any_invocation(self) -> None:
         adapter = UnsupportedProtocolAdapter()
         adapter.start = Mock()

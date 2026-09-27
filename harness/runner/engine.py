@@ -521,17 +521,21 @@ def _finish_run(
 
     def downgrade_expired_ready() -> bool:
         nonlocal exit_code
-        if result["status"] != "READY_FOR_REVIEW" or time.monotonic() < (
-            started_perf + manifest["limits"]["wall_time_seconds"]
-        ):
+        if result["status"] != "READY_FOR_REVIEW":
             return False
+        now = time.monotonic()
+        if now < started_perf + manifest["limits"]["wall_time_seconds"]:
+            return False
+        final_wall_ms = int((now - started_perf) * 1000)
+        result["execution"]["wall_time_ms"] = final_wall_ms
+        result["budget"]["wall_time_ms"] = final_wall_ms
         result["status"] = "BUDGET_EXCEEDED"
         result["verification"]["status"] = "FAIL"
         result["next_gate"] = None
         if not any(blocker["code"] == "WALL_TIME_EXCEEDED" for blocker in result["blockers"]):
             result["blockers"].append({
                 "code": "WALL_TIME_EXCEEDED",
-                "message": "Run wall-time limit was exhausted before result publication.",
+                "message": "Run wall-time limit was exhausted during finalization.",
             })
         exit_code = 4
         return True
@@ -543,9 +547,18 @@ def _finish_run(
     if downgrade_expired_ready():
         validate_run_result(repo_root, result)
 
-    write_json(
-        workspace.result_path,
-        result,
-    )
+    if result["status"] == "READY_FOR_REVIEW":
+        staged_path = workspace.result_path.with_name("result.staged.json")
+        write_json(staged_path, result)
+        # The potentially slow write must finish before checking whether READY
+        # may be published to the canonical result path.
+        if downgrade_expired_ready():
+            staged_path.unlink()
+            validate_run_result(repo_root, result)
+            write_json(workspace.result_path, result)
+        else:
+            staged_path.replace(workspace.result_path)
+    else:
+        write_json(workspace.result_path, result)
 
     return result, exit_code
