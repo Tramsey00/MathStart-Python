@@ -199,6 +199,7 @@ class RunnerBoundaryTests(unittest.TestCase):
         persisted_text = self.workspace.result_path.read_text(encoding="utf-8")
         self.assertEqual(json.loads(persisted_text), result)
         self.assertNotIn("READY_FOR_REVIEW", persisted_text)
+        self.assertFalse((self.workspace.path / "result.ready-commit.json").exists())
 
     def test_expiry_during_final_result_replace_cannot_return_ready(self) -> None:
         staged_path = self.workspace.result_path.with_name("result.staged.json")
@@ -233,6 +234,7 @@ class RunnerBoundaryTests(unittest.TestCase):
         persisted_text = self.workspace.result_path.read_text(encoding="utf-8")
         self.assertEqual(json.loads(persisted_text), result)
         self.assertNotIn("READY_FOR_REVIEW", persisted_text)
+        self.assertFalse((self.workspace.path / "result.ready-commit.json").exists())
 
     def test_unsupported_protocol_blocked_before_any_invocation(self) -> None:
         adapter = UnsupportedProtocolAdapter()

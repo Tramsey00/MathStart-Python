@@ -68,3 +68,65 @@ RunResult сохраняется как BUDGET_EXCEEDED, exit 4. Blocking adapte
 
 PR #10 после REQUEST_CHANGES требует повторного human review. Human gate PENDING;
 актуальные test counts и fixture run ID находятся в [trace](../../docs/agent-traces/MS6-R04.md).
+
+
+## Committed publication для READY
+
+Поддерживаемые readers — `harness status` и общий загрузчик RunResult — считают
+READY_FOR_REVIEW опубликованным только при валидном sidecar
+`var/harness/runs/<run-id>/result.ready-commit.json`. Сам файл result.json со
+статусом READY без такого receipt является **uncommitted**. Ручное чтение raw
+файла вне Harness API не входит в этот reader contract.
+
+Writer выполняет следующий протокол:
+
+1. Формирует и schema-валидирует RunResult, записывает READY в result.staged.json.
+2. Проверяет deadline после staging write. При expiry записывает только
+   BUDGET_EXCEEDED / exit 4, обновляет обе wall-time metrics и не создаёт receipt.
+3. Выполняет atomic replace staging -> result.json. Сразу после возврата replace
+   снимает `post_replace_now = time.monotonic()`.
+4. Если post_replace_now >= deadline, READY остаётся uncommitted. Runner
+   понижает его до BUDGET_EXCEEDED / exit 4, обновляет wall-time metrics,
+   verification FAIL и next_gate null, оставляет один WALL_TIME_EXCEEDED,
+   повторно валидирует и записывает failure. READY receipt не создаётся.
+5. Если post_replace_now < deadline, создаёт receipt через временный файл и
+   atomic replace. Только успешное завершение этого шага разрешает execute
+   вернуть READY_FOR_REVIEW / exit 0.
+
+Внутренний receipt v1 валидируется общим helper
+`harness/contracts/publication.py`; JSON schema RunResult v1 не меняется.
+Receipt содержит:
+
+| Поле | Значение / правило |
+| --- | --- |
+| schema_version | `harness-ready-commit-v1` |
+| run_id | Равен run_id canonical RunResult; status также сверяет запрошенный run ID |
+| result_sha256 | SHA-256 точных bytes canonical result.json, 64 lowercase hex characters |
+| published_monotonic | Конечное числовое значение часов, снятое сразу ПОСЛЕ canonical replace |
+| deadline_monotonic | Конечное числовое значение deadline того же запуска |
+| status | `READY_FOR_REVIEW` |
+
+Обязательно published_monotonic < deadline_monotonic. Запись receipt может
+закончиться после deadline: она подтверждает уже состоявшийся своевременный
+canonical replace. Reader проверяет сохранённые значения, а не текущие часы.
+Canonical JSON разбирается и проверяется по одному снимку bytes; его SHA-256
+сверяется с receipt. Временный файл receipt не считается commit.
+
+Если receipt отсутствует, повреждён, имеет неподдерживаемую версию, неверный
+run_id/status/digest или не подтверждает своевременный replace, status возвращает
+BLOCKED_CONFIGURATION / exit 2 с диагностикой UNCOMMITTED_RESULT и не показывает
+READY_FOR_REVIEW. Это относится и к историческим READY без receipt; receipt
+не достраивается задним числом. Для non-READY чтение и exit codes не меняются.
+
+При ошибке создания receipt execute возвращает BLOCKED_CONFIGURATION / exit 2,
+verification FAIL, next_gate null и blocker READY_COMMIT_FAILED. Runner пытается
+сохранить этот диагностический result. Если и эта запись недоступна, возвращает
+non-success с RESULT_PERSISTENCE_FAILED; оставшийся raw READY без receipt всё
+равно блокируется reader. Crash после canonical replace до receipt также
+оставляет uncommitted result и не может дать успешный status.
+
+Run workspace принадлежит одному writer и имеет уникальный run ID. Receipt —
+внутреннее свидетельство публикации, отдельное от artifacts RunResult; это
+исключает циклическую зависимость digest. Протокол относится к процессному crash
+и reader visibility; OS-level preemption файловых вызовов не добавляется.
+Human acceptance этого R04 contract остаётся PENDING.

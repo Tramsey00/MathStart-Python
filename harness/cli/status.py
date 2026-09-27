@@ -42,6 +42,8 @@ def status_command(
             repo_root,
             workspace.result_path,
         )
+        if result["status"] == "READY_FOR_REVIEW" and result["run_id"] != run_id:
+            raise ValueError("UNCOMMITTED_RESULT: requested run_id mismatch")
 
     except (
         RepositoryError,

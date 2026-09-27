@@ -17,6 +17,7 @@ from harness.contracts.adapter import (
     ModelRequest,
     ToolRequest,
 )
+from harness.contracts.publication import build_ready_commit, ready_commit_path
 from harness.contracts.result import (
     validate_run_result,
 )
@@ -519,11 +520,12 @@ def _finish_run(
     result["execution"]["wall_time_ms"] = final_wall_ms
     result["budget"]["wall_time_ms"] = final_wall_ms
 
-    def downgrade_expired_ready() -> bool:
+    def downgrade_expired_ready(now: float | None = None) -> bool:
         nonlocal exit_code
         if result["status"] != "READY_FOR_REVIEW":
             return False
-        now = time.monotonic()
+        if now is None:
+            now = time.monotonic()
         if now < started_perf + manifest["limits"]["wall_time_seconds"]:
             return False
         final_wall_ms = int((now - started_perf) * 1000)
@@ -558,11 +560,48 @@ def _finish_run(
             write_json(workspace.result_path, result)
         else:
             staged_path.replace(workspace.result_path)
-            # The final replace can also consume the remaining budget. Persist
-            # a validated failure before returning if that boundary expires.
-            if downgrade_expired_ready():
+            post_replace_now = time.monotonic()
+            # READY is uncommitted until a receipt attests that this replace
+            # completed before the deadline. Receipt I/O may finish later.
+            if downgrade_expired_ready(post_replace_now):
                 validate_run_result(repo_root, result)
                 write_json(workspace.result_path, result)
+            else:
+                receipt_path = ready_commit_path(workspace.result_path)
+                try:
+                    receipt = build_ready_commit(
+                        result["run_id"], workspace.result_path.read_bytes(),
+                        post_replace_now, started_perf + manifest["limits"]["wall_time_seconds"],
+                    )
+                    write_json(receipt_path, receipt)
+                except (OSError, ValueError) as exc:
+                    result["status"] = "BLOCKED_CONFIGURATION"
+                    result["verification"]["status"] = "FAIL"
+                    result["next_gate"] = None
+                    exit_code = 2
+                    elapsed_ms = int((time.monotonic() - started_perf) * 1000)
+                    result["execution"]["wall_time_ms"] = elapsed_ms
+                    result["budget"]["wall_time_ms"] = elapsed_ms
+                    result["blockers"].append({
+                        "code": "READY_COMMIT_FAILED",
+                        "message": f"Could not commit final result: {exc}",
+                    })
+                    try:
+                        receipt_path.unlink(missing_ok=True)
+                    except OSError as cleanup_error:
+                        result["blockers"].append({
+                            "code": "READY_COMMIT_CLEANUP_FAILED", "message": str(cleanup_error),
+                        })
+                    validate_run_result(repo_root, result)
+                    try:
+                        write_json(workspace.result_path, result)
+                    except OSError as persistence_error:
+                        # A canonical READY without its receipt remains unreadable
+                        # as success even if diagnostic persistence also fails.
+                        result["blockers"].append({
+                            "code": "RESULT_PERSISTENCE_FAILED", "message": str(persistence_error),
+                        })
+                        validate_run_result(repo_root, result)
     else:
         write_json(workspace.result_path, result)
 

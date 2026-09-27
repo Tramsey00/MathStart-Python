@@ -6,6 +6,8 @@ from typing import Any
 
 import jsonschema
 
+from harness.contracts.publication import ready_commit_path, validate_ready_commit
+
 
 class RunResultValidationError(RuntimeError):
     def __init__(self, errors: list[str]) -> None:
@@ -87,11 +89,8 @@ def load_and_validate_run_result(
     result_path: Path,
 ) -> dict[str, Any]:
     try:
-        with result_path.open(
-            "r",
-            encoding="utf-8",
-        ) as file:
-            result = json.load(file)
+        canonical_bytes = result_path.read_bytes()
+        result = json.loads(canonical_bytes.decode("utf-8"))
     except FileNotFoundError as exc:
         raise RunResultValidationError(
             [
@@ -99,7 +98,7 @@ def load_and_validate_run_result(
                 f"{result_path}"
             ]
         ) from exc
-    except json.JSONDecodeError as exc:
+    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
         raise RunResultValidationError(
             [
                 "run result is not valid JSON: "
@@ -123,5 +122,12 @@ def load_and_validate_run_result(
         repo_root,
         result,
     )
+
+    if result["status"] == "READY_FOR_REVIEW":
+        try:
+            receipt = json.loads(ready_commit_path(result_path).read_text(encoding="utf-8"))
+            validate_ready_commit(receipt, result["run_id"], canonical_bytes)
+        except (OSError, ValueError) as exc:
+            raise RunResultValidationError([f"UNCOMMITTED_RESULT: {exc}"]) from exc
 
     return result
