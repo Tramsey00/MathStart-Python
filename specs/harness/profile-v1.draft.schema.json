@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathstart.local/specs/harness/profile-v1.draft.schema.json",
+  "title": "MathStart Harness Execution Profile v1 Draft",
+  "description": "Draft contract for a MathStart Harness execution profile. Final enforcement semantics are defined by R05-R07.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "schema_version",
+    "profile_id",
+    "role",
+    "adapter",
+    "required_capabilities",
+    "read_only",
+    "allowed_tools",
+    "required_checks",
+    "limits"
+  ],
+
+  "properties": {
+    "schema_version": {
+      "const": "harness-profile-v1-draft"
+    },
+
+    "profile_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+
+    "role": {
+      "enum": [
+        "bootstrap",
+        "implementer",
+        "reviewer"
+      ]
+    },
+
+    "adapter": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+
+    "required_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "tool_calls",
+          "tool_call_interception",
+          "usage_reporting",
+          "cancellation",
+          "structured_output",
+          "streaming",
+          "resume"
+        ]
+      }
+    },
+
+    "read_only": {
+      "type": "boolean"
+    },
+
+    "allowed_tools": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9._-]+$"
+      }
+    },
+
+    "required_checks": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9._-]+$"
+      }
+    },
+
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_turns",
+        "wall_time_seconds"
+      ],
+      "properties": {
+        "max_turns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "wall_time_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        }
+      }
+    }
+  }
+}
