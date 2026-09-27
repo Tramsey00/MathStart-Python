@@ -40,6 +40,7 @@ class ReadyPublicationTests(unittest.TestCase):
         with (
             patch("harness.runner.engine.time.monotonic", side_effect=lambda: self.now),
             patch("harness.runner.engine.working_tree_status", return_value=""),
+            patch("harness.runner.engine.current_branch", return_value="test-branch"),
         ):
             return _finish_run(
                 repo_root=ROOT, manifest=self.manifest, workspace=self.workspace,
