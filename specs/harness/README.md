@@ -118,12 +118,16 @@ BLOCKED_CONFIGURATION / exit 2 с диагностикой UNCOMMITTED_RESULT и
 READY_FOR_REVIEW. Это относится и к историческим READY без receipt; receipt
 не достраивается задним числом. Для non-READY чтение и exit codes не меняются.
 
-При ошибке создания receipt execute возвращает BLOCKED_CONFIGURATION / exit 2,
-verification FAIL, next_gate null и blocker READY_COMMIT_FAILED. Runner пытается
-сохранить этот диагностический result. Если и эта запись недоступна, возвращает
-non-success с RESULT_PERSISTENCE_FAILED; оставшийся raw READY без receipt всё
-равно блокируется reader. Crash после canonical replace до receipt также
-оставляет uncommitted result и не может дать успешный status.
+Если запись receipt сообщает ошибку, Runner пытается удалить receipt и
+сохранить диагностический result. Затем он читает canonical через тот же
+валидирующий loader, что использует status: валидный committed READY возвращается
+как READY_FOR_REVIEW / exit 0, а сохранённый BLOCKED_CONFIGURATION — как exit 2.
+Это разрешает неоднозначный исход atomic replace, который мог опубликовать
+receipt до сообщения об OSError. Если валидного committed READY нет, execute
+возвращает BLOCKED_CONFIGURATION / exit 2, verification FAIL и blocker
+READY_COMMIT_FAILED. При недоступности диагностической записи добавляется
+RESULT_PERSISTENCE_FAILED; оставшийся raw READY без валидного receipt блокируется
+reader. Crash после canonical replace до receipt оставляет uncommitted result.
 
 Run workspace принадлежит одному writer и имеет уникальный run ID. Receipt —
 внутреннее свидетельство публикации, отдельное от artifacts RunResult; это

@@ -19,6 +19,8 @@ from harness.contracts.adapter import (
 )
 from harness.contracts.publication import build_ready_commit, ready_commit_path
 from harness.contracts.result import (
+    RunResultValidationError,
+    load_and_validate_run_result,
     validate_run_result,
 )
 from harness.runner.lifecycle import (
@@ -602,6 +604,20 @@ def _finish_run(
                             "code": "RESULT_PERSISTENCE_FAILED", "message": str(persistence_error),
                         })
                         validate_run_result(repo_root, result)
+                    # A reported receipt error can follow a successful atomic
+                    # replace. Resolve the outcome through the same validated
+                    # canonical reader used by `harness status`.
+                    try:
+                        persisted = load_and_validate_run_result(
+                            repo_root, workspace.result_path,
+                        )
+                    except RunResultValidationError:
+                        pass  # Raw READY without a valid receipt is uncommitted.
+                    else:
+                        if persisted["status"] == "READY_FOR_REVIEW":
+                            return persisted, 0
+                        if persisted["status"] == "BLOCKED_CONFIGURATION":
+                            return persisted, 2
     else:
         write_json(workspace.result_path, result)
 

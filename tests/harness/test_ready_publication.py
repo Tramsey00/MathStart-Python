@@ -177,6 +177,49 @@ class ReadyPublicationTests(unittest.TestCase):
         self.assertFalse(self.receipt_path.exists())
         self.assert_uncommitted()
 
+    def test_ambiguous_receipt_commit_recovers_ready_when_cleanup_and_rewrite_fail(self):
+        from harness.runner.lifecycle import write_json
+
+        replace_path = Path.replace
+        unlink_path = Path.unlink
+        attempted = []
+
+        def report_error_after_receipt_replace(source, destination):
+            published = replace_path(source, destination)
+            if destination == self.receipt_path:
+                attempted.append("receipt-replace")
+                raise OSError("replace committed but reported failure")
+            return published
+
+        def fail_receipt_cleanup(path, *, missing_ok=False):
+            if path == self.receipt_path:
+                attempted.append("receipt-cleanup")
+                raise OSError("receipt cleanup failed")
+            return unlink_path(path, missing_ok=missing_ok)
+
+        def fail_diagnostic_write(path, value):
+            if path == self.workspace.result_path and value["status"] == "BLOCKED_CONFIGURATION":
+                attempted.append("diagnostic-write")
+                raise OSError("diagnostic rewrite failed")
+            write_json(path, value)
+
+        with (
+            patch.object(Path, "replace", autospec=True,
+                         side_effect=report_error_after_receipt_replace),
+            patch.object(Path, "unlink", autospec=True, side_effect=fail_receipt_cleanup),
+            patch("harness.runner.engine.write_json", side_effect=fail_diagnostic_write),
+        ):
+            result, code = self.finish()
+
+        self.assertEqual(attempted,
+                         ["receipt-replace", "receipt-cleanup", "diagnostic-write"])
+        # The committed files and the returned result must have one outcome.
+        self.assertEqual(self.status()[0], 0)
+        self.assertEqual((result["status"], code), ("READY_FOR_REVIEW", 0))
+        self.assertEqual(result["verification"]["status"], "PASS")
+        self.assertEqual(result["next_gate"], "HUMAN_REVIEW")
+        self.assertEqual(json.loads(self.workspace.result_path.read_bytes()), result)
+
     def test_receipt_may_finish_after_deadline_for_timely_canonical_replace(self):
         replace_path = Path.replace
 
