@@ -26,7 +26,7 @@ flowchart TD
     T[Topic theory]
     AG{Authenticated?}
     E{Exercise mode}
-    SC[SELF_CHECK: unassessed view; no scored submit]
+    SC[SELF_CHECK: unassessed view, no scored submit]
     FA[FINAL_ANSWER]
     SB[STEP_BY_STEP]
     SS[STRUCTURED_SOLUTION]
@@ -53,11 +53,12 @@ flowchart TD
     H --> CONT --> E
     E --> RC
     H --> RC
-    RC -->|yes; server records exposure| RV
-    RC -->|cancel; assessed exercise source| E
-    RC -->|cancel; self-check source| SC
+    RC -->|yes, server records exposure| RV
+    RC -->|cancel, assessed exercise source| E
+    RC -->|cancel, self-check source| SC
     SC -->|explicit reveal if allowed| RC
     RV -->|return to self-check when that is the source| SC
+    RV -->|assessed source, return to topic| T
     TU[Tutor panel]
     LH[Prepared local hint / retry state]
     E --> TU
@@ -88,10 +89,11 @@ flowchart TD
 - `Exercise -> Result` is server-authoritative; processing/retry never makes a second progress claim. A correction after completed evaluation starts a new attempt.
 - `SELF_CHECK` is a separate unassessed view with no scored submit or assessment-result transition. Explicit reveal (when allowed) and return are available; neither viewing nor revealing it increases mastery. Cancelling reveal returns to the originating view.
 - The authenticated dashboard provides a continue-learning entry and access to progress/history and the skills list/map. These are conceptual surfaces, not route or API names.
-- `Hint -> Continue` is the ordinary path. Reveal remains a separately selected and confirmed action; exposure persists for the user + exercise version across attempts.
+- `Hint -> Continue` is the ordinary path. Reveal remains a separately selected and confirmed action. Hint exposure and reveal exposure persist separately for the user + exercise version across attempts; prior substantial hint assistance affects server-determined eligibility. Starting a new attempt does not itself make the work independent or reset either exposure history.
+- After reveal from `FINAL_ANSWER`, `STEP_BY_STEP`, or `STRUCTURED_SOLUTION`, return to the topic is available: the learner is not left at a dead end. The revealed exercise version remains exposed for this user; continuing or returning does not restore its independent-evidence eligibility. This is a screen transition, not a new API route.
 - `Result -> Practice` states a target/reason and preserves an origin-topic reference; student may leave at any time.
 - `Result -> Topic` remains available when no practice or diagnostic is needed.
-- `Tutor/help` is available while the learner works, and `Tutor outage -> Prepared hint` keeps deterministic validation available while clearly labelling the unavailable service.
+- `Tutor/help` is available while the learner works, and `Tutor outage -> Prepared hint` keeps deterministic validation available while clearly labeling the unavailable service.
 - A guest may traverse catalogue/theory but cannot open personal progress, history, diagnostic, or persistent attempt flows.
 
 ## Existing versus future surfaces

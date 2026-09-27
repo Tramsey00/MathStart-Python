@@ -17,10 +17,11 @@ The pilot covers linked clusters around integers and sign rules; distributive pr
 2. A final-answer verdict is not a diagnosis. Only a validated transition/field may be shown as a confirmed misconception. A recoverable transport failure may retry the same submission identity while preserving the raw input; once mathematical evaluation has completed, correction starts a new `Attempt` and does not mutate the evaluated one.
 3. Raw mathematical input remains visible to the student; preview/normalization never silently replaces it.
 4. `UNSUPPORTED` means the current input cannot be reliably assessed. It is distinct from `wrong` and from a knowledge error.
-5. Hint and reveal are separate actions. After a hint, the learner may continue solving or separately choose reveal. Reveal requires explicit confirmation and is displayed only after server confirmation. Exposure is remembered for the user and immutable `exercise_version` across attempts: creating another `Attempt` does not restore eligibility for new independent positive evidence on that revealed version.
+5. Hint and reveal are separate actions. After a hint, the learner may continue solving or separately choose reveal. Reveal requires explicit confirmation and is displayed only after server confirmation. Hint exposure and reveal exposure are remembered separately for the user + immutable `exercise_version` across attempts. A new `Attempt` is a new work record, not automatically independent or eligible evidence: previously used hints that disclosed substantial help must affect its server-determined eligibility, even when no hint is requested in the new attempt. Reveal prevents new independent positive evidence on that revealed version; a new attempt does not reset either exposure history. The UI consumes server-provided eligibility rather than deciding it from attempt identity or current help level.
 6. Deterministic exercise feedback remains usable when Tutor/model service is unavailable. Tutor outage is not exercise-validation outage.
 7. Each write state has pending, successful, recoverable-error, and retry behavior. Retry must preserve input and must not promise a new progress event.
 8. The UI renders public exercise data only. Correct answers, canonical solutions, validation rules, and accepted variants are not preloaded into DOM, JavaScript, or local storage.
+9. Positive evidence is credited at most once for the same user + `exercise_version`. If the server reports that this version was already credited, another successful completion does not create new positive evidence or increase mastery/confidence merely through repetition. Repeat practice/viewing may remain available, but is labelled as already credited, not new independent evidence. Absence of hint/reveal does not restore eligibility. Offer a different server-eligible version when available, continuation of the topic, or suitable server-offered practice; the UI does not calculate eligibility or introduce a new API contract.
 
 ## 3. Information architecture
 
@@ -46,6 +47,7 @@ For ordered work, the initial condition is a separate read-only reference; each 
 | State | Candidate message | Meaning / prohibited implication |
 | --- | --- | --- |
 | Correct | «Ответ принят. Результат сохранён.» | Does not claim mastery by itself. |
+| Already credited version | «Эта версия задания уже учтена. Повтор поможет потренироваться, но не добавит нового подтверждения и не повысит оценку освоения или её подтверждённость.» Actions: «Другое задание» when available / «Продолжить тему» / «Практика» when offered. | Show alongside the server-confirmed result; repetition without hints/reveal is still not new positive evidence. |
 | Wrong final | «Ответ пока не совпадает. Чтобы исправить решение, начните новую попытку или запросите подсказку.» | Does not name a misconception and does not imply editing an evaluated attempt. |
 | Confirmed step issue | «Первый проблемный переход — строка 1: раскрытие скобок.» | Shown only with validated confirmed evidence. |
 | Uncertain | «В этом переходе есть повод проверить решение, но система не подтверждает тип ошибки.» | Does not diagnose. |

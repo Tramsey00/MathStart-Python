@@ -3,8 +3,9 @@
 - **Status:** Active — awaiting human review
 - **Owner:** Илья
 - **Created:** 2026-09-26
-- **Last updated:** 2026-09-26
-- **Related issue:** Not supplied
+- **Last updated:** 2026-09-27
+- **Related issue:** #12
+- **Related PR:** #11; published baseline before review fixes: `b06f836`
 - **Related spec(s):** `specs/exercises/R02-exercise-architecture.md`; `specs/progress/R03-progress-contract.md`
 - **Related ADR(s):** `docs/adr/ADR-0001-preserve-django.md`; `docs/adr/ADR-0002-exercise-contract-architecture.md`; `docs/adr/ADR-0003-knowledge-progress-semantics.md`
 - **Target milestone:** M0
@@ -85,3 +86,13 @@ Additionally inspect document links, SC coverage, source-note metadata, SVG well
 **Gate owners:** Руслан (product/UX) and Владимир (API needs).
 
 Completion requires their walkthrough/review, resolution of blocking comments, and a subsequent status update. This plan remains active until then.
+
+## 11. Published baseline and review fixes (2026-09-27)
+
+- Published branch: `ms6-i01-ux-map`. The team agreed to rename it before PR publication, instead of using the `codex/...` convention. This is a known workflow deviation, not an I01 content defect; do not rename it again.
+- PR #11 / issue #12 baseline `b06f836` has successful Harness verification CI (run `36243075680`, verified via GitHub CLI). This later successful verification does not erase the initial local environment failure recorded in the trace.
+- Руслан completed UX/product review and requested changes (`CHANGES_REQUESTED`). This pass addresses cross-attempt hint eligibility, topic-specific coverage, publication/review records, acceptance status, and static accessibility claims only.
+- Владимир completed API/backend review on 2026-09-27: `APPROVED` for published baseline `b06f836`, no blocking API/backend findings. His non-blocking P3 about `NOT_STARTED` versus absence of assessed evidence was corrected locally after that approval and is not yet published. The approval is not approval of the current local diff. No backend/API contract is changed.
+- Technical/documentation checks are recorded separately from approval. Human gate and final acceptance remain pending; the plan stays active until both reviews are accepted.
+- Руслан completed the initial UX/product review with `CHANGES_REQUESTED`; repeat UX/product review and final human acceptance remain pending.
+- Final-fixes scope: already-credited repeat semantics/message, assessed-reveal return path, current review records, cross-surface states, and the practice-desktop reason label only. Leave fixes local and uncommitted; await separate authorization to publish. No commit, push, PR-body update, or other GitHub mutation.

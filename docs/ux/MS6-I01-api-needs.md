@@ -26,4 +26,4 @@ The UI needs stable machine-readable distinctions for: authentication required, 
 2. Which response owns `first_error`, confirmed/uncertain evidence presentation, and unsupported parsing presentation?
 3. What optimistic/draft revision protocol will prevent two tabs from silently overwriting raw work?
 4. Which server fact distinguishes help/reveal persistence from a merely displayed UI state?
-5. Which safe public server fact tells the UI that the user + `exercise_version` is no longer eligible for new independent positive evidence after reveal/exposure?
+5. Which safe public server facts distinguish hint exposure, reveal exposure, and independent-evidence eligibility for user + `exercise_version` across attempts? Prior hints that disclosed substantial help must affect eligibility of a later `Attempt`, even without a new hint request; a new attempt identity must not be displayed as proof of independence. Reveal remains a separate exposure that prevents new independent positive evidence on that version. The representation and eligibility policy must be aligned by the contract owners; this handoff defines no new fields, endpoints, or backend contract.

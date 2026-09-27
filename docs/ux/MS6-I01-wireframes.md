@@ -12,3 +12,5 @@ All sheets are deliberately low-fidelity. Boxes indicate information hierarchy, 
 ## Reading rule
 
 Bracketed English state names, where present, are developer annotations rather than learner-visible copy. Learner-visible strings inside the interface are Russian. Arrows identify a user action or a server-confirmed transition. Any actual UI implementation must reconcile its labels and state machine with accepted R02/R03 fixtures and the API-needs review.
+
+Progress sheets use illustrative topic coverage: «Покрытие темы: 4 из 6 навыков». The denominator is the skill mapping of the displayed topic, not all pilot skills; the server supplies the actual coverage. Keyboard/focus order in these static sheets is a design requirement only, to be verified during implementation; no runtime accessibility verification is claimed.
