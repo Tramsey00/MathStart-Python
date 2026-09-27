@@ -558,6 +558,11 @@ def _finish_run(
             write_json(workspace.result_path, result)
         else:
             staged_path.replace(workspace.result_path)
+            # The final replace can also consume the remaining budget. Persist
+            # a validated failure before returning if that boundary expires.
+            if downgrade_expired_ready():
+                validate_run_result(repo_root, result)
+                write_json(workspace.result_path, result)
     else:
         write_json(workspace.result_path, result)
 

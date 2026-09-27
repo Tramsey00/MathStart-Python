@@ -200,6 +200,40 @@ class RunnerBoundaryTests(unittest.TestCase):
         self.assertEqual(json.loads(persisted_text), result)
         self.assertNotIn("READY_FOR_REVIEW", persisted_text)
 
+    def test_expiry_during_final_result_replace_cannot_return_ready(self) -> None:
+        staged_path = self.workspace.result_path.with_name("result.staged.json")
+        replace_path = Path.replace
+        final_replaces = []
+
+        def delayed_replace(source, destination):
+            if source == staged_path and destination == self.workspace.result_path:
+                self.assertEqual(self.manifest["limits"]["wall_time_seconds"], 1)
+                self.assertEqual(self.now, 0.0)
+                self.assertFalse(destination.exists())
+                self.assertEqual(json.loads(source.read_text(encoding="utf-8"))["status"],
+                                 "READY_FOR_REVIEW")
+                published = replace_path(source, destination)
+                self.expire()
+                final_replaces.append(destination)
+                return published
+            return replace_path(source, destination)
+
+        with patch.object(Path, "replace", autospec=True, side_effect=delayed_replace):
+            result, code, tool, verify = self.execute(ScriptedAdapter([FINISHED]))
+        self.assertEqual(final_replaces, [self.workspace.result_path])
+        self.assert_budget(result, code)
+        self.assertEqual(result["verification"]["status"], "FAIL")
+        self.assertEqual(sum(blocker["code"] == "WALL_TIME_EXCEEDED"
+                             for blocker in result["blockers"]), 1)
+        self.assertEqual(result["execution"]["wall_time_ms"], 2000)
+        self.assertEqual(result["budget"]["wall_time_ms"], 2000)
+        self.assertGreaterEqual(result["execution"]["wall_time_ms"],
+                                result["budget"]["wall_time_limit_ms"])
+        self.assertFalse(staged_path.exists())
+        persisted_text = self.workspace.result_path.read_text(encoding="utf-8")
+        self.assertEqual(json.loads(persisted_text), result)
+        self.assertNotIn("READY_FOR_REVIEW", persisted_text)
+
     def test_unsupported_protocol_blocked_before_any_invocation(self) -> None:
         adapter = UnsupportedProtocolAdapter()
         adapter.start = Mock()
