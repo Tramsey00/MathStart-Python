@@ -11,8 +11,10 @@ succeeded (user-reported). Final user-executed verification of integrated
 V01/R04 passed: fresh PostgreSQL smoke, publication locking regression (2 tests),
 connection check (server 160015), and Docker canonical verification (8/8,
 including 73 Harness tests) using the checkout mount below. Earlier missing-Git
-and missing-checkout failures remain in the trace. A new post-push CI run and
-final human acceptance are pending.
+and missing-checkout failures remain in the trace. Published integration commit
+`b3e70a8` has been pushed; [post-integration Actions run 36362335237](https://github.com/Tramsey00/MathStart-Python/actions/runs/36362335237)
+finished SUCCESS. Ruslan reported no conflicts with main. Final human approval
+and PR #14 merge remain pending.
 
 ## Configuration
 
@@ -209,6 +211,6 @@ phases. Rerun only after diagnosing the conflict; do not bypass conflict checks.
 No content, migration, user evidence or future domain app is recreated to make
 this infrastructure work. Local Docker/PostgreSQL smoke and locking checks have
 passed; SQLite success alone is insufficient evidence for them. Final V01
-completion still requires merge completion/commit, push, a new post-push GitHub
-Actions run and human acceptance. The published pre-R04 CI success is historical;
-the integrated local Docker/PostgreSQL path has now passed user verification.
+completion still requires final human acceptance and PR #14 merge. The
+integrated local Docker/PostgreSQL path and post-push CI have passed; the
+pre-R04 CI success is separate historical evidence.

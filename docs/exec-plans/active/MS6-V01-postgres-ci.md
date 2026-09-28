@@ -5,11 +5,11 @@
 - **Created:** 2026-09-26
 - **Last updated:** 2026-09-28
 - **Related issue:** [#13](https://github.com/Tramsey00/MathStart-Python/issues/13)
-- **Related PR / implementation:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14), commit `5092685`
+- **Related PR / implementation:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14), initial commit `5092685`, published integration commit `b3e70a8`
 - **Related spec(s):** PRODUCT.md; task acceptance below
 - **Related ADR(s):** docs/adr/ADR-0001-preserve-django.md
 - **Target milestone:** MS6-V01 infrastructure readiness
-- **Human gate required:** Yes; working-tree review pending
+- **Human gate required:** Yes; final Ruslan approval and PR merge pending
 
 ## 1. Objective
 
@@ -20,9 +20,9 @@ Provide a reproducible Python 3.12+ / PostgreSQL 16+ dev/test path from reposito
 - [x] AGENTS.md, PRODUCT.md, ARCHITECTURE.md and accepted ADR-0001 inspected.
 - [x] Completed R01-R03 plans/traces, relevant contracts, verification skill/scripts inspected.
 - [x] Settings, dependencies, migration, bootstrap/publishing, static configuration and tests inspected.
-- [x] User authorized implementation only in the working tree; no commit, push, merge, Issue or PR operations.
+- [x] At task start, the agent's authorization was working-tree-only; later user publication is recorded in section 24.
 - [x] Existing Issue #13 and PR #14 supplied by the user; no remote operations required.
-- [ ] Exact NFR-10/NFR-11 text supplied; do not invent their definitions.
+- [x] Historical input limit recorded: exact NFR-10/NFR-11 wording was not separately supplied; no definitions were invented.
 
 ## 3. Scope
 
@@ -79,7 +79,9 @@ Nullable outer-join row locks, PostgreSQL constraints/order behavior, multi-phas
 
 ## 15. Human gates
 
-Gate owner: project reviewer. Status: Pending. Infrastructure/security diff must be reviewed; no git publication authorized. Keep plan active until acceptance.
+Gate owner: Ruslan. Final approval and PR #14 merge remain pending; the
+integration commit has already been published and post-push CI succeeded.
+Keep the plan active until human acceptance.
 
 ## 16. Completion checklist
 
@@ -91,11 +93,12 @@ Gate owner: project reviewer. Status: Pending. Infrastructure/security diff must
 - [x] Post-R04 PostgreSQL fresh smoke passed in the user's rebuilt Docker image.
 - [x] Canonical Docker verification with checkout-context overlay: PASS 8/8, including 73 Harness tests (user-executed; section 23).
 - [x] Integrated PostgreSQL publication locking regression and positive connection diagnostic (user-executed; section 23).
-- [ ] Merge completion/commit and push.
-- [ ] New post-push GitHub Actions run.
+- [x] Merge reconciliation committed and pushed as `b3e70a8`.
+- [x] Post-push GitHub Actions run 36362335237: SUCCESS (reviewer-supplied evidence).
 - [x] Trace and runbook updated.
 - [x] R04 dependency/manifest reconciliation and local canonical verification (8/8, SQLite compatibility); see section 20.
 - [ ] Human gate accepted.
+- [ ] PR #14 merged after approval.
 
 ## 17. Completion summary
 
@@ -198,7 +201,7 @@ canonical verify_repo 8/8 (24 Django tests with 2 PostgreSQL skips, 18 R03 tests
 connection diagnostic. Content: 263 lessons, 281 pages, 840 SVG, zero problems.
 Exact commands, versions and initial failures are recorded in trace section 22.
 
-Gates at the initial reconciliation snapshot (superseded by section 21):
+Gates at the initial reconciliation snapshot (superseded by section 24):
 
 - Local available integration verification: PASS, with explicit SQLite scope.
 - Integrated-state PostgreSQL fresh smoke, positive connection and locking
@@ -224,7 +227,7 @@ indexes in the same layer. Python, PostgreSQL, non-root runtime, requirements,
 Harness code/tests and CI remain unchanged. Debian patch versions follow the
 existing Bookworm image policy; no exact package version was invented.
 
-Current gates: user rebuild and full Docker verification after this fix PENDING;
+At that stage, user rebuild and full Docker verification after this fix were PENDING;
 new post-push Actions PENDING; final human acceptance PENDING. Plan stays active.
 Agent cannot rebuild: Docker executable remains unavailable. See trace section
 23 for available local checks and user rerun instructions in the runbook.
@@ -251,7 +254,7 @@ image or included in routine app runs; normal Compose and CI remain unchanged.
 R04 production Git semantics and all tests/checks remain intact. The runbook
 provides Windows-compatible Compose commands using the same disposable project.
 
-New Docker verification with this overlay: PENDING user rebuild/run; the agent
+At that stage, Docker verification with this overlay awaited user rebuild/run; the agent
 has no Docker executable. Post-push GitHub Actions and Ruslan acceptance remain
 PENDING. Keep this plan active and the existing merge unresolved in the index.
 
@@ -277,7 +280,25 @@ publication regression passed two tests. Positive database diagnostic reported
 These results supersede sections 20-22's pending/failed local verification
 states without rewriting those historical snapshots.
 
-Current local integrated-state acceptance: PASS. Remaining gates: finish the
-unresolved merge and commit, push, observe a new post-push GitHub Actions run,
-then final human review/acceptance by Ruslan. The published pre-R04 Actions run
+At that local verification stage, integrated-state acceptance was PASS. Merge
+completion, commit, push and a new post-push GitHub Actions run still remained
+then, followed by final human review/acceptance by Ruslan. The pre-R04 Actions run
 36272397590 remains SUCCESS only for its earlier state. Plan stays ACTIVE.
+
+## 24. Published integration and post-push CI (reviewer evidence)
+
+The local HEAD is `b3e70a8` (`fix(v01): reconcile R04 Docker verification and
+record PostgreSQL acceptance`). Ruslan reported that this integration commit
+was pushed, [GitHub Actions run 36362335237](https://github.com/Tramsey00/MathStart-Python/actions/runs/36362335237)
+finished SUCCESS, and there are no conflicts with main. He confirmed the
+post-R04 result: integrated PostgreSQL verification PASS, canonical checks
+PASS 8/8, Harness PASS 73 tests, publication locking PASS 2 tests, and
+PostgreSQL connection PASS at `server_version_num=160015`. No technical change
+was requested in his latest review. The earlier pre-R04 run 36272397590
+remains separate SUCCESS evidence; sections 19-23 preserve their historical
+verification states and integration failures.
+
+Current state: implementation committed and pushed, post-push CI SUCCESS,
+local integrated verification PASS, no base-branch conflicts reported.
+Only final Ruslan human approval/acceptance and PR #14 merge remain PENDING.
+Status stays ACTIVE until that human gate completes.

@@ -8,9 +8,9 @@
 - **Related spec:** PRODUCT.md; acceptance in active plan and user task
 - **Related exec plan:** docs/exec-plans/active/MS6-V01-postgres-ci.md
 - **Related ADR:** docs/adr/ADR-0001-preserve-django.md
-- **PR / implementation commit:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14) / `5092685` (user-supplied publication metadata)
-- **Latest reconciliation:** 2026-09-28; sections 1-24 are historical snapshots, section 25 records final user-executed integrated-state verification
-- **Human review status:** Pending
+- **PR / commits:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14) / initial `5092685` / published integration `b3e70a8`
+- **Latest reconciliation:** 2026-09-28; sections 1-25 are historical snapshots, section 26 records published integration and post-push CI
+- **Human review status:** Final Ruslan approval/acceptance pending
 
 ## 1. Task
 
@@ -617,7 +617,30 @@ and the next failure from missing `/app/.git` (section 24) remain factual,
 separate earlier runs. Git installation and the verification-only Compose
 overlay addressed them; the subsequent complete canonical run is PASS.
 
-Current integrated local PostgreSQL acceptance: PASS based on user execution.
+At that stage, integrated local PostgreSQL acceptance was PASS based on user execution.
 Pre-R04 published Actions run 36272397590 remains SUCCESS as separate evidence.
-Merge completion/commit, push, a new post-push GitHub Actions run and final
-Ruslan human acceptance are PENDING. The active plan remains in active/.
+At that stage, merge completion/commit, push, a new post-push GitHub Actions
+run and final Ruslan human acceptance were PENDING. The plan remained active/.
+
+## 26. Published integration and successful post-push CI
+
+Evidence source: Ruslan's subsequent PR #14 review and the user's supplied
+publication details. Local `git rev-parse --short HEAD` returned `b3e70a8`,
+and `git log -1` showed `fix(v01): reconcile R04 Docker verification and record
+PostgreSQL acceptance`. The integration commit was pushed. Ruslan reported
+[GitHub Actions run 36362335237](https://github.com/Tramsey00/MathStart-Python/actions/runs/36362335237)
+SUCCESS and no conflicts with main. The agent did not perform a push, run
+Actions or change the PR.
+
+The reviewed integrated state retains the user-executed PostgreSQL smoke PASS,
+canonical `verify_repo.py` PASS 8/8, Harness PASS 73 tests, publication locking
+regression PASS 2 tests, and positive PostgreSQL connection PASS at
+`server_version_num=160015`. Ruslan requested no further technical changes.
+The pre-R04 Actions run 36272397590 is separate earlier SUCCESS evidence.
+Sections 23-24 preserve both historical Docker Harness failures and their
+corrections; older NOT VERIFIED/PENDING snapshots remain dated evidence, not
+the current status.
+
+Current status: integration committed and pushed; post-push CI SUCCESS; no
+base-branch conflicts reported. Only final Ruslan human approval/acceptance
+and PR #14 merge remain PENDING. The exec plan stays ACTIVE until acceptance.
