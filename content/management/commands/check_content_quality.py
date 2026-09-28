@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 result = inspect_html(response.content.decode('utf-8'))
                 report['svg_checked'] += result['svg_count']
                 report['issues'].extend({'page': page.slug, **issue} for issue in result['issues'])
-        report_dir = Path(settings.BASE_DIR) / "var" / "reports"
+        report_dir = Path(settings.REPORT_ROOT)
         report_dir.mkdir(parents=True, exist_ok=True)
 
         path = report_dir / "content_quality_report.json"

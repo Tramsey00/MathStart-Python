@@ -41,8 +41,9 @@ Baseline direction:
 - Docker-based reproducible production path
 - GitHub Actions for CI
 
-The current repository still uses SQLite as its local runtime database.
-SQLite is a transition-state implementation detail, not the target production database.
+MS6-V01 configures PostgreSQL as the default dev/test database and retains
+explicit SQLite compatibility. PostgreSQL/Docker execution acceptance remains
+tracked in the active MS6-V01 plan; SQLite checks are not PostgreSQL evidence.
 
 Do not replace Django, Django ORM, or Django migrations without an accepted ADR.
 
@@ -53,8 +54,10 @@ Do not replace Django, Django ORM, or Django migrations without an accepted ADR.
 The current project already contains a stable content platform.
 
 `requirements.txt` and `config/settings.py` describe the installed runtime.
-DRF, SymPy, Pydantic, PostgreSQL, the intelligent-learning apps, Docker, and
-GitHub Actions are target capabilities, not configured R01 tooling.
+DRF, SymPy, Pydantic and the intelligent-learning apps remain target capabilities.
+PostgreSQL and Docker configuration are introduced by MS6-V01; GitHub Actions
+was introduced in R03. None was configured R01 tooling. See task traces for
+actual verification rather than inferring acceptance from configuration.
 Local setup is documented in `README.md`; current checks are documented in
 `skills/verification/SKILL.md` and run by `scripts/verify_repo.py`.
 
@@ -1183,7 +1186,9 @@ Exact keys/constraints must be specified in the relevant feature spec.
 
 ## 31. PostgreSQL transition
 
-The current project uses SQLite.
+MS6-V01 introduces env-driven PostgreSQL configuration and explicit SQLite
+compatibility. See `docs/runbooks/postgres-dev-test.md` and the active task trace
+for implemented commands and verification limitations.
 
 The target is PostgreSQL.
 

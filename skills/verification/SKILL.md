@@ -28,14 +28,16 @@ them.
 ## Baseline command
 
 Run from the repository root with the project virtual environment activated
-and dependencies installed from `requirements.txt`; see `README.md` for setup.
+and dependencies installed with `python -m pip install --no-deps -r requirements.lock`;
+then run `python -m pip check`. See `README.md` for setup.
 Confirm `python --version` and record the actual interpreter in the trace.
 The accepted v3.1 target is Python 3.12+; an older local environment must be
 reported and does not establish verification on that target.
 
 Content checks read the configured local database and runtime media. They
 require an already migrated, bootstrapped site. They write diagnostic reports
-under ignored `var/reports/`; Django tests use a separate test database.
+under `DJANGO_RUNTIME_ROOT/var/reports` (repository `var/reports` by default);
+Django tests use a separate test database.
 The verification script does not migrate or bootstrap the local database.
 If setup is missing, report it rather than changing data during an audit that
 forbids database changes.
@@ -50,10 +52,13 @@ python scripts/verify_repo.py
 ```
 
 `.github/workflows/ci.yml` runs this same entry point for pull requests to
-`main` and pushes to `main`. The CI job first installs `requirements.txt`,
-migrates the fresh SQLite database, runs `bootstrap_site`, and collects static
-files so manifest-backed page rendering works during content checks. A green CI
-job is required before merge.
+`main` and pushes to `main`. The MS6-V01 workflow installs the full version lock,
+uses an isolated PostgreSQL 16 service, reports actual versions, checks a failed
+connection and runs `python scripts/fresh_install_smoke.py --disposable` before
+the Harness. Smoke migrates an empty PostgreSQL database, bootstraps twice,
+collects static, verifies content/media/identities and unchanged source materials.
+A green CI job is required before merge; configuration alone is not a passing run.
+See `docs/runbooks/postgres-dev-test.md` for disposable environment commands.
 
 For a faster pass without the Django, R03, and Harness test suites:
 
@@ -93,7 +98,7 @@ python manage.py check
 python manage.py makemigrations --check --dry-run
 ```
 
-This does not replace the future PostgreSQL fresh-database migration smoke.
+This does not replace the PostgreSQL fresh-database migration smoke.
 
 ### Existing content
 
@@ -138,7 +143,6 @@ Examples:
 - Ruff
 - mypy
 - pytest / pytest-django
-- fresh PostgreSQL migrations
 - persisted knowledge graph validation after the Django Knowledge app exists
 - exercise contract validation
 - public exercise DTO secret-leak regression
@@ -157,6 +161,15 @@ verification workflow in a dedicated reviewed change.
 ---
 
 ## Workflow
+
+For MS6-V01 also run `python scripts/check_database.py`,
+`python scripts/version_report.py`, and the disposable PostgreSQL smoke described
+above. A failed connection must return nonzero without credentials; the diagnostic
+has a 35-second deadline. Record Docker/Compose versions separately.
+`content.test_postgres_publication` includes real transaction/connection tests;
+SQLite skips do not establish PostgreSQL locking correctness. The current V01
+trace records whether those checks have actually run. Do not use
+`bootstrap_site --dry-run` as evidence that no SQL writes occurred.
 
 1. Determine the affected areas.
 2. Run narrow checks first when useful.

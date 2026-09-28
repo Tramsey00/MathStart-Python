@@ -22,9 +22,12 @@ architecture. Templates live beside ADRs, specs, active plans, and traces.
 
 ## Current and target platform
 
-Current runtime: Django, Django ORM/migrations, SQLite, Django Templates, and
+Current runtime: Django, Django ORM/migrations, PostgreSQL dev/test configuration
+with explicit SQLite compatibility, Django Templates, and
 shared HTML/CSS/JavaScript. `requirements.txt` and `config/settings.py` describe
 what is installed; the `content/` app owns the existing site.
+PostgreSQL/Docker acceptance evidence is tracked in the active MS6-V01 plan;
+configured infrastructure must not be confused with verified execution.
 
 Accepted v3.1 target: Python 3.12+, Django 5.2+, PostgreSQL, Django Templates
 with progressive JavaScript, DRF where APIs are needed, deterministic/SymPy

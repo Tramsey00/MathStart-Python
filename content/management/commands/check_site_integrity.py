@@ -564,10 +564,8 @@ class Command(BaseCommand):
 
         report_path = (
             Path(
-                settings.BASE_DIR
+                settings.REPORT_ROOT
             )
-            / "var"
-            / "reports"
             / "site_integrity_report.json"
         )
 

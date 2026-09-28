@@ -18,6 +18,11 @@ MathStart — Django-приложение, в котором файловые и
 
 Рабочие `db.sqlite3`, `media/`, `staticfiles/` и `var/` являются локальными runtime-каталогами и не используются как источник истины.
 
+MS6-V01 добавляет PostgreSQL dev/test path и явный SQLite compatibility mode.
+`DJANGO_RUNTIME_ROOT` переносит media/staticfiles/var в изолированный каталог;
+исходники остаются на месте. Команды и текущие ограничения acceptance находятся
+в [`runbooks/postgres-dev-test.md`](runbooks/postgres-dev-test.md).
+
 ## Runtime страницы
 
 Обычный запрос страницы проходит по цепочке:
@@ -152,7 +157,7 @@ python manage.py bootstrap_site
 
 Команда идемпотентна: повторный запуск на синхронизированном проекте не создаёт дубликатов.
 
-Проверка без сохранения изменений:
+Проверка с откатом транзакции (внутри выполняются SQL-записи; это не read-only режим):
 
 ```powershell
 python manage.py bootstrap_site --dry-run

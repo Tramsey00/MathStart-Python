@@ -1,0 +1,42 @@
+# Use a unique -p project for a disposable smoke; never reuse a development DB.
+services:
+  db:
+    image: postgres:16-bookworm
+    environment:
+      POSTGRES_DB: ${DJANGO_DB_NAME:?Set DJANGO_DB_NAME in .env}
+      POSTGRES_USER: ${DJANGO_DB_USER:?Set DJANGO_DB_USER in .env}
+      POSTGRES_PASSWORD: ${DJANGO_DB_PASSWORD:?Set DJANGO_DB_PASSWORD in .env}
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    ports:
+      - "127.0.0.1:${DJANGO_DB_PORT:-5432}:5432"
+    volumes:
+      - database:/var/lib/postgresql/data
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Set DJANGO_SECRET_KEY in .env}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-True}
+      DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost
+      DJANGO_DB_BACKEND: postgresql
+      DJANGO_DB_HOST: db
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_NAME: ${DJANGO_DB_NAME:?Set DJANGO_DB_NAME in .env}
+      DJANGO_DB_USER: ${DJANGO_DB_USER:?Set DJANGO_DB_USER in .env}
+      DJANGO_DB_PASSWORD: ${DJANGO_DB_PASSWORD:?Set DJANGO_DB_PASSWORD in .env}
+      DJANGO_DB_CONNECT_TIMEOUT: 5
+      DJANGO_DB_TEST_NAME: test_${DJANGO_DB_NAME}
+      DJANGO_RUNTIME_ROOT: /runtime
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - runtime:/runtime
+volumes:
+  database:
+  runtime:
