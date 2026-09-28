@@ -4,11 +4,12 @@
 - **Task ID:** MS6-V01
 - **Owner:** Vladimir
 - **Coding agent / surface:** Codex, Windows execution sandbox
-- **Related issue:** Existing manual MS6-V01 Issue; URL not supplied; no Issue operations performed
+- **Related issue:** [#13](https://github.com/Tramsey00/MathStart-Python/issues/13); no Issue operations performed
 - **Related spec:** PRODUCT.md; acceptance in active plan and user task
 - **Related exec plan:** docs/exec-plans/active/MS6-V01-postgres-ci.md
 - **Related ADR:** docs/adr/ADR-0001-preserve-django.md
-- **PR / commit:** None; working tree only
+- **PR / implementation commit:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14) / `5092685` (user-supplied publication metadata)
+- **Latest reconciliation:** 2026-09-28; sections 1-24 are historical snapshots, section 25 records final user-executed integrated-state verification
 - **Human review status:** Pending
 
 ## 1. Task
@@ -391,3 +392,232 @@ database, cache, virtualenv, volume data or temporary report is part of the diff
 Explicit CI-only credentials and test sentinels are not production secrets.
 No unrelated changes or new functional blocker were identified. Final gates
 remain real GitHub Actions execution and human review/acceptance; plan stays active.
+
+## 22. Post-publication evidence and R04 reconciliation (2026-09-28)
+
+Publication metadata supplied by the user: Issue #13, PR #14, implementation
+commit `5092685`; [Actions run 36272397590](https://github.com/Tramsey00/MathStart-Python/actions/runs/36272397590)
+result SUCCESS. No API query or Actions execution by the agent is implied.
+This is separate post-publication evidence, not a rewrite of the earlier
+NOT VERIFIED snapshots. R04 #10 was merged into main at `9f705b0`.
+
+Initial commands: `git branch --show-current`, `git status`,
+`git diff --name-only --diff-filter=U`, `git diff -- requirements.txt`,
+`git rev-parse HEAD MERGE_HEAD origin/main`, and inspection of index stages
+`:2:requirements.txt` / `:3:requirements.txt`.
+Observed branch `ms6-v01-postgres-ci`, HEAD
+`5092685968eff4c9bcab44b92f2ecb017f653e80`, MERGE_HEAD and origin/main
+`9f705b0eb161b411cae56111cfb48ff6826b6a45`; only requirements.txt unmerged.
+The merge was already in progress. Incoming R04 and I01 files are main's
+changes, not new V01 scope introduced by this agent.
+
+The working requirements file keeps all five common pins plus
+`psycopg[binary]==3.3.6` (V01) and `jsonschema==4.26.0` (R04 contracts).
+No duplicate entries or conflict markers remain. Lock regeneration added
+attrs 26.1.0, jsonschema 4.26.0, jsonschema-specifications 2025.9.1,
+referencing 0.37.0 and rpds-py 2026.6.3; all previous versions were retained.
+
+Actual dependency commands used Python 3.12.14 from
+`C:/Users/vladimir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`
+(pip 26.2.1) for resolution/generation. Direct use of requirements.lock as a
+constraint failed because pip rejects extras in constraints. An ignored copy
+`var/v01-r04-constraints.txt` replaced only `psycopg[binary]` with `psycopg`.
+The first network attempt failed with WinError 10013 in the sandbox; the
+approved retry against the package index succeeded. No failed report was used
+to fabricate a lock. Successful commands:
+
+```text
+python -m pip install --dry-run --ignore-installed --no-cache-dir --report var/v01-r04-resolution.json -r requirements.txt -c var/v01-r04-constraints.txt
+python scripts/lock_dependencies.py var/v01-r04-resolution.json
+var/v01-venv/Scripts/python.exe -m pip install --no-deps --no-cache-dir -r requirements.lock
+var/v01-venv/Scripts/python.exe -m pip install --dry-run --ignore-installed --only-binary=:all: --platform manylinux2014_x86_64 --python-version 3.12 --implementation cp --abi cp312 --report var/v01-r04-linux-resolution.json -r requirements.lock
+var/v01-venv/Scripts/python.exe -m pip check
+```
+
+All successful commands above exited 0. The verification venv uses Python
+3.12.14 / pip 25.0.1. A read-only assertion compared the 7 direct pins, all
+16 lock pins, installed metadata and both resolution reports: PASS.
+
+Full semantic comparison of skills/verification/SKILL.md against HEAD and
+origin/main found both V01 database/setup/smoke requirements and R04's canonical
+8-check workflow retained. No manual skill change was needed. CI still runs
+the default verify_repo entry point, now including Harness; nested Harness
+verification retains its recursion guard. No CI check was removed.
+
+Initial `python -m unittest discover -s tests/harness -t . -v`: FAIL,
+73 tests, one error: the checked-in R04 manifest expected the pre-V01
+ARCHITECTURE.md digest. The only manifest correction replaces that digest with
+the current file's SHA-256 `eabea31580574b8f1cc5e3d38222e404be81f37837c2eb04988c60bb2bcbb42c`.
+The existing reference-bytes regression then passed within canonical verification.
+No functional application code or tests changed; publication retains
+`select_for_update(of=("self",))` and the separate publication locks.
+
+Agent runtime checks used `var/v01-venv/Scripts/python.exe`, explicit
+DJANGO_DB_BACKEND=sqlite, DJANGO_DB_PATH pointing to the new isolated
+`var/v01-r04-verification.sqlite3`, DJANGO_RUNTIME_ROOT pointing to
+`var/v01-r04-runtime`, DJANGO_DEBUG=False and a disposable diagnostic-only
+secret. No user's database or runtime was used.
+
+| Command / check after correction | Actual result |
+| --- | --- |
+| python manage.py migrate --noinput | PASS, full migration chain on empty SQLite DB |
+| python manage.py bootstrap_site (twice) | PASS; first populated catalogue/content/media; second created/changed 0 |
+| python manage.py collectstatic --noinput | PASS, 140 copied / 420 post-processed |
+| python scripts/verify_repo.py | PASS, 8/8 canonical checks |
+| Included: python manage.py check | PASS, no issues |
+| Included: python manage.py makemigrations --check --dry-run | PASS, No changes detected |
+| Included: python manage.py check_lesson_sources --all | PASS, 263 lessons |
+| Included: python manage.py check_content_quality | PASS, 281 pages / 840 SVG / 0 problems |
+| Included: python manage.py check_site_integrity | PASS, duplicate/broken/empty counters 0 |
+| Included: python manage.py test | PASS, 24 tests, 2 PostgreSQL-specific skips |
+| Included: python -m unittest discover -s tests -p test_r03_contract.py | PASS, 18 tests |
+| Included: python -m unittest discover -s tests/harness -t . -v | PASS, 73 tests |
+| python scripts/version_report.py | PASS, Python 3.12.14, Django 5.2.16, psycopg/binary 3.3.6, all 16 packages installed; explicitly SQLite connection OK |
+| python scripts/check_database.py with PostgreSQL, 127.0.0.1:1, timeout 2 and disposable sentinel credentials | PASS expected failure: exit 1, readable diagnostic, no credential values or fallback; command elapsed about 3.2 seconds |
+| New PostgreSQL fresh smoke / positive diagnostic / locking regressions | NOT VERIFIED: Docker and psql not available in agent PATH; standard Docker executable path absent |
+
+Logs/reports and runtime are ignored under var/. No Docker project/volume was
+created, so no Docker cleanup was performed. Earlier user-executed PostgreSQL
+smoke and two locking tests remain historical PASS, not a rerun of this merge.
+
+Review audit compared the V01 cumulative diff against origin/main and incoming
+merge changes against HEAD. Source materials and migrations have no changes.
+No new runtime, cache, virtualenv, tracked .env, credentials or unrelated agent
+edits were found. Explicit CI-only values and test sentinels remain nonproduction.
+.gitignore and .dockerignore exclude the generated runtime paths. README's
+setup text already links to separate evidence/statuses and needed no edit.
+
+Current pending gates: integrated PostgreSQL revalidation, future post-push
+Actions run, and final Ruslan acceptance. Pre-R04 Actions is SUCCESS, not pending.
+Plan stays active. Git diff --check passed; the working requirements contents
+are resolved, but index requirements.txt remains UU intentionally. No git add,
+commit, push, merge completion, rebase, Issue or PR operations were performed.
+
+## 23. Post-R04 Docker verification: missing Git executable
+
+Evidence supplied by the user after rebuilding the integrated image:
+fresh PostgreSQL smoke PASS; canonical Docker verify_repo ran eight checks,
+passed seven and failed the Harness suite. The reported traceback ends in
+FileNotFoundError: [Errno 2] No such file or directory: 'git', through
+harness/runner/repository.py subprocess.run. These are user-executed results,
+not agent Docker execution. The supplied report did not give a new Actions run.
+
+Inspection confirmed Dockerfile installed only the locked Python packages;
+Compose supplied no Git executable. R04 calls the real Git CLI, including in
+temporary-repository tests. This is a V01 image dependency omission exposed by
+R04, not a reason to mock Git or weaken canonical verification.
+
+Correction: immediately after the existing Python Bookworm FROM, one RUN layer
+performs apt-get update, apt-get install -y --no-install-recommends git,
+git --version and removal of /var/lib/apt/lists/*. Only Git is explicitly
+requested; apt installs its required dependencies. The version follows the
+existing Debian Bookworm patch stream, not an invented version pin or a claim
+of bit-for-bit reproducibility. Git version is checked during build and recorded
+with a separate runbook command. version_report.py retains its Python/package/DB
+contract. No application code, tests, Compose, requirements/lock, R04 manifest,
+database settings or CI configuration changed in this correction.
+
+Files changed this follow-up: Dockerfile, PostgreSQL runbook, active V01 plan,
+and this trace. Earlier evidence remains historical. The runbook now distinguishes
+successful integrated PostgreSQL smoke from the failed pre-fix canonical run.
+
+Agent checks:
+- Docker discovery: Get-Command docker returned no executable; Test-Path of
+  C:/Program Files/Docker/Docker/resources/bin/docker.exe returned False.
+- var/v01-venv/Scripts/python.exe -m unittest discover -s tests/harness -t . -v:
+  PASS, 73 tests, 5.302 seconds; host execution only. Ignored log:
+  var/v01-r04-git-fix-harness.log.
+- Dockerfile/Compose/Harness call-site review: Git installation was missing;
+  existing Python/PostgreSQL/non-root semantics and verification remain intact.
+- git diff --check: PASS. Merge still has requirements.txt unmerged in the index;
+  resolved working content is unchanged and contains no conflict markers.
+
+Rebuild and full canonical Docker verification after the correction remain
+NOT VERIFIED until user execution. Rebuild app, run git --version and
+python scripts/verify_repo.py in the same already bootstrapped disposable
+Compose project. Fresh smoke requires a new isolated project/database/runtime,
+not the already populated smoke volume. No agent Docker volumes were created.
+New post-push GitHub Actions and final human acceptance remain PENDING;
+the earlier published run 36272397590 remains SUCCESS for its original state.
+No git add, commit, merge completion, push, rebase or GitHub action was performed.
+
+## 24. Post-R04 Docker verification: checkout context missing
+
+User-executed follow-up evidence after rebuilding the Git-enabled image:
+`git --version` was available; fresh PostgreSQL smoke PASS; canonical
+`verify_repo.py` passed seven of eight checks, but Harness failed with 21 errors
+among 73 tests. Reported error:
+`harness.runner.repository.RepositoryError: fatal: not a git repository (or any of the parent directories): .git`.
+This result is separate from section 23's earlier missing-executable failure.
+The agent did not execute Docker or independently verify its output.
+
+Inspection showed `WORKDIR /app` and `COPY . .` in Dockerfile, while
+`.dockerignore` excludes `.git`. The normal Compose file has only database and
+runtime named volumes; it does not bind the checkout. R04 Git calls read real
+repository root, branch, HEAD, refs/ancestry, working status and diffs.
+Tests intentionally cover real checkout behavior; test fixtures only mock the
+specific boundaries under test. GitHub Actions runs `verify_repo.py` directly
+after `actions/checkout`, which supplies `.git` there.
+
+Added verification-only `compose.verify.yaml`. It augments `app` with a
+read-only bind of this checkout's `.git` directory at `/app/.git`, refusing to
+create a missing source. It sets command-scope `safe.directory=/app` for the
+non-root image user and `GIT_OPTIONAL_LOCKS=0` to avoid optional index writes.
+The ordinary app build and Compose services remain unchanged; no repository
+history enters the image or normal app runtime. The source files inside `/app`
+remain the ones copied at build, so the runbook requires rebuilding before
+canonical verification. The current checkout's `.git` is a directory; linked
+worktree gitfile layouts are outside this recipe's stated scope.
+
+Agent checks performed after adding the overlay:
+- `git rev-parse --git-dir` returned `.git`; hidden-directory inspection
+  confirmed the source is a directory. The host's core.filemode is false.
+- Host Git under the agent's different Windows user read the checkout with
+  command-scope safe.directory set to its exact host path; without that
+  setting Git reported dubious ownership. This supports the need for the
+  overlay setting but is not a Linux container test.
+- `var/v01-venv/Scripts/python.exe -m unittest discover -s tests/harness -t . -v`:
+  PASS, 73 tests in 5.335 seconds, on the host only.
+- Docker/Compose config and mounted verification: NOT VERIFIED in the agent
+  environment because Docker executable is unavailable. PyYAML is not
+  installed locally; no substitute YAML parser result is claimed.
+
+The runbook gives the exact Compose overlay commands for a disposable
+PostgreSQL project. The prior integrated fresh smoke remains PASS from user
+execution; overlay Docker canonical verification, the new post-push Actions
+run and final Ruslan acceptance remain PENDING. Active plan stays in active/.
+No staging, commit, merge completion, rebase, push or GitHub actions performed.
+
+## 25. Final integrated V01 + R04 Docker/PostgreSQL evidence
+
+Evidence source: the user's final manual Docker Desktop/PostgreSQL verification
+report after rebuilding the current app image with Git CLI. The agent did not
+run these Docker commands. The verification-only `compose.verify.yaml` mounted
+the current checkout's `.git` read-only at `/app/.git`; inside the verification
+container `git rev-parse --show-toplevel` confirmed a Git checkout. The ordinary
+app image/Compose configuration did not include `.git`.
+
+| User-executed check in current integrated state | Reported result |
+| --- | --- |
+| Fresh disposable PostgreSQL smoke | PASS: migrations, bootstrap idempotency, identities/content/media, static and content checks |
+| `python manage.py makemigrations --check --dry-run` | PASS: No changes detected |
+| Initial bootstrap | 6 classes, 12 subjects, 63 sections, 18 pages, 280 redirects, 263 lessons, 29 media |
+| Second bootstrap | 0 new/changed catalogue, pages, redirects, lessons or media |
+| `collectstatic` | PASS: 140 copied, 420 post-processed |
+| Lesson sources | PASS: 263 lessons match database |
+| Content quality | PASS: 281 pages, 840 SVG, 0 problems |
+| Site integrity | PASS: 281 materials, 263 topics, 29 media, 1685 references; all error counters 0 |
+| `python scripts/verify_repo.py` in Docker verification environment | PASS: 8/8 (Django check, migration consistency, three content checks, Django tests, R03 suite, Harness suite) |
+| Harness suite within canonical verification | PASS: 73 tests |
+| `python manage.py test content.test_postgres_publication --noinput` | PASS: Found 2 tests, Ran 2 tests, OK |
+| `python scripts/check_database.py` | PASS: PostgreSQL connection OK, server_version_num=160015 |
+
+The initial post-R04 Docker canonical failure from missing Git CLI (section 23)
+and the next failure from missing `/app/.git` (section 24) remain factual,
+separate earlier runs. Git installation and the verification-only Compose
+overlay addressed them; the subsequent complete canonical run is PASS.
+
+Current integrated local PostgreSQL acceptance: PASS based on user execution.
+Pre-R04 published Actions run 36272397590 remains SUCCESS as separate evidence.
+Merge completion/commit, push, a new post-push GitHub Actions run and final
+Ruslan human acceptance are PENDING. The active plan remains in active/.

@@ -1,5 +1,10 @@
 # Development/test infrastructure only; not a production server image.
 FROM python:3.12-slim-bookworm
+# R04 Harness tests create real Git repositories and invoke the Git CLI.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git \
+    && git --version \
+    && rm -rf /var/lib/apt/lists/*
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY requirements.lock ./

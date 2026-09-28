@@ -2,7 +2,7 @@
 """
 MathStart repository verification entry point.
 
-R01 / Harness v1 baseline, extended with the R03 pure contract suite.
+R01 / Harness v1 baseline, extended with R03 contracts and the R04 Harness suite.
 
 This script intentionally runs only checks that are already part of the current
 MathStart repository workflow. It does not pretend that future tooling
@@ -26,6 +26,7 @@ from typing import Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 MANAGE_PY = ROOT / "manage.py"
+GROUPS = ("backend", "database", "content", "tests", "harness")
 
 
 @dataclass(frozen=True)
@@ -103,6 +104,12 @@ CHECKS: tuple[Check, ...] = (
         ),
         group="tests",
     ),
+    Check(
+        name="Harness test suite",
+        command=(sys.executable, "-m", "unittest", "discover",
+                 "-s", "tests/harness", "-t", ".", "-v"),
+        group="harness",
+    ),
 )
 
 
@@ -116,18 +123,24 @@ def run_command(command: Sequence[str]) -> int:
     return completed.returncode
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run MathStart Harness verification checks."
     )
     parser.add_argument(
         "--group",
         action="append",
-        choices=("backend", "database", "content", "tests"),
+        choices=GROUPS,
         help=(
             "Run only selected verification group(s). "
             "May be supplied more than once."
         ),
+    )
+    parser.add_argument(
+        "--exclude-group",
+        action="append",
+        choices=GROUPS,
+        help="Exclude a group; nested Harness repo-baseline excludes harness to prevent recursion.",
     )
     parser.add_argument(
         "--list",
@@ -137,9 +150,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--skip-tests",
         action="store_true",
-        help="Skip the Django test suite for a faster local verification pass.",
+        help="Skip Django, R03 and Harness test suites for a faster local pass.",
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def select_checks(args: argparse.Namespace) -> list[Check]:
@@ -149,14 +162,17 @@ def select_checks(args: argparse.Namespace) -> list[Check]:
         groups = set(args.group)
         selected = [check for check in selected if check.group in groups]
 
+    if args.exclude_group:
+        selected = [check for check in selected if check.group not in args.exclude_group]
+
     if args.skip_tests:
-        selected = [check for check in selected if check.group != "tests"]
+        selected = [check for check in selected if check.group not in {"tests", "harness"}]
 
     return selected
 
 
-def main() -> int:
-    args = parse_args()
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
 
     if not MANAGE_PY.is_file():
         print(

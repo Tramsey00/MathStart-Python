@@ -1,0 +1,18 @@
+# Use only for local verification alongside compose.yaml from this checkout.
+# The normal app image/build context never contains Git metadata.
+services:
+  app:
+    environment:
+      # /app belongs to the image user, while mounted Git metadata belongs to
+      # the host checkout. Trust this exact path only for this verification run.
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: /app
+      GIT_OPTIONAL_LOCKS: "0"
+    volumes:
+      - type: bind
+        source: ./.git
+        target: /app/.git
+        read_only: true
+        bind:
+          create_host_path: false
