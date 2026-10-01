@@ -1,0 +1,361 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "initial": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "exercise_version_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "owner",
+        "exercise_version_id",
+        "version"
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "draft",
+              "submit",
+              "hint",
+              "reveal",
+              "finalize",
+              "read",
+              "archive",
+              "expire_receipts",
+              "abandon"
+            ]
+          },
+          "attempt_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "owner": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "SELF_CHECK",
+              "FINAL_ANSWER",
+              "STEP_BY_STEP",
+              "STRUCTURED_SOLUTION"
+            ]
+          },
+          "previous_attempt_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "body": {
+            "type": "object"
+          },
+          "expected": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "status": {
+                "type": "integer",
+                "enum": [
+                  200,
+                  202,
+                  400,
+                  404,
+                  409
+                ]
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "STARTED",
+                  "SUBMITTED",
+                  "COMPLETED",
+                  "REVIEWED",
+                  "ABANDONED"
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_REQUEST",
+                  "LIMIT_EXCEEDED",
+                  "AUTHENTICATION_REQUIRED",
+                  "CSRF_FAILED",
+                  "FORBIDDEN",
+                  "NOT_FOUND",
+                  "REVISION_CONFLICT",
+                  "IDEMPOTENCY_CONFLICT",
+                  "VERSION_CONFLICT",
+                  "STATE_CONFLICT",
+                  "RATE_LIMITED",
+                  "SERVICE_UNAVAILABLE"
+                ]
+              },
+              "current_revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "CORRECT",
+                  "WRONG",
+                  "UNSUPPORTED",
+                  "INDETERMINATE"
+                ]
+              },
+              "independent": {
+                "type": "boolean"
+              },
+              "positive": {
+                "type": "boolean"
+              },
+              "revealed": {
+                "type": "boolean"
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "expected"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "draft"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attempt_id",
+                "body"
+              ],
+              "properties": {
+                "body": {
+                  "$ref": "https://mathstart.local/specs/api/schemas/dto-v1.schema.json#/$defs/DraftUpdateRequest"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "submit"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attempt_id",
+                "body"
+              ],
+              "properties": {
+                "body": {
+                  "$ref": "https://mathstart.local/specs/api/schemas/dto-v1.schema.json#/$defs/SubmitRequest"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "hint"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attempt_id",
+                "body"
+              ],
+              "properties": {
+                "body": {
+                  "$ref": "https://mathstart.local/specs/api/schemas/dto-v1.schema.json#/$defs/HintRequest"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "reveal"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attempt_id",
+                "body"
+              ],
+              "properties": {
+                "body": {
+                  "$ref": "https://mathstart.local/specs/api/schemas/dto-v1.schema.json#/$defs/RevealRequest"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "abandon"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attempt_id",
+                "body"
+              ],
+              "properties": {
+                "body": {
+                  "$ref": "https://mathstart.local/specs/api/schemas/dto-v1.schema.json#/$defs/AbandonRequest"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "finalize"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "attempt_id",
+                "body"
+              ],
+              "properties": {
+                "body": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "contract_version": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "outcome": {
+                      "type": "string",
+                      "enum": [
+                        "CORRECT",
+                        "WRONG",
+                        "UNSUPPORTED",
+                        "INDETERMINATE"
+                      ]
+                    },
+                    "validated_supported": {
+                      "type": "boolean"
+                    },
+                    "diagnostic": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "contract_version",
+                    "outcome",
+                    "validated_supported"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 1
+    },
+    "expected_totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "positive": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "help_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "submit_actions": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "positive",
+        "completions",
+        "help_actions",
+        "submit_actions"
+      ]
+    }
+  },
+  "required": [
+    "case_id",
+    "initial",
+    "actions",
+    "expected_totals"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathstart.local/specs/api/schemas/scenario-v1.schema.json",
+  "title": "R02A serial transaction scenario v1"
+}

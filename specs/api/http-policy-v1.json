@@ -1,0 +1,622 @@
+{
+  "schema_version": "http-policy-v1",
+  "task_id": "MS7-R02A",
+  "approval": "PENDING",
+  "operations": [
+    {
+      "path": "/api/v1/auth/csrf/",
+      "method": "get",
+      "operation_id": "get_csrf",
+      "tag": "Identity",
+      "request": null,
+      "response": "CsrfTokenResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/auth/register/",
+      "method": "post",
+      "operation_id": "register",
+      "tag": "Identity",
+      "request": "RegisterRequest",
+      "response": "UserResponse",
+      "status": 201,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/auth/login/",
+      "method": "post",
+      "operation_id": "login",
+      "tag": "Identity",
+      "request": "LoginRequest",
+      "response": "UserResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/auth/logout/",
+      "method": "post",
+      "operation_id": "logout",
+      "tag": "Identity",
+      "request": "EmptyRequest",
+      "response": "AcknowledgementResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/users/me/",
+      "method": "get",
+      "operation_id": "get_me",
+      "tag": "Identity",
+      "request": null,
+      "response": "UserResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/users/me/",
+      "method": "patch",
+      "operation_id": "update_me",
+      "tag": "Identity",
+      "request": "ProfileUpdateRequest",
+      "response": "UserResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/onboarding/complete/",
+      "method": "post",
+      "operation_id": "complete_onboarding",
+      "tag": "Identity",
+      "request": "OnboardingRequest",
+      "response": "UserResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/grades/",
+      "method": "get",
+      "operation_id": "list_grades",
+      "tag": "Content",
+      "request": null,
+      "response": "GradeListResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/topics/",
+      "method": "get",
+      "operation_id": "list_topics",
+      "tag": "Content",
+      "request": null,
+      "response": "TopicListResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/topics/{slug}/",
+      "method": "get",
+      "operation_id": "get_topic",
+      "tag": "Content",
+      "request": null,
+      "response": "TopicResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/topics/{slug}/exercises/",
+      "method": "get",
+      "operation_id": "list_topic_exercises",
+      "tag": "Content",
+      "request": null,
+      "response": "PublicExerciseDTOListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/exercises/{id}/",
+      "method": "get",
+      "operation_id": "get_exercise",
+      "tag": "Content",
+      "request": null,
+      "response": "PublicExerciseDTOResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/",
+      "method": "post",
+      "operation_id": "create_attempt",
+      "tag": "Attempts",
+      "request": "CreateAttemptRequest",
+      "response": "AttemptResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/",
+      "method": "get",
+      "operation_id": "list_attempts",
+      "tag": "Attempts",
+      "request": null,
+      "response": "AttemptListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/attempts/{id}/",
+      "method": "get",
+      "operation_id": "get_attempt",
+      "tag": "Attempts",
+      "request": null,
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/{id}/draft/",
+      "method": "put",
+      "operation_id": "update_draft",
+      "tag": "Attempts",
+      "request": "DraftUpdateRequest",
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/{id}/submit/",
+      "method": "post",
+      "operation_id": "submit_attempt",
+      "tag": "Attempts",
+      "request": "SubmitRequest",
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/{id}/hints/",
+      "method": "post",
+      "operation_id": "request_hint",
+      "tag": "Attempts",
+      "request": "HintRequest",
+      "response": "HintResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/{id}/reveal/",
+      "method": "post",
+      "operation_id": "reveal_attempt",
+      "tag": "Attempts",
+      "request": "RevealRequest",
+      "response": "RevealResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/attempts/{id}/abandon/",
+      "method": "post",
+      "operation_id": "abandon_attempt",
+      "tag": "Attempts",
+      "request": "AbandonRequest",
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/",
+      "method": "post",
+      "operation_id": "create_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": "DiagnosticCreateRequest",
+      "response": "DiagnosticSessionResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/{id}/",
+      "method": "get",
+      "operation_id": "get_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": null,
+      "response": "DiagnosticSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/{id}/next/",
+      "method": "post",
+      "operation_id": "next_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": "NextRequest",
+      "response": "DiagnosticSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/{id}/finish/",
+      "method": "post",
+      "operation_id": "finish_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": "FinishRequest",
+      "response": "DiagnosticSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/practice/sessions/",
+      "method": "post",
+      "operation_id": "create_practice_session",
+      "tag": "Practice",
+      "request": "PracticeCreateRequest",
+      "response": "PracticeSessionResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/practice/sessions/{id}/",
+      "method": "get",
+      "operation_id": "get_practice_session",
+      "tag": "Practice",
+      "request": null,
+      "response": "PracticeSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/practice/sessions/{id}/next/",
+      "method": "post",
+      "operation_id": "next_practice_session",
+      "tag": "Practice",
+      "request": "NextRequest",
+      "response": "PracticeSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/practice/sessions/{id}/finish/",
+      "method": "post",
+      "operation_id": "finish_practice_session",
+      "tag": "Practice",
+      "request": "FinishRequest",
+      "response": "PracticeSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/progress/skills/",
+      "method": "get",
+      "operation_id": "list_progress_skills",
+      "tag": "Progress",
+      "request": null,
+      "response": "SkillProgressListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/progress/topics/",
+      "method": "get",
+      "operation_id": "list_progress_topics",
+      "tag": "Progress",
+      "request": null,
+      "response": "TopicProgressListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/progress/events/",
+      "method": "get",
+      "operation_id": "list_progress_events",
+      "tag": "Progress",
+      "request": null,
+      "response": "ProgressEventListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/progress/self-reports/",
+      "method": "post",
+      "operation_id": "create_self_report",
+      "tag": "Progress",
+      "request": "SelfReportRequest",
+      "response": "SelfReportResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/ai/conversations/",
+      "method": "post",
+      "operation_id": "create_conversation",
+      "tag": "Tutor",
+      "request": "ConversationRequest",
+      "response": "ConversationResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/ai/conversations/{id}/messages/",
+      "method": "get",
+      "operation_id": "list_messages",
+      "tag": "Tutor",
+      "request": null,
+      "response": "TutorMessageListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true
+    },
+    {
+      "path": "/api/v1/ai/conversations/{id}/messages/",
+      "method": "post",
+      "operation_id": "create_message",
+      "tag": "Tutor",
+      "request": "MessageRequest",
+      "response": "TutorMessageResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/health/live/",
+      "method": "get",
+      "operation_id": "health_live",
+      "tag": "Operations",
+      "request": null,
+      "response": "HealthLiveResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    },
+    {
+      "path": "/api/v1/health/ready/",
+      "method": "get",
+      "operation_id": "health_ready",
+      "tag": "Operations",
+      "request": null,
+      "response": "HealthReadyResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false
+    }
+  ],
+  "revision": {
+    "initial": 1,
+    "draft": "full_replace",
+    "required_operations": [
+      "update_draft",
+      "submit_attempt",
+      "abandon_attempt"
+    ],
+    "increments": [
+      "update_draft",
+      "submit_attempt",
+      "abandon_attempt"
+    ],
+    "stale_status": 409,
+    "frozen_states": [
+      "SUBMITTED",
+      "COMPLETED",
+      "REVIEWED",
+      "ABANDONED"
+    ],
+    "correction": "new_attempt_with_previous_attempt_id"
+  },
+  "lifecycle": {
+    "assessed": [
+      [
+        "STARTED",
+        "SUBMITTED"
+      ],
+      [
+        "SUBMITTED",
+        "COMPLETED"
+      ],
+      [
+        "STARTED",
+        "ABANDONED"
+      ]
+    ],
+    "self_check": [
+      [
+        "STARTED",
+        "REVIEWED"
+      ],
+      [
+        "STARTED",
+        "ABANDONED"
+      ]
+    ],
+    "outcomes": [
+      "CORRECT",
+      "WRONG",
+      "UNSUPPORTED",
+      "INDETERMINATE"
+    ]
+  },
+  "idempotency": {
+    "scope": [
+      "owner",
+      "operation",
+      "key"
+    ],
+    "digest_fields": [
+      "owner",
+      "operation",
+      "canonical_route",
+      "body",
+      "expected_revision"
+    ],
+    "digest_encoding": "SHA-256 of UTF-8 JSON; sorted keys, compact separators, preserve array order, no NaN; no Unicode/math normalization",
+    "same_digest": "replay_persisted_status_body_operation",
+    "different_digest_status": 409,
+    "retention_seconds_min": 604800,
+    "permanent_source_uniqueness": true,
+    "check_before_revision_state": true
+  },
+  "exposure": {
+    "key": [
+      "owner",
+      "exercise_version_id"
+    ],
+    "serialized_actions": [
+      "hint",
+      "reveal",
+      "submit",
+      "finalize"
+    ],
+    "hint_persists": true,
+    "reveal_persists": true,
+    "help_levels": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "positive_credit_max": 1,
+    "eligibility_freeze": "finalize_under_exposure_lock",
+    "submit_freezes_snapshot": true,
+    "pending_help_invalidates_independence": true,
+    "completed_result_not_revoked": true,
+    "self_check_positive": false
+  },
+  "limits": {
+    "request_bytes": 65536,
+    "steps": 40,
+    "expression_chars": 512,
+    "tokens": 128,
+    "nesting": 16,
+    "numeric_digits": 12,
+    "abs_power": 10,
+    "expression_ms": 250,
+    "batch_ms": 2000
+  },
+  "pagination": {
+    "default": 20,
+    "maximum": 100,
+    "order": [
+      "created_at",
+      "id"
+    ],
+    "direction": "ascending",
+    "cursor_owner_filter_bound": true
+  },
+  "security": {
+    "mutations_csrf": true,
+    "foreign_owner_status": 404,
+    "anonymous_status": 401,
+    "get_domain_side_effects": false,
+    "raw_fields": "untrusted_data",
+    "public_health_allowlist": [
+      "status",
+      "database",
+      "configuration",
+      "provider"
+    ]
+  }
+}

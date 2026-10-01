@@ -1,0 +1,108 @@
+[
+  {
+    "status": 400,
+    "schema": "BadRequestError",
+    "response": {
+      "error": {
+        "code": "INVALID_REQUEST",
+        "message": "Controlled request failure",
+        "field_errors": {},
+        "retryable": false,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "status": 401,
+    "schema": "AuthenticationError",
+    "response": {
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "message": "Controlled request failure",
+        "field_errors": {},
+        "retryable": false,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "status": 403,
+    "schema": "ForbiddenError",
+    "response": {
+      "error": {
+        "code": "CSRF_FAILED",
+        "message": "Controlled request failure",
+        "field_errors": {},
+        "retryable": false,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "status": 404,
+    "schema": "NotFoundError",
+    "response": {
+      "error": {
+        "code": "NOT_FOUND",
+        "message": "Resource unavailable",
+        "field_errors": {},
+        "retryable": false,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "status": 429,
+    "schema": "RateLimitError",
+    "response": {
+      "error": {
+        "code": "RATE_LIMITED",
+        "message": "Controlled request failure",
+        "field_errors": {},
+        "retryable": true,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "status": 503,
+    "schema": "UnavailableError",
+    "response": {
+      "error": {
+        "code": "SERVICE_UNAVAILABLE",
+        "message": "Controlled request failure",
+        "field_errors": {},
+        "retryable": true,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "status": 409,
+    "schema": "RevisionConflict",
+    "response": {
+      "error": {
+        "code": "REVISION_CONFLICT",
+        "message": "synthetic",
+        "field_errors": {},
+        "retryable": false,
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "current_revision": 1,
+        "reload_url": "/api/v1/attempts/00000000-0000-4000-8000-000000000002/"
+      }
+    }
+  },
+  {
+    "status": 409,
+    "schema": "IdempotencyConflict",
+    "response": {
+      "error": {
+        "code": "IDEMPOTENCY_CONFLICT",
+        "message": "synthetic",
+        "field_errors": {},
+        "retryable": false,
+        "request_id": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  }
+]

@@ -1,0 +1,121 @@
+[
+  {
+    "schema": "SolutionStepSubmission",
+    "value": {
+      "step_no": 1,
+      "step_type": "EQUATION_STATE",
+      "payload": {
+        "expression": "x+1"
+      },
+      "raw_text": "x+1",
+      "parse_status": "OK"
+    },
+    "reason": "client cannot author parse_status"
+  },
+  {
+    "schema": "DraftUpdateRequest",
+    "value": {
+      "contract_version": 1,
+      "draft": {
+        "payload": {},
+        "steps": []
+      }
+    },
+    "reason": "missing expected_revision"
+  },
+  {
+    "schema": "SubmitRequest",
+    "value": {
+      "expected_revision": 0,
+      "contract_version": 1
+    },
+    "reason": "revision positive"
+  },
+  {
+    "schema": "PublicExerciseDTO",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000011",
+      "code": "linear_equation_final_001",
+      "contract_version": 1,
+      "topic": {
+        "id": "topic-linear-equations",
+        "slug": "linear-equations"
+      },
+      "statement": "Solve: 3x + 5 = 20.",
+      "interaction_mode": "FINAL_ANSWER",
+      "difficulty": "medium",
+      "input_schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "answer",
+            "input_type": "math_text",
+            "required": true
+          }
+        ]
+      },
+      "step_schema": null,
+      "parser_profile": "algebra_scalar_v1",
+      "hint_policy": {
+        "allowed": true,
+        "levels": [
+          1,
+          2,
+          3
+        ]
+      },
+      "reveal_policy": {
+        "allowed": true,
+        "confirmation_required": true
+      },
+      "presentation": {
+        "submit_label": "Check answer"
+      },
+      "version": 1,
+      "difficulty_level": 3,
+      "exercise_version": {
+        "id": "00000000-0000-4000-8000-000000000021",
+        "exercise_id": "00000000-0000-4000-8000-000000000011",
+        "version": 1,
+        "contract_version": 1,
+        "status": "PUBLISHED"
+      },
+      "skill_codes": [
+        "linear_one_step"
+      ],
+      "allowed_help_actions": [
+        "REVEAL",
+        "HINT"
+      ],
+      "checker": "private"
+    },
+    "reason": "private field"
+  },
+  {
+    "schema": "HintRequest",
+    "value": {
+      "contract_version": 1,
+      "level": 4
+    },
+    "reason": "level bounded"
+  },
+  {
+    "schema": "RevealRequest",
+    "value": {
+      "contract_version": 1,
+      "confirm": false
+    },
+    "reason": "confirmation required"
+  },
+  {
+    "schema": "HealthReady",
+    "value": {
+      "status": "READY",
+      "database": "AVAILABLE",
+      "configuration": "VALID",
+      "provider": "AVAILABLE",
+      "sql": "private"
+    },
+    "reason": "health allowlist"
+  }
+]
