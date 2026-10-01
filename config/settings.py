@@ -82,7 +82,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+    "rest_framework",
     "content.apps.ContentConfig",
+    "users.apps.UsersConfig",
 ]
 
 
@@ -93,6 +95,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "users.http.IdentityBoundaryMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -239,6 +242,8 @@ CSRF_COOKIE_SECURE = env_bool(
     "DJANGO_CSRF_COOKIE_SECURE",
     default=False,
 )
+
+CSRF_FAILURE_VIEW = "users.http.csrf_failure"
 
 SECURE_HSTS_SECONDS = int(
     os.getenv(
