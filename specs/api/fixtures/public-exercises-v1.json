@@ -1,0 +1,260 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000011",
+    "code": "linear_equation_final_001",
+    "contract_version": 1,
+    "topic": {
+      "id": "topic-linear-equations",
+      "slug": "linear-equations"
+    },
+    "statement": "Solve: 3x + 5 = 20.",
+    "interaction_mode": "FINAL_ANSWER",
+    "difficulty": "medium",
+    "input_schema": {
+      "type": "object",
+      "fields": [
+        {
+          "name": "answer",
+          "input_type": "math_text",
+          "required": true
+        }
+      ]
+    },
+    "step_schema": null,
+    "parser_profile": "algebra_scalar_v1",
+    "hint_policy": {
+      "allowed": true,
+      "levels": [
+        1,
+        2,
+        3
+      ]
+    },
+    "reveal_policy": {
+      "allowed": true,
+      "confirmation_required": true
+    },
+    "presentation": {
+      "submit_label": "Check answer"
+    },
+    "version": 1,
+    "difficulty_level": 3,
+    "exercise_version": {
+      "id": "00000000-0000-4000-8000-000000000021",
+      "exercise_id": "00000000-0000-4000-8000-000000000011",
+      "version": 1,
+      "contract_version": 1,
+      "status": "PUBLISHED"
+    },
+    "skill_codes": [
+      "linear_one_step"
+    ],
+    "allowed_help_actions": [
+      "REVEAL",
+      "HINT"
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000012",
+    "code": "legacy_ratio_check_001",
+    "contract_version": 1,
+    "topic": {
+      "id": "topic-ratios",
+      "slug": "ratios"
+    },
+    "statement": "Find the ratio of 6 to 9 and simplify it.",
+    "interaction_mode": "SELF_CHECK",
+    "difficulty": "easy",
+    "input_schema": null,
+    "step_schema": null,
+    "parser_profile": null,
+    "hint_policy": {
+      "allowed": false,
+      "levels": []
+    },
+    "reveal_policy": {
+      "allowed": true,
+      "confirmation_required": true
+    },
+    "presentation": {
+      "submit_control": false,
+      "reveal_control": true
+    },
+    "version": 1,
+    "difficulty_level": 1,
+    "exercise_version": {
+      "id": "00000000-0000-4000-8000-000000000022",
+      "exercise_id": "00000000-0000-4000-8000-000000000012",
+      "version": 1,
+      "contract_version": 1,
+      "status": "PUBLISHED"
+    },
+    "skill_codes": [],
+    "allowed_help_actions": [
+      "REVEAL"
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000013",
+    "code": "linear_parentheses_steps_001",
+    "contract_version": 1,
+    "topic": {
+      "id": "topic-linear-equations",
+      "slug": "linear-equations"
+    },
+    "statement": "Solve step by step: 2(x + 3) = 10.",
+    "interaction_mode": "STEP_BY_STEP",
+    "difficulty": "medium",
+    "input_schema": null,
+    "step_schema": {
+      "type": "ordered_steps",
+      "allowed_step_types": [
+        "MATH_EXPRESSION",
+        "EQUATION_STATE",
+        "FINAL_STATEMENT"
+      ],
+      "step_fields": [
+        {
+          "name": "step_no",
+          "input_type": "positive_integer",
+          "required": true
+        },
+        {
+          "name": "step_type",
+          "input_type": "enum",
+          "required": true
+        },
+        {
+          "name": "payload",
+          "input_type": "object",
+          "required": true
+        },
+        {
+          "name": "raw_text",
+          "input_type": "text",
+          "required": false
+        }
+      ]
+    },
+    "parser_profile": "algebra_linear_v1",
+    "hint_policy": {
+      "allowed": true,
+      "levels": [
+        1,
+        2,
+        3
+      ]
+    },
+    "reveal_policy": {
+      "allowed": true,
+      "confirmation_required": true
+    },
+    "presentation": {
+      "add_step_label": "Add step"
+    },
+    "version": 1,
+    "difficulty_level": 3,
+    "exercise_version": {
+      "id": "00000000-0000-4000-8000-000000000023",
+      "exercise_id": "00000000-0000-4000-8000-000000000013",
+      "version": 1,
+      "contract_version": 1,
+      "status": "PUBLISHED"
+    },
+    "skill_codes": [
+      "linear_parentheses"
+    ],
+    "allowed_help_actions": [
+      "REVEAL",
+      "HINT"
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8000-000000000014",
+    "code": "probability_structured_001",
+    "contract_version": 1,
+    "topic": {
+      "id": "topic-probability",
+      "slug": "elementary-probability"
+    },
+    "statement": "A fair die is rolled. Find the probability of an even result.",
+    "interaction_mode": "STRUCTURED_SOLUTION",
+    "difficulty": "medium",
+    "input_schema": {
+      "type": "object",
+      "fields": [
+        {
+          "name": "total_outcomes",
+          "input_type": "positive_integer",
+          "required": true
+        },
+        {
+          "name": "favorable_outcomes",
+          "input_type": "positive_integer",
+          "required": true
+        },
+        {
+          "name": "answer",
+          "input_type": "math_text",
+          "required": true
+        }
+      ]
+    },
+    "step_schema": {
+      "type": "ordered_steps",
+      "allowed_step_types": [
+        "STRUCTURED_FIELDS",
+        "FINAL_STATEMENT"
+      ],
+      "ordering": {
+        "field": "step_no",
+        "direction": "ascending"
+      },
+      "serialization": [
+        {
+          "step_type": "STRUCTURED_FIELDS",
+          "payload_fields": [
+            "total_outcomes",
+            "favorable_outcomes"
+          ]
+        },
+        {
+          "step_type": "FINAL_STATEMENT",
+          "payload_fields": [
+            "answer"
+          ]
+        }
+      ]
+    },
+    "parser_profile": "probability_fraction_v1",
+    "hint_policy": {
+      "allowed": true,
+      "levels": [
+        1,
+        2,
+        3
+      ]
+    },
+    "reveal_policy": {
+      "allowed": true,
+      "confirmation_required": true
+    },
+    "presentation": {
+      "add_step_label": "Add part"
+    },
+    "version": 1,
+    "difficulty_level": 3,
+    "exercise_version": {
+      "id": "00000000-0000-4000-8000-000000000024",
+      "exercise_id": "00000000-0000-4000-8000-000000000014",
+      "version": 1,
+      "contract_version": 1,
+      "status": "PUBLISHED"
+    },
+    "skill_codes": [],
+    "allowed_help_actions": [
+      "REVEAL",
+      "HINT"
+    ]
+  }
+]

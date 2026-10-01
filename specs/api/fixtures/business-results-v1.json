@@ -1,0 +1,128 @@
+[
+  {
+    "operation_id": "submit_attempt",
+    "status": 202,
+    "schema": "PendingAttemptResponse",
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 2,
+        "state": "SUBMITTED",
+        "draft": {
+          "payload": {
+            "answer": "5"
+          },
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "operation_id": "00000000-0000-4000-8000-000000000102",
+        "result": null,
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "eligibility": {
+          "independent": false,
+          "positive_credit_eligible": false,
+          "reason": "PENDING"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": "2026-09-30T09:00:00.000000Z",
+        "completed_at": null
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "submit_attempt",
+    "status": 200,
+    "schema": "AttemptResponse",
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 2,
+        "state": "COMPLETED",
+        "draft": {
+          "payload": {
+            "answer": "5"
+          },
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "operation_id": "00000000-0000-4000-8000-000000000102",
+        "result": {
+          "outcome": "UNSUPPORTED",
+          "safe_feedback": "This input is not supported.",
+          "first_error_step_id": null,
+          "misconception_code": null,
+          "service_state": "NORMAL",
+          "positive_credit_awarded": false
+        },
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "eligibility": {
+          "independent": false,
+          "positive_credit_eligible": false,
+          "reason": "UNSUPPORTED_INPUT"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": "2026-09-30T09:00:00.000000Z",
+        "completed_at": "2026-09-30T09:00:00.000000Z"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_message",
+    "status": 200,
+    "schema": "TutorMessageResponse",
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "conversation_id": "00000000-0000-4000-8000-000000000001",
+        "role": "USER",
+        "text": "Prepared safe guidance.",
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "service_state": "DEGRADED",
+        "help_action_id": null,
+        "allowed_followup_ids": []
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  }
+]

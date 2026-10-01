@@ -1,0 +1,2702 @@
+{
+  "openapi": "3.1.0",
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "info": {
+    "title": "MathStart HTTP / eligibility contract",
+    "version": "1.0.0",
+    "description": "MS7-R02A candidate for Vladimir review. Contract phase; endpoints are not implemented. R02 remains accepted/frozen."
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Identity"
+    },
+    {
+      "name": "Content"
+    },
+    {
+      "name": "Attempts"
+    },
+    {
+      "name": "Diagnostics"
+    },
+    {
+      "name": "Progress"
+    },
+    {
+      "name": "Practice"
+    },
+    {
+      "name": "Tutor"
+    },
+    {
+      "name": "Operations"
+    }
+  ],
+  "security": [
+    {
+      "SessionAuth": []
+    }
+  ],
+  "paths": {
+    "/api/v1/auth/csrf/": {
+      "get": {
+        "operationId": "get_csrf",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "get csrf",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CsrfTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/auth/register/": {
+      "post": {
+        "operationId": "register",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "register",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login/": {
+      "post": {
+        "operationId": "login",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "login",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "x-rate-limit": "10/5min/IP"
+      }
+    },
+    "/api/v1/auth/logout/": {
+      "post": {
+        "operationId": "logout",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "logout",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcknowledgementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmptyRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me/": {
+      "get": {
+        "operationId": "get_me",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "get me",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      },
+      "patch": {
+        "operationId": "update_me",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "update me",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdateRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/onboarding/complete/": {
+      "post": {
+        "operationId": "complete_onboarding",
+        "tags": [
+          "Identity"
+        ],
+        "summary": "complete onboarding",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardingRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/grades/": {
+      "get": {
+        "operationId": "list_grades",
+        "tags": [
+          "Content"
+        ],
+        "summary": "list grades",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GradeListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/topics/": {
+      "get": {
+        "operationId": "list_topics",
+        "tags": [
+          "Content"
+        ],
+        "summary": "list topics",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/topics/{slug}/": {
+      "get": {
+        "operationId": "get_topic",
+        "tags": [
+          "Content"
+        ],
+        "summary": "get topic",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TopicSlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/topics/{slug}/exercises/": {
+      "get": {
+        "operationId": "list_topic_exercises",
+        "tags": [
+          "Content"
+        ],
+        "summary": "list topic exercises",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TopicSlug"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicExerciseDTOListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/exercises/{id}/": {
+      "get": {
+        "operationId": "get_exercise",
+        "tags": [
+          "Content"
+        ],
+        "summary": "get exercise",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicExerciseDTOResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/attempts/": {
+      "post": {
+        "operationId": "create_attempt",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "create attempt",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAttemptRequest"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "list_attempts",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "list attempts",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/attempts/{id}/": {
+      "get": {
+        "operationId": "get_attempt",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "get attempt",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/attempts/{id}/draft/": {
+      "put": {
+        "operationId": "update_draft",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "update draft",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftUpdateRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/attempts/{id}/submit/": {
+      "post": {
+        "operationId": "submit_attempt",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "submit attempt",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "202": {
+            "description": "Immutable SUBMITTED operation; poll canonical GET attempt at 1/2/4 seconds then manual retry with original key. No queue promised.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PendingAttemptResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitRequest"
+              }
+            }
+          }
+        },
+        "x-status-route": "/api/v1/attempts/{id}/",
+        "x-rate-limit": "30/min/user"
+      }
+    },
+    "/api/v1/attempts/{id}/hints/": {
+      "post": {
+        "operationId": "request_hint",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "request hint",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HintResultResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HintRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/attempts/{id}/reveal/": {
+      "post": {
+        "operationId": "reveal_attempt",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "reveal attempt",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevealResultResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevealRequest"
+              }
+            }
+          }
+        },
+        "x-rate-limit": "10/min/user"
+      }
+    },
+    "/api/v1/attempts/{id}/abandon/": {
+      "post": {
+        "operationId": "abandon_attempt",
+        "tags": [
+          "Attempts"
+        ],
+        "summary": "abandon attempt",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AbandonRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics/sessions/": {
+      "post": {
+        "operationId": "create_diagnostics_session",
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "create diagnostics session",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiagnosticCreateRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics/sessions/{id}/": {
+      "get": {
+        "operationId": "get_diagnostics_session",
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "get diagnostics session",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/diagnostics/sessions/{id}/next/": {
+      "post": {
+        "operationId": "next_diagnostics_session",
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "next diagnostics session",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NextRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics/sessions/{id}/finish/": {
+      "post": {
+        "operationId": "finish_diagnostics_session",
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "finish diagnostics session",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinishRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/practice/sessions/": {
+      "post": {
+        "operationId": "create_practice_session",
+        "tags": [
+          "Practice"
+        ],
+        "summary": "create practice session",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PracticeCreateRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/practice/sessions/{id}/": {
+      "get": {
+        "operationId": "get_practice_session",
+        "tags": [
+          "Practice"
+        ],
+        "summary": "get practice session",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/practice/sessions/{id}/next/": {
+      "post": {
+        "operationId": "next_practice_session",
+        "tags": [
+          "Practice"
+        ],
+        "summary": "next practice session",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NextRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/practice/sessions/{id}/finish/": {
+      "post": {
+        "operationId": "finish_practice_session",
+        "tags": [
+          "Practice"
+        ],
+        "summary": "finish practice session",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinishRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/progress/skills/": {
+      "get": {
+        "operationId": "list_progress_skills",
+        "tags": [
+          "Progress"
+        ],
+        "summary": "list progress skills",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillProgressListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/progress/topics/": {
+      "get": {
+        "operationId": "list_progress_topics",
+        "tags": [
+          "Progress"
+        ],
+        "summary": "list progress topics",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicProgressListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/progress/events/": {
+      "get": {
+        "operationId": "list_progress_events",
+        "tags": [
+          "Progress"
+        ],
+        "summary": "list progress events",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressEventListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/progress/self-reports/": {
+      "post": {
+        "operationId": "create_self_report",
+        "tags": [
+          "Progress"
+        ],
+        "summary": "create self report",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SelfReportResultResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SelfReportRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ai/conversations/": {
+      "post": {
+        "operationId": "create_conversation",
+        "tags": [
+          "Tutor"
+        ],
+        "summary": "create conversation",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": false,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ai/conversations/{id}/messages/": {
+      "get": {
+        "operationId": "list_messages",
+        "tags": [
+          "Tutor"
+        ],
+        "summary": "list messages",
+        "description": "GET is read-only and creates no attempt/item/evidence. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorMessageListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      },
+      "post": {
+        "operationId": "create_message",
+        "tags": [
+          "Tutor"
+        ],
+        "summary": "create message",
+        "description": "Authenticate as applicable, validate CSRF and public schema before acting. Raw text is untrusted data. Scope query to session owner; foreign/missing returns identical 404 with no current revision or identifiers. Replay persisted response before checking current revision/state for exact retry.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/Csrf"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "200": {
+            "description": "Safe persisted fallback message with service_state DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorMessageResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionAuth": []
+          }
+        ],
+        "x-owner-scoped": true,
+        "x-idempotency-required": true,
+        "x-read-only": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequest"
+              }
+            }
+          }
+        },
+        "x-rate-limit": "5/min/user and 50/day/user"
+      }
+    },
+    "/api/v1/health/live/": {
+      "get": {
+        "operationId": "health_live",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "health live",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthLiveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    },
+    "/api/v1/health/ready/": {
+      "get": {
+        "operationId": "health_ready",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "health ready",
+        "description": "GET is read-only and creates no attempt/item/evidence.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Persisted successful result; UNSUPPORTED remains business data and safe fallback is DEGRADED.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthReadyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "503": {
+            "description": "Necessary DB/config unavailable; safe health fields only. Provider failure with functioning core fallback returns READY/DEGRADED 200.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthReadyResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-owner-scoped": false,
+        "x-idempotency-required": false,
+        "x-read-only": true
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "SessionAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "sessionid",
+        "description": "Django session; anonymous routes explicitly override security. Mutations also require CSRF."
+      }
+    },
+    "schemas": {
+      "TopicReference": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TopicReference"
+      },
+      "ExerciseVersionIdentity": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ExerciseVersionIdentity"
+      },
+      "InputField": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/InputField"
+      },
+      "InputSchema": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/InputSchema"
+      },
+      "StepSchema": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/StepSchema"
+      },
+      "RevealPolicy": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RevealPolicy"
+      },
+      "HintPolicy": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HintPolicy"
+      },
+      "PublicExerciseDTO": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PublicExerciseDTO"
+      },
+      "UntrustedPayload": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/UntrustedPayload"
+      },
+      "SolutionStepSubmission": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SolutionStepSubmission"
+      },
+      "SolutionStep": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SolutionStep"
+      },
+      "AttemptDraft": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AttemptDraft"
+      },
+      "Exposure": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Exposure"
+      },
+      "Eligibility": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Eligibility"
+      },
+      "AssessmentResult": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AssessmentResult"
+      },
+      "Attempt": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Attempt"
+      },
+      "CreateAttemptRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/CreateAttemptRequest"
+      },
+      "DraftUpdateRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/DraftUpdateRequest"
+      },
+      "SubmitRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SubmitRequest"
+      },
+      "HintRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HintRequest"
+      },
+      "RevealRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RevealRequest"
+      },
+      "AbandonRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AbandonRequest"
+      },
+      "HintResult": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HintResult"
+      },
+      "RevealResult": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RevealResult"
+      },
+      "Pagination": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Pagination"
+      },
+      "Meta": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Meta"
+      },
+      "SuccessEnvelope": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SuccessEnvelope"
+      },
+      "ErrorEnvelope": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ErrorEnvelope"
+      },
+      "RevisionConflict": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RevisionConflict"
+      },
+      "IdempotencyConflict": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/IdempotencyConflict"
+      },
+      "ConflictEnvelope": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ConflictEnvelope"
+      },
+      "BadRequestError": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/BadRequestError"
+      },
+      "AuthenticationError": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AuthenticationError"
+      },
+      "ForbiddenError": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ForbiddenError"
+      },
+      "NotFoundError": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/NotFoundError"
+      },
+      "RateLimitError": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RateLimitError"
+      },
+      "UnavailableError": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/UnavailableError"
+      },
+      "Grade": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Grade"
+      },
+      "Topic": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Topic"
+      },
+      "User": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/User"
+      },
+      "CsrfToken": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/CsrfToken"
+      },
+      "RegisterRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RegisterRequest"
+      },
+      "LoginRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/LoginRequest"
+      },
+      "EmptyRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/EmptyRequest"
+      },
+      "Acknowledgement": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Acknowledgement"
+      },
+      "ProfileUpdateRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ProfileUpdateRequest"
+      },
+      "OnboardingRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/OnboardingRequest"
+      },
+      "DiagnosticCreateRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/DiagnosticCreateRequest"
+      },
+      "PracticeCreateRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PracticeCreateRequest"
+      },
+      "NextRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/NextRequest"
+      },
+      "FinishRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/FinishRequest"
+      },
+      "SessionItem": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SessionItem"
+      },
+      "ReturnRoute": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ReturnRoute"
+      },
+      "DiagnosticSession": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/DiagnosticSession"
+      },
+      "PracticeSession": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PracticeSession"
+      },
+      "SkillProgress": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SkillProgress"
+      },
+      "TopicProgress": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TopicProgress"
+      },
+      "ProgressEvent": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ProgressEvent"
+      },
+      "SelfReportRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SelfReportRequest"
+      },
+      "SelfReportResult": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SelfReportResult"
+      },
+      "ConversationRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ConversationRequest"
+      },
+      "Conversation": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/Conversation"
+      },
+      "MessageRequest": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/MessageRequest"
+      },
+      "TutorMessage": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TutorMessage"
+      },
+      "HealthLive": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HealthLive"
+      },
+      "HealthReady": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HealthReady"
+      },
+      "PublicExerciseDTOResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PublicExerciseDTOResponse"
+      },
+      "AttemptResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AttemptResponse"
+      },
+      "HintResultResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HintResultResponse"
+      },
+      "RevealResultResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/RevealResultResponse"
+      },
+      "UserResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/UserResponse"
+      },
+      "CsrfTokenResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/CsrfTokenResponse"
+      },
+      "AcknowledgementResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AcknowledgementResponse"
+      },
+      "DiagnosticSessionResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/DiagnosticSessionResponse"
+      },
+      "PracticeSessionResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PracticeSessionResponse"
+      },
+      "SelfReportResultResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SelfReportResultResponse"
+      },
+      "ConversationResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ConversationResponse"
+      },
+      "TutorMessageResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TutorMessageResponse"
+      },
+      "HealthLiveResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HealthLiveResponse"
+      },
+      "HealthReadyResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/HealthReadyResponse"
+      },
+      "TopicResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TopicResponse"
+      },
+      "GradeListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/GradeListResponse"
+      },
+      "TopicListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TopicListResponse"
+      },
+      "PublicExerciseDTOListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PublicExerciseDTOListResponse"
+      },
+      "AttemptListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/AttemptListResponse"
+      },
+      "SkillProgressListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/SkillProgressListResponse"
+      },
+      "TopicProgressListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TopicProgressListResponse"
+      },
+      "ProgressEventListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/ProgressEventListResponse"
+      },
+      "TutorMessageListResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/TutorMessageListResponse"
+      },
+      "PendingAttemptResponse": {
+        "$ref": "schemas/dto-v1.schema.json#/$defs/PendingAttemptResponse"
+      }
+    },
+    "parameters": {
+      "ResourceId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "TopicSlug": {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "Cursor": {
+        "name": "cursor",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": "Opaque owner/filter-bound cursor; stable ascending (created_at,id), no offset."
+      },
+      "PageSize": {
+        "name": "page_size",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 20
+        }
+      },
+      "Csrf": {
+        "name": "X-CSRFToken",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": "Get token using auth/csrf/; cookie/token match required on every mutation, including login/register. Session rotates at login."
+      },
+      "IdempotencyKey": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": "Owner + operation + key scopes a receipt >=7 days. Same digest replays persisted status/body/operation; different digest returns 409. Permanent domain uniqueness survives expiry."
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Malformed/schema/limit error; never strong misconception evidence.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BadRequestError"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Authentication required, independent of object existence.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AuthenticationError"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "CSRF failed or forbidden role; no owner-secret details.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ForbiddenError"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Missing OR foreign owned object: identical generic response.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NotFoundError"
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Revision, version, idempotency or state conflict.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ConflictEnvelope"
+            }
+          }
+        }
+      },
+      "429": {
+        "description": "Rate limited.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RateLimitError"
+            }
+          }
+        },
+        "headers": {
+          "Retry-After": {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Seconds until safe retry."
+          }
+        }
+      },
+      "503": {
+        "description": "Operation cannot safely finish; reconcile canonical state before retry.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnavailableError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-contract-policy": "http-policy-v1.json",
+  "x-request-encoding": "UTF-8 JSON",
+  "x-request-max-bytes": 65536
+}

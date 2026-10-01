@@ -1,0 +1,1350 @@
+[
+  {
+    "operation_id": "get_csrf",
+    "method": "GET",
+    "path": "/api/v1/auth/csrf/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "csrf_token": "synthetic"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "register",
+    "method": "POST",
+    "path": "/api/v1/auth/register/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-register"
+    },
+    "request": {
+      "username": "synthetic",
+      "password": "synthetic-fixture-only"
+    },
+    "status": 201,
+    "response": {
+      "data": {
+        "id": 1,
+        "username": "synthetic",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "login",
+    "method": "POST",
+    "path": "/api/v1/auth/login/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token"
+    },
+    "request": {
+      "username": "synthetic",
+      "password": "synthetic-fixture-only"
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": 1,
+        "username": "synthetic",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "logout",
+    "method": "POST",
+    "path": "/api/v1/auth/logout/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token"
+    },
+    "request": {},
+    "status": 200,
+    "response": {
+      "data": {
+        "completed": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "get_me",
+    "method": "GET",
+    "path": "/api/v1/users/me/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "id": 1,
+        "username": "synthetic",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "update_me",
+    "method": "PATCH",
+    "path": "/api/v1/users/me/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token"
+    },
+    "request": {
+      "selected_grade_id": 5
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": 1,
+        "username": "synthetic",
+        "selected_grade_id": 5,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "complete_onboarding",
+    "method": "POST",
+    "path": "/api/v1/onboarding/complete/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-complete_onboarding"
+    },
+    "request": {
+      "selected_grade_id": 1,
+      "mode": "START_ZERO"
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": 1,
+        "username": "synthetic",
+        "selected_grade_id": 1,
+        "onboarding_mode": "START_ZERO",
+        "onboarding_complete": true
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_grades",
+    "method": "GET",
+    "path": "/api/v1/grades/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_topics",
+    "method": "GET",
+    "path": "/api/v1/topics/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "get_topic",
+    "method": "GET",
+    "path": "/api/v1/topics/linear-equations/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "topic-linear-equations",
+        "slug": "linear-equations",
+        "title": "synthetic",
+        "parent": null,
+        "theory": "synthetic"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_topic_exercises",
+    "method": "GET",
+    "path": "/api/v1/topics/linear-equations/exercises/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "get_exercise",
+    "method": "GET",
+    "path": "/api/v1/exercises/00000000-0000-4000-8000-000000000011/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000011",
+        "code": "linear_equation_final_001",
+        "contract_version": 1,
+        "topic": {
+          "id": "topic-linear-equations",
+          "slug": "linear-equations"
+        },
+        "statement": "Solve: 3x + 5 = 20.",
+        "interaction_mode": "FINAL_ANSWER",
+        "difficulty": "medium",
+        "input_schema": {
+          "type": "object",
+          "fields": [
+            {
+              "name": "answer",
+              "input_type": "math_text",
+              "required": true
+            }
+          ]
+        },
+        "step_schema": null,
+        "parser_profile": "algebra_scalar_v1",
+        "hint_policy": {
+          "allowed": true,
+          "levels": [
+            1,
+            2,
+            3
+          ]
+        },
+        "reveal_policy": {
+          "allowed": true,
+          "confirmation_required": true
+        },
+        "presentation": {
+          "submit_label": "Check answer"
+        },
+        "version": 1,
+        "difficulty_level": 3,
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "skill_codes": [
+          "linear_one_step"
+        ],
+        "allowed_help_actions": [
+          "REVEAL",
+          "HINT"
+        ]
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_attempt",
+    "method": "POST",
+    "path": "/api/v1/attempts/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-create_attempt"
+    },
+    "request": {
+      "exercise_id": "00000000-0000-4000-8000-000000000011",
+      "contract_version": 1,
+      "version": 1
+    },
+    "status": 201,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 1,
+        "state": "STARTED",
+        "draft": {
+          "payload": {},
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": null,
+        "operation_id": null,
+        "result": null,
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "eligibility": {
+          "independent": false,
+          "positive_credit_eligible": true,
+          "reason": "ELIGIBLE"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": null,
+        "completed_at": null
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_attempts",
+    "method": "GET",
+    "path": "/api/v1/attempts/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "get_attempt",
+    "method": "GET",
+    "path": "/api/v1/attempts/00000000-0000-4000-8000-000000000100/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 1,
+        "state": "STARTED",
+        "draft": {
+          "payload": {},
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": null,
+        "operation_id": null,
+        "result": null,
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "eligibility": {
+          "independent": false,
+          "positive_credit_eligible": true,
+          "reason": "ELIGIBLE"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": null,
+        "completed_at": null
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "update_draft",
+    "method": "PUT",
+    "path": "/api/v1/attempts/00000000-0000-4000-8000-000000000100/draft/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token"
+    },
+    "request": {
+      "expected_revision": 1,
+      "contract_version": 1,
+      "draft": {
+        "payload": {},
+        "steps": []
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 2,
+        "state": "STARTED",
+        "draft": {
+          "payload": {},
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": null,
+        "operation_id": null,
+        "result": null,
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "eligibility": {
+          "independent": false,
+          "positive_credit_eligible": true,
+          "reason": "ELIGIBLE"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": null,
+        "completed_at": null
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "submit_attempt",
+    "method": "POST",
+    "path": "/api/v1/attempts/00000000-0000-4000-8000-000000000100/submit/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-submit_attempt"
+    },
+    "request": {
+      "expected_revision": 1,
+      "contract_version": 1
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 2,
+        "state": "COMPLETED",
+        "draft": {
+          "payload": {
+            "answer": "5"
+          },
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "operation_id": "00000000-0000-4000-8000-000000000102",
+        "result": {
+          "outcome": "CORRECT",
+          "safe_feedback": "Correct.",
+          "first_error_step_id": null,
+          "misconception_code": null,
+          "service_state": "NORMAL",
+          "positive_credit_awarded": true
+        },
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": true
+        },
+        "eligibility": {
+          "independent": true,
+          "positive_credit_eligible": true,
+          "reason": "ELIGIBLE"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": "2026-09-30T09:00:00.000000Z",
+        "completed_at": "2026-09-30T09:00:00.000000Z"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "request_hint",
+    "method": "POST",
+    "path": "/api/v1/attempts/00000000-0000-4000-8000-000000000100/hints/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-request_hint"
+    },
+    "request": {
+      "contract_version": 1,
+      "level": 1
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "action_id": "00000000-0000-4000-8000-000000000001",
+        "level": 1,
+        "text": "Consider the inverse operation on both sides.",
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 1,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "service_state": "NORMAL"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "reveal_attempt",
+    "method": "POST",
+    "path": "/api/v1/attempts/00000000-0000-4000-8000-000000000001/reveal/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-reveal_attempt"
+    },
+    "request": {
+      "contract_version": 1,
+      "confirm": true
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "action_id": "00000000-0000-4000-8000-000000000001",
+        "reveal_recorded_at": "2026-09-30T09:00:00.000000Z",
+        "revealed_content": {
+          "answer": "x = 5",
+          "steps": [
+            "3x = 15",
+            "x = 5"
+          ]
+        },
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000001",
+          "max_help_level": 0,
+          "revealed_at": "2026-09-30T09:00:00.000000Z",
+          "positive_credit_used": false
+        },
+        "attempt": {
+          "id": "00000000-0000-4000-8000-000000000001",
+          "exercise_version": {
+            "id": "00000000-0000-4000-8000-000000000001",
+            "exercise_id": "00000000-0000-4000-8000-000000000001",
+            "version": 1,
+            "contract_version": 1,
+            "status": "PUBLISHED"
+          },
+          "previous_attempt_id": null,
+          "interaction_mode": "SELF_CHECK",
+          "revision": 1,
+          "state": "REVIEWED",
+          "draft": {
+            "payload": {},
+            "steps": []
+          },
+          "steps": [],
+          "snapshot_digest": null,
+          "operation_id": null,
+          "result": null,
+          "exposure": {
+            "exercise_version_id": "00000000-0000-4000-8000-000000000001",
+            "max_help_level": 0,
+            "revealed_at": "2026-09-30T09:00:00.000000Z",
+            "positive_credit_used": false
+          },
+          "eligibility": {
+            "independent": false,
+            "positive_credit_eligible": false,
+            "reason": "SELF_CHECK"
+          },
+          "created_at": "2026-09-30T09:00:00.000000Z",
+          "submitted_at": null,
+          "completed_at": null
+        }
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "abandon_attempt",
+    "method": "POST",
+    "path": "/api/v1/attempts/00000000-0000-4000-8000-000000000100/abandon/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-abandon_attempt"
+    },
+    "request": {
+      "expected_revision": 1,
+      "contract_version": 1
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000100",
+        "exercise_version": {
+          "id": "00000000-0000-4000-8000-000000000021",
+          "exercise_id": "00000000-0000-4000-8000-000000000011",
+          "version": 1,
+          "contract_version": 1,
+          "status": "PUBLISHED"
+        },
+        "previous_attempt_id": null,
+        "interaction_mode": "FINAL_ANSWER",
+        "revision": 2,
+        "state": "ABANDONED",
+        "draft": {
+          "payload": {},
+          "steps": []
+        },
+        "steps": [],
+        "snapshot_digest": null,
+        "operation_id": null,
+        "result": null,
+        "exposure": {
+          "exercise_version_id": "00000000-0000-4000-8000-000000000021",
+          "max_help_level": 0,
+          "revealed_at": null,
+          "positive_credit_used": false
+        },
+        "eligibility": {
+          "independent": false,
+          "positive_credit_eligible": false,
+          "reason": "NOT_CORRECT"
+        },
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "submitted_at": null,
+        "completed_at": null
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_diagnostics_session",
+    "method": "POST",
+    "path": "/api/v1/diagnostics/sessions/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-create_diagnostics_session"
+    },
+    "request": {
+      "skill_codes": [
+        "linear_one_step"
+      ]
+    },
+    "status": 201,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ACTIVE",
+        "policy_version": "diagnostic-v1",
+        "current_item": null,
+        "item_count": 0,
+        "exit_reason": null,
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "skill_itinerary": [
+          "linear_one_step"
+        ],
+        "start_zero_available": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "get_diagnostics_session",
+    "method": "GET",
+    "path": "/api/v1/diagnostics/sessions/00000000-0000-4000-8000-000000000001/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ACTIVE",
+        "policy_version": "synthetic",
+        "current_item": null,
+        "item_count": 0,
+        "exit_reason": null,
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "skill_itinerary": [],
+        "start_zero_available": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "next_diagnostics_session",
+    "method": "POST",
+    "path": "/api/v1/diagnostics/sessions/00000000-0000-4000-8000-000000000001/next/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-next_diagnostics_session"
+    },
+    "request": {
+      "current_item_id": null,
+      "action": "ADVANCE"
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ACTIVE",
+        "policy_version": "synthetic",
+        "current_item": {
+          "id": "00000000-0000-4000-8000-000000000120",
+          "position": 1,
+          "exercise": {
+            "id": "00000000-0000-4000-8000-000000000011",
+            "code": "linear_equation_final_001",
+            "contract_version": 1,
+            "topic": {
+              "id": "topic-linear-equations",
+              "slug": "linear-equations"
+            },
+            "statement": "Solve: 3x + 5 = 20.",
+            "interaction_mode": "FINAL_ANSWER",
+            "difficulty": "medium",
+            "input_schema": {
+              "type": "object",
+              "fields": [
+                {
+                  "name": "answer",
+                  "input_type": "math_text",
+                  "required": true
+                }
+              ]
+            },
+            "step_schema": null,
+            "parser_profile": "algebra_scalar_v1",
+            "hint_policy": {
+              "allowed": true,
+              "levels": [
+                1,
+                2,
+                3
+              ]
+            },
+            "reveal_policy": {
+              "allowed": true,
+              "confirmation_required": true
+            },
+            "presentation": {
+              "submit_label": "Check answer"
+            },
+            "version": 1,
+            "difficulty_level": 3,
+            "exercise_version": {
+              "id": "00000000-0000-4000-8000-000000000021",
+              "exercise_id": "00000000-0000-4000-8000-000000000011",
+              "version": 1,
+              "contract_version": 1,
+              "status": "PUBLISHED"
+            },
+            "skill_codes": [
+              "linear_one_step"
+            ],
+            "allowed_help_actions": [
+              "REVEAL",
+              "HINT"
+            ]
+          },
+          "attempt_id": "00000000-0000-4000-8000-000000000121"
+        },
+        "item_count": 1,
+        "exit_reason": null,
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "skill_itinerary": [],
+        "start_zero_available": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "finish_diagnostics_session",
+    "method": "POST",
+    "path": "/api/v1/diagnostics/sessions/00000000-0000-4000-8000-000000000001/finish/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-finish_diagnostics_session"
+    },
+    "request": {
+      "reason": "ABANDONED"
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ABANDONED",
+        "policy_version": "synthetic",
+        "current_item": null,
+        "item_count": 0,
+        "exit_reason": "ABANDONED",
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "skill_itinerary": [],
+        "start_zero_available": false
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_practice_session",
+    "method": "POST",
+    "path": "/api/v1/practice/sessions/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-create_practice_session"
+    },
+    "request": {
+      "target_skill_code": "synthetic",
+      "origin_topic": {
+        "id": "synthetic",
+        "slug": "synthetic"
+      }
+    },
+    "status": 201,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ACTIVE",
+        "policy_version": "practice-v1",
+        "current_item": null,
+        "item_count": 0,
+        "exit_reason": null,
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "target_skill_code": "synthetic",
+        "origin_topic": {
+          "id": "synthetic",
+          "slug": "synthetic"
+        },
+        "return_route": {
+          "topic": {
+            "id": "synthetic",
+            "slug": "synthetic"
+          },
+          "url": "/api/v1/topics/synthetic/",
+          "reason": "ORIGIN"
+        },
+        "selection_reason": "WEAK_PREREQUISITE",
+        "independent_correct_streak": 0
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "get_practice_session",
+    "method": "GET",
+    "path": "/api/v1/practice/sessions/00000000-0000-4000-8000-000000000001/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ACTIVE",
+        "policy_version": "synthetic",
+        "current_item": null,
+        "item_count": 0,
+        "exit_reason": null,
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "target_skill_code": "synthetic",
+        "origin_topic": {
+          "id": "synthetic",
+          "slug": "synthetic"
+        },
+        "return_route": {
+          "topic": {
+            "id": "synthetic",
+            "slug": "synthetic"
+          },
+          "url": "/api/v1/topics/synthetic/",
+          "reason": "ORIGIN"
+        },
+        "selection_reason": "WEAK_PREREQUISITE",
+        "independent_correct_streak": 0
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "next_practice_session",
+    "method": "POST",
+    "path": "/api/v1/practice/sessions/00000000-0000-4000-8000-000000000001/next/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-next_practice_session"
+    },
+    "request": {
+      "current_item_id": null,
+      "action": "ADVANCE"
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ACTIVE",
+        "policy_version": "synthetic",
+        "current_item": {
+          "id": "00000000-0000-4000-8000-000000000120",
+          "position": 1,
+          "exercise": {
+            "id": "00000000-0000-4000-8000-000000000011",
+            "code": "linear_equation_final_001",
+            "contract_version": 1,
+            "topic": {
+              "id": "topic-linear-equations",
+              "slug": "linear-equations"
+            },
+            "statement": "Solve: 3x + 5 = 20.",
+            "interaction_mode": "FINAL_ANSWER",
+            "difficulty": "medium",
+            "input_schema": {
+              "type": "object",
+              "fields": [
+                {
+                  "name": "answer",
+                  "input_type": "math_text",
+                  "required": true
+                }
+              ]
+            },
+            "step_schema": null,
+            "parser_profile": "algebra_scalar_v1",
+            "hint_policy": {
+              "allowed": true,
+              "levels": [
+                1,
+                2,
+                3
+              ]
+            },
+            "reveal_policy": {
+              "allowed": true,
+              "confirmation_required": true
+            },
+            "presentation": {
+              "submit_label": "Check answer"
+            },
+            "version": 1,
+            "difficulty_level": 3,
+            "exercise_version": {
+              "id": "00000000-0000-4000-8000-000000000021",
+              "exercise_id": "00000000-0000-4000-8000-000000000011",
+              "version": 1,
+              "contract_version": 1,
+              "status": "PUBLISHED"
+            },
+            "skill_codes": [
+              "linear_one_step"
+            ],
+            "allowed_help_actions": [
+              "REVEAL",
+              "HINT"
+            ]
+          },
+          "attempt_id": "00000000-0000-4000-8000-000000000121"
+        },
+        "item_count": 1,
+        "exit_reason": null,
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "target_skill_code": "synthetic",
+        "origin_topic": {
+          "id": "synthetic",
+          "slug": "synthetic"
+        },
+        "return_route": {
+          "topic": {
+            "id": "synthetic",
+            "slug": "synthetic"
+          },
+          "url": "/api/v1/topics/synthetic/",
+          "reason": "ORIGIN"
+        },
+        "selection_reason": "WEAK_PREREQUISITE",
+        "independent_correct_streak": 0
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "finish_practice_session",
+    "method": "POST",
+    "path": "/api/v1/practice/sessions/00000000-0000-4000-8000-000000000001/finish/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-finish_practice_session"
+    },
+    "request": {
+      "reason": "ABANDONED"
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "state": "ABANDONED",
+        "policy_version": "synthetic",
+        "current_item": null,
+        "item_count": 0,
+        "exit_reason": "ABANDONED",
+        "operation_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "target_skill_code": "synthetic",
+        "origin_topic": {
+          "id": "synthetic",
+          "slug": "synthetic"
+        },
+        "return_route": {
+          "topic": {
+            "id": "synthetic",
+            "slug": "synthetic"
+          },
+          "url": "/api/v1/topics/synthetic/",
+          "reason": "ORIGIN"
+        },
+        "selection_reason": "WEAK_PREREQUISITE",
+        "independent_correct_streak": 0
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_progress_skills",
+    "method": "GET",
+    "path": "/api/v1/progress/skills/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_progress_topics",
+    "method": "GET",
+    "path": "/api/v1/progress/topics/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_progress_events",
+    "method": "GET",
+    "path": "/api/v1/progress/events/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_self_report",
+    "method": "POST",
+    "path": "/api/v1/progress/self-reports/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-create_self_report"
+    },
+    "request": {
+      "skill_codes": [
+        "synthetic"
+      ]
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "accepted_skill_codes": [
+          "synthetic"
+        ],
+        "already_reported_skill_codes": []
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_conversation",
+    "method": "POST",
+    "path": "/api/v1/ai/conversations/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-create_conversation"
+    },
+    "request": {
+      "topic": {
+        "id": "synthetic",
+        "slug": "synthetic"
+      },
+      "exercise_version_id": null,
+      "attempt_id": null
+    },
+    "status": 201,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "topic": {
+          "id": "synthetic",
+          "slug": "synthetic"
+        },
+        "exercise_version_id": null,
+        "created_at": "2026-09-30T09:00:00.000000Z"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "list_messages",
+    "method": "GET",
+    "path": "/api/v1/ai/conversations/00000000-0000-4000-8000-000000000001/messages/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": [],
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "pagination": {
+          "next_cursor": null,
+          "page_size": 1,
+          "has_more": false
+        },
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "create_message",
+    "method": "POST",
+    "path": "/api/v1/ai/conversations/00000000-0000-4000-8000-000000000001/messages/",
+    "headers": {
+      "X-CSRFToken": "synthetic-csrf-token",
+      "Idempotency-Key": "fixture-create_message"
+    },
+    "request": {
+      "text": "synthetic"
+    },
+    "status": 201,
+    "response": {
+      "data": {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "conversation_id": "00000000-0000-4000-8000-000000000001",
+        "role": "USER",
+        "text": "synthetic",
+        "created_at": "2026-09-30T09:00:00.000000Z",
+        "service_state": "NORMAL",
+        "help_action_id": null,
+        "allowed_followup_ids": []
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "health_live",
+    "method": "GET",
+    "path": "/api/v1/health/live/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "status": "LIVE"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  },
+  {
+    "operation_id": "health_ready",
+    "method": "GET",
+    "path": "/api/v1/health/ready/",
+    "headers": {},
+    "request": null,
+    "status": 200,
+    "response": {
+      "data": {
+        "status": "READY",
+        "database": "AVAILABLE",
+        "configuration": "VALID",
+        "provider": "AVAILABLE"
+      },
+      "meta": {
+        "request_id": "00000000-0000-4000-8000-000000000001",
+        "version": "http-v1"
+      }
+    }
+  }
+]

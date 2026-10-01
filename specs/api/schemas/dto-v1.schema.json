@@ -1,0 +1,3270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathstart.local/specs/api/schemas/dto-v1.schema.json",
+  "title": "MathStart HTTP DTO v1 / R02A candidate",
+  "$defs": {
+    "TopicReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "slug"
+      ]
+    },
+    "ExerciseVersionIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "exercise_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PUBLISHED",
+            "ARCHIVED"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "exercise_id",
+        "version",
+        "contract_version",
+        "status"
+      ]
+    },
+    "InputField": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_type": {
+          "type": "string",
+          "enum": [
+            "math_text",
+            "text",
+            "positive_integer",
+            "enum",
+            "object"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "input_type",
+        "required"
+      ]
+    },
+    "InputSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "object"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InputField"
+          },
+          "maxItems": 40
+        }
+      },
+      "required": [
+        "type",
+        "fields"
+      ]
+    },
+    "StepSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "ordered_steps"
+        },
+        "allowed_step_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "MATH_EXPRESSION",
+              "EQUATION_STATE",
+              "STRUCTURED_FIELDS",
+              "FINAL_STATEMENT"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "step_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InputField"
+          }
+        },
+        "ordering": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "const": "step_no"
+            },
+            "direction": {
+              "const": "ascending"
+            }
+          },
+          "required": [
+            "field",
+            "direction"
+          ]
+        },
+        "serialization": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "step_type": {
+                "type": "string",
+                "enum": [
+                  "MATH_EXPRESSION",
+                  "EQUATION_STATE",
+                  "STRUCTURED_FIELDS",
+                  "FINAL_STATEMENT"
+                ]
+              },
+              "payload_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "step_type",
+              "payload_fields"
+            ]
+          }
+        }
+      },
+      "required": [
+        "type",
+        "allowed_step_types"
+      ]
+    },
+    "RevealPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "confirmation_required": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "allowed",
+        "confirmation_required"
+      ]
+    },
+    "HintPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "levels": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "allowed",
+        "levels"
+      ]
+    },
+    "PublicExerciseDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "topic": {
+          "$ref": "#/$defs/TopicReference"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interaction_mode": {
+          "type": "string",
+          "enum": [
+            "SELF_CHECK",
+            "FINAL_ANSWER",
+            "STEP_BY_STEP",
+            "STRUCTURED_SOLUTION"
+          ]
+        },
+        "input_schema": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InputSchema"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "step_schema": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StepSchema"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parser_profile": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": [
+            "easy",
+            "medium",
+            "hard"
+          ]
+        },
+        "reveal_policy": {
+          "$ref": "#/$defs/RevealPolicy"
+        },
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exercise_version": {
+          "$ref": "#/$defs/ExerciseVersionIdentity"
+        },
+        "difficulty_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "skill_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "allowed_help_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "HINT",
+              "REVEAL"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "hint_policy": {
+          "$ref": "#/$defs/HintPolicy"
+        },
+        "presentation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "submit_label": {
+              "type": "string"
+            },
+            "submit_control": {
+              "type": "boolean"
+            },
+            "reveal_control": {
+              "type": "boolean"
+            },
+            "add_step_label": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "topic",
+        "statement",
+        "interaction_mode",
+        "input_schema",
+        "step_schema",
+        "parser_profile",
+        "difficulty",
+        "reveal_policy",
+        "contract_version",
+        "version",
+        "exercise_version",
+        "difficulty_level",
+        "skill_codes",
+        "allowed_help_actions"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "interaction_mode": {
+                "enum": [
+                  "FINAL_ANSWER",
+                  "STRUCTURED_SOLUTION"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "input_schema": {
+                "$ref": "#/$defs/InputSchema"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "interaction_mode": {
+                "enum": [
+                  "STEP_BY_STEP",
+                  "STRUCTURED_SOLUTION"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "step_schema": {
+                "$ref": "#/$defs/StepSchema"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "interaction_mode": {
+                "const": "SELF_CHECK"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "input_schema": {
+                "type": "null"
+              },
+              "step_schema": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "UntrustedPayload": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Raw student data, never trusted instructions or correctness facts. Runtime validates against the frozen public input/step shape; no eval/exec. Dynamic subject fields are intentionally extensible."
+    },
+    "SolutionStepSubmission": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "step_no": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "step_type": {
+          "type": "string",
+          "enum": [
+            "MATH_EXPRESSION",
+            "EQUATION_STATE",
+            "STRUCTURED_FIELDS",
+            "FINAL_STATEMENT"
+          ]
+        },
+        "payload": {
+          "$ref": "#/$defs/UntrustedPayload"
+        },
+        "raw_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "step_no",
+        "step_type",
+        "payload",
+        "raw_text"
+      ]
+    },
+    "SolutionStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "step_no": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "step_type": {
+          "type": "string",
+          "enum": [
+            "MATH_EXPRESSION",
+            "EQUATION_STATE",
+            "STRUCTURED_FIELDS",
+            "FINAL_STATEMENT"
+          ]
+        },
+        "payload": {
+          "$ref": "#/$defs/UntrustedPayload"
+        },
+        "raw_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "step_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "normalized_repr": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parse_status": {
+          "type": "string",
+          "enum": [
+            "OK",
+            "UNSUPPORTED",
+            "INVALID",
+            "NOT_REQUIRED"
+          ]
+        }
+      },
+      "required": [
+        "step_no",
+        "step_type",
+        "payload",
+        "raw_text",
+        "step_id",
+        "normalized_repr",
+        "parse_status"
+      ]
+    },
+    "AttemptDraft": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "payload": {
+          "$ref": "#/$defs/UntrustedPayload"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SolutionStepSubmission"
+          },
+          "maxItems": 40
+        }
+      },
+      "required": [
+        "payload",
+        "steps"
+      ]
+    },
+    "Exposure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "exercise_version_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "max_help_level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "revealed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "positive_credit_used": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "exercise_version_id",
+        "max_help_level",
+        "revealed_at",
+        "positive_credit_used"
+      ]
+    },
+    "Eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "independent": {
+          "type": "boolean"
+        },
+        "positive_credit_eligible": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "ELIGIBLE",
+            "HINT_EXPOSURE",
+            "REVEAL_EXPOSURE",
+            "ALREADY_CREDITED",
+            "UNSUPPORTED_INPUT",
+            "NOT_CORRECT",
+            "SELF_CHECK",
+            "PENDING"
+          ]
+        }
+      },
+      "required": [
+        "independent",
+        "positive_credit_eligible",
+        "reason"
+      ]
+    },
+    "AssessmentResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "CORRECT",
+            "WRONG",
+            "UNSUPPORTED",
+            "INDETERMINATE"
+          ]
+        },
+        "safe_feedback": {
+          "type": "string"
+        },
+        "first_error_step_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "misconception_code": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "service_state": {
+          "type": "string",
+          "enum": [
+            "NORMAL",
+            "DEGRADED"
+          ]
+        },
+        "positive_credit_awarded": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "outcome",
+        "safe_feedback",
+        "first_error_step_id",
+        "misconception_code",
+        "service_state",
+        "positive_credit_awarded"
+      ]
+    },
+    "Attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "exercise_version": {
+          "$ref": "#/$defs/ExerciseVersionIdentity"
+        },
+        "previous_attempt_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "interaction_mode": {
+          "type": "string",
+          "enum": [
+            "SELF_CHECK",
+            "FINAL_ANSWER",
+            "STEP_BY_STEP",
+            "STRUCTURED_SOLUTION"
+          ]
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "STARTED",
+            "SUBMITTED",
+            "COMPLETED",
+            "REVIEWED",
+            "ABANDONED"
+          ]
+        },
+        "draft": {
+          "$ref": "#/$defs/AttemptDraft"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SolutionStep"
+          },
+          "maxItems": 40
+        },
+        "snapshot_digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operation_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AssessmentResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exposure": {
+          "$ref": "#/$defs/Exposure"
+        },
+        "eligibility": {
+          "$ref": "#/$defs/Eligibility"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        },
+        "submitted_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "exercise_version",
+        "previous_attempt_id",
+        "interaction_mode",
+        "revision",
+        "state",
+        "draft",
+        "steps",
+        "snapshot_digest",
+        "operation_id",
+        "result",
+        "exposure",
+        "eligibility",
+        "created_at",
+        "submitted_at",
+        "completed_at"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "SUBMITTED",
+                  "COMPLETED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "snapshot_digest": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "operation_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "submitted_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "COMPLETED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "$ref": "#/$defs/AssessmentResult"
+              },
+              "completed_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "SUBMITTED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "type": "null"
+              },
+              "completed_at": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "REVIEWED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "interaction_mode": {
+                "const": "SELF_CHECK"
+              },
+              "result": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "interaction_mode": {
+                "const": "SELF_CHECK"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "STARTED",
+                  "REVIEWED",
+                  "ABANDONED"
+                ]
+              },
+              "result": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CreateAttemptRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "exercise_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "previous_attempt_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "exercise_id",
+        "contract_version",
+        "version"
+      ]
+    },
+    "DraftUpdateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "draft": {
+          "$ref": "#/$defs/AttemptDraft"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "contract_version",
+        "draft"
+      ]
+    },
+    "SubmitRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "expected_revision",
+        "contract_version"
+      ]
+    },
+    "HintRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      },
+      "required": [
+        "contract_version",
+        "level"
+      ]
+    },
+    "RevealRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "confirm": {
+          "const": true
+        }
+      },
+      "required": [
+        "contract_version",
+        "confirm"
+      ]
+    },
+    "AbandonRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "contract_version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "expected_revision",
+        "contract_version"
+      ]
+    },
+    "HintResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exposure": {
+          "$ref": "#/$defs/Exposure"
+        },
+        "service_state": {
+          "type": "string",
+          "enum": [
+            "NORMAL",
+            "DEGRADED"
+          ]
+        }
+      },
+      "required": [
+        "action_id",
+        "level",
+        "text",
+        "exposure",
+        "service_state"
+      ]
+    },
+    "RevealResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "reveal_recorded_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        },
+        "revealed_content": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "answer": {
+              "type": "string"
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "answer",
+            "steps"
+          ]
+        },
+        "exposure": {
+          "$ref": "#/$defs/Exposure"
+        },
+        "attempt": {
+          "$ref": "#/$defs/Attempt"
+        }
+      },
+      "required": [
+        "action_id",
+        "reveal_recorded_at",
+        "revealed_content",
+        "exposure",
+        "attempt"
+      ]
+    },
+    "Pagination": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "has_more": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "next_cursor",
+        "page_size",
+        "has_more"
+      ]
+    },
+    "Meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pagination": {
+          "$ref": "#/$defs/Pagination"
+        }
+      },
+      "required": [
+        "request_id"
+      ]
+    },
+    "SuccessEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {},
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "ErrorEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "INVALID_REQUEST",
+                "LIMIT_EXCEEDED",
+                "AUTHENTICATION_REQUIRED",
+                "CSRF_FAILED",
+                "FORBIDDEN",
+                "NOT_FOUND",
+                "REVISION_CONFLICT",
+                "IDEMPOTENCY_CONFLICT",
+                "VERSION_CONFLICT",
+                "STATE_CONFLICT",
+                "RATE_LIMITED",
+                "SERVICE_UNAVAILABLE"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "RevisionConflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "const": "REVISION_CONFLICT"
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "current_revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reload_url": {
+              "type": "string",
+              "pattern": "^/api/v1/attempts/[0-9a-f-]{36}/$"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id",
+            "current_revision",
+            "reload_url"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "IdempotencyConflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "const": "IDEMPOTENCY_CONFLICT"
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "ConflictEnvelope": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RevisionConflict"
+        },
+        {
+          "$ref": "#/$defs/IdempotencyConflict"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "error": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "VERSION_CONFLICT",
+                    "STATE_CONFLICT"
+                  ]
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "field_errors": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "retryable": {
+                  "type": "boolean"
+                },
+                "request_id": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "field_errors",
+                "retryable",
+                "request_id"
+              ]
+            }
+          },
+          "required": [
+            "error"
+          ]
+        }
+      ]
+    },
+    "BadRequestError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "INVALID_REQUEST",
+                "LIMIT_EXCEEDED"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "AuthenticationError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "AUTHENTICATION_REQUIRED"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "ForbiddenError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "CSRF_FAILED",
+                "FORBIDDEN"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "NotFoundError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "NOT_FOUND"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "RateLimitError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "RATE_LIMITED"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "UnavailableError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "SERVICE_UNAVAILABLE"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field_errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "code",
+            "message",
+            "field_errors",
+            "retryable",
+            "request_id"
+          ]
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "Grade": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "title"
+      ]
+    },
+    "Topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TopicReference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "theory": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "slug",
+        "title",
+        "parent",
+        "theory"
+      ]
+    },
+    "User": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "username": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selected_grade_id": {
+          "anyOf": [
+            {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "onboarding_mode": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "START_ZERO",
+                "DIAGNOSTIC",
+                "SELF_REPORT"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "onboarding_complete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "selected_grade_id",
+        "onboarding_mode",
+        "onboarding_complete"
+      ]
+    },
+    "CsrfToken": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "csrf_token": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "csrf_token"
+      ]
+    },
+    "RegisterRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "password": {
+          "type": "string",
+          "minLength": 1,
+          "writeOnly": true
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "LoginRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string",
+          "minLength": 1
+        },
+        "password": {
+          "type": "string",
+          "minLength": 1,
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "EmptyRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {},
+      "required": []
+    },
+    "Acknowledgement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "completed"
+      ]
+    },
+    "ProfileUpdateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_grade_id": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      },
+      "required": [],
+      "minProperties": 1
+    },
+    "OnboardingRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_grade_id": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "START_ZERO",
+            "DIAGNOSTIC",
+            "SELF_REPORT"
+          ]
+        }
+      },
+      "required": [
+        "selected_grade_id",
+        "mode"
+      ]
+    },
+    "DiagnosticCreateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "skill_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "skill_codes"
+      ]
+    },
+    "PracticeCreateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target_skill_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin_topic": {
+          "$ref": "#/$defs/TopicReference"
+        }
+      },
+      "required": [
+        "target_skill_code",
+        "origin_topic"
+      ]
+    },
+    "NextRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_item_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "ADVANCE",
+            "SKIP"
+          ]
+        }
+      },
+      "required": [
+        "current_item_id",
+        "action"
+      ]
+    },
+    "FinishRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "LIMIT_REACHED",
+            "NO_CANDIDATE",
+            "ABANDONED"
+          ]
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    },
+    "SessionItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exercise": {
+          "$ref": "#/$defs/PublicExerciseDTO"
+        },
+        "attempt_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "id",
+        "position",
+        "exercise",
+        "attempt_id"
+      ]
+    },
+    "ReturnRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TopicReference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "ORIGIN",
+            "PUBLISHED_PARENT",
+            "CATALOGUE"
+          ]
+        }
+      },
+      "required": [
+        "topic",
+        "url",
+        "reason"
+      ]
+    },
+    "DiagnosticSession": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "COMPLETED",
+            "ABANDONED"
+          ]
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_item": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SessionItem"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "item_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "exit_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "SUCCESS",
+                "LIMIT_REACHED",
+                "NO_CANDIDATE",
+                "ABANDONED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operation_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        },
+        "skill_itinerary": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "maxItems": 10
+        },
+        "start_zero_available": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "state",
+        "policy_version",
+        "current_item",
+        "item_count",
+        "exit_reason",
+        "operation_id",
+        "created_at",
+        "skill_itinerary",
+        "start_zero_available"
+      ]
+    },
+    "PracticeSession": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "COMPLETED",
+            "ABANDONED"
+          ]
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_item": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SessionItem"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "item_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "exit_reason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "SUCCESS",
+                "LIMIT_REACHED",
+                "NO_CANDIDATE",
+                "ABANDONED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operation_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        },
+        "target_skill_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin_topic": {
+          "$ref": "#/$defs/TopicReference"
+        },
+        "return_route": {
+          "$ref": "#/$defs/ReturnRoute"
+        },
+        "selection_reason": {
+          "type": "string",
+          "enum": [
+            "WEAK_PREREQUISITE",
+            "LOW_CONFIDENCE_DIAGNOSTIC",
+            "TARGET",
+            "REPEAT_POOL_EXHAUSTED",
+            "NO_CANDIDATE"
+          ]
+        },
+        "independent_correct_streak": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        }
+      },
+      "required": [
+        "id",
+        "state",
+        "policy_version",
+        "current_item",
+        "item_count",
+        "exit_reason",
+        "operation_id",
+        "created_at",
+        "target_skill_code",
+        "origin_topic",
+        "return_route",
+        "selection_reason",
+        "independent_correct_streak"
+      ]
+    },
+    "SkillProgress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "skill_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mastery": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_STARTED",
+            "LEARNING",
+            "WEAK",
+            "MASTERED"
+          ]
+        },
+        "last_updated": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reducer_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "self_reported": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "skill_code",
+        "mastery",
+        "confidence",
+        "evidence_count",
+        "status",
+        "last_updated",
+        "reducer_version",
+        "self_reported"
+      ]
+    },
+    "TopicProgress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "$ref": "#/$defs/TopicReference"
+        },
+        "mastery": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "assessed_skill_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_skill_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "topic",
+        "mastery",
+        "confidence",
+        "assessed_skill_count",
+        "total_skill_count"
+      ]
+    },
+    "ProgressEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "skill_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "event_kind": {
+          "type": "string",
+          "enum": [
+            "SELF_REPORTED_KNOWN",
+            "CORRECT_FIRST_TRY",
+            "CORRECT_AFTER_HINT",
+            "WRONG_ATTEMPT",
+            "MISCONCEPTION_DETECTED",
+            "ANSWER_REVEALED",
+            "DIAGNOSTIC_CORRECT",
+            "DIAGNOSTIC_WRONG"
+          ]
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        },
+        "attempt_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "event_id",
+        "skill_code",
+        "event_kind",
+        "occurred_at",
+        "attempt_id",
+        "evidence_ref",
+        "policy_version"
+      ]
+    },
+    "SelfReportRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "skill_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "skill_codes"
+      ]
+    },
+    "SelfReportResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "accepted_skill_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "already_reported_skill_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "accepted_skill_codes",
+        "already_reported_skill_codes"
+      ]
+    },
+    "ConversationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "$ref": "#/$defs/TopicReference"
+        },
+        "exercise_version_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attempt_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "topic",
+        "exercise_version_id",
+        "attempt_id"
+      ]
+    },
+    "Conversation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "topic": {
+          "$ref": "#/$defs/TopicReference"
+        },
+        "exercise_version_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        }
+      },
+      "required": [
+        "id",
+        "topic",
+        "exercise_version_id",
+        "created_at"
+      ]
+    },
+    "MessageRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "TutorMessage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "conversation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "USER",
+            "ASSISTANT"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?Z$"
+        },
+        "service_state": {
+          "type": "string",
+          "enum": [
+            "NORMAL",
+            "DEGRADED"
+          ]
+        },
+        "help_action_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed_followup_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "conversation_id",
+        "role",
+        "text",
+        "created_at",
+        "service_state",
+        "help_action_id",
+        "allowed_followup_ids"
+      ]
+    },
+    "HealthLive": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "const": "LIVE"
+        }
+      },
+      "required": [
+        "status"
+      ]
+    },
+    "HealthReady": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "NOT_READY"
+          ]
+        },
+        "database": {
+          "type": "string",
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE"
+          ]
+        },
+        "configuration": {
+          "type": "string",
+          "enum": [
+            "VALID",
+            "INVALID"
+          ]
+        },
+        "provider": {
+          "type": "string",
+          "enum": [
+            "AVAILABLE",
+            "DEGRADED",
+            "UNAVAILABLE"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "database",
+        "configuration",
+        "provider"
+      ]
+    },
+    "PublicExerciseDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/PublicExerciseDTO"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "AttemptResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/Attempt"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "HintResultResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/HintResult"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "RevealResultResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/RevealResult"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "UserResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/User"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "CsrfTokenResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/CsrfToken"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "AcknowledgementResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/Acknowledgement"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "DiagnosticSessionResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/DiagnosticSession"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "PracticeSessionResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/PracticeSession"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "SelfReportResultResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/SelfReportResult"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "ConversationResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/Conversation"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "TutorMessageResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/TutorMessage"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "HealthLiveResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/HealthLive"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "HealthReadyResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/HealthReady"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "TopicResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/Topic"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "GradeListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Grade"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "TopicListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Topic"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "PublicExerciseDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PublicExerciseDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "AttemptListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Attempt"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "SkillProgressListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SkillProgress"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "TopicProgressListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TopicProgress"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "ProgressEventListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProgressEvent"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "TutorMessageListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TutorMessage"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pagination": {
+              "$ref": "#/$defs/Pagination"
+            }
+          },
+          "required": [
+            "request_id",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "PendingAttemptResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/AttemptResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "state": {
+                  "const": "SUBMITTED"
+                },
+                "operation_id": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

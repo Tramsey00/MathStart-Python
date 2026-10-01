@@ -54,3 +54,5 @@ jobs:
         run: python scripts/fresh_install_smoke.py --disposable
       - name: Verify repository
         run: python scripts/verify_repo.py
+      - name: R02A HTTP and eligibility contract
+        run: python -m unittest discover -s tests -p test_r02a_contract.py -v
