@@ -1,0 +1,234 @@
+{
+  "fixture_version": "progress-v1.1-parity-v1",
+  "source_fixture": "progress-v1-cases.json",
+  "source_sha256": "0e42067fb0f105780bec14d0a2096b4da23f1ea410d77477a17b08165f156422",
+  "synthetic_only": true,
+  "description": "Explicit authoritative synthetic ID/outcome metadata, never inferred from events. LEGACY_COMPLETION is context provenance, not native lifecycle or DTO outcome.",
+  "cases": [
+    {
+      "legacy_case_id": "mixed_baseline_events",
+      "authority": {
+        "context_version": "legacy-completion-v1",
+        "records": [
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003e8",
+              "user_id": "student-1",
+              "skill_id": "negative_numbers",
+              "attempt_id": "attempt-1",
+              "outcome": "CORRECT",
+              "independent_correct": true,
+              "completed_at": "2026-09-24T10:01:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "negative_numbers"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003e9",
+              "user_id": "student-1",
+              "skill_id": "negative_numbers",
+              "attempt_id": "attempt-2",
+              "outcome": "CORRECT",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T10:02:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "negative_numbers"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003ea",
+              "user_id": "student-1",
+              "skill_id": "negative_numbers",
+              "attempt_id": "attempt-3",
+              "outcome": "WRONG",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T10:03:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "negative_numbers"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003eb",
+              "user_id": "student-1",
+              "skill_id": "negative_numbers",
+              "attempt_id": "attempt-4",
+              "outcome": "INDETERMINATE",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T10:04:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "negative_numbers"
+            ]
+          }
+        ]
+      },
+      "expected_recent_ids": [
+        "attempt-1",
+        "attempt-2",
+        "attempt-3",
+        "attempt-4"
+      ],
+      "expected_independent_count": 1
+    },
+    {
+      "legacy_case_id": "misconception_repeat_reset_and_normalized_evidence",
+      "authority": {
+        "context_version": "legacy-completion-v1",
+        "records": [
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003f2",
+              "user_id": "student-2",
+              "skill_id": "expand_parentheses",
+              "attempt_id": "r-attempt-1",
+              "outcome": "WRONG",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T11:01:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "expand_parentheses"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003f3",
+              "user_id": "student-2",
+              "skill_id": "expand_parentheses",
+              "attempt_id": "r-attempt-2",
+              "outcome": "WRONG",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T11:02:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "expand_parentheses"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003f4",
+              "user_id": "student-2",
+              "skill_id": "expand_parentheses",
+              "attempt_id": "r-attempt-3",
+              "outcome": "WRONG",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T11:03:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "expand_parentheses"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003f5",
+              "user_id": "student-2",
+              "skill_id": "expand_parentheses",
+              "attempt_id": "r-attempt-4",
+              "outcome": "CORRECT",
+              "independent_correct": true,
+              "completed_at": "2026-09-24T11:04:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "expand_parentheses"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003f6",
+              "user_id": "student-2",
+              "skill_id": "expand_parentheses",
+              "attempt_id": "r-attempt-5",
+              "outcome": "WRONG",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T11:05:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "expand_parentheses"
+            ]
+          }
+        ]
+      },
+      "expected_recent_ids": [
+        "r-attempt-1",
+        "r-attempt-2",
+        "r-attempt-3",
+        "r-attempt-4",
+        "r-attempt-5"
+      ],
+      "expected_independent_count": 1
+    },
+    {
+      "legacy_case_id": "diagnostics_and_completion_time_independence",
+      "authority": {
+        "context_version": "legacy-completion-v1",
+        "records": [
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003fc",
+              "user_id": "student-3",
+              "skill_id": "equation_balance",
+              "attempt_id": "d-attempt-1",
+              "outcome": "CORRECT",
+              "independent_correct": true,
+              "completed_at": "2026-09-24T13:00:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "equation_balance"
+            ]
+          },
+          {
+            "fact": {
+              "completion_id": "00000000-0000-0000-0000-0000000003fd",
+              "user_id": "student-3",
+              "skill_id": "equation_balance",
+              "attempt_id": "d-attempt-2",
+              "outcome": "WRONG",
+              "independent_correct": false,
+              "completed_at": "2026-09-24T13:05:00Z",
+              "policy_version": "progress-v1.1"
+            },
+            "attempt_state": "LEGACY_COMPLETION",
+            "mapped_skill_ids": [
+              "equation_balance"
+            ]
+          }
+        ]
+      },
+      "expected_recent_ids": [
+        "d-attempt-1",
+        "d-attempt-2"
+      ],
+      "expected_independent_count": 1
+    }
+  ],
+  "arithmetic_case_indices": [
+    0,
+    1,
+    2
+  ]
+}

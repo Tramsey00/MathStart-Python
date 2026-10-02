@@ -323,7 +323,7 @@ class CheckedInManifestTests(unittest.TestCase):
 
     def test_r04_documents_are_readable_utf8(self) -> None:
         root = Path(__file__).resolve().parents[2]
-        for name in ("docs/exec-plans/active/MS6-R04.md",
+        for name in ("docs/exec-plans/completed/MS6-R04.md",
                      "specs/harness/adapter-protocol-v1.md", "docs/agent-traces/MS6-R04.md"):
             with self.subTest(path=name):
                 text = (root / name).read_bytes().decode("utf-8", errors="strict")

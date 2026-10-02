@@ -1,15 +1,15 @@
 # EXEC PLAN MS6-V01: PostgreSQL dev/test and CI
 
-- **Status:** Active
+- **Status:** COMPLETED / ACCEPTED
 - **Owner:** Vladimir
 - **Created:** 2026-09-26
-- **Last updated:** 2026-09-28
+- **Last updated:** 2026-10-02 (closeout metadata only)
 - **Related issue:** [#13](https://github.com/Tramsey00/MathStart-Python/issues/13)
-- **Related PR / implementation:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14), initial commit `5092685`, published integration commit `b3e70a8`
+- **Related PR / implementation:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14), merged; final head `0c3556ad`; initial commit `5092685`, published integration commit `b3e70a8`
 - **Related spec(s):** PRODUCT.md; task acceptance below
 - **Related ADR(s):** docs/adr/ADR-0001-preserve-django.md
 - **Target milestone:** MS6-V01 infrastructure readiness
-- **Human gate required:** Yes; final Ruslan approval and PR merge pending
+- **Human gate required:** Yes; completed by Ruslan approval and PR #14 merge on 2026-09-28
 
 ## 1. Objective
 
@@ -302,3 +302,19 @@ Current state: implementation committed and pushed, post-push CI SUCCESS,
 local integrated verification PASS, no base-branch conflicts reported.
 Only final Ruslan human approval/acceptance and PR #14 merge remain PENDING.
 Status stays ACTIVE until that human gate completes.
+
+## 25. Final closeout — accepted frozen baseline
+
+- Final status: **COMPLETED / ACCEPTED**, canonical Technical Specification v7.1 G0 ACCEPTED.
+- Final PR: [#14](https://github.com/Tramsey00/MathStart-Python/pull/14), merged.
+- Final head: `0c3556ada559409da500f0fe26b0e6a6814a256a`.
+- Merge SHA: `fc4e907149da026e4710c3e453d8065c0106e4b9`.
+- Human approver: Руслан (`Tramsey00`), [APPROVED review](https://github.com/Tramsey00/MathStart-Python/pull/14#pullrequestreview-5341519974), submitted `2026-09-28T16:16:04Z`.
+- Acceptance date: **2026-09-28**; merged `2026-09-28T16:16:16Z`.
+
+This records the user's supplied canonical frozen acceptance, confirmed by
+read-only GitHub PR/review metadata on 2026-10-02. Historical ACTIVE/PENDING,
+NOT VERIFIED and intermediate failures above belong to earlier snapshots and
+are superseded by this final closeout. Existing user-executed PostgreSQL/Docker
+evidence and its provenance remain unchanged; this housekeeping pass claims
+no new infrastructure acceptance or Docker execution.

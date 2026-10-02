@@ -1,0 +1,451 @@
+{
+  "fixture_version": "completion-v1-invalid",
+  "cases": [
+    {
+      "id": "missing-completion_id",
+      "value": {
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-user_id",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-skill_id",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-attempt_id",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-outcome",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-independent_correct",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-completed_at",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "missing-policy_version",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "empty-completion_id",
+      "value": {
+        "completion_id": "",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "empty-user_id",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "empty-skill_id",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "empty-attempt_id",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "extra-field",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1",
+        "source_kind": "ASSESSMENT"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "bad-uuid",
+      "value": {
+        "completion_id": "not-uuid",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "uppercase-uuid",
+      "value": {
+        "completion_id": "00000000-0000-4000-8000-000000000ABC",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "bad-policy",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v2"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "fake-outcome",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "NEUTRAL",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "null-outcome",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": null,
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "integer-flag",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": 1,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "null-flag",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": null,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "naive-time",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "precision-seven",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00.0000001Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "invalid-calendar",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-02-30T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "offset-hour",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00+24:00",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "offset-minute",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00+00:99",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "date-only",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "numeric-time",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": 1,
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "numeric-owner",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": 1,
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": true
+    },
+    {
+      "id": "not-object",
+      "value": [],
+      "schema_invalid": true
+    },
+    {
+      "id": "unknown-skill",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "missing",
+        "attempt_id": "attempt-01",
+        "outcome": "CORRECT",
+        "independent_correct": false,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": false
+    },
+    {
+      "id": "independent-wrong",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "WRONG",
+        "independent_correct": true,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": false
+    },
+    {
+      "id": "independent-unsupported",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "UNSUPPORTED",
+        "independent_correct": true,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": false
+    },
+    {
+      "id": "independent-indeterminate",
+      "value": {
+        "completion_id": "00000000-0000-0000-0000-000000000001",
+        "user_id": "synthetic-student",
+        "skill_id": "negative_numbers",
+        "attempt_id": "attempt-01",
+        "outcome": "INDETERMINATE",
+        "independent_correct": true,
+        "completed_at": "2026-09-24T12:01:00Z",
+        "policy_version": "progress-v1.1"
+      },
+      "schema_invalid": false
+    }
+  ]
+}

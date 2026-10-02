@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathstart.example/specs/progress/schemas/completion-fact-v1.schema.json",
+  "title": "CompletionFact immutable boundary DTO v1",
+  "description": "Assessment authoritative DTO, mirrored by Progress; shape only, no numerical authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["completion_id", "user_id", "skill_id", "attempt_id", "outcome", "independent_correct", "completed_at", "policy_version"],
+  "properties": {
+    "completion_id": {"type": "string", "format": "uuid", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"},
+    "user_id": {"type": "string", "minLength": 1},
+    "skill_id": {"type": "string", "minLength": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "outcome": {"enum": ["CORRECT", "WRONG", "UNSUPPORTED", "INDETERMINATE"]},
+    "independent_correct": {"type": "boolean"},
+    "completed_at": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$"},
+    "policy_version": {"const": "progress-v1.1"}
+  }
+}

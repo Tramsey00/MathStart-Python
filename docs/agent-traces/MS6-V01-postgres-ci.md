@@ -6,7 +6,7 @@
 - **Coding agent / surface:** Codex, Windows execution sandbox
 - **Related issue:** [#13](https://github.com/Tramsey00/MathStart-Python/issues/13); no Issue operations performed
 - **Related spec:** PRODUCT.md; acceptance in active plan and user task
-- **Related exec plan:** docs/exec-plans/active/MS6-V01-postgres-ci.md
+- **Related exec plan:** docs/exec-plans/completed/MS6-V01-postgres-ci.md
 - **Related ADR:** docs/adr/ADR-0001-preserve-django.md
 - **PR / commits:** [#14](https://github.com/Tramsey00/MathStart-Python/pull/14) / initial `5092685` / published integration `b3e70a8`
 - **Latest reconciliation:** 2026-09-28; sections 1-25 are historical snapshots, section 26 records published integration and post-push CI
