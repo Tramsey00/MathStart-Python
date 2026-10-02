@@ -1,11 +1,11 @@
 # EXEC PLAN MS6-I01: UX-карта и предметная область
 
-- **Status:** Active — awaiting human review
+- **Status:** COMPLETED / ACCEPTED
 - **Owner:** Илья
 - **Created:** 2026-09-26
-- **Last updated:** 2026-09-27
+- **Last updated:** 2026-10-02 (closeout metadata only)
 - **Related issue:** #12
-- **Related PR:** #11; published baseline before review fixes: `b06f836`
+- **Related PR:** [#11](https://github.com/Tramsey00/MathStart-Python/pull/11), merged; final head `fe60f035`; earlier baseline before review fixes: `b06f836`
 - **Related spec(s):** `specs/exercises/R02-exercise-architecture.md`; `specs/progress/R03-progress-contract.md`
 - **Related ADR(s):** `docs/adr/ADR-0001-preserve-django.md`; `docs/adr/ADR-0002-exercise-contract-architecture.md`; `docs/adr/ADR-0003-knowledge-progress-semantics.md`
 - **Target milestone:** M0
@@ -96,3 +96,18 @@ Completion requires their walkthrough/review, resolution of blocking comments, a
 - Technical/documentation checks are recorded separately from approval. Human gate and final acceptance remain pending; the plan stays active until both reviews are accepted.
 - Руслан completed the initial UX/product review with `CHANGES_REQUESTED`; repeat UX/product review and final human acceptance remain pending.
 - Final-fixes scope: already-credited repeat semantics/message, assessed-reveal return path, current review records, cross-surface states, and the practice-desktop reason label only. Leave fixes local and uncommitted; await separate authorization to publish. No commit, push, PR-body update, or other GitHub mutation.
+
+## 12. Final closeout — accepted frozen baseline
+
+- Final status: **COMPLETED / ACCEPTED**, canonical Technical Specification v7.1 G0 ACCEPTED.
+- Final PR: [#11](https://github.com/Tramsey00/MathStart-Python/pull/11), merged.
+- Final head: `fe60f0353c4498570ed4568d04a4ea7625e027bf`.
+- Merge SHA: `861433a61bdba925f6c6dda35a57f5420ede975e`.
+- Human reviewers: Владимир (`VladimirFrolov777`), [API/backend APPROVED](https://github.com/Tramsey00/MathStart-Python/pull/11#pullrequestreview-5331134292) at `2026-09-27T16:22:22Z` on the earlier published baseline; Руслан (`Tramsey00`), [repeat UX/product APPROVED](https://github.com/Tramsey00/MathStart-Python/pull/11#pullrequestreview-5332016904) at `2026-09-27T20:47:46Z`, explicitly confirming fixes and CI on `fe60f03`.
+- Acceptance date: **2026-09-27**; merged `2026-09-27T20:54:25Z`.
+
+The user's supplied canonical frozen acceptance is confirmed by read-only GitHub
+PR/review metadata on 2026-10-02. Vladimir's review scope is preserved; it is not
+relabelled as a new review of the final head. Historical ACTIVE/PENDING statements,
+unpublished-fix instructions and initial environment failures above describe
+earlier snapshots and are superseded by this final closeout, without erasing them.

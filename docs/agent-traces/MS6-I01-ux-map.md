@@ -6,7 +6,7 @@
 - **Coding agent / surface:** Codex desktop
 - **Related issue:** #12
 - **Related spec:** `specs/exercises/R02-exercise-architecture.md`; `specs/progress/R03-progress-contract.md`
-- **Related exec plan:** `docs/exec-plans/active/MS6-I01-ux-map-and-domain.md`
+- **Related exec plan:** `docs/exec-plans/completed/MS6-I01-ux-map-and-domain.md`
 - **Related ADR:** ADR-0001, ADR-0002, ADR-0003
 - **PR / commit:** #11 / published baseline `b06f836` before review fixes
 - **Human review status:** Руслан: initial CHANGES_REQUESTED, repeat UX/product review pending; Владимир: API/backend APPROVED on 2026-09-27 for published `b06f836`, not the current local diff; final human acceptance pending
@@ -37,7 +37,7 @@ Existing UX-document directory: absent
 
 ### Added
 
-- `docs/exec-plans/active/MS6-I01-ux-map-and-domain.md`
+- `docs/exec-plans/completed/MS6-I01-ux-map-and-domain.md`
 - `docs/ux/MS6-I01-ux-spec.md`
 - `docs/ux/MS6-I01-states-matrix.md`
 - `docs/ux/MS6-I01-screen-map.md`
