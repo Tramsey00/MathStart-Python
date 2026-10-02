@@ -1,0 +1,200 @@
+{
+  "fixture_version": 1,
+  "fixture_only": true,
+  "provenance": {
+    "task": "MS7-I02",
+    "source": "synthetic; no user data, solutions or assessment evidence",
+    "http_artifact": "http-v1",
+    "openapi_sha256": "133aae117333e66b40662ec4fdb47fc02ee08e7aeecbbd9cbb200d5468ca7362"
+  },
+  "states": [
+    {
+      "state": "ordinary",
+      "title": "Данные получены",
+      "message": "Синтетический пример обычного содержимого. Это не результат решения."
+    },
+    {
+      "state": "loading",
+      "title": "Загрузка…",
+      "message": "Пример ожидания данных. Введённый текст остаётся видимым."
+    },
+    {
+      "state": "error",
+      "title": "Не удалось загрузить данные",
+      "message": "Пример ошибки запроса. Повтор меняет только демонстрационное состояние."
+    },
+    {
+      "state": "empty",
+      "title": "Пока нет данных",
+      "message": "Пример успешно полученного пустого списка. Это не ошибка загрузки."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "10000000-0000-4000-8000-000000000001",
+      "code": "fixture_only_self_check",
+      "topic": {
+        "id": "fixture-topic",
+        "slug": "fixture-only"
+      },
+      "statement": "Синтетическое описание режима SELF_CHECK. Здесь нет математического задания или результата.",
+      "interaction_mode": "SELF_CHECK",
+      "input_schema": null,
+      "step_schema": null,
+      "parser_profile": null,
+      "difficulty": "easy",
+      "difficulty_level": 1,
+      "reveal_policy": {
+        "allowed": false,
+        "confirmation_required": true
+      },
+      "hint_policy": {
+        "allowed": false,
+        "levels": []
+      },
+      "version": 1,
+      "contract_version": 1,
+      "exercise_version": {
+        "id": "20000000-0000-4000-8000-000000000001",
+        "exercise_id": "10000000-0000-4000-8000-000000000001",
+        "version": 1,
+        "contract_version": 1,
+        "status": "PUBLISHED"
+      },
+      "skill_codes": [],
+      "allowed_help_actions": []
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000002",
+      "code": "fixture_only_final_answer",
+      "topic": {
+        "id": "fixture-topic",
+        "slug": "fixture-only"
+      },
+      "statement": "Синтетическое описание режима FINAL_ANSWER. Здесь нет математического задания или результата.",
+      "interaction_mode": "FINAL_ANSWER",
+      "input_schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "raw_entry",
+            "input_type": "text",
+            "required": true,
+            "label": "Демонстрационный текст"
+          }
+        ]
+      },
+      "step_schema": null,
+      "parser_profile": null,
+      "difficulty": "easy",
+      "difficulty_level": 1,
+      "reveal_policy": {
+        "allowed": false,
+        "confirmation_required": true
+      },
+      "hint_policy": {
+        "allowed": false,
+        "levels": []
+      },
+      "version": 1,
+      "contract_version": 1,
+      "exercise_version": {
+        "id": "20000000-0000-4000-8000-000000000002",
+        "exercise_id": "10000000-0000-4000-8000-000000000002",
+        "version": 1,
+        "contract_version": 1,
+        "status": "PUBLISHED"
+      },
+      "skill_codes": [],
+      "allowed_help_actions": []
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000003",
+      "code": "fixture_only_step_by_step",
+      "topic": {
+        "id": "fixture-topic",
+        "slug": "fixture-only"
+      },
+      "statement": "Синтетическое описание режима STEP_BY_STEP. Здесь нет математического задания или результата.",
+      "interaction_mode": "STEP_BY_STEP",
+      "input_schema": null,
+      "step_schema": {
+        "type": "ordered_steps",
+        "allowed_step_types": [
+          "EQUATION_STATE"
+        ]
+      },
+      "parser_profile": null,
+      "difficulty": "easy",
+      "difficulty_level": 1,
+      "reveal_policy": {
+        "allowed": false,
+        "confirmation_required": true
+      },
+      "hint_policy": {
+        "allowed": false,
+        "levels": []
+      },
+      "version": 1,
+      "contract_version": 1,
+      "exercise_version": {
+        "id": "20000000-0000-4000-8000-000000000003",
+        "exercise_id": "10000000-0000-4000-8000-000000000003",
+        "version": 1,
+        "contract_version": 1,
+        "status": "PUBLISHED"
+      },
+      "skill_codes": [],
+      "allowed_help_actions": []
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000004",
+      "code": "fixture_only_structured_solution",
+      "topic": {
+        "id": "fixture-topic",
+        "slug": "fixture-only"
+      },
+      "statement": "Синтетическое описание режима STRUCTURED_SOLUTION. Здесь нет математического задания или результата.",
+      "interaction_mode": "STRUCTURED_SOLUTION",
+      "input_schema": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "raw_entry",
+            "input_type": "text",
+            "required": true,
+            "label": "Демонстрационный текст"
+          }
+        ]
+      },
+      "step_schema": {
+        "type": "ordered_steps",
+        "allowed_step_types": [
+          "STRUCTURED_FIELDS"
+        ]
+      },
+      "parser_profile": null,
+      "difficulty": "easy",
+      "difficulty_level": 1,
+      "reveal_policy": {
+        "allowed": false,
+        "confirmation_required": true
+      },
+      "hint_policy": {
+        "allowed": false,
+        "levels": []
+      },
+      "version": 1,
+      "contract_version": 1,
+      "exercise_version": {
+        "id": "20000000-0000-4000-8000-000000000004",
+        "exercise_id": "10000000-0000-4000-8000-000000000004",
+        "version": 1,
+        "contract_version": 1,
+        "status": "PUBLISHED"
+      },
+      "skill_codes": [],
+      "allowed_help_actions": []
+    }
+  ]
+}
