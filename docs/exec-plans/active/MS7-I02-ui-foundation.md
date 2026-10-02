@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-I02: UI foundation and fixtures
 
-- **Status:** Active - implementation draft ready for review; user-confirmed canonical PASS 8/8; not accepted
+- **Status:** Active - PR OPEN / CHANGES_REQUESTED; local review corrections; not accepted
 - **Owner:** Ilya (Илья)
 - **Reviewer / Task Approver:** Ruslan and Vladimir
 - **Created / last updated:** 2026-10-02
@@ -13,15 +13,18 @@
 - **Human gate required:** Yes - independent Ruslan and Vladimir task acceptance
 - **Branch:** `ms7-i02-ui-foundation`
 - **Baseline SHA:** `428ece726918f635549fc7dd8fdd352f799c3308`
+- **PR:** [#22](https://github.com/Tramsey00/MathStart-Python/pull/22), OPEN
+- **Published pre-fix HEAD:** `931f83af01ea44c880ab94c5f7c134a29613a332`
 
 ## 1. Objective
 
 Prepare the repository records for a minimal reusable Django UI foundation.
 The result is shared templates/components and tokens, safe versioned
 state fixtures, loading/error/empty, schema dispatch and baseline keyboard/mobile
-evidence. The user approved preparation commit `cd10705` and authorized the product
-implementation in this branch. No staging, commit, push, PR or branch changes are
-authorized during the implementation phase.
+evidence. Preparation and three implementation/docs commits were published in
+this branch through PR #22. Current authorization covers local review corrections
+and verification only; no staging/commit/push, branch operations or PR description
+changes. Ruslan and Vladimir Task Approvals remain PENDING.
 
 Canonical input: the complete
 `.local-docs/MathStart_Technical_Specification_v7_1_SECTION20_PARALLEL_DEADLINES.pdf`,
@@ -78,12 +81,15 @@ tooling/new CI/dependencies, separate preview server, complete cross-browser/a11
 audit, unrelated refactors, bulk lesson conversion, deployment/live providers,
 Harness changes and frozen upstream housekeeping. No commits/push in this phase.
 
-## 4. Starting state and current verification
+## 4. Historical starting state and current verification
+
+### Historical / pre-publication
 
 At implementation start the site used `content`, a single `templates/page_detail.html`, lesson components
 and shared static assets, without a shared base template or I02 gallery/fixtures.
 There is no configured project browser test toolchain. R02A is a contract package,
-not a runtime API. The foundation/gallery now exist as an uncommitted working diff.
+not a runtime API. The initial foundation/gallery were an uncommitted working diff
+at that historical stage; they were subsequently committed and published in PR #22.
 Legacy authored SELF_CHECK answers are an explicitly preserved compatibility case.
 
 The user's manual PowerShell checks confirm the host `.venv` works:
@@ -110,6 +116,21 @@ Only previously blocked Content verification was repeated: published home,
 catalogue and lesson browser comparison passes; read-only rendering against the
 `cd10705` template passes (exit 0); `/favicon.ico` returns HTTP 404 rather than 500
 (request assertion exit 0). Product implementation is unchanged in this follow-up.
+
+### Current / local review corrections
+
+PR #22 is OPEN at pre-fix `931f83af01ea44c880ab94c5f7c134a29613a332`.
+Both reviewers submitted CHANGES_REQUESTED; Ruslan/Vladimir Task Approvals are
+PENDING. GitHub API confirms pre-fix [run 37027103585](https://github.com/Tramsey00/MathStart-Python/actions/runs/37027103585)
+SUCCESS, event pull_request, that head against main `fa0d87033113a30abc6e9de2acc174b01e98d9db`.
+This is published pre-fix evidence, not CI for the local corrected content.
+The correction remains uncommitted: one JS type guard, a focused regression file
+and updated evidence/docs. Production dispatcher browser matrix passes 40/40;
+gallery states/keyboard and 360/768/1440 smoke pass. Actual browser context reports
+`154.0.8037.93` with userAgent/userAgentData/high entropy values in smoke.json.
+Agent reruns: JS 5 tests / 138 calls, I02 Python 7, Django 5, R02A 30,
+pip/database/system checks and canonical 8/8 PASS, exit 0. Trace Section 20 is the
+current record. New final implementation/evidence SHA, CI and approvals are pending.
 
 ## 5. Target state
 
@@ -227,6 +248,9 @@ Do not infer G1 acceptance from the calendar or R02A acceptance.
 - Browser smoke: actual JS dispatch/states/retry, raw input preservation,
   keyboard/focus/labels/errors/live regions and 360/768/1440 layouts.
 - Inspect DOM, delivered network data and console; capture screenshots without PII.
+- Review correction: unknown/non-string JS modes, required schemas and SELF_CHECK
+  invariants in `tests/test_i02_schema_dispatch.js`; repeat the focused browser
+  matrix using the actual production dispatcher and record navigator identifiers.
 
 No complete Chrome/Edge/Firefox matrix or full accessibility audit is blocking
 I02. Python/static tests alone do not prove JS behavior; browser evidence remains
@@ -257,6 +281,10 @@ dependency modifications are part of this task. Applicable final-SHA CI must be
 green under the existing workflow; additional project tooling needs its own
 reviewed change. No task-specific migration or live model test is required.
 
+The focused manual JS regression is run with an already available executable:
+`node tests/test_i02_schema_dispatch.js`. It uses standard-library modules only;
+no project Node/npm dependency or canonical/CI check registration is introduced.
+
 ## 14. Risks and fallback
 
 | Risk/question | Detection / response |
@@ -269,12 +297,12 @@ reviewed change. No task-specific migration or live model test is required.
 | Browser evidence unavailable/inadequate | Record the unmet criterion; justify any new tooling and stop dependent work for confirmation. |
 | Scope or source drift | Recheck branch/HEAD/digests before editing; surface changes, do not rewrite accepted upstream. |
 
-No current contract/PostgreSQL/runtime Content blocker is identified. User-run
-canonical verification passes 8/8 after user migrate/bootstrap. Published-page
-comparison and the favicon regression check now pass. The available single-browser smoke
-covers states/dispatch/keyboard and 360/768/1440; exact browser engine version is
-unavailable (browser policy denied version-page navigation). Python negative DTO
-tests pass; no browser malformed-DTO matrix or full audit is claimed.
+No current contract/PostgreSQL/runtime Content blocker is identified. Historical
+user canonical PASS, Content comparison and favicon 404 retain their original
+ownership. Current agent canonical rerun passes 8/8 and focused post-fix browser
+matrix passes 40/40; exact browser version is now available from navigator APIs.
+Full cross-browser/a11y/network/storage audits remain NOT RUN. The previous
+version-page restriction and pre-publication evidence are retained as history.
 
 ## 15. Human gates
 
@@ -284,9 +312,10 @@ product implementation. Approval of the concrete implementation remains pending.
 Reviewer / Task Approver: Ruslan and Vladimir.
 Their independent final-result decisions are pending.
 Ilya is Owner, not self-approver. G3 is a separate gate with its full evidence.
-The eventual PR references canonical Issue #21 with `Closes #21`. No staging,
-commit/push, PR creation, merge, Issue update/closure or deployment is authorized
-in this implementation phase. Keep the plan active until recorded human acceptance.
+PR #22 references canonical Issue #21 with `Closes #21`. Both reviews are
+CHANGES_REQUESTED, not Approve. No staging/commit/push, PR description update,
+merge, branch operations, Issue changes or deployment is authorized in this local
+correction phase. Keep the plan active until recorded human acceptance.
 
 ## 16. Completion checklist
 
@@ -296,23 +325,22 @@ in this implementation phase. Keep the plan active until recorded human acceptan
 - [x] Implementation deliverables have positive/negative verification evidence;
   independent acceptance remains a separate gate.
 - [x] Meaningful tests and required browser smoke evidence recorded.
-- [x] Canonical/task verification passes; canonical PASS 8/8 is user-confirmed;
+- [x] Current agent canonical/task reruns pass; historical user PASS 8/8 retained;
   prior empty-DB prerequisite resolved by user setup, not product-code changes.
 - [x] Security/Content preservation checks recorded; no unrelated changes.
 - [ ] Ruslan and Vladimir independently approve the final result.
-- [ ] Authorized publication/merge and applicable green final-SHA CI recorded.
+- [x] Original implementation published in PR #22; pre-fix SUCCESS CI recorded.
+- [ ] Corrected final SHA, applicable green CI and authorized merge recorded.
 - [ ] Accepted downstream handoff pinned; plan moved only after acceptance.
 
 ## 17. Completion summary and handoff
 
-Current result: foundation implemented as an uncommitted working diff; MS7-I02
-remains INCOMPLETE pending independent acceptance and applicable final-SHA CI.
-7 I02 Python tests, 5 Django tests and 30 R02A tests pass. The user confirmed
-canonical PASS 8/8 after manually migrating/bootstrapping the runtime DB; no new
-agent canonical rerun or unreported shell exit code is claimed. Previously blocked
-published Content browser checks pass, and favicon returns ordinary HTTP 404.
-Browser evidence is recorded with explicit limitations. Implementation SHA/PR/CI
-are pending; no commit/publication occurs in this phase. Exact results are in trace.
+Current result: published foundation at `931f83af01ea44c880ab94c5f7c134a29613a332`
+in OPEN PR #22, plus locally verified review corrections. Task acceptance remains
+INCOMPLETE. Current JS/Python/Django/R02A/canonical results and 40-case browser
+matrix are recorded in Trace Section 20 and smoke.json.current. Earlier Content,
+favicon, user-run canonical and pre-fix CI remain explicitly historical evidence.
+No new final SHA/CI, commit/push or independent approval is claimed in this phase.
 
 After acceptance, MS7-I03 receives shell/tokens/components/state conventions;
 MS7-I04 receives dispatcher/public descriptors/fixture provenance; MS7-I08 receives

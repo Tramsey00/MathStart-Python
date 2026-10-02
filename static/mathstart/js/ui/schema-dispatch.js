@@ -36,6 +36,7 @@
       "difficulty_level", "skill_codes", "allowed_help_actions"];
     if (!shape(exercise, required, ["hint_policy", "presentation"])) return "unsupported";
     const mode = exercise.interaction_mode, identity = exercise.exercise_version;
+    if (typeof mode !== "string") return "unsupported";
     if (!Object.hasOwn(slots, mode) || !uuid(exercise.id) || !text(exercise.code) || !text(exercise.statement)
       || !shape(exercise.topic, ["id", "slug"]) || !["string", "number"].includes(typeof exercise.topic.id)
       || (typeof exercise.topic.id === "number" && !Number.isInteger(exercise.topic.id)) || !text(exercise.topic.slug)

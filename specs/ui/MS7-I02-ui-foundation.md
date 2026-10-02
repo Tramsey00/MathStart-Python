@@ -1,11 +1,13 @@
 # SPEC MS7-I02: UI foundation and fixtures
 
-- **Status:** Implemented draft for human review; canonical PASS 8/8 confirmed by user; not accepted
+- **Status:** PR OPEN / CHANGES_REQUESTED; local corrections verified; not accepted
 - **Owner:** Ilya (Илья)
 - **Reviewer / Task Approver:** Ruslan and Vladimir
 - **Canonical issue:** [#21 - MS7-I02: UI foundation and fixtures](https://github.com/Tramsey00/MathStart-Python/issues/21)
 - **Branch:** `ms7-i02-ui-foundation`
 - **Baseline SHA:** `428ece726918f635549fc7dd8fdd352f799c3308`
+- **PR:** [#22](https://github.com/Tramsey00/MathStart-Python/pull/22), OPEN
+- **Published pre-fix HEAD:** `931f83af01ea44c880ab94c5f7c134a29613a332`
 - **Related ADRs:** ADR-0001/0002/0003 and the accepted MS7-R02A addendum package
 - **Exec plan:** [MS7-I02](../../docs/exec-plans/active/MS7-I02-ui-foundation.md)
 - **Trace:** [MS7-I02](../../docs/agent-traces/MS7-I02.md)
@@ -19,11 +21,14 @@ Provide a reusable Django UI foundation for later student screens: shared
 templates/components, design tokens, safe versioned fixtures, loading/error/empty
 states, schema dispatch and baseline keyboard/mobile accessibility.
 
-The user approved preparation commit `cd10705` and authorized product implementation
-in the same branch. Implementation is now present as an uncommitted working diff.
-Staging, commit, push, PR, branch changes and merge remain prohibited in this phase.
-Canonical PASS 8/8 is user-confirmed after runtime initialization; independent
-Ruslan/Vladimir acceptance and applicable final-SHA CI remain outstanding.
+Preparation commit `cd10705` and three implementation/docs commits were published
+through PR #22. Published HEAD remains `931f83af01ea44c880ab94c5f7c134a29613a332`.
+Both reviews request changes; independent Ruslan/Vladimir Task Approval is PENDING.
+Only review corrections are currently an unstaged local diff. Commit/push, branch
+operations and PR description changes are not authorized in this correction phase.
+Pre-fix [CI run 37027103585](https://github.com/Tramsey00/MathStart-Python/actions/runs/37027103585)
+is SUCCESS for that published head / PR against main `fa0d87033113a30abc6e9de2acc174b01e98d9db`.
+It does not establish CI for the corrected content; a new final SHA/run is pending.
 
 ## 2. Why this belongs in MathStart
 
@@ -102,7 +107,7 @@ remain accepted compatibility inputs, not permission to expand this task.
 
 ## 4. Actors / entry points
 
-The local developer/reviewer uses planned `GET /__ui__/foundation/` through the
+The local developer/reviewer uses `GET /__ui__/foundation/` through the
 existing Django server. It is a demonstration surface, not a student endpoint.
 It reads only allowlisted repository-authored synthetic fixtures. It neither
 loads private user data nor accepts arbitrary fixture-file paths.
@@ -158,7 +163,7 @@ reveal content, completed solution drafts or answer-equivalent hints in I02 asse
 
 ## 9. API / input contract
 
-No `/api/v1/` endpoint or serializer is implemented or changed. The planned
+No `/api/v1/` endpoint or serializer is implemented or changed. The
 DEBUG-only gallery is GET-only; non-GET requests must not invoke a mutation.
 It is absent from routing under `DEBUG=False`.
 
@@ -189,6 +194,11 @@ Use the existing Python/jsonschema stack for wire fixture shape/provenance check
 and Django tests for template/routing behavior. Dispatch performs only explicit
 supported-shape checks. A controlled unsupported-shape view is distinct from an
 Assessment `UNSUPPORTED` outcome and never indicates wrong mathematics.
+
+The JS dispatcher rejects non-string modes before `slots` lookup. SELF_CHECK
+requires both schema fields present and null; FINAL_ANSWER requires input_schema,
+STEP_BY_STEP step_schema, STRUCTURED_SOLUTION both. These existing R02A requirements
+are regression-tested without changing the accepted contract or adding renderers.
 
 No mathematical validator, LLM, provider call or prompt change is required.
 
@@ -238,13 +248,13 @@ cross-browser/a11y audit or runtime student integration.
 - [x] Existing Content metadata/content/resources retained in Django rendering;
   published home/catalogue/lesson browser comparison passes after runtime setup.
 - [x] Canonical and task checks have actual results with limitations and evidence
-  ownership recorded; canonical PASS 8/8 is user-confirmed, not a new agent rerun.
+  ownership recorded; historical user confirmation and current agent reruns are separate.
 - [ ] Ruslan and Vladimir independently approve the concrete final result;
   applicable final-SHA CI and authorized merge satisfy Section 17.
 
 ## 16. Tests
 
-### Python contract / Django tests (planned)
+### Python contract / Django tests (implemented)
 
 - Four-mode dispatch descriptors; unknown mode, missing required schema,
   unsupported shapes, inconsistent version aliases/identity.
@@ -255,7 +265,15 @@ cross-browser/a11y audit or runtime student integration.
 - DEBUG routing, non-GET rejection and no database writes.
 - Existing Content shell metadata, authored content and resource regressions.
 
-### Browser smoke (planned, using available tools)
+### JS regression / browser smoke (implemented, using available tools)
+
+- `tests/test_i02_schema_dispatch.js` executes the production JS using an already
+  available runtime, no npm/dependency/CI changes: 5 tests, 138 dispatch calls.
+- Unknown strings, non-string types, required schemas and SELF_CHECK null-schema
+  invariants fail safely; valid fixtures keep their four slots.
+- Post-fix browser matrix calls `window.MathStartUI.dispatchExercise` directly:
+  40/40 cases, no exceptions/forms/generated inputs. Matrix and gallery are separate
+  observations; no full malformed-DTO audit is claimed.
 
 - Runtime dispatch and loading/error/empty/retry observations.
 - Raw input preservation without normalization or false saved state.
@@ -285,6 +303,8 @@ run `python manage.py test content.test_ui_foundation` when added. Preserve the
 existing eight canonical checks, including Django/content/migration/R03/Harness
 verification. Runtime content checks require a migrated/bootstrapped environment
 and generate reports; do not migrate/bootstrap user data during this preparation.
+
+### Historical / pre-publication environment and Content evidence
 
 The user's manual PowerShell checks confirm the host `.venv` works: both
 `.\.venv\Scripts\python.exe --version` and `python --version` report Python
@@ -317,12 +337,24 @@ full cross-browser/a11y and browser malformed-DTO matrix are not claimed.
 Tooling/CI changes are outside
 this plan and require a dedicated reviewed change before becoming project tooling.
 
+### Current local review-correction evidence
+
+Trace Section 20 and `smoke.json.current` record fresh agent verification of the
+corrected working content, including production JS/browser matrix, gallery states,
+keyboard and 360/768/1440 smoke. Canonical PASS 8/8 is an actual agent rerun (exit 0),
+distinct from the historical user-confirmed run. Browser context reports Chromium/Google Chrome
+`154.0.8037.93`; full userAgent, userAgentData and high entropy values are retained.
+Earlier unavailable-version, missing-table and pre-publication evidence remains
+historical. Existing Content comparison/favicon evidence is retained with its
+original ownership; it is not relabelled as a new browser rerun.
+New final-SHA CI and independent approvals are PENDING; local PASS is not Task Approval.
+
 ## 18. Risks
 
 | Risk | Impact | Mitigation |
 | --- | --- | --- |
 | Runtime initialization (resolved) | Empty DB previously prevented Content checks | User applied migrate/bootstrap and confirmed canonical PASS 8/8; repeated Content smoke passes; no agent DB repair. |
-| Browser evidence limitations | Exact engine version unavailable; no browser malformed-DTO matrix | Record actual app browser/smoke and Python negative checks; independent review remains required. |
+| Browser evidence limitations | Single browser and focused dispatcher matrix only | Exact version/UA recorded; full cross-browser/a11y audit remains NOT RUN; independent review remains required. |
 | PDF is local, not a public GitHub asset | Another checkout needs the source | Pin exact filename/digest; source distribution is a human follow-up, not PDF publication in I02. |
 | Full upstream exchanges contain solutions | Fixture bundle could leak answers | Curate safe examples/projections; review delivered data, not just forbidden keys. |
 | Shell extraction affects legacy resources | Existing site regression | Narrow Content tests and browser smoke; scoped revert preserves authored sources. |
@@ -342,7 +374,8 @@ No task acceptance, final SHA or G3 closure is asserted at preparation.
 ## 20. Trace / implementation links and downstream handoff
 
 - Issue: [#21](https://github.com/Tramsey00/MathStart-Python/issues/21).
-- Plan/trace: linked in the header; PR and implementation SHA pending.
+- Plan/trace: linked in the header; PR #22 OPEN at the published pre-fix SHA above;
+  corrected final SHA/CI and Task Approval remain pending.
 - Browser evidence: [smoke record](../../docs/agent-traces/MS7-I02-evidence/smoke.json)
   and 360/768/1440 plus keyboard screenshots beside it. Existing app browser control
   was used; no Node/Playwright toolchain was added to the project.
