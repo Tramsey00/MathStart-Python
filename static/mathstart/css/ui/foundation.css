@@ -1,0 +1,52 @@
+.ms-ui {
+  max-width: var(--ms-ui-reading-width); margin: auto; padding: var(--ms-ui-space-3);
+  color: var(--ms-ui-ink); line-height: 1.6; overflow-wrap: anywhere;
+}
+.ms-ui > section { margin-block: var(--ms-ui-space-4); }
+.ms-ui-intro { max-width: 46rem; }
+.ms-ui h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.2; }
+.ms-ui h2 { font-size: 1.5rem; line-height: 1.3; }
+.ms-ui h3 { font-size: 1.1rem; margin-top: 0; }
+.ms-ui-muted { color: var(--ms-ui-muted); }
+.ms-ui-fixture-mark {
+  position: sticky; top: 0; z-index: 1;
+  padding: var(--ms-ui-space-2); border: 2px solid var(--ms-ui-accent);
+  border-radius: var(--ms-ui-radius); background: #eff6ff;
+}
+.ms-ui input, .ms-ui select, .ms-ui button { scroll-margin-top: 9rem; }
+.ms-ui-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ms-ui-space-2); }
+.ms-ui-card, .ms-ui-state {
+  min-width: 0; padding: var(--ms-ui-space-3); border: 1px solid var(--ms-ui-border);
+  border-radius: var(--ms-ui-radius); background: var(--ms-ui-surface);
+}
+.ms-ui-state { background: var(--ms-ui-background); }
+.ms-ui-state[data-state="error"] { color: var(--ms-ui-error); background: var(--ms-ui-error-surface); border-color: var(--ms-ui-error); }
+.ms-ui-state[data-state="loading"] { border-style: dashed; }
+.ms-ui-field { margin-block: var(--ms-ui-space-3); }
+.ms-ui label { display: block; font-weight: 650; margin-bottom: var(--ms-ui-space-1); }
+.ms-ui input, .ms-ui select {
+  width: 100%; min-width: 0; min-height: 2.75rem; padding: .65rem;
+  border: 1px solid var(--ms-ui-muted); border-radius: .4rem;
+  color: var(--ms-ui-ink); background: var(--ms-ui-surface); font: inherit;
+}
+.ms-ui input[aria-invalid="true"] { border: 2px solid var(--ms-ui-error); }
+.ms-ui-field-error { color: var(--ms-ui-error); font-weight: 650; }
+.ms-ui-button {
+  min-height: 2.75rem; max-width: 100%; padding: .65rem 1rem;
+  border: 2px solid var(--ms-ui-accent); border-radius: .5rem;
+  color: white; background: var(--ms-ui-accent); font: inherit; font-weight: 650;
+  cursor: pointer; white-space: normal;
+}
+.ms-ui-button:hover { background: var(--ms-ui-ink); }
+.ms-ui :focus-visible, .ms-ui-skip:focus-visible { outline: 3px solid var(--ms-ui-focus); outline-offset: 4px; }
+.ms-ui [hidden] { display: none !important; }
+.ms-ui-sr-only, .ms-ui-skip:not(:focus) {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.ms-ui-skip:focus { display: block; padding: 1rem; color: var(--ms-ui-ink); background: white; }
+@media (max-width: 600px) {
+  .ms-ui { padding: var(--ms-ui-space-2); }
+  .ms-ui-grid { grid-template-columns: minmax(0, 1fr); }
+  .ms-ui-card, .ms-ui-state { padding: var(--ms-ui-space-2); }
+}

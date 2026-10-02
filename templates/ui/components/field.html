@@ -1,0 +1,6 @@
+<div class="ms-ui-field">
+  <label for="{{ field_id }}">{{ label }}{% if required %} <span>(обязательно)</span>{% endif %}</label>
+  <p id="{{ field_id }}-help" class="ms-ui-muted">{{ help_text }}</p>
+  <input id="{{ field_id }}" name="{{ field_id }}" type="text" value="{{ value|default:'' }}"{% if required %} required{% endif %} aria-invalid="false" aria-describedby="{{ field_id }}-help {{ field_id }}-error" autocomplete="off">
+  <p id="{{ field_id }}-error" class="ms-ui-field-error" hidden>{{ error_text }}</p>
+</div>

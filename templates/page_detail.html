@@ -1,13 +1,6 @@
-{% load static %}<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
   <title>{{ page.meta_title }}</title>
 
   <meta
@@ -60,10 +53,6 @@
     content="summary"
   >
 
-  <link rel="stylesheet" href="{% static 'mathstart/css/site.css' %}">
-
-  <link rel="stylesheet" href="{% static 'mathstart/css/site.css' %}">
-
     {% for stylesheet in theme_before %}
       <link rel="stylesheet" href="{% static stylesheet %}">
     {% endfor %}
@@ -73,28 +62,16 @@
         {{ page.page_css|safe }}
       </style>
     {% endif %}
-</head>
-
-<body>
-  <nav class="ms-site-header" aria-label="Основная навигация">
-    <a class="ms-site-brand" href="/">MathStart</a>
-    <div>
-      <a href="/materialy/">Материалы</a>
-      <a href="/pamyatki/">Памятки</a>
-      <a href="/karta-sajta/">Все темы</a>
-    </div>
-  </nav>
+{% endblock %}
+{% block content %}
   {{ page.body_html|safe }}
 
   {% if page.slug == 'karta-sajta' %}
     {% include 'includes/catalogue.html' %}
   {% endif %}
 
-  <footer class="ms-site-footer">
-    <span>MathStart · Математика для 5–10 классов</span>
-    <div><a href="/o-proekte/">О проекте</a><a href="/kontakty/">Контакты</a></div>
-  </footer>
-
+{% endblock %}
+{% block scripts %}
   <script src="{% static 'mathstart/js/lesson-diagrams.js' %}"></script>
 
   {% if page.page_js %}
@@ -104,5 +81,4 @@
   {% endif %}
 
   {% for script in theme_scripts %}<script src="{% static script %}"></script>{% endfor %}
-</body>
-</html>
+{% endblock %}

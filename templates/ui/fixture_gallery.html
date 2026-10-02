@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+  <title>UI foundation · MathStart · Fixture only</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="{% static 'mathstart/css/ui/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'mathstart/css/ui/foundation.css' %}">
+{% endblock %}
+{% block skip_link %}<a class="ms-ui-skip" href="#foundation-main">К примерам интерфейса</a>{% endblock %}
+{% block content %}
+<main id="foundation-main" class="ms-ui" tabindex="-1">
+  <p class="ms-ui-fixture-mark"><strong>FIXTURE ONLY · Только синтетические примеры</strong><br>Не сохраняются, не оцениваются и не меняют прогресс.</p>
+  <header class="ms-ui-intro">
+    <p class="ms-ui-muted">MS7-I02 · UI fixtures v{{ fixtures.fixture_version }} · {{ fixtures.provenance.http_artifact }}</p>
+    <h1>Основа интерфейса</h1>
+    <p>Общие компоненты, состояния и выбор слота по публичной schema. Полные формы появятся в следующих задачах.</p>
+  </header>
+  <section aria-labelledby="states-title">
+    <h2 id="states-title">Четыре состояния</h2>
+    <div class="ms-ui-grid">
+      {% for state in fixtures.states %}{% include "ui/components/state.html" with state=state only %}{% endfor %}
+    </div>
+  </section>
+  <section class="ms-ui-card" aria-labelledby="demo-title">
+    <h2 id="demo-title">Проверка состояний и клавиатуры</h2>
+    <p>Это локальная демонстрация: кнопки не отправляют запросы. Текст остаётся только в текущем поле.</p>
+    {% include "ui/components/field.html" with field_id="demo-input" label="Демонстрационный ввод" required=True help_text="Введите любой текст. При смене состояния он останется без изменений." error_text="Пример ошибки поля. Текст не проверялся и не был сохранён." only %}
+    <div class="ms-ui-field">
+      <label for="demo-state">Демонстрационное состояние</label>
+      <select id="demo-state" aria-controls="demo-region">
+        {% for state in fixtures.states %}<option value="{{ state.state }}">{{ state.title }}</option>{% endfor %}
+      </select>
+    </div>
+    <div id="demo-region" class="ms-ui-state" data-state="ordinary" aria-busy="false">
+      <h3 id="demo-title-current">{{ fixtures.states.0.title }}</h3>
+      <p id="demo-message">{{ fixtures.states.0.message }}</p>
+      <div id="demo-retry-wrap" hidden>{% include "ui/components/button.html" with button_id="demo-retry" label="Повторить демонстрацию" controls="demo-region" only %}</div>
+    </div>
+    <p id="demo-status" class="ms-ui-sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="demo-alert" class="ms-ui-sr-only" role="alert" aria-atomic="true"></p>
+    {% include "ui/components/button.html" with button_id="demo-field-error" label="Показать ошибку поля" controls="demo-input" only %}
+    <noscript><p>Динамический пример требует JavaScript. Все статические состояния доступны выше.</p></noscript>
+  </section>
+  <section aria-labelledby="dispatch-title">
+    <h2 id="dispatch-title">Foundation dispatch</h2>
+    <p>Распознаётся режим и форма metadata. Renderer, отправка решения и математическая проверка здесь отсутствуют.</p>
+    <label for="demo-mode">Публичный режим</label>
+    <select id="demo-mode" aria-controls="dispatch-result">
+      {% for exercise in fixtures.exercises %}<option value="{{ forloop.counter0 }}">{{ exercise.interaction_mode }}</option>{% endfor %}
+      <option value="unsupported">Неизвестный режим (негативный пример)</option>
+    </select>
+    <p id="dispatch-result" role="status" aria-live="polite" aria-atomic="true">Выберите режим для демонстрации слота.</p>
+    <div class="ms-ui-grid">
+      {% for exercise in fixtures.exercises %}{% include "ui/components/card.html" with title=exercise.interaction_mode description=exercise.statement only %}{% endfor %}
+    </div>
+  </section>
+  {{ fixtures|json_script:"ui-fixtures" }}
+</main>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'mathstart/js/ui/schema-dispatch.js' %}" defer></script>
+  <script src="{% static 'mathstart/js/ui/foundation.js' %}" defer></script>
+{% endblock %}

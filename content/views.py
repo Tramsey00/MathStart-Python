@@ -1,9 +1,22 @@
-from django.http import HttpResponse
+from django.conf import settings
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_GET
 
 from .models import ContentPage
 from .services.lesson_theme import theme_context
+from .ui_foundation import load_fixture_pack
+
+
+@never_cache
+@require_GET
+def ui_foundation(request):
+    """Development-only, synthetic, read-only component gallery."""
+    if not settings.DEBUG:
+        raise Http404
+    return render(request, "ui/fixture_gallery.html", {"fixtures": load_fixture_pack()})
 
 
 def build_page_context(request, page):
