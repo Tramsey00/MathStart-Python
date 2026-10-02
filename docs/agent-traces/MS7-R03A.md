@@ -1,18 +1,19 @@
-# TRACE MS7-R03A: CompletionFact repository audit and D-021 design
+# TRACE MS7-R03A: CompletionFact audit, corrected design and contract implementation
 
 - **Date:** 2026-10-02 (Europe/Moscow client date)
 - **Task ID:** MS7-R03A
 - **Owner:** Руслан
 - **Reviewer / Task Approver:** Владимир
-- **Surface:** Codex desktop; repository audit/design, no live Harness task-run claim
+- **Surface:** Codex desktop; audit/design and pure contract implementation, no live Harness task-run claim
 - **Issue:** [#18](https://github.com/Tramsey00/MathStart-Python/issues/18)
 - **ADR:** [ADR-0005 / D-021](../adr/ADR-0005-completion-fact.md), Proposed
 - **Plan:** [active MS7-R03A](../exec-plans/active/MS7-R03A-completion-fact.md)
 - **Human approval:** PENDING
 - **PR / CI:** not created or run in this stage
 - **Initial audit/design commit:** 1ec5bb507444c442b585720787335c8a17fe09e1
-- **Correction commit:** docs(r03a): align CompletionFact design with canonical v7.1;
-  new SHA is reported to the user and available through this file's Git history
+- **Correction commit:** 2f50918d5dbf8224105f666371c5e8b88dacf11b;
+  docs(r03a): align CompletionFact design with canonical v7.1
+- **Current stage:** Contract candidate READY FOR INDEPENDENT REVIEW; no runtime persistence
 
 ## 1. Original task and correction request
 
@@ -373,3 +374,166 @@ diff/whitespace review and exact-path staging precede the separate commit.
 Correction commit subject: docs(r03a): align CompletionFact design with canonical v7.1.
 The commit SHA is reported after creation, without self-referential trace content.
 Human acceptance remains PENDING and the full task remains INCOMPLETE.
+
+## 12. Contract implementation authorization and baseline (2026-10-02)
+
+The new user attachment at
+C:/Users/Tramsey/.codex/attachments/2b00e215-4b5f-4048-81ea-ea00ac5eb177/Вставленный текст.txt
+explicitly supersedes the earlier design-only scope: implement the pure R03A
+addendum/schema/fixtures/reference/tests/parity, separate CI step and records;
+verify, review scope, then create one local commit. No push/PR/merge, Issue
+closure, ADR acceptance or Django/runtime/persistence implementation is allowed.
+
+Baseline commands confirmed branch ms7-r03a-completion-fact, clean tracked tree/
+index and HEAD 2f50918d5dbf8224105f666371c5e8b88dacf11b, with both design commits
+present. origin/main remains 428ece726918f635549fc7dd8fdd352f799c3308.
+The protected pre-existing untracked inventory in section 2 remains excluded.
+No git clean/reset/branch switch or package install was performed.
+
+Mandatory repository sources were reread, including corrected ADR-0005, frozen
+R03 contract/fixtures/reference/tests, active plan/trace and R02A contract/policy/
+OpenAPI/reference/tests. Compact OpenAPI reads retained all components and 37
+operations. The verification skill, current CI, README/content architecture and
+relevant model/migration boundaries were inspected. The historical unavailable
+PDF observation remains; the explicit supplied canonical requirements govern.
+
+## 13. Implemented artifacts and semantics
+
+Added exactly seven files:
+
+- specs/progress/R03A-completion-fact.md
+- specs/progress/schemas/completion-fact-v1.schema.json
+- specs/progress/fixtures/completion-v1-cases.json
+- specs/progress/fixtures/completion-v1-invalid.json
+- specs/progress/fixtures/progress-v1.1-parity.json
+- scripts/r03a_contract_reference.py
+- tests/test_r03a_contract.py
+
+Modified exactly four existing files: this trace, the active R03A plan,
+.github/workflows/ci.yml and specs/api/candidate-manifest-v1.json. The manifest
+change is solely the derived workflow hash described below. No files deleted.
+ADR-0005 remains Proposed and byte-unchanged; frozen R03 and R02A contracts,
+OpenAPI, references, tests and historical fixtures remain unchanged.
+
+The closed eight-field schema requires completion_id/user_id/skill_id/attempt_id/
+outcome/independent_correct/completed_at/policy_version. completion_id is canonical
+lowercase UUID; references are nonempty, flag is strict boolean, outcome is exactly
+CORRECT/WRONG/UNSUPPORTED/INDETERMINATE, policy is progress-v1.1. Aware RFC3339
+time has <=6 fractional digits and canonical UTC normalization. Domain validation
+adds known skills and true-implies-CORRECT; shape validation alone grants no trust.
+
+The mirror validates global immutable completion_id and permanent (attempt_id,
+skill_id) source uniqueness before scope filtering. Exact whole canonical payload
+retries coalesce; reuse of either key with any changed payload conflicts. Atomic
+ingestion returns detached proposed data, preserving original inputs on rejection.
+Cross-skill facts agree on attempt owner/time; incoming target user/skill is bound.
+
+Assessment owns authoritative facts. The pure boundary requires explicit versioned
+source records, exact immutable DTO agreement, COMPLETED lifecycle and mapped
+skill. It compares supplied context only; genuine server auth/FKs/version binding
+are V08 obligations. Progress imports no Assessment ORM. Native recent-ten uses
+only the full mirror, sorted by UTC completed_at / lexical attempt_id; last ten
+distinct sources include neutral facts and sum the independent flag once.
+
+NumericalReplay validates/copies events and invokes the unchanged R03 reducer once.
+Immutable JSON-backed cache results detach callers. Fact ingestion/replay reuse
+that cache, calling only frozen status_for for derived status. Frozen event policy
+remains progress-v1; native reducer_version is progress-v1.1. No duplicate numerical
+constants, fake events or CompletionFact-driven misconception resets exist.
+Late/permuted facts can change window/count/status while numerical state, event
+IDs/order, deltas, repeat resets and last_updated remain fixed. Inline event/fact
+time, owner and terminal result contradictions reject; inline events never add
+native window entries. Missing DTOs produce completion_gaps diagnostics only.
+
+Explicit import_progress_v1_completions requires legacy-completion-v1 source
+metadata with authoritative IDs/outcomes and LEGACY_COMPLETION provenance; it
+never infers an outcome from a reveal/wrong step. Literal v1 remains unchanged.
+Parity metadata pins the historical fixture SHA and supplies equivalent mirrors.
+legacy_snapshots are explicitly literal v1 diagnostics, not native as-of history.
+
+## 14. Executable coverage and observed proofs
+
+completion-v1-cases.json covers all 32 exact plan case IDs, with six concrete
+shared datasets and explicit variants/delivery orders/authority. Invalid fixtures
+contain 33 rows distinguishing schema and domain rejection. Parity covers all
+three frozen streams plus all three arithmetic cases. Fixtures are synthetic.
+The independent test suite contains 41 tests (32 named cases and nine additional
+guards), including unchanged R02A serial-fixture composition without a second
+eligibility algorithm.
+
+- Dedicated neutral eviction: 100.00 mastery, 67.00 confidence, evidence_count 11,
+  independent count 3 / MASTERED becomes count 2 / LEARNING; all four numerical
+  fields including 2026-09-24T12:10:00.000000Z last_updated remain identical.
+- Mocked frozen replay count stays one across fact ingestion; no new event or
+  numerical application, immutable cached/input outputs are checked.
+- A true fact between misconceptions leaves third repeat at 1.5; mastery snapshots
+  60.00, 55.00, 48.75, 41.25. A qualifying diagnostic event resets repeat even
+  with a delayed fact: 60.00, 55.00, 48.75, 56.75, 51.75.
+- Explicit parity compares literal golden state, native numbers/status/time,
+  equivalent window/count, event IDs/order/application, all historical snapshots
+  and recorded progress-v1 event policy; only native reducer_version differs.
+- Full ledger permutations, >10 same-time ties, owner/global key collisions,
+  no-context/mapping/lifecycle rejection, authority mismatch, UTC equivalence,
+  max precision and unsupported/indeterminate history are independently asserted.
+
+## 15. Implementation verification and incident
+
+All commands run from C:/Projects/MathStart-Python using the existing
+tmp/ms7-r02a/venv/Scripts/python.exe with -B and PYTHONDONTWRITEBYTECODE=1.
+DJANGO_RUNTIME_ROOT is the external directory from section 7. Actual versions:
+Python 3.12.14, Django 5.2.16, jsonschema 4.26.0, psycopg 3.3.6, pip 25.0.1;
+PostgreSQL reachable, server_version_num 160015 (16.15). No environment/dependency/
+backend changes or migration/bootstrap were performed.
+
+| Command | Actual result / external log filename |
+| --- | --- |
+| python -m unittest discover -s tests -p test_r03a_contract.py -v | PASS, exit 0; 41 tests; r03a-implementation.log |
+| python -m unittest discover -s tests -p test_r03_contract.py -v | PASS, exit 0; 18 unchanged tests; r03-implementation.log |
+| python -m unittest discover -s tests -p test_r02a_contract.py -v, initial | FAIL, exit 1; 30 tests, one workflow digest mismatch; r02a-implementation.log |
+| Same R02A command, after derived hash refresh | PASS, exit 0; 30 unchanged tests; r02a-implementation-final.log |
+| python scripts/verify_repo.py | PASS, exit 0; 8/8, Django 24 / R03 18 / Harness 73; canonical-implementation.log |
+| python -m pip check | PASS, exit 0; no broken requirements; pip-implementation.log |
+| python manage.py makemigrations --check --dry-run | PASS, exit 0; No changes detected; migrations-implementation.log |
+| python scripts/version_report.py | PASS, exit 0; sanitized versions / PostgreSQL reachable; versions-implementation.log |
+
+The explicitly authorized CI step changed ci.yml bytes, which R02A's candidate
+manifest pins. The first run's other 29 tests passed. Refreshed only the derived
+workflow hash from 72244a5f37d102bfb02ba56809643d1c0e94369cdf957492b5b99b8faed03117
+to 1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7.
+All other hashes/data and CANDIDATE_FOR_REVIEW/PENDING markers remain intact.
+No R02A semantics/test/OpenAPI was changed or weakened; final rerun passes.
+CI adds only R03A CompletionFact contract beside R02A with the required unittest
+command. Existing canonical CI checks remain unchanged; GitHub CI has NOT RUN.
+
+Windows normal sandbox process startup remained unavailable (deny-read ACL helper
+failure). Approved escalated execution enabled the checks; no automatic approval
+review rejection occurred. Reports/logs stay external; protected output/tmp and
+unrelated untracked files are neither edited nor staged.
+
+## 16. Final scope review and pending acceptance
+
+Pre-commit status/stat/whitespace and full git diff review include all new files
+through exact-path intent-to-add. The complete diff is retained externally in
+implementation-review.diff. The in-memory scope guard passed: exactly eleven
+changed paths; eleven frozen/design/boundary files byte-identical; derived-only
+manifest change; CI exactly two added lines; sixteen resolved local document
+links; 32/33/3 fixture inventory; no substantive cached changes before staging.
+New fixture line endings are normalized to repository LF without content changes.
+Only those eleven paths are staged for the one authorized local commit:
+
+    feat(r03a): implement CompletionFact progress v1.1 contract
+
+The SHA is reported after creation without self-referential trace content.
+Post-commit status/log must confirm protected untracked files only. No push/PR/
+merge/Issue closure or Accepted marker. Human approval and final-SHA GitHub CI
+remain PENDING; plan stays active, ADR stays Proposed. Local contract candidate
+is READY FOR INDEPENDENT REVIEW; full MS7-R03A is not Accepted/Done.
+
+Vladimir must review dual identities/canonical payload, authority context versus
+future real provenance, native COMPLETED membership/legacy reveal preservation,
+event/fact contradiction policy, completion gaps and durable delivery obligations,
+repeat reset isolation, status-only time semantics and explicit parity/import.
+V08 must still implement persistence/FKs, server binding, locking/concurrency,
+reconciliation/backfill and migration/fresh-install proof. This pure contract
+stage provides none of that PostgreSQL persistence evidence. Corrected deadline
+05.10.2026, direct frozen R03 dependency and nonblocking R02A stale markers remain.

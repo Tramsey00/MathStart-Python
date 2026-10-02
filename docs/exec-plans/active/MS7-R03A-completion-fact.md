@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-R03A: CompletionFact addendum
 
-- **Status:** Active — audit/design READY FOR REVIEW; implementation and human acceptance PENDING
+- **Status:** Active — contract implementation candidate; independent human acceptance PENDING
 - **Last updated:** 2026-10-02
 - **Owner:** Руслан
 - **Reviewer / Task Approver:** Владимир
@@ -15,24 +15,28 @@
 - **Target contract:** `progress-v1.1`
 - **Design ADR:** [ADR-0005 / D-021](../../adr/ADR-0005-completion-fact.md), Proposed
 - **Audit trace:** [MS7-R03A](../../agent-traces/MS7-R03A.md)
-- **Current stage:** repository audit and contract design only; no R03A implementation
+- **Current stage:** pure contract/executable package; no Django persistence/runtime
 
 ## Current authorization and review readiness
 
-The original 2026-10-02 request authorized audit + D-021 draft + plan + trace.
-The correction request targets audit/design commit
-1ec5bb507444c442b585720787335c8a17fe09e1 and aligns these same three documents
-with the user-supplied canonical v7.1 requirements. Only these three task-owned
-Markdown artifacts may change. Implementation
-files below are a future sequence, not deliverables claimed to exist now.
-Issue #18 stays open; no PR, push or merge is part of this stage. One scoped
-documentation commit is permitted after all required checks and scope review.
+The original audit and correction stages changed only three design documents.
+The new 2026-10-02 attachment explicitly authorizes the contract/executable
+package from corrected design commit 2f50918d5dbf8224105f666371c5e8b88dacf11b:
+addendum, strict DTO schema, all planned synthetic fixtures, pure reference,
+independent tests, executable frozen parity, verification, plan/trace and one
+separate CI contract step under the existing R02A convention. This permission
+supersedes the earlier design-only scope; ADR remains Proposed. No runtime,
+Django persistence/migration/API, dependencies or frozen artifact edits.
+Issue #18 stays open; no push, PR or merge. After passing local checks and scoped
+review, create one commit: feat(r03a): implement CompletionFact progress v1.1 contract.
 
 Baseline main/origin/main is 428ece726918f635549fc7dd8fdd352f799c3308.
 Original audit starting HEAD was 870fd760dc1fdb25f33af54eacd97579259d49a0.
 Correction starting HEAD is 1ec5bb507444c442b585720787335c8a17fe09e1 on
 ms7-r03a-completion-fact. The separate correction commit subject is
 docs(r03a): align CompletionFact design with canonical v7.1.
+Implementation starting HEAD: 2f50918d5dbf8224105f666371c5e8b88dacf11b.
+Both design commits are present; tracked tree/index was clean at this stage.
 The six pre-existing MS7-AUDIT/PREG0/G0Candidate
 untracked plans/traces and all output/ and tmp/ are excluded from edits/staging.
 The existing interpreter in tmp may be executed read-only with -B and
@@ -118,7 +122,7 @@ No neutral completion may be converted to `WRONG_ATTEMPT`, `DIAGNOSTIC_WRONG`, o
 [ADR-0005](../../adr/ADR-0005-completion-fact.md) is the complete normative
 candidate. Canonical ownership, fields, identity and status-only permission are
 fixed inputs; the implementation package and remaining design details retain
-their human gate. No runtime behavior is implemented in this pass.
+their human gate. Pure contract behavior is implemented; product runtime is not.
 
 ### Ownership, identity and required fields
 
@@ -235,11 +239,12 @@ completion context/DTO for IDs and outcomes when materializing mirror records.
 Inline events cannot necessarily determine terminal outcome or completion_id.
 Without that context retain literal legacy replay/history, without fabricated
 Assessment facts. Preserve v1 independence and avoid retrofitting R02A credit/
-UUID rules; future synthetic parity contexts explicitly supply required fields.
+UUID rules; versioned synthetic parity contexts explicitly supply required fields.
 Native reducer_version becomes progress-v1.1, while all events retain their
 recorded policy_version=progress-v1. Compare every other canonical state field,
 recent IDs/count, event IDs/order and numerical snapshots. No such R03A parity
-implementation is claimed for the design stage.
+implementation was claimed for the design stage. Current executable parity uses
+the three source streams and all three arithmetic cases with explicit metadata.
 
 ## Repository audit findings
 
@@ -283,25 +288,33 @@ reset (311), recent ten (334), reveal/incomplete rejection (359), occurrence
 ordering/time precision (373), completion consistency (406), and evidence
 idempotency/penalties with shared completion time (429).
 
-## Expected artifacts
+## Exact artifacts
 
 | Stage | Exact files |
 | --- | --- |
-| This audit/design | docs/adr/ADR-0005-completion-fact.md; this active plan; docs/agent-traces/MS7-R03A.md |
-| Future addendum/schema | specs/progress/R03A-completion-fact.md; specs/progress/schemas/completion-v1.schema.json |
-| Future fixtures | specs/progress/fixtures/completion-v1-cases.json; completion-v1-invalid.json; progress-v1.1-parity.json in the same directory |
-| Future pure oracle | scripts/r03a_contract_reference.py |
-| Future additive tests | tests/test_r03a_contract.py |
+| Existing Proposed design, unchanged in implementation | docs/adr/ADR-0005-completion-fact.md |
+| Updated records | this active plan; docs/agent-traces/MS7-R03A.md |
+| Contract addendum/schema | specs/progress/R03A-completion-fact.md; specs/progress/schemas/completion-fact-v1.schema.json |
+| Synthetic fixtures | specs/progress/fixtures/completion-v1-cases.json; completion-v1-invalid.json; progress-v1.1-parity.json in the same directory |
+| Pure oracle | scripts/r03a_contract_reference.py |
+| Independent contract tests | tests/test_r03a_contract.py |
+| CI integration | .github/workflows/ci.yml: additional R03A CompletionFact contract step |
+| Derived CI review metadata | specs/api/candidate-manifest-v1.json: workflow hash only; no R02A semantic or acceptance change |
 | Later authorized documentation stage | Canonical explanatory alignment in ARCHITECTURE.md and AGENTS.md for numerical versus completion-derived status ownership; status-only permission is already settled |
 
-Future schema uses the eight-field immutable DTO and both permanent identity
+The schema uses the eight-field immutable DTO and both permanent identity
 constraints. completion-v1 in filenames is an artifact/schema name, not an
 alternative payload version; policy_version is progress-v1.1. Authority fixture
 records remain separate and include explicit source IDs/outcomes for parity. Parity fixtures pin source v1 fixture/case IDs and
 expected results, rather than recopying/changing frozen constants.
-The expected pure functions are validate_completion_fact,
+The implemented pure functions are validate_completion_fact,
 ingest_completion_fact (validate DTO and mirror it), replay_v1_1 and
-import_progress_v1_completions (explicit trusted source context required).
+import_progress_v1_completions (explicit trusted source context required),
+completion_identity, completion_source_identity and replay_completion_facts.
+NumericalReplay caches the frozen numerical result; fact ingestion reuses it
+without numerical reapplication. Schema naming follows the implementation
+request's preferred completion-fact-v1.schema.json, superseding the earlier
+completion-v1.schema.json placeholder; the planned fixture filenames stay exact.
 They call/import the unchanged R03 reference for numerical behavior and the
 literal legacy entry point. Naming or boundary changes discovered during
 implementation must return to this plan/spec for review.
@@ -363,8 +376,10 @@ Prefer additive files. Do not rewrite frozen R03 artifacts unless a narrowly sco
 
 ## Required task-specific tests
 
-The following named future fixture matrix is required before implementation
-acceptance. These are planned cases, not newly executed tests. Unless a case
+The following named fixture matrix is implemented in completion-v1-cases.json
+and tests/test_r03a_contract.py: all 32 cases, plus 33 invalid shape/domain variants
+and versioned parity metadata for three frozen streams/three arithmetic cases.
+Unless a case
 explicitly delivers a ProgressEvent, assert equality of mastery, confidence,
 evidence_count, last_updated, numerical snapshots/repeat state and event log
 before/after fact ingestion.
@@ -510,21 +525,63 @@ new runtime persistence, new parity execution or human acceptance is claimed.
 - [x] Active execution plan created.
 - [x] Repository coupling audit completed.
 - [x] ADR D-021 drafted (Proposed; human approval PENDING).
-- [ ] `progress-v1.1` addendum drafted.
-- [ ] Neutral/late/parity fixtures added.
-- [ ] Pure reference/replay implementation added.
-- [ ] R03A task tests pass.
+- [x] `progress-v1.1` addendum drafted.
+- [x] Neutral/late/parity fixtures added; all 32 named cases, 33 invalid variants.
+- [x] Pure reference/replay implementation added; frozen numerical reducer composed.
+- [x] R03A task tests pass locally (41 tests); independent acceptance still pending.
 - [x] Existing R03 tests pass unchanged (18 tests).
 - [x] Existing R02A tests pass unchanged (30 tests).
-- [x] Canonical repository verification passes (8/8 in audit stage).
-- [x] Audit-stage trace records exact evidence; implementation evidence remains pending.
+- [x] Canonical repository verification passes (8/8 in implementation stage).
+- [x] Trace records implementation evidence, initial digest failure and successful rerun.
 - [ ] Vladimir independently accepts the contract package.
 - [ ] Final-SHA CI/merge gate completed.
 - [ ] Plan moved to completed only after acceptance.
 
-**Current result:** audit/design READY FOR REVIEW. Full MS7-R03A is INCOMPLETE;
-the addendum/schema/fixtures/reference/tests and all remaining human/CI gates
-are still pending. This plan remains in active/.
+**Current result:** pure contract implementation candidate. All executable
+artifacts are present; final local verification/scope evidence is recorded in
+the implementation section and trace. Human acceptance, GitHub CI and PR/merge
+remain PENDING, so full MS7-R03A is not Accepted/Done. Plan stays in active/.
+
+## Implementation verification (2026-10-02)
+
+Seven executable artifacts are added: R03A-completion-fact.md,
+schemas/completion-fact-v1.schema.json, fixtures/completion-v1-cases.json,
+fixtures/completion-v1-invalid.json, fixtures/progress-v1.1-parity.json,
+scripts/r03a_contract_reference.py and tests/test_r03a_contract.py. Paths under
+specs/progress are relative to that directory. Plan/trace and CI are updated.
+The separate R03A CI step follows R02A; canonical checks remain unchanged.
+
+R02A's candidate-manifest-v1.json pins the workflow bytes. The first R02A run
+failed one digest assertion after the explicitly authorized CI addition; its
+other 29 tests passed. Only that derived workflow hash was refreshed, retaining
+all other manifest data/acceptance markers and all R02A contracts/OpenAPI/oracle/
+tests. The final R02A rerun passes all 30 tests. This is required review metadata,
+not a change to frozen R02A semantics or a weakened check.
+
+| Local check | Actual result |
+| --- | --- |
+| R03A contract suite | PASS, exit 0; 41 tests, all 32 named plan cases |
+| Frozen R03 contract suite | PASS, exit 0; 18 tests, unchanged |
+| R02A contract suite, final rerun | PASS, exit 0; 30 tests, unchanged |
+| verify_repo.py | PASS, exit 0; 8/8; Django 24, R03 18, Harness 73 tests |
+| pip check | PASS, exit 0; no broken requirements |
+| makemigrations --check --dry-run | PASS, exit 0; No changes detected |
+| git diff --check | PASS; final scoped review performed before commit |
+
+Fixtures: 32 named cases with six shared concrete datasets, 33 malformed/domain
+variants, three explicit legacy streams and three arithmetic parity cases.
+Independent assertions prove the 100.00/67.00/11 eviction, unchanged numerical
+last_updated, no numerical reapplication on fact ingestion, no fake events,
+third misconception repeat at 1.5 despite a true fact, qualifying-event-only
+reset, delivery permutations, authority failure and literal frozen parity.
+
+Checks use the existing Python 3.12.14 environment with bytecode disabled and
+external runtime reports; Django 5.2.16, jsonschema 4.26.0, psycopg 3.3.6,
+pip 25.0.1, PostgreSQL 16.15. No dependencies, migrations or backend changed.
+Exact commands/log paths and limitations are recorded in the trace. No new
+PostgreSQL persistence/concurrency/fresh-install proof is claimed. ADR remains
+Proposed; independent Vladimir review, GitHub CI and PR/merge remain PENDING.
+Contract candidate is READY FOR INDEPENDENT REVIEW; full task is not Accepted.
 
 ## Downstream handoff
 
