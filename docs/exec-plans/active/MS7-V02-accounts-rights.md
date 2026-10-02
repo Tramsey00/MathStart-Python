@@ -11,6 +11,21 @@
 - **Trace:** [MS7-V02](../../agent-traces/MS7-V02.md)
 - **Human acceptance:** PENDING; retain in active/ until Руслан approves
 
+## CURRENT STATUS — 2026-10-02
+
+- Final reviewed implementation SHA: `b3254c1de9d9ffd32e65618da9ab98f87dbaa330`.
+- Implementation commit and push: DONE; [PR #19](https://github.com/Tramsey00/MathStart-Python/pull/19)
+  created and OPEN.
+- Remote CI: VERIFIED / SUCCESS, [Actions run 36932755014](https://github.com/Tramsey00/MathStart-Python/actions/runs/36932755014)
+  on that implementation SHA, including PostgreSQL smoke, canonical verification
+  and R02A compatibility per Руслан's repeated-review evidence supplied by user.
+- Runtime re-review: no blocking auth/profile/onboarding findings reported.
+  Human review gate / Task Approval Руслана / G3 remain PENDING.
+- Browser/manual product E2E: NOT VERIFIED. Plan stays ACTIVE, not COMPLETE/DONE.
+- This evidence-only cleanup changes just trace/plan and performs no commit/push/
+  GitHub PR update. A later documentation commit gets its own SHA after creation
+  and does not replace the reviewed implementation SHA.
+
 ## Objective and authority
 
 Implement server-side student identity, sessions, profile and onboarding using
@@ -50,8 +65,9 @@ authoritative. GET creates no profile/receipt/auth session/domain evidence.
 ## Implementation sequence and files
 
 1. Discovery/scope reconciliation: complete; no unresolved contract contradiction.
-2. Users models/additive migrations: complete in working tree.
-3. Transaction services, strict schema validation and DRF endpoints: complete.
+2. Users models/additive migrations: included in reviewed implementation commit.
+3. Transaction services, strict schema validation and DRF endpoints: implemented
+   in reviewed SHA b3254c1de9d9ffd32e65618da9ab98f87dbaa330.
    Private authentication precedes CSRF/payload errors. Actual URL callbacks
    retain Django CSRF checks, including anonymous register/login.
 4. API/security/ownership/retry and real PostgreSQL concurrency tests: added.
@@ -59,12 +75,14 @@ authoritative. GET creates no profile/receipt/auth session/domain evidence.
    2026-10-02 after exact replay correction. User's final standalone fresh-install
    smoke in a new disposable PostgreSQL environment also PASS; human acceptance
    remains pending.
-6. Trace/diff prepared; Руслан review and G3 approval pending.
+6. Implementation committed/pushed, PR #19 OPEN, remote CI SUCCESS. Evidence
+   cleanup prepared; formal human review gate / Task Approval / G3 pending.
 
 Modified: config/settings.py, config/urls.py, requirements.txt, requirements.lock.
 Added: users app/http/services/views/urls/models, migrations, tests, plan/trace.
-DRF 3.18.1 pinned; existing dependency versions retained. No staging/commit/
-push/PR/branch switch is authorized.
+DRF 3.18.1 pinned; existing dependency versions retained. Implementation commit,
+push and PR already exist per CURRENT STATUS. No additional staging/commit/push/
+PR operation or branch switch is authorized for this documentation cleanup.
 
 ## Migrations and historical data
 
@@ -104,11 +122,15 @@ Bootstrap sources/pipeline unchanged; setup used only ignored var/ storage.
   lessons; quality 281 pages/840 SVG/0 problems; integrity 281 materials/263
   topics/29 media/1685 references, all error counters 0. Detailed source/results
   recorded in trace; this manual smoke was not executed by the agent.
-- [ ] Final implementation SHA / CI / PR: pending actual authorization/actions.
-- [ ] Руслан review / Task Approval / G3 acceptance.
+- [x] Final implementation commit: `b3254c1de9d9ffd32e65618da9ab98f87dbaa330`.
+- [x] Push: performed.
+- [x] PR #19: created and OPEN.
+- [x] Remote CI: VERIFIED / SUCCESS, Actions run 36932755014 on implementation
+  SHA; PostgreSQL smoke/canonical/R02A checks passed per supplied review evidence.
+- [ ] Formal human review gate / Task Approval Руслана / G3 acceptance.
 
-Current NOT VERIFIED: remote CI and browser/manual product E2E (not reported
-executed). Standalone PostgreSQL fresh-install smoke is verified, not pending.
+Current NOT VERIFIED: browser/manual product E2E (not reported executed).
+Remote CI and standalone PostgreSQL fresh-install smoke are verified, not pending.
 
 ## Risks and human gate
 
