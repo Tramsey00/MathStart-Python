@@ -1,0 +1,97 @@
+{
+  "task": "MS7-I02",
+  "surface": "Codex In-app Browser, existing app browser control; no project browser toolchain",
+  "browser_engine_version": "UNAVAILABLE: version-page navigation denied by browser URL policy; no workaround attempted",
+  "viewport_targets": [
+    360,
+    768,
+    1440
+  ],
+  "observed_client_widths": [
+    345,
+    753,
+    1425
+  ],
+  "observed_scroll_widths": [
+    345,
+    753,
+    1425
+  ],
+  "scrollbar_width": 15,
+  "states": [
+    "ordinary",
+    "loading",
+    "error",
+    "empty"
+  ],
+  "dispatch_slots": [
+    "self-check",
+    "final-answer",
+    "ordered-steps",
+    "structured-solution",
+    "unsupported"
+  ],
+  "raw_input_preserved": "  demo, raw + <text>  ",
+  "keyboard": "Skip link Enter -> main; Tab -> input -> state select -> retry; Enter retry restores focus to select; Space field-error control focuses labelled input with associated error; 360px focus and sticky fixture mark inspected",
+  "console": "Captured warn/error entries were empty in the gallery smoke and published Content follow-up. The initial server-side favicon 500 is retained below as a historical/superseded incident; the later request returned HTTP 404.",
+  "network": "Gallery and five CSS/JS assets returned 200 in the initial Django server logs. Published home/catalogue/lesson GETs returned 200 in the follow-up; browser-triggered and explicit favicon requests returned HTTP 404. No student mutation or data request was observed during local gallery actions. No full network trace or storage audit claimed.",
+  "runtime_initialization": {
+    "performed_by": "user",
+    "commands": [
+      "python manage.py migrate",
+      "python manage.py bootstrap_site"
+    ],
+    "agent_performed_migrate_or_bootstrap": false
+  },
+  "current": {
+    "favicon": {
+      "http_status": 404,
+      "result": "PASS: previous 500 not reproduced; ordinary missing-icon 404",
+      "evidence_owner": "agent follow-up recorded in Trace Section 17",
+      "assertion_exit_code": 0
+    },
+    "published_content_comparison": {
+      "status": "PASS",
+      "pages": [
+        "/",
+        "/karta-sajta/",
+        "/polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj/"
+      ],
+      "evidence_owner": "agent browser follow-up recorded in Trace Section 17",
+      "browser_shell_exit_code": null,
+      "baseline_rendering_comparison": "PASS against cd10705 template; exit 0"
+    },
+    "canonical_verification": {
+      "command": "python scripts/verify_repo.py",
+      "status": "PASS",
+      "checks_passed": 8,
+      "checks_total": 8,
+      "evidence_owner": "user-confirmed after user migrate/bootstrap",
+      "agent_rerun_after_initialization": false,
+      "shell_exit_code": null,
+      "shell_exit_code_note": "Not separately supplied by the user"
+    }
+  },
+  "historical_incidents": [
+    {
+      "status": "HISTORICAL / SUPERSEDED",
+      "phase": "Initial smoke before user runtime initialization",
+      "published_content_comparison": "BLOCKED by missing runtime Content tables",
+      "favicon": "HTTP 500; missing content_redirect table in existing redirect middleware",
+      "canonical_verification": "Agent runs exited 1: 5/8 PASS, 3 Content checks FAIL; missing content_contentpage table",
+      "resolution": "User initialized the runtime DB through migrate/bootstrap; current evidence above supersedes this incident. This was an empty-runtime-DB prerequisite, not an I02 defect.",
+      "trace_reference": "MS7-I02.md Sections 16-17"
+    }
+  ],
+  "not_run": [
+    "Browser malformed-DTO matrix: NOT RUN / outside agreed baseline; existing Python negative contract tests retained",
+    "Full cross-browser/a11y audit: NOT RUN / outside agreed baseline",
+    "Live accepted Harness engineering run: NOT RUN",
+    "Final-SHA CI, PR and independent acceptance: NOT RUN / pending"
+  ],
+  "limitations": [
+    "single available browser smoke; no full cross-browser/a11y audit or full network/storage audit",
+    "exact browser engine version unavailable",
+    "browser malformed DTO matrix not executed; Python negative shape/identity tests executed"
+  ]
+}

@@ -1,6 +1,6 @@
 # SPEC MS7-I02: UI foundation and fixtures
 
-- **Status:** Draft; agreed scope, documentation preparation only; implementation not authorized
+- **Status:** Implemented draft for human review; canonical PASS 8/8 confirmed by user; not accepted
 - **Owner:** Ilya (Илья)
 - **Reviewer / Task Approver:** Ruslan and Vladimir
 - **Canonical issue:** [#21 - MS7-I02: UI foundation and fixtures](https://github.com/Tramsey00/MathStart-Python/issues/21)
@@ -19,9 +19,11 @@ Provide a reusable Django UI foundation for later student screens: shared
 templates/components, design tokens, safe versioned fixtures, loading/error/empty
 states, schema dispatch and baseline keyboard/mobile accessibility.
 
-The current authorized increment creates this spec, its execution plan and trace
-only. All behavior below is planned, not implemented. Implementation, staging,
-commit and push require the user's next authorization.
+The user approved preparation commit `cd10705` and authorized product implementation
+in the same branch. Implementation is now present as an uncommitted working diff.
+Staging, commit, push, PR, branch changes and merge remain prohibited in this phase.
+Canonical PASS 8/8 is user-confirmed after runtime initialization; independent
+Ruslan/Vladimir acceptance and applicable final-SHA CI remain outstanding.
 
 ## 2. Why this belongs in MathStart
 
@@ -67,7 +69,7 @@ remain accepted compatibility inputs, not permission to expand this task.
 
 ## 3. Scope
 
-### In scope after separate implementation authorization
+### In scope
 
 - A shared extensible Django shell preserving existing Content pages,
   SEO/canonical metadata, authored content, catalogue and lesson resources.
@@ -105,8 +107,10 @@ existing Django server. It is a demonstration surface, not a student endpoint.
 It reads only allowlisted repository-authored synthetic fixtures. It neither
 loads private user data nor accepts arbitrary fixture-file paths.
 
-Ordinary Content routes retain their current behavior. Gallery/fixture scripts
-are not automatically attached to Content pages. No route exists yet.
+Gallery/fixture scripts are not attached to ordinary Content pages. The development
+route is implemented; legacy rendering is covered by no-database Django tests.
+Published home/catalogue/lesson browser comparison now passes after the user's
+runtime migrate/bootstrap; the gallery remains isolated from these pages.
 
 ## 5. Domain rules and invariants
 
@@ -218,21 +222,23 @@ cross-browser/a11y audit or runtime student integration.
 
 ## 15. Acceptance criteria
 
-- [ ] Gallery demonstrates reused templates/components and tokens.
-- [ ] Loading/error/empty are distinguishable; failed load is not empty success.
-- [ ] Four modes dispatch by declared metadata; unknown/unsupported shapes fail
+- [x] Gallery demonstrates reused templates/components and tokens.
+- [x] Loading/error/empty are distinguishable; failed load is not empty success.
+- [x] Four modes dispatch by declared metadata; unknown/unsupported shapes fail
   safely without a guessed renderer or mathematical verdict.
-- [ ] Fixtures are versioned/provenanced and wire examples conform to R02A.
-- [ ] Fixture-only marking is always visible; no checker/answers/reveal secrets
+- [x] Fixtures are versioned/provenanced and wire examples conform to R02A.
+- [x] Fixture-only marking is always visible; no checker/answers/reveal secrets
   appear in delivered artifacts or network responses.
-- [ ] Gallery rejects mutations, performs no database writes and is absent when
+- [x] Gallery rejects mutations, performs no database writes and is absent when
   DEBUG=False; ordinary Content pages do not load gallery fixtures.
-- [ ] Untrusted strings are escaped; raw demonstration input is not silently
+- [x] Untrusted strings are escaped; raw demonstration input is not silently
   changed or falsely described as server-saved.
-- [ ] Keyboard baseline has reachable controls, visible focus and associated
+- [x] Keyboard baseline has reachable controls, visible focus and associated
   labels/errors; mobile smoke covers 360/768/1440 px.
-- [ ] Existing Content metadata/content/resources remain intact.
-- [ ] Canonical and task checks have actual results with limitations recorded.
+- [x] Existing Content metadata/content/resources retained in Django rendering;
+  published home/catalogue/lesson browser comparison passes after runtime setup.
+- [x] Canonical and task checks have actual results with limitations and evidence
+  ownership recorded; canonical PASS 8/8 is user-confirmed, not a new agent rerun.
 - [ ] Ruslan and Vladimir independently approve the concrete final result;
   applicable final-SHA CI and authorized merge satisfy Section 17.
 
@@ -294,15 +300,29 @@ server_version_num=160015`; `python manage.py check` passes with
 -> PostgreSQL connection through Docker is confirmed; PostgreSQL/Docker setup is
 no longer a current blocker. These are user-reported host results, not Codex reruns.
 
-Current documentation preparation uses read-only digest/link/whitespace/scope
-audits. Canonical/browser checks remain NOT RUN, not PASS; the successful basic
-host checks do not establish full canonical verification. Tooling/CI changes are outside
+Implementation checks are recorded in the trace: 7 I02 Python tests, 5 no-DB Django
+tests, 30 R02A tests, system/database checks and available browser smoke pass.
+The user initialized the local runtime database with `python manage.py migrate`
+and `python manage.py bootstrap_site`, then confirmed database/system checks and
+`python scripts/verify_repo.py` -> PASS (8 checks passed). The prior empty-database
+failure is resolved; it was a runtime prerequisite, not an I02 defect. The agent
+did not migrate/bootstrap or rerun the already passing canonical/task suites in
+this follow-up; the user's shell exit code was not separately supplied.
+The agent repeated only the previously blocked Content checks: published
+home/catalogue/lesson browser smoke and read-only rendering comparison against
+the `cd10705` template pass; `/favicon.ico` returns normal HTTP 404, not 500.
+No product code changed in the follow-up. See trace Section 17 for actual results.
+Exact browser engine version is unavailable through permitted browser controls;
+full cross-browser/a11y and browser malformed-DTO matrix are not claimed.
+Tooling/CI changes are outside
 this plan and require a dedicated reviewed change before becoming project tooling.
 
 ## 18. Risks
 
 | Risk | Impact | Mitigation |
 | --- | --- | --- |
+| Runtime initialization (resolved) | Empty DB previously prevented Content checks | User applied migrate/bootstrap and confirmed canonical PASS 8/8; repeated Content smoke passes; no agent DB repair. |
+| Browser evidence limitations | Exact engine version unavailable; no browser malformed-DTO matrix | Record actual app browser/smoke and Python negative checks; independent review remains required. |
 | PDF is local, not a public GitHub asset | Another checkout needs the source | Pin exact filename/digest; source distribution is a human follow-up, not PDF publication in I02. |
 | Full upstream exchanges contain solutions | Fixture bundle could leak answers | Curate safe examples/projections; review delivered data, not just forbidden keys. |
 | Shell extraction affects legacy resources | Existing site regression | Narrow Content tests and browser smoke; scoped revert preserves authored sources. |
@@ -322,7 +342,10 @@ No task acceptance, final SHA or G3 closure is asserted at preparation.
 ## 20. Trace / implementation links and downstream handoff
 
 - Issue: [#21](https://github.com/Tramsey00/MathStart-Python/issues/21).
-- Plan/trace: linked in the header; PR, implementation SHA and screenshots pending.
+- Plan/trace: linked in the header; PR and implementation SHA pending.
+- Browser evidence: [smoke record](../../docs/agent-traces/MS7-I02-evidence/smoke.json)
+  and 360/768/1440 plus keyboard screenshots beside it. Existing app browser control
+  was used; no Node/Playwright toolchain was added to the project.
 - MS7-I03 receives accepted shell/tokens/labelled components/state conventions;
   real auth/profile/onboarding and V02 integration remain its responsibility.
 - MS7-I04 receives accepted public descriptors/dispatcher/fixture provenance;

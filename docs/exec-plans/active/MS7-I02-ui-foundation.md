@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-I02: UI foundation and fixtures
 
-- **Status:** Active - documentation preparation; primary implementation awaiting user authorization
+- **Status:** Active - implementation draft ready for review; user-confirmed canonical PASS 8/8; not accepted
 - **Owner:** Ilya (Илья)
 - **Reviewer / Task Approver:** Ruslan and Vladimir
 - **Created / last updated:** 2026-10-02
@@ -17,9 +17,11 @@
 ## 1. Objective
 
 Prepare the repository records for a minimal reusable Django UI foundation.
-The eventual result is shared templates/components and tokens, safe versioned
+The result is shared templates/components and tokens, safe versioned
 state fixtures, loading/error/empty, schema dispatch and baseline keyboard/mobile
-evidence. The current permission allows only this plan, its spec and trace.
+evidence. The user approved preparation commit `cd10705` and authorized the product
+implementation in this branch. No staging, commit, push, PR or branch changes are
+authorized during the implementation phase.
 
 Canonical input: the complete
 `.local-docs/MathStart_Technical_Specification_v7_1_SECTION20_PARALLEL_DEADLINES.pdf`,
@@ -50,7 +52,7 @@ than older NORMAL/EARLY card dates.
 - [x] All 17 R02A manifest pins and canonical PDF digest rechecked.
 - [x] Branch/baseline and clean initial working tree confirmed.
 - [x] Corrected scope approved: no new tooling, full renderer or future flow logic.
-- [ ] User authorizes primary implementation after reviewing these three documents.
+- [x] User reviewed preparation documents/commit and authorized primary implementation.
 - [x] Host `.venv` works; user PowerShell confirms Python 3.14.7, pip check and Django 5.2.16 import.
 - [x] Basic local Python -> Django -> PostgreSQL through Docker confirmed by user checks; PostgreSQL 16 container healthy, database connection and manage.py check PASS.
 
@@ -76,11 +78,12 @@ tooling/new CI/dependencies, separate preview server, complete cross-browser/a11
 audit, unrelated refactors, bulk lesson conversion, deployment/live providers,
 Harness changes and frozen upstream housekeeping. No commits/push in this phase.
 
-## 4. Current state
+## 4. Starting state and current verification
 
-The site uses `content`, a single `templates/page_detail.html`, lesson components
-and shared static assets. There is no shared base template, I02 gallery/fixtures
-or configured browser test toolchain. R02A is a contract package, not a runtime API.
+At implementation start the site used `content`, a single `templates/page_detail.html`, lesson components
+and shared static assets, without a shared base template or I02 gallery/fixtures.
+There is no configured project browser test toolchain. R02A is a contract package,
+not a runtime API. The foundation/gallery now exist as an uncommitted working diff.
 Legacy authored SELF_CHECK answers are an explicitly preserved compatibility case.
 
 The user's manual PowerShell checks confirm the host `.venv` works:
@@ -95,10 +98,18 @@ from `requirements.lock`; psycopg 3.3.6 imports successfully and pip check passe
 server_version_num=160015`; `python manage.py check` passes with
 `System check identified no issues (0 silenced)`. The basic local Python -> Django
 -> PostgreSQL connection through Docker is confirmed; PostgreSQL/Docker setup is
-no longer a current blocker. Canonical verification remains NOT RUN, not PASS.
-These are user-reported host results, not Codex runtime reruns. Bundled Python
+no longer a basic connection blocker. The user subsequently initialized the local
+DB through `python manage.py migrate` and `python manage.py bootstrap_site`, then
+confirmed database/system checks and canonical `verify_repo.py` PASS 8/8.
+The prior empty-runtime-table failure is resolved and was not an I02 defect.
+These are user-reported host results, not new Codex canonical reruns; the user's
+shell exit code was not separately supplied. Bundled Python
 3.12.14 remains the source/document audit interpreter.
-No environment configuration or installation is authorized by this correction.
+No environment configuration or installation was performed by the agent.
+Only previously blocked Content verification was repeated: published home,
+catalogue and lesson browser comparison passes; read-only rendering against the
+`cd10705` template passes (exit 0); `/favicon.ico` returns HTTP 404 rather than 500
+(request assertion exit 0). Product implementation is unchanged in this follow-up.
 
 ## 5. Target state
 
@@ -111,8 +122,7 @@ review; final task/CI/merge evidence is recorded before downstream handoff.
 
 ## 6. Architecture boundaries
 
-- Current phase: Harness/docs records only; no runtime dependency changes.
-- Future phase: Content presentation, shared templates/static and local synthetic
+- Current phase: Content presentation, shared templates/static and local synthetic
   fixtures; accepted public R02A DTOs are read-only compatibility inputs.
 - No Assessment/Progress/Knowledge/Tutor/LLM model writes or imports are added.
 - No new app/server/toolchain/production API. Only Progress owns knowledge state.
@@ -120,26 +130,26 @@ review; final task/CI/merge evidence is recorded before downstream handoff.
 
 ## 7. Planned changes
 
-### Step 1 - Documentation preparation (currently authorized)
+### Step 1 - Documentation preparation (accepted; commit cd10705)
 
 Create only the spec, this active plan and trace. Pin sources, scope, gates,
 verification and downstream boundaries. Audit local links, headings, whitespace,
 digests and Git scope without staging. Stop for user confirmation.
 
-### Step 2 - Safe fixture contract (not yet authorized)
+### Step 2 - Safe fixture contract (implemented; review pending)
 
 Add a versioned UI fixture schema and curated examples. Preserve provenance and
 R02A wire compatibility; UI projections are explicitly separate. Never deliver
 whole upstream exchanges, reveal responses or completed solutions. Add meaningful
 Python contract tests. Check valid/invalid shapes, pins and secret equivalents.
 
-### Step 3 - Shell, tokens and minimal components (not yet authorized)
+### Step 3 - Shell, tokens and minimal components (implemented; review pending)
 
 Extract a reusable shell while preserving SEO/canonical, authored body/CSS/JS,
 catalogue and theme resources. Add tokens and button/field/card/state components
 with narrow styles. Verify Django rendering, escaping and Content regression.
 
-### Step 4 - States, dispatch and Django gallery (not yet authorized)
+### Step 4 - States, dispatch and Django gallery (implemented; review pending)
 
 Add loading/error/empty presentation and a metadata-based foundation dispatcher.
 Do not construct complete forms or implement lifecycle actions. Add a GET-only
@@ -147,7 +157,7 @@ Do not construct complete forms or implement lifecycle actions. Add a GET-only
 an allowlist and no DB writes. Verify separately loaded DEBUG on/off routing,
 non-GET rejection, script isolation and absence of delivered secrets.
 
-### Step 5 - Verification and review handoff (not yet authorized)
+### Step 5 - Verification and review handoff (evidence recorded; human/final-SHA CI gates pending)
 
 Run Python/Django checks and manual browser smoke with recorded versions and
 DOM/network/console/screenshots. Resolve scoped failures. Record final evidence
@@ -157,7 +167,10 @@ separate authorization and applicable final-SHA CI.
 
 ### Planned file inventory
 
-Only the first row is writable in this phase; other paths are future candidates.
+This inventory describes the authorized implementation. Added `content/ui_foundation.py`
+keeps fixed-path fixture loading/offline validation separate from views. Browser
+evidence uses `docs/agent-traces/MS7-I02-evidence/` (four PNGs and `smoke.json`).
+These are file-organization refinements; no new domain/tooling/scope is introduced.
 
 | Phase | Paths relative to repository root |
 | --- | --- |
@@ -167,7 +180,9 @@ Only the first row is writable in this phase; other paths are future candidates.
 | Components | `templates/ui/components/button.html`; `field.html`; `card.html`; `state.html` in that directory |
 | Assets | `static/mathstart/css/ui/tokens.css`; `foundation.css` in that directory; `static/mathstart/js/ui/schema-dispatch.js`; `foundation.js` in that directory |
 | Django gallery/tests | `content/views.py`; `content/urls.py`; `content/test_ui_foundation.py` |
-| Instructions | `README.md` only after implementation authorization |
+| Fixture loader | `content/ui_foundation.py` |
+| Evidence | `docs/agent-traces/MS7-I02-evidence/` |
+| Instructions | `README.md` |
 
 No `package.json`, package lock, Playwright config, new CI workflow, preview server,
 upstream manifest or `.gitignore` change is included.
@@ -254,40 +269,50 @@ reviewed change. No task-specific migration or live model test is required.
 | Browser evidence unavailable/inadequate | Record the unmet criterion; justify any new tooling and stop dependent work for confirmation. |
 | Scope or source drift | Recheck branch/HEAD/digests before editing; surface changes, do not rewrite accepted upstream. |
 
-No essential contract or basic PostgreSQL environment blocker is currently
-identified. Full canonical/task verification and future browser evidence remain
-pending; successful basic host checks do not replace them or expand scope.
+No current contract/PostgreSQL/runtime Content blocker is identified. User-run
+canonical verification passes 8/8 after user migrate/bootstrap. Published-page
+comparison and the favicon regression check now pass. The available single-browser smoke
+covers states/dispatch/keyboard and 360/768/1440; exact browser engine version is
+unavailable (browser policy denied version-page navigation). Python negative DTO
+tests pass; no browser malformed-DTO matrix or full audit is claimed.
 
 ## 15. Human gates
 
-The user approved scope and Issue text and authorized only documentation creation.
-Primary implementation permission is still pending. Scope approval is not approval
-of an unimplemented result.
+The user approved scope, Issue text and preparation documents/commit, then authorized
+product implementation. Approval of the concrete implementation remains pending.
 
 Reviewer / Task Approver: Ruslan and Vladimir.
 Their independent final-result decisions are pending.
 Ilya is Owner, not self-approver. G3 is a separate gate with its full evidence.
 The eventual PR references canonical Issue #21 with `Closes #21`. No staging,
 commit/push, PR creation, merge, Issue update/closure or deployment is authorized
-by this preparation request. Keep the plan active until recorded human acceptance.
+in this implementation phase. Keep the plan active until recorded human acceptance.
 
 ## 16. Completion checklist
 
 - [x] Canonical Issue/dependencies and agreed scope established.
-- [ ] Preparation documents reviewed by the user; primary implementation authorized.
-- [ ] All implementation deliverables and positive/negative criteria pass.
-- [ ] Meaningful tests and required browser smoke evidence recorded.
-- [ ] Canonical/task verification passes; environment failures resolved honestly.
-- [ ] Security/Content preservation confirmed; no unrelated changes.
+- [x] Preparation documents reviewed by the user; primary implementation authorized.
+- [x] Foundation assets/gallery/fixtures and task-specific tests implemented.
+- [x] Implementation deliverables have positive/negative verification evidence;
+  independent acceptance remains a separate gate.
+- [x] Meaningful tests and required browser smoke evidence recorded.
+- [x] Canonical/task verification passes; canonical PASS 8/8 is user-confirmed;
+  prior empty-DB prerequisite resolved by user setup, not product-code changes.
+- [x] Security/Content preservation checks recorded; no unrelated changes.
 - [ ] Ruslan and Vladimir independently approve the final result.
 - [ ] Authorized publication/merge and applicable green final-SHA CI recorded.
 - [ ] Accepted downstream handoff pinned; plan moved only after acceptance.
 
 ## 17. Completion summary and handoff
 
-Current result: preparation documents only; MS7-I02 remains INCOMPLETE.
-Implementation SHA/PR/CI/browser evidence are pending. No fixture/component/runtime
-deliverable exists yet. Preparation audits/results belong in the linked trace.
+Current result: foundation implemented as an uncommitted working diff; MS7-I02
+remains INCOMPLETE pending independent acceptance and applicable final-SHA CI.
+7 I02 Python tests, 5 Django tests and 30 R02A tests pass. The user confirmed
+canonical PASS 8/8 after manually migrating/bootstrapping the runtime DB; no new
+agent canonical rerun or unreported shell exit code is claimed. Previously blocked
+published Content browser checks pass, and favicon returns ordinary HTTP 404.
+Browser evidence is recorded with explicit limitations. Implementation SHA/PR/CI
+are pending; no commit/publication occurs in this phase. Exact results are in trace.
 
 After acceptance, MS7-I03 receives shell/tokens/components/state conventions;
 MS7-I04 receives dispatcher/public descriptors/fixture provenance; MS7-I08 receives

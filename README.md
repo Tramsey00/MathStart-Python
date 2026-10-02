@@ -154,6 +154,28 @@ python manage.py index_lessons
 
 ## Проверки проекта
 
+### UI foundation MS7-I02 (fixture-only)
+
+При `DJANGO_DEBUG=True` существующий Django `runserver` предоставляет
+`/__ui__/foundation/`. Gallery демонстрирует ordinary/loading/error/empty,
+клавиатурные компоненты и выбор foundation slot по публичной schema четырёх
+режимов. При DEBUG=False маршрут отсутствует. Это только синтетические примеры:
+нет renderer, проверки математики, отправки решений или сохранения прогресса.
+
+Единственный fixture pack — `specs/ui/fixtures/ui-states-v1.json`, его версия и
+provenance проверяются через `specs/ui/ui-state-fixtures-v1.schema.json` и
+неизменённую MS7-R02A DTO schema. Полные upstream HTTP exchanges не загружаются.
+
+```powershell
+python -m unittest discover -s tests -p "test_i02_*.py" -v
+python manage.py test content.test_ui_foundation -v 2
+```
+
+Проверка браузером: Tab/Enter/Space, retry и ошибка поля, точное сохранение raw
+input, четыре режима и unknown fallback; ширины 360/768/1440. Фактические результаты
+и ограничения — в [trace MS7-I02](docs/agent-traces/MS7-I02.md). Нового frontend
+toolchain нет. Базовые connection/system checks не заменяют полный canonical run.
+
 Системная проверка Django:
 
 ```powershell
