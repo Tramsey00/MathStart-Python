@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-I02: UI foundation and fixtures
 
-- **Status:** Active - PR OPEN / CHANGES_REQUESTED; local review corrections; not accepted
+- **Status:** Active - PR OPEN / CHANGES_REQUESTED (pre-fix reviews); correction CI SUCCESS; Task Approvals PENDING
 - **Owner:** Ilya (Илья)
 - **Reviewer / Task Approver:** Ruslan and Vladimir
 - **Created / last updated:** 2026-10-02
@@ -14,6 +14,8 @@
 - **Branch:** `ms7-i02-ui-foundation`
 - **Baseline SHA:** `428ece726918f635549fc7dd8fdd352f799c3308`
 - **PR:** [#22](https://github.com/Tramsey00/MathStart-Python/pull/22), OPEN
+- **Final correction SHA:** `e471efc0b1a6b4af9baf1401e49311a203f12450`
+- **Correction CI:** [37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060), SUCCESS
 - **Published pre-fix HEAD:** `931f83af01ea44c880ab94c5f7c134a29613a332`
 
 ## 1. Objective
@@ -22,9 +24,11 @@ Prepare the repository records for a minimal reusable Django UI foundation.
 The result is shared templates/components and tokens, safe versioned
 state fixtures, loading/error/empty, schema dispatch and baseline keyboard/mobile
 evidence. Preparation and three implementation/docs commits were published in
-this branch through PR #22. Current authorization covers local review corrections
-and verification only; no staging/commit/push, branch operations or PR description
-changes. Ruslan and Vladimir Task Approvals remain PENDING.
+this branch through PR #22. Correction `e471efc0b1a6b4af9baf1401e49311a203f12450`
+is published with SUCCESS CI run 37060459060. Current authorization covers a
+documentation-only records sync, PR description update and repeat review after
+green CI. No merge or branch operations are authorized. Ruslan and Vladimir
+Task Approvals remain PENDING.
 
 Canonical input: the complete
 `.local-docs/MathStart_Technical_Specification_v7_1_SECTION20_PARALLEL_DEADLINES.pdf`,
@@ -117,20 +121,24 @@ catalogue and lesson browser comparison passes; read-only rendering against the
 `cd10705` template passes (exit 0); `/favicon.ico` returns HTTP 404 rather than 500
 (request assertion exit 0). Product implementation is unchanged in this follow-up.
 
-### Current / local review corrections
+### Current / published review correction
 
-PR #22 is OPEN at pre-fix `931f83af01ea44c880ab94c5f7c134a29613a332`.
-Both reviewers submitted CHANGES_REQUESTED; Ruslan/Vladimir Task Approvals are
-PENDING. GitHub API confirms pre-fix [run 37027103585](https://github.com/Tramsey00/MathStart-Python/actions/runs/37027103585)
-SUCCESS, event pull_request, that head against main `fa0d87033113a30abc6e9de2acc174b01e98d9db`.
-This is published pre-fix evidence, not CI for the local corrected content.
-The correction remains uncommitted: one JS type guard, a focused regression file
-and updated evidence/docs. Production dispatcher browser matrix passes 40/40;
+PR #22 is OPEN; correction `e471efc0b1a6b4af9baf1401e49311a203f12450` is published.
+Both CHANGES_REQUESTED reviews target pre-fix `931f83a...`; Task Approvals remain
+PENDING. GitHub API confirms [run 37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060)
+SUCCESS, event pull_request, correction head against main
+`fa0d87033113a30abc6e9de2acc174b01e98d9db`; PR is MERGEABLE at this snapshot.
+Pre-fix run 37027103585 is historical. The committed correction contains one JS
+type guard, a focused regression file and refreshed evidence/docs.
+Production dispatcher browser matrix passes 40/40;
 gallery states/keyboard and 360/768/1440 smoke pass. Actual browser context reports
 `154.0.8037.93` with userAgent/userAgentData/high entropy values in smoke.json.
 Agent reruns: JS 5 tests / 138 calls, I02 Python 7, Django 5, R02A 30,
 pip/database/system checks and canonical 8/8 PASS, exit 0. Trace Section 20 is the
-current record. New final implementation/evidence SHA, CI and approvals are pending.
+local verification record; Section 21 records publication/CI synchronization.
+Browser evidence binds to identical committed product bytes; it is reused for the
+published correction, not rerun in this records-only phase. A documentation-only
+follow-up will have a separate PR head/CI; Task Approvals remain PENDING.
 
 ## 5. Target state
 
@@ -178,7 +186,7 @@ Do not construct complete forms or implement lifecycle actions. Add a GET-only
 an allowlist and no DB writes. Verify separately loaded DEBUG on/off routing,
 non-GET rejection, script isolation and absence of delivered secrets.
 
-### Step 5 - Verification and review handoff (evidence recorded; human/final-SHA CI gates pending)
+### Step 5 - Verification and review handoff (correction CI SUCCESS; human gates pending)
 
 Run Python/Django checks and manual browser smoke with recorded versions and
 DOM/network/console/screenshots. Resolve scoped failures. Record final evidence
@@ -313,9 +321,10 @@ Reviewer / Task Approver: Ruslan and Vladimir.
 Their independent final-result decisions are pending.
 Ilya is Owner, not self-approver. G3 is a separate gate with its full evidence.
 PR #22 references canonical Issue #21 with `Closes #21`. Both reviews are
-CHANGES_REQUESTED, not Approve. No staging/commit/push, PR description update,
-merge, branch operations, Issue changes or deployment is authorized in this local
-correction phase. Keep the plan active until recorded human acceptance.
+CHANGES_REQUESTED on the pre-fix head, not Approve. Correction publication and
+green CI are recorded. The user authorized record synchronization, PR description
+update and repeat review; merge, branch operations, Issue changes and deployment
+remain outside authorization. Keep the plan active until recorded human acceptance.
 
 ## 16. Completion checklist
 
@@ -330,17 +339,21 @@ correction phase. Keep the plan active until recorded human acceptance.
 - [x] Security/Content preservation checks recorded; no unrelated changes.
 - [ ] Ruslan and Vladimir independently approve the final result.
 - [x] Original implementation published in PR #22; pre-fix SUCCESS CI recorded.
-- [ ] Corrected final SHA, applicable green CI and authorized merge recorded.
+- [x] Published correction SHA and applicable SUCCESS CI run 37060459060 recorded.
+- Documentation follow-up SHA/CI and actual repeat-review requests are tracked in
+  PR #22 activity/checks; run 37060459060 is pinned only to the correction SHA.
+- [ ] Authorized merge recorded after independent acceptance.
 - [ ] Accepted downstream handoff pinned; plan moved only after acceptance.
 
 ## 17. Completion summary and handoff
 
-Current result: published foundation at `931f83af01ea44c880ab94c5f7c134a29613a332`
-in OPEN PR #22, plus locally verified review corrections. Task acceptance remains
-INCOMPLETE. Current JS/Python/Django/R02A/canonical results and 40-case browser
-matrix are recorded in Trace Section 20 and smoke.json.current. Earlier Content,
-favicon, user-run canonical and pre-fix CI remain explicitly historical evidence.
-No new final SHA/CI, commit/push or independent approval is claimed in this phase.
+Current result: correction `e471efc0b1a6b4af9baf1401e49311a203f12450` published
+in OPEN PR #22; CI run 37060459060 SUCCESS. Task acceptance remains INCOMPLETE.
+JS/Python/Django/R02A/canonical results and the post-fix 40-case browser matrix are
+recorded in Trace Section 20 and smoke.json.current, bound to identical committed
+content. Section 21 records GitHub publication/CI and documentation-only sync.
+Earlier Content/favicon, user-run canonical and pre-fix CI remain historical.
+No human approval, authorized merge or accepted downstream handoff is claimed.
 
 After acceptance, MS7-I03 receives shell/tokens/components/state conventions;
 MS7-I04 receives dispatcher/public descriptors/fixture provenance; MS7-I08 receives

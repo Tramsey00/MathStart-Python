@@ -1,12 +1,14 @@
 # SPEC MS7-I02: UI foundation and fixtures
 
-- **Status:** PR OPEN / CHANGES_REQUESTED; local corrections verified; not accepted
+- **Status:** PR OPEN / CHANGES_REQUESTED (pre-fix reviews); correction published / CI SUCCESS; Task Approvals PENDING
 - **Owner:** Ilya (Илья)
 - **Reviewer / Task Approver:** Ruslan and Vladimir
 - **Canonical issue:** [#21 - MS7-I02: UI foundation and fixtures](https://github.com/Tramsey00/MathStart-Python/issues/21)
 - **Branch:** `ms7-i02-ui-foundation`
 - **Baseline SHA:** `428ece726918f635549fc7dd8fdd352f799c3308`
 - **PR:** [#22](https://github.com/Tramsey00/MathStart-Python/pull/22), OPEN
+- **Final correction SHA:** `e471efc0b1a6b4af9baf1401e49311a203f12450`
+- **Correction CI:** [37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060), SUCCESS
 - **Published pre-fix HEAD:** `931f83af01ea44c880ab94c5f7c134a29613a332`
 - **Related ADRs:** ADR-0001/0002/0003 and the accepted MS7-R02A addendum package
 - **Exec plan:** [MS7-I02](../../docs/exec-plans/active/MS7-I02-ui-foundation.md)
@@ -21,14 +23,18 @@ Provide a reusable Django UI foundation for later student screens: shared
 templates/components, design tokens, safe versioned fixtures, loading/error/empty
 states, schema dispatch and baseline keyboard/mobile accessibility.
 
-Preparation commit `cd10705` and three implementation/docs commits were published
-through PR #22. Published HEAD remains `931f83af01ea44c880ab94c5f7c134a29613a332`.
-Both reviews request changes; independent Ruslan/Vladimir Task Approval is PENDING.
-Only review corrections are currently an unstaged local diff. Commit/push, branch
-operations and PR description changes are not authorized in this correction phase.
-Pre-fix [CI run 37027103585](https://github.com/Tramsey00/MathStart-Python/actions/runs/37027103585)
-is SUCCESS for that published head / PR against main `fa0d87033113a30abc6e9de2acc174b01e98d9db`.
-It does not establish CI for the corrected content; a new final SHA/run is pending.
+Preparation and three implementation/docs commits were published through PR #22;
+`931f83af01ea44c880ab94c5f7c134a29613a332` is the historical pre-fix head.
+The correction is committed and published as `e471efc0b1a6b4af9baf1401e49311a203f12450`.
+GitHub API confirms [run 37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060)
+completed SUCCESS for this correction head / PR merge-ref against main
+`fa0d87033113a30abc6e9de2acc174b01e98d9db`. Pre-fix run 37027103585 remains historical.
+PR #22 is OPEN and MERGEABLE at the synchronization snapshot. Both existing reviews
+are CHANGES_REQUESTED on the pre-fix SHA; Ruslan/Vladimir Task Approvals are PENDING.
+The user authorized records/PR description synchronization and repeat review.
+This documentation-only follow-up preserves all tested product/test/fixture/image
+bytes; its subsequent head/CI must be distinguished from the correction run.
+No human approval, merge or task/G3 closure is claimed.
 
 ## 2. Why this belongs in MathStart
 
@@ -337,7 +343,7 @@ full cross-browser/a11y and browser malformed-DTO matrix are not claimed.
 Tooling/CI changes are outside
 this plan and require a dedicated reviewed change before becoming project tooling.
 
-### Current local review-correction evidence
+### Current published correction evidence
 
 Trace Section 20 and `smoke.json.current` record fresh agent verification of the
 corrected working content, including production JS/browser matrix, gallery states,
@@ -347,7 +353,11 @@ distinct from the historical user-confirmed run. Browser context reports Chromiu
 Earlier unavailable-version, missing-table and pre-publication evidence remains
 historical. Existing Content comparison/favicon evidence is retained with its
 original ownership; it is not relabelled as a new browser rerun.
-New final-SHA CI and independent approvals are PENDING; local PASS is not Task Approval.
+Correction CI run 37060459060 is SUCCESS on `e471efc0b1a6b4af9baf1401e49311a203f12450`.
+The browser rerun occurred before the correction commit on identical product bytes;
+its digest binding is verified against that commit, not represented as a new
+post-publication rerun. Document-only synchronization adds no new browser results.
+Independent approvals remain PENDING; CI/local PASS is not Task Approval.
 
 ## 18. Risks
 
@@ -374,8 +384,8 @@ No task acceptance, final SHA or G3 closure is asserted at preparation.
 ## 20. Trace / implementation links and downstream handoff
 
 - Issue: [#21](https://github.com/Tramsey00/MathStart-Python/issues/21).
-- Plan/trace: linked in the header; PR #22 OPEN at the published pre-fix SHA above;
-  corrected final SHA/CI and Task Approval remain pending.
+- Plan/trace: linked in the header; PR #22 OPEN; correction SHA/green CI pinned
+  above, documentation-only follow-up separate; Task Approvals remain PENDING.
 - Browser evidence: [smoke record](../../docs/agent-traces/MS7-I02-evidence/smoke.json)
   and 360/768/1440 plus keyboard screenshots beside it. Existing app browser control
   was used; no Node/Playwright toolchain was added to the project.

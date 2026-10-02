@@ -3,17 +3,18 @@
   "surface": "Codex In-app Browser; existing Django dev server; no project browser toolchain",
   "browser_engine_version": "154.0.8037.93",
   "current": {
-    "status": "LOCAL REVIEW CORRECTIONS VERIFIED; not committed/pushed/accepted",
+    "status": "CORRECTION COMMITTED/PUBLISHED; CI SUCCESS; Task Approvals PENDING",
     "recorded_at_utc": "2026-10-02T20:01:57Z",
     "content_binding": {
-      "basis": "corrected local working content; no new final committed SHA",
-      "checked_out_head": "931f83af01ea44c880ab94c5f7c134a29613a332",
+      "basis": "Post-fix browser and local tests ran before publication on bytes identical to the published correction; evidence reused, no browser rerun during records-only sync.",
       "published_pre_fix_pr_head": "931f83af01ea44c880ab94c5f7c134a29613a332",
       "dispatcher_sha256": "3b5eaf8b3c73061d420e2fb8cd94b3c8df24088def9baf026a569aa6ec90c8eb",
       "fixture_pack_sha256": "6728e63963af1acc795da162005bacc24ae2617d1fd5e1b98c18280425c70102",
       "js_regression_sha256": "c27ac73ed895f29d47261861b3734a8b394e3247b3e8f7c8080067911fbc2c76",
       "served_dispatcher_bytes_equal_working_file": true,
-      "final_implementation_sha": null
+      "final_implementation_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+      "checked_out_head_at_capture": "931f83af01ea44c880ab94c5f7c134a29613a332",
+      "record_sync_scope": "Documentation-only follow-up; resulting PR head/CI tracked separately in GitHub, not attributed to correction run."
     },
     "browser_identifier": {
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
@@ -522,14 +523,37 @@
       "network": "Django logs: gallery, temporary matrix and production assets GET 200; favicon GET 404. No student mutation request observed. No full network/storage audit claimed."
     },
     "final_ci": {
-      "status": "PENDING / NOT RUN for corrected content",
-      "run_id": null
+      "status": "SUCCESS",
+      "run_id": 37060459060,
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060",
+      "head_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+      "base_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+      "event": "pull_request",
+      "execution_target": "PR merge-ref",
+      "github_status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-02T20:27:20Z",
+      "evidence_owner": "agent read-only GitHub API confirmation",
+      "scope": "Final implementation/evidence correction; documentation follow-up has a separate head/CI."
     },
     "task_approvals": {
-      "Ruslan": "PENDING; current published review CHANGES_REQUESTED",
-      "Vladimir": "PENDING; current published review CHANGES_REQUESTED"
+      "Ruslan": "PENDING; published CHANGES_REQUESTED review targets pre-fix 931f83af01ea44c880ab94c5f7c134a29613a332",
+      "Vladimir": "PENDING; published CHANGES_REQUESTED review targets pre-fix 931f83af01ea44c880ab94c5f7c134a29613a332"
     },
-    "pr_description": "UNCHANGED in this phase"
+    "pr_description": "Synchronized separately to published correction, SUCCESS CI and actual post-fix browser evidence; human approvals PENDING.",
+    "record_sync_at_utc": "2026-10-02T20:33:26Z",
+    "recorded_at_utc_note": "Original post-fix browser/local verification capture time; record sync is separate.",
+    "pr": {
+      "number": 22,
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/22",
+      "state": "OPEN",
+      "head_branch": "ms7-i02-ui-foundation",
+      "base_branch": "main",
+      "correction_head_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+      "mergeable_at_sync_snapshot": "MERGEABLE",
+      "review_decision_at_sync_snapshot": "CHANGES_REQUESTED",
+      "repeat_review": "Authorized for Tramsey00 and VladimirFrolov777 after records sync and green current-head CI; requests read back from GitHub."
+    }
   },
   "pre_fix_pr_evidence": {
     "status": "HISTORICAL / PRE-FIX PUBLISHED EVIDENCE",
@@ -713,12 +737,11 @@
     "Full malformed-DTO audit beyond the focused 40-case review matrix: NOT RUN",
     "Full network/storage audit: NOT RUN",
     "Live accepted Harness engineering run: NOT RUN",
-    "Corrected final-SHA CI: NOT RUN / pending commit/push authorization",
     "Independent Task Approvals: PENDING"
   ],
   "limitations": [
     "Single available browser, focused foundation verification only",
-    "Current browser/tests run against corrected local working content; no new final committed SHA or CI claimed",
+    "Post-fix browser/local tests captured before publication; digests match published correction e471efc0b1a6b4af9baf1401e49311a203f12450; no new browser rerun for documentation sync.",
     "Published Content comparison/favicon evidence remains historical; not a new Content browser comparison in this phase"
   ]
 }
