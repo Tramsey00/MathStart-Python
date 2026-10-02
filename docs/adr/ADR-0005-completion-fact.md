@@ -5,381 +5,319 @@
 - **Owner:** Руслан
 - **Reviewer / Task Approver:** Владимир
 - **Related task:** [MS7-R03A / Issue #18](https://github.com/Tramsey00/MathStart-Python/issues/18)
-- **Relation:** FOLLOW-UP / ADDENDUM TO FROZEN R03
-- **Target reducer:** progress-v1.1; event numerical policy remains progress-v1
+- **Relation / direct CONTRACT dependency:** FOLLOW-UP / ADDENDUM TO FROZEN R03
+- **Target reducer / CompletionFact policy_version:** progress-v1.1
+- **ProgressEvent policy_version:** progress-v1 (frozen; unchanged)
+- **Deadline:** 05.10.2026, corrected canonical v7.1 §20
 - **Inputs:** [ADR-0003](ADR-0003-knowledge-progress-semantics.md),
   [R03](../../specs/progress/R03-progress-contract.md),
   [baseline](../../specs/progress/BASELINE-v1.md),
-  [R02A](../../specs/api/MS7-R02A-http-eligibility.md)
+  [R02A integration terminology](../../specs/api/MS7-R02A-http-eligibility.md)
 - **Plan / audit:** [MS7-R03A](../exec-plans/active/MS7-R03A-completion-fact.md)
-- **Human approval:** PENDING; this draft authorizes no runtime implementation
+- **Human approval:** PENDING; no runtime implementation authorized in this pass
 
-## 1. Context and evidence
+## 1. Context and canonical authority
 
-The accepted R03 contract explicitly identifies the event-free Assessment
-completion path as an integration gap. Its pure reference has no independent
-completion input. validate_event() normalizes inline completed_at and requires
-it for correct/diagnostic results. replay() creates its attempt dictionary only
-while visiting events. _recent_attempts() and _state_dict() then derive history
-and status from that dictionary. An independent correct event both marks
-history and clears misconception repeat counters. ingest_event() accepts only
-events. The exact source/test map is in the task plan.
+The accepted R03 contract identifies event-free Assessment completion as an
+integration gap. Its reference creates attempt history only while visiting
+ProgressEvents. Independent correct events both mark history and clear repeat
+counters. The plan contains the exact source/test map. Neutral assessed
+completions need history without fabricated numerical evidence.
 
-R02A finalizes immutable submitted work and eligibility on the server. A second
-correct attempt for an already credited user/version remains completed and
-CORRECT, without another positive event. UNSUPPORTED/INDETERMINATE and other
-neutral assessed completions likewise need history without fabricated penalties.
-These facts must be representable even if no ProgressEvent exists.
+The 2026-10-02 canonical v7.1 correction supplied by the task owner governs this
+design: Assessment owns authoritative CompletionFact; Progress owns mirror and
+replay. Status-only replay is already permitted. Direct CONTRACT dependency is
+frozen R03. R02A terminology describes producer integration; its stale
+Proposed/PENDING markers are housekeeping, not an R03A blocker or evidence of
+newly completed human acceptance.
 
-R03 is accepted/frozen. R02A is present in baseline main at 428ece7, but its
-ADR/spec/policy/manifest still record Proposed/PENDING. This draft uses its
-repository terminology without claiming its human gate is accepted. The v7.1
-task card is named in the active plan but not stored in Git; the historical PDF
-path in the R02A trace was unavailable during this audit. The supplied R03A task
-request defines this stage; Vladimir must reconcile upstream acceptance and the
-canonical task card before accepting the implementation contract.
+Document-calendar discrepancy: corrected §20 sets MS7-R03A deadline 05.10.2026.
+Older task-card Target deadline lines saying 02.10 are superseded and must not
+serve as current calendar authority. The historical PDF path was unavailable
+in the original audit; no PDF inspection is claimed. The user-supplied canonical
+correction supplies the requirements for this pass.
 
-## 2. Proposed decision and ownership
+## 2. Ownership and flow
 
-Assessment owns authoritative terminal attempt, bound immutable exercise
-version, submitted snapshot, help/exposure and finalized eligibility facts.
-It produces one immutable CompletionFact per relevant user/skill/attempt.
-Progress validates and consumes those facts through its service boundary and
-alone derives UserSkillState and recent history. Progress does not import
-Assessment ORM models; producer verification uses supplied validated context.
-Tutor, Analyzer, frontend and provider code cannot author completion eligibility.
+Assessment owns the authoritative immutable CompletionFact, terminal Attempt,
+bound exercise version, submitted snapshot, outcome, help/exposure and finalized
+eligibility. It produces one fact per attempt/skill. Progress validates the
+immutable cross-domain DTO and owns its completion mirror/replay and derived
+UserSkillState. Progress does not import Assessment ORM models. Trusted immutable
+producer context verifies owner/version/mapping through the service boundary.
+Tutor, Analyzer, frontend and providers cannot author completion eligibility.
 
-Keep two separate immutable inputs:
+    Assessment CompletionFact -> immutable DTO -> Progress completion mirror
 
-- ProgressEvent log: numerical evidence, existing identities and frozen reducer;
-- CompletionFact ledger: completed-attempt membership and independent-correct
-  status input, with no numerical event authority.
+Recent-ten is built from the Progress mirror. The ProgressEvent log remains the
+sole numerical evidence stream. Mirror records provide completed-attempt
+membership and independent-correct count, hence derived status; they have no
+numerical projection authority. This pass edits only ADR, plan and trace, without
+executable DTO/schema, reference, fixture, runtime, endpoint or migration changes.
 
-This is an internal contract addendum. There is no new event kind, endpoint,
-DTO change, app, dependency or schema migration in the audit/design stage.
+## 3. Canonical fields, dual identity and exact policy
 
-## 3. Identity and minimal envelope
+Assessment's target fields are immutable completion_id, attempt, skill, outcome,
+independent flag, completed_at and policy_version, with UNIQUE(attempt, skill).
+Across the boundary, relation references become attempt_id and skill_id; the
+flag is named independent_correct.
 
-The domain identity is the ordered tuple (user_id, skill_id, attempt_id).
-Completion time, independent_correct and completion_version are immutable
-payload, never identity components.
+Two permanent identity constraints apply together:
 
-| Candidate | Assessment |
-| --- | --- |
-| attempt_id + skill_id | Sufficient with a globally unique owned Attempt, but implicit user scoping obscures the per-user Progress boundary |
-| user_id + skill_id + attempt_id | Selected: explicit projection scope; one fact per skill for a multi-skill attempt; direct duplicate/conflict key |
-| fact_id + source identity | A second identifier still needs source uniqueness and permits retry duplication without it; no current consumer needs it |
+1. completion_id is a globally unique immutable identity generated by Assessment,
+   preserved across retries and copied into the Progress mirror.
+2. (attempt_id, skill_id) is permanent source uniqueness: one fact per skill for
+   an attempt, even if another completion_id is presented.
 
-R02A's server UUID Attempt has one owner and one immutable ExerciseVersion
-binding. The triple is not permission to reuse an attempt under another user:
-native ingestion must verify attempt_id -> owner against Assessment context.
-The same attempt's per-skill facts must have the same terminal completion instant.
-Skills must belong to that attempt's bound version's skill mapping. A correction
-has a new attempt_id; previous_attempt_id never merges the two attempts.
+user_id may additionally bind the owner for Progress projection. This proposed
+DTO requires it, but it replaces neither constraint and is not a source key
+component. Native validation verifies attempt ownership and bound-version skill
+mapping. All skills of an attempt share its completion instant. A correction
+uses a new attempt_id; previous_attempt_id never merges attempts.
 
-The exact proposed closed envelope has six required fields, no optional fields:
+The proposed closed immutable DTO has eight required fields:
 
     {
-      "completion_version": "completion-v1",
-      "user_id": "student-1",
-      "skill_id": "negative_numbers",
+      "completion_id": "00000000-0000-4000-8000-000000000001",
       "attempt_id": "attempt-neutral-1",
+      "skill_id": "negative_numbers",
+      "user_id": "student-1",
+      "outcome": "CORRECT",
+      "independent_correct": false,
       "completed_at": "2026-10-02T09:00:00.000000Z",
-      "independent_correct": false
+      "policy_version": "progress-v1.1"
     }
 
 | Field | Validation and purpose |
 | --- | --- |
-| completion_version | Exactly completion-v1 in this revision; completion schema version, separate from event policy_version and exercise contract_version |
-| user_id | Nonempty stable string; must equal the authoritative Attempt owner |
-| skill_id | Nonempty stable Skill reference, using the existing R03 code convention; must be known and mapped by the bound version |
-| attempt_id | Nonempty stable string in pure/reference and historical data; native R02A producer uses the canonical lowercase UUID from the server Attempt |
-| completed_at | Required aware RFC3339 instant, 0–6 fractional digits, normalized to UTC with exactly six digits and Z, using R03 utc_instant semantics |
-| independent_correct | Strict boolean, required, no truthy coercion or missing-value default; copied from verified finalized Assessment eligibility/correctness |
+| completion_id | Globally unique immutable canonical lowercase UUID; retries and mirror ingestion never allocate replacement IDs |
+| attempt_id | Stable Attempt reference; native server UUID, explicit legacy synthetic references supported |
+| skill_id | Stable known Skill reference using R03 code convention, mapped by the bound version |
+| user_id | Supplemental owner binding equal to authoritative Attempt owner; not an identity namespace |
+| outcome | Required finalized Assessment outcome: CORRECT, WRONG, UNSUPPORTED or INDETERMINATE |
+| independent_correct | Required strict boolean from frozen correctness/eligibility; true requires CORRECT |
+| completed_at | Required aware RFC3339, 0–6 fractional digits, normalized UTC six digits and Z using R03 utc_instant |
+| policy_version | Exactly progress-v1.1 for this CompletionFact revision; immutable completion policy without numerical authority |
 
-Unknown fields, missing fields, unsupported versions, malformed/calendar-invalid
-or overprecise timestamps, wrong ownership/mapping and inconsistent authority
-fail closed before committing any ledger/projection change.
+CompletionFact policy_version is explicitly progress-v1.1. ProgressEvent
+policy_version remains progress-v1. Native reducer_version is progress-v1.1;
+these fields have distinct purposes. A future completion-v1.schema.json filename
+identifies a schema artifact, not a completion_version envelope field.
 
-No fact_id, event_id, evidence_ref, source_kind, difficulty, answer payload,
-misconception data or receipt key is needed. attempt_id already identifies the
-immutable version/snapshot/finalization source. Source provenance and source
-schema/digest belong to the separately verified Assessment/import context,
-not a caller-written authority flag in the envelope. completion_version supplies
-the one additional version needed for a standalone completion record.
+Outcome is mandatory even for neutral facts. Neutrality means no numerical
+projection authority, regardless of outcome. Already credited CORRECT work can
+have independent_correct=false. WRONG alone creates neither a numerical penalty
+nor misconception evidence. No answer, difficulty, numerical delta or
+caller-written authority marker is needed. Missing/unknown fields, unsupported
+policy, malformed time, wrong ownership/mapping or authority fail closed before
+any accepted mirror/projection change.
 
-## 4. Authority, lifecycle and R02A terminology
+## 4. Native authority and lifecycle
 
-Native facts are emitted only after an assessed Attempt reaches COMPLETED and
-its outcome/eligibility/completed_at have been finalized. SUBMITTED, a HTTP 202,
-STARTED, ABANDONED, and SELF_CHECK REVIEWED do not emit native CompletionFacts.
-REVIEWED remains history in Assessment; it is not renamed COMPLETED. Historical
-progress-v1 reveal-only completion entries are preserved by the compatibility
-adapter in section 8.
+Native facts are produced only for assessed COMPLETED Attempts with finalized
+outcome/eligibility/time. SUBMITTED, HTTP 202, STARTED, ABANDONED and SELF_CHECK
+REVIEWED do not produce native facts. Legacy reveal-only history is preserved
+through section 8, without renaming REVIEWED to COMPLETED.
 
-For each mapped skill, independent_correct is true only when supported validated
-CORRECT work for that skill has the server's frozen independent eligibility.
-That eligibility includes R02A's user/version exposure, no earlier help/reveal,
-and no prior positive credit, decided under finalization serialization. Unassisted
-supported diagnostics can qualify; helped diagnostics cannot. Repeated credited
-correct work, revealed work, UNSUPPORTED and INDETERMINATE completions use false.
-False means ineligible for the window's independent-correct count, not WRONG.
+For each skill, true independence requires supported validated CORRECT work
+with frozen independent eligibility. R02A integration describes exposure,
+earlier help/reveal and prior positive credit under finalization serialization.
+Unassisted supported diagnostics can qualify; helped diagnostics cannot.
+Repeated credited CORRECT, revealed work, UNSUPPORTED and INDETERMINATE use
+false. False is not an outcome.
 
-Help during SUBMITTED participates in finalization; help after COMPLETED cannot
-rewrite its decision. Reading current mutable Exposure during a retry must not
-replace the stored completed eligibility. CompletionFact neither awards nor
-reserves positive credit, and cannot bypass the permanent user/version guard.
+Help during SUBMITTED participates in finalization; later help cannot rewrite
+the fact. Mutable Exposure on retry cannot replace stored eligibility.
+CompletionFact neither awards nor reserves positive credit or bypasses its guard.
 
-A native ingestion API is internal and requires separately supplied trusted
-Assessment context establishing owner, bound version/mapping, completed state,
-frozen instant and per-skill verdict/eligibility. It compares every fact field
-with those immutable records. A JSON source_kind=ASSESSMENT or an authority=true
-marker supplied by a client proves nothing. Pure tests model this context with
-synthetic server records; they prove validation logic, not authentication or
+Internal ingestion compares every DTO field with trusted immutable Assessment
+context: identity, owner, version/mapping, state, outcome, time, policy and
+per-skill eligibility. Client authority/source flags prove nothing. Synthetic
+server records in future pure tests prove validation, not authentication or
 PostgreSQL transactions. No public CompletionFact write API is proposed.
 
-## 5. Ordering, history and derived status
+## 5. Recent-ten and settled status-only replay
 
-For one user/skill, deduplicate by identity, select all completed facts, sort
-ascending by (UTC completed_at, attempt_id), and take the last ten. Return
-attempt_ids in that same ascending order. Identifier comparison is deterministic
-case-sensitive lexical string order as in the R03 reference, not database locale
-collation; native UUIDs use their canonical lowercase representation.
+Select the user's skill-specific Progress mirror records, deduplicate under both
+constraints, sort by (UTC completed_at, attempt_id), take the last ten and return
+IDs ascending. Equal-time identifiers use case-sensitive lexical order as in
+R03; native UUIDs are lowercase. Count each retained true independent_correct
+once. Include neutral attempts; do not count events as attempts, filter to
+positive-only history or introduce time decay.
 
-Count each retained fact's true independent_correct once. A fact appears once
-regardless of how many events, evidence units or HTTP receipts its attempt has.
-No elapsed-time decay, filtering out neutral attempts, or positive-only window
-is permitted. Per-user and per-skill windows remain separate.
-
-Only Progress recomputes status using the frozen precedence:
+Only Progress recomputes status with unchanged frozen precedence:
 
 1. evidence_count == 0 -> NOT_STARTED;
-2. mastery >= 80.00 and confidence >= 60.00 and recent independent count >= 3
+2. mastery >= 80.00, confidence >= 60.00 and recent independent count >= 3
    -> MASTERED;
 3. mastery < 50.00 and confidence >= 30.00 -> WEAK;
 4. otherwise -> LEARNING.
 
-Neutral eviction can therefore change MASTERED to LEARNING while numerical
-knowledge remains unchanged. A neutral-only ledger keeps 0.00/0.00, count 0,
-last_updated null and NOT_STARTED even though history has entries. An
-authority-validated independent fact with no delivered event can add an
-independent history entry but cannot initialize numerical evidence.
+Canonical v7.1 already permits a neutral completion to evict an independent
+attempt and change MASTERED -> LEARNING without changing mastery, confidence,
+evidence_count or last_updated. This is settled scope, not an unresolved
+architecture question. Neutral-only history retains zero numerical values/count,
+null last_updated and NOT_STARTED. A fact arriving before its qualifying event
+can affect history but cannot initialize numerical evidence.
 
-## 6. Combined replay, late facts and numerical isolation
+## 6. Replay and numerical isolation
 
-Native progress-v1.1 replay takes two explicitly separate inputs: the complete
-accepted event log and the complete accepted CompletionFact ledger, plus the
-trusted producer context needed to validate native facts. Delivery order is not
-a reducer input.
+Native progress-v1.1 replay takes the accepted ProgressEvent log and the Progress
+completion mirror. Assessment ORM is not a replay input. DTO authority is
+validated before mirror acceptance; delivery order is not reducer order.
 
-Proposed reference sequence:
+1. Validate/canonicalize both keys, payload, authority and coexistence atomically.
+   Coalesce exact completion retries; reject conflicts without mutating state.
+2. Run unchanged R03 numerical replay ordered by
+   (occurred_at, event_id, policy_version), using each recorded progress-v1 policy.
+   Retain numerical values, repeat/reset behavior, event identities,
+   deltas/snapshots and last_updated.
+3. Derive recent-ten solely from the Progress completion mirror. Inline event
+   completed_at is a consistency attestation, not another native history source.
+4. Combine numbers and recent count through unchanged status_for, retaining the
+   six state fields with native reducer_version=progress-v1.1.
 
-1. Validate/canonicalize both inputs and all identity/authority/coexistence
-   constraints without mutating accepted state. Completion retries coalesce;
-   invalid/conflicting combinations reject the proposed ingestion atomically.
-2. Run the unchanged R03 numerical replay on the unchanged events, ordered by
-   (occurred_at, event_id, policy_version). Use each recorded progress-v1 policy.
-   Retain numerical values, repeat/reset behavior, projecting/nonprojecting
-   event identities and last_updated from that replay.
-3. Independently derive the recent window from CompletionFacts alone. Inline
-   event completed_at is not a second native history source.
-4. Combine numerical values with that independent count through the unchanged
-   status_for formula. The six canonical state fields remain; native
-   reducer_version is progress-v1.1, while event policy_version stays progress-v1.
+For a fixed valid event log, fact delivery cannot change mastery, confidence,
+evidence_count, last_updated, numerical event deltas/snapshots, misconception
+counters/reset points or event history. Facts never clear repeats; the existing
+qualifying event clears them in occurrence order, even if its fact is delayed.
+No synthetic event or fact-specific numerical timestamp is introduced.
 
-For a fixed valid event log, adding a valid fact cannot change mastery,
-confidence, evidence_count, last_updated, any per-event numerical delta/snapshot,
-misconception counters/reset points, or the ProgressEvent log. The numerical
-reducer must not read CompletionFact.independent_correct to clear repeat counters.
-Resets continue at the existing independent correct ProgressEvent in occurrence
-order, including when its separate fact is delayed. No fact-specific projecting
-timestamp or synthetic ANSWER_REVEALED event is introduced.
+A late fact re-derives history/count/status from the full mirror. Its time may
+precede or follow occurred_at; old facts outside recent-ten remain retained.
+Complete identical inputs produce identical results across delivery permutations.
+A genuine late event can change numbers through frozen R03 replay.
 
-A late fact re-derives final history/count/status from the full ledger. Its
-completed_at may be earlier or later than event occurred_at; no relation between
-the two timestamps is imposed. An old fact outside the last ten is retained but
-does not change the window. A fact arriving before or after its event yields the
-same final combined projection for the same complete inputs.
+Future outputs are state, recent_window, existing ordered/applied/nonprojecting
+event-ID diagnostics, and completion_gaps (sorted attempt IDs with inline
+attestation but no mirror record). Gaps grant no history or numerical authority.
+Legacy snapshots remain compatibility diagnostics, not native history snapshots.
 
-A genuine late/backfilled event still replays the numerical event log exactly
-as frozen R03 requires, and can change numerical state. That change belongs to
-the event, not to delivery of its CompletionFact.
+## 7. Idempotency, conflicts and event coexistence
 
-Native final outputs are state (six canonical fields), recent_window
-(attempt_ids, independent_correct_count), the three existing event-ID diagnostics
-(ordered/applied/nonprojecting), and completion_gaps (sorted attempt IDs with
-inline completion attestations but no separately delivered fact). The gap
-diagnostic is not a new UserSkillState field and grants no history membership.
-Historical event snapshots returned by the v1 reference remain compatibility
-diagnostics; they must not be advertised as v1.1 completion history snapshots.
-A historical/as-of completion ledger is outside this contract.
+Compare the complete immutable canonical payload after timestamp normalization.
+Exact same completion_id, source pair and every payload field -> idempotent
+no-op, one mirror record and unchanged result. Offset/Z spellings of the same
+instant canonicalize equally. Reuse of either completion_id or
+(attempt_id, skill_id) with a different immutable payload -> conflict, including:
 
-## 7. Duplicate/conflict and ProgressEvent coexistence
+- same completion_id with a different source pair;
+- different completion_id for the same source pair;
+- changed owner, outcome, independence, time or policy under either reused key.
 
-Canonicalize timestamps before comparison. Exact same identity and all six
-canonical fields equal -> idempotent no-op for the ledger, returning its current
-derived projection. Offset/Z variants of the same instant are exact canonical
-duplicates. Same identity with changed time or independent flag -> conflict;
-never overwrite the original. Version is not a new identity namespace: an
-unsupported version fails validation, and a different registered version under
-the same identity must conflict. Batch replay of completion deliveries coalesces
-exact retries too.
+Owner/policy never creates a new identity namespace. Check both keys before
+owner/skill projection partitioning. Unsupported policy fails validation; a
+different supported policy under a reused key still conflicts. Never overwrite,
+replace IDs on retry or silently reconcile source collisions. Progress preserves
+the authoritative identity, both constraints and immutable DTO payload.
 
-Keep ProgressEvent identities unchanged: globally unique event_id, unique
-(attempt_id, skill_id, event_kind, evidence_ref), and the existing evidence-unit
-and negative-penalty checks. R03's immutable-log replay rejects duplicate events;
-its ingestion API deduplicates exact event retries. Completion duplicate rules
-must not weaken this distinction or alter event payloads during ingestion.
+Frozen event_id/source/evidence/negative-penalty identities remain unchanged.
+R03 log replay rejects duplicate events; event ingestion deduplicates exact
+retries. Completion rules do not weaken either behavior.
 
-For a shared user/skill/attempt:
-
-- inline nonnull ProgressEvent.completed_at must equal CompletionFact.completed_at
-  after UTC normalization; disagreement rejects the combined candidate;
-- missing inline completion metadata on a permitted negative/reveal event is not
-  a disagreement; a separate valid fact may provide history membership;
-- correct/diagnostic events retain frozen R03's required inline completion
-  attestation and eligibility validation. Removing it would silently change
-  accepted event validation/identity and is not this proposal;
-- native producer context must reject a final-result eligibility contradiction,
-  such as CORRECT_FIRST_TRY with a false CompletionFact verdict or an independently
-  true fact with a helped final result. Intermediate wrong-step evidence alone
-  does not determine the terminal verdict;
-- a later reveal does not revoke the completed independent flag. Producer context
-  establishes finalization/help order; do not infer it from delivery order or
-  impose a completion-versus-occurrence constraint;
-- an event without its separate fact may project numerically, but occupies no
-  native recent entry until the fact arrives. completion_gaps makes delay visible.
-
-No fallback from inline event metadata is allowed in native mode. This permits
-late independent facts to change the window without re-running a different
-numerical policy. There is one completion ledger entry and one history source.
+Shared user/skill/attempt inline nonnull completed_at must equal the fact time.
+Missing inline time on permitted negative/reveal events is not disagreement.
+Correct/diagnostic events retain frozen attestation/eligibility validation.
+Reject final-result contradictions using trusted context; intermediate wrong
+steps do not determine final outcome. Later reveal does not revoke finalized
+independence. Events may project while their fact is delayed, but cannot populate
+native recent-ten. No automatic inline fallback is allowed.
 
 ## 8. Explicit progress-v1 compatibility
 
-Preserve all frozen files, constants, event envelopes and immutable identities.
-Keep the old replay/ingest entry points and their full progress-v1 output
-unchanged. Their six-field state, window, event lists and snapshots remain the
-literal legacy fixture oracle, including reducer_version=progress-v1.
+Preserve all frozen files, constants, envelopes, identities and legacy replay/
+ingest entry points. Their literal progress-v1 outputs, windows, snapshots and
+reveal-only history remain the fixture oracle.
 
-A separately named legacy import adapter validates the whole log with that
-oracle and materializes one completion-v1 fact per tuple with a nonnull inline
-completed_at. It checks normalized same-attempt times and derives independence
-exactly from accepted R03 event-order eligibility: unhelped/unrevealed
-CORRECT_FIRST_TRY or DIAGNOSTIC_CORRECT, with no invalid earlier reveal.
-Absence of completion metadata creates no fact. Preserve reveal-only completions
-and R03 synthetic string identifiers; do not retrofit R02A UUID/version/credit
-rules onto old evidence. Import provenance is explicitly legacy_progress_v1 in
-trusted adapter context, not a fabricated Assessment verdict.
+An explicit compatibility adapter validates the entire legacy log. Inline
+metadata can check legacy time and event-derived independence; it cannot supply
+authoritative completion_id or necessarily final outcome. Canonical mirror
+materialization requires trusted completion source context/DTO with stable ID,
+required finalized outcome, owner and policy, checked against available legacy
+attestations. Future synthetic parity contexts supply these fields, including
+for reveal-only cases. Never infer outcome from wrong steps, false independence
+or reveal-only events.
 
-Then replay the unchanged events plus that explicit imported ledger through
-progress-v1.1. With no extra neutral facts, require parity for mastery,
-confidence, evidence_count, status, last_updated, recent IDs/count, event ordering,
-event application and numerical snapshots. The deliberate metadata difference
-is native reducer_version=progress-v1.1. The unchanged legacy entry point still
-passes every original expected six-field fixture literally. Never rewrite an
-event's policy_version or payload to disguise this version distinction.
+Without authoritative context, preserve legacy replay/history through the
+explicit v1 entry point; do not fabricate Assessment CompletionFacts. Keep
+legacy synthetic Attempt references and do not retrofit R02A UUID/credit rules
+onto frozen evidence. Import provenance belongs to trusted context. Progress
+validates and mirrors supplied facts; it does not author the authoritative source.
 
-Exact imported/native completion agreement coalesces. A native fact that
-disagrees with an already accepted historical completion is a conflict requiring
-reconciliation, not an overwrite or a new numerical interpretation. Native
-mode never invokes the importer implicitly; otherwise a missing late fact would
-silently repopulate history and hide the integration boundary.
+With explicit context matching legacy membership/independence and no extra
+neutral facts, native replay must preserve numerical results, status,
+last_updated, recent IDs/count, event ordering/application and numerical
+snapshots. Only native reducer_version differs. Never rewrite event
+policy_version or payload. Exact imported/native agreement coalesces; either
+reused key with disagreement conflicts. Native mode never invokes import
+implicitly to hide missing delivery.
 
-## 9. Frozen and affected architectural invariants
+## 9. Architectural invariants and housekeeping
 
-All eight event kinds, deltas, difficulty bands/coefficients, misconception
-repeat coefficients/reset rules, evidence_count semantics, status thresholds
-and precedence, exact Decimal per-event clamp/ROUND_HALF_UP, no time decay,
-reveal/misconception/independent-evidence semantics, and event identity/penalty
-rules remain unchanged. Only Progress owns long-term projections.
+All event kinds, deltas, coefficients, evidence counts, status thresholds,
+Decimal clamp/ROUND_HALF_UP, no-decay, reveal/misconception/independence rules
+and event identities remain frozen. Only Progress owns long-term projections.
 
-ARCHITECTURE sections 17.1 and 42.7 currently state that every automatic progress
-change has a ProgressEvent. D-021 proposes this narrowly explicit refinement:
-every numerical knowledge-state change requires validated ProgressEvent evidence;
-recent-window and its consequent status change can instead be explained by
-immutable validated CompletionFacts. No other projection writer is introduced.
-After acceptance, current architecture/operating wording needs a scoped note
-linking D-021. Frozen R03 and historical ADRs must not be rewritten. The current
-draft records the conflict rather than claiming the broader invariant already
-permits status-only completion changes.
+ARCHITECTURE 17.1/42.7's broad every-progress-change-has-event wording needs a
+later scoped explanatory alignment note: numerical changes require ProgressEvent;
+recent-ten and status can change through validated mirror records. Canonical
+v7.1 already resolves this distinction. It is not a proposed exception or pending
+architecture decision. Root/frozen documents are outside this correction's scope.
+R02A stale PENDING markers are also housekeeping, not a direct CONTRACT blocker.
 
 ## 10. Alternatives and consequences
 
-Rejected: a neutral ProgressEvent kind, fake WRONG/DIAGNOSTIC_WRONG/reveal,
-filtered positive-only window, merging deliveries into event occurrence order,
-CompletionFact-driven misconception reset, caller-authored independence,
-automatic inline fallback, identity containing completed_at, overwriting duplicate
-payloads, and receipt-only deduplication. Each either changes frozen numerical
-semantics, conceals neutral completions, or makes retries/order untrustworthy.
+Reject synthetic neutral/negative/reveal events, positive-only windows,
+completion-driven repeat resets, caller-authored eligibility, automatic inline
+fallback, mutable identities and receipt-only deduplication. Also reject the
+user/skill/attempt triple as a replacement for canonical dual constraints,
+an ID without source uniqueness, and facts without outcome/policy.
 
-Deferred: removing inline completion attestations from future event envelopes,
-extra fact IDs, public write DTOs, queues and physical ORM schema. They are not
-needed to close this history-input gap and require their own reviewed contracts.
+Public writes, removal of frozen inline attestations, queues and physical ORM
+details remain future work. completion_id is required in the design, not
+deferred. Benefits are auditable history and independently reproducible numeric
+replay; costs are source/mirror reconciliation and status changes with unchanged
+last_updated, which records numerical projection time. No R03A executable
+implementation/parity claim is made.
 
-Benefits: neutral and delayed history is expressible, retries are deterministic,
-numeric replay remains independently reproducible, and eligibility is auditable.
-Costs: two validated inputs must be delivered/reconciled; status may change with
-unchanged last_updated, and clients must understand last_updated as the last
-numerical projection event, not the last history/status refresh. The current
-R03A implementation contract remains unimplemented; no executable parity claim
-is made for this design alone.
+## 11. Future V08 persistence and rollback
 
-## 11. Future V08 persistence, security and rollback
+No schema/data change occurs here. Assessment's future authoritative persistence
+retains all seven target fields, globally unique immutable completion_id and
+UNIQUE(attempt, skill). Progress's mirror preserves both constraints and DTO
+payload/owner binding without Assessment ORM imports. Physical storage requires
+reviewed additive Django migrations; ownership and constraints are already fixed.
 
-No schema or persisted-data impact in this audit. For V08, Assessment must retain
-the immutable completed snapshot, eligibility/version source and completion
-instant; Progress may store a validated immutable completion ledger/read
-projection with FK/ownership checks and permanent domain uniqueness. The physical
-location and redundant owner representation require a reviewed Django design.
-Any ledger uses unique user/skill/attempt plus authoritative Attempt ownership
-and cross-skill completion consistency; a second per-attempt source must not be
-able to disagree silently.
+Future work needs conflict-reporting backfill with authoritative outcome/ID
+sources, PostgreSQL migration/fresh-install evidence and concurrency/delivery
+tests. Receipt expiry cannot erase identities or credit guards. Bootstrap cannot
+overwrite historical facts, mirror or events. Preserve raw work in Assessment,
+protect owner scopes/secrets and create no negative evidence for malformed facts.
 
-Future work needs additive reviewed migrations, conflict-reporting backfill,
-clean PostgreSQL migration/fresh-install checks and concurrency tests for
-finalization, one-positive reservation, event/fact delivery and projection.
-Keep short atomic transactions; computation/provider calls remain outside locks.
-Late delivery may reconcile a gap but must not lose the durable source record.
-HTTP receipt expiry cannot erase completion identity, snapshot or positive-credit
-guards. Bootstrap never touches attempts, events or completions.
+Current rollback reverts only the three documents. Future rollback retains
+authoritative facts, mirror/provenance and event log. Explicit v1 projection can
+be rebuilt with disclosure that event-free neutral history is absent. Never
+delete historical facts or mutate numerical evidence to imitate v1.1 status.
 
-Protect owner scopes and validation secrets; preserve raw submitted work in
-Assessment. Store only necessary references/verdict in completion records.
-Never log credentials or expose private authority context through an error.
-Malformed/unauthorized facts fail without creating negative evidence. No live LLM
-or new dependency is needed for pure contract verification.
+## 12. Verification and human gate
 
-Current rollback reverts only the three task-owned documentation artifacts.
-Future rollback must retain the event log and completion ledger/provenance, can
-rebuild a progress-v1 projection through its explicit compatibility entry point,
-and must disclose that event-free neutral entries will be absent from that old
-window. Do not delete historical facts or mutate numerical evidence to imitate
-v1.1 status; prefer forward fixes for persisted conflicting evidence.
+The plan defines future files/cases for neutral eviction, dual keys, mandatory
+outcome/policy, late facts, numerical isolation, authority and compatibility.
+This correction runs git diff --check, canonical verify_repo.py, unchanged R03
+tests and git diff --stat. Actual results/versions are in
+[the trace](../agent-traces/MS7-R03A.md). Checks verify the unchanged executable
+baseline, not R03A implementation.
 
-## 12. Verification, human gate and follow-up
-
-The plan defines the exact future schema/spec/reference/test files and fixture
-matrix, including neutral eviction 3 -> 2, late independent facts, event repeat
-isolation, authority rejection, conflicts and delivery permutations.
-For this stage, run canonical verify_repo.py, unchanged R03/R02A suites, diff
-whitespace/scope checks and document-link review. Record actual versions and
-limitations in [the trace](../agent-traces/MS7-R03A.md). Existing checks prove the
-unchanged repository baseline, not the proposed CompletionFact implementation.
-
-**Reviewer / Task Approver:** Владимир.
-**Decision:** PENDING. **Review date:** not recorded.
-Review identity/envelope, native authority and COMPLETED-only membership,
-event-driven repeat reset, explicit compatibility/version distinction, and the
-status-only architectural refinement. Reconcile R02A acceptance and the canonical
-v7.1 task card. Draft readiness and a documentation commit are not acceptance.
-Do not mark this ADR Accepted, move the active plan, close Issue #18, create/merge
-a PR or treat this candidate as frozen upstream.
-
-After design review, implement the pure progress-v1.1 addendum and executable
-parity package in the plan's sequence. V08 and R11 remain downstream of their
-separate required human gates.
+**Reviewer / Task Approver:** Владимир. **Decision:** PENDING.
+**Review date:** not recorded. The package's human gate remains; canonical
+ownership, keys, fields and status-only permission are fixed review inputs,
+not unresolved questions. Draft readiness is not acceptance. Keep the plan
+active and Issue #18 open; no PR, push, merge or implementation in this pass.
+Future implementation and downstream V08/R11 retain their separate gates.
 
 ## Status history
 
-- 2026-10-02 — Proposed after repository audit; audit/design READY FOR REVIEW,
-  implementation and human approval PENDING.
+- 2026-10-02 — Initial audit/design proposal; implementation/review PENDING.
+- 2026-10-02 — Corrected audit/design commit 1ec5bb507444c442b585720787335c8a17fe09e1:
+  canonical v7.1 ownership, dual identity, outcome/policy, mirror replay, settled
+  status-only semantics and corrected §20 deadline aligned; still Proposed.
