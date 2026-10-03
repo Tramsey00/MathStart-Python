@@ -5,26 +5,29 @@
 - **Reviewer / Task Approver:** Руслан
 - **Milestone gate:** G3
 - **Created:** 2026-10-01
-- **Updated:** 2026-10-02
+- **Updated:** 2026-10-03
 - **Issue:** https://github.com/Tramsey00/MathStart-Python/issues/17
 - **Branch:** `ms7-v02-accounts-rights`
 - **Trace:** [MS7-V02](../../agent-traces/MS7-V02.md)
 - **Human acceptance:** PENDING; retain in active/ until Руслан approves
 
-## CURRENT STATUS — 2026-10-02
+## CURRENT STATUS — 2026-10-03
 
 - Final reviewed implementation SHA: `b3254c1de9d9ffd32e65618da9ab98f87dbaa330`.
+- Current reviewed evidence/docs PR head: `ff8b7da28324170c2691299e8bf81b2f00e23818`.
+- Evidence/status cleanup: DONE, committed and reviewed at ff8b7da. Runtime/
+  tests/migrations/requirements/contracts are unchanged from implementation SHA.
 - Implementation commit and push: DONE; [PR #19](https://github.com/Tramsey00/MathStart-Python/pull/19)
   created and OPEN.
-- Remote CI: VERIFIED / SUCCESS, [Actions run 36932755014](https://github.com/Tramsey00/MathStart-Python/actions/runs/36932755014)
-  on that implementation SHA, including PostgreSQL smoke, canonical verification
+- Current remote CI: VERIFIED / SUCCESS, [Actions run 37040393259](https://github.com/Tramsey00/MathStart-Python/actions/runs/37040393259)
+  on reviewed evidence/docs head ff8b7da, including PostgreSQL smoke, canonical verification
   and R02A compatibility per Руслан's repeated-review evidence supplied by user.
 - Runtime re-review: no blocking auth/profile/onboarding findings reported.
   Human review gate / Task Approval Руслана / G3 remain PENDING.
 - Browser/manual product E2E: NOT VERIFIED. Plan stays ACTIVE, not COMPLETE/DONE.
-- This evidence-only cleanup changes just trace/plan and performs no commit/push/
-  GitHub PR update. A later documentation commit gets its own SHA after creation
-  and does not replace the reviewed implementation SHA.
+- Implementation-code SHA b3254c1 and reviewed evidence/docs head ff8b7da are
+  distinct. This synchronization records existing evidence; no new commit SHA is
+  assigned and formal Руслан Task Approval / G3 remain PENDING.
 
 ## Objective and authority
 
@@ -75,8 +78,9 @@ authoritative. GET creates no profile/receipt/auth session/domain evidence.
    2026-10-02 after exact replay correction. User's final standalone fresh-install
    smoke in a new disposable PostgreSQL environment also PASS; human acceptance
    remains pending.
-6. Implementation committed/pushed, PR #19 OPEN, remote CI SUCCESS. Evidence
-   cleanup prepared; formal human review gate / Task Approval / G3 pending.
+6. Implementation committed/pushed, PR #19 OPEN, evidence cleanup completed and
+   reviewed at docs head ff8b7da. Current CI run 37040393259 SUCCESS; formal human
+   review gate / Task Approval / G3 pending.
 
 Modified: config/settings.py, config/urls.py, requirements.txt, requirements.lock.
 Added: users app/http/services/views/urls/models, migrations, tests, plan/trace.
@@ -125,8 +129,11 @@ Bootstrap sources/pipeline unchanged; setup used only ignored var/ storage.
 - [x] Final implementation commit: `b3254c1de9d9ffd32e65618da9ab98f87dbaa330`.
 - [x] Push: performed.
 - [x] PR #19: created and OPEN.
-- [x] Remote CI: VERIFIED / SUCCESS, Actions run 36932755014 on implementation
-  SHA; PostgreSQL smoke/canonical/R02A checks passed per supplied review evidence.
+- [x] Evidence/status cleanup: completed, committed and reviewed at docs PR head
+  `ff8b7da28324170c2691299e8bf81b2f00e23818`; implementation-code SHA unchanged.
+- [x] Current remote CI: VERIFIED / SUCCESS, Actions run 37040393259 on reviewed
+  evidence/docs head; PostgreSQL smoke/canonical/R02A checks passed per supplied
+  review evidence.
 - [ ] Formal human review gate / Task Approval Руслана / G3 acceptance.
 
 Current NOT VERIFIED: browser/manual product E2E (not reported executed).
@@ -156,3 +163,10 @@ on both backends after fix. Historical FAIL and actual retests preserved in trac
 
 Final manual fresh-install verification was supplied by the user on 2026-10-02
 and recorded without changing code/tests/contracts or human acceptance status.
+
+## Historical CI evidence
+
+Actions run [36932755014](https://github.com/Tramsey00/MathStart-Python/actions/runs/36932755014)
+on implementation SHA b3254c1 was VERIFIED / SUCCESS per the earlier review.
+It remains historical evidence; current CI is run 37040393259 on reviewed
+evidence/docs head ff8b7da. Historical PostgreSQL FAIL remains preserved in trace.
