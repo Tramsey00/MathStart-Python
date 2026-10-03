@@ -1,0 +1,747 @@
+{
+  "task": "MS7-I02",
+  "surface": "Codex In-app Browser; existing Django dev server; no project browser toolchain",
+  "browser_engine_version": "154.0.8037.93",
+  "current": {
+    "status": "CORRECTION COMMITTED/PUBLISHED; CI SUCCESS; Task Approvals PENDING",
+    "recorded_at_utc": "2026-10-02T20:01:57Z",
+    "content_binding": {
+      "basis": "Post-fix browser and local tests ran before publication on bytes identical to the published correction; evidence reused, no browser rerun during records-only sync.",
+      "published_pre_fix_pr_head": "931f83af01ea44c880ab94c5f7c134a29613a332",
+      "dispatcher_sha256": "3b5eaf8b3c73061d420e2fb8cd94b3c8df24088def9baf026a569aa6ec90c8eb",
+      "fixture_pack_sha256": "6728e63963af1acc795da162005bacc24ae2617d1fd5e1b98c18280425c70102",
+      "js_regression_sha256": "c27ac73ed895f29d47261861b3734a8b394e3247b3e8f7c8080067911fbc2c76",
+      "served_dispatcher_bytes_equal_working_file": true,
+      "final_implementation_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+      "checked_out_head_at_capture": "931f83af01ea44c880ab94c5f7c134a29613a332",
+      "record_sync_scope": "Documentation-only follow-up; resulting PR head/CI tracked separately in GitHub, not attributed to correction run."
+    },
+    "browser_identifier": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "platform": "Win32",
+      "userAgentData": {
+        "brands": [
+          {
+            "brand": "Chromium",
+            "version": "154"
+          },
+          {
+            "brand": "Google Chrome",
+            "version": "154"
+          },
+          {
+            "brand": "Not A(Brand",
+            "version": "99"
+          }
+        ],
+        "mobile": false,
+        "platform": "Windows"
+      },
+      "highEntropyValues": {
+        "brands": [
+          {
+            "brand": "Chromium",
+            "version": "154"
+          },
+          {
+            "brand": "Google Chrome",
+            "version": "154"
+          },
+          {
+            "brand": "Not A(Brand",
+            "version": "99"
+          }
+        ],
+        "fullVersionList": [
+          {
+            "brand": "Chromium",
+            "version": "154.0.8037.93"
+          },
+          {
+            "brand": "Google Chrome",
+            "version": "154.0.8037.93"
+          },
+          {
+            "brand": "Not A(Brand",
+            "version": "99.0.0.0"
+          }
+        ],
+        "mobile": false,
+        "platform": "Windows",
+        "platformVersion": "19.0.0",
+        "uaFullVersion": "154.0.8037.93"
+      }
+    },
+    "browser_matrix": {
+      "status": "PASS",
+      "method": "Temporary fixture-only HTML outside repository, served by the same Django runserver through an in-memory extra static directory; page calls actual window.MathStartUI.dispatchExercise; DOM report read by existing browser API.",
+      "url": "http://127.0.0.1:8001/static/ms7-i02-browser-regression.html",
+      "shell_exit_code": null,
+      "results": [
+        {
+          "name": "valid SELF_CHECK",
+          "expected": "self-check",
+          "actual": "self-check",
+          "status": "PASS"
+        },
+        {
+          "name": "valid FINAL_ANSWER",
+          "expected": "final-answer",
+          "actual": "final-answer",
+          "status": "PASS"
+        },
+        {
+          "name": "valid STEP_BY_STEP",
+          "expected": "ordered-steps",
+          "actual": "ordered-steps",
+          "status": "PASS"
+        },
+        {
+          "name": "valid STRUCTURED_SOLUTION",
+          "expected": "structured-solution",
+          "actual": "structured-solution",
+          "status": "PASS"
+        },
+        {
+          "name": "unknown string",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string array",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string object",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string number",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string boolean",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string boxed string",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "non-string coercible object",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "FINAL_ANSWER input_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "FINAL_ANSWER input_schema null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "FINAL_ANSWER input_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "FINAL_ANSWER array + null input_schema",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STEP_BY_STEP step_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STEP_BY_STEP step_schema null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STEP_BY_STEP step_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STEP_BY_STEP array + null step_schema",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION input_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION input_schema null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION input_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION array + null input_schema",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION step_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION step_schema null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION step_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION array + null step_schema",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION input_schema+step_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION input_schema+step_schema null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION input_schema+step_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "STRUCTURED_SOLUTION array + null input_schema+step_schema",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK input_schema non-null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK input_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK input_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK step_schema non-null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK step_schema missing",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK step_schema undefined",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        },
+        {
+          "name": "SELF_CHECK both non-null",
+          "expected": "unsupported",
+          "actual": "unsupported",
+          "status": "PASS"
+        }
+      ],
+      "passed": 40,
+      "total": 40,
+      "controls_before": {
+        "forms": 0,
+        "inputs": 0
+      },
+      "controls_after": {
+        "forms": 0,
+        "inputs": 0
+      },
+      "mathematical_assessment": false,
+      "console": []
+    },
+    "gallery_smoke": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:8001/__ui__/foundation/",
+      "shell_exit_code": null,
+      "slots": [
+        {
+          "selection": "0",
+          "slot": "self-check",
+          "text": "Foundation slot: self-check. Это только выбор слота, без формы и оценки."
+        },
+        {
+          "selection": "1",
+          "slot": "final-answer",
+          "text": "Foundation slot: final-answer. Это только выбор слота, без формы и оценки."
+        },
+        {
+          "selection": "2",
+          "slot": "ordered-steps",
+          "text": "Foundation slot: ordered-steps. Это только выбор слота, без формы и оценки."
+        },
+        {
+          "selection": "3",
+          "slot": "structured-solution",
+          "text": "Foundation slot: structured-solution. Это только выбор слота, без формы и оценки."
+        },
+        {
+          "selection": "unsupported",
+          "slot": "unsupported",
+          "text": "Этот режим или форма schema не поддерживается. Форма не создаётся; математической оценки нет."
+        }
+      ],
+      "states": [
+        {
+          "alert": "",
+          "busy": "false",
+          "rawInput": "  demo, raw + <text>  ",
+          "state": "ordinary",
+          "status": "Синтетический пример обычного содержимого. Это не результат решения."
+        },
+        {
+          "alert": "",
+          "busy": "true",
+          "rawInput": "  demo, raw + <text>  ",
+          "state": "loading",
+          "status": "Пример ожидания данных. Введённый текст остаётся видимым."
+        },
+        {
+          "alert": "Пример ошибки запроса. Повтор меняет только демонстрационное состояние.",
+          "busy": "false",
+          "rawInput": "  demo, raw + <text>  ",
+          "state": "error",
+          "status": ""
+        },
+        {
+          "alert": "",
+          "busy": "false",
+          "rawInput": "  demo, raw + <text>  ",
+          "state": "empty",
+          "status": "Пример успешно полученного пустого списка. Это не ошибка загрузки."
+        }
+      ],
+      "layouts": [
+        {
+          "clientWidth": 345,
+          "forms": 0,
+          "inputs": 3,
+          "scrollWidth": 345,
+          "target": 360
+        },
+        {
+          "clientWidth": 753,
+          "forms": 0,
+          "inputs": 3,
+          "scrollWidth": 753,
+          "target": 768
+        },
+        {
+          "clientWidth": 1425,
+          "forms": 0,
+          "inputs": 3,
+          "scrollWidth": 1425,
+          "target": 1440
+        }
+      ],
+      "rawInput": "  demo, raw + <text>  ",
+      "keyboard": {
+        "skipFocus": "foundation-main",
+        "inputFocus": "demo-input",
+        "stateFocus": "demo-state",
+        "retryFocus": "demo-retry",
+        "afterRetry": {
+          "focus": "demo-state",
+          "rawInput": "  demo, raw + <text>  ",
+          "state": "ordinary"
+        },
+        "fieldError": {
+          "alert": "Пример ошибки поля. Текст не проверялся и не был сохранён.",
+          "describedBy": "demo-input-help demo-input-error",
+          "errorHidden": false,
+          "focus": "demo-input",
+          "invalid": "true"
+        }
+      },
+      "console": []
+    },
+    "agent_automated_checks": [
+      {
+        "command": "node tests/test_i02_schema_dispatch.js",
+        "status": "PASS",
+        "exit_code": 0,
+        "tests": 5
+      },
+      {
+        "command": "python -m unittest discover -s tests -p \"test_i02_*.py\" -v",
+        "status": "PASS",
+        "exit_code": 0,
+        "tests": 7
+      },
+      {
+        "command": "python manage.py test content.test_ui_foundation -v 2",
+        "status": "PASS",
+        "exit_code": 0,
+        "tests": 5
+      },
+      {
+        "command": "python -m unittest discover -s tests -p test_r02a_contract.py -v",
+        "status": "PASS",
+        "exit_code": 0,
+        "tests": 30
+      },
+      {
+        "command": "python -m pip check",
+        "status": "PASS",
+        "exit_code": 0
+      },
+      {
+        "command": "python scripts/check_database.py",
+        "status": "PASS",
+        "exit_code": 0
+      },
+      {
+        "command": "python manage.py check",
+        "status": "PASS",
+        "exit_code": 0
+      },
+      {
+        "command": "python scripts/verify_repo.py",
+        "status": "PASS",
+        "exit_code": 0
+      }
+    ],
+    "canonical_verification": {
+      "command": "python scripts/verify_repo.py",
+      "status": "PASS",
+      "checks_passed": 8,
+      "checks_total": 8,
+      "evidence_owner": "agent rerun against corrected local working content",
+      "exit_code": 0,
+      "django_tests": 29,
+      "r03_tests": 18,
+      "harness_tests": 73
+    },
+    "runtime_versions": {
+      "python": "3.14.7",
+      "django": "5.2.16",
+      "psycopg": "3.3.6",
+      "postgresql_server_version_num": 160015,
+      "js_manual_test_runtime": "Codex-bundled Node.js 24.19.0"
+    },
+    "screenshots": [
+      {
+        "path": "docs/agent-traces/MS7-I02-evidence/post-fix-dispatch.jpg",
+        "format": "JPEG",
+        "sha256": "e3e602e1658943e842ef18bb491d7bfad83d5fc979216c257a00ddf67eccae8c"
+      },
+      {
+        "path": "docs/agent-traces/MS7-I02-evidence/post-fix-gallery-360.jpg",
+        "format": "JPEG",
+        "sha256": "5219af120ea20f2825f2b64d763169a13b7cc6a357f37f4862209f8884c0fd31"
+      }
+    ],
+    "security_observations": {
+      "gallery_forms": 0,
+      "gallery_inputs": 3,
+      "matrix_generated_forms": 0,
+      "matrix_generated_inputs": 0,
+      "mathematical_verdicts": false,
+      "console_warn_error": [],
+      "network": "Django logs: gallery, temporary matrix and production assets GET 200; favicon GET 404. No student mutation request observed. No full network/storage audit claimed."
+    },
+    "final_ci": {
+      "status": "SUCCESS",
+      "run_id": 37060459060,
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060",
+      "head_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+      "base_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+      "event": "pull_request",
+      "execution_target": "PR merge-ref",
+      "github_status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-10-02T20:27:20Z",
+      "evidence_owner": "agent read-only GitHub API confirmation",
+      "scope": "Final implementation/evidence correction; documentation follow-up has a separate head/CI."
+    },
+    "task_approvals": {
+      "Ruslan": "PENDING; published CHANGES_REQUESTED review targets pre-fix 931f83af01ea44c880ab94c5f7c134a29613a332",
+      "Vladimir": "PENDING; published CHANGES_REQUESTED review targets pre-fix 931f83af01ea44c880ab94c5f7c134a29613a332"
+    },
+    "pr_description": "Synchronized separately to published correction, SUCCESS CI and actual post-fix browser evidence; human approvals PENDING.",
+    "record_sync_at_utc": "2026-10-02T20:33:26Z",
+    "recorded_at_utc_note": "Original post-fix browser/local verification capture time; record sync is separate.",
+    "pr": {
+      "number": 22,
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/22",
+      "state": "OPEN",
+      "head_branch": "ms7-i02-ui-foundation",
+      "base_branch": "main",
+      "correction_head_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+      "mergeable_at_sync_snapshot": "MERGEABLE",
+      "review_decision_at_sync_snapshot": "CHANGES_REQUESTED",
+      "repeat_review": "Authorized for Tramsey00 and VladimirFrolov777 after records sync and green current-head CI; requests read back from GitHub."
+    }
+  },
+  "pre_fix_pr_evidence": {
+    "status": "HISTORICAL / PRE-FIX PUBLISHED EVIDENCE",
+    "pr_number": 22,
+    "url": "https://github.com/Tramsey00/MathStart-Python/pull/22",
+    "pr_state": "OPEN",
+    "head_sha": "931f83af01ea44c880ab94c5f7c134a29613a332",
+    "base_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+    "ci": {
+      "run_id": 37027103585,
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37027103585",
+      "event": "pull_request",
+      "head_sha": "931f83af01ea44c880ab94c5f7c134a29613a332",
+      "status": "completed",
+      "conclusion": "success",
+      "final_for_corrected_content": false
+    },
+    "reviews": [
+      {
+        "reviewer": "VladimirFrolov777",
+        "state": "CHANGES_REQUESTED",
+        "commit_sha": "931f83af01ea44c880ab94c5f7c134a29613a332",
+        "url": "https://github.com/Tramsey00/MathStart-Python/pull/22#pullrequestreview-5394998568"
+      },
+      {
+        "reviewer": "Tramsey00",
+        "state": "CHANGES_REQUESTED",
+        "commit_sha": "931f83af01ea44c880ab94c5f7c134a29613a332",
+        "url": "https://github.com/Tramsey00/MathStart-Python/pull/22#pullrequestreview-5395624323"
+      }
+    ]
+  },
+  "historical_pre_publication": {
+    "status": "HISTORICAL / SUPERSEDED BY current",
+    "note": "Original smoke snapshot retained verbatim as data, including user-confirmed canonical PASS with unspecified exit code, Content comparison/favicon resolution, and earlier unavailable browser version. Nested current/not_run describe only that earlier stage.",
+    "snapshot": {
+      "task": "MS7-I02",
+      "surface": "Codex In-app Browser, existing app browser control; no project browser toolchain",
+      "browser_engine_version": "UNAVAILABLE: version-page navigation denied by browser URL policy; no workaround attempted",
+      "viewport_targets": [
+        360,
+        768,
+        1440
+      ],
+      "observed_client_widths": [
+        345,
+        753,
+        1425
+      ],
+      "observed_scroll_widths": [
+        345,
+        753,
+        1425
+      ],
+      "scrollbar_width": 15,
+      "states": [
+        "ordinary",
+        "loading",
+        "error",
+        "empty"
+      ],
+      "dispatch_slots": [
+        "self-check",
+        "final-answer",
+        "ordered-steps",
+        "structured-solution",
+        "unsupported"
+      ],
+      "raw_input_preserved": "  demo, raw + <text>  ",
+      "keyboard": "Skip link Enter -> main; Tab -> input -> state select -> retry; Enter retry restores focus to select; Space field-error control focuses labelled input with associated error; 360px focus and sticky fixture mark inspected",
+      "console": "Captured warn/error entries were empty in the gallery smoke and published Content follow-up. The initial server-side favicon 500 is retained below as a historical/superseded incident; the later request returned HTTP 404.",
+      "network": "Gallery and five CSS/JS assets returned 200 in the initial Django server logs. Published home/catalogue/lesson GETs returned 200 in the follow-up; browser-triggered and explicit favicon requests returned HTTP 404. No student mutation or data request was observed during local gallery actions. No full network trace or storage audit claimed.",
+      "runtime_initialization": {
+        "performed_by": "user",
+        "commands": [
+          "python manage.py migrate",
+          "python manage.py bootstrap_site"
+        ],
+        "agent_performed_migrate_or_bootstrap": false
+      },
+      "current": {
+        "favicon": {
+          "http_status": 404,
+          "result": "PASS: previous 500 not reproduced; ordinary missing-icon 404",
+          "evidence_owner": "agent follow-up recorded in Trace Section 17",
+          "assertion_exit_code": 0
+        },
+        "published_content_comparison": {
+          "status": "PASS",
+          "pages": [
+            "/",
+            "/karta-sajta/",
+            "/polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj/"
+          ],
+          "evidence_owner": "agent browser follow-up recorded in Trace Section 17",
+          "browser_shell_exit_code": null,
+          "baseline_rendering_comparison": "PASS against cd10705 template; exit 0"
+        },
+        "canonical_verification": {
+          "command": "python scripts/verify_repo.py",
+          "status": "PASS",
+          "checks_passed": 8,
+          "checks_total": 8,
+          "evidence_owner": "user-confirmed after user migrate/bootstrap",
+          "agent_rerun_after_initialization": false,
+          "shell_exit_code": null,
+          "shell_exit_code_note": "Not separately supplied by the user"
+        }
+      },
+      "historical_incidents": [
+        {
+          "status": "HISTORICAL / SUPERSEDED",
+          "phase": "Initial smoke before user runtime initialization",
+          "published_content_comparison": "BLOCKED by missing runtime Content tables",
+          "favicon": "HTTP 500; missing content_redirect table in existing redirect middleware",
+          "canonical_verification": "Agent runs exited 1: 5/8 PASS, 3 Content checks FAIL; missing content_contentpage table",
+          "resolution": "User initialized the runtime DB through migrate/bootstrap; current evidence above supersedes this incident. This was an empty-runtime-DB prerequisite, not an I02 defect.",
+          "trace_reference": "MS7-I02.md Sections 16-17"
+        }
+      ],
+      "not_run": [
+        "Browser malformed-DTO matrix: NOT RUN / outside agreed baseline; existing Python negative contract tests retained",
+        "Full cross-browser/a11y audit: NOT RUN / outside agreed baseline",
+        "Live accepted Harness engineering run: NOT RUN",
+        "Final-SHA CI, PR and independent acceptance: NOT RUN / pending"
+      ],
+      "limitations": [
+        "single available browser smoke; no full cross-browser/a11y audit or full network/storage audit",
+        "exact browser engine version unavailable",
+        "browser malformed DTO matrix not executed; Python negative shape/identity tests executed"
+      ]
+    }
+  },
+  "historical_first_local_p2_pass": {
+    "status": "HISTORICAL / SUPERSEDED",
+    "trace_section": 19,
+    "js_tests": 3,
+    "dispatch_calls": 106,
+    "canonical": "Agent PASS 8/8, exit 0",
+    "browser_rerun": "NOT RUN at that stage"
+  },
+  "verification_surface_diagnostics": {
+    "read_only_browser_evaluate": "window.MathStartUI and navigator unavailable in the DOM-only evaluation facade; actual page script obtained them successfully.",
+    "viewport_initial_attempt": {
+      "status": "SUPERSEDED; no mobile PASS claimed from these measurements",
+      "note": "Two-tab viewport override applied to selected matrix tab. Repeated after closing matrix, using one gallery tab and reload for each target.",
+      "observations": [
+        {
+          "clientWidth": 1615,
+          "fixtureMark": "FIXTURE ONLY · Только синтетические примерыНе сохраняются, не оцениваются и не меняют прогресс.",
+          "forms": 0,
+          "inputs": 3,
+          "scrollWidth": 1615,
+          "slot": "unsupported",
+          "target": 360
+        },
+        {
+          "clientWidth": 1615,
+          "fixtureMark": "FIXTURE ONLY · Только синтетические примерыНе сохраняются, не оцениваются и не меняют прогресс.",
+          "forms": 0,
+          "inputs": 3,
+          "scrollWidth": 1615,
+          "slot": "unsupported",
+          "target": 768
+        },
+        {
+          "clientWidth": 1615,
+          "fixtureMark": "FIXTURE ONLY · Только синтетические примерыНе сохраняются, не оцениваются и не меняют прогресс.",
+          "forms": 0,
+          "inputs": 3,
+          "scrollWidth": 1615,
+          "slot": "unsupported",
+          "target": 1440
+        }
+      ]
+    },
+    "full_page_screenshot": "Unavailable; native JPEG viewport screenshots captured and decoded successfully instead."
+  },
+  "not_run": [
+    "Full cross-browser/a11y audit: NOT RUN / outside agreed baseline",
+    "Full malformed-DTO audit beyond the focused 40-case review matrix: NOT RUN",
+    "Full network/storage audit: NOT RUN",
+    "Live accepted Harness engineering run: NOT RUN",
+    "Independent Task Approvals: PENDING"
+  ],
+  "limitations": [
+    "Single available browser, focused foundation verification only",
+    "Post-fix browser/local tests captured before publication; digests match published correction e471efc0b1a6b4af9baf1401e49311a203f12450; no new browser rerun for documentation sync.",
+    "Published Content comparison/favicon evidence remains historical; not a new Content browser comparison in this phase"
+  ]
+}

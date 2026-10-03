@@ -1,0 +1,26 @@
+{% load static %}<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'mathstart/css/site.css' %}">
+  {% block head %}<title>MathStart</title>{% endblock %}
+</head>
+<body>
+{% block skip_link %}{% endblock %}
+  <nav class="ms-site-header" aria-label="Основная навигация">
+    <a class="ms-site-brand" href="/">MathStart</a>
+    <div>
+      <a href="/materialy/">Материалы</a>
+      <a href="/pamyatki/">Памятки</a>
+      <a href="/karta-sajta/">Все темы</a>
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+  <footer class="ms-site-footer">
+    <span>MathStart · Математика для 5–10 классов</span>
+    <div><a href="/o-proekte/">О проекте</a><a href="/kontakty/">Контакты</a></div>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mathstart:ui:state-fixtures:v1",
+  "title": "MS7-I02 fixture-only UI projections, not HTTP envelopes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["fixture_version", "fixture_only", "provenance", "states", "exercises"],
+  "properties": {
+    "fixture_version": {"const": 1},
+    "fixture_only": {"const": true},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task", "source", "http_artifact", "openapi_sha256"],
+      "properties": {
+        "task": {"const": "MS7-I02"},
+        "source": {"const": "synthetic; no user data, solutions or assessment evidence"},
+        "http_artifact": {"const": "http-v1"},
+        "openapi_sha256": {"const": "133aae117333e66b40662ec4fdb47fc02ee08e7aeecbbd9cbb200d5468ca7362"}
+      }
+    },
+    "states": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["state", "title", "message"],
+        "properties": {
+          "state": {"enum": ["ordinary", "loading", "error", "empty"]},
+          "title": {"type": "string", "minLength": 1, "maxLength": 100},
+          "message": {"type": "string", "minLength": 1, "maxLength": 500}
+        }
+      }
+    },
+    "exercises": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {"$ref": "urn:mathstart:api:dto:v1#/$defs/PublicExerciseDTO"}
+    }
+  }
+}
