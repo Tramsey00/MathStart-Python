@@ -7,6 +7,11 @@
 - **Created / Updated:** 2026-10-04
 - **Issue:** https://github.com/Tramsey00/MathStart-Python/issues/23
 - **Branch:** `codex/ms7-v02-grades-api`
+- **PR:** https://github.com/Tramsey00/MathStart-Python/pull/24 (OPEN)
+- **Implementation SHA:** `1b1ded8817a328fa191952af5b8272dbfa1e653b`
+- **Remote verification:** [PR checks](https://github.com/Tramsey00/MathStart-Python/pull/24/checks),
+  initial [run 37202939137](https://github.com/Tramsey00/MathStart-Python/actions/runs/37202939137)
+  observed IN_PROGRESS on implementation SHA; inspect current PR head for merge.
 - **Baseline:** `150e569`, verified equal to fetched `origin/main`
 - **Contract:** [accepted R02A](../../../specs/api/MS7-R02A-http-eligibility.md),
   [OpenAPI](../../../specs/api/openapi-v1.json),
@@ -116,6 +121,7 @@ environment and final results are recorded in the trace.
 - [x] Meaningful tests and required local verification pass.
 - [x] Frozen contracts and unrelated work unchanged.
 - [x] Trace and reviewable diff prepared.
+- [x] Implementation committed/pushed and PR 24 created/attached to this chat.
 - [ ] Remote CI on PR head.
 - [ ] Руслан Task Approval / migration review.
 - [ ] I03 handoff and integration compatibility confirmed.
@@ -123,3 +129,9 @@ environment and final results are recorded in the trace.
 
 Keep this plan active and the task incomplete until required checks and human
 acceptance are complete. No approval, merge, CI or handoff is inferred.
+
+Issue 23 migration-impact paragraph was synchronized with the user's explicit
+agreement. PR 24 contains the local verification and gate checklist. Changes
+after the implementation SHA are evidence/documentation only; current PR checks
+remain authoritative for the final head. Do not equate schema-scope agreement
+with Руслан's migration review or Илья's handoff acceptance.

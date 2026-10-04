@@ -7,6 +7,8 @@
 - **Plan:** [active grades API plan](../exec-plans/active/MS7-V02-grades-api.md)
 - **Contract:** accepted R02A OpenAPI/DTO/policy (unchanged)
 - **Human reviewer:** Руслан; I03 consumer Илья
+- **Implementation commit:** `1b1ded8817a328fa191952af5b8272dbfa1e653b`
+- **PR:** https://github.com/Tramsey00/MathStart-Python/pull/24 (OPEN)
 - **Runtime spec:** [Grade mapping](../../specs/api/MS7-V02-grades-runtime.md)
 - **Status:** INCOMPLETE; local verification PASS, human review and merge pending
 
@@ -128,7 +130,7 @@ Local generated logs: ignored `var/grades-23/fresh-smoke.log` and `verify-repo.l
 | Harness suite in canonical | PASS; 73 tests, 17.749 s |
 | Bootstrapped catalogue GET | PASS; schema-valid, ID/number pairs (1,5), (2,6), (3,7), (4,8), (5,9), (6,10) |
 | Whitespace / frozen-source diff | PASS; no whitespace errors or changes in frozen artifacts/applied migrations/sources/dependencies |
-| Remote CI | PENDING; PR not yet created at time of this evidence update |
+| Remote CI | Initial [run 37202939137](https://github.com/Tramsey00/MathStart-Python/actions/runs/37202939137) observed IN_PROGRESS on implementation SHA; current-head outcome tracked in [PR checks](https://github.com/Tramsey00/MathStart-Python/pull/24/checks) |
 | Руслан review / migration approval | PENDING |
 | I03 handoff acceptance / merge | PENDING |
 
@@ -145,3 +147,13 @@ final task status INCOMPLETE pending remote CI, Руслан review, I03 handoff
 merge. The runtime spec contains the I03 integration instructions and a synthetic
 response; documentation preparation does not claim that Илья accepted it.
 No human acceptance or Issue closure is inferred.
+
+## Publication and scope synchronization
+
+Staged only the 15 task-owned files; `git diff --cached --check` PASS. Committed
+implementation as `1b1ded8` and pushed `codex/ms7-v02-grades-api`. Created PR 24
+against main and attached it to this chat. Updated only Issue 23's migration-impact
+paragraph to record explicit user agreement; its state, owner and labels retained.
+No review-request messages or handoff messages sent to other participants.
+The follow-up evidence update adds PR/commit/check links without changing runtime,
+tests, migration or frozen artifacts. Required human gates remain pending.
