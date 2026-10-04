@@ -1,0 +1,959 @@
+{
+  "task": "MS7-I03",
+  "issue": 25,
+  "recorded_date": "2026-10-05",
+  "stage": "Authorized contextual state-reload UX follow-up",
+  "status": "PASS",
+  "branch": "ms7-i03-auth-profile-onboarding",
+  "head": "c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66",
+  "runtime": "Real Chromium / documented Django 5.2.16 / PostgreSQL 16.15; no mock API",
+  "flows": {
+    "anonymous_initial": "PASS: automatic GET me; no reload button; native forms enabled",
+    "registration": "PASS: Enter submit, automatic CSRF/state restoration; no reload button",
+    "state_error_retry": "PASS: actual GET-me response deliberately truncated by temporary loopback observer; contextual button; Space anonymous and Enter authenticated retry only GET me",
+    "login_saved_state": "PASS: Enter login; server restores grade id 1 / school number 5, DIAGNOSTIC and completion; reload preserves same server state",
+    "focus": "PASS: anonymous retry -> enabled login-username, authenticated retry/login -> profile-title; Tab/Shift+Tab and visible 3px outline; no trap",
+    "console": "Captured warn/error list empty; no JS stack traces observed",
+    "repeated_retry_failure": "PASS on final controller: second truncated GET-me response keeps error status, role=alert focus and enabled retry; Tab/Space/Enter then restores profile-title focus."
+  },
+  "checks": {
+    "retry_is_get_me_only": true,
+    "all_mutations_current_csrf": true,
+    "receipt_headers_only_register_onboarding": true,
+    "backend_and_transport_unchanged": true
+  },
+  "screenshots": [
+    {
+      "file": "ux-initial.jpg",
+      "format": "JPEG",
+      "width": 1568,
+      "height": 1244,
+      "sha256": "caf5e316538824748a5774f8f3ad24790b08eb19ba2f57faec755671dafeeda9"
+    },
+    {
+      "file": "ux-state-error.jpg",
+      "format": "JPEG",
+      "width": 1280,
+      "height": 720,
+      "sha256": "7838477f62c5755d9d1af5e643667b3846643ebe8e60520217880ba26abcc300"
+    },
+    {
+      "file": "ux-login-restored.jpg",
+      "format": "JPEG",
+      "width": 1553,
+      "height": 1232,
+      "sha256": "d65de5ae64bb7384b0b38e7ea02760b3682b4c2dc7f3c5b04ecc396ea0e22f9b"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "static/mathstart/js/ui/account.js",
+      "sha256": "612f51ebd0478828bb3ac2f17d3d0084275a6d489aa9bcf1f1f9098e20156646"
+    },
+    {
+      "path": "static/mathstart/js/ui/identity-api.js",
+      "sha256": "28370c2f0be4cad6b2855785d227eb51808ba546b0423c2a92e9a42fd8a6cba7"
+    },
+    {
+      "path": "static/mathstart/css/ui/account.css",
+      "sha256": "9701baf8f420e7c89ed36d8302ba339d6165478a2940678d7cc39126c2af2f8f"
+    },
+    {
+      "path": "templates/users/account.html",
+      "sha256": "f49cee2b8577f9bbffbe169345cd45421da555992b82eb2a6b6e6a18d7f333fd"
+    },
+    {
+      "path": "templates/users/grade_field.html",
+      "sha256": "519131d11249f11afe226a10e213b033042cfc24ad3c79ad8bd1e609a1626083"
+    },
+    {
+      "path": "users/ui_views.py",
+      "sha256": "9e867ac7bf8ad3aff0185763783a8a2c9d3cfd08df6a3f0942ac3c985e35c58f"
+    },
+    {
+      "path": "users/ui_urls.py",
+      "sha256": "f7ee3009541b11814fef794598bc3080af834ecb2b808972a1fa795b803479b9"
+    },
+    {
+      "path": "config/urls.py",
+      "sha256": "9306784e78390aa2749d5b4a9442edc22835ab22cdc043bdc8f451976ca5b957"
+    },
+    {
+      "path": "templates/base.html",
+      "sha256": "f149a4a5075b19c2129919b30c95aad154fb37cf60a56b308589473543fbac83"
+    },
+    {
+      "path": "templates/ui/components/button.html",
+      "sha256": "c43ad85c4e12262c2e2efae60a6dab3caa5b2eb8f590ebf8250562cb6821da8b"
+    },
+    {
+      "path": "templates/ui/components/field.html",
+      "sha256": "59913446a781e4bd85d776b5805d7839134d9e166a2867adde14c4795c26612c"
+    },
+    {
+      "path": "tests/test_i03_account.js",
+      "sha256": "46c174b580491d6abff24b01bd5e4d0e9276a96e4768a3c09aca3f305d93a8df"
+    }
+  ],
+  "collected_assets": [
+    {
+      "path": "static/mathstart/js/ui/account.js",
+      "collected_sha256": "612f51ebd0478828bb3ac2f17d3d0084275a6d489aa9bcf1f1f9098e20156646",
+      "source_sha256": "612f51ebd0478828bb3ac2f17d3d0084275a6d489aa9bcf1f1f9098e20156646"
+    },
+    {
+      "path": "static/mathstart/js/ui/identity-api.js",
+      "collected_sha256": "28370c2f0be4cad6b2855785d227eb51808ba546b0423c2a92e9a42fd8a6cba7",
+      "source_sha256": "28370c2f0be4cad6b2855785d227eb51808ba546b0423c2a92e9a42fd8a6cba7"
+    },
+    {
+      "path": "static/mathstart/css/ui/account.css",
+      "collected_sha256": "9701baf8f420e7c89ed36d8302ba339d6165478a2940678d7cc39126c2af2f8f",
+      "source_sha256": "9701baf8f420e7c89ed36d8302ba339d6165478a2940678d7cc39126c2af2f8f"
+    }
+  ],
+  "network_events": [
+    {
+      "sequence": 114,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 115,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 116,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": false,
+      "transport_fault": "truncated_real_state_read_response"
+    },
+    {
+      "sequence": 117,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 118,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 119,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 120,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 121,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 122,
+      "method": "POST",
+      "path": "/api/v1/auth/register/",
+      "status": 201,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "logical_operation": 7,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 123,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 124,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 125,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 126,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 127,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 8,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "DIAGNOSTIC"
+      },
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 128,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 129,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 130,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 131,
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "response": {
+        "completed": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 132,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 133,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 134,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 135,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 136,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 137,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 138,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 139,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 140,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 141,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 142,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": false,
+      "transport_fault": "truncated_real_state_read_response"
+    },
+    {
+      "sequence": 143,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 144,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 145,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 146,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 147,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 148,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 149,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": false,
+      "transport_fault": "truncated_real_state_read_response"
+    },
+    {
+      "sequence": 150,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": false,
+      "transport_fault": "truncated_real_state_read_response"
+    },
+    {
+      "sequence": 151,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 3,
+        "username": "i03_browser_ux_1791145561119",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    }
+  ],
+  "targeted_tests": {
+    "i03_node": 22,
+    "i02_node": 5,
+    "i03_django": 5,
+    "skips": 0
+  },
+  "full_verifier": {
+    "checks": 8,
+    "django_tests": 95,
+    "r03_tests": 18,
+    "harness_tests": 73,
+    "status": "PASS",
+    "skips": 0
+  },
+  "historical_evidence": "Stage 3 manifests are preserved. UX login/initial walkthrough preceded the final repeated-error copy adjustment; the final browser pass rechecked current GET-me restoration, repeated retry failure and keyboard focus. Source bindings below are final verified bytes.",
+  "commit_push": "NOT PERFORMED",
+  "pr": "NOT CREATED",
+  "task_approval": "PENDING",
+  "G3": "PENDING"
+}

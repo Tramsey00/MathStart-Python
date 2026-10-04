@@ -16,6 +16,7 @@ sitemaps = {
 urlpatterns = [
     path("api/v1/", include("content.api_urls")),
     path("api/v1/", include("users.urls")),
+    path("account/", include("users.ui_urls")),
     path("admin/", admin.site.urls),
 
     path(

@@ -1,6 +1,6 @@
 # SPEC MS7-I03: Auth/profile/onboarding UI
 
-- **Status:** Ready for implementation planning; preparation only
+- **Status:** Core, browser acceptance and final local verification complete; publication/human acceptance pending
 - **Owner:** Илья
 - **Reviewer / Task Approver:** Руслан и Владимир
 - **Canonical Issue:** [#25](https://github.com/Tramsey00/MathStart-Python/issues/25)
@@ -11,10 +11,12 @@
 - **Direct FR coverage:** FR-01, FR-02
 - **Exec plan:** [MS7-I03](../../docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
 - **Trace:** [MS7-I03](../../docs/agent-traces/MS7-I03.md)
-- **Last updated:** 2026-10-04
+- **Last updated:** 2026-10-05
 
 ```text
-Implementation: NOT STARTED
+Implementation: CORE IMPLEMENTED; overall task INCOMPLETE
+BROWSER ACCEPTANCE: PASS (stage 3)
+FINAL VERIFICATION: PASS (stage 4, local working tree)
 PR: NOT CREATED
 Task Approval: PENDING
 G3: PENDING
@@ -25,7 +27,8 @@ G3: PENDING
 Deliver **Auth/profile/onboarding screens on real API**. Students can register,
 sign in/out, select a grade, choose an onboarding mode, and restore saved server
 state through accessible forms. Preparation defines the consumer boundary; no
-UI, runtime or test implementation is delivered by these documents.
+UI or runtime is executed by these documents. The core snapshot and targeted
+results are recorded in §13 and the trace; overall acceptance remains pending.
 
 The canonical requirements source is MathStart Technical Specification **v7.1,
 G0 ACCEPTED**:
@@ -40,7 +43,7 @@ Accepted R02A OpenAPI SHA-256
 133aae117333e66b40662ec4fdb47fc02ee08e7aeecbbd9cbb200d5468ca7362
 
 Accepted R02A manifest SHA-256
-1b4a4b43df6052db5d91840cb2e748745cafb0529a766272d5a29b2b88e6dbac
+35da935f191f34103023e53ac4855313232ef95e6e4eb312bdfc9f9b55065b03
 ```
 
 Task card: §24, pages 68–69. Applicable requirements: §11, §16, §17, revised
@@ -301,7 +304,9 @@ record actual browser versions. Fixture-only tests cannot establish API integrat
 
 ## 9. Acceptance and negative acceptance
 
-All implementation acceptance remains unchecked at preparation:
+Local implementation checks and browser/final verification are recorded in
+§14–15 and the trace. The task-level acceptance checklist below remains subject
+to independent human review; local PASS does not record Task Approval:
 
 - [ ] Registration and login/logout work through the real API with CSRF rotation.
 - [ ] Profile selection uses all required grade pages and returned IDs, including `id != number`.
@@ -344,8 +349,11 @@ pass or add a toolchain merely to obtain evidence. After G1, apply the engineeri
 run requirement in §17 when that accepted Harness is available; do not claim it
 was performed in preparation.
 
-Preparation verification is limited to status/diff review of these documents.
-No I03 runtime tests, browser acceptance or canonical verifier were run in this phase.
+Initial preparation verification was limited to document status/diff review.
+Stage 2 subsequently ran task-owned and targeted regression tests. Stage 3 real
+PostgreSQL/browser acceptance and the post-correction targeted rerun passed.
+Stage 4 then passed the complete canonical verifier and relevant extra suites;
+exact commands and coverage are recorded in §15 and the trace.
 
 ## 11. Risks, human gates and completion
 
@@ -353,11 +361,11 @@ No I03 runtime tests, browser acceptance or canonical verifier were run in this 
 | --- | --- |
 | Historical upstream OPEN/PENDING labels | Use accepted GitHub/main/user state; preserve frozen documents. |
 | PR #24 separate backend/migration approval not located in prior pre-flight evidence | Record the missing approval evidence for Руслан/Владимир clarification before final acceptance. Consumer approval and merge are verified; the grade-source blocker is removed. I03 does not perform backend-owner approval. |
-| Local runtime DB upgrade/browser setup not executed in preparation | Validate the configured environment in a later authorized phase; upstream CI is not a local browser test. |
+| Local runtime DB upgrade/browser setup not executed in preparation | Resolved in authorized stage 3: existing migration applied, unchanged bootstrap, collected static and real PostgreSQL/browser walkthrough. |
 | Replayed receipt differs from subsequently changed profile | Recover current state with GET me. |
 | Catalogue pages/order/identity assumed from small seed | Follow accepted pagination and use returned IDs; no number-to-PK mapping. |
 | Product-wide SELF_REPORT/DIAGNOSTIC semantics exceed current consumer DTO | Persist mode only; defer actual progress/session behavior to owning tasks. |
-| Existing generic I02 field component lacks specific password/select behavior | Extend/reuse accessible UI controls only in the later implementation scope; no component change now. |
+| Existing generic I02 field component lacks specific password/select behavior | Core adds optional native input semantics with preserved defaults; browser label/password/select/focus checks passed. |
 
 Preparation completion means one canonical Issue and three reviewed documents
 exist. Overall I03 remains incomplete until runtime acceptance, required tests,
@@ -373,3 +381,125 @@ authorized PR/merge workflow are complete. No approval or G3 closure is inferred
 - [I02 spec](MS7-I02-ui-foundation.md)
 - [V02 trace](../../docs/agent-traces/MS7-V02.md)
 - PR/demo/browser artifacts: not created in preparation.
+
+## 13. Stage 2 core snapshot (2026-10-04)
+
+Starting HEAD: `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`, clean branch
+`ms7-i03-auth-profile-onboarding`. Core changes are uncommitted.
+
+Entry point: GET `/account/`, a task-owned presentation route with no business
+mutation. Forms are powered by existing API operations only. Thin routing/view
+glue is separate from `users/urls.py`, `views.py` and `services.py`.
+
+The controller restores current server state through GET me, displays safe
+catalogue titles and sends original returned IDs. One pending action freezes
+serialized payload/key in page memory; conflicting submissions are blocked until
+an uncertain result is resolved. An explicit new action creates a new key.
+Passwords and pending action data are not stored in browser storage. Reload
+restores confirmed server state; it does not persist credential-bearing drafts.
+
+Each mutation obtains fresh CSRF. Successful registration/login refreshes CSRF
+and reads GET me. A known auth acknowledgement followed by a failed recovery read
+blocks forms and offers restoration instead of another registration. Non-receipt
+login/logout/profile retries first reconcile current server state. Private retries
+check the session owner before another mutation. Login failures remain generic.
+
+Native POST forms, labels, password/autocomplete semantics, legends/radio groups,
+required select controls, error associations, live status/alerts and focus handling
+are implemented using I02 components/tokens. No diagnostic session or numerical
+skill/progress behavior is added.
+
+Targeted tests PASS (details in trace). Actual keyboard/mobile/browser DOM/network/
+console/screenshots and final repository verification remain **NOT STARTED**.
+This paragraph records the stage 2 stopping state; stage 3 results follow below.
+No stage 2 commit, push, PR, Issue change or merge was performed.
+
+## 14. Stage 3 browser acceptance (2026-10-04)
+
+User-authorized scope: real `/account/` browser acceptance, documented local
+runtime preparation, I03-owned fixes and sanitized evidence. HEAD remains
+`c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`; core remains uncommitted.
+
+PASS on Chromium **154.0.8037.98**, Django **5.2.16**, Python **3.14.7** and
+PostgreSQL **16.15**. Applied the existing `content.0002_grade_created_at`, ran
+unchanged `bootstrap_site`, collected static and used documented `runserver`.
+No model/migration/API/contract/business-semantic change was authored.
+
+Real flows passed: registration, logout/login, catalogue/profile save, all three
+mode selections, reload/later-login restoration, safe invalid credentials and
+other-tab logout recovery. Catalogue `5 класс` returns PK **1**, number **5**;
+PATCH/onboarding send returned **1**. All mutations used current CSRF; receipt
+headers appeared only on registration/onboarding. Actual auth rotation was
+observed without storing token values. Production consumer pagination was also
+exercised with three real pages at `page_size=2` in a read-only probe; normal
+account UI used the actual six-row catalogue at its default `page_size=20`.
+
+A loopback transparent observer forwarded the UI's requests to the unchanged
+Django/PostgreSQL API. Two controlled lost acknowledgements after real
+SELF_REPORT writes demonstrated transport replay and explicit keyboard retry;
+unchanged keys/bodies resulted in four onboarding receipts for four logical
+operations despite six POST attempts. No mocked API success or profile state.
+DIAGNOSTIC remains mode selection, SELF_REPORT remains mode persistence only.
+
+Keyboard Tab/Shift+Tab/Enter/Space/native grade arrows/radio arrows passed, with
+associated labels/errors, visible focus, disabled/loading/pending states and no
+trap. Found and fixed logout focus attempted before its fieldset was enabled.
+The regression adapter now models disabled-fieldset focus rejection. Red test
+reproduced the defect; post-fix **19/19 Node** and **5/5 Django** tests passed.
+Actual browser logout now focuses the enabled login username field.
+
+Registration/login, profile/onboarding, saved and safe error layouts passed at
+actual **360/768/1440px** widths, including a real 150-character synthetic
+username on mobile. DOM had no duplicate IDs; browser warn/error capture was
+empty and no JS stack trace was observed. Legacy `/favicon.ico` server 404 is a
+pre-existing shell request, not an I03 failure. One-browser walkthrough does not
+claim a cross-browser or auditory screen-reader audit.
+
+Evidence: [index](../../docs/agent-traces/MS7-I03-evidence/README.md),
+[acceptance record](../../docs/agent-traces/MS7-I03-evidence/acceptance.json),
+[sanitized network](../../docs/agent-traces/MS7-I03-evidence/network.json).
+No passwords/cookies/CSRF/key values are retained. Tested source hashes and
+served/source equality are recorded. Final verifier, CI, commit/push/PR, human
+Task Approvals and G3 closure remain pending; Issue #25 is unchanged.
+
+## 15. Stage 4 final local verification (2026-10-04)
+
+The full verification-skill entry point passed all eight checks, including the
+complete PostgreSQL Django suite (95 tests), R03 contracts (18) and Harness unit
+suite (73), without skips. Additional Node checks passed 24 tests (19 I03 and
+5 I02); accepted R02A contracts passed 30 tests. Exact commands, upstream coverage
+and tooling versions are recorded in the trace and active plan.
+
+All 27 screenshots were re-inspected; JPEG dimensions/digests, 12 tested-source
+bindings, three served-asset hashes and local evidence links matched. Sanitized
+network evidence retains 99 events with 21 current-CSRF mutations and no secret
+values. The stage 3 evidence remains a historical snapshot. Keyboard/responsive
+acceptance still applies to the unchanged implementation bytes.
+
+Scope audit found no API/business-semantic, model/migration, frozen R02A, seed,
+Progress or diagnostic-runtime changes. All 17 frozen manifest pins and the
+manifest itself match HEAD. Corrected the I03 documents' previously miscopied
+manifest digest above; no frozen artifact was edited. No implementation fix was
+needed in stage 4. Legacy favicon 404 remains non-blocking.
+
+Local verification is complete; commit/push/PR, exact-head CI, independent
+Руслан/Владимир Task Approvals, merge and G3 acceptance remain pending.
+
+## 16. Contextual state-loading retry UX (2026-10-05)
+
+User-authorized UX cleanup: normal anonymous/authenticated states have no manual
+state-reload button. Automatic GET me on opening the page and after successful
+registration/login remains unchanged. Failed restoration or session reconciliation
+offers **Повторить загрузку**; it reads the existing GET users/me only and does
+not replay a mutation. A successful read hides the button. Failed/repeated reads
+show an error status rather than an obsolete loading message.
+
+Recovery moves keyboard focus after controls are enabled: anonymous state to
+login username, authenticated state to profile title, or to the pending mutation
+retry when applicable. CSRF/receipt transport, backend auth/API semantics and
+authoritative server state are unchanged. No extra normal-state action is needed.
+
+Regression tests, real API/browser keyboard re-check and full verifier passed;
+see [UX evidence](../../docs/agent-traces/MS7-I03-evidence/ux-recheck.json) and trace.
+Stage 3/4 snapshots remain historical; the new record binds the final UX source
+bytes. Publication, human Task Approvals and G3 remain pending.

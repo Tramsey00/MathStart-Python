@@ -1,21 +1,25 @@
 # EXEC PLAN MS7-I03: Auth/profile/onboarding UI
 
-- **Status:** Active; preparation only
+- **Status:** Active; core, browser acceptance and final local verification complete; publication/human acceptance pending
 - **Owner:** Илья
 - **Reviewer / Task Approver:** Руслан и Владимир
-- **Created / last updated:** 2026-10-04
+- **Created / last updated:** 2026-10-04 / 2026-10-05
 - **Canonical Issue:** [#25](https://github.com/Tramsey00/MathStart-Python/issues/25)
 - **Spec:** [MS7-I03](../../../specs/ui/MS7-I03-auth-profile-onboarding.md)
 - **Trace:** [MS7-I03](../../agent-traces/MS7-I03.md)
 - **Branch:** `ms7-i03-auth-profile-onboarding`
 - **Baseline SHA:** `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`
+- **Stage 2 starting HEAD:** `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`
 - **Gate:** G3
 - **Deadline:** 09.10.2026, revised canonical v7.1 §20.4
 - **FR coverage:** FR-01, FR-02
 - **Human gate required:** Yes; independent Руслан and Владимир Task Approvals
 
 ```text
-Implementation: NOT STARTED
+Implementation: CORE IMPLEMENTED; overall task INCOMPLETE
+BROWSER ACCEPTANCE: PASS (stage 3)
+FINAL VERIFICATION: PASS (stage 4, local working tree)
+COMMIT/PUSH: NOT PERFORMED (implementation stages 2–4)
 PR: NOT CREATED
 Task Approval: PENDING
 G3: PENDING
@@ -36,16 +40,18 @@ overrides old card dates. Use no v6 requirements.
 
 ## 2. Current authorization and preconditions
 
-The user split work into five stages. **Only stage 1 is authorized now.** This
-plan records later work, but does not execute or authorize it.
+The user split work into five stages and authorized core implementation, real
+browser acceptance and **stage 4 final verification/cleanup**. Stages 2–4 are
+complete locally. Stage 4 allows documentation synchronization and scoped fixes;
+it forbids staging, commit/push/PR, merge, Issue changes and self-approval.
 
 | Stage | Scope | Current status |
 | --- | --- | --- |
-| 1. Preparation | Canonical Issue, Spec, Exec Plan, Trace; document diff checks | COMPLETE; Issue #25 and three documents created; actual checks recorded in trace. |
-| 2. Implementation core | Real-API auth/profile/onboarding UI | NOT STARTED; await later user instruction. |
-| 3. Tests + browser acceptance | Automated tests, keyboard, DOM/network/console/screenshots | NOT STARTED. |
-| 4. Verification + cleanup | Full verifier, scoped diff, plan/trace updates | NOT STARTED. |
-| 5. Commit/push/PR | Only after checks; independent review/approval | NOT STARTED; no commit/push/PR authorization in preparation. |
+| 1. Preparation | Canonical Issue, Spec, Exec Plan, Trace; document diff checks | COMPLETE; preparation committed/pushed as `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`. |
+| 2. Implementation core | Real-API auth/profile/onboarding UI and required targeted tests | CORE COMPLETE locally; targeted tests PASS. |
+| 3. Tests + browser acceptance | Remaining automated coverage, real keyboard, DOM/network/console/screenshots | PASS on real PostgreSQL/Chromium; logout focus corrected; targeted reruns PASS; sanitized evidence recorded. |
+| 4. Verification + cleanup | Full verifier, scoped diff, plan/trace updates | PASS; all eight mandatory checks and extra I03/I02 Node/R02A suites; evidence/scope audit complete. |
+| 5. Commit/push/PR | Core publication only after checks; independent review/approval | NOT STARTED; implementation publication not authorized in stage 4. Historical preparation commit is separate. |
 
 Preparation inspected authority/repository inputs, runtime, tests and upstream
 migrations. Initial branch, HEAD, local main, origin/main and live remote main
@@ -100,9 +106,11 @@ remain synthetic and labelled; they cannot stand in for accepted real integratio
 
 No schema change. No migration, seed/bootstrap or LLM/prompt change.
 
-## 5. Future implementation phases
+## 5. Implementation phases and actual progress
 
-Every phase below is **NOT STARTED**. Checks are planned, not executed results.
+The original phase definitions remain below. Phases 1–10 are implemented as core;
+phases 11–13 passed local automated, browser and final verification. Phase 14
+remains pending. Detailed commands and results are in the trace.
 
 | # | Phase | Planned behavior | Evidence before advancing |
 | --- | --- | --- | --- |
@@ -121,8 +129,38 @@ Every phase below is **NOT STARTED**. Checks are planned, not executed results.
 | 13 | verification | Complete applicable verifier/contract/frontend checks; scoped diff cleanup and factual trace/plan. | Passing actual results or surfaced blockers; unchanged frozen inputs; no unexplained files/secrets. |
 | 14 | PR/review/approval | After authorized stage 5, commit/push/scoped PR linked to #25; exact-head CI and reviewers. | Руслан and Владимир independent Task Approvals, blocking comments resolved, authorized merge; G3 assessed separately. |
 
-Do not carry out phase 1 merely because preparation is complete. Issue creation,
-this plan and its checklist do not begin core work.
+| Phases | Actual current status (stages 2–4) |
+| --- | --- |
+| 1–3 auth shell / registration / login/logout | CORE IMPLEMENTED; template/JS and real runtime flow tested. |
+| 4 profile + grades | CORE IMPLEMENTED; real returned ID, pagination and PATCH flow tested. |
+| 5–7 three mode selections | CORE IMPLEMENTED; real API, replay and no numerical/session implementation. |
+| 8 saved state | CORE IMPLEMENTED; GET me after auth/reload/replay and controller state restore tested. |
+| 9 CSRF/error/retry | CORE IMPLEMENTED; rotation, frozen action identity, lost acknowledgement/reconciliation tested. |
+| 10 keyboard/accessibility | PASS: real native keyboard walkthrough; disabled-fieldset logout focus defect corrected and retested. |
+| 11 automated tests | PASS after UX cleanup: 27 Node (22 I03 + 5 I02), 95 Django, 18 R03 and 73 Harness; earlier unchanged R02A 30/30 PASS, no skips. |
+| 12 browser acceptance | PASS: real API/PostgreSQL, three modes, retry, restoration, errors, DOM/console and actual 360/768/1440px evidence. |
+| 13 final verification | PASS locally; full mandatory sequence, scoped diff/whitespace and evidence audit complete. |
+| 14 PR/review/approval | NOT STARTED. |
+
+Stop after the authorized stage 4 report. Publication and independent human
+approval are separate later steps.
+
+### Actual core file boundary
+
+`/account/` is a GET-only presentation page in `users/ui_urls.py` and
+`users/ui_views.py`, registered in `config/urls.py`. It renders
+`templates/users/account.html` and `grade_field.html`. The base navigation gains
+one account link. I02 field/button components gain optional type/autocomplete/
+name/maxlength parameters with unchanged defaults.
+
+Task CSS: `static/mathstart/css/ui/account.css`. Task JS:
+`static/mathstart/js/ui/identity-api.js` (existing API consumer), `account.js`
+(presentation controller). API routes, business services, models, migrations,
+frozen DTO/OpenAPI/policy and I02 fixtures remain unchanged.
+
+Tests: `users/tests/test_i03_ui.py`, `tests/test_i03_identity_api.js`,
+`tests/test_i03_account.js`, `tests/i03_runtime_flow.js`. The latter runs production
+JS against an isolated Django/PostgreSQL live test server, not a browser.
 
 ## 6. API and state handling plan
 
@@ -175,7 +213,7 @@ considering a new toolchain. A static gallery or mocked success is insufficient.
 
 ## 8. Verification plan
 
-Current preparation checks:
+Current scoped Git checks (also used in preparation):
 
 ```text
 git status --short
@@ -184,25 +222,47 @@ git diff --stat
 git diff
 ```
 
-New documents remain untracked. Ordinary `git diff` does not include untracked
-files: inspect each document with `git diff --no-index` against the empty input,
-including whitespace and stat checks, without staging. Record actual results in
-the trace. Ensure only these three files are new and tracked runtime is unchanged.
+New core files remain untracked. Ordinary `git diff` excludes them; inspect their
+contents/whitespace with `git diff --no-index` against empty input without staging.
+Record results in trace; staged files must remain empty in stage 2.
 
-Future authorized verification uses `skills/verification/SKILL.md` and:
+Executed core targeted checks:
 
 ```text
-python scripts/verify_repo.py
-python -m unittest discover -s tests -p test_r02a_contract.py -v
-python manage.py test users.tests.test_identity users.tests.test_postgres content.test_grades_api
+node --test tests/test_i03_identity_api.js tests/test_i03_account.js
+.venv/Scripts/python.exe -B manage.py test users.tests.test_i03_ui users.tests.test_identity content.test_grades_api content.test_ui_foundation --noinput
+.venv/Scripts/python.exe -B manage.py test users.tests.test_i03_ui --noinput
+```
+
+Actual environment: Python 3.14.7, Django 5.2.16, PostgreSQL 16.15, existing Node
+24.19.0. Tests use a separate PostgreSQL test DB. Stage 2 performed no local
+migration/bootstrap/browser setup; stage 3 then applied the existing migration,
+ran unchanged bootstrap, collected static and completed the real walkthrough.
+See trace for initial failure, correction and results. The configured interpreter
+required execution outside the sandbox;
+that access was approved for targeted tests.
+
+Stage 4 executed the complete `skills/verification/SKILL.md` sequence with the
+configured interpreter. `scripts/verify_repo.py` covered the entire Django suite,
+including the listed upstream regressions; those suites were not duplicated:
+
+```text
+.venv/Scripts/python.exe -B -m pip install --no-deps -r requirements.lock
+.venv/Scripts/python.exe -B -m pip check
+.venv/Scripts/python.exe -B --version
+.venv/Scripts/python.exe -B scripts/version_report.py
+.venv/Scripts/python.exe -B scripts/verify_repo.py
+node --test tests/test_i03_identity_api.js tests/test_i03_account.js tests/test_i02_schema_dispatch.js
+.venv/Scripts/python.exe -B -m unittest discover -s tests -p test_r02a_contract.py -v
 git diff --check
 ```
 
-Add the actually implemented I03 tests and relevant existing I02/frontend checks.
-Run from the configured project environment; report skips/environment failures
-honestly. Run fresh DB/migration verification only if an independently justified
-schema change enters scope. Current preparation executes no backend tests, DB
-setup, bootstrap, browser acceptance or verifier. Upstream CI is inherited evidence.
+All 17 locked dependencies were already satisfied; pip check passed. Full local
+verification passed without skips; no new CI run is claimed. No task schema
+change was authored, so the MS6-V01 disposable fresh-install/failed-connection
+sequence was not added to I03. Existing grade/users migration and PostgreSQL
+integration tests did run within the full Django suite. Future exact-head CI
+retains its configured fresh-install requirements before merge.
 
 After accepted G1, apply applicable §17 Harness engineering-run requirements;
 do not claim a current production Harness run merely from plan creation.
@@ -212,7 +272,7 @@ do not claim a current production Harness run merely from plan creation.
 | Risk | Handling |
 | --- | --- |
 | Separate PR #24 backend/migration approval record was not found | Руслан/Владимир clarify evidence before final acceptance; I03 consumer approval and merged grade runtime remain available. |
-| Local DB upgrade/server/browser prerequisites unexecuted | Verify in the later authorized environment/test phase; report actual setup limitations. |
+| Local DB upgrade/server/browser prerequisites | Resolved in stage 3 using documented real PostgreSQL setup; no new migration authored. |
 | CSRF rotation or logical retry key replaced | Exercise lost acknowledgements and stale-token recovery with unchanged action identity. |
 | SELF_REPORT/DIAGNOSTIC claims exceed saved choice | Match exact V02 payload/state; no diagnostic or Progress implementation. |
 | Shared shell/control extension regresses Content or keyboard | Scoped reuse, escaping/focus checks and existing Content regression. |
@@ -224,12 +284,94 @@ only after completion/human acceptance in a later authorized phase; never now.
 
 ## 10. Completion checkpoints
 
-- [ ] Stage 2 core implementation complete within the spec boundary.
-- [ ] Required automated tests and real browser acceptance complete.
-- [ ] Verification, scoped diff and final evidence complete.
+- [x] Stage 2 core implementation complete within the spec boundary; targeted tests PASS.
+- [x] Required task-owned targeted tests and real browser acceptance complete; final verifier remains separate.
+- [x] Local verification, scoped diff and final evidence complete (stage 4).
 - [ ] Authorized commit/push/PR created and exact final-head CI passes.
 - [ ] Руслан and Владимир Task Approvals recorded; required merge completed.
 - [ ] I03 downstream handoff recorded; G3 status assessed independently.
 
-Stage 1 outcome and exact checks are recorded separately in the trace. No task
-completion, PR, Task Approval or G3 acceptance is claimed by this plan.
+Stage 1 history and stages 2–3 results are recorded separately in the trace.
+Overall task completion, PR, Task Approval and G3 acceptance remain pending.
+
+## 11. Stage 3 actual acceptance / stopping boundary
+
+Evidence: [index](../../agent-traces/MS7-I03-evidence/README.md),
+[acceptance JSON](../../agent-traces/MS7-I03-evidence/acceptance.json),
+[network JSON](../../agent-traces/MS7-I03-evidence/network.json).
+Chromium 154.0.8037.98; real `/account/` -> existing API -> PostgreSQL 16.15.
+
+Runtime preparation followed README: connection check, existing migration,
+idempotent bootstrap (zero new/changed catalogue/pages/lessons/media), collectstatic
+and Django runserver. The temporary loopback observer/probe lived under ignored
+`var/reports/ms7-i03-browser/`; no project browser stack or backend semantics changed.
+
+All required user flows, keyboard and responsive states passed. Actual grade
+identity mismatch was 5 класс / number 5 / PK 1. CSRF rotation/current headers,
+receipt-header scope and frozen retry body/key were observed without storing
+secrets. A read-only production-consumer probe loaded three cursor pages.
+Read-only PostgreSQL counts proved one registration receipt and four onboarding
+receipts for the normal synthetic account's four logical operations, despite
+six onboarding POST attempts. Saved state came from GET me after reload/login.
+
+Only I03 core fix: defer logout/auth focus until controls are re-enabled in the
+controller's finally path. Strengthened the controller test adapter to reproduce
+native disabled-fieldset focus rejection. Initial red run: 10/11. Corrected run:
+19/19 Node; task Django rerun: 5/5, no skips. Browser logout focus then passed.
+
+Single-browser evidence is not a full cross-browser/screen-reader audit. Expected
+401/session/network-fault behavior is recorded; the legacy favicon 404 is a
+non-blocking pre-existing shell detail. Generated runtime/static assets remain
+ignored. Final verification, commit/push/PR and human gates are NOT STARTED/PENDING.
+
+## 12. Stage 4 verification snapshot before UX follow-up
+
+All eight verifier checks passed: system/migration consistency, three content
+checks, 95 Django tests, 18 R03 contract tests and 73 Harness unit tests. Additional
+Node tests passed 24/24 (19 I03 + 5 I02); R02A contracts passed 30/30. No skips.
+Full Django discovery includes I03 UI/live production-consumer tests (5), I02
+foundation (5), V02 identity (43), Users PostgreSQL (6), grades API (10), Content
+PostgreSQL publication (2), bootstrap (1), grade migration (1), Users migration
+(1) and other existing Content suites (21). Exact commands/results are in trace.
+
+Stage 4 audited all 27 screenshots, source/served-asset bindings and sanitized
+network records. Evidence remains at the accepted I02-style trace location;
+temporary reports and generated static/runtime data stay ignored. All frozen
+contracts, models, migrations, API business code and seeds remain unchanged.
+Only a miscopied I03 manifest digest and current documentation status/results
+required cleanup; no implementation code changed in this stage.
+
+Branch/HEAD remain the preparation branch/commit; 51 task-owned paths are listed
+in the trace (7 tracked modifications + 44 untracked files). Nothing staged.
+`git diff --check` and equivalent UTF-8 untracked whitespace/content checks pass.
+Branch is ready for a separately authorized commit/push phase. No implementation
+commit/push/PR, Issue change, merge, Task Approval or G3 closure was performed.
+Legacy favicon 404 and the recorded single-browser/screen-reader limits remain
+non-blocking. Independent Руслан/Владимир approvals and final-head CI are pending.
+
+## 13. Authorized contextual retry UX follow-up (2026-10-05)
+
+COMPLETE locally. Hide state reload in normal initial/saved state; show
+**Повторить загрузку** only for failed state restoration/session reconciliation.
+Retry calls the same GET me; automatic opening/auth restoration, CSRF/receipt
+behavior and backend semantics remain unchanged. Success hides retry and moves
+focus to an enabled username input/profile heading (or pending mutation retry).
+Repeated failure retains an accessible error/retry state with correct status.
+
+Updated controller, account template, controller regressions and Django semantic
+assertions. I03 targeted tests passed (22 Node + 5 Django); final Node run including
+I02 passed 27/27. Full verifier re-ran after the final repeated-error status fix:
+all eight checks PASS, 95 Django / 18 R03 / 73 Harness, no skips. This includes
+the five I03 Django tests again. No transport/API/model/migration/contract edit.
+
+Real browser re-check passed normal initial state, anonymous/authenticated
+GET-only retry, repeated read failure, registration/login saved-state restoration,
+reload and keyboard Tab/Shift+Tab/Space/Enter/focus. Three sanitized screenshots
+and [current UX record](../../agent-traces/MS7-I03-evidence/ux-recheck.json) supplement
+the preserved historical evidence. Temporary servers/probe were stopped; runtime
+files remain ignored. Final UTF-8/whitespace/links/source bindings pass.
+
+Current candidate set: the original 51 paths plus four UX evidence files listed
+in trace §18, **55 files** total (7 tracked modifications + 48 untracked).
+Nothing staged. Commit/push/PR/Issue changes/merge not performed; independent
+Руслан/Владимир Task Approvals and G3 still pending. Stop after the UX cleanup report.
