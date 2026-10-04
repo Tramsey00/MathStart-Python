@@ -10,7 +10,7 @@
 - **Implementation commit:** `1b1ded8817a328fa191952af5b8272dbfa1e653b`
 - **PR:** https://github.com/Tramsey00/MathStart-Python/pull/24 (OPEN)
 - **Runtime spec:** [Grade mapping](../../specs/api/MS7-V02-grades-runtime.md)
-- **Status:** INCOMPLETE; local verification PASS, human review and merge pending
+- **Status:** INCOMPLETE; local/remote verification PASS, human review and merge pending
 
 ## Task and inputs
 
@@ -130,7 +130,7 @@ Local generated logs: ignored `var/grades-23/fresh-smoke.log` and `verify-repo.l
 | Harness suite in canonical | PASS; 73 tests, 17.749 s |
 | Bootstrapped catalogue GET | PASS; schema-valid, ID/number pairs (1,5), (2,6), (3,7), (4,8), (5,9), (6,10) |
 | Whitespace / frozen-source diff | PASS; no whitespace errors or changes in frozen artifacts/applied migrations/sources/dependencies |
-| Remote CI | Initial [run 37202939137](https://github.com/Tramsey00/MathStart-Python/actions/runs/37202939137) observed IN_PROGRESS on implementation SHA; current-head outcome tracked in [PR checks](https://github.com/Tramsey00/MathStart-Python/pull/24/checks) |
+| Remote CI | [Run 37203042434](https://github.com/Tramsey00/MathStart-Python/actions/runs/37203042434) SUCCESS on verified evidence head `101502be9d17aa19c2380ea21ff5d164a5a4f4f7`; all steps including fresh PostgreSQL smoke, canonical, R02A and R03A SUCCESS. Later changes are documentation only; current-head checks remain the merge gate. |
 | Руслан review / migration approval | PENDING |
 | I03 handoff acceptance / merge | PENDING |
 
@@ -143,8 +143,9 @@ Real-CSRF onboarding accepts the returned id for all three modes.
 ## Remaining gates and handoff
 
 No known blocking implementation/test failure remains. Plans remain active and
-final task status INCOMPLETE pending remote CI, Руслан review, I03 handoff and
-merge. The runtime spec contains the I03 integration instructions and a synthetic
+final task status INCOMPLETE pending Руслан review, I03 handoff and merge.
+Current-head CI must also be green at merge time. The runtime spec contains the
+I03 integration instructions and a synthetic
 response; documentation preparation does not claim that Илья accepted it.
 No human acceptance or Issue closure is inferred.
 
@@ -157,3 +158,13 @@ paragraph to record explicit user agreement; its state, owner and labels retaine
 No review-request messages or handoff messages sent to other participants.
 The follow-up evidence update adds PR/commit/check links without changing runtime,
 tests, migration or frozen artifacts. Required human gates remain pending.
+
+All GitHub job steps were observed SUCCESS on evidence head `101502b` through
+the GitHub workflow-run/jobs connector. This final evidence record adds that
+observed outcome; no additional local test run is needed for documentation alone.
+
+Inspected the disposable Compose project's container/service/volume identity,
+then ran `docker compose -p ms7-grades-23-20261004 down --volumes` (exit 0).
+Only that created project's container/network/database volume were removed;
+developer database and all source materials untouched. Ignored host logs/runtime
+under `var/grades-23` retained for inspection. Docker Desktop remains running.

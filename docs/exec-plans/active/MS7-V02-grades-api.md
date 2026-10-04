@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-V02 follow-up: Grades API for I03 (Issue 23)
 
-- **Status:** Active; local verification PASS, ready for human review; remote CI pending
+- **Status:** Active; local and remote verification PASS, human review pending
 - **Owner:** Владимир
 - **Reviewer / Task Approver:** Руслан
 - **Integration consumer:** Илья, MS7-I03
@@ -10,8 +10,9 @@
 - **PR:** https://github.com/Tramsey00/MathStart-Python/pull/24 (OPEN)
 - **Implementation SHA:** `1b1ded8817a328fa191952af5b8272dbfa1e653b`
 - **Remote verification:** [PR checks](https://github.com/Tramsey00/MathStart-Python/pull/24/checks),
-  initial [run 37202939137](https://github.com/Tramsey00/MathStart-Python/actions/runs/37202939137)
-  observed IN_PROGRESS on implementation SHA; inspect current PR head for merge.
+  [run 37203042434](https://github.com/Tramsey00/MathStart-Python/actions/runs/37203042434)
+  SUCCESS on verified evidence head `101502be9d17aa19c2380ea21ff5d164a5a4f4f7`;
+  inspect current PR head for merge after this documentation-only evidence update.
 - **Baseline:** `150e569`, verified equal to fetched `origin/main`
 - **Contract:** [accepted R02A](../../../specs/api/MS7-R02A-http-eligibility.md),
   [OpenAPI](../../../specs/api/openapi-v1.json),
@@ -122,7 +123,7 @@ environment and final results are recorded in the trace.
 - [x] Frozen contracts and unrelated work unchanged.
 - [x] Trace and reviewable diff prepared.
 - [x] Implementation committed/pushed and PR 24 created/attached to this chat.
-- [ ] Remote CI on PR head.
+- [x] Remote CI on verified evidence head `101502b` (all steps SUCCESS).
 - [ ] Руслан Task Approval / migration review.
 - [ ] I03 handoff and integration compatibility confirmed.
 - [ ] Merge and Issue closure.
@@ -135,3 +136,8 @@ agreement. PR 24 contains the local verification and gate checklist. Changes
 after the implementation SHA are evidence/documentation only; current PR checks
 remain authoritative for the final head. Do not equate schema-scope agreement
 with Руслан's migration review or Илья's handoff acceptance.
+
+After all local checks, the agent inspected the isolated project's container,
+then removed only `ms7-grades-23-20261004` container/network/database volume with
+`docker compose -p ms7-grades-23-20261004 down --volumes` (exit 0). Generated host
+logs/runtime were retained under ignored `var/grades-23`; developer data untouched.
