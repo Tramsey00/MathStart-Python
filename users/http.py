@@ -1,55 +1,17 @@
 """R02A wire validation and safe envelopes, using the frozen local DTO bundle."""
 import json
-import uuid
 from functools import lru_cache
 from pathlib import Path
 
 from django.conf import settings
 from django.contrib.auth import get_user
 from django.core.exceptions import RequestDataTooBig
-from django.http import JsonResponse
 from django.db import DatabaseError
 from django.views.csrf import csrf_failure as django_csrf_failure
 from jsonschema import Draft202012Validator, FormatChecker
 
-
-class APIError(Exception):
-    def __init__(self, status, code, message, field_errors=None, retry_after=None):
-        self.status = status
-        self.code = code
-        self.message = message
-        self.field_errors = field_errors or {}
-        self.retry_after = retry_after
-
-
-def request_id(request):
-    if not hasattr(request, "identity_request_id"):
-        request.identity_request_id = str(uuid.uuid4())
-    return request.identity_request_id
-
-
-def envelope(request, data):
-    return {"data": data, "meta": {"request_id": request_id(request), "version": "http-v1"}}
-
-
-def json_response(body, status=200):
-    # JSONField/jsonb may reorder nested object keys. Both the first response
-    # and persisted receipt replay must use the same deterministic wire bytes.
-    response = JsonResponse(body, status=status,
-                            json_dumps_params={"ensure_ascii": False, "sort_keys": True})
-    response["Content-Type"] = "application/json; charset=utf-8"
-    response["Cache-Control"] = "private, no-store"
-    return response
-
-
-def error_response(request, error):
-    response = json_response({"error": {
-        "code": error.code, "message": error.message, "field_errors": error.field_errors,
-        "retryable": error.status in (429, 503), "request_id": request_id(request),
-    }}, error.status)
-    if error.retry_after is not None:
-        response["Retry-After"] = str(error.retry_after)
-    return response
+# Compatibility exports retain existing V02 imports and transport behavior.
+from config.api_http import APIError, envelope, error_response, json_response, request_id
 
 
 def csrf_failure(request, reason=""):

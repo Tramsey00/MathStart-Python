@@ -17,8 +17,7 @@ class IdentityUpgradeTests(TransactionTestCase):
             executor = MigrationExecutor(connection)
             old = executor.loader.project_state([
                 ("auth", "0012_alter_user_first_name_max_length"),
-                ("content", "0001_initial"),
-            ]).apps
+            ] + executor.loader.graph.leaf_nodes("content")).apps
             User, Grade = old.get_model("auth", "User"), old.get_model("content", "Grade")
             user = User.objects.create(username="upgrade-synthetic", password=make_password("Synthetic-Upgrade-Only-47!"),
                                        email="upgrade@example.invalid", is_staff=True)
@@ -27,7 +26,9 @@ class IdentityUpgradeTests(TransactionTestCase):
             before_users = list(User.objects.order_by("pk").values())
             before_grades = list(Grade.objects.order_by("pk").values())
             executor.migrate([("users", "0002_backfill_profiles")])
-            current = executor.loader.project_state([("users", "0002_backfill_profiles")]).apps
+            current = executor.loader.project_state([
+                ("users", "0002_backfill_profiles"),
+            ] + executor.loader.graph.leaf_nodes("content")).apps
             Profile = current.get_model("users", "StudentProfile")
             self.assertEqual(list(current.get_model("auth", "User").objects.order_by("pk").values()), before_users)
             self.assertEqual(list(current.get_model("content", "Grade").objects.order_by("pk").values()), before_grades)
