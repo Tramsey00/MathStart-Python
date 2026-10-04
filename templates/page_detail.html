@@ -64,10 +64,13 @@
     {% endif %}
 {% endblock %}
 {% block content %}
-  {{ page.body_html|safe }}
-
   {% if page.slug == 'karta-sajta' %}
-    {% include 'includes/catalogue.html' %}
+    <main class="ms-catalogue" id="topics-catalogue">
+      {{ page.body_html|safe }}
+      {% include 'includes/catalogue.html' %}
+    </main>
+  {% else %}
+    {{ page.body_html|safe }}
   {% endif %}
 
 {% endblock %}

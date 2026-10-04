@@ -1,0 +1,51 @@
+/* Catalogue-only layout; shared shell and lesson styles remain unchanged. */
+.ms-catalogue {
+  max-width: 1000px;
+  margin: 24px auto 48px;
+  padding: 0 24px;
+  color: var(--ms-ui-ink);
+  line-height: 1.6;
+}
+.ms-catalogue h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 38px); line-height: 1.2; }
+.ms-catalogue header p { margin: 0; color: var(--ms-ui-muted); max-width: 660px; }
+.ms-catalogue-form { margin-top: 28px; padding: 24px; background: var(--ms-ui-background); border: 1px solid #dbeafe; border-radius: var(--ms-ui-radius); }
+.ms-catalogue label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 650; }
+.ms-catalogue input, .ms-catalogue select, .ms-catalogue button { min-height: 46px; border: 1px solid var(--ms-ui-border); border-radius: 8px; padding: 10px 12px; font: inherit; }
+.ms-catalogue input, .ms-catalogue select { width: 100%; min-width: 0; background: var(--ms-ui-surface); color: var(--ms-ui-ink); }
+.ms-catalogue input::placeholder { color: var(--ms-ui-muted); }
+.ms-catalogue-filters { display: grid; grid-template-columns: 1fr 1.3fr auto auto; gap: 16px; align-items: end; margin-top: 16px; }
+.ms-catalogue-filters > div { min-width: 0; }
+.ms-catalogue button { color: white; background: var(--ms-ui-accent); border-color: var(--ms-ui-accent); font-weight: 650; cursor: pointer; }
+.ms-catalogue button:hover { background: #1e40af; }
+.ms-catalogue a { color: var(--ms-ui-accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.ms-catalogue-reset { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; }
+.ms-catalogue .ms-catalogue-help { margin: 12px 0 0; font-size: 13px; color: var(--ms-ui-muted); }
+.ms-catalogue :is(a, input, select, button, summary):focus-visible { outline: 3px solid var(--ms-ui-focus); outline-offset: 3px; }
+.ms-catalogue-count { margin: 24px 0 16px; color: var(--ms-ui-muted); }
+.ms-catalogue-grade { margin-top: 32px; }
+.ms-catalogue h2 { margin: 0 0 16px; font-size: 24px; line-height: 1.35; }
+.ms-catalogue h2 span { margin-left: 10px; font-size: 14px; font-weight: 400; color: var(--ms-ui-muted); white-space: nowrap; }
+.ms-catalogue-subject { margin-top: 20px; }
+.ms-catalogue h3 { margin: 0 0 12px; font-size: 18px; }
+.ms-catalogue .ms-catalogue-section { padding: 0; border: 1px solid #dbeafe; border-radius: 10px; margin: 8px 0; background: white; }
+.ms-catalogue summary { padding: 14px 16px; overflow-wrap: anywhere; }
+.ms-catalogue summary:hover { background: var(--ms-ui-background); border-radius: 10px; }
+.ms-catalogue .ms-catalogue-section ul, .ms-catalogue-results { list-style: none; padding: 0; margin: 0; }
+.ms-catalogue li { padding: 0; }
+.ms-catalogue li a { display: block; padding: 12px 16px; text-decoration: none; line-height: 1.5; border-top: 1px solid #e2e8f0; }
+.ms-catalogue li a:hover { background: #eff6ff; text-decoration: underline; }
+.ms-catalogue-results { border: 1px solid #dbeafe; border-radius: 10px; }
+.ms-catalogue-results li:first-child a { border-top: 0; }
+.ms-catalogue-topic-title { display: block; font-weight: 600; }
+.ms-catalogue-context { display: block; margin-top: 4px; color: var(--ms-ui-muted); font-size: 13px; }
+.ms-catalogue-empty { padding: 32px 24px; background: var(--ms-ui-background); border-radius: var(--ms-ui-radius); }
+.ms-catalogue-empty p { margin: 0; color: var(--ms-ui-muted); }
+@media (max-width: 800px) {
+  .ms-catalogue-filters { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .ms-catalogue { padding: 0 16px; margin-top: 20px; }
+  .ms-catalogue-form { padding: 16px; margin-top: 20px; }
+  .ms-catalogue-filters { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .ms-catalogue input { font-size: 16px; }
+}

@@ -6,6 +6,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
 
 from .models import ContentPage
+from .services.catalogue import catalogue_context
 from .services.lesson_theme import theme_context
 from .ui_foundation import load_fixture_pack
 
@@ -33,16 +34,7 @@ def build_page_context(request, page):
     }
     context.update(theme_context(page))
     if page.slug == "karta-sajta":
-        published = ContentPage.objects.filter(is_published=True)
-        context["catalogue_pages"] = published.exclude(
-            page_type=ContentPage.PageType.TOPIC,
-        )
-        context["catalogue_topics"] = published.filter(
-            page_type=ContentPage.PageType.TOPIC,
-        ).select_related("grade", "subject", "section").order_by(
-            "grade__order", "subject__order", "subject_id",
-            "section__order", "section_id", "order", "title",
-        )
+        context.update(catalogue_context(request.GET))
     return context
 
 

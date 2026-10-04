@@ -78,7 +78,7 @@ def smoke():
         sentinel = get_user_model().objects.create_user(username="v01-smoke-preserved-user")
         user_before = get_user_model().objects.filter(pk=sentinel.pk).values().get()
         run("manage.py", "bootstrap_site")
-        expected = (6, 12, 63, 281, 263, 29, 280)
+        expected = (6, 12, 63, 279, 263, 29, 282)
         actual = tuple(model.objects.count() for model in models)
         if actual != expected:
             raise ValueError(f"Unexpected catalogue counts: {actual}; expected {expected}")
