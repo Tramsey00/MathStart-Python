@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-I03: Auth/profile/onboarding UI
 
-- **Status:** Active; core, browser acceptance and final local verification complete; publication/human acceptance pending
+- **Status:** Active; implementation published and local acceptance/verification PASS; independent human acceptance pending
 - **Owner:** Илья
 - **Reviewer / Task Approver:** Руслан и Владимир
 - **Created / last updated:** 2026-10-04 / 2026-10-05
@@ -8,6 +8,8 @@
 - **Spec:** [MS7-I03](../../../specs/ui/MS7-I03-auth-profile-onboarding.md)
 - **Trace:** [MS7-I03](../../agent-traces/MS7-I03.md)
 - **Branch:** `ms7-i03-auth-profile-onboarding`
+- **Pull request:** [#26](https://github.com/Tramsey00/MathStart-Python/pull/26), OPEN
+- **Implementation commit:** `635e8ecaff65f2fdc7069656a7e5b47e863aa853` (55 files)
 - **Baseline SHA:** `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`
 - **Stage 2 starting HEAD:** `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`
 - **Gate:** G3
@@ -16,11 +18,12 @@
 - **Human gate required:** Yes; independent Руслан and Владимир Task Approvals
 
 ```text
-Implementation: CORE IMPLEMENTED; overall task INCOMPLETE
+Implementation: COMPLETE; overall task INCOMPLETE pending human gates
 BROWSER ACCEPTANCE: PASS (stage 3)
-FINAL VERIFICATION: PASS (stage 4, local working tree)
-COMMIT/PUSH: NOT PERFORMED (implementation stages 2–4)
-PR: NOT CREATED
+FINAL VERIFICATION: PASS (stage 4 and UX follow-up)
+COMMIT/PUSH: PERFORMED
+PR: OPEN #26
+IMPLEMENTATION-SHA CI: SUCCESS; final publication-record head checked on PR
 Task Approval: PENDING
 G3: PENDING
 ```
@@ -40,10 +43,12 @@ overrides old card dates. Use no v6 requirements.
 
 ## 2. Current authorization and preconditions
 
-The user split work into five stages and authorized core implementation, real
-browser acceptance and **stage 4 final verification/cleanup**. Stages 2–4 are
-complete locally. Stage 4 allows documentation synchronization and scoped fixes;
-it forbids staging, commit/push/PR, merge, Issue changes and self-approval.
+The user split work into five stages. Core, real browser acceptance, final
+verification and the authorized contextual-retry UX cleanup are complete locally.
+The latest instruction authorizes **final publication**: audit, task-owned staging,
+new commit, non-force push, PR, verified reviewer requests, exact-head CI and a
+docs-only publication record. Merge, manual Issue closure, self-approval and G3
+completion remain forbidden. Earlier phase restrictions are historical.
 
 | Stage | Scope | Current status |
 | --- | --- | --- |
@@ -51,7 +56,7 @@ it forbids staging, commit/push/PR, merge, Issue changes and self-approval.
 | 2. Implementation core | Real-API auth/profile/onboarding UI and required targeted tests | CORE COMPLETE locally; targeted tests PASS. |
 | 3. Tests + browser acceptance | Remaining automated coverage, real keyboard, DOM/network/console/screenshots | PASS on real PostgreSQL/Chromium; logout focus corrected; targeted reruns PASS; sanitized evidence recorded. |
 | 4. Verification + cleanup | Full verifier, scoped diff, plan/trace updates | PASS; all eight mandatory checks and extra I03/I02 Node/R02A suites; evidence/scope audit complete. |
-| 5. Commit/push/PR | Core publication only after checks; independent review/approval | NOT STARTED; implementation publication not authorized in stage 4. Historical preparation commit is separate. |
+| 5. Commit/push/PR | Core publication only after checks; independent review/approval | Implementation committed/pushed; PR #26 OPEN; both reviewers requested; exact implementation-head CI SUCCESS. Docs-only follow-up requires its own exact-head CI. Independent approvals pending. |
 
 Preparation inspected authority/repository inputs, runtime, tests and upstream
 migrations. Initial branch, HEAD, local main, origin/main and live remote main
@@ -110,7 +115,8 @@ No schema change. No migration, seed/bootstrap or LLM/prompt change.
 
 The original phase definitions remain below. Phases 1–10 are implemented as core;
 phases 11–13 passed local automated, browser and final verification. Phase 14
-remains pending. Detailed commands and results are in the trace.
+is in independent review; required human approvals/merge remain pending. Detailed
+commands and results are in the trace.
 
 | # | Phase | Planned behavior | Evidence before advancing |
 | --- | --- | --- | --- |
@@ -140,10 +146,10 @@ remains pending. Detailed commands and results are in the trace.
 | 11 automated tests | PASS after UX cleanup: 27 Node (22 I03 + 5 I02), 95 Django, 18 R03 and 73 Harness; earlier unchanged R02A 30/30 PASS, no skips. |
 | 12 browser acceptance | PASS: real API/PostgreSQL, three modes, retry, restoration, errors, DOM/console and actual 360/768/1440px evidence. |
 | 13 final verification | PASS locally; full mandatory sequence, scoped diff/whitespace and evidence audit complete. |
-| 14 PR/review/approval | NOT STARTED. |
+| 14 PR/review/approval | PR #26 OPEN; implementation exact-head CI SUCCESS; review requested from both verified approvers. Human approvals, merge and G3 pending. |
 
-Stop after the authorized stage 4 report. Publication and independent human
-approval are separate later steps.
+Final publication is now authorized. Stop after exact final-head CI and the
+publication report; independent human approval and merge are separate gates.
 
 ### Actual core file boundary
 
@@ -287,12 +293,14 @@ only after completion/human acceptance in a later authorized phase; never now.
 - [x] Stage 2 core implementation complete within the spec boundary; targeted tests PASS.
 - [x] Required task-owned targeted tests and real browser acceptance complete; final verifier remains separate.
 - [x] Local verification, scoped diff and final evidence complete (stage 4).
-- [ ] Authorized commit/push/PR created and exact final-head CI passes.
+- [x] Authorized implementation commit/push/PR created; exact implementation-head CI SUCCESS.
 - [ ] Руслан and Владимир Task Approvals recorded; required merge completed.
 - [ ] I03 downstream handoff recorded; G3 status assessed independently.
 
 Stage 1 history and stages 2–3 results are recorded separately in the trace.
-Overall task completion, PR, Task Approval and G3 acceptance remain pending.
+PR #26 is OPEN; overall task completion, Task Approval, merge and G3 remain pending.
+The publication-record follow-up's final-head CI proof is maintained in PR #26;
+verify that new SHA/run before issuing the final publication report.
 
 ## 11. Stage 3 actual acceptance / stopping boundary
 
@@ -375,3 +383,28 @@ Current candidate set: the original 51 paths plus four UX evidence files listed
 in trace §18, **55 files** total (7 tracked modifications + 48 untracked).
 Nothing staged. Commit/push/PR/Issue changes/merge not performed; independent
 Руслан/Владимир Task Approvals and G3 still pending. Stop after the UX cleanup report.
+
+## 14. Final publication / review handoff (2026-10-05)
+
+Implementation commit `635e8ecaff65f2fdc7069656a7e5b47e863aa853`, 55 task-owned
+files, preserves preparation `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`.
+Scoped staged audit/whitespace checks passed; no frozen R02A, model/migration,
+API-business, secret or generated/runtime file changes. Non-force push succeeded.
+
+[PR #26](https://github.com/Tramsey00/MathStart-Python/pull/26) targets `main` from
+the existing task branch; includes `Closes #25`. GitHub confirmed review requests
+for Руслан `Tramsey00` and Владимир `VladimirFrolov777`, verified against accepted
+PR #22 reviews. Both Task Approvals are pending; Owner did not self-approve.
+
+[Implementation CI run 37241717597](https://github.com/Tramsey00/MathStart-Python/actions/runs/37241717597)
+completed **SUCCESS**, exact head
+`635e8ecaff65f2fdc7069656a7e5b47e863aa853`. Fresh PostgreSQL smoke, full verifier
+and accepted R02A/R03A checks all passed. Trace §19 records exact publication
+actions. This Spec/Plan/Trace follow-up changes records only. Its own final SHA
+and new exact-head CI run/result are recorded in the PR body/live checks after
+push; wait for that run before the final publication report. Earlier stage 3/4
+and UX stopping blocks are historical snapshots, not current publication status.
+
+No merge or manual Issue #25 closure; G3 remains pending. Keep this plan active.
+After the report, stop for Руслан/Владимир independent review; do not treat review
+requests or green CI as human approval. Legacy favicon 404 remains non-blocking.

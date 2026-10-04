@@ -1,10 +1,12 @@
 # SPEC MS7-I03: Auth/profile/onboarding UI
 
-- **Status:** Core, browser acceptance and final local verification complete; publication/human acceptance pending
+- **Status:** Implementation published; browser acceptance and final local verification PASS; independent human acceptance pending
 - **Owner:** Илья
 - **Reviewer / Task Approver:** Руслан и Владимир
 - **Canonical Issue:** [#25](https://github.com/Tramsey00/MathStart-Python/issues/25)
 - **Branch:** `ms7-i03-auth-profile-onboarding`
+- **Pull request:** [#26](https://github.com/Tramsey00/MathStart-Python/pull/26), OPEN; independent reviews requested
+- **Implementation commit:** `635e8ecaff65f2fdc7069656a7e5b47e863aa853`
 - **Baseline SHA:** `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`
 - **Milestone Gate:** G3
 - **Acceptance deadline:** 09.10.2026, revised v7.1 §20.4
@@ -14,10 +16,12 @@
 - **Last updated:** 2026-10-05
 
 ```text
-Implementation: CORE IMPLEMENTED; overall task INCOMPLETE
+Implementation: COMPLETE; overall task INCOMPLETE pending human gates
 BROWSER ACCEPTANCE: PASS (stage 3)
-FINAL VERIFICATION: PASS (stage 4, local working tree)
-PR: NOT CREATED
+FINAL VERIFICATION: PASS (stage 4 and UX follow-up)
+COMMIT/PUSH: PERFORMED
+PR: OPEN #26
+IMPLEMENTATION-SHA CI: SUCCESS; final publication-record head checked on PR
 Task Approval: PENDING
 G3: PENDING
 ```
@@ -502,4 +506,25 @@ authoritative server state are unchanged. No extra normal-state action is needed
 Regression tests, real API/browser keyboard re-check and full verifier passed;
 see [UX evidence](../../docs/agent-traces/MS7-I03-evidence/ux-recheck.json) and trace.
 Stage 3/4 snapshots remain historical; the new record binds the final UX source
-bytes. Publication, human Task Approvals and G3 remain pending.
+bytes. The above sections describe their local-stage snapshots; current
+publication facts follow. Human Task Approvals and G3 remain pending.
+
+## 17. Publication / independent review (2026-10-05)
+
+Published implementation commit `635e8ecaff65f2fdc7069656a7e5b47e863aa853`
+(55 task-owned files) in [PR #26](https://github.com/Tramsey00/MathStart-Python/pull/26),
+base `main`, head `ms7-i03-auth-profile-onboarding`. Preparation commit is
+preserved. Review requests confirmed for Руслан (`Tramsey00`) and Владимир
+(`VladimirFrolov777`), whose accounts were verified in accepted I02 reviews.
+
+[CI run 37241717597](https://github.com/Tramsey00/MathStart-Python/actions/runs/37241717597)
+completed **SUCCESS** on that exact implementation SHA, including fresh PostgreSQL
+smoke, full verifier and R02A/R03A checks. A normal documentation-only follow-up
+records publication; its SHA/new exact-head CI evidence is kept in PR #26's body
+and live checks after push. No source or acceptance-evidence changes in the
+publication record; see trace §19 for exact actions and provenance.
+
+Independent Task Approvals **PENDING**; request is not approval. Issue #25 remains
+OPEN; no manual closure, self-approval or merge. G3 **PENDING**. Single-browser
+limits and legacy favicon 404 remain non-blocking. Keep the Exec Plan active
+until the required independent human acceptance.
