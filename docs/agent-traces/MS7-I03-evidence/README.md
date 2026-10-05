@@ -97,3 +97,31 @@ Native Enter/Space switching, Tab/Shift+Tab, first-field focus, inactive-form
 exclusion and visible 3px outline passed; responsive 360/768/1440 without overflow.
 Real browser warn/error capture empty. Legacy favicon 404 remains non-blocking;
 single-browser evidence does not claim cross-browser/auditory screen-reader QA.
+
+## Vladimir P2 credential cleanup (2026-10-05)
+
+[Security record](security-auth-credentials.json) binds the new source bytes:
+13 source hashes, 47 sanitized real API events (208–254), 12 mutations with
+current CSRF and unchanged receipt scope. Lost registration acknowledgement was
+replayed with the same logical operation/body/key and returned the same account.
+The local observer forwards the real backend; it truncates one actual response
+after commit without replacing API data. Runtime observer/logs are ignored.
+
+Eight new screenshots (49 total with preserved history):
+
+- [Login 401, automatically blank password](security-login-401.jpg).
+- [Registration 400, automatically blank password](security-register-400.jpg).
+- [Returned Login after switch, native required validation](security-login-switch.jpg).
+- [Returned Registration after switch](security-register-switch.jpg).
+- [Pending registration / explicit retry](security-register-pending.jpg).
+- [Registration restored after retry](security-register-success.jpg).
+- [Direct registration success](security-register-direct.jpg).
+- [Login restored saved grade/mode/completion](security-login-restored.jpg).
+
+No manual password clearing before these captures. Native required validation
+after Enter, blank-field screenshots and production-controller regressions
+establish cleanup; masked DOM values are not used as empty-value evidence.
+Only synthetic identities/public grade data; no password/cookie/token/key values
+or EXIF metadata. Browser warn/error capture empty. No viewport override used.
+Prior records remain historical; this fixes the subsequently discovered password
+retention gap and does not retroactively claim it was covered by earlier audits.

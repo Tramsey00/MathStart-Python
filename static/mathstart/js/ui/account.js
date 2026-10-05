@@ -234,6 +234,7 @@
           renderSaved();
         }
       } finally {
+        if (!pending && ["register", "login"].includes(operation.name)) clearCredentials();
         busy = false;
         controls();
         // Native inputs can receive focus only after their fieldset is enabled.
@@ -258,6 +259,7 @@
         if (busy || pending || !sessionReady || (["login", "register"].includes(name) && name !== authMode)) return;
         // Native maxlength also limits typing/paste; guard prefilled/programmatic values before creating an action/key.
         if (name === "register" && value("register-username").length > 30) {
+          clearCredentials();
           clearErrors();
           showError({status: 400, code: "USERNAME_TOO_LONG", fieldErrors: {username: [usernameLimitMessage]}}, name);
           return;
@@ -265,13 +267,20 @@
         if (!forms[name].reportValidity()) return;
         try {
           pending = {operation: client.action(name, payloads[name]()), owner: profile ? profile.id : null};
+          // Retry uses the serialized operation, never credentials retained in form inputs.
+          if (["register", "login"].includes(name)) clearCredentials();
           await execute();
-        } catch (_) { pending = null; showError({status: 400}, name); controls(); }
+        } catch (_) {
+          pending = null;
+          if (["register", "login"].includes(name)) clearCredentials();
+          showError({status: 400}, name); controls();
+        }
       });
     }
     for (const name of ["login", "register"]) {
       el("auth-" + name).addEventListener("click", () => {
         if (busy || pending || !sessionReady || profile) return;
+        if (name !== authMode) el(authMode + "-password").value = "";
         authMode = name;
         clearErrors();
         renderAuth();

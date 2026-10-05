@@ -574,3 +574,29 @@ uses the same branch and PR #26; new exact-head CI is verified there after push.
 Both independent approvals remain required. Руслан's existing GitHub event is
 CHANGES_REQUESTED despite APPROVED prose; request alone/text alone does not
 resolve that GitHub gate. No self-approval, manual Issue closure, merge or G3 closure.
+
+## 19. Vladimir auth/security P2 correction (2026-10-05)
+
+The Owner authorized a scoped fix for password retention after terminal auth
+failure in PR #26. Both password inputs are cleared immediately after a valid
+Login/Registration payload is serialized into its pending operation. Successful
+acknowledgements and terminal auth outcomes clear them again; non-retryable 401
+login / 400 registration therefore retain no credential in form inputs. Local
+registration-limit/action-construction failures also clear credentials. Native
+required-field validation before an operation exists remains unchanged.
+
+Switching auth mode clears the outgoing password before hiding its form. Active
+mode, safe errors, focus, fieldsets and pending switch locks remain unchanged.
+While retry is pending, only the existing in-memory serialized operation carries
+its original body/key; retry never rebuilds it from form values. On terminal
+completion `pending` is discarded. No credential storage, DOM attributes, hidden
+inputs, transport/backend/API/CSRF/session/idempotency changes are introduced.
+
+Regression Node suite **34/34** (29 I03 + 5 I02), targeted Django **64/64**, full
+verifier **8/8** (96 Django / 18 R03 / 73 Harness), R02A **30/30**, no skips.
+Real Django/PostgreSQL browser checks PASS: both switch directions, 401/400 empty
+passwords without manual clearing, direct registration/login, frozen registration
+retry after lost response, rotation and saved-state restoration. See the new
+[security record](../../docs/agent-traces/MS7-I03-evidence/security-auth-credentials.json)
+and trace §21. Earlier evidence remains historical; independent re-review and
+Task Approvals/G3 remain pending. Publication uses the same branch/PR #26.

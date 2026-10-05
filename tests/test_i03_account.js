@@ -197,8 +197,14 @@ test("safe invalid credentials stay form-level; successful login/logout restores
   await f.el("login-form").emit("submit");
   assert.equal(f.el("login-error").textContent, "Не удалось войти. Проверьте имя пользователя и пароль.");
   assert.equal(f.el("account-retry").hidden, true);
+  assert.equal(f.el("login-password").value, "");
+  assert.equal(f.el("login-form").fieldset.disabled, false);
   f.state.loginFailure = false;
+  f.el("login-password").value = "synthetic-only";
   await f.el("login-form").emit("submit");
+  assert.equal(f.el("login-password").value, "");
+  assert.equal(f.doc.activeElement.id, "profile-title");
+  assert.equal(f.state.rotate, 4); // Initial, failed submit, successful submit, post-auth refresh.
   await f.el("logout-form").emit("submit");
   assert.equal(f.el("anonymous-panel").hidden, false);
   assert.equal(f.doc.activeElement.id, "login-username");
@@ -280,14 +286,18 @@ test("historical onboarding response does not replace current server profile", a
 
 test("native auth buttons switch one visible form at a time and focus its enabled first field", async () => {
   const f = fixture(); await f.app.ready;
+  f.el("login-password").value = "synthetic-login-draft";
   await f.el("auth-register").emit("click");
+  assert.equal(f.el("login-password").value, "");
   assert.equal(f.el("login").hidden, true);
   assert.equal(f.el("registration").hidden, false);
   assert.equal(f.el("auth-register").attrs["aria-pressed"], "true");
   assert.equal(f.el("auth-login").attrs["aria-pressed"], "false");
   assert.equal(f.el("login-form").fieldset.disabled, true);
   assert.equal(f.doc.activeElement.id, "register-username");
+  f.el("register-password").value = "synthetic-register-draft";
   await f.el("auth-login").emit("click");
+  assert.equal(f.el("register-password").value, "");
   assert.equal(f.el("registration").hidden, true);
   assert.equal(f.el("login").hidden, false);
   assert.equal(f.el("auth-login").attrs["aria-pressed"], "true");
@@ -323,7 +333,9 @@ test("31-character prefilled registration is rejected before any API/CSRF/key ac
   assert.equal(f.el("register-username-error").textContent, "Имя пользователя должно содержать не больше 30 символов.");
   assert.equal(f.el("register-error").textContent, f.el("register-username-error").textContent);
   assert.equal(f.doc.activeElement.id, "account-error");
+  assert.equal(f.el("register-password").value, "");
   f.el("register-username").value = "a".repeat(30);
+  f.el("register-password").value = "synthetic-only";
   await f.el("register-form").emit("submit");
   assert.equal(f.requests.find(r => r.method).headers["Idempotency-Key"], "logical-1");
 });
@@ -334,10 +346,14 @@ test("hidden registration cannot submit; registration errors retain mode and all
   await f.el("register-form").emit("submit");
   assert.equal(f.requests.filter(r => r.method).length, 0);
   await f.el("auth-register").emit("click");
+  f.el("register-password").value = "synthetic-only";
   await f.el("register-form").emit("submit");
   assert.equal(f.el("registration").hidden, false);
   assert.equal(f.el("login").hidden, true);
   assert.equal(f.el("register-error").hidden, false);
+  assert.equal(f.el("register-password").value, "");
+  assert.equal(f.el("account-retry").hidden, true);
+  assert.equal(f.el("register-form").fieldset.disabled, false);
   await f.el("auth-login").emit("click");
   assert.equal(f.el("register-error").hidden, true);
   f.el("login-username").value = "synthetic"; f.el("login-password").value = "synthetic-only";
@@ -354,16 +370,20 @@ test("pending registration locks switching and retry preserves body/key then res
   f.state.lost = "/api/v1/auth/register/";
   await f.el("register-form").emit("submit");
   assert.equal(f.el("auth-login").disabled, true);
+  assert.equal(f.el("register-password").value, "");
+  f.el("register-password").value = "synthetic-edited-after-send";
   await f.el("auth-login").emit("click");
   assert.equal(f.el("registration").hidden, false);
   await f.el("account-retry").emit("click");
   const posts = f.requests.filter(r => r.path.endsWith("register/") && r.method);
   assert.equal(posts.length, 2);
   assert.equal(posts[0].body, posts[1].body);
+  assert.equal(JSON.parse(posts[1].body).password, "synthetic-only");
   assert.equal(posts[0].headers["Idempotency-Key"], posts[1].headers["Idempotency-Key"]);
   assert.notEqual(posts[0].headers["X-CSRFToken"], posts[1].headers["X-CSRFToken"]);
   assert.equal(f.el("anonymous-panel").hidden, true);
   assert.equal(f.doc.activeElement.id, "profile-title");
+  assert.equal(f.el("register-password").value, "");
   await f.el("logout-form").emit("submit");
   assert.equal(f.el("login").hidden, false);
   assert.equal(f.el("registration").hidden, true);
@@ -376,4 +396,24 @@ test("registration-only UI limit does not prevent login/restoration for an exist
   await f.el("login-form").emit("submit");
   assert.equal(f.el("saved-username").textContent.length, 150);
   assert.equal(f.el("profile-panel").hidden, false);
+});
+
+test("pending login retries its serialized credentials after DOM edits, without adding an idempotency key", async () => {
+  const f = fixture(null, {failCSRFAt: 2}); await f.app.ready;
+  f.el("login-username").value = "synthetic-original";
+  f.el("login-password").value = "synthetic-only";
+  await f.el("login-form").emit("submit");
+  assert.equal(f.el("account-retry").hidden, false);
+  assert.equal(f.el("login-password").value, "");
+  assert.equal(f.el("login-form").fieldset.disabled, true);
+  f.el("login-username").value = "synthetic-edit";
+  f.el("login-password").value = "synthetic-edited-after-send";
+  await f.el("account-retry").emit("click");
+  const posts = f.requests.filter(r => r.path.endsWith("login/") && r.method);
+  assert.equal(posts.length, 1);
+  assert.deepEqual(JSON.parse(posts[0].body), {username: "synthetic-original", password: "synthetic-only"});
+  assert.equal(posts[0].headers["Idempotency-Key"], undefined);
+  assert.equal(f.el("login-password").value, "");
+  assert.equal(f.el("saved-username").textContent, "synthetic-original");
+  assert.equal(f.el("account-retry").hidden, true);
 });

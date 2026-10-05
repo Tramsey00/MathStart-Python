@@ -441,3 +441,26 @@ Commit/push uses only this scoped follow-up set, same existing branch and PR #26
 After push, confirm PR head and successful CI on that exact SHA; final head/run
 proof lives in PR body/checks and final report. No new PR or merge. Keep the plan
 active; independent re-review/Task Approvals and G3 remain pending.
+
+## 16. Vladimir P2 credential-cleanup follow-up (2026-10-05)
+
+- Confirmed clean starting branch/head and PR #26 head
+  `62fe7bc569528fe109fd8139c2272b330adb303c`; exact-head CI SUCCESS.
+- Read Vladimir's CHANGES_REQUESTED review on that head. Confirmed P2: successful
+  acknowledgement cleared credentials, terminal failures and form switches did not.
+- Fixed only I03 credential lifecycle: serialize operation then clear DOM;
+  terminal cleanup; clear outgoing password on switch; keep immutable pending
+  body/key and all transport/backend semantics. Added/strengthened regressions.
+- Node **34**, targeted Django **64**, full verifier **8 checks** (96/18/73),
+  accepted R02A **30**, dependency consistency and frozen pins **PASS**, no skips.
+- Real PostgreSQL/Django browser **PASS** for 401/400, both keyboard switches,
+  direct success, lost registration response/identical retry and saved-state
+  rotation/restoration. Eight sanitized screenshots and 47 real API events in
+  [security record](../../agent-traces/MS7-I03-evidence/security-auth-credentials.json).
+  Trace §21 records exact commands, limits and the 15-path follow-up set.
+- Publish ordinary commit/non-force push to existing PR #26 and re-request
+  Vladimir's independent review. New SHA/exact-head CI status will be recorded in
+  PR body/live checks after push; no claim of approval from verification alone.
+
+Keep plan active. Do not create another Issue/branch/PR, manually close #25,
+self-approve or merge. Руслан/Владимир independent Task Approval and G3 pending.
