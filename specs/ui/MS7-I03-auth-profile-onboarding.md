@@ -14,6 +14,7 @@
 - **Exec plan:** [MS7-I03](../../docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
 - **Trace:** [MS7-I03](../../docs/agent-traces/MS7-I03.md)
 - **Last updated:** 2026-10-05
+- **Latest review feedback:** Registration UI limit 30; single-form auth switcher; local/browser verification PASS (see §18)
 
 ```text
 Implementation: COMPLETE; overall task INCOMPLETE pending human gates
@@ -209,6 +210,12 @@ Register requires username length 1..150 and nonempty password in the wire
 schema; Django username/email/password validators additionally apply. Optional
 email must be a valid email string; omit an absent email. Login requires nonempty
 username/password. Do not invent password length rules or new profile fields.
+
+The user-authorized review correction narrows **I03 registration UI** to 30
+characters (`maxlength=30` plus an explicit submit guard before action/key or API
+creation). Help text and safe associated error use the same limit. The frozen
+RegisterRequest/backend remain 1..150; no model, migration, V02/DTO change.
+Login and restored existing usernames retain their backend-compatible behavior.
 PATCH has `minProperties=1` and only the grade field, making that field necessary.
 Profile/onboarding grade IDs must resolve to existing positive Grade PKs below
 `2**63`; runtime also accepts ASCII decimal strings of at most 19 characters.
@@ -528,3 +535,42 @@ Independent Task Approvals **PENDING**; request is not approval. Issue #25 remai
 OPEN; no manual closure, self-approval or merge. G3 **PENDING**. Single-browser
 limits and legacy favicon 404 remain non-blocking. Keep the Exec Plan active
 until the required independent human acceptance.
+
+## 18. Ruslan auth UI review corrections (2026-10-05)
+
+The Owner explicitly authorized two scoped corrections in existing PR #26:
+registration username UI maximum 30 and a Login/Registration switcher in place
+of two simultaneously visible forms. This instruction changes the consumer UX,
+not the accepted backend registration contract described in §6.
+
+Default anonymous mode is **Вход**. Two native `type=button` controls in a named
+group use `aria-pressed` and `aria-controls`; the active button is filled and the
+inactive button outlined using existing I02 tokens. The inactive section is
+`hidden` and its fieldset disabled, excluding it from the normal tab order.
+Enter/Space activation focuses the enabled first username field. Errors keep
+the submitted auth mode; switching clears obsolete errors. Busy or pending
+mutation/retry locks the switcher so immutable operation body/key cannot change.
+Successful auth retains CSRF refresh/current GET me; logout returns to Login.
+
+Registration username 30 is accepted. A 31-character prefilled/programmatic
+value is rejected before action/key/CSRF/API creation with a static safe error,
+`aria-invalid`, associated field error and focused alert. Native maxlength also
+constrains ordinary typing. Existing long backend usernames can still log in and
+restore; no truncation or backend-limit workaround is introduced.
+
+Automated results: **33 Node** (28 I03 + 5 I02), **64 targeted Django** (I03 6,
+V02 43, grades 10, I02 5), full eight-check verifier (**96 Django / 18 R03 /
+73 Harness**), **30 R02A** and dependency consistency PASS, no skips.
+Real Django/PostgreSQL browser checks passed both switch directions/focus,
+30/31 boundary, errors, auth/rotation, saved state, three modes and SELF_REPORT
+same-operation retry. Login/Registration layouts have no horizontal overflow at
+360/768/1440. Console warn/error capture empty; legacy favicon 404 non-blocking.
+
+Current evidence: [review record](../../docs/agent-traces/MS7-I03-evidence/review-auth-ui.json)
+and its 11 new sanitized screenshots, 56 real network events and 13 source hashes.
+Older captures remain historical snapshots. No backend/API/model/migration,
+transport, frozen contract, Progress or diagnostic-engine changes. Publication
+uses the same branch and PR #26; new exact-head CI is verified there after push.
+Both independent approvals remain required. Руслан's existing GitHub event is
+CHANGES_REQUESTED despite APPROVED prose; request alone/text alone does not
+resolve that GitHub gate. No self-approval, manual Issue closure, merge or G3 closure.

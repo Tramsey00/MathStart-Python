@@ -29,7 +29,7 @@ function documentAdapter() {
   }
   for (const id of ["account-main", "account-state", "account-status", "account-error", "account-retry", "account-refresh",
     "anonymous-panel", "profile-panel", "profile-title", "saved-username", "saved-grade", "saved-mode", "saved-completion",
-    "grades-status", "grades-error", "grades-retry", "onboarding-mode"]) node(id);
+    "grades-status", "grades-error", "grades-retry", "onboarding-mode", "login", "registration", "auth-login", "auth-register"]) node(id);
   for (const name of ["register", "login", "profile", "onboarding", "logout"]) {
     const form = node(name + "-form"); form.fieldset = node(""); node(name + "-error");
     const fields = name === "register" ? ["username", "password", "email"] : name === "login" ? ["username", "password"]
@@ -72,6 +72,7 @@ function fixture(initial = null, options = {}) {
     const key = options.headers["Idempotency-Key"];
     if (key && receipts.has(key)) return response(receipts.get(key));
     if (path.endsWith("login/") && state.loginFailure) return response(null, 401);
+    if (path.endsWith("register/") && state.registerFailure) return response(null, 400);
     if (path.endsWith("register/") || path.endsWith("login/")) state.profile = {id: 1, username: body.username,
       selected_grade_id: null, onboarding_mode: null, onboarding_complete: false};
     else if (path.endsWith("logout/")) state.profile = null;
@@ -91,6 +92,11 @@ test("ordinary anonymous initial state loads automatically without a recovery bu
   assert.equal(f.el("anonymous-panel").hidden, false);
   assert.equal(f.el("account-refresh").hidden, true);
   assert.equal(f.el("login-form").fieldset.disabled, false);
+  assert.equal(f.el("login").hidden, false);
+  assert.equal(f.el("registration").hidden, true);
+  assert.equal(f.el("auth-login").attrs["aria-pressed"], "true");
+  assert.equal(f.el("auth-register").attrs["aria-pressed"], "false");
+  assert.equal(f.el("register-form").fieldset.disabled, true);
   assert.equal(f.requests.filter(r => r.path === "/api/v1/users/me/").length, 1);
 });
 
@@ -139,6 +145,7 @@ test("saved state restores through real consumer reads and escaped text sinks, w
 
 test("native submit constructs exact registration payload, omits blank email and restores after rotation", async () => {
   const f = fixture(); await f.app.ready;
+  await f.el("auth-register").emit("click");
   f.el("register-username").value = "synthetic"; f.el("register-password").value = "synthetic-only";
   assert.equal(await f.el("register-form").emit("submit"), true);
   const post = f.requests.find(r => r.path.endsWith("register/") && r.method);
@@ -219,6 +226,7 @@ test("an owner change during pending retry stops before another account mutation
 
 test("native validity prevents a request without bypassing semantic form submission", async () => {
   const f = fixture(); await f.app.ready;
+  await f.el("auth-register").emit("click");
   f.el("register-form").valid = false;
   await f.el("register-form").emit("submit");
   assert.equal(f.requests.filter(r => r.method).length, 0);
@@ -226,6 +234,7 @@ test("native validity prevents a request without bypassing semantic form submiss
 
 test("known auth acknowledgement with failed CSRF refresh suspends forms and recovers through GET me without resubmission", async () => {
   const f = fixture(null, {failCSRFAt: 3}); await f.app.ready;
+  await f.el("auth-register").emit("click");
   f.el("register-username").value = "synthetic"; f.el("register-password").value = "synthetic-only";
   await f.el("register-form").emit("submit");
   assert.equal(f.el("account-retry").hidden, true);
@@ -267,4 +276,104 @@ test("historical onboarding response does not replace current server profile", a
   assert.equal(f.el("saved-mode").textContent, "Начать с начала");
   assert.equal(f.el("mode-start-zero").checked, true);
   assert.equal(f.el("account-retry").hidden, true);
+});
+
+test("native auth buttons switch one visible form at a time and focus its enabled first field", async () => {
+  const f = fixture(); await f.app.ready;
+  await f.el("auth-register").emit("click");
+  assert.equal(f.el("login").hidden, true);
+  assert.equal(f.el("registration").hidden, false);
+  assert.equal(f.el("auth-register").attrs["aria-pressed"], "true");
+  assert.equal(f.el("auth-login").attrs["aria-pressed"], "false");
+  assert.equal(f.el("login-form").fieldset.disabled, true);
+  assert.equal(f.doc.activeElement.id, "register-username");
+  await f.el("auth-login").emit("click");
+  assert.equal(f.el("registration").hidden, true);
+  assert.equal(f.el("login").hidden, false);
+  assert.equal(f.el("auth-login").attrs["aria-pressed"], "true");
+  assert.equal(f.el("register-form").fieldset.disabled, true);
+  assert.equal(f.doc.activeElement.id, "login-username");
+  assert.equal(f.requests.filter(r => r.method).length, 0);
+});
+
+test("registration accepts exactly 30 characters through the production API consumer", async () => {
+  const f = fixture(); await f.app.ready;
+  await f.el("auth-register").emit("click");
+  f.el("register-username").value = "a".repeat(30);
+  f.el("register-password").value = "synthetic-only";
+  await f.el("register-form").emit("submit");
+  const post = f.requests.find(r => r.path.endsWith("register/") && r.method);
+  assert.equal(JSON.parse(post.body).username.length, 30);
+  assert.ok(post.headers["X-CSRFToken"]);
+  assert.equal(post.headers["Idempotency-Key"], "logical-1");
+  assert.equal(f.el("saved-username").textContent, "a".repeat(30));
+  assert.equal(f.doc.activeElement.id, "profile-title");
+});
+
+test("31-character prefilled registration is rejected before any API/CSRF/key action with a safe associated error", async () => {
+  const f = fixture(); await f.app.ready;
+  await f.el("auth-register").emit("click");
+  const requestCount = f.requests.length;
+  f.el("register-username").value = "a".repeat(31);
+  f.el("register-password").value = "synthetic-only";
+  await f.el("register-form").emit("submit");
+  assert.equal(f.requests.length, requestCount);
+  assert.equal(f.el("registration").hidden, false);
+  assert.equal(f.el("register-username").attrs["aria-invalid"], "true");
+  assert.equal(f.el("register-username-error").textContent, "Имя пользователя должно содержать не больше 30 символов.");
+  assert.equal(f.el("register-error").textContent, f.el("register-username-error").textContent);
+  assert.equal(f.doc.activeElement.id, "account-error");
+  f.el("register-username").value = "a".repeat(30);
+  await f.el("register-form").emit("submit");
+  assert.equal(f.requests.find(r => r.method).headers["Idempotency-Key"], "logical-1");
+});
+
+test("hidden registration cannot submit; registration errors retain mode and allow switching to safe login error", async () => {
+  const f = fixture(null, {registerFailure: true, loginFailure: true}); await f.app.ready;
+  f.el("register-username").value = "synthetic"; f.el("register-password").value = "synthetic-only";
+  await f.el("register-form").emit("submit");
+  assert.equal(f.requests.filter(r => r.method).length, 0);
+  await f.el("auth-register").emit("click");
+  await f.el("register-form").emit("submit");
+  assert.equal(f.el("registration").hidden, false);
+  assert.equal(f.el("login").hidden, true);
+  assert.equal(f.el("register-error").hidden, false);
+  await f.el("auth-login").emit("click");
+  assert.equal(f.el("register-error").hidden, true);
+  f.el("login-username").value = "synthetic"; f.el("login-password").value = "synthetic-only";
+  await f.el("login-form").emit("submit");
+  assert.equal(f.el("login").hidden, false);
+  assert.equal(f.el("registration").hidden, true);
+  assert.equal(f.el("login-error").textContent, "Не удалось войти. Проверьте имя пользователя и пароль.");
+});
+
+test("pending registration locks switching and retry preserves body/key then restores auth state", async () => {
+  const f = fixture(); await f.app.ready;
+  await f.el("auth-register").emit("click");
+  f.el("register-username").value = "synthetic"; f.el("register-password").value = "synthetic-only";
+  f.state.lost = "/api/v1/auth/register/";
+  await f.el("register-form").emit("submit");
+  assert.equal(f.el("auth-login").disabled, true);
+  await f.el("auth-login").emit("click");
+  assert.equal(f.el("registration").hidden, false);
+  await f.el("account-retry").emit("click");
+  const posts = f.requests.filter(r => r.path.endsWith("register/") && r.method);
+  assert.equal(posts.length, 2);
+  assert.equal(posts[0].body, posts[1].body);
+  assert.equal(posts[0].headers["Idempotency-Key"], posts[1].headers["Idempotency-Key"]);
+  assert.notEqual(posts[0].headers["X-CSRFToken"], posts[1].headers["X-CSRFToken"]);
+  assert.equal(f.el("anonymous-panel").hidden, true);
+  assert.equal(f.doc.activeElement.id, "profile-title");
+  await f.el("logout-form").emit("submit");
+  assert.equal(f.el("login").hidden, false);
+  assert.equal(f.el("registration").hidden, true);
+  assert.equal(f.doc.activeElement.id, "login-username");
+});
+
+test("registration-only UI limit does not prevent login/restoration for an existing long username", async () => {
+  const f = fixture(); await f.app.ready;
+  f.el("login-username").value = "a".repeat(150); f.el("login-password").value = "synthetic-only";
+  await f.el("login-form").emit("submit");
+  assert.equal(f.el("saved-username").textContent.length, 150);
+  assert.equal(f.el("profile-panel").hidden, false);
 });

@@ -16,6 +16,7 @@
 - **Deadline:** 09.10.2026, revised canonical v7.1 §20.4
 - **FR coverage:** FR-01, FR-02
 - **Human gate required:** Yes; independent Руслан and Владимир Task Approvals
+- **Latest correction:** Auth review feedback locally verified; same PR #26 (see §15)
 
 ```text
 Implementation: COMPLETE; overall task INCOMPLETE pending human gates
@@ -43,12 +44,13 @@ overrides old card dates. Use no v6 requirements.
 
 ## 2. Current authorization and preconditions
 
-The user split work into five stages. Core, real browser acceptance, final
-verification and the authorized contextual-retry UX cleanup are complete locally.
-The latest instruction authorizes **final publication**: audit, task-owned staging,
-new commit, non-force push, PR, verified reviewer requests, exact-head CI and a
-docs-only publication record. Merge, manual Issue closure, self-approval and G3
-completion remain forbidden. Earlier phase restrictions are historical.
+The initial five stages and contextual-retry cleanup were published in PR #26.
+The latest instruction authorizes **Ruslan auth UI feedback corrections**: limit
+registration to 30 on the UI boundary, show one auth form with a switcher, update
+tests/docs/evidence, repeat full verification and real browser acceptance, then
+ordinary commit/non-force push to the same branch/PR and exact-head CI.
+No new Issue/branch/PR, merge, manual Issue closure, self-approval or G3 closure.
+Earlier phase restrictions/results are historical.
 
 | Stage | Scope | Current status |
 | --- | --- | --- |
@@ -143,7 +145,7 @@ commands and results are in the trace.
 | 8 saved state | CORE IMPLEMENTED; GET me after auth/reload/replay and controller state restore tested. |
 | 9 CSRF/error/retry | CORE IMPLEMENTED; rotation, frozen action identity, lost acknowledgement/reconciliation tested. |
 | 10 keyboard/accessibility | PASS: real native keyboard walkthrough; disabled-fieldset logout focus defect corrected and retested. |
-| 11 automated tests | PASS after UX cleanup: 27 Node (22 I03 + 5 I02), 95 Django, 18 R03 and 73 Harness; earlier unchanged R02A 30/30 PASS, no skips. |
+| 11 automated tests | PASS after auth review corrections: 33 Node (28 I03 + 5 I02), 96 Django, 18 R03, 73 Harness and R02A 30/30, no skips. |
 | 12 browser acceptance | PASS: real API/PostgreSQL, three modes, retry, restoration, errors, DOM/console and actual 360/768/1440px evidence. |
 | 13 final verification | PASS locally; full mandatory sequence, scoped diff/whitespace and evidence audit complete. |
 | 14 PR/review/approval | PR #26 OPEN; implementation exact-head CI SUCCESS; review requested from both verified approvers. Human approvals, merge and G3 pending. |
@@ -408,3 +410,34 @@ and UX stopping blocks are historical snapshots, not current publication status.
 No merge or manual Issue #25 closure; G3 remains pending. Keep this plan active.
 After the report, stop for Руслан/Владимир independent review; do not treat review
 requests or green CI as human approval. Legacy favicon 404 remains non-blocking.
+
+## 15. Ruslan auth UI feedback / same-PR follow-up (2026-10-05)
+
+Starting branch/head matched `ms7-i03-auth-profile-onboarding` /
+`dfe7a9205b0431df1b9e783c918a6efb25a33719`; clean checkout; PR #26 OPEN with
+the same head. Existing review event by `Tramsey00` was CHANGES_REQUESTED although
+its prose says APPROVED; record this discrepancy and require explicit re-review.
+Владимир's review request remains pending. No Task Approval claimed by Owner.
+
+Completed corrections: registration-only `maxlength=30`, matching helper/safe
+field error and pre-action submit guard; accepted V02/model maximum 150 untouched.
+Named native-button auth group, `aria-pressed`/controls, one visible section,
+inactive disabled fieldset, first-field focus, retained mode after errors,
+default Login after logout and locked switching during uncertain/pending actions.
+Transport/CSRF/receipt/session and current-server-state authority remain unchanged.
+
+Verification PASS: Node 33, targeted Django 64 (including I03 6); full eight-check
+verifier 96 Django / 18 R03 / 73 Harness; accepted R02A 30; pip/locked runtime
+consistency. Real browser PASS: 30/31, errors, auth, keyboard both switch directions,
+360/768/1440 without overflow, actual grade PK and three modes, lost SELF_REPORT
+acknowledgement/retry, reload and login saved-state restoration. See trace §20.
+
+Evidence [review-auth-ui.json](../../agent-traces/MS7-I03-evidence/review-auth-ui.json):
+11 new sanitized screenshots, 56 real API events, 13 source bindings. Prior
+evidence is preserved history. Temporary runtime/observer/logs stay ignored and
+servers/tabs are stopped after acceptance. No unrelated API/schema/stack work.
+
+Commit/push uses only this scoped follow-up set, same existing branch and PR #26.
+After push, confirm PR head and successful CI on that exact SHA; final head/run
+proof lives in PR body/checks and final report. No new PR or merge. Keep the plan
+active; independent re-review/Task Approvals and G3 remain pending.

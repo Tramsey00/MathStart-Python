@@ -14,11 +14,13 @@
   const modeLabels = {START_ZERO: "Начать с начала", SELF_REPORT: "Самооценка", DIAGNOSTIC: "Диагностика (выбор пути)"};
   const radioIds = ["mode-start-zero", "mode-self-report", "mode-diagnostic"];
   const formNames = ["register", "login", "logout", "profile", "onboarding"];
+  const usernameLimitMessage = "Имя пользователя должно содержать не больше 30 символов.";
   function mount({document: doc, client}) {
     const el = name => doc.getElementById(name);
     const forms = Object.fromEntries(formNames.map(name => [name, el(name + "-form")]));
     let profile = null, sessionReady = false, catalogue = [], gradesReady = false;
     let stateReloadNeeded = false;
+    let authMode = "login";
     let busy = false, gradesLoading = false, pending = null, retryAt = 0, retryTimer = null;
     const selects = [el("profile-grade"), el("onboarding-grade")];
     const value = name => el(name).value;
@@ -30,6 +32,7 @@
     function controls() {
       for (const [name, form] of Object.entries(forms)) {
         form.querySelector("fieldset").disabled = busy || Boolean(pending) || !sessionReady
+          || (["login", "register"].includes(name) && name !== authMode)
           || (["profile", "onboarding"].includes(name) && (!gradesReady || !catalogue.length));
         form.setAttribute("aria-busy", String(busy));
       }
@@ -39,6 +42,12 @@
       el("account-refresh").disabled = busy;
       el("account-refresh").hidden = !stateReloadNeeded;
       el("grades-retry").disabled = busy || gradesLoading || Boolean(pending);
+      for (const name of ["login", "register"]) el("auth-" + name).disabled = busy || Boolean(pending) || !sessionReady;
+    }
+    function renderAuth() {
+      el("login").hidden = authMode !== "login";
+      el("registration").hidden = authMode !== "register";
+      for (const name of ["login", "register"]) el("auth-" + name).setAttribute("aria-pressed", String(name === authMode));
     }
     function announce(message, state = "ordinary") {
       el("account-state").dataset.state = state;
@@ -58,6 +67,7 @@
       }
     }
     function errorMessage(error, name) {
+      if (name === "register" && error.code === "USERNAME_TOO_LONG") return usernameLimitMessage;
       if (!name && stateReloadNeeded) return "Не удалось загрузить данные аккаунта. Проверьте соединение и повторите загрузку.";
       if (name === "login" && error.status === 401) return "Не удалось войти. Проверьте имя пользователя и пароль.";
       if (error.status === 401) return "Для сохранения настроек нужно войти. Обновите состояние и войдите снова.";
@@ -175,6 +185,7 @@
       pending = null;
       retryAt = 0;
       clearCredentials();
+      if (name === "logout") { authMode = "login"; renderAuth(); }
       // Never turn a historical mutation receipt into the current profile.
       sessionReady = false;
       renderSaved();
@@ -244,11 +255,28 @@
     for (const name of formNames) {
       forms[name].addEventListener("submit", async event => {
         event.preventDefault();
-        if (busy || pending || !sessionReady || !forms[name].reportValidity()) return;
+        if (busy || pending || !sessionReady || (["login", "register"].includes(name) && name !== authMode)) return;
+        // Native maxlength also limits typing/paste; guard prefilled/programmatic values before creating an action/key.
+        if (name === "register" && value("register-username").length > 30) {
+          clearErrors();
+          showError({status: 400, code: "USERNAME_TOO_LONG", fieldErrors: {username: [usernameLimitMessage]}}, name);
+          return;
+        }
+        if (!forms[name].reportValidity()) return;
         try {
           pending = {operation: client.action(name, payloads[name]()), owner: profile ? profile.id : null};
           await execute();
         } catch (_) { pending = null; showError({status: 400}, name); controls(); }
+      });
+    }
+    for (const name of ["login", "register"]) {
+      el("auth-" + name).addEventListener("click", () => {
+        if (busy || pending || !sessionReady || profile) return;
+        authMode = name;
+        clearErrors();
+        renderAuth();
+        controls();
+        el(name + "-username").focus();
       });
     }
     el("account-retry").addEventListener("click", () => execute(true));
@@ -266,7 +294,7 @@
         // Successful recovery hides its button: move focus to a usable control.
         if (!stateReloadNeeded) {
           if (pending) el("account-retry").focus();
-          else el(profile ? "profile-title" : "login-username").focus();
+          else el(profile ? "profile-title" : authMode + "-username").focus();
         }
       }
     });
@@ -283,6 +311,7 @@
       }
       finally { busy = false; controls(); }
     }
+    renderAuth();
     const ready = Promise.all([start(), loadGrades()]);
     return {ready};
   }

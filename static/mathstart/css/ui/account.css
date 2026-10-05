@@ -9,6 +9,10 @@
 .ms-account-summary dt { font-weight: 650; }
 .ms-account-summary dd { margin: 0; }
 .ms-account-actions { display: flex; flex-wrap: wrap; gap: var(--ms-ui-space-2); }
+.ms-account-auth { max-width: 40rem; margin-inline: auto; }
+.ms-account-auth-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ms-ui-space-2); margin-bottom: var(--ms-ui-space-2); }
+.ms-account-auth-switch [aria-pressed="false"] { color: var(--ms-ui-accent); background: var(--ms-ui-surface); }
+.ms-account-auth-switch [aria-pressed="false"]:hover { color: var(--ms-ui-ink); }
 .ms-account select[aria-invalid="true"] { border: 2px solid var(--ms-ui-error); }
 .ms-account #logout-form { margin-block: var(--ms-ui-space-3); }
 @media (max-width: 600px) {

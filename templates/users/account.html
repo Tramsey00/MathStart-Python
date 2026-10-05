@@ -22,7 +22,11 @@
       <button type="button" id="account-refresh" class="ms-ui-button" hidden>Повторить загрузку</button>
     </div>
   </section>
-  <div id="anonymous-panel" class="ms-ui-grid" hidden>
+  <div id="anonymous-panel" class="ms-account-auth" hidden>
+    <div class="ms-account-auth-switch" role="group" aria-label="Вход или регистрация">
+      <button type="button" id="auth-login" class="ms-ui-button" aria-pressed="true" aria-controls="login" disabled>Вход</button>
+      <button type="button" id="auth-register" class="ms-ui-button" aria-pressed="false" aria-controls="registration" disabled>Регистрация</button>
+    </div>
     <section id="login" class="ms-ui-card" aria-labelledby="login-title">
       <h2 id="login-title">Вход</h2>
       <form id="login-form" method="post" aria-describedby="login-error">
@@ -35,12 +39,12 @@
         <p id="login-error" class="ms-ui-field-error" role="alert" hidden></p>
       </form>
     </section>
-    <section id="registration" class="ms-ui-card" aria-labelledby="register-title">
+    <section id="registration" class="ms-ui-card" aria-labelledby="register-title" hidden>
       <h2 id="register-title">Регистрация</h2>
       <form id="register-form" method="post" aria-describedby="register-error">
         <fieldset disabled>
           <legend class="ms-ui-sr-only">Создать аккаунт</legend>
-          {% include "ui/components/field.html" with field_id="register-username" field_name="username" label="Имя пользователя" autocomplete="username" maxlength=150 required=True help_text="До 150 символов. Это имя понадобится для входа." only %}
+          {% include "ui/components/field.html" with field_id="register-username" field_name="username" label="Имя пользователя" autocomplete="username" maxlength=30 required=True help_text="До 30 символов. Это имя понадобится для входа." only %}
           {% include "ui/components/field.html" with field_id="register-password" field_name="password" input_type="password" label="Пароль" autocomplete="new-password" required=True help_text="Используйте надёжный пароль, который не совпадает с именем пользователя." only %}
           {% include "ui/components/field.html" with field_id="register-email" field_name="email" input_type="email" label="Электронная почта (необязательно)" autocomplete="email" help_text="Можно оставить пустым." only %}
           {% include "ui/components/button.html" with button_type="submit" label="Зарегистрироваться" only %}

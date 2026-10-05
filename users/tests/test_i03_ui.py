@@ -86,6 +86,20 @@ class I03PresentationTests(SimpleTestCase):
         self.assertIn("Диагностические задания на этом экране не запускаются", self.html)
         self.assertIn("Знакомые темы на этом экране не отмечаются", self.html)
 
+    def test_auth_switcher_native_buttons_initial_visibility_and_registration_only_limit(self):
+        self.assertNotIn("hidden", self.ids["login"][1])
+        self.assertIn("hidden", self.ids["registration"][1])
+        for name, target, pressed in [("login", "login", "true"), ("register", "registration", "false")]:
+            tag, attrs = self.ids["auth-" + name]
+            self.assertEqual(tag, "button")
+            self.assertEqual(attrs["type"], "button")
+            self.assertEqual(attrs["aria-controls"], target)
+            self.assertEqual(attrs["aria-pressed"], pressed)
+        self.assertEqual(self.ids["register-username"][1]["maxlength"], "30")
+        self.assertNotIn("maxlength", self.ids["login-username"][1])
+        self.assertIn("До 30 символов. Это имя понадобится для входа.", self.html)
+        self.assertNotIn("До 150 символов", self.html)
+
 
 @override_settings(STORAGES=STATIC_STORAGE, SECURE_SSL_REDIRECT=False,
                    SESSION_COOKIE_SECURE=False, CSRF_COOKIE_SECURE=False)

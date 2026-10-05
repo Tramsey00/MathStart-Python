@@ -67,3 +67,33 @@ passed normal initial state, GET-only retry, automatic auth restoration and nati
 keyboard/focus. The last status-only correction was followed by a real browser
 repeated-error/focus re-check and a complete verifier run. See the record for
 snapshot provenance; no historical evidence was replaced or deleted.
+
+## Ruslan auth UI review follow-up (2026-10-05)
+
+[Current review record](review-auth-ui.json) binds the registration UI maximum 30
+and single-form Login/Registration switcher. The older original/UX records and
+150-character registration screenshot are historical; the current registration
+UI accepts at most 30. Existing longer backend usernames remain valid for login.
+
+| Current auth state | 1440px | 768px | 360px |
+| --- | --- | --- | --- |
+| Login | [Login](review-login-1440.jpg) | [Login](review-login-768.jpg) | [Login](review-login-360.jpg) |
+| Registration | [Registration](review-register-1440.jpg) | [Registration](review-register-768.jpg) | [Registration](review-register-360.jpg) |
+
+Additional actual captures: [31-character UI error](review-register-error.jpg),
+[generic registration error](review-backend-register-error.jpg),
+[safe login error](review-login-error.jpg), [saved state](review-saved-state.jpg),
+[state restored after login](review-login-restored.jpg).
+
+11 new native JPEG screenshots (41 total with preserved history), no credential/
+cookie/token/receipt-key values or real personal identities. 56 sanitized real API
+events include all eight surfaces, actual current-CSRF mutations/rotation and
+same-body/key SELF_REPORT replay. Browser DOM input values are masked by tooling;
+the 30-character success is established by the real returned server profile,
+and the 31-character error by the visible associated alert and no registration
+request until corrected. Thirteen source hashes bind this reviewed implementation.
+
+Native Enter/Space switching, Tab/Shift+Tab, first-field focus, inactive-form
+exclusion and visible 3px outline passed; responsive 360/768/1440 without overflow.
+Real browser warn/error capture empty. Legacy favicon 404 remains non-blocking;
+single-browser evidence does not claim cross-browser/auditory screen-reader QA.
