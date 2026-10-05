@@ -31,6 +31,9 @@ def theme_context(page):
     if page.slug == "karta-sajta":
         assets["theme_before"] += [CSS + "ui/tokens.css", CSS + "catalogue.css"]
 
+    if page.slug in ("glavnaya", "o-proekte", "kontakty"):
+        assets["theme_before"].append(CSS + "ui/tokens.css")
+
     if 'data-lesson-widget="power-functions"' in body:
         assets["theme_before"].append(
             CSS + "widgets/power-functions.css"

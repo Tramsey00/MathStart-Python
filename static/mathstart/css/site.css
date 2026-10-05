@@ -36,11 +36,29 @@
     display: flex; justify-content: space-between; align-items: center;
     gap: 20px; flex-wrap: wrap; line-height: 1.5; font-size: 15px;
   }
-  .ms-site-header > div, .ms-site-footer > div { display: flex; gap: 20px; flex-wrap: wrap; }
+  .ms-site-header > div, .ms-site-footer .ms-footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
   .ms-site-header a, .ms-site-footer a { color: #1d4ed8; text-decoration: none; }
   .ms-site-header a:hover, .ms-site-footer a:hover { text-decoration: underline; }
-  .ms-site-header .ms-site-brand { font-size: 23px; font-weight: 800; color: #172554; }
-  .ms-site-footer { border-top: 1px solid #dbeafe; margin-top: 32px; padding-bottom: 30px; color: #475569; }
+  .ms-site-header .ms-site-brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 44px; padding: 4px 0; font-size: 22px;
+    font-weight: 650; letter-spacing: -0.025em; color: #172554;
+  }
+  .ms-site-header .ms-brand-mark { flex: 0 0 32px; color: #2563eb; }
+  .ms-site-header .ms-site-brand:hover { color: #1d4ed8; text-decoration: none; }
+  .ms-site-header .ms-site-brand:focus-visible, .ms-site-footer a:focus-visible {
+    outline: 3px solid #2563eb; outline-offset: 4px; border-radius: 6px;
+  }
+  .ms-site-header > div a { display: inline-flex; align-items: center; min-height: 44px; }
+  .ms-site-footer {
+    border-top: 1px solid #dbeafe; border-radius: 16px 16px 0 0;
+    margin-top: 32px; padding: 28px 24px; background: #f8fafc; color: #475569;
+  }
+  .ms-site-footer .ms-footer-identity { flex: 1 1 340px; }
+  .ms-site-footer .ms-footer-brand { color: #172554; font-size: 18px; font-weight: 650; }
+  .ms-site-footer .ms-footer-identity p { max-width: 510px; margin: 6px 0 0; font-size: 14px; }
+  .ms-site-footer .ms-footer-links { align-items: center; gap: 8px 20px; }
+  .ms-site-footer .ms-footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
   .ms-support-page a, .ms-card a, .ms-pdf-card a { color: #1d4ed8; text-underline-offset: 3px; }
   .ms-contact-email { font-size: 24px; font-weight: 700; overflow-wrap: anywhere; }
   .ms-support-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
@@ -54,10 +72,7 @@
   .ms-catalogue-section ul { padding-left: 24px; }
   .ms-card ul { padding-left: 22px; line-height: 1.7; }
   .ms-card li + li { margin-top: 10px; }
-  .ms-pdf-card, div.ms-about-gallery { max-width: 888px; margin: 24px auto; padding: 24px; border: 1px solid #dbeafe; border-radius: 22px; }
-  figure.ms-about-gallery { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin: 24px 0 0; }
-  figure.ms-about-gallery figure { min-width: 0; margin: 0; }
-  figure.ms-about-gallery img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .ms-pdf-card { max-width: 888px; margin: 24px auto; padding: 24px; border: 1px solid #dbeafe; border-radius: 22px; }
   .ms-pdf-file a {
   display: inline-block;
   margin: 12px 20px 0 0;
@@ -79,10 +94,11 @@
   a:focus-visible, summary:focus-visible, button:focus-visible { outline: 3px solid #2563eb; outline-offset: 4px; }
   @media (max-width: 600px) {
     .ms-site-header, .ms-site-footer { padding: 16px; gap: 12px; }
-    .ms-site-header > div, .ms-site-footer > div { gap: 14px; }
+    .ms-site-header > div, .ms-site-footer .ms-footer-links { gap: 14px; }
+    .ms-site-header .ms-site-brand { gap: 8px; font-size: 20px; }
+    .ms-site-footer { border-radius: 0; padding-top: 24px; padding-bottom: 24px; }
     .ms-catalogue-links { columns: 1; }
-    .ms-pdf-card, div.ms-about-gallery { margin: 20px 12px; padding: 20px; }
-    figure.ms-about-gallery { grid-template-columns: 1fr; }
+    .ms-pdf-card { margin: 20px 12px; padding: 20px; }
     .ms-page > .ms-hero { padding: 28px 22px; }
     .ms-page .ms-title { font-size: 34px; overflow-wrap: anywhere; }
   }

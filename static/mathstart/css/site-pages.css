@@ -557,3 +557,122 @@
 
 .ms-site-page .ms-about-card-wide { grid-column:1 / -1; }
 .ms-site-page .ms-card h2 { margin:0 0 8px; font-size:18px; line-height:1.35; }
+
+/* Informational pages: isolated from lesson, grade and subject components. */
+.ms-info-page {
+  max-width: 920px;
+  margin: 24px auto 0;
+  padding: 0 24px 24px;
+  color: var(--ms-ui-ink);
+  line-height: 1.65;
+  font-size: 16px;
+}
+.ms-info-page .ms-info-intro { margin-bottom: 32px; }
+.ms-info-page h1 {
+  margin: 0 0 12px;
+  color: #111827;
+  font-size: clamp(28px, 4vw, 36px);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.ms-info-page .ms-info-intro p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--ms-ui-muted);
+  font-size: 18px;
+}
+.ms-info-page h2 { margin: 0 0 16px; font-size: 23px; line-height: 1.3; font-weight: 650; }
+.ms-info-page .ms-info-section { margin: 28px 0; }
+.ms-info-page .ms-info-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+}
+.ms-info-page .ms-info-features > div { padding-top: 14px; border-top: 2px solid #dbeafe; }
+.ms-info-page .ms-info-features dt { margin-bottom: 6px; font-size: 17px; font-weight: 650; }
+.ms-info-page .ms-info-features dd { margin: 0; color: var(--ms-ui-muted); }
+.ms-info-page .ms-info-guide {
+  padding: 22px 24px;
+  background: var(--ms-ui-background);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+.ms-info-page .ms-info-guide ol { margin: 0; padding-left: 22px; color: var(--ms-ui-muted); }
+.ms-info-page .ms-info-guide li + li { margin-top: 8px; }
+.ms-info-page .ms-info-guide li::marker { color: var(--ms-ui-accent); font-weight: 650; }
+.ms-info-page .ms-info-coverage p { max-width: 780px; margin: 0; color: var(--ms-ui-muted); }
+.ms-info-page a { color: var(--ms-ui-accent); text-underline-offset: 4px; }
+.ms-info-page .ms-info-cta {
+  display: inline-flex; align-items: center; gap: 16px;
+  min-height: 46px; padding: 10px 18px;
+  border: 1px solid #1d4ed8; border-radius: 10px;
+  background: var(--ms-ui-accent); color: #fff;
+  text-decoration: none; font-weight: 600;
+}
+.ms-info-page .ms-info-cta:hover { background: #1e40af; }
+.ms-contact-page { max-width: 800px; }
+.ms-contact-page .ms-contact-panel {
+  padding: 24px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #eff6ff;
+}
+.ms-contact-page .ms-contact-panel h2 { margin-bottom: 8px; font-size: 16px; color: var(--ms-ui-muted); }
+.ms-contact-page .ms-contact-address {
+  display: inline-flex; align-items: center; gap: 14px;
+  min-height: 44px; max-width: 100%;
+  font-size: clamp(24px, 4vw, 30px); line-height: 1.3;
+  font-weight: 650; text-decoration: none;
+}
+.ms-contact-page .ms-contact-address:hover { text-decoration: underline; }
+.ms-contact-page .ms-contact-panel p { max-width: 560px; margin: 12px 0 0; color: var(--ms-ui-muted); }
+.ms-contact-page .ms-contact-checklist { margin: 0; padding-left: 22px; color: var(--ms-ui-muted); }
+.ms-contact-page .ms-contact-checklist li + li { margin-top: 10px; }
+.ms-contact-page .ms-contact-catalogue { margin: 28px 0 0; padding-top: 20px; border-top: 1px solid #e2e8f0; color: var(--ms-ui-muted); }
+.ms-contact-page .ms-contact-catalogue a { display: inline-block; padding: 8px 0; }
+
+/* Only the two requested information sections on the existing home page. */
+.ms-site-page .ms-home-benefits, .ms-site-page .ms-home-lesson {
+  margin-top: 26px; padding: 26px 28px;
+  border: 1px solid #e2e8f0; border-radius: 16px;
+}
+.ms-site-page .ms-home-benefits h2, .ms-site-page .ms-home-lesson h2 {
+  margin: 0 0 12px; font-size: 28px; line-height: 1.25;
+  letter-spacing: -0.025em; font-weight: 700;
+}
+.ms-site-page .ms-home-lead { margin: 0; color: var(--ms-ui-muted); font-size: 16px; line-height: 1.65; }
+.ms-site-page .ms-benefits-list {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px; margin: 22px 0 0;
+}
+.ms-site-page .ms-benefits-list > div { padding-left: 14px; border-left: 3px solid #bfdbfe; }
+.ms-site-page .ms-benefits-list dt { font-size: 18px; line-height: 1.35; font-weight: 650; }
+.ms-site-page .ms-benefits-list dd { margin: 8px 0 0; color: var(--ms-ui-muted); font-size: 15.5px; line-height: 1.6; }
+.ms-site-page .ms-home-lesson { background: var(--ms-ui-background); }
+.ms-site-page .ms-lesson-sequence {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px; margin: 22px 0 0; padding: 0; list-style: none;
+}
+.ms-site-page .ms-lesson-sequence li { position: relative; padding-right: 12px; }
+.ms-site-page .ms-lesson-sequence li:not(:last-child)::after {
+  content: "→"; position: absolute; top: 0; right: -16px;
+  color: #2563eb; font-size: 21px; line-height: 1.2;
+}
+.ms-site-page .ms-lesson-sequence h3 { margin: 0 0 8px; font-size: 18px; font-weight: 650; line-height: 1.35; }
+.ms-site-page .ms-lesson-sequence p { margin: 0; color: var(--ms-ui-muted); font-size: 15.5px; line-height: 1.6; }
+@media (max-width: 720px) {
+  .ms-info-page .ms-info-features, .ms-site-page .ms-benefits-list { grid-template-columns: 1fr; gap: 18px; }
+  .ms-site-page .ms-lesson-sequence { grid-template-columns: 1fr; gap: 28px; }
+  .ms-site-page .ms-lesson-sequence li { padding-right: 0; }
+  .ms-site-page .ms-lesson-sequence li:not(:last-child)::after { content: "↓"; top: auto; right: auto; bottom: -26px; left: 0; font-size: 18px; }
+}
+@media (max-width: 520px) {
+  .ms-info-page { margin-top: 20px; padding: 0 16px 16px; }
+  .ms-info-page .ms-info-intro { margin-bottom: 26px; }
+  .ms-info-page .ms-info-intro p { font-size: 17px; }
+  .ms-info-page .ms-info-guide, .ms-contact-page .ms-contact-panel { padding: 20px; }
+  .ms-site-page .ms-home-benefits, .ms-site-page .ms-home-lesson { padding: 22px 20px; }
+  .ms-site-page .ms-home-benefits h2, .ms-site-page .ms-home-lesson h2 { font-size: 25px; }
+}
