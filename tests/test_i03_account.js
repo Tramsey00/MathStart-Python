@@ -91,6 +91,8 @@ test("ordinary anonymous initial state loads automatically without a recovery bu
   const f = fixture(); await f.app.ready;
   assert.equal(f.el("anonymous-panel").hidden, false);
   assert.equal(f.el("account-refresh").hidden, true);
+  assert.equal(f.el("account-state").hidden, true);
+  assert.equal(f.el("account-status").textContent, "");
   assert.equal(f.el("login-form").fieldset.disabled, false);
   assert.equal(f.el("login").hidden, false);
   assert.equal(f.el("registration").hidden, true);
@@ -102,6 +104,7 @@ test("ordinary anonymous initial state loads automatically without a recovery bu
 
 test("failed state loading offers GET-me-only recovery; repeated failure remains keyboard reachable", async () => {
   const f = fixture(null, {failMe: true}); await f.app.ready;
+  assert.equal(f.el("account-state").hidden, false);
   assert.equal(f.el("account-refresh").hidden, false);
   assert.equal(f.el("login-form").fieldset.disabled, true);
   assert.equal(f.el("account-status").textContent, "Не удалось загрузить сохранённое состояние.");
@@ -196,6 +199,7 @@ test("safe invalid credentials stay form-level; successful login/logout restores
   f.state.loginFailure = true;
   await f.el("login-form").emit("submit");
   assert.equal(f.el("login-error").textContent, "Не удалось войти. Проверьте имя пользователя и пароль.");
+  assert.equal(f.el("account-state").hidden, false);
   assert.equal(f.el("account-retry").hidden, true);
   assert.equal(f.el("login-password").value, "");
   assert.equal(f.el("login-form").fieldset.disabled, false);
@@ -332,8 +336,12 @@ test("31-character prefilled registration is rejected before any API/CSRF/key ac
   assert.equal(f.el("register-username").attrs["aria-invalid"], "true");
   assert.equal(f.el("register-username-error").textContent, "Имя пользователя должно содержать не больше 30 символов.");
   assert.equal(f.el("register-error").textContent, f.el("register-username-error").textContent);
+  assert.equal(f.el("account-state").hidden, false);
   assert.equal(f.doc.activeElement.id, "account-error");
   assert.equal(f.el("register-password").value, "");
+  await f.el("auth-login").emit("click");
+  assert.equal(f.el("account-state").hidden, true); // No empty card after clearing a pre-action error.
+  await f.el("auth-register").emit("click");
   f.el("register-username").value = "a".repeat(30);
   f.el("register-password").value = "synthetic-only";
   await f.el("register-form").emit("submit");

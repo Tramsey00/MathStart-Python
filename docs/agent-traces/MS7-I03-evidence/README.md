@@ -125,3 +125,15 @@ Only synthetic identities/public grade data; no password/cookie/token/key values
 or EXIF metadata. Browser warn/error capture empty. No viewport override used.
 Prior records remain historical; this fixes the subsequently discovered password
 retention gap and does not retroactively claim it was covered by earlier audits.
+
+## Quiet anonymous initial state (2026-10-06, local only)
+
+[Initial page](quiet-initial.jpg) shows the introduction and auth switcher without
+the duplicate prompt/status card. [Record](quiet-state.json) binds 13 current
+source hashes, this sanitized native JPEG and 12 real API events (255–266).
+Pre-action error / safe login 401 still reveal the alert card; contextual Enter
+retry after a truncated real GET me response restores first-field focus.
+Reload returns to the quiet anonymous state. No credential values or EXIF.
+One new image, 50 total with all historical evidence preserved; no viewport change.
+The record distinguishes completed checks from the interrupted default verifier
+and its separately completed Harness group. No publication performed.

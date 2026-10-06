@@ -464,3 +464,31 @@ active; independent re-review/Task Approvals and G3 remain pending.
 
 Keep plan active. Do not create another Issue/branch/PR, manually close #25,
 self-approve or merge. Руслан/Владимир independent Task Approval and G3 pending.
+
+## 17. Duplicate anonymous prompt cleanup (2026-10-06, local only)
+
+Removed the redundant initial prompt and its empty state card after anonymous
+GET me; retained meaningful loading/error/retry/results and alert focus. Updated
+regressions for initial hiding, error reveal and pre-action error clearing.
+Node 34, I03 Django 6, R02A 30 and browser initial/error/Enter-retry PASS. Default
+verifier completed first seven checks (96 Django/18 R03) before its session was
+interrupted during Harness; documented `--group harness` completed 73/73.
+No successful default-run exit code is claimed. See trace §22 for environment
+failures and exact commands; all required checks are covered without skips.
+
+[Quiet initial evidence](../../agent-traces/MS7-I03-evidence/quiet-initial.jpg) /
+[record](../../agent-traces/MS7-I03-evidence/quiet-state.json) preserve historical
+captures and bind current sources. No staging/commit/push or GitHub action; existing
+branch/PR/head remain intact. Human approvals/G3 are not granted by this local pass.
+
+## 18. Publish quiet-state cleanup (2026-10-06)
+
+Owner subsequently authorized commit/push with a clear change description. The
+pre-publication audit confirms the same branch, HEAD 7196c01885d736de7e37d02decf76ac60982d499,
+empty index and only the eight paths recorded in trace §22. Remote branch and
+OPEN PR #26 match that SHA. Preserve the historical local acceptance snapshot.
+Stage only those eight paths; use an ordinary descriptive commit and non-force
+push. Record the resulting SHA and exact-head CI in the existing PR body/checks
+after push, without a self-referential SHA in this commit. No new Issue/branch/PR,
+manual Issue closure, self-approval or merge; keep this plan active for independent
+Руслан/Владимир Task Approval and G3.

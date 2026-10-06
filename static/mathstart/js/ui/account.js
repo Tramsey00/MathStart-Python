@@ -50,12 +50,14 @@
       for (const name of ["login", "register"]) el("auth-" + name).setAttribute("aria-pressed", String(name === authMode));
     }
     function announce(message, state = "ordinary") {
+      el("account-state").hidden = !message;
       el("account-state").dataset.state = state;
       el("account-status").textContent = message;
     }
     function clearErrors() {
       el("account-error").hidden = true;
       el("account-error").textContent = "";
+      if (!el("account-status").textContent) el("account-state").hidden = true;
       for (const [name, form] of Object.entries(forms)) {
         el(name + "-error").hidden = true;
         el(name + "-error").textContent = "";
@@ -82,6 +84,7 @@
     }
     function showError(error, name = null, focus = true) {
       const message = errorMessage(error, name);
+      el("account-state").hidden = false;
       el("account-error").textContent = message;
       el("account-error").hidden = false;
       el("account-state").dataset.state = "error";
@@ -312,7 +315,7 @@
     });
     async function start() {
       busy = true; controls();
-      try { await client.csrf(); await readSaved(); announce(profile ? "Сохранённое состояние загружено." : "Войдите или создайте аккаунт."); }
+      try { await client.csrf(); await readSaved(); announce(profile ? "Сохранённое состояние загружено." : ""); }
       catch (error) {
         stateReloadNeeded = true;
         announce("Не удалось загрузить сохранённое состояние.", "error");

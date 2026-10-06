@@ -600,3 +600,23 @@ retry after lost response, rotation and saved-state restoration. See the new
 [security record](../../docs/agent-traces/MS7-I03-evidence/security-auth-credentials.json)
 and trace §21. Earlier evidence remains historical; independent re-review and
 Task Approvals/G3 remain pending. Publication uses the same branch/PR #26.
+
+## 20. Quiet anonymous initial state (2026-10-06)
+
+The Owner requested removal of the duplicate "Войдите или создайте аккаунт"
+prompt below the existing introduction. After automatic anonymous GET me succeeds,
+the account status text is empty and its whole card is hidden, without an empty
+bordered placeholder. Loading, meaningful operation results, errors and retry
+remain available. Errors explicitly reveal the card before focus; clearing a
+pre-action error with no status hides it again. Auth/session/CSRF/receipt/credential
+cleanup and server-state authority are unchanged.
+
+Node 34/34, I03 Django 6/6 and real API/browser initial/error/retry/keyboard checks
+PASS. All eight mandatory checks covered (first seven in default verifier, last
+Harness check completed via documented group after interruption). See trace §22
+and [quiet-state record](../../docs/agent-traces/MS7-I03-evidence/quiet-state.json).
+The acceptance snapshot was captured locally before publication. The Owner then
+authorized an ordinary commit/push in the same branch and existing PR #26. Trace
+§23 records the scoped publication procedure; the resulting commit SHA and
+exact-head CI proof are recorded in the PR body/live checks after push. This does
+not grant independent Task Approval or G3 acceptance.
