@@ -492,3 +492,22 @@ push. Record the resulting SHA and exact-head CI in the existing PR body/checks
 after push, without a self-referential SHA in this commit. No new Issue/branch/PR,
 manual Issue closure, self-approval or merge; keep this plan active for independent
 Руслан/Владимир Task Approval and G3.
+
+## 19. Archive superseded auth screenshots (2026-10-06)
+
+Owner authorized removing/ignoring obsolete Login/Registration images to reduce
+the current evidence set. Starting clean branch HEAD:
+`6706a25a8d7e94de214e1a2bbf6cb9420f595fc2`. Moved **24 JPEGs / 1,589,151 bytes**
+intact to `var/archives/MS7-I03-auth/`, ignored by the existing `var/` rule.
+Retain **26 JPEGs**: current quiet initial state, all eight security captures,
+profile/onboarding/session recovery. No I03 PNGs existed; I02 images untouched.
+
+[Archive index](../../agent-traces/MS7-I03-evidence/archived-auth-screenshots.json)
+records names, hashes, sizes, original commit and immutable retrieval URLs.
+Historical screenshot metadata/results remain; added archive locations and
+updated Markdown links. Runtime, tests, frozen contracts and `.gitignore` unchanged.
+Harness verification **73/73 PASS**, Python 3.14.7; image/hash/ignore/link/scope
+audit and whitespace check required before the scoped ordinary commit/non-force
+push in the same PR #26. Record new exact-head CI proof in the PR body/checks.
+This removes current-tree binaries, not blobs already stored in Git history.
+Keep the plan active; independent Task Approvals/G3 pending, no merge or Issue closure.

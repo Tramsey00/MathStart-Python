@@ -1,5 +1,22 @@
 # MS7-I03 stage 3 browser evidence
 
+## Screenshot storage after Owner cleanup (2026-10-06)
+
+Current tree: **26 JPEGs**. The Owner requested removing obsolete
+Login/Registration images: **24 JPEGs / 1,589,151 bytes** moved intact
+to `var/archives/MS7-I03-auth/`, already ignored by `var/`. No I03 PNGs were present.
+[Archive index](archived-auth-screenshots.json) records each hash/size and immutable
+GitHub URL. Historical screenshot entries retain their original file/dimensions/
+hashes and now include retrieval URLs/local archive paths. Older links below point
+to that history rather than missing working-tree files. Counts such as 27/41/49/50
+below describe their dated acceptance snapshots, not today's image set.
+
+Retained: [current initial screen](quiet-initial.jpg), all eight security follow-up
+captures, profile/onboarding/session-recovery images and their acceptance records.
+No runtime/tests/contracts changed and no evidence results were re-written.
+Removing images from this tree does not reclaim already committed Git-history
+storage. No history rewrite or new browser acceptance is claimed.
+
 2026-10-04; Issue #25; branch `ms7-i03-auth-profile-onboarding`; HEAD remains
 `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`. Core is a local uncommitted diff.
 **Historical stage 3 snapshot: browser PASS; final verification then NOT STARTED.**
@@ -28,20 +45,20 @@ requested viewport. Actual dimensions/digests are in the manifest.
 
 | Useful state | 1440px | 768px | 360px |
 | --- | --- | --- | --- |
-| Anonymous/login | [Auth](auth-1440.jpg) | [Auth](auth-768.jpg) | [Auth](auth-360.jpg) |
-| Registration | [Form](registration-1440.jpg) | [Form](registration-768.jpg) | [Form](registration-360.jpg) |
+| Anonymous/login | [Auth](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/auth-1440.jpg) | [Auth](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/auth-768.jpg) | [Auth](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/auth-360.jpg) |
+| Registration | [Form](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/registration-1440.jpg) | [Form](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/registration-768.jpg) | [Form](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/registration-360.jpg) |
 | Profile/saved state | [Saved](saved-1440.jpg) | [Saved](saved-768.jpg) | [Saved](saved-360.jpg) |
 | Onboarding choice | [Choices](onboarding-1440.jpg) | [Choices](onboarding-768.jpg) | [Choices](onboarding-360.jpg) |
-| Invalid credentials | [Error](invalid-credentials-1440.jpg) | [Error](invalid-credentials-768.jpg) | [Error](invalid-credentials-360.jpg) |
+| Invalid credentials | [Error](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/invalid-credentials-1440.jpg) | [Error](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/invalid-credentials-768.jpg) | [Error](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/invalid-credentials-360.jpg) |
 | Expired session/recovery | [Error](session-error-1440.jpg) | [Error](session-error-768.jpg) | [Error](session-error-360.jpg) |
 
-Additional captures: [logout → login](login-1440.jpg),
+Additional captures: [logout → login](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/login-1440.jpg),
 [grade selection](grade-selection-1440.jpg),
 [START_ZERO selection](onboarding-selection-1440.jpg),
 [START_ZERO saved](start-zero-saved-1440.jpg),
 [SELF_REPORT uncertain outcome/retry](self-report-retry-1440.jpg),
 [DIAGNOSTIC saved](diagnostic-saved-1440.jpg), [reload restoration](restored-1440.jpg),
-[150-character synthetic username](long-username-360.jpg).
+[150-character synthetic username](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/long-username-360.jpg).
 [Initial profile](profile-1440.jpg) is historical visual evidence before the logout
 focus correction. Final saved-state images and responsive matrices are post-fix.
 
@@ -57,9 +74,9 @@ consumer probe demonstrated multi-page behavior without changing product setting
 
 ## Contextual retry UX follow-up
 
-Recorded 2026-10-05. [Initial state without reload](ux-initial.jpg),
-[state-loading error / contextual retry](ux-state-error.jpg),
-[saved state restored after login](ux-login-restored.jpg).
+Recorded 2026-10-05. [Initial state without reload](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/ux-initial.jpg),
+[state-loading error / contextual retry](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/ux-state-error.jpg),
+[saved state restored after login](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/ux-login-restored.jpg).
 [UX record](ux-recheck.json) includes hashes, final source/collected-asset bindings,
 38 sanitized real API events, repeated read-error recovery and targeted/full checks.
 Only synthetic identities; no credential/cookie/token/key values. Browser checks
@@ -77,13 +94,13 @@ UI accepts at most 30. Existing longer backend usernames remain valid for login.
 
 | Current auth state | 1440px | 768px | 360px |
 | --- | --- | --- | --- |
-| Login | [Login](review-login-1440.jpg) | [Login](review-login-768.jpg) | [Login](review-login-360.jpg) |
-| Registration | [Registration](review-register-1440.jpg) | [Registration](review-register-768.jpg) | [Registration](review-register-360.jpg) |
+| Login | [Login](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-login-1440.jpg) | [Login](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-login-768.jpg) | [Login](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-login-360.jpg) |
+| Registration | [Registration](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-register-1440.jpg) | [Registration](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-register-768.jpg) | [Registration](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-register-360.jpg) |
 
-Additional actual captures: [31-character UI error](review-register-error.jpg),
-[generic registration error](review-backend-register-error.jpg),
-[safe login error](review-login-error.jpg), [saved state](review-saved-state.jpg),
-[state restored after login](review-login-restored.jpg).
+Additional actual captures: [31-character UI error](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-register-error.jpg),
+[generic registration error](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-backend-register-error.jpg),
+[safe login error](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-login-error.jpg), [saved state](review-saved-state.jpg),
+[state restored after login](https://github.com/Tramsey00/MathStart-Python/blob/6706a25a8d7e94de214e1a2bbf6cb9420f595fc2/docs/agent-traces/MS7-I03-evidence/review-login-restored.jpg).
 
 11 new native JPEG screenshots (41 total with preserved history), no credential/
 cookie/token/receipt-key values or real personal identities. 56 sanitized real API
