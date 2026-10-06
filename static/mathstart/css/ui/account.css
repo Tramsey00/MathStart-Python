@@ -1,0 +1,21 @@
+.ms-account fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.ms-account fieldset:disabled { opacity: .7; }
+.ms-account .ms-account-modes { margin-block: var(--ms-ui-space-3); }
+.ms-account-modes legend { font-weight: 650; }
+.ms-account-modes label { display: flex; align-items: baseline; gap: .6rem; }
+.ms-account-modes input[type="radio"] { width: 1.1rem; min-height: 0; flex: 0 0 auto; }
+.ms-account-modes p { margin-top: 0; }
+.ms-account-summary { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: .5rem 1rem; }
+.ms-account-summary dt { font-weight: 650; }
+.ms-account-summary dd { margin: 0; }
+.ms-account-actions { display: flex; flex-wrap: wrap; gap: var(--ms-ui-space-2); }
+.ms-account-auth { max-width: 40rem; margin-inline: auto; }
+.ms-account-auth-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ms-ui-space-2); margin-bottom: var(--ms-ui-space-2); }
+.ms-account-auth-switch [aria-pressed="false"] { color: var(--ms-ui-accent); background: var(--ms-ui-surface); }
+.ms-account-auth-switch [aria-pressed="false"]:hover { color: var(--ms-ui-ink); }
+.ms-account select[aria-invalid="true"] { border: 2px solid var(--ms-ui-error); }
+.ms-account #logout-form { margin-block: var(--ms-ui-space-3); }
+@media (max-width: 600px) {
+  .ms-account-summary { grid-template-columns: minmax(0, 1fr); }
+  .ms-account-summary dd { margin-bottom: var(--ms-ui-space-2); }
+}

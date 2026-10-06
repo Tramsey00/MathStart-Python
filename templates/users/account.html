@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+  <title>Личный кабинет · MathStart</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="{% static 'mathstart/css/ui/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'mathstart/css/ui/foundation.css' %}">
+  <link rel="stylesheet" href="{% static 'mathstart/css/ui/account.css' %}">
+{% endblock %}
+{% block skip_link %}<a class="ms-ui-skip" href="#account-main">К личному кабинету</a>{% endblock %}
+{% block content %}
+<main id="account-main" class="ms-ui ms-account" tabindex="-1" aria-busy="true">
+  <header class="ms-ui-intro">
+    <h1>Личный кабинет</h1>
+    <p>Войдите или зарегистрируйтесь, чтобы сохранить класс и выбрать, с чего начать.</p>
+  </header>
+  <section class="ms-ui-state" id="account-state" data-state="loading" aria-label="Состояние личного кабинета">
+    <p id="account-status" role="status" aria-live="polite" aria-atomic="true">Загружаем сохранённое состояние…</p>
+    <p id="account-error" class="ms-ui-field-error" role="alert" aria-atomic="true" tabindex="-1" hidden></p>
+    <div class="ms-account-actions">
+      <button type="button" id="account-retry" class="ms-ui-button" hidden>Повторить тот же запрос</button>
+      <button type="button" id="account-refresh" class="ms-ui-button" hidden>Повторить загрузку</button>
+    </div>
+  </section>
+  <div id="anonymous-panel" class="ms-account-auth" hidden>
+    <div class="ms-account-auth-switch" role="group" aria-label="Вход или регистрация">
+      <button type="button" id="auth-login" class="ms-ui-button" aria-pressed="true" aria-controls="login" disabled>Вход</button>
+      <button type="button" id="auth-register" class="ms-ui-button" aria-pressed="false" aria-controls="registration" disabled>Регистрация</button>
+    </div>
+    <section id="login" class="ms-ui-card" aria-labelledby="login-title">
+      <h2 id="login-title">Вход</h2>
+      <form id="login-form" method="post" aria-describedby="login-error">
+        <fieldset disabled>
+          <legend class="ms-ui-sr-only">Войти в MathStart</legend>
+          {% include "ui/components/field.html" with field_id="login-username" field_name="username" label="Имя пользователя" autocomplete="username" required=True help_text="Введите имя, указанное при регистрации." only %}
+          {% include "ui/components/field.html" with field_id="login-password" field_name="password" input_type="password" label="Пароль" autocomplete="current-password" required=True help_text="Введите пароль вашего аккаунта." only %}
+          {% include "ui/components/button.html" with button_type="submit" label="Войти" only %}
+        </fieldset>
+        <p id="login-error" class="ms-ui-field-error" role="alert" hidden></p>
+      </form>
+    </section>
+    <section id="registration" class="ms-ui-card" aria-labelledby="register-title" hidden>
+      <h2 id="register-title">Регистрация</h2>
+      <form id="register-form" method="post" aria-describedby="register-error">
+        <fieldset disabled>
+          <legend class="ms-ui-sr-only">Создать аккаунт</legend>
+          {% include "ui/components/field.html" with field_id="register-username" field_name="username" label="Имя пользователя" autocomplete="username" maxlength=30 required=True help_text="До 30 символов. Это имя понадобится для входа." only %}
+          {% include "ui/components/field.html" with field_id="register-password" field_name="password" input_type="password" label="Пароль" autocomplete="new-password" required=True help_text="Используйте надёжный пароль, который не совпадает с именем пользователя." only %}
+          {% include "ui/components/field.html" with field_id="register-email" field_name="email" input_type="email" label="Электронная почта (необязательно)" autocomplete="email" help_text="Можно оставить пустым." only %}
+          {% include "ui/components/button.html" with button_type="submit" label="Зарегистрироваться" only %}
+        </fieldset>
+        <p id="register-error" class="ms-ui-field-error" role="alert" hidden></p>
+      </form>
+    </section>
+  </div>
+  <section id="profile-panel" hidden aria-labelledby="profile-title">
+    <h2 id="profile-title" tabindex="-1">Ваш профиль</h2>
+    <dl class="ms-account-summary">
+      <dt>Имя пользователя</dt><dd id="saved-username"></dd>
+      <dt>Класс</dt><dd id="saved-grade"></dd>
+      <dt>Выбранный путь</dt><dd id="saved-mode"></dd>
+      <dt>Начальная настройка</dt><dd id="saved-completion"></dd>
+    </dl>
+    <div class="ms-ui-grid">
+      <section class="ms-ui-card" aria-labelledby="grade-title">
+        <h3 id="grade-title">Выбор класса</h3>
+        <p id="grades-status" role="status" aria-live="polite">Загружаем классы…</p>
+        <p id="grades-error" class="ms-ui-field-error" role="alert" hidden></p>
+        <button type="button" id="grades-retry" class="ms-ui-button" hidden>Загрузить классы ещё раз</button>
+        <form id="profile-form" method="post" aria-describedby="profile-error">
+          <fieldset disabled>
+            <legend class="ms-ui-sr-only">Сохранить класс</legend>
+            {% include "users/grade_field.html" with field_id="profile-grade" label="Ваш класс" only %}
+            {% include "ui/components/button.html" with button_type="submit" label="Сохранить класс" only %}
+          </fieldset>
+          <p id="profile-error" class="ms-ui-field-error" role="alert" hidden></p>
+        </form>
+      </section>
+      <section class="ms-ui-card" aria-labelledby="onboarding-title">
+        <h3 id="onboarding-title">С чего начать</h3>
+        <form id="onboarding-form" method="post" aria-describedby="onboarding-error">
+          <fieldset disabled>
+            <legend class="ms-ui-sr-only">Начальная настройка</legend>
+            {% include "users/grade_field.html" with field_id="onboarding-grade" label="Класс для начала занятий" only %}
+            <fieldset id="onboarding-mode" class="ms-account-modes" aria-describedby="onboarding-mode-help onboarding-mode-error">
+              <legend>Выберите путь (обязательно)</legend>
+              <p id="onboarding-mode-help" class="ms-ui-muted">Выбор можно изменить позже.</p>
+              <label for="mode-start-zero"><input type="radio" id="mode-start-zero" name="mode" value="START_ZERO" required> Начать с начала</label>
+              <p>Хочу начать без предположений о том, что уже знаю.</p>
+              <label for="mode-self-report"><input type="radio" id="mode-self-report" name="mode" value="SELF_REPORT" required> Самооценка</label>
+              <p>Сейчас сохранится выбранный путь. Знакомые темы на этом экране не отмечаются.</p>
+              <label for="mode-diagnostic"><input type="radio" id="mode-diagnostic" name="mode" value="DIAGNOSTIC" required> Выбрать диагностику</label>
+              <p>Сохраняет выбранный путь. Диагностические задания на этом экране не запускаются.</p>
+              <p id="onboarding-mode-error" class="ms-ui-field-error" hidden></p>
+            </fieldset>
+            {% include "ui/components/button.html" with button_type="submit" label="Сохранить начальную настройку" only %}
+          </fieldset>
+          <p id="onboarding-error" class="ms-ui-field-error" role="alert" hidden></p>
+        </form>
+      </section>
+    </div>
+    <form id="logout-form" method="post" aria-describedby="logout-error">
+      <fieldset disabled>
+        <legend class="ms-ui-sr-only">Завершить вход</legend>
+        {% include "ui/components/button.html" with button_type="submit" label="Выйти" only %}
+      </fieldset>
+      <p id="logout-error" class="ms-ui-field-error" role="alert" hidden></p>
+    </form>
+  </section>
+  <noscript><p>Для безопасного входа и сохранения настроек нужен JavaScript. Учебные материалы доступны в навигации выше.</p></noscript>
+</main>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'mathstart/js/ui/identity-api.js' %}" defer></script>
+  <script src="{% static 'mathstart/js/ui/account.js' %}" defer></script>
+{% endblock %}
