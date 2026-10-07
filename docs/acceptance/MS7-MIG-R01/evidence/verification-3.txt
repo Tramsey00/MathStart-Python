@@ -1,0 +1,75 @@
+$ python scripts/check_database.py
+PostgreSQL connection OK; server_version_num=160015
+$ python manage.py migrate --noinput
+Operations to perform:
+  Apply all migrations: admin, auth, content, contenttypes, sessions, users
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying content.0001_initial... OK
+  Applying content.0002_grade_created_at... OK
+  Applying sessions.0001_initial... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_backfill_profiles... OK
+$ python manage.py migrate --check
+$ python manage.py makemigrations --check --dry-run
+No changes detected
+$ python manage.py bootstrap_site
+Bootstrap MathStart завершён.
+Каталог: новых классов 6; предметов 12; разделов 63.
+Страницы сайта: новых 16. Снято с публикации: 0.
+Redirect: новых 282.
+Уроки: выбрано 263; создано 263; изменено 263; зарегистрировано 263.
+Media: в источнике 29; скопировано 29; создано записей 29.
+$ python manage.py bootstrap_site
+Bootstrap MathStart завершён.
+Каталог: новых классов 0; предметов 0; разделов 0.
+Страницы сайта: новых 0. Снято с публикации: 0.
+Redirect: новых 0.
+Уроки: выбрано 263; создано 0; изменено 0; зарегистрировано 0.
+Media: в источнике 29; скопировано 0; создано записей 0.
+$ python manage.py collectstatic --noinput
+
+175 static files copied to 'C:\Projects\MathStart-Python\tmp\ms7-mig-r01\qa\runtime\staticfiles', 507 post-processed.
+$ python manage.py check_lesson_sources --all
+Полностью совпадают с базой: 263 уроков.
+$ python manage.py check_content_quality
+Проверено страниц: 279; SVG: 1137; проблем: 0.
+$ python manage.py check_site_integrity
+Проверка целостности MathStart:
+  Всего материалов: 279
+  Учебных тем: 263
+  Медиафайлов: 29
+  Проверено ссылок и ресурсов: 1638
+
+  Дубликатов slug: 0
+  Пустых материалов: 0
+  Пустых slug: 0
+  Тем без класса: 0
+  Тем без предмета: 0
+  Тем без раздела: 0
+  Битых внутренних ссылок: 0
+  Битых ссылок на медиа: 0
+  Битых ссылок на static: 0
+  Отсутствующих MediaAsset-файлов: 0
+  Неиспользуемых медиафайлов: 25
+
+Полный отчёт: C:\Projects\MathStart-Python\tmp\ms7-mig-r01\qa\runtime\var\reports\site_integrity_report.json
+
+Критических проблем целостности сайта не обнаружено.
+PASS: fresh PostgreSQL migrations, bootstrap idempotency, identities/content/media, static and content checks

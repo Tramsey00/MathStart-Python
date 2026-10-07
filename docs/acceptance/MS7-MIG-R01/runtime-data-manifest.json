@@ -1,0 +1,2420 @@
+{
+  "source_commit": "8c11edadc8debc81432d1db1145feac504f09061",
+  "privacy": "schema and aggregate facts only; no identity values or secrets",
+  "transaction": {
+    "begin": "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY",
+    "transaction_read_only": "on",
+    "transaction_isolation": "repeatable read",
+    "end": "ROLLBACK"
+  },
+  "version": [
+    {
+      "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "server_version_num": "160015"
+    }
+  ],
+  "columns": [
+    {
+      "table_name": "auth_group",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_group",
+      "column_name": "name",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 150,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "column_name": "group_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "column_name": "permission_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_permission",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_permission",
+      "column_name": "name",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_permission",
+      "column_name": "content_type_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_permission",
+      "column_name": "codename",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 100,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "password",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 128,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "last_login",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "is_superuser",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "username",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 150,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "first_name",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 150,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "last_name",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 150,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "email",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 254,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "is_staff",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user",
+      "column_name": "date_joined",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "auth_user_groups",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user_groups",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user_groups",
+      "column_name": "group_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "column_name": "permission_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "title",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "slug",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "page_type",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 20,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "order",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "body_html",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "page_css",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "page_js",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "seo_title",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "seo_description",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "is_published",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "grade_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "section_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_contentpage",
+      "column_name": "subject_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_grade",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_grade",
+      "column_name": "title",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 100,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_grade",
+      "column_name": "slug",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 100,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_grade",
+      "column_name": "order",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_grade",
+      "column_name": "description",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_grade",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "column_name": "source_path",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 500,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "column_name": "published_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "column_name": "published_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "column_name": "page_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_mediaasset",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_mediaasset",
+      "column_name": "title",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_mediaasset",
+      "column_name": "file",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 100,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_mediaasset",
+      "column_name": "alt_text",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_mediaasset",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "content_mediaasset",
+      "column_name": "related_page_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_redirect",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_redirect",
+      "column_name": "old_path",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 500,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_redirect",
+      "column_name": "new_path",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 500,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_redirect",
+      "column_name": "is_permanent",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_redirect",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_section",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_section",
+      "column_name": "title",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_section",
+      "column_name": "slug",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_section",
+      "column_name": "order",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_section",
+      "column_name": "description",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_section",
+      "column_name": "subject_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_subject",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_subject",
+      "column_name": "title",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 150,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_subject",
+      "column_name": "slug",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 150,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_subject",
+      "column_name": "order",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_subject",
+      "column_name": "description",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "content_subject",
+      "column_name": "grade_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "action_time",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "object_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "object_repr",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 200,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "action_flag",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "change_message",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "content_type_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_admin_log",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_content_type",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_content_type",
+      "column_name": "app_label",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 100,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_content_type",
+      "column_name": "model",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 100,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_migrations",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_migrations",
+      "column_name": "app",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_migrations",
+      "column_name": "name",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 255,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_migrations",
+      "column_name": "applied",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "django_session",
+      "column_name": "session_key",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 40,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_session",
+      "column_name": "session_data",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "django_session",
+      "column_name": "expire_date",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 80,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "operation",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "key_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "request_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "response",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "status",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_loginwindow",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_loginwindow",
+      "column_name": "ip_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_loginwindow",
+      "column_name": "started_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "users_loginwindow",
+      "column_name": "count",
+      "data_type": "smallint",
+      "udt_name": "int2",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_studentprofile",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_studentprofile",
+      "column_name": "onboarding_mode",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 16,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_studentprofile",
+      "column_name": "onboarding_complete",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_studentprofile",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "users_studentprofile",
+      "column_name": "selected_grade_id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "users_studentprofile",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "auth_group",
+      "name": "auth_group_name_key",
+      "type": "u",
+      "definition": "UNIQUE (name)"
+    },
+    {
+      "table_name": "auth_group",
+      "name": "auth_group_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "name": "auth_group_permissio_permission_id_84c5c92e_fk_auth_perm",
+      "type": "f",
+      "definition": "FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "name": "auth_group_permissions_group_id_b120cbf9_fk_auth_group_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "name": "auth_group_permissions_group_id_permission_id_0cd325b0_uniq",
+      "type": "u",
+      "definition": "UNIQUE (group_id, permission_id)"
+    },
+    {
+      "table_name": "auth_group_permissions",
+      "name": "auth_group_permissions_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "auth_permission",
+      "name": "auth_permission_content_type_id_2f476e4b_fk_django_co",
+      "type": "f",
+      "definition": "FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_permission",
+      "name": "auth_permission_content_type_id_codename_01ab375a_uniq",
+      "type": "u",
+      "definition": "UNIQUE (content_type_id, codename)"
+    },
+    {
+      "table_name": "auth_permission",
+      "name": "auth_permission_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "auth_user",
+      "name": "auth_user_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "auth_user",
+      "name": "auth_user_username_key",
+      "type": "u",
+      "definition": "UNIQUE (username)"
+    },
+    {
+      "table_name": "auth_user_groups",
+      "name": "auth_user_groups_group_id_97559544_fk_auth_group_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_user_groups",
+      "name": "auth_user_groups_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "auth_user_groups",
+      "name": "auth_user_groups_user_id_6a12ed8b_fk_auth_user_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_user_groups",
+      "name": "auth_user_groups_user_id_group_id_94350c0c_uniq",
+      "type": "u",
+      "definition": "UNIQUE (user_id, group_id)"
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "name": "auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm",
+      "type": "f",
+      "definition": "FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "name": "auth_user_user_permissions_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "name": "auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "auth_user_user_permissions",
+      "name": "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq",
+      "type": "u",
+      "definition": "UNIQUE (user_id, permission_id)"
+    },
+    {
+      "table_name": "content_contentpage",
+      "name": "content_contentpage_grade_id_9e77aa55_fk_content_grade_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (grade_id) REFERENCES content_grade(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_contentpage",
+      "name": "content_contentpage_order_check",
+      "type": "c",
+      "definition": "CHECK ((\"order\" >= 0))"
+    },
+    {
+      "table_name": "content_contentpage",
+      "name": "content_contentpage_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_contentpage",
+      "name": "content_contentpage_section_id_ae04a8c4_fk_content_section_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (section_id) REFERENCES content_section(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_contentpage",
+      "name": "content_contentpage_slug_key",
+      "type": "u",
+      "definition": "UNIQUE (slug)"
+    },
+    {
+      "table_name": "content_contentpage",
+      "name": "content_contentpage_subject_id_559dc7b0_fk_content_subject_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (subject_id) REFERENCES content_subject(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_grade",
+      "name": "content_grade_order_check",
+      "type": "c",
+      "definition": "CHECK ((\"order\" >= 0))"
+    },
+    {
+      "table_name": "content_grade",
+      "name": "content_grade_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_grade",
+      "name": "content_grade_slug_key",
+      "type": "u",
+      "definition": "UNIQUE (slug)"
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "name": "content_lessonpublic_page_id_6dedbd9f_fk_content_c",
+      "type": "f",
+      "definition": "FOREIGN KEY (page_id) REFERENCES content_contentpage(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "name": "content_lessonpublication_page_id_key",
+      "type": "u",
+      "definition": "UNIQUE (page_id)"
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "name": "content_lessonpublication_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_lessonpublication",
+      "name": "content_lessonpublication_source_path_key",
+      "type": "u",
+      "definition": "UNIQUE (source_path)"
+    },
+    {
+      "table_name": "content_mediaasset",
+      "name": "content_mediaasset_file_key",
+      "type": "u",
+      "definition": "UNIQUE (file)"
+    },
+    {
+      "table_name": "content_mediaasset",
+      "name": "content_mediaasset_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_mediaasset",
+      "name": "content_mediaasset_related_page_id_2f17f61b_fk_content_c",
+      "type": "f",
+      "definition": "FOREIGN KEY (related_page_id) REFERENCES content_contentpage(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_redirect",
+      "name": "content_redirect_old_path_key",
+      "type": "u",
+      "definition": "UNIQUE (old_path)"
+    },
+    {
+      "table_name": "content_redirect",
+      "name": "content_redirect_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_section",
+      "name": "content_section_order_check",
+      "type": "c",
+      "definition": "CHECK ((\"order\" >= 0))"
+    },
+    {
+      "table_name": "content_section",
+      "name": "content_section_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_section",
+      "name": "content_section_subject_id_2f46ae97_fk_content_subject_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (subject_id) REFERENCES content_subject(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_section",
+      "name": "unique_section_slug_per_subject",
+      "type": "u",
+      "definition": "UNIQUE (subject_id, slug)"
+    },
+    {
+      "table_name": "content_subject",
+      "name": "content_subject_grade_id_1bc32d0e_fk_content_grade_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (grade_id) REFERENCES content_grade(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "content_subject",
+      "name": "content_subject_order_check",
+      "type": "c",
+      "definition": "CHECK ((\"order\" >= 0))"
+    },
+    {
+      "table_name": "content_subject",
+      "name": "content_subject_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "content_subject",
+      "name": "unique_subject_slug_per_grade",
+      "type": "u",
+      "definition": "UNIQUE (grade_id, slug)"
+    },
+    {
+      "table_name": "django_admin_log",
+      "name": "django_admin_log_action_flag_check",
+      "type": "c",
+      "definition": "CHECK ((action_flag >= 0))"
+    },
+    {
+      "table_name": "django_admin_log",
+      "name": "django_admin_log_content_type_id_c4bce8eb_fk_django_co",
+      "type": "f",
+      "definition": "FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "django_admin_log",
+      "name": "django_admin_log_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "django_admin_log",
+      "name": "django_admin_log_user_id_c564eba6_fk_auth_user_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "django_content_type",
+      "name": "django_content_type_app_label_model_76bd3d3b_uniq",
+      "type": "u",
+      "definition": "UNIQUE (app_label, model)"
+    },
+    {
+      "table_name": "django_content_type",
+      "name": "django_content_type_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "django_migrations",
+      "name": "django_migrations_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "django_session",
+      "name": "django_session_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (session_key)"
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "name": "users_consistent_receipt",
+      "type": "c",
+      "definition": "CHECK ((((response IS NULL) AND (status IS NULL)) OR ((response IS NOT NULL) AND (status IS NOT NULL) AND (user_id IS NOT NULL))))"
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "name": "users_identityreceipt_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "name": "users_identityreceipt_status_check",
+      "type": "c",
+      "definition": "CHECK ((status >= 0))"
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "name": "users_identityreceipt_user_id_2038b21d_fk_auth_user_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "users_identityreceipt",
+      "name": "users_unique_identity_receipt",
+      "type": "u",
+      "definition": "UNIQUE (scope, operation, key_digest)"
+    },
+    {
+      "table_name": "users_loginwindow",
+      "name": "users_login_limit",
+      "type": "c",
+      "definition": "CHECK ((count <= 10))"
+    },
+    {
+      "table_name": "users_loginwindow",
+      "name": "users_loginwindow_count_check",
+      "type": "c",
+      "definition": "CHECK ((count >= 0))"
+    },
+    {
+      "table_name": "users_loginwindow",
+      "name": "users_loginwindow_ip_digest_key",
+      "type": "u",
+      "definition": "UNIQUE (ip_digest)"
+    },
+    {
+      "table_name": "users_loginwindow",
+      "name": "users_loginwindow_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "users_studentprofile",
+      "name": "users_consistent_onboarding",
+      "type": "c",
+      "definition": "CHECK ((((NOT onboarding_complete) AND (onboarding_mode IS NULL)) OR (onboarding_complete AND ((onboarding_mode)::text = ANY ((ARRAY['START_ZERO'::character varying, 'DIAGNOSTIC'::character varying, 'SELF_REPORT'::character varying])::text[])) AND (onboarding_mode IS NOT NULL) AND (selected_grade_id IS NOT NULL))))"
+    },
+    {
+      "table_name": "users_studentprofile",
+      "name": "users_studentprofile_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "users_studentprofile",
+      "name": "users_studentprofile_selected_grade_id_073acdd6_fk_content_g",
+      "type": "f",
+      "definition": "FOREIGN KEY (selected_grade_id) REFERENCES content_grade(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "users_studentprofile",
+      "name": "users_studentprofile_user_id_d0e95184_fk_auth_user_id",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "users_studentprofile",
+      "name": "users_studentprofile_user_id_key",
+      "type": "u",
+      "definition": "UNIQUE (user_id)"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "auth_group",
+      "indexname": "auth_group_name_a6ea08ec_like",
+      "indexdef": "CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops)"
+    },
+    {
+      "tablename": "auth_group",
+      "indexname": "auth_group_name_key",
+      "indexdef": "CREATE UNIQUE INDEX auth_group_name_key ON public.auth_group USING btree (name)"
+    },
+    {
+      "tablename": "auth_group",
+      "indexname": "auth_group_pkey",
+      "indexdef": "CREATE UNIQUE INDEX auth_group_pkey ON public.auth_group USING btree (id)"
+    },
+    {
+      "tablename": "auth_group_permissions",
+      "indexname": "auth_group_permissions_group_id_b120cbf9",
+      "indexdef": "CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id)"
+    },
+    {
+      "tablename": "auth_group_permissions",
+      "indexname": "auth_group_permissions_group_id_permission_id_0cd325b0_uniq",
+      "indexdef": "CREATE UNIQUE INDEX auth_group_permissions_group_id_permission_id_0cd325b0_uniq ON public.auth_group_permissions USING btree (group_id, permission_id)"
+    },
+    {
+      "tablename": "auth_group_permissions",
+      "indexname": "auth_group_permissions_permission_id_84c5c92e",
+      "indexdef": "CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id)"
+    },
+    {
+      "tablename": "auth_group_permissions",
+      "indexname": "auth_group_permissions_pkey",
+      "indexdef": "CREATE UNIQUE INDEX auth_group_permissions_pkey ON public.auth_group_permissions USING btree (id)"
+    },
+    {
+      "tablename": "auth_permission",
+      "indexname": "auth_permission_content_type_id_2f476e4b",
+      "indexdef": "CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id)"
+    },
+    {
+      "tablename": "auth_permission",
+      "indexname": "auth_permission_content_type_id_codename_01ab375a_uniq",
+      "indexdef": "CREATE UNIQUE INDEX auth_permission_content_type_id_codename_01ab375a_uniq ON public.auth_permission USING btree (content_type_id, codename)"
+    },
+    {
+      "tablename": "auth_permission",
+      "indexname": "auth_permission_pkey",
+      "indexdef": "CREATE UNIQUE INDEX auth_permission_pkey ON public.auth_permission USING btree (id)"
+    },
+    {
+      "tablename": "auth_user",
+      "indexname": "auth_user_pkey",
+      "indexdef": "CREATE UNIQUE INDEX auth_user_pkey ON public.auth_user USING btree (id)"
+    },
+    {
+      "tablename": "auth_user",
+      "indexname": "auth_user_username_6821ab7c_like",
+      "indexdef": "CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops)"
+    },
+    {
+      "tablename": "auth_user",
+      "indexname": "auth_user_username_key",
+      "indexdef": "CREATE UNIQUE INDEX auth_user_username_key ON public.auth_user USING btree (username)"
+    },
+    {
+      "tablename": "auth_user_groups",
+      "indexname": "auth_user_groups_group_id_97559544",
+      "indexdef": "CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id)"
+    },
+    {
+      "tablename": "auth_user_groups",
+      "indexname": "auth_user_groups_pkey",
+      "indexdef": "CREATE UNIQUE INDEX auth_user_groups_pkey ON public.auth_user_groups USING btree (id)"
+    },
+    {
+      "tablename": "auth_user_groups",
+      "indexname": "auth_user_groups_user_id_6a12ed8b",
+      "indexdef": "CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id)"
+    },
+    {
+      "tablename": "auth_user_groups",
+      "indexname": "auth_user_groups_user_id_group_id_94350c0c_uniq",
+      "indexdef": "CREATE UNIQUE INDEX auth_user_groups_user_id_group_id_94350c0c_uniq ON public.auth_user_groups USING btree (user_id, group_id)"
+    },
+    {
+      "tablename": "auth_user_user_permissions",
+      "indexname": "auth_user_user_permissions_permission_id_1fbb5f2c",
+      "indexdef": "CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id)"
+    },
+    {
+      "tablename": "auth_user_user_permissions",
+      "indexname": "auth_user_user_permissions_pkey",
+      "indexdef": "CREATE UNIQUE INDEX auth_user_user_permissions_pkey ON public.auth_user_user_permissions USING btree (id)"
+    },
+    {
+      "tablename": "auth_user_user_permissions",
+      "indexname": "auth_user_user_permissions_user_id_a95ead1b",
+      "indexdef": "CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id)"
+    },
+    {
+      "tablename": "auth_user_user_permissions",
+      "indexname": "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq",
+      "indexdef": "CREATE UNIQUE INDEX auth_user_user_permissions_user_id_permission_id_14a6b632_uniq ON public.auth_user_user_permissions USING btree (user_id, permission_id)"
+    },
+    {
+      "tablename": "content_contentpage",
+      "indexname": "content_contentpage_grade_id_9e77aa55",
+      "indexdef": "CREATE INDEX content_contentpage_grade_id_9e77aa55 ON public.content_contentpage USING btree (grade_id)"
+    },
+    {
+      "tablename": "content_contentpage",
+      "indexname": "content_contentpage_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_contentpage_pkey ON public.content_contentpage USING btree (id)"
+    },
+    {
+      "tablename": "content_contentpage",
+      "indexname": "content_contentpage_section_id_ae04a8c4",
+      "indexdef": "CREATE INDEX content_contentpage_section_id_ae04a8c4 ON public.content_contentpage USING btree (section_id)"
+    },
+    {
+      "tablename": "content_contentpage",
+      "indexname": "content_contentpage_slug_1b799fcc_like",
+      "indexdef": "CREATE INDEX content_contentpage_slug_1b799fcc_like ON public.content_contentpage USING btree (slug varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_contentpage",
+      "indexname": "content_contentpage_slug_key",
+      "indexdef": "CREATE UNIQUE INDEX content_contentpage_slug_key ON public.content_contentpage USING btree (slug)"
+    },
+    {
+      "tablename": "content_contentpage",
+      "indexname": "content_contentpage_subject_id_559dc7b0",
+      "indexdef": "CREATE INDEX content_contentpage_subject_id_559dc7b0 ON public.content_contentpage USING btree (subject_id)"
+    },
+    {
+      "tablename": "content_grade",
+      "indexname": "content_grade_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_grade_pkey ON public.content_grade USING btree (id)"
+    },
+    {
+      "tablename": "content_grade",
+      "indexname": "content_grade_slug_1bbf2251_like",
+      "indexdef": "CREATE INDEX content_grade_slug_1bbf2251_like ON public.content_grade USING btree (slug varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_grade",
+      "indexname": "content_grade_slug_key",
+      "indexdef": "CREATE UNIQUE INDEX content_grade_slug_key ON public.content_grade USING btree (slug)"
+    },
+    {
+      "tablename": "content_lessonpublication",
+      "indexname": "content_lessonpublication_page_id_key",
+      "indexdef": "CREATE UNIQUE INDEX content_lessonpublication_page_id_key ON public.content_lessonpublication USING btree (page_id)"
+    },
+    {
+      "tablename": "content_lessonpublication",
+      "indexname": "content_lessonpublication_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_lessonpublication_pkey ON public.content_lessonpublication USING btree (id)"
+    },
+    {
+      "tablename": "content_lessonpublication",
+      "indexname": "content_lessonpublication_source_path_595bc751_like",
+      "indexdef": "CREATE INDEX content_lessonpublication_source_path_595bc751_like ON public.content_lessonpublication USING btree (source_path varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_lessonpublication",
+      "indexname": "content_lessonpublication_source_path_key",
+      "indexdef": "CREATE UNIQUE INDEX content_lessonpublication_source_path_key ON public.content_lessonpublication USING btree (source_path)"
+    },
+    {
+      "tablename": "content_mediaasset",
+      "indexname": "content_mediaasset_file_867e8acb_like",
+      "indexdef": "CREATE INDEX content_mediaasset_file_867e8acb_like ON public.content_mediaasset USING btree (file varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_mediaasset",
+      "indexname": "content_mediaasset_file_key",
+      "indexdef": "CREATE UNIQUE INDEX content_mediaasset_file_key ON public.content_mediaasset USING btree (file)"
+    },
+    {
+      "tablename": "content_mediaasset",
+      "indexname": "content_mediaasset_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_mediaasset_pkey ON public.content_mediaasset USING btree (id)"
+    },
+    {
+      "tablename": "content_mediaasset",
+      "indexname": "content_mediaasset_related_page_id_2f17f61b",
+      "indexdef": "CREATE INDEX content_mediaasset_related_page_id_2f17f61b ON public.content_mediaasset USING btree (related_page_id)"
+    },
+    {
+      "tablename": "content_redirect",
+      "indexname": "content_redirect_old_path_f4b2298c_like",
+      "indexdef": "CREATE INDEX content_redirect_old_path_f4b2298c_like ON public.content_redirect USING btree (old_path varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_redirect",
+      "indexname": "content_redirect_old_path_key",
+      "indexdef": "CREATE UNIQUE INDEX content_redirect_old_path_key ON public.content_redirect USING btree (old_path)"
+    },
+    {
+      "tablename": "content_redirect",
+      "indexname": "content_redirect_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_redirect_pkey ON public.content_redirect USING btree (id)"
+    },
+    {
+      "tablename": "content_section",
+      "indexname": "content_section_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_section_pkey ON public.content_section USING btree (id)"
+    },
+    {
+      "tablename": "content_section",
+      "indexname": "content_section_slug_6b631882",
+      "indexdef": "CREATE INDEX content_section_slug_6b631882 ON public.content_section USING btree (slug)"
+    },
+    {
+      "tablename": "content_section",
+      "indexname": "content_section_slug_6b631882_like",
+      "indexdef": "CREATE INDEX content_section_slug_6b631882_like ON public.content_section USING btree (slug varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_section",
+      "indexname": "content_section_subject_id_2f46ae97",
+      "indexdef": "CREATE INDEX content_section_subject_id_2f46ae97 ON public.content_section USING btree (subject_id)"
+    },
+    {
+      "tablename": "content_section",
+      "indexname": "unique_section_slug_per_subject",
+      "indexdef": "CREATE UNIQUE INDEX unique_section_slug_per_subject ON public.content_section USING btree (subject_id, slug)"
+    },
+    {
+      "tablename": "content_subject",
+      "indexname": "content_subject_grade_id_1bc32d0e",
+      "indexdef": "CREATE INDEX content_subject_grade_id_1bc32d0e ON public.content_subject USING btree (grade_id)"
+    },
+    {
+      "tablename": "content_subject",
+      "indexname": "content_subject_pkey",
+      "indexdef": "CREATE UNIQUE INDEX content_subject_pkey ON public.content_subject USING btree (id)"
+    },
+    {
+      "tablename": "content_subject",
+      "indexname": "content_subject_slug_6765c9ec",
+      "indexdef": "CREATE INDEX content_subject_slug_6765c9ec ON public.content_subject USING btree (slug)"
+    },
+    {
+      "tablename": "content_subject",
+      "indexname": "content_subject_slug_6765c9ec_like",
+      "indexdef": "CREATE INDEX content_subject_slug_6765c9ec_like ON public.content_subject USING btree (slug varchar_pattern_ops)"
+    },
+    {
+      "tablename": "content_subject",
+      "indexname": "unique_subject_slug_per_grade",
+      "indexdef": "CREATE UNIQUE INDEX unique_subject_slug_per_grade ON public.content_subject USING btree (grade_id, slug)"
+    },
+    {
+      "tablename": "django_admin_log",
+      "indexname": "django_admin_log_content_type_id_c4bce8eb",
+      "indexdef": "CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id)"
+    },
+    {
+      "tablename": "django_admin_log",
+      "indexname": "django_admin_log_pkey",
+      "indexdef": "CREATE UNIQUE INDEX django_admin_log_pkey ON public.django_admin_log USING btree (id)"
+    },
+    {
+      "tablename": "django_admin_log",
+      "indexname": "django_admin_log_user_id_c564eba6",
+      "indexdef": "CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id)"
+    },
+    {
+      "tablename": "django_content_type",
+      "indexname": "django_content_type_app_label_model_76bd3d3b_uniq",
+      "indexdef": "CREATE UNIQUE INDEX django_content_type_app_label_model_76bd3d3b_uniq ON public.django_content_type USING btree (app_label, model)"
+    },
+    {
+      "tablename": "django_content_type",
+      "indexname": "django_content_type_pkey",
+      "indexdef": "CREATE UNIQUE INDEX django_content_type_pkey ON public.django_content_type USING btree (id)"
+    },
+    {
+      "tablename": "django_migrations",
+      "indexname": "django_migrations_pkey",
+      "indexdef": "CREATE UNIQUE INDEX django_migrations_pkey ON public.django_migrations USING btree (id)"
+    },
+    {
+      "tablename": "django_session",
+      "indexname": "django_session_expire_date_a5c62663",
+      "indexdef": "CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date)"
+    },
+    {
+      "tablename": "django_session",
+      "indexname": "django_session_pkey",
+      "indexdef": "CREATE UNIQUE INDEX django_session_pkey ON public.django_session USING btree (session_key)"
+    },
+    {
+      "tablename": "django_session",
+      "indexname": "django_session_session_key_c0390e0f_like",
+      "indexdef": "CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops)"
+    },
+    {
+      "tablename": "users_identityreceipt",
+      "indexname": "users_identityreceipt_expires_at_8fdab72c",
+      "indexdef": "CREATE INDEX users_identityreceipt_expires_at_8fdab72c ON public.users_identityreceipt USING btree (expires_at)"
+    },
+    {
+      "tablename": "users_identityreceipt",
+      "indexname": "users_identityreceipt_pkey",
+      "indexdef": "CREATE UNIQUE INDEX users_identityreceipt_pkey ON public.users_identityreceipt USING btree (id)"
+    },
+    {
+      "tablename": "users_identityreceipt",
+      "indexname": "users_identityreceipt_user_id_2038b21d",
+      "indexdef": "CREATE INDEX users_identityreceipt_user_id_2038b21d ON public.users_identityreceipt USING btree (user_id)"
+    },
+    {
+      "tablename": "users_identityreceipt",
+      "indexname": "users_unique_identity_receipt",
+      "indexdef": "CREATE UNIQUE INDEX users_unique_identity_receipt ON public.users_identityreceipt USING btree (scope, operation, key_digest)"
+    },
+    {
+      "tablename": "users_loginwindow",
+      "indexname": "users_loginwindow_ip_digest_074dd7c6_like",
+      "indexdef": "CREATE INDEX users_loginwindow_ip_digest_074dd7c6_like ON public.users_loginwindow USING btree (ip_digest varchar_pattern_ops)"
+    },
+    {
+      "tablename": "users_loginwindow",
+      "indexname": "users_loginwindow_ip_digest_key",
+      "indexdef": "CREATE UNIQUE INDEX users_loginwindow_ip_digest_key ON public.users_loginwindow USING btree (ip_digest)"
+    },
+    {
+      "tablename": "users_loginwindow",
+      "indexname": "users_loginwindow_pkey",
+      "indexdef": "CREATE UNIQUE INDEX users_loginwindow_pkey ON public.users_loginwindow USING btree (id)"
+    },
+    {
+      "tablename": "users_studentprofile",
+      "indexname": "users_studentprofile_pkey",
+      "indexdef": "CREATE UNIQUE INDEX users_studentprofile_pkey ON public.users_studentprofile USING btree (id)"
+    },
+    {
+      "tablename": "users_studentprofile",
+      "indexname": "users_studentprofile_selected_grade_id_073acdd6",
+      "indexdef": "CREATE INDEX users_studentprofile_selected_grade_id_073acdd6 ON public.users_studentprofile USING btree (selected_grade_id)"
+    },
+    {
+      "tablename": "users_studentprofile",
+      "indexname": "users_studentprofile_user_id_key",
+      "indexdef": "CREATE UNIQUE INDEX users_studentprofile_user_id_key ON public.users_studentprofile USING btree (user_id)"
+    }
+  ],
+  "sequences": [],
+  "migrations": [
+    {
+      "app": "admin",
+      "name": "0001_initial"
+    },
+    {
+      "app": "admin",
+      "name": "0002_logentry_remove_auto_add"
+    },
+    {
+      "app": "admin",
+      "name": "0003_logentry_add_action_flag_choices"
+    },
+    {
+      "app": "auth",
+      "name": "0001_initial"
+    },
+    {
+      "app": "auth",
+      "name": "0002_alter_permission_name_max_length"
+    },
+    {
+      "app": "auth",
+      "name": "0003_alter_user_email_max_length"
+    },
+    {
+      "app": "auth",
+      "name": "0004_alter_user_username_opts"
+    },
+    {
+      "app": "auth",
+      "name": "0005_alter_user_last_login_null"
+    },
+    {
+      "app": "auth",
+      "name": "0006_require_contenttypes_0002"
+    },
+    {
+      "app": "auth",
+      "name": "0007_alter_validators_add_error_messages"
+    },
+    {
+      "app": "auth",
+      "name": "0008_alter_user_username_max_length"
+    },
+    {
+      "app": "auth",
+      "name": "0009_alter_user_last_name_max_length"
+    },
+    {
+      "app": "auth",
+      "name": "0010_alter_group_name_max_length"
+    },
+    {
+      "app": "auth",
+      "name": "0011_update_proxy_permissions"
+    },
+    {
+      "app": "auth",
+      "name": "0012_alter_user_first_name_max_length"
+    },
+    {
+      "app": "content",
+      "name": "0001_initial"
+    },
+    {
+      "app": "content",
+      "name": "0002_grade_created_at"
+    },
+    {
+      "app": "contenttypes",
+      "name": "0001_initial"
+    },
+    {
+      "app": "contenttypes",
+      "name": "0002_remove_content_type_name"
+    },
+    {
+      "app": "sessions",
+      "name": "0001_initial"
+    },
+    {
+      "app": "users",
+      "name": "0001_initial"
+    },
+    {
+      "app": "users",
+      "name": "0002_backfill_profiles"
+    }
+  ],
+  "table_counts": {
+    "auth_group": 0,
+    "auth_group_permissions": 0,
+    "auth_permission": 64,
+    "auth_user": 0,
+    "auth_user_groups": 0,
+    "auth_user_user_permissions": 0,
+    "content_contentpage": 281,
+    "content_grade": 6,
+    "content_lessonpublication": 263,
+    "content_mediaasset": 29,
+    "content_redirect": 282,
+    "content_section": 63,
+    "content_subject": 12,
+    "django_admin_log": 0,
+    "django_content_type": 16,
+    "django_migrations": 22,
+    "django_session": 0,
+    "users_identityreceipt": 0,
+    "users_loginwindow": 0,
+    "users_studentprofile": 0
+  },
+  "page_aggregates": [
+    {
+      "page_type": "grade",
+      "is_published": true,
+      "count": 2
+    },
+    {
+      "page_type": "home",
+      "is_published": true,
+      "count": 1
+    },
+    {
+      "page_type": "static",
+      "is_published": false,
+      "count": 2
+    },
+    {
+      "page_type": "static",
+      "is_published": true,
+      "count": 3
+    },
+    {
+      "page_type": "subject",
+      "is_published": true,
+      "count": 10
+    },
+    {
+      "page_type": "topic",
+      "is_published": true,
+      "count": 263
+    }
+  ],
+  "grade_timestamp_aggregates": [
+    {
+      "minimum": "2026-10-04 00:00:00+00:00",
+      "maximum": "2026-10-04 00:00:00+00:00",
+      "count": 6
+    }
+  ],
+  "password_algorithms_only": [],
+  "role_aggregates": [],
+  "permission_catalogue": [
+    {
+      "app_label": "admin",
+      "model": "logentry",
+      "codename": "add_logentry"
+    },
+    {
+      "app_label": "admin",
+      "model": "logentry",
+      "codename": "change_logentry"
+    },
+    {
+      "app_label": "admin",
+      "model": "logentry",
+      "codename": "delete_logentry"
+    },
+    {
+      "app_label": "admin",
+      "model": "logentry",
+      "codename": "view_logentry"
+    },
+    {
+      "app_label": "auth",
+      "model": "group",
+      "codename": "add_group"
+    },
+    {
+      "app_label": "auth",
+      "model": "group",
+      "codename": "change_group"
+    },
+    {
+      "app_label": "auth",
+      "model": "group",
+      "codename": "delete_group"
+    },
+    {
+      "app_label": "auth",
+      "model": "group",
+      "codename": "view_group"
+    },
+    {
+      "app_label": "auth",
+      "model": "permission",
+      "codename": "add_permission"
+    },
+    {
+      "app_label": "auth",
+      "model": "permission",
+      "codename": "change_permission"
+    },
+    {
+      "app_label": "auth",
+      "model": "permission",
+      "codename": "delete_permission"
+    },
+    {
+      "app_label": "auth",
+      "model": "permission",
+      "codename": "view_permission"
+    },
+    {
+      "app_label": "auth",
+      "model": "user",
+      "codename": "add_user"
+    },
+    {
+      "app_label": "auth",
+      "model": "user",
+      "codename": "change_user"
+    },
+    {
+      "app_label": "auth",
+      "model": "user",
+      "codename": "delete_user"
+    },
+    {
+      "app_label": "auth",
+      "model": "user",
+      "codename": "view_user"
+    },
+    {
+      "app_label": "content",
+      "model": "contentpage",
+      "codename": "add_contentpage"
+    },
+    {
+      "app_label": "content",
+      "model": "contentpage",
+      "codename": "change_contentpage"
+    },
+    {
+      "app_label": "content",
+      "model": "contentpage",
+      "codename": "delete_contentpage"
+    },
+    {
+      "app_label": "content",
+      "model": "contentpage",
+      "codename": "view_contentpage"
+    },
+    {
+      "app_label": "content",
+      "model": "grade",
+      "codename": "add_grade"
+    },
+    {
+      "app_label": "content",
+      "model": "grade",
+      "codename": "change_grade"
+    },
+    {
+      "app_label": "content",
+      "model": "grade",
+      "codename": "delete_grade"
+    },
+    {
+      "app_label": "content",
+      "model": "grade",
+      "codename": "view_grade"
+    },
+    {
+      "app_label": "content",
+      "model": "lessonpublication",
+      "codename": "add_lessonpublication"
+    },
+    {
+      "app_label": "content",
+      "model": "lessonpublication",
+      "codename": "change_lessonpublication"
+    },
+    {
+      "app_label": "content",
+      "model": "lessonpublication",
+      "codename": "delete_lessonpublication"
+    },
+    {
+      "app_label": "content",
+      "model": "lessonpublication",
+      "codename": "view_lessonpublication"
+    },
+    {
+      "app_label": "content",
+      "model": "mediaasset",
+      "codename": "add_mediaasset"
+    },
+    {
+      "app_label": "content",
+      "model": "mediaasset",
+      "codename": "change_mediaasset"
+    },
+    {
+      "app_label": "content",
+      "model": "mediaasset",
+      "codename": "delete_mediaasset"
+    },
+    {
+      "app_label": "content",
+      "model": "mediaasset",
+      "codename": "view_mediaasset"
+    },
+    {
+      "app_label": "content",
+      "model": "redirect",
+      "codename": "add_redirect"
+    },
+    {
+      "app_label": "content",
+      "model": "redirect",
+      "codename": "change_redirect"
+    },
+    {
+      "app_label": "content",
+      "model": "redirect",
+      "codename": "delete_redirect"
+    },
+    {
+      "app_label": "content",
+      "model": "redirect",
+      "codename": "view_redirect"
+    },
+    {
+      "app_label": "content",
+      "model": "section",
+      "codename": "add_section"
+    },
+    {
+      "app_label": "content",
+      "model": "section",
+      "codename": "change_section"
+    },
+    {
+      "app_label": "content",
+      "model": "section",
+      "codename": "delete_section"
+    },
+    {
+      "app_label": "content",
+      "model": "section",
+      "codename": "view_section"
+    },
+    {
+      "app_label": "content",
+      "model": "subject",
+      "codename": "add_subject"
+    },
+    {
+      "app_label": "content",
+      "model": "subject",
+      "codename": "change_subject"
+    },
+    {
+      "app_label": "content",
+      "model": "subject",
+      "codename": "delete_subject"
+    },
+    {
+      "app_label": "content",
+      "model": "subject",
+      "codename": "view_subject"
+    },
+    {
+      "app_label": "contenttypes",
+      "model": "contenttype",
+      "codename": "add_contenttype"
+    },
+    {
+      "app_label": "contenttypes",
+      "model": "contenttype",
+      "codename": "change_contenttype"
+    },
+    {
+      "app_label": "contenttypes",
+      "model": "contenttype",
+      "codename": "delete_contenttype"
+    },
+    {
+      "app_label": "contenttypes",
+      "model": "contenttype",
+      "codename": "view_contenttype"
+    },
+    {
+      "app_label": "sessions",
+      "model": "session",
+      "codename": "add_session"
+    },
+    {
+      "app_label": "sessions",
+      "model": "session",
+      "codename": "change_session"
+    },
+    {
+      "app_label": "sessions",
+      "model": "session",
+      "codename": "delete_session"
+    },
+    {
+      "app_label": "sessions",
+      "model": "session",
+      "codename": "view_session"
+    },
+    {
+      "app_label": "users",
+      "model": "identityreceipt",
+      "codename": "add_identityreceipt"
+    },
+    {
+      "app_label": "users",
+      "model": "identityreceipt",
+      "codename": "change_identityreceipt"
+    },
+    {
+      "app_label": "users",
+      "model": "identityreceipt",
+      "codename": "delete_identityreceipt"
+    },
+    {
+      "app_label": "users",
+      "model": "identityreceipt",
+      "codename": "view_identityreceipt"
+    },
+    {
+      "app_label": "users",
+      "model": "loginwindow",
+      "codename": "add_loginwindow"
+    },
+    {
+      "app_label": "users",
+      "model": "loginwindow",
+      "codename": "change_loginwindow"
+    },
+    {
+      "app_label": "users",
+      "model": "loginwindow",
+      "codename": "delete_loginwindow"
+    },
+    {
+      "app_label": "users",
+      "model": "loginwindow",
+      "codename": "view_loginwindow"
+    },
+    {
+      "app_label": "users",
+      "model": "studentprofile",
+      "codename": "add_studentprofile"
+    },
+    {
+      "app_label": "users",
+      "model": "studentprofile",
+      "codename": "change_studentprofile"
+    },
+    {
+      "app_label": "users",
+      "model": "studentprofile",
+      "codename": "delete_studentprofile"
+    },
+    {
+      "app_label": "users",
+      "model": "studentprofile",
+      "codename": "view_studentprofile"
+    }
+  ],
+  "content_source_consistency": {
+    "topic_rows": 263,
+    "mapped_sources": 279,
+    "runtime_mismatches": [
+      "10-klass-algebra",
+      "5-klass",
+      "6-klass",
+      "7-klass-algebra",
+      "7-klass-veroyatnost-i-statistika",
+      "8-klass-algebra",
+      "8-klass-geometriya",
+      "8-klass-veroyatnost-i-statistika",
+      "9-klass-algebra",
+      "9-klass-geometriya",
+      "9-klass-veroyatnost-i-statistika",
+      "glavnaya",
+      "karta-sajta"
+    ],
+    "publication_mismatches": []
+  },
+  "retained_unpublished_content": [
+    {
+      "slug": "materialy",
+      "type": "static"
+    },
+    {
+      "slug": "pamyatki",
+      "type": "static"
+    }
+  ]
+}

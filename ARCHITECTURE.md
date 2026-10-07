@@ -1755,3 +1755,13 @@ existing Django MathStart
 The architecture is deliberately incremental.
 
 The purpose of MathStart v3.1 is to spend implementation effort on the intelligent educational loop, not on recreating a working website in a different framework.
+
+
+## Proposed migration status (MS7-MIG-R01)
+
+The current runnable version remains Django. The React/FastAPI migration is
+under independent review in [Proposed ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md)
+and the [active MS7-MIG-R01 plan](docs/exec-plans/active/MS7-MIG-R01.md).
+[MIG-G0 and snapshot acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md)
+are PENDING; no accepted MIG_BASE_SHA or working target runtime is claimed.
+Existing startup, verification, frozen contracts and historical proofs remain current.

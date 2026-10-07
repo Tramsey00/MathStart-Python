@@ -701,3 +701,13 @@ Use `specs/` to answer:
 Use `docs/adr/` to answer:
 
 **Why was a significant engineering decision accepted?**
+
+
+## Proposed migration status (MS7-MIG-R01)
+
+The current runnable version remains Django. The React/FastAPI migration is
+under independent review in [Proposed ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md)
+and the [active MS7-MIG-R01 plan](docs/exec-plans/active/MS7-MIG-R01.md).
+[MIG-G0 and snapshot acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md)
+are PENDING; no accepted MIG_BASE_SHA or working target runtime is claimed.
+Existing startup, verification, frozen contracts and historical proofs remain current.

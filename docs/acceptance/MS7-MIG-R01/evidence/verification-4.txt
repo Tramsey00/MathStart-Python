@@ -1,0 +1,194 @@
+MathStart Harness verification
+Repository: C:\Projects\MathStart-Python\tmp\ms7-mig-r01\snapshot
+
+==============================================================================
+[1/8] Django system check [backend]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe manage.py check
+System check identified no issues (0 silenced).
+
+PASSED: Django system check
+
+==============================================================================
+[2/8] Migration consistency [database]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe manage.py makemigrations --check --dry-run
+No changes detected
+
+PASSED: Migration consistency
+
+==============================================================================
+[3/8] Lesson source validation [content]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe manage.py check_lesson_sources --all
+Полностью совпадают с базой: 263 уроков.
+
+PASSED: Lesson source validation
+
+==============================================================================
+[4/8] Content quality [content]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe manage.py check_content_quality
+Проверено страниц: 279; SVG: 1137; проблем: 0.
+
+PASSED: Content quality
+
+==============================================================================
+[5/8] Site integrity [content]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe manage.py check_site_integrity
+Проверка целостности MathStart:
+  Всего материалов: 279
+  Учебных тем: 263
+  Медиафайлов: 29
+  Проверено ссылок и ресурсов: 1638
+
+  Дубликатов slug: 0
+  Пустых материалов: 0
+  Пустых slug: 0
+  Тем без класса: 0
+  Тем без предмета: 0
+  Тем без раздела: 0
+  Битых внутренних ссылок: 0
+  Битых ссылок на медиа: 0
+  Битых ссылок на static: 0
+  Отсутствующих MediaAsset-файлов: 0
+  Неиспользуемых медиафайлов: 25
+
+Полный отчёт: C:\Projects\MathStart-Python\tmp\ms7-mig-r01\qa\runtime\var\reports\site_integrity_report.json
+
+Критических проблем целостности сайта не обнаружено.
+
+PASSED: Site integrity
+
+==============================================================================
+[6/8] Django test suite [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe manage.py test
+Creating test database for alias 'default'...
+...................................................................................Method Not Allowed (POST): /__ui__/foundation/
+Method Not Allowed (PUT): /__ui__/foundation/
+Method Not Allowed (PATCH): /__ui__/foundation/
+Method Not Allowed (DELETE): /__ui__/foundation/
+Method Not Allowed (HEAD): /__ui__/foundation/
+........................
+----------------------------------------------------------------------
+Ran 107 tests in 279.436s
+
+OK
+Destroying test database for alias 'default'...
+Found 107 test(s).
+System check identified no issues (0 silenced).
+
+PASSED: Django test suite
+
+==============================================================================
+[7/8] R03 contract suite [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe -m unittest discover -s tests -p test_r03_contract.py
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 0.014s
+
+OK
+
+PASSED: R03 contract suite
+
+==============================================================================
+[8/8] Harness test suite [harness]
+==============================================================================
+$ C:\Projects\MathStart-Python\.venv312\Scripts\python.exe -m unittest discover -s tests/harness -t . -v
+test_default_selection_runs_harness_suite (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_default_selection_runs_harness_suite) ... ok
+test_harness_failure_fails_canonical_entry_point_used_by_ci (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_harness_failure_fails_canonical_entry_point_used_by_ci) ... ok
+test_list_and_selected_harness_group (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_list_and_selected_harness_group) ... ok
+test_nested_baseline_excludes_harness_and_preserves_prior_checks (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_nested_baseline_excludes_harness_and_preserves_prior_checks) ... ok
+test_skip_tests_excludes_all_test_suites (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_skip_tests_excludes_all_test_suites) ... ok
+test_dry_run_does_not_execute_engine (tests.harness.test_cli.CliTests.test_dry_run_does_not_execute_engine) ... ok
+test_execute_uses_persisted_result (tests.harness.test_cli.CliTests.test_execute_uses_persisted_result) ... ok
+test_invalid_manifest_is_blocked (tests.harness.test_cli.CliTests.test_invalid_manifest_is_blocked) ... ok
+test_profile_mismatch_is_blocked (tests.harness.test_cli.CliTests.test_profile_mismatch_is_blocked) ... ok
+test_doctor (tests.harness.test_cli_smoke.CliSmokeTests.test_doctor) ... ok
+test_help (tests.harness.test_cli_smoke.CliSmokeTests.test_help) ... ok
+test_valid_dry_run_and_no_execute_engine (tests.harness.test_cli_smoke.CliSmokeTests.test_valid_dry_run_and_no_execute_engine) ... ok
+test_cancelled_adapter_never_finishes (tests.harness.test_fake_adapter.FakeAdapterTests.test_cancelled_adapter_never_finishes) ... ok
+test_error_scenario (tests.harness.test_fake_adapter.FakeAdapterTests.test_error_scenario) ... ok
+test_fake_adapter_implements_protocol (tests.harness.test_fake_adapter.FakeAdapterTests.test_fake_adapter_implements_protocol) ... ok
+test_happy_scenario (tests.harness.test_fake_adapter.FakeAdapterTests.test_happy_scenario) ... ok
+test_loop_scenario_keeps_requesting_tools (tests.harness.test_fake_adapter.FakeAdapterTests.test_loop_scenario_keeps_requesting_tools) ... ok
+test_message_continuation_before_start_is_protocol_error (tests.harness.test_fake_adapter.FakeAdapterTests.test_message_continuation_before_start_is_protocol_error) ... ok
+test_message_scenario_continues_to_tool_then_finished (tests.harness.test_fake_adapter.FakeAdapterTests.test_message_scenario_continues_to_tool_then_finished) ... ok
+test_tool_result_cannot_replace_message_continuation (tests.harness.test_fake_adapter.FakeAdapterTests.test_tool_result_cannot_replace_message_continuation) ... ok
+test_checked_in_r04_manifest_validates_actual_reference_bytes (tests.harness.test_manifest.CheckedInManifestTests.test_checked_in_r04_manifest_validates_actual_reference_bytes) ... ok
+test_r04_documents_are_readable_utf8 (tests.harness.test_manifest.CheckedInManifestTests.test_r04_documents_are_readable_utf8) ... ok
+test_branch_mismatch_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_branch_mismatch_is_blocked) ... ok
+test_digest_mismatch_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_digest_mismatch_is_blocked) ... ok
+test_missing_spec_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_missing_spec_is_blocked) ... ok
+test_path_traversal_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_path_traversal_is_blocked) ... ok
+test_plan_digest_mismatch_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_plan_digest_mismatch_is_blocked) ... ok
+test_unknown_required_check_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_unknown_required_check_is_blocked) ... ok
+test_unsupported_profile_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_unsupported_profile_is_blocked) ... ok
+test_valid_manifest_is_accepted (tests.harness.test_manifest.ManifestValidationTests.test_valid_manifest_is_accepted) ... ok
+test_ambiguous_receipt_commit_recovers_ready_when_cleanup_and_rewrite_fail (tests.harness.test_ready_publication.ReadyPublicationTests.test_ambiguous_receipt_commit_recovers_ready_when_cleanup_and_rewrite_fail) ... ok
+test_crash_after_canonical_replace_before_receipt_is_not_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_crash_after_canonical_replace_before_receipt_is_not_ready) ... ok
+test_happy_path_has_matching_receipt_and_status_is_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_happy_path_has_matching_receipt_and_status_is_ready) ... ok
+test_invalid_receipt_identity_or_deadline_blocks_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_invalid_receipt_identity_or_deadline_blocks_ready) ... ok
+test_missing_or_corrupt_receipt_blocks_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_missing_or_corrupt_receipt_blocks_ready) ... ok
+test_non_ready_results_do_not_require_receipt (tests.harness.test_ready_publication.ReadyPublicationTests.test_non_ready_results_do_not_require_receipt) ... ok
+test_receipt_and_diagnostic_write_failure_leave_ready_uncommitted (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_and_diagnostic_write_failure_leave_ready_uncommitted) ... ok
+test_receipt_digest_mismatch_blocks_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_digest_mismatch_blocks_ready) ... ok
+test_receipt_may_finish_after_deadline_for_timely_canonical_replace (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_may_finish_after_deadline_for_timely_canonical_replace) ... ok
+test_receipt_replace_failure_returns_non_success (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_replace_failure_returns_non_success) ... ok
+test_status_during_expired_final_replace_never_exposes_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_status_during_expired_final_replace_never_exposes_ready) ... ok
+test_expired_after_handler_prevents_next_model (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_after_handler_prevents_next_model) ... ok
+test_expired_before_initial_model_prevents_start (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_before_initial_model_prevents_start) ... ok
+test_expired_immediately_before_handler_prevents_tool (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_immediately_before_handler_prevents_tool) ... ok
+test_expired_immediately_before_verification_prevents_it (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_immediately_before_verification_prevents_it) ... ok
+test_expiry_during_final_result_replace_cannot_return_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_final_result_replace_cannot_return_ready) ... ok
+test_expiry_during_result_persistence_cannot_publish_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_result_persistence_cannot_publish_ready) ... ok
+test_expiry_during_result_validation_cannot_publish_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_result_validation_cannot_publish_ready) ... ok
+test_finished_returned_after_deadline_never_verifies (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_finished_returned_after_deadline_never_verifies) ... ok
+test_late_finished_continuation_never_verifies (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_finished_continuation_never_verifies) ... ok
+test_late_message_continuation_prevents_tool (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_message_continuation_prevents_tool) ... ok
+test_late_message_prevents_continuation (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_message_prevents_continuation) ... ok
+test_late_tool_continuation_never_executes_next_tool (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_tool_continuation_never_executes_next_tool) ... ok
+test_message_alone_exhausts_turns_without_success (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_message_alone_exhausts_turns_without_success) ... ok
+test_message_tool_finished_flow_preserves_content_and_verifies (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_message_tool_finished_flow_preserves_content_and_verifies) ... ok
+test_tool_request_returned_after_deadline_never_executes (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_tool_request_returned_after_deadline_never_executes) ... ok
+test_unsupported_protocol_blocked_before_any_invocation (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_unsupported_protocol_blocked_before_any_invocation) ... ok
+test_verification_overrun_cannot_return_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_verification_overrun_cannot_return_ready) ... ok
+test_all_required_checks_pass_after_finished (tests.harness.test_verification.ExecuteVerificationTests.test_all_required_checks_pass_after_finished) ... ok
+test_cancelled_adapter_interrupts_without_verification (tests.harness.test_verification.ExecuteVerificationTests.test_cancelled_adapter_interrupts_without_verification) ... ok
+test_finalization_cannot_promote_expired_run (tests.harness.test_verification.ExecuteVerificationTests.test_finalization_cannot_promote_expired_run) ... ok
+test_finished_with_failed_check_is_not_ready (tests.harness.test_verification.ExecuteVerificationTests.test_finished_with_failed_check_is_not_ready) ... ok
+test_finished_without_all_required_checks_is_not_ready (tests.harness.test_verification.ExecuteVerificationTests.test_finished_without_all_required_checks_is_not_ready) ... ok
+test_injected_error_adapter_is_used (tests.harness.test_verification.ExecuteVerificationTests.test_injected_error_adapter_is_used) ... ok
+test_interrupt_during_verification_keeps_partial_evidence (tests.harness.test_verification.ExecuteVerificationTests.test_interrupt_during_verification_keeps_partial_evidence) ... ok
+test_keyboard_interrupt_persists_result (tests.harness.test_verification.ExecuteVerificationTests.test_keyboard_interrupt_persists_result) ... ok
+test_loop_exhausts_runner_turn_budget (tests.harness.test_verification.ExecuteVerificationTests.test_loop_exhausts_runner_turn_budget) ... ok
+test_wall_time_exhausted_during_verification (tests.harness.test_verification.ExecuteVerificationTests.test_wall_time_exhausted_during_verification) ... ok
+test_failed_exit_code_is_recorded (tests.harness.test_verification.RegistryTests.test_failed_exit_code_is_recorded) ... ok
+test_registered_checks_execute_with_fixed_argv_and_store_evidence (tests.harness.test_verification.RegistryTests.test_registered_checks_execute_with_fixed_argv_and_store_evidence) ... ok
+test_remaining_time_limits_checks_and_prevents_process_after_deadline (tests.harness.test_verification.RegistryTests.test_remaining_time_limits_checks_and_prevents_process_after_deadline) ... ok
+test_timeout_marks_budget_exceeded_and_keeps_evidence (tests.harness.test_verification.RegistryTests.test_timeout_marks_budget_exceeded_and_keeps_evidence) ... ok
+test_unknown_check_is_blocked_before_any_process (tests.harness.test_verification.RegistryTests.test_unknown_check_is_blocked_before_any_process) ... ok
+
+----------------------------------------------------------------------
+Ran 73 tests in 6.942s
+
+OK
+
+PASSED: Harness test suite
+
+==============================================================================
+Verification summary
+==============================================================================
+PASS  [backend] Django system check
+PASS  [database] Migration consistency
+PASS  [content] Lesson source validation
+PASS  [content] Content quality
+PASS  [content] Site integrity
+PASS  [tests] Django test suite
+PASS  [tests] R03 contract suite
+PASS  [harness] Harness test suite
+
+RESULT: PASS (8 checks passed).

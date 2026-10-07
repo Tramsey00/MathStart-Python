@@ -1,0 +1,769 @@
+{
+  "timezone": "Europe/Moscow",
+  "source_spec_sha256": "c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae",
+  "MIG_BASE_SHA": "PENDING",
+  "integration_created": false,
+  "task_branches_created": false,
+  "dag": {
+    "all_dependencies_present": true,
+    "acyclic": true,
+    "topological_order": [
+      "MS7-MIG-R01",
+      "MS7-MIG-R02",
+      "MS7-MIG-V01",
+      "MS7-MIG-V02",
+      "MS7-MIG-I01",
+      "MS7-MIG-I02",
+      "MS7-MIG-R03",
+      "MS7-MIG-V03",
+      "MS7-MIG-I03",
+      "MS7-MIG-V04",
+      "MS7-MIG-I04",
+      "MS7-MIG-V05",
+      "MS7-MIG-I05",
+      "MS7-MIG-R04",
+      "MS7-MIG-R05",
+      "MS7-MIG-V06",
+      "MS7-MIG-I06",
+      "MS7-MIG-R06"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "MS7-MIG-R01",
+      "title": "MS7-MIG-R01 Исходный снимок архитектурное решение и владение",
+      "HARD": "-",
+      "CONTRACT": "Принятые исходные ADR/contracts; точные approvals сверяются",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-r01-baseline",
+      "Target start/window": "07.10-07.10.2026",
+      "Target deadline": "07.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Владимир и Илья по архитектуре, контрактам и UI; собственную работу Руслан не принимает.",
+      "Owner": "Руслан",
+      "dependencies": [],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/28",
+      "issue_number": 28,
+      "github_owner": "Tramsey00",
+      "verified_assignees": [
+        "Tramsey00"
+      ],
+      "status": "IN_PROGRESS / HUMAN_ACCEPTANCE_PENDING",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r01-baseline",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R01",
+      "reserved_port": 8101,
+      "reserved_database": "ms7_mig_r01_runtime",
+      "reserved_test_database": "test_ms7_mig_r01",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-R02",
+      "title": "MS7-MIG-R02 Контракты переноса и проверка эквивалентности",
+      "HARD": "MS7-MIG-R01",
+      "CONTRACT": "Исходные R02/R03/R02A/R03A; MIG ADR",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-r02-contracts",
+      "Target start/window": "07.10-08.10.2026",
+      "Target deadline": "08.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Владимир и Илья по архитектуре, контрактам и UI; собственную работу Руслан не принимает.",
+      "Owner": "Руслан",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+      "issue_number": 29,
+      "github_owner": "Tramsey00",
+      "verified_assignees": [
+        "Tramsey00"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r02-contracts",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R02",
+      "reserved_port": 8102,
+      "reserved_database": "ms7_mig_r02_runtime",
+      "reserved_test_database": "test_ms7_mig_r02",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-R03",
+      "title": "MS7-MIG-R03 Целевая верификация CI и адаптация Harness",
+      "HARD": "MS7-MIG-R02",
+      "CONTRACT": "Parity matrix R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V02, MS7-MIG-I02",
+      "Branch": "ms7-mig-r03-verification",
+      "Target start/window": "08.10-10.10.2026",
+      "Target deadline": "10.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Владимир и Илья по архитектуре, контрактам и UI; собственную работу Руслан не принимает.",
+      "Owner": "Руслан",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02",
+          "source": "Parity matrix R02; migration alias per §13"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/30",
+      "issue_number": 30,
+      "github_owner": "Tramsey00",
+      "verified_assignees": [
+        "Tramsey00"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r03-verification",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R03",
+      "reserved_port": 8103,
+      "reserved_database": "ms7_mig_r03_runtime",
+      "reserved_test_database": "test_ms7_mig_r03",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-R04",
+      "title": "MS7-MIG-R04 Независимый аудит интеграции безопасности и сохранности",
+      "HARD": "MS7-MIG-R03",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V03, MS7-MIG-V04, MS7-MIG-V05, MS7-MIG-I03, MS7-MIG-I04, MS7-MIG-I05",
+      "Branch": "ms7-mig-r04-audit",
+      "Target start/window": "10.10-12.10.2026",
+      "Target deadline": "12.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Владимир и Илья по архитектуре, контрактам и UI; собственную работу Руслан не принимает.",
+      "Owner": "Руслан",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R03"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V05"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I05"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/31",
+      "issue_number": 31,
+      "github_owner": "Tramsey00",
+      "verified_assignees": [
+        "Tramsey00"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r04-audit",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R04",
+      "reserved_port": 8104,
+      "reserved_database": "ms7_mig_r04_runtime",
+      "reserved_test_database": "test_ms7_mig_r04",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-R05",
+      "title": "MS7-MIG-R05 Обновление основного ТЗ и готовых задач",
+      "HARD": "MS7-MIG-R01, MS7-MIG-R02",
+      "CONTRACT": "Frozen product contracts и accepted migration decisions",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-R04",
+      "Branch": "ms7-mig-r05-main-spec",
+      "Target start/window": "09.10-12.10.2026",
+      "Target deadline": "12.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Владимир и Илья по архитектуре, контрактам и UI; собственную работу Руслан не принимает.",
+      "Owner": "Руслан",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-R04"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/32",
+      "issue_number": 32,
+      "github_owner": "Tramsey00",
+      "verified_assignees": [
+        "Tramsey00"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r05-main-spec",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R05",
+      "reserved_port": 8105,
+      "reserved_database": "ms7_mig_r05_runtime",
+      "reserved_test_database": "test_ms7_mig_r05",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-R06",
+      "title": "MS7-MIG-R06 Единый release и передача новой базовой версии",
+      "HARD": "MS7-MIG-R04, MS7-MIG-R05, MS7-MIG-V06, MS7-MIG-I06",
+      "CONTRACT": "Accepted migration ADR/addenda",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-r06-release",
+      "Target start/window": "13.10-13.10.2026",
+      "Target deadline": "13.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Владимир и Илья по архитектуре, контрактам и UI; собственную работу Руслан не принимает.",
+      "Owner": "Руслан",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R04"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V06"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I06"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/33",
+      "issue_number": 33,
+      "github_owner": "Tramsey00",
+      "verified_assignees": [
+        "Tramsey00"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r06-release",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R06",
+      "reserved_port": 8106,
+      "reserved_database": "ms7_mig_r06_runtime",
+      "reserved_test_database": "test_ms7_mig_r06",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-V01",
+      "title": "MS7-MIG-V01 SQLAlchemy модели Alembic и upgrade profiles",
+      "HARD": "MS7-MIG-R01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-v01-schema",
+      "Target start/window": "07.10-08.10.2026",
+      "Target deadline": "08.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан; Илья подтверждает consumer/browser handoff, если применимо.",
+      "Owner": "Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/34",
+      "issue_number": 34,
+      "github_owner": "VladimirFrolov777",
+      "verified_assignees": [
+        "VladimirFrolov777"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-v01-schema",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-V01",
+      "reserved_port": 8201,
+      "reserved_database": "ms7_mig_v01_runtime",
+      "reserved_test_database": "test_ms7_mig_v01",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-V02",
+      "title": "MS7-MIG-V02 FastAPI Content grades маршруты и staff чтение",
+      "HARD": "MS7-MIG-V01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-v02-content",
+      "Target start/window": "08.10-09.10.2026",
+      "Target deadline": "09.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан; Илья подтверждает consumer/browser handoff, если применимо.",
+      "Owner": "Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/35",
+      "issue_number": 35,
+      "github_owner": "VladimirFrolov777",
+      "verified_assignees": [
+        "VladimirFrolov777"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-v02-content",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-V02",
+      "reserved_port": 8202,
+      "reserved_database": "ms7_mig_v02_runtime",
+      "reserved_test_database": "test_ms7_mig_v02",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-V03",
+      "title": "MS7-MIG-V03 Identity sessions CSRF receipts и staff запись",
+      "HARD": "MS7-MIG-V01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V02",
+      "Branch": "ms7-mig-v03-identity",
+      "Target start/window": "09.10-10.10.2026",
+      "Target deadline": "10.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан; Илья подтверждает consumer/browser handoff, если применимо.",
+      "Owner": "Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/36",
+      "issue_number": 36,
+      "github_owner": "VladimirFrolov777",
+      "verified_assignees": [
+        "VladimirFrolov777"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-v03-identity",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-V03",
+      "reserved_port": 8203,
+      "reserved_database": "ms7_mig_v03_runtime",
+      "reserved_test_database": "test_ms7_mig_v03",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-V04",
+      "title": "MS7-MIG-V04 Публикация bootstrap медиа и служебные команды",
+      "HARD": "MS7-MIG-V02",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-I03",
+      "Branch": "ms7-mig-v04-publishing",
+      "Target start/window": "10.10-11.10.2026",
+      "Target deadline": "11.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан; Илья подтверждает consumer/browser handoff, если применимо.",
+      "Owner": "Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/37",
+      "issue_number": 37,
+      "github_owner": "VladimirFrolov777",
+      "verified_assignees": [
+        "VladimirFrolov777"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-v04-publishing",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-V04",
+      "reserved_port": 8204,
+      "reserved_database": "ms7_mig_v04_runtime",
+      "reserved_test_database": "test_ms7_mig_v04",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-V05",
+      "title": "MS7-MIG-V05 Окружения сборка backup restore и эксплуатация",
+      "HARD": "MS7-MIG-V01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V03, MS7-MIG-V04, MS7-MIG-I03, MS7-MIG-I04",
+      "Branch": "ms7-mig-v05-operations",
+      "Target start/window": "11.10-12.10.2026",
+      "Target deadline": "12.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан; Илья подтверждает consumer/browser handoff, если применимо.",
+      "Owner": "Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I04"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/38",
+      "issue_number": 38,
+      "github_owner": "VladimirFrolov777",
+      "verified_assignees": [
+        "VladimirFrolov777"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-v05-operations",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-V05",
+      "reserved_port": 8205,
+      "reserved_database": "ms7_mig_v05_runtime",
+      "reserved_test_database": "test_ms7_mig_v05",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-V06",
+      "title": "MS7-MIG-V06 Итоговая репетиция upgrade и передача backend",
+      "HARD": "MS7-MIG-V05, MS7-MIG-R04",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-v06-cutover",
+      "Target start/window": "13.10-13.10.2026",
+      "Target deadline": "13.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан; Илья подтверждает consumer/browser handoff, если применимо.",
+      "Owner": "Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/39",
+      "issue_number": 39,
+      "github_owner": "VladimirFrolov777",
+      "verified_assignees": [
+        "VladimirFrolov777"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-v06-cutover",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-V06",
+      "reserved_port": 8206,
+      "reserved_database": "ms7_mig_v06_runtime",
+      "reserved_test_database": "test_ms7_mig_v06",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-I01",
+      "title": "MS7-MIG-I01 React foundation без изменения дизайна",
+      "HARD": "MS7-MIG-R01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "-",
+      "Branch": "ms7-mig-i01-foundation",
+      "Target start/window": "07.10-08.10.2026",
+      "Target deadline": "08.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан по UX/integration и Владимир по API/security; Илья не утверждает собственный результат.",
+      "Owner": "Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/40",
+      "issue_number": 40,
+      "github_owner": "13baybars",
+      "verified_assignees": [
+        "13baybars"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-i01-foundation",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-I01",
+      "reserved_port": 5171,
+      "reserved_database": "ms7_mig_i01_runtime",
+      "reserved_test_database": "test_ms7_mig_i01",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-I02",
+      "title": "MS7-MIG-I02 Страницы каталог SSG SEO и staff оболочка",
+      "HARD": "MS7-MIG-I01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V02",
+      "Branch": "ms7-mig-i02-pages",
+      "Target start/window": "08.10-09.10.2026",
+      "Target deadline": "09.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан по UX/integration и Владимир по API/security; Илья не утверждает собственный результат.",
+      "Owner": "Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/41",
+      "issue_number": 41,
+      "github_owner": "13baybars",
+      "verified_assignees": [
+        "13baybars"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-i02-pages",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-I02",
+      "reserved_port": 5172,
+      "reserved_database": "ms7_mig_i02_runtime",
+      "reserved_test_database": "test_ms7_mig_i02",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-I03",
+      "title": "MS7-MIG-I03 LessonHost формулы стили и интерактивы",
+      "HARD": "MS7-MIG-I02",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V02",
+      "Branch": "ms7-mig-i03-lessons",
+      "Target start/window": "09.10-10.10.2026",
+      "Target deadline": "10.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан по UX/integration и Владимир по API/security; Илья не утверждает собственный результат.",
+      "Owner": "Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+      "issue_number": 42,
+      "github_owner": "13baybars",
+      "verified_assignees": [
+        "13baybars"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-i03-lessons",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-I03",
+      "reserved_port": 5173,
+      "reserved_database": "ms7_mig_i03_runtime",
+      "reserved_test_database": "test_ms7_mig_i03",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-I04",
+      "title": "MS7-MIG-I04 Account onboarding и разрешённые staff формы",
+      "HARD": "MS7-MIG-I01",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V03, MS7-MIG-V02",
+      "Branch": "ms7-mig-i04-account",
+      "Target start/window": "10.10-11.10.2026",
+      "Target deadline": "11.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан по UX/integration и Владимир по API/security; Илья не утверждает собственный результат.",
+      "Owner": "Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/43",
+      "issue_number": 43,
+      "github_owner": "13baybars",
+      "verified_assignees": [
+        "13baybars"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-i04-account",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-I04",
+      "reserved_port": 5174,
+      "reserved_database": "ms7_mig_i04_runtime",
+      "reserved_test_database": "test_ms7_mig_i04",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-I05",
+      "title": "MS7-MIG-I05 Браузерная совместимость доступность и parity",
+      "HARD": "MS7-MIG-I03, MS7-MIG-I04",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V05",
+      "Branch": "ms7-mig-i05-browser",
+      "Target start/window": "11.10-12.10.2026",
+      "Target deadline": "12.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан по UX/integration и Владимир по API/security; Илья не утверждает собственный результат.",
+      "Owner": "Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V05"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+      "issue_number": 44,
+      "github_owner": "13baybars",
+      "verified_assignees": [
+        "13baybars"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-i05-browser",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-I05",
+      "reserved_port": 5175,
+      "reserved_database": "ms7_mig_i05_runtime",
+      "reserved_test_database": "test_ms7_mig_i05",
+      "environment_created": false
+    },
+    {
+      "id": "MS7-MIG-I06",
+      "title": "MS7-MIG-I06 Frontend freeze и передача проверенной сборки",
+      "HARD": "MS7-MIG-I05",
+      "CONTRACT": "MS7-MIG-R02",
+      "HANDOFF": "-",
+      "INTEGRATION": "MS7-MIG-V06",
+      "Branch": "ms7-mig-i06-freeze",
+      "Target start/window": "13.10-13.10.2026",
+      "Target deadline": "13.10.2026, включая review/integration; календарь§11.",
+      "Task Approver": "Руслан по UX/integration и Владимир по API/security; Илья не утверждает собственный результат.",
+      "Owner": "Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I05"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V06"
+        }
+      ],
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/45",
+      "issue_number": 45,
+      "github_owner": "13baybars",
+      "verified_assignees": [
+        "13baybars"
+      ],
+      "status": "PLANNED",
+      "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-i06-freeze",
+      "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-I06",
+      "reserved_port": 5176,
+      "reserved_database": "ms7_mig_i06_runtime",
+      "reserved_test_database": "test_ms7_mig_i06",
+      "environment_created": false
+    }
+  ]
+}
