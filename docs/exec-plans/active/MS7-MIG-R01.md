@@ -1,6 +1,6 @@
 # MS7-MIG-R01 — Baseline snapshot, architecture and ownership
 
-- Status: **Active / INCOMPLETE — reviewed-head human records accepted; new-head confirmation and merge pending**
+- Status: **Accepted snapshot / post-merge record amendment review pending — active only for final integration intake**
 - Owner: Руслан / Tramsey00
 - Independent Reviewers / Task Approvers: Владимир / VladimirFrolov777 and Илья / 13baybars
 - Issue: [#28](https://github.com/Tramsey00/MathStart-Python/issues/28)
@@ -142,13 +142,13 @@ Keep this plan active until actual human acceptance; no automatic completed move
 - [x] Working schema read-only and admin/route/command/source inventory captured
 - [x] Exact migration input imported; proposed ADR and §17 index prepared
 - [x] 18 Issues assigned with real URLs and acyclic dependencies; later tasks PLANNED
-- [ ] Independent review of final candidate/checks (agent evidence in PR46; human record required)
+- [x] Independent reviewed-head approvals and explicit owner report of both e510744 confirmations; PR/main CI PASS
 - [x] Snapshot draft PR46 prepared and attached; first head CI failure preserved, own frozen-document edits restored; corrected local baseline8/8/Harness73 PASS; current-head CI external PR evidence
-- [ ] Snapshot independently approved and merged; resulting MIG_BASE_SHA established
-- [ ] Integration/task branches created from accepted resulting baseline
+- [x] Snapshot independently approved at daf4e603, e510744 confirmation owner-reported; PR46 merged, resulting MIG_BASE_SHA established
+- [x] Integration/R01 task branches created from exact accepted resulting baseline; no later branch
 - [x] Separate MIG-G0 records from all three participants at reviewed daf4e603
 - [x] Independent R01 Task Approvals by Владимир and Илья at reviewed daf4e603
-- [ ] Active plan completed only after required acceptance
+- [ ] Complete/move plan after new post-merge records task PR review and accepted integration intake
 
 Preparation is reviewable; dependent steps stay PENDING. R01 stops at the
 required human gate and does not execute another migration task.
@@ -190,3 +190,30 @@ snapshot merge/MIG_BASE_SHA/integration and task branch steps PENDING. No later
 task execution, working DB/app change or Issue closure. Earlier partial/pending
 sections above are chronological preparation history, superseded only by these
 current human records.
+
+## Current post-merge phase — 08.10.2026 Europe/Moscow
+
+Snapshot PR46 merged at01:47:59 Moscow: accepted PR head `e510744fcd87a22956aa71d5e22f20235e2af1c1`,
+actual resulting commit/MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
+Live PR metadata, commit parent/tree, both CI and three human sources in
+[post-merge provenance](../../acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json).
+Owner explicitly reports both reviewers confirmed the e510744 documentation in
+their chat; GitHub approvals stay daf4e603, merge itself not treated as approval.
+
+Integration `ms7-mig-react-fastapi` created remotely exactly at resulting SHA;
+`ms7-mig-r01-baseline` input same SHA, worktree
+C:/Projects/MathStart-Python/tmp/ms7-mig-r01/post-merge. Only R01 post-merge
+records; task PR→integration Refs #28, no direct main push. Core R01 snapshot
+accepted / MIG-G0 accepted for that snapshot; active plan retained only pending
+post-merge amendment review/intake, no automatic acceptance of this new HEAD.
+
+Fresh verification uses a new disposable R01 PostgreSQL container
+ms7-mig-r01-postmerge-pg-20261008, localhost55438, runtime DB
+ms6_v01_smoke_ms7_mig_r01_postmerge_20261008, test DB
+test_ms7_mig_r01_postmerge_20261008, runtime root
+C:/Projects/MathStart-Python/tmp/ms7-mig-r01/qa/postmerge-runtime.
+Working5432/8000 untouched; no following task environment created.
+Remaining calendar and mandatory assigned F01–F04 I03/I05 unchanged.
+Original plan sections above describe historical preparation, not current
+pending snapshot/branch state. [R02 handoff inputs](../../acceptance/MS7-MIG-R01/R02-input-handoff.md)
+are records only. All18 Issues stay OPEN, no R02/I01 execution.

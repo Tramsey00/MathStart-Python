@@ -188,3 +188,43 @@ package entries/228 provenance entries,168 relative participant evidence links;
 original_result objects/source/runtime/frozen snapshots and earlier scoped/import
 receipts unchanged.1023 input files and18568 original output/tmp preserved.
 See [current import audit](final-acceptance-import-validation.json). Own whitespace changes checked before commit.
+
+## Post-merge R01 verification — 08.10.2026 Europe/Moscow
+
+MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7, accepted PR46 heade510744.
+PR CI37696561717 SUCCESS and separate resulting-main CI37698445057 SUCCESS;
+actual main checkout confirmed in job113055830577. Resulting tree equals
+PR head/tested merge-ref tree. [Merge provenance](post-merge-provenance-20261008.json).
+
+Verification skill followed with unchanged installed lock and interpreter.
+[Sanitized exact local commands/results](post-merge-local-verification.json):
+Python3.12.10 (distinct from Ilya report3.14.7 and CI3.12.15),
+Django5.2.16, PostgreSQL16.15 (server160015), pip26.2.1.
+Dedicated R01 disposable container127.0.0.1:55438, unique runtime/test DB and
+QA runtime; no connection to working5432 DB. No dependency install or changes.
+
+| Command / check | Result / exit |
+| --- | --- |
+| python --version; python -m pip check; scripts/version_report.py | PASS /0 each |
+| scripts/fresh_install_smoke.py --disposable | PASS /0, fresh PG migrations/bootstrap/static |
+| scripts/verify_repo.py | PASS /0,8/8; Django107,R03 reference18,Harness73 |
+| R02A reference suite | PASS /0,30 |
+| R03A reference suite | PASS /0,41 |
+| tools/validate_records.py --original C:/Projects/MathStart-Python | PASS /0,1023 unchanged input +1026 original files,18568 preserved output/tmp |
+| tools/validate_ilya_import.py --ref INDEX --output post-merge-import-validation.json | PASS /0,232 exact files/Git blobs,231 package entries,228 provenance entries,169 evidence links |
+| Post-merge provenance/scope/historical/relative-link audit | PASS /0; owner report distinguished from public approval;18 Issues OPEN |
+| git diff --check; git diff --cached --check | PASS /0 |
+| Task PR→integration GitHub Actions | NOT RUN / NOT TRIGGERED: unchanged workflow only main PR/main push |
+| Original external ZIP SHA256 repeat | NOT RUN: Desktop archive absent; prior archive receipt unchanged, Git package exact |
+
+[Current import audit](post-merge-import-validation.json) and
+[post-merge audit](post-merge-validation.json) preserve all historical evidence.
+New current record manifest excludes itself; exact staged Git blobs and checkout
+digests are separate. Original local failing environment receipts remain history,
+not rewritten by this successful fresh disposable run. Raw synthetic smoke logs
+retained private; no DB rows/session/credential dumps published.
+
+The local results do not establish a GitHub CI run on the new record task HEAD.
+No failing checks skipped, tests/validation weakened, target CI added or
+subsequent migration task started. Current task record amendment review/intake
+remains required; merged snapshot approval is not automatically transferred.

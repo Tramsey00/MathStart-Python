@@ -1,15 +1,14 @@
 # MS7-MIG-R01 records
 
-This package prepares the current Django snapshot for independent acceptance.
-**R01 workflow INCOMPLETE; human records accepted at daf4e603; new-head confirmation/merge and MIG_BASE_SHA PENDING.** Input local/remote
-main: `8c11edadc8debc81432d1db1145feac504f09061`. Candidate head and its current
-CI/tested merge-ref are recorded in the snapshot draft PR; they are not the
-accepted integration baseline.
-
-Snapshot [draft PR46](https://github.com/Tramsey00/MathStart-Python/pull/46)
-and [publication receipt](snapshot-review.json); final current CI is externally
-recorded in PR body. [R01 record manifest](record-manifest.json) hashes exact
-stored Git blobs separately from checkout bytes and excludes itself.
+This package records the accepted Django snapshot and R01-only post-merge handoff.
+**MIG_BASE_SHA = 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; R01 ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING.**
+Canonical application input remains `8c11edadc8debc81432d1db1145feac504f09061`.
+[Actual merged PR46](https://github.com/Tramsey00/MathStart-Python/pull/46),
+[post-merge provenance](post-merge-provenance-20261008.json),
+[current acceptance](acceptance.md) and [R02 input handoff](R02-input-handoff.md)
+distinguish original reviews, owner-reported e510744 confirmation, actual resulting
+commit, CI and current amendment review. Integration starts exactly at resulting SHA.
+[Record manifest](record-manifest.json) hashes exact Git blobs, excluding itself.
 
 - [Source manifest](source-manifest.json): exact tracked input Git bytes,
   sizes/SHA256/counts and original/candidate checkout byte differences.
@@ -32,7 +31,7 @@ stored Git blobs separately from checkout bytes and excludes itself.
   file hashes, including missing/pattern references.
 - [Verification](verification.md) and [trace](../../agent-traces/MS7-MIG-R01.md):
   actual commands, versions, exit codes and limitations.
-- [Human acceptance / decision list](acceptance.md): independent records pending.
+- [Human acceptance / decision list](acceptance.md): merged snapshot accepted; new post-merge amendment review/intake pending.
 - [ADR accepted on reviewed revision](../../adr/ADR-0006-react-fastapi-migration.md),
   [active plan](../../exec-plans/active/MS7-MIG-R01.md),
   [exact specification provenance](../../../specs/migration/README.md).
@@ -64,3 +63,12 @@ paragraphs in this preparation history. [Exact former acceptance snapshot](accep
 and imported materials preserved. F01–F04 assigned13baybars for I03/I05, no
 fixes performed. [Reviewer amendment list](final-review-changes.md) requires
 new exact HEAD confirmation; MIG_BASE_SHA/snapshot merge remain PENDING.
+
+## Current post-merge records
+
+[Provenance](post-merge-provenance-20261008.json) supersedes earlier current-status
+PENDING paragraphs in this chronological package. Original final-human receipt,
+pre-merge [acceptance](acceptance-at-e510744.md)/[snapshot record](snapshot-review-at-e510744.json),
+source/runtime/initial GitHub/frozen/imported evidence remain unchanged.
+F01–F04 assigned13baybars, not implemented; ordinary-scale F04 readability
+mandatory. No separate Vladimir F04 consent. All18 Issues OPEN; no later task.

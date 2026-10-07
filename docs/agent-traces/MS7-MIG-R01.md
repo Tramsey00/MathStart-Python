@@ -290,3 +290,71 @@ package entries/228 provenance entries,168 relative participant evidence links;
 original_result objects/source/runtime/frozen snapshots and earlier scoped/import
 receipts unchanged.1023 input files and18568 original output/tmp preserved.
 See [current import audit](../acceptance/MS7-MIG-R01/final-acceptance-import-validation.json). Own whitespace changes checked before commit.
+
+## Post-merge R01 — 08.10.2026 Europe/Moscow
+
+User authorizes only R01 post-merge provenance, integration/R01 branches and
+records; no later task or direct main push. Live GitHub PR46 mergedtrue at
+2026-10-07T22:47:59Z byTramsey00, accepted head `e510744fcd87a22956aa71d5e22f20235e2af1c1`,
+actual resulting commit `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`, single parent `8c11edadc8debc81432d1db1145feac504f09061`.
+MIG_BASE_SHA is the actual resulting squash commit, not source/head/tested merge.
+PR-head CI37696561717 SUCCESS; tested merge-ref76f16c02591f5e8fcd7ffa4f661b60981973d362
+tree f54cd4c9d6c8d461167f9586bdcbf661219693aa equals resulting/PR-head tree.
+Separate resulting-main CI37698445057 SUCCESS at exact60b341f, job113055830577
+checkout log confirms it. [Provenance](../acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json).
+
+Live original Ilya/Ruslan/Vladimir records remain atdaf4e603. No public e510744
+reviewer confirmation found; asked owner, who explicitly replied
+“Да, они всё подтвердили в нашем чате” to exact e510744/Ilya+Vladimir question.
+Recorded as owner report of their agreement, not independent GitHub comment,
+API review or automatic approval due to merge. D09 prior owner report preserved.
+
+git fetch origin exit0 updates origin/main to60b341f, original local main stays8c11edad
+with original untracked recovery/output/tmp. No reset/clean/force or working DB use.
+Live branches lacked integration/R01 task; created integration via API exactly at
+MIG_BASE_SHA, fetched; git worktree add -b ms7-mig-r01-baseline at
+C:/Projects/MathStart-Python/tmp/ms7-mig-r01/post-merge fromorigin/integration exit0.
+Snapshot e510744 checkout preserved. All18 canonical Issues liveOPEN, unchanged.
+No R02/I01/target scaffold or other branch/environment created.
+
+Updated only R01 current provenance/acceptance/index/owner map/ADR status/active
+plan/trace/current root links and manifests. Exact pre-merge acceptance/snapshot
+review copies retained alongside older daf4e603 snapshots and frozen/source
+runtime/contracts/package; original final-human receipt kept byte-exact.
+Core snapshot/ADR and MIG-G0 accepted. New post-merge records task PR → integration
+Refs #28 awaits independent review/intake; active plan retained for that phase.
+No approval transfer to new post-merge containing head; no merge/Issue closure.
+F01–F04 unchanged mandatory assigned13baybars I03/I05; separate Vladimir F04
+review not agreed. Remaining calendar/scope/checks and delay history preserved.
+
+Verification skill reapplied. Initial unprivileged Docker listing returned
+permission denied; read-only escalated listing exit0 revealed only working
+mathstart-python-db-1, not reused. New disposable R01-only container
+ms7-mig-r01-postmerge-pg-20261008 on127.0.0.1:55438 with distinct runtime/test DB
+and QA runtime. No original DB connection. Fresh smoke/verify results recorded
+below after completion; logs remain private because smoke includes synthetic rows.
+Current record task workflow CI applicability reported separately; existing
+CI triggers only main PR/main push, no target CI adaptation.
+
+Post-merge full local verification completed exit0: fresh disposable smoke PASS,
+verify_repo8/8 PASS, Django107/R03reference18/Harness73, R02A30/R03A41.
+Python3.12.10/Django5.2.16/PostgreSQL16.15, distinct from CI/Ilya versions.
+pip check/version report exit0. No dependency installation. Source/preservation
+audit exit0:1023 unchanged input,1026 original files,18568 existing output/tmp.
+Import audit exit0:232 exact Git blobs/bytes,231 package entries/228 provenance,
+169 relative participant links; historical receipts/source/contracts/old
+original_results preserved. New audit derives actual post-merge status rather
+than hardcoded pre-merge PENDING; this changes only R01 evidence utility.
+
+[Local sanitized results](../acceptance/MS7-MIG-R01/post-merge-local-verification.json),
+[current import audit](../acceptance/MS7-MIG-R01/post-merge-import-validation.json),
+[post-merge scope/merge/history audit](../acceptance/MS7-MIG-R01/post-merge-validation.json).
+Task PR→integration not selected by unchanged main-only CI: NOT RUN/TRIGGERED,
+not a claimed green run. Full merged-main CI and local baseline reported distinctly.
+Staged record blob manifest excludes itself; hashes/links/scope verified before
+explicit-allowlist commit/push. Exact record HEAD/task PR URL external review
+evidence. No direct main push, merge or migration Issue closure.
+
+Intermediate staged whitespace check exited1 on one R01-owned blank line in
+verification.md; repaired the line without altering preserved snapshots.
+Final whitespace check rerun before commit; no check suppression.

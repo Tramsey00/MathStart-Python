@@ -1,15 +1,15 @@
 # ADR-0006: React / FastAPI platform migration decision
 
-- Status: **Accepted decision on reviewed daf4e603 revision (08.10.2026); current documentation amendment confirmation and snapshot merge PENDING**
+- Status: **Accepted for merged snapshot (08.10.2026); post-merge record amendment review pending**
 - Date: 2026-10-07, Europe/Moscow
 - Owner: Руслан / Tramsey00
 - Independent R01 reviewers / approvers: Владимир / VladimirFrolov777 and Илья / 13baybars
-- Gate: three own baseline/ADR records and two independent Task Approvals verified at daf4e603; current amendment needs new-head confirmation
+- Gate: three own baseline/ADR records and two independent Task Approvals verified at daf4e603; e510744 amendment confirmation reported explicitly by owner; actual merge verified
 - Issue: [MS7-MIG-R01 #28](https://github.com/Tramsey00/MathStart-Python/issues/28)
 - Specification: [exact migration addendum v1.1](../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
 - Plan: [active R01](../exec-plans/active/MS7-MIG-R01.md)
 - Inventory / decisions: [baseline inventory](../acceptance/MS7-MIG-R01/inventory.md), [human acceptance](../acceptance/MS7-MIG-R01/acceptance.md)
-- Supersession: accepted target decision replaces only ADR-0001's backend/frontend/ORM/migration platform selection for migration scope at reviewed daf4e603; operational activation remains gated by accepted snapshot merge. Preserve its history and domain/evidence invariants, ADR-0002/0003 and frozen contracts.
+- Supersession: accepted target decision replaces only ADR-0001's backend/frontend/ORM/migration platform selection for migration scope at reviewed daf4e603; snapshot branch prerequisite fulfilled; target runtime activation still requires later task/cutover gates. Preserve its history and domain/evidence invariants, ADR-0002/0003 and frozen contracts.
 
 ## Context and authority
 
@@ -41,7 +41,7 @@ See the [three-source index](../acceptance/MS7-MIG-R01/ilya-20261007/README.md).
 The earlier partial D02/D03 decision is historical. Later own final baseline/ADR
 records and independent Task Approvals accept the reviewed daf4e603 revision;
 [final receipt](../acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
-records their scope and the new-head confirmation requirement. F01–F04 assigned
+preserves pre-merge scope/confirmation requirement; [post-merge provenance](../acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json) records owner-reported e510744 confirmation and actual merge. F01–F04 assigned
 to13baybars for I03/I05; no runtime/source repair occurs.
 
 Retain one modular Python monolith and one primary PostgreSQL 16+ database.
@@ -90,8 +90,8 @@ and Origin/Host checks. No browser JWT/localStorage credentials. Preserve
 encoded passwords and validators through a compatible independent adapter and
 synthetic vectors; the working DB has zero users, which does not waive compatibility
 tests for deployed upgrade profiles. Unsupported algorithms block cutover.
-Propose one explicit re-login at session transition without resetting passwords;
-all three gate participants must accept it. Retain receipts/identities,
+One explicit re-login at session transition without resetting passwords is
+accepted by the three gate participants; implementation compatibility remains mandatory. Retain receipts/identities,
 uniqueness, ≥7-day replay retention and secure anonymous-scope bridge, including
 lost acknowledgement. Do not clear receipts to avoid compatibility work.
 Preserve shared worker-safe login rate and a reviewed proxy IP trust policy.
@@ -129,11 +129,10 @@ legacy writes before activating target routes/CLI/admin. Archive unused history
 tables; dropping them is not required. R01 changes no schema or DDL owner in
 the running application.
 
-**Explicit compatibility proposal:** PostgreSQL is mandatory for target
+**Accepted compatibility decision:** PostgreSQL is mandatory for target
 acceptance and operational use; retain opt-in SQLite compatibility for local
 non-concurrency development as §15 V01 requires, with no fallback on PG errors.
-SQLite cannot prove PostgreSQL locking/migration/auth races. This is a proposed
-decision, pending MIG-G0; do not remove current SQLite support in R01.
+SQLite cannot prove PostgreSQL locking/migration/auth races. This decision is accepted for the snapshot; current SQLite support remains unchanged in R01.
 
 ### Snapshot, integration and rollback
 
@@ -143,7 +142,7 @@ manifests, inventory, proposed ADR/plan and review records. Snapshot draft PR
 targets main. Source preservation in Git is distinct from visual/content
 approval. Independent reviews, current-head checks and accepted snapshot merge
 are required before `MIG_BASE_SHA` is assigned. Candidate SHA is tracked in PR/
-head records; **MIG_BASE_SHA = PENDING**.
+head records; **MIG_BASE_SHA = 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7** for actual resulting PR46 commit; input source remains 8c11edadc8debc81432d1db1145feac504f09061.
 
 After human-accepted snapshot merge, Руслан creates `ms7-mig-react-fastapi`
 from the resulting MIG_BASE_SHA, then `ms7-mig-r01-baseline` from the accepted
@@ -196,3 +195,16 @@ R02A/R03A independent contract acceptance reconciliation verified on 07.10.2026;
   no separate D09 comment invented. This documentation reconciliation commit
   requires reviewers' confirmation at its new exact HEAD. No accepted resulting
   MIG_BASE_SHA, target runtime, authorized merge or production deployment claimed.
+
+## Post-merge status — 08.10.2026 Europe/Moscow
+
+PR46 actual resulting commit `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` is MIG_BASE_SHA.
+Original own approvals remain daf4e603; owner directly reports Ilya/Vladimir
+e510744 amendment confirmation in their chat, not a public review fabrication.
+Both PR-head and resulting-main CI SUCCESS; trees equal. MIG-G0 accepted for
+the snapshot. Integration created exactly from resulting SHA. New R01 records
+task PR requires review/intake; no approval transfer to its containing HEAD.
+One re-login, SQLite compatibility, complete staff scope and staging/disposable
+boundary are accepted decisions; their target implementation remains future.
+Production deployment and optional Vladimir independent F04 review require
+separate agreements. Historical status entries above remain chronology.

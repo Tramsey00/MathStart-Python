@@ -16,13 +16,13 @@
     "canonical_input_exact": true,
     "recovery_trace_exact": true
   },
-  "draft": false,
-  "merged": true,
-  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
-  "R01": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING",
-  "MIG_G0": "ACCEPTED_FOR_MERGED_SNAPSHOT",
-  "final_head_record": "Post-merge record task containing head and validation are external task PR evidence; no automatic approval transfer to this new documentation delta",
-  "acceptance": "Original daf4e603 approvals plus explicit owner report of Ilya/Vladimir e510744 documentation confirmation; actual snapshot merge and both PR/main CI success",
+  "draft": true,
+  "merged": false,
+  "MIG_BASE_SHA": "PENDING",
+  "R01": "INCOMPLETE",
+  "MIG_G0": "HUMAN_CONDITIONS_RECORDED_AT_DAF4E603 / NEW_HEAD_CONFIRMATION_AND_MERGE_PENDING",
+  "final_head_record": "Exact subsequent head, tested merge-ref and current CI are recorded in external PR body; this committed receipt cannot self-pin its containing commit.",
+  "acceptance": "Three baseline/ADR and two independent Task Approvals at daf4e603; current amendment confirmation/accepted merge pending",
   "scope": "Only R01 records, no downstream execution.",
   "initial_completed_ci": "ci-first-head.json",
   "initial_merge_ref_tested": true,
@@ -46,19 +46,13 @@
     "receipt": "ilya-20261007/import-receipt.json",
     "decision": "ilya-20261007/current-decision.json",
     "D02_D03": "PARTIAL_SCOPED_ACCEPTANCE",
-    "F01_F04": "MANDATORY / ASSIGNED13baybars / NOT_IMPLEMENTED",
-    "new_head_ci": "Exact containing HEAD and tested merge-ref recorded externally in PR46 to avoid self-pins",
-    "historical_stage_note": "Original partial D02/D03 import stage retained; current final acceptance is post-merge-provenance-20261008.json"
+    "F01_F04": "MANDATORY / NOT_IMPLEMENTED / ASSIGNMENT_PENDING",
+    "new_head_ci": "Exact containing HEAD and tested merge-ref recorded externally in PR46 to avoid self-pins"
   },
   "final_human_records": {
     "reviewed_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
     "receipt": "final-human-acceptance-20261008.json",
-    "current_head_confirmation": "OWNER_REPORTED_CONFIRMED_AT_E510744; original GitHub approvals stay daf4e603",
-    "automatic_approval_transfer": false,
-    "owner_report_receipt": "post-merge-provenance-20261008.json"
-  },
-  "accepted_PR_head": "e510744fcd87a22956aa71d5e22f20235e2af1c1",
-  "resulting_commit": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
-  "merged_at_utc": "2026-10-07T22:47:59Z",
-  "post_merge_provenance": "post-merge-provenance-20261008.json"
+    "current_head_confirmation": "PENDING",
+    "automatic_approval_transfer": false
+  }
 }

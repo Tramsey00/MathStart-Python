@@ -230,14 +230,15 @@ python manage.py makemigrations --check --dry-run
 
 [`curriculum/INDEX.md`](curriculum/INDEX.md)
 
-
 ## Migration acceptance status (MS7-MIG-R01)
 
-The current runnable version remains Django. Three participant baseline/ADR
-records and two independent R01 Task Approvals accept reviewed daf4e603.
-[ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md) records the accepted
-target decision; the [active plan](docs/exec-plans/active/MS7-MIG-R01.md) and
-[current acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md) track new-head
-documentation confirmation and snapshot merge. MIG_BASE_SHA remains PENDING.
-Existing startup/verification/frozen contracts/history remain current;
-target implementation and subsequent tasks are not started by this record.
+The runnable application remains Django. ADR-0006 baseline/platform decision
+and two independent R01 Task Approvals accepted at reviewed daf4e603;
+owner reports Ilya/Vladimir confirmation of e510744 documentation before merge.
+PR46 merged; exact MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
+[ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md),
+[current acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md) and
+[active R01 records plan](docs/exec-plans/active/MS7-MIG-R01.md) distinguish
+accepted snapshot from the new post-merge amendment awaiting task PR review.
+Integration originates at MIG_BASE_SHA; no target implementation/later task starts.
+Startup, verification, frozen contracts and history remain preserved.

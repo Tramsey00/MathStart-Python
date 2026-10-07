@@ -1,9 +1,9 @@
 {
   "timezone": "Europe/Moscow",
   "source_spec_sha256": "c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae",
-  "MIG_BASE_SHA": "PENDING",
-  "integration_created": false,
-  "task_branches_created": false,
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "integration_created": true,
+  "task_branches_created": true,
   "dag": {
     "all_dependencies_present": true,
     "acyclic": true,
@@ -48,13 +48,17 @@
       "verified_assignees": [
         "Tramsey00"
       ],
-      "status": "IN_PROGRESS / HUMAN_ACCEPTANCE_PENDING",
+      "status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING",
       "reserved_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-worktrees/ms7-mig-r01-baseline",
       "reserved_runtime_root": "C:/Projects/MathStart-Python/tmp/ms7-mig-runtimes/MS7-MIG-R01",
       "reserved_port": 8101,
       "reserved_database": "ms7_mig_r01_runtime",
       "reserved_test_database": "test_ms7_mig_r01",
-      "environment_created": false
+      "environment_created": false,
+      "actual_input_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+      "actual_worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-r01/post-merge",
+      "branch_created": true,
+      "runtime_note": "R01 baseline check only: disposable PostgreSQL55438 and separate QA runtime/test DB; no target task runtime"
     },
     {
       "id": "MS7-MIG-R02",
@@ -794,5 +798,14 @@
     "receipt": "final-human-acceptance-20261008.json",
     "new_head_confirmation": "PENDING",
     "MIG_BASE_SHA": "PENDING"
-  }
+  },
+  "integration_branch": {
+    "name": "ms7-mig-react-fastapi",
+    "initial_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+    "url": "https://github.com/Tramsey00/MathStart-Python/tree/ms7-mig-react-fastapi"
+  },
+  "created_task_branches": [
+    "ms7-mig-r01-baseline"
+  ],
+  "other_task_branches_created": false
 }
