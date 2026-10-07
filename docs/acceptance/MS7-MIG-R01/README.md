@@ -72,3 +72,5 @@ pre-merge [acceptance](acceptance-at-e510744.md)/[snapshot record](snapshot-revi
 source/runtime/initial GitHub/frozen/imported evidence remain unchanged.
 F01–F04 assigned13baybars, not implemented; ordinary-scale F04 readability
 mandatory. No separate Vladimir F04 consent. All18 Issues OPEN; no later task.
+
+Published post-merge amendment: [draft task PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → integration, independent review/intake pending. No direct main push.

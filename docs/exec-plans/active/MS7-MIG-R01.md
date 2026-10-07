@@ -217,3 +217,5 @@ Remaining calendar and mandatory assigned F01–F04 I03/I05 unchanged.
 Original plan sections above describe historical preparation, not current
 pending snapshot/branch state. [R02 handoff inputs](../../acceptance/MS7-MIG-R01/R02-input-handoff.md)
 are records only. All18 Issues stay OPEN, no R02/I01 execution.
+
+Current post-merge amendment: [draft task PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → ms7-mig-react-fastapi, Refs #28. First published head77d8c81dcb777cc29d6b50ed92e65a1a25bcfbd4; final containing head/validation in live PR. Independent record amendment review/intake pending; no approval inferred for either new record commit.

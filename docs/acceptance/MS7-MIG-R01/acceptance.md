@@ -90,3 +90,5 @@ Local FAIL_ENVIRONMENT remains separate from full successful reviewed-head CI.
 
 [Exact pre-merge e510744 acceptance](acceptance-at-e510744.md) and
 [pre-merge snapshot-review](snapshot-review-at-e510744.json) preserve their PENDING wording.
+
+Current post-merge record amendment is [draft PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → integration, Refs #28. Review its exact live HEAD; original approvals and owner-reported e510744 confirmation do not automatically approve this amendment.
