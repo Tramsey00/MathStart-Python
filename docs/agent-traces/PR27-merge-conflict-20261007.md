@@ -37,7 +37,8 @@ The older `.venv` reports Python 3.10.11; it was not used for tests.
 | PostgreSQL connection diagnostic | PASS with sandbox escalation; restricted attempt failed |
 | `manage.py test content.test_bootstrap --noinput --verbosity 1` | PASS, 2 tests, 142.546 s, exit 0 |
 | `git diff --cached --check` / unresolved index entries | PASS / none |
-| `scripts/verify_repo.py` | Runtime checks blocked by stale local schema; remaining suites still running at this record's creation |
+| `scripts/verify_repo.py` | FAIL, exit 1: 5/8 checks pass; 3 runtime content checks fail against stale local schema |
+| Canonical Django / R03 / Harness suites | PASS: 107 / 18 / 73 tests respectively |
 
 Bootstrap tests used a separate disposable PostgreSQL test database named
 `test_mathstart_pr27_conflict`, destroyed by Django on completion.
@@ -54,3 +55,12 @@ that old runtime schema. Classified as an existing local environment/schema
 failure, not a conflict-resolution failure. Working DB was left unchanged.
 Do not claim a passing canonical run. New PR-head CI and independent review
 remain required before main merge; no Task Approval or migration gate claimed.
+
+## Publication
+
+Merge resolution pushed to the existing PR in commit
+`239fefcad7dacafb78e642e08df6d2371b8f8427`. GitHub API subsequently reports
+`mergeable: true`; CI/review status is separate (`mergeable_state: unstable`
+at that observation). This trace follow-up records completed local verification;
+main merge was not performed. Only existing untracked `output/` and `tmp/`
+remain outside the committed changes.
