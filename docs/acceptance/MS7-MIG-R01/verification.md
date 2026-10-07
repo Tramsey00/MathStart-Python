@@ -228,3 +228,18 @@ The local results do not establish a GitHub CI run on the new record task HEAD.
 No failing checks skipped, tests/validation weakened, target CI added or
 subsequent migration task started. Current task record amendment review/intake
 remains required; merged snapshot approval is not automatically transferred.
+
+## Current CI trigger extension — 08.10.2026
+
+Earlier task NOT RUN entries above are historical at9fde3e5 and earlier heads.
+Owner now authorizes integration branch filters for existing baseline CI; both
+main triggers remain, entire jobs byte-identical. No full target verification/R03.
+[Trigger audit and exact digests](ci-trigger-adjustment-20261008.json).
+
+Local existing R02A test suite: FAIL /exit1,30 tests,1 failure due preserved
+whole-file ci.yml pin in historical candidate-manifest. Pin/test remain unchanged.
+This is an actual blocking failure, not a waived check. Exact new-head GitHub
+workflow outcome and checkout/tested merge-ref recorded in PR47/current CI receipt.
+The source manifest and old validation/import reports remain historical input
+proofs; workflow is the single newly authorized source exception, recorded here.
+No change to working DB, baseline/integrationSHA, dependency lock or Harness.

@@ -360,3 +360,37 @@ verification.md; repaired the line without altering preserved snapshots.
 Final whitespace check rerun before commit; no check suppression.
 
 Task records committed and normal push to ms7-mig-r01-baseline succeeded. [Draft PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) created → ms7-mig-react-fastapi, Refs #28, first published head77d8c81dcb777cc29d6b50ed92e65a1a25bcfbd4 with sole parent MIG_BASE_SHA. Live PR drafttrue/mergedfalse/mergeabletrue, no task head check-runs (workflow not triggered). Exact300 record blobs/33,695,989bytes validated at INDEX and first HEAD. Publication receipt added separately, final containing SHA external PR. Original checkout stays main8c11edad with original untracked recovery/output/tmp, no loss. Own disposable R01 container stopped, working container untouched. No task/integration merge or Issue closure.
+
+## Authorized integration CI filters — 08.10.2026 Europe/Moscow
+
+Owner grants only existing CI pull_request base and push branch filters for
+ms7-mig-react-fastapi, preserving main/jobs/PG/locks/tests/frozen pins.
+Reapplied verification skill; live PR47 head9fde3e53deba29b08574c41539e68b4d43e7a6b4,
+base/integration60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7, draftfalse/mergedfalse.
+Fresh fetch exit0; task worktree clean before edit, original checkout preserved.
+Exactly two branch arrays extended; entire jobs suffix byte-identical.
+No application/working DB/baseline/target dependency/Harness change.
+
+Pin conflict detected before push: specs/api/candidate-manifest-v1.json pins
+ci.yml1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7.
+Authorized triggers produce e5e85afeee397ee2348b3a2020915646729b12b1a054d4b335ac62da5e3e4dc1.
+Local existing R02A suite ran30, FAILED1, exit1 at
+HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts.
+Classified as authorized change versus strict preserved historical whole-file pin.
+No pin/test/history rewrite, validation weakening or skip. Existing source audit
+utilities still require exact input workflow and are not modified to suppress this
+delta; separate exact trigger/scope audit records the explicit source exception.
+
+[Trigger audit](../acceptance/MS7-MIG-R01/ci-trigger-adjustment-20261008.json)
+checks both triggers/main preservation/jobs bytes/locks/source preservation.
+1022 other input files plus explicit root exceptions checked; source manifest
+stays exact historical input. Original pre-trigger provenance preserved at9fde3e5.
+New head CI required; no NOT RUN or old green result substituted for it.
+Post-merge reviewer delta now includes exact trigger change and blocking pin.
+MIG_BASE_SHA/integration60b341f unchanged; all migration Issues remain open,
+no R02/I01/R03 implementation, merge or Issue closure.
+
+Private initial source audit exited1 because git show interpreted a long Windows
+revision:path as a filename. Replaced that private lookup with exact SHA256
+comparison to unchanged original source manifest; rerun exit0 for1022 files.
+No historical source manifest, digest or validation check weakened.

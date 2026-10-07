@@ -219,3 +219,24 @@ pending snapshot/branch state. [R02 handoff inputs](../../acceptance/MS7-MIG-R01
 are records only. All18 Issues stay OPEN, no R02/I01 execution.
 
 Current post-merge amendment: [draft task PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → ms7-mig-react-fastapi, Refs #28. First published head77d8c81dcb777cc29d6b50ed92e65a1a25bcfbd4; final containing head/validation in live PR. Independent record amendment review/intake pending; no approval inferred for either new record commit.
+
+## Narrow CI trigger extension and pin conflict — 08.10.2026
+
+Owner explicitly authorizes two existing ci.yml branch filters to include
+ms7-mig-react-fastapi while preserving main, existing jobs/locks/PostgreSQL/checks.
+This enables §9 task PR→integration and integration push baseline verification;
+full target platform verification remains R03, not started.
+
+Input PR47 head9fde3e53deba29b08574c41539e68b4d43e7a6b4, live base/integration
+60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7, PR OPEN/ready (owner had removed draft).
+MIG_BASE_SHA unchanged. No local/working DB use; unchanged CI creates disposable PG.
+
+[Exact trigger delta/conflict](../../acceptance/MS7-MIG-R01/ci-trigger-adjustment-20261008.json):
+jobs byte-identical, but MS7-R02A candidate-manifest pins the whole ci.yml.
+Existing strict R02A test now fails1/30 with expected old/current digests.
+Preserve manifest, tests and historical evidence; do not regenerate pin for green,
+skip/relax check or silently classify the contract as compatible.
+CI current-head run required, actual outcome recorded in PR47. Acceptance blocked
+until separate human decision resolves this pin compatibility and required CI passes.
+Active plan retained; original baseline/ADR acceptance unaffected.
+[Reviewer delta](../../acceptance/MS7-MIG-R01/pr47-review-delta.md).

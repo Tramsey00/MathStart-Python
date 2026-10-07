@@ -74,3 +74,11 @@ F01–F04 assigned13baybars, not implemented; ordinary-scale F04 readability
 mandatory. No separate Vladimir F04 consent. All18 Issues OPEN; no later task.
 
 Published post-merge amendment: [draft task PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → integration, independent review/intake pending. No direct main push.
+
+## Integration CI trigger extension
+
+[Reviewer delta](pr47-review-delta.md) and [trigger audit](ci-trigger-adjustment-20261008.json)
+record owner authorization, unchanged jobs and unresolved historical ci.yml pin.
+Task CI no longer treated as untriggered by design; actual new-head result is
+required. [Exact pre-trigger provenance](post-merge-provenance-at-9fde3e5.json)
+and existing NOT RUN/local PASS receipts remain historical, not current-head claims.

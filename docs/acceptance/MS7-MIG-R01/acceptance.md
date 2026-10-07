@@ -92,3 +92,12 @@ Local FAIL_ENVIRONMENT remains separate from full successful reviewed-head CI.
 [pre-merge snapshot-review](snapshot-review-at-e510744.json) preserve their PENDING wording.
 
 Current post-merge record amendment is [draft PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → integration, Refs #28. Review its exact live HEAD; original approvals and owner-reported e510744 confirmation do not automatically approve this amendment.
+
+## Current PR47 CI condition
+
+Owner authorized integration triggers only; [reviewer delta](pr47-review-delta.md)
+and [exact trigger/pin conflict](ci-trigger-adjustment-20261008.json).
+Original MIG-G0/baseline acceptance retained. Current task amendment cannot be
+accepted/merged with failing strict R02A historical ci.yml pin. Human resolution
+of the pin compatibility and successful exact-head CI are required; no pin/test
+rewrite or automatic reviewer approval. R03 target verification not started.

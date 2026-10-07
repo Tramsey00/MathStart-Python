@@ -1,0 +1,45 @@
+{
+  "task": "MS7-MIG-R01",
+  "authorization": "Direct owner narrow extension: branch filters existing .github/workflows/ci.yml only for integration, keeping main; record actual conflicts and preserve historical pins/tests.",
+  "prior_PR47_head": "9fde3e53deba29b08574c41539e68b4d43e7a6b4",
+  "PR47_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "integration_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "configuration_validation": {
+    "result": "PASS",
+    "method": "Exact byte comparison: only two existing inline branch arrays extended; complete jobs suffix byte-identical. No YAML parser installed/new dependency used. Actual GitHub parsing/run checked externally.",
+    "pull_request_bases": [
+      "main",
+      "ms7-mig-react-fastapi"
+    ],
+    "push_branches": [
+      "main",
+      "ms7-mig-react-fastapi"
+    ],
+    "jobs_unchanged": true,
+    "jobs_sha256": "06e75af67a0108db610ee2a774092b98f02b167049ad340ff8da43f731d7c321",
+    "unchanged_original_input_files_except_four_explicit_source_changes": 1022
+  },
+  "workflow_digests": {
+    "before": "1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+    "after": "e5e85afeee397ee2348b3a2020915646729b12b1a054d4b335ac62da5e3e4dc1"
+  },
+  "pin_conflict": {
+    "status": "CONFIRMED / UNRESOLVED",
+    "historical_manifest": "specs/api/candidate-manifest-v1.json",
+    "path": ".github/workflows/ci.yml",
+    "expected_sha256": "1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+    "current_sha256": "e5e85afeee397ee2348b3a2020915646729b12b1a054d4b335ac62da5e3e4dc1",
+    "test": "tests/test_r02a_contract.py:69-77 / HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts",
+    "local_command": "python -m unittest discover -s tests -p test_r02a_contract.py",
+    "exit_code": 1,
+    "tests_run": 30,
+    "failures": 1,
+    "classification": "Failure introduced by explicitly authorized trigger-only change against an unchanged historical whole-file pin. No domain/DTO/job change. Preserved existing strict check; not waived.",
+    "pin_and_test_preserved": true,
+    "decision_required": "Human decision on additive current verification/provenance compatibility with historical whole-file pin. No pin rewrite, test relaxation or skip authorized in this scope."
+  },
+  "scope": "Only R01 post-merge records and two CI trigger filters; target verification remains MS7-MIG-R03; no R02/I01/R03 implementation.",
+  "current_PR_head_CI": "PENDING — actual CI run/head/checkout recorded externally in PR47 and later receipt; expected R02A pin failure is not concealed.",
+  "approval": "New final head requires independent reviewer approval; no automatic transfer."
+}
