@@ -1,4 +1,19 @@
 /* Общие элементы интерактивных графиков: поле, ползунки, свойства и значения. */
+/* Два согласованных интерактива повторяют размеры области параболы 8.6.6. */
+.ms-lesson-page .ms-graph-lab--aligned canvas {
+  display: block;
+  width: 100%;
+  height: 500px;
+  min-height: 500px;
+  background: #ffffff;
+  touch-action: none;
+}
+@media (max-width: 620px) {
+  .ms-lesson-page .ms-graph-lab--aligned canvas {
+    height: 370px;
+    min-height: 370px;
+  }
+}
 .ms-lesson-page .ms-live-formula {
   display: inline-flex;
   align-items: center;

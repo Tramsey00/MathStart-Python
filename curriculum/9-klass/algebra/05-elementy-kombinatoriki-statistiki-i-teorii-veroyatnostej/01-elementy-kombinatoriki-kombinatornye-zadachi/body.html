@@ -187,7 +187,7 @@
     <div class="ms-formula-grid ms-card-grid ms-columns-2">
       <div class="ms-formula-card ms-card">
         <div class="ms-formula-line">
-          <span class="ms-formula-prefix">A<sub>n</sub><sup>k</sup> =</span>
+          <span class="ms-formula-prefix"><span class="ms-indexed">A<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span> =</span>
           <span class="ms-frac">
             <span class="ms-num">n!</span>
             <span class="ms-den">(n−k)!</span>
@@ -197,7 +197,7 @@
       </div>
       <div class="ms-formula-card ms-card">
         <div class="ms-formula-line">
-          <span class="ms-formula-prefix">A<sub>n</sub><sup>k</sup> =</span>
+          <span class="ms-formula-prefix"><span class="ms-indexed">A<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span> =</span>
           <span>n(n−1)…(n−k+1)</span>
         </div>
         <span class="ms-card-text">Такая запись удобна для быстрого вычисления без полного раскрытия факториалов.</span>
@@ -210,7 +210,7 @@
       <div class="ms-math-box">
         <div class="ms-math-row">Капитана можно выбрать 8 способами.</div>
         <div class="ms-math-row">После этого заместителя — 7 способами.</div>
-        <div class="ms-math-row">A<sub>8</sub><sup>2</sup>=8·7=56.</div>
+        <div class="ms-math-row"><span class="ms-indexed">A<span class="ms-index-stack"><sub>8</sub><sup>2</sup></span></span>=8·7=56.</div>
       </div>
       <strong>Ответ: 56 способов.</strong>
     </div>
@@ -221,7 +221,7 @@
     <p class="ms-text"><strong>Сочетание из n элементов по k</strong> — выбор k различных элементов из n, при котором порядок выбранных элементов не имеет значения.</p>
     <div class="ms-rule-box">
       <strong>
-        C<sub>n</sub><sup>k</sup>=
+        <span class="ms-indexed">C<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span>=
         <span class="ms-frac">
           <span class="ms-num">n!</span>
           <span class="ms-den">k!(n−k)!</span>
@@ -235,7 +235,7 @@
       <div class="ms-math-box">
         <div class="ms-math-row">Порядок выбора участников не важен.</div>
         <div class="ms-math-row">
-          C<sub>10</sub><sup>3</sup>=
+          <span class="ms-indexed">C<span class="ms-index-stack"><sub>10</sub><sup>3</sup></span></span>=
           <span class="ms-frac">
             <span class="ms-num">10!</span>
             <span class="ms-den">3!·7!</span>
@@ -255,8 +255,8 @@
       <span class="ms-example-title">Пример 8. Выбор по группам</span>
       В классе 5 девочек и 6 мальчиков. Сколькими способами можно выбрать команду из двух девочек и двух мальчиков?
       <div class="ms-math-box">
-        <div class="ms-math-row">Двух девочек выбирают C<sub>5</sub><sup>2</sup>=10 способами.</div>
-        <div class="ms-math-row">Двух мальчиков выбирают C<sub>6</sub><sup>2</sup>=15 способами.</div>
+        <div class="ms-math-row">Двух девочек выбирают <span class="ms-indexed">C<span class="ms-index-stack"><sub>5</sub><sup>2</sup></span></span>=10 способами.</div>
+        <div class="ms-math-row">Двух мальчиков выбирают <span class="ms-indexed">C<span class="ms-index-stack"><sub>6</sub><sup>2</sup></span></span>=15 способами.</div>
         <div class="ms-math-row">Выборы выполняются совместно: 10·15=150.</div>
       </div>
       <strong>Ответ: 150 способов.</strong>
@@ -292,12 +292,12 @@
           </tr>
           <tr>
             <td>Выбирают k элементов и распределяют по ролям</td>
-            <td><strong>Размещения A<sub>n</sub><sup>k</sup></strong></td>
+            <td><strong>Размещения <span class="ms-indexed">A<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span></strong></td>
             <td>Изменится ли вариант при перестановке выбранных элементов?</td>
           </tr>
           <tr>
             <td>Просто выбирают группу из k элементов</td>
-            <td><strong>Сочетания C<sub>n</sub><sup>k</sup></strong></td>
+            <td><strong>Сочетания <span class="ms-indexed">C<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span></strong></td>
             <td>Порядок выбранных элементов не важен?</td>
           </tr>
         </tbody>
@@ -308,21 +308,21 @@
 
   <section class="ms-section-soft" id="lesson-section-10">
     <h2>10. Типичные ошибки</h2>
-    <div class="ms-error-grid ms-card-grid ms-columns-2">
+    <div class="ms-error-grid ms-card-grid ms-columns-2 ms-balanced-four">
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Складывают этапы выбора</strong>
+        <h3 class="ms-card-title">Складывают этапы выбора</h3>
         <p class="ms-card-text">Если нужно выполнить несколько последовательных действий, количества вариантов перемножают.</p>
       </div>
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Не учитывают порядок</strong>
+        <h3 class="ms-card-title">Не учитывают порядок</h3>
         <p class="ms-card-text">Пары «капитан — заместитель» и «заместитель — капитан» являются разными назначениями.</p>
       </div>
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Считают один набор несколько раз</strong>
+        <h3 class="ms-card-title">Считают один набор несколько раз</h3>
         <p class="ms-card-text">При выборе обычной команды порядок перечисления участников не создаёт новый вариант.</p>
       </div>
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Забывают ограничения на цифры</strong>
+        <h3 class="ms-card-title">Забывают ограничения на цифры</h3>
         <p class="ms-card-text">Многозначное число не начинается с нуля, а запрет повторений уменьшает число вариантов на следующих позициях.</p>
       </div>
     </div>
@@ -386,7 +386,7 @@
         <summary>Показать решение</summary>
         <div>
           <p>Должности различаются, поэтому порядок важен.</p>
-          <p>A<sub>9</sub><sup>2</sup>=9·8=72.</p>
+          <p><span class="ms-indexed">A<span class="ms-index-stack"><sub>9</sub><sup>2</sup></span></span>=9·8=72.</p>
           <p><strong>Ответ: 72 назначения.</strong></p>
         </div>
       </details>
@@ -398,7 +398,7 @@
         <summary>Показать решение</summary>
         <div>
           <p>Порядок участников не важен.</p>
-          <p>C<sub>12</sub><sup>4</sup>=12!/(4!·8!)=495.</p>
+          <p><span class="ms-indexed">C<span class="ms-index-stack"><sub>12</sub><sup>4</sup></span></span>=12!/(4!·8!)=495.</p>
           <p><strong>Ответ: 495 способов.</strong></p>
         </div>
       </details>
@@ -409,7 +409,7 @@
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div>
-          <p>Двух девочек выбирают C<sub>5</sub><sup>2</sup>=10 способами.</p>
+          <p>Двух девочек выбирают <span class="ms-indexed">C<span class="ms-index-stack"><sub>5</sub><sup>2</sup></span></span>=10 способами.</p>
           <p>Одного мальчика выбирают 4 способами.</p>
           <p>10·4=40.</p>
           <p><strong>Ответ: 40 способов.</strong></p>
@@ -460,7 +460,7 @@
       </div>
     </div>
     <div class="ms-answer-box"><strong>Финальный чек:</strong> формула должна отражать смысл задачи, а не выбираться только по словам «выбрать» или «расположить».</div>
-    <p class="ms-text" style="margin-top:18px">В следующей теме перейдём к статистике: научимся упорядочивать данные, находить среднее значение, медиану, размах и представлять информацию в таблицах и диаграммах.</p>
+    <div class="ms-note ms-next-topic"><h3 class="ms-card-title">Далее</h3><p class="ms-text">В следующей теме перейдём к статистике: научимся упорядочивать данные, находить среднее значение, медиану, размах и представлять информацию в таблицах и диаграммах.</p></div>
   </section>
 
   <div class="ms-nav">

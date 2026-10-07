@@ -77,6 +77,7 @@ class Command(BaseCommand):
             "Страницы сайта: "
             f"новых "
             f"{structure['pages_created']}."
+            f" Снято с публикации: {structure['pages_unpublished']}."
         )
 
         self.stdout.write(

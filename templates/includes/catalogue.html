@@ -1,31 +1,71 @@
-<div class="ms-support-page ms-catalogue">
-  <section>
-    <h2>Основные разделы</h2>
-    <ul class="ms-catalogue-links">
-      {% for item in catalogue_pages %}
-        <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+<form class="ms-catalogue-form" method="get" action="/karta-sajta/" role="search" aria-label="Поиск учебных тем">
+  <div class="ms-catalogue-search">
+    <label for="catalogue-q">Название темы</label>
+    <input type="search" id="catalogue-q" name="q" value="{{ catalogue_query }}" placeholder="Например, дроби или уравнения">
+  </div>
+  <div class="ms-catalogue-filters">
+    <div>
+      <label for="catalogue-grade">Класс</label>
+      <select id="catalogue-grade" name="grade">
+        <option value="">Все классы</option>
+        {% for grade in catalogue_grades %}
+          <option value="{{ grade.slug }}"{% if catalogue_grade == grade.slug %} selected{% endif %}>{{ grade.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="catalogue-subject">Предмет</label>
+      <select id="catalogue-subject" name="subject" aria-describedby="catalogue-filter-help">
+        <option value="">Все предметы</option>
+        {% for subject in catalogue_subjects %}
+          <option value="{{ subject.slug }}"{% if catalogue_subject == subject.slug %} selected{% endif %}>{{ subject.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit">Показать темы</button>
+    <a class="ms-catalogue-reset" href="/karta-sajta/">Сбросить всё</a>
+  </div>
+  <p id="catalogue-filter-help" class="ms-catalogue-help">Выберите класс и нажмите «Показать темы», чтобы уточнить список предметов.</p>
+</form>
+<p class="ms-catalogue-count" role="status">Найдено тем: <strong>{{ catalogue_count }}</strong></p>
+{% if not catalogue_topics %}
+  <section class="ms-catalogue-empty">
+    <h2>Ничего не найдено</h2>
+    <p>Попробуйте другое название темы или сбросьте поиск и фильтры.</p>
+  </section>
+{% elif catalogue_query %}
+  <section aria-label="Результаты поиска">
+    <ul class="ms-catalogue-results">
+      {% for topic in catalogue_topics %}
+        <li><a href="{{ topic.get_absolute_url }}">
+          <span class="ms-catalogue-topic-title">{{ topic.title }}</span>
+          <span class="ms-catalogue-context">{{ topic.grade.title|default:'Без класса' }} · {{ topic.subject.title|default:'Математика' }} · {{ topic.section.title|default:'Темы' }}</span>
+        </a></li>
       {% endfor %}
     </ul>
   </section>
+{% else %}
   {% regroup catalogue_topics by grade as grades %}
   {% for grade in grades %}
-    <section>
-      <h2>{{ grade.grouper.title|default:'Учебные темы' }}</h2>
+    <section class="ms-catalogue-grade">
+      <h2>{{ grade.grouper.title|default:'Учебные темы' }} <span>{{ grade.list|length }} тем</span></h2>
       {% regroup grade.list by subject as subjects %}
       {% for subject in subjects %}
-        <h3>{{ subject.grouper.title|default:'Математика' }}</h3>
-        {% regroup subject.list by section as sections %}
-        {% for section in sections %}
-          <details class="ms-catalogue-section">
-            <summary>{{ section.grouper.title|default:'Темы' }} <span>{{ section.list|length }}</span></summary>
-            <ul>
-              {% for topic in section.list %}
-                <li><a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </details>
-        {% endfor %}
+        <section class="ms-catalogue-subject">
+          <h3>{{ subject.grouper.title|default:'Математика' }}</h3>
+          {% regroup subject.list by section as sections %}
+          {% for section in sections %}
+            <details class="ms-catalogue-section"{% if catalogue_grade or catalogue_subject %} open{% endif %}>
+              <summary>{{ section.grouper.title|default:'Темы' }} <span>{{ section.list|length }}</span></summary>
+              <ul>
+                {% for topic in section.list %}
+                  <li><a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% endfor %}
+        </section>
       {% endfor %}
     </section>
   {% endfor %}
-</div>
+{% endif %}

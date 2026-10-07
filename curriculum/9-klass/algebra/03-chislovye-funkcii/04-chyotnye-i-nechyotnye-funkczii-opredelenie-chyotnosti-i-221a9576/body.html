@@ -21,7 +21,7 @@
   <section class="ms-section" id="theory">
     <h2>1. Что означает чётность функции</h2>
     <p class="ms-text">Чётность и нечётность описывают связь между значениями функции в противоположных точках x и −x. Исследование всегда начинается с области определения.</p>
-    <div class="ms-card-grid">
+    <div class="ms-card-grid ms-balanced-four">
       <div class="ms-card">
         <h3 class="ms-card-title">Чётная функция</h3>
         <p class="ms-card-text">Для каждого допустимого x выполняется равенство f(−x)=f(x). Противоположным аргументам соответствуют одинаковые значения.</p>
@@ -135,7 +135,7 @@
 </svg>
       </div>
     </div>
-    <div class="ms-card-grid">
+    <div class="ms-card-grid ms-balanced-four">
       <div class="ms-card"><h3 class="ms-card-title">Чётная функция</h3><p class="ms-card-text">График симметричен относительно оси Oy. Если точка (x;y) лежит на графике, то точка (−x;y) тоже лежит на нём.</p></div>
       <div class="ms-card"><h3 class="ms-card-title">Нечётная функция</h3><p class="ms-card-text">График симметричен относительно начала координат. Вместе с точкой (x;y) график содержит точку (−x;−y).</p></div>
     </div>
@@ -160,14 +160,14 @@
       Исследуем f(x)=x⁴−3x²+2. Область определения — ℝ, она симметрична.
       <div class="ms-math-box">
         <div class="ms-math-row">f(−x)=(−x)⁴−3(−x)²+2;</div>
-        <div class="ms-math-row">f(−x)=x⁴−3x²+2=f(x).</div>
+        <div class="ms-math-row" style="max-width:100%;overflow-x:auto">f(−x)=x⁴−3x²+2=f(x).</div>
       </div>
       <div class="ms-answer-box"><strong>Функция чётная.</strong></div>
     </div>
     <div class="ms-example">
       <span class="ms-example-title">Пример 3. Дробно-рациональная функция</span>
       Исследуем f(x)=(x²+1)/(x²−4). Область определения: x≠−2 и x≠2. Она симметрична.
-      <div class="ms-math-box"><div class="ms-math-row">f(−x)=((−x)²+1)/((−x)²−4)=(x²+1)/(x²−4)=f(x).</div></div>
+      <div class="ms-math-box"><div class="ms-math-row" style="max-width:100%;overflow-x:auto">f(−x)=((−x)²+1)/((−x)²−4)=(x²+1)/(x²−4)=f(x).</div></div>
       <div class="ms-answer-box"><strong>Функция чётная.</strong></div>
     </div>
     <div class="ms-rule-box">Многочлен, содержащий только чётные степени x и свободный член, является чётной функцией. Но это удобный признак, а не замена общей проверки.</div>
@@ -179,15 +179,15 @@
       <span class="ms-example-title">Пример 4. Многочлен с нечётными степенями</span>
       Исследуем g(x)=2x³−5x. Область определения — ℝ.
       <div class="ms-math-box">
-        <div class="ms-math-row">g(−x)=2(−x)³−5(−x);</div>
-        <div class="ms-math-row">g(−x)=−2x³+5x=−(2x³−5x)=−g(x).</div>
+        <div class="ms-math-row" style="max-width:100%;overflow-x:auto">g(−x)=2(−x)³−5(−x);</div>
+        <div class="ms-math-row" style="max-width:100%;overflow-x:auto">g(−x)=−2x³+5x=−(2x³−5x)=−g(x).</div>
       </div>
       <div class="ms-answer-box"><strong>Функция нечётная.</strong></div>
     </div>
     <div class="ms-example">
       <span class="ms-example-title">Пример 5. Обратная пропорциональность</span>
       Для h(x)=1/x область определения равна (−∞;0)∪(0;+∞), она симметрична.
-      <div class="ms-math-box"><div class="ms-math-row">h(−x)=1/(−x)=−1/x=−h(x).</div></div>
+      <div class="ms-math-box"><div class="ms-math-row" style="max-width:100%;overflow-x:auto">h(−x)=1/(−x)=−1/x=−h(x).</div></div>
       <div class="ms-answer-box"><strong>Функция нечётная.</strong></div>
     </div>
     <div class="ms-rule-box">Многочлен без свободного члена, содержащий только нечётные степени x, является нечётной функцией.</div>
@@ -201,7 +201,7 @@
       <div class="ms-math-box">
         <div class="ms-math-row">f(−x)=(−x)²+(−x)=x²−x;</div>
         <div class="ms-math-row">f(−x)≠x²+x=f(x);</div>
-        <div class="ms-math-row">f(−x)≠−x²−x=−f(x).</div>
+        <div class="ms-math-row" style="max-width:100%;overflow-x:auto">f(−x)≠−x²−x=−f(x).</div>
       </div>
       <div class="ms-answer-box"><strong>Функция ни чётная, ни нечётная.</strong></div>
     </div>
@@ -264,12 +264,12 @@
     <h2>11. Три вопроса перед вердиктом</h2>
     <p class="ms-text">Не пытайтесь определять чётность только по внешнему виду формулы. Последовательно ответьте на три вопроса.</p>
     <div class="ms-card-grid ms-columns-3">
-      <div class="ms-verdict-card ms-card"><strong class="ms-card-title">1. D(f) симметрична?</strong><span class="ms-card-text">Если нет, исследование закончено: функция ни чётная, ни нечётная.</span></div>
-      <div class="ms-verdict-card ms-card"><strong class="ms-card-title">2. Чему равно f(−x)?</strong><span class="ms-card-text">Подставьте −x вместо каждого аргумента и полностью упростите выражение.</span></div>
-      <div class="ms-verdict-card ms-card"><strong class="ms-card-title">3. С чем совпал результат?</strong><span class="ms-card-text">С f(x) — чётная; с −f(x) — нечётная; ни с чем — третий случай.</span></div>
+      <div class="ms-verdict-card ms-card"><h3 class="ms-card-title">1. D(f) симметрична?</h3><span class="ms-card-text">Если нет, исследование закончено: функция ни чётная, ни нечётная.</span></div>
+      <div class="ms-verdict-card ms-card"><h3 class="ms-card-title">2. Чему равно f(−x)?</h3><span class="ms-card-text">Подставьте −x вместо каждого аргумента и полностью упростите выражение.</span></div>
+      <div class="ms-verdict-card ms-card"><h3 class="ms-card-title">3. С чем совпал результат?</h3><span class="ms-card-text">С f(x) — чётная; с −f(x) — нечётная; ни с чем — третий случай.</span></div>
     </div>
     <div class="ms-answer-box"><strong>Финальный ориентир:</strong> чётная функция зеркальна относительно Oy, нечётная — относительно начала координат.</div>
-    <p class="ms-text" style="margin-top:18px">В следующей теме рассмотрим степенную функцию с натуральным показателем и увидим, как чётность показателя определяет форму её графика.</p>
+    <div class="ms-note ms-next-topic"><h3 class="ms-card-title">Далее</h3><p class="ms-text">В следующей теме рассмотрим степенную функцию с натуральным показателем и увидим, как чётность показателя определяет форму её графика.</p></div>
   </section>
 
   <div class="ms-nav">

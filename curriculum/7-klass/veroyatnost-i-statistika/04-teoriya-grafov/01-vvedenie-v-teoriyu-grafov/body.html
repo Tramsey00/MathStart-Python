@@ -24,9 +24,9 @@
     <p class="ms-text">Во многих задачах важны не размеры и внешний вид объектов, а то, <strong>какие объекты связаны между собой</strong>. Города соединяют дороги, станции — маршруты, страницы сайта — ссылки, а людей — знакомства. Такие отношения удобно изображать графом.</p>
     <div class="ms-rule-box"><strong>Граф</strong> — это схема, состоящая из вершин и рёбер. Вершины обозначают объекты, а рёбра показывают связи между ними.</div>
     <div class="ms-definition-grid ms-card-grid ms-columns-3">
-      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Вершина</strong><p class="ms-card-text">Точка графа. Она представляет один объект: город, человека, станцию, страницу или состояние.</p></div>
-      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Ребро</strong><p class="ms-card-text">Линия, соединяющая две вершины. Она обозначает связь, дорогу, переход или другое отношение.</p></div>
-      <div class="ms-definition-card ms-card"><strong class="ms-card-title">Смежные вершины</strong><p class="ms-card-text">Две вершины называют смежными, если они соединены одним ребром.</p></div>
+      <div class="ms-definition-card ms-card"><h3 class="ms-card-title">Вершина</h3><p class="ms-card-text">Точка графа. Она представляет один объект: город, человека, станцию, страницу или состояние.</p></div>
+      <div class="ms-definition-card ms-card"><h3 class="ms-card-title">Ребро</h3><p class="ms-card-text">Линия, соединяющая две вершины. Она обозначает связь, дорогу, переход или другое отношение.</p></div>
+      <div class="ms-definition-card ms-card"><h3 class="ms-card-title">Смежные вершины</h3><p class="ms-card-text">Две вершины называют смежными, если они соединены одним ребром.</p></div>
     </div>
   </section>
 
@@ -43,7 +43,7 @@
           <rect x="625" y="55" width="240" height="410" rx="22" fill="#ffffff" stroke="#dbeafe" stroke-width="2"/>
 
           <text x="315" y="92" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">Граф маршрутов</text>
-          <text x="745" y="92" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">Что обозначают вершины</text>
+          <text x="745" y="83" text-anchor="middle" font-size="20" font-weight="800" fill="#111827"><tspan x="745" dy="0">Что обозначают </tspan><tspan x="745" dy="23">вершины</tspan></text>
 
           <g stroke="#94a3b8" stroke-width="6" stroke-linecap="round">
             <line x1="135" y1="260" x2="300" y2="130"/>
@@ -135,7 +135,7 @@
 
     <div class="ms-task">
       <p><strong>Задание 1.</strong> Назовите вершины и рёбра графа, в котором вершины A, B, C, D, а рёбра AB, AC, BC и CD.</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p>Вершины: <strong>A, B, C, D</strong>. Рёбра: <strong>AB, AC, BC, CD</strong>.</p></div>
@@ -143,7 +143,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 2.</strong> Какие вершины смежны с вершиной B, если рёбра графа — AB, BC, BD и CD?</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p>С вершиной B соединены рёбра AB, BC и BD. Поэтому смежные с B вершины: <strong>A, C и D</strong>.</p></div>
@@ -151,7 +151,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 3.</strong> Можно ли считать точки пересечения двух рёбер вершиной, если на рисунке она не отмечена и в условии не названа?</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p><strong>Нет.</strong> Обычное пересечение линий на рисунке не становится вершиной автоматически. Вершина должна быть явно обозначена.</p></div>
@@ -159,7 +159,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 4.</strong> В классе четыре ученика. Ребро соединяет двух учеников, если они обменялись книгами. Что обозначают вершины и рёбра?</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p>Вершины обозначают <strong>учеников</strong>, а рёбра — <strong>факт обмена книгами между двумя учениками</strong>.</p></div>
@@ -167,7 +167,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 5.</strong> У графа 6 вершин и 7 рёбер. Изменится ли граф, если его вершины расположить на рисунке иначе, но сохранить все соединения?</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p><strong>Нет.</strong> Форма рисунка может измениться, но граф остаётся тем же, если сохраняются вершины и пары соединённых вершин.</p></div>
@@ -175,7 +175,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 6.</strong> По схеме из теории укажите два разных маршрута из A в E.</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p>Например: <strong>A–C–E</strong> и <strong>A–B–D–E</strong>. Возможен также маршрут A–B–C–E.</p></div>
@@ -183,7 +183,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 7.</strong> В графе есть рёбра MN, NP, PQ и MQ. Соседствуют ли вершины M и P?</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p><strong>Нет.</strong> Ребра MP нет. Между M и P существует путь M–N–P, но смежными эти вершины не являются.</p></div>
@@ -191,7 +191,7 @@
     </div>
     <div class="ms-task">
       <p><strong>Задание 8.</strong> Постройте граф для трёх станций A, B, C, если есть прямые дороги A–B и B–C, а дороги A–C нет.</p>
-      
+
       <details class="ms-answer">
         <summary>Показать решение</summary>
         <div><p>Нужно изобразить три вершины A, B, C и провести два ребра: <strong>AB</strong> и <strong>BC</strong>. Получится цепочка A–B–C.</p></div>
@@ -199,7 +199,7 @@
     </div>
   </section>
 
-  <p class="ms-text" style="margin-top:24px;">Теперь вы умеете читать основу графа. В следующей теме будем считать, сколько рёбер подходит к каждой вершине.</p>
+  <div class="ms-note ms-next-topic"><h3 class="ms-card-title">Далее</h3><p class="ms-text">Теперь вы умеете читать основу графа. В следующей теме будем считать, сколько рёбер подходит к каждой вершине.</p></div>
 
   <div class="ms-nav">
     <a class="ms-btn ms-btn-secondary" href="/prakticheskaya-rabota-sluchajnaya-izmenchivost/">Предыдущая тема</a>

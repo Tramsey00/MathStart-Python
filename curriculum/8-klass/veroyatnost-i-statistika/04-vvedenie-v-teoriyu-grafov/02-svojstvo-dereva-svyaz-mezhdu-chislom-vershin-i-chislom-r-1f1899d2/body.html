@@ -34,11 +34,11 @@
   <section class="ms-section-soft" id="lesson-section-2">
     <h2>2. Почему формула работает</h2>
     <p class="ms-text">Начнём с одной вершины. У неё нет рёбер. Чтобы добавить новую вершину и сохранить дерево, её нужно соединить с уже построенной частью ровно одним новым ребром.</p>
-    <div class="ms-step-grid ms-card-grid ms-columns-4">
-      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Одна вершина</strong><span class="ms-card-text">V = 1, E = 0. Равенство E = V − 1 выполняется.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Добавили вершину</strong><span class="ms-card-text">Одновременно добавляем одно ребро, чтобы новая вершина была связана с деревом.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Повторяем построение</strong><span class="ms-card-text">При каждом шаге V и E увеличиваются на единицу.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Разность сохраняется</strong><span class="ms-card-text">Число вершин всё время остаётся на единицу больше числа рёбер.</span></div>
+    <div class="ms-step-grid ms-card-grid ms-columns-4 ms-balanced-four ms-sequence-grid">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><h3 class="ms-card-title">Одна вершина</h3><span class="ms-card-text">V = 1, E = 0. Равенство E = V − 1 выполняется.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><h3 class="ms-card-title">Добавили вершину</h3><span class="ms-card-text">Одновременно добавляем одно ребро, чтобы новая вершина была связана с деревом.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><h3 class="ms-card-title">Повторяем построение</h3><span class="ms-card-text">При каждом шаге V и E увеличиваются на единицу.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><h3 class="ms-card-title">Разность сохраняется</h3><span class="ms-card-text">Число вершин всё время остаётся на единицу больше числа рёбер.</span></div>
     </div>
     <div class="ms-rule-box">Если новую вершину не соединить ни с чем, пропадёт связность. Если соединить её двумя рёбрами с построенным деревом, появится цикл. Поэтому требуется ровно одно ребро.</div>
   </section>
@@ -68,25 +68,25 @@
     <div class="ms-figure">
       <p class="ms-figure-title">Три варианта первого выбора и два варианта второго</p>
       <div class="ms-svg-wrap">
-        <svg class="ms-svg" viewBox="0 0 940 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Дерево вариантов: три первых выбора и два продолжения для каждого, всего шесть результатов">
-          <rect x="18" y="18" width="904" height="434" rx="26" fill="#f8fbff" stroke="#dbeafe" stroke-width="2"/>
+        <svg xmlns="http://www.w3.org/2000/svg" class="ms-svg" viewBox="0 0 940 470" role="img" aria-label="Дерево вариантов: три первых выбора и два продолжения для каждого, всего шесть результатов">
+          <rect x="18" y="18" width="904" height="434" rx="26" fill="#f8fbff" stroke="#dbeafe" stroke-width="2" />
 
           <g stroke="#64748b" stroke-width="4" stroke-linecap="round">
-            <line x1="105" y1="235" x2="335" y2="100"/><line x1="105" y1="235" x2="335" y2="235"/><line x1="105" y1="235" x2="335" y2="370"/>
-            <line x1="365" y1="100" x2="680" y2="65"/><line x1="365" y1="100" x2="680" y2="135"/>
-            <line x1="365" y1="235" x2="680" y2="200"/><line x1="365" y1="235" x2="680" y2="270"/>
-            <line x1="365" y1="370" x2="680" y2="335"/><line x1="365" y1="370" x2="680" y2="405"/>
+            <line x1="105" y1="235" x2="335" y2="100" /><line x1="105" y1="235" x2="335" y2="235" /><line x1="105" y1="235" x2="335" y2="370" />
+            <line x1="365" y1="100" x2="680" y2="65" /><line x1="365" y1="100" x2="680" y2="135" />
+            <line x1="365" y1="235" x2="680" y2="200" /><line x1="365" y1="235" x2="680" y2="270" />
+            <line x1="365" y1="370" x2="680" y2="335" /><line x1="365" y1="370" x2="680" y2="405" />
           </g>
 
           <g fill="#ffffff" stroke="#2563eb" stroke-width="4">
-            <circle cx="105" cy="235" r="18"/>
-            <circle cx="350" cy="100" r="18"/><circle cx="350" cy="235" r="18"/><circle cx="350" cy="370" r="18"/>
+            <circle cx="105" cy="235" r="18" />
+            <circle cx="350" cy="100" r="18" /><circle cx="350" cy="235" r="18" /><circle cx="350" cy="370" r="18" />
           </g>
 
           <g fill="#ffffff" stroke="#7c3aed" stroke-width="4">
-            <circle cx="700" cy="65" r="17"/><circle cx="700" cy="135" r="17"/>
-            <circle cx="700" cy="200" r="17"/><circle cx="700" cy="270" r="17"/>
-            <circle cx="700" cy="335" r="17"/><circle cx="700" cy="405" r="17"/>
+            <circle cx="700" cy="65" r="17" /><circle cx="700" cy="135" r="17" />
+            <circle cx="700" cy="200" r="17" /><circle cx="700" cy="270" r="17" />
+            <circle cx="700" cy="335" r="17" /><circle cx="700" cy="405" r="17" />
           </g>
 
           <g font-size="17" font-weight="800" fill="#111827">
@@ -102,7 +102,7 @@
 
           <text x="240" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">3 первых выбора</text>
           <text x="520" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">по 2 продолжения</text>
-          <rect x="785" y="185" width="105" height="96" rx="20" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/>
+          <rect x="772.276" y="185.000" width="130.875" height="96.000" rx="20" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2" />
           <text x="837.5" y="220" text-anchor="middle" font-size="16" font-weight="700" fill="#5b21b6">Всего</text>
           <text x="837.5" y="255" text-anchor="middle" font-size="27" font-weight="900" fill="#6d28d9">3 · 2 = 6</text>
         </svg>
@@ -113,11 +113,11 @@
 
   <section class="ms-section-soft" id="lesson-section-6">
     <h2>6. Как применять правило умножения</h2>
-    <div class="ms-step-grid ms-card-grid ms-columns-4">
-      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Разделите выбор на этапы</strong><span class="ms-card-text">Определите, что выбирается сначала, а что затем.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Посчитайте ветви</strong><span class="ms-card-text">Найдите число вариантов на каждом последовательном этапе.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Перемножьте числа</strong><span class="ms-card-text">Если число продолжений одинаково для каждого предыдущего выбора, примените произведение.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Проверьте листья</strong><span class="ms-card-text">Количество конечных путей должно совпасть с полученным произведением.</span></div>
+    <div class="ms-step-grid ms-card-grid ms-columns-4 ms-balanced-four ms-sequence-grid">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><h3 class="ms-card-title">Разделите выбор на этапы</h3><span class="ms-card-text">Определите, что выбирается сначала, а что затем.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><h3 class="ms-card-title">Посчитайте ветви</h3><span class="ms-card-text">Найдите число вариантов на каждом последовательном этапе.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><h3 class="ms-card-title">Перемножьте числа</h3><span class="ms-card-text">Если число продолжений одинаково для каждого предыдущего выбора, примените произведение.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><h3 class="ms-card-title">Проверьте листья</h3><span class="ms-card-text">Количество конечных путей должно совпасть с полученным произведением.</span></div>
     </div>
     <div class="ms-note">Если из разных ветвей выходит неодинаковое число продолжений, сначала считают варианты внутри каждой ветви, а затем складывают полученные количества.</div>
   </section>
@@ -152,9 +152,9 @@
   <section class="ms-section" id="lesson-section-9">
     <h2>Финальный чек-ап: посчитано без перебора</h2>
     <div class="ms-final-grid">
-      <div class="ms-final-card ms-card"><strong class="ms-card-title">Для дерева</strong><span class="ms-card-text">E = V − 1, поэтому V = E + 1. Формула связывает общее число вершин и рёбер.</span></div>
-      <div class="ms-final-card ms-card"><strong class="ms-card-title">Для последовательных выборов</strong><span class="ms-card-text">Количество вариантов на этапах перемножают, если каждое продолжение доступно после каждого предыдущего выбора.</span></div>
-      <div class="ms-final-card ms-card"><strong class="ms-card-title">Для неодинаковых ветвей</strong><span class="ms-card-text">Сначала считают варианты в каждой ветви, затем складывают количества непересекающихся групп.</span></div>
+      <div class="ms-final-card ms-card"><h3 class="ms-card-title">Для дерева</h3><span class="ms-card-text">E = V − 1, поэтому V = E + 1. Формула связывает общее число вершин и рёбер.</span></div>
+      <div class="ms-final-card ms-card"><h3 class="ms-card-title">Для последовательных выборов</h3><span class="ms-card-text">Количество вариантов на этапах перемножают, если каждое продолжение доступно после каждого предыдущего выбора.</span></div>
+      <div class="ms-final-card ms-card"><h3 class="ms-card-title">Для неодинаковых ветвей</h3><span class="ms-card-text">Сначала считают варианты в каждой ветви, затем складывают количества непересекающихся групп.</span></div>
     </div>
   </section>
 

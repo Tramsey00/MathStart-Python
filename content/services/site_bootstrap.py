@@ -930,6 +930,15 @@ def sync_structure(source):
             "redirects_created"
         ] += int(created)
 
+    # Explicit retirement only: never infer deletion from missing source files.
+    # Keeping rows preserves existing references while allowing 404 middleware
+    # to resolve the permanent redirects seeded above.
+    counts["pages_unpublished"] = ContentPage.objects.filter(
+        slug__in=("materialy", "pamyatki"),
+        page_type=ContentPage.PageType.STATIC,
+        is_published=True,
+    ).update(is_published=False)
+
     return counts
 
 

@@ -1400,7 +1400,75 @@
 }
 .ms-lesson-page .ms-step-card {
   position: relative;
-  padding-top: 56px;
+  padding-top: 18px;
+}
+
+/* D025/D072/D094/D095: separate the existing title, copy and step badge. */
+.ms-lesson-page .ms-example > .ms-example-title {
+  margin-top: 0;
+}
+.ms-lesson-page .ms-card > .ms-card-title,
+.ms-lesson-page .ms-card > .ms-card-text {
+  display: block;
+}
+.ms-lesson-page .ms-step-card > .ms-step-number {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+/* Numbered sequences keep their DOM order across rows and on narrow screens. */
+.ms-lesson-page .ms-sequence-grid,
+.ms-lesson-page .ms-card-grid.ms-sequence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+.ms-lesson-page .ms-sequence-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.ms-lesson-page .ms-sequence-grid > .ms-card {
+  min-width: 0;
+  min-height: 0;
+  padding: 18px;
+  text-align: left;
+}
+.ms-lesson-page .ms-sequence-grid > .ms-card:not(:last-child)::after {
+  content: none;
+  display: none;
+}
+.ms-lesson-page .ms-sequence-grid > .ms-card > .ms-card-title {
+  margin-top: 10px !important;
+}
+.ms-lesson-page .ms-balanced-four,
+.ms-lesson-page .ms-card-grid.ms-balanced-four,
+.ms-lesson-page .ms-sequence-grid--four.ms-balanced-four {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ms-lesson-page .ms-flow-cards {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-balanced-four,
+.ms-lesson-page .ms-card-grid.ms-balanced-four,
+  .ms-lesson-page .ms-sequence-grid--four.ms-balanced-four {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .ms-lesson-page .ms-sequence-grid,
+  .ms-lesson-page .ms-card-grid.ms-sequence-grid,
+  .ms-lesson-page .ms-sequence-grid--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-sequence-grid,
+  .ms-lesson-page .ms-card-grid.ms-sequence-grid,
+  .ms-lesson-page .ms-sequence-grid--four {
+    grid-template-columns: 1fr;
+  }
 }
 .ms-lesson-page .ms-check-step-row span {
   color: #4b5563;
@@ -1418,3 +1486,9 @@
     vertical-align: middle;
   }
 }
+
+/* Concluding transitions and numbered rule lists share the lesson spacing. */
+.ms-lesson-page .ms-next-topic > .ms-card-title { margin:0 0 8px; }
+.ms-lesson-page .ms-next-topic > .ms-text { margin:0; }
+.ms-lesson-page .ms-algorithm-list { margin:14px 0 0; padding-left:24px; }
+.ms-lesson-page .ms-algorithm-list > li + li { margin-top:8px; }

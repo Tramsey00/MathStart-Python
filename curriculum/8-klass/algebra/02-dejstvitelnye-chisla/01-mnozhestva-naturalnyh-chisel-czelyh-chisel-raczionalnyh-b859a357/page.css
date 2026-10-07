@@ -178,3 +178,15 @@
     font-size: clamp(10.5px, 3.5vw, 13px);
   }
 }
+
+/* Подписи имеют собственные строки, N вложено в Z, Z — в Q. */
+.ms-lesson-page .ms-number-sets--nested { aspect-ratio: auto; overflow: visible; padding: 18px; }
+.ms-lesson-page .ms-number-sets--nested .ms-number-set { position: static; border-radius: 28px; padding: 18px; }
+.ms-lesson-page .ms-number-sets--nested .ms-number-set-label { position: static; transform: none; width: auto; margin: 0 0 14px; }
+.ms-lesson-page .ms-number-sets--nested .ms-number-set-letter { font-size: 32px; }
+.ms-lesson-page .ms-number-sets--nested .ms-number-set-title { font-size: 18px; }
+.ms-lesson-page .ms-number-sets--nested .ms-number-set-examples { font-size: 15px; }
+@media (max-width: 560px) {
+  .ms-lesson-page .ms-number-sets--nested,
+  .ms-lesson-page .ms-number-sets--nested .ms-number-set { padding: 10px; }
+}

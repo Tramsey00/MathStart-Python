@@ -9,18 +9,29 @@
 <body>
 {% block skip_link %}{% endblock %}
   <nav class="ms-site-header" aria-label="Основная навигация">
-    <a class="ms-site-brand" href="/">MathStart</a>
+    <a class="ms-site-brand" href="/">
+      <svg class="ms-brand-mark" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/>
+        <path d="M8 17h4l3 6 8-14" fill="none" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>MathStart</span>
+    </a>
     <div>
-      <a href="/materialy/">Материалы</a>
-      <a href="/pamyatki/">Памятки</a>
       <a href="/karta-sajta/">Все темы</a>
       <a href="{% url 'users_ui:account' %}">Личный кабинет</a>
     </div>
   </nav>
   {% block content %}{% endblock %}
   <footer class="ms-site-footer">
-    <span>MathStart · Математика для 5–10 классов</span>
-    <div><a href="/o-proekte/">О проекте</a><a href="/kontakty/">Контакты</a></div>
+    <div class="ms-footer-identity">
+      <a class="ms-footer-brand" href="/">MathStart</a>
+      <p>Математика для 5–10 классов: объяснения, примеры и самопроверка.</p>
+    </div>
+    <nav class="ms-footer-links" aria-label="Навигация в подвале">
+      <a href="/karta-sajta/">Все темы</a>
+      <a href="/o-proekte/">О проекте</a>
+      <a href="/kontakty/">Контакты</a>
+    </nav>
   </footer>
   {% block scripts %}{% endblock %}
 </body>
