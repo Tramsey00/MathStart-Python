@@ -108,3 +108,7 @@ Initial staged default whitespace check exited 1 because imported exact CRLF inp
 ## Corrected isolated candidate verification
 
 Both pin-restored checks completed with exit0: [Harness73/73](evidence/harness-after-pin-restore.txt) and [full baseline8/8](evidence/baseline-after-pin-restore.txt), including Django107/R0318/Harness73. [Exact commands/log hashes](evidence/corrected-commands.json). Source/frozen pin/preservation/link/safety validation PASS:1023 unchanged input files, only .gitattributes/AGENTS/README changed; all18568 original QA files retained. Final current-head CI is separately required and externally recorded in PR46; the first failed run remains visible.
+
+## D08 follow-up verification — 2026-10-07
+
+Live GitHub comment author/explicit acceptance/exact reviewed head/merge metadata comparison PASS for both supplied records. Historical head CI36876278599 and36999556028 still SUCCESS. Participant test claims remain attributed to their own records; this follow-up performs no source/schema/DB change. Original_result objects and frozen source/audit/runtime snapshots preserved. R01 source/preservation/link/safety validation and regenerated record Git blob manifest checked before commit; current new head CI/tested merge-ref required and recorded externally in PR46. D08 CLOSED; other decisions/gates PENDING.

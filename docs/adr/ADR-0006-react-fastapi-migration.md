@@ -173,8 +173,7 @@ target tests belong to their registered tasks. No historical proof is rewritten.
 
 MIG-G0 requires separate records by Руслан, Владимир and Илья for exact
 baseline and this ADR. R01 needs independent Владимир and Илья Task Approval.
-Missing R02A/R03A human records stay pending; grades historical approvals have
-live supporting URLs. The request to execute R01 is not approval by others.
+R02A/R03A independent contract acceptance reconciliation verified on 07.10.2026; D08 CLOSED with live URLs in current R01 evidence. Original snapshots stay intact. Grades historical approvals also have live URLs. The request to execute R01 is not approval by others.
 
 - 2026-10-07: Proposed. No platform supersession, migration implementation,
   accepted MIG_BASE_SHA, production cutover or completed gate is claimed.

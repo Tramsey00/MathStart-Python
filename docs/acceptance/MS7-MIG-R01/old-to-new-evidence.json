@@ -71,7 +71,7 @@
           "finding": "owner comment states Vladimir acceptance pending; Issue16 comments empty; candidate manifest/ADR0004/spec/active plan/trace retain pending. Search: live PR15 reviews/comments, Issue16 comments, repo acceptance-bearing records."
         }
       },
-      "platform_disposition": "Preserve exact OpenAPI/DTO/policy/fixtures and frozen pins. Do not upgrade pending marker on merge alone; future framework/security addenda separate.",
+      "platform_disposition": "Preserve exact OpenAPI/DTO/policy/fixtures and frozen pins. Frozen input pending markers remain historical; current 2026-10-07 independent comment supplies contract acceptance; future framework/security addenda separate.",
       "migration_follow_up": [
         {
           "id": "MS7-MIG-R01",
@@ -88,12 +88,47 @@
         "paths": [
           "docs/adr/ADR-0006-react-fastapi-migration.md",
           "docs/acceptance/MS7-MIG-R01/source-manifest.json",
-          "docs/acceptance/MS7-MIG-R01/github-audit.json"
+          "docs/acceptance/MS7-MIG-R01/github-audit.json",
+          "docs/acceptance/MS7-MIG-R01/acceptance-reconciliation-20261007.json"
         ],
         "candidate_head": "recorded in snapshot PR; not accepted MIG_BASE_SHA",
-        "approval": "PENDING"
+        "approval": "PENDING",
+        "historical_contract_approval_url": "https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492",
+        "historical_contract_approval": "RECORDED_2026-10-07",
+        "approval_scope": "Existing PENDING field is new R01/platform/MIG-G0 approval, separate from reconciled original contract approval"
       },
-      "current_status": "MERGED / ISSUE_CLOSED / HEAD_CI_SUCCESS; EXPLICIT_HUMAN_APPROVAL_PENDING"
+      "current_status": "MERGED / ISSUE_CLOSED / HEAD_CI_SUCCESS; INDEPENDENT_CONTRACT_APPROVAL_RECORDED_2026-10-07; D08 CLOSED; R01/MIG-G0 PENDING",
+      "current_acceptance_reconciliation": {
+        "task": "MS7-R02A",
+        "decision": "APPROVED_BY_INDEPENDENT_PARTICIPANT",
+        "record_type": "issue_comment; current Task Approval / acceptance reconciliation, not a historical PR review submission",
+        "author": "VladimirFrolov777",
+        "url": "https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492",
+        "comment_id": 6042594492,
+        "created_at_utc": "2026-10-07T16:49:02Z",
+        "updated_at_utc": "2026-10-07T16:49:02Z",
+        "created_at_europe_moscow": "2026-10-07T19:49:02+03:00",
+        "reviewed_head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+        "merge_sha": "428ece726918f635549fc7dd8fdd352f799c3308",
+        "live_pr_metadata_matches_comment": true,
+        "comment_body_sha256": "79e0bdff42e40aafc4cbc41bbd7192089f61185d735a81e59977746a9365eb71",
+        "digest_semantics": "UTF-8 decoded exact GitHub API comment body; CRLF retained",
+        "historical_ci_verified_live": {
+          "id": 36876278599,
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36876278599",
+          "head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        "participant_reports_no_blocking_findings": true,
+        "participant_reported_checks": [
+          "R02A contract 30/30 PASS",
+          "R03 pure 18/18 PASS",
+          "artifact pins 17/17 PASS"
+        ],
+        "non_blocking_note": "Participant notes LF documentation vs CRLF pinned JSON discrepancy; frozen bytes preserved; no normalization in R01.",
+        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution."
+      }
     },
     {
       "original_result": {
@@ -141,12 +176,46 @@
         "paths": [
           "docs/adr/ADR-0006-react-fastapi-migration.md",
           "docs/acceptance/MS7-MIG-R01/source-manifest.json",
-          "docs/acceptance/MS7-MIG-R01/github-audit.json"
+          "docs/acceptance/MS7-MIG-R01/github-audit.json",
+          "docs/acceptance/MS7-MIG-R01/acceptance-reconciliation-20261007.json"
         ],
         "candidate_head": "recorded in snapshot PR; not accepted MIG_BASE_SHA",
-        "approval": "PENDING"
+        "approval": "PENDING",
+        "historical_contract_approval_url": "https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058",
+        "historical_contract_approval": "RECORDED_2026-10-07",
+        "approval_scope": "Existing PENDING field is new R01/platform/MIG-G0 approval, separate from reconciled original contract approval"
       },
-      "current_status": "MERGED / ISSUE_CLOSED / HEAD_CI_SUCCESS; EXPLICIT_HUMAN_APPROVAL_PENDING"
+      "current_status": "MERGED / ISSUE_CLOSED / HEAD_CI_SUCCESS; INDEPENDENT_CONTRACT_APPROVAL_RECORDED_2026-10-07; D08 CLOSED; R01/MIG-G0 PENDING",
+      "current_acceptance_reconciliation": {
+        "task": "MS7-R03A",
+        "decision": "APPROVED_BY_INDEPENDENT_PARTICIPANT",
+        "record_type": "issue_comment; current Task Approval / acceptance reconciliation, not a historical PR review submission",
+        "author": "VladimirFrolov777",
+        "url": "https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058",
+        "comment_id": 6042793058,
+        "created_at_utc": "2026-10-07T17:06:07Z",
+        "updated_at_utc": "2026-10-07T17:06:07Z",
+        "created_at_europe_moscow": "2026-10-07T20:06:07+03:00",
+        "reviewed_head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+        "merge_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+        "live_pr_metadata_matches_comment": true,
+        "comment_body_sha256": "2076e979ff493b7b69ad376655e43c4da2abb12af953cbd7fe7a3d1f79a2e496",
+        "digest_semantics": "UTF-8 decoded exact GitHub API comment body; CRLF retained",
+        "historical_ci_verified_live": {
+          "id": 36999556028,
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36999556028",
+          "head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        "participant_reports_no_blocking_findings": true,
+        "participant_reported_checks": [
+          "frozen R03 18/18 PASS",
+          "independent negative/parity checks PASS"
+        ],
+        "non_blocking_note": null,
+        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution."
+      }
     },
     {
       "original_result": {
@@ -248,5 +317,6 @@
     }
   ],
   "snapshot_review_url": "https://github.com/Tramsey00/MathStart-Python/pull/46",
-  "candidate_gate_note": "MIG_BASE_SHA=PENDING. Initial head CI failed due to R01-owned pinned root-doc edits; correction restores exact input. Final current head/tested merge-ref/CI are external PR record; no historical approval inferred."
+  "candidate_gate_note": "MIG_BASE_SHA=PENDING. Initial head CI failed due to R01-owned pinned root-doc edits; correction restores exact input. Final current head/tested merge-ref/CI are external PR record; no historical approval inferred.",
+  "D08": "CLOSED — verified independent R02A and R03A acceptance comments of 2026-10-07; no backdating"
 }

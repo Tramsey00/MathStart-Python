@@ -1,0 +1,74 @@
+{
+  "scope": "R01 D08 closure only; preserve historical source/audit snapshots and frozen contracts",
+  "verification_method": "Live GitHub connector GET comment IDs, PR15/20 metadata and historical CI metadata; compare author, explicit decision, exact head/merge SHA",
+  "previous_candidate_sha": "2af105c515c4e296613834118c15609efcdb6710",
+  "input_remote_main_sha": "8c11edadc8debc81432d1db1145feac504f09061",
+  "D08": "CLOSED — both independent contract acceptance reconciliation records verified",
+  "records": [
+    {
+      "task": "MS7-R02A",
+      "decision": "APPROVED_BY_INDEPENDENT_PARTICIPANT",
+      "record_type": "issue_comment; current Task Approval / acceptance reconciliation, not a historical PR review submission",
+      "author": "VladimirFrolov777",
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492",
+      "comment_id": 6042594492,
+      "created_at_utc": "2026-10-07T16:49:02Z",
+      "updated_at_utc": "2026-10-07T16:49:02Z",
+      "created_at_europe_moscow": "2026-10-07T19:49:02+03:00",
+      "reviewed_head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+      "merge_sha": "428ece726918f635549fc7dd8fdd352f799c3308",
+      "live_pr_metadata_matches_comment": true,
+      "comment_body_sha256": "79e0bdff42e40aafc4cbc41bbd7192089f61185d735a81e59977746a9365eb71",
+      "digest_semantics": "UTF-8 decoded exact GitHub API comment body; CRLF retained",
+      "historical_ci_verified_live": {
+        "id": 36876278599,
+        "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36876278599",
+        "head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "participant_reports_no_blocking_findings": true,
+      "participant_reported_checks": [
+        "R02A contract 30/30 PASS",
+        "R03 pure 18/18 PASS",
+        "artifact pins 17/17 PASS"
+      ],
+      "non_blocking_note": "Participant notes LF documentation vs CRLF pinned JSON discrepancy; frozen bytes preserved; no normalization in R01.",
+      "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution."
+    },
+    {
+      "task": "MS7-R03A",
+      "decision": "APPROVED_BY_INDEPENDENT_PARTICIPANT",
+      "record_type": "issue_comment; current Task Approval / acceptance reconciliation, not a historical PR review submission",
+      "author": "VladimirFrolov777",
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058",
+      "comment_id": 6042793058,
+      "created_at_utc": "2026-10-07T17:06:07Z",
+      "updated_at_utc": "2026-10-07T17:06:07Z",
+      "created_at_europe_moscow": "2026-10-07T20:06:07+03:00",
+      "reviewed_head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+      "merge_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+      "live_pr_metadata_matches_comment": true,
+      "comment_body_sha256": "2076e979ff493b7b69ad376655e43c4da2abb12af953cbd7fe7a3d1f79a2e496",
+      "digest_semantics": "UTF-8 decoded exact GitHub API comment body; CRLF retained",
+      "historical_ci_verified_live": {
+        "id": 36999556028,
+        "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36999556028",
+        "head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "participant_reports_no_blocking_findings": true,
+      "participant_reported_checks": [
+        "frozen R03 18/18 PASS",
+        "independent negative/parity checks PASS"
+      ],
+      "non_blocking_note": null,
+      "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution."
+    }
+  ],
+  "R01": "INCOMPLETE",
+  "MIG_G0": "PENDING",
+  "MIG_BASE_SHA": "PENDING",
+  "other_decisions": "D01–D07 and D09 remain pending; separate R01/baseline/ADR human records still required"
+}

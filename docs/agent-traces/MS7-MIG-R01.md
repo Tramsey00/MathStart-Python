@@ -86,9 +86,7 @@ later17 remain PLANNED, no environment or implementation created for them.
 [Old-to-new index](../acceptance/MS7-MIG-R01/old-to-new-evidence.json) retains
 original_result/platform_disposition/migration_follow_up/target_evidence/current_status.
 Historical R01 PR2/Issue1 merge/closure and repository acceptance preserved.
-R02A PR15/Issue16 and R03A PR20/Issue18 CI/merge/closure are real, but explicit
-original Vladimir approval not located in searched reviews/comments/repository
-records; pending, no retrospective signature. Grades PR24 actual Ilya review
+Initial audit snapshot: R02A PR15/Issue16 and R03A PR20/Issue18 CI/merge/closure were real, but explicit Vladimir approval was not located then. That original finding is preserved. Current 07.10.2026 independent reconciliation comments are now verified; D08 CLOSED (see follow-up below), without backdating. Grades PR24 actual Ilya review
 and Ruslan 06.10 Task Approval/migration review comment located and linked.
 I03 PR26 approvals/security review and CI located. Task Approval, green CI,
 merge, closed Issue and Global Gate remain separate fields/facts.
@@ -138,7 +136,7 @@ Target runtime/tests/CI NOT RUN/NOT CONFIGURED; no live LLM or deployment.
 
 [Acceptance decisions D01–D09](../acceptance/MS7-MIG-R01/acceptance.md) cover
 exact source/local delta and PR27 visual acceptance, runtime byte differences,
-platform/SSG/admin/auth/DDL/SQLite scope, R02A/R03A missing original approval,
+platform/SSG/admin/auth/DDL/SQLite scope; D08 R02A/R03A reconciliation CLOSED by verified 07.10.2026 participant records, while other decisions remain pending,
 calendar and hosting boundary. Required three separate baseline/ADR records
 plus independent R01 Task Approvals by Vladimir/Ilya are intentionally unsigned.
 Main protection/rulesets were absent during audit; spec review gates still apply.
@@ -169,3 +167,11 @@ head/merge-ref/CI is published externally in PR46 body, not self-embedded.
 Initial snapshot CI run37602901512 failed at Harness (7/8 checks PASS,73 tests/1 error): R01 status paragraphs changed historically pinned PRODUCT/ARCHITECTURE. Both restored to exact input Git bytes; historical MS6-R04 pins and tests untouched. Source validator tightened to only three existing root changes. A narrow non-escalated Harness rerun encountered Windows sandbox temp cleanup permissions (environment failure); isolated authorized rerun/full baseline recorded separately. See ci-first-head.json and current PR head checks.
 
 Correction verification: authorized isolated Harness exit0/73tests; full verify_repo exit0/8of8,Django107/R0318/Harness73. Sanitized corrected logs/commands committed under R01 evidence. Final preservation/source/frozen checks pass with1023 input files exact, only three scoped root changes. Exact second/final head and tested merge-ref CI recorded externally in PR46 after additive push; first failure retained, no pins/tests rewritten.
+
+## 10. D08 acceptance reconciliation follow-up — 2026-10-07
+
+User supplied two actual VladimirFrolov777 acceptance comment URLs. Live connector/API verified author, creation/update times, explicit acceptance, original PR head/merge SHA and successful historical CI. R02A: [comment6042594492](https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492), head917cdc4ef72b6996254809b77d7aa5b0f251831e, merge428ece726918f635549fc7dd8fdd352f799c3308,19:49:02 Europe/Moscow. R03A: [comment6042793058](https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058), head908a9aed6ca2f1319dabbf094e2432427d86a36d, mergefa0d87033113a30abc6e9de2acc174b01e98d9db,20:06:07 Europe/Moscow.
+
+D08 CLOSED on these current independent records. [Reconciliation receipt](../acceptance/MS7-MIG-R01/acceptance-reconciliation-20261007.json) pins exact decoded comment-body hashes and separates participant-reported tests from agent metadata verification. The old-to-new index keeps original_result objects unchanged, adds current reconciliation and keeps new R01/platform approval PENDING. Initial github-audit/source/runtime snapshots, historical traces, schemas, fixtures and frozen pins remain unchanged. R02A non-blocking LF/CRLF documentation discrepancy is recorded; no normalization performed.
+
+Updated current R01 acceptance/index/trace, related proposed ADR status paragraph/active plan/index/receipt/verification and regenerated record/validation manifests. Only R01 records; original checkout/DB untouched. Same branch ms7-mig-baseline and draft PR46; no new PR, merge, Issue closure or later task execution. Pre-follow-up candidate2af105c515c4e296613834118c15609efcdb6710 and remote/main8c11edadc8debc81432d1db1145feac504f09061 verified. New head and actual tested merge-ref/CI are externally recorded in PR46; earlier green run does not prove this update. R01 INCOMPLETE; MIG-G0/MIG_BASE_SHA PENDING; D01–D07/D09 and independent R01/baseline/ADR decisions remain separate.

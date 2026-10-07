@@ -25,6 +25,7 @@ stored Git blobs separately from checkout bytes and excludes itself.
   ADR numbers and collaborator permissions.
 - [18 Issue / branch / owner / dependency map](issue-branch-owner-map.json):
   actual assigned Issues, DAG and reserved-only future isolation paths.
+- [D08 reconciliation receipt](acceptance-reconciliation-20261007.json): verified original contract heads/author/comment hashes; D08 CLOSED, other human gates pending.
 - [Old-to-new evidence](old-to-new-evidence.json): R01/ADR0001, current
   remote/local, R02A/R03A/grades; no historical approval rewriting.
 - [Historical output paths](historical-output-links.json): on-disk existence and

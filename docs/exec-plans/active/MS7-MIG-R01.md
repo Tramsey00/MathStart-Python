@@ -128,8 +128,7 @@ Fresh migrations/bootstrap run **only on the disposable DB**.
 The [acceptance record](../../acceptance/MS7-MIG-R01/acceptance.md) names exact
 decisions and separates Task Approval, snapshot merge and MIG-G0. Required:
 three participant records for baseline/ADR, independent Владимир and Илья R01
-approvals, current snapshot CI, reviewed scope/visual/byte policy, R02A/R03A
-approval reconciliation. Grades missing approval was located, not fabricated.
+approvals, current snapshot CI, reviewed scope/visual/byte policy. R02A/R03A acceptance reconciliation D08 CLOSED by verified VladimirFrolov777 comments of 07.10.2026; no earlier approval inferred. Grades approval was located, not fabricated.
 Production host/staging-only boundary and auth re-login are proposed decisions.
 
 If rejected, revise task-owned docs with additive commits; leave original tree,
