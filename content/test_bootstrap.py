@@ -217,7 +217,12 @@ class SiteBootstrapTests(TestCase):
 
         # Running bootstrap again must not create duplicate
         # database rows or copy the same media again.
+        grade_ordering = list(Grade.objects.order_by("pk").values_list("pk", "created_at"))
         second = bootstrap_site()
+        self.assertEqual(
+            list(Grade.objects.order_by("pk").values_list("pk", "created_at")),
+            grade_ordering,
+        )
 
         self.assertEqual(
             second["structure"][

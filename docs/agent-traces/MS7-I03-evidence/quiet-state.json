@@ -1,0 +1,368 @@
+{
+  "task": "MS7-I03",
+  "recorded_date": "2026-10-06",
+  "stage": "Remove redundant anonymous-state prompt",
+  "starting_head": "7196c01885d736de7e37d02decf76ac60982d499",
+  "branch": "ms7-i03-auth-profile-onboarding",
+  "runtime": "Real Django 5.2.16 / PostgreSQL 16.15; Chromium via Codex In-app Browser; same loopback metadata observer",
+  "browser_result": "PASS",
+  "flows": {
+    "initial": "Empty account status and hidden whole card after automatic anonymous GET me; no duplicate prompt",
+    "errors": "Pre-action registration length error and real login 401 reveal/focus error card; switching clears the pre-action error without leaving an empty card",
+    "retry": "Real GET me response truncated once; contextual retry remains visible; Enter repeats GET me and restores login-username focus",
+    "reload": "Anonymous reload hides the quiet state card again",
+    "keyboard": "Enter/Space mode switch and Enter retry PASS",
+    "console": "Captured warn/error list empty"
+  },
+  "tests": {
+    "node": "34/34",
+    "targeted_django": "6/6 after restoring local PostgreSQL",
+    "r02a": "30/30",
+    "mandatory_sequence": "All eight required checks covered: initial verifier completed first seven (96 Django / 18 R03), interrupted during Harness; documented --group harness completed remaining 73/73",
+    "full_default_invocation": "Interrupted; no successful default-run exit code claimed",
+    "pip_check": "PASS"
+  },
+  "environment_notes": [
+    "Initial tests failed before execution because Docker Desktop/PostgreSQL was stopped; documented startup preserved the existing dev volume and tests/browser then passed.",
+    "Docker API/DB became unavailable again after browser walkthrough; original verifier session ended during Harness. Remaining Harness check passed separately; later version_report database diagnostic reported failure, package versions remained readable."
+  ],
+  "source_bindings": [
+    {
+      "path": "static/mathstart/js/ui/account.js",
+      "sha256": "7daef3ee17b1c1690fc15db737a92f5f088c96953c3b67e2d9907f4cabc43536"
+    },
+    {
+      "path": "static/mathstart/js/ui/identity-api.js",
+      "sha256": "28370c2f0be4cad6b2855785d227eb51808ba546b0423c2a92e9a42fd8a6cba7"
+    },
+    {
+      "path": "static/mathstart/css/ui/account.css",
+      "sha256": "29751088c7ac388032e81df73b7497faba362269f4b8eaf5793647c2d7662e94"
+    },
+    {
+      "path": "templates/users/account.html",
+      "sha256": "d1f18829f164afbfe844649bba00643aa020b94df248bfcd82a753fe83b429f3"
+    },
+    {
+      "path": "templates/users/grade_field.html",
+      "sha256": "519131d11249f11afe226a10e213b033042cfc24ad3c79ad8bd1e609a1626083"
+    },
+    {
+      "path": "users/ui_views.py",
+      "sha256": "9e867ac7bf8ad3aff0185763783a8a2c9d3cfd08df6a3f0942ac3c985e35c58f"
+    },
+    {
+      "path": "users/ui_urls.py",
+      "sha256": "f7ee3009541b11814fef794598bc3080af834ecb2b808972a1fa795b803479b9"
+    },
+    {
+      "path": "config/urls.py",
+      "sha256": "9306784e78390aa2749d5b4a9442edc22835ab22cdc043bdc8f451976ca5b957"
+    },
+    {
+      "path": "templates/base.html",
+      "sha256": "f149a4a5075b19c2129919b30c95aad154fb37cf60a56b308589473543fbac83"
+    },
+    {
+      "path": "templates/ui/components/button.html",
+      "sha256": "c43ad85c4e12262c2e2efae60a6dab3caa5b2eb8f590ebf8250562cb6821da8b"
+    },
+    {
+      "path": "templates/ui/components/field.html",
+      "sha256": "59913446a781e4bd85d776b5805d7839134d9e166a2867adde14c4795c26612c"
+    },
+    {
+      "path": "tests/test_i03_account.js",
+      "sha256": "73ff7e7eb4629889882deed5ec9f592873adb4d793d6d19985c89b87f68dc3be"
+    },
+    {
+      "path": "users/tests/test_i03_ui.py",
+      "sha256": "203811ac2de64b4720b62db7ecae01d4ca623921242126a06b4c62fa454c007c"
+    }
+  ],
+  "screenshot": {
+    "file": "quiet-initial.jpg",
+    "format": "JPEG",
+    "sha256": "8b581e7fdfb518d46664776ad96c7ab58c99df34764402f4857b9cdf689b5734",
+    "sanitized": true
+  },
+  "network_events": [
+    {
+      "sequence": 255,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 256,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 257,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 258,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 259,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 401,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 260,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 261,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 262,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": false,
+      "transport_fault": "truncated_real_state_read_response"
+    },
+    {
+      "sequence": 263,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 264,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 265,
+      "method": "GET",
+      "path": "/api/v1/grades/?page_size=20",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 266,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    }
+  ],
+  "boundary": "UI status presentation only; backend, transport, CSRF/session/idempotency and credential-cleanup behavior unchanged; all 17 frozen pins match; no staging/commit/push/GitHub mutation"
+}

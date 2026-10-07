@@ -1,0 +1,2072 @@
+{
+  "observer": "Temporary loopback transparent proxy -> documented Django runserver -> PostgreSQL. Values of cookies, CSRF, credentials and idempotency keys never persisted. Public pagination cursors omitted.",
+  "checks": {
+    "all_mutations_csrf_present": true,
+    "all_mutations_csrf_current": true,
+    "receipt_headers_only_register_onboarding": true,
+    "auth_rotations": [
+      {
+        "sequence": 5,
+        "path": "/api/v1/auth/register/",
+        "status": 201
+      },
+      {
+        "sequence": 16,
+        "path": "/api/v1/auth/login/",
+        "status": 200
+      },
+      {
+        "sequence": 26,
+        "path": "/api/v1/auth/login/",
+        "status": 200
+      },
+      {
+        "sequence": 73,
+        "path": "/api/v1/auth/register/",
+        "status": 201
+      },
+      {
+        "sequence": 81,
+        "path": "/api/v1/auth/login/",
+        "status": 200
+      },
+      {
+        "sequence": 97,
+        "path": "/api/v1/auth/login/",
+        "status": 200
+      }
+    ],
+    "retry_groups": [
+      {
+        "operation": 1,
+        "events": [
+          {
+            "sequence": 5,
+            "attempt": 1,
+            "same_body": true,
+            "delivered": true,
+            "status": 201
+          }
+        ]
+      },
+      {
+        "operation": 2,
+        "events": [
+          {
+            "sequence": 35,
+            "attempt": 1,
+            "same_body": true,
+            "delivered": true,
+            "status": 200,
+            "mode": "START_ZERO"
+          }
+        ]
+      },
+      {
+        "operation": 3,
+        "events": [
+          {
+            "sequence": 39,
+            "attempt": 1,
+            "same_body": true,
+            "delivered": false,
+            "status": 200,
+            "mode": "SELF_REPORT"
+          },
+          {
+            "sequence": 40,
+            "attempt": 2,
+            "same_body": true,
+            "delivered": true,
+            "status": 200,
+            "mode": "SELF_REPORT"
+          }
+        ]
+      },
+      {
+        "operation": 4,
+        "events": [
+          {
+            "sequence": 44,
+            "attempt": 1,
+            "same_body": true,
+            "delivered": false,
+            "status": 200,
+            "mode": "SELF_REPORT"
+          },
+          {
+            "sequence": 47,
+            "attempt": 2,
+            "same_body": true,
+            "delivered": true,
+            "status": 200,
+            "mode": "SELF_REPORT"
+          }
+        ]
+      },
+      {
+        "operation": 5,
+        "events": [
+          {
+            "sequence": 51,
+            "attempt": 1,
+            "same_body": true,
+            "delivered": true,
+            "status": 200,
+            "mode": "DIAGNOSTIC"
+          }
+        ]
+      },
+      {
+        "operation": 6,
+        "events": [
+          {
+            "sequence": 73,
+            "attempt": 1,
+            "same_body": true,
+            "delivered": true,
+            "status": 201
+          }
+        ]
+      }
+    ]
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 2,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "20",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 3,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 4,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 5,
+      "method": "POST",
+      "path": "/api/v1/auth/register/",
+      "status": 201,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "logical_operation": 1,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 6,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 7,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 8,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 9,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 10,
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "response": {
+        "completed": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 11,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 12,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 13,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "20",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 14,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 15,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 16,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 17,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 18,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 19,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 20,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 21,
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "response": {
+        "completed": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 22,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 23,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 24,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 401,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 25,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 26,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 27,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 28,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 29,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 30,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 31,
+      "method": "PATCH",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "selected_grade_id"
+      ],
+      "request": {
+        "selected_grade_id": 1
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 32,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 33,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 34,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 35,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 2,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "START_ZERO"
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "START_ZERO",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 36,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "START_ZERO",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 37,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "START_ZERO",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 38,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 39,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 3,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "SELF_REPORT"
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": false
+    },
+    {
+      "sequence": 40,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 3,
+      "attempt": 2,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "SELF_REPORT"
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 41,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 42,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 43,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 44,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 4,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "SELF_REPORT"
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "transport_fault": "truncated_real_response_after_commit",
+      "response_delivered": false
+    },
+    {
+      "sequence": 45,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 46,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 47,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 4,
+      "attempt": 2,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "SELF_REPORT"
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 48,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 49,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "SELF_REPORT",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 50,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 51,
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "mode",
+        "selected_grade_id"
+      ],
+      "logical_operation": 5,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "DIAGNOSTIC"
+      },
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 52,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 53,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "20",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 54,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 55,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 56,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "20",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 57,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 58,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 59,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 60,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 61,
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "response": {
+        "completed": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 62,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 63,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 64,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 65,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 66,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 401,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 67,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 68,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 401,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 69,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 70,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "20",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 71,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 72,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 73,
+      "method": "POST",
+      "path": "/api/v1/auth/register/",
+      "status": 201,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": true,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "logical_operation": 6,
+      "attempt": 1,
+      "same_body_as_first_attempt": true,
+      "response": {
+        "id": 2,
+        "username": "i03_browser_long_78f5b0_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 74,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 75,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 2,
+        "username": "i03_browser_long_78f5b0_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 76,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 2,
+        "username": "i03_browser_long_78f5b0_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "selected_grade_id": null,
+        "onboarding_mode": null,
+        "onboarding_complete": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 77,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 78,
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "response": {
+        "completed": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 79,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 80,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 81,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 82,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 83,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 84,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 85,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        },
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        },
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 20
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "20",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 86,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 87,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 88,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 89,
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "response": {
+        "completed": true
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 90,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 91,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 92,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 401,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "error": {
+        "code": "AUTHENTICATION_REQUIRED",
+        "retryable": false
+      },
+      "response_delivered": true
+    },
+    {
+      "sequence": 93,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 1,
+          "number": 5,
+          "title": "5 класс"
+        },
+        {
+          "id": 2,
+          "number": 6,
+          "title": "6 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": true,
+        "page_size": 2
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "2",
+        "cursor_present": false
+      }
+    },
+    {
+      "sequence": 94,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 3,
+          "number": 7,
+          "title": "7 класс"
+        },
+        {
+          "id": 4,
+          "number": 8,
+          "title": "8 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": true,
+        "page_size": 2
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "2",
+        "cursor_present": true
+      }
+    },
+    {
+      "sequence": 95,
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "grades": [
+        {
+          "id": 5,
+          "number": 9,
+          "title": "9 класс"
+        },
+        {
+          "id": 6,
+          "number": 10,
+          "title": "10 класс"
+        }
+      ],
+      "pagination": {
+        "has_more": false,
+        "page_size": 2
+      },
+      "response_delivered": true,
+      "query": {
+        "page_size": "2",
+        "cursor_present": true
+      }
+    },
+    {
+      "sequence": 96,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 97,
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "status": 200,
+      "csrf_header_present": true,
+      "csrf_matches_request_cookie": true,
+      "idempotency_header_present": false,
+      "request_fields": [
+        "password",
+        "username"
+      ],
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "csrf_cookie_rotated": true,
+      "response_delivered": true
+    },
+    {
+      "sequence": 98,
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "csrf_response_present": true,
+      "csrf_cookie_rotated": false,
+      "response_delivered": true
+    },
+    {
+      "sequence": 99,
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "status": 200,
+      "csrf_header_present": false,
+      "csrf_matches_request_cookie": false,
+      "idempotency_header_present": false,
+      "request_fields": [],
+      "request": {},
+      "response": {
+        "id": 1,
+        "username": "i03_browser_20261004_899595",
+        "selected_grade_id": 1,
+        "onboarding_mode": "DIAGNOSTIC",
+        "onboarding_complete": true
+      },
+      "response_delivered": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<div class="ms-ui-field">
+  <label for="{{ field_id }}">{{ label }} (обязательно)</label>
+  <p id="{{ field_id }}-help" class="ms-ui-muted">Выберите класс из доступного списка.</p>
+  <select id="{{ field_id }}" name="selected_grade_id" required aria-invalid="false" aria-describedby="{{ field_id }}-help {{ field_id }}-error">
+    <option value="">Выберите класс</option>
+  </select>
+  <p id="{{ field_id }}-error" class="ms-ui-field-error" hidden></p>
+</div>

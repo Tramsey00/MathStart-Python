@@ -22,6 +22,10 @@ class Grade(models.Model):
         "Описание",
         blank=True,
     )
+    created_at = models.DateTimeField(
+        "Создано в Django",
+        auto_now_add=True,
+    )
 
     class Meta:
         ordering = ("order", "title")

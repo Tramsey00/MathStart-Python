@@ -1,0 +1,400 @@
+{
+  "task": "MS7-I03",
+  "issue": 25,
+  "stage": "3 BROWSER ACCEPTANCE",
+  "status": "PASS",
+  "date": "2026-10-04",
+  "branch": "ms7-i03-auth-profile-onboarding",
+  "head": "c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66",
+  "working_code": "Local uncommitted core plus browser-found focus correction; hashes below bind tested bytes.",
+  "runtime": {
+    "database": "PostgreSQL 16.15",
+    "python": "3.14.7",
+    "django": "5.2.16",
+    "node": "24.19.0",
+    "browser": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "platform": "Win32",
+      "highEntropyValues": {
+        "brands": [
+          {
+            "brand": "Chromium",
+            "version": "154"
+          },
+          {
+            "brand": "Google Chrome",
+            "version": "154"
+          },
+          {
+            "brand": "Not A(Brand",
+            "version": "99"
+          }
+        ],
+        "fullVersionList": [
+          {
+            "brand": "Chromium",
+            "version": "154.0.8037.98"
+          },
+          {
+            "brand": "Google Chrome",
+            "version": "154.0.8037.98"
+          },
+          {
+            "brand": "Not A(Brand",
+            "version": "99.0.0.0"
+          }
+        ],
+        "mobile": false,
+        "platform": "Windows",
+        "platformVersion": "19.0.0",
+        "uaFullVersion": "154.0.8037.98"
+      }
+    },
+    "setup": [
+      "check_database PASS",
+      "content.0002_grade_created_at applied",
+      "bootstrap_site unchanged (all new/changed counts zero)",
+      "collectstatic 174 assets; recollect 1 JS after focus correction",
+      "documented runserver 127.0.0.1:8000 --noreload"
+    ],
+    "browser_origin": "http://127.0.0.1:8001/account/",
+    "backend": "http://127.0.0.1:8000",
+    "api": "Real unchanged API/PostgreSQL; no mocked success responses"
+  },
+  "flows": [
+    "Registration (201), including second synthetic 150-character username",
+    "Logout (200) and login (200); native password Enter submit",
+    "Real grades -> title display and id select value: 5 класс = id 1, number 5",
+    "PATCH selected_grade_id=1 -> backend GET me recovery",
+    "START_ZERO / SELF_REPORT / DIAGNOSTIC selection via real POST",
+    "Reload and later login restore grade 1 / DIAGNOSTIC / onboarding_complete=true",
+    "Unknown username and wrong password both same safe 401/UI message",
+    "Other-tab logout -> private GET me 401 -> no PATCH, hidden private panel, refresh recovery",
+    "Lost SELF_REPORT acknowledgement: both automatic Chromium retry and explicit keyboard retry preserve body/key"
+  ],
+  "keyboard": {
+    "status": "PASS",
+    "keys": [
+      "Tab",
+      "Shift+Tab",
+      "Enter",
+      "Space",
+      "ArrowDown (grade)",
+      "ArrowRight (radio)"
+    ],
+    "focus_outline": "Observed rgb(29,78,216) solid 3px on skip link, input, radio and submit",
+    "anonymous_order": [
+      {
+        "id": "account-refresh",
+        "outline": "rgb(29, 78, 216) solid 3px"
+      },
+      {
+        "id": "login-username",
+        "outline": "rgb(29, 78, 216) solid 3px"
+      },
+      {
+        "id": "login-password",
+        "outline": "rgb(29, 78, 216) solid 3px"
+      },
+      {
+        "id": "Войти",
+        "outline": "rgb(29, 78, 216) solid 3px"
+      },
+      {
+        "id": "register-username",
+        "outline": "rgb(29, 78, 216) solid 3px"
+      }
+    ],
+    "profile_order": [
+      "profile-grade",
+      "Сохранить класс",
+      "onboarding-grade",
+      "mode-start-zero",
+      "Сохранить начальную настройку",
+      "Выйти"
+    ],
+    "logout_correction": "Focus login-username after fieldsets re-enabled; reproduced pre-fix failure, red test 10/11, post-fix browser and test pass",
+    "errors": "role=alert + focus account-error; form aria-describedby points to error; same-action retry reachable by Tab/Space",
+    "loading": "Observed disabled controls and aria-busy=true during registration; pending uncertain mutation disables forms",
+    "no_keyboard_trap": "Radio -> onboarding submit -> logout -> footer; reverse Shift+Tab returns logout; mobile logout focus verified"
+  },
+  "dom": {
+    "duplicate_ids": [],
+    "labels": "All labels target existing IDs; native selects/radios and submit buttons",
+    "passwords": "type=password; current/new-password autocomplete; values cleared on success and before error screenshots",
+    "forms": "5 semantic method=post forms, required validation retained; form/field describedBy associations"
+  },
+  "responsive": {
+    "auth": [
+      {
+        "clientWidth": 345,
+        "inputs": [
+          {
+            "id": "login-username",
+            "width": 279
+          },
+          {
+            "id": "login-password",
+            "width": 279
+          },
+          {
+            "id": "register-username",
+            "width": 279
+          },
+          {
+            "id": "register-password",
+            "width": 279
+          },
+          {
+            "id": "register-email",
+            "width": 279
+          }
+        ],
+        "scrollWidth": 345,
+        "state": "registration/login",
+        "width": 360
+      },
+      {
+        "clientWidth": 753,
+        "inputs": [
+          {
+            "id": "login-username",
+            "width": 294.5
+          },
+          {
+            "id": "login-password",
+            "width": 294.5
+          },
+          {
+            "id": "register-username",
+            "width": 294.5
+          },
+          {
+            "id": "register-password",
+            "width": 294.5
+          },
+          {
+            "id": "register-email",
+            "width": 294.5
+          }
+        ],
+        "scrollWidth": 753,
+        "state": "registration/login",
+        "width": 768
+      },
+      {
+        "clientWidth": 1425,
+        "inputs": [
+          {
+            "id": "login-username",
+            "width": 478
+          },
+          {
+            "id": "login-password",
+            "width": 478
+          },
+          {
+            "id": "register-username",
+            "width": 478
+          },
+          {
+            "id": "register-password",
+            "width": 478
+          },
+          {
+            "id": "register-email",
+            "width": 478
+          }
+        ],
+        "scrollWidth": 1425,
+        "state": "registration/login",
+        "width": 1440
+      }
+    ],
+    "profile_saved_onboarding": [
+      {
+        "clientWidth": 1425,
+        "completed": "Настройка сохранена",
+        "grade": "1",
+        "mode": "DIAGNOSTIC",
+        "profile": "i03_browser_20261004_899595",
+        "scrollWidth": 1425,
+        "state": "saved/profile/onboarding",
+        "width": 1440
+      },
+      {
+        "clientWidth": 753,
+        "completed": "Настройка сохранена",
+        "grade": "1",
+        "mode": "DIAGNOSTIC",
+        "profile": "i03_browser_20261004_899595",
+        "scrollWidth": 753,
+        "state": "saved/profile/onboarding",
+        "width": 768
+      },
+      {
+        "clientWidth": 345,
+        "completed": "Настройка сохранена",
+        "grade": "1",
+        "mode": "DIAGNOSTIC",
+        "profile": "i03_browser_20261004_899595",
+        "scrollWidth": 345,
+        "state": "saved/profile/onboarding",
+        "width": 360
+      }
+    ],
+    "invalid_credentials": [
+      {
+        "clientWidth": 1425,
+        "formError": "login-error",
+        "role": "alert",
+        "scrollWidth": 1425,
+        "width": 1440
+      },
+      {
+        "clientWidth": 753,
+        "formError": "login-error",
+        "role": "alert",
+        "scrollWidth": 753,
+        "width": 768
+      },
+      {
+        "clientWidth": 345,
+        "formError": "login-error",
+        "role": "alert",
+        "scrollWidth": 345,
+        "width": 360
+      }
+    ],
+    "session_error": [
+      {
+        "clientWidth": 360,
+        "scrollWidth": 360,
+        "state": "session-error",
+        "width": 360
+      },
+      {
+        "clientWidth": 768,
+        "scrollWidth": 768,
+        "state": "session-error",
+        "width": 768
+      },
+      {
+        "clientWidth": 1440,
+        "scrollWidth": 1440,
+        "state": "session-error",
+        "width": 1440
+      }
+    ],
+    "long_username": {
+      "length": 150,
+      "viewport": 360,
+      "clientWidth": 345,
+      "scrollWidth": 345,
+      "overflowWrap": "anywhere"
+    },
+    "result": "No horizontal overflow at actual 360/768/1440 viewports; native vertical scrolling, readable controls"
+  },
+  "console": {
+    "observed_warn_error_entries": [],
+    "js_stack_traces": 0,
+    "server_note": "Browser requested legacy /favicon.ico (404). Shell pre-existing; not an I03 JS failure. Expected 401 and intentional transport errors remain visible in network evidence."
+  },
+  "persistence": {
+    "synthetic_user_ids": [
+      1,
+      2
+    ],
+    "normal_user": {
+      "id": 1,
+      "profile_count": 1,
+      "selected_grade_id": 1,
+      "mode": "DIAGNOSTIC",
+      "complete": true,
+      "registration_receipts": 1,
+      "onboarding_logical_operations": 4,
+      "onboarding_post_attempts": 6,
+      "onboarding_receipts": 4
+    },
+    "long_username_user": {
+      "id": 2,
+      "registration_receipts": 1,
+      "selected_grade_id": null,
+      "mode": null,
+      "complete": false
+    },
+    "basis": "Read-only PostgreSQL ORM count/state query plus network logical operation/body comparisons; keys not stored."
+  },
+  "targeted_tests": [
+    {
+      "command": "node --test tests/test_i03_identity_api.js tests/test_i03_account.js",
+      "result": "19/19 PASS, no skips"
+    },
+    {
+      "command": ".venv/Scripts/python.exe -B manage.py test users.tests.test_i03_ui --noinput",
+      "result": "5/5 PASS, no skips; includes 3 child real-HTTP integration tests; 3.668 s"
+    }
+  ],
+  "limitations": [
+    "One Chromium browser; no cross-browser or auditory screen-reader audit claimed.",
+    "Account UI default catalogue is one real page (6 rows, page_size=20); separate unmodified production-consumer read-only probe exercised 3 real pages at page_size=2.",
+    "DOM read-only facade did not expose navigator; actual browser version collected through temporary read-only page report.",
+    "Multi-tab viewport capture first applied override to selected second tab; that matrix discarded and session screenshots overwritten after closing second tab with verified actual widths.",
+    "Initial profile-1440 image is historical pre-focus-correction visual; final saved-<width> images are post-correction."
+  ],
+  "source_bindings": [
+    {
+      "path": "static/mathstart/js/ui/account.js",
+      "sha256": "dba56c6af36b3c6a2a16f4a86cc42d07fc281c146922c0ed4c1331eb1f98a516"
+    },
+    {
+      "path": "static/mathstart/js/ui/identity-api.js",
+      "sha256": "28370c2f0be4cad6b2855785d227eb51808ba546b0423c2a92e9a42fd8a6cba7"
+    },
+    {
+      "path": "static/mathstart/css/ui/account.css",
+      "sha256": "9701baf8f420e7c89ed36d8302ba339d6165478a2940678d7cc39126c2af2f8f"
+    },
+    {
+      "path": "templates/users/account.html",
+      "sha256": "5322a92d15cdc1ad21671e2bc810616a07656aae8b461547966eb248a521c16d"
+    },
+    {
+      "path": "templates/users/grade_field.html",
+      "sha256": "519131d11249f11afe226a10e213b033042cfc24ad3c79ad8bd1e609a1626083"
+    },
+    {
+      "path": "users/ui_views.py",
+      "sha256": "9e867ac7bf8ad3aff0185763783a8a2c9d3cfd08df6a3f0942ac3c985e35c58f"
+    },
+    {
+      "path": "users/ui_urls.py",
+      "sha256": "f7ee3009541b11814fef794598bc3080af834ecb2b808972a1fa795b803479b9"
+    },
+    {
+      "path": "config/urls.py",
+      "sha256": "9306784e78390aa2749d5b4a9442edc22835ab22cdc043bdc8f451976ca5b957"
+    },
+    {
+      "path": "templates/base.html",
+      "sha256": "f149a4a5075b19c2129919b30c95aad154fb37cf60a56b308589473543fbac83"
+    },
+    {
+      "path": "templates/ui/components/button.html",
+      "sha256": "c43ad85c4e12262c2e2efae60a6dab3caa5b2eb8f590ebf8250562cb6821da8b"
+    },
+    {
+      "path": "templates/ui/components/field.html",
+      "sha256": "59913446a781e4bd85d776b5805d7839134d9e166a2867adde14c4795c26612c"
+    },
+    {
+      "path": "tests/test_i03_account.js",
+      "sha256": "f4e6eaad5ef0814bf8c9cf4c62a751ef9a25bb31e4bd7f8371b304589469c06f"
+    }
+  ],
+  "final_verification": "NOT STARTED",
+  "commit_push": "NOT PERFORMED",
+  "pr": "NOT CREATED",
+  "task_approval": "PENDING",
+  "G3": "PENDING"
+}
