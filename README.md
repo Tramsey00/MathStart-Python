@@ -229,3 +229,15 @@ python manage.py makemigrations --check --dry-run
 Каталог всех учебных тем:
 
 [`curriculum/INDEX.md`](curriculum/INDEX.md)
+
+
+## Migration acceptance status (MS7-MIG-R01)
+
+The current runnable version remains Django. Three participant baseline/ADR
+records and two independent R01 Task Approvals accept reviewed daf4e603.
+[ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md) records the accepted
+target decision; the [active plan](docs/exec-plans/active/MS7-MIG-R01.md) and
+[current acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md) track new-head
+documentation confirmation and snapshot merge. MIG_BASE_SHA remains PENDING.
+Existing startup/verification/frozen contracts/history remain current;
+target implementation and subsequent tasks are not started by this record.

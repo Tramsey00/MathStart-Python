@@ -1,0 +1,391 @@
+{
+  "debug": false,
+  "routes": [
+    {
+      "pattern": "api/v1/grades/",
+      "name": "grades",
+      "callback": "content.api_views.GradeListView"
+    },
+    {
+      "pattern": "api/v1/auth/csrf/",
+      "name": "csrf",
+      "callback": "users.views.endpoint.<locals>.decorate.<locals>.Endpoint"
+    },
+    {
+      "pattern": "api/v1/auth/register/",
+      "name": "register",
+      "callback": "users.views.endpoint.<locals>.decorate.<locals>.Endpoint"
+    },
+    {
+      "pattern": "api/v1/auth/login/",
+      "name": "login",
+      "callback": "users.views.endpoint.<locals>.decorate.<locals>.Endpoint"
+    },
+    {
+      "pattern": "api/v1/auth/logout/",
+      "name": "logout",
+      "callback": "users.views.endpoint.<locals>.decorate.<locals>.Endpoint"
+    },
+    {
+      "pattern": "api/v1/users/me/",
+      "name": "me",
+      "callback": "users.views.endpoint.<locals>.decorate.<locals>.Endpoint"
+    },
+    {
+      "pattern": "api/v1/onboarding/complete/",
+      "name": "complete_onboarding",
+      "callback": "users.views.endpoint.<locals>.decorate.<locals>.Endpoint"
+    },
+    {
+      "pattern": "account/",
+      "name": "account",
+      "callback": "users.ui_views.account"
+    },
+    {
+      "pattern": "admin/",
+      "name": "index",
+      "callback": "django.contrib.admin.sites.AdminSite.index"
+    },
+    {
+      "pattern": "admin/login/",
+      "name": "login",
+      "callback": "django.contrib.admin.sites.AdminSite.login"
+    },
+    {
+      "pattern": "admin/logout/",
+      "name": "logout",
+      "callback": "django.contrib.admin.sites.AdminSite.logout"
+    },
+    {
+      "pattern": "admin/password_change/",
+      "name": "password_change",
+      "callback": "django.contrib.admin.sites.AdminSite.password_change"
+    },
+    {
+      "pattern": "admin/password_change/done/",
+      "name": "password_change_done",
+      "callback": "django.contrib.admin.sites.AdminSite.password_change_done"
+    },
+    {
+      "pattern": "admin/autocomplete/",
+      "name": "autocomplete",
+      "callback": "django.contrib.admin.sites.AdminSite.autocomplete_view"
+    },
+    {
+      "pattern": "admin/jsi18n/",
+      "name": "jsi18n",
+      "callback": "django.contrib.admin.sites.AdminSite.i18n_javascript"
+    },
+    {
+      "pattern": "admin/r/<path:content_type_id>/<path:object_id>/",
+      "name": "view_on_site",
+      "callback": "django.contrib.contenttypes.views.shortcut"
+    },
+    {
+      "pattern": "admin/auth/group/",
+      "name": "auth_group_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/auth/group/add/",
+      "name": "auth_group_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/auth/group/<path:object_id>/history/",
+      "name": "auth_group_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/auth/group/<path:object_id>/delete/",
+      "name": "auth_group_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/auth/group/<path:object_id>/change/",
+      "name": "auth_group_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/auth/group/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/auth/user/<id>/password/",
+      "name": "auth_user_password_change",
+      "callback": "django.contrib.auth.admin.UserAdmin.user_change_password"
+    },
+    {
+      "pattern": "admin/auth/user/",
+      "name": "auth_user_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/auth/user/add/",
+      "name": "auth_user_add",
+      "callback": "django.contrib.auth.admin.UserAdmin.add_view"
+    },
+    {
+      "pattern": "admin/auth/user/<path:object_id>/history/",
+      "name": "auth_user_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/auth/user/<path:object_id>/delete/",
+      "name": "auth_user_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/auth/user/<path:object_id>/change/",
+      "name": "auth_user_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/auth/user/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/grade/",
+      "name": "content_grade_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/grade/add/",
+      "name": "content_grade_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/grade/<path:object_id>/history/",
+      "name": "content_grade_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/grade/<path:object_id>/delete/",
+      "name": "content_grade_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/grade/<path:object_id>/change/",
+      "name": "content_grade_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/grade/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/subject/",
+      "name": "content_subject_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/subject/add/",
+      "name": "content_subject_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/subject/<path:object_id>/history/",
+      "name": "content_subject_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/subject/<path:object_id>/delete/",
+      "name": "content_subject_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/subject/<path:object_id>/change/",
+      "name": "content_subject_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/subject/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/section/",
+      "name": "content_section_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/section/add/",
+      "name": "content_section_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/section/<path:object_id>/history/",
+      "name": "content_section_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/section/<path:object_id>/delete/",
+      "name": "content_section_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/section/<path:object_id>/change/",
+      "name": "content_section_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/section/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/contentpage/",
+      "name": "content_contentpage_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/contentpage/add/",
+      "name": "content_contentpage_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/contentpage/<path:object_id>/history/",
+      "name": "content_contentpage_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/contentpage/<path:object_id>/delete/",
+      "name": "content_contentpage_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/contentpage/<path:object_id>/change/",
+      "name": "content_contentpage_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/contentpage/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/lessonpublication/",
+      "name": "content_lessonpublication_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/lessonpublication/add/",
+      "name": "content_lessonpublication_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/lessonpublication/<path:object_id>/history/",
+      "name": "content_lessonpublication_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/lessonpublication/<path:object_id>/delete/",
+      "name": "content_lessonpublication_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/lessonpublication/<path:object_id>/change/",
+      "name": "content_lessonpublication_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/lessonpublication/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/mediaasset/",
+      "name": "content_mediaasset_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/mediaasset/add/",
+      "name": "content_mediaasset_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/mediaasset/<path:object_id>/history/",
+      "name": "content_mediaasset_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/mediaasset/<path:object_id>/delete/",
+      "name": "content_mediaasset_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/mediaasset/<path:object_id>/change/",
+      "name": "content_mediaasset_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/mediaasset/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/content/redirect/",
+      "name": "content_redirect_changelist",
+      "callback": "django.contrib.admin.options.ModelAdmin.changelist_view"
+    },
+    {
+      "pattern": "admin/content/redirect/add/",
+      "name": "content_redirect_add",
+      "callback": "django.contrib.admin.options.ModelAdmin.add_view"
+    },
+    {
+      "pattern": "admin/content/redirect/<path:object_id>/history/",
+      "name": "content_redirect_history",
+      "callback": "django.contrib.admin.options.ModelAdmin.history_view"
+    },
+    {
+      "pattern": "admin/content/redirect/<path:object_id>/delete/",
+      "name": "content_redirect_delete",
+      "callback": "django.contrib.admin.options.ModelAdmin.delete_view"
+    },
+    {
+      "pattern": "admin/content/redirect/<path:object_id>/change/",
+      "name": "content_redirect_change",
+      "callback": "django.contrib.admin.options.ModelAdmin.change_view"
+    },
+    {
+      "pattern": "admin/content/redirect/<path:object_id>/",
+      "name": null,
+      "callback": "django.views.generic.base.RedirectView"
+    },
+    {
+      "pattern": "admin/^(?P<app_label>auth|content)/$",
+      "name": "app_list",
+      "callback": "django.contrib.admin.sites.AdminSite.app_index"
+    },
+    {
+      "pattern": "admin/(?P<url>.*)$",
+      "name": null,
+      "callback": "django.contrib.admin.sites.AdminSite.catch_all_view"
+    },
+    {
+      "pattern": "sitemap.xml",
+      "name": "sitemap",
+      "callback": "django.contrib.sitemaps.views.sitemap"
+    },
+    {
+      "pattern": "robots.txt",
+      "name": "robots_txt",
+      "callback": "content.views.robots_txt"
+    },
+    {
+      "pattern": "",
+      "name": "home",
+      "callback": "content.views.home"
+    },
+    {
+      "pattern": "<slug:slug>/",
+      "name": "page_detail",
+      "callback": "content.views.page_detail"
+    }
+  ],
+  "note": "DEBUG foundation/media patterns documented separately; public content URLs enumerated in rendered-runtime-digests.json. Resolver existence is not HTTP acceptance."
+}

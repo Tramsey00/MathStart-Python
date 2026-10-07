@@ -1,0 +1,65 @@
+[
+  {
+    "command": "python scripts/version_report.py",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-1.log",
+    "raw_private_log_sha256": "4005cf5d6430b992ab8db902d967153e75aa2ccecc8615cd9c598abc089a4b0e",
+    "exported_log_sha256": "56cbf8d5694356cf99ba0fbd59966b680006370d59fedbe901c5c34d3a765837",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  },
+  {
+    "command": "python scripts/check_database.py",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-2.log",
+    "raw_private_log_sha256": "51e71824fe5b564531d86d8f30976b0a7d0a191368e22f78e877ab78fe285574",
+    "exported_log_sha256": "cf548882bd8254ae785330b2acc553c05e43f81ace0d998bc87b4178621758a6",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  },
+  {
+    "command": "python scripts/fresh_install_smoke.py --disposable",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-3.log",
+    "raw_private_log_sha256": "a0f10f2bb51b8a7b28163b7c8883a4d324f8a4084a76322f50c75b9d3c643680",
+    "exported_log_sha256": "ea8e16ca87e153da7145988683f57293d4b94193f8f11c181c77226ac960a47f",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  },
+  {
+    "command": "python scripts/verify_repo.py",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-4.log",
+    "raw_private_log_sha256": "f760ec4ba719ed59329c41fcb88f9a7e3b1b7de1b02b5117ba73fe1cfc81cd82",
+    "exported_log_sha256": "f60cb2dbb7d71fca833b6b0f5c1581277553874352ac9177e855105d11ebf054",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  },
+  {
+    "command": "python -m unittest discover -s tests -p test_r02a_contract.py -v",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-5.log",
+    "raw_private_log_sha256": "e2ccda643dc2f4d1c22d0b39e358ed756fa1b3a44afaee8f3fb572ea2c74412f",
+    "exported_log_sha256": "8c9b930a80a8e04af0b16665abb2c458d113554e5a02a818949f6c8179b52fa8",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  },
+  {
+    "command": "python -m unittest discover -s tests -p test_r03a_contract.py -v",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-6.log",
+    "raw_private_log_sha256": "91f8286a2f6f722bd9c0260b1776fb225d9c5c9c85951b6d54020b9bb166f17b",
+    "exported_log_sha256": "0a0ee548a87a386d637f932cc41555d4d73a03cfa3105ba1bc6885a5fb24ee50",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  },
+  {
+    "command": "python -m unittest discover -s tests -p test_i02_*.py -v",
+    "exit_code": 0,
+    "result": "PASS",
+    "log": "verification-7.log",
+    "raw_private_log_sha256": "9f4e1a1779e060bec387e2daa46aa6e569712170366da63ea728bf9d46b19f16",
+    "exported_log_sha256": "11677e7f54ed67db8c35c01cd78523b18cf4d77631463e4b4154cfe65964df13",
+    "export_normalization": "CR removed from Windows captured line endings; message content retained; original QA log unchanged"
+  }
+]

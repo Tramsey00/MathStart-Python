@@ -1,0 +1,38 @@
+{
+  "verified_at_utc": "2026-10-07 21:04:32 UTC",
+  "method": "Live GitHub connector REST comment and PR/main metadata; scoped interpretation, no signature created",
+  "comment": {
+    "id": 6046690988,
+    "author": "13baybars",
+    "created_at": "2026-10-07T20:56:12Z",
+    "updated_at": "2026-10-07T20:56:12Z",
+    "url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6046690988",
+    "body": "Проверил R01 в своей зоне UI/content/visual на отдельном disposable Django/PostgreSQL baseline.\n\nBaseline source SHA:\n8c11edadc8debc81432d1db1145feac504f09061\n\nD03 — принимаю в своей зоне UI/content. Fresh-install smoke и source→published parity подтверждены на отдельном disposable экземпляре. Моя working DB эталоном не является; обнаруженный в ней drift зафиксирован отдельно, сама working DB не изменялась.\n\nD02 — принимаю как зафиксированный исходный baseline с известными дефектами F01–F04 и обязательным follow-up.\n\nF01–F04 считаются известными дефектами исходного baseline и не должны автоматически переноситься в конечную React-версию.\n\nEvidence-пакет подготовлен для передачи в R01:\nbaseline 8c11edadc8debc81432d1db1145feac504f09061,\nfresh-install/parity PASS,\nbaseline screenshots 360/768/1440,\nkeyboard/widgets evidence,\nworking DB drift report,\nfindings F01–F04 и checksums.\n\nФинальную Task Approval R01 дам отдельно после добавления evidence в PR, проверки обновлённого exact HEAD и зелёного CI.\n\nI01 до этого не начинаю.",
+    "created_at_europe_moscow": "2026-10-07T23:56:12+03:00",
+    "body_sha256": "857e7b8cb97ec31849fbc993eeabce39f91a86db545de19576e18b8b1e878f20"
+  },
+  "canonical_source_sha": "8c11edadc8debc81432d1db1145feac504f09061",
+  "pre_import_candidate_head": "43b4fa10aec2af589c51857d037e973215557255",
+  "D02": {
+    "13baybars": "ACCEPTED_WITH_KNOWN_F01_F04_AND_MANDATORY_FOLLOW_UP",
+    "Tramsey00": "OWNER_CHOICE_RECORDED_IN_CURRENT_USER_REQUEST",
+    "owner_record_source": "Direct user instruction in this R01 evidence-import session received 2026-10-08 Europe/Moscow; no GitHub comment or signature fabricated",
+    "VladimirFrolov777": "PENDING",
+    "collective_decision": "PARTIAL / PENDING"
+  },
+  "D03": {
+    "13baybars": "ACCEPTED_IN_UI_CONTENT_SCOPE_ONLY",
+    "Tramsey00": "PENDING",
+    "VladimirFrolov777": "PENDING",
+    "collective_decision": "PARTIAL / PENDING"
+  },
+  "R01_Task_Approval": {
+    "13baybars": "PENDING — explicitly reserved until imported evidence, exact new HEAD review and green CI",
+    "VladimirFrolov777": "PENDING"
+  },
+  "MIG_G0": "PENDING",
+  "MIG_BASE_SHA": "PENDING",
+  "ADR_0006": "Proposed",
+  "I01": "NOT_STARTED; participant explicitly withholds start",
+  "historical_reports": "Imported HOLD/PENDING reports remain byte-exact pre-decision observations. This separate receipt records the later human decision."
+}

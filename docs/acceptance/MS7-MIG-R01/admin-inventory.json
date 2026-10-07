@@ -1,0 +1,754 @@
+{
+  "registered": [
+    {
+      "model": "auth.Group",
+      "admin_class": "django.contrib.auth.admin.GroupAdmin",
+      "permissions": {
+        "view": true,
+        "add": true,
+        "change": true,
+        "delete": true
+      },
+      "actions": [
+        "delete_selected"
+      ],
+      "list_display": [
+        "__str__"
+      ],
+      "list_filter": [],
+      "search_fields": [
+        "name"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "name",
+              "permissions"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "name",
+              "permissions"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "auth.view_group",
+        "auth.add_group",
+        "auth.change_group",
+        "auth.delete_group"
+      ]
+    },
+    {
+      "model": "auth.User",
+      "admin_class": "django.contrib.auth.admin.UserAdmin",
+      "permissions": {
+        "view": true,
+        "add": true,
+        "change": true,
+        "delete": true
+      },
+      "actions": [
+        "delete_selected"
+      ],
+      "list_display": [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "is_staff"
+      ],
+      "list_filter": [
+        "is_staff",
+        "is_superuser",
+        "is_active",
+        "groups"
+      ],
+      "search_fields": [
+        "username",
+        "first_name",
+        "last_name",
+        "email"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "classes": [
+              "wide"
+            ],
+            "fields": [
+              "username",
+              "usable_password",
+              "password1",
+              "password2"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "username",
+              "password"
+            ]
+          }
+        ],
+        [
+          "Персональная информация",
+          {
+            "fields": [
+              "first_name",
+              "last_name",
+              "email"
+            ]
+          }
+        ],
+        [
+          "Права доступа",
+          {
+            "fields": [
+              "is_active",
+              "is_staff",
+              "is_superuser",
+              "groups",
+              "user_permissions"
+            ]
+          }
+        ],
+        [
+          "Важные даты",
+          {
+            "fields": [
+              "last_login",
+              "date_joined"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "<id>/password/",
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "auth.view_user",
+        "auth.add_user",
+        "auth.change_user",
+        "auth.delete_user"
+      ]
+    },
+    {
+      "model": "content.ContentPage",
+      "admin_class": "content.admin.ContentPageAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "title",
+        "page_type",
+        "grade",
+        "subject",
+        "section",
+        "order",
+        "is_published",
+        "updated_at"
+      ],
+      "list_filter": [
+        "page_type",
+        "is_published",
+        "grade",
+        "subject"
+      ],
+      "search_fields": [
+        "title",
+        "slug",
+        "body_html"
+      ],
+      "readonly_fields": [
+        "source_location",
+        "title",
+        "slug",
+        "page_type",
+        "is_published",
+        "grade",
+        "subject",
+        "section",
+        "order",
+        "body_html",
+        "page_css",
+        "page_js",
+        "seo_title",
+        "seo_description",
+        "created_at",
+        "updated_at"
+      ],
+      "add_fieldsets": [
+        [
+          "Основные данные",
+          {
+            "fields": [
+              "title",
+              "slug",
+              "page_type",
+              "is_published"
+            ]
+          }
+        ],
+        [
+          "Структура",
+          {
+            "fields": [
+              "grade",
+              "subject",
+              "section",
+              "order"
+            ]
+          }
+        ],
+        [
+          "Источник",
+          {
+            "fields": [
+              "source_location"
+            ]
+          }
+        ],
+        [
+          "Содержимое",
+          {
+            "fields": [
+              "body_html",
+              "page_css",
+              "page_js"
+            ]
+          }
+        ],
+        [
+          "SEO",
+          {
+            "fields": [
+              "seo_title",
+              "seo_description"
+            ]
+          }
+        ],
+        [
+          "Служебные данные",
+          {
+            "classes": [
+              "collapse"
+            ],
+            "fields": [
+              "created_at",
+              "updated_at"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          "Основные данные",
+          {
+            "fields": [
+              "title",
+              "slug",
+              "page_type",
+              "is_published"
+            ]
+          }
+        ],
+        [
+          "Структура",
+          {
+            "fields": [
+              "grade",
+              "subject",
+              "section",
+              "order"
+            ]
+          }
+        ],
+        [
+          "Источник",
+          {
+            "fields": [
+              "source_location"
+            ]
+          }
+        ],
+        [
+          "Содержимое",
+          {
+            "fields": [
+              "body_html",
+              "page_css",
+              "page_js"
+            ]
+          }
+        ],
+        [
+          "SEO",
+          {
+            "fields": [
+              "seo_title",
+              "seo_description"
+            ]
+          }
+        ],
+        [
+          "Служебные данные",
+          {
+            "classes": [
+              "collapse"
+            ],
+            "fields": [
+              "created_at",
+              "updated_at"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_contentpage",
+        "content.add_contentpage",
+        "content.change_contentpage",
+        "content.delete_contentpage"
+      ]
+    },
+    {
+      "model": "content.Grade",
+      "admin_class": "content.admin.GradeAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "title",
+        "slug",
+        "order"
+      ],
+      "list_filter": [],
+      "search_fields": [
+        "title",
+        "slug"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "slug",
+              "order",
+              "description"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "slug",
+              "order",
+              "description"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_grade",
+        "content.add_grade",
+        "content.change_grade",
+        "content.delete_grade"
+      ]
+    },
+    {
+      "model": "content.LessonPublication",
+      "admin_class": "content.admin.LessonPublicationAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "page",
+        "source_path",
+        "published_at"
+      ],
+      "list_filter": [],
+      "search_fields": [
+        "page__title",
+        "page__slug",
+        "source_path",
+        "published_digest"
+      ],
+      "readonly_fields": [
+        "page",
+        "source_path",
+        "published_digest",
+        "published_at"
+      ],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "page",
+              "source_path",
+              "published_digest",
+              "published_at"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "page",
+              "source_path",
+              "published_digest",
+              "published_at"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_lessonpublication",
+        "content.add_lessonpublication",
+        "content.change_lessonpublication",
+        "content.delete_lessonpublication"
+      ]
+    },
+    {
+      "model": "content.MediaAsset",
+      "admin_class": "content.admin.MediaAssetAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "title",
+        "file",
+        "related_page"
+      ],
+      "list_filter": [],
+      "search_fields": [
+        "title",
+        "file",
+        "alt_text"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "file",
+              "alt_text",
+              "related_page"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "file",
+              "alt_text",
+              "related_page"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_mediaasset",
+        "content.add_mediaasset",
+        "content.change_mediaasset",
+        "content.delete_mediaasset"
+      ]
+    },
+    {
+      "model": "content.Redirect",
+      "admin_class": "content.admin.RedirectAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "old_path",
+        "new_path",
+        "is_permanent",
+        "is_active"
+      ],
+      "list_filter": [
+        "is_permanent",
+        "is_active"
+      ],
+      "search_fields": [
+        "old_path",
+        "new_path"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "old_path",
+              "new_path",
+              "is_permanent",
+              "is_active"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "old_path",
+              "new_path",
+              "is_permanent",
+              "is_active"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_redirect",
+        "content.add_redirect",
+        "content.change_redirect",
+        "content.delete_redirect"
+      ]
+    },
+    {
+      "model": "content.Section",
+      "admin_class": "content.admin.SectionAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "title",
+        "subject",
+        "slug",
+        "order"
+      ],
+      "list_filter": [
+        "subject__grade",
+        "subject"
+      ],
+      "search_fields": [
+        "title",
+        "slug"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "slug",
+              "subject",
+              "order",
+              "description"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "slug",
+              "subject",
+              "order",
+              "description"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_section",
+        "content.add_section",
+        "content.change_section",
+        "content.delete_section"
+      ]
+    },
+    {
+      "model": "content.Subject",
+      "admin_class": "content.admin.SubjectAdmin",
+      "permissions": {
+        "view": true,
+        "add": false,
+        "change": false,
+        "delete": false
+      },
+      "actions": [],
+      "list_display": [
+        "title",
+        "grade",
+        "slug",
+        "order"
+      ],
+      "list_filter": [
+        "grade"
+      ],
+      "search_fields": [
+        "title",
+        "slug"
+      ],
+      "readonly_fields": [],
+      "add_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "slug",
+              "grade",
+              "order",
+              "description"
+            ]
+          }
+        ]
+      ],
+      "change_fieldsets": [
+        [
+          null,
+          {
+            "fields": [
+              "title",
+              "slug",
+              "grade",
+              "order",
+              "description"
+            ]
+          }
+        ]
+      ],
+      "admin_urls": [
+        "",
+        "add/",
+        "<path:object_id>/history/",
+        "<path:object_id>/delete/",
+        "<path:object_id>/change/",
+        "<path:object_id>/"
+      ],
+      "required_permission_codenames": [
+        "content.view_subject",
+        "content.add_subject",
+        "content.change_subject",
+        "content.delete_subject"
+      ]
+    }
+  ],
+  "permission_model_registered": false,
+  "inspection": "unsaved synthetic superuser; metadata only, no DB mutation; actual server permissions also require is_active/is_staff; content changes disabled even for superuser"
+}

@@ -1,0 +1,144 @@
+{
+  "source_sha": "8c11edadc8debc81432d1db1145feac504f09061",
+  "base_url": "http://127.0.0.1:8002/",
+  "created_utc": "2026-10-07T20:22:32.884894+00:00",
+  "check_groups": 64,
+  "passing_functional_groups": 63,
+  "failed_functional_groups": 0,
+  "observations_without_pass_assertion": 1,
+  "groups": {
+    "header-keyboard": 18,
+    "linear-keyboard-widget": 3,
+    "linear-constant-pointer": 3,
+    "power-widget": 3,
+    "circle-widget": 3,
+    "lesson-details-keyboard": 12,
+    "catalogue-get-keyboard": 3,
+    "home-keyboard-navigation": 3,
+    "header-account-get": 1,
+    "diagram-toggle": 3,
+    "pointer-leave-without-reset": 6,
+    "power-all-presets": 3,
+    "circle-all-presets": 3
+  },
+  "visual_findings": [
+    {
+      "id": "F01",
+      "severity": "P2",
+      "layer": "CSS/layout",
+      "routes": [
+        "/linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+        "/10-klass-stepennye-funkcii-i-grafiki-2-0/",
+        "/10-klass-chislovaya-okruzhnost-2-0/",
+        "/polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "Заголовки содержания уроков переполняют две узкие колонки",
+      "steps": [
+        "Открыть любой из четырёх обязательных уроков на 360×800.",
+        "Прокрутить к открытому Содержанию урока.",
+        "Сравнить длинные названия с границами карточек."
+      ],
+      "observed": "Длинные слова выходят за карточки, перекрывают стрелки/соседние карточки и обрезаются внешним overflow:hidden. В обычном уроке ширина текстового span около 28px; scrollWidth длинных слов 88–127px. На 768/1440 не воспроизведено.",
+      "source_files": [
+        "static/mathstart/css/lesson-contents.css"
+      ],
+      "evidence": [
+        "screenshots/linear-function-360-toc-clipping.jpg",
+        "screenshots/power-functions-360-toc-clipping.jpg",
+        "screenshots/number-circle-360-toc-clipping.jpg",
+        "screenshots/ordinary-number-line-360-toc-clipping.jpg"
+      ],
+      "acceptance": "Requires an explicit known-baseline exception or an agreed later correction; no fix made."
+    },
+    {
+      "id": "F02",
+      "severity": "P2",
+      "layer": "CSS/layout/pointer",
+      "routes": [
+        "/10-klass-stepennye-funkcii-i-grafiki-2-0/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "12 presets степенной функции сжаты в один ряд и перекрываются",
+      "steps": [
+        "Открыть степенные функции на 360×800.",
+        "Перейти к интерактиву.",
+        "Посмотреть строку выбора показателя p."
+      ],
+      "observed": "Grid сохраняет 12 колонок. Кнопки шириной 12.33px при высоте 62px, формулы перекрывают друг друга. Keyboard/aria-pressed корректны, но визуальный выбор и pointer targets неудобны. На 768/1440 перекрытие не воспроизведено.",
+      "source_files": [
+        "static/mathstart/css/widgets/power-functions.css"
+      ],
+      "evidence": [
+        "screenshots/power-functions-360-reset.jpg"
+      ],
+      "acceptance": "Requires known-baseline exception or agreed later correction."
+    },
+    {
+      "id": "F03",
+      "severity": "P2",
+      "layer": "CSS/content legibility",
+      "routes": [
+        "/10-klass-stepennye-funkcii-i-grafiki-2-0/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "Длинные значения таблицы степенной функции выходят за ячейку",
+      "steps": [
+        "Открыть степенные функции на 360×800 с default p=2.",
+        "Прокрутить к таблице под графиком.",
+        "Прочитать значение при x=0,25."
+      ],
+      "observed": "0,0625 имеет ширину 37.86px в ячейке 31.67px; выходит в соседнюю карточку и визуально частично перекрывается её фоном. Данные в DOM правильные. На 768/1440 дефект не воспроизведён.",
+      "source_files": [
+        "static/mathstart/css/widgets/power-functions.css"
+      ],
+      "evidence": [
+        "screenshots/power-functions-360-table-clipping.jpg"
+      ],
+      "acceptance": "Requires known-baseline exception or agreed later correction."
+    },
+    {
+      "id": "F04",
+      "severity": "P3",
+      "layer": "SVG/readability",
+      "routes": [
+        "/10-klass-chislovaya-okruzhnost-2-0/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "Мелкие подписи SVG окружности на мобильной ширине",
+      "steps": [
+        "Открыть окружность на 360×800.",
+        "Перейти к лаборатории и схемам 8/12 частей.",
+        "Прочитать подписи координат/углов внутри SVG."
+      ],
+      "observed": "SVG лаборатории около 203px шириной, статические схемы около 199px. Подписи мелкие; координаты и угол дополнительно показаны обычным текстом. Одноколоночная компоновка и controls работают.",
+      "source_files": [
+        "curriculum/10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/page.css",
+        "curriculum/10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/body.html"
+      ],
+      "evidence": [
+        "screenshots/number-circle-360-reset.jpg",
+        "screenshots/number-circle-360-svg4-viewport.jpg"
+      ],
+      "acceptance": "Non-blocking readability observation; no mathematical/functional defect identified."
+    }
+  ],
+  "primary_viewport_screenshots": 18,
+  "supplementary_fullpage_screenshots": 18,
+  "interaction_content_screenshots": 65,
+  "diagnostic_screenshots": 1,
+  "D02_recommendation": "HOLD unqualified visual/content acceptance; obtain explicit known-defect agreement or agreed correction for F01-F03. Source freeze evidence itself is complete.",
+  "D03_recommendation": "Canonical Git source and disposable source/published parity can be accepted in [reviewer] scope, with separate working-DB drift record. The zero-substantive-drift statement from [coordinator] runtime manifest must not be applied to [reviewer] working DB. No approval issued."
+}

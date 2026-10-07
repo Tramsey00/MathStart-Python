@@ -1,0 +1,22 @@
+{
+  "command": "python scripts/verify_repo.py",
+  "interpreter": "Python 3.12.10 / existing .venv312",
+  "exit_code": 1,
+  "result": "FAIL",
+  "classification": "environment/configuration failure",
+  "diagnostic": "ConnectionTimeout at explicitly disposable127.0.0.1:55437; docker ps and ps -a filter for ms7-mig-r01-pg-20261007 return no matching container. Prior prepared runtime unavailable.",
+  "summary": [
+    "PASS  [backend] Django system check",
+    "PASS  [database] Migration consistency",
+    "FAIL  [content] Lesson source validation",
+    "FAIL  [content] Content quality",
+    "FAIL  [content] Site integrity",
+    "FAIL  [tests] Django test suite",
+    "PASS  [tests] R03 contract suite",
+    "PASS  [harness] Harness test suite"
+  ],
+  "log_sha256": "96486e502df766ea58b4c30478f31a41e72178bedbed29b1a537bc34e46ce6f8",
+  "missing_connection_warning": "makemigrations exits0 but warns it cannot check migration history; this local run does not prove database consistency",
+  "action": "No working DB fallback, no bootstrap/migrate/repair/start/recreation, no skip flags. Existing unchanged current-head CI must run full baseline on its isolated PostgreSQL.",
+  "log_location": "Private QA/baseline-after-ilya-import.log retained without replacing earlier logs"
+}
