@@ -1,7 +1,7 @@
 # MS7-MIG-R01 records
 
 This package prepares the current Django snapshot for independent acceptance.
-**R01 INCOMPLETE / MIG-G0 PENDING / MIG_BASE_SHA PENDING.** Input local/remote
+**R01 workflow INCOMPLETE; human records accepted at daf4e603; new-head confirmation/merge and MIG_BASE_SHA PENDING.** Input local/remote
 main: `8c11edadc8debc81432d1db1145feac504f09061`. Candidate head and its current
 CI/tested merge-ref are recorded in the snapshot draft PR; they are not the
 accepted integration baseline.
@@ -33,7 +33,7 @@ stored Git blobs separately from checkout bytes and excludes itself.
 - [Verification](verification.md) and [trace](../../agent-traces/MS7-MIG-R01.md):
   actual commands, versions, exit codes and limitations.
 - [Human acceptance / decision list](acceptance.md): independent records pending.
-- [Proposed ADR](../../adr/ADR-0006-react-fastapi-migration.md),
+- [ADR accepted on reviewed revision](../../adr/ADR-0006-react-fastapi-migration.md),
   [active plan](../../exec-plans/active/MS7-MIG-R01.md),
   [exact specification provenance](../../../specs/migration/README.md).
 
@@ -46,7 +46,7 @@ hashes, when used, are calculated separately to avoid circular self-digests.
 
 The first candidate CI failed on two R01-owned edits to historically pinned root documents. PRODUCT/ARCHITECTURE are restored to exact input bytes, preserving MS6-R04 pins/Harness; see [first CI facts](ci-first-head.json). Corrected final head checks are in PR46, distinct from this historical failure.
 
-## Participant evidence import — current scoped decision
+## Historical participant import stage — scoped decision at daf4e603
 
 [Ilya evidence index](ilya-20261007/README.md) provides byte-exact package reports,
 screenshots, provenance and three separate runtime sources. [Current D02/D03
@@ -54,3 +54,13 @@ receipt](ilya-20261007/current-decision.json) records Ilya's own limited accepta
 and owner source-freeze choice; [F01–F04](ilya-20261007/follow-up-F01-F04.md)
 require later target follow-up, with assignments PENDING. Final R01/MIG-G0/ADR
 acceptance remains PENDING; historical snapshots and source manifest unchanged.
+
+## Current final human records — 08.10.2026
+
+[Final acceptance receipt](final-human-acceptance-20261008.json) records three
+baseline/ADR decisions and two independent Task Approvals at daf4e603.
+[Current acceptance](acceptance.md) supersedes earlier partial/PENDING status
+paragraphs in this preparation history. [Exact former acceptance snapshot](acceptance-at-daf4e603.md)
+and imported materials preserved. F01–F04 assigned13baybars for I03/I05, no
+fixes performed. [Reviewer amendment list](final-review-changes.md) requires
+new exact HEAD confirmation; MIG_BASE_SHA/snapshot merge remain PENDING.

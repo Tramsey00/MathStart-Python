@@ -1,13 +1,13 @@
 # MS7-MIG-R01 — Baseline snapshot, architecture and ownership
 
-- Status: **Active / INCOMPLETE — human gates pending**
+- Status: **Active / INCOMPLETE — reviewed-head human records accepted; new-head confirmation and merge pending**
 - Owner: Руслан / Tramsey00
 - Independent Reviewers / Task Approvers: Владимир / VladimirFrolov777 and Илья / 13baybars
 - Issue: [#28](https://github.com/Tramsey00/MathStart-Python/issues/28)
 - Gate: MIG-G0; separate baseline/ADR records from all three participants
 - Window/deadline: 07.10.2026, Europe/Moscow, including checks/review; deadline is not acceptance
 - Spec: [exact migration v1.1](../../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md), §§2–11, R01 §14, adaptation §17
-- ADR: [Proposed ADR-0006](../../adr/ADR-0006-react-fastapi-migration.md)
+- ADR: [ADR-0006 accepted decision on reviewed revision](../../adr/ADR-0006-react-fastapi-migration.md)
 - Evidence: [R01 records](../../acceptance/MS7-MIG-R01/README.md), [trace](../../agent-traces/MS7-MIG-R01.md)
 
 ## 1. Objective and scope
@@ -146,8 +146,8 @@ Keep this plan active until actual human acceptance; no automatic completed move
 - [x] Snapshot draft PR46 prepared and attached; first head CI failure preserved, own frozen-document edits restored; corrected local baseline8/8/Harness73 PASS; current-head CI external PR evidence
 - [ ] Snapshot independently approved and merged; resulting MIG_BASE_SHA established
 - [ ] Integration/task branches created from accepted resulting baseline
-- [ ] Separate MIG-G0 records from all three participants
-- [ ] Independent R01 Task Approvals by Владимир and Илья
+- [x] Separate MIG-G0 records from all three participants at reviewed daf4e603
+- [x] Independent R01 Task Approvals by Владимир and Илья at reviewed daf4e603
 - [ ] Active plan completed only after required acceptance
 
 Preparation is reviewable; dependent steps stay PENDING. R01 stops at the
@@ -170,3 +170,23 @@ Byte/hashes/source/historical preservation and links validated; record manifest
 regenerated. Current containing HEAD/tested merge-ref/CI in PR46. R01 remains
 INCOMPLETE, MIG-G0/MIG_BASE_SHA PENDING; D08 CLOSED is retained, collective
 D02/D03 and D01/D04–D07/D09 plus both final Task Approvals remain pending.
+
+## Final human acceptance reconciliation — 08.10.2026 Europe/Moscow
+
+[Three own records and two Task Approvals](../../acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
+verified live at exact daf4e6038761f8d1bf1c60f0976473d987cce230;
+CI37688709748 SUCCESS/tested merged9dcc3381a2c9a0721d546065387f9f7f7b45af4.
+D01–D09 human conditions recorded in participant scopes; Vladimir D09 agreement
+reported by Ruslan's direct message, not a fabricated Vladimir comment.
+R01 planned07.10, actual acceptance08.10; delay retained. Remaining calendar
+targets, including MIG-G4 13.10.2026 23:59 Moscow, unchanged; no reduced scope/checks.
+F01–F04 assigned13baybars, correct no later than I03, verify I05; F04 readable
+at ordinary scale, no clipping/overlap, enlargement alone insufficient.
+Optional separate independent Vladimir F04 review agreement PENDING/not given.
+
+New documentation-only commit requires [reviewer confirmation](../../acceptance/MS7-MIG-R01/final-review-changes.md)
+at exact new HEAD/current CI. Old approvals not transferred. Keep plan active;
+snapshot merge/MIG_BASE_SHA/integration and task branch steps PENDING. No later
+task execution, working DB/app change or Issue closure. Earlier partial/pending
+sections above are chronological preparation history, superseded only by these
+current human records.

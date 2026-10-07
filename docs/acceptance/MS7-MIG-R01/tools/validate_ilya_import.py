@@ -20,11 +20,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--ref', default='INDEX')
     parser.add_argument('--archive', type=Path)
+    parser.add_argument('--output', type=Path, help='Separate current audit; preserve previous receipt')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[4]
     records = root / 'docs/acceptance/MS7-MIG-R01'
     folder = root / PREFIX
     package = folder / 'package'
+    output = args.output.resolve() if args.output else folder / 'import-validation.json'
+    assert output.resolve().is_relative_to(records.resolve())
     def git(*argv):
         return subprocess.check_output(['git', '-C', str(root), *argv])
     def blob(name, ref=args.ref):
@@ -61,7 +64,7 @@ def main():
     for f in provenance['files']:
         b = (package / f['path']).read_bytes()
         assert len(b) == f['export_size'] and sha(b) == f['export_sha256']
-    (folder / 'import-validation.json').touch(exist_ok=True)
+    output.touch(exist_ok=True)
     links = []
     for p in folder.rglob('*.md'):
         for target in re.findall(r'\]\(([^)]+)\)', p.read_text(encoding='utf-8')):
@@ -105,9 +108,19 @@ def main():
         return result
     old_oids, new_oids = tree_oids(PRIOR), tree_oids(args.ref)
     for f in source['files']:
-        if f['path'] == '.gitattributes':
+        if f['path'] in {'.gitattributes', 'AGENTS.md', 'README.md'}:
             continue
         assert old_oids[f['path']] == new_oids[f['path']], f['path']
+    # These two already-scoped current-status links may be reconciled; preserve
+    # their entire pre-migration contents, startup instructions and invariants.
+    for name in ['AGENTS.md', 'README.md']:
+        before = blob(name, PRIOR).decode('utf-8').replace('\r\n', '\n')
+        after = blob(name).decode('utf-8').replace('\r\n', '\n')
+        assert before.split('## Proposed migration status')[0].rstrip() == after.split('## Migration acceptance status')[0].rstrip(), name
+    reviewed = 'daf4e6038761f8d1bf1c60f0976473d987cce230'
+    for name in ['import-validation.json', 'current-decision.json', 'import-receipt.json', 'local-verification.json']:
+        path = PREFIX + '/' + name
+        assert blob(path, reviewed) == blob(path), name
     followup = json.loads((folder / 'follow-up-F01-F04.json').read_text(encoding='utf-8'))
     for f in followup['findings']:
         for path in f['source_files']:
@@ -127,10 +140,10 @@ def main():
               'historical_original_result_objects_unchanged':True,
               'original_application_contract_tree_unchanged_from_prior':True,
               'D08_preserved_closed':True,
-              'F01_F04_status':'MANDATORY / NOT_IMPLEMENTED / ASSIGNMENT_PENDING',
+              'F01_F04_status':sorted({f['follow_up_status'] for f in followup['findings']}),
               'MIG_BASE_SHA':'PENDING', 'R01':'INCOMPLETE', 'MIG_G0':'PENDING',
               'links':links}
-    (folder / 'import-validation.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
+    output.write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({k:v for k,v in result.items() if k != 'links'}, ensure_ascii=True))
 
 if __name__ == '__main__':

@@ -1,96 +1,75 @@
-# R01 / MIG-G0 human acceptance record
+# MS7-MIG-R01: current human acceptance and snapshot handoff
 
-**Status: PENDING. MIG_BASE_SHA = PENDING. ADR-0006 Proposed. R01 INCOMPLETE.**
+**Human records accepted at reviewed HEAD daf4e6038761f8d1bf1c60f0976473d987cce230.
+Current documentation amendment requires reviewers' confirmation at new exact HEAD.
+R01 INCOMPLETE pending that confirmation and snapshot workflow; MIG_BASE_SHA=PENDING.**
 
-Owner: Руслан / Tramsey00. Independent R01 Task Approvers: Владимир /
-VladimirFrolov777 and Илья / 13baybars. Snapshot branch `ms7-mig-baseline`
-targets main; input `8c11edadc8debc81432d1db1145feac504f09061`. Exact candidate
-head, tested merge-ref and latest CI are in the snapshot PR/head record. That
-head is a candidate, not an accepted resulting migration baseline.
+Canonical application source8c11edadc8debc81432d1db1145feac504f09061 unchanged.
+ADR-0006 platform decision accepted by the three participants in their scopes
+on reviewed revision; target implementation is not accepted or started.
+MIG-G0 human baseline/ADR conditions recorded; current snapshot confirmation
+and accepted merge remain pending. New current HEAD/CI/tested merge-ref in [PR46](https://github.com/Tramsey00/MathStart-Python/pull/46).
 
-Review [ADR-0006](../../adr/ADR-0006-react-fastapi-migration.md),
-[inventory](inventory.md), [source manifest](source-manifest.json),
-[runtime manifest](runtime-data-manifest.json), [rendered comparison](rendered-runtime-digests.json),
-[delta](local-delta.json), [Issue map](issue-branch-owner-map.json),
-[old-to-new index](old-to-new-evidence.json), [verification](verification.md)
-and [trace](../../agent-traces/MS7-MIG-R01.md). Historical acceptance and new
-platform acceptance are separate facts. The user request authorizes scoped work and now supplies the owner's D02 source-freeze choice; it does not supply other participants' signatures or collective baseline/ADR acceptance.
-
-## Concrete decisions required before MIG-G0
-
-| ID | Reviewable decision | Required people / current evidence |
+| Human record | Person / timestamp Europe/Moscow | Exact head / decision |
 | --- | --- | --- |
-| D01 | Accept exact current source input plus unchanged local recovery evidence and R01 records; preserve remote I03/identity/grades and all authored lesson CSS/JS. No replay of PR27. | All three; source hashes/delta and current PR checks prepared; PENDING. |
-| D02 | Accept PR27 visual/content fixes as migration baseline, or name specific files requiring later agreed correction. Git preservation/merge without reviews is not independent visual approval. | **PARTIAL:** Илья accepts source baseline with F01–F04 + mandatory follow-up in own comment; Руслан chooses same source freeze in direct request. Владимир PENDING; no collective acceptance or final R01 Task Approval. |
-| D03 | Accept canonical Git source with three separate evidence environments: Руслан working audit (13 LF/CRLF variants), Илья working DB (substantive drift in five payloads), Илья exact-source disposable parity. Keep working DBs unchanged. | **PARTIAL:** Илья accepts in UI/content scope based on disposable fresh/parity evidence, with working drift separate. Руслан/Владимир D03 decisions PENDING. No automatic bootstrap repair. |
-| D04 | Accept proposed platform ADR: minimal React/TS/Vite/Router SSG + FastAPI/SQLAlchemy/Alembic, public publish/unpublish freshness journal/activation, private no-store, modular-monolith and evidence invariants. | All three; ADR0006 Proposed; PENDING. |
-| D05 | Accept complete staff/admin scope: seven Content view-only models, all current User/Group CRUD/password/role/direct/group permission/history/delete-selected operations and PROTECT; Permission has no independent registered CRUD. Any exclusion must name operation and approved scope change. | All three; nine registrations and exact fields/actions/permissions inventoried; PENDING. No CLI blanket substitute. |
-| D06 | Accept one DDL owner Владимир and explicit legacy→target writer transfer; no shared-table Django/Alembic overlap/stamp without review; PostgreSQL required, opt-in SQLite local compatibility retained without fallback or PG acceptance claims. | All three; no current DDL or live writer change; PENDING. |
-| D07 | Accept auth/session cutover proposal: one re-login, no password reset; compatible hash vectors, receipts/scope bridge/retention, roles/constraints and CSRF preserved; reviewed proxy/shared rate and security responsibilities. | All three; future implementation/tests delegated to registered tasks only; PENDING. |
-| D08 | Reconcile original R02A/R03A contract acceptance at exact reviewed heads without backdating historical records. | **CLOSED 07.10.2026** — VladimirFrolov777 explicitly accepts [R02A head917cdc4](https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492) and [R03A head908a9ae](https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058); author/head/merge/CI verified live. Separate R01/MIG-G0 records remain PENDING. |
-| D09 | Confirm calendar/capacity and unresolved hosting boundary: reproducible staging/disposable delivery required; public production host/deployment remains separately approved. Registration/reservations are not implementation authorization. | All three; Europe/Moscow dates in plan/spec; PENDING. |
+| [Baseline+ADR and independent Task Approval](https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271) | 13baybars;08.10.2026 00:51:20 | daf4e603…; APPROVED in UI/content/visual/frontend consumer scope |
+| [Owner baseline+ADR / D01–D09](https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047773231) | Tramsey00;08.10.2026 01:05:10 | daf4e603…; APPROVED as owner, not independent self-approval |
+| [Baseline+ADR and independent Task Approval](https://github.com/Tramsey00/MathStart-Python/pull/46#pullrequestreview-5449019477) | VladimirFrolov777;08.10.2026 01:13:03 | API state APPROVED,commit_id=daf4e603…; architecture/backend/API/PostgreSQL/data ownership scope |
 
-Grades historical backend/migration acceptance is located in
-[Руслан's actual 06.10 comment](https://github.com/Tramsey00/MathStart-Python/pull/24#issuecomment-6015016626)
-and [Илья's consumer review](https://github.com/Tramsey00/MathStart-Python/pull/24#pullrequestreview-5406384114).
-R01 records those statements; it does not author them retrospectively. No grades
-approval remains fabricated/missing in this audit. Frozen manifests stay intact.
+Full reviewed head for all three:
+`daf4e6038761f8d1bf1c60f0976473d987cce230`.
+Live author/date/body/commit/CI evidence and scope in
+[final human receipt](final-human-acceptance-20261008.json). Old approvals retain
+that SHA; no automatic transfer to the documentation commit. Reviewers must
+confirm [this short amendment list](final-review-changes.md) at new full HEAD
+and its successful CI before ready-for-merge.
 
-D08 closure is based on current independent acceptance reconciliation records by Владимир: 07.10.2026 at 19:49:02 and 20:06:07 Europe/Moscow. See [verified receipt](acceptance-reconciliation-20261007.json). Earlier absent-approval findings remain preserved in original snapshots; neither comment claims an earlier approval. R02A's non-blocking LF/CRLF documentation note remains recorded without changing pinned artifacts. **D08 CLOSED. D02/D03 now have partial scoped human decisions; collective acceptance and D01/D04–D07/D09 remain PENDING. All final R01/MIG-G0 gates below remain PENDING.**
+## D01–D09 human conditions at reviewed head
 
-## Separate human records — intentionally unsigned
+| ID | Recorded decision / remaining implementation obligations |
+| --- | --- |
+| D01 | ACCEPTED source snapshot, preserved authored content/CSS/JS, prior account/grades and historical evidence; PR27 already in source, no replay. |
+| D02 | ACCEPTED original source with known F01–F04; agreed13baybars correction no later than I03, verification I05; no source fix in R01. |
+| D03 | ACCEPTED canonical source/disposable parity, three distinct environments: Ruslan working DB audit, Ilya substantive working drift, Ilya disposable baseline. Working DBs unchanged. |
+| D04 | ACCEPTED platform decision/modular monolith/invariants/design/URLs/SEO/SSG freshness/recovery/private-data boundaries; future implementation subject to task gates. |
+| D05 | ACCEPTED complete inventoried staff/admin scope, including seven Content view-only models and User/Group password/roles/permissions/history/guarded deletion; no hidden exclusion or CLI blanket replacement. |
+| D06 | ACCEPTED explicit backend/schema/Alembic owner Vladimir, frontend Ilya, contracts/verification/integration Ruslan; single DDL/write owner, controlled writer transfer; PostgreSQL acceptance, opt-in SQLite local compatibility only. |
+| D07 | ACCEPTED one re-login, no password reset, password/session/CSRF/receipt compatibility and scoped security responsibilities; implementation verification later. |
+| D08 | CLOSED from actual07.10.2026 original R02A/R03A independent comments; historical absence/pending preserved without backdating. |
+| D09 | ACCEPTED participant calendar/staging-disposable boundary; Vladimir D09 agreement additionally reported by Ruslan in the current direct user message, not a separate Vladimir-authored comment. Remaining target dates and MIG-G4 13.10.2026 23:59 Moscow retained; R01 delay beyond07.10 recorded; checks/scope not reduced. |
 
-| Gate record | Person | Exact reviewed candidate SHA / ADR | Decision / timestamp / URL |
-| --- | --- | --- | --- |
-| MIG-G0 baseline + ADR | Руслан / Tramsey00 | PENDING | PENDING — owner D02 source-freeze choice recorded separately; other baseline/ADR decisions not supplied |
-| MIG-G0 baseline + ADR | Владимир / VladimirFrolov777 | PENDING | PENDING — no signature supplied |
-| MIG-G0 baseline + ADR | Илья / 13baybars | PENDING | PENDING — own scoped D02/D03 comment recorded separately; no combined baseline/ADR signature |
-| Independent R01 Task Approval (architecture/contracts/backend) | Владимир / VladimirFrolov777 | PENDING | PENDING |
-| Independent R01 Task Approval (UI/content/visual) | Илья / 13baybars | PENDING | PENDING |
-| Snapshot approval/checks/merge | Independent reviewers + authorized human merger | Candidate in PR; resulting main PENDING | PENDING |
+[D08 receipt](acceptance-reconciliation-20261007.json) remains exact.
+[Inventory](inventory.md), [source manifest](source-manifest.json),
+[three environments](ilya-20261007/README.md), [follow-up criteria](ilya-20261007/follow-up-F01-F04.md),
+[ADR-0006](../../adr/ADR-0006-react-fastapi-migration.md) and
+[active plan](../../exec-plans/active/MS7-MIG-R01.md) remain review inputs.
 
-Each person may use this record format in their own PR comment/review; it is a
-template, not a decision:
+## Remaining current-head and merge conditions
 
-```text
-Person/login:
-Gate: MIG-G0 baseline+ADR and/or independent MS7-MIG-R01 Task Approval
-Candidate full SHA:
-ADR-0006 file/revision reviewed:
-Inventory/manifest/CI run and tested merge-ref reviewed:
-Decisions D01–D09 accepted / specific changes requested:
-Review scope and positive/negative evidence:
-Outstanding blockers:
-Decision: APPROVED / CHANGES_REQUESTED / PENDING
-Timestamp (Europe/Moscow) and own review/comment URL:
-```
+Both independent R01 approvals and all three baseline/ADR records exist at daf4e603.
+The documentation amendment records those facts and agreed F01–F04 criteria;
+it is not already approved. Confirm new full HEAD and CI with reviewers.
+PR stays draft/unmerged under this instruction. No migration Issue closure.
+Separate optional Vladimir F04 independent review agreement **PENDING / NOT GIVEN**;
+it is not falsely required as a new R01 approval or assigned without consent.
+F01–F04 **MANDATORY / ASSIGNED / NOT IMPLEMENTED**; their resolution belongs to I03/I05.
 
-Self-check/agent review is not independent human acceptance. A merge must not
-bypass required review even though main currently has no enforced protection.
-After accepted snapshot merge, record resulting MIG_BASE_SHA, then create
-integration/task branches; that dependent step is outside this preparation's
-accepted state. Keep 18 Issues open; final migration workflow owns their closure.
-Keep the active plan in active until all required human evidence is present.
+After reviewers' confirmation and successful current checks, an authorized
+human may mark ready and merge snapshot. Read actual resulting main commit,
+verify merge/accepted input/current checks, record resulting MIG_BASE_SHA.
+Then create ms7-mig-react-fastapi from that exact resulting commit and
+ms7-mig-r01-baseline from accepted integration input under §10, tracking
+worktrees/input SHA. These steps are not performed now; subsequent tasks still
+require their own dependencies and acceptance. Issues remain open until final
+migration integration→main workflow; do not infer closure from this snapshot.
 
-## Scoped D02/D03 reconciliation — 08.10.2026, without final Task Approval
+## Historical acceptance snapshots
 
-Live [comment6046690988](https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6046690988),
-author **13baybars**, created/updated **07.10.2026 23:56:12 Europe/Moscow**:
-D03 ACCEPTED only in UI/content scope; D02 ACCEPTED as original source baseline
-with F01–F04 and mandatory follow-up. Comment cites canonical source
-8c11edadc8debc81432d1db1145feac504f09061. Its final R01 Task Approval is expressly
-reserved until evidence import, exact new HEAD review and green CI; I01 not started.
-The package's context file references prior candidate43b4fa10aec2af589c51857d037e973215557255;
-the comment does not approve the containing new commit or ADR0006.
-
-Руслан's direct current request chooses to preserve that original source with
-F01–F04 and mandatory follow-up, without source fixes. This is an owner D02
-choice, not another participant's signature or a combined MIG-G0 decision.
-[Exact scoped receipt](ilya-20261007/current-decision.json),
-[three-source evidence index](ilya-20261007/README.md),
-[follow-up and criteria](ilya-20261007/follow-up-F01-F04.md).
-Historical HOLD/PENDING reports are unchanged; this later decision is a separate record.
-Assignments/solution/calendar for findings and independent target verification
-remain PENDING. F01–F04 NOT IMPLEMENTED. Other D01/D04–D07/D09 decisions and
-collective D02/D03, both final R01 Task Approvals and three baseline+ADR records
-remain outstanding. MIG_BASE_SHA and MIG-G0 PENDING.
+[Acceptance at reviewed daf4e603](acceptance-at-daf4e603.md) is preserved as
+exact Git bytes and retains its original PENDING/partial wording.
+[Earlier scoped D02/D03 receipt](ilya-20261007/current-decision.json),
+[import validation](ilya-20261007/import-validation.json) and package HOLD/PENDING
+reports remain historical. Final later human records above reconcile those
+states; no earlier approval is invented. Original_result objects/frozen
+contracts/source/runtime snapshots and import material bytes are unchanged.
+Local FAIL_ENVIRONMENT remains separate from full successful reviewed-head CI.

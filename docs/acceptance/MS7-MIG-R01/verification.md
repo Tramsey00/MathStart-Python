@@ -165,3 +165,26 @@ check excluding only exact imported package; package SHA256/Git blobs separately
 validate every byte, with original whitespace findings left visible.
 
 Final import audit: `validate_ilya_import.py --ref INDEX --archive <supplied ZIP>` exit0 PASS; all232 ZIP members equal checkout and staged Git blob bytes/OIDs,231 package hashes/228 provenance exports verified,165 relative links valid, original_result objects and D08/source/runtime/initial GitHub/first CI snapshots preserved. See [exact result](ilya-20261007/import-validation.json). Own whitespace check excludes only the unchanged external package;14 original command-05.log trailing spaces remain observed, not repaired.
+
+## Final acceptance record amendment — 08.10.2026
+
+Live author/body/date/head verification PASS for three supplied human records;
+Vladimir API review APPROVED/commit_id=daf4e603. Reviewed-head CI37688709748
+SUCCESS is historical for the new documentation commit, not its CI. New current
+head full unchanged workflow/verify_repo8 required, recorded in PR46 after push.
+No local DB verification rerun: prior disposable container unavailable; prior
+FAIL_ENVIRONMENT preserved and no working-DB fallback/setup. Record/source/
+history/package hashes, links and manifest checks run without DB access under
+repository verification skill. Existing verification/CI/Harness not altered.
+
+The prior Desktop ZIP path is absent in this session: optional original-archive
+probe exits1 FileNotFoundError. No ZIP recreated or evidence overwritten.
+Current audit checks all232 committed package bytes against the preserved
+manifest/provenance/receipts and Git blobs without claiming a new ZIP hash probe.
+Previous successful ZIP verification remains historical at reviewed daf4e603.
+
+Final database-free checks exit0 PASS:232 exact imported files/Git blobs,231
+package entries/228 provenance entries,168 relative participant evidence links;
+original_result objects/source/runtime/frozen snapshots and earlier scoped/import
+receipts unchanged.1023 input files and18568 original output/tmp preserved.
+See [current import audit](final-acceptance-import-validation.json). Own whitespace changes checked before commit.

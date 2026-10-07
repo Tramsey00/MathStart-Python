@@ -80,3 +80,13 @@ reference к [canonical Git source](https://github.com/Tramsey00/MathStart-Pytho
 preservation: [utility](../tools/validate_ilya_import.py) и
 [результат](import-validation.json). Package manifest не включает себя;
 общий record manifest также исключает себя.
+
+## Later final human decision — 08.10.2026
+
+Earlier scoped/partial wording above and package HOLD/PENDING remain historical.
+[Final human receipt](../final-human-acceptance-20261008.json) records own final
+baseline/ADR and independent Task Approval at daf4e603, with explicit agreement
+for F01–F04. [Current follow-up](follow-up-F01-F04.md):13baybars correction by I03,
+verification I05; F04 ordinary-scale readability required. No independent
+Vladimir F04 agreement. New documentation amendment requires exact new-head
+confirmation; no automatic approval transfer or downstream implementation.

@@ -1,0 +1,92 @@
+{
+  "source_sha": "8c11edadc8debc81432d1db1145feac504f09061",
+  "reviewed_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
+  "live_verification_date": "2026-10-08 Europe/Moscow",
+  "participants": [
+    {
+      "author": "13baybars",
+      "id": 6047568271,
+      "type": "issue_comment",
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271",
+      "created_or_submitted_at_utc": "2026-10-07T21:51:20Z",
+      "updated_at_utc": "2026-10-07T21:51:20Z",
+      "date_europe_moscow": "2026-10-08T00:51:20+03:00",
+      "exact_reviewed_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
+      "api_commit_id": null,
+      "api_review_state": null,
+      "body": "## 1. MIG-G0 baseline + ADR-0006\n\nИлья / 13baybars.\nДата: 08.10.2026, Europe/Moscow.\nScope: UI/content/visual, frontend consumer contracts и соответствующие границы безопасности.\n\nПроверенный exact candidate HEAD PR #46:\ndaf4e6038761f8d1bf1c60f0976473d987cce230\n\nПринимаю canonical application source baseline:\n8c11edadc8debc81432d1db1145feac504f09061\n\nADR-0006 на указанном candidate HEAD: reviewed / accepted в моей зоне ответственности. Принимаю платформенное решение и frontend-обязательства; это не приёмка ещё не реализованного target backend/frontend.\n\nРешения D01–D09:\n\n- D01 — ACCEPTED в моей зоне. Принимаю source snapshot, preservation authored content/CSS/JS, существующих UI/account/grades результатов и исторического evidence. PR27 уже входит в baseline; повторный перенос не нужен.\n- D02 — ACCEPTED как зафиксированный исходный baseline с известными F01–F04 и обязательным исправлением по согласованному follow-up ниже.\n- D03 — ACCEPTED в UI/content scope. Canonical Git source и disposable source→published parity принимаю. Моя working DB с содержательным drift пяти проверенных payloads, мой disposable baseline и working DB audit Руслана — разные среды. Выводы одного аудита не распространяются на другие. Working DBs сохраняются неизменными.\n- D04 — ACCEPTED: React/TypeScript/Vite/React Router с public pre-rendered HTML и FastAPI/SQLAlchemy/Alembic в модульном монолите. Сохраняются дизайн, CSS/tokens, URLs/SEO, authored math/SVG, widget lifecycle и domain/evidence contracts. Обязательны publication freshness/recovery, private no-store и отсутствие приватных данных в SSG.\n- D05 — ACCEPTED в части frontend/staff parity. Сохраняется полный инвентаризированный scope: семь Content view-only моделей и существующие User/Group операции, включая passwords, roles/permissions, history и guarded deletion/PROTECT. Permission не получает отдельный CRUD. CLI не заменяет обязательный staff UI; исключения требуют отдельного согласованного scope decision.\n- D06 — ACCEPTED как ownership/compatibility policy: Владимир — единственный владелец writable Alembic chain; передача legacy→target writes явная, без конкурирующего DDL/write ownership. PostgreSQL обязателен для acceptance; SQLite — только opt-in local compatibility без fallback и без claims PostgreSQL parity.\n- D07 — ACCEPTED: один явный re-login при session cutover без password reset, сохранение password compatibility и session/CSRF/receipt semantics. В моей зоне — безопасные формы, password cleanup, private no-store/export boundaries и отсутствие browser credentials в localStorage/SSG. Backend security implementation проверяется отдельно ответственными reviewers.\n- D08 — CLOSED, reconciliation evidence reviewed. Подтверждены собственные комментарии VladimirFrolov777 от 07.10.2026 по R02A/R03A на указанных historical heads; более ранняя приёмка не приписывается.\n- D09 — ACCEPTED в части моей frontend-очереди и плановых обязательств календаря 07–13.10.2026, Europe/Moscow. Фактические задержки фиксируются честно; незавершённые gates сохраняют PENDING и требуют обновления прогноза без сокращения проверок. Принимаю reproducible staging/disposable delivery boundary. Production host/deployment требуют отдельного решения.\n\nFollow-up F01–F04:\n\n- Принимаю frontend-реализацию всех четырёх findings на себя, 13baybars.\n- R02 должен зафиксировать baseline exception и положительные критерии target parity.\n- Исправления реализуются не позже I03 при переносе LessonHost/widgets.\n- Закрытие findings и повторная проверка выполняются в I05 до итоговой UI/content freeze.\n- F01: содержание всех четырёх затронутых уроков читаемо на 360×800 без clipping/overlap; сохранены ссылки, keyboard и focus.\n- F02: все 12 power presets читаемы, различимы и доступны pointer/keyboard; сохранены aria-pressed и математическое поведение.\n- F03: значения таблицы полностью читаемы, включая 0,0625 при p=2 и x=0,25; математические данные не изменяются ради layout.\n- F04: на 360×800 SVG-подписи лаборатории окружности и схем 8/12 частей должны быть читаемы без clipping/overlap при обычном масштабе. Сохраняются углы, координаты, text readout, controls и математическое поведение. Затем обязателен regression check на 768/1440. Нового численного pixel/font threshold не устанавливаю. Возможность увеличения сама по себе этот критерий не заменяет.\n- Независимую math/content проверку F04 может выполнить Владимир по отдельному согласованию; его согласие этим комментарием не оформляется.\n- Для исправлений обязательны regression checks на 360/768/1440. F01–F04 не разрешается переносить неисправленными в конечную React-версию.\n\nЭто моя baseline/ADR запись. Она не заменяет решения других участников, коллективное закрытие MIG-G0 или authorized snapshot merge. Resulting MIG_BASE_SHA определяется после принятого merge.\n\n## 2. Independent MS7-MIG-R01 Task Approval — UI/content/visual\n\nExact reviewed HEAD:\ndaf4e6038761f8d1bf1c60f0976473d987cce230\n\nCurrent-head CI: SUCCESS.\nRun:\nhttps://github.com/Tramsey00/MathStart-Python/actions/runs/37688709748\n\nVerify job:\nhttps://github.com/Tramsey00/MathStart-Python/actions/runs/37688709748/job/113023085692\n\nActual tested merge-ref:\nd9dcc3381a2c9a0721d546065387f9f7f7b45af4\n\nПроверены acceptance.md, ADR-0006, scoped D02/D03 receipt, разделение трёх DB-сред, working DB drift report, fresh-install/source→published parity, screenshots/index/manifests, keyboard/widgets и browser/version evidence, F01–F04 follow-up, import receipt/validation и preservation приложения/исторических records.\n\nНезависимая сверка:\n- 232/232 ZIP members соответствуют Git blobs exact HEAD;\n- ZIP SHA-256:\n  63d0bca0618dee6016669e07706612edd9f1ef50be26de4c238eb043935e9313\n- 165 relative evidence links проверены; 135 уникальных targets открываются с HTTP 200 и точными байтами;\n- приложение, CSS/JS, migrations, dependencies, Harness и CI импортом не изменены;\n- historical original_result и D08 сохранены.\n\nПолный CI verify_repo: PASS 8/8; Django107, R03 reference18, Harness73, R02A30, R03A41 и fresh PostgreSQL smoke — SUCCESS.\n\nЛокальный FAIL_ENVIRONMENT Руслана сохранён отдельно и не выдаётся за PASS. Baseline UI evidence ограничено задокументированным browser surface; оно не объявляется выполненной target cross-browser/touch/accessibility проверкой.\n\nBlocking findings в моей зоне R01: none.\nF01–F04 приняты как известные дефекты исходного baseline с обязательным follow-up, указанным выше.\n\nDecision: APPROVED — Independent MS7-MIG-R01 Task Approval в зоне UI/content/visual для exact HEAD daf4e6038761f8d1bf1c60f0976473d987cce230.\n\nI01 этим review не запускаю. До начала ожидаю принятые MIG_BASE_SHA, integration SHA и подтверждение принятого R02.",
+      "body_utf8_sha256": "9582c685849536b66394d01f8a5636293d9dec7377e6a7f8d2a26aa908aaf068",
+      "baseline_and_ADR": "ACCEPTED_IN_PARTICIPANT_SCOPE",
+      "independent_R01_Task_Approval": "APPROVED",
+      "scope": "UI/content/visual/frontend consumer and corresponding security"
+    },
+    {
+      "author": "Tramsey00",
+      "id": 6047773231,
+      "type": "issue_comment",
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047773231",
+      "created_or_submitted_at_utc": "2026-10-07T22:05:10Z",
+      "updated_at_utc": "2026-10-07T22:05:10Z",
+      "date_europe_moscow": "2026-10-08T01:05:10+03:00",
+      "exact_reviewed_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
+      "api_commit_id": null,
+      "api_review_state": null,
+      "body": "Руслан / Tramsey00.\r\nДата: 08.10.2026, Europe/Moscow.\r\nРешение владельца проекта: MIG-G0 baseline + ADR-0006.\r\n\r\nCandidate HEAD PR #46:\r\n`daf4e6038761f8d1bf1c60f0976473d987cce230`\r\n\r\nCanonical application source baseline:\r\n`8c11edadc8debc81432d1db1145feac504f09061`\r\n\r\nПринимаю baseline и предложенное решение ADR-0006 на указанном candidate HEAD. Подтверждаю следующие условия:\r\n\r\n— D01: сохраняем текущие исходники, результаты предыдущих задач, authored content/CSS/JS и исторические evidence. PR27 уже входит в baseline.\r\n\r\n— D02: принимаю исходный baseline с известными F01–F04 и обязательным follow-up. Подтверждаю согласие Ильи реализовать исправления не позже I03 и проверить их в I05. Критерии — из его финального комментария, включая читаемость SVG-подписей F04 при обычном масштабе и regression checks на 360/768/1440.\r\n\r\n— D03: принимаю canonical source и подтверждённый disposable source→published parity. Аудит моей working DB, drift working DB Ильи и его disposable baseline учитываются отдельно. Рабочие БД сохраняем без изменений в рамках R01.\r\n\r\n— D04: принимаю React/TypeScript/Vite/React Router, public pre-rendered HTML и FastAPI/SQLAlchemy/Alembic с PostgreSQL в модульном монолите. Сохраняем дизайн, URLs/SEO, контент, математическое поведение и domain/evidence invariants. Обязательны publication freshness/recovery и защита private data.\r\n\r\n— D05: принимаю полный инвентаризированный staff/admin scope без скрытого исключения операций или замены обязательного UI только командами CLI.\r\n\r\n— D06: принимаю ownership: Владимир — backend/schema/Alembic, Илья — frontend, Руслан — contracts/verification/integration. Передача legacy→target writes явная; конкурирующее управление одними таблицами не допускается. PostgreSQL обязателен для acceptance; SQLite — только opt-in local compatibility.\r\n\r\n— D07: принимаю один повторный вход при session cutover без сброса паролей, с обязательной проверкой password/session/CSRF/receipt compatibility и безопасности.\r\n\r\n— D08: принимаю зафиксированное закрытие reconciliation по реальным комментариям Владимира от 07.10.2026, без приписывания более ранней приёмки.\r\n\r\n— D09: дальнейшие целевые сроки оставляем по действующему плану, включая итоговый MIG-G4 13.10.2026 23:59 Europe/Moscow. Фактическая задержка R01 относительно 07.10 фиксируется честно. Объём и проверки ради сроков не сокращаем. Принимаю reproducible staging/disposable delivery; production deployment требует отдельного решения.\r\n\r\nCurrent-head CI — SUCCESS:\r\nhttps://github.com/Tramsey00/MathStart-Python/actions/runs/37688709748\r\n\r\nЛокальный FAIL_ENVIRONMENT сохранён отдельно и не считается PASS.\r\n\r\nDecision: APPROVED — baseline + ADR-0006 как владелец проекта.\r\n\r\nЭта запись не заменяет независимую Task Approval Владимира и Ильи. MIG_BASE_SHA определяется после принятого snapshot merge. Реализация зависимых задач начинается только после принятия их необходимых gates и контрактов.",
+      "body_utf8_sha256": "f791fba602dfe5840f99d7612da4fda629111982dbe34d7b2d5ebea27828091e",
+      "baseline_and_ADR": "ACCEPTED_IN_PARTICIPANT_SCOPE",
+      "independent_R01_Task_Approval": "NOT_APPLICABLE_OWNER_DOES_NOT_APPROVE_OWN_R_TASK",
+      "scope": "project owner and D01–D09"
+    },
+    {
+      "author": "VladimirFrolov777",
+      "id": 5449019477,
+      "type": "pull_request_review",
+      "url": "https://github.com/Tramsey00/MathStart-Python/pull/46#pullrequestreview-5449019477",
+      "created_or_submitted_at_utc": "2026-10-07T22:13:03Z",
+      "updated_at_utc": null,
+      "date_europe_moscow": "2026-10-08T01:13:03+03:00",
+      "exact_reviewed_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
+      "api_commit_id": "daf4e6038761f8d1bf1c60f0976473d987cce230",
+      "api_review_state": "APPROVED",
+      "body": "Провёл финальный review MS7-MIG-R01 в своей зоне ответственности:\narchitecture/backend/API/PostgreSQL/data ownership/baseline integrity.\n\nДата приёмки: 08.10.2026.\n\nПроверенный HEAD:\n`daf4e6038761f8d1bf1c60f0976473d987cce230`\n\nПовторно проверен delta после предыдущего review:\n`2af105c515c4e296613834118c15609efcdb6710..daf4e6038761f8d1bf1c60f0976473d987cce230`\n\nПодтверждаю:\n\n- D08 закрыт реальными explicit acceptance records MS7-R02A и MS7-R03A;\n- historical snapshots и отсутствие прежних approvals не переписаны;\n- source / record manifests и imported evidence согласованы;\n- runtime/API schemas/frozen contracts/migrations/dependencies в review delta не изменены;\n- DDL/write ownership остаётся однозначным;\n- MIG_BASE_SHA не назначен преждевременно;\n- current CI `37688709748` — SUCCESS на exact reviewed HEAD;\n- локальный `FAIL_ENVIRONMENT` из-за отсутствующего disposable PostgreSQL корректно зафиксирован как environment failure и не выдан за PASS.\n\n## Baseline decision\n\nПринимаю source baseline:\n\n`8c11edadc8debc81432d1db1145feac504f09061`\n\nкак исходный migration baseline с обязательным сохранением известных follow-up findings F01–F04.\n\nF01–F04 не нарушают source/data/API/schema integrity и не блокируют фиксацию исходного snapshot, но должны оставаться зарегистрированными обязательными follow-ups и не могут считаться автоматически исправленными миграцией.\n\n## ADR decision\n\nADR-0006 принимаю в своей зоне ответственности.\n\nПодтверждаю platform direction:\n\n- React + TypeScript;\n- FastAPI;\n- SQLAlchemy 2;\n- Alembic;\n- PostgreSQL;\n- SSG/public delivery;\n- session/CSRF compatibility;\n- staff/admin parity;\n- explicit DDL/write ownership и controlled cutover.\n\nFrozen product semantics и accepted wire contracts должны сохраняться; platform migration сама по себе не является разрешением менять API/domain semantics.\n\n## Task Approval\n\nBlocking findings для моей части MS7-MIG-R01 не осталось.\n\n**MS7-MIG-R01 Task Approval: APPROVED** на указанном HEAD.\n\nМой approval является независимой записью Владимира и не закрывает общий MIG-G0 автоматически. Отдельные решения/approval Ильи и оставшиеся collective D01–D09 gates сохраняют свои фактические статусы до соответствующей human acceptance.",
+      "body_utf8_sha256": "ce251efa995a0e71c9c4f56701dfc1935755cd67f90e32c477ccdc842f064c6b",
+      "baseline_and_ADR": "ACCEPTED_IN_PARTICIPANT_SCOPE",
+      "independent_R01_Task_Approval": "APPROVED",
+      "scope": "architecture/backend/API/PostgreSQL/data ownership/baseline integrity"
+    }
+  ],
+  "reviewed_head_ci": {
+    "head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
+    "run_id": 37688709748,
+    "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37688709748",
+    "status": "completed",
+    "conclusion": "success",
+    "actual_tested_merge_ref": "d9dcc3381a2c9a0721d546065387f9f7f7b45af4",
+    "baseline": "8/8; Django107/R0318/Harness73/R02A30/R03A41; prior job checkout verified"
+  },
+  "D01_D09": "Human decision conditions recorded/closed for reviewed head in participant scopes; D09 Vladimir agreement additionally reported by owner",
+  "D09_owner_report": {
+    "reported_by": "Tramsey00 / Руслан",
+    "source": "Direct current user instruction in this R01 acceptance-recording session",
+    "statement": "Руслан additionally confirms Vladimir accepts D09 including remaining target dates and staging/disposable delivery boundary",
+    "attribution": "Owner report of Vladimir agreement; not a separate Vladimir-authored D09 comment, signature or review statement",
+    "target_schedule": "Remaining target deadlines unchanged; MIG-G4 2026-10-13 23:59 Europe/Moscow",
+    "delay": "R01 planned 2026-10-07, human records actually 2026-10-08; historical delay retained; no check/scope reduction"
+  },
+  "F01_F04": {
+    "implementation_owner": "13baybars",
+    "assignment": "AGREED by own final comment and owner confirmation",
+    "implementation_deadline": "NO_LATER_THAN_MS7_MIG_I03 (planned 2026-10-10)",
+    "verification": "MS7-MIG-I05 (planned 2026-10-12), before UI/content freeze; regression360/768/1440",
+    "status": "MANDATORY / ASSIGNED / NOT_IMPLEMENTED",
+    "F04": "Readable at ordinary scale on360x800, no clipping/overlap; enlargement alone insufficient; math/text/controls preserved; regression768/1440; no new numeric font/pixel threshold",
+    "Vladimir_F04_independent_review_agreement": "PENDING / NOT_GIVEN — Ilya suggests separate agreement only"
+  },
+  "ADR_0006": "ACCEPTED decision by all three on exact reviewed revision; documentation reconciliation amendment requires new-head confirmation",
+  "current_snapshot_status": "DOCUMENTATION_RECONCILIATION / NEW_HEAD_CONFIRMATION_AND_MERGE_PENDING",
+  "approval_transfer_to_new_head": false,
+  "MIG_BASE_SHA": "PENDING",
+  "R01": "INCOMPLETE — new-head confirmation and accepted snapshot merge/workflow pending",
+  "MIG_G0": "Human baseline/ADR conditions recorded at reviewed head; current candidate confirmation/merge pending",
+  "scope": "Records only; no app/working DB/source/pins change; no merge, Issue closure or downstream execution"
+}

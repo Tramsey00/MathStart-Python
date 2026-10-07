@@ -1,15 +1,15 @@
-# ADR-0006: Proposed React / FastAPI platform migration
+# ADR-0006: React / FastAPI platform migration decision
 
-- Status: **Proposed — MIG-G0 PENDING**
+- Status: **Accepted decision on reviewed daf4e603 revision (08.10.2026); current documentation amendment confirmation and snapshot merge PENDING**
 - Date: 2026-10-07, Europe/Moscow
 - Owner: Руслан / Tramsey00
 - Independent R01 reviewers / approvers: Владимир / VladimirFrolov777 and Илья / 13baybars
-- Gate: separate baseline/ADR decisions from all three people; no signature is supplied by this ADR
+- Gate: three own baseline/ADR records and two independent Task Approvals verified at daf4e603; current amendment needs new-head confirmation
 - Issue: [MS7-MIG-R01 #28](https://github.com/Tramsey00/MathStart-Python/issues/28)
 - Specification: [exact migration addendum v1.1](../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
 - Plan: [active R01](../exec-plans/active/MS7-MIG-R01.md)
 - Inventory / decisions: [baseline inventory](../acceptance/MS7-MIG-R01/inventory.md), [human acceptance](../acceptance/MS7-MIG-R01/acceptance.md)
-- Supersession: **none yet**. On accepted MIG-G0, supersede only ADR-0001's backend/frontend/ORM/migration platform selection. Preserve its history and domain/evidence invariants, ADR-0002/0003 and frozen contracts.
+- Supersession: accepted target decision replaces only ADR-0001's backend/frontend/ORM/migration platform selection for migration scope at reviewed daf4e603; operational activation remains gated by accepted snapshot merge. Preserve its history and domain/evidence invariants, ADR-0002/0003 and frozen contracts.
 
 ## Context and authority
 
@@ -31,16 +31,18 @@ lesson JS files; source/runtime digests are distinct. Working DB has 281 pages,
 279 pages. Thirteen structural body payloads differ only in CRLF/LF, with exact
 hashes and scope decisions recorded. Runtime is never overwritten to hide drift.
 
-## Proposed decision
+## Accepted decision at reviewed revision
 
 Current R01 evidence clarification (2026-10-08): the working DB counts and
 13 LF/CRLF-only variants above belong to Ruslan's original audit. Ilya's
 working DB has substantive drift in five specifically checked payloads;
 his separate disposable 8c11edad baseline has exact source/published parity.
 See the [three-source index](../acceptance/MS7-MIG-R01/ilya-20261007/README.md).
-His D02/D03 UI/content scoped decision and the owner's D02 source-freeze choice
-retain F01–F04 with mandatory follow-up; they do not accept this proposed ADR,
-collective MIG-G0 or final R01 Task Approval. No runtime/source repair occurs.
+The earlier partial D02/D03 decision is historical. Later own final baseline/ADR
+records and independent Task Approvals accept the reviewed daf4e603 revision;
+[final receipt](../acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
+records their scope and the new-head confirmation requirement. F01–F04 assigned
+to13baybars for I03/I05; no runtime/source repair occurs.
 
 Retain one modular Python monolith and one primary PostgreSQL 16+ database.
 React + TypeScript provides existing UI with existing CSS/tokens, using Vite
@@ -186,3 +188,11 @@ R02A/R03A independent contract acceptance reconciliation verified on 07.10.2026;
 
 - 2026-10-07: Proposed. No platform supersession, migration implementation,
   accepted MIG_BASE_SHA, production cutover or completed gate is claimed.
+
+
+- 2026-10-08: three live own baseline/ADR records and independent Ilya/Vladimir
+  Task Approvals verified at daf4e6038761f8d1bf1c60f0976473d987cce230.
+  Decision Accepted in participant scopes. Owner reports Vladimir D09 agreement;
+  no separate D09 comment invented. This documentation reconciliation commit
+  requires reviewers' confirmation at its new exact HEAD. No accepted resulting
+  MIG_BASE_SHA, target runtime, authorized merge or production deployment claimed.

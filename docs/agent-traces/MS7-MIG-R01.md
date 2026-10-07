@@ -248,3 +248,45 @@ check excluding only exact imported package; package SHA256/Git blobs separately
 validate every byte, with original whitespace findings left visible.
 
 Final import audit: `validate_ilya_import.py --ref INDEX --archive <supplied ZIP>` exit0 PASS; all232 ZIP members equal checkout and staged Git blob bytes/OIDs,231 package hashes/228 provenance exports verified,165 relative links valid, original_result objects and D08/source/runtime/initial GitHub/first CI snapshots preserved. See [exact result](../acceptance/MS7-MIG-R01/ilya-20261007/import-validation.json). Own whitespace check excludes only the unchanged external package;14 original command-05.log trailing spaces remain observed, not repaired.
+
+## 12. Final human acceptance documentation — 08.10.2026 Europe/Moscow
+
+Existing clean ms7-mig-baseline worktree local/remote daf4e6038761f8d1bf1c60f0976473d987cce230;
+main/source8c11edad unchanged. Live PR46 draft/open/unmerged/mergeable clean;
+CI37688709748 success. Verified13baybars comment6047568271 at00:51:20 Moscow,
+Tramsey00 comment6047773231 at01:05:10, VladimirFrolov777 review5449019477
+at01:13:03, API APPROVED commit_id=daf4e603. Exact body hashes/source/scope
+stored in [final human receipt](../acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json).
+Three baseline/ADR decisions and two independent Task Approvals recorded at
+that exact reviewed revision. No new-head approval inferred.
+
+D09 Vladimir agreement recorded only as direct Ruslan user report, with remaining
+target dates/staging-disposable boundary; no Vladimir-authored D09 comment.
+R01 delay planned07.10→human records08.10 preserved; MIG-G4 remains13.10 23:59
+Moscow, no check/scope reductions. F01–F04 assignment agreed13baybars, correction
+by I03/verification I05; F04 ordinary-scale readability, enlargement alone
+insufficient, regression360/768/1440. Optional Vladimir independent F04 check
+requires separate agreement, not given.
+
+Updated current acceptance/ADR status/follow-up/owner map/index/plan/trace/root
+current-status links; exact earlier acceptance/follow-up snapshots retained.
+Package imports, source manifest, runtime/initial audit/old original_results,
+ADR0001 and frozen schemas/proofs unchanged. Active plan remains active.
+New record commit requires reviewer confirmation at new HEAD+CI; short list in
+[final-review-changes](../acceptance/MS7-MIG-R01/final-review-changes.md).
+R01 workflow/snapshot merge/MIG_BASE_SHA remain pending. No application/working
+DB change, branch creation, merge, Issue closure or later task implementation.
+Database-free record/import/source/preservation checks and staged blob manifest
+verified before commit; new full CI and actual tested merge-ref recorded externally
+in PR46, retaining original approval SHA and avoiding containing-commit self-pins.
+
+Optional current original-ZIP audit exited1 FileNotFoundError: previous Desktop
+path absent. Rerun validates committed package bytes/provenance/Git blobs,
+without --archive; prior successful archive hash record unchanged. No original
+archive recreation, package modification or claim of fresh archive verification.
+
+Final database-free checks exit0 PASS:232 exact imported files/Git blobs,231
+package entries/228 provenance entries,168 relative participant evidence links;
+original_result objects/source/runtime/frozen snapshots and earlier scoped/import
+receipts unchanged.1023 input files and18568 original output/tmp preserved.
+See [current import audit](../acceptance/MS7-MIG-R01/final-acceptance-import-validation.json). Own whitespace changes checked before commit.
