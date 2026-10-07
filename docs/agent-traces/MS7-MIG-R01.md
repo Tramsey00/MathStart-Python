@@ -7,6 +7,7 @@
 - Plan: [active R01 plan](../exec-plans/active/MS7-MIG-R01.md)
 - ADR: [ADR-0006 Proposed](../adr/ADR-0006-react-fastapi-migration.md)
 - Snapshot branch: `ms7-mig-baseline` → main; candidate head/CI/merge-ref in external snapshot PR
+- Draft snapshot PR: https://github.com/Tramsey00/MathStart-Python/pull/46 (attached to this Codex chat)
 - Human review: **Pending; R01 INCOMPLETE; MIG-G0 PENDING; MIG_BASE_SHA=PENDING**
 
 ## 1. Authorized task and inputs
@@ -46,7 +47,7 @@ admin/route/model/command/test/Issue/evidence manifests and checks. Source:
 1026 tracked Git blobs with exact path/size/SHA256/commit, including 263 lesson
 JSON, 97 lesson CSS, 7 lesson JS, 16 site JSON and 13 templates. Original and
 fresh checkout hashes are distinct because Git line-ending conversion is
-recorded. Five existing root files change narrowly; all other input code,
+recorded. Three existing root files change narrowly; all other input code,
 contracts, manifest pins and historical ADR/proofs remain exact source bytes.
 
 Unchanged local recovery trace SHA256
@@ -97,7 +98,7 @@ merge, closed Issue and Global Gate remain separate fields/facts.
 Added exact specs/migration input/provenance, ADR0006, active plan, this trace,
 unchanged recovery trace and docs/acceptance/MS7-MIG-R01 manifests/docs/task
 audit utilities/selected sanitized logs. Narrow current-status links added to
-AGENTS/PRODUCT/ARCHITECTURE/README. `.gitattributes` pins exact external spec
+AGENTS/README. PRODUCT/ARCHITECTURE restored exactly after initial CI exposed their frozen Harness pins. `.gitattributes` pins exact external spec
 bytes. No deletion, source lesson/application/dependency/migration/CI/Harness
 change. No accepted historical document rewritten as target-platform proof.
 
@@ -151,3 +152,20 @@ completed-plan move and MIG-G0 require actual independent reviews and authorized
 human merge. No self-merge or downstream work. Preserve all historical proofs
 and original runtime. Harness unchanged; R01 audit utilities are scoped records,
 not a platform verification rewrite.
+
+## 9. Snapshot publication receipt
+
+Initial committed/pushed candidate `31d629f2d90c1b53b264edd2f1814fb09f66cc68`;
+draft PR46 base `8c11edadc8debc81432d1db1145feac504f09061`; initial
+merge-ref candidate `fab0ea1cb3bc8b6970a7b86867e1068d0697465b` exists, but
+no initial candidate workflow/check runs were present in live searches.
+The first job logs later confirmed that exact merge-ref was tested and failed due to two hash-pinned document edits; no source/application failure. 44 committed record blobs and
+exact input/recovery Git bytes validated PASS. See
+[snapshot receipt](../acceptance/MS7-MIG-R01/snapshot-review.json).
+R01 Issue28 now links PR46; later17 Issues unchanged and open. Subsequent
+record-only commit is verified against the same frozen input; exact current
+head/merge-ref/CI is published externally in PR46 body, not self-embedded.
+
+Initial snapshot CI run37602901512 failed at Harness (7/8 checks PASS,73 tests/1 error): R01 status paragraphs changed historically pinned PRODUCT/ARCHITECTURE. Both restored to exact input Git bytes; historical MS6-R04 pins and tests untouched. Source validator tightened to only three existing root changes. A narrow non-escalated Harness rerun encountered Windows sandbox temp cleanup permissions (environment failure); isolated authorized rerun/full baseline recorded separately. See ci-first-head.json and current PR head checks.
+
+Correction verification: authorized isolated Harness exit0/73tests; full verify_repo exit0/8of8,Django107/R0318/Harness73. Sanitized corrected logs/commands committed under R01 evidence. Final preservation/source/frozen checks pass with1023 input files exact, only three scoped root changes. Exact second/final head and tested merge-ref CI recorded externally in PR46 after additive push; first failure retained, no pins/tests rewritten.

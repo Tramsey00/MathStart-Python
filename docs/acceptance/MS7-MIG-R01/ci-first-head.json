@@ -1,0 +1,20 @@
+{
+  "run_id": 37602901512,
+  "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37602901512",
+  "head_sha": "31d629f2d90c1b53b264edd2f1814fb09f66cc68",
+  "tested_merge_ref": "fab0ea1cb3bc8b6970a7b86867e1068d0697465b",
+  "checkout_proof": "Job logs git checkout refs/remotes/pull/46/merge and git log -1 --format=%H",
+  "result": "FAIL",
+  "verify_exit_code": 1,
+  "verify_pass_checks": 7,
+  "verify_failed_check": "Harness test suite; 73 tests, 1 error",
+  "failure_classification": "introduced by R01 current-status paragraphs in historically hash-pinned PRODUCT.md/ARCHITECTURE.md",
+  "correction": "Restore those two files to exact input Git bytes; preserve historical manifest pins and Harness; status links remain in AGENTS/README/new R01 package; repeat baseline on corrected head.",
+  "extra_R02A_R03A_CI": "NOT RUN/skipped because earlier verification step failed; local baseline suites separately PASS",
+  "versions": {
+    "python": "3.12.15",
+    "postgres": "16.15",
+    "git": "2.55.0"
+  },
+  "sanitized_failure_excerpt": "ERROR: test_checked_in_r04_manifest_validates_actual_reference_bytes (tests.harness.test_manifest.CheckedInManifestTests.test_checked_in_r04_manifest_validates_actual_reference_bytes)\n2026-10-07T09:51:33.9980752Z ----------------------------------------------------------------------\n2026-10-07T09:51:33.9981202Z Traceback (most recent call last):\n2026-10-07T09:51:33.9987906Z   File \"/home/runner/work/MathStart-Python/MathStart-Python/tests/harness/test_manifest.py\", line 321, in test_checked_in_r04_manifest_validates_actual_reference_bytes\n2026-10-07T09:51:33.9988802Z     loaded = load_and_validate_manifest(root, \"MS6-R04\")\n2026-10-07T09:51:33.9989158Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n2026-10-07T09:51:33.9989888Z   File \"/home/runner/work/MathStart-Python/MathStart-Python/harness/contracts/manifest.py\", line 231, in load_and_validate_manifest\n2026-10-07T09:51:33.9990575Z     raise ManifestValidationError(errors)\n2026-10-07T09:51:33.9992467Z harness.contracts.manifest.ManifestValidationError: digest mismatch for PRODUCT.md: expected sha256:696da346aaa6b81ad8a779046b0a84c70176a81a6dd2e13f8dfb911f350c78d8, actual sha256:22b19a271c812bcf5d3a7d92b1324a8a7e6825eb71a8f7be8d62a60b0b0b3fa9; digest mismatch for ARCHITECTURE.md: expected sha256:eabea31580574b8f1cc5e3d38222e404be81f37837c2eb04988c60bb2bcbb42c, actual sha256:5fd1fddf28c9e7269120ba6772eb2b02cc120f0abb0024321adbe940b7b1805f\n2026-10-07T09:51:33.9994282Z \n2026-10-07T09:51:33.9994440Z ----------------------------------------------------------------------\n2026-10-07T09:51:33.9994792Z Ran 73 tests in 1.074s\n2026-10-07T09:51:33.9994930Z \n2026-10-07T09:51:33.9995018Z FAILED (errors=1)\n2026-10-07T09:51:34.0203597Z RESULT: FAIL (1 of 8 checks failed).\n2026-10-07T09:51:34.0204020Z \n2026-10-07T09:51:34.0204362Z FAILED: Harness test suite (exit code 1)\n2026-10-07T09:51:34.0204981Z \n2026-10-07T09:51:34.0205229Z ==============================================================================\n2026-10-07T09:51:34.0205856Z "
+}

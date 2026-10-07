@@ -22,7 +22,7 @@ def main():
     root = Path(__file__).resolve().parents[4]
     records = root / 'docs/acceptance/MS7-MIG-R01'
     source = json.loads((records / 'source-manifest.json').read_text(encoding='utf-8'))
-    allowed = {'.gitattributes', 'AGENTS.md', 'PRODUCT.md', 'ARCHITECTURE.md', 'README.md'}
+    allowed = {'.gitattributes', 'AGENTS.md', 'README.md'}
     failures, unchanged = [], []
     for entry in source['files']:
         path = root / entry['path']
@@ -72,7 +72,7 @@ def main():
     failures += [{'forbidden_artifact':x} for x in forbidden]
     result = {'input_commit':source['source_commit'], 'result':'FAIL' if failures else 'PASS',
               'unchanged_input_files':len(unchanged),'scoped_existing_changes':sorted(allowed),
-              'frozen_contracts_and_legacy_code':'all input tracked files except five allowed root files exact Git blob SHA256 checked',
+              'frozen_contracts_and_legacy_code':'all input tracked files except three allowed root files exact Git blob SHA256 checked; PRODUCT/ARCHITECTURE frozen pins preserved',
               'original_tracked_files_checked':len(source['files']), 'original_output_tmp_files_preserved':len(preservation),
               'recovery_trace_sha256':digest(root / recovery),'canonical_spec_sha256':digest(spec),
               'historical_output_reference_counts':dict(Counter(x['kind'] for x in refs)),

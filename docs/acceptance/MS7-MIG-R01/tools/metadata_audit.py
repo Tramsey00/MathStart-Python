@@ -32,7 +32,7 @@ for x in manifest['files']:
     counts[label] = counts.get(label, 0) + 1
     # .gitattributes is now a deliberately scoped R01 change.
     if label == 'substantive':
-        assert x['path'] in {'.gitattributes', 'AGENTS.md', 'PRODUCT.md', 'ARCHITECTURE.md', 'README.md'}, x['path']
+        assert x['path'] in {'.gitattributes', 'AGENTS.md', 'README.md'}, x['path']
 manifest['comparison_at_preparation'] = counts
 manifest['note'] = 'Original/candidate hashes were captured before R01 additions. Current R01 root documents and .gitattributes have scoped recorded changes; input source hashes remain pinned independently.'
 save('source-manifest.json', manifest)

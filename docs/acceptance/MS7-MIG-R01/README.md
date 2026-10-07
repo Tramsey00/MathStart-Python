@@ -6,6 +6,11 @@ main: `8c11edadc8debc81432d1db1145feac504f09061`. Candidate head and its current
 CI/tested merge-ref are recorded in the snapshot draft PR; they are not the
 accepted integration baseline.
 
+Snapshot [draft PR46](https://github.com/Tramsey00/MathStart-Python/pull/46)
+and [publication receipt](snapshot-review.json); final current CI is externally
+recorded in PR body. [R01 record manifest](record-manifest.json) hashes exact
+stored Git blobs separately from checkout bytes and excludes itself.
+
 - [Source manifest](source-manifest.json): exact tracked input Git bytes,
   sizes/SHA256/counts and original/candidate checkout byte differences.
 - [Local delta](local-delta.json): no source/code delta; unchanged recovery trace
@@ -37,3 +42,5 @@ replace Harness/verify, introduce target dependencies or authorize DB writes.
 Preservation QA and disposable credentials/log files live outside the committed
 package. Input manifest excludes its own digest and new R01 records; record
 hashes, when used, are calculated separately to avoid circular self-digests.
+
+The first candidate CI failed on two R01-owned edits to historically pinned root documents. PRODUCT/ARCHITECTURE are restored to exact input bytes, preserving MS6-R04 pins/Harness; see [first CI facts](ci-first-head.json). Corrected final head checks are in PR46, distinct from this historical failure.

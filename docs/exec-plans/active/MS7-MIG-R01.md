@@ -143,7 +143,8 @@ Keep this plan active until actual human acceptance; no automatic completed move
 - [x] Working schema read-only and admin/route/command/source inventory captured
 - [x] Exact migration input imported; proposed ADR and §17 index prepared
 - [x] 18 Issues assigned with real URLs and acyclic dependencies; later tasks PLANNED
-- [ ] Final candidate checks / exact-head CI recorded (see live trace)
+- [ ] Independent review of final candidate/checks (agent evidence in PR46; human record required)
+- [x] Snapshot draft PR46 prepared and attached; first head CI failure preserved, own frozen-document edits restored; corrected local baseline8/8/Harness73 PASS; current-head CI external PR evidence
 - [ ] Snapshot independently approved and merged; resulting MIG_BASE_SHA established
 - [ ] Integration/task branches created from accepted resulting baseline
 - [ ] Separate MIG-G0 records from all three participants

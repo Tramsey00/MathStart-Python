@@ -6,6 +6,11 @@ dependencies, migrations, Harness and CI remain unchanged. Candidate commit and
 current CI/tested merge-ref are recorded in the external snapshot PR, so this
 document does not attempt to embed its own containing commit SHA.
 
+[Draft PR46](https://github.com/Tramsey00/MathStart-Python/pull/46) initially
+published head31d629f; no head workflow/check runs present in first live search.
+Initial merge-ref existed but was not yet proven tested. Final current head/CI
+must be read in PR body; [receipt](snapshot-review.json) records this distinction.
+
 ## Isolation and actual tooling
 
 Existing interpreter: `C:/Projects/MathStart-Python/.venv312/Scripts/python.exe`,
@@ -95,3 +100,11 @@ CONFIGURED for this R01 baseline**. No live LLM was required. New platform
 implementation, human approval and public deployment were not performed.
 
 Initial staged default whitespace check exited 1 because imported exact CRLF input and captured Windows stdout contain CR. Exported log line endings were normalized without changing original private logs; raw/export hashes are recorded. The final staged check explicitly recognizes CR-at-EOL for exact external input while retaining other whitespace checks. The original specification bytes remain unchanged.
+
+## Initial candidate CI failure and in-scope correction
+
+[Run37602901512](https://github.com/Tramsey00/MathStart-Python/actions/runs/37602901512), head31d629f, actually checked out merge-ref fab0ea1cb3bc8b6970a7b86867e1068d0697465b. Python3.12.15/PG16.15. Verification exit1,7/8 pass; Harness73 tests/1 error because new current-status paragraphs changed frozen MS6-R04 PRODUCT/ARCHITECTURE digests. This was introduced by R01, not pre-existing. Initial local8/8 predates these document edits and did not prove the first commit. Both files restored to exact input bytes; pins/Harness unchanged. Validator now requires exact input for those documents. [Sanitized first CI evidence](ci-first-head.json). A non-escalated narrow rerun encountered sandbox temp cleanup permissions; repeat in authorized isolated QA environment. Final corrected local baseline and current-head CI follow below/in PR.
+
+## Corrected isolated candidate verification
+
+Both pin-restored checks completed with exit0: [Harness73/73](evidence/harness-after-pin-restore.txt) and [full baseline8/8](evidence/baseline-after-pin-restore.txt), including Django107/R0318/Harness73. [Exact commands/log hashes](evidence/corrected-commands.json). Source/frozen pin/preservation/link/safety validation PASS:1023 unchanged input files, only .gitattributes/AGENTS/README changed; all18568 original QA files retained. Final current-head CI is separately required and externally recorded in PR46; the first failed run remains visible.
