@@ -1,0 +1,118 @@
+[
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "SOURCE_AT_8c11edad",
+    "started_utc": "2026-10-07T19:02:43.433452+00:00",
+    "exit_code": 0,
+    "log": "command-01.log"
+  },
+  {
+    "argv": [
+      "docker",
+      "ps",
+      "-aq",
+      "--filter",
+      "label=com.docker.compose.project=ms7-r01-ilya-20261007-8c11edad"
+    ],
+    "cwd": "SOURCE_AT_8c11edad",
+    "started_utc": "2026-10-07T19:02:43.489331+00:00",
+    "exit_code": 0,
+    "log": "command-02.log"
+  },
+  {
+    "argv": [
+      "docker",
+      "volume",
+      "ls",
+      "-q",
+      "--filter",
+      "label=com.docker.compose.project=ms7-r01-ilya-20261007-8c11edad"
+    ],
+    "cwd": "SOURCE_AT_8c11edad",
+    "started_utc": "2026-10-07T19:02:43.705469+00:00",
+    "exit_code": 0,
+    "log": "command-03.log"
+  },
+  {
+    "argv": [
+      "docker",
+      "image",
+      "inspect",
+      "postgres:16-bookworm",
+      "--format",
+      "{{.Id}}"
+    ],
+    "cwd": "SOURCE_AT_8c11edad",
+    "started_utc": "2026-10-07T19:02:43.860889+00:00",
+    "exit_code": 0,
+    "log": "command-04.log"
+  },
+  {
+    "argv": [
+      "docker",
+      "compose",
+      "--env-file",
+      "NUL",
+      "-p",
+      "ms7-r01-ilya-20261007-8c11edad",
+      "-f",
+      ".\\source\\compose.yaml",
+      "up",
+      "--pull",
+      "never",
+      "-d",
+      "--wait",
+      "db"
+    ],
+    "cwd": "SOURCE_AT_8c11edad",
+    "started_utc": "2026-10-07T19:02:54.658392+00:00",
+    "exit_code": 0,
+    "log": "command-05.log"
+  },
+  {
+    "argv": [
+      "docker",
+      "compose",
+      "--env-file",
+      "NUL",
+      "-p",
+      "ms7-r01-ilya-20261007-8c11edad",
+      "-f",
+      ".\\source\\compose.yaml",
+      "ps",
+      "-q",
+      "db"
+    ],
+    "cwd": "SOURCE_AT_8c11edad",
+    "started_utc": "2026-10-07T19:02:58.076596+00:00",
+    "exit_code": 0,
+    "log": "command-06.log"
+  },
+  {
+    "argv": [
+      "SOURCE_AT_8c11edad\\.venv\\Scripts\\python.exe",
+      "-B",
+      "scripts/fresh_install_smoke.py",
+      "--disposable"
+    ],
+    "cwd": ".\\source",
+    "started_utc": "2026-10-07T19:13:04.189084+00:00",
+    "exit_code": 0,
+    "log": "command-07.log"
+  },
+  {
+    "argv": [
+      "SOURCE_AT_8c11edad\\.venv\\Scripts\\python.exe",
+      "-B",
+      ".\\parity_audit.py"
+    ],
+    "cwd": ".\\source",
+    "started_utc": "2026-10-07T19:16:54.786120+00:00",
+    "exit_code": 0,
+    "log": "command-08.log"
+  }
+]

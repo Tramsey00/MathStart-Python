@@ -294,11 +294,23 @@
         },
         "recovery_trace": "docs/agent-traces/local-runtime-recovery-20261007.md"
       },
-      "platform_disposition": "Current Django input preserved. PR27 source fixes already in main; no duplicate code transfer. Recovery evidence included. Committed content/visual fixes are not independently accepted for migration baseline.",
+      "platform_disposition": "Canonical Django source preserved. PR27 fixes already in main. Later scoped Ilya D02/D03 comment and direct owner D02 source-freeze choice recorded; F01–F04 mandatory target follow-up, no current fixes. Three runtime evidence sources are distinct; no collective approval.",
       "migration_follow_up": [
         {
           "id": "MS7-MIG-R01",
           "issue": "https://github.com/Tramsey00/MathStart-Python/issues/28"
+        },
+        {
+          "id": "MS7-MIG-R02",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29"
+        },
+        {
+          "id": "MS7-MIG-I03",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42"
+        },
+        {
+          "id": "MS7-MIG-I05",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44"
         }
       ],
       "target_evidence": {
@@ -307,16 +319,24 @@
           "docs/acceptance/MS7-MIG-R01/local-delta.json",
           "docs/acceptance/MS7-MIG-R01/runtime-data-manifest.json",
           "docs/acceptance/MS7-MIG-R01/rendered-runtime-digests.json",
-          "docs/acceptance/MS7-MIG-R01/acceptance.md"
+          "docs/acceptance/MS7-MIG-R01/acceptance.md",
+          "docs/acceptance/MS7-MIG-R01/ilya-20261007/README.md",
+          "docs/acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.json"
         ],
         "source_commit": "8c11edadc8debc81432d1db1145feac504f09061",
         "candidate_sha": "snapshot PR head, separately recorded",
         "MIG_BASE_SHA": "PENDING"
       },
-      "current_status": "PRESERVED / CANDIDATE_UNACCEPTED; MIG-G0 PENDING"
+      "current_status": "PRESERVED / D02_D03_PARTIAL_SCOPED_ACCEPTANCE / F01_F04_MANDATORY_NOT_IMPLEMENTED; R01/MIG-G0/MIG_BASE_SHA PENDING",
+      "current_acceptance_reconciliation": {
+        "receipt": "docs/acceptance/MS7-MIG-R01/ilya-20261007/current-decision.json",
+        "comment_url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6046690988",
+        "scope": "13baybars D02 known-defect baseline + D03 UI/content only; direct owner D02 choice; final Task Approval/ADR not supplied"
+      }
     }
   ],
   "snapshot_review_url": "https://github.com/Tramsey00/MathStart-Python/pull/46",
   "candidate_gate_note": "MIG_BASE_SHA=PENDING. Initial head CI failed due to R01-owned pinned root-doc edits; correction restores exact input. Final current head/tested merge-ref/CI are external PR record; no historical approval inferred.",
-  "D08": "CLOSED — verified independent R02A and R03A acceptance comments of 2026-10-07; no backdating"
+  "D08": "CLOSED — verified independent R02A and R03A acceptance comments of 2026-10-07; no backdating",
+  "current_UI_content_evidence": "ilya-20261007/README.md; historical original_result objects unchanged; no source/runtime snapshot overwritten"
 }

@@ -45,3 +45,12 @@ package. Input manifest excludes its own digest and new R01 records; record
 hashes, when used, are calculated separately to avoid circular self-digests.
 
 The first candidate CI failed on two R01-owned edits to historically pinned root documents. PRODUCT/ARCHITECTURE are restored to exact input bytes, preserving MS6-R04 pins/Harness; see [first CI facts](ci-first-head.json). Corrected final head checks are in PR46, distinct from this historical failure.
+
+## Participant evidence import — current scoped decision
+
+[Ilya evidence index](ilya-20261007/README.md) provides byte-exact package reports,
+screenshots, provenance and three separate runtime sources. [Current D02/D03
+receipt](ilya-20261007/current-decision.json) records Ilya's own limited acceptance
+and owner source-freeze choice; [F01–F04](ilya-20261007/follow-up-F01-F04.md)
+require later target follow-up, with assignments PENDING. Final R01/MIG-G0/ADR
+acceptance remains PENDING; historical snapshots and source manifest unchanged.

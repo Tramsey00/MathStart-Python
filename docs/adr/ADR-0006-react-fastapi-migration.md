@@ -33,6 +33,15 @@ hashes and scope decisions recorded. Runtime is never overwritten to hide drift.
 
 ## Proposed decision
 
+Current R01 evidence clarification (2026-10-08): the working DB counts and
+13 LF/CRLF-only variants above belong to Ruslan's original audit. Ilya's
+working DB has substantive drift in five specifically checked payloads;
+his separate disposable 8c11edad baseline has exact source/published parity.
+See the [three-source index](../acceptance/MS7-MIG-R01/ilya-20261007/README.md).
+His D02/D03 UI/content scoped decision and the owner's D02 source-freeze choice
+retain F01–F04 with mandatory follow-up; they do not accept this proposed ADR,
+collective MIG-G0 or final R01 Task Approval. No runtime/source repair occurs.
+
 Retain one modular Python monolith and one primary PostgreSQL 16+ database.
 React + TypeScript provides existing UI with existing CSS/tokens, using Vite
 and React Router framework mode. FastAPI + Pydantic is the single serving

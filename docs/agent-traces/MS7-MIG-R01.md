@@ -175,3 +175,76 @@ User supplied two actual VladimirFrolov777 acceptance comment URLs. Live connect
 D08 CLOSED on these current independent records. [Reconciliation receipt](../acceptance/MS7-MIG-R01/acceptance-reconciliation-20261007.json) pins exact decoded comment-body hashes and separates participant-reported tests from agent metadata verification. The old-to-new index keeps original_result objects unchanged, adds current reconciliation and keeps new R01/platform approval PENDING. Initial github-audit/source/runtime snapshots, historical traces, schemas, fixtures and frozen pins remain unchanged. R02A non-blocking LF/CRLF documentation discrepancy is recorded; no normalization performed.
 
 Updated current R01 acceptance/index/trace, related proposed ADR status paragraph/active plan/index/receipt/verification and regenerated record/validation manifests. Only R01 records; original checkout/DB untouched. Same branch ms7-mig-baseline and draft PR46; no new PR, merge, Issue closure or later task execution. Pre-follow-up candidate2af105c515c4e296613834118c15609efcdb6710 and remote/main8c11edadc8debc81432d1db1145feac504f09061 verified. New head and actual tested merge-ref/CI are externally recorded in PR46; earlier green run does not prove this update. R01 INCOMPLETE; MIG-G0/MIG_BASE_SHA PENDING; D01–D07/D09 and independent R01/baseline/ADR decisions remain separate.
+
+## 11. Ilya evidence import — 2026-10-08 Europe/Moscow
+
+Only R01 follow-up authorized. Original checkout main and remote/main8c11edadc8debc81432d1db1145feac504f09061;
+existing worktree ms7-mig-baseline local/remote43b4fa10aec2af589c51857d037e973215557255
+clean before changes; draft PR46 open/unmerged. Fetch verified current refs.
+ZIP input C:/Users/Tramsey/Desktop/r01-evidence-8c11edad.zip SHA256
+63d0bca0618dee6016669e07706612edd9f1ef50be26de4c238eb043935e9313 matches.
+Path safety/symlink/encryption/size/ratio/CRC checked before publication;
+231 manifest payload hashes and228 export provenance entries verified. Import
+232 files/31,057,740 bytes unchanged;190 JPEG decoded, no EXIF/extra metadata.
+Text/JSON review and credential scans no findings. 127 relative report/screenshot
+links resolved; atlas + four finding screenshots inspected. See [import receipt](../acceptance/MS7-MIG-R01/ilya-20261007/import-receipt.json).
+First image validation with project interpreter exited1 because Pillow is not
+installed there; no dependency installed. Existing bundled Python/Pillow retry
+and full package validation/import exited0.
+
+Live comment6046690988 author13baybars, created/updated2026-10-07T20:56:12Z
+(23:56:12 Moscow): D03 accepted in UI/content only; D02 known F01–F04
+baseline with mandatory follow-up; final Task Approval requires imported evidence,
+reviewed new exact HEAD and green CI; I01 not started. [Current scoped receipt](../acceptance/MS7-MIG-R01/ilya-20261007/current-decision.json)
+retains exact decoded body hash and scope. Owner's direct request freezes
+canonical source with findings; no other participant decision inferred.
+
+Three-source index: Ruslan original working DB audit13 LF/CRLF-only structural
+variants; Ilya working DB substantive drift five payloads; Ilya disposable
+exact-source279/279 pages and263 publication digests PASS. Python app3.14.7/
+Django5.2.16/PG16.15 reported by Ilya; artifact tools3.12.14/Pillow12.3.0.
+His63 functional groups PASS +1 observation, single browser surface, limited
+version linkage and resampled JPEG are attributed evidence, not new cross-browser/
+touch/full accessibility/pixel-exact/verify_repo results from this import.
+
+Current acceptance/index/verification/plan/trace/README/snapshot receipt updated;
+package manifest/export provenance/HOLD/PENDING reports preserved exact.
+Source manifest/runtime snapshots/github initial audit/frozen contracts unchanged.
+F01–F03 P2,F04 P3 recorded with original routes/repro/source/screenshots and
+expected target outcomes. Tracking ownerTramsey00; proposed finding-specific
+implementation13baybars and verification allocation PENDING. Live existing
+R02#29/I03#42/I05#44 OPEN with canonical assignees verified; no Issue mutation
+or downstream execution. No application/UI/CSS/JS/DB/dependency/migration/Harness/
+CI change. Same draft PR46; new exact HEAD/actual tested merge-ref/current CI
+recorded externally in PR body, avoiding containing-commit self-pins.
+
+Independent package Git blob/source/frozen/history/local preservation/link/safety
+validation and staged record manifest results follow in committed validation
+receipts. R01 INCOMPLETE; MIG-G0/MIG_BASE_SHA PENDING; D08 CLOSED;
+D02/D03 partial only. Final R01 Task Approvals and other human decisions required.
+
+Evidence-import verification results: source/frozen/local preservation/link/
+safety validator exit0 PASS,1023 exact original input files and18568 original
+output/tmp files preserved. Initial import Git check found ignored .log/two
+report JSON absent from index; scoped package force-add includes all232 members.
+Original long Windows revision paths made the first input-tree check exit1;
+the R01 utility now compares batched Git tree/index object IDs, preserving all
+checks rather than changing source/validation criteria.
+
+New local canonical verify_repo exit1 **FAIL_ENVIRONMENT**, four checks pass
+(backend,migration command,R03,Harness73), four PostgreSQL-dependent checks
+fail with ConnectionTimeout at own disposable55437. Docker ps/ps-a show no
+matching earlier R01 container. makemigrations exit0 includes missing migration
+history warning, so does not prove local database consistency. No working DB
+fallback/setup/bootstrap/migrate/recreation or skip flag used.
+See [bounded result receipt](../acceptance/MS7-MIG-R01/ilya-20261007/local-verification.json)
+for trace, or the corresponding same-folder receipt for verification. Current
+head full isolated CI remains required; previous green is not this run.
+
+Staged whitespace audit first flagged own new blank lines and14 pre-existing
+trailing spaces in imported command-05.log. Own blank lines fixed; original
+log bytes preserved as required. Own/current documents use full whitespace
+check excluding only exact imported package; package SHA256/Git blobs separately
+validate every byte, with original whitespace findings left visible.
+
+Final import audit: `validate_ilya_import.py --ref INDEX --archive <supplied ZIP>` exit0 PASS; all232 ZIP members equal checkout and staged Git blob bytes/OIDs,231 package hashes/228 provenance exports verified,165 relative links valid, original_result objects and D08/source/runtime/initial GitHub/first CI snapshots preserved. See [exact result](../acceptance/MS7-MIG-R01/ilya-20261007/import-validation.json). Own whitespace check excludes only the unchanged external package;14 original command-05.log trailing spaces remain observed, not repaired.

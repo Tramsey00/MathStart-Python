@@ -1,0 +1,37 @@
+{
+  "source_sha": "8c11edadc8debc81432d1db1145feac504f09061",
+  "reviewed_utc": "2026-10-07T20:52:53.278847+00:00",
+  "method": [
+    "Strict evidence allowlist; no symlinks/junctions followed",
+    "All exported text decoded and scanned for credential URLs, DB connection strings, secret assignments, auth/cookies, API token formats, JWTs, email/phone and identity fields",
+    "JSON structure checked; DB fingerprints contain only counts and digests, not rows",
+    "All exported images decoded and verified; no EXIF or additional metadata present",
+    "Prior UI review and screenshot inventory identify anonymous public-content states; baseline overview visually rechecked",
+    "Archive bytes rescanned and each member verified against SHA-256 manifest"
+  ],
+  "excluded_summary": {
+    "local_helper_script_not_required": 6,
+    "runtime_tree_not_evidence": 712,
+    "source_snapshot_not_duplicated": 1026
+  },
+  "excluded_local_helpers": [
+    "disposable_controller.py",
+    "finalize_ui_review.py",
+    "http_audit.py",
+    "make_review_crops.py",
+    "parity_audit.py",
+    "working_fingerprint.py"
+  ],
+  "excluded_source": "Entire source/ snapshot, including .env.example; canonical reference is the source SHA",
+  "excluded_runtime": "Runtime static/media copies; only two non-sensitive runtime/var/reports/*.json check results retained",
+  "privacy_transformations": [
+    "Participant names in narrative replaced with reviewer/coordinator roles",
+    "Local absolute workspace/profile paths replaced with portable references"
+  ],
+  "retained_identifiers": "Non-secret technical provenance only: localhost ports, DB/role/project identifiers, source/content hashes and aggregate counts; no credentials or DB rows",
+  "credential_or_pii_pattern_findings_in_selected_original_text": 0,
+  "forbidden_files_in_archive": 0,
+  "unexpected_image_metadata": 0,
+  "conclusion": "No secrets, credentials, cookies, auth/session tokens, API keys, DB dumps/backups or personal-data records detected in reviewed exported content. Participant attribution has been pseudonymized.",
+  "limits": "Content review and pattern/structure checks, not a mathematical proof of absence of arbitrary unknown secrets. Original evidence is preserved unchanged."
+}

@@ -112,3 +112,56 @@ Both pin-restored checks completed with exit0: [Harness73/73](evidence/harness-a
 ## D08 follow-up verification — 2026-10-07
 
 Live GitHub comment author/explicit acceptance/exact reviewed head/merge metadata comparison PASS for both supplied records. Historical head CI36876278599 and36999556028 still SUCCESS. Participant test claims remain attributed to their own records; this follow-up performs no source/schema/DB change. Original_result objects and frozen source/audit/runtime snapshots preserved. R01 source/preservation/link/safety validation and regenerated record Git blob manifest checked before commit; current new head CI/tested merge-ref required and recorded externally in PR46. D08 CLOSED; other decisions/gates PENDING.
+
+## Ilya evidence import — 2026-10-08 Europe/Moscow
+
+Import reads supplied ZIP and repository records, with no DB access/setup/write.
+Archive SHA256 matches supplied63d0bca0…e9313; 232 safe members/ZIP CRC verified;
+231 payload manifest entries and228 export provenance entries exact SHA256/size.
+All190 JPEG decoded/verified with existing bundled Pillow; no EXIF/extra metadata.
+Decoded text/JSON and credential pattern review found no secrets/row-level PII;
+127 imported Markdown relative links resolve within package. Atlas plus F01–F04
+screenshots inspected as public anonymous content. Imported ZIP member bytes
+preserved, upstream export transformations kept separate; all Git blob OIDs/SHA256
+checked by [import validation](ilya-20261007/import-validation.json).
+
+Ilya's reported application Python3.14.7 is distinct from original R01
+Python3.12.10; artifact tools3.12.14/Pillow12.3.0. Imported fresh smoke/parity
+exit0:279 exact pages/263 publication digests; six HTTP routes/15 static assets.
+His browser review:63 functional groups PASS +1 observation; one browser
+surface, limited runtime/session version linkage, resampled JPEG. Cross-browser,
+touch, full accessibility and exact pixel comparison NOT RUN. Browser-only
+phase did not run canonical verify_repo; current PR CI is separate evidence.
+
+Ruslan working DB's13 LF/CRLF variants do not describe Ilya working DB:
+five specifically checked payloads have substantive drift. Ilya disposable
+exact-source parity is a third environment. Historical reports/frozen schemas/
+source manifest preserved; no source fix or application change. Record/source/
+local preservation/link/safety checks run before commit; new-head CI required
+and externally recorded in PR46. D02/D03 partial; final gates PENDING.
+
+Evidence-import verification results: source/frozen/local preservation/link/
+safety validator exit0 PASS,1023 exact original input files and18568 original
+output/tmp files preserved. Initial import Git check found ignored .log/two
+report JSON absent from index; scoped package force-add includes all232 members.
+Original long Windows revision paths made the first input-tree check exit1;
+the R01 utility now compares batched Git tree/index object IDs, preserving all
+checks rather than changing source/validation criteria.
+
+New local canonical verify_repo exit1 **FAIL_ENVIRONMENT**, four checks pass
+(backend,migration command,R03,Harness73), four PostgreSQL-dependent checks
+fail with ConnectionTimeout at own disposable55437. Docker ps/ps-a show no
+matching earlier R01 container. makemigrations exit0 includes missing migration
+history warning, so does not prove local database consistency. No working DB
+fallback/setup/bootstrap/migrate/recreation or skip flag used.
+See [bounded result receipt](ilya-20261007/local-verification.json)
+for trace, or the corresponding same-folder receipt for verification. Current
+head full isolated CI remains required; previous green is not this run.
+
+Staged whitespace audit first flagged own new blank lines and14 pre-existing
+trailing spaces in imported command-05.log. Own blank lines fixed; original
+log bytes preserved as required. Own/current documents use full whitespace
+check excluding only exact imported package; package SHA256/Git blobs separately
+validate every byte, with original whitespace findings left visible.
+
+Final import audit: `validate_ilya_import.py --ref INDEX --archive <supplied ZIP>` exit0 PASS; all232 ZIP members equal checkout and staged Git blob bytes/OIDs,231 package hashes/228 provenance exports verified,165 relative links valid, original_result objects and D08/source/runtime/initial GitHub/first CI snapshots preserved. See [exact result](ilya-20261007/import-validation.json). Own whitespace check excludes only the unchanged external package;14 original command-05.log trailing spaces remain observed, not repaired.

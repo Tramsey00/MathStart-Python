@@ -1,0 +1,232 @@
+{
+  "source_sha": "8c11edadc8debc81432d1db1145feac504f09061",
+  "owner_baseline_choice": "Retain original source with known F01–F04 and mandatory follow-up; direct user instruction",
+  "issue_metadata_verified": "Live GitHub: #29/#42/#44 OPEN, assignees Tramsey00/13baybars/13baybars; no Issue mutations",
+  "later_tasks": "PLANNED ONLY; linking and follow-up proposal do not authorize execution",
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "P2",
+      "layer": "CSS/layout",
+      "routes": [
+        "/linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+        "/10-klass-stepennye-funkcii-i-grafiki-2-0/",
+        "/10-klass-chislovaya-okruzhnost-2-0/",
+        "/polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "Заголовки содержания уроков переполняют две узкие колонки",
+      "steps": [
+        "Открыть любой из четырёх обязательных уроков на 360×800.",
+        "Прокрутить к открытому Содержанию урока.",
+        "Сравнить длинные названия с границами карточек."
+      ],
+      "observed": "Длинные слова выходят за карточки, перекрывают стрелки/соседние карточки и обрезаются внешним overflow:hidden. В обычном уроке ширина текстового span около 28px; scrollWidth длинных слов 88–127px. На 768/1440 не воспроизведено.",
+      "source_files": [
+        "static/mathstart/css/lesson-contents.css"
+      ],
+      "evidence": [
+        "screenshots/linear-function-360-toc-clipping.jpg",
+        "screenshots/power-functions-360-toc-clipping.jpg",
+        "screenshots/number-circle-360-toc-clipping.jpg",
+        "screenshots/ordinary-number-line-360-toc-clipping.jpg"
+      ],
+      "acceptance": "Requires an explicit known-baseline exception or an agreed later correction; no fix made.",
+      "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+      "follow_up_status": "MANDATORY / NOT_IMPLEMENTED / ASSIGNMENT_PENDING",
+      "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+      "proposed_implementation_owner": "13baybars",
+      "finding_assignment_status": "PENDING — existing Issue assignee is verified, but specific F01–F04 assignment/solution/calendar has no separate agreement",
+      "migration_follow_up": [
+        {
+          "id": "MS7-MIG-R02",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+          "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+        },
+        {
+          "id": "MS7-MIG-I03",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+          "role": "Proposed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+        },
+        {
+          "id": "MS7-MIG-I05",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+          "role": "Proposed independent browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+        }
+      ],
+      "expected_target_results": [
+        "All four reported lesson routes at 360x800: every contents label readable within its card, no overlap with arrows/neighbours and no clipping.",
+        "Keyboard activation/focus and contents links still work; repeat at 768x1024 and 1440x1000 without regression or root overflow."
+      ],
+      "verification_owner": "PENDING — proposed 13baybars for UI evidence, VladimirFrolov777 for independent mathematical/content review; human confirmation required",
+      "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit"
+    },
+    {
+      "id": "F02",
+      "severity": "P2",
+      "layer": "CSS/layout/pointer",
+      "routes": [
+        "/10-klass-stepennye-funkcii-i-grafiki-2-0/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "12 presets степенной функции сжаты в один ряд и перекрываются",
+      "steps": [
+        "Открыть степенные функции на 360×800.",
+        "Перейти к интерактиву.",
+        "Посмотреть строку выбора показателя p."
+      ],
+      "observed": "Grid сохраняет 12 колонок. Кнопки шириной 12.33px при высоте 62px, формулы перекрывают друг друга. Keyboard/aria-pressed корректны, но визуальный выбор и pointer targets неудобны. На 768/1440 перекрытие не воспроизведено.",
+      "source_files": [
+        "static/mathstart/css/widgets/power-functions.css"
+      ],
+      "evidence": [
+        "screenshots/power-functions-360-reset.jpg"
+      ],
+      "acceptance": "Requires known-baseline exception or agreed later correction.",
+      "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+      "follow_up_status": "MANDATORY / NOT_IMPLEMENTED / ASSIGNMENT_PENDING",
+      "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+      "proposed_implementation_owner": "13baybars",
+      "finding_assignment_status": "PENDING — existing Issue assignee is verified, but specific F01–F04 assignment/solution/calendar has no separate agreement",
+      "migration_follow_up": [
+        {
+          "id": "MS7-MIG-R02",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+          "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+        },
+        {
+          "id": "MS7-MIG-I03",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+          "role": "Proposed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+        },
+        {
+          "id": "MS7-MIG-I05",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+          "role": "Proposed independent browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+        }
+      ],
+      "expected_target_results": [
+        "At 360x800 all 12 power presets remain legible and distinct, formulas do not overlap and pointer selection identifies the intended preset.",
+        "All 12 presets keep correct math, aria-pressed and keyboard activation; repeat at 768/1440. Touch and cross-browser claims require new evidence."
+      ],
+      "verification_owner": "PENDING — proposed 13baybars for UI evidence, VladimirFrolov777 for independent mathematical/content review; human confirmation required",
+      "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit"
+    },
+    {
+      "id": "F03",
+      "severity": "P2",
+      "layer": "CSS/content legibility",
+      "routes": [
+        "/10-klass-stepennye-funkcii-i-grafiki-2-0/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "Длинные значения таблицы степенной функции выходят за ячейку",
+      "steps": [
+        "Открыть степенные функции на 360×800 с default p=2.",
+        "Прокрутить к таблице под графиком.",
+        "Прочитать значение при x=0,25."
+      ],
+      "observed": "0,0625 имеет ширину 37.86px в ячейке 31.67px; выходит в соседнюю карточку и визуально частично перекрывается её фоном. Данные в DOM правильные. На 768/1440 дефект не воспроизведён.",
+      "source_files": [
+        "static/mathstart/css/widgets/power-functions.css"
+      ],
+      "evidence": [
+        "screenshots/power-functions-360-table-clipping.jpg"
+      ],
+      "acceptance": "Requires known-baseline exception or agreed later correction.",
+      "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+      "follow_up_status": "MANDATORY / NOT_IMPLEMENTED / ASSIGNMENT_PENDING",
+      "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+      "proposed_implementation_owner": "13baybars",
+      "finding_assignment_status": "PENDING — existing Issue assignee is verified, but specific F01–F04 assignment/solution/calendar has no separate agreement",
+      "migration_follow_up": [
+        {
+          "id": "MS7-MIG-R02",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+          "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+        },
+        {
+          "id": "MS7-MIG-I03",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+          "role": "Proposed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+        },
+        {
+          "id": "MS7-MIG-I05",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+          "role": "Proposed independent browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+        }
+      ],
+      "expected_target_results": [
+        "At 360x800 with default p=2, x=0.25 visibly shows full 0.0625 within its own table cell, without neighbour overlap or clipping.",
+        "All table values remain mathematically unchanged; repeat at 768/1440 and representative preset values."
+      ],
+      "verification_owner": "PENDING — proposed 13baybars for UI evidence, VladimirFrolov777 for independent mathematical/content review; human confirmation required",
+      "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit"
+    },
+    {
+      "id": "F04",
+      "severity": "P3",
+      "layer": "SVG/readability",
+      "routes": [
+        "/10-klass-chislovaya-okruzhnost-2-0/"
+      ],
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "title": "Мелкие подписи SVG окружности на мобильной ширине",
+      "steps": [
+        "Открыть окружность на 360×800.",
+        "Перейти к лаборатории и схемам 8/12 частей.",
+        "Прочитать подписи координат/углов внутри SVG."
+      ],
+      "observed": "SVG лаборатории около 203px шириной, статические схемы около 199px. Подписи мелкие; координаты и угол дополнительно показаны обычным текстом. Одноколоночная компоновка и controls работают.",
+      "source_files": [
+        "curriculum/10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/page.css",
+        "curriculum/10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/body.html"
+      ],
+      "evidence": [
+        "screenshots/number-circle-360-reset.jpg",
+        "screenshots/number-circle-360-svg4-viewport.jpg"
+      ],
+      "acceptance": "Non-blocking readability observation; no mathematical/functional defect identified.",
+      "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+      "follow_up_status": "MANDATORY / NOT_IMPLEMENTED / ASSIGNMENT_PENDING",
+      "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+      "proposed_implementation_owner": "13baybars",
+      "finding_assignment_status": "PENDING — existing Issue assignee is verified, but specific F01–F04 assignment/solution/calendar has no separate agreement",
+      "migration_follow_up": [
+        {
+          "id": "MS7-MIG-R02",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+          "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+        },
+        {
+          "id": "MS7-MIG-I03",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+          "role": "Proposed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+        },
+        {
+          "id": "MS7-MIG-I05",
+          "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+          "role": "Proposed independent browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+        }
+      ],
+      "expected_target_results": [
+        "At 360x800 the circle lab and 8/12-part diagrams provide readable angle/coordinate labels through an agreed responsive or accessible enlargement treatment.",
+        "Retain authored mathematics, equivalent text readout, one-column mobile layout and working keyboard controls; review 768/1440. No numeric font-size threshold is invented; treatment requires human agreement."
+      ],
+      "verification_owner": "PENDING — proposed 13baybars for UI evidence, VladimirFrolov777 for independent mathematical/content review; human confirmation required",
+      "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit"
+    }
+  ]
+}

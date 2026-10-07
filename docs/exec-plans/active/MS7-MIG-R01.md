@@ -152,3 +152,21 @@ Keep this plan active until actual human acceptance; no automatic completed move
 
 Preparation is reviewable; dependent steps stay PENDING. R01 stops at the
 required human gate and does not execute another migration task.
+
+## Participant evidence follow-up — 2026-10-08 Europe/Moscow
+
+Import [Ilya package](../../acceptance/MS7-MIG-R01/ilya-20261007/README.md) into
+same ms7-mig-baseline worktree/PR46 from prior candidate43b4fa10aec2af589c51857d037e973215557255.
+Canonical application8c11edad remains unchanged; no new runtime/branch/later task.
+Live own comment supplies partial D02/D03 UI/content acceptance, with final
+Task Approval explicitly deferred to new exact HEAD review+green CI. Owner's
+direct D02 choice freezes source with F01–F04 and mandatory follow-up.
+Three runtime evidence sources are separated; original HOLD/PENDING reports
+remain exact historical exports. [F01–F04 map](../../acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.md)
+proposes existing R02#29/I03#42/I05#44 follow-up; tracking owner Tramsey00,
+specific implementation/verifier assignment and calendar PENDING. No task starts.
+
+Byte/hashes/source/historical preservation and links validated; record manifest
+regenerated. Current containing HEAD/tested merge-ref/CI in PR46. R01 remains
+INCOMPLETE, MIG-G0/MIG_BASE_SHA PENDING; D08 CLOSED is retained, collective
+D02/D03 and D01/D04–D07/D09 plus both final Task Approvals remain pending.

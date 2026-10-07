@@ -55,7 +55,7 @@ fixtures or validation secrets.
 Working content quality has 279 published pages and 1,137 inline SVG. Digests of
 authored blobs are not digests of renderer output or DB text. All 263 topic
 runtime snapshots and publication digests match the rendered candidate sources.
-Thirteen structural body payloads differ only by LF/CRLF and match after LF
+In Ruslan's original working DB audit, thirteen structural body payloads differ only by LF/CRLF and match after LF
 normalization; their exact hashes remain recorded. Eleven match original local
 source bytes; home/catalogue also contain LF/CRLF differences relative to that
 checkout. No field outside body_html differs. Keep the working runtime unchanged
