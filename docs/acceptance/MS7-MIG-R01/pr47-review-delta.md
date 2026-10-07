@@ -24,3 +24,9 @@
 [Trigger/pin audit](ci-trigger-adjustment-20261008.json),
 [current acceptance](acceptance.md),
 [post-merge provenance](post-merge-provenance-20261008.json).
+
+Actual first-trigger CI: [run37701885197](https://github.com/Tramsey00/MathStart-Python/actions/runs/37701885197)
+FAIL R02A1/30; full baseline8/8/fresh PG smoke PASS. R03A NOT RUN after failure.
+[Sanitized checkout/results](ci-integration-trigger-first-run.json).
+Final exact record HEAD and its separate run are in PR47; neither first-head
+results nor old approvals automatically approve the final amendment.

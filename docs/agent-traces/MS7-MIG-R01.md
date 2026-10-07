@@ -394,3 +394,23 @@ Private initial source audit exited1 because git show interpreted a long Windows
 revision:path as a filename. Replaced that private lookup with exact SHA256
 comparison to unchanged original source manifest; rerun exit0 for1022 files.
 No historical source manifest, digest or validation check weakened.
+
+CI on authorized trigger head e64d9a4b2682ee5b206f9d88f11fff2867071686 completed
+FAIL: [run37701885197](https://github.com/Tramsey00/MathStart-Python/actions/runs/37701885197),
+job113067016184. Actual checkout/tested merge-ref
+4a62032c033543ef4a282981a8d97585a579ca33 confirmed in job git log.
+Python3.12.14/Django5.2.16/PostgreSQL160015, independently observed, not copied
+from prior CI3.12.15 or local3.12.10/Ilya3.14.7.
+Fresh smoke PASS, verify_repo PASS8/8,Django107/R03reference18/Harness73.
+R02A FAIL1/30 on old/current ci.yml hashes, exit1; R03A NOT RUN (existing normal
+job step skipped after failure, no skip flag or command change).
+[Sanitized step/log receipt](../acceptance/MS7-MIG-R01/ci-integration-trigger-first-run.json);
+no raw synthetic DB rows/credentials published.
+
+Existing historical manifest/test/source/runtime/participant evidence untouched.
+Exact304 staged/committed record blobs checked before first push; first run
+records added now, record manifest refreshed excluding itself. Final exact
+evidence-recording head requires its own CI; final run/checkout external PR47.
+Acceptance is BLOCKED by unresolved strict pin compatibility and missing
+independent final-head approvals. No autonomous pin/test repair outside scope,
+no task/integration merge, Issue closure, working DB or later task execution.

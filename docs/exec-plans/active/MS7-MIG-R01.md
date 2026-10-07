@@ -240,3 +240,12 @@ CI current-head run required, actual outcome recorded in PR47. Acceptance blocke
 until separate human decision resolves this pin compatibility and required CI passes.
 Active plan retained; original baseline/ADR acceptance unaffected.
 [Reviewer delta](../../acceptance/MS7-MIG-R01/pr47-review-delta.md).
+
+Observed first integration CI run37701885197 on e64d9a4: FAIL R02A1/30,
+baseline8/8 and fresh PG smoke PASS, R03A NOT RUN after failure.
+Actual tested checkout4a62032c033543ef4a282981a8d97585a579ca33.
+[Sanitized receipt](../../acceptance/MS7-MIG-R01/ci-integration-trigger-first-run.json).
+Final record head needs a new actual run; final evidence external PR47.
+Human pin compatibility decision and authorized corrective scope remain required,
+followed by successful exact-head checks and independent amendment acceptance.
+No weakened checks/pin regeneration to manufacture PASS. Plan remains active.

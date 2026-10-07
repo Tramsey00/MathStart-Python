@@ -243,3 +243,25 @@ workflow outcome and checkout/tested merge-ref recorded in PR47/current CI recei
 The source manifest and old validation/import reports remain historical input
 proofs; workflow is the single newly authorized source exception, recorded here.
 No change to working DB, baseline/integrationSHA, dependency lock or Harness.
+
+### Observed integration trigger CI
+
+[Run37701885197](https://github.com/Tramsey00/MathStart-Python/actions/runs/37701885197)
+on e64d9a4b2682ee5b206f9d88f11fff2867071686 completed **FAIL**;
+checkout4a62032c033543ef4a282981a8d97585a579ca33 verified in job113067016184.
+[Sanitized CI receipt](ci-integration-trigger-first-run.json).
+Python3.12.14,Django5.2.16,PostgreSQL160015.
+
+| Step | Observed outcome |
+| --- | --- |
+| Install locked dependencies / pip check / version / bounded connection failure | PASS |
+| Fresh disposable PostgreSQL smoke | PASS |
+| verify_repo.py | PASS8/8; Django107,R03reference18,Harness73 |
+| R02A HTTP and eligibility contract | FAIL1/30,exit1; preserved whole-file ci.yml pin mismatch |
+| R03A CompletionFact contract | NOT RUN; normal step skipped after prior failure, no skip flag |
+| Workflow configuration parse / integration PR trigger | PASS; actual run started by pull_request integration base |
+
+This receipt is an exact first-trigger-head observation, not final containing-head
+CI. Record commit gets a new run; exact final head/run/tested merge-ref/result
+recorded in PR47. No old successful run substitutes for current checks.
+Pin incompatibility remains acceptance blocker, no historical manifest/test rewrite.
