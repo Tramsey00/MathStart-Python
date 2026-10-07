@@ -10,7 +10,8 @@
 }
 .ms-lesson-page .ms-formula-table {
   width: 100%;
-  min-width: 900px;
+  min-width: 0;
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -43,16 +44,16 @@
   border-bottom: none;
 }
 .ms-lesson-page .ms-formula-table td:nth-child(1) {
-  width: 22%;
+  width: 20%;
   text-align: center;
 }
 .ms-lesson-page .ms-formula-table td:nth-child(2) {
-  width: 36%;
+  width: 43%;
   text-align: center;
 }
 .ms-lesson-page .ms-formula-table td:nth-child(3) {
-  width: 42%;
-  text-align: center;
+  width: 37%;
+  text-align: left;
 }
 .ms-lesson-page .ms-formula-name {
   display: inline-block;
@@ -81,3 +82,7 @@
   font-weight: 700;
   line-height: 1.55;
 }
+
+.ms-lesson-page .ms-formula-table--readable .ms-formula-read { overflow-wrap:normal; font-weight:600; }
+.ms-lesson-page .ms-formula-table--readable .ms-formula-eq { display:block; white-space:normal; }
+@media(max-width:900px) { .ms-lesson-page .ms-formula-table--readable { min-width:760px; table-layout:fixed; } }

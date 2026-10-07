@@ -72,14 +72,14 @@
       <p class="ms-figure-title">Округление как выбор ближайшего числа</p>
 
       <div class="ms-svg-wrap">
-        <svg class="ms-svg" viewBox="0 0 820 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Округление числа 3,76 до десятых">
-          <rect x="0" y="0" width="820" height="560" rx="24" fill="#f9fafb"/>
+        <svg xmlns="http://www.w3.org/2000/svg" class="ms-svg" viewBox="0 0 820 560" role="img" aria-label="Округление числа 3,76 до десятых">
+          <defs><marker id="ms-arrow-r2-d012-1-0-end" viewBox="0 0 10 8" refX="10" refY="4.0" markerWidth="10" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 L10 4.0 L0 8 Z" fill="#111827" stroke="none" /></marker><marker id="ms-arrow-r2-d012-1-1-end" viewBox="0 0 14 12" refX="14" refY="6.0" markerWidth="14" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 L14 6.0 L0 12 Z" fill="#2563eb" stroke="none" /></marker></defs><rect x="0" y="0" width="820" height="560" rx="24" fill="#f9fafb" />
 
           <text x="410" y="52" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">
             Округлим 3,76 до десятых
           </text>
 
-          <rect x="110" y="105" width="600" height="130" rx="24" fill="#ffffff" stroke="#bfdbfe" stroke-width="3"/>
+          <rect x="110" y="105" width="600" height="130" rx="24" fill="#ffffff" stroke="#bfdbfe" stroke-width="3" />
           <text x="230" y="168" text-anchor="middle" font-size="34" font-weight="800" fill="#111827">3,76</text>
           <text x="365" y="168" text-anchor="middle" font-size="34" font-weight="800" fill="#2563eb">≈</text>
           <text x="505" y="168" text-anchor="middle" font-size="34" font-weight="800" fill="#15803d">3,8</text>
@@ -87,34 +87,29 @@
             число 3,76 ближе к 3,8, чем к 3,7
           </text>
 
-          <!-- Number line -->
-          <line x1="135" y1="330" x2="685" y2="330" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
-          <path d="M685 330 L663 318 L663 342 Z" fill="#111827"/>
 
-          <!-- ticks -->
-          <line x1="145" y1="303" x2="145" y2="357" stroke="#2563eb" stroke-width="4"/>
-          <line x1="194.5" y1="313" x2="194.5" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="244" y1="313" x2="244" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="293.5" y1="313" x2="293.5" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="343" y1="313" x2="343" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="392.5" y1="313" x2="392.5" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="442" y1="313" x2="442" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="491.5" y1="313" x2="491.5" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="541" y1="313" x2="541" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="590.5" y1="313" x2="590.5" y2="347" stroke="#9ca3af" stroke-width="3"/>
-          <line x1="640" y1="303" x2="640" y2="357" stroke="#2563eb" stroke-width="4"/>
+          <line x1="135" y1="330" x2="685" y2="330" stroke="#111827" stroke-width="2" stroke-linecap="butt" marker-end="url(#ms-arrow-r2-d012-1-0-end)" stroke-linejoin="round" />
+          <line x1="145" y1="303" x2="145" y2="357" stroke="#2563eb" stroke-width="4" />
+          <line x1="194.5" y1="313" x2="194.5" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="244" y1="313" x2="244" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="293.5" y1="313" x2="293.5" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="343" y1="313" x2="343" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="392.5" y1="313" x2="392.5" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="442" y1="313" x2="442" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="491.5" y1="313" x2="491.5" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="541" y1="313" x2="541" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="590.5" y1="313" x2="590.5" y2="347" stroke="#9ca3af" stroke-width="3" />
+          <line x1="640" y1="303" x2="640" y2="357" stroke="#2563eb" stroke-width="4" />
 
           <text x="145" y="400" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">3,7</text>
           <text x="640" y="400" text-anchor="middle" font-size="26" font-weight="800" fill="#111827">3,8</text>
 
-          <!-- point 3.76 -->
-          <circle cx="442" cy="330" r="7" fill="#2563eb"/>
+
+          <circle cx="442" cy="330" r="7" fill="#2563eb" />
           <text x="442" y="285" text-anchor="middle" font-size="24" font-weight="800" fill="#2563eb">3,76</text>
 
-          <path d="M457 292 C545 245, 610 250, 635 300" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
-          <path d="M635 300 L612 293 L626 275 Z" fill="#2563eb"/>
-
-          <rect x="185" y="450" width="450" height="60" rx="20" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/>
+          <path d="M 490 300 C 490 240 640 240 640 290" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="butt" marker-end="url(#ms-arrow-r2-d012-1-1-end)" stroke-linejoin="round" />
+          <rect x="185" y="450" width="450" height="60" rx="20" fill="#ffffff" stroke="#bfdbfe" stroke-width="2" />
           <text x="410" y="475" text-anchor="middle" font-size="17" font-weight="800" fill="#374151">
             до десятых оставляем одну цифру
           </text>

@@ -22,9 +22,9 @@
     <h2>1. Из чего состоит граф</h2>
     <p class="ms-text"><strong>Граф</strong> — это схема, состоящая из вершин и соединяющих их рёбер. Граф помогает изображать дороги, связи между объектами, последовательность решений и другие системы.</p>
     <div class="ms-term-grid ms-card-grid ms-columns-3">
-      <div class="ms-term-card ms-card"><strong class="ms-card-title">Вершина</strong><span class="ms-card-text">Точка графа. Она обозначает объект, состояние или этап.</span></div>
-      <div class="ms-term-card ms-card"><strong class="ms-card-title">Ребро</strong><span class="ms-card-text">Линия между двумя вершинами. Она показывает, что вершины связаны.</span></div>
-      <div class="ms-term-card ms-card"><strong class="ms-card-title">Путь</strong><span class="ms-card-text">Последовательность рёбер, по которым можно пройти от одной вершины к другой.</span></div>
+      <div class="ms-term-card ms-card"><h3 class="ms-card-title">Вершина</h3><span class="ms-card-text">Точка графа. Она обозначает объект, состояние или этап.</span></div>
+      <div class="ms-term-card ms-card"><h3 class="ms-card-title">Ребро</h3><span class="ms-card-text">Линия между двумя вершинами. Она показывает, что вершины связаны.</span></div>
+      <div class="ms-term-card ms-card"><h3 class="ms-card-title">Путь</h3><span class="ms-card-text">Последовательность рёбер, по которым можно пройти от одной вершины к другой.</span></div>
     </div>
     <div class="ms-example"><span class="ms-example-title">Пример</span>Если вершины обозначают населённые пункты, а рёбра — дороги между ними, то путь показывает маршрут из одного пункта в другой.</div>
   </section>
@@ -32,7 +32,7 @@
   <section class="ms-section-soft" id="lesson-section-2">
     <h2>2. Что называют деревом</h2>
     <div class="ms-rule-box"><strong>Дерево</strong> — это связный граф без циклов.</div>
-    <div class="ms-card-grid">
+    <div class="ms-card-grid ms-balanced-four">
       <div class="ms-card"><h3 class="ms-card-title">Связность</h3><p class="ms-card-text">Из любой вершины можно пройти по рёбрам в любую другую вершину.</p></div>
       <div class="ms-card"><h3 class="ms-card-title">Отсутствие циклов</h3><p class="ms-card-text">Нельзя выйти из вершины, пройти по нескольким различным рёбрам и вернуться в неё же.</p></div>
     </div>
@@ -90,7 +90,7 @@
 
   <section class="ms-section-soft" id="lesson-section-4">
     <h2>4. Основные элементы дерева</h2>
-    <div class="ms-card-grid">
+    <div class="ms-card-grid ms-balanced-four">
       <div class="ms-card"><h3 class="ms-card-title">Лист, или висячая вершина</h3><p class="ms-card-text">Вершина, из которой выходит только одно ребро. У любого конечного дерева с двумя и более вершинами есть не менее двух листьев.</p></div>
       <div class="ms-card"><h3 class="ms-card-title">Ветвь</h3><p class="ms-card-text">Часть дерева, отходящая от некоторой вершины. В задачах ветвью часто называют один из возможных вариантов продолжения.</p></div>
       <div class="ms-card"><h3 class="ms-card-title">Корень</h3><p class="ms-card-text">Выбранная начальная вершина. После выбора корня дерево удобно читать по уровням сверху вниз.</p></div>
@@ -100,22 +100,22 @@
 
   <section class="ms-section" id="lesson-section-5">
     <h2>5. Четыре свойства, которые помогают решать задачи</h2>
-    <div class="ms-step-grid ms-card-grid ms-columns-4">
-      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Путь единственный</strong><span class="ms-card-text">Между любыми двумя вершинами дерева нельзя выбрать два разных маршрута.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Удаление ребра</strong><span class="ms-card-text">Если убрать любое ребро дерева, граф распадётся на две несвязанные части.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Добавление ребра</strong><span class="ms-card-text">Если соединить две уже существующие вершины новым ребром, появится ровно один цикл.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Есть листья</strong><span class="ms-card-text">В конечном дереве с несколькими вершинами обязательно найдутся висячие вершины.</span></div>
+    <div class="ms-step-grid ms-card-grid ms-columns-4 ms-balanced-four ms-sequence-grid">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><h3 class="ms-card-title">Путь единственный</h3><span class="ms-card-text">Между любыми двумя вершинами дерева нельзя выбрать два разных маршрута.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><h3 class="ms-card-title">Удаление ребра</h3><span class="ms-card-text">Если убрать любое ребро дерева, граф распадётся на две несвязанные части.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><h3 class="ms-card-title">Добавление ребра</h3><span class="ms-card-text">Если соединить две уже существующие вершины новым ребром, появится ровно один цикл.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><h3 class="ms-card-title">Есть листья</h3><span class="ms-card-text">В конечном дереве с несколькими вершинами обязательно найдутся висячие вершины.</span></div>
     </div>
     <div class="ms-example"><span class="ms-example-title">Почему путь единственный</span>Если бы между вершинами A и B существовали два разных пути, то, пройдя по одному пути туда, а по другому обратно, мы получили бы цикл. Но в дереве циклов нет.</div>
   </section>
 
   <section class="ms-section-soft" id="lesson-section-6">
     <h2>6. Как проверить граф</h2>
-    <div class="ms-step-grid ms-card-grid ms-columns-4">
-      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Отметьте все вершины</strong><span class="ms-card-text">Убедитесь, что ни одна точка схемы не пропущена.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проверьте связность</strong><span class="ms-card-text">Попробуйте добраться из любой вершины в каждую другую.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Поищите цикл</strong><span class="ms-card-text">Проверьте, можно ли вернуться в исходную вершину по другим рёбрам.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Сделайте вывод</strong><span class="ms-card-text">Связный граф без циклов является деревом.</span></div>
+    <div class="ms-step-grid ms-card-grid ms-columns-4 ms-balanced-four ms-sequence-grid">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><h3 class="ms-card-title">Отметьте все вершины</h3><span class="ms-card-text">Убедитесь, что ни одна точка схемы не пропущена.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><h3 class="ms-card-title">Проверьте связность</h3><span class="ms-card-text">Попробуйте добраться из любой вершины в каждую другую.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><h3 class="ms-card-title">Поищите цикл</h3><span class="ms-card-text">Проверьте, можно ли вернуться в исходную вершину по другим рёбрам.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><h3 class="ms-card-title">Сделайте вывод</h3><span class="ms-card-text">Связный граф без циклов является деревом.</span></div>
     </div>
   </section>
 
@@ -142,9 +142,9 @@
   <section class="ms-section" id="lesson-section-8">
     <h2>Финишная памятка: дерево распознано</h2>
     <div class="ms-final-grid">
-      <div class="ms-final-card ms-card"><strong class="ms-card-title">Два главных условия</strong><span class="ms-card-text">Дерево обязательно связано и не содержит ни одного цикла.</span></div>
-      <div class="ms-final-card ms-card"><strong class="ms-card-title">Один маршрут</strong><span class="ms-card-text">Между любыми двумя вершинами дерева существует единственный путь.</span></div>
-      <div class="ms-final-card ms-card"><strong class="ms-card-title">Чувствительность к ребру</strong><span class="ms-card-text">Удаление ребра нарушает связность, а добавление нового ребра создаёт цикл.</span></div>
+      <div class="ms-final-card ms-card"><h3 class="ms-card-title">Два главных условия</h3><span class="ms-card-text">Дерево обязательно связано и не содержит ни одного цикла.</span></div>
+      <div class="ms-final-card ms-card"><h3 class="ms-card-title">Один маршрут</h3><span class="ms-card-text">Между любыми двумя вершинами дерева существует единственный путь.</span></div>
+      <div class="ms-final-card ms-card"><h3 class="ms-card-title">Чувствительность к ребру</h3><span class="ms-card-text">Удаление ребра нарушает связность, а добавление нового ребра создаёт цикл.</span></div>
     </div>
   </section>
 

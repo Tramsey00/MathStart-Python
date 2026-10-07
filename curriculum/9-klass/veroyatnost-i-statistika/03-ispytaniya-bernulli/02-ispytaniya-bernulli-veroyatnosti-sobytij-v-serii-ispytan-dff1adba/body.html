@@ -37,7 +37,7 @@
       одинаковых независимых испытаний, в каждом из которых
       возможны два исхода: успех и неудача.
     </p>
-<div class="ms-card-grid">
+<div class="ms-card-grid ms-balanced-four">
 <div class="ms-card">
 <span class="ms-mini-label">Условие 1</span>
 <h3 class="ms-card-title">Два исхода</h3>
@@ -84,7 +84,7 @@
 <div class="ms-math-box">
 <div class="ms-formula">
         P<sub>n</sub>(k) =
-        C<sub>n</sub><sup>k</sup> ·
+        <span class="ms-indexed">C<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span> ·
         p<sup>k</sup> · q<sup>n−k</sup>
 </div>
 </div>
@@ -98,7 +98,7 @@
 </thead>
 <tbody>
 <tr>
-<td>C<sub>n</sub><sup>k</sup></td>
+<td><span class="ms-indexed">C<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span></td>
 <td>
               Число способов выбрать позиции k успехов среди n испытаний.
             </td>
@@ -122,14 +122,14 @@
       k успехов и n − k неудач, равна
       p<sup>k</sup>q<sup>n−k</sup>. Но успехи могут занимать разные
       позиции. Таких расположений
-      C<sub>n</sub><sup>k</sup>.
+      <span class="ms-indexed">C<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span>.
     </p>
 <div class="ms-example">
 <span class="ms-example-title">
         Два успеха в четырёх испытаниях
       </span>
       Возможны последовательности УУНН, УНУН, УННУ, НУУН, НУНУ,
-      ННУУ — всего C<sub>4</sub><sup>2</sup> = 6 вариантов.
+      ННУУ — всего <span class="ms-indexed">C<span class="ms-index-stack"><sub>4</sub><sup>2</sup></span></span> = 6 вариантов.
       Вероятность каждой равна p<sup>2</sup>q<sup>2</sup>.
     </div>
 </section>
@@ -240,7 +240,7 @@
       <div class="ms-math-box">
 <div class="ms-formula">
           P<sub>5</sub>(3) =
-          C<sub>5</sub><sup>3</sup> ·
+          <span class="ms-indexed">C<span class="ms-index-stack"><sub>5</sub><sup>3</sup></span></span> ·
           0,7<sup>3</sup> · 0,3<sup>2</sup> =
           10 · 0,343 · 0,09 = 0,3087
         </div>
@@ -267,7 +267,7 @@
       <div class="ms-math-box">
 <div class="ms-formula">
           P =
-          C<sub>5</sub><sup>4</sup> ·
+          <span class="ms-indexed">C<span class="ms-index-stack"><sub>5</sub><sup>4</sup></span></span> ·
           0,8<sup>4</sup> · 0,2 +
           0,8<sup>5</sup> =
           0,4096 + 0,32768 = 0,73728
@@ -338,7 +338,7 @@
 <div>
 <p>
             P =
-            C<sub>4</sub><sup>2</sup> ·
+            <span class="ms-indexed">C<span class="ms-index-stack"><sub>4</sub><sup>2</sup></span></span> ·
             0,5<sup>2</sup> · 0,5<sup>2</sup> =
             6 ·
             <span class="ms-frac">
@@ -397,7 +397,7 @@
 <div>
 <p>
             P =
-            C<sub>5</sub><sup>4</sup> ·
+            <span class="ms-indexed">C<span class="ms-index-stack"><sub>5</sub><sup>4</sup></span></span> ·
             0,8<sup>4</sup> · 0,2 =
             5 · 0,4096 · 0,2 =
             <strong>0,4096</strong>.
@@ -435,7 +435,7 @@
 <div>
 <p>
             P =
-            C<sub>7</sub><sup>3</sup> ·
+            <span class="ms-indexed">C<span class="ms-index-stack"><sub>7</sub><sup>3</sup></span></span> ·
             0,4<sup>3</sup> · 0,6<sup>4</sup>.
           </p>
 <p>
@@ -497,7 +497,7 @@
           </p>
 <p>
             P =
-            C<sub>6</sub><sup>4</sup> ·
+            <span class="ms-indexed">C<span class="ms-index-stack"><sub>6</sub><sup>4</sup></span></span> ·
             0,7<sup>4</sup> · 0,3<sup>2</sup> =
             <strong>0,324135</strong>.
           </p>
@@ -509,22 +509,22 @@
 <h2>Формульный навигатор</h2>
 <div class="ms-final-grid">
 <div class="ms-final-card ms-card">
-<strong class="ms-card-title">Ровно k</strong>
+<h3 class="ms-card-title">Ровно k</h3>
 <span class="ms-card-text">
           Используй
-          C<sub>n</sub><sup>k</sup>p<sup>k</sup>q<sup>n−k</sup>
+          <span class="ms-indexed">C<span class="ms-index-stack"><sub>n</sub><sup>k</sup></span></span>p<sup>k</sup>q<sup>n−k</sup>
           и проверь, что все четыре условия схемы Бернулли выполнены.
         </span>
 </div>
 <div class="ms-final-card ms-card">
-<strong class="ms-card-title">Хотя бы один</strong>
+<h3 class="ms-card-title">Хотя бы один</h3>
 <span class="ms-card-text">
           Не складывай много случаев без необходимости:
           применяй противоположное событие 1 − q<sup>n</sup>.
         </span>
 </div>
 <div class="ms-final-card ms-card">
-<strong class="ms-card-title">Диапазон значений</strong>
+<h3 class="ms-card-title">Диапазон значений</h3>
 <span class="ms-card-text">
           «Не менее» и «не более» требуют сложить вероятности
           всех допустимых значений числа успехов.

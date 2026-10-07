@@ -313,7 +313,8 @@ class SiteBootstrapTests(TestCase):
         self.assertEqual(get_user_model().objects.filter(pk=user.pk).values().get(), user_before)
         self.assertEqual(MediaAsset.objects.get(file=pdf).related_page.slug, lesson_slug)
         self.assertEqual(sha256_path(self.media_root / pdf), sha256_path(settings.BASE_DIR / "site_content/media" / pdf))
-        self.assertContains(self.client.get(f"/{lesson_slug}/"), f'href="/media/{pdf}"')
+        # D066 temporarily hides the link, retaining the PDF and media identity.
+        self.assertNotContains(self.client.get(f"/{lesson_slug}/"), f'href="/media/{pdf}"')
         for old, target in (("materialy", "karta-sajta"), ("pamyatki", lesson_slug)):
             for prefix in ("/", "/mathstart/"):
                 self.assertRedirects(self.client.get(f"{prefix}{old}/"), f"/{target}/", status_code=301)

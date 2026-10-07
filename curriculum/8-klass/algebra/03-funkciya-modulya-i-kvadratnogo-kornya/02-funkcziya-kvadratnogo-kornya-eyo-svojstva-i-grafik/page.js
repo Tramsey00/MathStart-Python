@@ -172,7 +172,7 @@
 
   function draw() {
     var rect = canvas.getBoundingClientRect();
-    var cssWidth = Math.max(280, rect.width || 820);
+    var cssWidth = Math.max(180, rect.width || 820);
     var cssHeight = Math.max(260, rect.height || 460);
     var dpr = window.devicePixelRatio || 1;
 

@@ -22,9 +22,9 @@
     <h2>1. Что показывает дерево случайного эксперимента</h2>
     <p class="ms-text">Каждый уровень дерева соответствует очередному этапу опыта, ветви — возможным результатам этапа, а листья — полным элементарным исходам всего эксперимента.</p>
     <div class="ms-symbol-grid ms-card-grid ms-columns-3">
-      <div class="ms-symbol-card ms-card"><span class="ms-symbol">●</span><strong class="ms-card-title">Вершина</strong><p class="ms-card-text">Состояние эксперимента до или после некоторого этапа.</p></div>
-      <div class="ms-symbol-card ms-card"><span class="ms-symbol">—</span><strong class="ms-card-title">Ветвь</strong><p class="ms-card-text">Один из возможных результатов следующего шага.</p></div>
-      <div class="ms-symbol-card ms-card"><span class="ms-symbol">1</span><strong class="ms-card-title">Сумма ветвей</strong><p class="ms-card-text">Вероятности всех ветвей из одной вершины должны давать 1.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">●</span><h3 class="ms-card-title">Вершина</h3><p class="ms-card-text">Состояние эксперимента до или после некоторого этапа.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">—</span><h3 class="ms-card-title">Ветвь</h3><p class="ms-card-text">Один из возможных результатов следующего шага.</p></div>
+      <div class="ms-symbol-card ms-card"><span class="ms-symbol">1</span><h3 class="ms-card-title">Сумма ветвей</h3><p class="ms-card-text">Вероятности всех ветвей из одной вершины должны давать 1.</p></div>
     </div>
   </section>
 
@@ -77,11 +77,11 @@
 
   <section class="ms-section-soft" id="lesson-section-4">
     <h2>4. Алгоритм построения дерева</h2>
-    <div class="ms-step-grid ms-card-grid ms-columns-4">
-      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><strong class="ms-card-title">Отметьте старт</strong><span class="ms-card-text">Изобразите начальное состояние опыта.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><strong class="ms-card-title">Проведите ветви</strong><span class="ms-card-text">Для каждого возможного результата следующего этапа.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><strong class="ms-card-title">Подпишите вероятности</strong><span class="ms-card-text">Около ветвей; из одной вершины их сумма равна 1.</span></div>
-      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><strong class="ms-card-title">Найдите нужные пути</strong><span class="ms-card-text">Умножьте вдоль каждого и сложите подходящие результаты.</span></div>
+    <div class="ms-step-grid ms-card-grid ms-columns-4 ms-balanced-four ms-sequence-grid">
+      <div class="ms-step-card ms-card"><span class="ms-step-number">1</span><h3 class="ms-card-title">Отметьте старт</h3><span class="ms-card-text">Изобразите начальное состояние опыта.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">2</span><h3 class="ms-card-title">Проведите ветви</h3><span class="ms-card-text">Для каждого возможного результата следующего этапа.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">3</span><h3 class="ms-card-title">Подпишите вероятности</h3><span class="ms-card-text">Около ветвей; из одной вершины их сумма равна 1.</span></div>
+      <div class="ms-step-card ms-card"><span class="ms-step-number">4</span><h3 class="ms-card-title">Найдите нужные пути</h3><span class="ms-card-text">Умножьте вдоль каждого и сложите подходящие результаты.</span></div>
     </div>
   </section>
 
@@ -113,11 +113,11 @@
 
   <section class="ms-section" id="lesson-section-8">
     <h2>Маршрут к ответу: прочитайте дерево целиком</h2>
-    <div class="ms-compact-grid ms-card-grid ms-columns-3">
-      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Из одной вершины</strong><span class="ms-card-text">Сумма вероятностей всех выходящих ветвей равна 1.</span></div>
-      <div class="ms-compact-card ms-card"><strong class="ms-card-title">По одному пути</strong><span class="ms-card-text">Вероятности ветвей последовательно перемножаются.</span></div>
-      <div class="ms-compact-card ms-card"><strong class="ms-card-title">По нескольким путям</strong><span class="ms-card-text">Вероятности подходящих несовместных путей складываются.</span></div>
-      <div class="ms-compact-card ms-card"><strong class="ms-card-title">Всё дерево</strong><span class="ms-card-text">Сумма вероятностей всех конечных исходов равна 1.</span></div>
+    <div class="ms-compact-grid ms-card-grid ms-columns-3 ms-balanced-four">
+      <div class="ms-compact-card ms-card"><h3 class="ms-card-title">Из одной вершины</h3><span class="ms-card-text">Сумма вероятностей всех выходящих ветвей равна 1.</span></div>
+      <div class="ms-compact-card ms-card"><h3 class="ms-card-title">По одному пути</h3><span class="ms-card-text">Вероятности ветвей последовательно перемножаются.</span></div>
+      <div class="ms-compact-card ms-card"><h3 class="ms-card-title">По нескольким путям</h3><span class="ms-card-text">Вероятности подходящих несовместных путей складываются.</span></div>
+      <div class="ms-compact-card ms-card"><h3 class="ms-card-title">Всё дерево</h3><span class="ms-card-text">Сумма вероятностей всех конечных исходов равна 1.</span></div>
     </div>
   </section>
 

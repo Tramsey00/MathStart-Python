@@ -18,8 +18,14 @@
   var interceptOutput = root.querySelector('[data-role="intercept"]');
   var xInterceptOutput = root.querySelector('[data-role="x-intercept"]');
   var resetButton = root.querySelector('[data-role="reset"]');
+  var readout = root.querySelector('[data-role="readout"]');
   var context = canvas.getContext('2d');
   var resizeFrame = null;
+  var hoverX = null;
+  var xMin = -8;
+  var xMax = 8;
+  var yMin = -16;
+  var yMax = 16;
 
   function nearlyZero(value) {
     return Math.abs(value) < 0.000001;
@@ -100,9 +106,23 @@
     ctx.closePath();
   }
 
+  function drawArrowHead(x, y, direction) {
+    context.beginPath();
+    context.moveTo(x, y);
+    if (direction === 'right') {
+      context.lineTo(x - 9, y - 5);
+      context.lineTo(x - 9, y + 5);
+    } else {
+      context.lineTo(x - 5, y + 9);
+      context.lineTo(x + 5, y + 9);
+    }
+    context.closePath();
+    context.fill();
+  }
+
   function draw() {
     var rect = canvas.getBoundingClientRect();
-    var cssWidth = Math.max(320, rect.width);
+    var cssWidth = Math.max(180, rect.width);
     var cssHeight = Math.max(230, rect.height);
     var dpr = window.devicePixelRatio || 1;
 
@@ -116,21 +136,16 @@
     var b = parseFloat(bRange.value);
 
     var margin = {
-      left: 52,
-      right: 22,
-      top: 22,
-      bottom: 46
+      left: 58,
+      right: 25,
+      top: 25,
+      bottom: 48
     };
 
     var plotX = margin.left;
     var plotY = margin.top;
     var plotWidth = cssWidth - margin.left - margin.right;
     var plotHeight = cssHeight - margin.top - margin.bottom;
-
-    var xMin = -8;
-    var xMax = 8;
-    var yMin = -16;
-    var yMax = 16;
 
     function toCanvasX(x) {
       return plotX + ((x - xMin) / (xMax - xMin)) * plotWidth;
@@ -143,9 +158,12 @@
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, cssWidth, cssHeight);
 
-    roundedRect(context, plotX, plotY, plotWidth, plotHeight, 12);
-    context.fillStyle = '#fbfdff';
+    roundedRect(context, plotX, plotY, plotWidth, plotHeight, 10);
+    context.fillStyle = '#ffffff';
     context.fill();
+    context.strokeStyle = '#dbeafe';
+    context.lineWidth = 1;
+    context.stroke();
 
     context.save();
     context.beginPath();
@@ -161,33 +179,40 @@
       context.beginPath();
       context.moveTo(gridX, plotY);
       context.lineTo(gridX, plotY + plotHeight);
+      context.strokeStyle = gx % 2 === 0 ? '#dbeafe' : '#eef4fb';
+      context.lineWidth = gx % 2 === 0 ? 1.1 : 0.8;
       context.stroke();
     }
 
-    for (var gy = yMin; gy <= yMax; gy += 2) {
+    for (var gy = yMin; gy <= yMax; gy += 1) {
       var gridY = toCanvasY(gy);
 
       context.beginPath();
       context.moveTo(plotX, gridY);
       context.lineTo(plotX + plotWidth, gridY);
+      context.strokeStyle = gy % 2 === 0 ? '#dbeafe' : '#eef4fb';
+      context.lineWidth = gy % 2 === 0 ? 1.1 : 0.8;
       context.stroke();
     }
 
     var axisX = toCanvasX(0);
     var axisY = toCanvasY(0);
 
-    context.strokeStyle = '#374151';
-    context.lineWidth = 2.5;
+    context.strokeStyle = '#475569';
+    context.fillStyle = '#475569';
+    context.lineWidth = 1.8;
 
     context.beginPath();
     context.moveTo(plotX, axisY);
     context.lineTo(plotX + plotWidth, axisY);
     context.stroke();
+    drawArrowHead(plotX + plotWidth, axisY, 'right');
 
     context.beginPath();
     context.moveTo(axisX, plotY);
     context.lineTo(axisX, plotY + plotHeight);
     context.stroke();
+    drawArrowHead(axisX, plotY, 'up');
 
     context.strokeStyle = '#2563eb';
     context.lineWidth = 4;
@@ -207,73 +232,117 @@
     var interceptX = toCanvasX(0);
     var interceptY = toCanvasY(b);
 
-    context.fillStyle = '#7c3aed';
     context.beginPath();
-    context.arc(interceptX, interceptY, 6.5, 0, Math.PI * 2);
+    context.arc(interceptX, interceptY, 7.5, 0, Math.PI * 2);
+    context.fillStyle = '#ffffff';
     context.fill();
+    context.strokeStyle = '#7c3aed';
+    context.lineWidth = 2.6;
+    context.stroke();
 
     if (!nearlyZero(k)) {
       var xIntercept = cleanNumber(-b / k);
 
       if (xIntercept >= xMin && xIntercept <= xMax) {
-        context.fillStyle = '#15803d';
+        context.fillStyle = '#ffffff';
         context.beginPath();
         context.arc(
           toCanvasX(xIntercept),
           axisY,
-          7,
+          5.5,
           0,
           Math.PI * 2
         );
         context.fill();
+        context.strokeStyle = '#16a34a';
+        context.lineWidth = 2.6;
+        context.stroke();
+      }
+    }
+
+    if (hoverX !== null) {
+      var hoverY = k * hoverX + b;
+      if (hoverY >= yMin && hoverY <= yMax) {
+        var hoverPx = toCanvasX(hoverX);
+        var hoverPy = toCanvasY(hoverY);
+        context.save();
+        context.setLineDash([5, 5]);
+        context.strokeStyle = '#93c5fd';
+        context.lineWidth = 1.2;
+        context.beginPath();
+        context.moveTo(hoverPx, plotY);
+        context.lineTo(hoverPx, plotY + plotHeight);
+        context.stroke();
+        context.beginPath();
+        context.moveTo(plotX, hoverPy);
+        context.lineTo(plotX + plotWidth, hoverPy);
+        context.stroke();
+        context.restore();
+        context.beginPath();
+        context.arc(hoverPx, hoverPy, 6, 0, Math.PI * 2);
+        context.fillStyle = '#ffffff';
+        context.fill();
+        context.strokeStyle = '#2563eb';
+        context.lineWidth = 3;
+        context.stroke();
       }
     }
 
     context.restore();
 
-    context.fillStyle = '#6b7280';
-    context.font = '600 11px Arial, sans-serif';
-    context.textAlign = 'center';
-    context.textBaseline = 'top';
-
-    for (var tx = xMin; tx <= xMax; tx += 1) {
-      context.fillText(
-        formatNumber(tx),
-        toCanvasX(tx),
-        plotY + plotHeight + 10
-      );
-    }
-
-    context.textAlign = 'right';
+    context.fillStyle = '#64748b';
+    context.font = '500 12px Arial, sans-serif';
     context.textBaseline = 'middle';
-
-    for (var ty = yMin; ty <= yMax; ty += 2) {
-      context.fillText(
-        formatNumber(ty),
-        plotX - 9,
-        toCanvasY(ty)
-      );
+    for (var tx = xMin; tx <= xMax; tx += 2) {
+      if (tx !== 0) {
+        context.textAlign = 'center';
+        context.fillText(formatNumber(tx), toCanvasX(tx), axisY + 16);
+      }
     }
-
-    context.fillStyle = '#374151';
-    context.font = '800 14px Arial, sans-serif';
     context.textAlign = 'right';
-    context.textBaseline = 'top';
-
-    context.fillText(
-      'x',
-      plotX + plotWidth,
-      plotY + plotHeight + 28
-    );
-
+    for (var ty = yMin; ty <= yMax; ty += 2) {
+      if (ty !== 0) {
+        context.fillText(formatNumber(ty), axisX - 9, toCanvasY(ty));
+      }
+    }
+    context.fillText('0', axisX - 9, axisY + 16);
+    context.fillStyle = '#334155';
+    context.font = '700 15px Arial, sans-serif';
+    context.textAlign = 'right';
+    context.fillText('x', plotX + plotWidth - 3, axisY - 11);
     context.textAlign = 'left';
-    context.textBaseline = 'top';
+    context.fillText('y', axisX + 10, plotY + 11);
+  }
 
-    context.fillText(
-      'y',
-      plotX + 7,
-      plotY + 4
-    );
+  function updateReadout() {
+    if (hoverX === null) {
+      readout.innerHTML = 'Наведите курсор<br>на график';
+      return;
+    }
+    var y = parseFloat(kRange.value) * hoverX + parseFloat(bRange.value);
+    function coordinate(value) {
+      return cleanNumber(value).toFixed(2).replace('.', ',').replace('-', '−');
+    }
+    readout.innerHTML = 'x = ' + coordinate(hoverX) + '<br>y = ' + coordinate(y);
+  }
+
+  function pointerToGraphX(event) {
+    var rect = canvas.getBoundingClientRect();
+    var plotWidth = Math.max(180, rect.width) - 58 - 25;
+    var x = xMin + ((event.clientX - rect.left - 58) / plotWidth) * (xMax - xMin);
+    return x < xMin || x > xMax ? null : x;
+  }
+
+  function showPointer(event) {
+    hoverX = pointerToGraphX(event);
+    updateReadout();
+    draw();
+  }
+
+  function clearPointer() {
+    hoverX = null;
+    updateReadout();
+    draw();
   }
 
   function update() {
@@ -290,7 +359,7 @@
       '(0; ' + formatNumber(b) + ')';
 
     xInterceptOutput.textContent = xInterceptText(k, b);
-
+    updateReadout();
     draw();
   }
 
@@ -306,11 +375,19 @@
 
   kRange.addEventListener('input', update);
   bRange.addEventListener('input', update);
+  canvas.addEventListener('pointermove', showPointer);
+  canvas.addEventListener('pointerdown', showPointer);
+  canvas.addEventListener('pointerleave', function (event) {
+    if (event.pointerType !== 'touch') {
+      clearPointer();
+    }
+  });
+  canvas.addEventListener('pointercancel', clearPointer);
 
   resetButton.addEventListener('click', function () {
     kRange.value = '1';
     bRange.value = '0';
-
+    hoverX = null;
     update();
   });
 

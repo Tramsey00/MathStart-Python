@@ -49,7 +49,7 @@
     <div class="ms-component-grid ms-card-grid ms-columns-3">
       <div class="ms-component-card ms-card">
         <span class="ms-component-symbol">x</span>
-        <strong class="ms-card-title">Исходное число</strong>
+        <h3 class="ms-card-title">Исходное число</h3>
         <span class="ms-card-text">
           Положительное число, которое нужно записать компактнее.
         </span>
@@ -57,7 +57,7 @@
 
       <div class="ms-component-card ms-card">
         <span class="ms-component-symbol">1 ≤ a &lt; 10</span>
-        <strong class="ms-card-title">Значащая часть</strong>
+        <h3 class="ms-card-title">Значащая часть</h3>
         <span class="ms-card-text">
           Перед запятой должна остаться ровно одна ненулевая цифра.
         </span>
@@ -65,7 +65,7 @@
 
       <div class="ms-component-card ms-card">
         <span class="ms-component-symbol">n ∈ Z</span>
-        <strong class="ms-card-title">Порядок числа</strong>
+        <h3 class="ms-card-title">Порядок числа</h3>
         <span class="ms-card-text">
           Целое число, показывающее, на сколько разрядов перенесли запятую.
         </span>
@@ -88,7 +88,7 @@
     <div class="ms-direction-grid ms-card-grid ms-columns-2">
       <div class="ms-direction-card ms-card">
         <span class="ms-direction-rule">Число больше или равно 10</span>
-        <strong class="ms-card-title">Положительный порядок</strong>
+        <h3 class="ms-card-title">Положительный порядок</h3>
         <span class="ms-card-text">
           Запятую переносят влево, а количество переносов записывают
           положительным показателем степени числа 10.
@@ -97,7 +97,7 @@
 
       <div class="ms-direction-card ms-card">
         <span class="ms-direction-rule">0 &lt; число &lt; 1</span>
-        <strong class="ms-card-title">Отрицательный порядок</strong>
+        <h3 class="ms-card-title">Отрицательный порядок</h3>
         <span class="ms-card-text">
           Запятую переносят вправо до первой ненулевой цифры,
           а показатель степени записывают со знаком минус.
@@ -108,25 +108,23 @@
     <div class="ms-standard-visual-grid ms-card-grid ms-columns-2">
       <div class="ms-standard-visual">
         <span class="ms-standard-visual-title">Большое число</span>
-        
-<svg class="ms-standard-svg" viewBox="0 0 680 320" role="img" aria-label="Преобразование большого числа в стандартный вид">
+
+<figure class="ms-figure">
+<svg xmlns="http://www.w3.org/2000/svg" class="ms-standard-svg ms-svg" viewBox="0 0 680 320" role="img" aria-label="Преобразование большого числа в стандартный вид">
   <defs>
-    <marker id="std-large-arrow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
-      <path d="M1 2L1 14L15 8Z" fill="#2563eb"></path>
-    </marker>
-  </defs>
-  <rect width="680" height="320" rx="20" fill="#fbfdff" stroke="#dbeafe"></rect>
+    <marker id="ms-arrow-r2-r224-1-0-end" viewBox="0 0 14 12" refX="14" refY="6.0" markerWidth="14" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 L14 6.0 L0 12 Z" fill="#2563eb" stroke="none" /></marker></defs>
+  <rect width="680" height="320" rx="20" fill="#fbfdff" stroke="#dbeafe" />
   <g font-family="Arial,sans-serif">
     <text x="34" y="44" fill="#1e3a8a" font-size="19" font-weight="700">4 870 000 → 4,87 · 10⁶</text>
 
-    <rect x="48" y="82" width="250" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2"></rect>
+    <rect x="48" y="82" width="250" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2" />
     <text x="173" y="126" text-anchor="middle" fill="#111827" font-size="28" font-weight="700">4 870 000</text>
     <text x="173" y="158" text-anchor="middle" fill="#64748b" font-size="15">исходное число</text>
 
-    <line x1="322" y1="133" x2="408" y2="133" stroke="#2563eb" stroke-width="4" stroke-linecap="round" marker-end="url(#std-large-arrow)"></line>
+    <line x1="322" y1="133" x2="408" y2="133" stroke="#2563eb" stroke-width="3" stroke-linecap="butt" marker-end="url(#ms-arrow-r2-r224-1-0-end)" stroke-linejoin="round" />
     <text x="365" y="104" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">6 знаков влево</text>
 
-    <rect x="432" y="82" width="200" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2"></rect>
+    <rect x="432" y="82" width="200" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2" />
     <text x="532" y="126" text-anchor="middle" fill="#1e3a8a" font-size="28" font-weight="700">4,87 · 10⁶</text>
     <text x="532" y="158" text-anchor="middle" fill="#64748b" font-size="15">стандартный вид</text>
 
@@ -134,6 +132,7 @@
     <text x="340" y="274" text-anchor="middle" fill="#1e3a8a" font-size="18" font-weight="700">Значащая часть: 4,87 · Порядок: 6</text>
   </g>
 </svg>
+</figure>
 
         <div class="ms-standard-visual-caption">
           Число уменьшили в 10<sup>6</sup> раз внутри значащей части
@@ -143,25 +142,23 @@
 
       <div class="ms-standard-visual">
         <span class="ms-standard-visual-title">Малое положительное число</span>
-        
-<svg class="ms-standard-svg" viewBox="0 0 680 320" role="img" aria-label="Преобразование малого положительного числа в стандартный вид">
+
+<figure class="ms-figure">
+<svg xmlns="http://www.w3.org/2000/svg" class="ms-standard-svg ms-svg" viewBox="0 0 680 320" role="img" aria-label="Преобразование малого положительного числа в стандартный вид">
   <defs>
-    <marker id="std-small-arrow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
-      <path d="M1 2L1 14L15 8Z" fill="#2563eb"></path>
-    </marker>
-  </defs>
-  <rect width="680" height="320" rx="20" fill="#fbfdff" stroke="#dbeafe"></rect>
+    <marker id="ms-arrow-r2-r224-2-0-end" viewBox="0 0 14 12" refX="14" refY="6.0" markerWidth="14" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0 L14 6.0 L0 12 Z" fill="#2563eb" stroke="none" /></marker></defs>
+  <rect width="680" height="320" rx="20" fill="#fbfdff" stroke="#dbeafe" />
   <g font-family="Arial,sans-serif">
     <text x="34" y="44" fill="#1e3a8a" font-size="19" font-weight="700">0,000056 → 5,6 · 10⁻⁵</text>
 
-    <rect x="40" y="82" width="265" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2"></rect>
+    <rect x="40" y="82" width="265" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2" />
     <text x="172" y="126" text-anchor="middle" fill="#111827" font-size="28" font-weight="700">0,000056</text>
     <text x="172" y="158" text-anchor="middle" fill="#64748b" font-size="15">исходное число</text>
 
-    <line x1="329" y1="133" x2="415" y2="133" stroke="#2563eb" stroke-width="4" stroke-linecap="round" marker-end="url(#std-small-arrow)"></line>
+    <line x1="329" y1="133" x2="415" y2="133" stroke="#2563eb" stroke-width="3" stroke-linecap="butt" marker-end="url(#ms-arrow-r2-r224-2-0-end)" stroke-linejoin="round" />
     <text x="372" y="104" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">5 знаков вправо</text>
 
-    <rect x="439" y="82" width="201" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2"></rect>
+    <rect x="439" y="82" width="201" height="102" rx="18" fill="#fff" stroke="#bfdbfe" stroke-width="2" />
     <text x="539" y="126" text-anchor="middle" fill="#1e3a8a" font-size="28" font-weight="700">5,6 · 10⁻⁵</text>
     <text x="539" y="158" text-anchor="middle" fill="#64748b" font-size="15">стандартный вид</text>
 
@@ -169,6 +166,7 @@
     <text x="340" y="274" text-anchor="middle" fill="#1e3a8a" font-size="18" font-weight="700">Значащая часть: 5,6 · Порядок: −5</text>
   </g>
 </svg>
+</figure>
 
         <div class="ms-standard-visual-caption">
           Значащая часть стала больше, поэтому степень числа 10 имеет отрицательный показатель.
@@ -297,21 +295,21 @@
 
     <div class="ms-operation-grid ms-card-grid ms-columns-3">
       <div class="ms-operation-card ms-card">
-        <strong class="ms-card-title">Разные порядки</strong>
+        <h3 class="ms-card-title">Разные порядки</h3>
         <span class="ms-card-text">
           Больше то положительное число, у которого больше порядок.
         </span>
       </div>
 
       <div class="ms-operation-card ms-card">
-        <strong class="ms-card-title">Одинаковые порядки</strong>
+        <h3 class="ms-card-title">Одинаковые порядки</h3>
         <span class="ms-card-text">
           Сравнивают значащие части.
         </span>
       </div>
 
       <div class="ms-operation-card ms-card">
-        <strong class="ms-card-title">Отрицательные порядки</strong>
+        <h3 class="ms-card-title">Отрицательные порядки</h3>
         <span class="ms-card-text">
           Порядок −3 больше порядка −5, поэтому соответствующее число больше.
         </span>
@@ -368,21 +366,21 @@
 
     <div class="ms-science-grid ms-card-grid ms-columns-3">
       <div class="ms-science-card ms-card">
-        <strong class="ms-card-title">Астрономия</strong>
+        <h3 class="ms-card-title">Астрономия</h3>
         <span class="ms-card-text">
           Удобная запись очень больших расстояний и масс.
         </span>
       </div>
 
       <div class="ms-science-card ms-card">
-        <strong class="ms-card-title">Физика и химия</strong>
+        <h3 class="ms-card-title">Физика и химия</h3>
         <span class="ms-card-text">
           Запись малых размеров, зарядов и масс частиц.
         </span>
       </div>
 
       <div class="ms-science-card ms-card">
-        <strong class="ms-card-title">Вычисления</strong>
+        <h3 class="ms-card-title">Вычисления</h3>
         <span class="ms-card-text">
           Быстрое сравнение порядков и выполнение действий со степенями 10.
         </span>
@@ -399,9 +397,9 @@
   <section class="ms-section-soft" id="lesson-section-8">
     <h2>8. Типичные ошибки</h2>
 
-    <div class="ms-error-grid ms-card-grid ms-columns-2">
+    <div class="ms-error-grid ms-card-grid ms-columns-2 ms-balanced-four">
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Значащая часть не входит в [1; 10)</strong>
+        <h3 class="ms-card-title">Значащая часть не входит в [1; 10)</h3>
         <span class="ms-card-text">
           Запись 42 · 10<sup>3</sup> нужно исправить:
           4,2 · 10<sup>4</sup>.
@@ -409,7 +407,7 @@
       </div>
 
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Перепутан знак порядка</strong>
+        <h3 class="ms-card-title">Перепутан знак порядка</h3>
         <span class="ms-card-text">
           Для 0,0008 порядок отрицательный:
           8 · 10<sup>−4</sup>.
@@ -417,7 +415,7 @@
       </div>
 
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Неверно посчитаны переносы</strong>
+        <h3 class="ms-card-title">Неверно посчитаны переносы</h3>
         <span class="ms-card-text">
           В числе 3 500 000 запятая переносится на 6 разрядов,
           поэтому порядок равен 6.
@@ -425,7 +423,7 @@
       </div>
 
       <div class="ms-error-card ms-card ms-card--error">
-        <strong class="ms-card-title">Результат действия не стандартизирован</strong>
+        <h3 class="ms-card-title">Результат действия не стандартизирован</h3>
         <span class="ms-card-text">
           15 · 10<sup>4</sup> нужно записать как
           1,5 · 10<sup>5</sup>.
@@ -439,12 +437,14 @@
 
     <div class="ms-task">
       <p><strong>Задание 1.</strong> Запишите в стандартном виде число 6 400 000.</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>Запятая переносится влево на 6 разрядов.<br><br><strong>Ответ: 6,4 · 10<sup>6</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>Запятая переносится влево на 6 разрядов.<br>
+          <strong>Ответ: 6,4 · 10<sup>6</sup>.</strong></div></details>
     </div>
 
     <div class="ms-task">
       <p><strong>Задание 2.</strong> Запишите в стандартном виде число 0,000092.</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>Запятая переносится вправо на 5 разрядов.<br><br><strong>Ответ: 9,2 · 10<sup>−5</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>Запятая переносится вправо на 5 разрядов.<br>
+          <strong>Ответ: 9,2 · 10<sup>−5</sup>.</strong></div></details>
     </div>
 
     <div class="ms-task">
@@ -464,27 +464,32 @@
 
     <div class="ms-task">
       <p><strong>Задание 6.</strong> Исправьте запись 27,5 · 10<sup>4</sup>, чтобы она стала стандартной.</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>27,5 = 2,75 · 10. Поэтому порядок увеличивается на 1.<br><br><strong>Ответ: 2,75 · 10<sup>5</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>27,5 = 2,75 · 10. Поэтому порядок увеличивается на 1.<br>
+          <strong>Ответ: 2,75 · 10<sup>5</sup>.</strong></div></details>
     </div>
 
     <div class="ms-task">
       <p><strong>Задание 7.</strong> Сравните 4,8 · 10<sup>6</sup> и 9,1 · 10<sup>5</sup>.</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>Порядок 6 больше порядка 5.<br><br><strong>Ответ: 4,8 · 10<sup>6</sup> &gt; 9,1 · 10<sup>5</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>Порядок 6 больше порядка 5.<br>
+          <strong>Ответ: 4,8 · 10<sup>6</sup> &gt; 9,1 · 10<sup>5</sup>.</strong></div></details>
     </div>
 
     <div class="ms-task">
       <p><strong>Задание 8.</strong> Сравните 6,2 · 10<sup>−4</sup> и 7,5 · 10<sup>−5</sup>.</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>−4 &gt; −5, поэтому первое число больше.<br><br><strong>Ответ: 6,2 · 10<sup>−4</sup> &gt; 7,5 · 10<sup>−5</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>−4 &gt; −5, поэтому первое число больше.<br>
+          <strong>Ответ: 6,2 · 10<sup>−4</sup> &gt; 7,5 · 10<sup>−5</sup>.</strong></div></details>
     </div>
 
     <div class="ms-task">
       <p><strong>Задание 9.</strong> Вычислите (2 · 10<sup>5</sup>)(3 · 10<sup>−2</sup>).</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>2 · 3 = 6; 5 + (−2) = 3.<br><br><strong>Ответ: 6 · 10<sup>3</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>2 · 3 = 6; 5 + (−2) = 3.<br>
+          <strong>Ответ: 6 · 10<sup>3</sup>.</strong></div></details>
     </div>
 
     <div class="ms-task">
       <p><strong>Задание 10.</strong> Вычислите (9,6 · 10<sup>8</sup>) : (3,2 · 10<sup>3</sup>).</p>
-      <details class="ms-answer"><summary>Показать решение</summary><div>9,6 : 3,2 = 3; 8 − 3 = 5.<br><br><strong>Ответ: 3 · 10<sup>5</sup>.</strong></div></details>
+      <details class="ms-answer"><summary>Показать решение</summary><div>9,6 : 3,2 = 3; 8 − 3 = 5.<br>
+          <strong>Ответ: 3 · 10<sup>5</sup>.</strong></div></details>
     </div>
   </section>
 
@@ -493,28 +498,28 @@
 
     <div class="ms-final-grid">
       <div class="ms-final-card ms-card">
-        <strong class="ms-card-title">Одна цифра перед запятой</strong>
+        <h3 class="ms-card-title">Одна цифра перед запятой</h3>
         <span class="ms-card-text">
           Значащая часть должна удовлетворять условию 1 ≤ a &lt; 10.
         </span>
       </div>
 
       <div class="ms-final-card ms-card">
-        <strong class="ms-card-title">Влево — положительный порядок</strong>
+        <h3 class="ms-card-title">Влево — положительный порядок</h3>
         <span class="ms-card-text">
           Так записывают большие числа.
         </span>
       </div>
 
       <div class="ms-final-card ms-card">
-        <strong class="ms-card-title">Вправо — отрицательный порядок</strong>
+        <h3 class="ms-card-title">Вправо — отрицательный порядок</h3>
         <span class="ms-card-text">
           Так записывают положительные числа, меньшие единицы.
         </span>
       </div>
 
       <div class="ms-final-card ms-card">
-        <strong class="ms-card-title">Проверяйте результат</strong>
+        <h3 class="ms-card-title">Проверяйте результат</h3>
         <span class="ms-card-text">
           После действий снова приводите значащую часть к промежутку [1; 10).
         </span>

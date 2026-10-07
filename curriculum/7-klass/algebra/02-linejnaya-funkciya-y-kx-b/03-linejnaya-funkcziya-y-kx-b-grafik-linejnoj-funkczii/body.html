@@ -102,7 +102,7 @@
       <br/><br/>
       где k и b — заданные числа, x — аргумент, y — значение функции.
     </div>
-<div class="ms-card-grid">
+<div class="ms-card-grid ms-balanced-four">
 <div class="ms-card">
 <h3 class="ms-card-title">Коэффициент k</h3>
 <p class="ms-card-text">
@@ -195,41 +195,28 @@
       а коэффициент b сдвигает её вверх или вниз. На графике отмечаются
       точки пересечения прямой с осями Oy и Ox.
     </p>
-<div class="ms-linear-lab" id="ms-linear-lab-723">
-<div class="ms-lab-head">
-<div>
-<span class="ms-lab-kicker">Интерактивная модель</span>
-<h3 class="ms-lab-title">Исследуйте график самостоятельно</h3>
-</div>
-<div class="ms-live-formula" data-role="formula">
+<p class="ms-text"><strong>Интерактивная модель</strong> — Исследуйте график самостоятельно</p>
+<div class="ms-graph-lab ms-graph-lab--aligned" id="ms-linear-lab-723">
+<div class="ms-graph-lab-head">
+
+<div aria-live="polite" class="ms-live-formula" data-role="formula">
           y = x
         </div>
+<button class="ms-reset-graph" data-role="reset" type="button">
+            Сбросить значения
+          </button></div>
+<div class="ms-graph-layout">
+<div class="ms-graph-canvas-card">
+
+<canvas aria-label="Интерактивный график линейной функции" class="ms-root-canvas" data-role="canvas"></canvas>
+<div class="ms-graph-readout" data-role="readout">Наведите курсор<br>на график</div>
+
 </div>
-<div class="ms-lab-layout">
-<div class="ms-canvas-card">
-<div class="ms-canvas-shell">
-<canvas aria-label="Интерактивный график линейной функции" class="ms-linear-canvas" data-role="canvas"></canvas>
-</div>
-<div class="ms-canvas-legend">
-<span class="ms-legend-item">
-<span class="ms-legend-dot ms-dot-line"></span>
-              график функции
-            </span>
-<span class="ms-legend-item">
-<span class="ms-legend-dot ms-dot-intercept"></span>
-              точка (0; b)
-            </span>
-<span class="ms-legend-item">
-<span class="ms-legend-dot ms-dot-point"></span>
-              пересечение с осью Ox
-            </span>
-</div>
-</div>
-<div class="ms-controls">
-<div class="ms-control">
-<div class="ms-control-head">
-<span class="ms-control-label">Коэффициент k</span>
-<output class="ms-control-value" data-role="k-output">1</output>
+<div class="ms-graph-controls">
+<div class="ms-slider-card">
+<div class="ms-slider-head">
+<span class="ms-slider-name">Коэффициент k</span>
+<output class="ms-slider-value" data-role="k-output">1</output>
 </div>
 <input aria-label="Коэффициент k" class="ms-range" data-role="k-range" max="3" min="-3" step="0.5" type="range" value="1"/>
 <div class="ms-range-scale">
@@ -238,10 +225,10 @@
 <span>3</span>
 </div>
 </div>
-<div class="ms-control">
-<div class="ms-control-head">
-<span class="ms-control-label">Коэффициент b</span>
-<output class="ms-control-value" data-role="b-output">0</output>
+<div class="ms-slider-card">
+<div class="ms-slider-head">
+<span class="ms-slider-name">Коэффициент b</span>
+<output class="ms-slider-value" data-role="b-output">0</output>
 </div>
 <input aria-label="Коэффициент b" class="ms-range" data-role="b-range" max="6" min="-6" step="0.5" type="range" value="0"/>
 <div class="ms-range-scale">
@@ -250,35 +237,48 @@
 <span>6</span>
 </div>
 </div>
-<div class="ms-live-grid">
-<div class="ms-live-card ms-card">
-<span class="ms-live-label">Поведение</span>
-<span class="ms-live-value" data-role="direction">
+<div class="ms-live-properties">
+<div class="ms-live-property">
+<strong>Поведение</strong>
+<span data-role="direction">
                 возрастает
               </span>
 </div>
-<div class="ms-live-card ms-card">
-<span class="ms-live-label">Пересечение Oy</span>
-<span class="ms-live-value" data-role="intercept">
+<div class="ms-live-property">
+<strong>Пересечение Oy</strong>
+<span data-role="intercept">
                 (0; 0)
               </span>
 </div>
-<div class="ms-live-card ms-live-card-wide ms-card">
-<span class="ms-live-label">Пересечение Ox</span>
-<span class="ms-live-value" data-role="x-intercept">
+<div class="ms-live-property">
+<strong>Пересечение Ox</strong>
+<span data-role="x-intercept">
                 (0; 0)
               </span>
 </div>
 </div>
-<button class="ms-lab-reset" data-role="reset" type="button">
-            Сбросить значения
-          </button>
+
 </div>
+</div><div class="ms-qgraph-legend">
+<span class="ms-qgraph-legend-item">
+<span class="ms-qgraph-legend-line"></span>
+              график функции
+            </span>
+<span class="ms-qgraph-legend-item">
+<span class="ms-qgraph-legend-point ms-linear-legend-y"></span>
+              точка (0; b)
+            </span>
+<span class="ms-qgraph-legend-item">
+<span class="ms-qgraph-legend-point ms-linear-legend-x"></span>
+              пересечение с осью Ox
+            </span>
 </div>
-<p class="ms-lab-help">
+<p class="ms-graph-hint">
         Наблюдение: при изменении k прямая поворачивается, а при изменении b
         перемещается параллельно самой себе. Координаты пересечений с осями
         автоматически пересчитываются.
+        Наведите указатель на график: пунктирные направляющие покажут
+        координаты выбранной точки.
       </p>
 </div>
 </section>
@@ -621,8 +621,8 @@
 <summary>Показать решение</summary>
 <div>
           Коэффициент при x равен −3, свободный член равен 5.
-          <br/><br/>
-<strong>Ответ: k = −3, b = 5.</strong>
+          <br>
+          <strong>Ответ: k = −3, b = 5.</strong>
 </div>
 </details>
 </div>
@@ -635,8 +635,8 @@
 <summary>Показать решение</summary>
 <div>
           y = 4 · 3 − 7 = 12 − 7 = 5.
-          <br/><br/>
-<strong>Ответ: 5.</strong>
+          <br>
+          <strong>Ответ: 5.</strong>
 </div>
 </details>
 </div>
@@ -649,12 +649,12 @@
 <summary>Показать решение</summary>
 <div>
           При x = −1: y = 2 · (−1) − 3 = −5.
-          <br/><br/>
+          <br>
           При x = 0: y = −3.
-          <br/><br/>
+          <br>
           При x = 2: y = 4 − 3 = 1.
-          <br/><br/>
-<strong>Ответ: (−1; −5), (0; −3), (2; 1).</strong>
+          <br>
+          <strong>Ответ: (−1; −5), (0; −3), (2; 1).</strong>
 </div>
 </details>
 </div>
@@ -669,10 +669,10 @@
           При x = 2:
           <br/>
           y = 3 · 2 − 5 = 6 − 5 = 1.
-          <br/><br/>
+          <br>
           Полученное значение совпадает с ординатой точки.
-          <br/><br/>
-<strong>Ответ: да.</strong>
+          <br>
+          <strong>Ответ: да.</strong>
 </div>
 </details>
 </div>
@@ -687,10 +687,10 @@
           При x = −1:
           <br/>
           y = −2 · (−1) + 1 = 2 + 1 = 3.
-          <br/><br/>
+          <br>
           Ордината точки равна 4, поэтому точка не принадлежит графику.
-          <br/><br/>
-<strong>Ответ: нет.</strong>
+          <br>
+          <strong>Ответ: нет.</strong>
 </div>
 </details>
 </div>
@@ -703,14 +703,14 @@
 <summary>Показать решение</summary>
 <div>
           Подставим x = 3 и y = 4:
-          <br/><br/>
+          <br>
           4 = 2 · 3 + b.
-          <br/><br/>
+          <br>
           4 = 6 + b.
-          <br/><br/>
+          <br>
           b = −2.
-          <br/><br/>
-<strong>Ответ: b = −2.</strong>
+          <br>
+          <strong>Ответ: b = −2.</strong>
 </div>
 </details>
 </div>
@@ -723,12 +723,12 @@
 <summary>Показать решение</summary>
 <div>
           7 = 2k + 1.
-          <br/><br/>
+          <br>
           2k = 6.
-          <br/><br/>
+          <br>
           k = 3.
-          <br/><br/>
-<strong>Ответ: k = 3.</strong>
+          <br>
+          <strong>Ответ: k = 3.</strong>
 </div>
 </details>
 </div>
@@ -741,10 +741,10 @@
 <summary>Показать решение</summary>
 <div>
           На оси Oy значение x равно нулю.
-          <br/><br/>
+          <br>
           y = −4 · 0 + 6 = 6.
-          <br/><br/>
-<strong>Ответ: (0; 6).</strong>
+          <br>
+          <strong>Ответ: (0; 6).</strong>
 </div>
 </details>
 </div>
@@ -757,12 +757,12 @@
 <summary>Показать решение</summary>
 <div>
           На оси Ox значение y равно нулю.
-          <br/><br/>
+          <br>
           0 = 2x − 8.
-          <br/><br/>
+          <br>
           x = 4.
-          <br/><br/>
-<strong>Ответ: (4; 0).</strong>
+          <br>
+          <strong>Ответ: (4; 0).</strong>
 </div>
 </details>
 </div>
@@ -775,10 +775,10 @@
 <summary>Показать решение</summary>
 <div>
           Коэффициент k = −0,5 отрицателен.
-          <br/><br/>
+          <br>
           Поэтому функция убывает.
-          <br/><br/>
-<strong>Ответ: убывает.</strong>
+          <br>
+          <strong>Ответ: убывает.</strong>
 </div>
 </details>
 </div>
@@ -811,11 +811,11 @@
 <summary>Показать решение</summary>
 <div>
           При x = 0 значение y равно 2, поэтому b = 2.
-          <br/><br/>
+          <br>
           При увеличении x на 1 значение y уменьшается на 2,
           поэтому k = −2.
-          <br/><br/>
-<strong>Ответ: y = −2x + 2.</strong>
+          <br>
+          <strong>Ответ: y = −2x + 2.</strong>
 </div>
 </details>
 </div>
@@ -882,16 +882,16 @@
 <summary>Показать решение</summary>
 <div>
           Точка A(0; 2) лежит на оси Oy, поэтому b = 2.
-          <br/><br/>
+          <br>
           Подставим точку B(2; 0) в y = kx + 2:
-          <br/><br/>
+          <br>
           0 = 2k + 2.
-          <br/><br/>
+          <br>
           2k = −2.
-          <br/><br/>
+          <br>
           k = −1.
-          <br/><br/>
-<strong>Ответ: y = −x + 2.</strong>
+          <br>
+          <strong>Ответ: y = −x + 2.</strong>
 </div>
 </details>
 </div>
@@ -906,14 +906,14 @@
 <summary>Показать решение</summary>
 <div>
           Число 25 показывает стоимость одного часа.
-          <br/><br/>
+          <br>
           Число 80 — постоянная часть оплаты.
-          <br/><br/>
+          <br>
           При x = 4:
           <br/>
           y = 25 · 4 + 80 = 100 + 80 = 180.
-          <br/><br/>
-<strong>
+          <br>
+          <strong>
             Ответ: 25 рублей за час, 80 рублей — постоянная часть;
             всего 180 рублей.
           </strong>

@@ -64,8 +64,14 @@ class PublicPageTests(TestCase):
         MediaAsset.objects.filter(file=POWER_PDF).update(related_page=ContentPage.objects.get(slug="pamyatki"))
         lesson = ContentPage.objects.get(slug=POWER_LESSON)
         soup = BeautifulSoup(lesson.body_html, "html.parser")
-        pdf_paragraph = soup.find("a", href=f"/media/{POWER_PDF}").parent
-        lesson.body_html = lesson.body_html.replace(str(pdf_paragraph), "")
+        pdf_link = soup.find("a", href=f"/media/{POWER_PDF}")
+        if pdf_link is not None:
+            lesson.body_html = lesson.body_html.replace(str(pdf_link.parent), "")
+        else:
+            # D066 temporarily removes this link from the current source.
+            # Stage the former link so scoped publication must remove it while
+            # preserving the PDF asset, file and its lesson association.
+            lesson.body_html += f'<p><a href="/media/{POWER_PDF}">Legacy PDF link</a></p>'
         lesson.save(update_fields=["body_html"])
         # The old content was accepted; publication must use its usual digest.
         LessonPublication.objects.filter(page=lesson).update(published_digest=digest(page_snapshot(lesson)))
@@ -103,7 +109,8 @@ class PublicPageTests(TestCase):
             self.assertEqual(archived.body_html, "<p>Archived content</p>")
         self.assertEqual(MediaAsset.objects.get(file=POWER_PDF).related_page.slug, POWER_LESSON)
         self.assertEqual(sha256_path(self.runtime / "media" / POWER_PDF), sha256_path(settings.BASE_DIR / "site_content/media" / POWER_PDF))
-        self.assertContains(self.client.get(f"/{POWER_LESSON}/"), f'href="/media/{POWER_PDF}"')
+        # D066 changes visible content; the asset/file checks above still apply.
+        self.assertNotContains(self.client.get(f"/{POWER_LESSON}/"), f'href="/media/{POWER_PDF}"')
         for old, target in (("materialy", "karta-sajta"), ("pamyatki", POWER_LESSON)):
             for prefix in ("/", "/mathstart/"):
                 self.assertRedirects(self.client.get(f"{prefix}{old}/"), f"/{target}/", status_code=301)
