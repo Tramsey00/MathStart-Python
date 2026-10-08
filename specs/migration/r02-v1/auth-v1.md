@@ -1,4 +1,4 @@
-# Authentication/security adapter addendum v1.0.1
+# Authentication/security adapter addendum v1.0.2
 
 PROPOSED. Frozen R02A DTO/OAS/policy remain byte-identical. Baseline source:
 users/http.py, users/views.py, users/services.py, users/models.py and
@@ -128,7 +128,7 @@ the new CSRF value. Target bridge is a private server record binding old verifie
 CSRF bootstrap fingerprint/scope to the new opaque session; optional signed
 HttpOnly Secure SameSite=Lax bootstrap ticket carries an opaque random reference,
 never user/receipt/digest. Validate ticket signature, expiry and matching original
-bootstrap proof server-side; retain bridge >=7days. Key ring retains required
+bootstrap proof server-side; retain bridge facts >=7days; validity/revocation and ticket expiry follow the P2 lifecycle below. Key ring retains required
 legacy HMAC verifier keys for the replay window, secrets stored out of Git.
 The receipt original scope/digest never changes when the bridge is introduced.
 
@@ -172,3 +172,98 @@ other methods400 independent of token/Origin. Account require_GET follows CSRF:
 safe HEAD/OPTIONS/TRACE405, unsafe missing CSRF403, unsafe valid CSRF405.
 Public pages/sitemap/robots and unresolved404 fallback differ as documented in
 content-v1.md; never impose one global middleware precedence on every family.
+
+## P2 receipt bridge lifecycle (proposed, not implemented)
+
+Retention is not authorization. Private PostgreSQL bridge facts contain opaque
+bridge ID, immutable original scope/bootstrap fingerprint, nullable receipt
+owner (bound once at registration commit), durable session_lineage_id, current session binding and revocation epoch,
+ACTIVE/DETACHED/REVOKED/EXPIRED state, replay_until >= original commit+604800s,
+and ticket version/expiry/revocation. Receipt scope/digests/result/uniqueness stay
+in IdentityReceipt forever under the existing policy; no transition deletes or
+rewrites them. Only the identity/session service may mutate bridge authority;
+cutover import uses the exclusive target writer after old writers drain/revoke.
+Cleanup is service-owned, not a frontend event or a receipt deletion job.
+[Storage mapping](protocol-storage-mapping-v1.json) describes logical facts and
+future reviewed additive DDL, not a migration or additional browser DTO.
+
+Proof classes used in the transition table:
+S = current authenticated active owner session, matching bridge session binding
+and epoch. B = verified ORIGINAL bootstrap CSRF proof resolving exactly the old
+scope; fresh request CSRF is separately mandatory and never substitutes for B.
+T = signed unexpired nonrevoked HttpOnly ticket reference PLUS B; ticket alone
+is insufficient. F = fresh same-owner login PLUS a server-authenticated transfer
+binding from the original verified Django session/bridge. Owner authentication
+alone does not select an anonymous receipt scope by key. For anonymous B/T replay,
+also verify submitted password against active receipt.user; for authenticated
+B/T/F replay require that exact owner, not a password for some other user.
+No proof authorizes a mismatched body/digest/key/operation or inactive owner.
+
+Bridge creation stores verified original scope before cookie rotation, binds
+receipt owner with registration commit, then session/ticket establishment may
+follow. DB receipt commit with both body/cookies lost can recover with B+password
+even if no ticket was delivered. Once session is established, authenticated
+same-owner exact replay does not rotate. Anonymous successful recovery rotates
+session once, invalidates any previous binding/ticket, then issues a fresh ticket
+version if tickets are used. Ticket use is not destructive single-use consumption:
+same valid proof/key/body replays safely while current; versions and epoch revoke
+superseded tickets. No raw password/CSRF/session token is stored in bridge facts.
+
+| Transition | Bridge / ticket / owner-session effect | Proof, retry/replay, refusal and uncertain result |
+| --- | --- | --- |
+| Explicit logout (authenticated + CSRF, empty body) | Revoke current session, all bridges bound to THAT session lineage, and their tickets; increment their epoch, clear binding. Retain REVOKED facts and receipts. Other independent sessions are unchanged. | Return accepted200 completed:true only after durable revoke. Repeat with old session401; no logout receipt replay. Lost response: clear private client state, GET me only; anonymous401 reconciles session loss, still-authenticated result requires explicit user action, no blind POST retry. B/T/F cannot resurrect revoked bridge, even with same owner/password. |
+| Account switch A -> B by successful login | Authenticate B first; atomically revoke A session lineage/bridges/tickets, clear old private binding, establish rotated B session. Never rebind A bridge to B. Failed login leaves A authority intact. | B cannot use A S/B/T/F or receipt; generic409 STATE_CONFLICT when authenticated mismatch. Repeated same-user login rotates but securely transfers its own ACTIVE bridge to new binding/epoch and revokes old ticket (no new receipt). Unknown login outcome: GET me; never repeat login automatically or reuse A pending body under B. |
+| Session cleanup / natural expiry | Expired session is unusable; ACTIVE -> DETACHED, clear session binding and invalidate old S/epoch. Preserve original bootstrap and valid ticket facts through replay_until. Tickets can expire earlier; expiry never revokes receipt identity. | Before replay_until, B+password, authenticated same-owner B/T, or F may recover/rebind; expired/revoked ticket fails but independent B can still prove scope. Session/key alone fails closed409 on registration (private auth routes401); authenticated foreign owner409. Cleanup repeats are idempotent, never revive REVOKED; unknown cleanup/rebind commit must reread authoritative facts, no guessed success. |
+| Django -> FastAPI cutover | Drain/revoke legacy writers and sessions; preserve receipts/digests/uniqueness and verified bridge transfer facts. Nonrevoked bridge -> DETACHED; no legacy session is authenticated by target. Retain valid T verifier keys/reference and B proof through replay window. Imported F mapping is private and owner-bound; no bridge can be minted from receipt key alone. | Accepted ONE explicit re-login, no password reset. After same-owner login, F or valid B/T rebinds. Pending onboarding replays by authenticated user:<pk> identity independently of bridge. Different owner/proof/key/body409; missing proof fails closed/re-login, never new registration. Unknown cutover checkpoint: stop target writes until exclusive writer/import provenance reconciles; no dual writer or automatic reverse cutover. |
+| replay_until reached / ticket expiry | Ticket expiry revokes only T; bridge replay_until sets EXPIRED (facts retained >=7days), clears bindings/tickets. REVOKED stays revoked. | Expired bridge cannot select registration scope; GET restore and explicit login, no auto-create/key-only lookup. Existing onboarding receipt replay still owner-bound and retained, even beyond minimum window. Cleanup/repeated transitions return same durable terminal authority state. |
+
+Internal lifecycle transitions are atomic under namespace -> sorted User ->
+receipt then bridge/session locks in stable ID order at platform rank4. Revocation/rebind CAS rechecks
+epoch, state, owner and session after locks; revocation wins against later use,
+an earlier completed replay remains historical receipt truth. A second concurrent
+rebind from an old epoch fails; it cannot mint another session or ticket. Revoked
+bridges have no reverse transition. Natural expiry/cutover detach only, and cannot
+undo earlier logout/account-switch revocation. Auth-hash invalidation/security
+revocation follows logout revocation, not recoverable natural expiry.
+
+Response precedence stays B07: private anonymous401 before CSRF, unsafe CSRF403
+before body/proof; then safe409 STATE_CONFLICT for invalid/absent/revoked foreign
+bridge proof,409 IDEMPOTENCY_CONFLICT for proven scope with changed body. No
+foreign receipt existence, revision or proof detail leaks. Storage/unknown commit
+is503 SERVICE_UNAVAILABLE, not success. Automatic retry is GET-only. Explicit
+registration retry is allowed solely while the immutable pending key/body and
+valid proof survive, using fresh request CSRF; terminal failure, logout, account
+switch, disposal or form switch clears pending credentials. Unknown logout/login
+uses GET me; unknown registration/rebind uses GET restore first and only an
+explicit proof-valid replay of the SAME operation. A lost response after bridge
+revocation never permits resurrection. No generic lifecycle HTTP endpoint or
+blind receipt-based logout retry is introduced. V03 must prove real transaction,
+ticket/signature/keyring, cutover and session races; the R02 model is synthetic.
+
+The epoch in the model is an internal CAS observation, not a browser capability.
+An original B proof is resolved to current facts server-side; a competing rebind
+using an obsolete observed epoch fails without effects. A later explicit replay
+may reread facts and prove B+password again after cookies were lost, producing
+a rotated session but the same receipt/result and no additional account.
+
+Cutover checkpoint identity and verified import provenance are durable private
+identity-service facts. Repeating the same completed checkpoint is read-only,
+including after a bridge was rebound to a target session; it must not detach
+that target session again. A different/unknown checkpoint or unproven exclusive
+writer halts writes and requires reconciliation. Authentication before account
+switch occurs outside locks; then acquire namespace/session-lineage locks in
+stable order and both old/new User rows in ascending PK. All bridge/session
+binding changes share the lineage namespace and recheck current epoch after
+the rank4 locks; cleanup cannot attach authority. Failed new-user authentication
+does not revoke the old session or its bridge. ACTIVE committed bridges require
+non-null owner and session binding; DETACHED never authenticates an old session.
+Fresh deliberate registration uses its own newly verified bootstrap scope/key;
+a pending replay with lost proof cannot be silently reinterpreted as that new
+registration. Explicit onboarding replay after logout/re-login remains available
+by authenticated same-owner user scope, independent of revoked anonymous bridge.
+
+The durable session_lineage_id remains for revocation lookup when a session
+binding is detached/expired. Same-user rotation keeps lineage; explicit rebind
+associates the bridge to the newly authenticated/recovered owner session lineage
+under epoch CAS. Logout/switch revoke bridges of the departing lineage only,
+including detached records, without revoking another independent owner session.

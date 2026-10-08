@@ -29,3 +29,9 @@ scale without clipping/overlap (zoom alone fails), preserve angles/coordinates/
 text readout/controls/math.13baybars fixes no later than I03, verifies I05 before
 freeze. All360/768/1440 mandatory; no invented font/pixel threshold or Vladimir
 F04 independent-review consent. Historical independent comments remain separate.
+
+Protocol round1.0.2 adds PROTOCOL-P1/P2 to the matrix, machine publication/bridge
+transition tables and private durable storage schemas. The32 protocol tests
+are MODEL_SYNTHETIC only; existing31 baseline/schema tests remain. Runtime
+PG competing recovery, fencing/cutover/bridge races and gateway/browser behavior
+remain assigned V03/V04/V05/I02/I04 evidence, not established by this package.

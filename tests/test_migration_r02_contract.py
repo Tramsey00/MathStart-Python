@@ -235,8 +235,9 @@ class MigrationContractTests(unittest.TestCase):
 
     def test_journal_recovery_shape_and_invalid_state(self):
         journal={'operation_id':'00000000-0000-4000-8000-000000000001','operation':'unpublish','stage':'RECOVERY_REQUIRED',
-         'previous_release':'old','next_release':'new','manifest_digest':'a'*64,'plan_digest':'b'*64,
-         'affected_paths':['/example/'],'updated_at':'2026-10-08T12:00:00Z','failure_code':'ACTIVATION_FAILED','resume_cursor':'activate'}
+         'previous_release':'old','next_release':'new','manifest_digest':'a'*64,'plan_digest':'b'*64,'key_digest':'d'*64,
+         'affected_paths':['/example/'],'updated_at':'2026-10-08T12:00:00Z','failure_code':'ACTIVATION_FAILED','resume_cursor':'activate','owner_id':'00000000-0000-4000-8000-000000000002',
+         'fence_generation':1,'lease_until':'2026-10-08T12:01:00Z','db_committed':True,'activation_status':'UNKNOWN'}
         new_validator('PublicationJournal').validate(journal)
         with self.assertRaises(ValidationError):new_validator('PublicationJournal').validate({**journal,'stage':'FAKE_SUCCESS'})
 

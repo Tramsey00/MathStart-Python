@@ -145,3 +145,41 @@ CI does not run it. Synthetic pending/recovery is not target runtime validation.
 Re-review by Vladimir/Ilya required on new exact HEAD; Ilya's old
 CHANGES_REQUESTED and Vladimir pending are not self-resolved. F01–F04 unchanged.
 No merge/Issue29 closure/downstream work/production action. Plan remains active.
+
+## Review continuation P1/P2 — 09.10.2026 Europe/Moscow
+
+Input task HEAD6c1603b3ac55f3f0e8ef3b2bfb09298a42de5974, accepted integration
+c133f920fc14ab18a463e039f8e480e064ced81c, MIG_BASE_SHA unchanged.
+Read live review5462501369 (Vladimir CHANGES_REQUESTED), older Ilya review and
+all discussion/inline threads (zero). User reports Ilya fixes confirmed; no new
+public approval invented. Read required project/ADR/R02 contracts and actual
+Django publication/identity/session/receipt source/tests. Verification skill
+used; no delegation or next-task execution.
+
+Proposed publication: PostgreSQL lifetime pending slot, owner/lease/monotone
+fence; same-operation CAS takeover; sole DB active descriptor with atomic
+journal activation; after-commit/unknown recovery blocks next publish. Proposed
+bridge: logout/switch revoke authority, expiry/cutover detach with owner proof,
+epoch and durable checkpoint, original receipts retained, GET reconciliation.
+Updated prose/private schemas/OAS/mappings and positive/negative model tests.
+
+| Local check | Observed result |
+| --- | --- |
+| verify_repo.py isolated PostgreSQL | PASS8/8; Django107/R03 reference18/Harness73 |
+| standalone R02 | PASS63 = prior31 + protocol32 model/schema tests |
+| unchanged R02A / R03A / I02 | PASS30 /41 /7 |
+| pip check / version report | PASS; Python3.12.10, Django5.2.16, DRF3.18.1, jsonschema4.26.0, psycopg3.3.6, PostgreSQL16.15 |
+
+Full verification actual default test DB test_ms6_v01_smoke_ms7_mig_r02_20261008
+on reserved55439; working DB unchanged. Baseline107 executes existing Django
+tests; new32 are abstract clocks/proof booleans/schedules, no target races or
+cryptographic/runtime implementation. Source/frozen checks remain independent.
+Initial assembly missing OAS description/partial sample digest and shell quoting
+errors repaired; first complete55 PASS, then refined63 PASS. First version report
+lacked isolated environment and exit1; corrected configuration exit0. No test
+skip/validation weakening. Logs/hashes and exact commands in verification.json.
+
+Update PR48 and verify its new-head CI/actual tested merge ref externally;
+baseline CI excludes standalone63 and I027. Preserve historical evidence/pins/
+approvals; no app/UI/DB schema/workflow/dependency edits, merge or Issue29 close.
+Both reviewers and integration-owner acceptance remain required.

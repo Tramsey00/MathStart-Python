@@ -1,4 +1,4 @@
-# Platform and persistence addendum v1.0.0
+# Platform and persistence addendum v1.0.2
 
 PROPOSED. Implements framework-facing interpretation of accepted ADR0006 only.
 Domain semantics and root PRODUCT/ARCHITECTURE/Harness remain frozen.
@@ -120,3 +120,94 @@ at this exact R02 revision. V01 implementation must fill deployment-specific
 schema/sequence state; V03 must prove password/session signer compatibility.
 An unsupported legacy algorithm/key or unprovable replay bridge blocks cutover;
 it is not solved by password reset, receipt deletion or inventing approval.
+
+## P1 durable publication authority (proposed revision1.0.2)
+
+The publication gate is ONE durable PostgreSQL singleton per deployment's
+public release namespace, not a process mutex, worker lifetime or a transaction
+advisory lock. All publish/unpublish/bootstrap and catalogue-changing writes
+must enter this authority. The pending slot is acquired BEFORE VALIDATED/staging
+and remains occupied through DB_COMMITTED, activation, recovery and public
+verification. A lease expiring does not release that slot. Gate rank1 is a short
+row lock on this singleton; journal rank9 follows domain rows. Rendering, file
+upload, cache purge and network health checks run outside DB locks.
+
+Durable facts and writers are defined in
+[protocol mapping](protocol-storage-mapping-v1.json). PostgreSQL stores the gate
+(pending operation ID, current opaque worker owner ID, strictly increasing int64
+fence generation, lease_until), journal (immutable plan/key identity, phases,
+DB commit fact and activation result), DB edition and the sole authoritative
+active descriptor (operation ID, release ID, manifest digest, fence generation).
+The journal's ownership tuple must equal the pending slot while nonterminal.
+Content's publisher/recovery service is the sole domain writer; only its current
+lease holder can advance an operation. V01 reviews additive DDL/constraints;
+V04 implements the protocol; V05 implements a gateway that pins this descriptor
+per request. No new infrastructure, tables or runtime are created in R02.
+
+Immutable staged files contain exact manifest/page/assets only; they confer no
+authority. There is no second writable filesystem symlink/proxy-config pointer.
+Activation updates the PostgreSQL descriptor and journal activation fact in ONE
+short transaction under the gate, after verifying durable staged hashes. The
+gateway reads that descriptor and serves the matching immutable release only;
+it must not use fresh ContentPage fields for old active HTML. A gateway cache
+cannot independently select an old release after completed verification. If
+this representation cannot be implemented, deployment is blocked pending an
+explicit reviewed alternative; checking a fence and later renaming a symlink
+is insufficient. This specifies the proposed activation representation left
+open in ADR0006 without claiming DB/files share a transaction.
+
+Every state-changing command carries (operation_id, owner_id, fence_generation)
+and rechecks pending equality and lease_until > PostgreSQL clock_timestamp()
+AFTER acquiring the gate. DB commit, renew, phase/result updates, activation,
+terminal release and staging cleanup require this check at their commit point.
+Generation is allocated by the gate, never supplied by a worker, incremented
+on initial claim and takeover, never reset/reused (including across operations).
+Overflow fails closed. Old-generation commands return FENCED, even if the same
+worker ID returns later. They cannot commit content, switch active, clear
+pending, acknowledge health or delete retained files. In-flight build/probe
+results are accepted only with the same current tuple and release/digest.
+Staging uses immutable, digest-checked files with generation-specific temporary
+roots; a delayed old upload cannot overwrite finalized manifest bytes. Purge
+is limited to idempotent invalidation of the bound release/paths; stale workers
+cannot initiate new effects, and a purge already issued cannot select a release
+or establish success. No long network lease assumption substitutes for fencing.
+
+Renew succeeds only for the current unexpired lease; an expired owner must claim
+recovery, even if no other worker has arrived. Recovery workers read pending,
+then CAS the expected operation/generation under the gate after expiry, or after
+an explicit surrender by the current owner. The winner increments generation,
+binds its own owner and a new lease, and mirrors that tuple into the journal in
+the same transaction. Losers get OWNER_BUSY (live lease) or CLAIM_CONFLICT
+(observed generation changed), reread and stop; they never create a replacement
+operation. Repeated exact claim lookup with the new current token returns OWNED without
+another increment; it is a read-only token/lease check, not another takeover.
+Repeating an obsolete expected generation remains conflict.
+Lease duration is a positive deployment parameter recorded by V04, DB time is
+the authority, and loss of DB connectivity never extends ownership locally.
+
+The service may observe/reconcile read-only without ownership, but only a claim
+holder may persist the result. The pending operation's committed plan is
+immutable: recovery cannot change next release/source/body/key or replay the
+domain DB mutation. Only FAILED_PRECOMMIT (verified no domain commit or activation)
+or COMPLETE (matching active descriptor, DB edition and successful public
+verification/purge for that exact release) atomically clear pending. Next publish
+requires pending NULL, verified active==DB edition, a new generation and recheck
+of the caller's expected active/source digests. DB commit/recovery, lease expiry,
+UNKNOWN activation and health/cache failure all block next publication.
+Unrecoverable postcommit corruption keeps the gate occupied and fails safely;
+rollback/abandonment after commit requires a separate concrete human repair
+decision, not automatic release of the gate or a new operation.
+
+A committed takeover records RECOVERY_REQUIRED/OWNER_LOST while preserving
+db_committed and activation facts; it must reconcile before a new activation
+intent. Precommit takeover retains VALIDATED/STAGED. Initial target serving
+requires a verified initial descriptor/DB edition; a missing initial descriptor
+is unavailable and never authorizes an arbitrary first publish.
+
+Lease validity is checked by the guarded authoritative SQL mutation using DB
+time while the gate row is locked; this is the transition's linearization point.
+The transaction COMMIT acknowledgement may arrive later. A takeover cannot
+interleave inside that transaction: it must wait for the same gate row, reread
+the newly committed descriptor/journal, then allocate the next generation.
+Preflight time checks outside this lock confer no authority. A lease already
+expired at the guarded mutation rejects the write, even without another worker.

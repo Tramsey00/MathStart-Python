@@ -65,7 +65,7 @@ def observable_semantics(value):
  validator('PublicationObservableState').validate(value)
  if value['state']=='IN_SYNC' and value['active']!=value['db_edition']:raise ValueError('false synchronized state')
  pending=value['pending']
- if pending and pending['stage'] in ['DB_COMMITTED','ACTIVATED','RECOVERY_REQUIRED'] and pending['next_release']!=value['db_edition']['release_id']:raise ValueError('committed release mismatch')
+ if pending and pending['db_committed'] and (pending['next_release']!=value['db_edition']['release_id'] or pending['manifest_digest']!=value['db_edition']['manifest_digest']):raise ValueError('committed release mismatch')
 
 class ReviewContractTests(unittest.TestCase):
  def test_B01_actual_useradmin_requires_add_and_change(self):
@@ -221,6 +221,8 @@ class ReviewContractTests(unittest.TestCase):
   recovery=copy.deepcopy(next(s for s in samples if s['state']=='RECOVERY_REQUIRED'));recovery['pending']['failure_code']=None
   with self.assertRaises(ValidationError):observable_semantics(recovery)
   recovery=copy.deepcopy(next(s for s in samples if s['state']=='RECOVERY_REQUIRED'));recovery['pending']['next_release']='different'
+  with self.assertRaises(ValueError):observable_semantics(recovery)
+  recovery=copy.deepcopy(next(s for s in samples if s['state']=='RECOVERY_REQUIRED'));recovery['pending']['manifest_digest']='c'*64
   with self.assertRaises(ValueError):observable_semantics(recovery)
   for secret in ['idempotency_key','resume_cursor','raw_plan','password']:
    with self.assertRaises(ValidationError):validator('PublicationObservableState').validate({**samples[0],secret:'private'})

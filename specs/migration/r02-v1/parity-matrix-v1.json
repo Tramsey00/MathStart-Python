@@ -1005,6 +1005,56 @@
       "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
       "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
       "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "PROTOCOL-P1",
+      "area": "publication_ownership",
+      "baseline_reference": "content/services/publishing.py; ADR0006; proposed platform/content P1",
+      "old_assertion": "Current Django publication serializes DB writes; ADR0006 requires durable split DB/assets recovery",
+      "target_assertion": "One durable pending slot + monotone fenced owner + PostgreSQL active CAS; takeover reconciles same committed plan",
+      "negative_cases": [
+        "competing recovery claims",
+        "stale owner commit/activate/complete/cleanup",
+        "UNKNOWN admission",
+        "unrelated pointer or digest",
+        "precommit/health failure"
+      ],
+      "implementation_tasks": [
+        "V01",
+        "V04",
+        "V05",
+        "I02"
+      ],
+      "r02_check": "tests/test_migration_r02_protocols.py; model/synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5462501369",
+      "target_evidence": "NOT_RUN / independent exact-head review required",
+      "contract_test": "tests/test_migration_r02_protocols.py",
+      "evidence_class": "MODEL_SYNTHETIC_NOT_RUNTIME"
+    },
+    {
+      "id": "PROTOCOL-P2",
+      "area": "receipt_bridge_lifecycle",
+      "baseline_reference": "users/services.py; users/views.py; users/tests/test_identity.py; ADR0006",
+      "old_assertion": "logout flush + repeat401; user switch flush; owner-bound bootstrap replay; retained receipt identity",
+      "target_assertion": "Revocation/logout/switch never resurrect; expiry/cutover proof-bound detach/rebind; no blind retry",
+      "negative_cases": [
+        "foreign user S/B/T/F",
+        "ticket alone/expired/wrong signature",
+        "stale epoch rebind",
+        "revoked bridge bootstrap",
+        "changed immutable body",
+        "unknown logout replay"
+      ],
+      "implementation_tasks": [
+        "V01",
+        "V03",
+        "I04"
+      ],
+      "r02_check": "tests/test_migration_r02_protocols.py; model/synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5462501369",
+      "target_evidence": "NOT_RUN / independent exact-head review required",
+      "contract_test": "tests/test_migration_r02_protocols.py",
+      "evidence_class": "MODEL_SYNTHETIC_NOT_RUNTIME"
     }
   ],
   "acceptance_rule": "All applicable target assertions require real exact-head proof in assigned task; R02 synthetic checks do not substitute PG/browser runtime."

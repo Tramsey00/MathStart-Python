@@ -5,7 +5,7 @@
 - Created/updated:2026-10-08 Europe/Moscow; original target deadline08.10 including review retained
 - Issue:[#29](https://github.com/Tramsey00/MathStart-Python/issues/29)
 - Milestone MIG-G1; task branch ms7-mig-r02-contracts -> ms7-mig-react-fastapi
-- Human gate: Vladimir pending; Ilya CHANGES_REQUESTED at9cc9829; proposed fixes require independent new-head re-review; no own approval
+- Human gate: Vladimir CHANGES_REQUESTED at6c1603b (P1/P2); user reports Ilya B01–B07/N01 confirmation, public review still older; independent new-head approvals pending; no own approval
 - Exact accepted input:c133f920fc14ab18a463e039f8e480e064ced81c
 - MIG_BASE_SHA:60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; application source8c11edadc8debc81432d1db1145feac504f09061
 - Specs:[canonical migration](../../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)§§2–11/R02/17,
@@ -105,3 +105,13 @@ recorded. Contracts proposed1.0.1; frozen inputs/historical decisions untouched.
 Publication observation remains synthetic until implementation/rehearsal.
 Publish fixes into existing PR48 and verify its own final-head CI; both
 independent new-head decisions and accepted integration intake remain pending.
+
+## Protocol continuation P1/P2 — 09.10.2026
+
+Read complete live Vladimir review5462501369 and both GitHub reviews; no inline
+threads. Prepared proposed1.0.2 coherent publication authority/ownership/fencing/
+takeover/activation/recovery and receipt bridge lifecycle/proofs/transitions.
+Updated schema/OAS/routes/parity/samples and32 new model tests; no target runtime.
+Local full8/8, standalone63, R02A30/R03A41/I027, pip and PG version PASS. Scope,
+input/frozen preservation, manifests and links checked. Push same PR48 and wait
+its final-head CI; no downstream tasks. Current human gate remains unpassed.

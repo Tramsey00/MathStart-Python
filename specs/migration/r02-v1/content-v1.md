@@ -1,4 +1,4 @@
-# Content delivery/publication addendum v1.0.1
+# Content delivery/publication addendum v1.0.2
 
 PROPOSED. Public content DTO is a delivery snapshot for V02/V04/I02/I03, distinct
 from frozen TopicDTO and public exercise contract. V02 additive read adapter
@@ -70,14 +70,15 @@ previous/next release, manifest digest, affected paths, stage, failure code and
 resume cursor. Do not store credentials or private DTO. Journal schema in
 delivery-v1.schema.json specifies valid stages, NOT a table migration.
 
-Sequence: VALIDATED -> STAGED -> DB_COMMITTED -> ACTIVATED -> COMPLETE.
+Sequence: VALIDATED -> STAGED -> DB_COMMITTED -> ACTIVATING -> ACTIVATED -> COMPLETE.
+The P1 protocol below and platform durable authority govern every transition.
 Preflight source validation/identity immutability/conflicts before writes.
 Stage assets and complete public HTML/catalogue/sitemap/redirect manifest under
 an operation-specific directory; verify all hashes and no private export.
-Acquire publication gate and locks in platform order; recheck expected active
+The durable pending slot is already owned; acquire short gate/domain locks in platform order; recheck expected active
 release/current snapshots; commit ContentPage+LessonPublication+DB revision and
-journal DB_COMMITTED together. Activation compare-and-swaps the previous pointer
-to matching release/manifest. Verify public probes, then record COMPLETE.
+journal DB_COMMITTED together. Activation compare-and-swaps the PostgreSQL active descriptor
+to matching release/manifest under the current owner/fence/lease (P1). Verify public probes, then record COMPLETE.
 No success before complete activation. Repeated same key/plan returns same
 operation; changed key body or unexpected release/digest fails409/conflict.
 
@@ -99,11 +100,11 @@ is invented here. Concurrent publish/unpublish serialize at activation gate.
 | Failure | Observable outcome and recovery |
 | --- | --- |
 | Before staging / validation conflict | No DB/public change; nonzero or safe conflict; fix source and new operation. |
-| Partial assets/renderer failure | FAILED_PRECOMMIT; previous public edition intact; resume only matching staged hashes. |
-| After staging, before DB commit | Rollback DB; previous active intact; resumable staged operation, no success. |
+| Partial assets/renderer failure | FAILED_PRECOMMIT after proving no commit; previous public edition intact; retry uses a new operation with matching reviewed source. |
+| After staging, before DB commit | Rollback DB; previous active intact; current owner or takeover resumes the same immutable staged operation, no success. |
 | After DB commit, before activation | RECOVERY_REQUIRED; journal+DB durable, old public snapshot intact; forward resume exact manifest under gate. |
 | Pointer switched, acknowledgement/journal update lost | Inspect pointer+digest; mark ACTIVATED/COMPLETE idempotently after public probes, never reapply DB write. |
-| Cache purge/health fails after activation | RECOVERY_REQUIRED/nonzero; retain both manifests; repair/purge forward, or reviewed safe pointer rollback only if DB snapshot consistency holds. |
+| Cache purge/health fails after activation | RECOVERY_REQUIRED/nonzero; retain both manifests; repair/purge forward under current fence; rollback needs a separate human repair decision and cannot silently release pending. |
 | Concurrent stale expected release |409, do not overwrite winner or clear its journal. |
 
 Cleanup resolves absolute targets within the operation directory; delete only
@@ -178,7 +179,7 @@ GET /api/v1/staff/pages/{id}/publication_state/ returns the closed private
 PublicationObservableStateResponse under active staff and ContentPage view OR
 change permission. Missing page404; unauthorized401/403; private,no-store. The
 result reads the activation generation before and after a consistent journal/DB
-revision sample. Return200 only if pointer generation/digest agree across both
+revision/gate sample. Return200 only if pointer descriptor plus gate generation/operation/lease-derived ownership agree across both
 reads and refer to validated immutable snapshots; retry at most3 samples, then
 return503 rather than mixed success. A missing/unverifiable active snapshot can
 be reported as UNAVAILABLE to authorized staff while public requests return503.
@@ -186,7 +187,7 @@ Reading neither mutates a journal/pointer/DB nor resumes a publish operation.
 
 Data includes page_id, observed_at, state, active release page state, DB edition
 page state, and nullable pending operation with next release/digest/stage/time
-and safe enumerated failure code. No filesystem paths, raw plan, idempotency key,
+and safe enumerated failure code, fence_generation, ownership (LEASED/TAKEOVER_ELIGIBLE), db_committed and activation_status. Ownership is derived using DB time; no owner identity or lease secret is exposed. No filesystem paths, raw plan, idempotency key,
 actor identity, credential, publisher body or resume cursor is returned. Current
 baseline serves ContentPage directly and has no pending activation layer; its
 equivalent observation is IN_SYNC/current DB. New states describe the proposed
@@ -223,3 +224,49 @@ include Cyrillic Unicode; preserve decoded request.path exact matching and UTF-8
 URI serialization without normalization or double encoding. Static/media/account/
 identity/grades have their distinct method behavior; see route family mapping.
 Gateway/SSG must preserve these responses, not only GET navigation.
+
+## P1 transition table and failure windows
+
+The [machine transition table](publication-protocol-v1.json) and platform P1
+authority are normative together. All rows require the current unexpired owner
+token unless explicitly read-only; an operation UUID identifies the whole plan,
+not a page. A new logical operation cannot coexist with a nonterminal pending
+operation. Commands are internal publisher/CLI results, not new staff HTTP APIs.
+Failure results are nonzero; HTTP adaptation uses safe409 STATE_CONFLICT for
+BUSY/FENCED/conflict and503 SERVICE_UNAVAILABLE for unknown/unavailable storage.
+No private owner/token/paths are included in ordinary errors.
+
+| From / event | Durable transition and effects | Repeat / failure |
+| --- | --- | --- |
+| IDLE / claim new | Check active==DB, expected release/source; allocate generation, journal VALIDATED and pending slot atomically. | Same key+plan resolves original operation; changed plan409. Other operation BUSY. |
+| VALIDATED / stage | Verify all immutable artifacts; STAGED. No domain DB change. | Same hashes STAGED; changed/missing hashes conflict. Crash leaves pending; takeover resumes. |
+| VALIDATED or STAGED / precommit failure | Prove db_committed=false and no activation; FAILED_PRECOMMIT and release pending atomically. | Return recorded terminal failure; retry needs a new operation. |
+| STAGED / commit | Recheck plan/source/active and fence; domain mutation+DB edition+journal DB_COMMITTED/db_committed=true in one transaction. | Committed same operation returns DB_COMMITTED; no second mutation. Lost ACK: read journal/DB before acting. |
+| DB_COMMITTED / activation intent | Persist ACTIVATING, activation_status=UNKNOWN before attempting descriptor CAS. Public still serves previous snapshot. | Same intent unchanged. Crash before CAS remains owned pending; no next publish. |
+| ACTIVATING / activate | Short fenced transaction compares full previous active descriptor and installs next+manifest+current generation; journal ACTIVATED/APPLIED in same commit. | Full matching operation/release/digest descriptor returns ALREADY_ACTIVATED; unrelated pointer conflicts, never overwritten. |
+| Committed / activation failure or uncertain response | RECOVERY_REQUIRED; db_committed remains true. UNKNOWN never means rollback or completion. | Reconcile authoritative DB descriptor under current ownership; do not rerun DB mutation or issue speculative external activation. |
+| RECOVERY_REQUIRED / reconcile | Exact next operation/release/digest: APPLIED -> ACTIVATED. Exact previous descriptor: NOT_APPLIED -> DB_COMMITTED for a new fenced intent. Any unrelated/missing/corrupt descriptor: stay RECOVERY_REQUIRED, fail closed. | Repeated read gives same result; persisted changes need current token. APPLIED from older generation of SAME operation is valid durable history, not authority for old owner. |
+| ACTIVATED / purge+health | Verify all public URL/catalogue/sitemap/unpublish/cache behavior against exact active release. Persist COMPLETE and release pending only after current fence/descriptor recheck. | COMPLETE repeats return recorded result, without switching an old release back after a later operation. Failure -> RECOVERY_REQUIRED/APPLIED; slot retained. |
+| Any nonterminal / lease expires, crash, surrender | Slot and journal remain. CAS takeover increments fence; precommit retains phase; committed -> RECOVERY_REQUIRED/OWNER_LOST with commit/activation facts retained, reconcile before continuing. | Competing claim loses; old owner is fenced on renew, commit, activate, acknowledge, cleanup and release. |
+
+UNKNOWN covers a connection loss before/after activation transaction commit.
+Because descriptor and activation fact share one DB transaction, recovery can
+distinguish committed next from unchanged previous without trusting a worker ACK.
+During activation the gateway pins either entire previous or entire next release;
+missing files or an unverifiable descriptor yield503, not a mixed200. A takeover
+and an activation compete on the SAME row lock: whichever commits first defines
+the durable outcome; a takeover first fences the old activation. Lease expiry
+mid-transaction is rechecked at the guarded descriptor/domain SQL mutation;
+that statement under the gate is the linearization point (platform P1).
+
+Journal db_committed is monotone; recovery may change stage but cannot erase it.
+activation_status is NOT_STARTED before intent, UNKNOWN while unconfirmed,
+NOT_APPLIED after confirmed previous, APPLIED after confirmed matching next.
+Recovery cause codes add OWNER_LOST, ACTIVATION_UNKNOWN and POINTER_CONFLICT.
+The observable GET never claims/reconciles/renews. It returns pending even if
+lease expires; ownership=TAKEOVER_ELIGIBLE, still blocks next publish. Committed
+pending must match DB edition; ACTIVATING may have old active, and lost-ACK
+recovery may have next active. COMPLETE/FAILED_PRECOMMIT are never pending.
+Read-only consistency sampling covers both active and pending fencing state;
+new fields are private safe observations, not capabilities. RECOVERY_REQUIRED may be precommit with db_committed=false; only committed pending must equal DB edition. Lease status derives from the gate, not the journal timestamp. Runtime concurrency,
+gateway visibility and crash injection remain V04/V05 obligations.

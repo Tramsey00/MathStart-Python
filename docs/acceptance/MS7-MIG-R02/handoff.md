@@ -76,3 +76,26 @@ nine sorting lists, narrow group selector, pending/recovery view, all-method
 gateway responses and actual account controller link. No baseline/right change
 needs a new choice; proposed formats/read adapters require exact-head review.
 V01/I01 gates above remain unchanged; no downstream task starts here.
+
+## Current protocol handoff — 09.10.2026, proposed1.0.2
+
+Vladimir CHANGES_REQUESTED at6c1603b3ac55f3f0e8ef3b2bfb09298a42de5974
+requires P1/P2; both are addressed for re-review, not declared accepted.
+The user reports Ilya B01–B07/N01 confirmation; GitHub still has its older
+CHANGES_REQUESTED review. Earlier handoff paragraphs retain their dated history.
+Read the [current response](review-response.md), [new intake](review-intake-20261009.json),
+[verification](verification.json) and [model evidence](protocol-model-evidence.json).
+
+Vladimir delta: lifetime pending gate/owner/fence, guarded DB active descriptor,
+lease/CAS competing takeover, no stale effects, UNKNOWN reconciliation and next
+admission; explicit bridge/ticket/proof/session/epoch lifecycle and cutover checkpoint.
+Ilya delta: observable pending gains safe generation/lease ownership/commit/
+activation facts and ACTIVATING; GET stays read-only and old UI/API gates unchanged.
+Logout/reconciliation remains completed:true, repeat401, GET me, no blind retry.
+
+Current local checks: full8/8 + standalone63 (31 previous +32 protocol model),
+R02A30/R03A41/I027, pip/version PASS. Real target runtime/races/signer/gateway/browser
+NOT_RUN. Final-head CI/merge-ref/tree equality is recorded in PR48 after push;
+baseline CI does not run standalone63 or I027. Re-review both scopes at exact new
+HEAD, then owner accepts exact merged integration intake; no V01/I01 start here.
+PR draft/unmerged, Issue29 open; frozen/input/history/approvals remain unchanged.

@@ -418,6 +418,7 @@
             "VALIDATED",
             "STAGED",
             "DB_COMMITTED",
+            "ACTIVATING",
             "ACTIVATED",
             "COMPLETE",
             "FAILED_PRECOMMIT",
@@ -466,6 +467,34 @@
             "string",
             "null"
           ]
+        },
+        "owner_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "lease_until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "db_committed": {
+          "type": "boolean"
+        },
+        "activation_status": {
+          "enum": [
+            "NOT_STARTED",
+            "UNKNOWN",
+            "NOT_APPLIED",
+            "APPLIED"
+          ]
+        },
+        "key_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
         }
       },
       "required": [
@@ -479,7 +508,13 @@
         "affected_paths",
         "updated_at",
         "failure_code",
-        "resume_cursor"
+        "resume_cursor",
+        "owner_id",
+        "fence_generation",
+        "lease_until",
+        "db_committed",
+        "activation_status",
+        "key_digest"
       ],
       "allOf": [
         {
@@ -517,6 +552,101 @@
               "failure_code": {
                 "type": "string",
                 "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "VALIDATED",
+                  "STAGED",
+                  "FAILED_PRECOMMIT"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              },
+              "activation_status": {
+                "const": "NOT_STARTED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "DB_COMMITTED",
+                  "ACTIVATING",
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "APPLIED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "ACTIVATING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "UNKNOWN"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "NOT_STARTED"
               }
             }
           }
@@ -2756,6 +2886,7 @@
             "VALIDATED",
             "STAGED",
             "DB_COMMITTED",
+            "ACTIVATING",
             "ACTIVATED",
             "RECOVERY_REQUIRED"
           ]
@@ -2767,12 +2898,37 @@
             "CACHE_PURGE_FAILED",
             "HEALTH_FAILED",
             "JOURNAL_ACK_LOST",
-            "PRECOMMIT_FAILED"
+            "PRECOMMIT_FAILED",
+            "OWNER_LOST",
+            "ACTIVATION_UNKNOWN",
+            "POINTER_CONFLICT"
           ]
         },
         "updated_at": {
           "type": "string",
           "format": "date-time"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "ownership": {
+          "enum": [
+            "LEASED",
+            "TAKEOVER_ELIGIBLE"
+          ]
+        },
+        "db_committed": {
+          "type": "boolean"
+        },
+        "activation_status": {
+          "enum": [
+            "NOT_STARTED",
+            "UNKNOWN",
+            "NOT_APPLIED",
+            "APPLIED"
+          ]
         }
       },
       "required": [
@@ -2781,7 +2937,11 @@
         "manifest_digest",
         "stage",
         "failure_code",
-        "updated_at"
+        "updated_at",
+        "fence_generation",
+        "ownership",
+        "db_committed",
+        "activation_status"
       ],
       "allOf": [
         {
@@ -2796,6 +2956,101 @@
             "properties": {
               "failure_code": {
                 "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "VALIDATED",
+                  "STAGED",
+                  "FAILED_PRECOMMIT"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              },
+              "activation_status": {
+                "const": "NOT_STARTED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "DB_COMMITTED",
+                  "ACTIVATING",
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "APPLIED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "ACTIVATING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "UNKNOWN"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "NOT_STARTED"
               }
             }
           }
@@ -2911,6 +3166,7 @@
                       "VALIDATED",
                       "STAGED",
                       "DB_COMMITTED",
+                      "ACTIVATING",
                       "ACTIVATED"
                     ]
                   }
@@ -3048,6 +3304,302 @@
         }
       },
       "required": []
+    },
+    "PublicationAuthorityToken": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "owner_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "operation_id",
+        "owner_id",
+        "fence_generation"
+      ],
+      "description": "INTERNAL ONLY. Current unexpired equality with durable gate required; shape is not authorization."
+    },
+    "ReceiptBridgeFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bridge_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "original_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bootstrap_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "receipt_owner_id": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "session_binding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "revocation_epoch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "state": {
+          "enum": [
+            "ACTIVE",
+            "DETACHED",
+            "REVOKED",
+            "EXPIRED"
+          ]
+        },
+        "replay_until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ticket_version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "ticket_expires_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "ticket_revoked": {
+          "type": "boolean"
+        },
+        "transfer_binding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "session_lineage_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "bridge_id",
+        "original_scope",
+        "bootstrap_fingerprint",
+        "receipt_owner_id",
+        "session_binding",
+        "revocation_epoch",
+        "state",
+        "replay_until",
+        "ticket_version",
+        "ticket_expires_at",
+        "ticket_revoked",
+        "transfer_binding",
+        "session_lineage_id"
+      ],
+      "description": "PRIVATE logical contract only, never public/staff DTO or implemented table. Relational proof/owner/epoch invariants enforced by service.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "DETACHED",
+                  "REVOKED",
+                  "EXPIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "session_binding": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "REVOKED",
+                  "EXPIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "ticket_revoked": {
+                "const": true
+              },
+              "transfer_binding": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "ACTIVE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "receipt_owner_id": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "session_binding": {
+                "type": "string",
+                "minLength": 1
+              },
+              "session_lineage_id": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PublicationGateFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pending_operation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "owner_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "lease_until": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "namespace",
+        "pending_operation_id",
+        "owner_id",
+        "fence_generation",
+        "lease_until"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "pending_operation_id": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "owner_id": {
+                "type": "null"
+              },
+              "lease_until": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "owner_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "lease_until": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "fence_generation": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ActiveReleaseDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "release_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "operation_id",
+        "release_id",
+        "manifest_digest",
+        "fence_generation"
+      ],
+      "description": "PostgreSQL authority only; gateway snapshot pinned per request. Initial verified descriptor may use generation0."
     }
   }
 }

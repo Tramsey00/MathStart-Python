@@ -61,3 +61,14 @@ the collector again changes generated observation files (real timestamps/HEAD
 response lengths may vary); do not overwrite published review evidence without
 recording a new observation round. Final containing HEAD/CI/check-out SHA are
 external in PR48; unchanged baseline CI does not run the new standalone suite.
+
+## Protocol round09.10.2026
+
+Use the same isolated PG55439 environment and commands above; standalone glob
+now runs63 tests, including32 new abstract protocol cases. It neither connects
+to target services nor proves runtime concurrency/crypto. The full verify run
+used the default test DB test_ms6_v01_smoke_ms7_mig_r02_20261008 (observed), not
+the ignored DJANGO_TEST_DB_NAME setting. To explicitly name a test DB use the
+repository-supported DJANGO_DB_TEST_NAME. Never target the working database.
+Use protocol-*.log under ignored var/r02-qa; hashes/results in verification.json.
+Historical readonly HTTP/catalogue snapshots are reused; do not overwrite them.

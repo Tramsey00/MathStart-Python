@@ -1,4 +1,4 @@
-# MS7-MIG-R02 contract package v1.0.1
+# MS7-MIG-R02 contract package v1.0.2
 
 Status: PROPOSED / independent review pending. Owner Руслан / Tramsey00;
 reviewers and Task Approvers Владимир / VladimirFrolov777 and Илья / 13baybars.
@@ -47,3 +47,11 @@ Read [public build handoff](public-build-contract-v1.json) and
 [review change matrix](../../../docs/acceptance/MS7-MIG-R02/review-response.md).
 The CHANGES_REQUESTED decision remains historical/current until independent
 re-review; this amendment does not create approval or change accepted inputs.
+
+Protocol revision1.0.2 addresses [Vladimir review5462501369](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5462501369)
+at6c1603b3ac55f3f0e8ef3b2bfb09298a42de5974. Read platform/content P1 and auth P2,
+[publication transitions](publication-protocol-v1.json),
+[bridge lifecycle](receipt-bridge-lifecycle-v1.json), and
+[durable storage mapping](protocol-storage-mapping-v1.json).
+These are proposed contract decisions for independent re-review, not accepted
+runtime or race evidence. B01–B07/N01 fixes and historical reviews are retained.
