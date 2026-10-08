@@ -93,7 +93,7 @@ Local FAIL_ENVIRONMENT remains separate from full successful reviewed-head CI.
 
 Current post-merge record amendment is [draft PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → integration, Refs #28. Review its exact live HEAD; original approvals and owner-reported e510744 confirmation do not automatically approve this amendment.
 
-## Current PR47 CI condition
+## Historical filter-attempt CI condition
 
 Owner authorized integration triggers only; [reviewer delta](pr47-review-delta.md)
 and [exact trigger/pin conflict](ci-trigger-adjustment-20261008.json).
@@ -101,3 +101,15 @@ Original MIG-G0/baseline acceptance retained. Current task amendment cannot be
 accepted/merged with failing strict R02A historical ci.yml pin. Human resolution
 of the pin compatibility and successful exact-head CI are required; no pin/test
 rewrite or automatic reviewer approval. R03 target verification not started.
+
+## Current PR47 CI correction / remaining acceptance
+
+Owner authorized separate migration-ci.yml, integration-only PR/push, original
+ci.yml exact restore and frozen pin match. [Current correction](migration-ci-correction-20261008.json)
+supersedes the historical filter pin blocker above without changing old evidence.
+Local R02A30/I02frozen7/R03A41 PASS; actual new-head migration CI required.
+[Reviewer delta](pr47-review-delta.md): post-merge records, original workflow
+restoration and separate baseline workflow. Final exact HEAD/CI still needs
+independent Vladimir/Ilya acceptance; old daf4e603 approvals and owner-reported
+e510744 confirmation remain bound to their scopes/heads.
+Plan active until record amendment review/intake. No PR merge or Issue closure.

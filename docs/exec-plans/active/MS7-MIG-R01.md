@@ -249,3 +249,21 @@ Final record head needs a new actual run; final evidence external PR47.
 Human pin compatibility decision and authorized corrective scope remain required,
 followed by successful exact-head checks and independent amendment acceptance.
 No weakened checks/pin regeneration to manufacture PASS. Plan remains active.
+
+## Current separate migration workflow correction — 08.10.2026
+
+Owner authorizes restoring ci.yml exactly from MIG_BASE_SHA and adding separate
+migration-ci.yml, name Migration baseline verification, only integration PR/push.
+Old main-only ci.yml SHA2561edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7
+again matches the untouched R02A pin. New workflow full jobs block byte-identical
+to accepted ci.yml; no reusable conversion, locks/checks/PG/env/Python change.
+[Correction record](../../acceptance/MS7-MIG-R01/migration-ci-correction-20261008.json).
+
+Failed filter variant above remains historical: e64d9a4/run37701885197 and
+f0c913e/run37702653809 FAIL R02A. Both receipts/old PR description preserved.
+Pin incompatibility corrected through exact restoration, not pin/test edits.
+Local Python3.12.10 pip check PASS, R02A30/I02frozen-upstream7/R03A41 PASS/exit0.
+Actual new-head migration workflow CI and independent amendment review required.
+MIG_BASE_SHA/integration60b341f unchanged. No working DB/target dependencies/
+API contracts or R02/I01/R03 implementation. Scope is existing baseline checks,
+full target verification remains R03. Active plan retained until final intake.

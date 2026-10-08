@@ -108,11 +108,11 @@
     "base_branch": "ms7-mig-react-fastapi",
     "input_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
     "worktree": "C:/Projects/MathStart-Python/tmp/ms7-mig-r01/post-merge",
-    "record_PR_status": "OPEN_REVIEW_PENDING / CI_HISTORICAL_PIN_CONFLICT",
+    "record_PR_status": "OPEN_REVIEW_PENDING / CORRECTED_CONFIG_FINAL_HEAD_CI_PENDING",
     "automatic_approval_transfer_to_post_merge_records": false,
     "local_verification": "post-merge-local-verification.json",
     "staged_record_validation": "post-merge-validation.json",
-    "CI_applicability": "Integration trigger now observed in actual PR47 run37701885197: baseline PASS8/8; overall FAIL R02A historical whole-file ci.yml pin. Final exact head/run external PR47; pin remains unresolved.",
+    "CI_applicability": "Original ci.yml restored byte-exact/pin, main-only. Separate Migration baseline verification integration-only PR/push, jobs exact accepted ci.yml. Local R02A30/I02frozen7/R03A41 PASS; actual final-head migration CI required.",
     "url": "https://github.com/Tramsey00/MathStart-Python/pull/47",
     "first_published_head": "77d8c81dcb777cc29d6b50ed92e65a1a25bcfbd4",
     "first_live_PR_state": {
@@ -126,7 +126,9 @@
     "containing_final_record_HEAD": "External PR47 current head; not self-pinned in its own containing commit",
     "CI_trigger_adjustment": "ci-trigger-adjustment-20261008.json",
     "historical_pre_trigger_provenance": "post-merge-provenance-at-9fde3e5.json",
-    "observed_first_trigger_CI": "ci-integration-trigger-first-run.json"
+    "observed_first_trigger_CI": "ci-integration-trigger-first-run.json",
+    "current_CI_correction": "migration-ci-correction-20261008.json",
+    "failed_filter_variant": "ci-trigger-failed-final-head.json"
   },
   "R01": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING",
   "MIG_G0": "ACCEPTED_FOR_MERGED_SNAPSHOT; no target implementation acceptance",
@@ -249,5 +251,5 @@
       "url": "https://github.com/Tramsey00/MathStart-Python/issues/45"
     }
   ],
-  "scope": "Only R01 records and owner-authorized existing CI branch filters. Existing jobs/locks/PG/checks and historical pins preserved; no application/working DB/MIG_BASE_SHA/Harness/target verification change."
+  "scope": "Only R01 post-merge records and owner-authorized separate migration-ci.yml integration workflow. Original ci.yml byte-exact MIG_BASE_SHA/pin, jobs byte-identical; no application/working DB/dependency/API/Harness/target R03/MIG_BASE_SHA change."
 }

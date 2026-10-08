@@ -414,3 +414,50 @@ evidence-recording head requires its own CI; final run/checkout external PR47.
 Acceptance is BLOCKED by unresolved strict pin compatibility and missing
 independent final-head approvals. No autonomous pin/test repair outside scope,
 no task/integration merge, Issue closure, working DB or later task execution.
+
+## Separate integration workflow correction — 08.10.2026 Europe/Moscow
+
+Live PR47 headf0c913e1eb7acfcde175a06cc6ab57d778acd828, base/integration60b341f,
+OPEN, draftfalse, mergedfalse; no reviews. Existing task worktree clean; fetchexit0.
+Owner explicitly authorizes restoring original ci.yml and adding a separate
+migration-ci.yml instead of changing the pinned file. Original checkout kept.
+
+Restored ci.yml using exact git cat-file blob bytes from MIG_BASE_SHA60b341f.
+SHA2561edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7 equals
+historical specs/api/candidate-manifest-v1.json. No historical pin/test rewrite.
+Created Migration baseline verification integration-only PR/push workflow;
+full jobs:→EOF byte-identical to accepted ci.yml, SHA256
+ca8c95c2691306cc0ac8099b9b4ef09e9b2ad2a5a040aa5e014a2b2816d648c0.
+Main remains exclusively covered by original ci.yml; no reusable conversion,
+skip/continue-on-error/check exclusions or new dependency.
+New whole-workflow SHA2566bec1d5aa38f4794eef3e0044033cfaa53526c51d66e485f1ff8f42bef5afb96.
+
+Local existing Python3.12.10 --version/pip check exit0; R02A30 exit0 PASS,
+I02 UI contract7 exit0 PASS including frozen upstream digest check,
+R03A41 exit0 PASS. No local DB connection/setup. Full baseline uses unchanged
+workflow jobs on GitHub disposable PostgreSQL after push.
+[Current correction record](../acceptance/MS7-MIG-R01/migration-ci-correction-20261008.json).
+Earlier filters and actual CI failures preserved in historical commits, first
+receipt and [failed final-head receipt](../acceptance/MS7-MIG-R01/ci-trigger-failed-final-head.json);
+[old PR body](../acceptance/MS7-MIG-R01/pr47-body-at-f0c913e.md) preserves its real
+final failure/checkout/status. No failure rewritten as PASS.
+
+Current records/plan/verification/reviewer delta supersede earlier unresolved
+pin status only through this explicitly authorized restore/new workflow.
+Final containing head and new CI checkout/result remain external PR47;
+no old successful check or approval transferred. No R02/I01/R03 implementation,
+working DB/app/locks/API/MIG_BASE_SHA/integration change, merge or Issue closure.
+### Separate-workflow preservation audit, 2026-10-08
+
+The restored candidate passed `validate_records.py` (exit 0): 1,023 unchanged
+source inputs, all 1,026 original tracked files and 18,568 original output/tmp
+files preserved. `validate_ilya_import.py --ref INDEX` with a separate current
+output passed (exit 0): all 232 imported files / 31,057,740 bytes exact in
+checkout and Git blobs, 231 package entries, 228 provenance entries and 169
+relative links. No original ZIP recheck was claimed. Private scope audit passed
+(exit 0), including 137 relative document links, original workflow pin,
+unchanged historical receipts/tests/contracts, exact jobs bytes and unchanged
+integration SHA. Receipts: `validation.json`,
+`migration-ci-import-validation.json`, `migration-ci-scope-validation.json` in
+the R01 acceptance directory. Record manifest is regenerated from staged Git
+blobs and verified separately before publication; its own digest is excluded.

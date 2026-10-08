@@ -1,0 +1,75 @@
+{
+  "task": "MS7-MIG-R01",
+  "date": "2026-10-08 Europe/Moscow",
+  "authorization": "Direct owner request: restore pinned ci.yml byte-exact from MIG_BASE_SHA; separate migration-ci.yml with unchanged jobs for integration-only PR/push; preserve manifests/pins/R02A/I02 tests; no target R03 implementation.",
+  "prior_PR47_head": "f0c913e1eb7acfcde175a06cc6ab57d778acd828",
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "integration_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "old_workflow": {
+    "path": ".github/workflows/ci.yml",
+    "exact_restore_commit": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+    "restore_byte_exact": true,
+    "sha256": "1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+    "historical_R02A_pin": "1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+    "pin_matches": true,
+    "pull_request_bases": [
+      "main"
+    ],
+    "push_branches": [
+      "main"
+    ]
+  },
+  "new_workflow": {
+    "path": ".github/workflows/migration-ci.yml",
+    "name": "Migration baseline verification",
+    "sha256": "6bec1d5aa38f4794eef3e0044033cfaa53526c51d66e485f1ff8f42bef5afb96",
+    "pull_request_bases": [
+      "ms7-mig-react-fastapi"
+    ],
+    "push_branches": [
+      "ms7-mig-react-fastapi"
+    ],
+    "main_trigger": false,
+    "jobs_block_byte_exact": true,
+    "jobs_digest_semantics": "Full bytes from jobs: through EOF",
+    "jobs_sha256": "ca8c95c2691306cc0ac8099b9b4ef09e9b2ad2a5a040aa5e014a2b2816d648c0",
+    "new_dependencies": false,
+    "new_or_weakened_jobs": false
+  },
+  "local_validation": {
+    "configuration": "PASS: exact full original workflow and original pin; strict expected new header and original jobs bytes; no installed YAML parser/new dependency; GitHub parse/run will be verified externally.",
+    "python_version": "3.12.10",
+    "pip_check": {
+      "result": "PASS",
+      "exit_code": 0
+    },
+    "R02A": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests": 30
+    },
+    "I02": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests": 7,
+      "frozen_upstream_digest_test": "PASS: UIFixtureContractTests.test_provenance_and_frozen_upstream_digests"
+    },
+    "R03A": {
+      "result": "PASS",
+      "exit_code": 0,
+      "tests": 41
+    },
+    "database_used": false
+  },
+  "failed_variant_history": {
+    "trigger_attempt_record": "ci-trigger-adjustment-20261008.json",
+    "first_failed_run": "ci-integration-trigger-first-run.json",
+    "final_failed_filter_head": "ci-trigger-failed-final-head.json",
+    "old_PR_body": "pr47-body-at-f0c913e.md",
+    "cause": "Changed entire ci.yml hash against frozen R02A manifest; existing test failed. No pin/test rewritten. User authorized separate workflow solution."
+  },
+  "historical_pin_conflict_current_status": "CORRECTED_BY_EXACT_RESTORE; local R02A/I02 pass; final-head GitHub CI still required",
+  "current_HEAD_CI": "PENDING_PUBLICATION; actual final head/run/tested merge-ref external PR47 to avoid circular self-pin",
+  "acceptance": "Independent Vladimir/Ilya final-head review still required; no old approval transfer; active plan retained.",
+  "scope": "Existing baseline checks via separate integration workflow only; app/working DB/dependencies/API/contracts/MIG_BASE_SHA/integration/target R03 unchanged."
+}

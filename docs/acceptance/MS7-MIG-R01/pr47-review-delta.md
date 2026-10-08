@@ -1,32 +1,27 @@
-# PR47 — delta for Vladimir and Ilya
+# PR47 — current delta for Vladimir and Ilya
 
-- Post-merge R01 records pin actual PR46 resulting MIG_BASE_SHA
-  60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7, preserve separate source8c11edad,
-  human reviewed daf4e603 and owner-reported e510744 confirmation.
-- Integration originates exactly at MIG_BASE_SHA; R01 task records PR47 targets it.
-  Plan/trace/provenance/manifests and R02 input handoff added; no later task starts.
-- F01–F04 mandatory assigned13baybars, correction by I03, verify I05;
-  F04 ordinary-scale readability, enlargement alone insufficient. No independent
-  Vladimir F04 consent invented; original evidence/criteria preserved.
-- Newly owner-authorized CI change is exactly two arrays:
-  pull_request branches and push branches now [main, ms7-mig-react-fastapi].
-  Existing jobs, commands, checks, PostgreSQL, dependency lock and pins unchanged.
-  This runs current Django baseline for §9 integration workflow; target R03
-  verification still future.
-- BLOCKER: historical specs/api/candidate-manifest-v1.json pins entire ci.yml.
-  New file digest differs; strict unchanged R02A test fails1/30. No historical
-  proof/pin/test rewritten, no skip. Review human compatibility decision before
-  accepting this amendment; actual new-head CI required, not old green CI.
-- Independent approval required on final exact PR47 HEAD and its checks.
-  Earlier approvals and owner-reported e510744 agreement do not approve this
-  new post-merge/CI amendment. No PR merge or migration Issue closure by agent.
+- R01 post-merge records: actual resulting MIG_BASE_SHA60b341f, distinct canonical
+  source8c11edad, preserved daf4e603 own approvals and explicit owner report of
+  e510744 documentation confirmation; no automatic approval of this new HEAD.
+- Integration created exactly at MIG_BASE_SHA, R01 task records PR47→integration.
+  Plan/trace/provenance/manifests and R02 input handoff; no later implementation.
+- F01–F04 mandatory assigned13baybars, fix by I03, verify I05, F04 readable at
+  ordinary scale without overlap/clipping; enlargement insufficient; no separate
+  Vladimir independent F04 agreement invented.
+- The failed attempt changing pinned ci.yml branch filters is retained in history
+  and actual FAIL receipts. It failed strict R02A whole-file pin, not waived.
+- Original .github/workflows/ci.yml restored byte-exact from accepted60b341f,
+  SHA256 matches untouched historical manifest. Main-only triggers preserved.
+- New .github/workflows/migration-ci.yml: name Migration baseline verification,
+  only integration PR/push, full jobs block byte-identical to accepted ci.yml.
+  Same PostgreSQL/env/Python/locks/install/connection/fresh smoke/verify/R02A/R03A.
+  No reusable conversion, new check, skip, continue-on-error or exception.
+  This is transitional current baseline CI; full target verification remains R03.
+- Local R02A30, I02frozen-upstream7 and R03A41 PASS. Exact new-head migration
+  CI results/checkout external PR47; require SUCCESS and independent final review.
+  App/working DB/dependencies/API/contracts/MIG_BASE_SHA/integration unchanged.
 
-[Trigger/pin audit](ci-trigger-adjustment-20261008.json),
+[Current correction](migration-ci-correction-20261008.json),
+[historical failed final filter head](ci-trigger-failed-final-head.json),
 [current acceptance](acceptance.md),
 [post-merge provenance](post-merge-provenance-20261008.json).
-
-Actual first-trigger CI: [run37701885197](https://github.com/Tramsey00/MathStart-Python/actions/runs/37701885197)
-FAIL R02A1/30; full baseline8/8/fresh PG smoke PASS. R03A NOT RUN after failure.
-[Sanitized checkout/results](ci-integration-trigger-first-run.json).
-Final exact record HEAD and its separate run are in PR47; neither first-head
-results nor old approvals automatically approve the final amendment.

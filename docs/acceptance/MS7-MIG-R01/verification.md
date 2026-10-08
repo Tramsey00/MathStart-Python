@@ -265,3 +265,46 @@ This receipt is an exact first-trigger-head observation, not final containing-he
 CI. Record commit gets a new run; exact final head/run/tested merge-ref/result
 recorded in PR47. No old successful run substitutes for current checks.
 Pin incompatibility remains acceptance blocker, no historical manifest/test rewrite.
+
+## Current separate integration workflow — 08.10.2026
+
+[Correction record](migration-ci-correction-20261008.json).
+Original ci.yml restored byte-exact from60b341f; SHA2561edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7
+matches untouched historical pin. New migration-ci.yml triggers only integration
+PR/push; full jobs block identical, hash semantics jobs:→EOF.
+Configuration validation checks exact old blob/pin/new header and jobs bytes;
+actual GitHub parsing/run required after push. No YAML dependency installed.
+
+| Local command/check | Observed result |
+| --- | --- |
+| Python --version / pip check | 3.12.10 /PASS exit0 |
+| R02A reference suite | PASS30,exit0 |
+| I02 UI contract / frozen upstream digests | PASS7,exit0; accepted artifacts unchanged |
+| R03A CompletionFact reference suite | PASS41,exit0 |
+| Original ci.yml blob/hash/pin and new full jobs block | PASS,byte-identical |
+| New workflow main trigger | Absent; only integration PR/push |
+
+Earlier NOT RUN/FAIL entries are historical at their explicit heads.
+[Failed final filter head](ci-trigger-failed-final-head.json) preserves actual
+run37702653809 and checkout6ca3c96b8f098c52cece863eefec65ef6c1db819.
+R02A/I02 pin incompatibility corrected by restoring the original file; no pin
+regeneration, test weakening/skip/continue-on-error. New final-head CI outcome
+and actual checkout recorded in PR47 separately; no historical result replaced.
+No working DB use; target R03 not implemented. Final reviewer acceptance pending.
+### Separate-workflow preservation checks
+
+Executed after the exact restoration, exit code 0 for each:
+
+- `tools/validate_records.py --original C:/Projects/MathStart-Python`: PASS;
+  1,023 unchanged input files, all 1,026 original tracked files and 18,568
+  original output/tmp files preserved. Current receipt: [validation.json](validation.json).
+- `tools/validate_ilya_import.py --ref INDEX --output
+  docs/acceptance/MS7-MIG-R01/migration-ci-import-validation.json`: PASS;
+  232 imported files / 31,057,740 bytes match checkout and Git blobs; 231
+  package manifest entries, 228 export provenance entries, 169 relative links.
+  Historical import receipts are unchanged. Original ZIP was not rechecked in
+  this run. [Current receipt](migration-ci-import-validation.json).
+- Private `qa/check_separate_workflow.py`: PASS; original workflow/pin,
+  integration-only header, complete jobs bytes, unchanged frozen tests/pins,
+  historical evidence and integration SHA; 137 changed-document relative links.
+  [Scope receipt](migration-ci-scope-validation.json).

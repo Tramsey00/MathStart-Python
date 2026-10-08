@@ -82,3 +82,13 @@ record owner authorization, unchanged jobs and unresolved historical ci.yml pin.
 Task CI no longer treated as untriggered by design; actual new-head result is
 required. [Exact pre-trigger provenance](post-merge-provenance-at-9fde3e5.json)
 and existing NOT RUN/local PASS receipts remain historical, not current-head claims.
+
+## Current separate workflow solution
+
+[Correction record](migration-ci-correction-20261008.json): original ci.yml exact
+MIG_BASE_SHA restore/pin, separate integration-only migration-ci.yml with exact
+same jobs. Local R02A/I02frozen/R03A PASS; final current-head migration CI required.
+Earlier unresolved filters/FAIL records are chronological history, preserved.
+[Failed final filter-head receipt](ci-trigger-failed-final-head.json) and
+[old PR body](pr47-body-at-f0c913e.md) keep the observed failure visible.
+No later target task, pin/test/contract change or human approval transfer.
