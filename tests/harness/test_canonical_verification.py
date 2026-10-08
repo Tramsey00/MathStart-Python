@@ -22,7 +22,7 @@ class CanonicalVerificationTests(unittest.TestCase):
         self.assertEqual(command[0], "scripts/verify_repo.py")
         checks = verify_repo.select_checks(verify_repo.parse_args(command[1:]))
         self.assertNotIn("harness", {check.group for check in checks})
-        self.assertEqual(len(checks), 7)
+        self.assertEqual(len(checks), 15)
         self.assertIn("tests/harness", CHECK_COMMANDS["harness-unit"])
         # Neither nested baseline nor Harness suite invokes execute CLI.
         self.assertFalse(any("harness" in check.command for check in checks))

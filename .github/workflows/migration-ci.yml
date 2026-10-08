@@ -1,10 +1,13 @@
-name: Migration baseline verification
+name: Migration verification
 
 on:
   pull_request:
-    branches: [ms7-mig-react-fastapi]
+    branches: [ms7-mig-react-fastapi, main]
   push:
-    branches: [ms7-mig-react-fastapi]
+    branches: [ms7-mig-react-fastapi, main, 'ms7-mig-*']
+
+permissions:
+  contents: read
 
 jobs:
   verify:
@@ -35,6 +38,8 @@ jobs:
       DJANGO_RUNTIME_ROOT: ${{ github.workspace }}/var/ci-runtime
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
@@ -58,3 +63,102 @@ jobs:
         run: python -m unittest discover -s tests -p test_r02a_contract.py -v
       - name: R03A CompletionFact contract
         run: python -m unittest discover -s tests -p test_r03a_contract.py -v
+      - name: Unchanged standalone R02 suite on accepted input (historical baseline)
+        run: |
+          git worktree add --detach var/r02-baseline 8d958aeeb17da46839722441425ccbb5889e2ab7
+          cd var/r02-baseline
+          python -m unittest discover -s tests -p 'test_migration_r02*.py' -v
+
+  pure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Locked tooling without Django or DRF
+        run: |
+          python -m pip install --no-deps -r specs/migration/r03-v1/verification.lock
+          python -m pip check
+          python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          python scripts/version_report.py --profile pure
+      - name: Exact checkout and event linkage
+        run: python scripts/ci_provenance.py --output var/ci/provenance.json
+      - name: Pure, protocol models, adapters and Harness
+        run: python scripts/verify_repo.py --profile pure
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: r03-pure-provenance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: var/ci/
+          if-no-files-found: error
+
+  target:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: ms7_mig_r03_ci
+          POSTGRES_USER: mathstart_ci
+          POSTGRES_PASSWORD: disposable-ci-only-password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd="pg_isready -U mathstart_ci -d ms7_mig_r03_ci"
+          --health-interval=2s --health-timeout=3s --health-retries=30
+    env:
+      MATHSTART_DB_HOST: 127.0.0.1
+      MATHSTART_DB_PORT: '5432'
+      MATHSTART_DB_NAME: ms7_mig_r03_ci
+      MATHSTART_DB_USER: mathstart_ci
+      MATHSTART_DB_PASSWORD: disposable-ci-only-password
+      MATHSTART_DISPOSABLE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Exact target checkout before prerequisite checks
+        run: python scripts/ci_provenance.py --output var/ci/provenance.json
+      - name: Owner locks and concrete command handoff required (V01/V02/I01/I02/V04)
+        run: |
+          test -f backend/requirements.lock
+          test -f frontend/package-lock.json
+          python -c "import json; x=json.load(open('specs/migration/r03-v1/runtime-commands.json')); assert x['status']=='REVIEWED'; assert set(x['required_backend_checks']) <= set(x['commands'])"
+          python -m pip install --no-deps -r backend/requirements.lock
+          python -m pip install --no-deps -r specs/migration/r03-v1/verification.lock
+          python -m pip check
+          python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          cd frontend
+          npm ci
+          npx --no-install playwright install --with-deps chromium
+      - name: Actual versions and bounded failed PostgreSQL connection
+        run: |
+          python scripts/version_report.py --profile target
+          node --version
+          npm --version
+          if MATHSTART_DB_PORT=1 python scripts/check_database.py --profile target; then exit 1; fi
+      - name: Fresh Alembic/bootstrap twice/assets/frontend smoke
+        run: python scripts/fresh_install_smoke.py --profile target --disposable
+      - name: Populated upgrade profiles A B C
+        run: |
+          python scripts/migration_smoke.py --disposable --source-profile A
+          python scripts/migration_smoke.py --disposable --source-profile B
+          python scripts/migration_smoke.py --disposable --source-profile C
+      - name: Full target registry including frontend build/browser smoke
+        run: python scripts/verify_repo.py --profile target
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: r03-target-provenance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: var/ci/
+          if-no-files-found: error
