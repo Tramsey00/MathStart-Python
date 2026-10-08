@@ -1,4 +1,4 @@
-# MS7-MIG-R02 contract package v1.0.0
+# MS7-MIG-R02 contract package v1.0.1
 
 Status: PROPOSED / independent review pending. Owner Руслан / Tramsey00;
 reviewers and Task Approvers Владимир / VladimirFrolov777 and Илья / 13baybars.
@@ -38,3 +38,12 @@ Approval binds an exact commit and contract digest manifest. Until both reviewer
 approve and the integration owner accepts the merge, these addenda remain
 proposed. Preparation/read-only work is allowed; dependent implementation waits
 for the accepted CONTRACT. No production authorization is implied.
+
+
+Review revision1.0.1 addresses proposed B01–B07/N01 from
+[Ilya review5461343942](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942).
+Read [public build handoff](public-build-contract-v1.json) and
+[staff list wire policy](staff-list-policy-v1.json); see the
+[review change matrix](../../../docs/acceptance/MS7-MIG-R02/review-response.md).
+The CHANGES_REQUESTED decision remains historical/current until independent
+re-review; this amendment does not create approval or change accepted inputs.

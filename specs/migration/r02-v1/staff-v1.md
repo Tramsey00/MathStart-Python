@@ -1,4 +1,4 @@
-# Staff delivery/authorization addendum v1.0.0
+# Staff delivery/authorization addendum v1.0.1
 
 PROPOSED. Exact nine registrations/actions/fields/filter/search/permissions from
 R01 [admin-inventory](../../../docs/acceptance/MS7-MIG-R01/admin-inventory.json)
@@ -20,7 +20,7 @@ not by hiding controls. Mutation CSRF and same-origin mandatory; safe400/403/404
 | grades, subjects, sections, pages, publications, media_assets, redirects | list, detail, search, baseline list filters/order, history read; content.view_<model> OR content.change_<model>; fields exactly inventoried including ContentPage.source_location. All mutation paths forbidden403. |
 | users | list/search/filter/detail/history, create, edit username/email/first_name/last_name/active/staff/superuser/last_login/date_joined, direct permissions and groups, usable/unusable password creation, password change, guarded single delete and delete-selected. auth.view/change/add/delete_user by action. |
 | groups | list/search/detail/history, create/edit name and permission assignments, guarded single delete/delete-selected. auth.view/change/add/delete_group by action. |
-| permission selectors | read only under auth.add/change_user or auth.add/change_group for their form; expose id/name/codename/contenttype only; no independent registered permission admin CRUD. |
+| permission selectors | read only under the applicable combined User-create gate, auth.change_user, or auth.add/change_group for their form; expose id/name/codename/contenttype only; no independent registered permission admin CRUD. |
 
 Baseline UserAdmin allows a staff actor with auth.change_user to edit role flags,
 groups/direct permissions and password (even privilege-bearing fields). Do not
@@ -28,7 +28,9 @@ silently substitute a superuser-only policy or self-escalation safeguard and cal
 that baseline parity. Any stricter rule requires an explicit security scope
 decision and updated positive/negative expectations before V03 acceptance.
 Current mapping preserves baseline permissions and makes that risk reviewable.
-Staff creates use auth.add_user; edit/password uses auth.change_user; delete
+Staff user creation requires auth.add_user AND auth.change_user, matching
+Django UserAdmin._add_view and the parent add gate. Group creation requires
+auth.add_group. User edit/password uses auth.change_user; delete
 requires auth.delete_user. Groups change permission assignments with
 auth.change_group. Related object selectors and choices mirror baseline forms.
 
@@ -80,9 +82,61 @@ Preserve baseline default ordering from registered ModelAdmin or model Meta;
 the original Django o column index maps through inventoried list_display to a
 validated ordered field list in the frontend adapter. No arbitrary SQL ordering
 string. Staff pagination default20/max100, cursor bound to authenticated staff,
-resource/search/filter/order and page_size; append PK tie-break so edits/deletion
-cannot cause offset skips. This is separate from anonymous grades cursor.
+resource/search/filter/order and page_size; preserve baseline unique ordering
+and append descending PK only when required by Django deterministic ordering.
+Keyset pagination avoids offset skips but does not promise an immutable snapshot
+while records are edited; mutation consistency is a later implementation test. This is separate from anonymous grades cursor.
 Delete preview GET for single/bulk listed IDs returns private confirmation token
 bound to actor, IDs/current record digest/expiry; POST rechecks it and permissions/
 PROTECT under locks. Preview performs no domain mutation, blocked protected
 deletion remains inspectable without leaking records to an unauthorized actor.
+
+
+## Review amendments B01/B03/B04/B05/B06
+
+The User creation button/form and POST use the combined add_user AND change_user
+gate, even if Django's generic add button alone is visible. add-only, change-only,
+neither, inactive and nonstaff must not create a user. Superuser follows baseline.
+
+Boolean query wire values, including filter__is_permanent and filter__is_active,
+are exactly the singleton URI strings true/false, decoded into JSON true/false.
+Reject0/1, uppercase, empty and repeated values with400. Native Django admin
+is_permanent__exact=0/1 is translated explicitly; temporary redirects remain
+selectable. JSON Schema/OAS use boolean, never positive integer/coercion.
+
+Each of the nine list operations declares singleton sort. Grammar:
+sort=default OR [-]field(,[-]field)*. Minus means descending; absence means
+ascending. No plus, spaces, empty terms, repeated field (even opposite sign),
+unknown columns, relation injection or raw SQL. Omitted/default selects native
+ordering. Per-resource allowed fields and default/effective orders are defined in
+[staff-list-policy](staff-list-policy-v1.json) and OAS x-sort-contract. Group's
+__str__ column has no native sort field: only omitted/default is allowed, with
+baseline name ordering. Other fields map native list_display columns, including
+FK sorting through referenced model Meta.ordering rather than display strings.
+Explicit terms precede ModelAdmin queryset ordering; retain the exact unique-key
+deterministic rule and descending PK where needed. Preserve PostgreSQL collation
+and ASC NULLS LAST / DESC NULLS FIRST; SQLite emulates these for compatibility.
+Native o indexes account for the action checkbox only if available to the actor;
+they translate into named fields/directions, never become SQL fragments.
+
+Cursor binds actor ID, authorization-scope revision, resource, exact q, normalized
+filters, expanded effective sort keys/directions and page_size. It signs the
+ordered last values with explicit NULL markers. authorization_scope_revision is
+a digest of current active/staff/superuser flags and sorted effective permission
+codes, recomputed at authorization; it needs no new persisted permission column.
+Mismatched/tampered cursors400;
+every field/direction/filter/page-size change starts a new list. Multi-sort and
+ties must compare to Django order, with nullable relations and mixed directions.
+
+GET /api/v1/staff/users/{id}/group_choices/ returns only group id/name choices for
+the existing User edit form under active staff + auth.change_user. It validates
+that the target User exists (404 otherwise), returns all groups ordered by name
+as the baseline form queryset, private/no-store; no pagination silently omits
+choices. View-only User permission403. It does not require Group view/change,
+and grants no access to group administration/list/detail/history/write. Groups
+cannot be assigned in baseline creation form (add_fieldsets omits them); group
+choices are not exposed there. Existing groups on the edited User remain visible
+and editable under change_user. No new group creator or privileged popup.
+
+Publication state GET is read-only under the same ContentPage view/change gate;
+see content-v1.md. It does not authorize a publisher action or Group administration.

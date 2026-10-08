@@ -1,0 +1,732 @@
+{
+  "version": "staff-list-v1.0.1",
+  "sort_parameter": "sort",
+  "grammar": "default | [-]field(,[-]field)*; ASCII; no whitespace/plus/empty/duplicate field",
+  "boolean_query_literals": [
+    "true",
+    "false"
+  ],
+  "native_boolean_adapter": {
+    "0": false,
+    "1": true
+  },
+  "cursor_binding": [
+    "actor_user_id",
+    "authorization_scope_revision",
+    "resource",
+    "q",
+    "normalized_filters",
+    "effective_sort_keys_and_directions",
+    "page_size"
+  ],
+  "cursor_payload": "signed opaque token; binding + last ordered scalar values including explicit NULL markers; no secrets",
+  "ordering_nulls": "PostgreSQL native ASC NULLS LAST / DESC NULLS FIRST, preserved by opt-in SQLite emulation",
+  "resources": {
+    "grades": {
+      "model": "content.Grade",
+      "allowed_fields": [
+        "title",
+        "slug",
+        "order"
+      ],
+      "default_effective_order": [
+        "order",
+        "title",
+        "order",
+        "title",
+        "-pk"
+      ],
+      "explicit_single_field_orders": {
+        "title": [
+          "title",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-title": [
+          "-title",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "slug": [
+          "slug",
+          "order",
+          "title"
+        ],
+        "-slug": [
+          "-slug",
+          "order",
+          "title"
+        ],
+        "order": [
+          "order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-order": [
+          "-order",
+          "order",
+          "title",
+          "-pk"
+        ]
+      },
+      "native_list_display": [
+        "title",
+        "slug",
+        "order"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:title|slug|order)(?:,-?(?:title|slug|order))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "subjects": {
+      "model": "content.Subject",
+      "allowed_fields": [
+        "title",
+        "grade",
+        "slug",
+        "order"
+      ],
+      "default_effective_order": [
+        "grade__order",
+        "order",
+        "title",
+        "grade__order",
+        "order",
+        "title",
+        "-pk"
+      ],
+      "explicit_single_field_orders": {
+        "title": [
+          "title",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-title": [
+          "-title",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "grade": [
+          "grade",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-grade": [
+          "-grade",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "slug": [
+          "slug",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-slug": [
+          "-slug",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "order": [
+          "order",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-order": [
+          "-order",
+          "grade__order",
+          "order",
+          "title",
+          "-pk"
+        ]
+      },
+      "native_list_display": [
+        "title",
+        "grade",
+        "slug",
+        "order"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:title|grade|slug|order)(?:,-?(?:title|grade|slug|order))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "sections": {
+      "model": "content.Section",
+      "allowed_fields": [
+        "title",
+        "subject",
+        "slug",
+        "order"
+      ],
+      "default_effective_order": [
+        "subject__grade__order",
+        "subject__order",
+        "order",
+        "title",
+        "subject__grade__order",
+        "subject__order",
+        "order",
+        "title",
+        "-pk"
+      ],
+      "explicit_single_field_orders": {
+        "title": [
+          "title",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-title": [
+          "-title",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "subject": [
+          "subject",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-subject": [
+          "-subject",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "slug": [
+          "slug",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-slug": [
+          "-slug",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "order": [
+          "order",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-order": [
+          "-order",
+          "subject__grade__order",
+          "subject__order",
+          "order",
+          "title",
+          "-pk"
+        ]
+      },
+      "native_list_display": [
+        "title",
+        "subject",
+        "slug",
+        "order"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:title|subject|slug|order)(?:,-?(?:title|subject|slug|order))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "pages": {
+      "model": "content.ContentPage",
+      "allowed_fields": [
+        "title",
+        "page_type",
+        "grade",
+        "subject",
+        "section",
+        "order",
+        "is_published",
+        "updated_at"
+      ],
+      "default_effective_order": [
+        "page_type",
+        "grade__order",
+        "subject__order",
+        "section__order",
+        "order",
+        "title",
+        "page_type",
+        "grade__order",
+        "subject__order",
+        "section__order",
+        "order",
+        "title",
+        "-pk"
+      ],
+      "explicit_single_field_orders": {
+        "title": [
+          "title",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-title": [
+          "-title",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "page_type": [
+          "page_type",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-page_type": [
+          "-page_type",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "grade": [
+          "grade",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-grade": [
+          "-grade",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "subject": [
+          "subject",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-subject": [
+          "-subject",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "section": [
+          "section",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-section": [
+          "-section",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "order": [
+          "order",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-order": [
+          "-order",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "is_published": [
+          "is_published",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-is_published": [
+          "-is_published",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "updated_at": [
+          "updated_at",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ],
+        "-updated_at": [
+          "-updated_at",
+          "page_type",
+          "grade__order",
+          "subject__order",
+          "section__order",
+          "order",
+          "title",
+          "-pk"
+        ]
+      },
+      "native_list_display": [
+        "title",
+        "page_type",
+        "grade",
+        "subject",
+        "section",
+        "order",
+        "is_published",
+        "updated_at"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:title|page_type|grade|subject|section|order|is_published|updated_at)(?:,-?(?:title|page_type|grade|subject|section|order|is_published|updated_at))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "publications": {
+      "model": "content.LessonPublication",
+      "allowed_fields": [
+        "page",
+        "source_path",
+        "published_at"
+      ],
+      "default_effective_order": [
+        "source_path",
+        "source_path"
+      ],
+      "explicit_single_field_orders": {
+        "page": [
+          "page",
+          "source_path"
+        ],
+        "-page": [
+          "-page",
+          "source_path"
+        ],
+        "source_path": [
+          "source_path",
+          "source_path"
+        ],
+        "-source_path": [
+          "-source_path",
+          "source_path"
+        ],
+        "published_at": [
+          "published_at",
+          "source_path"
+        ],
+        "-published_at": [
+          "-published_at",
+          "source_path"
+        ]
+      },
+      "native_list_display": [
+        "page",
+        "source_path",
+        "published_at"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:page|source_path|published_at)(?:,-?(?:page|source_path|published_at))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "media_assets": {
+      "model": "content.MediaAsset",
+      "allowed_fields": [
+        "title",
+        "file",
+        "related_page"
+      ],
+      "default_effective_order": [
+        "title",
+        "id"
+      ],
+      "explicit_single_field_orders": {
+        "title": [
+          "title",
+          "-pk"
+        ],
+        "-title": [
+          "-title",
+          "-pk"
+        ],
+        "file": [
+          "file"
+        ],
+        "-file": [
+          "-file"
+        ],
+        "related_page": [
+          "related_page",
+          "-pk"
+        ],
+        "-related_page": [
+          "-related_page",
+          "-pk"
+        ]
+      },
+      "native_list_display": [
+        "title",
+        "file",
+        "related_page"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:title|file|related_page)(?:,-?(?:title|file|related_page))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "redirects": {
+      "model": "content.Redirect",
+      "allowed_fields": [
+        "old_path",
+        "new_path",
+        "is_permanent",
+        "is_active"
+      ],
+      "default_effective_order": [
+        "old_path",
+        "old_path"
+      ],
+      "explicit_single_field_orders": {
+        "old_path": [
+          "old_path",
+          "old_path"
+        ],
+        "-old_path": [
+          "-old_path",
+          "old_path"
+        ],
+        "new_path": [
+          "new_path",
+          "old_path"
+        ],
+        "-new_path": [
+          "-new_path",
+          "old_path"
+        ],
+        "is_permanent": [
+          "is_permanent",
+          "old_path"
+        ],
+        "-is_permanent": [
+          "-is_permanent",
+          "old_path"
+        ],
+        "is_active": [
+          "is_active",
+          "old_path"
+        ],
+        "-is_active": [
+          "-is_active",
+          "old_path"
+        ]
+      },
+      "native_list_display": [
+        "old_path",
+        "new_path",
+        "is_permanent",
+        "is_active"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:old_path|new_path|is_permanent|is_active)(?:,-?(?:old_path|new_path|is_permanent|is_active))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "users": {
+      "model": "auth.User",
+      "allowed_fields": [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "is_staff"
+      ],
+      "default_effective_order": [
+        "username",
+        "username"
+      ],
+      "explicit_single_field_orders": {
+        "username": [
+          "username",
+          "username"
+        ],
+        "-username": [
+          "-username",
+          "username"
+        ],
+        "email": [
+          "email",
+          "username"
+        ],
+        "-email": [
+          "-email",
+          "username"
+        ],
+        "first_name": [
+          "first_name",
+          "username"
+        ],
+        "-first_name": [
+          "-first_name",
+          "username"
+        ],
+        "last_name": [
+          "last_name",
+          "username"
+        ],
+        "-last_name": [
+          "-last_name",
+          "username"
+        ],
+        "is_staff": [
+          "is_staff",
+          "username"
+        ],
+        "-is_staff": [
+          "-is_staff",
+          "username"
+        ]
+      },
+      "native_list_display": [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "is_staff"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^(?:default|-?(?:username|email|first_name|last_name|is_staff)(?:,-?(?:username|email|first_name|last_name|is_staff))*)$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    },
+    "groups": {
+      "model": "auth.Group",
+      "allowed_fields": [],
+      "default_effective_order": [
+        "name",
+        "name"
+      ],
+      "explicit_single_field_orders": {},
+      "native_list_display": [
+        "__str__"
+      ],
+      "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+      "query_schema": {
+        "type": "string",
+        "pattern": "^default$",
+        "default": "default"
+      },
+      "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+    }
+  },
+  "authorization_scope_revision": "SHA256 of canonical active/staff/superuser flags + sorted effective permission codes, recomputed per authorization, no new persisted column"
+}

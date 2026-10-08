@@ -589,19 +589,20 @@
       "path": "/",
       "baseline_methods": "Undecorated view: GET/HEAD and safe methods; unsafe methods only after CSRF; read-only render",
       "source": "content/views.py:home",
-      "target_methods": "Preserve all baseline read methods through activated-snapshot gateway; unsafe CSRF verified",
+      "target_methods": "ALL methods matching baseline; GET/HEAD/OPTIONS/TRACE safe, other methods follow applicable CSRF precedence; no default405",
       "target_difference": null,
       "statuses": [
         200,
         403,
         404
-      ]
+      ],
+      "csrf_precedence": "Resolved public view: unsafe CSRF403 before render/404; only actual404 proceeds to fallback. Unresolved URL: no process_view/CSRF hook, fallback301/302 applies even to unsafe requests without token. Never replace a403 with redirect."
     },
     {
       "path": "/<slug>/",
       "baseline_methods": "Same as home, GET/HEAD verified; slug converter ASCII letters/digits/hyphen/underscore",
       "source": "content/views.py:page_detail",
-      "target_methods": "Preserve all baseline read methods through activated-snapshot gateway; unsafe CSRF verified",
+      "target_methods": "ALL methods matching baseline; GET/HEAD/OPTIONS/TRACE safe, other methods follow applicable CSRF precedence; no default405",
       "target_difference": null,
       "statuses": [
         200,
@@ -610,7 +611,8 @@
         301,
         302
       ],
-      "query": "karta-sajta catalogue context/filter/search; others ignored by page view"
+      "query": "karta-sajta catalogue context/filter/search; others ignored by page view",
+      "csrf_precedence": "Resolved public view: unsafe CSRF403 before render/404; only actual404 proceeds to fallback. Unresolved URL: no process_view/CSRF hook, fallback301/302 applies even to unsafe requests without token. Never replace a403 with redirect."
     },
     {
       "path": "/account/",
@@ -629,26 +631,24 @@
       "path": "/sitemap.xml",
       "baseline_methods": "Django sitemap view no explicit method guard; GET/HEAD public, unsafe CSRF applies",
       "source": "content/sitemaps.py; config/urls.py",
-      "target_methods": [
-        "GET",
-        "HEAD"
-      ],
+      "target_methods": "ALL methods matching baseline; GET/HEAD/OPTIONS/TRACE safe, other methods follow applicable CSRF precedence; no default405",
       "statuses": [
-        200
-      ]
+        200,
+        403
+      ],
+      "csrf_precedence": "Resolved public view: unsafe CSRF403 before render/404; only actual404 proceeds to fallback. Unresolved URL: no process_view/CSRF hook, fallback301/302 applies even to unsafe requests without token. Never replace a403 with redirect."
     },
     {
       "path": "/robots.txt",
       "baseline_methods": "Undecorated read-only view, GET/HEAD; unsafe CSRF applies",
       "source": "content/views.py:robots_txt",
-      "target_methods": [
-        "GET",
-        "HEAD"
-      ],
+      "target_methods": "ALL methods matching baseline; GET/HEAD/OPTIONS/TRACE safe, other methods follow applicable CSRF precedence; no default405",
       "statuses": [
-        200
+        200,
+        403
       ],
-      "content_type": "text/plain; charset=utf-8"
+      "content_type": "text/plain; charset=utf-8",
+      "csrf_precedence": "Resolved public view: unsafe CSRF403 before render/404; only actual404 proceeds to fallback. Unresolved URL: no process_view/CSRF hook, fallback301/302 applies even to unsafe requests without token. Never replace a403 with redirect."
     },
     {
       "path": "/__ui__/foundation/",
@@ -698,15 +698,13 @@
       "path": "404 redirect fallback",
       "baseline_methods": "applies after404 for all methods; active exact path, working route wins; no self-loop",
       "source": "content/middleware.py",
-      "target_methods": [
-        "GET",
-        "HEAD"
-      ],
+      "target_methods": "ALL methods matching baseline; GET/HEAD/OPTIONS/TRACE safe, other methods follow applicable CSRF precedence; no default405",
       "statuses": [
         404,
         301,
         302
-      ]
+      ],
+      "csrf_precedence": "Resolved public view: unsafe CSRF403 before render/404; only actual404 proceeds to fallback. Unresolved URL: no process_view/CSRF hook, fallback301/302 applies even to unsafe requests without token. Never replace a403 with redirect."
     }
   ],
   "staff_baseline": {
@@ -1475,5 +1473,66 @@
     "model_add/change/password/delete": "GET form/confirmation and POST submit+CSRF; Content mutations disabled",
     "model_history": "GET with view permission"
   },
-  "additional_delivery_staff_state": "PROPOSED_NOT_IMPLEMENTED_SEPARATE_OAS"
+  "additional_delivery_staff_state": "PROPOSED_NOT_IMPLEMENTED_SEPARATE_OAS",
+  "public_build_handoff": {
+    "version": "public-build-handoff-v1",
+    "state": "PROPOSED_NOT_IMPLEMENTED",
+    "index_schema": "delivery-v1.schema.json#/$defs/PublicBuildIndex",
+    "page_schema": "delivery-v1.schema.json#/$defs/ContentDelivery",
+    "build_artifact": "<release-root>/index.json with <release-root>/pages/<id>.json for every published page",
+    "frontend_active_index": "/_content/index.json -> the activated complete release index; atomic pointer resolution, no-store",
+    "frontend_immutable_root": "/_content/releases/<release_id>/; index.json and pages/<id>.json; immutable hash-verified release",
+    "consistency": "Load one active index, fetch referenced pages from its pinned immutable release, verify manifest and DTOs; never mix latest DB catalogue with an old page. Failed activation retains previous index/pages/catalogue/sitemap/redirects.",
+    "public_urls": "Every published ContentPage.get_absolute_url, every published home /<slug>/ alias with canonical/, robots/sitemap, retained active redirects only after404; assets are the union of per-page Asset descriptors. No account/admin/private API/unpublished content.",
+    "catalogue_order": [
+      "grade__order",
+      "grade_id",
+      "subject__order",
+      "subject_id",
+      "section__order",
+      "section_id",
+      "order",
+      "title",
+      "id"
+    ],
+    "catalogue_query": "QueryDict.get last singleton; unknown params ignored; grade valid among topic grades else empty; subjects dedupe by slug after grade filter, keep first entity; invalid subject becomes empty; q Python strip then Unicode casefold substring of topic title, no normalization; ordering unchanged.",
+    "catalogue_render": "q nonempty gives flat results with grade/subject/section labels; q empty regroup by entity grade/subject/section in stable topic order; selected grade/subject opens sections; zero matches shows baseline empty state/count0; fallback labels from templates/includes/catalogue.html",
+    "publication_state_operation": "GET /api/v1/staff/pages/{id}/publication_state/ (private/no-store/read-only), separate from public index",
+    "implementation_owners": [
+      "V02",
+      "V04",
+      "I02",
+      "I03",
+      "V05"
+    ],
+    "target_evidence": "NOT_RUN"
+  },
+  "staff_form_group_choices": {
+    "method": "GET",
+    "path": "/api/v1/staff/users/{id}/group_choices/",
+    "permission": "active staff && auth.change_user",
+    "dto": "StaffGroupChoiceListResponse",
+    "purpose": "Existing User edit form only; does not authorize group list/detail/history/write",
+    "baseline_state": "FORM_QUERYSET_IMPLEMENTED",
+    "target_state": "NOT_IMPLEMENTED"
+  },
+  "staff_user_create_gate": "active staff && auth.add_user && auth.change_user",
+  "staff_list_policy": "staff-list-policy-v1.json",
+  "publication_observable_state": {
+    "path": "/api/v1/staff/pages/{id}/publication_state/",
+    "method": "GET",
+    "dto": "PublicationObservableStateResponse",
+    "baseline_state": "Django serves current ContentPage immediately; no split activation/pending journal exists",
+    "target_state": "PROPOSED_NOT_IMPLEMENTED",
+    "permission": "active staff && (content.view_contentpage OR content.change_contentpage)"
+  },
+  "method_csrf_cases": "../../../docs/acceptance/MS7-MIG-R02/review-baseline-observations.json#/http_method_csrf",
+  "method_csrf_families": {
+    "identity_private": "anonymous401 before CSRF/method; authenticated unsafe CSRF403 before endpoint method400",
+    "identity_public": "unsafe CSRF403 before endpoint method400; safe nonallowed400",
+    "grades": "APIView csrf_exempt, GET only; all other methods400 independent of token/origin",
+    "account": "resolved unsafe CSRF403 then require_GET405; safe HEAD/OPTIONS/TRACE405",
+    "public_resolved": "safe methods render; unsafe missing token/bad origin403, valid render200 or404 then redirect fallback",
+    "unresolved_fallback": "no CSRF view hook; only404 lookup, all methods, active exact rule301/302; self-loop/no rule404"
+  }
 }

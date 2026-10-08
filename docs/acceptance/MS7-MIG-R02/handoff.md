@@ -56,3 +56,23 @@ R02 into integration and records exact new intake. Consumers choose that accepte
 SHA (not local main or current draft HEAD) and their own reserved isolated
 environments. V01 schema chain ownerVladimir; I01 frontend lock/routes ownerIlya;
 R03 checks/CI ownerRuslan. R02 starts none of them. No merge/deployment/Issue closure.
+
+
+## Review amendment1.0.1 — B01–B07/N01
+
+[Change/check/question table](review-response.md), [review intake](review-intake-20261008.json),
+[real observations](review-baseline-observations.json), [complete public index](review-baseline-public-index.json).
+The previous20-test/local CI account above belongs to HEAD9cc9829. Current
+combined R02 suite31 is LOCAL PASS; current full baseline8/8/R02A30/R03A41/I027
+also PASS. Final new HEAD and CI tested-ref evidence are in PR48. No target
+runtime/browser/sampling/bridge/recovery implementation evidence is claimed.
+Ilya CHANGES_REQUESTED remains until independent re-review; Vladimir has no
+decision recorded. No automatic review resolution or approval transfer.
+
+Vladimir: combined create gate, User-form groups vs Group admin gates,
+sorting/default/FK/NULL/cursor binding, CSRF precedence and publication state
+privacy/coherent sampling. Ilya: full index/build/catalogue/filter handoff,
+nine sorting lists, narrow group selector, pending/recovery view, all-method
+gateway responses and actual account controller link. No baseline/right change
+needs a new choice; proposed formats/read adapters require exact-head review.
+V01/I01 gates above remain unchanged; no downstream task starts here.

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "MathStart proposed migration delivery and staff adapters",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "MS7-MIG-R02 PROPOSED; no runtime implementation. Separate from frozen canonical37-operation OAS."
   },
   "paths": {
@@ -344,6 +344,16 @@
               "minimum": 1,
               "maximum": 100
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:title|slug|order)(?:,-?(?:title|slug|order))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -356,7 +366,79 @@
           "slug"
         ],
         "x-baseline-list-filters": [],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.Grade",
+          "allowed_fields": [
+            "title",
+            "slug",
+            "order"
+          ],
+          "default_effective_order": [
+            "order",
+            "title",
+            "order",
+            "title",
+            "-pk"
+          ],
+          "explicit_single_field_orders": {
+            "title": [
+              "title",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-title": [
+              "-title",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "slug": [
+              "slug",
+              "order",
+              "title"
+            ],
+            "-slug": [
+              "-slug",
+              "order",
+              "title"
+            ],
+            "order": [
+              "order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-order": [
+              "-order",
+              "order",
+              "title",
+              "-pk"
+            ]
+          },
+          "native_list_display": [
+            "title",
+            "slug",
+            "order"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:title|slug|order)(?:,-?(?:title|slug|order))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/grades/{id}/": {
@@ -882,6 +964,16 @@
               "minimum": 1,
               "maximum": 9223372036854775807
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:title|grade|slug|order)(?:,-?(?:title|grade|slug|order))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -896,7 +988,105 @@
         "x-baseline-list-filters": [
           "grade"
         ],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.Subject",
+          "allowed_fields": [
+            "title",
+            "grade",
+            "slug",
+            "order"
+          ],
+          "default_effective_order": [
+            "grade__order",
+            "order",
+            "title",
+            "grade__order",
+            "order",
+            "title",
+            "-pk"
+          ],
+          "explicit_single_field_orders": {
+            "title": [
+              "title",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-title": [
+              "-title",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "grade": [
+              "grade",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-grade": [
+              "-grade",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "slug": [
+              "slug",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-slug": [
+              "-slug",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "order": [
+              "order",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-order": [
+              "-order",
+              "grade__order",
+              "order",
+              "title",
+              "-pk"
+            ]
+          },
+          "native_list_display": [
+            "title",
+            "grade",
+            "slug",
+            "order"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:title|grade|slug|order)(?:,-?(?:title|grade|slug|order))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/subjects/{id}/": {
@@ -1431,6 +1621,16 @@
               "minimum": 1,
               "maximum": 9223372036854775807
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:title|subject|slug|order)(?:,-?(?:title|subject|slug|order))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -1446,7 +1646,115 @@
           "subject__grade",
           "subject"
         ],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.Section",
+          "allowed_fields": [
+            "title",
+            "subject",
+            "slug",
+            "order"
+          ],
+          "default_effective_order": [
+            "subject__grade__order",
+            "subject__order",
+            "order",
+            "title",
+            "subject__grade__order",
+            "subject__order",
+            "order",
+            "title",
+            "-pk"
+          ],
+          "explicit_single_field_orders": {
+            "title": [
+              "title",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-title": [
+              "-title",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "subject": [
+              "subject",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-subject": [
+              "-subject",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "slug": [
+              "slug",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-slug": [
+              "-slug",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "order": [
+              "order",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-order": [
+              "-order",
+              "subject__grade__order",
+              "subject__order",
+              "order",
+              "title",
+              "-pk"
+            ]
+          },
+          "native_list_display": [
+            "title",
+            "subject",
+            "slug",
+            "order"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:title|subject|slug|order)(?:,-?(?:title|subject|slug|order))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/sections/{id}/": {
@@ -1982,7 +2290,12 @@
             "in": "query",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-wire-literals": [
+              "true",
+              "false"
+            ],
+            "description": "URI singleton literal true or false (case-sensitive), decoded to strict JSON boolean; reject0/1/True/FALSE/empty. Native admin __exact=0/1 translates at frontend adapter."
           },
           {
             "name": "filter__grade",
@@ -2001,6 +2314,16 @@
               "minimum": 1,
               "maximum": 9223372036854775807
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:title|page_type|grade|subject|section|order|is_published|updated_at)(?:,-?(?:title|page_type|grade|subject|section|order|is_published|updated_at))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -2019,7 +2342,223 @@
           "grade",
           "subject"
         ],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.ContentPage",
+          "allowed_fields": [
+            "title",
+            "page_type",
+            "grade",
+            "subject",
+            "section",
+            "order",
+            "is_published",
+            "updated_at"
+          ],
+          "default_effective_order": [
+            "page_type",
+            "grade__order",
+            "subject__order",
+            "section__order",
+            "order",
+            "title",
+            "page_type",
+            "grade__order",
+            "subject__order",
+            "section__order",
+            "order",
+            "title",
+            "-pk"
+          ],
+          "explicit_single_field_orders": {
+            "title": [
+              "title",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-title": [
+              "-title",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "page_type": [
+              "page_type",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-page_type": [
+              "-page_type",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "grade": [
+              "grade",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-grade": [
+              "-grade",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "subject": [
+              "subject",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-subject": [
+              "-subject",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "section": [
+              "section",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-section": [
+              "-section",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "order": [
+              "order",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-order": [
+              "-order",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "is_published": [
+              "is_published",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-is_published": [
+              "-is_published",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "updated_at": [
+              "updated_at",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ],
+            "-updated_at": [
+              "-updated_at",
+              "page_type",
+              "grade__order",
+              "subject__order",
+              "section__order",
+              "order",
+              "title",
+              "-pk"
+            ]
+          },
+          "native_list_display": [
+            "title",
+            "page_type",
+            "grade",
+            "subject",
+            "section",
+            "order",
+            "is_published",
+            "updated_at"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:title|page_type|grade|subject|section|order|is_published|updated_at)(?:,-?(?:title|page_type|grade|subject|section|order|is_published|updated_at))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/pages/{id}/": {
@@ -2536,6 +3075,16 @@
               "minimum": 1,
               "maximum": 100
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:page|source_path|published_at)(?:,-?(?:page|source_path|published_at))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -2550,7 +3099,66 @@
           "published_digest"
         ],
         "x-baseline-list-filters": [],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.LessonPublication",
+          "allowed_fields": [
+            "page",
+            "source_path",
+            "published_at"
+          ],
+          "default_effective_order": [
+            "source_path",
+            "source_path"
+          ],
+          "explicit_single_field_orders": {
+            "page": [
+              "page",
+              "source_path"
+            ],
+            "-page": [
+              "-page",
+              "source_path"
+            ],
+            "source_path": [
+              "source_path",
+              "source_path"
+            ],
+            "-source_path": [
+              "-source_path",
+              "source_path"
+            ],
+            "published_at": [
+              "published_at",
+              "source_path"
+            ],
+            "-published_at": [
+              "-published_at",
+              "source_path"
+            ]
+          },
+          "native_list_display": [
+            "page",
+            "source_path",
+            "published_at"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:page|source_path|published_at)(?:,-?(?:page|source_path|published_at))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/publications/{id}/": {
@@ -3067,6 +3675,16 @@
               "minimum": 1,
               "maximum": 100
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:title|file|related_page)(?:,-?(?:title|file|related_page))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -3080,7 +3698,64 @@
           "alt_text"
         ],
         "x-baseline-list-filters": [],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.MediaAsset",
+          "allowed_fields": [
+            "title",
+            "file",
+            "related_page"
+          ],
+          "default_effective_order": [
+            "title",
+            "id"
+          ],
+          "explicit_single_field_orders": {
+            "title": [
+              "title",
+              "-pk"
+            ],
+            "-title": [
+              "-title",
+              "-pk"
+            ],
+            "file": [
+              "file"
+            ],
+            "-file": [
+              "-file"
+            ],
+            "related_page": [
+              "related_page",
+              "-pk"
+            ],
+            "-related_page": [
+              "-related_page",
+              "-pk"
+            ]
+          },
+          "native_list_display": [
+            "title",
+            "file",
+            "related_page"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:title|file|related_page)(?:,-?(?:title|file|related_page))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/media_assets/{id}/": {
@@ -3602,17 +4277,35 @@
             "name": "filter__is_permanent",
             "in": "query",
             "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 9223372036854775807
-            }
+              "type": "boolean"
+            },
+            "x-wire-literals": [
+              "true",
+              "false"
+            ],
+            "description": "URI singleton literal true or false (case-sensitive), decoded to strict JSON boolean; reject0/1/True/FALSE/empty. Native admin __exact=0/1 translates at frontend adapter."
           },
           {
             "name": "filter__is_active",
             "in": "query",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-wire-literals": [
+              "true",
+              "false"
+            ],
+            "description": "URI singleton literal true or false (case-sensitive), decoded to strict JSON boolean; reject0/1/True/FALSE/empty. Native admin __exact=0/1 translates at frontend adapter."
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:old_path|new_path|is_permanent|is_active)(?:,-?(?:old_path|new_path|is_permanent|is_active))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -3628,7 +4321,76 @@
           "is_permanent",
           "is_active"
         ],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "content.Redirect",
+          "allowed_fields": [
+            "old_path",
+            "new_path",
+            "is_permanent",
+            "is_active"
+          ],
+          "default_effective_order": [
+            "old_path",
+            "old_path"
+          ],
+          "explicit_single_field_orders": {
+            "old_path": [
+              "old_path",
+              "old_path"
+            ],
+            "-old_path": [
+              "-old_path",
+              "old_path"
+            ],
+            "new_path": [
+              "new_path",
+              "old_path"
+            ],
+            "-new_path": [
+              "-new_path",
+              "old_path"
+            ],
+            "is_permanent": [
+              "is_permanent",
+              "old_path"
+            ],
+            "-is_permanent": [
+              "-is_permanent",
+              "old_path"
+            ],
+            "is_active": [
+              "is_active",
+              "old_path"
+            ],
+            "-is_active": [
+              "-is_active",
+              "old_path"
+            ]
+          },
+          "native_list_display": [
+            "old_path",
+            "new_path",
+            "is_permanent",
+            "is_active"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:old_path|new_path|is_permanent|is_active)(?:,-?(?:old_path|new_path|is_permanent|is_active))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       }
     },
     "/api/v1/staff/redirects/{id}/": {
@@ -4151,21 +4913,36 @@
             "in": "query",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-wire-literals": [
+              "true",
+              "false"
+            ],
+            "description": "URI singleton literal true or false (case-sensitive), decoded to strict JSON boolean; reject0/1/True/FALSE/empty. Native admin __exact=0/1 translates at frontend adapter."
           },
           {
             "name": "filter__is_superuser",
             "in": "query",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-wire-literals": [
+              "true",
+              "false"
+            ],
+            "description": "URI singleton literal true or false (case-sensitive), decoded to strict JSON boolean; reject0/1/True/FALSE/empty. Native admin __exact=0/1 translates at frontend adapter."
           },
           {
             "name": "filter__is_active",
             "in": "query",
             "schema": {
               "type": "boolean"
-            }
+            },
+            "x-wire-literals": [
+              "true",
+              "false"
+            ],
+            "description": "URI singleton literal true or false (case-sensitive), decoded to strict JSON boolean; reject0/1/True/FALSE/empty. Native admin __exact=0/1 translates at frontend adapter."
           },
           {
             "name": "filter__groups",
@@ -4175,6 +4952,16 @@
               "minimum": 1,
               "maximum": 9223372036854775807
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:default|-?(?:username|email|first_name|last_name|is_staff)(?:,-?(?:username|email|first_name|last_name|is_staff))*)$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -4194,12 +4981,91 @@
           "is_active",
           "groups"
         ],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "auth.User",
+          "allowed_fields": [
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_staff"
+          ],
+          "default_effective_order": [
+            "username",
+            "username"
+          ],
+          "explicit_single_field_orders": {
+            "username": [
+              "username",
+              "username"
+            ],
+            "-username": [
+              "-username",
+              "username"
+            ],
+            "email": [
+              "email",
+              "username"
+            ],
+            "-email": [
+              "-email",
+              "username"
+            ],
+            "first_name": [
+              "first_name",
+              "username"
+            ],
+            "-first_name": [
+              "-first_name",
+              "username"
+            ],
+            "last_name": [
+              "last_name",
+              "username"
+            ],
+            "-last_name": [
+              "-last_name",
+              "username"
+            ],
+            "is_staff": [
+              "is_staff",
+              "username"
+            ],
+            "-is_staff": [
+              "-is_staff",
+              "username"
+            ]
+          },
+          "native_list_display": [
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_staff"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^(?:default|-?(?:username|email|first_name|last_name|is_staff)(?:,-?(?:username|email|first_name|last_name|is_staff))*)$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       },
       "post": {
         "operationId": "create_staff_users",
         "x-baseline-state": "NOT_IMPLEMENTED_ADAPTER",
-        "x-required-permission": "is_active && is_staff && auth.add_user",
+        "x-required-permission": "is_active && is_staff && auth.add_user && auth.change_user",
         "responses": {
           "201": {
             "description": "Validated safe response",
@@ -5786,6 +6652,16 @@
               "minimum": 1,
               "maximum": 100
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^default$",
+              "default": "default"
+            },
+            "description": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
           }
         ],
         "security": [
@@ -5797,7 +6673,35 @@
           "name"
         ],
         "x-baseline-list-filters": [],
-        "x-query-validation": "Reject unknown or repeated singleton query parameters400; keyset cursor bound to resource/filter/order/page_size and active staff user"
+        "x-query-validation": "Unknown/repeated singleton params400; strict wire bool; sort grammar plus unique-field semantic validation; signed cursor must match all normalized binding fields400.",
+        "x-sort-contract": {
+          "model": "auth.Group",
+          "allowed_fields": [],
+          "default_effective_order": [
+            "name",
+            "name"
+          ],
+          "explicit_single_field_orders": {},
+          "native_list_display": [
+            "__str__"
+          ],
+          "native_checkbox_index_offset": "1 when delete_selected available; otherwise0",
+          "query_schema": {
+            "type": "string",
+            "pattern": "^default$",
+            "default": "default"
+          },
+          "effective_rule": "Explicit selected fields/directions first, then ModelAdmin queryset order_by; use Django deterministic unique-key test, append -pk only if no total unique order. FK field names expand referenced model Meta.ordering (reverse all keys for descending). Preserve PG collation; do not sort localized display strings."
+        },
+        "x-cursor-binding": [
+          "actor_user_id",
+          "authorization_scope_revision",
+          "resource",
+          "q",
+          "normalized_filters",
+          "effective_sort_keys_and_directions",
+          "page_size"
+        ]
       },
       "post": {
         "operationId": "create_staff_groups",
@@ -7735,6 +8639,346 @@
           }
         },
         "parameters": [],
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/v1/staff/users/{id}/group_choices/": {
+      "get": {
+        "operationId": "list_user_form_group_choices",
+        "x-baseline-state": "NOT_IMPLEMENTED_ADAPTER",
+        "x-required-permission": "is_active && is_staff && auth.change_user",
+        "responses": {
+          "200": {
+            "description": "Validated safe response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "delivery-v1.schema.json#/$defs/StaffGroupChoiceListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/AuthenticationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/ForbiddenError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/NotFoundError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/ConflictEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              },
+              "Retry-After": {
+                "required": true,
+                "description": "Whole remaining seconds >=1",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/RateLimitError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/UnavailableError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            }
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/v1/staff/pages/{id}/publication_state/": {
+      "get": {
+        "operationId": "get_page_publication_state",
+        "x-baseline-state": "NOT_IMPLEMENTED_ADAPTER",
+        "x-required-permission": "is_active && is_staff && (content.view_contentpage OR content.change_contentpage)",
+        "responses": {
+          "200": {
+            "description": "Validated safe response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "delivery-v1.schema.json#/$defs/PublicationObservableStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/AuthenticationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/ForbiddenError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/NotFoundError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/ConflictEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              },
+              "Retry-After": {
+                "required": true,
+                "description": "Whole remaining seconds >=1",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/RateLimitError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/UnavailableError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            }
+          }
+        ],
         "security": [
           {
             "session": []

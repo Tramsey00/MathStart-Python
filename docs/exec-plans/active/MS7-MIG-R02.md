@@ -5,7 +5,7 @@
 - Created/updated:2026-10-08 Europe/Moscow; original target deadline08.10 including review retained
 - Issue:[#29](https://github.com/Tramsey00/MathStart-Python/issues/29)
 - Milestone MIG-G1; task branch ms7-mig-r02-contracts -> ms7-mig-react-fastapi
-- Human gate: required, both independent decisions pending; no own approval
+- Human gate: Vladimir pending; Ilya CHANGES_REQUESTED at9cc9829; proposed fixes require independent new-head re-review; no own approval
 - Exact accepted input:c133f920fc14ab18a463e039f8e480e064ced81c
 - MIG_BASE_SHA:60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; application source8c11edadc8debc81432d1db1145feac504f09061
 - Specs:[canonical migration](../../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)§§2–11/R02/17,
@@ -93,3 +93,15 @@ comparisons, not FastAPI/React/PG target correctness. Production remains separat
 Keep active plan here until actual human acceptance; Issue29 stays open until
 final program integration->main workflow. Dependent implementation only after
 accepted R02 CONTRACT at exact merged integration input. No automatic start.
+
+
+## Review continuation B01–B07/N01 (08.10.2026)
+
+Full [review response](../../acceptance/MS7-MIG-R02/review-response.md) maps each
+finding to baseline/prose/Schema/OAS/routes/parity/tests. Combined suite31,
+verify_repo8/8, R02A30/R03A41/I027 and pip check PASS in isolated environment.
+192 read-only real HTTP cases and complete279-page catalogue/public index
+recorded. Contracts proposed1.0.1; frozen inputs/historical decisions untouched.
+Publication observation remains synthetic until implementation/rehearsal.
+Publish fixes into existing PR48 and verify its own final-head CI; both
+independent new-head decisions and accepted integration intake remain pending.

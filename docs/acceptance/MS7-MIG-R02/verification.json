@@ -88,5 +88,131 @@
   "target_browser": "NOT_RUN",
   "target_upgrade": "NOT_RUN",
   "target_crypto_bridge": "NOT_RUN",
-  "human_acceptance": "PENDING"
+  "human_acceptance": "PENDING",
+  "previous_delivery_head": "9cc9829a0b71cb73c4fe40d002e438572f381b48",
+  "review_revision": {
+    "version": "1.0.1",
+    "review": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+    "reviewed_head": "9cc9829a0b71cb73c4fe40d002e438572f381b48",
+    "current_decision": "CHANGES_REQUESTED; proposed fixes require independent new-head review",
+    "versions": {
+      "python": "3.12.10",
+      "packages": {
+        "asgiref": "3.12.1",
+        "attrs": "26.1.0",
+        "beautifulsoup4": "4.15.0",
+        "django": "5.2.16",
+        "djangorestframework": "3.18.1",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "psycopg": "3.3.6",
+        "psycopg-binary": "3.3.6",
+        "python-dotenv": "1.2.2",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.6.3",
+        "soupsieve": "2.10",
+        "sqlparse": "0.6.0",
+        "typing-extensions": "4.16.0",
+        "tzdata": "2026.3",
+        "whitenoise": "6.12.0"
+      },
+      "pip": "25.0.1",
+      "database": "PostgreSQL connection OK; server_version_num=160015"
+    },
+    "results": [
+      {
+        "command": ".venv/Scripts/python.exe scripts/verify_repo.py",
+        "exit_code": 0,
+        "result": "8/8 PASS",
+        "local_log": "var/r02-qa/review-verify.log",
+        "log_sha256": "3b258012a2ed1e728aecbc1def04d7534f38ea30d28ad5da17e3db0c3fb4ff3c",
+        "test_counts_observed": [
+          "107",
+          "18",
+          "73"
+        ],
+        "log_summary": "... ok\r\ntest_registered_checks_execute_with_fixed_argv_and_store_evidence (tests.harness.test_verification.RegistryTests.test_registered_checks_execute_with_fixed_argv_and_store_evidence) ... ok\r\ntest_remaining_time_limits_checks_and_prevents_process_after_deadline (tests.harness.test_verification.RegistryTests.test_remaining_time_limits_checks_and_prevents_process_after_deadline) ... ok\r\ntest_timeout_marks_budget_exceeded_and_keeps_evidence (tests.harness.test_verification.RegistryTests.test_timeout_marks_budget_exceeded_and_keeps_evidence) ... ok\r\ntest_unknown_check_is_blocked_before_any_process (tests.harness.test_verification.RegistryTests.test_unknown_check_is_blocked_before_any_process) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 73 tests in 6.924s\r\n\r\nOK\r\n\r\nPASSED: Harness test suite\r\n\r\n==============================================================================\r\nVerification summary\r\n==============================================================================\r\nPASS  [backend] Django system check\r\nPASS  [database] Migration consistency\r\nPASS  [content] Lesson source validation\r\nPASS  [content] Content quality\r\nPASS  [content] Site integrity\r\nPASS  [tests] Django test suite\r\nPASS  [tests] R03 contract suite\r\nPASS  [harness] Harness test suite\r\n\r\nRESULT: PASS (8 checks passed).\r\n"
+      },
+      {
+        "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_r02a_contract.py -v",
+        "exit_code": 0,
+        "result": "30 PASS",
+        "local_log": "var/r02-qa/review-r02a.log",
+        "log_sha256": "ed304892923e6c2ae1112f544c5a9a3c6e4303219a501056133d6ef9bbb11bb8",
+        "test_counts_observed": [
+          "30"
+        ],
+        "log_summary": "it_race) ... ok\r\ntest_hint_retry_after_expiry_keeps_original_level_and_route_scope (test_r02a_contract.TransactionFixtureTests.test_hint_retry_after_expiry_keeps_original_level_and_route_scope) ... ok\r\ntest_hint_retry_after_receipt_expiry (test_r02a_contract.TransactionFixtureTests.test_hint_retry_after_receipt_expiry) ... ok\r\ntest_no_foreign_existence_or_revision_disclosure (test_r02a_contract.TransactionFixtureTests.test_no_foreign_existence_or_revision_disclosure) ... ok\r\ntest_repeat_submit (test_r02a_contract.TransactionFixtureTests.test_repeat_submit) ... ok\r\ntest_reveal_retry_after_receipt_expiry (test_r02a_contract.TransactionFixtureTests.test_reveal_retry_after_receipt_expiry) ... ok\r\ntest_second_positive_eligibility (test_r02a_contract.TransactionFixtureTests.test_second_positive_eligibility) ... ok\r\ntest_snapshot_order_raw_data_and_get_are_immutable (test_r02a_contract.TransactionFixtureTests.test_snapshot_order_raw_data_and_get_are_immutable) ... ok\r\ntest_stale_revision (test_r02a_contract.TransactionFixtureTests.test_stale_revision) ... ok\r\ntest_submit_and_positive_credit_guards_survive_receipt_expiry (test_r02a_contract.TransactionFixtureTests.test_submit_and_positive_credit_guards_survive_receipt_expiry) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 30 tests in 1.948s\r\n\r\nOK\r\n"
+      },
+      {
+        "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_r03a_contract.py -v",
+        "exit_code": 0,
+        "result": "41 PASS",
+        "local_log": "var/r02-qa/review-r03a.log",
+        "log_sha256": "70dd1fd8ad5c470b9534b3ef3b22a7e97a23d41c9e9a813064bf2bb049c3fb0c",
+        "test_counts_observed": [
+          "41"
+        ],
+        "log_summary": "test_r03a_contract.CompletionContractTests.test_bad_contexts_and_missing_legacy_outcome_fail_closed) ... ok\r\ntest_cached_evidence_and_returned_results_are_detached (test_r03a_contract.CompletionContractTests.test_cached_evidence_and_returned_results_are_detached) ... ok\r\ntest_cross_skill_agreement_and_foreign_event_owner (test_r03a_contract.CompletionContractTests.test_cross_skill_agreement_and_foreign_event_owner) ... ok\r\ntest_full_window_fact_and_event_permutation_keeps_all_numerical_outputs (test_r03a_contract.CompletionContractTests.test_full_window_fact_and_event_permutation_keeps_all_numerical_outputs) ... ok\r\ntest_global_keys_cannot_hide_in_other_owner_or_skill_partition (test_r03a_contract.CompletionContractTests.test_global_keys_cannot_hide_in_other_owner_or_skill_partition) ... ok\r\ntest_later_reveal_does_not_revoke_finalized_independence (test_r03a_contract.CompletionContractTests.test_later_reveal_does_not_revoke_finalized_independence) ... ok\r\ntest_schema_and_literal_case_inventory (test_r03a_contract.CompletionContractTests.test_schema_and_literal_case_inventory) ... ok\r\ntest_temporal_relationships_and_max_precision (test_r03a_contract.CompletionContractTests.test_temporal_relationships_and_max_precision) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 41 tests in 0.092s\r\n\r\nOK\r\n"
+      },
+      {
+        "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_i02_*.py -v",
+        "exit_code": 0,
+        "result": "7 PASS",
+        "local_log": "var/r02-qa/review-i02.log",
+        "log_sha256": "b8dd74506b37540c1fae483fde9e9986412acf055e2fc35f815cb03add6e8695",
+        "test_counts_observed": [
+          "7"
+        ],
+        "log_summary": "ithout_copying_them_to_browser (test_i02_ui_contract.UIFixtureContractTests.test_accepted_public_exercise_shapes_dispatch_without_copying_them_to_browser) ... ok\r\ntest_four_modes_dispatch_without_forms_and_four_distinct_states (test_i02_ui_contract.UIFixtureContractTests.test_four_modes_dispatch_without_forms_and_four_distinct_states) ... ok\r\ntest_missing_unknown_and_inconsistent_descriptors_fail_safely (test_i02_ui_contract.UIFixtureContractTests.test_missing_unknown_and_inconsistent_descriptors_fail_safely) ... ok\r\ntest_new_exercise_version_and_enum_object_metadata_are_slots_not_guessed_forms (test_i02_ui_contract.UIFixtureContractTests.test_new_exercise_version_and_enum_object_metadata_are_slots_not_guessed_forms) ... ok\r\ntest_provenance_and_frozen_upstream_digests (test_i02_ui_contract.UIFixtureContractTests.test_provenance_and_frozen_upstream_digests) ... ok\r\ntest_rejects_private_keys_in_public_data_at_multiple_depths (test_i02_ui_contract.UIFixtureContractTests.test_rejects_private_keys_in_public_data_at_multiple_depths) ... ok\r\ntest_rejects_wrong_fixture_versions_missing_marks_and_duplicate_states (test_i02_ui_contract.UIFixtureContractTests.test_rejects_wrong_fixture_versions_missing_marks_and_duplicate_states) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 7 tests in 0.360s\r\n\r\nOK\r\n"
+      },
+      {
+        "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_migration_r02_*.py -v",
+        "exit_code": 0,
+        "result": "31 PASS (20 existing +11 review)",
+        "local_log": "var/r02-qa/review-contract.log",
+        "log_sha256": "000887d55420d540461e8e16da94277b6cd220be8c70f9e2861a58b9c13eb681",
+        "test_counts_observed": [
+          "31"
+        ],
+        "log_summary": "on) ... ok\r\ntest_B03_strict_boolean_wire_and_native_redirect_filter (test_migration_r02_review.ReviewContractTests.test_B03_strict_boolean_wire_and_native_redirect_filter) ... ok\r\ntest_B04_all_resource_sort_contracts_against_actual_changelist (test_migration_r02_review.ReviewContractTests.test_B04_all_resource_sort_contracts_against_actual_changelist) ... ok\r\ntest_B04_multisort_directions_and_cursor_binding (test_migration_r02_review.ReviewContractTests.test_B04_multisort_directions_and_cursor_binding) ... ok\r\ntest_B05_group_form_queryset_does_not_require_group_admin_permission (test_migration_r02_review.ReviewContractTests.test_B05_group_form_queryset_does_not_require_group_admin_permission) ... ok\r\ntest_B06_observable_publication_states_and_recovery_negatives (test_migration_r02_review.ReviewContractTests.test_B06_observable_publication_states_and_recovery_negatives) ... ok\r\ntest_B07_methods_csrf_precedence_and_fallback_from_real_observations (test_migration_r02_review.ReviewContractTests.test_B07_methods_csrf_precedence_and_fallback_from_real_observations) ... ok\r\ntest_N01_real_account_controller_and_review_coverage (test_migration_r02_review.ReviewContractTests.test_N01_real_account_controller_and_review_coverage) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 31 tests in 7.896s\r\n\r\nOK\r\n"
+      },
+      {
+        "command": ".venv/Scripts/python.exe -m pip check",
+        "exit_code": 0,
+        "result": "PASS",
+        "local_log": "var/r02-qa/review-pip.log",
+        "log_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+        "test_counts_observed": [],
+        "log_summary": "No broken requirements found.\r\n"
+      }
+    ],
+    "real_baseline_observations": {
+      "command": ".venv/Scripts/python.exe docs/acceptance/MS7-MIG-R02/tools/review_baseline.py .",
+      "exit_code": 0,
+      "HTTP_cases": 192,
+      "SQL_writes": 0,
+      "published_pages": 279,
+      "topics": 263,
+      "catalogue_query_cases": 11,
+      "database_mode": "PG55439 SET TRANSACTION READ ONLY; original working DB untouched"
+    },
+    "fresh_smoke": "Previous delivery isolated smoke retained; no schema/dependency/app change in review amendment. New final-head CI fresh smoke required separately.",
+    "CI": "Final containing HEAD/run/job/actual tested merge-ref will be recorded in PR48; unchanged baseline workflow does not run standalone R02 suite.",
+    "target_publication_state": "SYNTHETIC_ONLY; no target runtime/coherent sampling/recovery race/browser evidence claimed",
+    "failures_and_repairs": [
+      {
+        "classification": "task-owned schema/test defects",
+        "initial_result": "31 tests:2 failures+1 error",
+        "repair": "Permit root /; derive unresolved path from Django resolver rather than assumed .html suffix; assert real account clearCredentials/stateReloadNeeded rather than nonexistent generation symbol."
+      },
+      {
+        "classification": "task-owned schema defect",
+        "result": "next run:1 error",
+        "repair": "Preserve actual Cyrillic legacy redirect paths in public manifest URL pattern; reject traversal/private/unknown fields while permitting baseline Unicode."
+      }
+    ],
+    "scope": "Only R02 contracts/evidence/tests; no app/UI/frozen inputs/DDL/workflow/dependency/working DB changes; no downstream task",
+    "human_acceptance": "PENDING independent re-review; no agent dismissal or approval"
+  }
 }

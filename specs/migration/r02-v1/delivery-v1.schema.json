@@ -2235,6 +2235,819 @@
         "data",
         "meta"
       ]
+    },
+    "CatalogueGrade": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order"
+      ]
+    },
+    "CatalogueSubject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "grade_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "grade_id"
+      ]
+    },
+    "CatalogueSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "subject_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "subject_id"
+      ]
+    },
+    "CatalogueTopic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "grade_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "section_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "grade_id",
+        "subject_id",
+        "section_id",
+        "url"
+      ]
+    },
+    "PublicCatalogue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grades": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueGrade"
+          }
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueSubject"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueSection"
+          }
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueTopic"
+          }
+        }
+      },
+      "required": [
+        "grades",
+        "subjects",
+        "sections",
+        "topics"
+      ]
+    },
+    "PublicPageEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "page_type": {
+          "enum": [
+            "home",
+            "grade",
+            "subject",
+            "topic",
+            "static"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+        },
+        "canonical_path": {
+          "type": "string",
+          "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+        },
+        "delivery_path": {
+          "type": "string",
+          "pattern": "^pages/[1-9][0-9]*\\.json$"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sitemap_changefreq": {
+          "enum": [
+            "weekly",
+            "monthly"
+          ]
+        },
+        "sitemap_priority": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "id",
+        "slug",
+        "page_type",
+        "url",
+        "canonical_path",
+        "delivery_path",
+        "updated_at",
+        "sitemap_changefreq",
+        "sitemap_priority"
+      ]
+    },
+    "PublicBuildIndex": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "public-build-index-v1"
+        },
+        "release_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PublicPageEntry"
+          }
+        },
+        "catalogue": {
+          "$ref": "#/$defs/PublicCatalogue"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              },
+              "page_id": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+              },
+              "status": {
+                "const": 200
+              },
+              "canonical_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              }
+            },
+            "required": [
+              "url",
+              "page_id",
+              "status",
+              "canonical_path"
+            ]
+          }
+        },
+        "redirects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "old_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              },
+              "new_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              },
+              "is_permanent": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "old_path",
+              "new_path",
+              "is_permanent"
+            ]
+          }
+        },
+        "system_urls": {
+          "const": [
+            "/sitemap.xml",
+            "/robots.txt"
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "release_id",
+        "pages",
+        "catalogue",
+        "aliases",
+        "redirects",
+        "system_urls"
+      ]
+    },
+    "StaffGroupChoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 150
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "StaffGroupChoiceListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffGroupChoice"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "ReleasePageState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "release_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "page_published": {
+          "type": "boolean"
+        },
+        "page_digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "canonical_path": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "release_id",
+        "manifest_digest",
+        "page_published",
+        "page_digest",
+        "canonical_path"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "page_published": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "page_digest": {
+                "type": "null"
+              },
+              "canonical_path": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "page_published": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "page_digest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "canonical_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PendingPublicationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "next_release": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "stage": {
+          "enum": [
+            "VALIDATED",
+            "STAGED",
+            "DB_COMMITTED",
+            "ACTIVATED",
+            "RECOVERY_REQUIRED"
+          ]
+        },
+        "failure_code": {
+          "enum": [
+            null,
+            "ACTIVATION_FAILED",
+            "CACHE_PURGE_FAILED",
+            "HEALTH_FAILED",
+            "JOURNAL_ACK_LOST",
+            "PRECOMMIT_FAILED"
+          ]
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "operation_id",
+        "next_release",
+        "manifest_digest",
+        "stage",
+        "failure_code",
+        "updated_at"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "RECOVERY_REQUIRED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "failure_code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PublicationObservableState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "page_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "enum": [
+            "IN_SYNC",
+            "PENDING",
+            "RECOVERY_REQUIRED",
+            "UNAVAILABLE"
+          ]
+        },
+        "active": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleasePageState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "db_edition": {
+          "$ref": "#/$defs/ReleasePageState"
+        },
+        "pending": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PendingPublicationState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "page_id",
+        "observed_at",
+        "state",
+        "active",
+        "db_edition",
+        "pending"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "IN_SYNC"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "active": {
+                "$ref": "#/$defs/ReleasePageState"
+              },
+              "pending": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "PENDING",
+                  "RECOVERY_REQUIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "pending": {
+                "$ref": "#/$defs/PendingPublicationState"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "PENDING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "pending": {
+                "properties": {
+                  "stage": {
+                    "enum": [
+                      "VALIDATED",
+                      "STAGED",
+                      "DB_COMMITTED",
+                      "ACTIVATED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "UNAVAILABLE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "active": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "RECOVERY_REQUIRED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "pending": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/PendingPublicationState"
+                  },
+                  {
+                    "properties": {
+                      "stage": {
+                        "const": "RECOVERY_REQUIRED"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PublicationObservableStateResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/PublicationObservableState"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffBooleanFilter": {
+      "type": "boolean"
+    },
+    "StaffSortQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grades": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|slug|order)(?:,-?(?:title|slug|order))*)$",
+          "default": "default"
+        },
+        "subjects": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|grade|slug|order)(?:,-?(?:title|grade|slug|order))*)$",
+          "default": "default"
+        },
+        "sections": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|subject|slug|order)(?:,-?(?:title|subject|slug|order))*)$",
+          "default": "default"
+        },
+        "pages": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|page_type|grade|subject|section|order|is_published|updated_at)(?:,-?(?:title|page_type|grade|subject|section|order|is_published|updated_at))*)$",
+          "default": "default"
+        },
+        "publications": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:page|source_path|published_at)(?:,-?(?:page|source_path|published_at))*)$",
+          "default": "default"
+        },
+        "media_assets": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|file|related_page)(?:,-?(?:title|file|related_page))*)$",
+          "default": "default"
+        },
+        "redirects": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:old_path|new_path|is_permanent|is_active)(?:,-?(?:old_path|new_path|is_permanent|is_active))*)$",
+          "default": "default"
+        },
+        "users": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:username|email|first_name|last_name|is_staff)(?:,-?(?:username|email|first_name|last_name|is_staff))*)$",
+          "default": "default"
+        },
+        "groups": {
+          "type": "string",
+          "pattern": "^default$",
+          "default": "default"
+        }
+      },
+      "required": []
     }
   }
 }

@@ -94,3 +94,54 @@ Initial published HEAD/CI receipt: [publication](../acceptance/MS7-MIG-R02/publi
 Final review found missing disable-password and own-password-change behavior;
 addendum schemas/OAS and a Django-form comparison test now preserve both,
 including explicit disable confirmation and self-session rotation.
+
+
+## 2026-10-08 review amendment B01–B07/N01
+
+Read the full GitHub review5461343942 by13baybars (CHANGES_REQUESTED at
+9cc9829a0b71cb73c4fe40d002e438572f381b48), timeline and inline-thread inventory:
+one review, no other comments, no inline threads at intake. Preserved decision
+in review-intake-20261008.json; no approval dismissed/edited/inferred. Re-read
+AGENTS/PRODUCT/ARCHITECTURE/README, ADR0001/0006, canonical R02 card/scope and
+verification skill, active plan/handoff and relevant original code/admin/tests.
+Reused clean existing managed worktree/task branch, exact accepted inputc133f920
+and MIG_BASE_SHA60b341f unchanged; remote integration unchanged. Original user
+checkout files retained.
+
+Confirmed original UserAdmin combined add/change gate, unrestricted group
+queryset in permitted User edit form, nine ChangeList allowlists/defaults/directions
+and relation ordering, catalogue QueryDict/filter/casefold/grouping semantics,
+and actual HTTP middleware precedence. Guarded192 requests and metadata reads
+in existing reserved disposable PG55439 transaction READ ONLY; zero SQL writes.
+Exported complete published index279 pages/263 topics/1 home alias with catalogue
+relations and active fallback redirects, preserving Cyrillic legacy paths. This
+is baseline evidence, not working DB state or target build/activation evidence.
+
+Amended prose + closed Schema/OAS + route/parity maps together; added public
+build handoff/list wire policy and private read-only group choices/publication
+observability. No baseline/access-policy change chosen: create requires add AND
+change, Group administration unchanged, no new sortable Group column. Public
+methods and resolved/unresolved CSRF/fallback precedence preserved. Proposed
+snapshot state shows active/DB/pending/recovery without a write/CMS capability.
+Corrected UI-01 source path to actual account controller.
+
+Combined contract suite31 PASS (existing20 +review11), with original Django
+UserAdmin/ChangeList/form/query compiler and catalogue function as independent
+oracles, source-file published slug set, real observation comparisons and
+synthetic state/privacy/invalid sorting/boolean/cursor mutations. Official OAS
+validation/offline refs, all1335 input blobs/frozen pins, dependency DAG and
+old-to-new result linking remained green. Initial task-owned schema/test errors
+(root path, resolver assumption, nonexistent internal symbol, Unicode legacy
+paths) corrected without changing frozen inputs or suppressing validation.
+Full isolated verify_repo8/8, R02A30/R03A41/I027 and pip check all exit0; exact
+commands/log digests/versions in verification.json. Python3.12.10/Django5.2.16/
+DRF3.18.1/psycopg3.3.6/PG16.15. Fresh smoke from prior delivery retained because
+no schema/app/dependency change; final-head CI repeats fresh smoke independently.
+
+Updated manifests, reviewer change table/handoff/plan and PR description. Final
+containing HEAD and its own actual CI checkout/run/job evidence are in PR48,
+avoiding a circular self-pin. Standalone31 is LOCAL evidence; unchanged baseline
+CI does not run it. Synthetic pending/recovery is not target runtime validation.
+Re-review by Vladimir/Ilya required on new exact HEAD; Ilya's old
+CHANGES_REQUESTED and Vladimir pending are not self-resolved. F01–F04 unchanged.
+No merge/Issue29 closure/downstream work/production action. Plan remains active.

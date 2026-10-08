@@ -36,3 +36,28 @@ implementation is exercised. Frozen history uses exact Git blob digests;
 new contract-digests uses the explicitly LF-written new files. Existing
 integration workflow runs baseline+R02A+R03A; R02 standalone20 command is local
 evidence and a future R03 CI handoff, not falsely reported as an added CI stage.
+
+
+## Review amendment B01–B07/N01
+
+Use the same isolated environment above (PG55439, reserved DB/runtime), never
+the working database. Real observations command enforces the disposable port
+and DB name and runs SET TRANSACTION READ ONLY:
+
+```powershell
+.venv/Scripts/python.exe docs/acceptance/MS7-MIG-R02/tools/review_baseline.py .
+.venv/Scripts/python.exe -m unittest discover -s tests -p "test_migration_r02_*.py" -v
+.venv/Scripts/python.exe scripts/verify_repo.py
+.venv/Scripts/python.exe -m unittest discover -s tests -p test_r02a_contract.py -v
+.venv/Scripts/python.exe -m unittest discover -s tests -p test_r03a_contract.py -v
+.venv/Scripts/python.exe -m unittest discover -s tests -p "test_i02_*.py" -v
+.venv/Scripts/python.exe scripts/version_report.py
+.venv/Scripts/python.exe -m pip check
+```
+
+Observed local combined suite31 PASS; full8/8, R02A30/R03A41/I027 PASS.
+Baseline snapshot outputs are observations, not target runtime fixtures. Running
+the collector again changes generated observation files (real timestamps/HEAD
+response lengths may vary); do not overwrite published review evidence without
+recording a new observation round. Final containing HEAD/CI/check-out SHA are
+external in PR48; unchanged baseline CI does not run the new standalone suite.

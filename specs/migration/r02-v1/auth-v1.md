@@ -1,4 +1,4 @@
-# Authentication/security adapter addendum v1.0.0
+# Authentication/security adapter addendum v1.0.1
 
 PROPOSED. Frozen R02A DTO/OAS/policy remain byte-identical. Baseline source:
 users/http.py, users/views.py, users/services.py, users/models.py and
@@ -159,3 +159,16 @@ of credentials. Ignore stale responses using generation/request identity so
 newer input/session state wins; preserve exact raw student input and step order
 in future fixtures, never trim to hide stale conflict. GET does not increment
 mastery or start diagnostics. Three onboarding modes only store profile choice.
+
+
+## Review B07 precedence clarification
+
+Method400 for identity endpoints applies only after earlier middleware outcomes.
+Private identity routes return anonymous401 before CSRF or method handling;
+authenticated unsafe requests require CSRF before endpoint400/body parsing.
+Public identity resolved routes require unsafe CSRF first (missing/bad Origin403),
+then method400. GradeListView is DRF csrf_exempt with no authentication: GET200,
+other methods400 independent of token/Origin. Account require_GET follows CSRF:
+safe HEAD/OPTIONS/TRACE405, unsafe missing CSRF403, unsafe valid CSRF405.
+Public pages/sitemap/robots and unresolved404 fallback differ as documented in
+content-v1.md; never impose one global middleware precedence on every family.

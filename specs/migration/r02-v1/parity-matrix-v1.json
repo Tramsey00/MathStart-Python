@@ -7,7 +7,7 @@
       "area": "wire",
       "old_assertion": "8 real API operations,37 canonical planned",
       "baseline_reference": "users/urls.py; content/api_urls.py; specs/api/http-policy-v1.json",
-      "target_assertion": "Same8 routed, other29 not falsely reported implemented",
+      "target_assertion": "Same8 routed, other29 not falsely reported implemented; preserve sitemap/robots all methods and resolved/unresolved CSRF/fallback precedence",
       "implementation_tasks": [
         "V02",
         "V03"
@@ -334,7 +334,7 @@
       "area": "publish",
       "old_assertion": "slug/type/catalogue immutability and current digest conflict",
       "baseline_reference": "content/services/publishing.py; content/test_postgres_publication.py",
-      "target_assertion": "stage/journal DB+assets/SSG activation,publish/unpublish freshness",
+      "target_assertion": "stage/journal DB+assets/SSG activation,publish/unpublish freshness; private read-only observable active/db/pending/recovery state",
       "implementation_tasks": [
         "V04",
         "I02",
@@ -374,7 +374,7 @@
       "id": "UI-01",
       "area": "account",
       "old_assertion": "I03 quiet401,GET-only recovery,immutable pending retry/password disposal",
-      "baseline_reference": "static/mathstart/js/identity-controller.js; users/tests/test_i03_ui.py",
+      "baseline_reference": "static/mathstart/js/ui/account.js; users/tests/test_i03_ui.py",
       "target_assertion": "React stale generation guard and identical raw/body/key/cleanup",
       "implementation_tasks": [
         "I01",
@@ -414,7 +414,7 @@
       "area": "staff",
       "old_assertion": "nine registrations;7 content view-only;User/Group complete",
       "baseline_reference": "docs/acceptance/MS7-MIG-R01/admin-inventory.json",
-      "target_assertion": "all list/detail/search/filter/history/forms/password/roles/perms/delete-selected with baseline permissions",
+      "target_assertion": "all list/detail/search/filter/history/forms/password/roles/perms/delete-selected with baseline permissions; create requires add AND change; User form scoped group choices; strict boolean and complete sort/cursor policy",
       "implementation_tasks": [
         "V02",
         "V03",
@@ -827,6 +827,184 @@
       ],
       "r02_check": "criterion preservation only; no UI fix/browser rerun",
       "target_evidence": "NOT_IMPLEMENTED / NOT_VERIFIED_CLOSED"
+    },
+    {
+      "id": "REVIEW-B01",
+      "area": "staff_user_create",
+      "baseline_reference": "Django UserAdmin._add_view and ModelAdmin._changeform_view",
+      "old_assertion": "Django UserAdmin._add_view and ModelAdmin._changeform_view",
+      "target_assertion": "active staff requires add_user AND change_user",
+      "negative_cases": [
+        "add only403",
+        "change only403",
+        "neither403"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-B02",
+      "area": "catalogue",
+      "baseline_reference": "content/services/catalogue.py; content/views.py; templates/includes/catalogue.html; content/sitemaps.py",
+      "old_assertion": "content/services/catalogue.py; content/views.py; templates/includes/catalogue.html; content/sitemaps.py",
+      "target_assertion": "complete activated PublicBuildIndex + all published Delivery files; q/grade/subject and grouping exact",
+      "negative_cases": [
+        "unpublished/private export",
+        "unknown grade/subject incorrectly400",
+        "Unicode casefold mismatch",
+        "missing URL/topic/relation"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-B03",
+      "area": "staff_boolean",
+      "baseline_reference": "content/models.py:Redirect.is_permanent; Django BooleanFieldListFilter",
+      "old_assertion": "content/models.py:Redirect.is_permanent; Django BooleanFieldListFilter",
+      "target_assertion": "URI true/false -> strict JSON bool; native0/1 form adapter",
+      "negative_cases": [
+        "integer coercion",
+        "empty/uppercase",
+        "repeated filter"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-B04",
+      "area": "staff_sort",
+      "baseline_reference": "Django ChangeList.get_ordering/get_ordering_field; R01 admin-inventory",
+      "old_assertion": "Django ChangeList.get_ordering/get_ordering_field; R01 admin-inventory",
+      "target_assertion": "sort grammar/allowlist/directions/native relation/default ordering; signed cursor binding",
+      "negative_cases": [
+        "unknown field",
+        "duplicates",
+        "sort changed with cursor",
+        "offset/NULL/tie mismatch"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-B05",
+      "area": "staff_form",
+      "baseline_reference": "Django UserAdmin fieldsets; ModelAdmin.formfield_for_manytomany",
+      "old_assertion": "Django UserAdmin fieldsets; ModelAdmin.formfield_for_manytomany",
+      "target_assertion": "scoped group ID/name choices under change_user without Group admin rights",
+      "negative_cases": [
+        "view_user only",
+        "missing user ID404",
+        "group detail/write still forbidden"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-B06",
+      "area": "publication_observable",
+      "baseline_reference": "content/views.py; content/services/publishing.py (baseline immediate DB serving); proposed R02 journal contract",
+      "old_assertion": "content/views.py; content/services/publishing.py (baseline immediate DB serving); proposed R02 journal contract",
+      "target_assertion": "read-only sampled active/db/pending states and recovery visible to page-view staff",
+      "negative_cases": [
+        "secret/journal body leak",
+        "unauthorized",
+        "mixed edition",
+        "state GET mutation"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-B07",
+      "area": "http_methods",
+      "baseline_reference": "content/views.py; config/urls.py; content/middleware.py; users/http.py; Django CSRF middleware",
+      "old_assertion": "content/views.py; config/urls.py; content/middleware.py; users/http.py; Django CSRF middleware",
+      "target_assertion": "all baseline methods and per-family auth/CSRF/method/fallback precedence",
+      "negative_cases": [
+        "405 substitution",
+        "CSRF403 redirected",
+        "unresolved unsafe redirect suppressed"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
+    },
+    {
+      "id": "REVIEW-N01",
+      "area": "source_reference",
+      "baseline_reference": "static/mathstart/js/ui/account.js",
+      "old_assertion": "static/mathstart/js/ui/account.js",
+      "target_assertion": "UI-01 points at existing accepted account controller",
+      "negative_cases": [
+        "missing source",
+        "stale response/retry/password cleanup lost"
+      ],
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "V04",
+        "I02",
+        "I04"
+      ],
+      "r02_check": "test_migration_r02_review.py + review-baseline-observations.json; proposed publication states synthetic only",
+      "review_source": "https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942",
+      "target_evidence": "NOT_RUN / independent exact-head review required"
     }
   ],
   "acceptance_rule": "All applicable target assertions require real exact-head proof in assigned task; R02 synthetic checks do not substitute PG/browser runtime."
