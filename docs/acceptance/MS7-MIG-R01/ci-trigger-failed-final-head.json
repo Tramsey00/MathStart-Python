@@ -1,0 +1,111 @@
+{
+  "head": "f0c913e1eb7acfcde175a06cc6ab57d778acd828",
+  "base": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "run_id": 37702653809,
+  "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37702653809",
+  "job_id": 113069525484,
+  "job_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37702653809/job/113069525484",
+  "status": "completed",
+  "conclusion": "failure",
+  "checkout_sha": "6ca3c96b8f098c52cece863eefec65ef6c1db819",
+  "checkout_verified_in_job_log": true,
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Initialize containers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v7",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@v7",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install dependencies",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Runtime version report",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Connection failure is bounded and nonzero",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Fresh PostgreSQL migration/bootstrap/static/content smoke",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify repository",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "R02A HTTP and eligibility contract",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "name": "R03A CompletionFact contract",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/setup-python@v7",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/checkout@v7",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Stop containers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "selected_log_lines": [
+    "2026-10-07T23:30:34.8819248Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +6ca3c96b8f098c52cece863eefec65ef6c1db819:refs/remotes/pull/47/merge",
+    "2026-10-07T23:30:37.4851190Z  * [new ref]         6ca3c96b8f098c52cece863eefec65ef6c1db819 -> pull/47/merge",
+    "2026-10-07T23:30:37.6909274Z 6ca3c96b8f098c52cece863eefec65ef6c1db819",
+    "2026-10-07T23:30:42.0598636Z   \"python\": \"3.12.14\",",
+    "2026-10-07T23:30:42.0599666Z     \"django\": \"5.2.16\",",
+    "2026-10-07T23:30:42.0602079Z   \"database\": \"PostgreSQL connection OK; server_version_num=160015\"",
+    "2026-10-07T23:30:42.7502802Z PostgreSQL connection OK; server_version_num=160015",
+    "2026-10-07T23:32:52.9222013Z Ran 107 tests in 92.921s",
+    "2026-10-07T23:32:53.1844062Z Ran 18 tests in 0.005s",
+    "2026-10-07T23:32:53.9909471Z Ran 73 tests in 0.700s",
+    "2026-10-07T23:32:54.0059865Z RESULT: PASS (8 checks passed).",
+    "2026-10-07T23:32:54.6327417Z test_candidate_package_pins_external_schemas_and_artifacts (test_r02a_contract.HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts) ... FAIL",
+    "2026-10-07T23:32:54.8890363Z FAIL: test_candidate_package_pins_external_schemas_and_artifacts (test_r02a_contract.HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts)",
+    "2026-10-07T23:32:54.8895316Z   File \"/home/runner/work/MathStart-Python/MathStart-Python/tests/test_r02a_contract.py\", line 77, in test_candidate_package_pins_external_schemas_and_artifacts",
+    "2026-10-07T23:32:54.8896719Z AssertionError: 'e5e85afeee397ee2348b3a2020915646729b12b1a054d4b335ac62da5e3e4dc1' != '1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7'",
+    "2026-10-07T23:32:54.8897350Z - e5e85afeee397ee2348b3a2020915646729b12b1a054d4b335ac62da5e3e4dc1",
+    "2026-10-07T23:32:54.8897733Z + 1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+    "2026-10-07T23:32:54.8898905Z Ran 30 tests in 0.795s",
+    "2026-10-07T23:32:54.8899104Z FAILED (failures=1)",
+    "2026-10-07T23:32:54.8994876Z ##[error]Process completed with exit code 1."
+  ]
+}

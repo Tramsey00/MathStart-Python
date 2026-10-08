@@ -47,3 +47,13 @@ R02/I01/I03/I05 не начинались; их HARD gates и календарь
 
 Согласование: [финальный комментарий Ильи](https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271), exact reviewed HEAD daf4e6038761f8d1bf1c60f0976473d987cce230.
 Историческая assignment-PENDING запись сохранена в [prior JSON](follow-up-F01-F04-at-daf4e603.json). Реализация/проверки findings не выполнены этим оформлением.
+
+## Snapshot handoff — 08.10.2026
+
+PR46 merged; resulting MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
+Known findings, assigned13baybars owner, implementation no later than I03#42,
+I05#44 verification and original criteria remain unchanged. These findings are
+NOT IMPLEMENTED/NOT VERIFIED CLOSED by R01. R02#29 must register baseline
+exceptions and target positive criteria. Source stays8c11edad, all screenshots
+unchanged. Optional independent Vladimir F04 review remains unagreed.
+See [post-merge provenance](../post-merge-provenance-20261008.json).

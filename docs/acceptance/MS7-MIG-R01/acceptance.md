@@ -1,14 +1,20 @@
-# MS7-MIG-R01: current human acceptance and snapshot handoff
+# MS7-MIG-R01: accepted snapshot and post-merge handoff
 
-**Human records accepted at reviewed HEAD daf4e6038761f8d1bf1c60f0976473d987cce230.
-Current documentation amendment requires reviewers' confirmation at new exact HEAD.
-R01 INCOMPLETE pending that confirmation and snapshot workflow; MIG_BASE_SHA=PENDING.**
+**Snapshot accepted and merged; MIG_BASE_SHA = 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.**
+R01 baseline/ADR and independent Task Approvals are accepted for the merged snapshot.
+The new post-merge record amendment awaits task PR review/intake into integration;
+its containing HEAD is not automatically approved. No later task is started.
 
-Canonical application source8c11edadc8debc81432d1db1145feac504f09061 unchanged.
-ADR-0006 platform decision accepted by the three participants in their scopes
-on reviewed revision; target implementation is not accepted or started.
-MIG-G0 human baseline/ADR conditions recorded; current snapshot confirmation
-and accepted merge remain pending. New current HEAD/CI/tested merge-ref in [PR46](https://github.com/Tramsey00/MathStart-Python/pull/46).
+Canonical application source remains `8c11edadc8debc81432d1db1145feac504f09061`.
+Snapshot PR46 merged accepted head `e510744fcd87a22956aa71d5e22f20235e2af1c1` on
+08.10.2026 01:47:59 Europe/Moscow, resulting commit `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
+PR CI37696561717 and resulting-main CI37698445057 SUCCESS; resulting tree
+matches the tested merge-ref. [Post-merge provenance](post-merge-provenance-20261008.json).
+
+Owner Ruslan explicitly reports receiving Ilya and Vladimir's confirmation of
+the e510744 documentation update in their chat: “Да, они всё подтвердили в нашем чате”.
+This is an owner report, not a fabricated public reviewer comment or API review.
+Original GitHub approvals retain their daf4e603 SHA and timestamps.
 
 | Human record | Person / timestamp Europe/Moscow | Exact head / decision |
 | --- | --- | --- |
@@ -16,13 +22,11 @@ and accepted merge remain pending. New current HEAD/CI/tested merge-ref in [PR46
 | [Owner baseline+ADR / D01–D09](https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047773231) | Tramsey00;08.10.2026 01:05:10 | daf4e603…; APPROVED as owner, not independent self-approval |
 | [Baseline+ADR and independent Task Approval](https://github.com/Tramsey00/MathStart-Python/pull/46#pullrequestreview-5449019477) | VladimirFrolov777;08.10.2026 01:13:03 | API state APPROVED,commit_id=daf4e603…; architecture/backend/API/PostgreSQL/data ownership scope |
 
-Full reviewed head for all three:
+The three original human records refer to
 `daf4e6038761f8d1bf1c60f0976473d987cce230`.
-Live author/date/body/commit/CI evidence and scope in
-[final human receipt](final-human-acceptance-20261008.json). Old approvals retain
-that SHA; no automatic transfer to the documentation commit. Reviewers must
-confirm [this short amendment list](final-review-changes.md) at new full HEAD
-and its successful CI before ready-for-merge.
+[Final human receipt](final-human-acceptance-20261008.json) remains byte-exact
+pre-merge history. Owner-reported e510744 confirmation and actual merge are
+separate facts in [post-merge provenance](post-merge-provenance-20261008.json).
 
 ## D01–D09 human conditions at reviewed head
 
@@ -44,24 +48,34 @@ and its successful CI before ready-for-merge.
 [ADR-0006](../../adr/ADR-0006-react-fastapi-migration.md) and
 [active plan](../../exec-plans/active/MS7-MIG-R01.md) remain review inputs.
 
-## Remaining current-head and merge conditions
+## Post-merge result and remaining records workflow
 
-Both independent R01 approvals and all three baseline/ADR records exist at daf4e603.
-The documentation amendment records those facts and agreed F01–F04 criteria;
-it is not already approved. Confirm new full HEAD and CI with reviewers.
-PR stays draft/unmerged under this instruction. No migration Issue closure.
-Separate optional Vladimir F04 independent review agreement **PENDING / NOT GIVEN**;
-it is not falsely required as a new R01 approval or assigned without consent.
-F01–F04 **MANDATORY / ASSIGNED / NOT IMPLEMENTED**; their resolution belongs to I03/I05.
+MIG-G0 baseline/ADR conditions accepted for the actual merged snapshot.
+D01–D09 decisions and two independent Task Approvals retained; snapshot source
+unchanged. [Integration branch](https://github.com/Tramsey00/MathStart-Python/tree/ms7-mig-react-fastapi)
+was absent and created exactly at `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`; no later main commit used.
+R01 task branch `ms7-mig-r01-baseline` created from this integration input in
+a separate worktree for records only. Task PR → integration uses Refs #28.
 
-After reviewers' confirmation and successful current checks, an authorized
-human may mark ready and merge snapshot. Read actual resulting main commit,
-verify merge/accepted input/current checks, record resulting MIG_BASE_SHA.
-Then create ms7-mig-react-fastapi from that exact resulting commit and
-ms7-mig-r01-baseline from accepted integration input under §10, tracking
-worktrees/input SHA. These steps are not performed now; subsequent tasks still
-require their own dependencies and acceptance. Issues remain open until final
-migration integration→main workflow; do not infer closure from this snapshot.
+R01 status: **ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING**.
+Core accepted snapshot and branch setup are finished. The active plan remains
+active solely until this post-merge record amendment is reviewed and accepted
+into integration. No automatic reviewer approval for the new containing HEAD.
+No direct push to main, task/integration merge or Issue closure by this agent.
+All18 migration Issues verified OPEN; final closure belongs to §10 final
+integration→main workflow. [R02 input handoff](R02-input-handoff.md) records
+inputs only and is not permission or evidence of R02/I01 implementation.
+
+F01–F04 **MANDATORY / ASSIGNED13baybars / NOT IMPLEMENTED**:
+correct no later than I03#42; verify I05#44; R02#29 records parity exceptions.
+F04 must be readable at ordinary scale, no clipping/overlap; enlargement alone
+insufficient. Criteria and evidence remain unchanged.
+Vladimir independent F04 review **NOT GIVEN / SEPARATE AGREEMENT REQUIRED**;
+not a new blocking R01 gate and no consent inferred.
+
+R01 planned07.10, actual human acceptance/merge08.10 retained. Remaining target
+dates including MIG-G4 13.10.2026 23:59 Europe/Moscow unchanged; checks/scope
+not reduced. Staging/disposable delivery accepted; production needs its own decision.
 
 ## Historical acceptance snapshots
 
@@ -73,3 +87,31 @@ reports remain historical. Final later human records above reconcile those
 states; no earlier approval is invented. Original_result objects/frozen
 contracts/source/runtime snapshots and import material bytes are unchanged.
 Local FAIL_ENVIRONMENT remains separate from full successful reviewed-head CI.
+
+[Exact pre-merge e510744 acceptance](acceptance-at-e510744.md) and
+[pre-merge snapshot-review](snapshot-review-at-e510744.json) preserve their PENDING wording.
+
+Current post-merge record amendment is [draft PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → integration, Refs #28. Review its exact live HEAD; original approvals and owner-reported e510744 confirmation do not automatically approve this amendment.
+
+## Historical filter-attempt CI condition
+
+Owner authorized integration triggers only; [reviewer delta](pr47-review-delta.md)
+and [exact trigger/pin conflict](ci-trigger-adjustment-20261008.json).
+Original MIG-G0/baseline acceptance retained. Current task amendment cannot be
+accepted/merged with failing strict R02A historical ci.yml pin. Human resolution
+of the pin compatibility and successful exact-head CI are required; no pin/test
+rewrite or automatic reviewer approval. R03 target verification not started.
+
+## Current PR47 CI correction / remaining acceptance
+
+Owner authorized separate migration-ci.yml, integration-only PR/push, original
+ci.yml exact restore and frozen pin match. [Current correction](migration-ci-correction-20261008.json)
+supersedes the historical filter pin blocker above without changing old evidence.
+Local R02A30/I02frozen7/R03A41 PASS; actual new-head migration CI required.
+[Reviewer delta](pr47-review-delta.md): post-merge records, original workflow
+restoration and separate baseline workflow. Final exact HEAD/CI still needs
+independent Vladimir/Ilya acceptance; old daf4e603 approvals and owner-reported
+e510744 confirmation remain bound to their scopes/heads.
+Plan active until record amendment review/intake. No PR merge or Issue closure.
+
+Current correction CI: [first successful exact-head receipt](migration-ci-first-success.json). Run 37753830717 succeeded for 939bd1317fa3587dc79132544cff45212260fbc0; final containing-head CI and independent PR47 review/intake are external in PR47. Historical failed filters and earlier pending snapshots remain unchanged.

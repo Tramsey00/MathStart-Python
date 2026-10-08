@@ -15,7 +15,7 @@
           "gate": "historical accepted recorded; new MIG-G0 not accepted"
         }
       },
-      "platform_disposition": "Preserve Harness workflow/templates/domain evidence and history. Django platform decision remains current; proposed ADR0006 would supersede only platform after human acceptance.",
+      "platform_disposition": "Preserve historical R01/Harness/domain invariants. Accepted ADR0006 supersedes only platform selection for migration; current running application remains Django. Actual accepted snapshot resulting SHA and owner-reported e510744 confirmation recorded separately.",
       "migration_follow_up": [
         {
           "id": "MS7-MIG-R01",
@@ -43,12 +43,15 @@
           "docs/acceptance/MS7-MIG-R01/github-audit.json"
         ],
         "candidate_head": "recorded in snapshot PR; not accepted MIG_BASE_SHA",
-        "approval": "RECORDED_AT_DAF4E603_IN_PARTICIPANT_SCOPE; CURRENT_HEAD_CONFIRMATION_PENDING",
+        "approval": "RECORDED_AT_DAF4E603; OWNER_REPORT_CONFIRMS_E510744_DOCUMENTATION_DELTA",
         "current_human_acceptance": "docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json",
         "reviewed_R01_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
-        "new_head_confirmation": "PENDING — original approvals are exact daf4e603 only"
+        "new_head_confirmation": "OWNER_REPORTED_CONFIRMED_E510744; original GitHub approvals remain daf4e603",
+        "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "post_merge_provenance": "docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json",
+        "current_migration_status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING"
       },
-      "current_status": "HISTORICAL_ACCEPTED; platform migration PROPOSED"
+      "current_status": "HISTORICAL_ACCEPTED; MIGRATION_PLATFORM_DECISION_ACCEPTED; SNAPSHOT_MERGED; POST_MERGE_RECORDS_REVIEW_PENDING"
     },
     {
       "original_result": {
@@ -95,13 +98,16 @@
           "docs/acceptance/MS7-MIG-R01/acceptance-reconciliation-20261007.json"
         ],
         "candidate_head": "recorded in snapshot PR; not accepted MIG_BASE_SHA",
-        "approval": "RECORDED_AT_DAF4E603_IN_PARTICIPANT_SCOPE; CURRENT_HEAD_CONFIRMATION_PENDING",
+        "approval": "RECORDED_AT_DAF4E603; OWNER_REPORT_CONFIRMS_E510744_DOCUMENTATION_DELTA",
         "historical_contract_approval_url": "https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492",
         "historical_contract_approval": "RECORDED_2026-10-07",
         "approval_scope": "Existing PENDING field is new R01/platform/MIG-G0 approval, separate from reconciled original contract approval",
         "current_human_acceptance": "docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json",
         "reviewed_R01_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
-        "new_head_confirmation": "PENDING — original approvals are exact daf4e603 only"
+        "new_head_confirmation": "OWNER_REPORTED_CONFIRMED_E510744; original GitHub approvals remain daf4e603",
+        "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "post_merge_provenance": "docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json",
+        "current_migration_status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING"
       },
       "current_status": "MERGED / ISSUE_CLOSED / HEAD_CI_SUCCESS; INDEPENDENT_CONTRACT_APPROVAL_RECORDED_2026-10-07; D08 CLOSED; R01/MIG-G0 PENDING",
       "current_acceptance_reconciliation": {
@@ -133,7 +139,8 @@
           "artifact pins 17/17 PASS"
         ],
         "non_blocking_note": "Participant notes LF documentation vs CRLF pinned JSON discrepancy; frozen bytes preserved; no normalization in R01.",
-        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution."
+        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution.",
+        "historical_stage_note": "Earlier partial D02/D03 scoped receipt; superseded in current status only by final records and post-merge provenance, original receipt unchanged."
       }
     },
     {
@@ -186,13 +193,16 @@
           "docs/acceptance/MS7-MIG-R01/acceptance-reconciliation-20261007.json"
         ],
         "candidate_head": "recorded in snapshot PR; not accepted MIG_BASE_SHA",
-        "approval": "RECORDED_AT_DAF4E603_IN_PARTICIPANT_SCOPE; CURRENT_HEAD_CONFIRMATION_PENDING",
+        "approval": "RECORDED_AT_DAF4E603; OWNER_REPORT_CONFIRMS_E510744_DOCUMENTATION_DELTA",
         "historical_contract_approval_url": "https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058",
         "historical_contract_approval": "RECORDED_2026-10-07",
         "approval_scope": "Existing PENDING field is new R01/platform/MIG-G0 approval, separate from reconciled original contract approval",
         "current_human_acceptance": "docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json",
         "reviewed_R01_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
-        "new_head_confirmation": "PENDING — original approvals are exact daf4e603 only"
+        "new_head_confirmation": "OWNER_REPORTED_CONFIRMED_E510744; original GitHub approvals remain daf4e603",
+        "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "post_merge_provenance": "docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json",
+        "current_migration_status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING"
       },
       "current_status": "MERGED / ISSUE_CLOSED / HEAD_CI_SUCCESS; INDEPENDENT_CONTRACT_APPROVAL_RECORDED_2026-10-07; D08 CLOSED; R01/MIG-G0 PENDING",
       "current_acceptance_reconciliation": {
@@ -223,7 +233,8 @@
           "independent negative/parity checks PASS"
         ],
         "non_blocking_note": null,
-        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution."
+        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution.",
+        "historical_stage_note": "Earlier partial D02/D03 scoped receipt; superseded in current status only by final records and post-merge provenance, original receipt unchanged."
       }
     },
     {
@@ -284,10 +295,13 @@
           "docs/acceptance/MS7-MIG-R01/github-audit.json"
         ],
         "candidate_head": "recorded in snapshot PR; not accepted MIG_BASE_SHA",
-        "approval": "RECORDED_AT_DAF4E603_IN_PARTICIPANT_SCOPE; CURRENT_HEAD_CONFIRMATION_PENDING",
+        "approval": "RECORDED_AT_DAF4E603; OWNER_REPORT_CONFIRMS_E510744_DOCUMENTATION_DELTA",
         "current_human_acceptance": "docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json",
         "reviewed_R01_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
-        "new_head_confirmation": "PENDING — original approvals are exact daf4e603 only"
+        "new_head_confirmation": "OWNER_REPORTED_CONFIRMED_E510744; original GitHub approvals remain daf4e603",
+        "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "post_merge_provenance": "docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json",
+        "current_migration_status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING"
       },
       "current_status": "HISTORICAL_BACKEND_MIGRATION_APPROVAL_AND_CONSUMER_HANDOFF_RECORDED; target port not executed"
     },
@@ -306,7 +320,7 @@
         },
         "recovery_trace": "docs/agent-traces/local-runtime-recovery-20261007.md"
       },
-      "platform_disposition": "Canonical Django source preserved. PR27 fixes already in main. Later scoped Ilya D02/D03 comment and direct owner D02 source-freeze choice recorded; F01–F04 mandatory target follow-up, no current fixes. Three runtime evidence sources are distinct; no collective approval.",
+      "platform_disposition": "Canonical Django source preserved. Three final own baseline/ADR records and two independent approvals at daf4e603; explicit owner report of Ilya/Vladimir e510744 documentation confirmation. Accepted snapshot resulting SHA pinned separately; F01–F04 mandatory assigned target follow-up, three runtime sources distinct.",
       "migration_follow_up": [
         {
           "id": "MS7-MIG-R01",
@@ -337,28 +351,32 @@
         ],
         "source_commit": "8c11edadc8debc81432d1db1145feac504f09061",
         "candidate_sha": "snapshot PR head, separately recorded",
-        "MIG_BASE_SHA": "PENDING",
+        "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
         "current_human_acceptance": "docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json",
         "reviewed_R01_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
-        "new_head_confirmation": "PENDING — original approvals are exact daf4e603 only"
+        "new_head_confirmation": "OWNER_REPORTED_CONFIRMED_E510744; original GitHub approvals remain daf4e603",
+        "post_merge_provenance": "docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json",
+        "current_migration_status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING"
       },
-      "current_status": "HUMAN_BASELINE_ADR_AND_TWO_TASK_APPROVALS_RECORDED_AT_DAF4E603; NEW_HEAD_CONFIRMATION_AND_MERGE_PENDING",
+      "current_status": "ACCEPTED_SNAPSHOT / POST_MERGE_RECORDS_REVIEW_PENDING",
       "current_acceptance_reconciliation": {
         "receipt": "docs/acceptance/MS7-MIG-R01/ilya-20261007/current-decision.json",
         "comment_url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6046690988",
-        "scope": "13baybars D02 known-defect baseline + D03 UI/content only; direct owner D02 choice; final Task Approval/ADR not supplied"
+        "scope": "13baybars D02 known-defect baseline + D03 UI/content only; direct owner D02 choice; final Task Approval/ADR not supplied",
+        "historical_stage_note": "Earlier partial D02/D03 scoped receipt; superseded in current status only by final records and post-merge provenance, original receipt unchanged."
       },
       "current_final_human_acceptance": {
         "receipt": "docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json",
         "reviewed_head": "daf4e6038761f8d1bf1c60f0976473d987cce230",
         "F01_F04": "MANDATORY / ASSIGNED13baybars / NOT_IMPLEMENTED",
-        "MIG_BASE_SHA": "PENDING"
+        "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "post_merge_provenance": "post-merge-provenance-20261008.json"
       }
     }
   ],
   "snapshot_review_url": "https://github.com/Tramsey00/MathStart-Python/pull/46",
-  "candidate_gate_note": "MIG_BASE_SHA=PENDING. Initial head CI failed due to R01-owned pinned root-doc edits; correction restores exact input. Final current head/tested merge-ref/CI are external PR record; no historical approval inferred.",
+  "candidate_gate_note": "PR46 merged e510744 to resulting60b341f with equal tested tree; PR and resulting-main CI SUCCESS. MIG_BASE_SHA exact resulting commit, not source/head/merge-ref/later main. Initial failed CI preserved.",
   "D08": "CLOSED — verified independent R02A and R03A acceptance comments of 2026-10-07; no backdating",
   "current_UI_content_evidence": "ilya-20261007/README.md; historical original_result objects unchanged; no source/runtime snapshot overwritten",
-  "current_final_acceptance": "final-human-acceptance-20261008.json; no historical original_result rewriting"
+  "current_final_acceptance": "post-merge-provenance-20261008.json; final-human-acceptance-20261008.json preserved as pre-merge snapshot"
 }
