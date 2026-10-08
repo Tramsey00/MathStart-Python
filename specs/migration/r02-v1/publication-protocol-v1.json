@@ -1,0 +1,161 @@
+{
+  "version": "migration-r02-v1.0.2",
+  "status": "PROPOSED",
+  "evidence": "MODEL_SYNTHETIC_ONLY",
+  "authority": "PostgreSQL singleton gate and active descriptor",
+  "transition_columns": [
+    "action",
+    "from",
+    "to",
+    "domain_write",
+    "guard",
+    "repeat",
+    "denial"
+  ],
+  "transitions": [
+    {
+      "action": "claim_new",
+      "from": [
+        "IDLE"
+      ],
+      "to": "VALIDATED",
+      "domain_write": "NO_CHANGE",
+      "guard": "pending_null+active_db_equal+expected_plan",
+      "repeat": "OWNED",
+      "denial": "BUSY"
+    },
+    {
+      "action": "stage",
+      "from": [
+        "VALIDATED"
+      ],
+      "to": "STAGED",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+hashes",
+      "repeat": "STAGED",
+      "denial": "FENCED"
+    },
+    {
+      "action": "fail_precommit",
+      "from": [
+        "VALIDATED",
+        "STAGED"
+      ],
+      "to": "FAILED_PRECOMMIT",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+not_committed",
+      "repeat": "FAILED_PRECOMMIT",
+      "denial": "FENCED"
+    },
+    {
+      "action": "commit",
+      "from": [
+        "STAGED"
+      ],
+      "to": "DB_COMMITTED",
+      "domain_write": "ONCE",
+      "guard": "owner_fence_lease+expected_source_active",
+      "repeat": "DB_COMMITTED",
+      "denial": "FENCED"
+    },
+    {
+      "action": "intent",
+      "from": [
+        "DB_COMMITTED"
+      ],
+      "to": "ACTIVATING",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+committed",
+      "repeat": "ACTIVATING",
+      "denial": "FENCED"
+    },
+    {
+      "action": "activate",
+      "from": [
+        "ACTIVATING"
+      ],
+      "to": "ACTIVATED",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+full_descriptor_CAS",
+      "repeat": "ALREADY_ACTIVATED",
+      "denial": "FENCED"
+    },
+    {
+      "action": "uncertain",
+      "from": [
+        "DB_COMMITTED",
+        "ACTIVATING",
+        "ACTIVATED"
+      ],
+      "to": "RECOVERY_REQUIRED",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease",
+      "repeat": "RECOVERY_REQUIRED",
+      "denial": "FENCED"
+    },
+    {
+      "action": "reconcile_previous",
+      "from": [
+        "RECOVERY_REQUIRED"
+      ],
+      "to": "DB_COMMITTED",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+exact_previous",
+      "repeat": "NOT_APPLIED",
+      "denial": "POINTER_CONFLICT"
+    },
+    {
+      "action": "reconcile_next",
+      "from": [
+        "RECOVERY_REQUIRED"
+      ],
+      "to": "ACTIVATED",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+exact_next_operation_digest",
+      "repeat": "APPLIED",
+      "denial": "POINTER_CONFLICT"
+    },
+    {
+      "action": "complete",
+      "from": [
+        "ACTIVATED"
+      ],
+      "to": "COMPLETE",
+      "domain_write": "NO_CHANGE",
+      "guard": "owner_fence_lease+public_verified+active_db_equal",
+      "repeat": "COMPLETE",
+      "denial": "FENCED"
+    },
+    {
+      "action": "takeover",
+      "from": [
+        "VALIDATED",
+        "STAGED",
+        "DB_COMMITTED",
+        "ACTIVATING",
+        "ACTIVATED",
+        "RECOVERY_REQUIRED"
+      ],
+      "to": "precommit SAME_PHASE; committed RECOVERY_REQUIRED/OWNER_LOST preserving durable facts",
+      "domain_write": "NO_CHANGE",
+      "guard": "CAS_observed_generation+expired_or_surrendered",
+      "repeat": "OWNED",
+      "denial": "CLAIM_CONFLICT"
+    }
+  ],
+  "terminal": [
+    "COMPLETE",
+    "FAILED_PRECOMMIT"
+  ],
+  "next_admission": "pending NULL AND verified active==DB; never lease expiry alone",
+  "invariants": [
+    "one pending operation per namespace",
+    "monotone gate generation",
+    "current unexpired tuple required for every write",
+    "domain commit at most once",
+    "no stale descriptor activation or terminal release",
+    "UNKNOWN blocks next publish",
+    "active immutable release only",
+    "postcommit recovery never mutates plan or reapplies domain write"
+  ]
+}
