@@ -1,0 +1,259 @@
+[
+  {
+    "case_id": "get_csrf",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "get_csrf",
+    "candidate": {
+      "operation_id": "get_csrf",
+      "method": "GET",
+      "path": "/api/v1/auth/csrf/",
+      "headers": {},
+      "request": null,
+      "status": 200,
+      "response": {
+        "data": {
+          "csrf_token": "synthetic"
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "register",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "register",
+    "candidate": {
+      "operation_id": "register",
+      "method": "POST",
+      "path": "/api/v1/auth/register/",
+      "headers": {
+        "X-CSRFToken": "synthetic-csrf-token",
+        "Idempotency-Key": "fixture-register"
+      },
+      "request": {
+        "username": "synthetic",
+        "password": "synthetic-fixture-only"
+      },
+      "status": 201,
+      "response": {
+        "data": {
+          "id": 1,
+          "username": "synthetic",
+          "selected_grade_id": null,
+          "onboarding_mode": null,
+          "onboarding_complete": false
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "login",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "login",
+    "candidate": {
+      "operation_id": "login",
+      "method": "POST",
+      "path": "/api/v1/auth/login/",
+      "headers": {
+        "X-CSRFToken": "synthetic-csrf-token"
+      },
+      "request": {
+        "username": "synthetic",
+        "password": "synthetic-fixture-only"
+      },
+      "status": 200,
+      "response": {
+        "data": {
+          "id": 1,
+          "username": "synthetic",
+          "selected_grade_id": null,
+          "onboarding_mode": null,
+          "onboarding_complete": false
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "logout",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "logout",
+    "candidate": {
+      "operation_id": "logout",
+      "method": "POST",
+      "path": "/api/v1/auth/logout/",
+      "headers": {
+        "X-CSRFToken": "synthetic-csrf-token"
+      },
+      "request": {},
+      "status": 200,
+      "response": {
+        "data": {
+          "completed": false
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "get_me",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "get_me",
+    "candidate": {
+      "operation_id": "get_me",
+      "method": "GET",
+      "path": "/api/v1/users/me/",
+      "headers": {},
+      "request": null,
+      "status": 200,
+      "response": {
+        "data": {
+          "id": 1,
+          "username": "synthetic",
+          "selected_grade_id": null,
+          "onboarding_mode": null,
+          "onboarding_complete": false
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "update_me",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "update_me",
+    "candidate": {
+      "operation_id": "update_me",
+      "method": "PATCH",
+      "path": "/api/v1/users/me/",
+      "headers": {
+        "X-CSRFToken": "synthetic-csrf-token"
+      },
+      "request": {
+        "selected_grade_id": 5
+      },
+      "status": 200,
+      "response": {
+        "data": {
+          "id": 1,
+          "username": "synthetic",
+          "selected_grade_id": 5,
+          "onboarding_mode": null,
+          "onboarding_complete": false
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "complete_onboarding",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "complete_onboarding",
+    "candidate": {
+      "operation_id": "complete_onboarding",
+      "method": "POST",
+      "path": "/api/v1/onboarding/complete/",
+      "headers": {
+        "X-CSRFToken": "synthetic-csrf-token",
+        "Idempotency-Key": "fixture-complete_onboarding"
+      },
+      "request": {
+        "selected_grade_id": 1,
+        "mode": "START_ZERO"
+      },
+      "status": 200,
+      "response": {
+        "data": {
+          "id": 1,
+          "username": "synthetic",
+          "selected_grade_id": 1,
+          "onboarding_mode": "START_ZERO",
+          "onboarding_complete": true
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "list_grades",
+    "reference": "specs/api/fixtures/http-exchanges-v1.json",
+    "reference_operation_id": "list_grades",
+    "candidate": {
+      "operation_id": "list_grades",
+      "method": "GET",
+      "path": "/api/v1/grades/",
+      "headers": {},
+      "request": null,
+      "status": 200,
+      "response": {
+        "data": [],
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "pagination": {
+            "next_cursor": null,
+            "page_size": 1,
+            "has_more": false
+          },
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_CONTRACT_ONLY",
+    "runtime_difference": null
+  },
+  {
+    "case_id": "logout_runtime",
+    "reference": "users/views.py:logout; users/tests/test_identity.py",
+    "candidate": {
+      "operation_id": "logout",
+      "status": 200,
+      "response": {
+        "data": {
+          "completed": true
+        },
+        "meta": {
+          "request_id": "00000000-0000-4000-8000-000000000001",
+          "version": "http-v1"
+        }
+      }
+    },
+    "evidence_class": "SYNTHETIC_RUNTIME_EXPECTATION",
+    "runtime_difference": "Frozen example completed:false is allowed shape; actual runtime returns true. Both historical fixture and runtime semantics preserved."
+  }
+]

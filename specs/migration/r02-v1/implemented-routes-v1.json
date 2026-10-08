@@ -1,0 +1,1479 @@
+{
+  "version": "migration-r02-v1",
+  "input_sha": "c133f920fc14ab18a463e039f8e480e064ced81c",
+  "canonical_operation_count": 37,
+  "implemented_api_operation_count": 8,
+  "operations": [
+    {
+      "path": "/api/v1/auth/csrf/",
+      "method": "get",
+      "operation_id": "get_csrf",
+      "tag": "Identity",
+      "request": null,
+      "response": "CsrfTokenResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/auth/register/",
+      "method": "post",
+      "operation_id": "register",
+      "tag": "Identity",
+      "request": "RegisterRequest",
+      "response": "UserResponse",
+      "status": 201,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/auth/login/",
+      "method": "post",
+      "operation_id": "login",
+      "tag": "Identity",
+      "request": "LoginRequest",
+      "response": "UserResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/auth/logout/",
+      "method": "post",
+      "operation_id": "logout",
+      "tag": "Identity",
+      "request": "EmptyRequest",
+      "response": "AcknowledgementResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/users/me/",
+      "method": "get",
+      "operation_id": "get_me",
+      "tag": "Identity",
+      "request": null,
+      "response": "UserResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/users/me/",
+      "method": "patch",
+      "operation_id": "update_me",
+      "tag": "Identity",
+      "request": "ProfileUpdateRequest",
+      "response": "UserResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/onboarding/complete/",
+      "method": "post",
+      "operation_id": "complete_onboarding",
+      "tag": "Identity",
+      "request": "OnboardingRequest",
+      "response": "UserResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "users/views.py; users/http.py; users/services.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/grades/",
+      "method": "get",
+      "operation_id": "list_grades",
+      "tag": "Content",
+      "request": null,
+      "response": "GradeListResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "IMPLEMENTED",
+      "target_state": "NOT_IMPLEMENTED",
+      "source": "content/api_views.py; content/services/grade_catalogue.py",
+      "method_failure": "400 INVALID_REQUEST (private anonymous boundary401 has precedence); HEAD not an accepted success; OPTIONS400",
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/api/v1/topics/",
+      "method": "get",
+      "operation_id": "list_topics",
+      "tag": "Content",
+      "request": null,
+      "response": "TopicListResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/topics/{slug}/",
+      "method": "get",
+      "operation_id": "get_topic",
+      "tag": "Content",
+      "request": null,
+      "response": "TopicResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/topics/{slug}/exercises/",
+      "method": "get",
+      "operation_id": "list_topic_exercises",
+      "tag": "Content",
+      "request": null,
+      "response": "PublicExerciseDTOListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/exercises/{id}/",
+      "method": "get",
+      "operation_id": "get_exercise",
+      "tag": "Content",
+      "request": null,
+      "response": "PublicExerciseDTOResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/",
+      "method": "post",
+      "operation_id": "create_attempt",
+      "tag": "Attempts",
+      "request": "CreateAttemptRequest",
+      "response": "AttemptResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/",
+      "method": "get",
+      "operation_id": "list_attempts",
+      "tag": "Attempts",
+      "request": null,
+      "response": "AttemptListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/{id}/",
+      "method": "get",
+      "operation_id": "get_attempt",
+      "tag": "Attempts",
+      "request": null,
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/{id}/draft/",
+      "method": "put",
+      "operation_id": "update_draft",
+      "tag": "Attempts",
+      "request": "DraftUpdateRequest",
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/{id}/submit/",
+      "method": "post",
+      "operation_id": "submit_attempt",
+      "tag": "Attempts",
+      "request": "SubmitRequest",
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/{id}/hints/",
+      "method": "post",
+      "operation_id": "request_hint",
+      "tag": "Attempts",
+      "request": "HintRequest",
+      "response": "HintResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/{id}/reveal/",
+      "method": "post",
+      "operation_id": "reveal_attempt",
+      "tag": "Attempts",
+      "request": "RevealRequest",
+      "response": "RevealResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/attempts/{id}/abandon/",
+      "method": "post",
+      "operation_id": "abandon_attempt",
+      "tag": "Attempts",
+      "request": "AbandonRequest",
+      "response": "AttemptResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/",
+      "method": "post",
+      "operation_id": "create_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": "DiagnosticCreateRequest",
+      "response": "DiagnosticSessionResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/{id}/",
+      "method": "get",
+      "operation_id": "get_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": null,
+      "response": "DiagnosticSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/{id}/next/",
+      "method": "post",
+      "operation_id": "next_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": "NextRequest",
+      "response": "DiagnosticSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/diagnostics/sessions/{id}/finish/",
+      "method": "post",
+      "operation_id": "finish_diagnostics_session",
+      "tag": "Diagnostics",
+      "request": "FinishRequest",
+      "response": "DiagnosticSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/practice/sessions/",
+      "method": "post",
+      "operation_id": "create_practice_session",
+      "tag": "Practice",
+      "request": "PracticeCreateRequest",
+      "response": "PracticeSessionResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/practice/sessions/{id}/",
+      "method": "get",
+      "operation_id": "get_practice_session",
+      "tag": "Practice",
+      "request": null,
+      "response": "PracticeSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/practice/sessions/{id}/next/",
+      "method": "post",
+      "operation_id": "next_practice_session",
+      "tag": "Practice",
+      "request": "NextRequest",
+      "response": "PracticeSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/practice/sessions/{id}/finish/",
+      "method": "post",
+      "operation_id": "finish_practice_session",
+      "tag": "Practice",
+      "request": "FinishRequest",
+      "response": "PracticeSessionResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/progress/skills/",
+      "method": "get",
+      "operation_id": "list_progress_skills",
+      "tag": "Progress",
+      "request": null,
+      "response": "SkillProgressListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/progress/topics/",
+      "method": "get",
+      "operation_id": "list_progress_topics",
+      "tag": "Progress",
+      "request": null,
+      "response": "TopicProgressListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/progress/events/",
+      "method": "get",
+      "operation_id": "list_progress_events",
+      "tag": "Progress",
+      "request": null,
+      "response": "ProgressEventListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/progress/self-reports/",
+      "method": "post",
+      "operation_id": "create_self_report",
+      "tag": "Progress",
+      "request": "SelfReportRequest",
+      "response": "SelfReportResultResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/ai/conversations/",
+      "method": "post",
+      "operation_id": "create_conversation",
+      "tag": "Tutor",
+      "request": "ConversationRequest",
+      "response": "ConversationResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": false,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/ai/conversations/{id}/messages/",
+      "method": "get",
+      "operation_id": "list_messages",
+      "tag": "Tutor",
+      "request": null,
+      "response": "TutorMessageListResponse",
+      "status": 200,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": false,
+      "pagination": true,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/ai/conversations/{id}/messages/",
+      "method": "post",
+      "operation_id": "create_message",
+      "tag": "Tutor",
+      "request": "MessageRequest",
+      "response": "TutorMessageResponse",
+      "status": 201,
+      "access": "session",
+      "owner_scoped": true,
+      "idempotency": true,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/health/live/",
+      "method": "get",
+      "operation_id": "health_live",
+      "tag": "Operations",
+      "request": null,
+      "response": "HealthLiveResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    },
+    {
+      "path": "/api/v1/health/ready/",
+      "method": "get",
+      "operation_id": "health_ready",
+      "tag": "Operations",
+      "request": null,
+      "response": "HealthReadyResponse",
+      "status": 200,
+      "access": "anonymous",
+      "owner_scoped": false,
+      "idempotency": false,
+      "pagination": false,
+      "baseline_state": "PLANNED_FROZEN_CONTRACT",
+      "target_state": "NOT_IMPLEMENTED"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "baseline_methods": "Undecorated view: GET/HEAD and safe methods; unsafe methods only after CSRF; read-only render",
+      "source": "content/views.py:home",
+      "target_methods": "Preserve all baseline read methods through activated-snapshot gateway; unsafe CSRF verified",
+      "target_difference": null,
+      "statuses": [
+        200,
+        403,
+        404
+      ]
+    },
+    {
+      "path": "/<slug>/",
+      "baseline_methods": "Same as home, GET/HEAD verified; slug converter ASCII letters/digits/hyphen/underscore",
+      "source": "content/views.py:page_detail",
+      "target_methods": "Preserve all baseline read methods through activated-snapshot gateway; unsafe CSRF verified",
+      "target_difference": null,
+      "statuses": [
+        200,
+        403,
+        404,
+        301,
+        302
+      ],
+      "query": "karta-sajta catalogue context/filter/search; others ignored by page view"
+    },
+    {
+      "path": "/account/",
+      "baseline_methods": "GET only; HEAD/OPTIONS/POST405 (unsafe CSRF403 may precede)",
+      "source": "users/ui_views.py",
+      "target_methods": [
+        "GET"
+      ],
+      "statuses": [
+        200,
+        405
+      ],
+      "cache_control": "private, no-store"
+    },
+    {
+      "path": "/sitemap.xml",
+      "baseline_methods": "Django sitemap view no explicit method guard; GET/HEAD public, unsafe CSRF applies",
+      "source": "content/sitemaps.py; config/urls.py",
+      "target_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "statuses": [
+        200
+      ]
+    },
+    {
+      "path": "/robots.txt",
+      "baseline_methods": "Undecorated read-only view, GET/HEAD; unsafe CSRF applies",
+      "source": "content/views.py:robots_txt",
+      "target_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "statuses": [
+        200
+      ],
+      "content_type": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/__ui__/foundation/",
+      "baseline_methods": "GET only in DEBUG, absent otherwise; HEAD405",
+      "source": "content/urls.py; content/views.py:ui_foundation",
+      "target_methods": [
+        "GET"
+      ],
+      "statuses": [
+        200,
+        404,
+        405
+      ],
+      "fixture_only": true
+    },
+    {
+      "path": "/static/<path>",
+      "baseline_methods": "WhiteNoise GET/HEAD; other405; deployment/static-manifest dependent",
+      "source": "config/settings.py",
+      "target_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "statuses": [
+        200,
+        304,
+        404,
+        405
+      ]
+    },
+    {
+      "path": "/media/<path>",
+      "baseline_methods": "Django DEBUG serve GET/HEAD; production external/edge implementation dependent",
+      "source": "config/urls.py",
+      "target_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "statuses": [
+        200,
+        304,
+        404,
+        405
+      ]
+    },
+    {
+      "path": "404 redirect fallback",
+      "baseline_methods": "applies after404 for all methods; active exact path, working route wins; no self-loop",
+      "source": "content/middleware.py",
+      "target_methods": [
+        "GET",
+        "HEAD"
+      ],
+      "statuses": [
+        404,
+        301,
+        302
+      ]
+    }
+  ],
+  "staff_baseline": {
+    "registered": [
+      {
+        "model": "auth.Group",
+        "admin_class": "django.contrib.auth.admin.GroupAdmin",
+        "permissions": {
+          "view": true,
+          "add": true,
+          "change": true,
+          "delete": true
+        },
+        "actions": [
+          "delete_selected"
+        ],
+        "list_display": [
+          "__str__"
+        ],
+        "list_filter": [],
+        "search_fields": [
+          "name"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "name",
+                "permissions"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "name",
+                "permissions"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "auth.view_group",
+          "auth.add_group",
+          "auth.change_group",
+          "auth.delete_group"
+        ]
+      },
+      {
+        "model": "auth.User",
+        "admin_class": "django.contrib.auth.admin.UserAdmin",
+        "permissions": {
+          "view": true,
+          "add": true,
+          "change": true,
+          "delete": true
+        },
+        "actions": [
+          "delete_selected"
+        ],
+        "list_display": [
+          "username",
+          "email",
+          "first_name",
+          "last_name",
+          "is_staff"
+        ],
+        "list_filter": [
+          "is_staff",
+          "is_superuser",
+          "is_active",
+          "groups"
+        ],
+        "search_fields": [
+          "username",
+          "first_name",
+          "last_name",
+          "email"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "classes": [
+                "wide"
+              ],
+              "fields": [
+                "username",
+                "usable_password",
+                "password1",
+                "password2"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "username",
+                "password"
+              ]
+            }
+          ],
+          [
+            "Персональная информация",
+            {
+              "fields": [
+                "first_name",
+                "last_name",
+                "email"
+              ]
+            }
+          ],
+          [
+            "Права доступа",
+            {
+              "fields": [
+                "is_active",
+                "is_staff",
+                "is_superuser",
+                "groups",
+                "user_permissions"
+              ]
+            }
+          ],
+          [
+            "Важные даты",
+            {
+              "fields": [
+                "last_login",
+                "date_joined"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "<id>/password/",
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "auth.view_user",
+          "auth.add_user",
+          "auth.change_user",
+          "auth.delete_user"
+        ]
+      },
+      {
+        "model": "content.ContentPage",
+        "admin_class": "content.admin.ContentPageAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "title",
+          "page_type",
+          "grade",
+          "subject",
+          "section",
+          "order",
+          "is_published",
+          "updated_at"
+        ],
+        "list_filter": [
+          "page_type",
+          "is_published",
+          "grade",
+          "subject"
+        ],
+        "search_fields": [
+          "title",
+          "slug",
+          "body_html"
+        ],
+        "readonly_fields": [
+          "source_location",
+          "title",
+          "slug",
+          "page_type",
+          "is_published",
+          "grade",
+          "subject",
+          "section",
+          "order",
+          "body_html",
+          "page_css",
+          "page_js",
+          "seo_title",
+          "seo_description",
+          "created_at",
+          "updated_at"
+        ],
+        "add_fieldsets": [
+          [
+            "Основные данные",
+            {
+              "fields": [
+                "title",
+                "slug",
+                "page_type",
+                "is_published"
+              ]
+            }
+          ],
+          [
+            "Структура",
+            {
+              "fields": [
+                "grade",
+                "subject",
+                "section",
+                "order"
+              ]
+            }
+          ],
+          [
+            "Источник",
+            {
+              "fields": [
+                "source_location"
+              ]
+            }
+          ],
+          [
+            "Содержимое",
+            {
+              "fields": [
+                "body_html",
+                "page_css",
+                "page_js"
+              ]
+            }
+          ],
+          [
+            "SEO",
+            {
+              "fields": [
+                "seo_title",
+                "seo_description"
+              ]
+            }
+          ],
+          [
+            "Служебные данные",
+            {
+              "classes": [
+                "collapse"
+              ],
+              "fields": [
+                "created_at",
+                "updated_at"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            "Основные данные",
+            {
+              "fields": [
+                "title",
+                "slug",
+                "page_type",
+                "is_published"
+              ]
+            }
+          ],
+          [
+            "Структура",
+            {
+              "fields": [
+                "grade",
+                "subject",
+                "section",
+                "order"
+              ]
+            }
+          ],
+          [
+            "Источник",
+            {
+              "fields": [
+                "source_location"
+              ]
+            }
+          ],
+          [
+            "Содержимое",
+            {
+              "fields": [
+                "body_html",
+                "page_css",
+                "page_js"
+              ]
+            }
+          ],
+          [
+            "SEO",
+            {
+              "fields": [
+                "seo_title",
+                "seo_description"
+              ]
+            }
+          ],
+          [
+            "Служебные данные",
+            {
+              "classes": [
+                "collapse"
+              ],
+              "fields": [
+                "created_at",
+                "updated_at"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_contentpage",
+          "content.add_contentpage",
+          "content.change_contentpage",
+          "content.delete_contentpage"
+        ]
+      },
+      {
+        "model": "content.Grade",
+        "admin_class": "content.admin.GradeAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "title",
+          "slug",
+          "order"
+        ],
+        "list_filter": [],
+        "search_fields": [
+          "title",
+          "slug"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "slug",
+                "order",
+                "description"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "slug",
+                "order",
+                "description"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_grade",
+          "content.add_grade",
+          "content.change_grade",
+          "content.delete_grade"
+        ]
+      },
+      {
+        "model": "content.LessonPublication",
+        "admin_class": "content.admin.LessonPublicationAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "page",
+          "source_path",
+          "published_at"
+        ],
+        "list_filter": [],
+        "search_fields": [
+          "page__title",
+          "page__slug",
+          "source_path",
+          "published_digest"
+        ],
+        "readonly_fields": [
+          "page",
+          "source_path",
+          "published_digest",
+          "published_at"
+        ],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "page",
+                "source_path",
+                "published_digest",
+                "published_at"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "page",
+                "source_path",
+                "published_digest",
+                "published_at"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_lessonpublication",
+          "content.add_lessonpublication",
+          "content.change_lessonpublication",
+          "content.delete_lessonpublication"
+        ]
+      },
+      {
+        "model": "content.MediaAsset",
+        "admin_class": "content.admin.MediaAssetAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "title",
+          "file",
+          "related_page"
+        ],
+        "list_filter": [],
+        "search_fields": [
+          "title",
+          "file",
+          "alt_text"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "file",
+                "alt_text",
+                "related_page"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "file",
+                "alt_text",
+                "related_page"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_mediaasset",
+          "content.add_mediaasset",
+          "content.change_mediaasset",
+          "content.delete_mediaasset"
+        ]
+      },
+      {
+        "model": "content.Redirect",
+        "admin_class": "content.admin.RedirectAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "old_path",
+          "new_path",
+          "is_permanent",
+          "is_active"
+        ],
+        "list_filter": [
+          "is_permanent",
+          "is_active"
+        ],
+        "search_fields": [
+          "old_path",
+          "new_path"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "old_path",
+                "new_path",
+                "is_permanent",
+                "is_active"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "old_path",
+                "new_path",
+                "is_permanent",
+                "is_active"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_redirect",
+          "content.add_redirect",
+          "content.change_redirect",
+          "content.delete_redirect"
+        ]
+      },
+      {
+        "model": "content.Section",
+        "admin_class": "content.admin.SectionAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "title",
+          "subject",
+          "slug",
+          "order"
+        ],
+        "list_filter": [
+          "subject__grade",
+          "subject"
+        ],
+        "search_fields": [
+          "title",
+          "slug"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "slug",
+                "subject",
+                "order",
+                "description"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "slug",
+                "subject",
+                "order",
+                "description"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_section",
+          "content.add_section",
+          "content.change_section",
+          "content.delete_section"
+        ]
+      },
+      {
+        "model": "content.Subject",
+        "admin_class": "content.admin.SubjectAdmin",
+        "permissions": {
+          "view": true,
+          "add": false,
+          "change": false,
+          "delete": false
+        },
+        "actions": [],
+        "list_display": [
+          "title",
+          "grade",
+          "slug",
+          "order"
+        ],
+        "list_filter": [
+          "grade"
+        ],
+        "search_fields": [
+          "title",
+          "slug"
+        ],
+        "readonly_fields": [],
+        "add_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "slug",
+                "grade",
+                "order",
+                "description"
+              ]
+            }
+          ]
+        ],
+        "change_fieldsets": [
+          [
+            null,
+            {
+              "fields": [
+                "title",
+                "slug",
+                "grade",
+                "order",
+                "description"
+              ]
+            }
+          ]
+        ],
+        "admin_urls": [
+          "",
+          "add/",
+          "<path:object_id>/history/",
+          "<path:object_id>/delete/",
+          "<path:object_id>/change/",
+          "<path:object_id>/"
+        ],
+        "required_permission_codenames": [
+          "content.view_subject",
+          "content.add_subject",
+          "content.change_subject",
+          "content.delete_subject"
+        ]
+      }
+    ],
+    "permission_model_registered": false,
+    "inspection": "unsaved synthetic superuser; metadata only, no DB mutation; actual server permissions also require is_active/is_staff; content changes disabled even for superuser"
+  },
+  "admin_site_methods": {
+    "index/app_index": "GET/HEAD; model visibility permissions",
+    "login": "GET form/POST credentials+CSRF",
+    "logout": "POST only in Django5; GET405",
+    "password_change": "GET form/POST current+new password",
+    "password_change_done": "GET",
+    "autocomplete": "GET with permission",
+    "jsi18n": "GET",
+    "model_list": "GET search/filter; POST delete_selected with confirmation+CSRF",
+    "model_add/change/password/delete": "GET form/confirmation and POST submit+CSRF; Content mutations disabled",
+    "model_history": "GET with view permission"
+  },
+  "additional_delivery_staff_state": "PROPOSED_NOT_IMPLEMENTED_SEPARATE_OAS"
+}

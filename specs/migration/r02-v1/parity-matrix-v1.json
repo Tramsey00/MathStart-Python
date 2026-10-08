@@ -1,0 +1,833 @@
+{
+  "version": "migration-r02-v1",
+  "input_sha": "c133f920fc14ab18a463e039f8e480e064ced81c",
+  "rows": [
+    {
+      "id": "HTTP-01",
+      "area": "wire",
+      "old_assertion": "8 real API operations,37 canonical planned",
+      "baseline_reference": "users/urls.py; content/api_urls.py; specs/api/http-policy-v1.json",
+      "target_assertion": "Same8 routed, other29 not falsely reported implemented",
+      "implementation_tasks": [
+        "V02",
+        "V03"
+      ],
+      "negative_cases": [
+        "planned path no fake200",
+        "method mismatch",
+        "slash handling"
+      ],
+      "r02_check": "route inventory/source comparison",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "HTTP-02",
+      "area": "wire",
+      "old_assertion": "Strict raw UTF8 JSON/size65536",
+      "baseline_reference": "users/http.py; users/tests/test_identity.py",
+      "target_assertion": "Exact400 safe envelopes, no422/coercion",
+      "implementation_tasks": [
+        "V03"
+      ],
+      "negative_cases": [
+        "duplicate nested keys",
+        "NaN/Infinity",
+        "invalid UTF8",
+        "unknown field",
+        "oversize65537",
+        "nonobject"
+      ],
+      "r02_check": "baseline parser/schema negative tests",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "HTTP-03",
+      "area": "wire",
+      "old_assertion": "Generic auth401/CSRF403/owner404/conflict409/rate429/unavailable503",
+      "baseline_reference": "config/api_http.py; users/tests/test_identity.py",
+      "target_assertion": "Preserve status/code/retryability/header/preference",
+      "implementation_tasks": [
+        "V02",
+        "V03"
+      ],
+      "negative_cases": [
+        "foreign vs missing",
+        "SQL/secret leakage",
+        "stale body"
+      ],
+      "r02_check": "frozen error fixtures and independent mutations",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "GRADE-01",
+      "area": "catalogue",
+      "old_assertion": "Grade PK != school number, title exact",
+      "baseline_reference": "content/test_grades_api.py",
+      "target_assertion": "30->10,70->5,50->6 synthetic baseline test rows; no ID substitution",
+      "implementation_tasks": [
+        "V01",
+        "V02",
+        "I04"
+      ],
+      "negative_cases": [
+        "unsupported slug",
+        "empty title",
+        "bool ID",
+        "missing selected grade"
+      ],
+      "r02_check": "independent literal GradeAPITests assertion",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "GRADE-02",
+      "area": "catalogue",
+      "old_assertion": "keyset(created_at,id) default20/max100",
+      "baseline_reference": "content/services/grade_catalogue.py; content/test_grades_api.py",
+      "target_assertion": "No offset drift, same tie-break and next cursor",
+      "implementation_tasks": [
+        "V02",
+        "I04"
+      ],
+      "negative_cases": [
+        "repeated/unknown query",
+        "1 vs2 page_size",
+        "tampered/crossroute1025 cursor",
+        "deleted last row"
+      ],
+      "r02_check": "existing real PG grades suite; cursor scope negatives",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "GRADE-03",
+      "area": "catalogue",
+      "old_assertion": "Django signed cursor payload/salt/protocol",
+      "baseline_reference": "content/services/grade_catalogue.py",
+      "target_assertion": "Read legacy signed/compressed TimestampSigner cursor with private legacy key ring; same scope public:/api/v1/grades/ and salt; optionally emit versioned new cursor only after old-reader compatibility decision",
+      "implementation_tasks": [
+        "V02",
+        "V06"
+      ],
+      "negative_cases": [
+        "wrong signer key",
+        "bad offset/type/id",
+        "empty cursor"
+      ],
+      "r02_check": "synthetic legacy signing vector (not target signer)",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "AUTH-01",
+      "area": "auth",
+      "old_assertion": "registration backend150/UI30, validator defaults",
+      "baseline_reference": "users/services.py; config/settings.py; specs/ui/MS7-I03-auth-profile-onboarding.md",
+      "target_assertion": "same rejection/legacy login limits, validators/hash compatibility",
+      "implementation_tasks": [
+        "V03",
+        "I04"
+      ],
+      "negative_cases": [
+        "30/31 UI",
+        "150/151 API",
+        "common/numeric/similar/short passwords",
+        "unsupported algorithm"
+      ],
+      "r02_check": "baseline tests; deterministic PBKDF2 independent hashlib vector",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "AUTH-02",
+      "area": "auth",
+      "old_assertion": "rotate login, logout invalidates,CSRF verified",
+      "baseline_reference": "users/tests/test_identity.py",
+      "target_assertion": "opaque PG session/one relogin/no reset, Origin/Host parity",
+      "implementation_tasks": [
+        "V03",
+        "I04",
+        "V06"
+      ],
+      "negative_cases": [
+        "inactive",
+        "bad password",
+        "same-user login fixation",
+        "missing CSRF",
+        "cross origin"
+      ],
+      "r02_check": "baseline identity PG suite",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "AUTH-03",
+      "area": "receipts",
+      "old_assertion": "same digest exact persisted response/request_id",
+      "baseline_reference": "users/services.py; users/tests/test_identity.py",
+      "target_assertion": "preserve encoding/key/retention/identity and secure old scope bridge",
+      "implementation_tasks": [
+        "V01",
+        "V03",
+        "I04"
+      ],
+      "negative_cases": [
+        "changed body409",
+        "owner switch409",
+        "foreign bootstrap no replay",
+        "response+cookies lost",
+        "key reuse after expiry"
+      ],
+      "r02_check": "frozen request digest against runtime service + mutation tests",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "AUTH-04",
+      "area": "rate",
+      "old_assertion": "10/300s shared counter and trusted REMOTE_ADDR",
+      "baseline_reference": "users/tests/test_postgres.py; users/tests/test_identity.py",
+      "target_assertion": "multi-worker PG budget and post-lock time",
+      "implementation_tasks": [
+        "V03",
+        "V05"
+      ],
+      "negative_cases": [
+        "attempt11",
+        "header spoof",
+        "queued reset",
+        "unavailable DB"
+      ],
+      "r02_check": "baseline PG tests; target races pending",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "PROFILE-01",
+      "area": "profile",
+      "old_assertion": "GET no profile/evidence writes;3 modes only store choice",
+      "baseline_reference": "users/tests/test_identity.py; content/test_grades_api.py",
+      "target_assertion": "same choices/real grade ID, no diagnostics/mastery launch",
+      "implementation_tasks": [
+        "V03",
+        "I04"
+      ],
+      "negative_cases": [
+        "missing grade400",
+        "unknown mode",
+        "foreign profile404"
+      ],
+      "r02_check": "existing identity/onboarding real PG suite",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "SCHEMA-01",
+      "area": "mapping",
+      "old_assertion": "114 columns,67 constraints,70 indexes/22 migrations in R01 PG",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/runtime-data-manifest.json",
+      "target_assertion": "copy exact table/column/IDs/FK constraints and code defaults; sequence next ID safe",
+      "implementation_tasks": [
+        "V01"
+      ],
+      "negative_cases": [
+        "on_delete vs SQL action",
+        "bulk-delete PROTECT",
+        "UUID regenerate",
+        "sequence collision",
+        "timestamp precision loss"
+      ],
+      "r02_check": "complete physical/code mapping and fresh sequence reflection",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "SCHEMA-02",
+      "area": "upgrade",
+      "old_assertion": "A/B/C source profiles preserved",
+      "baseline_reference": "content/migrations; users/migrations; ADR0006",
+      "target_assertion": "reviewed disposable upgrades plus target fresh from zero,backfill missing profiles only",
+      "implementation_tasks": [
+        "V01",
+        "V06"
+      ],
+      "negative_cases": [
+        "stamp mismatch",
+        "existing profile overwrite",
+        "legacy retired rows deletion"
+      ],
+      "r02_check": "migration mapping only; target rehearsals NOT_RUN",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "TX-01",
+      "area": "locks",
+      "old_assertion": "unique receipts/user locking and publication recheck",
+      "baseline_reference": "users/services.py; content/services/publishing.py; content/test_postgres_publication.py",
+      "target_assertion": "single documented total order with sorted multirow locks/short transactions",
+      "implementation_tasks": [
+        "V01",
+        "V03",
+        "V04"
+      ],
+      "negative_cases": [
+        "deadlock order inversion",
+        "double registration",
+        "stale preflight",
+        "DDL overlap"
+      ],
+      "r02_check": "baseline PG tests plus proposed order review; no target race claim",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "CONTENT-01",
+      "area": "delivery",
+      "old_assertion": "263 topics,97 CSS,7 local JS,16 structural source pages",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/source-manifest.json",
+      "target_assertion": "complete closed publisher-reviewed HTML/math/SVG delivery/manifest",
+      "implementation_tasks": [
+        "V02",
+        "V04",
+        "I02",
+        "I03"
+      ],
+      "negative_cases": [
+        "private export",
+        "unpublished",
+        "missing asset",
+        "body digest mismatch"
+      ],
+      "r02_check": "full source hash scan + DTO negative leak cases",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "CONTENT-02",
+      "area": "SEO",
+      "old_assertion": "metadata fallbacks/canonical/home alias/sitemap/robots/redirect priority",
+      "baseline_reference": "content/models.py; content/sitemaps.py; content/views.py; content/middleware.py",
+      "target_assertion": "same published URL/head/assets, real404 and301/302 after404",
+      "implementation_tasks": [
+        "V02",
+        "I02"
+      ],
+      "negative_cases": [
+        "SPA wildcard200",
+        "unpublished in sitemap",
+        "redirect overrides working page",
+        "self loop"
+      ],
+      "r02_check": "source assertions and preserved tests; target SSG probes pending",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "CONTENT-03",
+      "area": "digests",
+      "old_assertion": "source/render/runtime exact bytes separate",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/rendered-runtime-digests.json; docs/acceptance/MS7-MIG-R01/ilya-20261007/README.md",
+      "target_assertion": "golden renderer equivalence without rewriting sources or baseline drift",
+      "implementation_tasks": [
+        "V02",
+        "V04",
+        "I03"
+      ],
+      "negative_cases": [
+        "LF/CRLF conflation",
+        "working DB repaired by bootstrap",
+        "5 payload drift hidden"
+      ],
+      "r02_check": "frozen/source checks, three-source boundary in addendum",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "PUB-01",
+      "area": "publish",
+      "old_assertion": "slug/type/catalogue immutability and current digest conflict",
+      "baseline_reference": "content/services/publishing.py; content/test_postgres_publication.py",
+      "target_assertion": "stage/journal DB+assets/SSG activation,publish/unpublish freshness",
+      "implementation_tasks": [
+        "V04",
+        "I02",
+        "I03",
+        "V05"
+      ],
+      "negative_cases": [
+        "precommit renderer fails",
+        "postcommit activation fails",
+        "lost acknowledgement",
+        "cache purge fails",
+        "concurrent stale release"
+      ],
+      "r02_check": "publication journal schema negatives + acceptance state table",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "CLI-01",
+      "area": "commands",
+      "old_assertion": "seven custom commands and documented dry-run effects",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/file-inventory.json; inventory.md",
+      "target_assertion": "same publish/bootstrap/index/source/quality/integrity + scoped public update semantics; target ordinary path Django independent",
+      "implementation_tasks": [
+        "V04",
+        "R03"
+      ],
+      "negative_cases": [
+        "bootstrap rollback called read-only",
+        "partial media copy",
+        "nonzero failure hidden",
+        "user data overwrite"
+      ],
+      "r02_check": "source/command inventory; baseline full smoke and8 checks",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "UI-01",
+      "area": "account",
+      "old_assertion": "I03 quiet401,GET-only recovery,immutable pending retry/password disposal",
+      "baseline_reference": "static/mathstart/js/identity-controller.js; users/tests/test_i03_ui.py",
+      "target_assertion": "React stale generation guard and identical raw/body/key/cleanup",
+      "implementation_tasks": [
+        "I01",
+        "I04",
+        "I05"
+      ],
+      "negative_cases": [
+        "late response overwrites newer form",
+        "retry changes key/body",
+        "password in storage/log",
+        "terminal400/401 retains memory"
+      ],
+      "r02_check": "existing semantic tests; target browser NOT_RUN",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "UI-02",
+      "area": "lifecycle",
+      "old_assertion": "all shared/local scripts and authored SVG/formulas",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/file-inventory.json",
+      "target_assertion": "mount/dispose or tested full-document for EVERY script family",
+      "implementation_tasks": [
+        "I03",
+        "I05"
+      ],
+      "negative_cases": [
+        "StrictMode double mount",
+        "old CSS persists",
+        "timer/observer listener leak",
+        "backforward/resize"
+      ],
+      "r02_check": "full inventory/future browser matrix",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "STAFF-01",
+      "area": "staff",
+      "old_assertion": "nine registrations;7 content view-only;User/Group complete",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/admin-inventory.json",
+      "target_assertion": "all list/detail/search/filter/history/forms/password/roles/perms/delete-selected with baseline permissions",
+      "implementation_tasks": [
+        "V02",
+        "V03",
+        "I02",
+        "I04"
+      ],
+      "negative_cases": [
+        "nonstaff",
+        "missing permission",
+        "content mutation even superuser",
+        "PROTECT partial bulk",
+        "hash leak"
+      ],
+      "r02_check": "exact inventory+typed separate DTO/OAS,role negative cases",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "ADAPT-01",
+      "area": "R02",
+      "old_assertion": "four modes/typed steps/frozen versions and secret split",
+      "baseline_reference": "specs/exercises/R02-exercise-architecture.md",
+      "target_assertion": "framework references only,unchanged semantics",
+      "implementation_tasks": [
+        "I01",
+        "V02",
+        "R03"
+      ],
+      "negative_cases": [
+        "answer leak",
+        "raw reorder",
+        "version changed"
+      ],
+      "r02_check": "frozen byte pins + R02A original suite",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "ADAPT-02",
+      "area": "R03",
+      "old_assertion": "pilot10/13,Decimal,event identities/replay",
+      "baseline_reference": "scripts/r03_contract_reference.py; tests/test_r03_contract.py",
+      "target_assertion": "future repository/service adapters preserve exact oracle",
+      "implementation_tasks": [
+        "R03",
+        "R05"
+      ],
+      "negative_cases": [
+        "selfedge/cycle",
+        "wrong-final misconception",
+        "GET mastery write"
+      ],
+      "r02_check": "original pure suite + dependency DAG/cycle tests",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "ADAPT-03",
+      "area": "R02A",
+      "old_assertion": "37 OAS shapes/revision/receipt/exposure",
+      "baseline_reference": "tests/test_r02a_contract.py",
+      "target_assertion": "strict framework boundary preserved,only8 real",
+      "implementation_tasks": [
+        "V03",
+        "R03",
+        "I04"
+      ],
+      "negative_cases": [
+        "default422/307",
+        "coercion",
+        "foreign404",
+        "duplicate positive"
+      ],
+      "r02_check": "OAS+schema+pins/positive negative synthetic exchange comparison",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "ADAPT-04",
+      "area": "R03A",
+      "old_assertion": "neutral history/global dual uniqueness/server authority",
+      "baseline_reference": "tests/test_r03a_contract.py",
+      "target_assertion": "future Assessment DTO->Progress mirror, no new tables now",
+      "implementation_tasks": [
+        "R03",
+        "R05"
+      ],
+      "negative_cases": [
+        "client flag grants authority",
+        "changed completion ID",
+        "neutral affects numbers"
+      ],
+      "r02_check": "unchanged R03A41 cases/parity suite",
+      "target_evidence": "NOT_RUN / requires exact implementation SHA, command/output/versions and independent review"
+    },
+    {
+      "id": "F01",
+      "area": "baseline_exception",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.json",
+      "baseline_exception": {
+        "id": "F01",
+        "severity": "P2",
+        "layer": "CSS/layout",
+        "routes": [
+          "/linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+          "/10-klass-stepennye-funkcii-i-grafiki-2-0/",
+          "/10-klass-chislovaya-okruzhnost-2-0/",
+          "/polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj/"
+        ],
+        "viewport": {
+          "width": 360,
+          "height": 800
+        },
+        "title": "Заголовки содержания уроков переполняют две узкие колонки",
+        "steps": [
+          "Открыть любой из четырёх обязательных уроков на 360×800.",
+          "Прокрутить к открытому Содержанию урока.",
+          "Сравнить длинные названия с границами карточек."
+        ],
+        "observed": "Длинные слова выходят за карточки, перекрывают стрелки/соседние карточки и обрезаются внешним overflow:hidden. В обычном уроке ширина текстового span около 28px; scrollWidth длинных слов 88–127px. На 768/1440 не воспроизведено.",
+        "source_files": [
+          "static/mathstart/css/lesson-contents.css"
+        ],
+        "evidence": [
+          "screenshots/linear-function-360-toc-clipping.jpg",
+          "screenshots/power-functions-360-toc-clipping.jpg",
+          "screenshots/number-circle-360-toc-clipping.jpg",
+          "screenshots/ordinary-number-line-360-toc-clipping.jpg"
+        ],
+        "acceptance": "Requires an explicit known-baseline exception or an agreed later correction; no fix made.",
+        "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+        "follow_up_status": "MANDATORY / ASSIGNED / NOT_IMPLEMENTED",
+        "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+        "finding_assignment_status": "AGREED — own final Ilya comment plus owner confirmation",
+        "migration_follow_up": [
+          {
+            "id": "MS7-MIG-R02",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+            "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+          },
+          {
+            "id": "MS7-MIG-I03",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+            "role": "Agreed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+          },
+          {
+            "id": "MS7-MIG-I05",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+            "role": "Agreed browser browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+          }
+        ],
+        "expected_target_results": [
+          "All four reported lesson routes at 360x800: every contents label readable within its card, no overlap with arrows/neighbours and no clipping.",
+          "Keyboard activation/focus and contents links still work; repeat at 768x1024 and 1440x1000 without regression or root overflow."
+        ],
+        "verification_owner": "13baybars — I05 browser/UI verification; separate independent Vladimir F04 review NOT AGREED",
+        "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit",
+        "implementation_owner": "13baybars",
+        "implementation_deadline": "No later than MS7-MIG-I03 (target10.10.2026 Europe/Moscow)",
+        "verification_deadline": "MS7-MIG-I05 (target12.10.2026), before final UI/content freeze",
+        "agreement_url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271"
+      },
+      "target_assertion": [
+        "All four reported lesson routes at 360x800: every contents label readable within its card, no overlap with arrows/neighbours and no clipping.",
+        "Keyboard activation/focus and contents links still work; repeat at 768x1024 and 1440x1000 without regression or root overflow."
+      ],
+      "implementation_owner": "13baybars",
+      "implementation_tasks": [
+        "I03"
+      ],
+      "verification_task": "I05",
+      "widths": [
+        360,
+        768,
+        1440
+      ],
+      "r02_check": "criterion preservation only; no UI fix/browser rerun",
+      "target_evidence": "NOT_IMPLEMENTED / NOT_VERIFIED_CLOSED"
+    },
+    {
+      "id": "F02",
+      "area": "baseline_exception",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.json",
+      "baseline_exception": {
+        "id": "F02",
+        "severity": "P2",
+        "layer": "CSS/layout/pointer",
+        "routes": [
+          "/10-klass-stepennye-funkcii-i-grafiki-2-0/"
+        ],
+        "viewport": {
+          "width": 360,
+          "height": 800
+        },
+        "title": "12 presets степенной функции сжаты в один ряд и перекрываются",
+        "steps": [
+          "Открыть степенные функции на 360×800.",
+          "Перейти к интерактиву.",
+          "Посмотреть строку выбора показателя p."
+        ],
+        "observed": "Grid сохраняет 12 колонок. Кнопки шириной 12.33px при высоте 62px, формулы перекрывают друг друга. Keyboard/aria-pressed корректны, но визуальный выбор и pointer targets неудобны. На 768/1440 перекрытие не воспроизведено.",
+        "source_files": [
+          "static/mathstart/css/widgets/power-functions.css"
+        ],
+        "evidence": [
+          "screenshots/power-functions-360-reset.jpg"
+        ],
+        "acceptance": "Requires known-baseline exception or agreed later correction.",
+        "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+        "follow_up_status": "MANDATORY / ASSIGNED / NOT_IMPLEMENTED",
+        "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+        "finding_assignment_status": "AGREED — own final Ilya comment plus owner confirmation",
+        "migration_follow_up": [
+          {
+            "id": "MS7-MIG-R02",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+            "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+          },
+          {
+            "id": "MS7-MIG-I03",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+            "role": "Agreed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+          },
+          {
+            "id": "MS7-MIG-I05",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+            "role": "Agreed browser browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+          }
+        ],
+        "expected_target_results": [
+          "At 360x800 all 12 power presets remain legible and distinct, formulas do not overlap and pointer selection identifies the intended preset.",
+          "All 12 presets keep correct math, aria-pressed and keyboard activation; repeat at 768/1440. Touch and cross-browser claims require new evidence."
+        ],
+        "verification_owner": "13baybars — I05 browser/UI verification; separate independent Vladimir F04 review NOT AGREED",
+        "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit",
+        "implementation_owner": "13baybars",
+        "implementation_deadline": "No later than MS7-MIG-I03 (target10.10.2026 Europe/Moscow)",
+        "verification_deadline": "MS7-MIG-I05 (target12.10.2026), before final UI/content freeze",
+        "agreement_url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271"
+      },
+      "target_assertion": [
+        "At 360x800 all 12 power presets remain legible and distinct, formulas do not overlap and pointer selection identifies the intended preset.",
+        "All 12 presets keep correct math, aria-pressed and keyboard activation; repeat at 768/1440. Touch and cross-browser claims require new evidence."
+      ],
+      "implementation_owner": "13baybars",
+      "implementation_tasks": [
+        "I03"
+      ],
+      "verification_task": "I05",
+      "widths": [
+        360,
+        768,
+        1440
+      ],
+      "r02_check": "criterion preservation only; no UI fix/browser rerun",
+      "target_evidence": "NOT_IMPLEMENTED / NOT_VERIFIED_CLOSED"
+    },
+    {
+      "id": "F03",
+      "area": "baseline_exception",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.json",
+      "baseline_exception": {
+        "id": "F03",
+        "severity": "P2",
+        "layer": "CSS/content legibility",
+        "routes": [
+          "/10-klass-stepennye-funkcii-i-grafiki-2-0/"
+        ],
+        "viewport": {
+          "width": 360,
+          "height": 800
+        },
+        "title": "Длинные значения таблицы степенной функции выходят за ячейку",
+        "steps": [
+          "Открыть степенные функции на 360×800 с default p=2.",
+          "Прокрутить к таблице под графиком.",
+          "Прочитать значение при x=0,25."
+        ],
+        "observed": "0,0625 имеет ширину 37.86px в ячейке 31.67px; выходит в соседнюю карточку и визуально частично перекрывается её фоном. Данные в DOM правильные. На 768/1440 дефект не воспроизведён.",
+        "source_files": [
+          "static/mathstart/css/widgets/power-functions.css"
+        ],
+        "evidence": [
+          "screenshots/power-functions-360-table-clipping.jpg"
+        ],
+        "acceptance": "Requires known-baseline exception or agreed later correction.",
+        "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+        "follow_up_status": "MANDATORY / ASSIGNED / NOT_IMPLEMENTED",
+        "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+        "finding_assignment_status": "AGREED — own final Ilya comment plus owner confirmation",
+        "migration_follow_up": [
+          {
+            "id": "MS7-MIG-R02",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+            "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+          },
+          {
+            "id": "MS7-MIG-I03",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+            "role": "Agreed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+          },
+          {
+            "id": "MS7-MIG-I05",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+            "role": "Agreed browser browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+          }
+        ],
+        "expected_target_results": [
+          "At 360x800 with default p=2, x=0.25 visibly shows full 0.0625 within its own table cell, without neighbour overlap or clipping.",
+          "All table values remain mathematically unchanged; repeat at 768/1440 and representative preset values."
+        ],
+        "verification_owner": "13baybars — I05 browser/UI verification; separate independent Vladimir F04 review NOT AGREED",
+        "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit",
+        "implementation_owner": "13baybars",
+        "implementation_deadline": "No later than MS7-MIG-I03 (target10.10.2026 Europe/Moscow)",
+        "verification_deadline": "MS7-MIG-I05 (target12.10.2026), before final UI/content freeze",
+        "agreement_url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271"
+      },
+      "target_assertion": [
+        "At 360x800 with default p=2, x=0.25 visibly shows full 0.0625 within its own table cell, without neighbour overlap or clipping.",
+        "All table values remain mathematically unchanged; repeat at 768/1440 and representative preset values."
+      ],
+      "implementation_owner": "13baybars",
+      "implementation_tasks": [
+        "I03"
+      ],
+      "verification_task": "I05",
+      "widths": [
+        360,
+        768,
+        1440
+      ],
+      "r02_check": "criterion preservation only; no UI fix/browser rerun",
+      "target_evidence": "NOT_IMPLEMENTED / NOT_VERIFIED_CLOSED"
+    },
+    {
+      "id": "F04",
+      "area": "baseline_exception",
+      "baseline_reference": "docs/acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.json",
+      "baseline_exception": {
+        "id": "F04",
+        "severity": "P3",
+        "layer": "SVG/readability",
+        "routes": [
+          "/10-klass-chislovaya-okruzhnost-2-0/"
+        ],
+        "viewport": {
+          "width": 360,
+          "height": 800
+        },
+        "title": "Мелкие подписи SVG окружности на мобильной ширине",
+        "steps": [
+          "Открыть окружность на 360×800.",
+          "Перейти к лаборатории и схемам 8/12 частей.",
+          "Прочитать подписи координат/углов внутри SVG."
+        ],
+        "observed": "SVG лаборатории около 203px шириной, статические схемы около 199px. Подписи мелкие; координаты и угол дополнительно показаны обычным текстом. Одноколоночная компоновка и controls работают.",
+        "source_files": [
+          "curriculum/10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/page.css",
+          "curriculum/10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/body.html"
+        ],
+        "evidence": [
+          "screenshots/number-circle-360-reset.jpg",
+          "screenshots/number-circle-360-svg4-viewport.jpg"
+        ],
+        "acceptance": "Non-blocking readability observation; no mathematical/functional defect identified.",
+        "source_disposition": "Known source-baseline finding retained at exact source SHA; no fix in R01; must not silently propagate to final React version",
+        "follow_up_status": "MANDATORY / ASSIGNED / NOT_IMPLEMENTED",
+        "tracking_owner": "Tramsey00 — R01 owner/coordinator",
+        "finding_assignment_status": "AGREED — own final Ilya comment plus owner confirmation",
+        "migration_follow_up": [
+          {
+            "id": "MS7-MIG-R02",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+            "role": "Record exception and positive target criteria in parity matrix; existing assignee Tramsey00"
+          },
+          {
+            "id": "MS7-MIG-I03",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/42",
+            "role": "Agreed scoped lesson/widget port correction after its gates; existing assignee 13baybars"
+          },
+          {
+            "id": "MS7-MIG-I05",
+            "issue": "https://github.com/Tramsey00/MathStart-Python/issues/44",
+            "role": "Agreed browser browser/readability/parity evidence and finding resolution; existing assignee 13baybars"
+          }
+        ],
+        "expected_target_results": [
+          "At360x800 circle lab and8/12-part SVG labels readable at ordinary scale without clipping/overlap. Enlargement alone does not satisfy this criterion.",
+          "Retain authored angles/coordinates, equivalent text readout, controls and mathematical behaviour; mandatory regression768/1440. No new numeric font/pixel threshold.",
+          "Optional independent math/content review by Vladimir requires separate agreement; no such consent is recorded."
+        ],
+        "verification_owner": "13baybars — I05 browser/UI verification; separate independent Vladimir F04 review NOT AGREED",
+        "new_verification": "NOT RUN; this import is not a target correction or cross-browser audit",
+        "implementation_owner": "13baybars",
+        "implementation_deadline": "No later than MS7-MIG-I03 (target10.10.2026 Europe/Moscow)",
+        "verification_deadline": "MS7-MIG-I05 (target12.10.2026), before final UI/content freeze",
+        "agreement_url": "https://github.com/Tramsey00/MathStart-Python/pull/46#issuecomment-6047568271"
+      },
+      "target_assertion": [
+        "At360x800 circle lab and8/12-part SVG labels readable at ordinary scale without clipping/overlap. Enlargement alone does not satisfy this criterion.",
+        "Retain authored angles/coordinates, equivalent text readout, controls and mathematical behaviour; mandatory regression768/1440. No new numeric font/pixel threshold.",
+        "Optional independent math/content review by Vladimir requires separate agreement; no such consent is recorded."
+      ],
+      "implementation_owner": "13baybars",
+      "implementation_tasks": [
+        "I03"
+      ],
+      "verification_task": "I05",
+      "widths": [
+        360,
+        768,
+        1440
+      ],
+      "r02_check": "criterion preservation only; no UI fix/browser rerun",
+      "target_evidence": "NOT_IMPLEMENTED / NOT_VERIFIED_CLOSED"
+    }
+  ],
+  "acceptance_rule": "All applicable target assertions require real exact-head proof in assigned task; R02 synthetic checks do not substitute PG/browser runtime."
+}
