@@ -43,7 +43,7 @@ class RegistryTests(unittest.TestCase):
                 self.assertFalse(call.kwargs["shell"])
                 self.assertEqual(call.args[0][0], __import__("sys").executable)
             self.assertEqual(
-                run.call_args_list[0].args[0][1:], ["scripts/verify_repo.py", "--exclude-group", "harness"]
+                run.call_args_list[0].args[0][1:], ["scripts/verify_repo.py", "--profile", "target", "--exclude-group", "harness"]
             )
             self.assertTrue((run_path / "checks/repo-baseline.stdout.txt").is_file())
             self.assertEqual(len(outcome.artifacts), 6)
