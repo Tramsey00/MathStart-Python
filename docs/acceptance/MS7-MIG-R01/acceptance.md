@@ -113,3 +113,5 @@ restoration and separate baseline workflow. Final exact HEAD/CI still needs
 independent Vladimir/Ilya acceptance; old daf4e603 approvals and owner-reported
 e510744 confirmation remain bound to their scopes/heads.
 Plan active until record amendment review/intake. No PR merge or Issue closure.
+
+Current correction CI: [first successful exact-head receipt](migration-ci-first-success.json). Run 37753830717 succeeded for 939bd1317fa3587dc79132544cff45212260fbc0; final containing-head CI and independent PR47 review/intake are external in PR47. Historical failed filters and earlier pending snapshots remain unchanged.

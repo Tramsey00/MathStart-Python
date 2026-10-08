@@ -267,3 +267,23 @@ Actual new-head migration workflow CI and independent amendment review required.
 MIG_BASE_SHA/integration60b341f unchanged. No working DB/target dependencies/
 API contracts or R02/I01/R03 implementation. Scope is existing baseline checks,
 full target verification remains R03. Active plan retained until final intake.
+
+## Separate integration CI: first corrected run, 2026-10-08
+
+[Run 37753830717](https://github.com/Tramsey00/MathStart-Python/actions/runs/37753830717)
+completed SUCCESS for head `939bd1317fa3587dc79132544cff45212260fbc0`.
+Actual checkout from job logs: `b1ababf2ec25a50d47c77239792e318d32a2ac16`,
+parents accepted base `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` and that PR head.
+Python 3.12.14, Django 5.2.16, PostgreSQL server_version_num 160015.
+
+All unchanged workflow stages succeeded: lock installation/pip check, version
+report, expected bounded connection failure, disposable PostgreSQL fresh smoke,
+verify_repo (8/8; Django 107, R03 reference 18, Harness 73), R02A 30 and R03A 41.
+Local I02 remains 7/7 PASS including frozen-upstream digests; no extra CI step
+was added. Sanitized receipt: `migration-ci-first-success.json` in R01 acceptance.
+The earlier filter-attempt FAIL records are preserved. This successful run
+belongs only to the exact head above. The containing records update will get
+its own CI; final full head, run and actual tested merge-ref are external in
+PR47, avoiding a circular self-pin. Independent Vladimir/Ilya review and human
+integration intake remain required. No application/working DB/MIG_BASE_SHA or
+integration change, Issue closure, merge or downstream implementation.

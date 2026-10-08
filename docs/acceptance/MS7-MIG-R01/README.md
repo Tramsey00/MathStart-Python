@@ -92,3 +92,5 @@ Earlier unresolved filters/FAIL records are chronological history, preserved.
 [Failed final filter-head receipt](ci-trigger-failed-final-head.json) and
 [old PR body](pr47-body-at-f0c913e.md) keep the observed failure visible.
 No later target task, pin/test/contract change or human approval transfer.
+
+Current correction CI: [first successful exact-head receipt](migration-ci-first-success.json). Run 37753830717 succeeded for 939bd1317fa3587dc79132544cff45212260fbc0; final containing-head CI and independent PR47 review/intake are external in PR47. Historical failed filters and earlier pending snapshots remain unchanged.

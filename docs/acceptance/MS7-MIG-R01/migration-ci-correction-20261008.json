@@ -68,8 +68,15 @@
     "old_PR_body": "pr47-body-at-f0c913e.md",
     "cause": "Changed entire ci.yml hash against frozen R02A manifest; existing test failed. No pin/test rewritten. User authorized separate workflow solution."
   },
-  "historical_pin_conflict_current_status": "CORRECTED_BY_EXACT_RESTORE; local R02A/I02 pass; final-head GitHub CI still required",
-  "current_HEAD_CI": "PENDING_PUBLICATION; actual final head/run/tested merge-ref external PR47 to avoid circular self-pin",
+  "historical_pin_conflict_current_status": "RESOLVED_BY_EXACT_RESTORE; local R02A/I02 and first corrected integration CI PASS",
+  "current_HEAD_CI": "Final containing records head/run/tested merge-ref must be verified externally in PR47 after publication; prior success is not proof of a newer head.",
   "acceptance": "Independent Vladimir/Ilya final-head review still required; no old approval transfer; active plan retained.",
-  "scope": "Existing baseline checks via separate integration workflow only; app/working DB/dependencies/API/contracts/MIG_BASE_SHA/integration/target R03 unchanged."
+  "scope": "Existing baseline checks via separate integration workflow only; app/working DB/dependencies/API/contracts/MIG_BASE_SHA/integration/target R03 unchanged.",
+  "first_successful_correction_CI": {
+    "receipt": "migration-ci-first-success.json",
+    "head_sha": "939bd1317fa3587dc79132544cff45212260fbc0",
+    "run_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37753830717",
+    "conclusion": "success",
+    "tested_checkout_sha": "b1ababf2ec25a50d47c77239792e318d32a2ac16"
+  }
 }
