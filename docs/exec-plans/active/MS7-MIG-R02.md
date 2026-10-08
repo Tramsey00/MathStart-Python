@@ -85,7 +85,7 @@ comparisons, not FastAPI/React/PG target correctness. Production remains separat
 - [x] Proposed addenda/route/schema/parity/§17 index and F01–F04 criteria prepared
 - [x] Baseline fresh/full checks and independent new contract suite passed locally
 - [x] Trace and concrete reviewers' handoff prepared
-- [ ] Draft PR/final CI disposition — final exact refs/links external in PR
+- [x] Draft [PR48](https://github.com/Tramsey00/MathStart-Python/pull/48) published; initial CI PASS in publication.json; final exact refs/CI external in PR
 - [ ] Владимир independent exact-head contract/backend/PG/security approval
 - [ ] Илья independent exact-head UI/content/adapter approval
 - [ ] Owner accepted integration intake after both approvals/current checks

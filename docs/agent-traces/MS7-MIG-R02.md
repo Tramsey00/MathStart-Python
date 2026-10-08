@@ -38,7 +38,7 @@ delivery schemas and separate OAS, full code/physical schema+fresh sequences,
 actual/planned route map, domain/task DAG, parity matrix with F01–F04 and
 synthetic examples. docs/acceptance/MS7-MIG-R02 has intake/full input-tree digests,
 literal old-to-new original_result copies, independent baseline probes,
-verification/handoff and reproduction tools. New standalone contract test19.
+verification/handoff and reproduction tools. New standalone contract test20.
 No existing input file modified or deleted. No FastAPI/Alembic/React/runtime/
 dependency/Harness changes, no UI fix or working DB access.
 
@@ -52,7 +52,7 @@ DB ms6_v01_smoke_ms7_mig_r02_20261008, test DB test_ms7_mig_r02_20261008;
 runtime<worktree>/var/r02-runtime. Credentials supplied only to disposable env.
 Working5432/R01container55438 unchanged. fresh_install_smoke --disposable PASS;
 verify_repo PASS8/8,Django107/R0318/Harness73; R02A30/R03A41/I027 PASS.
-New suite19 PASS: official OAS+closed JSON Schema/offline refs, all input blobs/
+New suite20 PASS: official OAS+closed JSON Schema/offline refs, all input blobs/
 original pins, mappings/DAG+negative cycle, independent frozen exchanges+
 errors/invalid/business shapes, raw parser65536/65537/UTF8/duplicates/NaN,
 literal PBKDF2 vector and independent legacy cursor HMAC, private DTO rejection,
@@ -73,7 +73,7 @@ verification at final head is recorded separately in PR, no R03 scope expansion.
 | Prompt SHA25663 characters vs input64 | Input typo; explicit user confirmation of unchanged canonical file/R01 digest before dependent contract work. |
 | One-off git show failed on Windows long path | Task assembly tooling; replaced per-file path command with ls-tree -z and cat-file batch by object IDs. No source truncation. |
 | First new suite14:3 errors+1 failure | Task-owned refs/fixture dependency shape/incomplete recorder metadata/missing assembly manifest; corrected actual OAS schema names, migration edges and all20-table mapping including django_migrations. |
-| Extended new suite pending result=None/settings initialization | Task-owned test harness errors corrected; no domain validation/pins weakened. Final19PASS. |
+| Extended new suite pending result=None/settings initialization | Task-owned test harness errors corrected; no domain validation/pins weakened. Final20PASS. |
 | First route probe lacked DJANGO_RUNTIME_ROOT | Invocation environment; missing collected static manifest, rerun with already-built isolated runtime. No working fallback/setup. |
 | Baseline probes contradicted drafted slash/body assumptions | Task contract correction: slashless301, ignored GET grades body, public unsafe200 afterCSRF recorded honestly. |
 | pip update-notice TLS probe failed after locked installation | External optional pip-version lookup only; exact lock install exit0/pip check0, no dependency skipped. |
@@ -90,3 +90,7 @@ new namespace/lock/bridge/journal and complete baseline staff permissions.
 Both independent R02 exact-head approvals and accepted integration intake are
 PENDING. Issue29 open; plan remains active. R02 status INCOMPLETE for human
 acceptance; agent delivery ready for review. No next task started or PR merge.
+Initial published HEAD/CI receipt: [publication](../acceptance/MS7-MIG-R02/publication.json).
+Final review found missing disable-password and own-password-change behavior;
+addendum schemas/OAS and a Django-form comparison test now preserve both,
+including explicit disable confirmation and self-session rotation.

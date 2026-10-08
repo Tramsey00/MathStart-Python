@@ -1001,6 +1001,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "usable_password": {
+          "type": "boolean"
+        },
         "password1": {
           "type": "string",
           "writeOnly": true
@@ -1008,11 +1011,72 @@
         "password2": {
           "type": "string",
           "writeOnly": true
+        },
+        "confirm_disable": {
+          "const": true
         }
       },
       "required": [
-        "password1",
-        "password2"
+        "usable_password"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "usable_password": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "password1",
+              "password2"
+            ],
+            "not": {
+              "required": [
+                "confirm_disable"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "usable_password": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "confirm_disable"
+            ]
+          }
+        }
+      ]
+    },
+    "OwnPasswordChangeRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "old_password": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "new_password1": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "new_password2": {
+          "type": "string",
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "old_password",
+        "new_password1",
+        "new_password2"
       ]
     },
     "DeleteConfirmationRequest": {

@@ -34,5 +34,5 @@ when auditing an approved digest. Schema query starts REPEATABLE READ READ ONLY,
 endsROLLBACK; HTTP probes assert no domain INSERT/UPDATE/DELETE. No target
 implementation is exercised. Frozen history uses exact Git blob digests;
 new contract-digests uses the explicitly LF-written new files. Existing
-integration workflow runs baseline+R02A+R03A; R02 standalone19 command is local
+integration workflow runs baseline+R02A+R03A; R02 standalone20 command is local
 evidence and a future R03 CI handoff, not falsely reported as an added CI stage.

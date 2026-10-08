@@ -7404,6 +7404,185 @@
         }
       }
     },
+    "/api/v1/staff/password_change/": {
+      "post": {
+        "operationId": "change_own_staff_password",
+        "x-baseline-state": "NOT_IMPLEMENTED_ADAPTER",
+        "x-required-permission": "is_active && is_staff",
+        "responses": {
+          "200": {
+            "description": "Validated safe response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "delivery-v1.schema.json#/$defs/StaffUserDTOResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/AuthenticationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/ForbiddenError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/NotFoundError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/ConflictEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              },
+              "Retry-After": {
+                "required": true,
+                "description": "Whole remaining seconds >=1",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/RateLimitError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Safe frozen error envelope; Retry-After mandatory for429",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "private, no-store"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../api/schemas/dto-v1.schema.json#/$defs/UnavailableError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRFToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "delivery-v1.schema.json#/$defs/OwnPasswordChangeRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/staff/permission_choices/": {
       "get": {
         "operationId": "list_staff_permission_choices",

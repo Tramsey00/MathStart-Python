@@ -32,6 +32,21 @@ Staff creates use auth.add_user; edit/password uses auth.change_user; delete
 requires auth.delete_user. Groups change permission assignments with
 auth.change_group. Related object selectors and choices mirror baseline forms.
 
+Existing UserAdmin password form supports setting a usable password and disabling
+password authentication. usable_password=true requires matching password1/2 and
+the baseline password validators; false requires explicit confirm_disable=true
+(Django's unset-password confirmation), stores the unusable marker, and discards
+password fields. Disabling requires the existing user to have a usable password,
+as in the baseline form; otherwise return a safe state conflict. Never accept an
+accidental unchecked/omitted disable choice.
+The admin site's own password change is also required: active staff may submit
+old_password/new_password1/new_password2 without auth.change_user. Verify the old
+password, matching new values and validators; preserve the current session with
+update_session_auth_hash and rotation, invalidating other sessions. Changing
+another user's password does not rotate the actor's session. No response echoes
+password fields, encoded password, or session tokens. These are adapter contracts,
+not new runtime endpoints.
+
 StaffUserDTO includes only safe id, username, names, email, role/active flags,
 date_joined/last_login, group IDs/direct permission IDs, has_usable_password;
 never encoded_password/session/receipt/key_digest. Password request is writeOnly

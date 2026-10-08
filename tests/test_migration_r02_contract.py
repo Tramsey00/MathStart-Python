@@ -310,6 +310,30 @@ class MigrationContractTests(unittest.TestCase):
         self.assertEqual(signing.loads(actual,key=key,salt=salt),payload)
         with self.assertRaises(signing.BadSignature):signing.loads(actual,key=key,salt='other')
 
+    def test_staff_password_disable_and_own_change_against_django_forms(self):
+        import django
+        from django.apps import apps
+        if not apps.ready: django.setup()
+        from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
+        from django.contrib.auth.models import User
+        user=User(username='synthetic-staff',password='pbkdf2_sha256$1000$synthetic$unused',is_staff=True)
+        self.assertIn('usable_password',AdminPasswordChangeForm(user).fields)
+        self.assertEqual(set(PasswordChangeForm(user).fields),{'old_password','new_password1','new_password2'})
+        validator=new_validator('PasswordChangeRequest')
+        for value in [{'usable_password':False,'confirm_disable':True},
+                      {'usable_password':True,'password1':'synthetic-only','password2':'synthetic-only'}]:
+            validator.validate(value)
+        for value in [{}, {'usable_password':False}, {'usable_password':False,'confirm_disable':False},
+                      {'usable_password':True,'password1':'synthetic-only'},
+                      {'usable_password':True,'password1':'x','password2':'x','confirm_disable':True},
+                      {'usable_password':0,'confirm_disable':True}]:
+            with self.assertRaises(ValidationError):validator.validate(value)
+        new_validator('OwnPasswordChangeRequest').validate({'old_password':'synthetic-old','new_password1':'synthetic-new','new_password2':'synthetic-new'})
+        oas=load(PACKAGE/'delivery-staff-v1.openapi.json')
+        self.assertEqual(oas['paths']['/api/v1/staff/password_change/']['post']['x-required-permission'],'is_active && is_staff')
+        props=load(PACKAGE/'delivery-v1.schema.json')['$defs']['StaffUserDTO']['properties']
+        self.assertTrue({'password','password1','old_password','new_password1'}.isdisjoint(props))
+
     def test_strict_raw_parser_negative_cases_and_size_boundary(self):
         from types import SimpleNamespace
         from users.http import parse_request,APIError

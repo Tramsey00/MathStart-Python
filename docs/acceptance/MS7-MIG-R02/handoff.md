@@ -5,7 +5,7 @@ PROPOSED / independent approval pending; delivery prepared, not accepted R02.
 Exact accepted input:c133f920fc14ab18a463e039f8e480e064ced81c. MIG_BASE_SHA unchanged:
 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7. [Intake](intake.json) records live upstream
 acceptance and confirmed spec digest. Final containing HEAD, PR/CI URLs and
-actual tested merge-ref are in the task draft PR/final response, avoiding a
+actual tested merge-ref are in [draft PR48](https://github.com/Tramsey00/MathStart-Python/pull/48)/final response, avoiding a
 circular self-pin. No approval transferred from R01.
 
 Start with [contract index](../../../specs/migration/r02-v1/README.md),
@@ -42,7 +42,7 @@ policy is a separate explicit decision, not hidden parity. New namespace/bridge/
 journal/lock protocol require approval at this R02 HEAD; they are not implementations.
 
 Local baseline PASS8/8 (Django107/R0318/Harness73), fresh PG smoke, R02A30,
-R03A41/I027 and new R02 suite19. Synthetic exchanges include all8 real API
+R03A41/I027 and new R02 suite20. Synthetic exchanges include all8 real API
 examples, historical errors/invalid shapes/future business UNSUPPORTED/202/DEGRADED,
 with negative mutations. Independent expectations come from frozen artifacts,
 literal old tests/current parser and PBKDF2/HMAC primitives. Target runtime,

@@ -88,8 +88,11 @@ One HTTPS origin, opaque PostgreSQL-backed sessions, HttpOnly session cookie,
 Secure in deployment, SameSite=Lax (CSRF cookie readable by bootstrap flow).
 Rotate on every successful login, including same-user login; register establishes
 session only if unauthenticated; exact authenticated register replay does not
-rotate. Logout flushes/revokes, expiry/revocation and password auth-hash change
-invalidate sessions. One explicit re-login at cutover is accepted; no password
+rotate. Logout flushes/revokes; expiry/revocation and password auth-hash changes
+invalidate other sessions. For staff changing their own password, preserve
+Django update_session_auth_hash: rotate and update the current authenticated
+session after success, while other sessions become invalid. One explicit
+re-login at cutover is accepted; no password
 reset. Session TTL baseline defaults1209600 seconds and CSRF cookie31449600
 unless deployment settings differ and are explicitly recorded by V03.
 Host allowlist/Origin+Referer checks, no permissive CORS or browser JWT/storage.
