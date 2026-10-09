@@ -1,0 +1,36 @@
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -41,6 +41,7 @@
+       - name: Install dependencies
+         run: |
+           python -m pip install --no-deps -r requirements.lock
++          python -m pip install --no-deps -r backend/requirements.lock
+           python -m pip check
+       - name: Runtime version report
+         run: python scripts/version_report.py
+--- a/.github/workflows/migration-ci.yml
++++ b/.github/workflows/migration-ci.yml
+@@ -19,6 +19,7 @@
+           POSTGRES_PASSWORD: disposable-ci-only-password
+         ports:
+           - 5432:5432
++          - 55441:5432
+         options: >-
+           --health-cmd="pg_isready -U mathstart_ci -d ms6_v01_smoke_ci"
+           --health-interval=2s --health-timeout=3s --health-retries=30
+@@ -41,6 +42,7 @@
+       - name: Install dependencies
+         run: |
+           python -m pip install --no-deps -r requirements.lock
++          python -m pip install --no-deps -r backend/requirements.lock
+           python -m pip check
+       - name: Runtime version report
+         run: python scripts/version_report.py
+@@ -58,3 +60,7 @@
+         run: python -m unittest discover -s tests -p test_r02a_contract.py -v
+       - name: R03A CompletionFact contract
+         run: python -m unittest discover -s tests -p test_r03a_contract.py -v
++      - name: V01 persistence and F1/F2/F3 remediation on disposable PostgreSQL
++        env:
++          MATHSTART_V01_TEST_ADMIN_URL: postgresql+psycopg://mathstart_ci:disposable-ci-only-password@127.0.0.1:55441/postgres
++        run: python -m unittest backend.tests.test_unit backend.tests.test_postgres backend.tests.test_remediation -v

@@ -1,0 +1,109 @@
+{
+  "task": "MS7-MIG-V01",
+  "date": "2026-10-09",
+  "timezone": "Europe/Moscow",
+  "status": "BLOCKED_INCOMPLETE",
+  "input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "final_local_head": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "branch": "ms7-mig-v01-schema",
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "blocker": "finding-B01.md",
+  "versions": {
+    "python": "3.12.10",
+    "SQLAlchemy": "2.0.46",
+    "alembic": "1.18.4",
+    "psycopg": "3.3.6",
+    "Django": "5.2.16",
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "Docker": "29.8.0",
+    "Compose": "5.5.1"
+  },
+  "isolation": {
+    "container": "ms7-mig-v01-pg-20261009",
+    "id": "fa77de451fb4ea18ffe92f063b627cf473af734aea093dba107a6161d107513f",
+    "label": "mathstart.task=MS7-MIG-V01",
+    "port": 55441,
+    "storage": "tmpfs",
+    "final_container_state": "STOPPED",
+    "remaining_test_databases": 0,
+    "production_or_shared_db_access": false
+  },
+  "checks": [
+    {
+      "command": "python -m pip check (task venv)",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "python -m unittest backend.tests.test_unit -v (first run)",
+      "exit_code": 1,
+      "status": "FAIL",
+      "methods": 10,
+      "passed": 9,
+      "failures": 1,
+      "note": "Deferred FK test timing fixed"
+    },
+    {
+      "command": "python -m unittest backend.tests.test_unit backend.tests.test_postgres -v",
+      "exit_code": 1,
+      "status": "FAIL",
+      "methods": 16,
+      "unit_methods_passed": 10,
+      "pg_error_subcases": 15,
+      "note": "PG reservation marker/legacy fixture configuration fixed afterwards"
+    },
+    {
+      "command": "python -m unittest backend.tests.test_postgres.PostgreSQLTests.test_fresh_twice_separate_databases_no_django backend.tests.test_postgres.PostgreSQLTests.test_upgrade_profiles_preserve_data_defaults_epoch_sequences -v",
+      "exit_code": 1,
+      "status": "FAIL",
+      "methods": 2,
+      "errors": 2,
+      "B_C_subcases": "completed without error inside failing method",
+      "fresh": "FAIL columns",
+      "A": "FAIL CHECK equality"
+    },
+    {
+      "command": "schema diagnostic (var/ms7-mig-v01-schema-diag.py)",
+      "exit_code": 0,
+      "status": "PASS_DIAGNOSTIC_NOT_ACCEPTANCE",
+      "finding": "three int4/int8 conflicts; CHECK cast deparse difference"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "status": "PASS",
+      "scope": "existing tracked files; new-file whitespace checked separately"
+    },
+    {
+      "command": "python scripts/verify_repo.py",
+      "status": "NOT_RUN",
+      "reason": "Stopped at contract blocker; no baseline runtime bootstrapped"
+    }
+  ],
+  "safety_audit": {
+    "tracked_diff_empty": true,
+    "new_python_ast": "PASS",
+    "new_file_trailing_whitespace": [],
+    "R02_git_digest_failures": [],
+    "R02_checkout_digest_differences": [],
+    "checkout_note": "Git worktree newline conversion, if any, recorded separately; task did not modify frozen files",
+    "no_commit_push_pr": true,
+    "existing_django_migrations_unchanged": true,
+    "root_frontend_CI_unchanged": true
+  },
+  "not_verified": [
+    "successful fresh twice",
+    "successful A",
+    "corrected full PostgreSQL suite",
+    "protocol schema drift detection",
+    "real lock/collector races",
+    "backend-only fresh venv",
+    "guarded CLI smoke",
+    "canonical baseline verification",
+    "post-setval connection-loss reconciliation",
+    "historical MS6-V02 record",
+    "independent Ruslan DDL/task review",
+    "final CI"
+  ],
+  "partial_implementation_warning": "Do not deploy/adopt/stamp onto real DBs. B01 needs owner decision before implementation resumes."
+}
