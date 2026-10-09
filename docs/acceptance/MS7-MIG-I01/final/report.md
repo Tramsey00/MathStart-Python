@@ -2,12 +2,12 @@
 
 Дата: 09.10.2026, Europe/Moscow. Владелец:13baybars.
 Issue: https://github.com/Tramsey00/MathStart-Python/issues/40.
-Task остаётся INCOMPLETE до публикации exact implementation SHA, CI и независимой приёмки.
+Task остаётся INCOMPLETE до PR CI и независимой приёмки; implementation SHA указан ниже.
 
-Accepted input / текущий HEAD: `8d958aeeb17da46839722441425ccbb5889e2ab7`.
+Accepted input / HEAD на момент verification: `8d958aeeb17da46839722441425ccbb5889e2ab7`.
 MIG_BASE provenance: `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
 Canonical appearance: `8c11edadc8debc81432d1db1145feac504f09061`.
-Ветка ms7-mig-i01-foundation; отдельный task-worktree. HEAD не содержит ещё не закоммиченную реализацию; точные текущие байты привязаны [manifest](content-manifest.json).
+Ветка ms7-mig-i01-foundation; отдельный task-worktree. На момент verification HEAD ещё не содержал реализацию; после commit точные текущие байты привязаны [manifest](content-manifest.json).
 
 ## Результаты
 
@@ -132,11 +132,15 @@ Rollback после публикации:revert foundation commit(s),сохра�
 
 Локальный foundation объём реализован и проверки прошли в указанных пределах.
 Пакет подготовлен к разрешению commit/push/PR→ms7-mig-react-fastapi,Refs#40.
-Это не завершённая приёмка:implementation SHA/CI/PG-specific evidence/hover/reviews pending.
-Никаких commit/push/PR/merge/Issue mutations не выполнялось.
+Это не завершённая приёмка:PR CI/PG-specific evidence/hover/reviews pending. Implementation SHA привязан ниже.
+На момент verification checkpoint никаких commit/push/PR/merge/Issue mutations не выполнялось. Последующий authorized publication binding указан ниже.
 
 Evidence recorder correction:initial exit1 was a Git CRLF-to-LF conversion warning, not trailing whitespace. Process-local core.safecrlf=false suppresses that warning; no config or original command log was modified. Windows command-length limit was handled by bounded documentation writes.
 
 ## Authorized publication preflight — 2026-10-09
 
 Owner accepted this verification checkpoint and authorized commit/push/PR, not independent I01 acceptance. Integration remains exact accepted input; no conflicting remote task branch/PR; login13baybars. Inventory175 files (33 screenshots) passed scoped privacy/security audit. For Git publication, only physical CRLF in final repository-commands.json/repository-isolation.json wrappers was normalized to LF per existing .gitattributes. Parsed JSON and embedded raw outputs are identical. Historical checkpoint1/2 unchanged. Manifest refreshed; code/tests need no rerun for this formatting-only change. Final recorder is a pre-commit checkpoint tool; after publication validate current hashes against the Git tree rather than refreshing historical capture records.
+
+## Implementation SHA binding
+
+Implementation commit: `c54a98b91195458b22a14aa4a6cbf14c7fe57e28` (parent exact accepted input). All88 tested functional frontend files remain byte-identical to checkpoint2. Current §17 index/matrix bind target evidence to this SHA. This follow-up commit changes only publication records and hashes; the PR records its final candidate HEAD. Captured command/screenshot/source-audit records retain their original pre-commit timestamps/status; they are not relabelled as post-commit tests or CI. Independent Task Approval, PR CI and tested merge-ref remain pending here.

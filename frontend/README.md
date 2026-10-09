@@ -1,11 +1,11 @@
 # MS7-MIG-I01 frontend foundation
 
-Final verification checkpoint: functional foundation locally verified; task INCOMPLETE pending exact implementation SHA/CI and independent review. PostgreSQL-specific checks and dedicated hover remain unverified.
+Final verification checkpoint: functional foundation locally verified; task INCOMPLETE pending PR CI and independent review. PostgreSQL-specific checks and dedicated hover remain unverified.
 
 Accepted integration input: 8d958aeeb17da46839722441425ccbb5889e2ab7.
 MIG_BASE_SHA: 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7 (provenance only).
 Canonical Django source appearance: 8c11edadc8debc81432d1db1145feac504f09061.
-No implementation commit exists. Current bytes are bound by the final content manifest; checkpoint1/2 are preserved historical snapshots.
+Implementation commit: c54a98b91195458b22a14aa4a6cbf14c7fe57e28. Current bytes are bound by the final content manifest; checkpoint1/2 are preserved historical snapshots.
 
 ## Toolchain / commands
 
@@ -155,6 +155,8 @@ as live Django evidence. Do not refresh their recorder/indexes for final results
 
 No target API/session/bridge/concurrency/recovery or production gateway404 claim.
 Current root CI is baseline-only; frontend CI wiring belongs to R03/root-CI owner.
-Implementation SHA/PR CI/tested merge-ref and independent Task Approvals pending.
+Implementation SHA is bound below; PR CI/tested merge-ref and independent Task Approvals pending.
 
 Publication: owner accepted the final verification checkpoint and authorized commit/push/PR. Independent task acceptance is pending. Final recorder is for the pre-commit checkpoint only; do not refresh historical captures after publication. Exact implementation binding is recorded separately in current §17 references and the PR.
+
+Implementation commit: `c54a98b91195458b22a14aa4a6cbf14c7fe57e28` (exact accepted input parent). Current §17/matrix bind this code SHA. PR candidate additionally contains a docs-only binding commit. Captured verification/screenshot metadata retain their original pre-commit provenance; PR exact HEAD/CI and independent approval are separate facts.

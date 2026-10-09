@@ -16,7 +16,8 @@ Full public SSG,LessonHost/widgets,account/staff и backend остаются в 
 Accepted integration input:8d958aeeb17da46839722441425ccbb5889e2ab7.
 Canonical appearance:8c11edadc8debc81432d1db1145feac504f09061.
 MIG_BASE provenance:60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.
-Implementation HEAD / PR CI / tested merge-ref: PENDING — заполнить после разрешённой публикации.
+Implementation commit: c54a98b91195458b22a14aa4a6cbf14c7fe57e28.
+Final PR candidate HEAD / CI / tested merge-ref: заполнить после docs-only publication-binding commit и публикации.
 
 Validation:clean npm ci,generated types+41pins,typecheck,88 frontend tests,5 unchanged historical JS
 tests,production build/graph/export guards,npm audit0 vulnerabilities.

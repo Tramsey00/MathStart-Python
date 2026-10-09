@@ -78,9 +78,11 @@ focus/overflow/CSS isolation pass. Not R01/full-site/target runtime parity.
 Dedicated hover and PostgreSQL-only checks remain unverified; Docker unavailable.
 No existing DB/main/shared contracts/root CI changed; original snapshots preserved.
 Final mapping now includes explicit platform_disposition/current_status required§17.
-Exact implementation SHA/CI/tested merge-ref/independent approvals pending.
-No Git publication permission yet. Do not move this active plan to completed.
+At verification checkpoint, implementation SHA/CI/tested merge-ref/independent approvals were pending; current binding follows below.
+At that checkpoint Git publication permission was pending; now authorized below. Do not move this active plan to completed.
 
 ## Publication authorization — 2026-10-09
 
 Owner accepted final verification checkpoint and authorized commit, ordinary push and PR to ms7-mig-react-fastapi (Refs #40). Independent task acceptance remains pending. Fetch confirmed integration unchanged at accepted input8d958aeeb17da46839722441425ccbb5889e2ab7; no conflicting task remote branch/PR; GitHub identity13baybars.
+
+Implementation commit: `c54a98b91195458b22a14aa4a6cbf14c7fe57e28`;175 approved I01 files added, cached whitespace check exit0 and each staged blob equals inventory bytes. Follow-up publication metadata binds current §17/matrix to this tested code SHA; no functional or frozen source change. Final PR HEAD/CI and independent Task Approvals remain separate pending gates.

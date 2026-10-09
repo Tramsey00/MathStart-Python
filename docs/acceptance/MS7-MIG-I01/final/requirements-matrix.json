@@ -1,7 +1,7 @@
 {
   "source_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
   "issue": 40,
-  "implementation_sha": null,
+  "implementation_sha": "c54a98b91195458b22a14aa4a6cbf14c7fe57e28",
   "scope": "I01 foundation only; local results are not task acceptance or target runtime proof",
   "requirements": [
     {
@@ -91,9 +91,9 @@
     {
       "id": "I01-13",
       "requirement": "§17 old-to-new index: original→follow-up→target, disposition/status, preserved history",
-      "status": "PASS_LOCAL_PENDING_SHA_REVIEW",
+      "status": "PASS_LOCAL_PENDING_CI_REVIEW",
       "evidence": "old-to-new-evidence.json; evidence-validation.json; content-manifest.json",
-      "assessment": "Five records; explicit platform_disposition/current_status added to current final index. Historical checkpoint1/2/frozen records untouched. Target implementation SHA and independent acceptance pending."
+      "assessment": "Five records; explicit platform_disposition/current_status. Historical checkpoint1/2/frozen records untouched. Implementation SHA c54a98b91195458b22a14aa4a6cbf14c7fe57e28 bound; CI and independent acceptance pending."
     },
     {
       "id": "I01-14",
@@ -128,11 +128,11 @@
       "requirement": "Exact implementation SHA/current PR CI/tested merge-ref + independent Task Approval",
       "status": "PENDING_HUMAN_GATE",
       "evidence": "pr-draft.md; report.md",
-      "assessment": "No commit/push/PR authorized yet. HEAD8d958ae is input, not implementation. Ruslan UX/integration and Vladimir API/security must independently approve exact PR HEAD; no self-approval."
+      "assessment": "Implementation commit c54a98b91195458b22a14aa4a6cbf14c7fe57e28; subsequent publication-binding commit is documentation-only. PR exact HEAD/CI/tested merge-ref and independent Task Approvals remain pending at this record. No self-approval."
     },
     {
       "id": "I01-19",
-      "requirement": "Final integration/publication/Issue closure/global gate",
+      "requirement": "Final integration/Issue closure/global gate",
       "status": "NOT_REQUESTED_PENDING",
       "evidence": "pr-draft.md",
       "assessment": "Refs #40 target ms7-mig-react-fastapi. Task not historical DONE/ACCEPTED_INTEGRATION until applicable human gates/merge. Frontend CI wiring belongs R03/root-CI owner."
