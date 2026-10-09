@@ -1,0 +1,43 @@
+{
+  "scope": "Evidence tooling only; functional source unchanged",
+  "initial_run": {
+    "command": [
+      "node",
+      "docs/acceptance/MS7-MIG-I01/final/record-final-evidence.mjs"
+    ],
+    "exit_code": 1,
+    "diagnostic": "Whitespace diagnostic:docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+  },
+  "inspection": {
+    "command": [
+      "git",
+      "diff",
+      "--no-index",
+      "--check",
+      "--",
+      "/dev/null",
+      "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+    ],
+    "exit_code": 1,
+    "output": "warning: CRLF will be replaced by LF the next time Git touches it"
+  },
+  "corrected_recheck": {
+    "command": [
+      "git",
+      "-c",
+      "core.safecrlf=false",
+      "diff",
+      "--no-index",
+      "--check",
+      "--",
+      "/dev/null",
+      "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+    ],
+    "exit_code": 1,
+    "output": "",
+    "meaning": "no-index differences expected; no whitespace diagnostics"
+  },
+  "global_config_changed": false,
+  "original_command_log_changed": false,
+  "inventory_count_note": "First-run console count omitted newly created self-excluded manifest. Final inventory includes it; hash entries exclude it. Console count corrected; file inventory and hashes were already complete."
+}

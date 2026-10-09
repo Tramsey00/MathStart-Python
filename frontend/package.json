@@ -1,0 +1,44 @@
+{
+  "name": "@mathstart/frontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "npm": ">=11.0.0 <12"
+  },
+  "packageManager": "npm@11.19.0",
+  "scripts": {
+    "dev": "react-router dev --host 127.0.0.1 --port 5171",
+    "typecheck": "npm run check:contracts && react-router typegen && tsc --noEmit",
+    "test": "vitest run",
+    "build": "react-router build && node scripts/check-build.mjs",
+    "preview": "node scripts/preview.mjs",
+    "generate:api": "node scripts/generate-api.mjs",
+    "check:contracts": "node scripts/generate-api.mjs --check",
+    "verify:foundation": "node scripts/verify-foundation.mjs"
+  },
+  "dependencies": {
+    "@react-router/node": "7.18.4",
+    "isbot": "5.1.44",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router": "7.18.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "@react-router/dev": "7.18.4",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.0",
+    "@types/node": "24.12.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "jsdom": "27.4.0",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vitest": "4.1.11"
+  }
+}

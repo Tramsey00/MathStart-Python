@@ -1,0 +1,224 @@
+{
+  "version": "i01-final-verification",
+  "scope": "§17 I01 only; original_result/history unchanged; current local verification; independent acceptance pending",
+  "accepted_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "canonical_appearance": "8c11edadc8debc81432d1db1145feac504f09061",
+  "implementation_sha": null,
+  "records": [
+    {
+      "original_result": {
+        "id": "MS6-I01",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/12",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/11",
+        "historical_record": "docs/agent-traces/MS6-I01-ux-map.md",
+        "snapshot": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "sources": [
+          "docs/ux/MS6-I01-screen-map.md",
+          "docs/ux/MS6-I01-states-matrix.md",
+          "docs/ux/MS6-I01-ux-spec.md"
+        ]
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-I01",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/40",
+        "adaptation": "Adapt screen/layout boundaries and four presentation states. Preserve UX map/product behavior; full screen workflows remain downstream. Historical approvals/text are referenced unchanged.",
+        "deferred": "I02 public content; I03 LessonHost/widgets; I04 account/staff; no tutor/practice/assessment implementation."
+      },
+      "target_evidence": {
+        "paths": [
+          "frontend/src/app/routes.ts",
+          "frontend/src/app/layouts/public.tsx",
+          "frontend/src/app/layouts/account.tsx",
+          "frontend/src/app/layouts/staff.tsx",
+          "frontend/src/shared/ui/components.tsx"
+        ],
+        "command_results": "docs/acceptance/MS7-MIG-I01/final/frontend-commands.json",
+        "working_tree_manifest": "docs/acceptance/MS7-MIG-I01/final/content-manifest.json",
+        "implementation_sha": null,
+        "independent_review": "PENDING",
+        "status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING",
+        "browser_evidence": "docs/acceptance/MS7-MIG-I01/final/browser-evidence.json",
+        "repository_results": "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+      },
+      "platform_disposition": "ADAPT_PLATFORM_PRESERVE_DOMAIN_AND_HISTORICAL_EVIDENCE",
+      "current_status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING"
+    },
+    {
+      "original_result": {
+        "id": "MS7-I02",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/21",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/22",
+        "historical_record": "docs/agent-traces/MS7-I02.md",
+        "correction_sha": "e471efc0b1a6b4af9baf1401e49311a203f12450",
+        "snapshot": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "sources": [
+          "specs/ui/MS7-I02-ui-foundation.md",
+          "specs/ui/fixtures/ui-states-v1.json",
+          "specs/ui/ui-state-fixtures-v1.schema.json",
+          "templates/ui/fixture_gallery.html",
+          "static/mathstart/js/ui/schema-dispatch.js",
+          "static/mathstart/js/ui/foundation.js",
+          "static/mathstart/css/ui/tokens.css",
+          "static/mathstart/css/ui/foundation.css",
+          "tests/test_i02_schema_dispatch.js"
+        ]
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-I01",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/40",
+        "adaptation": "Port approved synthetic examples and focus/live-region behavior; reuse CSS in original order. Reject non-string mode before any property-key coercion; missing/malformed schema unsupported; four slots only. Original JS regressions executed unchanged.",
+        "deferred": "Full exercise renderers/forms/assessment/reveal/progress remain outside I01. Current gallery responsive/keyboard checks recorded separately."
+      },
+      "target_evidence": {
+        "paths": [
+          "frontend/src/app/routes/foundation-gallery.tsx",
+          "frontend/src/debug/fixture-pack.ts",
+          "frontend/src/shared/ui/components.tsx",
+          "frontend/src/shared/exercise/dispatcher.ts",
+          "frontend/tests/dispatcher.test.ts",
+          "frontend/tests/gallery.test.tsx"
+        ],
+        "command_results": "docs/acceptance/MS7-MIG-I01/final/frontend-commands.json",
+        "working_tree_manifest": "docs/acceptance/MS7-MIG-I01/final/content-manifest.json",
+        "implementation_sha": null,
+        "independent_review": "PENDING",
+        "status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING",
+        "browser_evidence": "docs/acceptance/MS7-MIG-I01/final/browser-evidence.json",
+        "repository_results": "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+      },
+      "platform_disposition": "ADAPT_PLATFORM_PRESERVE_DOMAIN_AND_HISTORICAL_EVIDENCE",
+      "current_status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING"
+    },
+    {
+      "original_result": {
+        "id": "R02 dispatcher contracts / MS7-R02A",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/16",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/15",
+        "historical_record": "specs/api/candidate-manifest-v1.json",
+        "snapshot": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "sources": [
+          "specs/exercises/R02-exercise-architecture.md",
+          "specs/api/openapi-v1.json",
+          "specs/api/schemas/dto-v1.schema.json",
+          "specs/api/candidate-manifest-v1.json"
+        ]
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-I01",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/40",
+        "adaptation": "Preserve frozen four modes, immutable versions, input/ordered-step metadata, no guessed enum/object forms, raw data and server-owned validation/evidence.17 exact artifact pins checked; canonical types generated, no contract edits.",
+        "deferred": "Domain services, attempt/assessment/tutor/progress APIs not implemented or declared verified."
+      },
+      "target_evidence": {
+        "paths": [
+          "frontend/scripts/generate-api.mjs",
+          "frontend/src/shared/api/generated/openapi.d.ts",
+          "frontend/src/shared/api/generated/PublicExerciseDTO.mjs",
+          "frontend/src/shared/exercise/dispatcher.ts",
+          "frontend/tests/dispatcher.test.ts"
+        ],
+        "command_results": "docs/acceptance/MS7-MIG-I01/final/frontend-commands.json",
+        "working_tree_manifest": "docs/acceptance/MS7-MIG-I01/final/content-manifest.json",
+        "implementation_sha": null,
+        "independent_review": "PENDING",
+        "status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING",
+        "browser_evidence": "docs/acceptance/MS7-MIG-I01/final/browser-evidence.json",
+        "repository_results": "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+      },
+      "platform_disposition": "ADAPT_PLATFORM_PRESERVE_DOMAIN_AND_HISTORICAL_EVIDENCE",
+      "current_status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING"
+    },
+    {
+      "original_result": {
+        "id": "MS7-MIG-R02",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/29",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/48",
+        "historical_record": "docs/acceptance/MS7-MIG-R02/handoff.md",
+        "reviewed_sha": "d7a46bd3147039777196357d43379bcea3f3912c",
+        "snapshot": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "sources": [
+          "specs/migration/r02-v1/auth-v1.md",
+          "specs/migration/r02-v1/implemented-routes-v1.json",
+          "specs/migration/r02-v1/receipt-bridge-lifecycle-v1.json",
+          "specs/migration/r02-v1/publication-protocol-v1.json",
+          "docs/acceptance/MS7-MIG-R02/contract-digests.json"
+        ]
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-I01",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/40",
+        "adaptation": "24 accepted pins unchanged. Eight operation transport + generated37-operation types; strict wire/CSRF/cancellation/stale guards and unknown mutation outcome, no retry or client receipt authority.",
+        "deferred": "P1 publication-state/P2 full bridge reconciliation and actual target runtime remain downstream and NOT_RUN."
+      },
+      "target_evidence": {
+        "paths": [
+          "frontend/src/shared/api/client.ts",
+          "frontend/src/shared/api/request-scope.ts",
+          "frontend/src/shared/api/latest-read.ts",
+          "frontend/tests/api.test.ts",
+          "frontend/tests/api-additional.test.ts",
+          "frontend/tests/boundaries.test.ts"
+        ],
+        "command_results": "docs/acceptance/MS7-MIG-I01/final/frontend-commands.json",
+        "working_tree_manifest": "docs/acceptance/MS7-MIG-I01/final/content-manifest.json",
+        "implementation_sha": null,
+        "independent_review": "PENDING",
+        "status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING",
+        "browser_evidence": "docs/acceptance/MS7-MIG-I01/final/browser-evidence.json",
+        "repository_results": "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+      },
+      "platform_disposition": "ADAPT_PLATFORM_PRESERVE_DOMAIN_AND_HISTORICAL_EVIDENCE",
+      "current_status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING"
+    },
+    {
+      "original_result": {
+        "id": "MS7-I03",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/25",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/26",
+        "historical_record": "docs/agent-traces/MS7-I03.md",
+        "snapshot": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "sources": [
+          "static/mathstart/js/ui/identity-api.js",
+          "static/mathstart/js/ui/account.js",
+          "docs/agent-traces/MS7-I03-evidence/acceptance.json"
+        ]
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-I01",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/40",
+        "adaptation": "Retain canonical identity paths, explicit CSRF, once-serialized mutations and password handling boundary. Reference historical browser/approval records with original SHA; no reinterpretation as current evidence.",
+        "deferred": "Full account/profile/onboarding UI and receipt/session lifecycle in I04; registration UI max30/login legacy150 explicitly retained as downstream requirement."
+      },
+      "target_evidence": {
+        "paths": [
+          "frontend/src/shared/api/client.ts",
+          "frontend/src/shared/api/request-scope.ts",
+          "frontend/src/app/layouts/account.tsx",
+          "frontend/README.md"
+        ],
+        "command_results": "docs/acceptance/MS7-MIG-I01/final/frontend-commands.json",
+        "working_tree_manifest": "docs/acceptance/MS7-MIG-I01/final/content-manifest.json",
+        "implementation_sha": null,
+        "independent_review": "PENDING",
+        "status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING",
+        "browser_evidence": "docs/acceptance/MS7-MIG-I01/final/browser-evidence.json",
+        "repository_results": "docs/acceptance/MS7-MIG-I01/final/repository-commands.json"
+      },
+      "platform_disposition": "ADAPT_PLATFORM_PRESERVE_DOMAIN_AND_HISTORICAL_EVIDENCE",
+      "current_status": "IMPLEMENTED_UNCOMMITTED_LOCAL_VERIFICATION_PASS; EXACT_SHA_CI_INDEPENDENT_ACCEPTANCE_PENDING"
+    }
+  ],
+  "known_baseline_defects": {
+    "ids": [
+      "F01",
+      "F02",
+      "F03",
+      "F04"
+    ],
+    "owner": "13baybars",
+    "fix_by": "I03",
+    "verify_in": "I05",
+    "criteria_reference": "docs/acceptance/MS7-MIG-R01/ilya-20261007/follow-up-F01-F04.md",
+    "changed": false
+  }
+}

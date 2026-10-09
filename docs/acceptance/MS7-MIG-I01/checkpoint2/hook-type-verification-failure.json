@@ -1,0 +1,105 @@
+{
+  "source_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "executed_at": "2026-10-09T00:39:43.617Z",
+  "results": [
+    {
+      "name": "versions",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "v24.21.0\r\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "npm-version",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "11.19.0\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "exit_code": 2,
+      "stdout": "\n> @mathstart/frontend@0.0.0 typecheck\n> npm run check:contracts && react-router typegen && tsc --noEmit\n\n\n> @mathstart/frontend@0.0.0 check:contracts\n> node scripts/generate-api.mjs --check\n\nPASS: 17 frozen + 24 R02 pins; OAS, DTO schemas, 37 operations; generated types and 16 boundary validators\ntests/boundaries.test.ts(13,16): error TS2722: Cannot invoke an object which is possibly 'undefined'.\r\ntests/boundaries.test.ts(13,23): error TS2349: This expression is not callable.\r\n  Not all constituents of type 'ObjectHook<(this: PluginContext, options: NormalizedOutputOptions, bundle: OutputBundle, isWrite: boolean) => void | Promise<void>, {}>' are callable.\r\n    Type '{ handler: (this: PluginContext, options: NormalizedOutputOptions, bundle: OutputBundle, isWrite: boolean) => void | Promise<...>; order?: \"pre\" | ... 1 more ... | null; }' has no call signatures.\r\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "unit-component-security",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "test"
+      ],
+      "exit_code": 0,
+      "stdout": "\n> @mathstart/frontend@0.0.0 test\n> vitest run\n\n\n RUN  v4.1.11 C:/Users/User/.codex/worktrees/ms7-mig-i01-foundation/MathStart-Python/frontend\n\n\n Test Files  9 passed (9)\n      Tests  81 passed (81)\n   Start at  03:39:36\n   Duration  2.04s (transform 1.19s, setup 2.34s, import 1.44s, tests 934ms, environment 5.63s)\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "historical-dispatcher",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--test",
+        "../tests/test_i02_schema_dispatch.js"
+      ],
+      "exit_code": 0,
+      "stdout": "✔ valid synthetic descriptors retain all four foundation slots (1.5625ms)\n✔ unknown string interaction modes fail safely (1.111ms)\n✔ SELF_CHECK requires both schema fields to be present and null (0.4101ms)\n✔ non-string interaction modes fail without property-key coercion or exceptions (0.8599ms)\n✔ required input and step schemas fail safely when missing, null or undefined (1.0776ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 79.2972\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "production-build",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "stdout": "\n> @mathstart/frontend@0.0.0 build\n> react-router build && node scripts/check-build.mjs\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 54 modules transformed.\nrendering chunks...\ncomputing gzip size...\nbuild/client/.vite/manifest.json                      2.90 kB │ gzip:  0.54 kB\nbuild/client/assets/site-BfzDW0Ql.css                 3.90 kB │ gzip:  1.26 kB\nbuild/client/assets/account-foundation-Bs-JjwGo.js    0.15 kB │ gzip:  0.16 kB\nbuild/client/assets/public-foundation-DYcUgEG3.js     0.15 kB │ gzip:  0.16 kB\nbuild/client/assets/staff-foundation-HotAZ_Lb.js      0.15 kB │ gzip:  0.16 kB\nbuild/client/assets/public-Ct-xcUE5.js                0.16 kB │ gzip:  0.16 kB\nbuild/client/assets/staff-B8nNXnra.js                 0.23 kB │ gzip:  0.21 kB\nbuild/client/assets/account-BlpcN_IQ.js               0.24 kB │ gzip:  0.21 kB\nbuild/client/assets/root-0WU8XE6Q.js                  2.91 kB │ gzip:  1.37 kB\nbuild/client/assets/chunk-OB3PAWPO-DNePe6EA.js      129.65 kB │ gzip: 43.63 kB\nbuild/client/assets/entry.client-CkehsLGr.js        190.03 kB │ gzip: 59.85 kB\n✓ built in 873ms\n  ⚠️  Future Flag Warning: Route middleware support is changing in React Router v8.\n     You can use the `future.v8_middleware` flag to opt in early.\n     -> https://reactrouter.com/v7/upgrading/future#futurev8_middleware\n  ⚠️  Future Flag Warning: Route module splitting behavior is changing in React Router v8.\n     You can use the `future.v8_splitRouteModules` flag to opt in early.\n     -> https://reactrouter.com/v7/upgrading/future#futurev8_splitroutemodules\n  ⚠️  Future Flag Warning: Vite Environment API usage is changing in React Router v8.\n     You can use the `future.v8_viteEnvironmentApi` flag to opt in early.\n     -> https://reactrouter.com/v7/upgrading/future#futurev8_viteenvironmentapi\n  ⚠️  Future Flag Warning: Request handling behavior is changing in React Router v8.\n     You can use the `future.v8_passThroughRequests` flag to opt in early.\n     -> https://reactrouter.com/v7/upgrading/future#futurev8_passthroughrequests\n  ⚠️  Future Flag Warning: Data request URL formats are changing in React Router v8.\n     You can use the `future.v8_trailingSlashAwareDataRequests` flag to opt in early.\n     -> https://reactrouter.com/v7/upgrading/future#futurev8_trailingslashawaredatarequests\nvite v7.3.7 building ssr environment for production...\ntransforming...\n✓ 14 modules transformed.\nrendering chunks...\nbuild/server/.vite/manifest.json        0.49 kB\nbuild/server/assets/site-BfzDW0Ql.css   3.90 kB\nbuild/server/index.js                  17.41 kB\n\n✓ 1 asset cleaned from React Router server build.\nbuild\\client\\assets\\site-BfzDW0Ql.css\n\nSPA Mode: Generated build\\client\\index.html\nRemoving the server build in C:\\Users\\User\\.codex\\worktrees\\ms7-mig-i01-foundation\\MathStart-Python\\frontend\\build\\server due to ssr:false\n✓ built in 113ms\nPASS: production payload scan, 47 client modules, anonymous index only (12 files)\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "dependency-tree",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "ls",
+        "--depth=0"
+      ],
+      "exit_code": 0,
+      "stdout": "@mathstart/frontend@0.0.0 C:\\Users\\User\\.codex\\worktrees\\ms7-mig-i01-foundation\\MathStart-Python\\frontend\n├── @playwright/test@1.58.2\n├── @react-router/dev@7.18.4\n├── @react-router/node@7.18.4\n├── @testing-library/dom@10.4.1\n├── @testing-library/react@16.3.0\n├── @types/node@24.12.0\n├── @types/react-dom@19.2.3\n├── @types/react@19.2.14\n├── ajv-formats@3.0.1\n├── ajv@8.20.0\n├── isbot@5.1.44\n├── jsdom@27.4.0\n├── openapi-typescript@7.13.0\n├── react-dom@19.2.8\n├── react-router@7.18.4\n├── react@19.2.8\n├── typescript@5.9.3\n├── vite@7.3.7\n└── vitest@4.1.11\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "audit",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "audit",
+        "--audit-level=low"
+      ],
+      "exit_code": 0,
+      "stdout": "found 0 vulnerabilities\n",
+      "stderr": "",
+      "error": null
+    }
+  ]
+}
