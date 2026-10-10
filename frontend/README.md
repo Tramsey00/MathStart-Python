@@ -5,7 +5,9 @@ Final verification checkpoint: functional foundation locally verified; task INCO
 Accepted integration input: 8d958aeeb17da46839722441425ccbb5889e2ab7.
 MIG_BASE_SHA: 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7 (provenance only).
 Canonical Django source appearance: 8c11edadc8debc81432d1db1145feac504f09061.
-Implementation commit: c54a98b91195458b22a14aa4a6cbf14c7fe57e28. Current bytes are bound by the final content manifest; checkpoint1/2 are preserved historical snapshots.
+Original implementation commit: c54a98b91195458b22a14aa4a6cbf14c7fe57e28. The final content manifest binds that original capture; checkpoint1/2/final remain immutable historical snapshots.
+Current uncommitted B1/B2 corrections and fresh verification are recorded in the separate
+[PR50 follow-up report](../docs/acceptance/MS7-MIG-I01/review-b1-b2-20261010/report.md).
 
 ## Toolchain / commands
 
@@ -28,17 +30,22 @@ npm run build
 npm run verify:foundation
 npm run dev
 npm run preview
-node scripts/record-evidence.mjs
 ~~~
 
 verify:foundation records versions, typecheck, native validator import,
 unit/component/security tests, unchanged historical dispatcher tests,
 production build/guards, dependency tree and audit. It does not run Django,
-connect to a DB, run full verify_repo or replace CI. It writes only own evidence.
-record-evidence.mjs runs after scoped verification/browser capture and refreshes only
-checkpoint2 indexes/checksums. It checks isolation, source CSS/base, preserved
-checkpoint1 evidence, mapping/links and exact current file hashes. It never recreates
-screenshots, runs the application or certifies later code edits from older tests.
+connect to a DB, run full verify_repo or replace CI. Each run creates a NEW ignored
+`.cache/verification-runs/run-<timestamp>-<unique>/command-results.json`.
+For a new explicit output use `npm run verify:foundation -- --output .cache/NEW.json`
+(relative to frontend). Existing files, Git metadata, external paths and historical
+checkpoint1/checkpoint2/final captures are rejected; nothing is overwritten.
+Reports contain actual Git HEAD/branch, before/after dirty status and source
+fingerprints, versions, exact commands, start/end times and exit codes. Dirty or
+uncommitted runs have `tested_implementation_sha: null`: HEAD is provenance only.
+Source/history changes during a run fail verification. Capture new review evidence
+separately; legacy record-evidence.mjs/record-final-evidence.mjs are historical
+checkpoint recorders and must not be run to refresh published captures.
 
 Dev/preview: http://127.0.0.1:5171/ with no API proxy or DB configuration.
 Do not point mutations at working DB or the existing R01 runtime.
@@ -114,6 +121,9 @@ discarded. requestId/retryAfter are the only safe error metadata exposed.
 
 AbortController propagates caller abort and optional timeout. If a mutation was
 sent, cancellation/network/malformed response or409/503 means outcome unknown.
+Logout additionally requires HTTP200 and strictly `data.completed === true`;
+`completed:false` is INVALID_RESPONSE with unknown outcome, without POST replay or
+session acknowledgement. Full lost-response reconciliation remains I04.
 Successful validated response is the only transport success. CSRF bootstrap
 failure is not-sent. The adapter never follows a redirect or repeats a mutation.
 

@@ -86,3 +86,19 @@ At that checkpoint Git publication permission was pending; now authorized below.
 Owner accepted final verification checkpoint and authorized commit, ordinary push and PR to ms7-mig-react-fastapi (Refs #40). Independent task acceptance remains pending. Fetch confirmed integration unchanged at accepted input8d958aeeb17da46839722441425ccbb5889e2ab7; no conflicting task remote branch/PR; GitHub identity13baybars.
 
 Implementation commit: `c54a98b91195458b22a14aa4a6cbf14c7fe57e28`;175 approved I01 files added, cached whitespace check exit0 and each staged blob equals inventory bytes. Follow-up publication metadata binds current §17/matrix to this tested code SHA; no functional or frozen source change. Final PR HEAD/CI and independent Task Approvals remain separate pending gates.
+
+## PR50 review corrections B1/B2 — 2026-10-10
+
+Owner authorized only scoped fixes and verification; no commit/push/PR update yet.
+Task HEAD remains79e0c19c234e36381662cbbf57e5b042727b1a61, branch ms7-mig-i01-foundation.
+B1 now acknowledges logout only with validated HTTP200 completed:true; false gives
+INVALID_RESPONSE/unknown without replay or session acknowledgement. Full P2/I04
+reconciliation and all frozen contracts remain unchanged.
+B2 creates immutable new verification outputs under ignored frontend/.cache by
+default, rejects overwrites/protected paths and records actual SHA/dirty/fingerprint.
+Fresh clean install, pins/typecheck/native validators,112 frontend tests (24 new),
+5 unchanged historical JS regressions, build/production guards and audit pass.
+All84 historical capture files and all12 original production artifacts byte-identical.
+See [separate report](../../acceptance/MS7-MIG-I01/review-b1-b2-20261010/report.md).
+This is local uncommitted-code evidence, not PR CI or independent task acceptance.
+Frontend CI remains R03/root owner; no workflows/DB/other tasks changed.

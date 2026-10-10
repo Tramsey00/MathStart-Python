@@ -95,6 +95,9 @@ export function createApiClient(fetcher:Fetcher = globalThis.fetch.bind(globalTh
       if(response.status===cfg.success) {
         const meta=(value as {meta:{version?:string}}).meta;
         if(meta.version!=="http-v1")return error("INVALID_RESPONSE",response.status,outcome());
+        // R02 requires a durable logout acknowledgement, not merely a schema-valid boolean.
+        if(op==="logout" && (response.status!==200 || (value as IdentityContracts["logout"]["response"]).data.completed!==true))
+          return error("INVALID_RESPONSE",response.status,outcome());
         return {ok:true,value};
       }
       const wire=(value as WireError).error;

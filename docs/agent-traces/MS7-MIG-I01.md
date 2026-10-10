@@ -153,3 +153,38 @@ Final evidence recorder first exit1 was an LF/CRLF conversion warning on the unc
 Owner authorized commit/push/PR after accepting final verification checkpoint. Safe fetch exit0; remote integration equals accepted input8d958aeeb17da46839722441425ccbb5889e2ab7 (0/0 divergence); no remote task branch or conflicting PR; authenticated login13baybars. Inventory175 files/33 screenshots verified against174 hashes+self-excluded manifest; no secret/credential/PII pattern matches, unexpected files or active Git hooks. Scanner initially confused ProfileUpdateRequest DTO with browser profile; directory-specific filter corrected, no actual excluded data found. Two final JSON wrappers used CRLF: normalized only physical line endings to LF per existing .gitattributes, JSON values/embedded command output strings unchanged. Historical checkpoint1/2 and functional source/manifests untouched. Final checksums regenerated before explicit-path staging.
 
 Implementation commit created: `c54a98b91195458b22a14aa4a6cbf14c7fe57e28`, parent8d958aeeb17da46839722441425ccbb5889e2ab7.175 explicit paths staged;cached --check exit0;all modes100644;each staged blob byte-identical to manifest/disk;no accepted tracked file modified. Working tree clean after commit. A docs-only follow-up binds current §17/matrix/report to implementation SHA; original checkpoint/test timestamps and pending human gates preserved. Push/PR results are recorded in the final handoff/PR rather than guessed before execution.
+
+## PR50 review corrections B1/B2 — 2026-10-10
+
+Owner requested fixes in the existing task worktree; no Git publication authorized.
+Read task state, verification skill, accepted R02 auth/P2 and adapter/runner tests.
+Original reviewed HEAD79e0c19c234e36381662cbbf57e5b042727b1a61 remains unchanged.
+RED: B1 regressions12 cases gave2 FAIL/10 PASS on the original adapter; B2 targeted
+actual npm runner in an isolated synthetic Git fixture gave1 FAIL/10 deselected,
+proving overwrite of its historical JSON. Actual task captures were not used for
+that destructive reproduction. Fixture setup escaping/CommonJS issues corrected
+before the meaningful RED run; no application contract was weakened.
+B1 added strict durable logout acknowledgement. B2 replaced the historical output
+with unique/new outputs, exclusive creation and protected-path checks including
+Windows case-insensitive Git/history paths. Records capture true Git provenance,
+source fingerprints, command/version/timing/exit details and dirty state; a dirty
+run never claims HEAD as tested implementation SHA. Source/history mutation fails.
+New synthetic runner tests use local disposable Git repositories, with no task
+branch commits/remotes/push. They verify clean/dirty runs, uniqueness, immutability,
+protected/invalid/existing paths and source-change failure.
+Full recorded verification2026-10-10T13:25:28.758Z–13:26:27.366Z:
+Node24.21.0/npm11.19.0, clean ci,17 frozen+24 R02 pins/37 operations/16 validators,
+typecheck/native ESM,112 frontend tests/12 files,5 historical JS tests, build/guards,
+ls/audit and whitespace check all exit0;0 vulnerabilities. esbuild allowScripts
+coverage and Router v8 future warnings retained; no manifest/policy changes.
+All84 original checkpoint1/2/final capture files match pre-run size/SHA256;
+12 rebuilt production artifacts match original final hashes. API adapter remains
+unused/tree-shaken from current empty foundation routes; direct unit tests verify B1.
+Full runner source fingerprint54ce2e3a19d32df72ca71ce0d947fcc32f1740d64d81ec00cb0c5ceeb1cc29ea,
+dirty=true, tested_implementation_sha=null, source_changed_during_run=false.
+Separate [review evidence](../acceptance/MS7-MIG-I01/review-b1-b2-20261010/report.md)
+added after verification; no functional edits after that run. Original timestamps,
+screenshots and manifests retained. UI/browser/DB/full verify_repo were not rerun
+for these transport/tooling changes; prior limitations and F01–F04 unchanged.
+Root workflows/dependencies/generated contracts/authored lessons/main/working DB/
+R01 untouched. No commit/push/PR mutation, self-approval, merge or I02 work.
