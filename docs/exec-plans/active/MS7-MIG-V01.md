@@ -1,6 +1,6 @@
 # EXEC PLAN MS7-MIG-V01 — SQLAlchemy, Alembic and upgrade profiles
 
-- Status: **F1/F2/F3 locally fixed / independent re-audit and acceptance pending**
+- Status: **F1/F2/F3 and CI discovery locally fixed / v4 verified / CI integration and review pending**
 - Owner: Владимир; reviewer / Task Approver: Руслан
 - Created / updated: 2026-10-09, Europe/Moscow
 - Issue: https://github.com/Tramsey00/MathStart-Python/issues/34
@@ -48,6 +48,39 @@ DDL/writes. V03/V04 own bridge/session/publication lifecycle enforcement.
    preservation, diff/secrets/scope audit, evidence and independent Ruslan gate.
 
 ## Current execution status
+
+### PR51 CI integration continuation v4
+
+New authorized intake: branch `ms7-mig-v01-schema`, published/local HEAD
+`d5dc9a4e130d3901c26894aa01e30a935dac84b6`; clean worktree. Existing commits and
+all v1/v2/v3 evidence retained. Snapshot102 affected/frozen/history/CI files
+under ignored `var/ms7-mig-v01-ci-input-v4` before edits.
+
+Root-lock legacy CI lacks SQLAlchemy/Alembic; default Django discovery traverses
+all regular packages and eagerly imports backend.models and three target tests.
+Reproduced all4 ImportErrors and a pre-fix failing discovery regression. Minimal
+runtime fix: standard package `backend.load_tests` stops implicit target recursion
+and loads only two dependency-independent regressions. Target suites remain
+explicit, fail on missing dependencies, and retain public metadata/Alembic imports.
+No exception suppression/global skip or persistence/contract change. New
+[testing guide](../../../backend/TESTING.md), root cause and v4 evidence document
+the two environments. Diagnostic output directories avoid historical overwrite.
+
+Target34/34/zero skips (68.507s), both discovery regressions in both environments,
+target-only CLI10/10 and first PG legacy109/109/zero skips (174.181s) pass.
+Final root-lock verify_repo8/8 passes, repeating109/109/zero skips (170.744s);
+R03/Harness18/73, R02 migration63, R02A30 and R03A41 all pass without target deps.
+The10-command legacy helper passes; zero owned test DBs remain and the validated
+container is stopped. Exact evidence is in the [v4 report](../../acceptance/MS7-MIG-V01/implementation-report-v4.md)
+and [verification](../../acceptance/MS7-MIG-V01/verification-v4.json).
+Frozen/history/CI/locks/old evidence digest checks pass. The
+[v4 R03 handoff](../../acceptance/MS7-MIG-V01/r03-ci-handoff-v4.md) supersedes the
+unapplied v3 proposal and puts explicit target suites in a separate CI venv;
+root workflow installation remains unchanged. Proposal only; owner integration
+and actual GitHub CI/PR re-review/human approval remain pending. No commit,
+push/merge, production/shared database or frozen edits authorized/performed.
+
+### Historical remediation v3
 
 Independent audit reproduced three P2 blockers after the v2 run: ordinary
 creation timestamps (F1), omitted SET_NULL collector locks/deadlock 40P01 (F2),

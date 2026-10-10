@@ -32,7 +32,9 @@ def main():
                         raise RuntimeError('Target-only runtime smoke failed: '+process.stderr.decode(errors='replace')[-1200:])
     finally:
         PostgreSQLTests.tearDownClass()
-        Path('docs/acceptance/MS7-MIG-V01/runtime-verification-v3.json').write_text(
+        directory = Path(os.environ.get('MATHSTART_V01_EVIDENCE_DIR', 'var/ms7-mig-v01-evidence'))
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / 'runtime-verification.json').write_text(
             json.dumps({'status': 'PASS' if len(checks) == 10 and all(c['exit_code'] == 0 for c in checks) else 'FAIL',
                         'runtime_dependency_lock': 'backend/requirements.lock', 'checks': checks},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return 0

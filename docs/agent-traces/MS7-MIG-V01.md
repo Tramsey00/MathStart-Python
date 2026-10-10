@@ -249,3 +249,68 @@ verify_repo8/8 and R02 migration63/63. Django discovery141:118 executed/23 targe
 PG skips; R03/Harness18/73 PASS. Final read-only cleanup query found zero test
 DBs, and only the validated owned container was stopped. Prior v1/v2/audit
 evidence remains unchanged; v3 records the first and final complete runs.
+
+## PR51 CI integration continuation v4
+
+New input: clean `ms7-mig-v01-schema` worktree at published/local
+`d5dc9a4e130d3901c26894aa01e30a935dac84b6`. User supplied CI job's4 SQLAlchemy
+ImportErrors; remote web log retrieval failed, so live job contents are not
+claimed independently read. Preserved102 source/evidence/frozen/history/CI/lock
+files in ignored `var/ms7-mig-v01-ci-input-v4` before edits. No commits rewritten.
+
+Read repository/spec/ADR/verification workflow, current CI locks, installed
+Python3.12.10 unittest loader and Django5.2.16 DiscoverRunner. Root default
+discovery imports regular packages regardless of filename pattern: eager
+backend.models reexport and three target modules require absent SQLAlchemy.
+Constructed root-lock-only venv, verified SQLAlchemy/Alembic physically absent
+and pip check. Sandbox ensurepip/network attempts were retried with workspace
+TEMP and authorized locked package installation; no version changes requested.
+
+Initial diagnostic manage.py test:111 collected,98 PASS/1 FAIL/4 ERROR/8 SKIP,
+150.558s. Four errors exactly reproduce CI finding; existing I03 NETWORK_ERROR
+occurred under restricted local networking and is not acceptance evidence.
+The two new discovery regressions before fix produced1 PASS/1 FAIL,2.058s,
+with the same4 loader errors. All these raw FAIL logs are preserved.
+
+Minimal production change: standard backend.load_tests package boundary; root
+discovery runs the two dependency-independent regressions and all107 legacy
+tests. Explicit target modules still load directly and missing dependencies
+still return nonzero; no exception suppression/SkipTest added. Public metadata/
+registry identities and Alembic single chain verified unchanged. The two
+regressions pass in root-only env (2.145s) and target env (2.368s), including
+blocked dependency subprocesses and baseline-ID coverage comparison.
+
+New root-only disposable verification helper checks lock versions/dependency
+absence and prepares isolated PG runtime. First DDL helper attempt failed on
+COMMENT bind syntax; own DB removed, log retained, corrected to sql.Literal.
+Initial cleanup inline quoting failed before connection; used a saved read-only
+script. Neither setup diagnostic altered existing data/evidence.
+
+Final target suite34 PASS/0 FAIL/0 SKIP,68.507s:11 explicit SQLite unit checks and
+23 real PostgreSQL methods. Fresh twice/A/B/C, B01 actual generated int8 IDs,
+strict CHECK/42-case parity, F1/F2/F3, data/hash/roles/history/Grade epoch,
+constraints/defaults/sequences/backfill/rollback/disconnect regressions pass.
+F2 forced interleaving again gives COMMIT+COMMIT and no40P01. F1 all7 fields
+match real Django and historical dates remain exact. F3 negative CLI proof
+still refuses14 damaged states without mutations. Target-only runtime CLI10/10
+PASS with Django absent and unimported. Locked versions/pip/public interfaces
+pass. New diagnostics use fresh run output dirs; committed v3 is unchanged.
+
+Root-lock-only PG baseline helper: all10 commands exit0; migrate/bootstrap twice/
+collectstatic, explicit Django109 PASS/0 FAIL/0 SKIP (174.181s), unchanged
+verify_repo8/8 including repeated109 PASS/0 FAIL/0 SKIP (170.744s), R03 pure18,
+Harness73, R02 migration63, R02A30 and R03A41 all PASS. Existing I03 browser
+flow passes with authorized loopback networking; no code changes/skips for it.
+All these baseline checks ran without SQLAlchemy/Alembic installed.
+
+Frozen R02/history/root workflows/locks/prior v1-v3 acceptance digest preservation
+and Git/AST/JSON/hash/whitespace scope checks pass. New v4 evidence retains raw
+failure history and old snapshots. CI handoff v4 proposes separate target venv
+steps for both existing workflows; applicability PASS, patch NOT APPLIED. Root
+dependencies stay unchanged. No external message, commit/push/merge/PR action.
+Read-only cleanup finds0 test DBs; validated owned tmpfs container stopped.
+
+Ready for repeated PR review locally; Linux/GitHub CI rerun, R03-owned explicit
+target integration, independent review/Task Approval remain pending. No new
+code blocker in tested scope. Production/cutover, deployed variants, exhaustive
+lifecycle/lock scaling and AFTER-COMMIT acknowledgement loss remain NOT VERIFIED.

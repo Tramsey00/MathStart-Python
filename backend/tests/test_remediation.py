@@ -25,6 +25,13 @@ from backend.migrations.upgrade import fresh, upgrade_profile, advance_sequences
 from backend.migrate import main as cli
 
 
+def write_evidence(name, result):
+    # Fresh verification must not overwrite the committed historical evidence.
+    directory = Path(os.environ.get('MATHSTART_V01_EVIDENCE_DIR', 'var/ms7-mig-v01-evidence'))
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / name).write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')
+
+
 @unittest.skipUnless(fixtures.ADMIN_URL, 'NOT RUN: explicit reserved disposable PostgreSQL admin URL required')
 class RemediationTests(unittest.TestCase):
     database = fixtures.PostgreSQLTests.database
@@ -125,8 +132,8 @@ class RemediationTests(unittest.TestCase):
                 page = session.get(ContentPage,802); page.title='Autoflush-safe'; page.updated_at=old-timedelta(days=1)
                 Repository(session, ContentPage).save(page, fields={'title'}); session.commit()
                 self.assertEqual(page.updated_at,old)
-            Path('docs/acceptance/MS7-MIG-V01/f1-timestamp-parity-v3.json').write_text(
-                json.dumps({'status':'PASS','Django':django,'target':target,'historical_auto_timestamps_preserved':preserved},indent=2)+'\n',encoding='utf-8')
+            write_evidence('f1-timestamp-parity.json',
+                {'status':'PASS','Django':django,'target':target,'historical_auto_timestamps_preserved':preserved})
 
     def crossed_catalog(self, engine):
         with engine.begin() as c:
@@ -196,10 +203,10 @@ class RemediationTests(unittest.TestCase):
                 pages=[tuple(row) for row in c.execute(sa.text('SELECT id,grade_id,subject_id,section_id FROM content_contentpage ORDER BY id'))]
                 self.assertEqual(pages,[(1,None,None,None),(2,None,None,None)])
                 self.assertEqual(c.scalar(sa.text('SELECT count(*) FROM content_lessonpublication')),2)
-            Path('docs/acceptance/MS7-MIG-V01/f2-concurrency-v3.json').write_text(json.dumps({
+            write_evidence('f2-concurrency.json', {
                 'status':'PASS','forced_interleaving':'both FK-closure plans discovered before first common Grade FOR UPDATE',
                 'outcomes':outcomes,'sqlstates':states,'lock_tokens':tokens,'page_foreign_keys':pages,
-                'initial_40P01_evidence':'independent-audit-v3/audit-probes-results.json'},indent=2)+'\n',encoding='utf-8')
+                'initial_40P01_evidence':'independent-audit-v3/audit-probes-results.json'})
 
     def test_f2_changed_setnull_plan_conflicts_before_mutations(self):
         with self.database() as engine:
