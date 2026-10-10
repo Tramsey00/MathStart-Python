@@ -1,0 +1,492 @@
+{
+  "recorded_at_utc": "2026-10-09T18:07:30.789947+00:00",
+  "input_and_final_HEAD": "d5dc9a4e130d3901c26894aa01e30a935dac84b6",
+  "branch": "ms7-mig-v01-schema",
+  "scope": "PR51 discovery integration fix, V01 no domain/schema changes",
+  "checks": [
+    {
+      "name": "Initial root-lock SQLite diagnostic",
+      "status": "FAIL",
+      "tests": 111,
+      "pass": 98,
+      "fail": 1,
+      "error": 4,
+      "skip": 8,
+      "seconds": 150.558,
+      "classification": "4 reproduced target ImportErrors; existing I03 NETWORK_ERROR in restricted loopback; no PG acceptance"
+    },
+    {
+      "name": "Discovery regression before fix",
+      "status": "FAIL",
+      "pass": 1,
+      "fail": 1,
+      "error": 0,
+      "skip": 0,
+      "seconds": 2.058
+    },
+    {
+      "name": "New legacy helper initial DDL attempt",
+      "status": "FAIL",
+      "classification": "COMMENT parameter syntax fixed with psycopg.sql.Literal; own DB dropped; no tests ran"
+    },
+    {
+      "name": "Discovery regression without SQLAlchemy/Alembic",
+      "status": "PASS",
+      "pass": 2,
+      "fail": 0,
+      "error": 0,
+      "skip": 0,
+      "seconds": 2.145
+    },
+    {
+      "name": "Discovery regression with locked target dependencies",
+      "status": "PASS",
+      "pass": 2,
+      "fail": 0,
+      "error": 0,
+      "skip": 0,
+      "seconds": 2.368
+    },
+    {
+      "name": "Legacy PostgreSQL Django tests",
+      "status": "PASS",
+      "pass": 109,
+      "fail": 0,
+      "error": 0,
+      "skip": 0,
+      "seconds": 174.181,
+      "dependency_lock": "requirements.lock",
+      "SQLAlchemy_available": false,
+      "Alembic_available": false
+    },
+    {
+      "name": "Unchanged root verify_repo",
+      "status": "PASS",
+      "checks_pass": 8,
+      "checks_fail": 0,
+      "dependency_lock": "requirements.lock"
+    },
+    {
+      "name": "Repeated exact manage.py test within verify_repo",
+      "status": "PASS",
+      "pass": 109,
+      "fail": 0,
+      "error": 0,
+      "skip": 0,
+      "seconds": 170.744,
+      "SQLAlchemy_available": false,
+      "Alembic_available": false
+    },
+    {
+      "name": "Target explicit suite",
+      "status": "PASS",
+      "pass": 34,
+      "fail": 0,
+      "error": 0,
+      "skip": 0,
+      "seconds": 68.507,
+      "unit_SQLite": 11,
+      "PostgreSQL": 23,
+      "dependency_lock": "backend/requirements-test.lock"
+    },
+    {
+      "name": "Target-only runtime CLI fresh twice/A/B/C/check",
+      "status": "PASS",
+      "exit_zero": 10,
+      "dependency_lock": "backend/requirements.lock",
+      "Django_available_or_imported": false
+    },
+    {
+      "name": "R02 migration contracts",
+      "status": "PASS",
+      "pass": 63,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "name": "R03 / Harness",
+      "status": "PASS",
+      "pass": [
+        18,
+        73
+      ],
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "name": "R02A / R03A",
+      "status": "PASS",
+      "pass": [
+        30,
+        41
+      ],
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "name": "Locks/pip checks/public metadata/graph/frozen/history/evidence/workflows/diff",
+      "status": "PASS"
+    }
+  ],
+  "legacy_helper": {
+    "status": "PASS",
+    "dependency_lock": "requirements.lock",
+    "SQLAlchemy_installed": false,
+    "Alembic_installed": false,
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "runtime_root": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e",
+    "checks": [
+      {
+        "command": [
+          "-m",
+          "pip",
+          "check"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/pip-check.txt"
+      },
+      {
+        "command": [
+          "manage.py",
+          "migrate",
+          "--noinput"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/migrate.txt"
+      },
+      {
+        "command": [
+          "manage.py",
+          "bootstrap_site"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/bootstrap-1.txt"
+      },
+      {
+        "command": [
+          "manage.py",
+          "bootstrap_site"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/bootstrap-2.txt"
+      },
+      {
+        "command": [
+          "manage.py",
+          "collectstatic",
+          "--noinput"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/collectstatic.txt"
+      },
+      {
+        "command": [
+          "manage.py",
+          "test",
+          "--noinput",
+          "-v",
+          "2"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/django-tests.txt"
+      },
+      {
+        "command": [
+          "scripts/verify_repo.py"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/verify-repo.txt"
+      },
+      {
+        "command": [
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_migration_r02*.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r02-migration.txt"
+      },
+      {
+        "command": [
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_r02a_contract.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r02a.txt"
+      },
+      {
+        "command": [
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_r03a_contract.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r03a.txt"
+      }
+    ],
+    "owned_database_removed": true
+  },
+  "raw_logs": [
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/bootstrap-1.txt",
+      "sha256": "41ecc6f21a7ab0b3faca28c65cc0e48d54fac8adf4fefbd378c8d0ff95fcd905",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/bootstrap-2.txt",
+      "sha256": "ba40e3b8a384b2a5783aa47e7e800824d2c337574e42eaee50893d367e616486",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/collectstatic.txt",
+      "sha256": "804d9a877a7f8ae1b315384a4a9072c559e8a74a93c76a92451d696a871a1762",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/django-tests.txt",
+      "sha256": "fd3137b97ba68aa62468f3bd9a7a8e81414c8d09c268a8981057fc29bbe2843c",
+      "unittest_summaries": [
+        [
+          "109",
+          "174.181"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/migrate.txt",
+      "sha256": "de5117d83b935878458331e8fab081db569146a65ff862d73ff2b673f6a95e4c",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/pip-check.txt",
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r02-migration.txt",
+      "sha256": "ad37466166e77ce0ede1de563cf141a9c747bc40faf9d75377dcabae113def4c",
+      "unittest_summaries": [
+        [
+          "63",
+          "6.031"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r02a.txt",
+      "sha256": "27e21334e6d60b8c83539a4c9df3ff91fd7cff00e1ad0af692c977f21f513d72",
+      "unittest_summaries": [
+        [
+          "30",
+          "1.340"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r03a.txt",
+      "sha256": "ff8eef98507ea6286aacbbdf397f4d09b8900675b68a9e1bd480a83f1492bc77",
+      "unittest_summaries": [
+        [
+          "41",
+          "0.042"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/verify-repo.txt",
+      "sha256": "d928eade4d4dd275b227cce5d8e29e46d97222c798d1f76e813a62525f4c3d3a",
+      "unittest_summaries": [
+        [
+          "109",
+          "170.744"
+        ],
+        [
+          "18",
+          "0.009"
+        ],
+        [
+          "73",
+          "4.895"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": [
+        "RESULT: PASS (8 checks passed)."
+      ]
+    },
+    {
+      "path": "var/ms7-mig-v01-container-final-v4.txt",
+      "sha256": "d374aa273f75171a52ae59f3bf51e1712d44908fa35891cca3471d2244dae75b",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-discovery-after-v4.txt",
+      "sha256": "8958ba2849a431471c8cc64632aae46b4099d9643791f46ab70229ebb16c8959",
+      "unittest_summaries": [
+        [
+          "2",
+          "2.145"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-discovery-before-v4.txt",
+      "sha256": "066cc20e53c353d2295c44cce9d1f118a5ec3c457b1b109dc3382652bfef0751",
+      "unittest_summaries": [
+        [
+          "2",
+          "2.058"
+        ]
+      ],
+      "failed_summaries": [
+        "FAILED (failures=1)"
+      ],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-discovery-target-v4.txt",
+      "sha256": "043ca83e631c1e343487453c10bced2d577fd414dbe062f534c1ad8333a42a9d",
+      "unittest_summaries": [
+        [
+          "2",
+          "2.368"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-legacy-before-v4.txt",
+      "sha256": "4c887ffa9d37e6dbc829bb8e293c70fcd06c2a3eb36dff2b68613ec52553fb1c",
+      "unittest_summaries": [
+        [
+          "111",
+          "150.558"
+        ]
+      ],
+      "failed_summaries": [
+        "FAILED (failures=1, errors=4, skipped=8)"
+      ],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-legacy-environment-v4.txt",
+      "sha256": "f8c7170b7d6d1a1c37501d05d31f73f4d5db758f059a40acdc613523a4925b2c",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-legacy-final-v4.txt",
+      "sha256": "c7a6ce7b684347c8d789a3da8253feb5e543ca921dc46681663b9e68b6240268",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-legacy-setup-first-v4.txt",
+      "sha256": "504fb6b4761361affa86aaf768d91ea623afbf03c8247a297e4b49e9b75e6514",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-public-interface-v4.txt",
+      "sha256": "9d155a34120a2216cdbf7b953c367149dd1a1b4f5d0481e7418e4d21ffbba04f",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-runtime-environment-v4.txt",
+      "sha256": "aed2da921260856be9063a38e3a74a84333be614038ded6513a8e235bd0632d8",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-runtime-final-v4.txt",
+      "sha256": "2c5b74c819a5a17802ea01bec49841aa17f8cc7c2c12c54a8861d3208b314b4d",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-scope-v4.txt",
+      "sha256": "dd33a619db671b073e8a4530fa5aaf996e98fc25bcadc059959b3ee7c881bba6",
+      "unittest_summaries": [],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    },
+    {
+      "path": "var/ms7-mig-v01-target-final-v4.txt",
+      "sha256": "2d7f5487920528f72722948e837c56e813d8f4fc9eee46480724e55eef84afcd",
+      "unittest_summaries": [
+        [
+          "34",
+          "68.507"
+        ]
+      ],
+      "failed_summaries": [],
+      "verify_repo_result": []
+    }
+  ],
+  "not_verified": [
+    "Linux/GitHub CI rerun",
+    "owner target CI handoff integration",
+    "independent PR re-review/Task Approval",
+    "production/cutover/deployed data",
+    "AFTER-COMMIT acknowledgement loss",
+    "exhaustive lifecycle races/lock scalability"
+  ],
+  "remote_job_logs": "NOT RETRIEVED by web tool; exact four ImportErrors independently reproduced locally",
+  "no_commit_push_merge": true,
+  "root_workflows_modified": false,
+  "frozen_R02_or_historical_migrations_or_B01_or_domain_contracts_changed": false,
+  "cleanup": {
+    "container": "ms7-mig-v01-pg-20261009",
+    "id": "fa77de451fb4ea18ffe92f063b627cf473af734aea093dba107a6161d107513f",
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "remaining_test_databases": 0,
+    "production_or_shared_database_access": false,
+    "state": "STOPPED"
+  }
+}

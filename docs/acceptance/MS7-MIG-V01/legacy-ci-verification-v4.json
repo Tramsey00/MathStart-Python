@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "dependency_lock": "requirements.lock",
+  "SQLAlchemy_installed": false,
+  "Alembic_installed": false,
+  "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+  "runtime_root": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e",
+  "checks": [
+    {
+      "command": [
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/pip-check.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "migrate",
+        "--noinput"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/migrate.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "bootstrap_site"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/bootstrap-1.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "bootstrap_site"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/bootstrap-2.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "collectstatic",
+        "--noinput"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/collectstatic.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "test",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/django-tests.txt"
+    },
+    {
+      "command": [
+        "scripts/verify_repo.py"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/verify-repo.txt"
+    },
+    {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_migration_r02*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r02-migration.txt"
+    },
+    {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r02a_contract.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r02a.txt"
+    },
+    {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r03a_contract.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-ci-v4-bcf35cb02cf54946a161d98a7861e54e/r03a.txt"
+    }
+  ],
+  "owned_database_removed": true
+}

@@ -1,0 +1,46 @@
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -19,6 +19,7 @@
+           POSTGRES_PASSWORD: disposable-ci-only-password
+         ports:
+           - 5432:5432
++          - 55441:5432
+         options: >-
+           --health-cmd="pg_isready -U mathstart_ci -d ms6_v01_smoke_ci"
+           --health-interval=2s --health-timeout=3s --health-retries=30
+@@ -58,3 +59,12 @@
+         run: python -m unittest discover -s tests -p test_r02a_contract.py -v
+       - name: R03A CompletionFact contract
+         run: python -m unittest discover -s tests -p test_r03a_contract.py -v
++      - name: V01 explicit persistence suite in a separate locked environment
++        env:
++          MATHSTART_V01_TEST_ADMIN_URL: postgresql+psycopg://mathstart_ci:disposable-ci-only-password@127.0.0.1:55441/postgres
++          MATHSTART_V01_EVIDENCE_DIR: ${{ github.workspace }}/var/v01-ci-evidence
++        run: |
++          python -m venv var/v01-target-ci
++          var/v01-target-ci/bin/python -m pip install --no-deps -r backend/requirements-test.lock
++          var/v01-target-ci/bin/python -m pip check
++          var/v01-target-ci/bin/python -m unittest backend.tests.test_unit backend.tests.test_postgres backend.tests.test_remediation -v
+--- a/.github/workflows/migration-ci.yml
++++ b/.github/workflows/migration-ci.yml
+@@ -19,6 +19,7 @@
+           POSTGRES_PASSWORD: disposable-ci-only-password
+         ports:
+           - 5432:5432
++          - 55441:5432
+         options: >-
+           --health-cmd="pg_isready -U mathstart_ci -d ms6_v01_smoke_ci"
+           --health-interval=2s --health-timeout=3s --health-retries=30
+@@ -58,3 +59,12 @@
+         run: python -m unittest discover -s tests -p test_r02a_contract.py -v
+       - name: R03A CompletionFact contract
+         run: python -m unittest discover -s tests -p test_r03a_contract.py -v
++      - name: V01 explicit persistence suite in a separate locked environment
++        env:
++          MATHSTART_V01_TEST_ADMIN_URL: postgresql+psycopg://mathstart_ci:disposable-ci-only-password@127.0.0.1:55441/postgres
++          MATHSTART_V01_EVIDENCE_DIR: ${{ github.workspace }}/var/v01-ci-evidence
++        run: |
++          python -m venv var/v01-target-ci
++          var/v01-target-ci/bin/python -m pip install --no-deps -r backend/requirements-test.lock
++          var/v01-target-ci/bin/python -m pip check
++          var/v01-target-ci/bin/python -m unittest backend.tests.test_unit backend.tests.test_postgres backend.tests.test_remediation -v

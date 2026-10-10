@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "runtime_root": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7",
+  "checks": [
+    {
+      "command": [
+        "manage.py",
+        "migrate",
+        "--noinput"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/migrate.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "bootstrap_site"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/bootstrap-1.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "bootstrap_site"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/bootstrap-2.txt"
+    },
+    {
+      "command": [
+        "manage.py",
+        "collectstatic",
+        "--noinput"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/collectstatic.txt"
+    },
+    {
+      "command": [
+        "scripts/verify_repo.py"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/verify-repo.txt"
+    },
+    {
+      "command": [
+        "-m",
+        "unittest",
+        "tests.test_migration_r02_contract",
+        "tests.test_migration_r02_review",
+        "tests.test_migration_r02_protocols",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/r02-migration.txt"
+    }
+  ]
+}
