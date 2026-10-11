@@ -63,3 +63,10 @@ derived manifest and original timestamped blank log lines. Derived manifest
 written LF; raw logs retain exact artifact bytes (all18 hashes checked). Source/
 document whitespace check excludes only raw .log members; no raw evidence trimmed.
 Local final evidence regressions11 PASS.
+
+Storage-changee85b1dc run38156256304 failed at intake; target was NOT_RUN.
+Docker creates the intended tmpfs but exposes --tmpfs in HostConfig.Tmpfs,
+not Mounts. Corrected the adapter to verify the actual field and reject all
+volume/bind mounts. Same-shape negative regression updated. GitHub automatic
+Stop containers succeeded. Raw decoded failure excerpts retained separately;
+no PostgreSQL tests skipped-to-success or V01 edits. Local11 regressions PASS.

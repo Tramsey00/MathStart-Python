@@ -58,6 +58,7 @@ def inspect_service():
     record = {'id': inspected['Id'], 'configured_image': inspected['Config']['Image'],
               'image_id': inspected['Image'], 'labels': inspected['Config']['Labels'],
               'state': inspected['State'], 'ports': inspected['HostConfig']['PortBindings'],
+              'tmpfs': inspected['HostConfig'].get('Tmpfs', {}),
               'mounts': [{k: m[k] for k in ('Type', 'Name', 'Destination') if k in m} for m in inspected['Mounts']],
               'ownership': 'GitHub Actions job service; exact ID supplied by workflow context',
               'run_id': os.environ.get('GITHUB_RUN_ID'), 'captured_at': now()}
@@ -67,11 +68,10 @@ def inspect_service():
 
 def validate_service(record, identity):
     ports = record['ports'].get('5432/tcp', [])
-    data_mounts = [mount for mount in record['mounts'] if mount['Destination'] == '/var/lib/postgresql/data']
     if (record['id'] != identity or record['configured_image'] != 'postgres:16-bookworm'
             or len(ports) != 1 or ports[0]['HostPort'] != '55441'
-            or len(data_mounts) != 1 or data_mounts[0]['Type'] != 'tmpfs'
-            or any(mount['Type'] == 'volume' for mount in record['mounts'])):
+            or record['tmpfs'] != {'/var/lib/postgresql/data': 'rw'}
+            or any(mount['Type'] != 'tmpfs' for mount in record['mounts'])):
         raise ValueError('Container identity/image/port/tmpfs differs from owned disposable job service')
 
 
