@@ -36,3 +36,9 @@ Local stdlib evidence regressions:10 PASS on bundled Python3.12.14. Candidate
 Git snapshot:clean393d988/tree4a9dde54;106 backend/historical files hashed;
 both baseline workflows match accepted input. R03 preservation1370/1370 PASS;
 git diff --check PASS. These are intake/parser checks, not PostgreSQL execution.
+
+Initial R03 workflow publicationc00e1eb produced run38155735994 FAILURE before
+job execution (workflow configuration). job.services was placed in job-level
+env where the job context is unavailable. Moved exact service-ID expression
+to intake/cleanup step env; no candidate change or test execution in this run.
+Run: https://github.com/Tramsey00/MathStart-Python/actions/runs/38155735994

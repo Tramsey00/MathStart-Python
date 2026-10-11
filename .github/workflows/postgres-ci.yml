@@ -39,8 +39,6 @@ jobs:
           --health-interval 5s
           --health-timeout 5s
           --health-retries 12
-    env:
-      R03_POSTGRES_SERVICE_ID: ${{ job.services.postgres.id }}
     steps:
       - name: R03 workflow implementation checkout
         uses: actions/checkout@v7
@@ -68,6 +66,7 @@ jobs:
         working-directory: r03
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          R03_POSTGRES_SERVICE_ID: ${{ job.services.postgres.id }}
         run: python scripts/postgres_ci.py intake --candidate ../candidate
       - name: Separate locked target environment and explicit 34-case PostgreSQL gate
         working-directory: r03
@@ -75,6 +74,8 @@ jobs:
       - name: Capture service diagnostics and stop owned disposable service
         if: always()
         working-directory: r03
+        env:
+          R03_POSTGRES_SERVICE_ID: ${{ job.services.postgres.id }}
         run: python scripts/postgres_ci.py cleanup
       - name: Retain raw target evidence even on failure
         if: always()
