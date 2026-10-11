@@ -57,9 +57,44 @@ by this increment.
 
 ## Current results
 
-Configuration and adapter verification are recorded in the R03 trace. Actual
-workflow/candidate SHA, run, raw evidence and final outcome will be attached to
-PR49's R03 handoff after execution. The current candidate's existing baseline
+The separate [frontend run38150144486](https://github.com/Tramsey00/MathStart-Python/actions/runs/38150144486)
+completed **SUCCESS**, job114501718082, attempt1, 2026-10-11T15:10:05Z–15:10:49Z
+(18:10:05–18:10:49 Europe/Moscow). Workflow implementation commit:
+`a9f986e23ff4c2d4dedf2c83a13bd7e7e9102824`. This is a PR49 event, with actual
+R03 workflow checkout `962dce0aea73f465c27b6e6b4c4a8cf7408e760c`, parents
+accepted8d958ae / implementationa9f986e, treeb1f8b7a15173f2e8a4c088d7d9755f404761c28d.
+PR50 head and actual candidate checkout are separate recorded fields, both
+`150279e6ca7f1c82a6f23d8899e50992cf358f55`; candidate treea8b1b645bfd1d40e02e0be313d0f501ed5ee9dbc.
+Observed PR50 merge-refbc2063a0 is explicitly not the candidate tested by this job.
+
+| Check | Actual outcome |
+| --- | --- |
+| Tooling | Python3.12.15, Node24.21.0, npm11.19.0 |
+| R03 adapter negative regressions |8 PASS |
+| Locked install |exit0;217 added /218 audited; original lock unchanged |
+| Generation / contracts / route typecheck / native validators |exit0 |
+| Frontend unit/component/security |112 PASS, no failed/skipped tests |
+| Unchanged historical dispatcher |5 PASS,0 fail/skip/cancelled |
+| Production build/security graph/payload/export guards |exit0;47 client modules /12 artifacts |
+| Dependency tree and audit at low severity |exit0;0 vulnerabilities |
+| Owner foundation receipt |all10 required commands exit0; clean before/after; exact candidate SHA |
+| History / frozen baseline |84 capture hashes unchanged and match canonical Git blobs; workflows unchanged |
+
+[Artifact11706700458](https://github.com/Tramsey00/MathStart-Python/actions/runs/38150144486/artifacts/11706700458)
+contains raw provenance, execution, owner report and locked-install/foundation
+logs. Downloaded ZIP SHA256 matches the Actions digest:
+`6cdc7c3fbc8b181ff14bd42961b4acdae517c4dacc71445bd85c3da9fcaf4855`.
+For retention beyond artifact expiry, its six files are copied **without byte
+changes** under [run-38150144486](frontend-pr50-ci/run-38150144486/);
+[artifact-manifest.json](frontend-pr50-ci/run-38150144486/artifact-manifest.json)
+records every file hash/size. New evidence is distinct from I01 historical/local
+captures. Existing esbuild install-scripts advisory and Router notices remain
+in raw logs; no package policy or owner manifests were changed.
+
+The evidence-retention commit does not change workflow, candidate pins, runner
+or frontend implementation; the run above remains bound to its actual workflow
+implementation SHA rather than relabelled to the later records commit.
+The candidate's existing baseline
 [run38057300258](https://github.com/Tramsey00/MathStart-Python/actions/runs/38057300258)
 is SUCCESS; it did not run frontend checks and is not relabelled.
 
