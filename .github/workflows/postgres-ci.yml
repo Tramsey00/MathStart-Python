@@ -1,0 +1,86 @@
+name: R03 V01 target PostgreSQL candidate verification
+
+on:
+  push:
+    branches: [ms7-mig-r03-verification]
+    paths:
+      - '.github/workflows/postgres-ci.yml'
+      - 'scripts/postgres_ci.py'
+      - 'scripts/v01_ci_observer.py'
+      - 'tests/test_postgres_ci.py'
+      - 'specs/migration/r03-v1/postgres-ci-pr51.json'
+  pull_request:
+    branches: [ms7-mig-react-fastapi]
+    paths:
+      - '.github/workflows/postgres-ci.yml'
+      - 'scripts/postgres_ci.py'
+      - 'scripts/v01_ci_observer.py'
+      - 'tests/test_postgres_ci.py'
+      - 'specs/migration/r03-v1/postgres-ci-pr51.json'
+
+permissions:
+  contents: read
+
+jobs:
+  v01-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_USER: mathstart_v01_ci
+          POSTGRES_PASSWORD: disposable-v01-ci-only
+          POSTGRES_DB: postgres
+        ports:
+          - 55441:5432
+        options: >-
+          --health-cmd "pg_isready -U mathstart_v01_ci -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      R03_POSTGRES_SERVICE_ID: ${{ job.services.postgres.id }}
+    steps:
+      - name: R03 workflow implementation checkout
+        uses: actions/checkout@v7
+        with:
+          path: r03
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Exact reviewed PR51 candidate checkout
+        uses: actions/checkout@v7
+        with:
+          ref: 393d98890649c6c7c47908424ba0d076b5b5e56e
+          path: candidate
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Workflow provenance and R03 evidence regressions
+        working-directory: r03
+        run: |
+          python scripts/ci_provenance.py --output var/postgres-ci/workflow-provenance.json
+          python -m unittest discover -s tests -p test_postgres_ci.py -v
+          python scripts/check_migration_preservation.py
+      - name: Live PR51 head, checkout, frozen evidence and owned service pins
+        working-directory: r03
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/postgres_ci.py intake --candidate ../candidate
+      - name: Separate locked target environment and explicit 34-case PostgreSQL gate
+        working-directory: r03
+        run: python scripts/postgres_ci.py run --candidate ../candidate
+      - name: Capture service diagnostics and stop owned disposable service
+        if: always()
+        working-directory: r03
+        run: python scripts/postgres_ci.py cleanup
+      - name: Retain raw target evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: r03-pr51-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          path: r03/var/postgres-ci/
+          if-no-files-found: error
+          retention-days: 30

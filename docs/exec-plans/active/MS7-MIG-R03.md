@@ -87,3 +87,17 @@ record final results in a new follow-up trace. No I01 implementation/acceptance,
 manual hover or UX/integration approval is included. API/security approval
 Vladimir5483318464 is live evidence only for the specified I01 candidate.
 Detailed contract/limits: docs/acceptance/MS7-MIG-R03/frontend-pr50-ci.md.
+
+## V01 target PostgreSQL CI follow-up — 2026-10-11
+
+User authorizes R03-only separate target CI per PR51 handoff v5, at explicitly
+pinned current candidate393d988 (backend unchanged from reviewed1f97d762).
+Create owned disposable PG16 service and separate22-package test-lock venv;
+execute unchanged explicit34-case/23-PG gate without skips, observe fresh2,
+upgradeABC, negatives and complete cleanup. Record live head vs actual candidate
+and R03 workflow checkout, raw outputs and immutable new evidence. Prepare final
+Independent Task Approval materials, without granting approval, expanding V01,
+merging or closing Issues. Preserve historical evidence and frozen workflows.
+Contract/result: docs/acceptance/MS7-MIG-R03/postgres-pr51-ci.md; follow-up trace
+docs/agent-traces/MS7-MIG-R03-postgres-pr51-ci.md. Wider R03 completion and I01
+hover/UX/integration gates remain pending independently.
