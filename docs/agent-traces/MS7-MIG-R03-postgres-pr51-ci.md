@@ -4,6 +4,9 @@ Date: 2026-10-11 Europe/Moscow. Scope: root CI wiring/evidence, Issue #30.
 Status: CI_HANDOFF_DELIVERED; Independent Task Approval NOT_DECLARED;
 overall MS7-MIG-R03 remains INCOMPLETE.
 
+Subsequent external V01 owner approval/integration was observed after publication;
+it is recorded in the final section and is not an agent approval/merge.
+
 ## Intake
 
 Read repository instructions, product/architecture, accepted ADR0006 alongside
@@ -99,3 +102,23 @@ No approval, merge, Issue closure, V01 feature or I01 hover/UX acceptance claime
 Evidence-retention publication is a later R03-only commit, not the workflow SHA
 used above. Wider R03 target job still fails on unavailable downstream owner
 inputs; this explicit V01 run does not mark the full R03 pipeline complete.
+
+## External state changed during final publication
+
+Live recheck found PR51 merged externally byTramsey00 at16:46:09Z. Review5484103844
+APPROVED on393d988 at16:45:45Z explicitly declares Independent Task Approval and
+permits merge (citing first suite38155839568); the final tmpfs suite38156436658
+supplies additional CI lifecycle proof at the same unchanged candidate.
+Actual squash commit4a1b8b0 has sole parent8d958ae and tree4a9dde54, equal candidate.
+New external-state-v7 record preserves API receipt/provenance without rewriting
+v6's predecision pending status. The packet now records the subsequent decision.
+R03 performed no review approval, merge or Issue closure. I01 remains open with
+hover/UX gates separate; wider R03 completion is not transferred from this receipt.
+
+Late records-only run38156928889 at4e20b54 failed before target tests on the
+existing CI event/checkout linkage guard: actual PR49 checkout9695b96 merged
+4e20b54 into newly changed integration4a1b8b0. Owned service cleanup SUCCESS;
+target NOT_RUN. Raw decoded excerpts retained in external-state-v7. Exact
+pre-merge candidate CI38156436658 remains the applicable evidence; no post-merge
+target CI or all-green latest R03 status is claimed. Closed PR51 remains rejected
+by open-PR intake; no guard weakened to hide the changed external state.

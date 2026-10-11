@@ -106,3 +106,10 @@ V01 CI handoff delivered: run38156436658 SUCCESS at exact candidate393d988;
 34/23 PASS without skips, fresh2/ABC,57 cleaned databases and verified tmpfs
 service lifecycle. Raw artifact retained and final Independent Task Approval
 packet prepared. No human approval or global R03 completion is declared.
+
+Subsequent external receipt5484103844 approved exact V01 candidate393d988 and
+external squash merge4a1b8b0 occurred during publication. R03 did not perform
+either action; recorded separately in external-state-v7 and packet. Later CI
+guard refusal on changed merge-ref/closed PR is not presented as a PASS.
+Existing requested input8d958ae/MIG_BASE remain the provenance of this increment;
+no wider R03/V02/I02 or post-merge integration work is started by this observation.

@@ -1,8 +1,9 @@
 # V01 final Independent Task Approval packet — exact PR51 candidate
 
 Prepared by R03 on 2026-10-11 Europe/Moscow. Decision owner: Руслан.
-**CI evidence complete; Independent Task Approval PENDING.** This packet is a
-review input, not an approval, merge authorization or ACCEPTED_INTEGRATION.
+**CI evidence complete.** Initially prepared with Independent Task Approval
+pending; the later external owner decision is recorded below. R03 itself does
+not issue approval, merge authorization or ACCEPTED_INTEGRATION.
 
 ## Candidate and checkout provenance
 
@@ -105,3 +106,31 @@ AWAITING INDEPENDENT TASK APPROVAL. No production/cutover/deployed variant, load
 or post-commit acknowledgement-loss verification is claimed. Recorded P3 helper
 evidence-output follow-up remains nonblocking and unchanged. No merge or Issue
 closure performed. Wider R03/V02/I02 gates and I01 hover/UX review remain separate.
+
+## Later external decision — observed after evidence publication
+
+At2026-10-11T16:45:45Z, `Tramsey00` published
+[Independent Task Approval5484103844](https://github.com/Tramsey00/MathStart-Python/pull/51#pullrequestreview-5484103844)
+APPROVED on exact393d988. That receipt cites baseline38137695565 and the first
+successful target suite38155839568 and permits integration; the final tmpfs
+run38156436658 additionally supplies the stronger storage-lifecycle proof on
+the same candidate, without changing backend/test bytes.
+
+GitHub records an external squash merge by `Tramsey00` at16:46:09Z into
+`4a1b8b05709e7c5485194ca5551aee0824333660`, parent8d958ae, tree4a9dde54 equal
+the verified candidate tree. This is a subsequent external state change, not
+an action performed by R03. The human receipt declares ACCEPTED_INTEGRATION
+after merge and keeps Issue34 open until final main integration.
+The earlier pending-decision text above describes the packet's preparation state;
+the later actual decision has this separate provenance.
+
+R03 records-only commit4e20b54 triggered a later run38156928889. During the
+external integration change its PR49 checkout moved to a new merge ref;
+the existing event/checkout provenance guard refused linkage before target
+commands. That run is FAILURE / target NOT_RUN, with owned service cleanup
+SUCCESS. It is not substitute target evidence and does not invalidate the
+previous exact-candidate run. Closed PR51 cannot satisfy the adapter's open-PR
+intake; the guard remains unchanged. No post-merge/integration target verification
+is claimed. Full state and decoded log excerpts:
+[new external-state record](../MS7-MIG-V01/r03-target-ci-external-state-v7.json).
+No agent merge, approval, Issue closure or wider R03/I01 acceptance occurred.
