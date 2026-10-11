@@ -74,3 +74,16 @@ runtime checks lack owner inputs; target fresh/upgrade fail explicitly. Results
 and versions: docs/acceptance/MS7-MIG-R03/verification.json. Proceed only with
 draft publication/current-head CI and independent review; implementation scope
 does not authorize V/I delivery or closing integration blockers by assumption.
+
+## Frontend CI follow-up — 2026-10-11
+
+User authorized only the R03/root CI wiring and execution for reviewed PR50
+candidate150279e6, preserving frozen baseline workflows and historical captures.
+Separate workflow and bounded stdlib adapter install exact Node/npm, locked
+frontend dependencies and invoke the unchanged I01 foundation suite. Separate
+R03/candidate checkouts and live PR pins prevent stale SHA or approval transfer.
+Execute adapter negatives, preservation, CI and retain raw receipts/run URL;
+record final results in a new follow-up trace. No I01 implementation/acceptance,
+manual hover or UX/integration approval is included. API/security approval
+Vladimir5483318464 is live evidence only for the specified I01 candidate.
+Detailed contract/limits: docs/acceptance/MS7-MIG-R03/frontend-pr50-ci.md.
