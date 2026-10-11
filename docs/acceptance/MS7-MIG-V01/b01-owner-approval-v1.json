@@ -1,0 +1,16 @@
+{
+  "version": "b01-owner-approval-v1",
+  "recorded_date": "2026-10-09",
+  "timezone": "Europe/Moscow",
+  "finding": "B01",
+  "source_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "decision": "APPROVED_FOR_THREE_PK_COLUMNS",
+  "decision_owner": "Руслан, R02 Owner",
+  "evidence_type": "User's direct written report in this Codex conversation",
+  "reported_owner_decision": "Руслан как R02 Owner письменно согласовал finding B01: для auth_group_permissions.id, auth_user_groups.id и auth_user_user_permissions.id использовать physical PostgreSQL baseline BIGINT, отразив это в SQLAlchemy/Alembic. Остальные связанные поля не изменять.",
+  "user_authorization": "Continue the existing MS7-MIG-V01 implementation; preserve prior uncommitted files and frozen R02; create a versioned compatibility addendum; investigate CHECK canonicalization and rerun disposable PostgreSQL tests.",
+  "external_owner_message_url": null,
+  "external_owner_signature_independently_retrieved": false,
+  "provenance_limit": "The user reports the owner's written approval. No independently fetched owner message, signature, GitHub review or broader task acceptance is invented.",
+  "not_authorized": ["Other column type changes", "Frozen R02 edits", "Commit", "Push", "PR", "Production operations", "V01 Task Approval"]
+}

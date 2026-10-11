@@ -1,0 +1,223 @@
+{
+  "version": "old-to-new-evidence-v4",
+  "implements": "Migration specification section 17",
+  "supersedes_without_rewriting": "docs/acceptance/MS7-MIG-V01/old-to-new-evidence-v3.json",
+  "implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+  "source_tree_sha": "03d634dd108ceacbcaa626d1de4de714695eda09",
+  "accepted_integration_input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "immutable_mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "current_status": "INCOMPLETE",
+  "status_vocabulary": [
+    "PASS",
+    "FAIL",
+    "PENDING",
+    "NOT_VERIFIED",
+    "INCOMPLETE"
+  ],
+  "status_semantics": "PASS describes a scoped check only. INCOMPLETE is owner-directed V01 state. PENDING means an uncompleted gate; NOT_VERIFIED means absent verification. None transfers historical Task Approval. No formal section-17 JSON schema was found; these explicit enum values are validated by verify-evidence-v5.py.",
+  "evidence_publication": {
+    "status": "PENDING",
+    "new_evidence_commit_sha": null,
+    "post_evidence_pr_head_sha": null
+  },
+  "records": [
+    {
+      "original_result": {
+        "id": "Grades PR24",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/24",
+        "head_sha": "8334f9a22ed09fa25dd27c42fe759b495fceb033",
+        "merge_sha": "c945ef6f768564fbd876b8d95f61a83a6d8cbda2",
+        "merged_at": "2026-10-04T17:05:31Z",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/23",
+        "ci": [
+          {
+            "id": 37203374678,
+            "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/37203374678",
+            "event": "pull_request",
+            "head_sha": "8334f9a22ed09fa25dd27c42fe759b495fceb033",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "acceptance": {
+          "consumer": {
+            "login": "13baybars",
+            "url": "https://github.com/Tramsey00/MathStart-Python/pull/24#pullrequestreview-5406384114",
+            "commit": "8334f9a22ed09fa25dd27c42fe759b495fceb033",
+            "date": "2026-10-04T13:20:40Z",
+            "scope": "I03 consumer handoff only"
+          },
+          "backend_migration": {
+            "login": "Tramsey00",
+            "url": "https://github.com/Tramsey00/MathStart-Python/pull/24#issuecomment-6015016626",
+            "date": "2026-10-06T11:13:16Z",
+            "scope": "Explicit post-merge human Task Approval and migration review; recorded by original participant, not created by R01"
+          }
+        }
+      },
+      "original_result_source": "docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json",
+      "platform_disposition": {
+        "disposition": "PRESERVE_HISTORY_ADAPT_PERSISTENCE",
+        "description": "Historical Grades approvals/results preserved. V01 carries Grade epoch, row/data preservation and sequences into SQLAlchemy/Alembic. Historical approvals do not approve V01."
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-V01",
+        "implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "accepted_integration_input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "immutable_mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "scope": "SQLAlchemy models, Alembic and upgrade profiles; evidence remediation only in v5"
+      },
+      "target_evidence": {
+        "implementation_report": "docs/acceptance/MS7-MIG-V01/implementation-report-v4.md",
+        "local_verification": "docs/acceptance/MS7-MIG-V01/verification-v4.json",
+        "runtime_verification": "docs/acceptance/MS7-MIG-V01/runtime-verification-v4.json",
+        "legacy_verification": "docs/acceptance/MS7-MIG-V01/legacy-ci-verification-v4.json",
+        "compatibility_addendum": "docs/acceptance/MS7-MIG-V01/compatibility-addendum-v1.0.0.md",
+        "B01_owner_evidence": "docs/acceptance/MS7-MIG-V01/b01-owner-approval-v1.json",
+        "CHECK": "docs/acceptance/MS7-MIG-V01/check-canonicalization-v1.json",
+        "F1": "docs/acceptance/MS7-MIG-V01/f1-timestamp-parity-v4.json",
+        "F2": "docs/acceptance/MS7-MIG-V01/f2-concurrency-v4.json",
+        "publication_manifest": "docs/acceptance/MS7-MIG-V01/publication-manifest-v1.json",
+        "historical_digest_comparison": "docs/acceptance/MS7-MIG-V01/publication-comparison-v1.json",
+        "independent_review_provenance": "docs/acceptance/MS7-MIG-V01/independent-review-provenance-v5.json",
+        "owner_review_intake": "docs/acceptance/MS7-MIG-V01/owner-review-intake-v5.json",
+        "github_ci_record": "docs/acceptance/MS7-MIG-V01/github-ci-observation-v5.json",
+        "legacy_ci_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38054413732",
+        "legacy_ci_head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "legacy_ci_status": "PASS",
+        "target_postgres_ci_status": "PENDING",
+        "target_ci_handoff": "docs/acceptance/MS7-MIG-V01/r03-ci-handoff-v5.md",
+        "human_task_approval": "PENDING",
+        "status": "INCOMPLETE",
+        "verification_provenance": "v4 local tests ran on d5 plus uncommitted CI remediation, subsequently published as 1f97. They are self-checks; no new exact-1f97 PostgreSQL CI run is asserted."
+      },
+      "current_status": "INCOMPLETE"
+    },
+    {
+      "original_result": {
+        "id": "MS6-V01",
+        "path": "docs/agent-traces/MS6-V01-postgres-ci.md"
+      },
+      "platform_disposition": {
+        "disposition": "PRESERVE_HISTORY_ADAPT_PERSISTENCE",
+        "description": "Historical Django/PostgreSQL disposable install and CI remain legacy evidence; V01 target fresh/upgrade adds separate PostgreSQL acceptance."
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-V01",
+        "implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "accepted_integration_input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "immutable_mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "scope": "SQLAlchemy models, Alembic and upgrade profiles; evidence remediation only in v5"
+      },
+      "target_evidence": {
+        "implementation_report": "docs/acceptance/MS7-MIG-V01/implementation-report-v4.md",
+        "local_verification": "docs/acceptance/MS7-MIG-V01/verification-v4.json",
+        "runtime_verification": "docs/acceptance/MS7-MIG-V01/runtime-verification-v4.json",
+        "legacy_verification": "docs/acceptance/MS7-MIG-V01/legacy-ci-verification-v4.json",
+        "compatibility_addendum": "docs/acceptance/MS7-MIG-V01/compatibility-addendum-v1.0.0.md",
+        "B01_owner_evidence": "docs/acceptance/MS7-MIG-V01/b01-owner-approval-v1.json",
+        "CHECK": "docs/acceptance/MS7-MIG-V01/check-canonicalization-v1.json",
+        "F1": "docs/acceptance/MS7-MIG-V01/f1-timestamp-parity-v4.json",
+        "F2": "docs/acceptance/MS7-MIG-V01/f2-concurrency-v4.json",
+        "publication_manifest": "docs/acceptance/MS7-MIG-V01/publication-manifest-v1.json",
+        "historical_digest_comparison": "docs/acceptance/MS7-MIG-V01/publication-comparison-v1.json",
+        "independent_review_provenance": "docs/acceptance/MS7-MIG-V01/independent-review-provenance-v5.json",
+        "owner_review_intake": "docs/acceptance/MS7-MIG-V01/owner-review-intake-v5.json",
+        "github_ci_record": "docs/acceptance/MS7-MIG-V01/github-ci-observation-v5.json",
+        "legacy_ci_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38054413732",
+        "legacy_ci_head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "legacy_ci_status": "PASS",
+        "target_postgres_ci_status": "PENDING",
+        "target_ci_handoff": "docs/acceptance/MS7-MIG-V01/r03-ci-handoff-v5.md",
+        "human_task_approval": "PENDING",
+        "status": "INCOMPLETE",
+        "verification_provenance": "v4 local tests ran on d5 plus uncommitted CI remediation, subsequently published as 1f97. They are self-checks; no new exact-1f97 PostgreSQL CI run is asserted."
+      },
+      "current_status": "INCOMPLETE"
+    },
+    {
+      "original_result": {
+        "id": "MS7-V02",
+        "path": "docs/agent-traces/MS7-V02.md"
+      },
+      "platform_disposition": {
+        "disposition": "PRESERVE_HISTORY_ADAPT_PERSISTENCE",
+        "description": "Historical Django/UI result preserved. V01 supplies target persistence only; UI/consumer port acceptance belongs to scoped later migration tasks."
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-V01",
+        "implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "accepted_integration_input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "immutable_mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "scope": "SQLAlchemy models, Alembic and upgrade profiles; evidence remediation only in v5"
+      },
+      "target_evidence": {
+        "implementation_report": "docs/acceptance/MS7-MIG-V01/implementation-report-v4.md",
+        "local_verification": "docs/acceptance/MS7-MIG-V01/verification-v4.json",
+        "runtime_verification": "docs/acceptance/MS7-MIG-V01/runtime-verification-v4.json",
+        "legacy_verification": "docs/acceptance/MS7-MIG-V01/legacy-ci-verification-v4.json",
+        "compatibility_addendum": "docs/acceptance/MS7-MIG-V01/compatibility-addendum-v1.0.0.md",
+        "B01_owner_evidence": "docs/acceptance/MS7-MIG-V01/b01-owner-approval-v1.json",
+        "CHECK": "docs/acceptance/MS7-MIG-V01/check-canonicalization-v1.json",
+        "F1": "docs/acceptance/MS7-MIG-V01/f1-timestamp-parity-v4.json",
+        "F2": "docs/acceptance/MS7-MIG-V01/f2-concurrency-v4.json",
+        "publication_manifest": "docs/acceptance/MS7-MIG-V01/publication-manifest-v1.json",
+        "historical_digest_comparison": "docs/acceptance/MS7-MIG-V01/publication-comparison-v1.json",
+        "independent_review_provenance": "docs/acceptance/MS7-MIG-V01/independent-review-provenance-v5.json",
+        "owner_review_intake": "docs/acceptance/MS7-MIG-V01/owner-review-intake-v5.json",
+        "github_ci_record": "docs/acceptance/MS7-MIG-V01/github-ci-observation-v5.json",
+        "legacy_ci_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38054413732",
+        "legacy_ci_head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "legacy_ci_status": "PASS",
+        "target_postgres_ci_status": "PENDING",
+        "target_ci_handoff": "docs/acceptance/MS7-MIG-V01/r03-ci-handoff-v5.md",
+        "human_task_approval": "PENDING",
+        "status": "INCOMPLETE",
+        "verification_provenance": "v4 local tests ran on d5 plus uncommitted CI remediation, subsequently published as 1f97. They are self-checks; no new exact-1f97 PostgreSQL CI run is asserted."
+      },
+      "current_status": "INCOMPLETE"
+    },
+    {
+      "original_result": {
+        "id": "MS6-V02",
+        "status": "NOT_IDENTIFIED_IN_REPOSITORY"
+      },
+      "platform_disposition": {
+        "disposition": "HISTORICAL_RESULT_NOT_IDENTIFIED",
+        "description": "Historical result not identified in repository; no result or approval invented."
+      },
+      "migration_follow_up": {
+        "id": "MS7-MIG-V01",
+        "implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "accepted_integration_input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+        "immutable_mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+        "scope": "SQLAlchemy models, Alembic and upgrade profiles; evidence remediation only in v5"
+      },
+      "target_evidence": {
+        "implementation_report": "docs/acceptance/MS7-MIG-V01/implementation-report-v4.md",
+        "local_verification": "docs/acceptance/MS7-MIG-V01/verification-v4.json",
+        "runtime_verification": "docs/acceptance/MS7-MIG-V01/runtime-verification-v4.json",
+        "legacy_verification": "docs/acceptance/MS7-MIG-V01/legacy-ci-verification-v4.json",
+        "compatibility_addendum": "docs/acceptance/MS7-MIG-V01/compatibility-addendum-v1.0.0.md",
+        "B01_owner_evidence": "docs/acceptance/MS7-MIG-V01/b01-owner-approval-v1.json",
+        "CHECK": "docs/acceptance/MS7-MIG-V01/check-canonicalization-v1.json",
+        "F1": "docs/acceptance/MS7-MIG-V01/f1-timestamp-parity-v4.json",
+        "F2": "docs/acceptance/MS7-MIG-V01/f2-concurrency-v4.json",
+        "publication_manifest": "docs/acceptance/MS7-MIG-V01/publication-manifest-v1.json",
+        "historical_digest_comparison": "docs/acceptance/MS7-MIG-V01/publication-comparison-v1.json",
+        "independent_review_provenance": "docs/acceptance/MS7-MIG-V01/independent-review-provenance-v5.json",
+        "owner_review_intake": "docs/acceptance/MS7-MIG-V01/owner-review-intake-v5.json",
+        "github_ci_record": "docs/acceptance/MS7-MIG-V01/github-ci-observation-v5.json",
+        "legacy_ci_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38054413732",
+        "legacy_ci_head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+        "legacy_ci_status": "PASS",
+        "target_postgres_ci_status": "PENDING",
+        "target_ci_handoff": "docs/acceptance/MS7-MIG-V01/r03-ci-handoff-v5.md",
+        "human_task_approval": "PENDING",
+        "status": "NOT_VERIFIED",
+        "verification_provenance": "v4 local tests ran on d5 plus uncommitted CI remediation, subsequently published as 1f97. They are self-checks; no new exact-1f97 PostgreSQL CI run is asserted."
+      },
+      "current_status": "NOT_VERIFIED"
+    }
+  ]
+}

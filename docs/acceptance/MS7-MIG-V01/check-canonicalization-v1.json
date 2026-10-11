@@ -1,0 +1,14 @@
+{
+  "source_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+  "frozen_catalog_definition": "CHECK ((((NOT onboarding_complete) AND (onboarding_mode IS NULL)) OR (onboarding_complete AND ((onboarding_mode)::text = ANY ((ARRAY['START_ZERO'::character varying, 'DIAGNOSTIC'::character varying, 'SELF_REPORT'::character varying])::text[])) AND (onboarding_mode IS NOT NULL) AND (selected_grade_id IS NOT NULL))))",
+  "reparsed_catalog_definitions": {
+    "reparsed_frozen_deparse": "CHECK ((((NOT onboarding_complete) AND (onboarding_mode IS NULL)) OR (onboarding_complete AND ((onboarding_mode)::text = ANY (ARRAY[('START_ZERO'::character varying)::text, ('DIAGNOSTIC'::character varying)::text, ('SELF_REPORT'::character varying)::text])) AND (onboarding_mode IS NOT NULL) AND (selected_grade_id IS NOT NULL))))",
+    "original_in_expression": "CHECK ((((NOT onboarding_complete) AND (onboarding_mode IS NULL)) OR (onboarding_complete AND ((onboarding_mode)::text = ANY ((ARRAY['START_ZERO'::character varying, 'DIAGNOSTIC'::character varying, 'SELF_REPORT'::character varying])::text[])) AND (onboarding_mode IS NOT NULL) AND (selected_grade_id IS NOT NULL))))"
+  },
+  "original_in_matches_frozen_exactly": true,
+  "frozen_deparse_roundtrip_matches": false,
+  "truth_table_cases": 42,
+  "truth_table_mismatches": [],
+  "conclusion": "Investigative evidence only; exact schema comparator remains unchanged."
+}
