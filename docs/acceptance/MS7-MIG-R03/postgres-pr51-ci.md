@@ -76,3 +76,21 @@ ZIP/member digests. It is qualified as superseded storage proof: the PG image
 default anonymous volume was stopped, but GitHub's actual post-job removal used
 docker rm --force without --volumes. The final workflow instead uses verified
 tmpfs with no volume; final run evidence follows after that execution.
+
+Final service configuration run38156436658 /job114520274435 /attempt1 SUCCESS:
+34 target PASS (11 unit+23 PostgreSQL),0 skips; actualfresh2 andupgradeABC;
+40 successful subtests;57 marked databases cleaned and final inventory empty.
+Python3.12.15, PostgreSQL16.15;22 exact locked packages verified. Tmpfs proved
+through Docker HostConfig.Tmpfs, no Docker mount volumes, stop0 and post-job
+rm SUCCESS. R03 regressions11 PASS and preservation1370 PASS. Candidate393d988
+clean before/after;106 hashes unchanged and independently match exact Git blobs.
+
+Run: https://github.com/Tramsey00/MathStart-Python/actions/runs/38156436658
+Exact R03 branch head a6b683211e554507cc1bb5801d5368d73f316c61;
+actual workflow checkout66818293d03d6a7edfa4c77440f6d9179e8ea367;
+actual candidate checkout393d98890649c6c7c47908424ba0d076b5b5e56e.
+Artifact11707839998 ZIP digest5e3c0186b51c0702c3dc6fb23ff8233de89630ed5458d0bc8d7b24d6db1893a6
+verified;18 raw member files, manifest and separate job receipt retained in
+postgres-pr51-ci/run-38156436658. Approval packet:
+[V01 final Independent Task Approval](v01-independent-task-approval-packet.md).
+CI handoff evidence supplied; Independent Task Approval remains PENDING.

@@ -1,7 +1,8 @@
 # MS7-MIG-R03: PR51 separate target PostgreSQL CI
 
 Date: 2026-10-11 Europe/Moscow. Scope: root CI wiring/evidence, Issue #30.
-Status: IN_PROGRESS; Independent Task Approval NOT_DECLARED.
+Status: CI_HANDOFF_DELIVERED; Independent Task Approval NOT_DECLARED;
+overall MS7-MIG-R03 remains INCOMPLETE.
 
 ## Intake
 
@@ -70,3 +71,31 @@ not Mounts. Corrected the adapter to verify the actual field and reject all
 volume/bind mounts. Same-shape negative regression updated. GitHub automatic
 Stop containers succeeded. Raw decoded failure excerpts retained separately;
 no PostgreSQL tests skipped-to-success or V01 edits. Local11 regressions PASS.
+
+## Final target execution and raw validation
+
+Corrected R03 implementationa6b6832 produced run38156436658 /job114520274435
+SUCCESS at2026-10-11T16:41:51Z (19:41:51 Europe/Moscow). Actual workflow checkout
+66818293/tree0164b93d, parents8d958ae/a6b6832; exact candidate393d988/tree4a9dde54.
+Live PR51 API head/base pins matched. Parallel pushrun38156434420 also SUCCESS.
+Python3.12.15, PG16.15/160015,22 exact packages verified; install/check/freeze,
+before/after DB probes and unchanged v5 suite all exit0. 34 PASS=11unit+23PG,
+zero skips/failures/errors, actualfresh2, ABC,40 successful subtests;57 distinct
+marked databases cleaned, final admin inventory empty. No Docker volume: actual
+HostConfig.Tmpfs verified, owned service stop0/Runningfalse then automatic rm
+succeeded (API step and raw decoded command excerpts retained separately).
+
+Artifact11707839998 ZIP digest5e3c0186b51c0702c3dc6fb23ff8233de89630ed5458d0bc8d7b24d6db1893a6
+matched Actions; all18 member files copied unchanged to new run-38156436658.
+Downloaded raw observations/lock/cleanup independently validated with R03 guards.
+All106 candidate before/after hashes also match exact Git blobs; source untouched.
+Existing R03 workflows/source preservation1370 PASS. Current-candidate baseline
+run38137695565 re-read: actual5ddadb1 checkout, SUCCESS,109/18/73/30/41 and8/8.
+This baseline remains separate from target CI. No owner history/helper rewritten.
+
+Prepared final human approval packet and new versioned V01 target-CI record.
+Only CI evidence is supplied; V01 Independent Task Approval pending Руслан.
+No approval, merge, Issue closure, V01 feature or I01 hover/UX acceptance claimed.
+Evidence-retention publication is a later R03-only commit, not the workflow SHA
+used above. Wider R03 target job still fails on unavailable downstream owner
+inputs; this explicit V01 run does not mark the full R03 pipeline complete.
