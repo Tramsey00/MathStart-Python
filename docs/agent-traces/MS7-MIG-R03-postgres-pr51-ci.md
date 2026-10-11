@@ -42,3 +42,24 @@ job execution (workflow configuration). job.services was placed in job-level
 env where the job context is unavailable. Moved exact service-ID expression
 to intake/cleanup step env; no candidate change or test execution in this run.
 Run: https://github.com/Tramsey00/MathStart-Python/actions/runs/38155735994
+
+Corrected workflow299eb3c runs38155839568 (PR49 event) and38155836305 (push)
+both SUCCESS. First run records34 PASS,23 PostgreSQL with0 skips, actualfresh2,
+upgradeABC,57 marked databases cleaned,40 successful subtests, Python3.12.15 and
+PG16.15. Actual workflow mergecheckout e871b319, candidate393d988. Artifact
+11707964088 ZIP SHA256bc7b50b3 matches Actions digest;18 exact files preserved
+under postgres-pr51-ci/run-38155839568 with a derived manifest.
+
+Lifecycle log inspection found GitHub's actual docker rm uses --force without
+--volumes; the default PG image data mount is an anonymous volume. The runner
+is disposable, but the previous description of explicit volume removal was
+incorrect. Supersede this storage proof with a tmpfs mount and reject any Docker
+volume at intake/cleanup; rerun target unchanged. Historical run/artifact retained
+with this qualification. No V01 code or assertion changed. Added regression for
+persistent/missing mounts. Final applicable target CI still pending here.
+
+Before storage-fix commit, staged whitespace check identified CRLF in the new
+derived manifest and original timestamped blank log lines. Derived manifest
+written LF; raw logs retain exact artifact bytes (all18 hashes checked). Source/
+document whitespace check excludes only raw .log members; no raw evidence trimmed.
+Local final evidence regressions11 PASS.

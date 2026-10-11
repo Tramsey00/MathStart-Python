@@ -27,10 +27,11 @@ checkout and event/run metadata separately. The observed merge ref is not tested
 An owned GitHub job service `postgres:16-bookworm`, port55441, synthetic
 `mathstart_v01_ci` credentials and admin database `postgres` is used. Exact service
 ID comes only from `job.services.postgres.id`; image/port/health are verified.
-No shared/local working database, container or named persistent volume is used.
+Data uses an explicitly verified tmpfs mount, with no Docker volume.
+No shared/local working database, container or persisted volume is used.
 Actual server major must equal16 and the initial/final non-template database
 inventory must be empty. The service is stopped even after command failure;
-GitHub's post-job service cleanup owns container/anonymous-volume removal.
+GitHub's post-job service cleanup removes the container; tmpfs needs no volume removal.
 Raw container diagnostics and service identity/stop results are retained.
 
 Python3.12 creates a new `candidate/var/v01-target-ci` venv. Only the complete
@@ -67,3 +68,11 @@ I01 manual hover and Ruslan UX/integration review remain independent pending gat
 Final V01 Independent Task Approval must be explicitly issued by its designated
 human reviewer on the exact candidate. No merge, Issue closure or R03 completion
 is authorized; the wider R03 dependencies remain open.
+
+Initial workflow run38155735994 failed before job execution due to R03 context
+placement; corrected. First executing run38155839568 succeeded (34/23, fresh2,
+ABC,57 databases cleaned). Its18 raw artifact files are retained separately with
+ZIP/member digests. It is qualified as superseded storage proof: the PG image
+default anonymous volume was stopped, but GitHub's actual post-job removal used
+docker rm --force without --volumes. The final workflow instead uses verified
+tmpfs with no volume; final run evidence follows after that execution.

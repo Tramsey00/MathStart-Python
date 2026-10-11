@@ -67,9 +67,12 @@ def inspect_service():
 
 def validate_service(record, identity):
     ports = record['ports'].get('5432/tcp', [])
+    data_mounts = [mount for mount in record['mounts'] if mount['Destination'] == '/var/lib/postgresql/data']
     if (record['id'] != identity or record['configured_image'] != 'postgres:16-bookworm'
-            or len(ports) != 1 or ports[0]['HostPort'] != '55441'):
-        raise ValueError('Container identity/image/reserved port differs from owned job service')
+            or len(ports) != 1 or ports[0]['HostPort'] != '55441'
+            or len(data_mounts) != 1 or data_mounts[0]['Type'] != 'tmpfs'
+            or any(mount['Type'] == 'volume' for mount in record['mounts'])):
+        raise ValueError('Container identity/image/port/tmpfs differs from owned disposable job service')
 
 
 def intake(candidate, config):
@@ -199,13 +202,13 @@ def cleanup():
     # This exact service belongs to this job, not to local/shared infrastructure.
     service = inspect_service()
     record = {'before': service, 'container_stop_exit_code': None, 'after': None,
-              'removal_owner': 'GitHub Actions automatic post-job Stop containers (docker rm --force -v)'}
+              'removal_owner': 'GitHub Actions automatic post-job Stop containers (docker rm --force); data is tmpfs'}
     try:
         with (OUTPUT / 'postgres-service.log').open('x', encoding='utf-8') as log:
             subprocess.run(['docker', 'logs', '--timestamps', service['id']], stdout=log,
                            stderr=subprocess.STDOUT, timeout=60, check=True)
     finally:
-        # Stop even when diagnostic capture fails. GitHub owns final removal/volume disposal.
+        # Stop even when diagnostic capture fails. Data is tmpfs, with no Docker volume.
         try:
             process = subprocess.run(['docker', 'stop', '--time', '10', service['id']], timeout=40, check=True)
             record['container_stop_exit_code'] = process.returncode

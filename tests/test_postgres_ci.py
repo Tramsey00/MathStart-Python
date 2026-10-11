@@ -80,11 +80,21 @@ class PostgreSQLEvidenceTests(unittest.TestCase):
 
     def test_service_id_image_and_reserved_port_required(self):
         service = {'id': 'a'*64, 'configured_image': 'postgres:16-bookworm',
-                   'ports': {'5432/tcp': [{'HostPort': '55441'}]}}
+                   'ports': {'5432/tcp': [{'HostPort': '55441'}]},
+                   'mounts': [{'Type': 'tmpfs', 'Destination': '/var/lib/postgresql/data'}]}
         ci.validate_service(service, 'a'*64)
         for key, value in (('id', 'b'*64), ('configured_image', 'postgres:17'), ('ports', {'5432/tcp': [{'HostPort': '5432'}]})):
             changed = copy.deepcopy(service); changed[key] = value
             with self.assertRaises(ValueError): ci.validate_service(changed, 'a'*64)
+
+    def test_persistent_or_missing_data_mount_rejected(self):
+        service = {'id': 'a'*64, 'configured_image': 'postgres:16-bookworm',
+                   'ports': {'5432/tcp': [{'HostPort': '55441'}]}, 'mounts': []}
+        for mounts in ([], [{'Type': 'volume', 'Destination': '/var/lib/postgresql/data'}],
+                       [{'Type': 'tmpfs', 'Destination': '/var/lib/postgresql/data'},
+                        {'Type': 'volume', 'Destination': '/other'}]):
+            service['mounts'] = mounts
+            with self.assertRaises(ValueError): ci.validate_service(service, 'a'*64)
 
     def test_only_exact_twenty_two_locked_packages_allowed(self):
         lock = '\n'.join(f'package-{i}==1.2.3' for i in range(22))

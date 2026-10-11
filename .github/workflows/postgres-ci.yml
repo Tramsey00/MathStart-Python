@@ -35,6 +35,7 @@ jobs:
         ports:
           - 55441:5432
         options: >-
+          --tmpfs /var/lib/postgresql/data:rw
           --health-cmd "pg_isready -U mathstart_v01_ci -d postgres"
           --health-interval 5s
           --health-timeout 5s
