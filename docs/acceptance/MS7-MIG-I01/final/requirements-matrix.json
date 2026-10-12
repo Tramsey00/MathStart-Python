@@ -1,0 +1,141 @@
+{
+  "source_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "issue": 40,
+  "implementation_sha": "c54a98b91195458b22a14aa4a6cbf14c7fe57e28",
+  "scope": "I01 foundation only; local results are not task acceptance or target runtime proof",
+  "requirements": [
+    {
+      "id": "I01-01",
+      "requirement": "React/TS/Vite/React Router framework mode, compatible exact versions + lock",
+      "status": "PASS_LOCAL",
+      "evidence": "frontend/package.json; frontend/package-lock.json; frontend/react-router.config.ts; frontend-commands.json",
+      "assessment": "npm ci, route typegen, tsc, build; appDirectory=src/app, ssr:false, prerender:[]"
+    },
+    {
+      "id": "I01-02",
+      "requirement": "Shell/header/footer/navigation; original cascade, fonts/SVG/classes; no redesign/reset/UI library",
+      "status": "PASS_LOCAL_SCOPED",
+      "evidence": "screenshot-index.json; source-scope-audit.json; frontend/tests/shell.test.tsx",
+      "assessment": "Existing site.css then gallery tokens.css/foundation.css; live gallery+shell match and source-derived empty-shell references. Not all public pages."
+    },
+    {
+      "id": "I01-03",
+      "requirement": "Public/account/staff/debug route foundation and layout boundaries",
+      "status": "PASS_LOCAL",
+      "evidence": "frontend/src/app/routes.ts; frontend/tests/route-foundation.test.ts",
+      "assessment": "Explicit /, /karta-sajta/, /o-proekte/, /kontakty/, /account/, /admin/; debug dev-only. Empty route containers, no account/staff implementation."
+    },
+    {
+      "id": "I01-04",
+      "requirement": "No private prerender or wildcard production200; I02 selective public SSG boundary",
+      "status": "PASS_LOCAL_WITH_DEPLOYMENT_GATE",
+      "evidence": "frontend/react-router.config.ts; frontend/scripts/preview.mjs; frontend/tests/preview.test.ts; build-manifest.json",
+      "assessment": "Anonymous index only; local preview status checks pass. Real gateway HTTP/method/CSRF/cache proof remains V05; no deployment claim."
+    },
+    {
+      "id": "I01-05",
+      "requirement": "Approved UI examples/gallery/four UX states and accessibility",
+      "status": "PASS_LOCAL",
+      "evidence": "browser-evidence.json; frontend/tests/components.test.tsx; frontend/tests/gallery.test.tsx",
+      "assessment": "Original synthetic pack; live regions, skip, raw data, retry/field-error focus, disabled state semantics; no persisted verdict/progress."
+    },
+    {
+      "id": "I01-06",
+      "requirement": "Four dispatcher modes + historical regressions; malformed controlled unsupported",
+      "status": "PASS_LOCAL",
+      "evidence": "frontend/tests/dispatcher.test.ts; frontend-commands.json; additional-contract-commands.json",
+      "assessment": "5 unchanged historical JS cases plus strict new TS/schema negative cases; no coercion, non-string/missing schema/malformed/extra/private/accessor/cycle failures supported."
+    },
+    {
+      "id": "I01-07",
+      "requirement": "Canonical generated OpenAPI types + runtime boundary validation; frozen pins",
+      "status": "PASS_LOCAL",
+      "evidence": "frontend/scripts/generate-api.mjs; frontend/src/shared/api/generated/; frontend-commands.json",
+      "assessment": "17 historical +24 accepted R02 pins;37-operation type inventory;16 standalone DTO validators; eight identity/grade transport operations only."
+    },
+    {
+      "id": "I01-08",
+      "requirement": "Same-origin cookies/CSRF/error foundation, safe messages, status/content-type/malformed JSON",
+      "status": "PASS_LOCAL_MODEL",
+      "evidence": "frontend/tests/api.test.ts; frontend/tests/api-additional.test.ts; frontend/tests/boundaries.test.ts",
+      "assessment": "Fresh CSRF bootstrap for explicit mutation; credentials same-origin, no-store, redirects error; strict JSON/UTF8/envelopes; no raw private error exposure. Mocked transport, no target API verification."
+    },
+    {
+      "id": "I01-09",
+      "requirement": "AbortController/cancellation/stale-response/no unsafe auto retry; R02 P1/P2 boundary",
+      "status": "PASS_LOCAL_MODEL",
+      "evidence": "frontend/src/shared/api/request-scope.ts; frontend/src/shared/api/latest-read.ts; frontend/tests/api-additional.test.ts",
+      "assessment": "Snapshot request, latest-read guard; sent mutation cancellation stays unknown. Full account/receipt/publication lifecycle I04/backend, NOT implemented."
+    },
+    {
+      "id": "I01-10",
+      "requirement": "No debug fixture/private answer/checker/credentials in production; no production API fixture substitution",
+      "status": "PASS_LOCAL_SCOPED",
+      "evidence": "production-client-modules.json; build-manifest.json; frontend/tests/boundaries.test.ts; frontend-commands.json",
+      "assessment": "Actual graph47 modules/artifacts12; forbidden module/canary scan; anonymous index only/no maps. Foundation transport currently tree-shaken from empty production pages."
+    },
+    {
+      "id": "I01-11",
+      "requirement": "Matched screenshots360×800/768×1024/1440×1000; browser/version and CSS isolation",
+      "status": "PASS_LOCAL_SCOPED",
+      "evidence": "screenshot-index.json; browser-evidence.json; ../checkpoint2/screenshot-index.json",
+      "assessment": "10 new screenshots;3 live fresh Django SQLite gallery pairs byte-identical;22 elements geometry/CSS/leaf text equal. Earlier source-derived empty-shell evidence preserved. Not R01 PostgreSQL/full-site parity."
+    },
+    {
+      "id": "I01-12",
+      "requirement": "Keyboard/focus/pointer; no horizontal overflow",
+      "status": "PASS_LOCAL_WITH_HOVER_LIMIT",
+      "evidence": "browser-evidence.json",
+      "assessment": "3 widths: skip/Enter/Tab, retry focus, field error Space/pointer, raw retention,4 modes/unsupported; no overflow; console[]; dedicated hover transition NOT_RUN, manual review required."
+    },
+    {
+      "id": "I01-13",
+      "requirement": "§17 old-to-new index: original→follow-up→target, disposition/status, preserved history",
+      "status": "PASS_LOCAL_PENDING_CI_REVIEW",
+      "evidence": "old-to-new-evidence.json; evidence-validation.json; content-manifest.json",
+      "assessment": "Five records; explicit platform_disposition/current_status. Historical checkpoint1/2/frozen records untouched. Implementation SHA c54a98b91195458b22a14aa4a6cbf14c7fe57e28 bound; CI and independent acceptance pending."
+    },
+    {
+      "id": "I01-14",
+      "requirement": "Migration v1.1/ADR0006/R02/F01–F04/scope/rollback",
+      "status": "PASS_LOCAL",
+      "evidence": "source-scope-audit.json; report.md; pr-draft.md; old-to-new-evidence.json",
+      "assessment": "No accepted tracked change; no I02–I06/V01–V04 functionality. Rollback future foundation commit; original source remains. F01–F04 unchanged I03/I05."
+    },
+    {
+      "id": "I01-15",
+      "requirement": "Clean install/typecheck/frontend tests/build/security/audit/whitespace",
+      "status": "PASS_LOCAL",
+      "evidence": "frontend-commands.json; source-scope-audit.json",
+      "assessment": "88 frontend +5 historical JS PASS/0FAIL; audit0; no dependency manifest update. git diff --check + untracked no-index checks."
+    },
+    {
+      "id": "I01-16",
+      "requirement": "Required verify_repo / historical and migration contract suites safely isolated",
+      "status": "PASS_SQLITE_ONLY_PG_PENDING",
+      "evidence": "repository-commands.json; repository-isolation.json; infrastructure.json; additional-contract-commands.json",
+      "assessment": "verify_repo8/8 checks; Django99 PASS/8SKIP (107run),R0318,Harness73; R02A30/R03A41/UI7/migrationR0263 PASS. PostgreSQL locking/concurrency NOT_RUN; Docker unavailable."
+    },
+    {
+      "id": "I01-17",
+      "requirement": "Current trace/manifests/commands/exits/inventory/evidence privacy",
+      "status": "PASS_LOCAL",
+      "evidence": "../../../../agent-traces/MS7-MIG-I01.md; changed-files.txt; content-manifest.json; evidence-validation.json",
+      "assessment": "Each candidate file size/SHA256, local links; ignored runtime/DB/env/profiles not included. No real secret detected in scoped review; not universal scanner."
+    },
+    {
+      "id": "I01-18",
+      "requirement": "Exact implementation SHA/current PR CI/tested merge-ref + independent Task Approval",
+      "status": "PENDING_HUMAN_GATE",
+      "evidence": "pr-draft.md; report.md",
+      "assessment": "Implementation commit c54a98b91195458b22a14aa4a6cbf14c7fe57e28; subsequent publication-binding commit is documentation-only. PR exact HEAD/CI/tested merge-ref and independent Task Approvals remain pending at this record. No self-approval."
+    },
+    {
+      "id": "I01-19",
+      "requirement": "Final integration/Issue closure/global gate",
+      "status": "NOT_REQUESTED_PENDING",
+      "evidence": "pr-draft.md",
+      "assessment": "Refs #40 target ms7-mig-react-fastapi. Task not historical DONE/ACCEPTED_INTEGRATION until applicable human gates/merge. Frontend CI wiring belongs R03/root-CI owner."
+    }
+  ]
+}

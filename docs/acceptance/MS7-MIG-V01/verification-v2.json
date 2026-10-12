@@ -1,0 +1,250 @@
+{
+  "task": "MS7-MIG-V01",
+  "date": "2026-10-09",
+  "timezone": "Europe/Moscow",
+  "recorded_at_utc": "2026-10-09T14:12:49.356364+00:00",
+  "status": "LOCAL_PASS_INDEPENDENT_REVIEW_CI_PENDING",
+  "input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "final_local_head": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "branch": "ms7-mig-v01-schema",
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "versions": {
+    "Python": "3.12.10",
+    "SQLAlchemy": "2.0.46",
+    "alembic": "1.18.4",
+    "psycopg": "3.3.6",
+    "Django": "5.2.16",
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "Docker": "29.8.0",
+    "Compose": "5.5.1"
+  },
+  "previous_results_retained": [
+    "verification.json",
+    "implementation-report.md",
+    "finding-B01.md",
+    "file-manifest.json"
+  ],
+  "preservation": {
+    "files_present_before_continuation": 33,
+    "initial_hashes_checked": 31,
+    "initial_hash_mismatches": [],
+    "deleted_files": [],
+    "delta": "continuation-delta-v2.json"
+  },
+  "B01": {
+    "status": "RESOLVED_WITH_SCOPED_USER_REPORTED_OWNER_APPROVAL",
+    "addendum": "compatibility-addendum-v1.0.0.md",
+    "approval_evidence": "b01-owner-approval-v1.json",
+    "external_owner_signature_independently_retrieved": false,
+    "ddl_overrides": [
+      {
+        "table": "auth_group_permissions",
+        "column": "id",
+        "model_db_type": "integer",
+        "physical_db_type": "bigint"
+      },
+      {
+        "table": "auth_user_groups",
+        "column": "id",
+        "model_db_type": "integer",
+        "physical_db_type": "bigint"
+      },
+      {
+        "table": "auth_user_user_permissions",
+        "column": "id",
+        "model_db_type": "integer",
+        "physical_db_type": "bigint"
+      }
+    ],
+    "other_baseline_column_types_unchanged": true
+  },
+  "CHECK": {
+    "evidence": "check-canonicalization-v1.json",
+    "strict_catalog_equality_retained": true,
+    "original_IN_matches_frozen_exactly": true,
+    "deparsed_roundtrip_matches": false,
+    "truth_table_cases": 42,
+    "truth_table_mismatches": 0,
+    "CHECK_true_drift_rejected_before_stamp": true
+  },
+  "isolation": {
+    "final_container_state": "STOPPED",
+    "container": "ms7-mig-v01-pg-20261009",
+    "label": "mathstart.task=MS7-MIG-V01",
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "production_or_shared_database_access": false,
+    "remaining_test_databases": 0,
+    "id": "fa77de451fb4ea18ffe92f063b627cf473af734aea093dba107a6161d107513f",
+    "port": 55441,
+    "storage": "tmpfs",
+    "random_marked_new_databases_only": true
+  },
+  "checks": [
+    {
+      "command": "python -m unittest backend.tests.test_unit backend.tests.test_postgres -v",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 22,
+      "unit_methods": 11,
+      "PG_methods": 11,
+      "skipped": 0,
+      "seconds": 27.285,
+      "log": "var/ms7-mig-v01-resume-tests-final.txt",
+      "coverage": [
+        "fresh twice separate DBs",
+        "upgrade A/B/C",
+        "IDs/FKs/password hashes/data/history preservation",
+        "Grade epoch and microsecond timestamps",
+        "UNIQUE/CHECK/FK/nullability/defaults/collector",
+        "identity/sequence next-value and no rewind",
+        "empty/uncalled sequences",
+        "backfill twice",
+        "rollback after DDL/backfill/protocol stamp",
+        "unknown schema/head refusal",
+        "baseline and additive protocol drift",
+        "real two-connection row blocking",
+        "explicit SQLite/no PostgreSQL fallback"
+      ]
+    },
+    {
+      "command": "python -m backend.tests.runtime_verification",
+      "status": "PASS",
+      "exit_code": 0,
+      "CLI_calls": 10,
+      "fresh_installations": 2,
+      "upgrade_profiles": [
+        "A",
+        "B",
+        "C"
+      ],
+      "Django_installed_or_imported_in_target_subprocesses": false,
+      "evidence": "runtime-verification-v2.json"
+    },
+    {
+      "command": "python -m backend.tests.baseline_verification",
+      "status": "PASS",
+      "exit_code": 0,
+      "commands": 6,
+      "evidence": "baseline-verification-v2.json",
+      "verify_repo_checks": 8,
+      "Django_tests_discovered": 129,
+      "Django_tests_executed": 118,
+      "Django_tests_skipped": 11,
+      "skip_reason": "Explicit target PG tests lack admin URL in baseline child; separately all 22 target methods pass without skips.",
+      "R03_contract_tests": 18,
+      "Harness_tests": 73,
+      "R02_migration_tests": 63
+    },
+    {
+      "command": "python -m unittest tests.test_r02a_contract tests.test_r03a_contract -v",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 71
+    },
+    {
+      "command": "python -m pip check (combined test and clean target-only venvs)",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "command": "Proposed catalog capture existing-reference guard",
+      "status": "PASS",
+      "exit_code": 0,
+      "refused_before_database_access": true,
+      "snapshot_bytes_unchanged": true
+    },
+    {
+      "command": "git diff --check and git diff HEAD",
+      "status": "PASS",
+      "exit_code": 0,
+      "tracked_diff_empty": true
+    },
+    {
+      "command": "git apply --check --ignore-space-change r03-ci-handoff-v2.patch",
+      "status": "PASS_APPLICABILITY_ONLY",
+      "exit_code": 0,
+      "patch_applied": false,
+      "plain_apply_check": "FAILED_CONTEXT_CRLF_VS_LF; no root files changed"
+    }
+  ],
+  "raw_logs": [
+    {
+      "path": "var/ms7-mig-v01-resume-tests-1.txt",
+      "sha256": "bc54c1cdec818a8c9ea246eeef3fefbbfdb6afac55f374c4213eb1f74e8a2404",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-resume-tests-2.txt",
+      "sha256": "f511418189494c711ee8e8b82d6e226f292857c2dbe22528130a9774a914ab86",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-resume-tests-final.txt",
+      "sha256": "c7aa50a11a721cebdc93eabb48210cc3816e928c3afc715e62d5e45a8b98cb59",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-domain-contracts-v2.txt",
+      "sha256": "1f0f76f1b671765102b129d8913420438a9b0311d3c796a5d39065a423f8f517",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/migrate.txt",
+      "sha256": "de5117d83b935878458331e8fab081db569146a65ff862d73ff2b673f6a95e4c",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/bootstrap-1.txt",
+      "sha256": "41ecc6f21a7ab0b3faca28c65cc0e48d54fac8adf4fefbd378c8d0ff95fcd905",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/bootstrap-2.txt",
+      "sha256": "ba40e3b8a384b2a5783aa47e7e800824d2c337574e42eaee50893d367e616486",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/collectstatic.txt",
+      "sha256": "ed514143b3156df99e762e930bce6142142e6a315af61a63ef936c9656ae82f6",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/verify-repo.txt",
+      "sha256": "2a86a3b748e29da8cd62cbdf49570e5ae049654f6decd38c6be9eb75f405866a",
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-07929ff0151140ac88a78c6749b977d7/r02-migration.txt",
+      "sha256": "7587d5b4d1cab4c1bd2616a4d91cebf78d66667787a1e217ee14ee9dfdbc0e80",
+      "ignored_local_artifact": true
+    }
+  ],
+  "safety_audit": {
+    "tracked_diff_empty": true,
+    "prior_files_not_deleted": true,
+    "new_python_AST": "PASS",
+    "python_files": 25,
+    "trailing_whitespace_findings": [],
+    "patch_whitespace_note": "Unified diff context prefixes checked by git apply, not ordinary trailing whitespace scan.",
+    "high_risk_secret_pattern_findings": [],
+    "credentials_review": "Only synthetic local/test CI values; no real user credentials used.",
+    "R02_git_digest_failures": [],
+    "R02_checkout_digest_differences": [],
+    "checkout_note": "Checkout conversion differences, if any, are separate from accepted Git digests; frozen files were not edited.",
+    "frozen_mapping_copy_byte_identical": true,
+    "existing_Django_migrations_unchanged": true,
+    "root_frontend_CI_unchanged": true,
+    "no_commit_push_PR": true
+  },
+  "not_verified_or_pending": [
+    "Linux/CI execution and root owner integration",
+    "Independent Ruslan DDL/schema/Task Approval",
+    "Deployed legacy profile variants/data",
+    "Post-setval commit-loss reconciliation",
+    "Full collector/service races and V03/V04 lifecycle",
+    "Distinct historical MS6-V02 source"
+  ],
+  "handoff": "r03-ci-handoff-v2.md",
+  "production_stamp_cutover_authorized": false,
+  "human_acceptance_complete": false
+}

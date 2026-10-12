@@ -1,0 +1,61 @@
+{
+  "version": "github-ci-observation-v5",
+  "observed_at_utc": "2026-10-10 15:41:34 UTC",
+  "implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+  "pr": "https://github.com/Tramsey00/MathStart-Python/pull/51",
+  "pr_head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+  "pr_base_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "run": {
+    "id": 38054413732,
+    "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38054413732",
+    "api_url": "https://api.github.com/repos/Tramsey00/MathStart-Python/actions/runs/38054413732",
+    "workflow": "Migration baseline verification",
+    "path": ".github/workflows/migration-ci.yml",
+    "event": "pull_request",
+    "head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-10-10T13:05:48Z",
+    "updated_at": "2026-10-10T13:09:20Z",
+    "attempt": 1
+  },
+  "job": {
+    "id": 114219824010,
+    "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38054413732/job/114219824010",
+    "api_url": "https://api.github.com/repos/Tramsey00/MathStart-Python/actions/runs/38054413732/jobs",
+    "name": "verify",
+    "head_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+    "status": "completed",
+    "conclusion": "success",
+    "verified_success_steps": [
+      "Install dependencies",
+      "Runtime version report",
+      "Connection failure is bounded and nonzero",
+      "Fresh PostgreSQL migration/bootstrap/static/content smoke",
+      "Verify repository",
+      "R02A HTTP and eligibility contract",
+      "R03A CompletionFact contract"
+    ]
+  },
+  "scope": {
+    "legacy_dependencies": "requirements.lock only; workflow at exact implementation Git blob",
+    "verification": "scripts/verify_repo.py invokes historical Django tests",
+    "legacy_postgres_smoke": true,
+    "target_sqlalchemy_alembic_suite": false,
+    "target_postgres_fresh_upgrade_A_B_C": false
+  },
+  "raw_log": {
+    "status": "NOT_VERIFIED",
+    "reason": "Public jobs logs endpoint returned HTTP 403; no authenticated log retrieval performed",
+    "tested_checkout_merge_sha": null,
+    "exact_test_counts": null
+  },
+  "target_ci": {
+    "status": "PENDING",
+    "run_url": null,
+    "required_implementation_sha": "1f97d762c4089efb2e4ef6d8c7ebe0bdcbe161f4",
+    "required_post_evidence_pr_head_sha": null,
+    "requirement": "R03-owned target run on actual PR candidate; 34 tests, 23 PostgreSQL, zero failures/errors/skips"
+  },
+  "human_task_approval": "PENDING"
+}

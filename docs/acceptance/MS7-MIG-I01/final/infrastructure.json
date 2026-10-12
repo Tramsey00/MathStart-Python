@@ -1,0 +1,23 @@
+{
+  "postgresql": "NOT_RUN",
+  "diagnostic": {
+    "command": [
+      "docker",
+      "info",
+      "--format",
+      "{{json .ServerVersion}}"
+    ],
+    "exit_code": 1,
+    "error_code": null,
+    "stdout": "\"\"\n",
+    "stderr": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.\n",
+    "recorded_at": "2026-10-09T13:11:32.367Z"
+  },
+  "missing_conditions": [
+    "Running Docker Linux daemon or separately authorized isolated PostgreSQL 16+ service",
+    "Fresh distinct role/database/test database/runtime verified before any write",
+    "No working PostgreSQL or R01 baseline reuse"
+  ],
+  "local_profile": "Independent new task-local SQLite compatibility environment only",
+  "existing_environments_accessed": false
+}
