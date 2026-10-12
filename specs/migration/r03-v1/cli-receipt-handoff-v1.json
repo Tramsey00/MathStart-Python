@@ -1,0 +1,719 @@
+{
+  "version": "r03-cli-receipt-handoff-checklist-v1",
+  "prepared_on": "2026-10-12",
+  "status": "PREPARED_FOR_OWNER_REVIEW",
+  "r03_status": "INCOMPLETE",
+  "repository": "Tramsey00/MathStart-Python",
+  "accepted_integration_input": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+  "historical_inputs": [
+    "8d958aeeb17da46839722441425ccbb5889e2ab7"
+  ],
+  "mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "operational_command_map": "specs/migration/r03-v1/runtime-commands.json",
+  "operational_status": "PENDING_OWNER_IMPLEMENTATIONS_AND_REVIEW",
+  "sources": [
+    "specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md",
+    "specs/migration/r02-v1/parity-matrix-v1.json",
+    "docs/acceptance/MS7-MIG-R01/inventory.md",
+    "scripts/target_check.py",
+    "scripts/target_verification.py",
+    ".github/workflows/migration-ci.yml"
+  ],
+  "owner_intake": {
+    "V02": {
+      "issue": 35,
+      "branch": "ms7-mig-v02-content",
+      "owner": "VladimirFrolov777",
+      "required_approver": "Tramsey00",
+      "consumer_confirmation": "13baybars where applicable",
+      "approved_head": null,
+      "approval_ids": [],
+      "merge_sha": null,
+      "status": "NO_ACCEPTED_INPUT"
+    },
+    "I02": {
+      "issue": 41,
+      "branch": "ms7-mig-i02-pages",
+      "owner": "13baybars",
+      "required_approvers": [
+        "Tramsey00",
+        "VladimirFrolov777"
+      ],
+      "approved_head": null,
+      "approval_ids": [],
+      "merge_sha": null,
+      "status": "NO_ACCEPTED_INPUT"
+    },
+    "V04": {
+      "issue": 37,
+      "branch": "ms7-mig-v04-publishing",
+      "owner": "VladimirFrolov777",
+      "required_approver": "Tramsey00",
+      "consumer_confirmation": "13baybars where applicable",
+      "approved_head": null,
+      "approval_ids": [],
+      "merge_sha": null,
+      "status": "CONTENT_CLI_HANDOFF_NOT_PROVIDED"
+    }
+  },
+  "receipt_minimum": {
+    "destination_env": "MATHSTART_CHECK_RESULT",
+    "destination": "var/target-checks/<check_id>-<uuid>/result.json",
+    "check_id": "exact invoked key",
+    "status": "PASS",
+    "evidence_class": "TARGET_RUNTIME",
+    "assertions": "integer>0, not bool; lesson-sources>=263",
+    "skipped": "integer0, not bool",
+    "postgresql_checks": [
+      "migrations",
+      "backend-tests",
+      "fresh-install",
+      "upgrade-A",
+      "upgrade-B",
+      "upgrade-C"
+    ],
+    "database_vendor": "postgresql",
+    "postgresql_major": "integer>=16"
+  },
+  "review_bundle_fields": [
+    "approved head/review/merge chain receipts",
+    "actual checkout SHA/tree",
+    "source/contract/lock/manifest SHA256",
+    "case inventory and per-case positive/negative raw observations",
+    "argv/cwd/env names/side effects",
+    "start/end/exit/deadline/actual versions",
+    "owned service/port/DB/runtime identity",
+    "sanitized before/after data manifests",
+    "hashed raw evidence and cleanup",
+    "publication active/db/pending/release digests where applicable",
+    "original_result -> migration_follow_up -> target_evidence",
+    "blocking findings and human approved nonblocking limits"
+  ],
+  "review_guards": [
+    "existing backend .py inside backend; exact args array, no shell/path escape",
+    "exit0 without complete receipt fails",
+    "missing/skipped/empty/timeout/wrong PG/SHA/model-only evidence fails",
+    "normal target has no Django/DRF and no live Product LLM",
+    "legacy upgrade preparation isolated and separately labeled",
+    "no working/production DB or source writes",
+    "all required rows reviewed before operational map becomes REVIEWED",
+    "REVIEWED command contract is separate from Independent R03 Task Approval"
+  ],
+  "content_cli_inventory": [
+    "publish_lessons",
+    "bootstrap_site",
+    "update_public_pages",
+    "index_lessons",
+    "check_lesson_sources",
+    "check_content_quality",
+    "check_site_integrity"
+  ],
+  "checks": [
+    {
+      "check_id": "system",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V02",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "system"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "parity_row_ids": [
+        "HTTP-01",
+        "HTTP-03",
+        "CONTENT-02",
+        "REVIEW-B07"
+      ],
+      "review_criteria": "FastAPI startup/config/routes/security and strict real transport behavior.",
+      "postgresql_receipt_required": false
+    },
+    {
+      "check_id": "migrations",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V01",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V01"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "migrations"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "parity_row_ids": [
+        "SCHEMA-01",
+        "SCHEMA-02"
+      ],
+      "review_criteria": "One Alembic head, metadata drift, reviewed SQL and PostgreSQL schema equivalence.",
+      "postgresql_receipt_required": true
+    },
+    {
+      "check_id": "lesson-sources",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V04",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V04",
+        "V02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "lesson-sources"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "parity_row_ids": [
+        "CONTENT-01",
+        "CONTENT-03",
+        "CLI-01"
+      ],
+      "review_criteria": "All263 source/runtime/render identity and digest assertions; no source mutation.",
+      "postgresql_receipt_required": false
+    },
+    {
+      "check_id": "content-quality",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V04",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V04",
+        "I02",
+        "I03"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "content-quality"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "parity_row_ids": [
+        "CONTENT-01",
+        "CONTENT-03"
+      ],
+      "review_criteria": "Unweakened HTML/SVG/math/assets quality and golden renderer parity.",
+      "postgresql_receipt_required": false
+    },
+    {
+      "check_id": "site-integrity",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V02",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V02",
+        "V04",
+        "I02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "site-integrity"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "parity_row_ids": [
+        "CONTENT-01",
+        "CONTENT-02",
+        "PUB-01",
+        "REVIEW-B02",
+        "REVIEW-B06",
+        "REVIEW-B07"
+      ],
+      "review_criteria": "All published URLs/media/catalogue/redirect/SSG, raw HTML SEO, coherent edition, private exclusion.",
+      "postgresql_receipt_required": false
+    },
+    {
+      "check_id": "backend-tests",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V02",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V01",
+        "V02",
+        "V04"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "backend-tests"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "parity_row_ids": [
+        "HTTP-01",
+        "HTTP-03",
+        "GRADE-01",
+        "GRADE-02",
+        "GRADE-03",
+        "STAFF-01",
+        "CONTENT-01",
+        "PUB-01",
+        "REVIEW-B03",
+        "REVIEW-B04",
+        "REVIEW-B07"
+      ],
+      "review_criteria": "Nonempty unskipped real PG cases; V02 read/API scope, accepted schema and applicable owner content suites.",
+      "postgresql_receipt_required": true
+    },
+    {
+      "check_id": "fresh-install",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V04",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V01",
+        "V04",
+        "I02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/fresh_install_smoke.py",
+        "--profile",
+        "target",
+        "--disposable"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "parity_row_ids": [
+        "SCHEMA-02",
+        "CLI-01",
+        "CONTENT-01",
+        "CONTENT-03",
+        "PUB-01"
+      ],
+      "review_criteria": "Alembic zero plus full bootstrap twice, unchanged user evidence, media/assets and frontend build on owned empty PG16.",
+      "postgresql_receipt_required": true
+    },
+    {
+      "check_id": "upgrade-A",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V01",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V01"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/migration_smoke.py",
+        "--disposable",
+        "--source-profile",
+        "A"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "parity_row_ids": [
+        "SCHEMA-01",
+        "SCHEMA-02"
+      ],
+      "review_criteria": "Disposable content.0001 source without users/Grade.created_at; reviewed backfill and exact schema/data equivalence.",
+      "postgresql_receipt_required": true
+    },
+    {
+      "check_id": "upgrade-B",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V01",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V01"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/migration_smoke.py",
+        "--disposable",
+        "--source-profile",
+        "B"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "parity_row_ids": [
+        "SCHEMA-01",
+        "SCHEMA-02"
+      ],
+      "review_criteria": "Disposable current Django main source; exact schema/data/default/timestamp/sequence equivalence.",
+      "postgresql_receipt_required": true
+    },
+    {
+      "check_id": "upgrade-C",
+      "kind": "backend",
+      "primary_owner": {
+        "task": "V01",
+        "login": "VladimirFrolov777"
+      },
+      "handoff_tasks": [
+        "V01"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/migration_smoke.py",
+        "--disposable",
+        "--source-profile",
+        "C"
+      ],
+      "owner_entrypoint": {
+        "script": null,
+        "args": null,
+        "cwd": ".",
+        "env_mapping": null,
+        "side_effects": null,
+        "teardown": null
+      },
+      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "parity_row_ids": [
+        "SCHEMA-01",
+        "SCHEMA-02",
+        "AUTH-03"
+      ],
+      "review_criteria": "Populated identity profiles/roles/receipts/pending data preserved without overwrite or renumbering.",
+      "postgresql_receipt_required": true
+    },
+    {
+      "check_id": "frontend-typecheck",
+      "kind": "frontend",
+      "primary_owner": {
+        "task": "I02",
+        "login": "13baybars"
+      },
+      "handoff_tasks": [
+        "I01",
+        "I02",
+        "V02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "frontend-typecheck"
+      ],
+      "owner_argv": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "frontend",
+      "status": "ACCEPTED_I01_FOUNDATION_ONLY_I02_HANDOFF_PENDING",
+      "parity_row_ids": [
+        "ADAPT-01"
+      ],
+      "review_criteria": "Generation/contract pins and router/TS checks at the combined checkout.",
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+    },
+    {
+      "check_id": "frontend-tests",
+      "kind": "frontend",
+      "primary_owner": {
+        "task": "I02",
+        "login": "13baybars"
+      },
+      "handoff_tasks": [
+        "I01",
+        "I02",
+        "V02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "frontend-tests"
+      ],
+      "owner_argv": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "cwd": "frontend",
+      "status": "ACCEPTED_I01_FOUNDATION_ONLY_I02_HANDOFF_PENDING",
+      "parity_row_ids": [
+        "CONTENT-01",
+        "CONTENT-02",
+        "STAFF-01"
+      ],
+      "review_criteria": "Terminating nonempty zero-skip foundation plus owner I02 page/SSG/staff read tests.",
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+    },
+    {
+      "check_id": "frontend-build",
+      "kind": "frontend",
+      "primary_owner": {
+        "task": "I02",
+        "login": "13baybars"
+      },
+      "handoff_tasks": [
+        "I01",
+        "I02",
+        "V02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "frontend-build"
+      ],
+      "owner_argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "frontend",
+      "status": "ACCEPTED_I01_FOUNDATION_ONLY_I02_HANDOFF_PENDING",
+      "parity_row_ids": [
+        "CONTENT-01",
+        "CONTENT-02",
+        "PUB-01"
+      ],
+      "review_criteria": "Full published SSG/raw HTML/metadata/assets/release digest; no private prerender or secret fixtures.",
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+    },
+    {
+      "check_id": "frontend-e2e",
+      "kind": "frontend",
+      "primary_owner": {
+        "task": "I02",
+        "login": "13baybars"
+      },
+      "handoff_tasks": [
+        "I01",
+        "I02",
+        "V02"
+      ],
+      "root_argv": [
+        "python",
+        "scripts/target_check.py",
+        "frontend-e2e"
+      ],
+      "owner_argv": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "cwd": "frontend",
+      "status": "MISSING_SCRIPT_AND_ACCEPTED_I02_HANDOFF",
+      "parity_row_ids": [
+        "CONTENT-01",
+        "CONTENT-02",
+        "STAFF-01",
+        "REVIEW-B02",
+        "REVIEW-B06",
+        "REVIEW-B07"
+      ],
+      "review_criteria": "Real browser/API cases, complete URL manifest/SEO/staff security; documented service lifecycle and owned ports.",
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+    }
+  ],
+  "full_pipeline": {
+    "status": "NOT_RUN_AWAITING_ACCEPTED_INPUTS_AND_REVIEWED_HANDOFF",
+    "registry_checks": 16,
+    "standalone_rehearsals": [
+      "fresh-install",
+      "upgrade-A",
+      "upgrade-B",
+      "upgrade-C"
+    ],
+    "preserved_harness_ids": [
+      "repo-baseline",
+      "harness-unit",
+      "harness-cli-smoke"
+    ],
+    "commands": [
+      [
+        "python",
+        "scripts/ci_provenance.py",
+        "--output",
+        "var/ci/provenance.json"
+      ],
+      [
+        "python",
+        "scripts/version_report.py",
+        "--profile",
+        "target"
+      ],
+      [
+        "python",
+        "scripts/check_database.py",
+        "--profile",
+        "target"
+      ],
+      [
+        "python",
+        "scripts/fresh_install_smoke.py",
+        "--profile",
+        "target",
+        "--disposable"
+      ],
+      [
+        "python",
+        "scripts/migration_smoke.py",
+        "--disposable",
+        "--source-profile",
+        "A"
+      ],
+      [
+        "python",
+        "scripts/migration_smoke.py",
+        "--disposable",
+        "--source-profile",
+        "B"
+      ],
+      [
+        "python",
+        "scripts/migration_smoke.py",
+        "--disposable",
+        "--source-profile",
+        "C"
+      ],
+      [
+        "python",
+        "scripts/verify_repo.py",
+        "--profile",
+        "target"
+      ],
+      [
+        "python",
+        "scripts/verify_repo.py",
+        "--profile",
+        "pure"
+      ]
+    ]
+  },
+  "final_gate": {
+    "independent_r03_approvers": [
+      "VladimirFrolov777",
+      "13baybars"
+    ],
+    "default_target_cutover": "PENDING",
+    "issues34_40": "OPEN until final main integration",
+    "task_status": "INCOMPLETE until required full checks and Independent Task Approvals"
+  },
+  "scope_rule": "Checklist aligns task-card deliverables; no owner acceptance, implementation expansion, operational command activation, merge, Issue closure or owner messaging.",
+  "known_interface_gaps": [
+    {
+      "id": "CLI-G01",
+      "owner": "VladimirFrolov777 / V02",
+      "finding": "Current V01 runtime lock has schema tooling only; accepted V02 FastAPI startup/routes and dependencies absent.",
+      "closure": "Reviewed V02 entry points and locked runtime/test dependencies."
+    },
+    {
+      "id": "CLI-G02",
+      "owner": "VladimirFrolov777 / backend; Tramsey00 / environment composition",
+      "finding": "Accepted V01 requirements-test.lock includes Django/DRF; cannot be installed into the no-Django full target environment.",
+      "closure": "Preserve V01 lock in separate legacy/schema env; reviewed target test env plus isolated legacy profile preparation and unskipped PG coverage."
+    },
+    {
+      "id": "CLI-G03",
+      "owner": "Tramsey00 / R03 composition; VladimirFrolov777 / accepted V01 interface",
+      "finding": "V01 v5 gate is under docs, uses MATHSTART_V01_* and stdout summary; incompatible with backend-only script and MATHSTART_CHECK_RESULT dispatcher interface.",
+      "closure": "Review concrete adapter to existing accepted implementation; preserve v5 gate, path guard, receipt checks and V01 implementation scope."
+    },
+    {
+      "id": "CLI-G04",
+      "owner": "13baybars / I02; VladimirFrolov777 / V02 API lifecycle",
+      "finding": "test:e2e missing; real delivery API/SSG browser service lifecycle not handed off.",
+      "closure": "Accepted I02 terminating browser/API suite, locked browser and exact startup/health/stop mapping."
+    },
+    {
+      "id": "CLI-G05",
+      "owner": "VladimirFrolov777 / V04; 13baybars / SSG consumer",
+      "finding": "Target seven-command content CLI and publication/recovery/env mapping not provided.",
+      "closure": "Reviewed exact CLI/manifest/release/journal contracts and positive/negative evidence."
+    }
+  ],
+  "task_card_dependencies": {
+    "HARD": [
+      "R02"
+    ],
+    "CONTRACT": [
+      "R02 parity matrix"
+    ],
+    "INTEGRATION": [
+      "V02",
+      "I02"
+    ],
+    "content_checks_semantic_handoff": "V04 content CLI as prescribed, not a new HARD task dependency"
+  }
+}

@@ -52,3 +52,13 @@ No merge/deploy/Issue closure occurred. No messages were sent to other owners.
 No V/I/R04 task, DDL or working database operation was performed. Keep the plan
 active and PR draft; reviewers can assess infrastructure now, acceptance awaits
 the above conditions. Preserve previous working DB and R01/R02 runtime roots.
+
+## CLI/receipt handoff preparation — 2026-10-12
+
+[Concrete owner/review checklist](cli-receipt-handoff-checklist.md) maps all10 backend checks,4 frontend
+checks and7 baseline content commands to V02/I02/V04 deliverables and R02 parity
+assertions. Accepted V01 schema/foundation evidence remains separate. The new
+machine checklist is PREPARED_FOR_OWNER_REVIEW; runtime-commands remains PENDING
+with no invented commands. No accepted V02/I02/V04 input is available at intake.
+Full target execution awaits accepted exact-SHA inputs and reviewed command
+contracts; R03 stays INCOMPLETE until full checks and independent approvals.

@@ -110,3 +110,13 @@ source/merge-chain/live-ref validation complements unchanged event-SHA and PR
 merge-parent checks. Historical runs, captures, workflow pins and previous8d958
 input remain separate. Current acceptance, retained follow-ups and actual joint
 runs: [handoff](../../../docs/acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
+
+## CLI/receipt handoff preparation — 2026-10-12
+
+[Concrete owner/review checklist](../../../docs/acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md) maps all10 backend checks,4 frontend
+checks and7 baseline content commands to V02/I02/V04 deliverables and R02 parity
+assertions. Accepted V01 schema/foundation evidence remains separate. The new
+machine checklist is PREPARED_FOR_OWNER_REVIEW; runtime-commands remains PENDING
+with no invented commands. No accepted V02/I02/V04 input is available at intake.
+Full target execution awaits accepted exact-SHA inputs and reviewed command
+contracts; R03 stays INCOMPLETE until full checks and independent approvals.
