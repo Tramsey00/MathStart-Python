@@ -1,5 +1,10 @@
 # R03 frontend CI handoff for PR50
 
+Historical candidate evidence (2026-10-11). Current I01/V01 acceptance is
+**ACCEPTED_INTEGRATION** under human receipts and external merges; see
+[current joint-input handoff](accepted-integration-ci-20261012.md). Earlier pending
+snapshots below do not describe current acceptance.
+
 Date: 2026-10-11 Europe/Moscow. Refs #30; consumer PR #50 / I01.
 This is a scoped R03/root CI increment, not I01 Task Approval or acceptance.
 

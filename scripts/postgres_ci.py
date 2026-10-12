@@ -14,6 +14,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.frontend_ci import check_identity, git, now
+from scripts.accepted_integration_ci import accepted_config, intake as accepted_intake, tested_sha
 OUTPUT = ROOT / 'var/postgres-ci'
 CONFIG = ROOT / 'specs/migration/r03-v1/postgres-ci-pr51.json'
 OBSERVER = ROOT / 'scripts/v01_ci_observer.py'
@@ -30,7 +31,7 @@ def snapshot(candidate, config):
     if Path(git(candidate, 'rev-parse', '--show-toplevel').decode().strip()).resolve() != candidate:
         raise ValueError('Candidate must be its own checkout')
     head = git(candidate, 'rev-parse', 'HEAD').decode().strip()
-    if head != config['pr_head_sha'] or git(candidate, 'status', '--porcelain=v1', '--untracked-files=all'):
+    if head != tested_sha(config) or git(candidate, 'status', '--porcelain=v1', '--untracked-files=all'):
         raise ValueError('Candidate is stale or dirty')
     if git(candidate, 'diff', config['implementation_sha'], head, '--', 'backend'):
         raise ValueError('Backend changed since reviewed implementation')
@@ -84,7 +85,11 @@ def intake(candidate, config):
     with urllib.request.urlopen(request, timeout=30) as response:
         pr = json.load(response)
     before = snapshot(candidate, config)
-    check_identity(config, pr, before['checkout_sha'])
+    acceptance = None
+    if 'accepted_input' in config:
+        pr, acceptance = accepted_intake(candidate, config)
+    else:
+        check_identity(config, pr, before['checkout_sha'])
     service = inspect_service()
     if not service['state']['Running'] or service['state'].get('Health', {}).get('Status') != 'healthy':
         raise ValueError('Owned PostgreSQL service is not healthy')
@@ -97,7 +102,8 @@ def intake(candidate, config):
               'ref': os.environ.get('GITHUB_REF'), 'run_id': os.environ.get('GITHUB_RUN_ID'),
               'run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'), 'implementation_sha': config['implementation_sha'],
               'run_url': f"https://github.com/{config['repository']}/actions/runs/{os.environ.get('GITHUB_RUN_ID')}",
-              'independent_task_approval': 'NOT_DECLARED'}
+              'independent_task_approval': 'ACCEPTED_INTEGRATION' if acceptance else 'NOT_DECLARED',
+              'acceptance_provenance': acceptance}
     save('candidate-provenance.json', record)
     print('PINNED_PR51_HEAD=' + record['pr_head_sha'])
     print('ACTUAL_CANDIDATE_CHECKOUT=' + before['checkout_sha'])
@@ -144,7 +150,7 @@ def run(candidate, config):
     if before != provenance['candidate_checkout']:
         raise ValueError('Candidate changed after intake')
     environment = {k: v for k, v in os.environ.items() if k not in ('GITHUB_TOKEN', 'GH_TOKEN', 'PYTHONPATH', 'VIRTUAL_ENV')}
-    environment.update(MATHSTART_V01_EXPECTED_HEAD=config['pr_head_sha'],
+    environment.update(MATHSTART_V01_EXPECTED_HEAD=tested_sha(config),
                        MATHSTART_V01_DISPOSABLE_ACK='OWNED_DISPOSABLE_POSTGRES_16',
                        MATHSTART_V01_TEST_ADMIN_URL='postgresql+psycopg://mathstart_v01_ci:disposable-v01-ci-only@127.0.0.1:55441/postgres',
                        MATHSTART_V01_EVIDENCE_DIR=str(OUTPUT / 'owner-diagnostics'), R03_V01_OUTPUT=str(OUTPUT))
@@ -153,7 +159,8 @@ def run(candidate, config):
         raise ValueError('Locked environment and evidence must be fresh')
     python = venv / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
     result = {'started_at': now(), 'exit_code': 1, 'commands': [], 'venv': str(venv),
-              'lock': 'backend/requirements-test.lock', 'independent_task_approval': 'NOT_DECLARED'}
+              'lock': 'backend/requirements-test.lock',
+              'independent_task_approval': provenance['independent_task_approval']}
     commands = [('create-target-venv', [sys.executable, '-m', 'venv', str(venv)], 120),
                 ('locked-install', [str(python), '-m', 'pip', 'install', '--no-deps', '-r', 'backend/requirements-test.lock'], 600),
                 ('pip-check', [str(python), '-m', 'pip', 'check'], 60),
@@ -185,7 +192,7 @@ def run(candidate, config):
         validate_lock((candidate / 'backend/requirements-test.lock').read_text(), installed)
         result['locked_packages_verified'] = 22
         raw = (OUTPUT / 'target-suite.log').read_text()
-        summary = f"V01_TARGET: HEAD={config['pr_head_sha']} implementation={config['implementation_sha']} tests=34 PG_collected=23 skips=0 failures=0 errors=0 status=PASS"
+        summary = f"V01_TARGET: HEAD={tested_sha(config)} implementation={config['implementation_sha']} tests=34 PG_collected=23 skips=0 failures=0 errors=0 status=PASS"
         if summary not in raw:
             raise ValueError('Unchanged owner gate did not report complete PASS')
         after = snapshot(candidate, config)
@@ -226,7 +233,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         OUTPUT.mkdir(parents=True, exist_ok=True)
-        config = json.loads(CONFIG.read_text())
+        config = accepted_config(json.loads(CONFIG.read_text()))
         if args.action == 'cleanup':
             cleanup()
         else:

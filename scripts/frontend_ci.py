@@ -10,9 +10,12 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from scripts.accepted_integration_ci import accepted_config, intake as accepted_intake, tested_sha
 OUTPUT = ROOT / "var/frontend-ci"
 CONFIG = ROOT / "specs/migration/r03-v1/frontend-ci-pr50.json"
 COMMAND_NAMES = ["node-version", "npm-version", "generate-api", "typecheck",
@@ -51,7 +54,7 @@ def snapshot(candidate, config):
         raise ValueError("candidate must be its own Git checkout")
     head = git(candidate, "rev-parse", "HEAD").decode().strip()
     status = git(candidate, "status", "--porcelain=v1", "--untracked-files=all").decode()
-    if head != config["pr_head_sha"] or status:
+    if head != tested_sha(config) or status:
         raise ValueError("candidate is stale or dirty")
     workflows = {}
     for name in (".github/workflows/ci.yml", ".github/workflows/migration-ci.yml"):
@@ -79,9 +82,15 @@ def intake(candidate, config):
     with urllib.request.urlopen(request, timeout=30) as response:
         pr = json.load(response)
     before = snapshot(candidate, config)
-    check_identity(config, pr, before["checkout_sha"])
+    acceptance = None
+    if "accepted_input" in config:
+        pr, acceptance = accepted_intake(candidate, config)
+    else:
+        check_identity(config, pr, before["checkout_sha"])
     record = {"format": "r03-frontend-ci-v1", "captured_at": now(),
-              "evidence_class": config["evidence_class"], "i01_acceptance": "NOT_DECLARED",
+              "evidence_class": config["evidence_class"],
+              "i01_acceptance": "ACCEPTED_INTEGRATION" if acceptance else "NOT_DECLARED",
+              "acceptance_provenance": acceptance,
               "pr_number": config["pr_number"], "pr_head_sha": pr["head"]["sha"],
               "pr_base_sha": pr["base"]["sha"], "pr_merge_ref_sha_observed": pr["merge_commit_sha"],
               "candidate_checkout": before, "workflow_checkout_sha": git(ROOT, "rev-parse", "HEAD").decode().strip(),
@@ -90,14 +99,15 @@ def intake(candidate, config):
               "run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
               "run_url": "https://github.com/" + config["repository"] + "/actions/runs/" + os.environ.get("GITHUB_RUN_ID", "local")}
     save("candidate-provenance.json", record)
-    print(json.dumps({k: v for k, v in record.items() if k != "candidate_checkout"}, indent=2))
+    print(json.dumps({k: v for k, v in record.items()
+                      if k not in ("candidate_checkout", "acceptance_provenance")}, indent=2))
     print("ACTUAL_CANDIDATE_CHECKOUT=" + before["checkout_sha"])
 
 
 def validate_report(report, config):
-    if (report["exit_code"] != 0 or report["tested_implementation_sha"] != config["pr_head_sha"]
+    if (report["exit_code"] != 0 or report["tested_implementation_sha"] != tested_sha(config)
             or report["dirty_or_uncommitted"] is not False or report["source_changed_during_run"] is not False
-            or any(report[key]["head"] != config["pr_head_sha"] or report[key]["dirty"] is not False
+            or any(report[key]["head"] != tested_sha(config) or report[key]["dirty"] is not False
                    for key in ("git_before", "git_after"))):
         raise ValueError("foundation report is failed, dirty, or bound to another SHA")
     history = report["history_integrity"]
@@ -189,7 +199,7 @@ def main(argv=None):
     parser.add_argument("--candidate", required=True)
     args = parser.parse_args(argv)
     try:
-        config = json.loads(CONFIG.read_text(encoding="utf-8"))
+        config = accepted_config(json.loads(CONFIG.read_text(encoding="utf-8")))
         candidate = Path(args.candidate).resolve()
         (intake if args.action == "intake" else run)(candidate, config)
         return 0

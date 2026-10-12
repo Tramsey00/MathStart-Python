@@ -1,5 +1,10 @@
 # V01 final Independent Task Approval packet — exact PR51 candidate
 
+Historical candidate evidence (2026-10-11). Current I01/V01 acceptance is
+**ACCEPTED_INTEGRATION** under human receipts and external merges; see
+[current joint-input handoff](accepted-integration-ci-20261012.md). Earlier pending
+snapshots below do not describe current acceptance.
+
 Prepared by R03 on 2026-10-11 Europe/Moscow. Decision owner: Руслан.
 **CI evidence complete.** Initially prepared with Independent Task Approval
 pending; the later external owner decision is recorded below. R03 itself does

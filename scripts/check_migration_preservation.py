@@ -17,11 +17,11 @@ ADAPTED = frozenset({
 })
 
 
-def verify(root=ROOT):
+def verify(root=ROOT, input_sha=INPUT):
     # Git object hashes are independent of the working tree, no historical rewrite.
-    paths = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", INPUT], cwd=root).decode().splitlines()
+    paths = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", input_sha], cwd=root).decode().splitlines()
     names = [name for name in paths if name not in ADAPTED]
-    requests = "".join(INPUT + ":" + name + "\n" for name in names).encode()
+    requests = "".join(input_sha + ":" + name + "\n" for name in names).encode()
     data = subprocess.run(["git", "cat-file", "--batch"], cwd=root, input=requests,
                           capture_output=True, check=True, timeout=60).stdout
     offset = 0
@@ -40,7 +40,7 @@ def verify(root=ROOT):
         for name, digest in pins.items():
             if hashlib.sha256((root / name).read_bytes()).hexdigest() != digest:
                 raise ValueError("historical pin differs: " + name)
-    return {"accepted_input": INPUT, "preserved_files": len(names), "adapted_files": sorted(ADAPTED)}
+    return {"accepted_input": input_sha, "preserved_files": len(names), "adapted_files": sorted(ADAPTED)}
 
 
 if __name__ == "__main__":

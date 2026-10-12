@@ -1,4 +1,4 @@
-name: R03 V01 target PostgreSQL candidate verification
+name: R03 V01 target PostgreSQL accepted integration verification
 
 on:
   push:
@@ -9,6 +9,10 @@ on:
       - 'scripts/v01_ci_observer.py'
       - 'tests/test_postgres_ci.py'
       - 'specs/migration/r03-v1/postgres-ci-pr51.json'
+      - 'scripts/accepted_integration_ci.py'
+      - 'scripts/check_migration_preservation.py'
+      - 'tests/test_accepted_integration_ci.py'
+      - 'specs/migration/r03-v1/accepted-integration-20261012.json'
   pull_request:
     branches: [ms7-mig-react-fastapi]
     paths:
@@ -17,6 +21,10 @@ on:
       - 'scripts/v01_ci_observer.py'
       - 'tests/test_postgres_ci.py'
       - 'specs/migration/r03-v1/postgres-ci-pr51.json'
+      - 'scripts/accepted_integration_ci.py'
+      - 'scripts/check_migration_preservation.py'
+      - 'tests/test_accepted_integration_ci.py'
+      - 'specs/migration/r03-v1/accepted-integration-20261012.json'
 
 permissions:
   contents: read
@@ -44,13 +52,14 @@ jobs:
       - name: R03 workflow implementation checkout
         uses: actions/checkout@v7
         with:
+          ref: ${{ github.sha }}
           path: r03
           fetch-depth: 0
           persist-credentials: false
-      - name: Exact reviewed PR51 candidate checkout
+      - name: Exact accepted combined integration checkout
         uses: actions/checkout@v7
         with:
-          ref: 393d98890649c6c7c47908424ba0d076b5b5e56e
+          ref: 0c03197e23f69a233c0fcf8bdffa336feca20b92
           path: candidate
           fetch-depth: 0
           persist-credentials: false
@@ -62,8 +71,9 @@ jobs:
         run: |
           python scripts/ci_provenance.py --output var/postgres-ci/workflow-provenance.json
           python -m unittest discover -s tests -p test_postgres_ci.py -v
+          python -m unittest discover -s tests -p test_accepted_integration_ci.py -v
           python scripts/check_migration_preservation.py
-      - name: Live PR51 head, checkout, frozen evidence and owned service pins
+      - name: Human receipts, integration checkout, frozen evidence and owned service pins
         working-directory: r03
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -82,7 +92,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: r03-pr51-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          name: r03-integration-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          ref: ${{ github.sha }}
           path: r03/var/postgres-ci/
           if-no-files-found: error
           retention-days: 30

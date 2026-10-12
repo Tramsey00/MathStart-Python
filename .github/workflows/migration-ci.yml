@@ -39,6 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
       - uses: actions/setup-python@v7
         with:
@@ -75,6 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
       - uses: actions/setup-python@v7
         with:
@@ -120,13 +122,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/setup-node@v6
         with:
-          node-version: '22'
+          node-version: '24.21.0'
+      - name: Exact frontend npm tooling
+        run: npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
       - name: Exact target checkout before prerequisite checks
         run: python scripts/ci_provenance.py --output var/ci/provenance.json
       - name: Owner locks and concrete command handoff required (V01/V02/I01/I02/V04)

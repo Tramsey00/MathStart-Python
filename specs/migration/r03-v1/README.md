@@ -2,7 +2,8 @@
 
 Status: PROPOSED / INCOMPLETE; independent review and runtime handoff pending.
 Owner Tramsey00; reviewers VladimirFrolov777 /13baybars. [Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30).
-Accepted input `8d958aeeb17da46839722441425ccbb5889e2ab7`,
+Current accepted input `0c03197e23f69a233c0fcf8bdffa336feca20b92`;
+historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
 MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
 Authority: [migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)§§9/17,
 [R02 matrix](../r02-v1/parity-matrix-v1.json) and accepted ADR0006.
@@ -99,3 +100,13 @@ Plan stays active and Issue30 open. Accepted V02/I02 plus fresh/upgrade/content/
 frontend real evidence, final current-head/merge-ref CI and independent approvals
 are required before task acceptance. [Handoff](../../../docs/acceptance/MS7-MIG-R03/handoff.md)
 and [trace](../../../docs/agent-traces/MS7-MIG-R03.md) record exact current limits.
+
+## Accepted I01/V01 joint-input CI — 2026-10-12
+
+Human receipts and merges now establish both tasks as ACCEPTED_INTEGRATION.
+Separate frontend and V01 PostgreSQL jobs test the pinned combined input0c03197,
+using approved source heads only as provenance references. Strict receipt/tree/
+source/merge-chain/live-ref validation complements unchanged event-SHA and PR
+merge-parent checks. Historical runs, captures, workflow pins and previous8d958
+input remain separate. Current acceptance, retained follow-ups and actual joint
+runs: [handoff](../../../docs/acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).

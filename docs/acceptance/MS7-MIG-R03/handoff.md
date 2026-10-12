@@ -3,7 +3,8 @@
 Status: **INCOMPLETE / draft increment**, not ACCEPTED_INTEGRATION.
 Owner Tramsey00; independent reviewers/Task Approvers VladimirFrolov777 and13baybars.
 [Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) remains open.
-Input8d958aeeb17da46839722441425ccbb5889e2ab7; unchanged
+Current input0c03197e23f69a233c0fcf8bdffa336feca20b92; historical
+input8d958aeeb17da46839722441425ccbb5889e2ab7 preserved; unchanged
 MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.
 R01/R02 accepted integration facts and external owner receipt remain authoritative;
 historical PENDING snapshots are retained.
@@ -29,23 +30,23 @@ Commands and receipt interface: [r03-v1](../../../specs/migration/r03-v1/README.
 Observable evidence: [verification](verification.json), [intake](intake.json),
 [trace](../../agent-traces/MS7-MIG-R03.md), [plan](../../exec-plans/active/MS7-MIG-R03.md).
 
-## Blocking integration inputs
+## Current integration status and remaining gates — 2026-10-12
 
-1. V02 Issue35 and I02 Issue41 have no accepted results at input; live Issues
-   remain PLANNED and remote branches absent at intake. Acquire reviewed exact
-   SHA intake, never silently update8d958ae or start those tasks in R03.
-2. V01/I01 locks, concrete backend command handoff (including V04 content CLI),
-   metadata/rehearsals and React package scripts are absent. Resolve these with
-   owner deliverables; [runtime-commands](../../../specs/migration/r03-v1/runtime-commands.json)
-   stays PENDING, no fabricated endpoints/implementation.
-3. Real target PG fresh/upgrades A/B/C, all263 source/quality/integrity, API/staff
-   suites, frontend typecheck/test/build/browser and runtime R02 equivalent
-   assertions must pass. Historical63/model32 are not substitutes.
-4. Transitional default legacy must be cut over to target after reviewed inputs;
-   no full final no-Django verification claim before this is done.
-5. Current-head applicable CI and tested PR merge-ref must pass after integration;
-   independent Vladimir/Ilya approvals at that exact HEAD and owner intake remain
-   separate. Current target job failure is reported, never suppressed for green CI.
+I01/V01 are ACCEPTED_INTEGRATION by human approvals and external merges.
+Their locks, schema rehearsals and frontend foundation exist in current input.
+I01 UX approval is received with the accepted banner limitation and two open
+follow-ups. Full receipts and joint-suite evidence are in the
+[current handoff](accepted-integration-ci-20261012.md).
+
+1. V02 Issue35 and I02 Issue41 are absent from accepted input0c03197. Intake
+   their reviewed exact SHAs when accepted; branch existence does not establish acceptance.
+2. Concrete reviewed runtime-command handoff, including V04 content CLI, remains
+   pending. Do not invent implementations or mark the registry REVIEWED by assumption.
+3. Full API/services/staff/content/263-source and integrated browser evidence is
+   still required. Schema rehearsals and fixture foundation have narrower coverage.
+4. Final default cutover from legacy to target and full no-Django verification.
+5. Successful applicable final-head/merge-ref CI and independent Vladimir/Ilya
+   R03 Task Approvals. The existing broader target job fails on missing handoff.
 
 No merge/deploy/Issue closure occurred. No messages were sent to other owners.
 No V/I/R04 task, DDL or working database operation was performed. Keep the plan

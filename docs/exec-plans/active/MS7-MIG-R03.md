@@ -5,7 +5,8 @@
 - Date: 2026-10-09 Europe/Moscow; deadline: 2026-10-10 including review/integration
 - Issue: https://github.com/Tramsey00/MathStart-Python/issues/30
 - Branch: ms7-mig-r03-verification -> ms7-mig-react-fastapi; Refs #30
-- Accepted input: `8d958aeeb17da46839722441425ccbb5889e2ab7`
+- Current accepted input: `0c03197e23f69a233c0fcf8bdffa336feca20b92`
+- Historical input: `8d958aeeb17da46839722441425ccbb5889e2ab7` (preserved provenance)
 - Immutable MIG_BASE_SHA: `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`
 - HARD R02 and its parity CONTRACT accepted through owner receipt:
   https://github.com/Tramsey00/MathStart-Python/pull/48#issuecomment-6070829593
@@ -75,7 +76,7 @@ and versions: docs/acceptance/MS7-MIG-R03/verification.json. Proceed only with
 draft publication/current-head CI and independent review; implementation scope
 does not authorize V/I delivery or closing integration blockers by assumption.
 
-## Frontend CI follow-up — 2026-10-11
+## Historical frontend CI follow-up — 2026-10-11 (superseded current acceptance)
 
 User authorized only the R03/root CI wiring and execution for reviewed PR50
 candidate150279e6, preserving frozen baseline workflows and historical captures.
@@ -88,7 +89,7 @@ manual hover or UX/integration approval is included. API/security approval
 Vladimir5483318464 is live evidence only for the specified I01 candidate.
 Detailed contract/limits: docs/acceptance/MS7-MIG-R03/frontend-pr50-ci.md.
 
-## V01 target PostgreSQL CI follow-up — 2026-10-11
+## Historical V01 target PostgreSQL CI follow-up — 2026-10-11
 
 User authorizes R03-only separate target CI per PR51 handoff v5, at explicitly
 pinned current candidate393d988 (backend unchanged from reviewed1f97d762).
@@ -113,3 +114,14 @@ either action; recorded separately in external-state-v7 and packet. Later CI
 guard refusal on changed merge-ref/closed PR is not presented as a PASS.
 Existing requested input8d958ae/MIG_BASE remain the provenance of this increment;
 no wider R03/V02/I02 or post-merge integration work is started by this observation.
+
+## Current accepted integration follow-up — 2026-10-12
+
+I01 and V01 are ACCEPTED_INTEGRATION under human approvals5484114333 and5484103844
+and external merges0c03197/4a1b8b0. Current input is0c03197; old8d958 remains
+historical. I01 UX/integration approval is received with the accepted fixture
+banner limitation and both open follow-ups. Issues34/40 remain open until main.
+Current records, joint suites and remaining R03 gates:
+[accepted-integration handoff](../../acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
+Earlier dated pending snapshots above are history, not current I01/V01 status.
+R03 remains ACTIVE / INCOMPLETE; no task acceptance, merge or Issue closure.

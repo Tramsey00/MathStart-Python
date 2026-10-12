@@ -1,5 +1,10 @@
 # R03 PostgreSQL target CI for PR51
 
+Historical candidate evidence (2026-10-11). Current I01/V01 acceptance is
+**ACCEPTED_INTEGRATION** under human receipts and external merges; see
+[current joint-input handoff](accepted-integration-ci-20261012.md). Earlier pending
+snapshots below do not describe current acceptance.
+
 Date: 2026-10-11 Europe/Moscow. Issue #30; V01 consumer PR #51.
 This R03 increment supplies candidate CI evidence for Independent Task Approval.
 It does not grant that approval or accept integration.

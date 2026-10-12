@@ -1,4 +1,4 @@
-name: R03 frontend candidate verification
+name: R03 frontend accepted integration verification
 
 on:
   push:
@@ -8,6 +8,10 @@ on:
       - 'scripts/frontend_ci.py'
       - 'tests/test_frontend_ci.py'
       - 'specs/migration/r03-v1/frontend-ci-pr50.json'
+      - 'scripts/accepted_integration_ci.py'
+      - 'scripts/check_migration_preservation.py'
+      - 'tests/test_accepted_integration_ci.py'
+      - 'specs/migration/r03-v1/accepted-integration-20261012.json'
   pull_request:
     branches: [ms7-mig-react-fastapi]
     paths:
@@ -15,6 +19,10 @@ on:
       - 'scripts/frontend_ci.py'
       - 'tests/test_frontend_ci.py'
       - 'specs/migration/r03-v1/frontend-ci-pr50.json'
+      - 'scripts/accepted_integration_ci.py'
+      - 'scripts/check_migration_preservation.py'
+      - 'tests/test_accepted_integration_ci.py'
+      - 'specs/migration/r03-v1/accepted-integration-20261012.json'
 
 permissions:
   contents: read
@@ -27,13 +35,14 @@ jobs:
       - name: R03 workflow implementation checkout
         uses: actions/checkout@v7
         with:
+          ref: ${{ github.sha }}
           path: r03
           fetch-depth: 0
           persist-credentials: false
-      - name: Exact reviewed PR50 candidate checkout
+      - name: Exact accepted combined integration checkout
         uses: actions/checkout@v7
         with:
-          ref: 150279e6ca7f1c82a6f23d8899e50992cf358f55
+          ref: 0c03197e23f69a233c0fcf8bdffa336feca20b92
           path: candidate
           fetch-depth: 0
           persist-credentials: false
@@ -45,7 +54,8 @@ jobs:
         run: |
           python scripts/ci_provenance.py --output var/frontend-ci/workflow-provenance.json
           python -m unittest discover -s tests -p test_frontend_ci.py -v
-      - name: Live PR head, actual checkout, frozen workflow and capture pins
+          python -m unittest discover -s tests -p test_accepted_integration_ci.py -v
+      - name: Human receipts, integration checkout, frozen workflow and capture pins
         working-directory: r03
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -62,7 +72,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: r03-pr50-frontend-${{ github.run_id }}-${{ github.run_attempt }}
+          name: r03-integration-frontend-${{ github.run_id }}-${{ github.run_attempt }}
+          ref: ${{ github.sha }}
           path: r03/var/frontend-ci/
           if-no-files-found: error
           retention-days: 30
