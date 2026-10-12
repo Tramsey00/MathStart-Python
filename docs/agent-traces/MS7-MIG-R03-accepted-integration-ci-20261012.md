@@ -28,7 +28,7 @@ One initial overly broad doc diff rejected R03-added dated receipts; scope was
 corrected to permit additional records while still rejecting any alteration or
 deletion of accepted evidence and all implementation changes.
 
-Joint frontend/PostgreSQL execution and raw receipts: awaiting GitHub execution;
+Joint frontend/PostgreSQL execution and raw receipts: SUCCESS;
 see [current handoff](../acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
 R03 remains INCOMPLETE pending task-card dependencies, reviewed runtime command
 handoff/full target evidence, default cutover and independent Task Approval.
@@ -36,3 +36,22 @@ handoff/full target evidence, default cutover and independent Task Approval.
 Initial local pure profile returned FAIL because the bundled interpreter has no
 jsonschema. Classification: unconfigured local tooling, not a domain regression.
 A fresh locked tooling venv and CI pure job will provide the configured checks.
+
+Configured local verification: fresh9-package verification.lock venv, pip check
+PASS, pure6/6 PASS. CI pure6/6 and baseline8/8 + unchanged historical R02 suite63
+PASS in run38250865462; wider target FAILURE at reviewed command prerequisite,
+following stages NOT_RUN. Classification: outstanding owner runtime handoff.
+
+Dedicated frontend38250865546 and PostgreSQL38250865494 SUCCESS, both actual
+input0c03197. Workflow checkoutb8cca88 (parents0c03197/8ee33ac) differs from approved
+I01 head150279e6 and V01 head393d988; recorded separately. Frontend112+5/all10
+commands PASS. PG34/23,0 skips,fresh2/ABC,40 subtests,57 DB cleanup,22-package
+exact lock PASS. Actual Python3.12.15/PG16.15; tmpfs stop0 and automatic removal
+SUCCESS. Independently verified24 raw artifact files, archive and per-file SHA256,
+Git blob/history before-after integrity and absence of credential patterns.
+
+Raw archives downloaded after one transient network EOF; retry succeeded and
+archive digests matched GitHub. Frozen ci.yml unchanged. Historical successful
+candidate runs and late strict-provenance FAILURE/NOT_RUN kept separately.
+Final publication contains records only; its Git head must not be reported as the
+workflow checkout of the earlier joint evidence runs. R03 stays INCOMPLETE.

@@ -61,9 +61,37 @@ Both frozen candidate workflows match historical input. Root workflow checkout
 explicitly uses the event SHA; `ci_provenance.py` still rejects event mismatch or
 wrong PR merge parents. Candidate code receives no GitHub token.
 
-New joint CI execution: **AWAITING_RUN**, to be replaced with actual run receipts
-and immutable raw artifacts after publication. Local adapter checks are evidence
-of the adapter only, not execution of Node or PostgreSQL owner suites.
+Actual joint execution: **both dedicated suites SUCCESS**.
+
+| Suite | GitHub run | Actual result |
+| --- | --- | --- |
+| Frontend | [38250865546](https://github.com/Tramsey00/MathStart-Python/actions/runs/38250865546) |112+5 PASS; all10 commands including build/security guards and audit PASS |
+| V01 PostgreSQL | [38250865494](https://github.com/Tramsey00/MathStart-Python/actions/runs/38250865494) |34/23 PASS,0 skips; fresh×2,ABC,40 subtests,57 cleaned DBs;22 locked packages |
+| R03 migration workflow | [38250865462](https://github.com/Tramsey00/MathStart-Python/actions/runs/38250865462) |verify SUCCESS, pure SUCCESS; broader target FAILURE at missing reviewed command handoff; subsequent stages NOT_RUN |
+
+Both actual test checkouts: `0c03197e23f69a233c0fcf8bdffa336feca20b92`.
+R03 implementation head: `8ee33acadbf78b27ab801ea6ce9cb3454997c5a6`.
+Actual event/workflow PR49 merge checkout:
+`b8cca88f101030cdd56a4714ccd5c5c183e25cb6`, tree
+`f8fa0d06e45e9fc8703bfc5dcd79dc329f0ba7dc`, parents0c03197/8ee33ac.
+The unchanged strict event and merge-parent assertions passed.
+
+Raw [frontend artifact](accepted-integration-ci/run-38250865546/artifact-manifest.json)
+and [PostgreSQL artifact](accepted-integration-ci/run-38250865494/artifact-manifest.json)
+retain all24 original files, with verified archive SHA256 and individual raw-file
+digests. Frontend artifact11747519439/archive765d3e086b1363fae4d6d67c995135300d2c496271ba67a405d34052b0b135d7;
+PostgreSQL artifact11747804358/archive221444dd9811cbe52e4bcacaba2c2482840826462f297f7450536abaed113cf7.
+Actual Python3.12.15/PostgreSQL16.15; database inventories empty before/after;
+service tmpfs only, stop exit0 and GitHub post-job removal SUCCESS. Exact Git
+blobs independently match all84 captures and106 backend/history hashes.
+
+[Machine-readable joint receipt](accepted-integration-ci-20261012.json) records
+approved PR heads, actual test and workflow checkouts separately. Local27 adapter
+checks and configured Python3.12.14 locked pure profile6/6 PASS are supplementary.
+Initial local tooling/temp failures remain recorded in the trace; late CI
+FAILURE/NOT_RUN records remain in a [separate history](accepted-integration-ci/historical-runs.json).
+The broader R03 target failure is an outstanding owner-handoff/integration gate;
+it does not invalidate either completed dedicated suite or grant R03 acceptance.
 
 ## Historical evidence kept separately
 
@@ -79,8 +107,8 @@ of the adapter only, not execution of Node or PostgreSQL owner suites.
   FAILURE / suite NOT_RUN on event-versus-checkout mismatch after integration advanced.
 - Late old-adapter [frontend38157320317](https://github.com/Tramsey00/MathStart-Python/actions/runs/38157320317)
   and [PostgreSQL38157320311](https://github.com/Tramsey00/MathStart-Python/actions/runs/38157320311):
-  FAILURE, not replacements for earlier successful candidate evidence; exact step
-  diagnostics are retained separately in the joint intake record.
+  FAILURE, both owner suites NOT_RUN after workflow provenance refusal; exact step
+  diagnostics are retained separately in the historical-failures records.
 
 ## Remaining R03 dependencies and next step
 
