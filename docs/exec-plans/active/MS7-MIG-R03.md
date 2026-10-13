@@ -135,3 +135,14 @@ machine checklist is PREPARED_FOR_OWNER_REVIEW; runtime-commands remains PENDING
 with no invented commands. No accepted V02/I02/V04 input is available at intake.
 Full target execution awaits accepted exact-SHA inputs and reviewed command
 contracts; R03 stays INCOMPLETE until full checks and independent approvals.
+
+## V02 external publication gate intake — 2026-10-13
+
+User approves only40 pinned publication exception paths and73 separately retained
+raw paths. [Gate review packet](../../acceptance/MS7-MIG-R03/v02-external-publication-gate.md)
+records the exact isolated external v3 command, trust/data pins, negative controls
+and clean Linux CI criteria. Original verified snapshot, actual approved bindings,
+auditor raw output, verifier v3 and anchor digest are not yet available. Requested
+them from Владимир under explicit authorization. Gate NOT_READY; trusted pins
+remain null in the intake record, not synthetic approval. No V02-owned changes,
+gate execution/CI proof, V02 Task Approval, merge or Issue closure. R03 INCOMPLETE.

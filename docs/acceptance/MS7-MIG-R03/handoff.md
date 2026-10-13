@@ -62,3 +62,15 @@ machine checklist is PREPARED_FOR_OWNER_REVIEW; runtime-commands remains PENDING
 with no invented commands. No accepted V02/I02/V04 input is available at intake.
 Full target execution awaits accepted exact-SHA inputs and reviewed command
 contracts; R03 stays INCOMPLETE until full checks and independent approvals.
+
+## V02 publication gate preparation — 2026-10-13
+
+[External gate review packet](v02-external-publication-gate.md) and
+[source intake record](v02-publication-intake-20261013.json) preserve the approved
+scope of40 pinned exception paths and73 separate raw paths without inventing their
+missing identities/digests. Original verified package requested from Владимир in
+[PR49 comment6141201701](https://github.com/Tramsey00/MathStart-Python/pull/49#issuecomment-6141201701).
+Gate NOT_READY; byte/metadata reconciliation, actual negatives and Linux CI are
+NOT_RUN until verifier v3, approved controls/anchor and original raw evidence arrive.
+This dated entry supersedes the earlier no-owner-message statement only for this
+explicitly authorized source request. No V02 Task Approval or merge; R03 INCOMPLETE.
