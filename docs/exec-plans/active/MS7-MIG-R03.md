@@ -146,3 +146,14 @@ auditor raw output, verifier v3 and anchor digest are not yet available. Request
 them from Владимир under explicit authorization. Gate NOT_READY; trusted pins
 remain null in the intake record, not synthetic approval. No V02-owned changes,
 gate execution/CI proof, V02 Task Approval, merge or Issue closure. R03 INCOMPLETE.
+
+### Received V02 reference documents — 2026-10-13
+
+Four original documents now received and preserved losslessly; both supplied
+SHA256 PASS. [Document reconciliation](../../acceptance/MS7-MIG-R03/v02-publication-document-reconciliation-20261013.json)
+matches five control tuples and exact40 paths against auditor tables. The user's
+limited exception decision is APPROVED; earlier unavailable/pending-policy wording
+is historical. R03 creates actual owner metadata anchor v3 and digest after
+independent original-source verification, not Владимир. Full151 staged snapshot,
+complete73 inventory and raw streams still pending; actual execution pins remain
+null. Gate NOT_READY, real negatives/Linux CI NOT_RUN, R03 INCOMPLETE.

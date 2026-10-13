@@ -74,3 +74,15 @@ Gate NOT_READY; byte/metadata reconciliation, actual negatives and Linux CI are
 NOT_RUN until verifier v3, approved controls/anchor and original raw evidence arrive.
 This dated entry supersedes the earlier no-owner-message statement only for this
 explicitly authorized source request. No V02 Task Approval or merge; R03 INCOMPLETE.
+
+### Current document intake update — 2026-10-13
+
+User supplied the four local reference documents; [lossless archive](v02-publication-reference-documents-20261013.zip)
+and [document reconciliation](v02-publication-document-reconciliation-20261013.json)
+retain them with verified hashes and crosschecks of five tuples/exact40 paths.
+Existing policy decision is APPROVED, no repeat approval requested. The previous
+missing-documents statements above are historical. Владимир supplies original151
+staged snapshot/metadata/raw; R03 prepares the actual schema v3 approval JSON and
+concrete digest after independent source verification. [Corrected source request](https://github.com/Tramsey00/MathStart-Python/pull/49#issuecomment-6147207245).
+Actual snapshot/gate/negative/Linux checks remain NOT_RUN and gate NOT_READY;
+implementation SHA null, V02 Task Approval/merge separate, R03 INCOMPLETE.

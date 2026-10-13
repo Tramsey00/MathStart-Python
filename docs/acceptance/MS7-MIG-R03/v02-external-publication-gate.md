@@ -1,6 +1,6 @@
 # V02 external publication gate: review packet — 2026-10-13
 
-**Gate: NOT_READY / REQUIRED_SOURCE_PACKAGE_MISSING. R03: INCOMPLETE.**
+**Gate: NOT_READY / REQUIRED_151_FILE_SNAPSHOT_MISSING. R03: INCOMPLETE.**
 This is the R03 gate preparation record, not an executable gate, approval anchor,
 publication receipt, V02 Task Approval or permission to merge. No verifier v3 was
 received or executed. No candidate implementation SHA has been assigned.
@@ -9,13 +9,19 @@ received or executed. No candidate implementation SHA has been assigned.
 
 Руслан's instruction of 2026-10-13 approves the limited publication exception
 policy: exactly **40 individually pinned paths**, with **73 raw-preservation paths
-retained separately**. The actual approved lists, bindings, owner-handoff and
-auditor report were not accessible in this task at intake. Counts alone do not
-identify paths or grant a byte/metadata exception. This packet adds no paths and
-does not infer the policy from a candidate tree.
+retained separately**. That decision is already approved and does not require
+repeat approval because documents were initially unavailable. The four documents
+are now received and read: owner-handoff, bindings, developer report-v3 and
+Independent Round3 Re-Audit Report. Both user-supplied SHA256 checks PASS.
+Their exact bytes are retained in the
+[four-document reference archive](v02-publication-reference-documents-20261013.zip),
+not a151-file snapshot. [Document reconciliation](v02-publication-document-reconciliation-20261013.json)
+crosschecks five control tuples and the exact40 paths with the auditor's tables.
+It does not independently verify the missing verifier/policy/manifest source.
 
-The available R03 checkout starts at
-`609dc92c7bc4eb5110d9c1261f20154209673433`. Accepted integration remains
+This document update starts from R03
+`428258d4758d95e6d424f4386d2419a3f6ab8142`; the earlier preparation started at609dc92.
+Accepted integration remains
 `0c03197e23f69a233c0fcf8bdffa336feca20b92`; immutable MIG_BASE_SHA remains
 `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`. The historical input
 `8d958aeeb17da46839722441425ccbb5889e2ab7` is retained.
@@ -24,11 +30,18 @@ An authorized source request was sent to Владимир / VladimirFrolov777 in
 [PR49 comment6141201701](https://github.com/Tramsey00/MathStart-Python/pull/49#issuecomment-6141201701).
 Issue35 has no owner comments at the recorded intake; no migration V02 branch or
 PR is published. The old `codex/ms7-v02-grades-api` is not this migration task.
-Local Desktop, Downloads and Codex attachments searches found no v3 source
-package. The user was asked for paths/links to the referenced documents.
+The user subsequently provided exact Telegram Desktop paths. The initial
+unavailable-documents entry is history, not the current intake status. An
+[updated source request6147207245](https://github.com/Tramsey00/MathStart-Python/pull/49#issuecomment-6147207245)
+asks Владимир only for original151-file staged snapshot/reconstruction metadata
+and raw audit evidence. It explicitly retracts the request for an owner approval
+JSON from Владимир: **R03 prepares that artifact after independent source checks**.
 
 The [machine intake record](v02-publication-intake-20261013.json) deliberately
-contains null source pins and NOT_RUN results. It must never be consumed as an
+contains document-derived expected tuples and40 approved path identities, with
+actual trusted executable/anchor pins still null and source execution NOT_RUN.
+The73 complete raw path list awaits policy source; the report confirms40 subset73
+and33 additional non-exempt raw paths. It must never be consumed as an
 owner approval artifact or substituted for a real binding manifest.
 
 ## Owners and review decisions
@@ -37,34 +50,67 @@ owner approval artifact or substituted for a real binding manifest.
 | --- | --- | --- |
 | Original verified snapshot, handoff, bindings and auditor package | Владимир / VladimirFrolov777 | Immutable source and exact original bytes, complete 40/73 lists, reproducible metadata and raw reports |
 | Independent snapshot reconciliation and external executable/control copies | Руслан / R03 | Independently observed bytes/OID/size/mode/attributes match approved bindings and auditor report, without candidate pin regeneration |
-| Limited exception approval and independent anchor digest | Руслан | Actual approved artifact and digest must be provided and bound to an owner-controlled R03 revision; the current request supplies policy scope but no artifact bytes/digest |
+| Limited exception policy | Руслан | Already APPROVED by direct user instruction for the exact40 paths in supplied bindings; preserve that decision without requesting it again |
+| Owner approval JSON and concrete digest | Руслан / R03 | After independent source verification create schema v3 artifact in R03, bind verified five-input tuples/exact40 set and existing policy decision, compute its actual digest and present with gate for review; not an artifact supplied by Владимир |
 | Gate readiness review | Руслан, with Владимир checking the source reconciliation | Trusted v3 and all control pins established, mandatory negatives pass, clean Linux CI proof and raw outputs available |
 | Publication after readiness confirmation | Владимир | Candidate contains exactly the reviewed implementation/evidence bytes and metadata; external gate rerun against its exact commit |
 | V02 Task Approval / integration / R03 completion | Separate existing task gates | Not granted by publication policy, publication verifier, checklist review or CI success |
 
 ## Required source package before executable gate preparation
 
-- [ ] Immutable verified snapshot: full source SHA/tree or original Git bundle,
-  archive SHA256, object format, reconstruction instructions and original
-  attributes. A loose working directory without exact provenance is insufficient.
+- [ ] Original151-file snapshot:139 previous +12 Round3 additions, precise
+  inventory and original Git blob/working bytes, modes/attributes; accepted BASE
+  `0c03197e23f69a233c0fcf8bdffa336feca20b92`. Staged snapshot archive is allowed:
+  implementation commit is not required at this stage. Include archive SHA256,
+  object format and instructions reconstructing the index/tree on BASE without
+  source normalization. Compare reconstructed full tree with auditor-reported
+  `dbad1e853dff354c5d3255755afb5cc32e0ad279` (tree OID, not a commit SHA).
 - [ ] Original `verify_publication_v3.py` bytes and independently checked SHA256,
   source path/OID/size/mode/attributes, dependencies, exit contract and command
   interface. Inspect the source before any execution, including `--help`.
-- [ ] Owner-handoff and original binding manifest: exactly 40 unique explicit
-  exception paths, each with original bytes SHA256, Git blob OID, size, Git mode
-  and approved effective attributes. No wildcard/prefix scope expansion.
+- [x] Owner-handoff and derived bindings documents: user hashes verified; exact40
+  unique explicit exception paths match auditor Appendix B. Report supplies
+  SHA256/OID/size and diagnostic counts for all40; full line/reason arrays and
+  real mode/attribute/blob reconciliation still require original policy/snapshot.
 - [ ] Separate inventory for all 73 raw-preservation paths with the same
   provenance and exact-byte/metadata requirements. Confirm any list intersection
   explicitly from approved data; do not resolve overlaps by weakening retention.
-- [ ] Approved policy, publication manifest and attributes control files, plus
-  owner approval JSON. Record exact SHA256/OID/size/mode for these controls and
-  trusted verifier; include all ancestor/root attributes affecting pinned paths.
-- [ ] Independently approved anchor digest from owner evidence, separate from the
-  candidate and anchor's own assertions. An artifact saying it is approved does
-  not establish approval. Do not compute a replacement digest to accept drift.
-- [ ] Auditor report, audited snapshot identity, exact command/configuration and
-  original raw full whitespace stdout/stderr/exit **FAIL/2**, plus scoped check
-  commands/results. Preserve these failures, not only an auditor summary.
+- [ ] Actual policy, manifest, root/V02-local attributes files and verifier v3
+  bytes from Владимир. All five expected SHA256/OID/size/mode/13/full-attribute
+  tuples now match auditor section13. Only root .gitattributes blob/OID/size/mode
+  was also checked against available accepted BASE; the actual snapshot/effective
+  metadata are still missing. Expected tuples are not executable trust pins.
+- [x] Auditor report and source identity/configuration received. It reports
+  manifest mode/attributes P2 CLOSED, P02 CLOSED on Windows, P03 CLOSED and external
+  P01 pending. These are external audit receipts, not new R03 executions.
+- [ ] Actual full whitespace stdout/stderr/exit **FAIL/2** and scoped receipts,
+  original preservation/reconciliation/probe evidence. Reported full ordinary
+  3887/40 and cr-at-eol6/3 counts and stream hashes are known; actual streams
+  were not among the four attachments and cannot be reconstructed from summaries.
+
+## R03-owned approval artifact after source verification
+
+Do not request this artifact from Владимир and do not create an APPROVED anchor
+from documentary crosschecks alone. After independent reconstruction/reconciliation,
+prepare an actual JSON in owner-controlled R03 with these handoff v3 fields:
+
+```text
+version = MS7-MIG-V02-owner-metadata-anchor-v3
+owner = Ruslan
+decision = APPROVED
+inputs = independently verified five-input tuples
+exception_set_sha256 = fa62cf5f4c9b3aaf91864b9face548a5f45759390fb7bedd9cdef5ae6e7c2e18
+exception_paths = the exact40 supplied approved paths
+```
+
+Each input tuple contains blob_sha256/blob_oid/blob_bytes/mode/attributes/
+attributes_all. The concrete schema/parser must be confirmed by inspecting actual
+v3 source. No `_fixture`, synthetic anchor or local-proposal approval is used.
+Record the user's existing limited policy decision with the independently verified
+bindings. Freeze this specific artifact, compute its actual SHA256 and present
+that digest together with the executable gate, trust pins and evidence for review.
+This does not reopen policy approval or grant V02 Task Approval. Anchor/path/digest
+remain null until these source prerequisites are satisfied.
 
 ## Trust boundary and required independent comparison
 
@@ -85,9 +131,11 @@ and recheck immediately before launching the verifier. The replacement negative
 must prove refusal before any replacement code executes.
 
 Independent R03 reconciliation uses binary Git object reads and filesystem
-reads, with no newline normalization. Record SHA256 and size of the original
+reads; never normalize original evidence before hashing. Record SHA256 and size of the original
 snapshot bytes, `git cat-file blob` bytes, and materialized checkout bytes
-separately. Determine OID/object type and Git mode from the actual tree; compute
+separately. Raw73 must stay exact on every checkout. Normal text materialization
+is judged by vetted v3/approved attributes; historical Windows working hashes
+must not silently replace exact Git blob pins. Determine OID/object type and Git mode from the actual tree; compute
 OID of filesystem bytes without applying Git filters. Windows filesystem execute
 bits do not substitute for Git mode; check Linux materialization separately.
 Attributes are read from the reviewed Git tree and observed index/checkout under
@@ -149,8 +197,13 @@ Do not invoke any candidate-installed entry point in place of this command.
   Hash artifacts and retain FAILURE/NOT_RUN separately from PASS. Redact no
   whitespace diagnostics and do not overwrite original auditor failures.
 
-Exact scoped command arguments and original full-whitespace diagnostic scope
-must come from the missing handoff/auditor package. They are not invented here.
+The auditor specifies original full commands `git diff --cached --check` and
+`git -c core.whitespace=cr-at-eol diff --cached --check`; both scoped variants
+append exactly40 `:(exclude,literal)<path>` arguments from supplied bindings.
+At published commit stage compare accepted BASE to reviewed candidate with the
+same explicit diagnostic configuration and exact exclusion list. Bind actual
+argv/ref/index to receipts. Original line/reason arrays and raw stdout still
+require the snapshot/policy/evidence package.
 Publication succeeds only with external verifier exit0, exact approved bytes and
 metadata, no new whitespace diagnostics and every required scoped check PASS.
 The retained approved full-whitespace FAIL/2 is not rewritten as a full PASS.
@@ -183,8 +236,9 @@ stdout/stderr. No result in this packet means PASS on a missing source package.
 
 ## Readiness and next available step
 
-The immediate next step is receipt of Владимир's original verified snapshot and
-the user-referenced approved owner-handoff/bindings/auditor package. Then R03 can
+The documents and existing limited-policy decision are already available. The
+immediate next step is receipt of Владимир's original verified151-file staged
+snapshot, inventory/reconstruction instructions and raw evidence. Then R03 can
 inspect verifier v3, pin trusted controls, implement/review the concrete bootstrap
 and Linux CI wiring in its own paths, repeat real-package negatives and request
 gate-readiness confirmation with evidence. Only after that confirmation does
