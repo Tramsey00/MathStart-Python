@@ -147,6 +147,21 @@ def gate(runner, root, ref, controls, representation):
     check_controls(controls)
     receipt = candidate_preflight(runner, root, ref, controls, representation)
     receipt['verifier'] = execute_verifier(runner, root, ref, controls, 'external-verifier')
+    # The verifier's JSON contains diagnostic sets and stream hashes. Retain the
+    # actual Git streams independently too, including after commit publication.
+    exclusions = json.loads((controls/'owner-handoff-bindings.json').read_bytes())['exception_paths']
+    streams = {'ordinary-full': 'c1b69b199ac5cd41c665d656a72587d36ff0d13dc04a82c0a4c3d75086da20fb',
+               'cr-at-eol-full': '5837278beb0d2ef638db564512c6913f9ae02346d204ba7b75c059aaef373f63'}
+    for cr in (False, True):
+        for scoped in (False, True):
+            name = ('cr-at-eol' if cr else 'ordinary') + ('-scoped' if scoped else '-full')
+            args = [runner.git_exe] + (['-c', 'core.whitespace=cr-at-eol'] if cr else [])
+            args += ['diff', '--no-ext-diff', '--no-textconv', '--check', BASE, ref]
+            if scoped:
+                args += ['--', '.', *[':(exclude,literal)'+p for p in exclusions]]
+            result = runner.run('gate-'+name, args, root, expected=0 if scoped else 2)
+            require(not result.stderr and sha(result.stdout) == (sha(b'') if scoped else streams[name]),
+                    'GATE_WHITESPACE_STREAM_PIN: '+name)
     receipt['result'] = 'PASS'
     return receipt
 
