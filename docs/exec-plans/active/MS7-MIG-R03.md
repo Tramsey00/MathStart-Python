@@ -186,3 +186,21 @@ Its subsequent stages remain NOT_RUN. After separate gate confirmation and
 publication authorization, verify exact implementation SHA; then accepted V02/I02
 and V04 CLI handoff, full target/PG/browser combined-SHA execution and independent
 Vladimir/Ilya approvals remain mandatory. R03 stays ACTIVE / INCOMPLETE.
+
+### Human confirmation and published-commit CI handoff — 2026-10-14
+
+The human user confirmed exact run38596739924, PR49 review head5511284, anchor
+SHA2565a9a7a65 and control revision1b75c6e. Vladimir is authorized to publish
+unchanged source with single parent0c03197 and tree dbad1e853dff354c5d3255755afb5cc32e0ad279.
+[Separate decision and execution handoff](../../acceptance/MS7-MIG-R03/v02-publication-20261014/published-handoff.md)
+preserves all original source/evidence. Live open PR/ref discovery has no migration
+V02 candidate, so implementation PR/SHA and published gate remain NOT_RUN/null.
+
+R03-only published-v02-ci/published_v02_ci orchestration checks confirmed trust
+pins, current owner/task PR HEAD before/after, exact parent/tree and fresh Linux
+checkout, then invokes unchanged confirmed bootstrap in published mode. It is
+triggered by a real committed candidate input after receipt; no synthetic input
+or replacement implementation commit is created.12 synthetic guard regressions
+PASS, pure6 PASS and frozen/historical preservation PASS. These are not published
+V02 evidence. Final V02 review needs exact candidate/runtime/case/consumer evidence
+and Ruslan's Task Approval. Merge/Issue closure stay unauthorized; R03 INCOMPLETE.

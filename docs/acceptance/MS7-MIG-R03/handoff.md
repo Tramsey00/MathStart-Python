@@ -16,6 +16,12 @@ run38596739924 SUCCESS with17 negative controls. This advances gate preparation;
 V02 publication/Task Approval and R03 full target/independent approvals remain
 pending. Migration target still fails its missing reviewed command prerequisite.
 
+Later human decision confirmed that exact gate/anchor and authorized Vladimir's
+unchanged publication. [Current publication handoff](v02-publication-20261014/published-handoff.md)
+is AWAITING_PUBLISHED_CANDIDATE; no implementation PR/SHA or published gate run
+exists at intake. Separate R03 published-commit CI uses confirmed controls1b75c6e
+and anchor5a9a7a65; it will not substitute the staged/tree run for commit evidence.
+
 ## Reviewable result
 
 - scripts/verify_repo.py has legacy/target/pure profiles, group semantics and

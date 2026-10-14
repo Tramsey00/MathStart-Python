@@ -1,6 +1,15 @@
 # V02 external publication gate: current review and historical preparation
 
-**Current 2026-10-14: READY_FOR_OWNER_REVIEW. R03 remains INCOMPLETE.**
+**Current 2026-10-14: GATE_AND_ANCHOR_CONFIRMED / AWAITING_PUBLISHED_CANDIDATE.
+R03 remains INCOMPLETE.**
+The user confirmed run38596739924, reviewed PR49 HEAD5511284, the concrete anchor
+digest and control revision1b75c6e, and authorized Vladimir to publish the exact
+single-parent/tree candidate. [Separate human decision](v02-publication-20261014/owner-confirmation.json)
+and [published-commit handoff](v02-publication-20261014/published-handoff.md)
+are current. No implementation PR/SHA has been received; the published gate is
+NOT_RUN. The approved source/anchor and earlier evidence remain unchanged.
+
+**Earlier preparation: READY_FOR_OWNER_REVIEW.**
 The full original source has now been independently verified and the concrete
 external gate passed real positive/17 negative checks on Linux. Current
 [owner review packet](v02-publication-20261014/review-packet.md),
@@ -8,7 +17,8 @@ external gate passed real positive/17 negative checks on Linux. Current
 [run38596739924](https://github.com/Tramsey00/MathStart-Python/actions/runs/38596739924)
 supersede the missing-source status below. Concrete anchor digest and exact
 R03 control/workflow revisions are in that packet. Gate confirmation and
-publication authorization remain pending; no V02 Task Approval or merge.
+publication authorization were pending at that preparation stage; no V02 Task
+Approval or merge occurred. The later confirmation above supersedes that status.
 
 ## Historical preparation record — 2026-10-13/14
 
