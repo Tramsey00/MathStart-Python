@@ -1,6 +1,16 @@
 # V02 external publication gate: current review and historical preparation
 
-**Current 2026-10-14: GATE_AND_ANCHOR_CONFIRMED / AWAITING_PUBLISHED_CANDIDATE.
+**Current 2026-10-15: PUBLISHED_COMMIT_GATE_PASS / TECHNICAL_CHECKS_PASS /
+INDEPENDENT_TASK_APPROVAL_PENDING. R03 remains INCOMPLETE.**
+PR53 current HEAD76d8eac has exact approved single parent/tree. Fresh Linux
+published run38637910883 and task run38642117604 SUCCESS; raw artifacts were
+downloaded and reconciled independently. [Current review packet](v02-review-20261015/review-packet.md)
+and [current machine receipt](v02-review-20261015/current-review.json) supersede
+the historical intake below. V02-owned source/locks/tests and trusted controls
+are unchanged; staged/tree evidence is preserved separately. No Task Approval,
+draft promotion, merge or Issue closure was performed.
+
+**Historical 2026-10-14 intake: GATE_AND_ANCHOR_CONFIRMED / AWAITING_PUBLISHED_CANDIDATE.
 R03 remains INCOMPLETE.**
 The user confirmed run38596739924, reviewed PR49 HEAD5511284, the concrete anchor
 digest and control revision1b75c6e, and authorized Vladimir to publish the exact

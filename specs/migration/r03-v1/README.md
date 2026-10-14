@@ -120,3 +120,19 @@ machine checklist is PREPARED_FOR_OWNER_REVIEW; runtime-commands remains PENDING
 with no invented commands. No accepted V02/I02/V04 input is available at intake.
 Full target execution awaits accepted exact-SHA inputs and reviewed command
 contracts; R03 stays INCOMPLETE until full checks and independent approvals.
+
+## V02 published-candidate technical checks — 2026-10-15
+
+PR53 exact implementation76d8eac / parent0c03197 / tree dbad1e8 is pinned in
+v02-published-candidate.json. Published run38637910883 executes unchanged
+confirmed controls1b75c6e on fresh Linux commit checkout; final task
+run38642117604 verifies unchanged owner86/all40 PG cases plus separate V01
+34/all23 PG,0 skips, historical contracts, full Content projection279/263 and
+real isolated runtime without Django/DRF. Complete downloaded raw artifacts,
+separate workflow/control/implementation/checkout revisions and digests are in
+[technical packet](../../../docs/acceptance/MS7-MIG-R03/v02-review-20261015/review-packet.md).
+Human V02 Task Approval is pending; no accepted input is fabricated. First task
+run's incomplete hidden-cache upload is retained separately from the complete
+rerun. Global R03 target still requires its reviewed command map, accepted
+V02/I02 inputs and applicable V04 CLI/full combined pipeline/independent reviews;
+this global prerequisite is not a new V02 card condition. R03 INCOMPLETE.
