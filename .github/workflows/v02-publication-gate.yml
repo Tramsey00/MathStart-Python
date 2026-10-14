@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      OWNER_REVISION: 6adf10e00518d9c4e48e45afeca24f4e81a89931
+      OWNER_REVISION: 1b75c6e58ecdcb4bb172d4df979e9b9efa7dde68
     steps:
       - name: Exact owner-controlled R03 revision
         uses: actions/checkout@v7
         with:
-          ref: 6adf10e00518d9c4e48e45afeca24f4e81a89931
+          ref: 1b75c6e58ecdcb4bb172d4df979e9b9efa7dde68
           path: owner
           fetch-depth: 1
           persist-credentials: false
@@ -35,7 +35,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$OWNER_REVISION"
           git diff --exit-code
           git diff --cached --exit-code
-          echo 'c3fbb0017881bb7cfff2a1823da38fbbfed50dc22ae006c14d70da9f6da12a18  scripts/v02_publication_gate.py' | sha256sum --check --strict
+          echo '8235b72cc34b60b4eae1da2ced1b7d705000fbecd4fa6f93f36be16825215f49  scripts/v02_publication_gate.py' | sha256sum --check --strict
           echo 'ce17cd0814b37d0c208279719bb945324e097aa50ad80e27715796e63f2cadd8  scripts/v02_publication_intake.py' | sha256sum --check --strict
           mkdir -p var/v02-publication-provenance
           python -I -B - <<'PY'
