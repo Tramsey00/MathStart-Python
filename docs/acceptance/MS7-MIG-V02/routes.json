@@ -1,0 +1,192 @@
+{
+  "publication": "PENDING_PUBLICATION",
+  "input_sha": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+  "operations": [
+    {
+      "path": "/api/v1/grades/",
+      "method": "GET",
+      "operation_id": "list_grades"
+    },
+    {
+      "path": "/api/v1/content/pages/{slug}/",
+      "method": "GET",
+      "operation_id": "get_content_page"
+    },
+    {
+      "path": "/api/v1/staff/grades/",
+      "method": "GET",
+      "operation_id": "staff_list_grades"
+    },
+    {
+      "path": "/api/v1/staff/grades/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_grades"
+    },
+    {
+      "path": "/api/v1/staff/grades/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_grades"
+    },
+    {
+      "path": "/api/v1/staff/subjects/",
+      "method": "GET",
+      "operation_id": "staff_list_subjects"
+    },
+    {
+      "path": "/api/v1/staff/subjects/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_subjects"
+    },
+    {
+      "path": "/api/v1/staff/subjects/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_subjects"
+    },
+    {
+      "path": "/api/v1/staff/sections/",
+      "method": "GET",
+      "operation_id": "staff_list_sections"
+    },
+    {
+      "path": "/api/v1/staff/sections/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_sections"
+    },
+    {
+      "path": "/api/v1/staff/sections/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_sections"
+    },
+    {
+      "path": "/api/v1/staff/pages/",
+      "method": "GET",
+      "operation_id": "staff_list_pages"
+    },
+    {
+      "path": "/api/v1/staff/pages/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_pages"
+    },
+    {
+      "path": "/api/v1/staff/pages/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_pages"
+    },
+    {
+      "path": "/api/v1/staff/publications/",
+      "method": "GET",
+      "operation_id": "staff_list_publications"
+    },
+    {
+      "path": "/api/v1/staff/publications/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_publications"
+    },
+    {
+      "path": "/api/v1/staff/publications/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_publications"
+    },
+    {
+      "path": "/api/v1/staff/media_assets/",
+      "method": "GET",
+      "operation_id": "staff_list_media_assets"
+    },
+    {
+      "path": "/api/v1/staff/media_assets/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_media_assets"
+    },
+    {
+      "path": "/api/v1/staff/media_assets/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_media_assets"
+    },
+    {
+      "path": "/api/v1/staff/redirects/",
+      "method": "GET",
+      "operation_id": "staff_list_redirects"
+    },
+    {
+      "path": "/api/v1/staff/redirects/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_redirects"
+    },
+    {
+      "path": "/api/v1/staff/redirects/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_redirects"
+    },
+    {
+      "path": "/api/v1/staff/users/",
+      "method": "GET",
+      "operation_id": "staff_list_users"
+    },
+    {
+      "path": "/api/v1/staff/users/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_users"
+    },
+    {
+      "path": "/api/v1/staff/users/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_users"
+    },
+    {
+      "path": "/api/v1/staff/groups/",
+      "method": "GET",
+      "operation_id": "staff_list_groups"
+    },
+    {
+      "path": "/api/v1/staff/groups/{id}/",
+      "method": "GET",
+      "operation_id": "staff_get_groups"
+    },
+    {
+      "path": "/api/v1/staff/groups/{id}/history/",
+      "method": "GET",
+      "operation_id": "staff_history_groups"
+    },
+    {
+      "path": "/api/v1/staff/users/{id}/group_choices/",
+      "method": "GET",
+      "operation_id": "staff_group_choices"
+    },
+    {
+      "path": "/api/v1/staff/permission_choices/",
+      "method": "GET",
+      "operation_id": "staff_permission_choices"
+    },
+    {
+      "path": "/api/v1/staff/pages/{id}/publication_state/",
+      "method": "GET",
+      "operation_id": "staff_publication_state"
+    }
+  ],
+  "public_adapters": [
+    "/",
+    "/<slug>/",
+    "/sitemap.xml",
+    "/robots.txt",
+    "/static/<path>",
+    "/media/<path>",
+    "/_content/index.json",
+    "/_content/releases/<release_id>/index.json",
+    "/_content/releases/<release_id>/pages/<id>.json"
+  ],
+  "ports_pending": [
+    "V03 verified identity/CSRF",
+    "I02/V05 HTML renderer/gateway",
+    "V04 edition/release producer"
+  ],
+  "canonical_planned_operations_not_registered": [
+    "identity mutations",
+    "assessed topics/exercises",
+    "attempts",
+    "progress",
+    "practice",
+    "diagnostics",
+    "tutor",
+    "health"
+  ]
+}
