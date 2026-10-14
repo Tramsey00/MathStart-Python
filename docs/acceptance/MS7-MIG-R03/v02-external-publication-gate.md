@@ -19,6 +19,13 @@ not a151-file snapshot. [Document reconciliation](v02-publication-document-recon
 crosschecks five control tuples and the exact40 paths with the auditor's tables.
 It does not independently verify the missing verifier/policy/manifest source.
 
+Current2026-10-14 [transport tree resolution](v02-tree-oid-resolution-20261014.md):
+inventory/REPORT expected OID transcription is resolved by the user. Independent
+BASE+151 declared-entry hashing reproduces the existing correct tree pin, without
+repinning. Full declared151/73 inventories are available; actual source archive,
+blobs/effective metadata/verifier/whitespace streams remain missing. Владимир may
+resume unchanged snapshot packaging. Packaging permission is not gate readiness.
+
 This document update starts from R03
 `428258d4758d95e6d424f4386d2419a3f6ab8142`; the earlier preparation started at609dc92.
 Accepted integration remains
@@ -40,8 +47,9 @@ JSON from Владимир: **R03 prepares that artifact after independent sourc
 The [machine intake record](v02-publication-intake-20261013.json) deliberately
 contains document-derived expected tuples and40 approved path identities, with
 actual trusted executable/anchor pins still null and source execution NOT_RUN.
-The73 complete raw path list awaits policy source; the report confirms40 subset73
-and33 additional non-exempt raw paths. It must never be consumed as an
+The complete declared73 path list is now supplied by transport inventory, with
+actual identity/bytes/metadata against policy still pending;40 subset73 and33
+non-exempt raw paths are confirmed at document level. It must never be consumed as an
 owner approval artifact or substituted for a real binding manifest.
 
 ## Owners and review decisions

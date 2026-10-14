@@ -86,3 +86,12 @@ staged snapshot/metadata/raw; R03 prepares the actual schema v3 approval JSON an
 concrete digest after independent source verification. [Corrected source request](https://github.com/Tramsey00/MathStart-Python/pull/49#issuecomment-6147207245).
 Actual snapshot/gate/negative/Linux checks remain NOT_RUN and gate NOT_READY;
 implementation SHA null, V02 Task Approval/merge separate, R03 INCOMPLETE.
+
+### V02 transport tree transcription resolved — 2026-10-14
+
+[Resolution/receipt packet](v02-tree-oid-resolution-20261014.md) preserves new
+inventory/REPORT originals and user correction. Independent accepted BASE+151
+declared entries yields existing correct tree dbad1e853dff354c5d3255755afb5cc32e0ad279.
+Full151/73 declared inventories available; actual archive/blobs/effective metadata
+remain missing. Владимир may continue unchanged packaging; gate NOT_READY and
+substantive verifier negatives/Linux CI NOT_RUN. No repin or approval transfer.

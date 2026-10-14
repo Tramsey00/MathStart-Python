@@ -157,3 +157,12 @@ is historical. R03 creates actual owner metadata anchor v3 and digest after
 independent original-source verification, not Владимир. Full151 staged snapshot,
 complete73 inventory and raw streams still pending; actual execution pins remain
 null. Gate NOT_READY, real negatives/Linux CI NOT_RUN, R03 INCOMPLETE.
+
+### V02 tree transcription resolution — 2026-10-14
+
+[Transport resolution](../../acceptance/MS7-MIG-R03/v02-tree-oid-resolution-20261014.md)
+records user-confirmed correct unchanged tree pin and independent BASE+151 inventory
+hashing. Expected typo in supplied inventory/REPORT preserved as original evidence;
+packaging may resume. Full151/73 declarative inventories known; real archive,
+source/effective metadata, trusted v3/anchor/negative/Linux evidence still pending.
+Gate NOT_READY; R03 INCOMPLETE, V02 Task Approval/merge separate.
