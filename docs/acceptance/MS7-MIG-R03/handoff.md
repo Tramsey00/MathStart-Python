@@ -9,6 +9,13 @@ MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.
 R01/R02 accepted integration facts and external owner receipt remain authoritative;
 historical PENDING snapshots are retained.
 
+Current2026-10-14 V02 source/publication increment:
+[external gate READY_FOR_OWNER_REVIEW](v02-publication-20261014/review-packet.md),
+original151 actual-blob/tree verification, concrete owner anchor and Linux
+run38596739924 SUCCESS with17 negative controls. This advances gate preparation;
+V02 publication/Task Approval and R03 full target/independent approvals remain
+pending. Migration target still fails its missing reviewed command prerequisite.
+
 ## Reviewable result
 
 - scripts/verify_repo.py has legacy/target/pure profiles, group semantics and

@@ -1,6 +1,18 @@
-# V02 external publication gate: review packet — 2026-10-13
+# V02 external publication gate: current review and historical preparation
 
-**Gate: NOT_READY / REQUIRED_151_FILE_SNAPSHOT_MISSING. R03: INCOMPLETE.**
+**Current 2026-10-14: READY_FOR_OWNER_REVIEW. R03 remains INCOMPLETE.**
+The full original source has now been independently verified and the concrete
+external gate passed real positive/17 negative checks on Linux. Current
+[owner review packet](v02-publication-20261014/review-packet.md),
+[machine readiness/intake](v02-publication-20261014/readiness.json) and
+[run38596739924](https://github.com/Tramsey00/MathStart-Python/actions/runs/38596739924)
+supersede the missing-source status below. Concrete anchor digest and exact
+R03 control/workflow revisions are in that packet. Gate confirmation and
+publication authorization remain pending; no V02 Task Approval or merge.
+
+## Historical preparation record — 2026-10-13/14
+
+**Historical gate: NOT_READY / REQUIRED_151_FILE_SNAPSHOT_MISSING. R03: INCOMPLETE.**
 This is the R03 gate preparation record, not an executable gate, approval anchor,
 publication receipt, V02 Task Approval or permission to merge. No verifier v3 was
 received or executed. No candidate implementation SHA has been assigned.

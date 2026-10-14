@@ -166,3 +166,23 @@ hashing. Expected typo in supplied inventory/REPORT preserved as original eviden
 packaging may resume. Full151/73 declarative inventories known; real archive,
 source/effective metadata, trusted v3/anchor/negative/Linux evidence still pending.
 Gate NOT_READY; R03 INCOMPLETE, V02 Task Approval/merge separate.
+
+### Original snapshot and executable publication gate — 2026-10-14
+
+User supplied exact original ZIP and authorized R03 implementation/CI in PR49.
+Actual151 blobs/metadata, prior bindings/auditor,2092 BASE objects,1672+151=1823
+entries and approved tree dbad1e853dff354c5d3255755afb5cc32e0ad279 verified.
+Separate owner controls/real schema-v3 anchor pinned; candidate repinning forbidden.
+Final control1b75c6e and workflow21a82d4 run38596739924 SUCCESS: positive0,
+17 expected negative rejections, restored positive0, full whitespace3887/6
+FAIL/2 exact raw and both scoped PASS/0. Earlier success and local setup failures
+retained separately. Current gate **READY_FOR_OWNER_REVIEW**, with
+[concrete review packet](../../acceptance/MS7-MIG-R03/v02-publication-20261014/review-packet.md).
+No implementation commit, V02 publication/Task Approval/merge or Issue closure.
+
+Migration verify/pure and accepted I01/V01 checks pass; full target fails the
+unchanged REVIEWED/all10-command prerequisite (actual PENDING/empty commands).
+Its subsequent stages remain NOT_RUN. After separate gate confirmation and
+publication authorization, verify exact implementation SHA; then accepted V02/I02
+and V04 CLI handoff, full target/PG/browser combined-SHA execution and independent
+Vladimir/Ilya approvals remain mandatory. R03 stays ACTIVE / INCOMPLETE.
