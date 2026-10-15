@@ -36,5 +36,15 @@ result argv/exits. Existing V02 matrix is not rerun or relabelled on merge SHA.
 
 [Receipt and next steps](../acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
 No task approval/draft promotion/PR merge/Issue closure by agent.
+Adapted Linux frontend38801486277 and V0138801476734 SUCCESS, exact actual
+checkouta359b0b/tree74c30145. Frontend112+5/10 commands; PG34/all23/0 skips,
+fresh2/ABC,57 fixtures cleaned,22 package lock,Python3.12.15/PG16.15/cleanup PASS.
+Frontend workflow/event synthetic2935a86 and PR headb541bf0 retained separately;
+PG actual workflowb541bf0. Five original ZIP digests and every member verified.
+Initial snapshot refusal38800500641 and unchanged v5 helper refusal38800895139
+both ran0 cases; raw refusals/cleanup retained. R03 controls now adapt accepted
+input with unchanged owner cases and15 observer guards; old helper unchanged.
+Global38801476735 verify/pure PASS, targetPENDING prerequisite FAIL, later NOT_RUN.
+No V02 suite rerun on squash. Historical47+4 artifact digests unchanged.
 R03 remains INCOMPLETE: accepted I02, applicable V04 CLI, reviewed composition,
 full combined target pipeline and independent R03 approvals remain outstanding.

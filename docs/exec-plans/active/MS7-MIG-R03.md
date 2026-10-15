@@ -331,3 +331,15 @@ Root command map remains PENDING/empty; next review of available V02/V01 adapter
 accepted I02/full browser pipeline, applicable V04 content CLI, reviewed10/4
 composition, combined target and independent R03 approvals remain. R03 INCOMPLETE;
 no agent PR merge, new approval, draft promotion or Issue closure.
+
+Adapted accepted-input CI final evidence at R03 codeb541bf0: frontend38801486277
+SUCCESS112+5/10 commands (actual workflow synthetic2935a86, PR headb541bf0);
+V0138801476734 SUCCESS34/all23 PG/0 skips, fresh2/ABC/57 DB cleanup/22 lock,
+Python3.12.15/PG16.15, actual workflowb541bf0. Both suite checkouts exacta359b0b.
+Original ZIP digests/member streams and complete results independently reconciled.
+Initial all-backend snapshot refusal38800500641 and unchanged historical-v5
+refusal38800895139 are0-case NOT_RUN records retained with raw output/cleanup;
+R03 accepted-input adapter preserves strict source/environment/inventory guards
+without editing V01/V02/helper.15 observer guards PASS. Global38801476735
+verify/pure PASS; target prerequisite PENDING FAIL and later NOT_RUN retained.
+This does not rerun V02 on squash or accept full I02/R03.

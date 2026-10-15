@@ -20,6 +20,11 @@ Post-merge baseline38796031561 SUCCESS is baseline-only at a359b0b; old V02 run
 pins drive guards and frontend/V01 checkouts; frozen controls/history unchanged.
 Issue35 remains open. R03 INCOMPLETE pending I02, reviewed command composition,
 applicable V04 CLI, full combined target and independent R03 approvals.
+[Post-merge R03 CI](v02-integration-a359b0b/ci-results.md) separately verifies
+frontend38801486277 SUCCESS112+5 and V0138801476734 SUCCESS34/all23 PG/no skips
+on exact a359b0b. Raw ZIPs/digests and two resolved historical-guard refusals
+retained; global38801476735 targetPENDING FAILURE/NOT_RUN remains separate.
+No V02 suite relabelled or rerun on squash.
 
 Earlier2026-10-15 V02 renewed human approval (before merge):
 [Verified receipt5538854677](v02-approval-8256cbf/README.md) is APPROVED by

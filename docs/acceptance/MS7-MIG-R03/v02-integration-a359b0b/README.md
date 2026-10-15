@@ -67,7 +67,16 @@ PASS,1876 preserved files. Python actually used locally is **3.10.11**, so these
 results do not establish Python3.12 target acceptance. Exact argv/version/exits
 and byte-preserved stdout/stderr are retained in [results](local-checks/results.json),
 [raw ZIP](local-checks-raw.zip) and [member inventory](local-checks-members.json).
-Adapted Linux/Python3.12 CI is recorded separately when available.
+Adapted Linux/Python3.12 CI is now [independently reconciled](ci-results.md):
+frontend38801486277 SUCCESS112+5/10 commands, actual workflow2935a86 (PR headb541bf0);
+V0138801476734 SUCCESS34/all23 PG/0 skips, actual workflowb541bf0. Both actual
+suite checkouts are a359b0b/tree74c30145. V01 fresh2/A/B/C,57 DBs cleaned,
+22-package lock,Python3.12.15/PG16.15 and owned-service cleanup PASS.
+Two initial V01 historical-backend guard refusals are retained as NOT_RUN and
+resolved in the R03 accepted-input adapter; original helper/owner files unchanged.
+Global R0338801476735 verify/pure PASS, target prerequisite FAIL/NOT_RUN remains
+separate. No V02 suite was rerun on the squash. Original raw artifact ZIPs and
+their hashes/member inventories are retained in this folder.
 
 ## Next steps and ownership
 
