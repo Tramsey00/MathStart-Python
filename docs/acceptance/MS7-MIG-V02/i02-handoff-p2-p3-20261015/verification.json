@@ -1,0 +1,3126 @@
+{
+  "recommendation": "READY FOR INDEPENDENT RE-AUDIT",
+  "recorded_utc": "2026-10-15T13:58:06.456258+00:00",
+  "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+  "tested_implementation_sha": null,
+  "HEAD": "unchanged",
+  "commit_push_merge_rebase_PR_update": "NOT PERFORMED",
+  "P2_mutable_page": "LOCALLY_FIXED",
+  "P3_source_utf8": "LOCALLY_FIXED",
+  "independent_audit_original_verdict": "CHANGES REQUIRED; preserved, not superseded by local approval",
+  "P3_reconciliation": "Both original source_utf8 values match declared raw SHA when JSON is decoded UTF-8. Both reported mismatch hashes reproduce exactly through CP1251 misread. Actual auditor command responsible is unproven. Explicit encoding/raw-byte verification added without changing old bytes/pins.",
+  "tests": {
+    "V02": "118 PASS / 0 FAIL / 0 SKIP",
+    "V02_PG": 50,
+    "V01": 34,
+    "R02": 63,
+    "R02A": 30,
+    "R03A": 41,
+    "verify_repo": "8/8 PASS",
+    "verify_repo_nested": [
+      109,
+      18,
+      73
+    ],
+    "Content": "279/263 PASS",
+    "runtime_without_Django": "8 localhost HTTP cases PASS",
+    "P2_before": "3 FAIL, exit1",
+    "P2_after": "3 PASS, exit0",
+    "P3": "4 PASS, exit0; standalone original-source guard5sources/10physicalreads PASS, exit0"
+  },
+  "commands": [
+    {
+      "label": "after-fix-p2-final",
+      "started_utc": "2026-10-15T13:53:07.120064+00:00",
+      "elapsed_seconds": 1.532,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c02161e70f51550e65ab7cf34018ef33266cd6699ed6d648cf870d0e9879446c",
+      "test_count": 3,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 3
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "after-fix-p2-final"
+    },
+    {
+      "label": "after-fix-p2",
+      "started_utc": "2026-10-15T13:52:50.656924+00:00",
+      "elapsed_seconds": 0.687,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "1fdb0f3c78967448b180ec1f85b8ead45f13d0770bcee0c6cfd6c3037078e58a",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "FAIL",
+      "actual_counts": {},
+      "classification": "RESOLVED task-introduced indentation error during patch authoring; no tests executed",
+      "raw_receipt_key": "after-fix-p2"
+    },
+    {
+      "label": "baseline-driver",
+      "started_utc": "2026-10-15T13:53:24.296724+00:00",
+      "elapsed_seconds": 253.313,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "backend.tests.v02.baseline"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "eb62e0306d3360c0057ec9c7748cb8ed28df32af8519190fcb694d32e9e51153",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "baseline-driver"
+    },
+    {
+      "label": "before-fix-p2",
+      "started_utc": "2026-10-15T13:50:29.866400+00:00",
+      "elapsed_seconds": 1.735,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+        "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "d8d17f9830c3f70db7fc7e2c73bf72e3aff63157b23f0f4ec05979beddc9a8a4",
+      "test_count": 3,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "FAIL"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "FAIL"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "FAIL"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "FAIL",
+      "actual_counts": {
+        "FAIL": 3
+      },
+      "classification": "EXPECTED_FAIL: three HTTP regressions reproduce original mutable page defect",
+      "raw_receipt_key": "before-fix-p2"
+    },
+    {
+      "label": "docker-version",
+      "started_utc": "2026-10-15T13:56:07.514302+00:00",
+      "elapsed_seconds": 0.297,
+      "argv": [
+        "docker",
+        "version",
+        "--format",
+        "{{.Client.Version}} / {{.Server.Version}}"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "2202667f7cb69aef68086b117ac18bd3ef31e46ee3abc18033f0e79fc4ee54c6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "docker-version"
+    },
+    {
+      "label": "full-content-loader",
+      "started_utc": "2026-10-15T13:57:49.707103+00:00",
+      "elapsed_seconds": 7.828,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-c",
+        "__file__='C:\\\\Projects\\\\MathStart-Python-V02\\\\var\\\\i02_handoff_full_content.py'\n\"\"\"Recheck the new loader against the new disposable 279/263 source baseline.\"\"\"\nimport json\nimport os\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport uuid\nfrom hashlib import sha256\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\n\nROOT = Path.cwd()\nE = ROOT / 'docs/acceptance/MS7-MIG-V02/i02-handoff-p2-p3-20261015'\ndriver = [json.loads(line) for line in (E / 'baseline-driver.stdout.log').read_text(encoding='utf-8').splitlines() if line.startswith('{')]\nruntime = Path(driver[0]['log']).parent\nrecord = json.loads((runtime / 'results.json').read_text(encoding='utf-8'))\nassert record['disposable'] and record['database'].startswith('ms6_v01_smoke_v02_')\nassert all(r['exit_code'] == 0 for r in record['commands'])\nos.environ.update(DJANGO_DB_BACKEND='postgresql', DJANGO_DB_HOST='127.0.0.1', DJANGO_DB_PORT='15441',\n    DJANGO_DB_NAME=record['database'], DJANGO_DB_USER='postgres', DJANGO_DB_PASSWORD='synthetic-local-only',\n    DJANGO_SECRET_KEY='synthetic-i02-followup-baseline', DJANGO_DEBUG='0', DJANGO_RUNTIME_ROOT=str(runtime))\noriginal = subprocess.run([sys.executable, '-B', '-m', 'backend.tests.v02.public_baseline_projection'], capture_output=True)\nassert original.returncode == 0, original.stderr.decode(errors='replace')[-2000:]\nprint(original.stdout.decode(), flush=True)\nimport sqlalchemy as sa\nfrom sqlalchemy.engine import URL\nfrom backend.content.projection import ReviewedSource, delivery_candidate, build_index_candidate\nfrom backend.content.releases import Descriptor, ReleaseStore\nfrom backend.infrastructure.database import DatabaseConfig, create_engine\nfrom backend.infrastructure.uow import UnitOfWork\nfrom backend.models.baseline import ContentPage, LessonPublication\nengine = create_engine(DatabaseConfig(URL.create('postgresql+psycopg', username='postgres',\n    password='synthetic-local-only', host='127.0.0.1', port=15441, database=record['database'])))\nrelease_id = 'i02-loader-' + uuid.uuid4().hex\nroot = ROOT / 'var' / release_id\npages_root = root / release_id / 'pages'\npages_root.mkdir(parents=True)\nsql = []\nsa.event.listen(engine, 'before_cursor_execute', lambda c, cu, statement, p, ctx, m: sql.append(statement))\nwith UnitOfWork(engine) as uow:\n    uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))\n    pages = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))\n    deliveries = {}\n    for page in pages:\n        source = uow.session.scalar(sa.select(LessonPublication.source_path).where(LessonPublication.page_id == page.id))\n        source = 'curriculum/' + source if source else f'site_content/pages/{page.slug}/page.json'\n        path = (ROOT / source).resolve()\n        assert path.is_relative_to(ROOT)\n        if path.is_dir():\n            source += '/lesson.json'\n            path /= 'lesson.json'\n        data = delivery_candidate(uow, page.slug, ReviewedSource(source, sha256(path.read_bytes()).hexdigest(), ()))\n        deliveries[page.id] = data\n        (pages_root / f'{page.id}.json').write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')\n    index = build_index_candidate(uow, release_id, deliveries)\nraw = json.dumps(index, ensure_ascii=False).encode('utf-8')\n(root / release_id / 'index.json').write_bytes(raw)\ndescriptor = Descriptor(uuid.uuid4(), release_id, sha256(raw).hexdigest(), 1)\nrelease = ReleaseStore(root).load(descriptor)\nassert len(release.pages) == 279 and len(release.index['catalogue']['topics']) == 263\ncontext = release.renderer_context(release.page('karta-sajta'), {'q': '\u041d\u0415\u0421\u0423\u0429\u0415\u0421\u0422\u0412\u0423\u042e\u0429\u0410\u042f \u0422\u0415\u041c\u0410'})\nassert context['catalogue_full'] == index['catalogue']\nassert context['pinned_release'] == {'release_id': release_id, 'manifest_digest': descriptor.manifest_digest}\nassert context['catalogue_count'] == 0\nassert all(q.lstrip().upper().startswith(('SELECT', 'SET TRANSACTION READ ONLY')) for q in sql)\nprint(json.dumps({'full_profile_loader': 'PASS', 'pages': 279, 'topics': 263,\n    'home_alias': release.page_path('/glavnaya/')['seo']['canonical_path'],\n    'catalogue_full_and_identity': 'PASS', 'empty_search_count': 0, 'read_only_sql': 'PASS',\n    'assets_scope': 'Metadata/loader profile uses empty reviewed asset arrays; full asset regressions are in V02 suite',\n    'activation': 'NOT_PERFORMED', 'i02_html_no_js': 'NOT_VERIFIED'}))\nengine.dispose()\n"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e87a197ae053e4cbb4595ad7e529935ea3fb654be735ed02da1c1a5683622f61",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "full-content-loader"
+    },
+    {
+      "label": "helper-byte-guard",
+      "started_utc": "2026-10-15T13:54:48.737536+00:00",
+      "elapsed_seconds": 0.141,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "docs/acceptance/MS7-MIG-V02/i02-handoff-p2-p3-20261015/verify_helper_sources.py"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "3107dbf3f04671160a16b5aaf1d1f652b374fc924352105a9e45c89541d5fc1c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "helper-byte-guard"
+    },
+    {
+      "label": "linux-python-version",
+      "started_utc": "2026-10-15T13:56:07.925820+00:00",
+      "elapsed_seconds": 0.281,
+      "argv": [
+        "docker",
+        "exec",
+        "ms7-mig-v02-v01-tests-20261012",
+        "python",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "9bdce2f3bc127762fcb79db8faf0385c42e81e916436db64486d7162bc1d04e0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "linux-python-version"
+    },
+    {
+      "label": "p3-final",
+      "started_utc": "2026-10-15T13:54:46.984941+00:00",
+      "elapsed_seconds": 1.609,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "a1adebc5d9a2fda7d403297a3aa0ac9e5ffbb7d8398aebbf4e1e48de3c4827da",
+      "test_count": 4,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 4
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "p3-final"
+    },
+    {
+      "label": "p3-regressions",
+      "started_utc": "2026-10-15T13:50:25.548317+00:00",
+      "elapsed_seconds": 1.453,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "dd24d488e5ab978bb607694509d30b15a667c2e3511978397df5ea59a715507f",
+      "test_count": 4,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 4
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "p3-regressions"
+    },
+    {
+      "label": "postgres-version",
+      "started_utc": "2026-10-15T13:56:08.328315+00:00",
+      "elapsed_seconds": 0.359,
+      "argv": [
+        "docker",
+        "exec",
+        "ms7-mig-v02-pg-alt-20261012",
+        "psql",
+        "-U",
+        "postgres",
+        "-p",
+        "55441",
+        "-Atc",
+        "SELECT version()"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "4f89bbb0c68104edeff4405c89c26e072ae36516f89f94f1a7a5dfe903635c4d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "postgres-version"
+    },
+    {
+      "label": "r02-contracts",
+      "started_utc": "2026-10-15T13:53:40.916652+00:00",
+      "elapsed_seconds": 8.938,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_migration_r02_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "39e91011fe80b681dd0cd09c75f72a459adf14209ea6a6f4d68d26d3bfb1c369",
+      "test_count": 63,
+      "named_tests": [
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_all_input_blobs_preserved_without_pin_refresh",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_domain_and_migration_dependency_cycles_fail",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_failure_business_candidates_against_independent_originals",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_finding_criteria_exact_copy_all_widths",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_full_schema_mapping_against_external_R01_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_independent_historical_frozen_pins_and_official_oas",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_journal_recovery_shape_and_invalid_state",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_legacy_cursor_signature_against_independent_hmac",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_mapping_critical_defaults_and_on_delete_against_baseline_code",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_new_contract_digest_manifest_and_qa_not_frontend_inputs",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_new_schema_and_oas_with_offline_reference_resolution",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_original_error_and_unsupported_exchanges_stay_safe",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_original_result_not_rewritten_and_evidence_paths_exist",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_password_baseline_against_independent_pbkdf2_vector",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_public_delivery_and_staff_secret_rejection",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_raw_input_digest_against_independent_baseline",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_route_map_against_independent_code_and_policy",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_staff_password_disable_and_own_change_against_django_forms",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_strict_raw_parser_negative_cases_and_size_boundary",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_contract.MigrationContractTests.test_synthetic_old_new_against_independent_frozen_exchanges",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_all_transition_orders_preserve_revocation_and_receipt_truth",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_changed_body_key_cannot_rebind_or_replay_receipt",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_competing_rebind_and_superseded_ticket_session_epochs",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_cutover_checkpoint_repeats_do_not_revoke_recovered_target_session",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_expired_ticket_independent_bootstrap_valid_until_bridge_window",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_foreign_user_cannot_use_original_ticket_session_transfer_or_password",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_gate_descriptor_shapes_require_owner_and_pending_as_one_tuple",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_inactive_owner_and_absent_transfer_binding_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_logout_and_switch_revoke_all_proof_classes_retain_receipt",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_logout_keeps_another_independent_same_owner_session_bridge",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_lost_all_cookies_replay_after_commit_needs_original_proof_and_password",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_natural_expiry_and_cutover_detach_then_explicit_bound_recovery",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_private_bridge_schema_terminal_binding_negatives_and_transition_coverage",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_repeated_same_user_login_rotates_without_changing_receipt",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_session_proof_cannot_be_used_from_another_session_same_owner",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_ticket_alone_wrong_password_bootstrap_and_signature_are_denied",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_unknown_ack_does_not_authorize_logout_retry_or_foreign_restore",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.BridgeLifecycleTests.test_unknown_unverified_or_dual_writer_cutover_changes_no_authority",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_activation_commit_before_takeover_reconciles_old_generation_history",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_all_stale_owner_writes_are_fenced_even_with_returning_worker_id",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_claim_stage_commit_activation_complete_and_repeats",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_competing_recovery_workers_both_orders_one_winner",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_expired_current_owner_cannot_renew_or_activate",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_health_failure_holds_slot_and_stale_probe_cannot_complete",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_machine_table_covers_every_failure_and_no_new_runtime_mapping",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_pending_gate_survives_crash_expiry_and_db_commit",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_pointer_digest_or_operation_mismatch_never_reconciles_success",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_precommit_abort_terminal_and_hash_source_guards",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_same_key_new_uuid_resolves_original_operation_without_new_write",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_schema_journal_and_observable_reject_impossible_commit_and_secret_owner",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_takeover_before_delayed_activation_rejects_stale_effect",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_protocols.PublicationProtocolTests.test_unknown_activation_both_failure_windows_no_speculative_retry",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B01_actual_useradmin_requires_add_and_change",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B02_catalogue_projection_against_real_baseline_queries",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B02_full_published_manifest_against_unchanged_file_sources",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B02_unicode_and_repeated_query_using_original_catalogue_function",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B03_strict_boolean_wire_and_native_redirect_filter",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B04_all_resource_sort_contracts_against_actual_changelist",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B04_multisort_directions_and_cursor_binding",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B05_group_form_queryset_does_not_require_group_admin_permission",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B06_observable_publication_states_and_recovery_negatives",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_B07_methods_csrf_precedence_and_fallback_from_real_observations",
+          "result": "ok"
+        },
+        {
+          "name": "test_migration_r02_review.ReviewContractTests.test_N01_real_account_controller_and_review_coverage",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 63
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "r02-contracts"
+    },
+    {
+      "label": "runtime-environment-pip",
+      "started_utc": "2026-10-15T13:55:29.006635+00:00",
+      "elapsed_seconds": 2.063,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pip",
+        "--python",
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-runtime-venv\\Scripts\\python.exe",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "runtime-environment-pip"
+    },
+    {
+      "label": "runtime-no-django",
+      "started_utc": "2026-10-15T13:54:23.155937+00:00",
+      "elapsed_seconds": 3.422,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-runtime-venv\\Scripts\\python.exe",
+        "-B",
+        "var/i02_handoff_runtime_smoke.py"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3965c666f48afa9dc03b03a130a7bff8ad3ba4e8ee7277d38fe4932a1fd8476",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "runtime-no-django"
+    },
+    {
+      "label": "test-environment-pip",
+      "started_utc": "2026-10-15T13:55:27.544692+00:00",
+      "elapsed_seconds": 1.313,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "named_tests": [],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {},
+      "classification": "PASS",
+      "raw_receipt_key": "test-environment-pip"
+    },
+    {
+      "label": "v01-complete",
+      "started_utc": "2026-10-15T13:54:10.627120+00:00",
+      "elapsed_seconds": 53.5,
+      "argv": [
+        "docker",
+        "exec",
+        "-w",
+        "/repo",
+        "-e",
+        "MATHSTART_V01_TEST_ADMIN_URL=postgresql+psycopg://postgres:synthetic-local-only@127.0.0.1:55441/postgres",
+        "-e",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "ms7-mig-v02-v01-tests-20261012",
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.test_unit",
+        "backend.tests.test_postgres",
+        "backend.tests.test_remediation",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "cdf8f719fd4e214f9b88980fca037db166860c782490f39bca76657d3a2718c5",
+      "test_count": 34,
+      "named_tests": [
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_b01_addendum_changes_only_three_pk_types",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_collector_cascade_setnull",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_defaults_and_explicit_timestamps",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_lock_order_and_sqlite_not_lock_proof",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_no_django_import_in_target_fresh",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_protect_preflights_whole_bulk",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_single_chain",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_snapshot_exact_frozen_copy_and_field_mapping",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_sqlite_explicit_no_postgres_fallback",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_unique_check_fk_and_nullability",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_unit.UnitTests.test_uow_commit_rollback_and_savepoints",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_additive_protocol_schema_drift_is_visible",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_check_canonicalization_exact_and_truth_table",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_constraints_jsonnull_deferred_fk_and_protect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_existing_unknown_alembic_and_no_review_refused",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_fresh_twice_separate_databases_no_django",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_ordered_row_lock_is_real_and_receipts_use_stable_order",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_postgres_defaults_timestamps_and_collector_cascade",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_rollback_injection_no_ddl_data_or_history_mutation",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_sequence_empty_and_uncalled_semantics",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_unknown_head_and_schema_forbid_stamp",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_postgres.PostgreSQLTests.test_upgrade_profiles_preserve_data_defaults_epoch_sequences",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_b01_actual_generated_join_ids_and_superuser_preservation",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f1_all_auto_timestamps_match_real_django_and_historical_import",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f2_changed_setnull_plan_conflicts_before_mutations",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f2_crossed_setnull_two_sessions_canonical_locks_no_deadlock",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f2_new_protect_dependency_rechecked_under_locks",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f2_new_referenced_parent_requires_outer_restart",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f2_reused_reference_pk_is_not_a_falsely_acquired_lock",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f2_setnull_failure_rolls_back_cascade_and_data",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f3_malformed_empty_tracking_refused_before_stamp",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f3_revision_graph_and_clean_empty_tracking_positive_controls",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_f3_unknown_ambiguous_empty_and_inapplicable_target_heads_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.test_remediation.RemediationTests.test_sequence_disconnect_before_commit_preserves_data_and_retry",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 34
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "v01-complete"
+    },
+    {
+      "label": "v02-complete",
+      "started_utc": "2026-10-15T13:53:12.452817+00:00",
+      "elapsed_seconds": 27.046,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_unit",
+        "backend.tests.v02.test_http",
+        "backend.tests.v02.test_postgres",
+        "backend.tests.v02.test_asset_regressions",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "63ac3f9d4002d6bd112786d94141d7dfe6d43ab9301d46b9c0f6141359b45a4a",
+      "test_count": 118,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_catalogue_release_without_home_does_not_require_alias",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_uses_actual_slug_and_canonical_root",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_requires_slug_alias_even_with_valid_manifest_digest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_context_deeply_isolates_filtered_and_full_catalogue",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_int64_ids_are_exact_python_integers",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_non_catalogue_pages_receive_only_release_identity",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_complete_snapshot_catalogue_secrecy_and_unicode",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_missing_asset_changed_payload_private_field_and_invalid_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_old_new_signer_exact_bytes_compressed_and_keyring",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_publication_observer_coherence_retry_and_no_fabricated_sync",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_raw_boundary_schema_content_type_and_stream_limit",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_raw_json_duplicate_nonfinite_utf8_and_query_negatives",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_redirect_and_path_traversal_safety",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_request_id_propagates_within_request_and_client_role_is_untrusted",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_staff_search_tokenization_matches_native_quoted_and_unicode_cases",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_active_snapshot_never_mixes_pending_db_fields",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_exact_routes_methods_slashless_unknown_and_no_307_422",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_keyset_delete_edit_insert_consistency",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_real_ids_numbers_no_private_fields_and_body_ignored",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_signed_cursor_wrong_scope_types_size_and_tampering",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_unsupported_row_and_database_failure_safe",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_without_home_remains_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_public_delivery_visibility_and_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_public_methods_csrf_resolved_missing_and_unresolved_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_routing_redirect_precedence_seo_sitemap_and_media",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_selectors_and_publication_observer_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_all_nine_dtos_history_and_no_password_leak",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_anonymous_inactive_nonstaff_no_permission_before_lookup",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_filters_sort_mixed_nulls_binding_and_permission_revision",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_unverifiable_active_descriptor_fails_closed_without_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_active_snapshot_never_mixes_pending_db_fields",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_all_staff_sort_columns_search_and_keysets_match_django_admin",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_content_projections_seo_catalogue_match_django_and_do_not_activate",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_exact_routes_methods_slashless_unknown_and_no_307_422",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_keyset_delete_edit_insert_consistency",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_real_ids_numbers_no_private_fields_and_body_ignored",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_signed_cursor_wrong_scope_types_size_and_tampering",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_unsupported_row_and_database_failure_safe",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_without_home_remains_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_public_delivery_visibility_and_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_public_methods_csrf_resolved_missing_and_unresolved_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_routing_redirect_precedence_seo_sitemap_and_media",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_selectors_and_publication_observer_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_all_nine_dtos_history_and_no_password_leak",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_anonymous_inactive_nonstaff_no_permission_before_lookup",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_filters_sort_mixed_nulls_binding_and_permission_revision",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_unverifiable_active_descriptor_fails_closed_without_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_same_order_release_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_actual_django_static_media_redirect_comparator",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_corrupt_index503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_active_release503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_asset_without_active_rule404",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_media_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_temporary_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_same_order_release_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_corrupt_index503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_active_release503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_asset_without_active_rule404",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_media_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_temporary_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 118
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "v02-complete"
+    },
+    {
+      "label": "v02-final-with-pg",
+      "started_utc": "2026-10-15T13:55:12.108601+00:00",
+      "elapsed_seconds": 28.265,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_unit",
+        "backend.tests.v02.test_http",
+        "backend.tests.v02.test_postgres",
+        "backend.tests.v02.test_asset_regressions",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "496901147d3b9ab405a685b9191b090297383479bde41ec3f3615aa82464b3fa",
+      "test_count": 118,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_catalogue_release_without_home_does_not_require_alias",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_uses_actual_slug_and_canonical_root",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_requires_slug_alias_even_with_valid_manifest_digest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_context_deeply_isolates_filtered_and_full_catalogue",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_int64_ids_are_exact_python_integers",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_non_catalogue_pages_receive_only_release_identity",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_complete_snapshot_catalogue_secrecy_and_unicode",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_missing_asset_changed_payload_private_field_and_invalid_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_old_new_signer_exact_bytes_compressed_and_keyring",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_publication_observer_coherence_retry_and_no_fabricated_sync",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_raw_boundary_schema_content_type_and_stream_limit",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_raw_json_duplicate_nonfinite_utf8_and_query_negatives",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_redirect_and_path_traversal_safety",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_request_id_propagates_within_request_and_client_role_is_untrusted",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_staff_search_tokenization_matches_native_quoted_and_unicode_cases",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_active_snapshot_never_mixes_pending_db_fields",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_exact_routes_methods_slashless_unknown_and_no_307_422",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_keyset_delete_edit_insert_consistency",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_real_ids_numbers_no_private_fields_and_body_ignored",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_signed_cursor_wrong_scope_types_size_and_tampering",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_unsupported_row_and_database_failure_safe",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_without_home_remains_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_public_delivery_visibility_and_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_public_methods_csrf_resolved_missing_and_unresolved_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_routing_redirect_precedence_seo_sitemap_and_media",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_selectors_and_publication_observer_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_all_nine_dtos_history_and_no_password_leak",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_anonymous_inactive_nonstaff_no_permission_before_lookup",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_filters_sort_mixed_nulls_binding_and_permission_revision",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_unverifiable_active_descriptor_fails_closed_without_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_active_snapshot_never_mixes_pending_db_fields",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_all_staff_sort_columns_search_and_keysets_match_django_admin",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_content_projections_seo_catalogue_match_django_and_do_not_activate",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_exact_routes_methods_slashless_unknown_and_no_307_422",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_keyset_delete_edit_insert_consistency",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_real_ids_numbers_no_private_fields_and_body_ignored",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_signed_cursor_wrong_scope_types_size_and_tampering",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_unsupported_row_and_database_failure_safe",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_without_home_remains_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_public_delivery_visibility_and_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_public_methods_csrf_resolved_missing_and_unresolved_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_routing_redirect_precedence_seo_sitemap_and_media",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_selectors_and_publication_observer_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_all_nine_dtos_history_and_no_password_leak",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_anonymous_inactive_nonstaff_no_permission_before_lookup",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_filters_sort_mixed_nulls_binding_and_permission_revision",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_unverifiable_active_descriptor_fails_closed_without_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_same_order_release_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_actual_django_static_media_redirect_comparator",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_corrupt_index503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_active_release503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_asset_without_active_rule404",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_media_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_temporary_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_same_order_release_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_corrupt_index503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_active_release503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_asset_without_active_rule404",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_media_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_temporary_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 118
+      },
+      "classification": "PASS",
+      "raw_receipt_key": "v02-final-with-pg"
+    },
+    {
+      "label": "v02-final",
+      "started_utc": "2026-10-15T13:54:52.735299+00:00",
+      "elapsed_seconds": 6.187,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_unit",
+        "backend.tests.v02.test_http",
+        "backend.tests.v02.test_postgres",
+        "backend.tests.v02.test_asset_regressions",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "ebbdc38bbc40fc1dc2047d75291b2ce62e83e297b3d115c496362d667c64e722",
+      "test_count": 118,
+      "named_tests": [
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_catalogue_release_without_home_does_not_require_alias",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_uses_actual_slug_and_canonical_root",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_requires_slug_alias_even_with_valid_manifest_digest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_context_deeply_isolates_filtered_and_full_catalogue",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_int64_ids_are_exact_python_integers",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_non_catalogue_pages_receive_only_release_identity",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_complete_snapshot_catalogue_secrecy_and_unicode",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_missing_asset_changed_payload_private_field_and_invalid_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_old_new_signer_exact_bytes_compressed_and_keyring",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_publication_observer_coherence_retry_and_no_fabricated_sync",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_raw_boundary_schema_content_type_and_stream_limit",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_raw_json_duplicate_nonfinite_utf8_and_query_negatives",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_redirect_and_path_traversal_safety",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_request_id_propagates_within_request_and_client_role_is_untrusted",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_unit.UnitContractTests.test_staff_search_tokenization_matches_native_quoted_and_unicode_cases",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_active_snapshot_never_mixes_pending_db_fields",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_exact_routes_methods_slashless_unknown_and_no_307_422",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_keyset_delete_edit_insert_consistency",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_real_ids_numbers_no_private_fields_and_body_ignored",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_signed_cursor_wrong_scope_types_size_and_tampering",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_grade_unsupported_row_and_database_failure_safe",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_without_home_remains_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_public_delivery_visibility_and_manifest",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_public_methods_csrf_resolved_missing_and_unresolved_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_routing_redirect_precedence_seo_sitemap_and_media",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_selectors_and_publication_observer_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_all_nine_dtos_history_and_no_password_leak",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_anonymous_inactive_nonstaff_no_permission_before_lookup",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_staff_filters_sort_mixed_nulls_binding_and_permission_revision",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_http.SQLiteHTTPTests.test_unverifiable_active_descriptor_fails_closed_without_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_active_snapshot_never_mixes_pending_db_fields",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_all_staff_sort_columns_search_and_keysets_match_django_admin",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_content_projections_seo_catalogue_match_django_and_do_not_activate",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_exact_routes_methods_slashless_unknown_and_no_307_422",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_keyset_delete_edit_insert_consistency",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_real_ids_numbers_no_private_fields_and_body_ignored",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_signed_cursor_wrong_scope_types_size_and_tampering",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_grade_unsupported_row_and_database_failure_safe",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_without_home_remains_available",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_public_delivery_visibility_and_manifest",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_public_methods_csrf_resolved_missing_and_unresolved_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_routing_redirect_precedence_seo_sitemap_and_media",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_selectors_and_publication_observer_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_all_nine_dtos_history_and_no_password_leak",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_anonymous_inactive_nonstaff_no_permission_before_lookup",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_staff_filters_sort_mixed_nulls_binding_and_permission_revision",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_unverifiable_active_descriptor_fails_closed_without_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_same_order_release_available",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_actual_django_static_media_redirect_comparator",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_corrupt_index503_not_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_active_release503_not_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_asset_without_active_rule404",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_media_redirect_get_and_head",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_temporary_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+          "result": "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_same_order_release_available",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_corrupt_index503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_active_release503_not_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_asset_without_active_rule404",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_media_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_temporary_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+          "result": "ok"
+        }
+      ],
+      "tested_implementation_sha": null,
+      "parent_candidate_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+      "result": "PASS",
+      "actual_counts": {
+        "ok": 68,
+        "skipped 'NOT RUN: dedicated disposable PostgreSQL URL is required'": 50
+      },
+      "classification": "INCOMPLETE_COVERAGE: additional run omitted PG URL; 68 PASS/50 SKIP, replaced by final explicit-PG run",
+      "raw_receipt_key": "v02-final"
+    },
+    {
+      "label": "fresh-install-smoke",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "scripts/fresh_install_smoke.py",
+        "--disposable"
+      ],
+      "suite_test_counts": [],
+      "named_tests": [],
+      "raw_receipt_key": "fresh-install-smoke",
+      "classification": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-b0646688c2f94c8b9be6a4593b7223e2\\check-0.log",
+      "combined_sha256": "1686b33d75c95394c34fdd8b182f520e6f367b0a32da8ae50b4a4c4767c14e65"
+    },
+    {
+      "label": "verify-repo",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "scripts/verify_repo.py"
+      ],
+      "suite_test_counts": [
+        109,
+        18,
+        73
+      ],
+      "named_tests": [
+        {
+          "name": "tests.harness.test_canonical_verification.CanonicalVerificationTests.test_default_selection_runs_harness_suite",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_canonical_verification.CanonicalVerificationTests.test_harness_failure_fails_canonical_entry_point_used_by_ci",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_canonical_verification.CanonicalVerificationTests.test_list_and_selected_harness_group",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_canonical_verification.CanonicalVerificationTests.test_nested_baseline_excludes_harness_and_preserves_prior_checks",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_canonical_verification.CanonicalVerificationTests.test_skip_tests_excludes_all_test_suites",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli.CliTests.test_dry_run_does_not_execute_engine",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli.CliTests.test_execute_uses_persisted_result",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli.CliTests.test_invalid_manifest_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli.CliTests.test_profile_mismatch_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli_smoke.CliSmokeTests.test_doctor",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli_smoke.CliSmokeTests.test_help",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_cli_smoke.CliSmokeTests.test_valid_dry_run_and_no_execute_engine",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_cancelled_adapter_never_finishes",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_error_scenario",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_fake_adapter_implements_protocol",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_happy_scenario",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_loop_scenario_keeps_requesting_tools",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_message_continuation_before_start_is_protocol_error",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_message_scenario_continues_to_tool_then_finished",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_fake_adapter.FakeAdapterTests.test_tool_result_cannot_replace_message_continuation",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.CheckedInManifestTests.test_checked_in_r04_manifest_validates_actual_reference_bytes",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.CheckedInManifestTests.test_r04_documents_are_readable_utf8",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_branch_mismatch_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_digest_mismatch_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_missing_spec_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_path_traversal_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_plan_digest_mismatch_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_unknown_required_check_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_unsupported_profile_is_blocked",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_manifest.ManifestValidationTests.test_valid_manifest_is_accepted",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_ambiguous_receipt_commit_recovers_ready_when_cleanup_and_rewrite_fail",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_crash_after_canonical_replace_before_receipt_is_not_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_happy_path_has_matching_receipt_and_status_is_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_invalid_receipt_identity_or_deadline_blocks_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_missing_or_corrupt_receipt_blocks_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_non_ready_results_do_not_require_receipt",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_and_diagnostic_write_failure_leave_ready_uncommitted",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_digest_mismatch_blocks_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_may_finish_after_deadline_for_timely_canonical_replace",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_replace_failure_returns_non_success",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_ready_publication.ReadyPublicationTests.test_status_during_expired_final_replace_never_exposes_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_after_handler_prevents_next_model",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_before_initial_model_prevents_start",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_immediately_before_handler_prevents_tool",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_immediately_before_verification_prevents_it",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_final_result_replace_cannot_return_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_result_persistence_cannot_publish_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_result_validation_cannot_publish_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_finished_returned_after_deadline_never_verifies",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_finished_continuation_never_verifies",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_message_continuation_prevents_tool",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_message_prevents_continuation",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_tool_continuation_never_executes_next_tool",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_message_alone_exhausts_turns_without_success",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_message_tool_finished_flow_preserves_content_and_verifies",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_tool_request_returned_after_deadline_never_executes",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_unsupported_protocol_blocked_before_any_invocation",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_verification_overrun_cannot_return_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_all_required_checks_pass_after_finished",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_cancelled_adapter_interrupts_without_verification",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_finalization_cannot_promote_expired_run",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_finished_with_failed_check_is_not_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_finished_without_all_required_checks_is_not_ready",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_injected_error_adapter_is_used",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_interrupt_during_verification_keeps_partial_evidence",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_keyboard_interrupt_persists_result",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_loop_exhausts_runner_turn_budget",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.ExecuteVerificationTests.test_wall_time_exhausted_during_verification",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.RegistryTests.test_failed_exit_code_is_recorded",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.RegistryTests.test_registered_checks_execute_with_fixed_argv_and_store_evidence",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.RegistryTests.test_remaining_time_limits_checks_and_prevents_process_after_deadline",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.RegistryTests.test_timeout_marks_budget_exceeded_and_keeps_evidence",
+          "result": "ok"
+        },
+        {
+          "name": "tests.harness.test_verification.RegistryTests.test_unknown_check_is_blocked_before_any_process",
+          "result": "ok"
+        }
+      ],
+      "raw_receipt_key": "verify-repo",
+      "classification": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-b0646688c2f94c8b9be6a4593b7223e2\\check-1.log",
+      "combined_sha256": "679cab09ab1d5a63e003b352bb126555b9222c951db2913106b390c7cb68ecc8"
+    },
+    {
+      "label": "baseline-version-report",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "scripts/version_report.py"
+      ],
+      "suite_test_counts": [],
+      "named_tests": [],
+      "raw_receipt_key": "baseline-version-report",
+      "classification": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-b0646688c2f94c8b9be6a4593b7223e2\\check-2.log",
+      "combined_sha256": "105803c51de34022a77ffdef02852ce75ce1fcfea2cfd7d849e1cfff9a1b1a43"
+    },
+    {
+      "label": "r02a",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r02a_contract.py",
+        "-v"
+      ],
+      "suite_test_counts": [
+        30
+      ],
+      "named_tests": [
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_all_operation_examples_and_negative_shapes_validate",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_auth_csrf_idempotency_revision_and_owner_isolation",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_digest_scope_and_permanent_uniqueness",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_envelopes_pagination_and_pending_status_contract",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_get_attempt_rejects_changed_nested_exercise_id",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_get_exercise_rejects_changed_nested_topic_id",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_list_items_and_conversation_context_preserve_identity",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_official_openapi_structure_all_routes_and_offline_refs",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_other_known_nested_relations_reject_schema_valid_substitutions",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_pending_unsupported_and_degraded_are_typed_business_results",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_public_schema_secrets_and_health_allowlist",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_r02_public_fields_and_all_frozen_examples_preserved",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_schema_valid_identity_mismatches_are_rejected",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_semantic_identity_for_all_37_http_exchanges",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_status_specific_error_envelopes",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_successful_onboarding_preserves_mode_and_completion",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_unshown_resource_bindings_are_not_invented",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.HTTPArtifactTests.test_version_alias_difficulty_and_order_are_checked",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_all_serial_concurrency_fixtures",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_help_submit_race",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_hint_retry_after_expiry_keeps_original_level_and_route_scope",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_hint_retry_after_receipt_expiry",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_no_foreign_existence_or_revision_disclosure",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_repeat_submit",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_reveal_retry_after_receipt_expiry",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_second_positive_eligibility",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_snapshot_order_raw_data_and_get_are_immutable",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_stale_revision",
+          "result": "ok"
+        },
+        {
+          "name": "test_r02a_contract.TransactionFixtureTests.test_submit_and_positive_credit_guards_survive_receipt_expiry",
+          "result": "ok"
+        }
+      ],
+      "raw_receipt_key": "r02a",
+      "classification": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-b0646688c2f94c8b9be6a4593b7223e2\\check-3.log",
+      "combined_sha256": "12872b523c8a73f201bb08c0b55fb67b61297ce4ce1afd25d3a672b15053b12c"
+    },
+    {
+      "label": "r03a",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r03a_contract.py",
+        "-v"
+      ],
+      "suite_test_counts": [
+        41
+      ],
+      "named_tests": [
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_01_neutral_completed",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_02_neutral_only",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_03_equal_time_tiebreak",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_04_late_neutral",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_05_fact_before_event",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_06_fact_after_event",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_07_exact_duplicate",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_09_retry_no_second_entry",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_10_event_and_fact",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_11_conflicting_time",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_12_neutral_eviction",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_13_count_three_to_two",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_14_mastered_to_learning",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_15_numerical_neutrality",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_16_late_independent",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_18_client_flag_rejected",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_19_progress_v1_parity",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_20_delivery_permutations",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_21_timezone_duplicate",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_22_owner_skill_binding",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_24_help_and_credit",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_25_repeat_isolation",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_26_event_reset_with_late_fact",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_27_outside_window",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_28_legacy_reveal_import",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_29_final_result_conflict",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_30_late_event_is_event",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_31_scope_and_not_started",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_32_immutable_conflict_order",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_all_outcomes_are_history_without_automatic_numeric_effects",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_bad_contexts_and_missing_legacy_outcome_fail_closed",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_cached_evidence_and_returned_results_are_detached",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_cross_skill_agreement_and_foreign_event_owner",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_full_window_fact_and_event_permutation_keeps_all_numerical_outputs",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_global_keys_cannot_hide_in_other_owner_or_skill_partition",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_later_reveal_does_not_revoke_finalized_independence",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_schema_and_literal_case_inventory",
+          "result": "ok"
+        },
+        {
+          "name": "test_r03a_contract.CompletionContractTests.test_temporal_relationships_and_max_precision",
+          "result": "ok"
+        }
+      ],
+      "raw_receipt_key": "r03a",
+      "classification": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-b0646688c2f94c8b9be6a4593b7223e2\\check-4.log",
+      "combined_sha256": "ff8eef98507ea6286aacbbdf397f4d09b8900675b68a9e1bd480a83f1492bc77"
+    }
+  ],
+  "versions": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "executable": "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+    "packages": {
+      "Django": "5.2.16",
+      "fastapi": "0.115.12",
+      "starlette": "0.46.2",
+      "SQLAlchemy": "2.0.46",
+      "psycopg": "3.3.6",
+      "alembic": "1.18.4",
+      "jsonschema": "4.26.0"
+    },
+    "docker-version": "29.8.0 / 29.8.0",
+    "linux-python-version": "Python 3.12.15",
+    "postgres-version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit"
+  },
+  "preservation": {
+    "protected_files_checked": 1845,
+    "other_tracked_files": 1818,
+    "previous_evidence_files": 27,
+    "all_unchanged": true,
+    "original_helpers_unchanged": 5,
+    "independent_negative_audit_unchanged": true,
+    "raw_index_sha256": "f447b1c3be057553da5f591ebcfccf1ac4ea15f9f27cb3e02d96a5893c03c791",
+    "head_unchanged": true,
+    "index_unchanged": true,
+    "staged_changes": 0,
+    "tracked_modified": [
+      "backend/content/releases.py",
+      "backend/infrastructure/http/README.md",
+      "backend/infrastructure/http/app.py",
+      "backend/tests/v02/test_http.py",
+      "backend/tests/v02/test_unit.py"
+    ],
+    "home_context_production_unchanged_since_intake": true,
+    "boundaries": {
+      "frozen_R02_R02A_R03A": "UNCHANGED",
+      "V01_Alembic": "UNCHANGED",
+      "frontend_Django_V04": "UNCHANGED",
+      "root_CI_R03": "UNCHANGED",
+      "historical_evidence_policy_manifests_approval_pins": "UNCHANGED"
+    }
+  },
+  "remaining_findings": {
+    "P1": "None identified in supplied audit",
+    "P2": "Locally fixed; independent confirmation pending",
+    "P3": "Reconciled and hardened locally; independent confirmation pending"
+  },
+  "not_verified": [
+    "Independent read-only re-audit after these fixes",
+    "I02 HTML/no-JS/SSG/browser",
+    "Lossless Python-int64 to JavaScript consumer bridge agreement",
+    "Production V04 activation/cutover",
+    "New SHA R03 gate / Task CI / final Task Approval"
+  ],
+  "environment": "Only new marked disposable databases on dedicated localhost15441/55441 PG16; no production activation"
+}

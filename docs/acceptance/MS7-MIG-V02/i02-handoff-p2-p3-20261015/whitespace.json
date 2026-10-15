@@ -1,0 +1,55 @@
+{
+  "checks": [
+    {
+      "label": "worktree-ordinary",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": ""
+    },
+    {
+      "label": "worktree-cr-at-eol",
+      "argv": [
+        "git",
+        "-c",
+        "core.whitespace=cr-at-eol",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": ""
+    },
+    {
+      "label": "cached-ordinary",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": ""
+    },
+    {
+      "label": "cached-cr-at-eol",
+      "argv": [
+        "git",
+        "-c",
+        "core.whitespace=cr-at-eol",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": ""
+    }
+  ],
+  "scope": "Current follow-up diff against HEAD; original publication FAIL/2 and approved40path policy are preserved history"
+}
