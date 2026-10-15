@@ -114,3 +114,18 @@ consumer confirmation. Preserve old approval and all successful/failing/NOT_RUN
 evidence as history; issue no approval on their behalf. Full I02/V04 pipeline and
 R03 command-map/composition/independent approvals remain their own dependencies.
 Issues34/40 remain open until main integration; no merges/closures are performed.
+
+## Executed preparation checks
+
+[Linux preparation run38699186747](https://github.com/Tramsey00/MathStart-Python/actions/runs/38699186747)
+SUCCESS at workflow45e2845c4e0b8a809432d22c04e2b864495492a8:14 new synthetic
+guards +12 unchanged original guards PASS,0 skips; Python3.12.15/Git2.55.0.
+Downloaded artifact11955480602 SHA256
+`6e54db28b4f22618682bf970d1ce4faccbfa37cc624bbf1f57dfffe147a23d3e`
+matches GitHub;8 manifest rows/raw bytes checked. [Receipt](preparation-evidence.json)
+and [original raw ZIP](linux-preparation-38699186747-raw.zip) are labelled
+GUARD_PREPARATION_ONLY. Local Python3.12.10 pure6 checks and real pending-intake
+CLI rejection also PASS. Original pins/control/evidence/frozen ci.yml byte diff
+from prior R03 head d6c114a is empty; detached76d8eac checkout stays clean.
+Actual successor implementation, chain/delta Linux execution and task suites
+remain NOT_RUN. These preparation results do not approve a new implementation.

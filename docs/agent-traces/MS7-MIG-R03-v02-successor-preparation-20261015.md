@@ -45,3 +45,10 @@ delta, then adapts exact-case observer and runs current V02/all PG without skips
 separate V01, F01/F02/contracts/Content/§17 and no-Django runtime. New results go
 to independent human review. No V02 code/lock/test edits, approval, draft change,
 merge or Issue closure. R03 remains INCOMPLETE; I02/V04 stay their own tasks.
+
+Linux preparation run38699186747 SUCCESS at45e2845c4e0b8a809432d22c04e2b864495492a8:
+14+12 synthetic guard tests PASS/0 skips, Python3.12.15/Git2.55.0. Raw artifact
+11955480602 downloaded; SHA2566e54db28b4f22618682bf970d1ce4faccbfa37cc624bbf1f57dfffe147a23d3e
+and8 manifest rows match. Original ZIP2696 bytes retained without repacking.
+Local pure6 and real pending CLI rejection PASS; original control/input/evidence
+and frozen workflow diff empty from d6c114a. Actual successor gate/suites NOT_RUN.
