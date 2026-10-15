@@ -2,12 +2,16 @@
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from scripts import postgres_ci as ci
+from scripts import accepted_integration_ci as accepted
+from scripts import v01_ci_observer as observer
 
 CONFIG = json.loads(ci.CONFIG.read_text())
 
@@ -26,6 +30,33 @@ def fixture():
 
 
 class PostgreSQLEvidenceTests(unittest.TestCase):
+    def test_accepted_observer_rejects_foreign_control_or_stale_expected_sha(self):
+        with self.assertRaises(RuntimeError): observer.accepted_suite(ci.ROOT, 'untrusted-config.json')
+        with patch.dict(os.environ, {'MATHSTART_V01_EXPECTED_HEAD': 'stale'}, clear=True):
+            with self.assertRaises(RuntimeError): observer.accepted_suite(ci.ROOT, str(accepted.CONFIG))
+
+    def test_accepted_observer_requires_disposable_ack_and_reserved_endpoint(self):
+        config = ci.accepted_config(CONFIG)
+        environment = {'MATHSTART_V01_EXPECTED_HEAD': config['integration_sha'],
+                       'MATHSTART_V01_DISPOSABLE_ACK': 'OWNED_DISPOSABLE_POSTGRES_16',
+                       'MATHSTART_V01_TEST_ADMIN_URL': 'postgresql+psycopg://127.0.0.1:55441/postgres'}
+        for key, value in (('MATHSTART_V01_DISPOSABLE_ACK', ''),
+                           ('MATHSTART_V01_TEST_ADMIN_URL', 'postgresql+psycopg://127.0.0.1:5432/production')):
+            changed = dict(environment); changed[key] = value
+            with self.subTest(key=key), patch.dict(os.environ, changed, clear=True), \
+                    patch.object(ci, 'snapshot'), patch.object(accepted, 'validate_tree'):
+                with self.assertRaises(RuntimeError): observer.accepted_suite(ci.ROOT, str(accepted.CONFIG))
+
+    def test_accepted_observer_rejects_empty_collection_before_test_execution(self):
+        config = ci.accepted_config(CONFIG)
+        environment = {'MATHSTART_V01_EXPECTED_HEAD': config['integration_sha'],
+                       'MATHSTART_V01_DISPOSABLE_ACK': 'OWNED_DISPOSABLE_POSTGRES_16',
+                       'MATHSTART_V01_TEST_ADMIN_URL': 'postgresql+psycopg://127.0.0.1:55441/postgres'}
+        loader = SimpleNamespace(errors=[], loadTestsFromNames=lambda names: unittest.TestSuite())
+        with patch.dict(os.environ, environment, clear=True), patch.object(ci, 'snapshot'), \
+                patch.object(accepted, 'validate_tree'), patch.object(observer.unittest, 'TestLoader', return_value=loader):
+            with self.assertRaises(RuntimeError): observer.accepted_suite(ci.ROOT, str(accepted.CONFIG))
+
     def test_accepted_backend_additions_use_exact_input_with_unchanged_source_pins(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()

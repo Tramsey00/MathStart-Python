@@ -12,6 +12,47 @@ from pathlib import Path
 import runpy
 import sys
 import unittest
+from urllib.parse import urlsplit
+
+
+def accepted_suite(candidate, config_path):
+    """Replace only the historical all-backend delta prerequisite for accepted inputs."""
+    r03 = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(r03))
+    from scripts import accepted_integration_ci as accepted
+    from scripts import postgres_ci
+    if Path(config_path).resolve() != accepted.CONFIG.resolve():
+        raise RuntimeError('Only owner-controlled current R03 acceptance config is allowed')
+    config = accepted.accepted_config(json.loads(postgres_ci.CONFIG.read_text()))
+    if os.environ.get('MATHSTART_V01_EXPECTED_HEAD') != config['integration_sha']:
+        raise RuntimeError('Expected V01 checkout must be the exact accepted integration')
+    postgres_ci.snapshot(candidate, config)
+    accepted.validate_tree(candidate, r03, config['accepted_input'])
+    if os.environ.get('MATHSTART_V01_DISPOSABLE_ACK') != 'OWNED_DISPOSABLE_POSTGRES_16':
+        raise RuntimeError('Owned disposable PostgreSQL acknowledgement required')
+    url = urlsplit(os.environ.get('MATHSTART_V01_TEST_ADMIN_URL', ''))
+    if (url.scheme, url.hostname, url.port, url.path) != ('postgresql+psycopg', '127.0.0.1', 55441, '/postgres'):
+        raise RuntimeError('Refusing missing, unreserved or shared database endpoint')
+    modules = ['backend.tests.test_unit', 'backend.tests.test_postgres', 'backend.tests.test_remediation']
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromNames(modules)
+    def flatten(items):
+        for item in items:
+            if isinstance(item, unittest.TestSuite): yield from flatten(item)
+            else: yield item
+    ids = [case.id() for case in flatten(suite)]
+    matrix = json.loads((candidate/'docs/acceptance/MS7-MIG-V01/target-ci-cases-v5.json').read_text())
+    expected = {row['id'] for row in matrix['cases']}
+    pg = [name for name in ids if name.startswith(tuple(m + '.' for m in modules[1:]))]
+    if loader.errors or len(ids) != 34 or len(set(ids)) != 34 or set(ids) != expected or len(pg) != 23:
+        raise RuntimeError('Accepted V01 must collect all 34 exact cases, including 23 PostgreSQL')
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    ok = (result.wasSuccessful() and result.testsRun == 34 and not result.skipped
+          and not result.expectedFailures and not result.unexpectedSuccesses)
+    print(f"R03_V01_ACCEPTED: HEAD={config['integration_sha']} historical_implementation={config['implementation_sha']} "
+          f"tests={result.testsRun} PG_collected=23 skips={len(result.skipped)} "
+          f"failures={len(result.failures)} errors={len(result.errors)} status={'PASS' if ok else 'FAIL'}")
+    if not ok: raise RuntimeError('Accepted V01 cases did not all pass')
 
 
 def now():
@@ -116,7 +157,11 @@ def tests():
 
     unittest.TextTestRunner = Runner
     try:
-        runpy.run_path(str(Path('docs/acceptance/MS7-MIG-V01/run-target-ci-v5.py').resolve()), run_name='__main__')
+        config_path = os.environ.get('R03_V01_ACCEPTED_CONFIG')
+        if config_path:
+            accepted_suite(Path.cwd().resolve(), config_path)
+        else:
+            runpy.run_path(str(Path('docs/acceptance/MS7-MIG-V01/run-target-ci-v5.py').resolve()), run_name='__main__')
     finally:
         unittest.TextTestRunner = original_runner
         fixtures.PostgreSQLTests.database = original_database

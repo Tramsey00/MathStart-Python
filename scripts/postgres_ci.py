@@ -155,6 +155,9 @@ def run(candidate, config):
                        MATHSTART_V01_DISPOSABLE_ACK='OWNED_DISPOSABLE_POSTGRES_16',
                        MATHSTART_V01_TEST_ADMIN_URL='postgresql+psycopg://mathstart_v01_ci:disposable-v01-ci-only@127.0.0.1:55441/postgres',
                        MATHSTART_V01_EVIDENCE_DIR=str(OUTPUT / 'owner-diagnostics'), R03_V01_OUTPUT=str(OUTPUT))
+    if 'accepted_input' in config:
+        from scripts.accepted_integration_ci import CONFIG as ACCEPTED_CONFIG
+        environment['R03_V01_ACCEPTED_CONFIG'] = str(ACCEPTED_CONFIG)
     venv = candidate / 'var/v01-target-ci'
     if venv.exists() or (OUTPUT / 'owner-diagnostics').exists():
         raise ValueError('Locked environment and evidence must be fresh')
@@ -193,9 +196,12 @@ def run(candidate, config):
         validate_lock((candidate / 'backend/requirements-test.lock').read_text(), installed)
         result['locked_packages_verified'] = 22
         raw = (OUTPUT / 'target-suite.log').read_text()
-        summary = f"V01_TARGET: HEAD={tested_sha(config)} implementation={config['implementation_sha']} tests=34 PG_collected=23 skips=0 failures=0 errors=0 status=PASS"
+        if 'accepted_input' in config:
+            summary = f"R03_V01_ACCEPTED: HEAD={tested_sha(config)} historical_implementation={config['implementation_sha']} tests=34 PG_collected=23 skips=0 failures=0 errors=0 status=PASS"
+        else:
+            summary = f"V01_TARGET: HEAD={tested_sha(config)} implementation={config['implementation_sha']} tests=34 PG_collected=23 skips=0 failures=0 errors=0 status=PASS"
         if summary not in raw:
-            raise ValueError('Unchanged owner gate did not report complete PASS')
+            raise ValueError('Selected historical/accepted-input gate did not report complete PASS')
         after = snapshot(candidate, config)
         if before != after:
             raise ValueError('Candidate source or historical evidence changed')
