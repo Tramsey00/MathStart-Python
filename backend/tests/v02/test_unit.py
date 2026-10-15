@@ -16,6 +16,8 @@ from backend.content.releases import safe_public_path
 from backend.infrastructure.http.transport import parse_request
 from backend.staff.publication import observe
 from copy import deepcopy
+from dataclasses import replace
+from hashlib import sha256
 from backend.tests.v02.fixtures import KEY, STAMP, release_files
 
 if not settings.configured:
@@ -141,3 +143,186 @@ class UnitContractTests(unittest.TestCase):
             expected = [unescape_string_literal(word) if word[0] in {'"', "'"} and word[0] == word[-1] else word
                         for word in smart_split(query)]
             self.assertEqual(search_terms(query), expected, query)
+
+
+class I02HandoffUnitTests(unittest.TestCase):
+    def setUp(self):
+        self.files = tempfile.TemporaryDirectory(dir='var')
+        self.addCleanup(self.files.cleanup)
+        self.store, self.descriptor, self.index, self.deliveries = release_files(self.files.name)
+
+    def write_index(self):
+        raw = json.dumps(self.index, ensure_ascii=False).encode('utf-8')
+        (self.store.root / self.descriptor.release_id / 'index.json').write_bytes(raw)
+        self.descriptor = replace(self.descriptor, manifest_digest=sha256(raw).hexdigest())
+        return self.store.load(self.descriptor)
+
+    def test_home_requires_slug_alias_even_with_valid_manifest_digest(self):
+        self.index['aliases'] = []
+        with self.assertRaises(APIError) as raised:
+            self.write_index()
+        self.assertEqual((raised.exception.status, raised.exception.code), (503, 'SERVICE_UNAVAILABLE'))
+        raw = (self.store.root / self.descriptor.release_id / 'index.json').read_bytes()
+        self.assertEqual(sha256(raw).hexdigest(), self.descriptor.manifest_digest)
+
+    def test_home_alias_invalid_reference_status_canonical_duplicate_and_extra(self):
+        original = deepcopy(self.index['aliases'])
+        variants = [[{**original[0], **change}] for change in (
+            {'page_id': 999}, {'page_id': 302}, {'status': 301}, {'canonical_path': '/topic/'})]
+        variants += [original * 2, original + [{**original[0], 'url': '/extra-home/'}]]
+        for aliases in variants:
+            with self.subTest(aliases=aliases), self.assertRaises(APIError) as raised:
+                self.index['aliases'] = aliases
+                self.write_index()
+            self.assertEqual((raised.exception.status, raised.exception.code), (503, 'SERVICE_UNAVAILABLE'))
+
+    def test_home_alias_uses_actual_slug_and_canonical_root(self):
+        self.assertEqual(self.store.load(self.descriptor).page_path('/glavnaya/')['id'], 301)
+        self.deliveries[301]['slug'] = 'welcome-home'
+        (self.store.root / self.descriptor.release_id / 'pages/301.json').write_text(
+            json.dumps(self.deliveries[301]), encoding='utf-8')
+        self.index['pages'][0]['slug'] = 'welcome-home'
+        self.index['aliases'][0]['url'] = '/welcome-home/'
+        release = self.write_index()
+        self.assertEqual(release.page_path('/')['id'], 301)
+        self.assertEqual(release.page_path('/welcome-home/')['seo']['canonical_path'], '/')
+
+    def test_catalogue_release_without_home_does_not_require_alias(self):
+        self.index['pages'] = [p for p in self.index['pages'] if p['page_type'] != 'home']
+        self.index['aliases'] = []
+        release = self.write_index()
+        self.assertEqual(release.page_path('/topic/')['id'], 302)
+        with self.assertRaises(APIError) as raised:
+            release.page_path('/')
+        self.assertEqual(raised.exception.status, 404)
+        context = release.renderer_context(release.page('karta-sajta'), QueryParams('q=strasse'))
+        self.assertEqual(context['catalogue_full'], self.index['catalogue'])
+        self.assertEqual(context['catalogue_count'], 1)
+
+    def test_renderer_catalogue_full_preserves_structure_for_all_filters(self):
+        release = self.store.load(self.descriptor)
+        for query, count in [('', 1), ('q=strasse', 1), ('q=none', 0),
+                             ('grade=unknown&subject=foreign&ignored=x', 1),
+                             ('grade=5-klass&subject=matematika&q=none', 0),
+                             ('q=miss&q=Stra%C3%9Fe', 1)]:
+            with self.subTest(query=query):
+                params = QueryParams(query)
+                context = release.renderer_context(release.page('karta-sajta'), params)
+                self.assertEqual(set(context), set(release.catalogue(params)) | {'catalogue_full', 'pinned_release'})
+                self.assertEqual({k: context[k] for k in release.catalogue(params)}, release.catalogue(params))
+                self.assertEqual(context['catalogue_count'], count)
+                self.assertEqual(context['catalogue_full'], self.index['catalogue'])
+                self.assertEqual(context['pinned_release'], {
+                    'release_id': self.descriptor.release_id, 'manifest_digest': self.descriptor.manifest_digest})
+
+    def test_renderer_context_deeply_isolates_filtered_and_full_catalogue(self):
+        release = self.store.load(self.descriptor)
+        original = deepcopy(release.index)
+        context = release.renderer_context(release.page('karta-sajta'), QueryParams())
+        context['catalogue_topics'][0]['title'] = 'renderer mutation'
+        context['catalogue_grades'][0]['title'] = 'renderer grade mutation'
+        context['catalogue_subjects'][0]['title'] = 'renderer subject mutation'
+        context['catalogue_full']['sections'][0]['title'] = 'renderer section mutation'
+        context['catalogue_full']['topics'].clear()
+        context['pinned_release']['release_id'] = 'foreign'
+        self.assertEqual(release.index, original)
+        self.assertEqual(release.descriptor, self.descriptor)
+        self.assertEqual(release.renderer_context(release.page('karta-sajta'), QueryParams())['catalogue_full'], original['catalogue'])
+
+    def test_renderer_non_catalogue_pages_receive_only_release_identity(self):
+        release = self.store.load(self.descriptor)
+        for slug in ['glavnaya', 'topic']:
+            self.assertEqual(release.renderer_context(release.page(slug), QueryParams('q=ignored')), {
+                'pinned_release': {'release_id': self.descriptor.release_id,
+                                   'manifest_digest': self.descriptor.manifest_digest}})
+
+    def test_renderer_int64_ids_are_exact_python_integers(self):
+        large_id = 2**53 + 1
+        for row in self.index['catalogue']['grades']:
+            row['id'] = large_id
+        self.index['catalogue']['subjects'][0]['grade_id'] = large_id
+        self.index['catalogue']['topics'][0]['grade_id'] = large_id
+        self.deliveries[302]['grade_id'] = large_id
+        (self.store.root / self.descriptor.release_id / 'pages/302.json').write_text(
+            json.dumps(self.deliveries[302]), encoding='utf-8')
+        release = self.write_index()
+        context = release.renderer_context(release.page('karta-sajta'), QueryParams())
+        for value in [context['catalogue_full']['grades'][0]['id'],
+                      context['catalogue_full']['subjects'][0]['grade_id'],
+                      context['catalogue_topics'][0]['grade_id']]:
+            self.assertIs(type(value), int)
+            self.assertEqual(value, large_id)
+
+
+class HelperEvidenceIntegrityTests(unittest.TestCase):
+    def setUp(self):
+        import base64
+        import importlib.util
+        self.root = Path(__file__).resolve().parents[3]
+        self.evidence = self.root / 'docs/acceptance/MS7-MIG-V02/i02-handoff-p2-p3-20261015'
+        spec = importlib.util.spec_from_file_location('i02_helper_integrity', self.evidence / 'verify_helper_sources.py')
+        self.verifier = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.verifier)
+        self.bundle = json.loads((self.evidence / 'helper-sources-v2.json').read_bytes().decode('utf-8'))
+        self.pins = json.loads((self.evidence / 'intake.json').read_bytes().decode('utf-8'))['helper_source_pins']
+        # Reconstruct fixtures from retained bytes: a clean checkout need not
+        # contain ignored local verification scripts. The separate CLI receipt
+        # verifies the actual original files with two physical reads each.
+        sources = tempfile.TemporaryDirectory(dir='var')
+        self.addCleanup(sources.cleanup)
+        self.source_root = Path(sources.name)
+        for name, record in self.bundle['sources'].items():
+            path = self.source_root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(base64.b64decode(record['raw_bytes_base64'], validate=True))
+
+    def test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins(self):
+        result = self.verifier.verify(self.bundle, self.pins, self.source_root)
+        self.assertEqual(result, {'sources': 5, 'physical_reads': 10, 'raw_and_utf8_roundtrip': 'PASS'})
+
+    def test_p3_corrupted_text_or_jointly_rehashed_source_fails(self):
+        import base64
+        name = 'var/i02_handoff_full_content.py'
+        for joint in [False, True]:
+            with self.subTest(joint=joint), self.assertRaises(ValueError):
+                bundle = deepcopy(self.bundle)
+                record = bundle['sources'][name]
+                record['source_utf8'] += '\n# corrupted source\n'
+                text_raw = record['source_utf8'].encode('utf-8')
+                record['source_utf8_sha256'] = sha256(text_raw).hexdigest()
+                if joint:
+                    record.update(raw_bytes_base64=base64.b64encode(text_raw).decode('ascii'),
+                                  raw_sha256=sha256(text_raw).hexdigest(), raw_size=len(text_raw))
+                self.verifier.verify(bundle, self.pins, self.source_root)
+
+    def test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard(self):
+        original = self.root / 'docs/acceptance/MS7-MIG-V02/i02-handoff-followup-20261015/raw-command-receipts.json'
+        raw = original.read_bytes()
+        correct, wrong = json.loads(raw.decode('utf-8')), json.loads(raw.decode('cp1251'))
+        expected = {'var/i02_handoff_full_content.py': '3a10fc80fe13e3965931f11d2e168f4352bd96e89504cdf3f6cb60b9af8aa28d',
+                    'var/i02_handoff_finalize.py': '0d45e3ef0ba0654f0e16e8e7e715fe7bfc66c1fc433c6fd26d639472d88b69d3'}
+        for name, bad_hash in expected.items():
+            with self.subTest(name=name):
+                good = correct['reproduction_helper_sources'][name]['source_utf8']
+                bad = wrong['reproduction_helper_sources'][name]['source_utf8']
+                self.assertEqual(sha256(good.encode('utf-8')).hexdigest(), self.pins[name])
+                self.assertEqual(sha256(bad.encode('utf-8')).hexdigest(), bad_hash)
+                self.assertEqual(sha256(bad.encode('cp1251')).hexdigest(), self.pins[name])
+                bundle = deepcopy(self.bundle)
+                bundle['sources'][name]['source_utf8'] = bad
+                bundle['sources'][name]['source_utf8_sha256'] = bad_hash
+                with self.assertRaises(ValueError):
+                    self.verifier.verify(bundle, self.pins, self.source_root)
+
+    def test_p3_encoding_and_raw_byte_profile_tampering_fail(self):
+        name = 'var/i02_handoff_finalize.py'
+        for change in [{'source_encoding': 'cp1251'}, {'raw_bytes_base64': 'not base64!'},
+                       {'byte_profile': {'bom_utf8': True, 'cr': 0, 'lf': 261, 'crlf': 0}}]:
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                bundle = deepcopy(self.bundle)
+                bundle['sources'][name].update(change)
+                self.verifier.verify(bundle, self.pins, self.source_root)
+        path = self.source_root / name
+        path.write_bytes(path.read_bytes() + b'\n# physical source corruption\n')
+        with self.assertRaisesRegex(ValueError, 'PHYSICAL_SOURCE_BYTES'):
+            self.verifier.verify(self.bundle, self.pins, self.source_root)

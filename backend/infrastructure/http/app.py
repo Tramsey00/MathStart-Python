@@ -1,5 +1,6 @@
 """V02 FastAPI factory. Canonical OAS stays authoritative and unchanged."""
 from contextlib import contextmanager
+from copy import deepcopy
 import mimetypes
 import re
 from urllib.parse import quote, unquote_to_bytes
@@ -264,8 +265,8 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
             return public_redirect_or_missing(release, path)
         if render_page is None:
             raise wire.unavailable()
-        context = release.catalogue(request.query_params) if page['slug'] == 'karta-sajta' else {}
-        html = render_page(page, context, public_origin + page['seo']['canonical_path'])
+        context = release.renderer_context(page, request.query_params)
+        html = render_page(deepcopy(page), context, public_origin + page['seo']['canonical_path'])
         return Response(html if request.method != 'HEAD' else '', headers={'Content-Type': 'text/html; charset=utf-8'})
 
     app.add_api_route('/{path:path}', public, methods=['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'TRACE'], include_in_schema=False)

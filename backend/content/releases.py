@@ -1,5 +1,6 @@
 """Read a single authoritative release; no DB/files publication or activation."""
 from dataclasses import dataclass
+from copy import deepcopy
 from hashlib import sha256
 from pathlib import Path, PurePosixPath
 import re
@@ -128,6 +129,11 @@ class ReleaseStore:
                         or alias['canonical_path'] != '/' or alias['url'] in urls):
                     raise unavailable()
                 urls.add(alias['url'])
+            if homes and not any(alias['page_id'] == homes[0]['id']
+                    and alias['url'] == f'/{homes[0]["slug"]}/'
+                    and alias['status'] == 200 and alias['canonical_path'] == '/'
+                    for alias in index['aliases']):
+                raise unavailable()
             old_paths = set()
             for redirect in index['redirects']:
                 if (not safe_public_path(redirect['old_path']) or not safe_public_path(redirect['new_path'])
@@ -220,6 +226,15 @@ class Release:
         return {'catalogue_topics': matches, 'catalogue_grades': list(grades.values()),
                 'catalogue_subjects': list(subjects.values()), 'catalogue_grade': grade,
                 'catalogue_subject': subject, 'catalogue_query': q, 'catalogue_count': len(matches)}
+
+    def renderer_context(self, page, params):
+        """Internal renderer handoff from this pinned release, isolated from its index."""
+        context = {'pinned_release': {'release_id': self.descriptor.release_id,
+                                     'manifest_digest': self.descriptor.manifest_digest}}
+        if page['slug'] == 'karta-sajta':
+            context.update(self.catalogue(params))
+            context['catalogue_full'] = self.index['catalogue']
+        return deepcopy(context)
 
 
 def active_release(uow, store, namespace):

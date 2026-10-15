@@ -41,11 +41,36 @@ and original source artifacts must be established by V04's full staged hash inve
 Missing/inconsistent active snapshot returns503; no latest-DB fallback. Retained
 immutable routes require a committed APPLIED journal, never directory enumeration.
 
-I02/V05 `render_page(page, catalogue_context, canonical_url)` supplies reviewed HTML;
+I02/V05 `render_page(page, context, canonical_url)` supplies reviewed HTML;
 default absent returns503. V02 does not create React/SSG output. Catalogue consumes
 already PostgreSQL-ordered topics, last query values and Python strip/casefold.
+The internal context contains `pinned_release: {release_id, manifest_digest}` for
+every public HTML page. Only karta-sajta also receives `catalogue_full`, the complete
+PublicCatalogue `{grades, subjects, sections, topics}`, alongside all seven existing
+filtered catalogue fields. Grade/subject choices retain their existing semantics;
+the full reference arrays do not replace them or the filtered topics/count.
+`Release.renderer_context(page, params)` uses the already selected Release; it
+performs no database lookup or second active-descriptor resolution. The complete
+context is deep-copied, including nested filtered rows. The page passed to the
+renderer is also deep-copied, including nested dictionaries and lists, so renderer
+mutations or failures cannot change validated Release pages or index. Both copies
+come from the same selected release. It is an internal Python handoff, not a new JSON DTO,
+endpoint, public schema field or renderer implementation. Canonical calculation
+remains trusted origin plus page canonical_path, without query parameters.
+IDs in page/context remain exact Python `int` values under the existing positive
+int64 R02 contract; no string/float conversion is performed. An I02 bridge to Node
+or browser JavaScript must agree a lossless consumer-boundary representation or
+parser before consuming IDs above `2**53 - 1`. Ordinary JSON.parse/Number cannot
+preserve all such integers. This handoff does not authorize changing public R02
+DTOs or introducing a JavaScript conversion; consumer-boundary agreement remains
+with Ilya/Ruslan. Runtime release identity is separate from the source Git SHA.
 Direct public routes pin one active release; redirects only after actual404.
 HEAD is empty, arbitrary public verbs retain CSRF precedence, and Grades is GET only.
+If HOME exists, its exact `/<actual-home-slug>/` alias200 with matching page_id and
+canonical `/` is mandatory. Missing or invalid alias makes the release unavailable503;
+there is no redirect or previous/latest-edition fallback. A release without HOME
+does not require that alias. Additional HOME aliases remain disallowed; retained
+redirect entries keep their separate fallback semantics.
 Only the existing slashless Grades path has explicit301. Other unsupported API paths
 return404, method errors400, Content writes403 after staff authorization.
 

@@ -5,6 +5,9 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from copy import deepcopy
+from dataclasses import replace
+from hashlib import sha256
 import uuid
 
 import sqlalchemy as sa
@@ -266,6 +269,255 @@ class HTTPAssertions:
             c.execute(sa.update(journal).where(journal.c.id == self.descriptor.operation_id).values(manifest_digest='f' * 64))
         self.error(self.client.get('/api/v1/content/pages/topic/'), 503, 'SERVICE_UNAVAILABLE')
         self.error(self.client.get('/old.html', follow_redirects=False), 503, 'SERVICE_UNAVAILABLE')
+
+    def rewrite_active_index(self, index):
+        from backend.models.protocol import active, journal
+        raw = json.dumps(index, ensure_ascii=False).encode('utf-8')
+        (Path(self.files.name) / self.descriptor.release_id / 'index.json').write_bytes(raw)
+        digest = sha256(raw).hexdigest()
+        with self.engine.begin() as c:
+            c.execute(sa.update(active).where(active.c.namespace == 'public').values(manifest_digest=digest))
+            c.execute(sa.update(journal).where(journal.c.id == self.descriptor.operation_id).values(manifest_digest=digest))
+        self.descriptor = replace(self.descriptor, manifest_digest=digest)
+
+    def renderer_client(self, renderer):
+        return TestClient(create_app(self.engine, self.signer, release_store=self.store,
+            render_page=renderer), raise_server_exceptions=False)
+
+    def test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect(self):
+        index = deepcopy(self.index)
+        index['aliases'] = []
+        index['redirects'].append({'old_path': '/glavnaya/', 'new_path': '/topic/', 'is_permanent': True})
+        self.rewrite_active_index(index)
+        rendered = []
+        with self.renderer_client(lambda *args: rendered.append(args) or 'unexpected') as client:
+            for path in ['/', '/glavnaya/', '/old.html', '/_content/index.json', '/api/v1/content/pages/glavnaya/']:
+                with self.subTest(path=path):
+                    response = client.get(path, follow_redirects=False)
+                    self.error(response, 503, 'SERVICE_UNAVAILABLE')
+                    self.assertNotIn('location', response.headers)
+        self.assertEqual(rendered, [])
+        raw = (Path(self.files.name) / self.descriptor.release_id / 'index.json').read_bytes()
+        self.assertEqual(sha256(raw).hexdigest(), self.descriptor.manifest_digest)
+
+    def test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages(self):
+        rendered = []
+        with self.renderer_client(lambda *args: rendered.append(deepcopy(args)) or 'synthetic renderer') as client:
+            for path in ['/', '/glavnaya/', '/topic/', '/karta-sajta/?q=none']:
+                self.assertEqual(client.get(path).status_code, 200)
+                page, context, canonical = rendered[-1]
+                self.assertEqual(context['pinned_release'], {'release_id': self.descriptor.release_id,
+                    'manifest_digest': self.descriptor.manifest_digest})
+                self.assertEqual(canonical, 'https://mathstart.example' + page['seo']['canonical_path'])
+                self.assertNotIn('?', canonical)
+                self.assertEqual('catalogue_full' in context, page['slug'] == 'karta-sajta')
+            self.assertEqual(rendered[0][2], 'https://mathstart.example/')
+            self.assertEqual(rendered[1][2], 'https://mathstart.example/')
+            self.assertEqual(rendered[-1][1]['catalogue_count'], 0)
+            self.assertEqual(rendered[-1][1]['catalogue_full'], self.index['catalogue'])
+
+    def test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes(self):
+        from backend.content.releases import active_release
+        from backend.infrastructure.uow import UnitOfWork
+        with UnitOfWork(self.engine) as uow:
+            release = active_release(uow, self.store, 'public')
+        rendered = []
+        with self.renderer_client(lambda *args: rendered.append(deepcopy(args)) or 'synthetic renderer') as client:
+            for query in ['q=none', 'q=miss&q=Stra%C3%9Fe&grade=unknown&ignored=x',
+                          'grade=5-klass&subject=matematika', 'q=%20STRASSE%20']:
+                self.assertEqual(client.get('/karta-sajta/?' + query).status_code, 200)
+                from starlette.datastructures import QueryParams
+                expected = release.catalogue(QueryParams(query))
+                context = rendered[-1][1]
+                self.assertEqual({k: context[k] for k in expected}, expected)
+                self.assertEqual(context['catalogue_full'], self.index['catalogue'])
+            self.assertEqual(client.get('/_content/index.json').json(), self.index)
+            body = client.get('/api/v1/content/pages/karta-sajta/').json()['data']
+            self.assertEqual(body, self.deliveries[304])
+            self.assertNotIn('catalogue_full', body)
+            self.assertNotIn('pinned_release', body)
+            self.assertEqual(client.get('/api/v1/content/renderer-context/').status_code, 404)
+            self.assertEqual(client.get('/sitemap.xml').status_code, 200)
+
+    def test_i02_catalogue_without_home_remains_available(self):
+        index = deepcopy(self.index)
+        index['pages'] = [p for p in index['pages'] if p['page_type'] != 'home']
+        index['aliases'] = []
+        self.rewrite_active_index(index)
+        rendered = []
+        with self.renderer_client(lambda *args: rendered.append(deepcopy(args)) or 'synthetic renderer') as client:
+            self.assertEqual(client.get('/karta-sajta/?q=none').status_code, 200)
+            self.assertEqual(rendered[-1][1]['catalogue_count'], 0)
+            self.assertEqual(rendered[-1][1]['catalogue_full'], index['catalogue'])
+            self.assertEqual(rendered[-1][1]['pinned_release']['manifest_digest'], self.descriptor.manifest_digest)
+            self.error(client.get('/'), 404, 'NOT_FOUND')
+            self.assertEqual(client.get('/topic/').status_code, 200)
+
+    def test_i02_renderer_mutations_cannot_change_pinned_release_index(self):
+        loaded = []
+        load = self.store.load
+        def capture(descriptor):
+            release = load(descriptor)
+            loaded.append(release)
+            return release
+        def render(page, context, canonical):
+            context['catalogue_full']['grades'][0]['title'] = 'mutated'
+            context['catalogue_full']['sections'].clear()
+            context['catalogue_topics'][0]['title'] = 'mutated topic'
+            context['catalogue_subjects'].clear()
+            context['pinned_release']['manifest_digest'] = 'f' * 64
+            return 'synthetic renderer'
+        with patch.object(self.store, 'load', side_effect=capture), self.renderer_client(render) as client:
+            self.assertEqual(client.get('/karta-sajta/').status_code, 200)
+        self.assertEqual(loaded[0].index, self.index)
+        self.assertEqual(loaded[0].descriptor, self.descriptor)
+        self.assertEqual(self.client.get('/_content/index.json').json(), self.index)
+
+    def test_i02_renderer_failure_uses_safe_existing_503(self):
+        def render(*args):
+            raise RuntimeError('PRIVATE-PATH PASSWORD SQL renderer failure')
+        with self.renderer_client(render) as client:
+            response = client.get('/karta-sajta/?q=strasse')
+            self.error(response, 503, 'SERVICE_UNAVAILABLE')
+            self.assertNotIn('PASSWORD', response.text)
+            self.assertNotIn('PRIVATE-PATH', response.text)
+
+    def test_p2_renderer_top_level_page_mutation_cannot_change_validated_release(self):
+        release = self.store.load(self.descriptor)
+        original_pages, original_index = deepcopy(release.pages), deepcopy(release.index)
+        def render(page, context, canonical):
+            self.assertEqual(context['pinned_release']['manifest_digest'], release.descriptor.manifest_digest)
+            self.assertEqual(canonical, 'https://mathstart.example/karta-sajta/')
+            page['title'] = 'MUTATED BY RENDERER'
+            return 'synthetic renderer'
+        # Reuse the very same validated object to test the boundary independently
+        # of the ordinary loader's fresh allocation on the next request.
+        with patch.object(self.store, 'load', return_value=release), self.renderer_client(render) as client:
+            self.assertEqual(client.get('/karta-sajta/').status_code, 200)
+            response = client.get('/api/v1/content/pages/karta-sajta/')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.json()['data'], original_pages[304])
+        self.assertEqual(release.pages, original_pages)
+        self.assertEqual(release.index, original_index)
+
+    def test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request(self):
+        release = self.store.load(self.descriptor)
+        original_pages, original_index = deepcopy(release.pages), deepcopy(release.index)
+        canonical_urls = []
+        identities = []
+        def render(page, context, canonical):
+            canonical_urls.append(canonical)
+            identities.append(deepcopy(context['pinned_release']))
+            page['seo']['canonical_path'] = '/mutated/'
+            page['source']['source_digest'] = 'f' * 64
+            page['assets'][0]['url'] = '/static/mutated.css'
+            page['assets'].append({**page['assets'][0], 'order': 1})
+            context['catalogue_full']['sections'].clear()
+            context['catalogue_topics'][0]['title'] = 'mutated context'
+            context['pinned_release']['release_id'] = 'foreign'
+            return 'synthetic renderer'
+        with patch.object(self.store, 'load', return_value=release), self.renderer_client(render) as client:
+            self.assertEqual(client.get('/karta-sajta/').status_code, 200)
+            response = client.get('/api/v1/content/pages/karta-sajta/')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.json()['data'], original_pages[304])
+            self.assertEqual(client.get('/karta-sajta/').status_code, 200)
+        self.assertEqual(canonical_urls, ['https://mathstart.example/karta-sajta/'] * 2)
+        self.assertEqual(identities, [{'release_id': self.descriptor.release_id,
+            'manifest_digest': self.descriptor.manifest_digest}] * 2)
+        self.assertEqual(release.pages, original_pages)
+        self.assertEqual(release.index, original_index)
+
+    def test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact(self):
+        release = self.store.load(self.descriptor)
+        original_pages, original_index = deepcopy(release.pages), deepcopy(release.index)
+        def render(page, context, canonical):
+            page['title'] = 'mutated before failure'
+            page['seo']['title'] = 'mutated nested SEO'
+            page['assets'].clear()
+            context['catalogue_full']['topics'].clear()
+            raise RuntimeError('PRIVATE-PATH PASSWORD renderer failure')
+        with patch.object(self.store, 'load', return_value=release), self.renderer_client(render) as client:
+            response = client.get('/karta-sajta/')
+            self.error(response, 503, 'SERVICE_UNAVAILABLE')
+            self.assertNotIn('PASSWORD', response.text)
+            self.assertNotIn('PRIVATE-PATH', response.text)
+            self.assertEqual(client.get('/api/v1/content/pages/karta-sajta/').json()['data'], original_pages[304])
+        self.assertEqual(release.pages, original_pages)
+        self.assertEqual(release.index, original_index)
+
+    def test_i02_release_switch_before_context_does_not_mix_r1_and_r2(self):
+        from backend.content.releases import Release, active_release
+        from backend.models.protocol import active, gate, journal
+        release_id = 'synthetic-r2'
+        root = Path(self.files.name) / release_id
+        (root / 'pages').mkdir(parents=True)
+        (root / 'assets').mkdir()
+        (root / 'assets/theme.css').write_bytes(
+            (Path(self.files.name) / self.descriptor.release_id / 'assets/theme.css').read_bytes())
+        index = deepcopy(self.index)
+        index['release_id'] = release_id
+        for kind in ['grades', 'subjects', 'sections', 'topics']:
+            index['catalogue'][kind][0]['title'] = 'R2 ' + index['catalogue'][kind][0]['title']
+        for pk, data in deepcopy(self.deliveries).items():
+            if pk == 304:
+                data['title'] = 'R2 catalogue title'
+            if pk == 302:
+                data['title'] = index['catalogue']['topics'][0]['title']
+                data['seo']['title'] = 'R2 topic title'
+            (root / f'pages/{pk}.json').write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+        raw = json.dumps(index, ensure_ascii=False).encode('utf-8')
+        (root / 'index.json').write_bytes(raw)
+        digest = sha256(raw).hexdigest()
+        provider = Release.renderer_context
+        switched = False
+        def switch_before_context(release, page, params):
+            nonlocal switched
+            if not switched:
+                switched = True
+                # Synthetic authority switch only: no production V04 publisher is invoked.
+                with self.engine.begin() as c:
+                    previous = dict(c.execute(sa.select(journal).where(
+                        journal.c.id == self.descriptor.operation_id)).mappings().one())
+                    operation_id = uuid.uuid4()
+                    previous.update(id=operation_id, release_id=release_id, manifest_digest=digest,
+                                    fence_generation=2, key_digest='4' * 64, plan_digest='5' * 64)
+                    c.execute(sa.insert(journal).values(**previous))
+                    c.execute(sa.update(gate).where(gate.c.namespace == 'public').values(fence_generation=2))
+                    c.execute(sa.update(active).where(active.c.namespace == 'public').values(
+                        operation_id=operation_id, release_id=release_id, manifest_digest=digest, fence_generation=2))
+            return provider(release, page, params)
+        rendered = []
+        with patch('backend.infrastructure.http.app.active_release', wraps=active_release) as selected, \
+             patch.object(Release, 'renderer_context', switch_before_context), \
+             self.renderer_client(lambda *args: rendered.append(deepcopy(args)) or 'synthetic renderer') as client:
+            self.assertEqual(client.get('/karta-sajta/').status_code, 200)
+            self.assertEqual(selected.call_count, 1)
+            self.assertEqual(client.get('/karta-sajta/').status_code, 200)
+            self.assertEqual(selected.call_count, 2)
+            # R1 remains valid on disk and in its committed journal. An invalid
+            # R2 must fail closed instead of falling back to that old release.
+            index_without_alias = deepcopy(index)
+            index_without_alias['aliases'] = []
+            broken = json.dumps(index_without_alias, ensure_ascii=False).encode('utf-8')
+            (root / 'index.json').write_bytes(broken)
+            with self.engine.begin() as c:
+                c.execute(sa.update(active).where(active.c.namespace == 'public').values(
+                    manifest_digest=sha256(broken).hexdigest()))
+                c.execute(sa.update(journal).where(journal.c.release_id == release_id).values(
+                    manifest_digest=sha256(broken).hexdigest()))
+            self.error(client.get('/karta-sajta/'), 503, 'SERVICE_UNAVAILABLE')
+            self.assertEqual(selected.call_count, 3)
+            self.assertEqual(len(rendered), 2)
+        self.assertEqual(rendered[0][1]['catalogue_full'], self.index['catalogue'])
+        self.assertEqual(rendered[0][0], self.deliveries[304])
+        self.assertEqual(rendered[0][1]['catalogue_topics'], self.index['catalogue']['topics'])
+        self.assertEqual(rendered[0][1]['pinned_release'], {
+            'release_id': self.descriptor.release_id, 'manifest_digest': self.descriptor.manifest_digest})
+        self.assertEqual(rendered[1][1]['catalogue_full'], index['catalogue'])
+        self.assertEqual(rendered[1][0]['title'], 'R2 catalogue title')
+        self.assertEqual(rendered[1][1]['catalogue_topics'], index['catalogue']['topics'])
+        self.assertEqual(rendered[1][1]['pinned_release'], {'release_id': release_id, 'manifest_digest': digest})
 
 
 class SQLiteHTTPTests(HTTPAssertions, unittest.TestCase):
