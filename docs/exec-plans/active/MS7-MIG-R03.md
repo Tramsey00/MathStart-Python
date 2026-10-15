@@ -362,3 +362,17 @@ CI suite rerun, owner messages, approvals, merge or Issue closure. Current input
 a359b0b unchanged. Readiness dates for scoped artifacts, full approvals, owner
 capacity and CI/rework are inputs to the next three-queue critical-path review;
 no replacement dates or queue reorder approved here. R03 remains INCOMPLETE.
+
+### I02 concrete build-input blocker — 2026-10-16
+
+Direct user clarification: verified release build-input handoff from V04 is the
+current concrete I02 build blocker. Added H-BUILD-INPUTS, owner Vladimir/V04,
+consumer Ilya/I02. Accepted R02 defines immutable index/pages/assets build
+artifact and direct validated DTO consumption. A fully activated release/active
+descriptor is not a prerequisite for SSG HTML generation. Separate input byte/
+schema/completeness/trust review, I02 HTML build/output QA and later real
+activation/publication/failure-recovery evidence. Missing active pointer must
+not block valid immutable-input build; build PASS does not imply publication PASS.
+Existing14 checks/40 parity obligations and full I02/R03 approvals unchanged;
+runtime map stays PENDING. No new delivery PASS, owner message, runtime execution,
+Task Approval, merge, Issue closure or deadline change. R03 INCOMPLETE.

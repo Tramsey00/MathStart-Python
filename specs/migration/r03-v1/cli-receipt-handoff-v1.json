@@ -49,7 +49,17 @@
       "approved_head": null,
       "approval_ids": [],
       "merge_sha": null,
-      "status": "NO_ACCEPTED_INPUT"
+      "status": "NO_ACCEPTED_INPUT",
+      "current_concrete_blocker": {
+        "id": "I02-BUILD-INPUTS",
+        "provider_task": "V04",
+        "provider_owner": "VladimirFrolov777",
+        "deliverable_id": "H-BUILD-INPUTS",
+        "status": "MISSING_VERIFIED_RELEASE_BUILD_INPUT_HANDOFF",
+        "activated_release_required": false,
+        "source": "Direct user instruction2026-10-16",
+        "not_a_claim_other_I02_gates_passed": true
+      }
     },
     "V04": {
       "issue": 37,
@@ -61,7 +71,8 @@
       "approval_ids": [],
       "merge_sha": null,
       "status": "CONTENT_CLI_HANDOFF_NOT_PROVIDED",
-      "role": "SCOPED_CLI_RENDERER_BOOTSTRAP_PUBLICATION_PROVIDER_FOR_R03; full task acceptance separately required downstream"
+      "role": "SCOPED_CLI_RENDERER_BOOTSTRAP_PUBLICATION_PROVIDER_FOR_R03; full task acceptance separately required downstream",
+      "release_build_inputs_status": "MISSING_VERIFIED_HANDOFF"
     },
     "I03": {
       "issue": 42,
@@ -360,7 +371,7 @@
       "review_criteria": "All published URLs/media/catalogue/redirect/SSG, raw HTML SEO, coherent edition, private exclusion.",
       "postgresql_receipt_required": false,
       "available_evidence": "Accepted V02 routing/metadata/read-only release observer; not live publisher/SSG proof.",
-      "remaining_deliverable": "V04 target check_site_integrity plus real I02 full URL/index/SEO/no-private build and publisher active/db/pending probes; real missing/unpublished/redirect/media/digest/mixed-release failures. V05 gateway handoff only where provider-specific cache/active-pointer behavior is tested.",
+      "remaining_deliverable": "V04 target check_site_integrity plus real I02 full URL/index/SEO/no-private build and publisher active/db/pending probes; real missing/unpublished/redirect/media/digest/mixed-release failures. V05 gateway handoff only where provider-specific cache/active-pointer behavior is tested. Report pre-activation input/HTML checks separately from later actual active-public consistency and publication/recovery checks; the latter are still mandatory for those claims.",
       "remaining_owner": "VladimirFrolov777 V04/V02; 13baybars I02; Tramsey00 composition",
       "external_handoff_ids": [
         "H-CLI",
@@ -375,7 +386,12 @@
         "V04"
       ],
       "full_v04_task_approval_required_by_r03_card": false,
-      "full_i03_task_approval_required_by_r03_card": false
+      "full_i03_task_approval_required_by_r03_card": false,
+      "phase_scope": [
+        "BUILD_INPUT_VALIDATION",
+        "SSG_HTML_BUILD",
+        "ACTIVATION_PUBLICATION"
+      ]
     },
     {
       "check_id": "backend-tests",
@@ -433,7 +449,11 @@
         "S17"
       ],
       "full_v04_task_approval_required_by_r03_card": false,
-      "full_i03_task_approval_required_by_r03_card": false
+      "full_i03_task_approval_required_by_r03_card": false,
+      "phase_scope": [
+        "CURRENT_RUNTIME_TESTS",
+        "APPLICABLE_ACTIVATION_PUBLICATION"
+      ]
     },
     {
       "check_id": "fresh-install",
@@ -473,7 +493,7 @@
       "review_criteria": "Alembic zero plus full bootstrap twice, unchanged user evidence, media/assets and frontend build on owned empty PG16.",
       "postgresql_receipt_required": true,
       "available_evidence": "Accepted V01 schema-only fresh×2; not target bootstrap/assets/rendered-public-release smoke.",
-      "remaining_deliverable": "Owned empty PG16, V01 Alembic zero + V04 real bootstrap twice/no user evidence overwrite, deterministic source/render/media and I02 full build/active-release checks; failures and teardown. Pin exact commands/envs/locks and receipt, no fixture-only publication.",
+      "remaining_deliverable": "Owned empty PG16, V01 Alembic zero + V04 real bootstrap twice/no user evidence overwrite, deterministic source/render/media and I02 full build/active-release checks; failures and teardown. Pin exact commands/envs/locks and receipt, no fixture-only publication. Report pre-activation input/HTML checks separately from later actual active-public consistency and publication/recovery checks; the latter are still mandatory for those claims.",
       "remaining_owner": "Tramsey00 composition; VladimirFrolov777 V01/V04; 13baybars I02 build",
       "external_handoff_ids": [
         "H-CLI",
@@ -489,7 +509,12 @@
         "V04"
       ],
       "full_v04_task_approval_required_by_r03_card": false,
-      "full_i03_task_approval_required_by_r03_card": false
+      "full_i03_task_approval_required_by_r03_card": false,
+      "phase_scope": [
+        "BUILD_INPUT_VALIDATION",
+        "SSG_HTML_BUILD",
+        "ACTIVATION_PUBLICATION"
+      ]
     },
     {
       "check_id": "upgrade-A",
@@ -707,13 +732,14 @@
       "review_criteria": "Terminating nonempty zero-skip foundation plus owner I02 page/SSG/staff read tests.",
       "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
       "available_evidence": "112 I01 foundation tests+5 dispatcher PASS; not real I02/I03 UI acceptance.",
-      "remaining_deliverable": "Terminating I02 public/staff read/SEO/SSG/component/contract tests via npm run test; I03 scoped lifecycle/script-family assertions when lessons are tested. No mock-only real delivery claim; full account/forms/cross-browser acceptance belongs I04/I05.",
+      "remaining_deliverable": "Terminating I02 public/staff read/SEO/SSG/component/contract tests via npm run test; I03 scoped lifecycle/script-family assertions when lessons are tested. No mock-only real delivery claim; full account/forms/cross-browser acceptance belongs I04/I05. Separate input-integrity negatives and HTML-output cases from subsequent runtime activation/publication cases; offline immutable-input build tests require no active release.",
       "remaining_owner": "13baybars I02/I03; Tramsey00 observer",
       "external_handoff_ids": [
         "H-I02",
         "H-I02-RENDER",
         "H-I03",
-        "H-ENV"
+        "H-ENV",
+        "H-BUILD-INPUTS"
       ],
       "requirement_refs": [
         "S8",
@@ -722,7 +748,12 @@
         "I03"
       ],
       "full_v04_task_approval_required_by_r03_card": false,
-      "full_i03_task_approval_required_by_r03_card": false
+      "full_i03_task_approval_required_by_r03_card": false,
+      "phase_scope": [
+        "BUILD_INPUT_VALIDATION",
+        "SSG_HTML_BUILD",
+        "APPLICABLE_RUNTIME_TESTS"
+      ]
     },
     {
       "check_id": "frontend-build",
@@ -756,12 +787,12 @@
       "review_criteria": "Full published SSG/raw HTML/metadata/assets/release digest; no private prerender or secret fixtures.",
       "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
       "available_evidence": "I01 production build/security guards/audit PASS, not complete publisher-driven full content build.",
-      "remaining_deliverable": "I02 exact complete public manifest/renderer build with body/metadata/no-JS/private exclusion and source/render/asset/release digest binding; consume V04 deterministic renderer. I03 script descriptors are required where used, not a full-I03 approval prerequisite solely to compile.",
+      "remaining_deliverable": "Receive independently verified V04 immutable release index/pages/assets H-BUILD-INPUTS, then I02 generates complete public HTML/SEO/no-JS/private-exclusion build with input/output and asset/release digest binding. Direct immutable reads are allowed; no active pointer/fully activated release is needed before SSG build. V04 source renderer/golden quality obligations remain separate R03 checks.",
       "remaining_owner": "13baybars I02 build; VladimirFrolov777 source renderer; Tramsey00 CI",
       "external_handoff_ids": [
         "H-I02",
+        "H-BUILD-INPUTS",
         "H-I02-RENDER",
-        "H-RENDER",
         "H-ENV"
       ],
       "requirement_refs": [
@@ -770,7 +801,12 @@
         "I02"
       ],
       "full_v04_task_approval_required_by_r03_card": false,
-      "full_i03_task_approval_required_by_r03_card": false
+      "full_i03_task_approval_required_by_r03_card": false,
+      "phase_scope": [
+        "BUILD_INPUT_VALIDATION",
+        "SSG_HTML_BUILD"
+      ],
+      "activation_required_before_build": false
     },
     {
       "check_id": "frontend-e2e",
@@ -807,7 +843,7 @@
       "review_criteria": "Real browser/API cases, complete URL manifest/SEO/staff security; documented service lifecycle and owned ports.",
       "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
       "available_evidence": "No test:e2e script/real I02 service lifecycle on accepted a359b0b; source compatibility review only.",
-      "remaining_deliverable": "I02 terminating locked Playwright real API/public/staff-read smoke and one-origin startup/health/stop with raw DOM/network/console/screenshots. I03 representative lesson/each script-family verified lifecycle evidence where claimed; V03 session provider if actual login needed. Full I04 account matrix/I05 cross-browser remains later gates.",
+      "remaining_deliverable": "I02 terminating locked Playwright real API/public/staff-read smoke and one-origin startup/health/stop with raw DOM/network/console/screenshots. I03 representative lesson/each script-family verified lifecycle evidence where claimed; V03 session provider if actual login needed. Full I04 account matrix/I05 cross-browser remains later gates. Staging/immutable-build browser checks and actual active-publication behavior have separate receipts; no false activation PASS from successful static serving.",
       "remaining_owner": "13baybars I02/I03 tests; VladimirFrolov777 runtime/session provider; Tramsey00 service composition",
       "external_handoff_ids": [
         "H-I02",
@@ -935,8 +971,8 @@
     {
       "id": "CLI-G04",
       "owner": "13baybars / I02/I03; VladimirFrolov777 runtime where applicable",
-      "finding": "No accepted I02 or real test:e2e/service/renderer handoff in R03. Source compatibility8256cbf/47baaa9 is not full pipeline acceptance.",
-      "closure": "H-I02 and scoped renderer/lifecycle/origin handoffs; real browser/API evidence on exact combined checkout.",
+      "finding": "Current concrete I02 build blocker: verified V04 immutable release index/pages/assets handoff is missing. Full I02/real test:e2e/service/renderer acceptance still pending; activated release is not a prerequisite for SSG HTML build.",
+      "closure": "H-BUILD-INPUTS verified first, then I02 SSG HTML build/output validation, then applicable serving/browser and later activation/publication checks; retain all other R03 gates.",
       "status": "I02_ACCEPTANCE_AND_RUNTIME_HANDOFF_PENDING"
     },
     {
@@ -1113,6 +1149,24 @@
       "section": "§16 I06 HARD I05, INTEGRATION V06",
       "line": 1644,
       "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1644"
+    },
+    "R02-BUILD-INPUT": {
+      "section": "Public build contract index/page schemas and immutable file artifact, distinct active/immutable paths",
+      "path": "specs/migration/r02-v1/public-build-contract-v1.json",
+      "line": 4,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/public-build-contract-v1.json#L4"
+    },
+    "R02-DIRECT-DTO": {
+      "section": "Publisher/build consumers use validated ContentDelivery DTO directly",
+      "path": "specs/migration/r02-v1/content-v1.md",
+      "line": 6,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/content-v1.md#L6"
+    },
+    "R02-STAGING": {
+      "section": "Stage complete HTML/assets before DB_COMMITTED/ACTIVATING",
+      "path": "specs/migration/r02-v1/content-v1.md",
+      "line": 76,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/content-v1.md#L76"
     }
   },
   "external_handoffs": [
@@ -1122,7 +1176,7 @@
       "owner": "13baybars",
       "kind": "FORMAL_ACCEPTED_INTEGRATION",
       "deliverable": "Accepted exact-SHA public/current staff read pages and complete public SSG/SEO/release manifest, real delivery/browser suite, startup-health-stop; Ruslan UX/integration and Vladimir API/security approvals plus merge receipt.",
-      "acceptance": "Full I02 Task Approval and integration receipt required by R03 card; producer8256cbf/consumer47baaa9 source review is insufficient.",
+      "acceptance": "Full I02 Task Approval and integration receipt required by R03 card; producer8256cbf/consumer47baaa9 source review is insufficient. Current concrete build blocker is H-BUILD-INPUTS from V04; this does not assert the other I02 acceptance gates have passed.",
       "refs": [
         "R03",
         "I02",
@@ -1164,16 +1218,39 @@
       "status": "HANDOFF_NOT_IN_ACCEPTED_INPUT"
     },
     {
+      "id": "H-BUILD-INPUTS",
+      "task": "MS7-MIG-V04",
+      "owner": "VladimirFrolov777",
+      "consumer_task": "MS7-MIG-I02",
+      "consumer_owner": "13baybars",
+      "kind": "VERIFIED_IMMUTABLE_RELEASE_BUILD_INPUT_HANDOFF",
+      "deliverable": "Pinned producer/source SHA and immutable release root/archive with index.json (PublicBuildIndex), every referenced pages/<id>.json (ContentDelivery) and all referenced assets at bounded exact paths; release_id, complete inventory and independently verified file/manifest digests, source/render/asset identities, schema/trust/private-export checks, restoration/read instructions, positive/negative raw evidence and scoped reviewer/consumer receipt.",
+      "acceptance": "Builder may directly read the verified immutable index/pages/assets or pinned immutable release paths. A fully activated release, active descriptor/index endpoint, production gateway, DB/publication COMPLETE or full V04 Task Approval is not a prerequisite for I02 SSG build. Missing verified bytes/bindings/schema/completeness remains a build-input blocker.",
+      "refs": [
+        "R02-BUILD-INPUT",
+        "R02-DIRECT-DTO",
+        "R02-STAGING",
+        "I02"
+      ],
+      "status": "MISSING_VERIFIED_HANDOFF",
+      "activated_release_required": false,
+      "authority": "Direct user clarification2026-10-16; accepted R02 build artifact/direct DTO/staging contracts",
+      "handoff_is_not_publication_approval": true
+    },
+    {
       "id": "H-I02-RENDER",
       "task": "MS7-MIG-I02",
       "owner": "13baybars",
       "kind": "SCOPED_HANDOFF_WITHIN_FORMAL_I02_GATE",
-      "deliverable": "Renderer/build callable or terminating CLI with pinned release identity, complete public index/pages/assets and producer/consumer binding; raw HTML title/body/canonical/OG/lang, safe404/503 and no private export; production-like one-origin start/health/stop and browser receipts.",
-      "acceptance": "Scoped interface review enables independent wiring; R03 completion still requires full accepted I02 via H-I02.",
+      "deliverable": "Callable/terminating SSG HTML builder consuming H-BUILD-INPUTS directly from one pinned immutable index/pages/assets root, independent of active pointer/activation. Verify complete raw HTML body/title/meta/canonical/OG/lang/no-JS, aliases/redirects/404, private exclusion and source/input/output digest/producer-consumer binding. Serving/real-browser start-health-stop evidence remains separate from offline build.",
+      "acceptance": "Verified build inputs enable SSG HTML generation before activation/publication. Scoped builder interface/output review is not full I02 approval; public active-release consistency is checked in its later runtime phase.",
       "refs": [
         "I02",
         "S8",
-        "S9"
+        "S9",
+        "R02-BUILD-INPUT",
+        "R02-DIRECT-DTO",
+        "R02-STAGING"
       ],
       "status": "ONLY_SOURCE_COMPATIBILITY_REVIEW_RECORDED"
     },
@@ -1207,7 +1284,7 @@
       "owner": "VladimirFrolov777",
       "kind": "SCOPED_VERIFIED_FUNCTIONAL_HANDOFF",
       "deliverable": "Real staged release/journal/bootstrap/activation runner compatible with I02/I03 renderer. Durable pending/fence/CAS, immutable plan, idempotency/conflict/multi-connection tests, pre/postcommit/activation/ack/cache failure and recovery, active/db/pending observable states, scoped cleanup, fresh bootstrap twice.",
-      "acceptance": "Mandatory real behavior for applicable fresh/site-integrity/content/backend cases; readonly V02 observer or R02 synthetic state machine cannot substitute. R03 card does not require whole V04 approval, but missing functional behavior still blocks applicable checks.",
+      "acceptance": "Mandatory real behavior for applicable fresh/site-integrity/content/backend cases; readonly V02 observer or R02 synthetic state machine cannot substitute. R03 card does not require whole V04 approval, but missing functional behavior still blocks applicable checks. Activation/publication follows verified build inputs and SSG HTML output; it is not an earlier prerequisite for producing those outputs. Build PASS never implies activation/publication PASS.",
       "refs": [
         "S6",
         "S8",
@@ -1306,7 +1383,8 @@
     "no_coverage_waiver": "Missing actual CLI/bootstrap/renderer/lifecycle/activation/identity behavior blocks the assertions it supplies. Full target cannot be called PASS by excluding them or converting missing tools to skips.",
     "handoff_trust": "Pin exact source/producer/consumer SHA and code/locks/inventory digests, scope/reviewer decision, real results and side effects. Human approval/merge required where claimed; isolated reviewed artifact consumption does not authorize early integration or whole task acceptance.",
     "availability_rule": "If owner does not provide a separately verified artifact before completing its task, actual R03 delivery may wait for that task. This is availability/queue dependence, not an invented HARD edge.",
-    "later_task_gate_rule": "Full V04/I03 acceptance remains required for the canonical downstream tasks listed in the copied accepted dependency graph; command handoff cannot replace those task receipts."
+    "later_task_gate_rule": "Full V04/I03 acceptance remains required for the canonical downstream tasks listed in the copied accepted dependency graph; command handoff cannot replace those task receipts.",
+    "build_input_clarification": "For I02 SSG build, accepted R02 permits direct verified immutable index/pages/assets consumption; a fully activated release is not a prerequisite. Separate input validation, HTML generation and later activation/publication receipts; all other R03 checks remain mandatory."
   },
   "canonical_dependency_graph": [
     {
@@ -1686,6 +1764,7 @@
       "S11Q"
     ],
     "required_next_round": [
+      "separate dates for verified V04 immutable release build inputs -> I02 HTML build/output review -> later activation/publication; do not wait for an activated release to start SSG build",
       "per-owner earliest artifact readiness dates for H-CLI/H-RENDER/H-PUBLISH/H-I02/H-I03/H-V03, distinguishing reviewed artifact from full Task Approval/integration",
       "remaining implementation vs review/CI/rework duration and daily human capacity in all three queues",
       "agreed handling of early scoped handoffs without silent task reorder",
@@ -1934,5 +2013,57 @@
     },
     "consumer_review": "Human-confirmed8256cbf/47baaa9 source compatibility only; no full I02 acceptance or discarded review from missing branch ref",
     "source_hashes_and_raw_context": "docs/acceptance/MS7-MIG-R03/dependency-chain-20261016.json"
-  }
+  },
+  "build_release_phases": [
+    {
+      "id": "BUILD_INPUT_VALIDATION",
+      "provider_task": "V04",
+      "owner": "VladimirFrolov777",
+      "consumer": "I02 / 13baybars",
+      "current_status": "BLOCKED_MISSING_VERIFIED_HANDOFF",
+      "required_handoff": "H-BUILD-INPUTS",
+      "checks": [
+        "producer/source/release identity and independently reviewed inventory/digests",
+        "PublicBuildIndex/ContentDelivery closed schemas, complete published page/alias/catalogue/redirect/system URL inventory",
+        "every referenced page/asset present at exact bounded path, actual byte hashes and source/render/asset identities match, private exports excluded",
+        "missing page/asset, invalid DTO, changed bytes, mixed roots/release or path escape fails before build"
+      ],
+      "active_release_required": false,
+      "receipt": "Input verification/consumer intake on exact bytes, case/raw evidence and digests; not a publication approval"
+    },
+    {
+      "id": "SSG_HTML_BUILD",
+      "owner": "13baybars / I02",
+      "depends_on": [
+        "BUILD_INPUT_VALIDATION"
+      ],
+      "current_status": "PENDING_VERIFIED_INPUT_AND_HTML_BUILD_EVIDENCE",
+      "input_mode": "Direct read of one immutable index/pages/assets root or pinned immutable release paths; no DB/current-active pointer dependence",
+      "checks": [
+        "complete public raw HTML body/title/meta/canonical/OG/lang/no-JS and existing styles",
+        "aliases/redirects/404/robots/sitemap/catalogue and asset references preserved; no private output",
+        "pin source/producer/consumer/input/output digests and build toolchain",
+        "no active descriptor can still permit build from verified immutable inputs; changing active pointer must not retarget pinned build",
+        "invalid input/render error returns nonzero; successful build is not activation/publication success"
+      ],
+      "active_release_required": false,
+      "receipt": "Separate build argv/version/exit/input/output inventory and QA evidence; no automatic publication"
+    },
+    {
+      "id": "ACTIVATION_PUBLICATION",
+      "owner": "VladimirFrolov777 / V04; I02/I03 renderer consumers and V05 gateway where applicable",
+      "depends_on": [
+        "SSG_HTML_BUILD"
+      ],
+      "current_status": "SEPARATE_PENDING_PUBLICATION_EVIDENCE",
+      "checks": [
+        "durable plan/journal/pending/fence/PG-CAS and DB-to-active consistency",
+        "publish/unpublish active HTML/catalogue/sitemap/redirect and warmed cache behavior",
+        "before/after commit/activation failures, lost ack, interrupted recovery, stale concurrent release, scoped cleanup",
+        "full applicable site-integrity/fresh-install/backend/runtime checks retain their required cases"
+      ],
+      "receipt": "Separate actual activation/publication/recovery evidence; stage1/2 PASS cannot confer this PASS"
+    }
+  ],
+  "validation_record": "docs/acceptance/MS7-MIG-R03/build-input-validation-20261016.json"
 }

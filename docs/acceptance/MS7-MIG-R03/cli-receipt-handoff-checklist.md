@@ -16,6 +16,11 @@ squash a359b0b / parent0c03197 / равенство дерева74c30145 с appr
 8256cbf/47baaa9 не принимает полный I02 pipeline. Принятые service/locks/tests
 V02 доступны; root CLI/receipt adapters ещё требуют review. I02 и применимый
 V04 CLI, полная композиция и независимые R03 approvals остаются pending.
+Конкретный текущий внешний блокер I02 — **H-BUILD-INPUTS: verified release
+build-input handoff от V04/Владимира**. I02 может напрямую читать проверенные
+immutable index/pages/assets; ждать fully activated release для SSG build
+не требуется. Build-input validation, HTML build и activation/publication
+разделены ниже; остальные обязательные checks R03 сохранены.
 Исторические совместные I01/V01 successful CI receipts сохранены
 в [текущем handoff](accepted-integration-ci-20261012.md).
 
@@ -87,11 +92,62 @@ accepted V02 не принят. Наличие у Ильи consumer47baaa9 по�
 отсутствие этого SHA среди branch refs не отменяет source review и не доказывает
 полную готовность I02. Проверяется только доступный R03 intake.
 
-В таблицах **handoff** означает конкретный исполняемый артефакт с exact SHA,
-digest/lock/case inventory, областью независимого review, реальными positive/
-negative results и env/start/health/stop/cleanup. Название команды, JSON schema,
+В таблицах **handoff** означает конкретный проверяемый артефакт: команда/renderer
+либо непосредственно читаемый immutable build input, с exact SHA, digest/inventory,
+областью независимого review и реальными positive/negative results. Для команд и
+services дополнительно нужны locks/env/start/health/stop/cleanup. Название команды, JSON schema,
 synthetic fixture, отчёт с общим count и source compatibility review не заменяют
 такой артефакт. Handoff не принимает всю задачу и не разрешает её ранний merge.
+
+### Текущий конкретный блокер I02: H-BUILD-INPUTS от V04
+
+Зафиксировано по прямому уточнению пользователя2026-10-16:
+**verified release build-input handoff от V04 не получен/не проверен в R03**.
+Владелец передачи — Владимир/V04; потребитель — Илья/I02.
+Это запись о недостающем конкретном входе, без заявления, что остальные gates
+I02 уже пройдены.
+
+R02 допускает прямое потребление validated DTO сборщиком ([content-v1, строка6][DIRECTDTO])
+и определяет файловый build artifact index.json + pages/<id>.json отдельно от
+active endpoint ([public-build contract, строки4–8][BUILDINPUT]).
+Поэтому **полный активированный release не является предварительным условием
+SSG build I02**. Immutable input должен быть полным и проверенным; его не нужно
+предварительно активировать. Последовательность R02 сначала staging HTML/assets,
+затем DB_COMMITTED/ACTIVATING/ACTIVATED ([publication sequence][STAGING]).
+
+| Фаза | Владелец / необходимый вход | Что проверяется и сохраняется | Текущий статус |
+| --- | --- | --- | --- |
+|1. Build inputs | Владимир/V04 → Илья/I02, review exact handoff | Immutable root/archive: index.json по PublicBuildIndex, все referenced pages/<id>.json по ContentDelivery и все referenced assets; producer/source SHA, release_id, inventory/digests, actual bytes/schema/completeness/trust/path/private-export checks. | **BLOCKED: H-BUILD-INPUTS не передан verified**. Active descriptor/active index/полная activation не нужны. |
+|2. SSG HTML build | Илья/I02, проверенный вход фазы1 | Прямое чтение одного закреплённого immutable index/pages/assets; все public HTML/body/head/SEO/no-JS, catalogue/aliases/redirects/404/sitemap/robots/assets, private exclusion. Отдельные toolchain/argv/exit/input/output digests и build QA. | **PENDING: verified inputs и принятый build evidence**. Полная activation не является входом. |
+|3. Activation/publication | Владимир/V04; I02/I03 renderer, V05 gateway где применимо; готовый output фазы2 | DB/journal/pending/fence/PG-CAS, active index/public URLs/catalogue/sitemap/cache, publish/unpublish freshness и failures/recovery/cleanup. Отдельный runtime receipt. | **Отдельный pending gate**; build PASS не даёт publication PASS. |
+
+Checklist verified input handoff:
+
+- [ ] Exact producer/source SHA и immutable root либо архив с inventory и
+  воспроизводимым чтением/восстановлением; consumer source SHA фиксируется отдельно.
+- [ ] Полные index/pages/assets и release identity; hashes/размеры переданных
+  bytes независимо сверены с reviewed handoff pins, без автоматического принятия
+  пересчитанных candidate pins. Companion inventory допустим; frozen DTO/schema
+  не получают выдуманное обязательное поле.
+- [ ] Index/ContentDelivery schemas, IDs/aliases/catalogue/redirect/system URL
+  completeness, source/render/asset identity, trust/private export и bounded paths
+  проверены. Runtime serving inputs и build source bytes не смешиваются.
+- [ ] Missing referenced page/asset, invalid DTO/hash, изменение bytes,
+  mixed release/root и path escape дают failure до сборки.
+- [ ] Положительная проверка: при отсутствии active descriptor/index проверенный
+  immutable input всё равно пригоден для SSG build. Изменение active pointer
+  во время build не переключает закреплённые input bytes.
+- [ ] HTML generation и staging QA имеют собственный receipt; invalid input/render
+  failure не запускает publication. Последующий activation failure сохраняется
+  своим failure/recovery evidence и не переименовывается в build failure.
+- [ ] Проверки actual activated public serving выполняются в фазе3. До неё нет
+  publication approval или фиктивного ACTIVE/COMPLETE.
+
+Проверенный immutable build artifact может быть достаточным входом I02 без
+установки executable V04 source renderer в процесс SSG. Отдельные обязательные
+R03 source/quality/golden renderer/CLI/bootstrap/publication проверки сохраняются
+у своих владельцев; они не переносятся в prerequisites этого build.
+Полная V04/I03 приёмка и их поздние task-level зависимости также не меняются.
 
 ### Где требуется полная приёмка задачи
 
@@ -122,7 +178,8 @@ IDs ниже совпадают с external_handoffs машинного checklis
 | H-I02 | I02 #41, Илья; approvals Руслан UX/integration + Владимир API/security | Полный current public/staff-read page/SSG результат, published manifest и real browser/API evidence; exact approved head, оба reviews, merge SHA/parent/tree. Source review8256cbf/47baaa9 этого не закрывает. [I02][I02], [R03][R03]. |
 | H-CLI | V04 #37, Владимир; root review Руслан | Все7 target CLI из таблицы ниже: точные Python paths/options/env/exit semantics, права/side effects и bounded cleanup;263 sources; проверенные dry-run/rollback/negative cases. Нужен исполняемый CLI handoff, не whole V04 approval. [§8][S8], [§9][S9], [V04][V04]. |
 | H-RENDER | V04, Владимир; consumer Илья | Deterministic Django-independent source/component renderer,263 inventory и source/render/runtime hashes, golden HTML/math/SVG,97 CSS/7 local JS references, closed trusted export и corruption/missing-input failures. Source preservation и legacy comparison уже есть, target renderer из них не следует. [V04 scope1][V04], [CONTENT-01/03][R02MATRIX]. |
-| H-I02-RENDER | I02, Илья; backend context Владимир | Callable/CLI public renderer/build, pinned release/page/catalogue identity, полный index/pages/assets, raw body/title/meta/canonical/OG/lang/no-JS, safe404/503/private exclusion; exact producer/consumer binding и lifecycle services. Нужен verified executable handoff; полная I02 приёмка отдельно обязательна. [I02][I02], [public build contract][BUILD]. |
+| H-BUILD-INPUTS | V04, Владимир → I02, Илья | Текущий конкретный блокер: verified immutable index/pages/assets root/archive, exact source/release/inventory/digests, schema/completeness/trust/path/bytes review и consumer intake. Activation и active endpoint не prerequisites. [Build artifact][BUILDINPUT], [direct DTO][DIRECTDTO]. |
+| H-I02-RENDER | I02, Илья; backend context Владимир | SSG HTML builder напрямую читает H-BUILD-INPUTS из одного immutable root, фиксирует input/output identity/digests и полный raw body/head/SEO/no-JS/private exclusion. Отдельно serving/browser lifecycle и последующая activation; полная I02 приёмка остаётся обязательной. [I02][I02], [build artifact][BUILDINPUT], [staging][STAGING]. |
 | H-I03 | I03 #42, Илья; review Руслан/Владимир по зонам | LessonHost interface, весь263/97/7+shared inventory, для каждой script family mount/dispose либо tested full-document navigation; remount/back-forward/resize/CSS/listener cleanup, trusted math/SVG и applicable golden fixtures360/768/1440. Проверенный handoff закрывает свою часть checks; full I03 receipt нужен для V04/R04/V05/I05. [§8][S8], [I03][I03]. |
 | H-PUBLISH | V04, Владимир; renderer consumers I02/I03 | Реальный bootstrap twice и publish/unpublish stage/journal/activation/recovery: frozen plan, pending/fence/PG-CAS, conflicts/multi-connection, pre/postcommit/render/activation/ack/cache failure, active/db/pending probes и scoped cleanup. V02 read-only observer и R02 model не являются writer/runtime evidence. [§8][S8], [V04][V04], [PUB-01/PROTOCOL-P1][R02MATRIX]. |
 | H-V03 | V03 #36, Владимир; root/runtime review Руслан | Для соответствующих current system/backend assertions:7 identity operations, sessions/CSRF/Host-Origin/hash/rate/receipt/replay/staff-write target PG tests, exact locks/cases и безопасный test-session setup. Full V03 не добавляется как R03 task gate; runtime-заявления нельзя закрыть только V02 read tests или pure R02A. Реальная login-сессия нужна и browser flow, если он заявлен. [§7][S7], [§9][S9], [§17][S17], [V03][V03]. |
@@ -150,7 +207,7 @@ MATHSTART_CHECK_RESULT/command map заполнен. Для строк с гот
 | upgrade-C | Принятый V01 Владимир; Руслан | Profile C PASS существует; UUID/roles/receipts/pending preservation и root receipt. Это не доказательство реального V03/V06 session/receipt cutover. | H-ENV; [§6][S6], [§17][S17]. |
 | frontend-typecheck | I02 Илья; Руслан CI | I01 generation/pins/typecheck PASS; прогон на accepted I02 routes/renderer/types и новом combined SHA. | H-I02/H-ENV; [I02][I02], [§9][S9]. |
 | frontend-tests | I02/I03 Илья; Руслан observer | Вместо только112 foundation/5 dispatcher: terminating page/SSG/staff-read и applicable script-family/lifecycle cases, no mock-only real API claim. | H-I02/H-I02-RENDER/H-I03/H-ENV; [I02][I02], [I03][I03]. |
-| frontend-build | I02 Илья; V04 renderer Владимир | Production build foundation PASS; нужен полный public content/SEO/no-JS build, trusted render/asset/release digests и private-data guards. Whole I03 approval не является условием простой компиляции. | H-I02/H-I02-RENDER/H-RENDER/H-ENV; [§8][S8], [I02][I02]. |
+| frontend-build | I02 Илья; V04 build inputs Владимир | Production foundation PASS; получить verified immutable inputs, затем полный HTML/SEO/no-JS build с input/output/asset/release digests и private guards. Active release и установка executable V04 source renderer не prerequisites этой сборки; R03 renderer-quality obligations отдельно сохранены. | H-BUILD-INPUTS/H-I02/H-I02-RENDER/H-ENV; [BUILDINPUT][BUILDINPUT], [DIRECTDTO][DIRECTDTO], [I02][I02]. |
 | frontend-e2e | I02/I03 Илья; runtime Владимир; composition Руслан | test:e2e отсутствует наa359b0b. Нужны locked terminating browser/API/public/staff-read smoke, реальный startup/health/stop; applicable LessonHost regressions и реальные session provider если тест требует login. | H-I02/H-I02-RENDER/H-I03/H-ORIGIN/H-ENV; [§9][S9], [I02][I02]. |
 
 Компиляция/статический source audit не требуют выполнения всей LessonHost
@@ -174,6 +231,7 @@ gates ниже остаются обязательными для финальн
 | Ветка цепочки | Тип и смысл | Что можно планировать отдельно |
 | --- | --- | --- |
 | accepted V02 + accepted I01 → I02 → R03 | I02 — формальный INTEGRATION R03; V02/I01 уже приняты. | Дата renderer/SSG interface review отдельно от полного I02 approval+integration. |
+| V04 verified immutable build inputs → I02 HTML build → поздняя activation/publication | Артефактный порядок, не ожидание full V04/activated release до I02. | Раздельные readiness dates/receipts: input validation, build output, actual publication. [R02][BUILDINPUT], [staging][STAGING]. |
 | I02 → I03 → V04 | I03 HARD I02; V04 HARD V02 и INTEGRATION I03. | Scoped LessonHost/renderer handoff для R03 может иметь собственный проверенный SHA; full I03 receipt всё равно нужен, чтобы принять V04. |
 | V03 → V04 в очереди Владимира | Порядок личной очереди, **не новый HARD V03→V04**. V03 также provider current identity checks. | Подготовка по контрактам может идти параллельно. Раннюю implementation/передачу вне порядка нельзя молча предположить; согласовать это в следующем capacity плане. |
 | I03 → I04 в очереди Ильи; V03+V02 → I04 по карточке | Личная очередь и INTEGRATION; I04 HARD I01, **не новый HARD I03**. | I04 account/staff forms и browser runtime остаются поздним продуктовым scope, не условием существующего V02 approval. |
@@ -217,11 +275,13 @@ R03 до готовности частей I03/V04, даже если full Task 
 [§11][S11] требует новый прогноз при неготовности CI/review; [§11.1][S11Q]
 сохраняет личные очереди и включает человеческое review/integration в deadline.
 
-Для каждого H-I02/H-CLI/H-RENDER/H-I03/H-PUBLISH/H-V03 нужны отдельно:
+Для каждого H-BUILD-INPUTS/H-I02/H-CLI/H-RENDER/H-I03/H-PUBLISH/H-V03 нужны отдельно:
 дата exact-SHA executable handoff, время независимого review/исправлений,
 дата полного Task Approval и дата integration. Дополнительно нужны доступность
 Руслана/Владимира/Ильи, длительности CI/retry и slot для обоих R03 approvers.
 Ранний scoped artifact и complete task нельзя ставить одной датой по умолчанию.
+Текущий build path: verified V04 inputs → I02 HTML generation/QA; activation
+планируется после готового HTML, не до передачи inputs или начала SSG build.
 
 Кандидаты на фактическую цепочку R03: accepted I02 + готовность CLI/renderer/
 bootstrap/publication/lesson artifacts + review общей10/4 композиции →
@@ -418,12 +478,15 @@ R03 §17 index охватывает R01/R03/MS6-R04/MS6-V01/R02A/R03A с исх�
 Issues34/40 остаются OPEN до final main integration; merge/Issue closure в этом
 handoff не выполняются.
 
-Документационная сверка2026-10-16: [source snapshot](dependency-chain-20261016.json)
+Историческая документационная сверка на46ac5f1: [source snapshot](dependency-chain-20261016.json)
 и [validation report](dependency-chain-validation-20261016.json). Проверены14
 checks,10 handoffs,40 parity rows,18 canonical nodes и отдельные resource edges,
 source line links и неизменность95 ранее сохранённых artifact files.
 Runtime suites/CI вручную не запускались; operational map остаётся PENDING.
 Карта требует owner review, не выдаёт approval и не меняет дедлайны.
+Текущее уточнение build inputs: [verification](build-input-validation-20261016.json)
+проверяет11 handoffs и раздельные input/build/activation phases; прежний report
+с10 handoffs сохранён как evidence версии46ac5f1.
 
 [S3]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L56
 [S6]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L80
@@ -448,6 +511,9 @@ Runtime suites/CI вручную не запускались; operational map о
 [R02MATRIX]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/parity-matrix-v1.json
 [DAG]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/dependency-policy-v1.json
 [BUILD]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/public-build-contract-v1.json
+[BUILDINPUT]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/public-build-contract-v1.json#L4
+[DIRECTDTO]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/content-v1.md#L6
+[STAGING]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/content-v1.md#L73
 [S4]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L58
 [R05]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L582
 [R06]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L664

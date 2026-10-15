@@ -10,6 +10,15 @@ MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.
 R01/R02 accepted integration facts and external owner receipt remain authoritative;
 historical PENDING snapshots are retained.
 
+Current2026-10-16 I02 build blocker clarification:
+**Verified release build-input handoff from Vladimir/V04 is missing**.
+[Existing checklist](cli-receipt-handoff-checklist.md) now names H-BUILD-INPUTS:
+verified immutable index/pages/assets may be read directly by I02 SSG builder.
+No fully activated release/active index is required before build. Input validation,
+HTML build and later activation/publication have separate receipts/statuses.
+All other R03 CLI/quality/fresh/PG/browser/publication checks and full I02 gate
+remain. Inputa359b0b and accepted/historical receipts unchanged; R03 INCOMPLETE.
+
 Current2026-10-16 dependency preparation:
 [Expanded existing CLI/receipt checklist](cli-receipt-handoff-checklist.md)
 maps all14 missing generic-dispatch checks, concrete owners/artifacts and complete
