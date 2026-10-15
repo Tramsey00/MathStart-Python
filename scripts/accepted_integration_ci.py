@@ -8,7 +8,7 @@ import subprocess
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = ROOT / "specs/migration/r03-v1/accepted-integration-20261012.json"
+CONFIG = ROOT / "specs/migration/r03-v1/accepted-integration-20261015.json"
 MIG_BASE_SHA = "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7"
 HISTORICAL_INPUT = "8d958aeeb17da46839722441425ccbb5889e2ab7"
 
@@ -46,7 +46,7 @@ def fetch(repository, resource):
 def validate_receipt(repository, number, pin, pr, approval):
     expected_url = f"https://github.com/{repository}/pull/{number}#pullrequestreview-{pin['approval_id']}"
     if (pr["number"] != number or pr["state"] != "closed" or pr["merged"] is not True
-            or not pr["merged_at"] or pr["merged_by"]["login"] != pin["approver"]
+            or not pr["merged_at"] or pr["merged_by"]["login"] != pin.get("merger", pin["approver"])
             or pr["head"]["repo"]["full_name"] != repository
             or pr["base"]["repo"]["full_name"] != repository
             or pr["base"]["ref"] != "ms7-mig-react-fastapi"
@@ -58,6 +58,15 @@ def validate_receipt(repository, number, pin, pr, approval):
             or approval["html_url"] != expected_url or not approval["submitted_at"]
             or approval["submitted_at"] > pr["merged_at"]):
         raise ValueError("Human approval/merged PR differs from pinned acceptance receipt")
+
+
+def validate_squash(pin, approved, merged):
+    if (approved["sha"] != pin["approved_head"] or merged["sha"] != pin["merge_sha"]
+            or [p["sha"] for p in merged["parents"]] != [pin["merge_parent"]]
+            or approved["tree"]["sha"] != pin["approved_tree"]
+            or merged["tree"]["sha"] != pin["merge_tree"]
+            or pin["approved_tree"] != pin["merge_tree"]):
+        raise ValueError("Approved candidate/squash tree or actual merge ancestry differs from pins")
 
 
 def validate_tree(candidate, workflow, accepted):
@@ -72,12 +81,24 @@ def validate_tree(candidate, workflow, accepted):
         parents = git(candidate, "show", "-s", "--format=%P", pin["merge_sha"]).decode().strip().split()
         if parents != [pin["merge_parent"]]:
             raise ValueError("Accepted squash merge parent differs from pinned integration chain")
+        if "approved_tree" in pin:
+            approved_tree = git(candidate, "rev-parse", pin["approved_head"] + "^{tree}").decode().strip()
+            merge_tree = git(candidate, "rev-parse", pin["merge_sha"] + "^{tree}").decode().strip()
+            validate_squash(pin, {"sha": pin["approved_head"], "tree": {"sha": approved_tree}},
+                            {"sha": pin["merge_sha"], "tree": {"sha": merge_tree},
+                             "parents": [{"sha": p} for p in parents]})
         git(candidate, "merge-base", "--is-ancestor", pin["merge_sha"], head)
+        for path in pin["preserved_paths"]:
+            filters = ("--diff-filter=DMRTUXB",) if path.startswith("docs/acceptance/") else ()
+            if git(candidate, "diff", *filters, pin["approved_head"], pin["merge_sha"], "--", path):
+                raise ValueError("Squash changed approved owner implementation or evidence")
         for checkout in (candidate, workflow):
             for path in pin["preserved_paths"]:
                 # R03 adds dated receipt records; existing owner evidence stays immutable.
                 filters = ("--diff-filter=DMRTUXB",) if path.startswith("docs/acceptance/") else ()
-                if git(checkout, "diff", *filters, pin["approved_head"], "HEAD", "--", path):
+                # Accepted V02 additions under backend belong to the new pinned input;
+                # no further implementation additions/changes are allowed in R03.
+                if git(checkout, "diff", *filters, accepted["integration_sha"], "HEAD", "--", path):
                     raise ValueError("Accepted implementation or historical owner evidence changed")
     # Every accepted file is immutable except the pre-reviewed R03 adapter boundary.
     from scripts.check_migration_preservation import verify
@@ -96,8 +117,13 @@ def intake(candidate, config):
         pr = fetch(accepted["repository"], "pulls/" + number)
         approval = fetch(accepted["repository"], f"pulls/{number}/reviews/{pin['approval_id']}")
         validate_receipt(accepted["repository"], int(number), pin, pr, approval)
+        commits = {}
+        if "approved_tree" in pin:
+            commits = {name: fetch(accepted["repository"], "git/commits/" + pin[key])
+                       for name, key in (("approved", "approved_head"), ("merged", "merge_sha"))}
+            validate_squash(pin, commits["approved"], commits["merged"])
         receipts[number] = {"pin": pin, "pr": pr, "approval": approval,
-                            "status": "ACCEPTED_INTEGRATION"}
+                            "git_commits": commits, "status": "ACCEPTED_INTEGRATION"}
         if int(number) == config["pr_number"]:
             selected = pr
     return selected, {"accepted_input": accepted, "live_integration_ref": live_ref,

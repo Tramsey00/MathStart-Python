@@ -1,6 +1,14 @@
 # V02 external publication gate: current review and historical preparation
 
-**Current 2026-10-15: TASK_APPROVED_AWAITING_VERIFIED_MERGE.**
+**Current 2026-10-15: V02 ACCEPTED_INTEGRATION.**
+[Verified squash receipt](v02-integration-a359b0b/README.md): PR53 merged by
+VladimirFrolov777; a359b0b / only parent0c03197 / tree74c30145 equals approved8256cbf.
+New accepted input a359b0b; old candidate/control/anchor/run receipts unchanged.
+Baseline38796031561 SUCCESS at a359b0b is baseline-only, not V02 task-suite execution.
+Consumer source review8256cbf/47baaa9 remains limited; full I02 not accepted.
+Issue35 stays open; agent did not merge/close. R03 INCOMPLETE.
+
+**Earlier 2026-10-15: TASK_APPROVED_AWAITING_VERIFIED_MERGE.**
 [Human approval receipt5538854677](v02-approval-8256cbf/README.md) confirms
 Tramsey00 APPROVED on8256cbf. Consumer compatibility source review covers producer
 8256cbf and consumer47baaa9f79da00c9d96fd880117a0dd064dcfa46; full I02 pipeline

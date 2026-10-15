@@ -2,7 +2,8 @@
 
 Status: PROPOSED / INCOMPLETE; independent review and runtime handoff pending.
 Owner Tramsey00; reviewers VladimirFrolov777 /13baybars. [Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30).
-Current accepted input `0c03197e23f69a233c0fcf8bdffa336feca20b92`;
+Current accepted input `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
+previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts retained;
 historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
 MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
 Authority: [migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)§§9/17,
@@ -102,6 +103,13 @@ are required before task acceptance. [Handoff](../../../docs/acceptance/MS7-MIG-
 and [trace](../../../docs/agent-traces/MS7-MIG-R03.md) record exact current limits.
 
 ## Accepted I01/V01 joint-input CI — 2026-10-12
+
+Historical joint-input runs below remain pinned to0c03197. Current V02 squash
+acceptance and guards now use [accepted-integration-20261015.json](accepted-integration-20261015.json)
+at a359b0b, with approval8256cbf/review5538854677 retained separately:
+[merge receipt and next steps](../../../docs/acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
+Post-merge baseline38796031561 is separate from candidate V02 suites; consumer
+review8256cbf/47baaa9 is source-only. R03 INCOMPLETE, full I02 not accepted.
 
 Human receipts and merges now establish both tasks as ACCEPTED_INTEGRATION.
 Separate frontend and V01 PostgreSQL jobs test the pinned combined input0c03197,

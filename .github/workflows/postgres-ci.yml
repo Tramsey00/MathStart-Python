@@ -12,7 +12,7 @@ on:
       - 'scripts/accepted_integration_ci.py'
       - 'scripts/check_migration_preservation.py'
       - 'tests/test_accepted_integration_ci.py'
-      - 'specs/migration/r03-v1/accepted-integration-20261012.json'
+      - 'specs/migration/r03-v1/accepted-integration-20261015.json'
   pull_request:
     branches: [ms7-mig-react-fastapi]
     paths:
@@ -24,7 +24,7 @@ on:
       - 'scripts/accepted_integration_ci.py'
       - 'scripts/check_migration_preservation.py'
       - 'tests/test_accepted_integration_ci.py'
-      - 'specs/migration/r03-v1/accepted-integration-20261012.json'
+      - 'specs/migration/r03-v1/accepted-integration-20261015.json'
 
 permissions:
   contents: read
@@ -59,10 +59,16 @@ jobs:
       - name: Exact accepted combined integration checkout
         uses: actions/checkout@v7
         with:
-          ref: 0c03197e23f69a233c0fcf8bdffa336feca20b92
+          ref: a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6
           path: candidate
           fetch-depth: 0
           persist-credentials: false
+      - name: Fetch exact approved source objects for squash provenance
+        run: >-
+          git -C candidate fetch --no-tags origin
+          150279e6ca7f1c82a6f23d8899e50992cf358f55
+          393d98890649c6c7c47908424ba0d076b5b5e56e
+          8256cbf4b38e97fc1169fea85f2d558950543be8
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'

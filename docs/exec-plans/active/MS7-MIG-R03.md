@@ -5,12 +5,13 @@
 - Date: 2026-10-09 Europe/Moscow; deadline: 2026-10-10 including review/integration
 - Issue: https://github.com/Tramsey00/MathStart-Python/issues/30
 - Branch: ms7-mig-r03-verification -> ms7-mig-react-fastapi; Refs #30
-- Current accepted input: `0c03197e23f69a233c0fcf8bdffa336feca20b92`
+- Current accepted input: `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`
+- Previous accepted input: `0c03197e23f69a233c0fcf8bdffa336feca20b92` (historical provenance)
 - Historical input: `8d958aeeb17da46839722441425ccbb5889e2ab7` (preserved provenance)
 - Immutable MIG_BASE_SHA: `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`
 - HARD R02 and its parity CONTRACT accepted through owner receipt:
   https://github.com/Tramsey00/MathStart-Python/pull/48#issuecomment-6070829593
-- INTEGRATION V02 (#35): Task Approval5538854677 at8256cbf; actual merge/tree verification pending, absent from current input. I02 (#41) full pipeline not accepted; limited source compatibility review received at producer8256cbf / consumer47baaa9.
+- INTEGRATION V02 (#35): ACCEPTED_INTEGRATION, Task Approval5538854677 at8256cbf; verified squash a359b0b / parent0c03197 / equal tree74c30145. I02 (#41) full pipeline not accepted; limited source compatibility review received at producer8256cbf / consumer47baaa9.
 - Authority: canonical migration v1.1 §§3–11, R03 card, §17;
   ADR-0006; preserved ADR-0001–0005 and r02-v1 parity matrix.
 
@@ -308,3 +309,25 @@ require tree74c3014516ec3a2110d2cfec13c8e7afb8ae5024 before recording
 ACCEPTED_INTEGRATION or changing input0c03197. Immutable MIG_BASE60b341f and
 historical8d958 retained. V04 CLI/full I02 and combined R03 command/pipeline and
 independent approvals remain their own outstanding gates. R03 INCOMPLETE.
+
+### V02 verified squash and accepted input — 2026-10-15
+
+GitHub PR53 receipt verifies actual owner mergea359b0b at2026-10-15T19:42:03Z,
+sole parent0c03197/tree74c30145 exactly equal to approved8256cbf. Human approval
+5538854677 and live integration ref independently confirmed; V02 now
+ACCEPTED_INTEGRATION. [Receipt, raw metadata and next steps](../../acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
+New current inputa359b0b; old0c03197/8d958, MIG_BASE60b341f and candidate/control/
+run receipts preserved. Post-merge baseline38796031561 SUCCESS is baseline-only;
+old38784183591 remains actual8256cbf execution. Consumer compatibility source
+review8256cbf/47baaa9 does not accept full I02. Issue35 remains OPEN.
+
+Synced accepted input into R03 brancha4954ed without changing owner files.
+Updated exact frontend/V01 checkouts and current receipt guard to pin new input,
+distinguish approver/merger and verify squash parent/tree equivalence. Old
+publication/successor scopes stay tree-bound to their historical candidate.
+Supplemental local guard/adapters12/8/11 and pure6 groups PASS on actualPython3.10.11;
+not target-version acceptance. Real clean new checkout guard PASS1876 files.
+Root command map remains PENDING/empty; next review of available V02/V01 adapters,
+accepted I02/full browser pipeline, applicable V04 content CLI, reviewed10/4
+composition, combined target and independent R03 approvals remain. R03 INCOMPLETE;
+no agent PR merge, new approval, draft promotion or Issue closure.

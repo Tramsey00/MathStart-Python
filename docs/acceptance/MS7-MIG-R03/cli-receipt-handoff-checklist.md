@@ -6,13 +6,20 @@
 Task Approvals R03 пока не получены.
 
 Текущий принятый integration input:
-`0c03197e23f69a233c0fcf8bdffa336feca20b92`.
+`a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`.
 MIG_BASE_SHA: `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
-Предыдущий input `8d958aeeb17da46839722441425ccbb5889e2ab7` сохранён в provenance.
-I01/V01 — ACCEPTED_INTEGRATION; их совместные successful CI receipts сохранены
+Предыдущие inputs `0c03197e23f69a233c0fcf8bdffa336feca20b92` и
+`8d958aeeb17da46839722441425ccbb5889e2ab7` сохранены в provenance.
+I01/V01/V02 — ACCEPTED_INTEGRATION. Для V02 проверены human review5538854677,
+squash a359b0b / parent0c03197 / равенство дерева74c30145 с approved8256cbf:
+[текущий receipt](v02-integration-a359b0b/README.md). Consumer source review
+8256cbf/47baaa9 не принимает полный I02 pipeline. Принятые service/locks/tests
+V02 доступны; root CLI/receipt adapters ещё требуют review. I02 и применимый
+V04 CLI, полная композиция и независимые R03 approvals остаются pending.
+Исторические совместные I01/V01 successful CI receipts сохранены
 в [текущем handoff](accepted-integration-ci-20261012.md).
 
-При проверке refs и GitHub PRs 2026-10-12 принятых migration V02/I02/V04
+Историческая проверка refs и GitHub PRs 2026-10-12: принятых migration V02/I02/V04
 deliverables нет. Issues35/41/37 OPEN; branches `ms7-mig-v02-content`,
 `ms7-mig-i02-pages`, `ms7-mig-v04-publishing` не опубликованы. Имеющаяся
 `codex/ms7-v02-grades-api` относится к прежней MS7-V02, а не migration V02.

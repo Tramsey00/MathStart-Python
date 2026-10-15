@@ -15,7 +15,7 @@ HISTORICAL = json.loads((ci.ROOT / "specs/migration/r03-v1/frontend-ci-pr50.json
 def receipt(number):
     pin = PINS["receipts"][str(number)]
     pr = {"number": number, "state": "closed", "merged": True,
-          "merged_at": "2026-10-11T16:50:00Z", "merged_by": {"login": pin["approver"]},
+          "merged_at": "2026-10-15T19:42:03Z", "merged_by": {"login": pin.get("merger", pin["approver"])},
           "merge_commit_sha": pin["merge_sha"],
           "head": {"sha": pin["approved_head"], "repo": {"full_name": PINS["repository"]}},
           "base": {"ref": "ms7-mig-react-fastapi", "repo": {"full_name": PINS["repository"]}}}
@@ -28,6 +28,10 @@ def receipt(number):
 def fake_git(root, *args):
     if args == ("rev-parse", "HEAD"): return PINS["integration_sha"].encode()
     if args == ("rev-parse", "HEAD^{tree}"): return PINS["integration_tree"].encode()
+    if args[0] == "rev-parse" and args[1].endswith("^{tree}"):
+        pin = PINS["receipts"]["53"]
+        if args[1][:-7] in (pin["approved_head"], pin["merge_sha"]):
+            return pin["approved_tree"].encode()
     if args[:3] == ("show", "-s", "--format=%P"):
         pin = next(p for p in PINS["receipts"].values() if p["merge_sha"] == args[3])
         return pin["merge_parent"].encode()
@@ -35,8 +39,8 @@ def fake_git(root, *args):
 
 
 class AcceptedIntegrationTests(unittest.TestCase):
-    def test_both_receipts_require_actual_approval_and_merge(self):
-        for number in (50, 51):
+    def test_all_receipts_require_actual_approval_and_merge(self):
+        for number in (50, 51, 53):
             pr, approval = receipt(number)
             ci.validate_receipt(PINS["repository"], number, PINS["receipts"][str(number)], pr, approval)
 
@@ -44,7 +48,7 @@ class AcceptedIntegrationTests(unittest.TestCase):
         pr, approval = receipt(50)
         for key, value in (("state", "DISMISSED"), ("commit_id", "other-head"), ("id", 1),
                            ("user", {"login": "other-reviewer"}), ("html_url", "other-PR"),
-                           ("submitted_at", "2026-10-12T00:00:00Z")):
+                           ("submitted_at", "2026-10-16T00:00:00Z")):
             changed = copy.deepcopy(approval); changed[key] = value
             with self.subTest(key=key), self.assertRaises(ValueError):
                 ci.validate_receipt(PINS["repository"], 50, PINS["receipts"]["50"], pr, changed)
@@ -90,6 +94,44 @@ class AcceptedIntegrationTests(unittest.TestCase):
     def test_advanced_live_integration_ref_rejected_before_receipt_intake(self):
         with patch.object(ci, "validate_tree", return_value={}), patch.object(ci, "fetch", return_value={"object": {"sha": "new-input"}}), self.assertRaises(ValueError):
             ci.intake(ci.ROOT, ci.accepted_config(HISTORICAL))
+
+    def test_v02_approver_and_merger_are_distinct_pinned_actors(self):
+        pin = PINS["receipts"]["53"]
+        pr, approval = receipt(53)
+        ci.validate_receipt(PINS["repository"], 53, pin, pr, approval)
+        pr["merged_by"]["login"] = pin["approver"]
+        with self.assertRaises(ValueError):
+            ci.validate_receipt(PINS["repository"], 53, pin, pr, approval)
+
+    def test_v02_squash_requires_equal_trees_and_original_integration_parent(self):
+        pin = PINS["receipts"]["53"]
+        approved = {"sha": pin["approved_head"], "tree": {"sha": pin["approved_tree"]}}
+        merged = {"sha": pin["merge_sha"], "tree": {"sha": pin["merge_tree"]},
+                  "parents": [{"sha": pin["merge_parent"]}]}
+        ci.validate_squash(pin, approved, merged)
+        for key, value in (("tree", {"sha": "other-tree"}), ("sha", pin["approved_head"]),
+                           ("parents", [{"sha": pin["approved_head"]}]),
+                           ("parents", [{"sha": pin["merge_parent"]}, {"sha": "extra"}])):
+            changed = copy.deepcopy(merged); changed[key] = value
+            with self.subTest(key=key, value=value), self.assertRaises(ValueError):
+                ci.validate_squash(pin, approved, changed)
+        approved["tree"]["sha"] = "other-approved-tree"
+        with self.assertRaises(ValueError): ci.validate_squash(pin, approved, merged)
+
+    def test_accepted_v02_additions_do_not_allow_unapproved_backend_delta(self):
+        def changed_git(root, *args):
+            if args[0] == "diff" and args[-1] == "backend" and args[1] == PINS["integration_sha"]:
+                return b"unapproved new backend file"
+            return fake_git(root, *args)
+        with patch.object(ci, "git", side_effect=changed_git), self.assertRaises(ValueError):
+            ci.validate_tree(ci.ROOT, ci.ROOT, PINS)
+
+    def test_candidate_checkout_cannot_replace_squash_checkout(self):
+        def changed_git(root, *args):
+            if args == ("rev-parse", "HEAD"): return PINS["receipts"]["53"]["approved_head"].encode()
+            return fake_git(root, *args)
+        with patch.object(ci, "git", side_effect=changed_git), self.assertRaises(ValueError):
+            ci.validate_tree(ci.ROOT, ci.ROOT, PINS)
 
 
 if __name__ == "__main__": unittest.main()
