@@ -1,5 +1,6 @@
 """Reject incomplete, stale or unowned V01 CI evidence at the R03 boundary."""
 import copy
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -25,6 +26,27 @@ def fixture():
 
 
 class PostgreSQLEvidenceTests(unittest.TestCase):
+    def test_accepted_backend_additions_use_exact_input_with_unchanged_source_pins(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            source = root / 'backend/fixture.py'
+            source.parent.mkdir(); source.write_bytes(b'unchanged V01 fixture')
+            config = ci.accepted_config(CONFIG)
+            config['input_sha256'] = {'backend/fixture.py': hashlib.sha256(source.read_bytes()).hexdigest()}
+            def git(root_arg, *args):
+                if args == ('rev-parse', '--show-toplevel'): return str(root).encode()
+                if args == ('rev-parse', 'HEAD'): return config['integration_sha'].encode()
+                if args == ('rev-parse', 'HEAD^{tree}'): return config['accepted_input']['integration_tree'].encode()
+                if args[0] == 'show': return b'frozen workflow'
+                if args[0] == 'ls-files': return b'backend/fixture.py\0'
+                if args[0] == 'diff':
+                    return b'accepted V02 additions' if args[1] == config['implementation_sha'] else b''
+                return b''
+            with patch.object(ci, 'git', side_effect=git):
+                self.assertEqual(ci.snapshot(root, config)['checkout_sha'], config['integration_sha'])
+                source.write_bytes(b'changed V01 fixture')
+                with self.assertRaises(ValueError): ci.snapshot(root, config)
+
     def test_complete_evidence_requires_actual_fresh_and_profiles(self):
         observed, manifest = fixture()
         result = ci.validate_observations(observed, manifest)

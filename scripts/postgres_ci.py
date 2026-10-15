@@ -33,8 +33,9 @@ def snapshot(candidate, config):
     head = git(candidate, 'rev-parse', 'HEAD').decode().strip()
     if head != tested_sha(config) or git(candidate, 'status', '--porcelain=v1', '--untracked-files=all'):
         raise ValueError('Candidate is stale or dirty')
-    if git(candidate, 'diff', config['implementation_sha'], head, '--', 'backend'):
-        raise ValueError('Backend changed since reviewed implementation')
+    source_sha = config.get('integration_sha', config['implementation_sha'])
+    if git(candidate, 'diff', source_sha, head, '--', 'backend'):
+        raise ValueError('Backend changed since pinned reviewed implementation/integration')
     workflows = {}
     for name in ('.github/workflows/ci.yml', '.github/workflows/migration-ci.yml'):
         before = git(candidate, 'show', config['pr_base_sha'] + ':' + name)
