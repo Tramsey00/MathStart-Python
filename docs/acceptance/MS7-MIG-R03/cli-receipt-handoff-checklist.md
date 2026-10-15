@@ -1,4 +1,4 @@
-# R03 CLI/receipt handoff checklist — 2026-10-12
+# R03 CLI/receipt handoff checklist — 2026-10-12; dependency update2026-10-16
 
 Статус checklist: **PREPARED_FOR_OWNER_REVIEW**. R03: **INCOMPLETE**.
 Это review checklist в зоне R03; согласованность с deliverables проверена по
@@ -45,14 +45,22 @@ deliverables нет. Issues35/41/37 OPEN; branches `ms7-mig-v02-content`,
 | V02 Content/grades/routes/staff read API, manifest и transport | Владимир / VladimirFrolov777 | Руслан; Илья подтверждает consumer/browser handoff, где применимо |
 | I02 public/current staff read pages, SSG/SEO и asset manifest | Илья /13baybars | Руслан — UX/integration; Владимир — API/security |
 | V04 publisher/bootstrap/index/check CLI, media, journal/recovery | Владимир / VladimirFrolov777 | Руслан; Илья — consumer/browser handoff, где применимо |
+| V03 current identity/session/receipt/staff-write runtime assertions | Владимир / VladimirFrolov777 | Руслан runtime/security review; Илья consumer where applicable |
+| I03 LessonHost/math/SVG/scripts/lifecycle handoff | Илья /13baybars | Руслан UX/integration; Владимир API/security; полная I03 приёмка по её карточке |
 | Принятые V01 schema/fresh/upgrade assertions | Владимир / VladimirFrolov777 | R03 связывает существующую реализацию с reviewable CLI/receipt; реализация V01 не расширяется |
 | Registry, root wrappers, CI, intake и §17 trace | Руслан / Tramsey00 | Владимир и Илья — независимые Task Approvers R03 |
 
 ## Обязательный пакет от владельца
 
-- [ ] Task ID, PR URL, полный40-character approved head SHA, human approval IDs,
-  merge SHA/parents, accepted integration SHA и tree. Для I02 нужны обе зоны
-  approval; для V02/V04 — Task Approval Руслана и применимое consumer подтверждение.
+- [ ] Task ID, source PR/полный40-character SHA, scope и source/contract digests.
+  Для результата, заявленного как accepted task: human approval IDs, merge
+  SHA/parents, integration SHA/tree. Для обязательного full I02 нужны обе зоны
+  approval; полные V02/V04 принимаются Русланом с применимым consumer review.
+- [ ] Для scoped CLI/renderer/LessonHost handoff отдельно: exact source SHA,
+  paths/locks/inventory digests, область independent artifact review и consumer
+  compatibility, реальные positive/negative evidence. Этот review не является
+  Task Approval V04/I03 и не разрешает early merge; требования full receipts
+  применяются только к формальным accepted-task gates, названным ниже.
 - [ ] Версия контракта/manifest, SHA256 всех передаваемых scripts/locks/case
   inventories, пути raw evidence и список §17 original_result → follow_up → target_evidence.
 - [ ] Для каждого backend check: существующий `backend/... .py` файл, точный
@@ -70,22 +78,174 @@ deliverables нет. Issues35/41/37 OPEN; branches `ms7-mig-v02-content`,
 R03 проверяет этот пакет и заполняет свой command map. Backend, frontend,
 locks, Alembic chain и product behavior меняют соответствующие владельцы.
 
+## Оставшаяся цепочка: задача, проверенный handoff и полная приёмка
+
+Срез:2026-10-16 Europe/Moscow, inputa359b0b. Live integration ref совпадает; из migration PR
+открыт только R03 PR49. Issues30/36/37/41/42 открыты и имеют владельцев,
+соответствующих карточкам. OPEN/старое PLANNED в теле Issue не означает, что
+accepted V02 не принят. Наличие у Ильи consumer47baaa9 подтверждено человеком;
+отсутствие этого SHA среди branch refs не отменяет source review и не доказывает
+полную готовность I02. Проверяется только доступный R03 intake.
+
+В таблицах **handoff** означает конкретный исполняемый артефакт с exact SHA,
+digest/lock/case inventory, областью независимого review, реальными positive/
+negative results и env/start/health/stop/cleanup. Название команды, JSON schema,
+synthetic fixture, отчёт с общим count и source compatibility review не заменяют
+такой артефакт. Handoff не принимает всю задачу и не разрешает её ранний merge.
+
+### Где требуется полная приёмка задачи
+
+| Потребитель / gate | Требование полной приёмки | Основание и граница |
+| --- | --- | --- |
+| R03 | R02 HARD/CONTRACT; V02 и I02 INTEGRATION. R02/V02 выполнены, полный I02 остаётся pending. | [Карточка R03, строки420–426][R03]. Подтверждение renderer interface позволяет готовить wiring; для завершения R03 требуется accepted I02 с human approvals и фактическим integration receipt. |
+| Проверки R03, использующие CLI/renderer/LessonHost | Отдельного task-level требования «полностью принять V04/I03 прежде R03» в карточке нет. Нужен проверенный реальный handoff и PASS соответствующих assertions. | Вывод из [карточки R03][R03] вместе с обязательными semantic equivalents [§9][S9], content contract [§8][S8] и [R02 parity guide][R02PARITY]. Это интерпретация уровня check, а не явно заданная ТЗ новая форма partial Task Approval. Отсутствующий renderer/bootstrap/activation/lifecycle всё равно блокирует свою проверку. |
+| V04 | HARD V02; INTEGRATION **I03**. Для полного V04 результата scoped renderer contract не заменяет приёмку I03. | [Карточка V04][V04]: строки992–998, scope1014–1020 и acceptance1028. Проверенный CLI от V04 для R03 и полная приёмка V04 — разные gates. |
+| R04 | HARD R03; INTEGRATION **V03/V04/V05/I03/I04/I05**. | [Карточка R04][R04]. Именно здесь полные V04 и I03 становятся названными task-level входами независимого audit. |
+| V05 | HARD V01; INTEGRATION **V03/V04/I03/I04**. | [Карточка V05][V05]. CLI/renderer smoke не заменяет staging/restore/performance/операционную приёмку V05. |
+| I05 | HARD **I03/I04**, INTEGRATION V05. | [Карточка I05][I05]. Здесь обязательны полная browser/visual matrix и проверка lesson follow-ups; R03 E2E smoke не принимает I05. |
+
+«Достаточно handoff» не означает «можно исключить тесты до появления владельца».
+Если для обязательного check нужен весь publisher или все script families,
+именно этот работающий функциональный объём должен быть передан и проверен.
+Если владелец не передаёт independently reviewed артефакт до полного завершения
+своей задачи, фактическая дата R03 будет ждать её deliverable. Это ограничение
+готовности/очереди; оно не добавляет новый HARD в карточку R03.
+Изменение task scope/формальных dependencies требует отдельного решения, здесь
+они сохранены без изменения.
+
+### Каталог конкретных недостающих передач
+
+IDs ниже совпадают с external_handoffs машинного checklist.
+
+| ID | Задача и владелец | Необходимый deliverable и критерий review |
+| --- | --- | --- |
+| H-I02 | I02 #41, Илья; approvals Руслан UX/integration + Владимир API/security | Полный current public/staff-read page/SSG результат, published manifest и real browser/API evidence; exact approved head, оба reviews, merge SHA/parent/tree. Source review8256cbf/47baaa9 этого не закрывает. [I02][I02], [R03][R03]. |
+| H-CLI | V04 #37, Владимир; root review Руслан | Все7 target CLI из таблицы ниже: точные Python paths/options/env/exit semantics, права/side effects и bounded cleanup;263 sources; проверенные dry-run/rollback/negative cases. Нужен исполняемый CLI handoff, не whole V04 approval. [§8][S8], [§9][S9], [V04][V04]. |
+| H-RENDER | V04, Владимир; consumer Илья | Deterministic Django-independent source/component renderer,263 inventory и source/render/runtime hashes, golden HTML/math/SVG,97 CSS/7 local JS references, closed trusted export и corruption/missing-input failures. Source preservation и legacy comparison уже есть, target renderer из них не следует. [V04 scope1][V04], [CONTENT-01/03][R02MATRIX]. |
+| H-I02-RENDER | I02, Илья; backend context Владимир | Callable/CLI public renderer/build, pinned release/page/catalogue identity, полный index/pages/assets, raw body/title/meta/canonical/OG/lang/no-JS, safe404/503/private exclusion; exact producer/consumer binding и lifecycle services. Нужен verified executable handoff; полная I02 приёмка отдельно обязательна. [I02][I02], [public build contract][BUILD]. |
+| H-I03 | I03 #42, Илья; review Руслан/Владимир по зонам | LessonHost interface, весь263/97/7+shared inventory, для каждой script family mount/dispose либо tested full-document navigation; remount/back-forward/resize/CSS/listener cleanup, trusted math/SVG и applicable golden fixtures360/768/1440. Проверенный handoff закрывает свою часть checks; full I03 receipt нужен для V04/R04/V05/I05. [§8][S8], [I03][I03]. |
+| H-PUBLISH | V04, Владимир; renderer consumers I02/I03 | Реальный bootstrap twice и publish/unpublish stage/journal/activation/recovery: frozen plan, pending/fence/PG-CAS, conflicts/multi-connection, pre/postcommit/render/activation/ack/cache failure, active/db/pending probes и scoped cleanup. V02 read-only observer и R02 model не являются writer/runtime evidence. [§8][S8], [V04][V04], [PUB-01/PROTOCOL-P1][R02MATRIX]. |
+| H-V03 | V03 #36, Владимир; root/runtime review Руслан | Для соответствующих current system/backend assertions:7 identity operations, sessions/CSRF/Host-Origin/hash/rate/receipt/replay/staff-write target PG tests, exact locks/cases и безопасный test-session setup. Full V03 не добавляется как R03 task gate; runtime-заявления нельзя закрыть только V02 read tests или pure R02A. Реальная login-сессия нужна и browser flow, если он заявлен. [§7][S7], [§9][S9], [§17][S17], [V03][V03]. |
+| H-ORIGIN | I02/V02 — Илья/Владимир; V05 provider при необходимости; composition Руслан | Один owned origin с реальными API/public HTML/immutable release paths; точные startup/readiness/health/stop/ports/roots, cache/fail-closed probes и cleanup. Совместный I02/V02 CI runtime может закрыть smoke без whole V05; claims о конкретном gateway/cache/active pointer требуют его настоящего verified artifact. [§4][S4], [§8][S8], [§9][S9], [V05][V05]. |
+| H-ENV | R03 Руслан; backend env contracts Владимир; frontend Илья | Exact Python3.12+/Node/npm/browser/locks и per-check target/test/legacy renderer env composition. Повторно использовать уже проверенные отдельные env; normal target без Django/DRF, legacy comparators отдельно, PG16 без skips, startup/teardown receipts. Нового «отсутствующего owner lock» автоматически не требовать: сначала review известных locks и состава команд. [§6][S6], [§9][S9], [R03][R03]. |
+| H-R03-APPROVAL | R03 #30; независимо Владимир и Илья | После final exact-SHA full applicable target/pure/Harness/PG/browser evidence: оба Independent Task Approvals, закрытые blockers и input/command review. Upstream handoff/Task Approval V02 не переносится на R03. [R03][R03]. |
+
+### Все14 ещё не закрытых строк общего dispatcher
+
+В specialized CI уже есть PASS, но это не означает, что общий
+MATHSTART_CHECK_RESULT/command map заполнен. Для строк с готовой реализацией
+не требуется заново ставить owner задачу; остаётся R03 composition/review.
+
+| Check | Кто передаёт / кто связывает | Что конкретно ещё нужно | Handoff / требование |
+| --- | --- | --- | --- |
+| system | Владимир V02/V03; Руслан adapter | Generic startup/routes/security CLI+receipt. V02 runtime принят; полные8 current routes и identity assertions требуют реального V03 provider, planned29 не объявляются working. | H-V03/H-ENV; [§9][S9], [HTTP-01/02/03][R02MATRIX]. |
+| migrations | Принятый V01 Владимир; Руслан adapter | Metadata drift + one head + reviewed SQL/PG equivalence invocation и общий receipt; не новая schema implementation. | H-ENV; [§6][S6], [V01][V01]. |
+| lesson-sources | V04 Владимир; Руслан wrapper | Target check_lesson_sources,263 source/render/runtime inventory и tamper/missing/conflict/nonwrite proof. | H-CLI/H-RENDER; [§9][S9], [CONTENT-01/03/CLI-01][R02MATRIX]. |
+| content-quality | V04 Владимир; I03 Илья; Руслан composition | Target quality CLI + golden component renderer; проверяемые HTML/math/SVG/asset и applicable lesson/lifecycle rules, явные visual follow-ups. | H-CLI/H-RENDER/H-I03; [§8][S8], [CONTENT-01/03/UI-02][R02MATRIX]. |
+| site-integrity | V02/V04 Владимир; I02 Илья | Полный active build/URL/media/catalogue/redirect/SEO/private exclusion и real publication coherence; scoped lifecycle of gateway where used. | H-CLI/H-I02-RENDER/H-PUBLISH/H-ORIGIN; [CONTENT-01/02/PUB-01][R02MATRIX]. |
+| backend-tests | Владимир V01/V02/V03/V04; Руслан observer |118/50 PG V02 и34/23 PG V01 уже доказаны. Нужны общий receipt/env mapping и реальные current identity/staff-write/publication cases для остальных Django-equivalent assertions. | H-V03/H-PUBLISH/H-ENV; [§9][S9], [STAFF-01/TX-01/PROTOCOL-P1/P2][R02MATRIX]. |
+| fresh-install | V01/V04 Владимир; I02 Илья; Руслан | Alembic zero уже есть; target bootstrap×2/no evidence overwrite + actual source/media/render/public build/activation smoke и scoped failure cleanup ещё нет. Schema-only fresh×2 не заменяет его. | H-CLI/H-RENDER/H-PUBLISH/H-I02-RENDER/H-ENV; [§6][S6], [§9][S9]. |
+| upgrade-A | Принятый V01 Владимир; Руслан | Profile A PASS существует; подключить контролируемый legacy preparation/accepted runner к root migration_smoke и receipt, сохранить backfill/data/defaults/IDs. | H-ENV; [§6][S6], [SCHEMA-01/02][R02MATRIX]. |
+| upgrade-B | Принятый V01 Владимир; Руслан | Profile B PASS существует; exact main source/equivalence/cleanup к root wrapper и receipt. | H-ENV; [§6][S6], [SCHEMA-01/02][R02MATRIX]. |
+| upgrade-C | Принятый V01 Владимир; Руслан | Profile C PASS существует; UUID/roles/receipts/pending preservation и root receipt. Это не доказательство реального V03/V06 session/receipt cutover. | H-ENV; [§6][S6], [§17][S17]. |
+| frontend-typecheck | I02 Илья; Руслан CI | I01 generation/pins/typecheck PASS; прогон на accepted I02 routes/renderer/types и новом combined SHA. | H-I02/H-ENV; [I02][I02], [§9][S9]. |
+| frontend-tests | I02/I03 Илья; Руслан observer | Вместо только112 foundation/5 dispatcher: terminating page/SSG/staff-read и applicable script-family/lifecycle cases, no mock-only real API claim. | H-I02/H-I02-RENDER/H-I03/H-ENV; [I02][I02], [I03][I03]. |
+| frontend-build | I02 Илья; V04 renderer Владимир | Production build foundation PASS; нужен полный public content/SEO/no-JS build, trusted render/asset/release digests и private-data guards. Whole I03 approval не является условием простой компиляции. | H-I02/H-I02-RENDER/H-RENDER/H-ENV; [§8][S8], [I02][I02]. |
+| frontend-e2e | I02/I03 Илья; runtime Владимир; composition Руслан | test:e2e отсутствует наa359b0b. Нужны locked terminating browser/API/public/staff-read smoke, реальный startup/health/stop; applicable LessonHost regressions и реальные session provider если тест требует login. | H-I02/H-I02-RENDER/H-I03/H-ORIGIN/H-ENV; [§9][S9], [I02][I02]. |
+
+Компиляция/статический source audit не требуют выполнения всей LessonHost
+browser matrix. Но проверку script execution/lifecycle нельзя назвать PASS
+по одному widget, описанию будущего adapter или только compile/build.
+Full I04 account/forms и I05 browser matrix не добавлены к R03 card; их отдельные
+gates ниже остаются обязательными для финальной миграции.
+
+### Общие проверки вне14 строк
+
+| Gate | Владелец | Что остаётся |
+| --- | --- | --- |
+|10 backend/4 frontend reviewed map | Руслан; review Владимир/Илья | Конкретные script/args/receipts, output/side effects и timeouts; operational map пока PENDING/empty. |
+| Versions/locks/no-Django/DB diagnostics | Руслан + owner env handoff | H-ENV/H-ORIGIN; exact target interpreters, owned PG16, bad-port bounded nonzero, отсутствие SQLite fallback, cleanup. Проверенные специализированные env не равны общей композиции. |
+| Pure/Harness и registry | Руслан |6 groups уже PASS; сохранить IDs/nonrecursive routing/fail/timeout/CLI и rerun на final changed composition. Новая внешняя runtime/domain задача для pure R03/R03A не нужна. |
+| Provenance/§17 | Руслан | Exact approved input, workflow/event/head/checkout/tree и raw digests; frozen/history/old results сохраняются, target overlay отдельно. |
+| CI + final R03 review | Руслан; approvals Владимир/Илья | Full applicable combined target/fresh/A/B/C/content/frontend/browser/pure/Harness evidence, task/integration/main linkage, blockers closed и оба approvals. Текущий global target FAILURE/NOT_RUN не скрывать. [§9][S9], [R03][R03]. |
+
+### Вся очередь внешних поступлений и поздние gates
+
+| Ветка цепочки | Тип и смысл | Что можно планировать отдельно |
+| --- | --- | --- |
+| accepted V02 + accepted I01 → I02 → R03 | I02 — формальный INTEGRATION R03; V02/I01 уже приняты. | Дата renderer/SSG interface review отдельно от полного I02 approval+integration. |
+| I02 → I03 → V04 | I03 HARD I02; V04 HARD V02 и INTEGRATION I03. | Scoped LessonHost/renderer handoff для R03 может иметь собственный проверенный SHA; full I03 receipt всё равно нужен, чтобы принять V04. |
+| V03 → V04 в очереди Владимира | Порядок личной очереди, **не новый HARD V03→V04**. V03 также provider current identity checks. | Подготовка по контрактам может идти параллельно. Раннюю implementation/передачу вне порядка нельзя молча предположить; согласовать это в следующем capacity плане. |
+| I03 → I04 в очереди Ильи; V03+V02 → I04 по карточке | Личная очередь и INTEGRATION; I04 HARD I01, **не новый HARD I03**. | I04 account/staff forms и browser runtime остаются поздним продуктовым scope, не условием существующего V02 approval. |
+| V03+V04+I03+I04 → V05 → I05 | V05 INTEGRATION все4; I05 HARD I03/I04 + INTEGRATION V05. | Полные staging/restore/performance, затем browser/accessibility/visual/F01–F04 proofs. CI runtime smoke не закрывает эти задачи. |
+| R03 → R04, а V03/V04/V05/I03/I04/I05 → R04 acceptance | HARD R03; перечисленные полные INTEGRATION результаты. | Начало audit после R03 и дата его полной приёмки — разные milestones. |
+| R04+V05 → V06; I05+V06 → I06 | [V06 HARD V05/R04][V06]; [I06 HARD I05 + INTEGRATION V06][I06]. | Финальная upgrade/cutover репетиция и frontend freeze не сводятся к ранним V01/renderer checks. |
+| R04 → R05 integration; R04+R05+V06+I06 → R06 | [R05 HARD R01/R02][R05] уже выполнены; [R06 требует все4 accepted HARD][R06]. | Полнота нового основного ТЗ, final SHA/CI/main/Issue closure — отдельные поздние решения. |
+
+Все формальные рёбра взяты без изменения из
+[accepted dependency-policy][DAG] и карточек; их копия, типы и личные очереди
+есть в машинном checklist. Нового цикла «R03 ждёт R04, а R04 ждёт R03» не вводится:
+V03/I03/V04 не имеют HARD R03. Функциональные handoffs могут фактически задержать
+R03 до готовности частей I03/V04, даже если full Task Approval этих задач ему
+формально не нужен.
+
+### Coverage, которую нельзя незаметно потерять
+
+- Current identity/session/receipt/staff-write runtime: V03, при UI — I04,
+  operational rates/gateway — V05, final cutover — V06. Нужные старому backend
+  check assertions требуют actual target evidence;7 endpoints не становятся
+  реализованными от наличия37 planned OAS operations. [§7][S7], [§17][S17].
+- Source/render/publication: CONTENT-01/02/03, PUB-01, CLI-01,
+  PROTOCOL-P1 и REVIEW-B02/B06. Разделены static source validation, deterministic
+  renderer, active/public manifest и real journal/activation/recovery.
+- **R01 visual F01–F04**: исправления owner Илья/I03, обязательная browser
+  verification Илья/I05, independent task review по карточкам. Это **другие**
+  findings, чем принятые V02 audit asset F01/F02. Сохранённая source exception
+  не является waiver финальной React версии; optional independent Владимир F04
+  review не выдумывается. [R02 parity guide][R02PARITY].
+- Full account UI UI-01/REVIEW-N01, I04 grades/UI, I05 cross-browser matrix
+  и V06 actual bridge/cutover остаются своими поздними gates. Ни foundation
+  gallery, ни early R03 smoke не являются их приёмкой.
+- ADAPT-02/04 и pure R03/R03A требуют неизменных oracle/trace/адаптерных ссылок,
+  а не новых Knowledge/Assessment/Progress runtime domains. [§17][S17].
+- В coverage_boundary_ledger машинного checklist перечислены **все40 R02 rows**;
+  это распределение источников proof, а не автоматическое PASS этих строк.
+
+### Что нужно для следующего пересчёта сроков трёх очередей
+
+Даты07–13.10 остаются историческим календарём; этот increment сроки не меняет.
+[§11][S11] требует новый прогноз при неготовности CI/review; [§11.1][S11Q]
+сохраняет личные очереди и включает человеческое review/integration в deadline.
+
+Для каждого H-I02/H-CLI/H-RENDER/H-I03/H-PUBLISH/H-V03 нужны отдельно:
+дата exact-SHA executable handoff, время независимого review/исправлений,
+дата полного Task Approval и дата integration. Дополнительно нужны доступность
+Руслана/Владимира/Ильи, длительности CI/retry и slot для обоих R03 approvers.
+Ранний scoped artifact и complete task нельзя ставить одной датой по умолчанию.
+
+Кандидаты на фактическую цепочку R03: accepted I02 + готовность CLI/renderer/
+bootstrap/publication/lesson artifacts + review общей10/4 композиции →
+full exact-input target pipeline → independent R03 approvals. После этого
+R04/V05/I05/V06/I06/R05/R06 имеют свои перечисленные выше gates.
+Без длительностей и owner capacity это карта зависимостей, а не рассчитанный
+критический путь или принятый новый срок. Другие задачи здесь не запускаются.
+
 ## Конкретные interface gaps на текущем input
 
-1. V01 runtime lock содержит schema tooling; FastAPI startup/routes deliverable
-   V02 отсутствует. Владимир передаёт reviewed runtime/test dependencies и entry
-   points вместе с V02; R03 не объявляет FastAPI установленным по наличию backend/.
+1. V02 startup/routes/runtime locks/tests приняты наa359b0b;118/50 PG и отдельный
+   runtime без Django/DRF проверены. Не хватает review общего system/backend-tests
+   CLI/receipt adapter, а не повторной приёмки или новой реализации V02.
 2. Принятый `backend/requirements-test.lock` V01 включает Django/DRF для baseline
    fixtures. Он остаётся неизменным в отдельном schema/legacy rehearsal env.
-   Установка этого lock в общий target env нарушит существующий no-Django/DRF
-   guard. Owner handoff должен разделить target tests и legacy preparation,
-   дать точные locks/interpreters и сохранить полный PG coverage без skips.
+   Специализированные изолированные env уже проверены. Остался review общей
+   target/test/legacy composition; нельзя установить legacy-containing test lock
+   в normal target env и назвать его no-Django runtime.
 3. Принятый V01 runner `docs/acceptance/MS7-MIG-V01/run-target-ci-v5.py` находится
    вне backend, использует `MATHSTART_V01_*` и stdout summary, а не общий
    `MATHSTART_CHECK_RESULT`. Его нельзя вставить как backend script в существующий
-   dispatcher. R03 и Владимир должны review конкретный composition/receipt
-   adapter к уже принятой реализации; нельзя копировать/переписывать v5 gate,
-   выдумывать entry point или ослаблять path/receipt checks.
+   dispatcher. R03 accepted-input observer уже проверен34/23 PG наa359b0b;
+   исторический helper сохранён. Остался review generic composition/receipt
+   bridge с теми же source/env/inventory guards, а не повторный перенос V01.
 4. I01 уже имеет typecheck/test/build, но нет `test:e2e`. Илья передаёт его
    реализацию с I02 и real V02 API startup/health/cleanup mapping; root не заменяет
    browser/API flow fixture-галереей.
@@ -208,7 +368,7 @@ ack/cache failure, interrupted stage resume и конкурирующие recove
 
 ## Порядок review, intake и полного target запуска
 
-1. Получить human-accepted V02/I02 exact-SHA deliverables и необходимые
+1. V02 уже ACCEPTED_INTEGRATION. Получить human-accepted I02 exact-SHA и необходимые
    executable V04 CLI contracts/evidence. V04 не является новым HARD R03:
    это предусмотренный semantic owner content checks; отсутствие CLI блокирует
    соответствующие проверки. Другие R02 semantic owners сохраняют свои зоны.
@@ -221,7 +381,7 @@ ack/cache failure, interrupted stage resume и конкурирующие recove
    Заполнить реальные script/args в runtime-commands.json. `REVIEWED` означает
    проверенный command contract; это не Independent Task Approval R03.
 4. Создать новую versioned intake запись для новых accepted inputs. Сохранить
-   8d958/0c03197 и прежние runs. Текущий guard намеренно закреплён на0c03197;
+   8d958/0c03197 и прежние runs. Текущий guard намеренно закреплён наa359b0b;
    его обновление допускает только exact reviewed owner diffs, без blanket
    whitelist backend/frontend и без ослабления frozen/history/event guards.
 5. На чистом combined checkout записать HEAD/tree, workflow event SHA, PR head/
@@ -257,3 +417,39 @@ nonrecursive lifecycle сохраняются; fake READY, timeout и missing in
 R03 §17 index охватывает R01/R03/MS6-R04/MS6-V01/R02A/R03A с исходными IDs и links.
 Issues34/40 остаются OPEN до final main integration; merge/Issue closure в этом
 handoff не выполняются.
+
+Документационная сверка2026-10-16: [source snapshot](dependency-chain-20261016.json)
+и [validation report](dependency-chain-validation-20261016.json). Проверены14
+checks,10 handoffs,40 parity rows,18 canonical nodes и отдельные resource edges,
+source line links и неизменность95 ранее сохранённых artifact files.
+Runtime suites/CI вручную не запускались; operational map остаётся PENDING.
+Карта требует owner review, не выдаёт approval и не меняет дедлайны.
+
+[S3]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L56
+[S6]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L80
+[S7]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L90
+[S8]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L100
+[S9]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L112
+[S11]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L170
+[S11Q]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L190
+[R03]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L420
+[R04]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L501
+[V01]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L768
+[V03]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L910
+[V04]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L992
+[V05]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1074
+[I02]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1320
+[I03]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1401
+[I04]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1482
+[I05]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1563
+[S17]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1705
+[S18]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1741
+[R02PARITY]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/parity-v1.md
+[R02MATRIX]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/parity-matrix-v1.json
+[DAG]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/dependency-policy-v1.json
+[BUILD]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/r02-v1/public-build-contract-v1.json
+[S4]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L58
+[R05]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L582
+[R06]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L664
+[V06]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1155
+[I06]: https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1644

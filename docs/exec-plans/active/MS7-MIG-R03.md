@@ -343,3 +343,22 @@ R03 accepted-input adapter preserves strict source/environment/inventory guards
 without editing V01/V02/helper.15 observer guards PASS. Global38801476735
 verify/pure PASS; target prerequisite PENDING FAIL and later NOT_RUN retained.
 This does not rerun V02 on squash or accept full I02/R03.
+
+### Remaining dependency chain for next planning — 2026-10-16
+
+[Existing checklist](../../acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md)
+now maps14 generic checks to exact missing deliverables/owners and10 handoffs,
+with canonical line links. R03 formal dependencies unchanged; full I02 pending,
+V02 accepted. Checked artifact-level V04 CLI/source-renderer/bootstrap/publisher
+and I03 LessonHost/lifecycle are needed where assertions use them; full V04/I03
+Task Approval is not invented as a new R03 gate. Missing functional coverage
+still blocks its checks. Full I03 remains V04 INTEGRATION; R04/V05 require
+full V04/I03 and I05 requires full I03/I04 plus V05. Current identity runtime
+belongs V03; full account UI/browser acceptance remains I04/I05. Personal
+V03-before-V04 and I03-before-I04 queue order distinguished from task HARD.
+All40 R02 parity rows and all18 canonical dependency nodes cross-referenced.
+Source snapshot/structural validation retained; no task code/commands activated,
+CI suite rerun, owner messages, approvals, merge or Issue closure. Current input
+a359b0b unchanged. Readiness dates for scoped artifacts, full approvals, owner
+capacity and CI/rework are inputs to the next three-queue critical-path review;
+no replacement dates or queue reorder approved here. R03 remains INCOMPLETE.

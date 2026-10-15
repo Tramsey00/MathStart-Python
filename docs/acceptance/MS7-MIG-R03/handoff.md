@@ -10,6 +10,17 @@ MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.
 R01/R02 accepted integration facts and external owner receipt remain authoritative;
 historical PENDING snapshots are retained.
 
+Current2026-10-16 dependency preparation:
+[Expanded existing CLI/receipt checklist](cli-receipt-handoff-checklist.md)
+maps all14 missing generic-dispatch checks, concrete owners/artifacts and complete
+external/late-gate chain. Formal R03 V02/I02 dependencies unchanged (V02 accepted,
+I02 pending); scoped V04 CLI/renderer/publisher and I03 LessonHost handoffs still
+must prove applicable real checks, but are not new full-task R03 prerequisites.
+Full I03 remains V04 integration; full V04/I03 required by R04/V05, I03 by I05.
+V03 identity provider and personal queue constraints made explicit. All40 R02
+rows classified, old V02/V01/gate statements reconciled. No new dates/queue
+reorder or Task Approval; operational map PENDING, R03 INCOMPLETE.
+
 Current2026-10-15 V02 ACCEPTED_INTEGRATION:
 [Verified squash receipt](v02-integration-a359b0b/README.md) confirms PR53 merged
 by VladimirFrolov777 at2026-10-15T19:42:03Z: approved8256cbf separately retained,

@@ -5,7 +5,7 @@
   "r03_status": "INCOMPLETE",
   "repository": "Tramsey00/MathStart-Python",
   "accepted_integration_input": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
-  "updated_on": "2026-10-15",
+  "updated_on": "2026-10-16",
   "historical_inputs": [
     "0c03197e23f69a233c0fcf8bdffa336feca20b92",
     "8d958aeeb17da46839722441425ccbb5889e2ab7"
@@ -29,7 +29,9 @@
       "required_approver": "Tramsey00",
       "consumer_confirmation": "13baybars where applicable",
       "approved_head": "8256cbf4b38e97fc1169fea85f2d558950543be8",
-      "approval_ids": [5538854677],
+      "approval_ids": [
+        5538854677
+      ],
       "merge_sha": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
       "merge_tree": "74c3014516ec3a2110d2cfec13c8e7afb8ae5024",
       "consumer_source_review_sha": "47baaa9f79da00c9d96fd880117a0dd064dcfa46",
@@ -58,7 +60,26 @@
       "approved_head": null,
       "approval_ids": [],
       "merge_sha": null,
-      "status": "CONTENT_CLI_HANDOFF_NOT_PROVIDED"
+      "status": "CONTENT_CLI_HANDOFF_NOT_PROVIDED",
+      "role": "SCOPED_CLI_RENDERER_BOOTSTRAP_PUBLICATION_PROVIDER_FOR_R03; full task acceptance separately required downstream"
+    },
+    "I03": {
+      "issue": 42,
+      "owner": "13baybars",
+      "status": "NO_ACCEPTED_LESSON_HOST_HANDOFF",
+      "role": "SCOPED_ARTIFACT_PROVIDER_FOR_APPLICABLE_CHECKS_NOT_FORMAL_R03_INTEGRATION_TASK",
+      "full_task_acceptance_consumers": [
+        "V04",
+        "R04",
+        "V05",
+        "I05"
+      ]
+    },
+    "V03": {
+      "issue": 36,
+      "owner": "VladimirFrolov777",
+      "status": "NO_CURRENT_IDENTITY_RUNTIME_HANDOFF",
+      "role": "CURRENT_IDENTITY_ASSERTIONS_AND_QUEUE_PREDECESSOR_TO_V04_NOT_NEW_FORMAL_R03_DEPENDENCY"
     }
   },
   "receipt_minimum": {
@@ -81,7 +102,7 @@
     "postgresql_major": "integer>=16"
   },
   "review_bundle_fields": [
-    "approved head/review/merge chain receipts",
+    "source exact SHA/digests and scoped artifact review; full approved head/review/merge chain receipts where an accepted task is required or claimed",
     "actual checkout SHA/tree",
     "source/contract/lock/manifest SHA256",
     "case inventory and per-case positive/negative raw observations",
@@ -137,7 +158,7 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "status": "V02_ACCEPTED_ROOT_ADAPTER_AND_APPLICABLE_IDENTITY_EVIDENCE_PENDING",
       "parity_row_ids": [
         "HTTP-01",
         "HTTP-03",
@@ -145,7 +166,21 @@
         "REVIEW-B07"
       ],
       "review_criteria": "FastAPI startup/config/routes/security and strict real transport behavior.",
-      "postgresql_receipt_required": false
+      "postgresql_receipt_required": false,
+      "available_evidence": "Accepted V02 config/routes/transport/no-Django runtime evidence at8256cbf; source tree equals a359b0b.",
+      "remaining_deliverable": "R03 executable system-check/receipt adapter on exact input. For full current8-route/auth/security parity, V03 supplies actual7 identity routes/session/CSRF/Host-Origin/limits evidence; no fake planned operations or blanket503 parity.",
+      "remaining_owner": "Tramsey00 adapter; VladimirFrolov777 V02/V03 runtime",
+      "external_handoff_ids": [
+        "H-V03",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "R03",
+        "S9",
+        "V03"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "migrations",
@@ -170,13 +205,27 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "status": "ACCEPTED_V01_GENERIC_RECEIPT_ADAPTER_REVIEW_PENDING",
       "parity_row_ids": [
         "SCHEMA-01",
         "SCHEMA-02"
       ],
       "review_criteria": "One Alembic head, metadata drift, reviewed SQL and PostgreSQL schema equivalence.",
-      "postgresql_receipt_required": true
+      "postgresql_receipt_required": true,
+      "available_evidence": "V01 accepted;34/23 PostgreSQL cases and repeated schema/rehearsal evidence on a359b0b.",
+      "remaining_deliverable": "Reviewed wrapper for metadata drift/one Alembic head/reviewed SQL/PG schema equivalence, exact args and MATHSTART_CHECK_RESULT; preserve V01 schema and original v5 helper. No new V01 implementation required.",
+      "remaining_owner": "Tramsey00 adapter; VladimirFrolov777 reviews schema invocation",
+      "external_handoff_ids": [
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S6",
+        "S9",
+        "V01",
+        "R03"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "lesson-sources",
@@ -202,14 +251,28 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "status": "TARGET_VALIDATOR_CLI_HANDOFF_PENDING",
       "parity_row_ids": [
         "CONTENT-01",
         "CONTENT-03",
         "CLI-01"
       ],
       "review_criteria": "All263 source/runtime/render identity and digest assertions; no source mutation.",
-      "postgresql_receipt_required": false
+      "postgresql_receipt_required": false,
+      "available_evidence": "All263 source preservation and read-only legacy/Content comparison verified; no target CLI PASS.",
+      "remaining_deliverable": "V04 check_lesson_sources --all/--slug/--root target entry with exact263 inventory/source-render-runtime digest rules, tamper/missing/collision negatives and read-only SQL/files evidence. Static validator does not require whole I03 acceptance.",
+      "remaining_owner": "VladimirFrolov777 V04 CLI/renderer; Tramsey00 receipt",
+      "external_handoff_ids": [
+        "H-CLI",
+        "H-RENDER"
+      ],
+      "requirement_refs": [
+        "S8",
+        "S9",
+        "V04"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "content-quality",
@@ -236,13 +299,29 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "status": "TARGET_RENDERER_QUALITY_HANDOFF_PENDING",
       "parity_row_ids": [
         "CONTENT-01",
         "CONTENT-03"
       ],
       "review_criteria": "Unweakened HTML/SVG/math/assets quality and golden renderer parity.",
-      "postgresql_receipt_required": false
+      "postgresql_receipt_required": false,
+      "available_evidence": "Preserved baseline/golden-source/asset checks; target component/LessonHost renderer not accepted.",
+      "remaining_deliverable": "V04 target check_content_quality and deterministic golden renderer; I03 pinned HTML/math/SVG/CSS/script/lifecycle artifact for applicable rendered lesson rules with broken HTML/SVG/math/media negatives. Keep source bytes and R01 visual findings distinct from backend F01/F02.",
+      "remaining_owner": "VladimirFrolov777 V04; 13baybars I03; Tramsey00 composition",
+      "external_handoff_ids": [
+        "H-CLI",
+        "H-RENDER",
+        "H-I03"
+      ],
+      "requirement_refs": [
+        "S8",
+        "S9",
+        "V04",
+        "I03"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "site-integrity",
@@ -269,7 +348,7 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "status": "PUBLIC_BUILD_PUBLISHER_INTEGRITY_HANDOFF_PENDING",
       "parity_row_ids": [
         "CONTENT-01",
         "CONTENT-02",
@@ -279,7 +358,24 @@
         "REVIEW-B07"
       ],
       "review_criteria": "All published URLs/media/catalogue/redirect/SSG, raw HTML SEO, coherent edition, private exclusion.",
-      "postgresql_receipt_required": false
+      "postgresql_receipt_required": false,
+      "available_evidence": "Accepted V02 routing/metadata/read-only release observer; not live publisher/SSG proof.",
+      "remaining_deliverable": "V04 target check_site_integrity plus real I02 full URL/index/SEO/no-private build and publisher active/db/pending probes; real missing/unpublished/redirect/media/digest/mixed-release failures. V05 gateway handoff only where provider-specific cache/active-pointer behavior is tested.",
+      "remaining_owner": "VladimirFrolov777 V04/V02; 13baybars I02; Tramsey00 composition",
+      "external_handoff_ids": [
+        "H-CLI",
+        "H-I02-RENDER",
+        "H-PUBLISH",
+        "H-ORIGIN"
+      ],
+      "requirement_refs": [
+        "S8",
+        "S9",
+        "I02",
+        "V04"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "backend-tests",
@@ -306,7 +402,7 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "status": "ACCEPTED_READ_SCHEMA_CASES_FULL_CURRENT_RUNTIME_COMPOSITION_PENDING",
       "parity_row_ids": [
         "HTTP-01",
         "HTTP-03",
@@ -321,7 +417,23 @@
         "REVIEW-B07"
       ],
       "review_criteria": "Nonempty unskipped real PG cases; V02 read/API scope, accepted schema and applicable owner content suites.",
-      "postgresql_receipt_required": true
+      "postgresql_receipt_required": true,
+      "available_evidence": "V02 118/all50 PG and V01 34/all23 PG PASS, distinct environments; not full identity/publisher parity.",
+      "remaining_deliverable": "R03 receipt adapter/nonempty exact-case composition. V03 actual current identity/security/receipt/staff-write PG cases and V04 content/publication/conflict/recovery cases for corresponding old backend assertions. Independent legacy comparators, no skips or claimed runtime from synthetic protocols.",
+      "remaining_owner": "Tramsey00 composition; VladimirFrolov777 V03/V04 applicable runtime suites",
+      "external_handoff_ids": [
+        "H-V03",
+        "H-PUBLISH",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S7",
+        "S8",
+        "S9",
+        "S17"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "fresh-install",
@@ -350,7 +462,7 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "MISSING_ACCEPTED_OWNER_HANDOFF",
+      "status": "FULL_BOOTSTRAP_RENDER_BUILD_SMOKE_PENDING",
       "parity_row_ids": [
         "SCHEMA-02",
         "CLI-01",
@@ -359,7 +471,25 @@
         "PUB-01"
       ],
       "review_criteria": "Alembic zero plus full bootstrap twice, unchanged user evidence, media/assets and frontend build on owned empty PG16.",
-      "postgresql_receipt_required": true
+      "postgresql_receipt_required": true,
+      "available_evidence": "Accepted V01 schema-only fresh×2; not target bootstrap/assets/rendered-public-release smoke.",
+      "remaining_deliverable": "Owned empty PG16, V01 Alembic zero + V04 real bootstrap twice/no user evidence overwrite, deterministic source/render/media and I02 full build/active-release checks; failures and teardown. Pin exact commands/envs/locks and receipt, no fixture-only publication.",
+      "remaining_owner": "Tramsey00 composition; VladimirFrolov777 V01/V04; 13baybars I02 build",
+      "external_handoff_ids": [
+        "H-CLI",
+        "H-RENDER",
+        "H-PUBLISH",
+        "H-I02-RENDER",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S6",
+        "S8",
+        "S9",
+        "V04"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "upgrade-A",
@@ -386,13 +516,26 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "status": "ACCEPTED_PROFILE_A_GENERIC_RECEIPT_MAPPING_PENDING",
       "parity_row_ids": [
         "SCHEMA-01",
         "SCHEMA-02"
       ],
       "review_criteria": "Disposable content.0001 source without users/Grade.created_at; reviewed backfill and exact schema/data equivalence.",
-      "postgresql_receipt_required": true
+      "postgresql_receipt_required": true,
+      "available_evidence": "Actual V01 disposable profile A PASS on a359b0b; schema/data equivalence accepted.",
+      "remaining_deliverable": "R03 migration_smoke --source-profile A to accepted V01 adapter/receipt with controlled isolated legacy preparation, backfill/constraints/data/default/sequence/timestamp evidence and cleanup; no reopening V01.",
+      "remaining_owner": "Tramsey00 adapter; VladimirFrolov777 schema/env invocation review",
+      "external_handoff_ids": [
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S6",
+        "S9",
+        "V01"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "upgrade-B",
@@ -419,13 +562,26 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "status": "ACCEPTED_PROFILE_B_GENERIC_RECEIPT_MAPPING_PENDING",
       "parity_row_ids": [
         "SCHEMA-01",
         "SCHEMA-02"
       ],
       "review_criteria": "Disposable current Django main source; exact schema/data/default/timestamp/sequence equivalence.",
-      "postgresql_receipt_required": true
+      "postgresql_receipt_required": true,
+      "available_evidence": "Actual V01 disposable profile B PASS on a359b0b.",
+      "remaining_deliverable": "R03 migration_smoke --source-profile B to exact accepted source-state/equivalence runner, same preserved schema/data and explicit isolated legacy preparation/cleanup/receipt; no existing DB stamp by guess.",
+      "remaining_owner": "Tramsey00 adapter; VladimirFrolov777 schema/env invocation review",
+      "external_handoff_ids": [
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S6",
+        "S9",
+        "V01"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "upgrade-C",
@@ -452,14 +608,28 @@
         "side_effects": null,
         "teardown": null
       },
-      "status": "ACCEPTED_SCHEMA_OWNER_CLI_RECEIPT_MAPPING_PENDING",
+      "status": "ACCEPTED_PROFILE_C_GENERIC_RECEIPT_MAPPING_PENDING",
       "parity_row_ids": [
         "SCHEMA-01",
         "SCHEMA-02",
         "AUTH-03"
       ],
       "review_criteria": "Populated identity profiles/roles/receipts/pending data preserved without overwrite or renumbering.",
-      "postgresql_receipt_required": true
+      "postgresql_receipt_required": true,
+      "available_evidence": "Actual V01 populated synthetic profile C PASS on a359b0b.",
+      "remaining_deliverable": "R03 migration_smoke --source-profile C receipt adapter retaining identities/UUID/receipts/roles/pending/sequence/timestamps and fixture ownership. Real identity cross-cutover bridge/races belong V03/V06; fixture preservation alone does not prove them.",
+      "remaining_owner": "Tramsey00 adapter; VladimirFrolov777 schema/env invocation review",
+      "external_handoff_ids": [
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S6",
+        "S9",
+        "V01",
+        "S17"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "frontend-typecheck",
@@ -484,12 +654,26 @@
         "typecheck"
       ],
       "cwd": "frontend",
-      "status": "ACCEPTED_I01_FOUNDATION_ONLY_I02_HANDOFF_PENDING",
+      "status": "FOUNDATION_PASS_ACCEPTED_I02_COMPOSITION_PENDING",
       "parity_row_ids": [
         "ADAPT-01"
       ],
       "review_criteria": "Generation/contract pins and router/TS checks at the combined checkout.",
-      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
+      "available_evidence": "I01 foundation exact toolchain generation/pins/typecheck PASS at a359b0b.",
+      "remaining_deliverable": "I02 generated contract/route/renderer types and locked typecheck on combined exact SHA. Run existing script; full I03 approval is not needed for compiler invocation. I02 acceptance remains separate formal gate.",
+      "remaining_owner": "13baybars I02; Tramsey00 CI",
+      "external_handoff_ids": [
+        "H-I02",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S9",
+        "I02",
+        "R03"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "frontend-tests",
@@ -514,14 +698,31 @@
         "test"
       ],
       "cwd": "frontend",
-      "status": "ACCEPTED_I01_FOUNDATION_ONLY_I02_HANDOFF_PENDING",
+      "status": "FOUNDATION_PASS_PAGE_LESSON_TEST_HANDOFF_PENDING",
       "parity_row_ids": [
         "CONTENT-01",
         "CONTENT-02",
         "STAFF-01"
       ],
       "review_criteria": "Terminating nonempty zero-skip foundation plus owner I02 page/SSG/staff read tests.",
-      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
+      "available_evidence": "112 I01 foundation tests+5 dispatcher PASS; not real I02/I03 UI acceptance.",
+      "remaining_deliverable": "Terminating I02 public/staff read/SEO/SSG/component/contract tests via npm run test; I03 scoped lifecycle/script-family assertions when lessons are tested. No mock-only real delivery claim; full account/forms/cross-browser acceptance belongs I04/I05.",
+      "remaining_owner": "13baybars I02/I03; Tramsey00 observer",
+      "external_handoff_ids": [
+        "H-I02",
+        "H-I02-RENDER",
+        "H-I03",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S8",
+        "S9",
+        "I02",
+        "I03"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "frontend-build",
@@ -546,14 +747,30 @@
         "build"
       ],
       "cwd": "frontend",
-      "status": "ACCEPTED_I01_FOUNDATION_ONLY_I02_HANDOFF_PENDING",
+      "status": "FOUNDATION_PASS_FULL_PUBLIC_RENDER_BUILD_PENDING",
       "parity_row_ids": [
         "CONTENT-01",
         "CONTENT-02",
         "PUB-01"
       ],
       "review_criteria": "Full published SSG/raw HTML/metadata/assets/release digest; no private prerender or secret fixtures.",
-      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
+      "available_evidence": "I01 production build/security guards/audit PASS, not complete publisher-driven full content build.",
+      "remaining_deliverable": "I02 exact complete public manifest/renderer build with body/metadata/no-JS/private exclusion and source/render/asset/release digest binding; consume V04 deterministic renderer. I03 script descriptors are required where used, not a full-I03 approval prerequisite solely to compile.",
+      "remaining_owner": "13baybars I02 build; VladimirFrolov777 source renderer; Tramsey00 CI",
+      "external_handoff_ids": [
+        "H-I02",
+        "H-I02-RENDER",
+        "H-RENDER",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S8",
+        "S9",
+        "I02"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     },
     {
       "check_id": "frontend-e2e",
@@ -578,7 +795,7 @@
         "test:e2e"
       ],
       "cwd": "frontend",
-      "status": "MISSING_SCRIPT_AND_ACCEPTED_I02_HANDOFF",
+      "status": "MISSING_REAL_E2E_SCRIPT_AND_SERVICE_HANDOFF",
       "parity_row_ids": [
         "CONTENT-01",
         "CONTENT-02",
@@ -588,7 +805,24 @@
         "REVIEW-B07"
       ],
       "review_criteria": "Real browser/API cases, complete URL manifest/SEO/staff security; documented service lifecycle and owned ports.",
-      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT."
+      "receipt_interface": "Owner raw frontend/browser report + R03 provenance companion; frontend wrapper does not set MATHSTART_CHECK_RESULT.",
+      "available_evidence": "No test:e2e script/real I02 service lifecycle on accepted a359b0b; source compatibility review only.",
+      "remaining_deliverable": "I02 terminating locked Playwright real API/public/staff-read smoke and one-origin startup/health/stop with raw DOM/network/console/screenshots. I03 representative lesson/each script-family verified lifecycle evidence where claimed; V03 session provider if actual login needed. Full I04 account matrix/I05 cross-browser remains later gates.",
+      "remaining_owner": "13baybars I02/I03 tests; VladimirFrolov777 runtime/session provider; Tramsey00 service composition",
+      "external_handoff_ids": [
+        "H-I02",
+        "H-I02-RENDER",
+        "H-I03",
+        "H-ORIGIN",
+        "H-ENV"
+      ],
+      "requirement_refs": [
+        "S9",
+        "I02",
+        "I03"
+      ],
+      "full_v04_task_approval_required_by_r03_card": false,
+      "full_i03_task_approval_required_by_r03_card": false
     }
   ],
   "full_pipeline": {
@@ -679,6 +913,57 @@
   "known_interface_gaps": [
     {
       "id": "CLI-G01",
+      "owner": "Tramsey00 / R03; VladimirFrolov777 reviews V02 commands",
+      "finding": "V02 runtime/service/locks/tests ACCEPTED_INTEGRATION at a359b0b. Specialized runtime and118/50 PG evidence exists; generic system/backend-tests receipt mapping is not reviewed.",
+      "closure": "Review R03 adapters reusing exact accepted V02 entry points; no new V02 acceptance or implementation expansion.",
+      "status": "ACCEPTED_SERVICE_AVAILABLE_ROOT_MAPPING_PENDING"
+    },
+    {
+      "id": "CLI-G02",
+      "owner": "Tramsey00 environment composition; backend/frontend owners supply invocation contracts",
+      "finding": "Separate V01/V02/legacy/normal-runtime environments already verified. Shared target command composition still lacks a reviewed per-check lock/env matrix.",
+      "closure": "H-ENV; keep normal target independent of Django, retain isolated legacy comparators and unskipped PG cases.",
+      "status": "SPECIALIZED_CI_PASS_FULL_COMPOSITION_PENDING"
+    },
+    {
+      "id": "CLI-G03",
+      "owner": "Tramsey00 / R03; VladimirFrolov777 schema reviewer",
+      "finding": "Accepted-input V01 observer adapted and verified34/23 at38801476734. Historical v5 helper unchanged; generic backend-only dispatcher/MATHSTART_CHECK_RESULT bridge still absent.",
+      "closure": "Reviewed root adapter/receipt mapping to current accepted runner; preserve exact V01 source pins and historical refusal evidence.",
+      "status": "ACCEPTED_INPUT_CI_PASS_GENERIC_RECEIPT_PENDING"
+    },
+    {
+      "id": "CLI-G04",
+      "owner": "13baybars / I02/I03; VladimirFrolov777 runtime where applicable",
+      "finding": "No accepted I02 or real test:e2e/service/renderer handoff in R03. Source compatibility8256cbf/47baaa9 is not full pipeline acceptance.",
+      "closure": "H-I02 and scoped renderer/lifecycle/origin handoffs; real browser/API evidence on exact combined checkout.",
+      "status": "I02_ACCEPTANCE_AND_RUNTIME_HANDOFF_PENDING"
+    },
+    {
+      "id": "CLI-G05",
+      "owner": "VladimirFrolov777 / V04; 13baybars renderer/LessonHost consumer",
+      "finding": "Seven target CLI, deterministic renderer and real bootstrap/publication/recovery evidence not in current R03 input.",
+      "closure": "H-CLI/H-RENDER/H-PUBLISH and applicable H-I03; full V04 approval is not newly added to R03 card.",
+      "status": "SCOPED_EXECUTABLE_HANDOFFS_PENDING"
+    }
+  ],
+  "task_card_dependencies": {
+    "HARD": [
+      "R02"
+    ],
+    "CONTRACT": [
+      "R02 parity matrix"
+    ],
+    "INTEGRATION": [
+      "V02",
+      "I02"
+    ],
+    "content_checks_semantic_handoff": "V04 content CLI as prescribed, not a new HARD task dependency"
+  },
+  "dependency_chain_version": "r03-external-dependency-chain-v1",
+  "historical_interface_gaps_20261012": [
+    {
+      "id": "CLI-G01",
       "owner": "VladimirFrolov777 / V02",
       "finding": "Current V01 runtime lock has schema tooling only; accepted V02 FastAPI startup/routes and dependencies absent.",
       "closure": "Reviewed V02 entry points and locked runtime/test dependencies."
@@ -708,17 +993,946 @@
       "closure": "Reviewed exact CLI/manifest/release/journal contracts and positive/negative evidence."
     }
   ],
-  "task_card_dependencies": {
-    "HARD": [
-      "R02"
+  "requirement_sources": {
+    "S3": {
+      "section": "§3 accepted HARD/CONTRACT before implementation",
+      "line": 56,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L56"
+    },
+    "S6": {
+      "section": "§6 fresh/upgrade A/B/C, one writer",
+      "line": 80,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L80"
+    },
+    "S7": {
+      "section": "§7 sessions/security/staff",
+      "line": 90,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L90"
+    },
+    "S8": {
+      "section": "§8 deterministic renderer, all script families, publication",
+      "line": 100,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L100"
+    },
+    "S9": {
+      "section": "§9 mandatory semantic checks and CI",
+      "line": 112,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L112"
+    },
+    "S11": {
+      "section": "§11 gates and deadline recalculation",
+      "line": 170,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L170"
+    },
+    "S11Q": {
+      "section": "§11.1 personal queues and parallel preparation",
+      "line": 190,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L190"
+    },
+    "R03": {
+      "section": "§14 R03 HARD/CONTRACT/INTEGRATION and Detailed Scope",
+      "line": 420,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L420"
+    },
+    "R04": {
+      "section": "§14 R04 accepted integration dependencies",
+      "line": 501,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L501"
+    },
+    "V01": {
+      "section": "§15 V01 schema/fresh/upgrade",
+      "line": 768,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L768"
+    },
+    "V03": {
+      "section": "§15 V03 identity/security/staff write",
+      "line": 910,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L910"
+    },
+    "V04": {
+      "section": "§15 V04 HARD V02, INTEGRATION I03, seven CLI/renderer",
+      "line": 992,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L992"
+    },
+    "V05": {
+      "section": "§15 V05 INTEGRATION V03/V04/I03/I04",
+      "line": 1074,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1074"
+    },
+    "I02": {
+      "section": "§16 I02 HARD I01, INTEGRATION V02, HTML/SSG/staff",
+      "line": 1320,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1320"
+    },
+    "I03": {
+      "section": "§16 I03 HARD I02, INTEGRATION V02, all lifecycle",
+      "line": 1401,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1401"
+    },
+    "I04": {
+      "section": "§16 I04 account/staff browser",
+      "line": 1482,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1482"
+    },
+    "I05": {
+      "section": "§16 I05 HARD I03/I04, INTEGRATION V05",
+      "line": 1563,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1563"
+    },
+    "S17": {
+      "section": "§17 preserve original_result and runtime/pure boundaries",
+      "line": 1705,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1705"
+    },
+    "S18": {
+      "section": "§18 AT-M02/M03/M08/M09/M10/M11 acceptance owners",
+      "line": 1741,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1741"
+    },
+    "S4": {
+      "section": "§4 target stack, normal commands, one origin",
+      "line": 58,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L58"
+    },
+    "R05": {
+      "section": "§14 R05 HARD R01/R02, INTEGRATION R04",
+      "line": 582,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L582"
+    },
+    "R06": {
+      "section": "§14 R06 final HARD gates",
+      "line": 664,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L664"
+    },
+    "V06": {
+      "section": "§15 V06 HARD V05/R04",
+      "line": 1155,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1155"
+    },
+    "I06": {
+      "section": "§16 I06 HARD I05, INTEGRATION V06",
+      "line": 1644,
+      "url": "https://github.com/Tramsey00/MathStart-Python/blob/a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6/specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md#L1644"
+    }
+  },
+  "external_handoffs": [
+    {
+      "id": "H-I02",
+      "task": "MS7-MIG-I02",
+      "owner": "13baybars",
+      "kind": "FORMAL_ACCEPTED_INTEGRATION",
+      "deliverable": "Accepted exact-SHA public/current staff read pages and complete public SSG/SEO/release manifest, real delivery/browser suite, startup-health-stop; Ruslan UX/integration and Vladimir API/security approvals plus merge receipt.",
+      "acceptance": "Full I02 Task Approval and integration receipt required by R03 card; producer8256cbf/consumer47baaa9 source review is insufficient.",
+      "refs": [
+        "R03",
+        "I02",
+        "S9"
+      ],
+      "status": "NO_ACCEPTED_I02_INPUT"
+    },
+    {
+      "id": "H-CLI",
+      "task": "MS7-MIG-V04",
+      "owner": "VladimirFrolov777",
+      "kind": "SCOPED_VERIFIED_HANDOFF",
+      "deliverable": "Exact pinned target Python CLI/options/env/exit/side-effect interface for publish_lessons, bootstrap_site, update_public_pages, index_lessons, check_lesson_sources, check_content_quality, check_site_integrity. All263 validation, dry-run rollback/writes, scoped outputs, no user evidence overwrite, positive/negative raw tests.",
+      "acceptance": "Executable reviewed handoff and relevant checks PASS; full V04 task receipt is not a new R03 dependency.",
+      "refs": [
+        "S8",
+        "S9",
+        "R03",
+        "V04"
+      ],
+      "status": "NO_REVIEWED_EXECUTABLE_HANDOFF_IN_R03"
+    },
+    {
+      "id": "H-RENDER",
+      "task": "MS7-MIG-V04",
+      "owner": "VladimirFrolov777",
+      "kind": "SCOPED_VERIFIED_HANDOFF",
+      "deliverable": "Django-independent deterministic component/source renderer, exact source/render/runtime digests, all263 inventory and golden HTML/math/SVG samples,97 local CSS/7 local JS asset references, trust allowlist and failure semantics; Ilya consumer acknowledgement.",
+      "acceptance": "Independent evidence on exact source pins and renderer negatives; names/hash-only fixture or stub renderer is insufficient. Whole V04 approval is not required solely for consuming this artifact.",
+      "refs": [
+        "S8",
+        "V04",
+        "S17"
+      ],
+      "parity": [
+        "CONTENT-01",
+        "CONTENT-03"
+      ],
+      "status": "HANDOFF_NOT_IN_ACCEPTED_INPUT"
+    },
+    {
+      "id": "H-I02-RENDER",
+      "task": "MS7-MIG-I02",
+      "owner": "13baybars",
+      "kind": "SCOPED_HANDOFF_WITHIN_FORMAL_I02_GATE",
+      "deliverable": "Renderer/build callable or terminating CLI with pinned release identity, complete public index/pages/assets and producer/consumer binding; raw HTML title/body/canonical/OG/lang, safe404/503 and no private export; production-like one-origin start/health/stop and browser receipts.",
+      "acceptance": "Scoped interface review enables independent wiring; R03 completion still requires full accepted I02 via H-I02.",
+      "refs": [
+        "I02",
+        "S8",
+        "S9"
+      ],
+      "status": "ONLY_SOURCE_COMPATIBILITY_REVIEW_RECORDED"
+    },
+    {
+      "id": "H-I03",
+      "task": "MS7-MIG-I03",
+      "owner": "13baybars",
+      "kind": "SCOPED_VERIFIED_HANDOFF_FOR_APPLICABLE_LESSON_CHECKS",
+      "deliverable": "LessonHost contract and all263 lesson/97 CSS/7 JS plus shared script registry; each family mount/dispose or tested full-document navigation; source/render/asset binding, StrictMode/remount/back-forward/resize/no leak, trusted HTML/math/SVG and golden samples at360/768/1440. R01 visual F01-F04 disposition/evidence preserved.",
+      "acceptance": "Reviewed executable renderer/lifecycle artifact plus applicable PASS closes its check contribution, not I03 Task Approval. No blanket one-widget/known-baseline waiver. Full I03 acceptance is a separate V04/R04/V05/I05 dependency.",
+      "refs": [
+        "S8",
+        "I03",
+        "V04",
+        "S18"
+      ],
+      "parity": [
+        "CONTENT-01",
+        "CONTENT-03",
+        "UI-02",
+        "F01",
+        "F02",
+        "F03",
+        "F04"
+      ],
+      "status": "NO_ACCEPTED_LESSON_HOST_HANDOFF"
+    },
+    {
+      "id": "H-PUBLISH",
+      "task": "MS7-MIG-V04",
+      "owner": "VladimirFrolov777",
+      "kind": "SCOPED_VERIFIED_FUNCTIONAL_HANDOFF",
+      "deliverable": "Real staged release/journal/bootstrap/activation runner compatible with I02/I03 renderer. Durable pending/fence/CAS, immutable plan, idempotency/conflict/multi-connection tests, pre/postcommit/activation/ack/cache failure and recovery, active/db/pending observable states, scoped cleanup, fresh bootstrap twice.",
+      "acceptance": "Mandatory real behavior for applicable fresh/site-integrity/content/backend cases; readonly V02 observer or R02 synthetic state machine cannot substitute. R03 card does not require whole V04 approval, but missing functional behavior still blocks applicable checks.",
+      "refs": [
+        "S6",
+        "S8",
+        "S9",
+        "V04"
+      ],
+      "parity": [
+        "PUB-01",
+        "CLI-01",
+        "TX-01",
+        "REVIEW-B02",
+        "REVIEW-B06",
+        "PROTOCOL-P1"
+      ],
+      "status": "PUBLISHER_BOOTSTRAP_RUNTIME_HANDOFF_MISSING"
+    },
+    {
+      "id": "H-V03",
+      "task": "MS7-MIG-V03",
+      "owner": "VladimirFrolov777",
+      "kind": "SCOPED_RUNTIME_HANDOFF_FOR_CURRENT_IDENTITY_ASSERTIONS",
+      "deliverable": "Target 7 identity operations/opaque sessions/CSRF/Host-Origin/hash/rate/receipt/replay/staff-write service and unskipped PG suite with exact locks/case IDs and safe fixture/session setup. Required for corresponding old backend/system parity and any real authenticated browser flow; no invented Account UI.",
+      "acceptance": "V02 read/security boundary and synthetic R02/R02A tests do not prove V03 runtime. Need relevant executable/runtime evidence when those assertions are claimed, without adding whole V03 acceptance to R03 card. Full V03 required later by R04/V05/I04.",
+      "refs": [
+        "S7",
+        "S9",
+        "S17",
+        "V03"
+      ],
+      "parity": [
+        "HTTP-01",
+        "HTTP-02",
+        "HTTP-03",
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "PROFILE-01",
+        "TX-01",
+        "STAFF-01",
+        "ADAPT-03",
+        "PROTOCOL-P2"
+      ],
+      "status": "NO_TARGET_IDENTITY_RUNTIME_IN_ACCEPTED_INPUT"
+    },
+    {
+      "id": "H-ORIGIN",
+      "task": "MS7-MIG-I02 / MS7-MIG-V02; MS7-MIG-V05 where gateway required",
+      "owner": "13baybars / VladimirFrolov777; Tramsey00 composes CI",
+      "kind": "RUNTIME_INTERFACE_HANDOFF_NOT_FULL_V05_GATE",
+      "deliverable": "Exact production-like one-origin serving/API/release-index paths, allowed ports/roots, start/readiness/health/stop, release/cache/fail-closed probes and cleanup. If V05 gateway/active pointer is needed to execute a claimed assertion, supply a pinned tested gateway artifact.",
+      "acceptance": "I02/V02 compatible owned CI runtime can satisfy smoke; do not wait for all V05 staging/restore/performance solely to wire CI. Cache/proxy/activation claims require their real provider, not mocks/devserver-only success.",
+      "refs": [
+        "S4",
+        "S8",
+        "S9",
+        "I02",
+        "V05"
+      ],
+      "status": "COMPOSED_REAL_BROWSER_LIFECYCLE_HANDOFF_PENDING"
+    },
+    {
+      "id": "H-ENV",
+      "task": "MS7-MIG-R03 composition using V01/V02, I02 and applicable V03/V04",
+      "owner": "Tramsey00; VladimirFrolov777 backend; 13baybars frontend",
+      "kind": "REVIEWED_ENVIRONMENT_COMPOSITION",
+      "deliverable": "Exact Python3.12+ runtime/test/legacy/renderer locks and tool invocation map, deterministic fixture preparation, separate legacy comparators/schema rehearsal, no Django in ordinary target runtime/commands, PG16-owned services, Node/npm/Playwright pins, per-check receipt boundaries and teardown.",
+      "acceptance": "Reuse already verified separate environments; do not request a nonexistent new owner lock by default or install legacy-containing test locks into normal target environment. Composition remains unreviewed until executable coverage is proved.",
+      "refs": [
+        "S3",
+        "S6",
+        "S9",
+        "R03"
+      ],
+      "status": "SPECIALIZED_CI_PASS_FULL_COMPOSITION_PENDING"
+    },
+    {
+      "id": "H-R03-APPROVAL",
+      "task": "MS7-MIG-R03",
+      "owner": "VladimirFrolov777 and 13baybars independently",
+      "kind": "FULL_R03_TASK_APPROVAL",
+      "deliverable": "Independent reviews/approvals on exact final R03 head, full applicable target/pure/Harness/PG/browser evidence and reviewed inputs/commands, explicit blocker disposition; Ruslan does not approve own result.",
+      "acceptance": "Both independent R03 approvals required; individual upstream handoff review or V02 approval does not transfer.",
+      "refs": [
+        "R03",
+        "S9",
+        "S17"
+      ],
+      "status": "PENDING"
+    }
+  ],
+  "gate_semantics": {
+    "formal_r03_task_dependencies_unchanged": true,
+    "full_I02_required": "R03 INTEGRATION I02; a scoped renderer/source review alone does not close this gate",
+    "scoped_V04_I03_rule": "Derived R03 check-level interpretation of R03 card plus §§8/9: independently reviewed exact executable artifacts and real positive/negative evidence can satisfy the corresponding check contribution without whole V04/I03 Task Approval. The spec does not explicitly declare a partial task accepted; no new upstream acceptance is issued here.",
+    "no_coverage_waiver": "Missing actual CLI/bootstrap/renderer/lifecycle/activation/identity behavior blocks the assertions it supplies. Full target cannot be called PASS by excluding them or converting missing tools to skips.",
+    "handoff_trust": "Pin exact source/producer/consumer SHA and code/locks/inventory digests, scope/reviewer decision, real results and side effects. Human approval/merge required where claimed; isolated reviewed artifact consumption does not authorize early integration or whole task acceptance.",
+    "availability_rule": "If owner does not provide a separately verified artifact before completing its task, actual R03 delivery may wait for that task. This is availability/queue dependence, not an invented HARD edge.",
+    "later_task_gate_rule": "Full V04/I03 acceptance remains required for the canonical downstream tasks listed in the copied accepted dependency graph; command handoff cannot replace those task receipts."
+  },
+  "canonical_dependency_graph": [
+    {
+      "id": "MS7-MIG-R01",
+      "dependencies": []
+    },
+    {
+      "id": "MS7-MIG-R02",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R03",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02",
+          "source": "Parity matrix R02; migration alias per §13"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R04",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R03"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V05"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I05"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R05",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-R04"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R06",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R04"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V06"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I06"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V01",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V02",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V03",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V04",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V05",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I04"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V06",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I01",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I02",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I03",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I04",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I05",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V05"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I06",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I05"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V06"
+        }
+      ]
+    }
+  ],
+  "canonical_dependency_graph_source": "specs/migration/r02-v1/dependency-policy-v1.json",
+  "queue_order": {
+    "source_ref": "S11Q",
+    "resource_constraint_not_new_HARD": true,
+    "parallel_preparation_allowed": true,
+    "unapproved_queue_reorder": false,
+    "queues": [
+      {
+        "owner": "Tramsey00",
+        "tasks": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06"
+        ]
+      },
+      {
+        "owner": "VladimirFrolov777",
+        "tasks": [
+          "V01",
+          "V02",
+          "V03",
+          "V04",
+          "V05",
+          "V06"
+        ]
+      },
+      {
+        "owner": "13baybars",
+        "tasks": [
+          "I01",
+          "I02",
+          "I03",
+          "I04",
+          "I05",
+          "I06"
+        ]
+      }
     ],
-    "CONTRACT": [
-      "R02 parity matrix"
+    "consequences": [
+      "V03 precedes V04 execution in Vladimir queue even though V04 HARD is V02, not V03.",
+      "I02 precedes I03 (also HARD); I03 precedes I04 in Ilya queue.",
+      "V04 renderer/CLI handoff and I03 LessonHost handoff are functional inputs to R03 checks; an early artifact date is a separate planning milestone, not proof that queues may be bypassed."
+    ]
+  },
+  "scheduling_inputs": {
+    "status": "DEPENDENCY_MAP_ONLY_DEADLINES_NOT_RESCHEDULED",
+    "source_refs": [
+      "S11",
+      "S11Q"
     ],
-    "INTEGRATION": [
-      "V02",
-      "I02"
+    "required_next_round": [
+      "per-owner earliest artifact readiness dates for H-CLI/H-RENDER/H-PUBLISH/H-I02/H-I03/H-V03, distinguishing reviewed artifact from full Task Approval/integration",
+      "remaining implementation vs review/CI/rework duration and daily human capacity in all three queues",
+      "agreed handling of early scoped handoffs without silent task reorder",
+      "duration for exact-input integration/full target/retries and independent R03 review; subsequent R04/V05/I05/V06/I06/R05/R06 gates"
     ],
-    "content_checks_semantic_handoff": "V04 content CLI as prescribed, not a new HARD task dependency"
+    "old_calendar": "07-13.10.2026 dates remain historical; no new forecast approved in this increment"
+  },
+  "later_acceptance_boundaries": [
+    {
+      "scope": "Current R03 checks",
+      "handoff_ids": [
+        "H-CLI",
+        "H-RENDER",
+        "H-I02-RENDER",
+        "H-I03",
+        "H-PUBLISH",
+        "H-V03",
+        "H-ORIGIN",
+        "H-ENV"
+      ],
+      "full_task_receipts_required": [
+        "I02",
+        "V02",
+        "R02"
+      ],
+      "refs": [
+        "R03",
+        "S9"
+      ]
+    },
+    {
+      "scope": "Full V04 acceptance",
+      "full_task_receipts_required": [
+        "V02",
+        "I03"
+      ],
+      "refs": [
+        "V04"
+      ],
+      "note": "I03 is canonical INTEGRATION; isolated renderer contract does not replace it for V04 Task Approval."
+    },
+    {
+      "scope": "R04 acceptance",
+      "full_task_receipts_required": [
+        "R03",
+        "V03",
+        "V04",
+        "V05",
+        "I03",
+        "I04",
+        "I05"
+      ],
+      "refs": [
+        "R04"
+      ]
+    },
+    {
+      "scope": "V05 acceptance",
+      "full_task_receipts_required": [
+        "V01",
+        "V03",
+        "V04",
+        "I03",
+        "I04"
+      ],
+      "refs": [
+        "V05"
+      ]
+    },
+    {
+      "scope": "I05 acceptance",
+      "full_task_receipts_required": [
+        "I03",
+        "I04",
+        "V05"
+      ],
+      "refs": [
+        "I05"
+      ],
+      "note": "Full browser/visual/F01-F04 follow-up verification; optional independent Vladimir F04 review not invented."
+    }
+  ],
+  "coverage_boundary_ledger": [
+    {
+      "parity_rows": [
+        "HTTP-01",
+        "HTTP-02",
+        "HTTP-03",
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "PROFILE-01",
+        "TX-01",
+        "STAFF-01",
+        "ADAPT-03",
+        "REVIEW-B01",
+        "REVIEW-B02",
+        "REVIEW-B03",
+        "REVIEW-B04",
+        "REVIEW-B05",
+        "REVIEW-B06",
+        "REVIEW-B07",
+        "PROTOCOL-P2"
+      ],
+      "required_artifact": "H-V03 and corresponding H-PUBLISH/I02 read contributions",
+      "boundary": "Backend/current wire assertions need real provider. Full auth/account/staff-write UI acceptance belongs V03/I04/R04; no fake coverage from V02 read fixtures."
+    },
+    {
+      "parity_rows": [
+        "GRADE-01",
+        "GRADE-02",
+        "GRADE-03",
+        "SCHEMA-01",
+        "SCHEMA-02"
+      ],
+      "required_artifact": "Accepted V01/V02 plus R03 receipt mapping/H-ENV",
+      "boundary": "Already verified backend/schema portions retained. I04 grade UI and V06 actual cutover are later proof, not new R03 whole-task gates."
+    },
+    {
+      "parity_rows": [
+        "CONTENT-01",
+        "CONTENT-02",
+        "CONTENT-03",
+        "PUB-01",
+        "CLI-01",
+        "PROTOCOL-P1"
+      ],
+      "required_artifact": "H-CLI/H-RENDER/H-PUBLISH/H-I02/H-I03/H-ORIGIN as applicable",
+      "boundary": "Target check runtime and actual renderer/publication required for claims; source-only/readonly/model evidence insufficient."
+    },
+    {
+      "parity_rows": [
+        "UI-02",
+        "F01",
+        "F02",
+        "F03",
+        "F04"
+      ],
+      "required_artifact": "H-I03 for applicable lesson checks; full I03/I05 task proofs in their gates",
+      "boundary": "R01 visual F01-F04 are distinct from accepted V02 audit asset F01/F02. Preserve source-baseline exceptions, no final React waiver; I03 corrects and I05 independently verifies, not mandatory new I05 Task Approval for R03 smoke."
+    },
+    {
+      "parity_rows": [
+        "UI-01",
+        "REVIEW-N01"
+      ],
+      "required_artifact": "I04 actual account controller/UI and I05 browser evidence later",
+      "boundary": "R03 preserves historical fixture/pure adapter evidence; no claim of real account UI acceptance from fixture gallery."
+    },
+    {
+      "parity_rows": [
+        "ADAPT-01",
+        "ADAPT-02",
+        "ADAPT-04"
+      ],
+      "required_artifact": "R03 wrappers/pure/Harness and §17 trace; R05 later references",
+      "boundary": "No new Knowledge/Assessment/Progress persistence/runtime is required or fabricated."
+    }
+  ],
+  "additional_r03_gates": [
+    {
+      "id": "G-COMMANDS",
+      "owner": "Tramsey00; VladimirFrolov777/13baybars review",
+      "deliverable": "Reviewed10 backend/4 frontend interfaces and executable receipt mappings; runtime-commands PENDING until populated and verified",
+      "refs": [
+        "S9",
+        "R03"
+      ]
+    },
+    {
+      "id": "G-ENV-DIAGNOSTICS",
+      "owner": "Tramsey00 with named owner env contracts",
+      "deliverable": "Exact target versions/locks/no-Django runtime/owned PG16 plus bounded bad-port nonzero; isolated legacy preparation; raw startup/teardown receipts",
+      "handoff_ids": [
+        "H-ENV",
+        "H-ORIGIN"
+      ],
+      "refs": [
+        "S6",
+        "S9",
+        "R03"
+      ]
+    },
+    {
+      "id": "G-PRESERVATION",
+      "owner": "Tramsey00",
+      "deliverable": "Current accepted input/source/tree/approval/merge provenance; frozen original contracts/history/controls and §17 links; new input only via reviewed receipt",
+      "refs": [
+        "S9",
+        "S17",
+        "R03"
+      ]
+    },
+    {
+      "id": "G-PURE-HARNESS",
+      "owner": "Tramsey00",
+      "deliverable": "Preserved six pure/Harness groups and historical check IDs, nonrecursive CLI/routing/fail/timeout negatives; current input evidence already available, rerun on final changed composition",
+      "refs": [
+        "S9",
+        "R03",
+        "S17"
+      ]
+    },
+    {
+      "id": "G-FINAL-CI",
+      "owner": "Tramsey00; independent Vladimir/Ilya approval",
+      "deliverable": "Full applicable target/fresh/upgrade/content/build/browser/pure/Harness on exact combined input with task/integration/main trigger validation and final SHA/merge linkage, raw failures/NOT_RUN preserved",
+      "handoff_ids": [
+        "H-I02",
+        "H-R03-APPROVAL"
+      ],
+      "refs": [
+        "S9",
+        "R03"
+      ]
+    }
+  ],
+  "live_context_snapshot": {
+    "recorded_date": "2026-10-16 Europe/Moscow",
+    "integration_ref_sha": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
+    "open_prs_observed": [
+      49
+    ],
+    "issues_verified": {
+      "30": {
+        "state": "open",
+        "owner": "Tramsey00"
+      },
+      "36": {
+        "state": "open",
+        "owner": "VladimirFrolov777"
+      },
+      "37": {
+        "state": "open",
+        "owner": "VladimirFrolov777"
+      },
+      "41": {
+        "state": "open",
+        "owner": "13baybars"
+      },
+      "42": {
+        "state": "open",
+        "owner": "13baybars"
+      }
+    },
+    "consumer_review": "Human-confirmed8256cbf/47baaa9 source compatibility only; no full I02 acceptance or discarded review from missing branch ref",
+    "source_hashes_and_raw_context": "docs/acceptance/MS7-MIG-R03/dependency-chain-20261016.json"
   }
 }
