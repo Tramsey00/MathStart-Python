@@ -21,15 +21,21 @@ def flatten(suite):
             yield case
 
 
-def suite_run(kind, candidate, output):
+def suite_run(kind, candidate, output, successor=None):
     sys.path.insert(0, str(candidate))
     loader = unittest.TestLoader()
     if kind == 'v02':
         modules = ['backend.tests.v02.'+name for name in ('test_unit', 'test_http', 'test_postgres', 'test_asset_regressions')]
         suite = loader.loadTestsFromNames(modules)
-        matrix = json.loads((candidate/'docs/acceptance/MS7-MIG-V02/remediation-f01-f02/test-matrix.json').read_bytes())
-        expected_ids = {row['test'] for row in matrix['named_tests']}
-        expected, expected_pg = 86, 40
+        if successor is None:
+            matrix = json.loads((candidate/'docs/acceptance/MS7-MIG-V02/remediation-f01-f02/test-matrix.json').read_bytes())
+            expected_ids = {row['test'] for row in matrix['named_tests']}
+            expected, expected_pg = 86, 40
+        else:
+            expected_ids = set(successor['v02_case_ids'])
+            expected, expected_pg = 118, 50
+            if len(expected_ids) != expected:
+                raise RuntimeError('EXACT_REVIEWED_SUCCESSOR_CASES')
         pg_test = lambda name: '.PostgreSQL' in name
     elif kind == 'v01':
         modules = ['backend.tests.'+name for name in ('test_unit', 'test_postgres', 'test_remediation')]
@@ -151,6 +157,8 @@ if __name__ == '__main__':
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--db-command', choices=['before', 'after', 'create', 'drop'])
+    parser.add_argument('--successor-scope', type=Path)
+    parser.add_argument('--scope-sha256')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     if args.kind == 'db':
@@ -158,4 +166,12 @@ if __name__ == '__main__':
     elif args.kind == 'runtime':
         runtime(args.candidate.resolve(), args.output)
     else:
-        suite_run(args.kind, args.candidate.resolve(), args.output)
+        successor = None
+        if args.successor_scope is not None:
+            spec = importlib.util.spec_from_file_location('r03_worker_successor', Path(__file__).with_name('v02_successor_gate.py'))
+            guard = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(guard)
+            successor = guard.reviewed_scope(args.successor_scope.read_bytes(), args.scope_sha256)
+        elif args.scope_sha256 is not None:
+            raise RuntimeError('SCOPE_PATH_REQUIRED_WITH_DIGEST')
+        suite_run(args.kind, args.candidate.resolve(), args.output, successor)

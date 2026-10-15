@@ -169,6 +169,8 @@ def execute(scope_path, digest, owner_revision, controls, output):
     publication = library()
     approved = publication.checked_owner_module(controls)
     runner = approved.Runner(output/'raw')
+    runner.run('python-version',[sys.executable,'-I','-B','--version'],output)
+    runner.git(output,'--version')
     require(runner.git(ROOT,'rev-parse','HEAD').decode().strip()==owner_revision,'ACTUAL_R03_CHECKOUT_REVISION')
     for p in [scope_path,Path(__file__).resolve(),ROOT/'scripts/published_v02_ci.py']:
         require(p.read_bytes()==runner.git(ROOT,'show',owner_revision+':'+p.relative_to(ROOT).as_posix()),'DIRTY_R03_CONTROL')
@@ -198,6 +200,10 @@ def execute(scope_path, digest, owner_revision, controls, output):
     publication.checked_owner_module(controls)
     runner.run('original-published-gate',[sys.executable,'-I','-B',controls/'scripts/v02_publication_gate.py',
         'published','--owner-revision',CONTROL,'--root',ancestor,'--ref',PREDECESSOR,'--output',output/'original-gate'],controls,timeout=600)
+    original = decode((output/'original-gate/result.json').read_bytes())
+    require(original['result']=='PASS' and original['implementation_sha']==PREDECESSOR
+            and original['actual_checkout_sha']==PREDECESSOR and original['tree']==PREDECESSOR_TREE
+            and original['owner_control_revision']==CONTROL and original['anchor_sha256']==ANCHOR,'ORIGINAL_GATE_RECEIPT')
     a,b = tree(runner,candidate,PREDECESSOR),tree(runner,candidate,data['implementation_sha'])
     changed = {p for p in set(a)|set(b) if a.get(p)!=b.get(p)}
     require(changed=={r['path'] for r in data['changes']},'EXACT_CHANGED_PATH_SET')
@@ -248,10 +254,15 @@ def execute(scope_path, digest, owner_revision, controls, output):
     record = dict(result='PASS_SUCCESSOR_CHAIN_AND_REVIEWED_DELTA',implementation_sha=data['implementation_sha'],
         actual_checkout_sha=metadata(data['implementation_sha'])['sha'],actual_tree=metadata(data['implementation_sha'])['tree']['sha'],
         direct_parent=PREDECESSOR,accepted_base=BASE,original_control_revision=CONTROL,original_anchor_sha256=ANCHOR,
+        actual_original_control_checkout_sha=runner.git(controls,'rev-parse','HEAD').decode().strip(),
+        predecessor_actual_checkout_sha=runner.git(ancestor,'rev-parse','HEAD').decode().strip(),
+        predecessor_actual_tree=runner.git(ancestor,'rev-parse','HEAD^{tree}').decode().strip(),
         reviewed_scope_sha256=digest,r03_control_revision=owner_revision,workflow_sha=os.environ.get('GITHUB_WORKFLOW_SHA'),
+        run_id=os.environ.get('GITHUB_RUN_ID'),
         pr_head_before=pr['head']['sha'],pr_head_after=after['head']['sha'],v02_task_approval=False,
         successor_task_suites='REQUIRED_SEPARATE_CURRENT_SHA_RUN',r03_status='INCOMPLETE')
     save(output/'result.json',record)
+    (output/'reviewed-scope.json').write_bytes(raw)
     return record
 
 

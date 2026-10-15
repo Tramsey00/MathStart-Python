@@ -58,7 +58,7 @@ def check_service(identity, port, output):
                                              ports=ports, tmpfs=d['HostConfig']['Tmpfs'], state=d['State']))
 
 
-def main(candidate, output):
+def main(candidate, output, scope_path=None, scope_sha256=None):
     candidate = candidate.resolve()
     require(not output.exists() and not output.is_relative_to(candidate), 'NEW_EXTERNAL_EVIDENCE_DIRECTORY')
     output.mkdir(parents=True)
@@ -69,12 +69,37 @@ def main(candidate, output):
                       MATHSTART_V01_EVIDENCE_DIR=str(output/'v01-owner-evidence'))
     runner.run('python-version', [sys.executable, '--version'], ROOT)
     runner.git(ROOT, '--version')
-    data = publication.candidate_input((ROOT/publication.INPUT_PATH).read_bytes())
+    successor = None
+    if scope_path is None:
+        require(scope_sha256 is None, 'SCOPE_PATH_REQUIRED_WITH_DIGEST')
+        data = publication.candidate_input((ROOT/publication.INPUT_PATH).read_bytes())
+    else:
+        import v02_successor_gate as successor_guard
+        scope_path = scope_path.resolve()
+        require(scope_path.is_relative_to(ROOT), 'R03_OWNED_REVIEWED_SCOPE')
+        successor = successor_guard.reviewed_scope(scope_path.read_bytes(), scope_sha256)
+        require(scope_path.read_bytes() == runner.git(ROOT, 'show', 'HEAD:'+scope_path.relative_to(ROOT).as_posix()), 'DIRTY_REVIEWED_SCOPE')
+        data = dict(implementation_sha=successor['implementation_sha'], pr_number=53)
     publication.confirmation((ROOT/publication.CONFIRMATION_PATH).read_bytes())
     require(runner.git(candidate, 'rev-parse', 'HEAD').decode().strip() == data['implementation_sha'], 'EXACT_CANDIDATE_HEAD')
     tree = runner.git(candidate, 'rev-parse', 'HEAD^{tree}').decode().strip()
     parents = runner.git(candidate, 'show', '-s', '--format=%P', 'HEAD').decode().strip().split()
-    publication.validate_commit(dict(sha=data['implementation_sha'], tree={'sha': tree}, parents=[{'sha': p} for p in parents]), data)
+    commit = dict(sha=data['implementation_sha'], tree={'sha': tree}, parents=[{'sha': p} for p in parents])
+    if successor is None:
+        publication.validate_commit(commit, data)
+    else:
+        predecessor = dict(sha=successor_guard.PREDECESSOR,
+            tree={'sha':runner.git(candidate, 'rev-parse', successor_guard.PREDECESSOR+'^{tree}').decode().strip()},
+            parents=[{'sha':p} for p in runner.git(candidate, 'show', '-s', '--format=%P', successor_guard.PREDECESSOR).decode().split()])
+        successor_guard.chain(commit, predecessor, successor)
+        actual_paths = set(runner.git(candidate, 'diff', '--name-only', successor_guard.PREDECESSOR, 'HEAD').decode().splitlines())
+        require(actual_paths == {r['path'] for r in successor['changes']}, 'REVIEWED_5_PLUS_63_SOURCE_SCOPE')
+        for row in successor['changes']:
+            path = candidate/row['path']
+            require(path.is_file() and not path.is_symlink() and sha(path.read_bytes()) == row['after']['sha256'], 'EXACT_SUCCESSOR_DEPENDENCY: '+row['path'])
+        save(output/'successor-source-dependencies.json', dict(result='PASS', reviewed_files=len(actual_paths),
+             modified=5, added=63, scope_sha256=scope_sha256, helper_verifier_present=True,
+             implementation_sha=data['implementation_sha']))
     pr = publication.fetch_json('pulls/'+str(data['pr_number']), output, 'pr-before')
     publication.validate_pr(pr, data)
     require(not runner.git(candidate, 'status', '--porcelain'), 'CANDIDATE_NOT_CLEAN')
@@ -97,7 +122,8 @@ def main(candidate, output):
          checkout_tree=tree, parents=parents, pr_head_before=pr['head']['sha'], control_revision=publication.CONTROL,
          anchor_sha256=publication.ANCHOR, workflow_sha=os.environ.get('GITHUB_WORKFLOW_SHA'),
          actual_orchestrator_sha=runner.git(ROOT, 'rev-parse', 'HEAD').decode().strip(),
-         baseline_evidence_run=38635496099, baseline_run_does_not_execute_v02=True))
+         baseline_evidence_run=38635496099 if successor is None else 38760171595, baseline_run_does_not_execute_v02=True,
+         predecessor_sha=None if successor is None else successor_guard.PREDECESSOR, reviewed_scope_sha256=scope_sha256))
     (candidate/'var').mkdir(exist_ok=True)
     worker = ROOT/'scripts/v02_task_worker.py'
     envs, results = {}, {}
@@ -134,6 +160,8 @@ def main(candidate, output):
         args = [envs[name], '-I', '-B', worker, kind, '--candidate', candidate, '--output', dest]
         if db_command:
             args += ['--db-command', db_command]
+        if successor is not None and kind == 'v02':
+            args += ['--successor-scope', scope_path, '--scope-sha256', scope_sha256]
         return runner.run((directory or kind), args, candidate, timeout=1200)
 
     for name, port in [('v02', '15441'), ('v01', '55441')]:
@@ -242,9 +270,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--successor-scope', type=Path)
+    parser.add_argument('--scope-sha256')
     args = parser.parse_args()
     try:
-        main(args.candidate, args.output.resolve())
+        main(args.candidate, args.output.resolve(), args.successor_scope, args.scope_sha256)
     finally:
         if args.output.exists():
             rows = [dict(path=p.relative_to(args.output.resolve()).as_posix(), sha256=sha(p.read_bytes()), bytes=p.stat().st_size)
