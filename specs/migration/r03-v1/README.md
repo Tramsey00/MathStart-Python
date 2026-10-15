@@ -147,3 +147,16 @@ descendant acceptance or automatic tree/pin replacement. Human approval552531594
 is received at predecessor76d8eac only. [Current handoff](../../../docs/acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
 records required exact renderer contract/owner diff/current case inventory and
 new-SHA suite sequence. Guard preparation CI is not successor task evidence.
+
+## Published V02 successor8256cbf — 2026-10-15
+
+New reviewed scope v02-successor-reviewed-8256cbf.json is independently pinned
+SHA25604a47175 (5 modified +63 new files, exact metadata/patch/case IDs), separate
+from unchanged original candidate/anchor/control inputs. Root workflow/control
+0effadc run38784183591 SUCCESS: original v3 replay at76d8eac, successor chain/
+delta at8256cbf/tree74c3014, V02118/all50 PG with original86 retained and0 skips,
+separate V0134/all23 PG, contracts/Content/runtime without Django. Full clean
+checkout includes helper verifier/evidence dependencies. [Current review](../../../docs/acceptance/MS7-MIG-R03/v02-successor-review-8256cbf/review-packet.md)
+retains raw hashes/reconciliation and baseline/stale/global-target classifications.
+Current intake is technical PASS, renewed human review pending; no approval
+transfer, merge or Issue closure. Global R03 remains INCOMPLETE.

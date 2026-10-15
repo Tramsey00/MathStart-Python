@@ -1,6 +1,12 @@
 # V02 additive HOME / pinned-renderer amendment: R03 intake
 
-Current status: **NOT_READY / AWAITING_PUBLISHED_SUCCESSOR_AND_REVIEWED_DIFF**.
+Current published8256cbf follow-up: **TECHNICAL_CHECKS_PASS / RENEWED_REVIEW_PENDING**.
+[New exact-SHA packet](../v02-successor-review-8256cbf/review-packet.md) records
+scope/pins, fresh Linux successor gate and118/all50 PG matrix PASS in38784183591,
+with independent raw reconciliation. Original controls and this dated preparation
+record remain history; no Task Approval/merge is issued by R03.
+
+Historical preparation status: **NOT_READY / AWAITING_PUBLISHED_SUCCESSOR_AND_REVIEWED_DIFF**.
 The user authorized Владимир to publish one narrow additional commit in PR53
 for required HOME alias validation and pinned-release internal renderer context.
 No repeat approval of that scope or of the existing40-path policy is requested.

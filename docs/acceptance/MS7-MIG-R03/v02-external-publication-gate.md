@@ -1,6 +1,15 @@
 # V02 external publication gate: current review and historical preparation
 
-**Current 2026-10-15: AUTHORIZED_NARROW_SUCCESSOR / NOT_READY_NEW_COMMIT_AND_DIFF_PENDING.**
+**Current 2026-10-15: SUCCESSOR_GATE_AND_TASK_MATRIX_PASS / RENEWED_REVIEW_PENDING.**
+[Current8256cbf packet](v02-successor-review-8256cbf/review-packet.md) records
+fresh Linux original-v3 replay on76d8eac plus separately pinned successor chain/
+delta and118/all50 PG task matrix, run38784183591 SUCCESS. Exactly5+63 source
+scope, all old86 case IDs and original controls/raw40/73 preserved; complete raw
+artifact reconciliation PASS. Original v3 anchor remains old-tree-specific.
+Live HEAD remains8256cbf; renewed Task Approval/applicable consumer review pending.
+No draft promotion/merge/Issue closure; R03 INCOMPLETE.
+
+**Earlier 2026-10-15 preparation: AUTHORIZED_NARROW_SUCCESSOR / NOT_READY_NEW_COMMIT_AND_DIFF_PENDING.**
 [Successor handoff](v02-successor-20261015/handoff.md) preserves old pins/controls/
 evidence, records human predecessor approval5525315946, and prepares independent
 BASE→76d8eac→new-commit chain plus exact delta verification. PR53 still76d8eac;
