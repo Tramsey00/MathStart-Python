@@ -1,0 +1,20 @@
+--- audited/backend/content/releases.py
++++ remediated/backend/content/releases.py
+@@ -108,9 +108,14 @@
+                     asset_raw = inside(root, asset['storage_key']).read_bytes()
+                     if sha256(asset_raw).hexdigest() != asset['sha256']:
+                         raise unavailable()
+-                    if asset['url'] in assets and assets[asset['url']][0] != asset:
+-                        raise unavailable()
+-                    assets[asset['url']] = (asset, asset_raw)
++                    previous = assets.get(asset['url'])
++                    if previous is not None:
++                        # Load order is local to each page, not shared URL identity.
++                        identity = {k: v for k, v in asset.items() if k != 'order'}
++                        previous_identity = {k: v for k, v in previous[0].items() if k != 'order'}
++                        if previous_identity != identity or previous[1] != asset_raw:
++                            raise unavailable()
++                    assets.setdefault(asset['url'], (asset, asset_raw))
+                 pages[pk] = page
+                 page_raw[pk] = raw
+                 slugs.add(page['slug']); urls.add(canonical)

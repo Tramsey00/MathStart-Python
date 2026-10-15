@@ -1,0 +1,83 @@
+{
+  "helper_sources": {
+    "var/i02_handoff_verify.py": {
+      "declared_sha256": "802c9a17de950cc9160e918a33518ae7d4e49c7434df778b7b4436502588656d",
+      "actual_raw_sha256": "802c9a17de950cc9160e918a33518ae7d4e49c7434df778b7b4436502588656d",
+      "actual_utf8_roundtrip_sha256": "802c9a17de950cc9160e918a33518ae7d4e49c7434df778b7b4436502588656d",
+      "raw_size": 5635,
+      "utf8_bom": false,
+      "cr": 0,
+      "lf": 100,
+      "crlf": 0,
+      "raw_valid_utf8": true,
+      "cp1251_misread_then_utf8_sha256": "802c9a17de950cc9160e918a33518ae7d4e49c7434df778b7b4436502588656d",
+      "cp1251_misread_recovers_raw_when_reencoded_cp1251": true,
+      "git_index_entries": "",
+      "git_ignore_rule": ".gitignore:11:var/\tvar/i02_handoff_verify.py"
+    },
+    "var/i02_handoff_full_content.py": {
+      "declared_sha256": "c6e5840c9f6a7a7f4b99746126922c9199d523eb95a0399f4689943ae9546704",
+      "actual_raw_sha256": "c6e5840c9f6a7a7f4b99746126922c9199d523eb95a0399f4689943ae9546704",
+      "actual_utf8_roundtrip_sha256": "c6e5840c9f6a7a7f4b99746126922c9199d523eb95a0399f4689943ae9546704",
+      "raw_size": 4364,
+      "utf8_bom": false,
+      "cr": 0,
+      "lf": 71,
+      "crlf": 0,
+      "raw_valid_utf8": true,
+      "cp1251_misread_then_utf8_sha256": "3a10fc80fe13e3965931f11d2e168f4352bd96e89504cdf3f6cb60b9af8aa28d",
+      "cp1251_misread_recovers_raw_when_reencoded_cp1251": true,
+      "git_index_entries": "",
+      "git_ignore_rule": ".gitignore:11:var/\tvar/i02_handoff_full_content.py"
+    },
+    "var/i02_handoff_runtime_smoke.py": {
+      "declared_sha256": "a95d9b3a0c07dbbd6bd42349a6ffc88ed8181e20079d1a738e07889e9da197c9",
+      "actual_raw_sha256": "a95d9b3a0c07dbbd6bd42349a6ffc88ed8181e20079d1a738e07889e9da197c9",
+      "actual_utf8_roundtrip_sha256": "a95d9b3a0c07dbbd6bd42349a6ffc88ed8181e20079d1a738e07889e9da197c9",
+      "raw_size": 4706,
+      "utf8_bom": false,
+      "cr": 0,
+      "lf": 98,
+      "crlf": 0,
+      "raw_valid_utf8": true,
+      "cp1251_misread_then_utf8_sha256": "a95d9b3a0c07dbbd6bd42349a6ffc88ed8181e20079d1a738e07889e9da197c9",
+      "cp1251_misread_recovers_raw_when_reencoded_cp1251": true,
+      "git_index_entries": "",
+      "git_ignore_rule": ".gitignore:11:var/\tvar/i02_handoff_runtime_smoke.py"
+    },
+    "var/i02_handoff_finalize.py": {
+      "declared_sha256": "dedc2f1e73d6312af4a6bf4a6fe61a0fc2216c5fbebf0a0388ddd7cc8ccff2c5",
+      "actual_raw_sha256": "dedc2f1e73d6312af4a6bf4a6fe61a0fc2216c5fbebf0a0388ddd7cc8ccff2c5",
+      "actual_utf8_roundtrip_sha256": "dedc2f1e73d6312af4a6bf4a6fe61a0fc2216c5fbebf0a0388ddd7cc8ccff2c5",
+      "raw_size": 18714,
+      "utf8_bom": false,
+      "cr": 0,
+      "lf": 261,
+      "crlf": 0,
+      "raw_valid_utf8": true,
+      "cp1251_misread_then_utf8_sha256": "0d45e3ef0ba0654f0e16e8e7e715fe7bfc66c1fc433c6fd26d639472d88b69d3",
+      "cp1251_misread_recovers_raw_when_reencoded_cp1251": true,
+      "git_index_entries": "",
+      "git_ignore_rule": ".gitignore:11:var/\tvar/i02_handoff_finalize.py"
+    },
+    "var/i02_handoff_seal.py": {
+      "declared_sha256": "8d929b2045e9251732609b905ad109179068ede3d87ca3770f3c3c653fbb295a",
+      "actual_raw_sha256": "8d929b2045e9251732609b905ad109179068ede3d87ca3770f3c3c653fbb295a",
+      "actual_utf8_roundtrip_sha256": "8d929b2045e9251732609b905ad109179068ede3d87ca3770f3c3c653fbb295a",
+      "raw_size": 4437,
+      "utf8_bom": false,
+      "cr": 0,
+      "lf": 80,
+      "crlf": 0,
+      "raw_valid_utf8": true,
+      "cp1251_misread_then_utf8_sha256": "8d929b2045e9251732609b905ad109179068ede3d87ca3770f3c3c653fbb295a",
+      "cp1251_misread_recovers_raw_when_reencoded_cp1251": true,
+      "git_index_entries": "",
+      "git_ignore_rule": ".gitignore:11:var/\tvar/i02_handoff_seal.py"
+    }
+  },
+  "result": "Original source and UTF-8 JSON bytes are correct. Reported mismatches reproduced exactly by decoding that same JSON as CP1251.",
+  "historical_writer": "i02_handoff_finalize.py hashes read_bytes and stores raw.decode(); bytes.decode defaults to UTF-8. JSON metadata is UTF-8. No original bytes were corrected.",
+  "previous_guard_gap": "seal verified command-output base64 hashes but never independently round-tripped helper source_utf8.",
+  "new_hardening": "Explicit UTF-8, exact raw source base64 with its own digest, text digest, intake source pins and independent physical-file rereads; no old record/expected hash overwrite."
+}
