@@ -136,3 +136,14 @@ run's incomplete hidden-cache upload is retained separately from the complete
 rerun. Global R03 target still requires its reviewed command map, accepted
 V02/I02 inputs and applicable V04 CLI/full combined pipeline/independent reviews;
 this global prerequisite is not a new V02 card condition. R03 INCOMPLETE.
+
+## Authorized V02 narrow successor — 2026-10-15
+
+New v02-successor-intake.json remains NOT_READY/null for unpublished new SHA/tree.
+Separate v02_successor_gate verifies direct parent76d8eac and unchanged original
+BASE lineage, owner-reviewed exact diff/blobs/metadata/attributes plus preserved
+controls40/73. Original publication-v3/control/input is unchanged; no blanket
+descendant acceptance or automatic tree/pin replacement. Human approval5525315946
+is received at predecessor76d8eac only. [Current handoff](../../../docs/acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
+records required exact renderer contract/owner diff/current case inventory and
+new-SHA suite sequence. Guard preparation CI is not successor task evidence.

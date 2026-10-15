@@ -1,6 +1,13 @@
 # V02 external publication gate: current review and historical preparation
 
-**Current 2026-10-15: PUBLISHED_COMMIT_GATE_PASS / TECHNICAL_CHECKS_PASS /
+**Current 2026-10-15: AUTHORIZED_NARROW_SUCCESSOR / NOT_READY_NEW_COMMIT_AND_DIFF_PENDING.**
+[Successor handoff](v02-successor-20261015/handoff.md) preserves old pins/controls/
+evidence, records human predecessor approval5525315946, and prepares independent
+BASE→76d8eac→new-commit chain plus exact delta verification. PR53 still76d8eac;
+successor SHA/tree null, actual successor suites NOT_RUN. The original v3/tree
+is not silently extended or re-pinned. R03 INCOMPLETE; no merge/Issue closure.
+
+**Earlier 2026-10-15 pre-approval packet: PUBLISHED_COMMIT_GATE_PASS / TECHNICAL_CHECKS_PASS /
 INDEPENDENT_TASK_APPROVAL_PENDING. R03 remains INCOMPLETE.**
 PR53 current HEAD76d8eac has exact approved single parent/tree. Fresh Linux
 published run38637910883 and task run38642117604 SUCCESS; raw artifacts were

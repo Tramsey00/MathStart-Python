@@ -1,0 +1,50 @@
+name: R03 V02 successor guard preparation
+
+on:
+  push:
+    branches: [ms7-mig-r03-verification]
+    paths:
+      - '.github/workflows/v02-successor-guards.yml'
+      - 'scripts/v02_successor_gate.py'
+      - 'tests/test_v02_successor_gate.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard-preparation-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Exact preparation checkout and versions
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          mkdir -p var/v02-successor-preparation
+          git rev-parse HEAD > var/v02-successor-preparation/workflow-sha.txt
+          python --version > var/v02-successor-preparation/python.txt
+          git --version > var/v02-successor-preparation/git.txt
+      - name: Synthetic successor guard regressions only
+        run: python -I -B -m unittest discover -s tests -p test_v02_successor_gate.py -v > var/v02-successor-preparation/successor.stdout 2> var/v02-successor-preparation/successor.stderr
+      - name: Original fixed-candidate guard regressions stay unchanged
+        run: python -I -B -m unittest discover -s tests -p test_published_v02_ci.py -v > var/v02-successor-preparation/original.stdout 2> var/v02-successor-preparation/original.stderr
+      - name: Label preparation evidence and hash raw streams
+        if: always()
+        run: |
+          printf '%s\n' 'GUARD_PREPARATION_ONLY: no successor published/task gate or approval is claimed' > var/v02-successor-preparation/evidence-class.txt
+          python -I -B -c "from pathlib import Path; import hashlib,json; p=Path('var/v02-successor-preparation'); (p/'manifest.json').write_text(json.dumps([dict(path=f.name,bytes=f.stat().st_size,sha256=hashlib.sha256(f.read_bytes()).hexdigest()) for f in p.iterdir() if f.is_file()],indent=2)+'\n')"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: r03-v02-successor-preparation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: var/v02-successor-preparation/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90

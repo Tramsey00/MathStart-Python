@@ -9,7 +9,15 @@ MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7.
 R01/R02 accepted integration facts and external owner receipt remain authoritative;
 historical PENDING snapshots are retained.
 
-Current2026-10-15 V02 published candidate increment:
+Current2026-10-15 V02 narrow successor intake:
+User authorizes HOME validation/pinned renderer-context additional commit with
+parent76d8eac; [separate chain/diff preparation](v02-successor-20261015/handoff.md)
+and pending v02-successor-intake.json preserve all original pins/evidence.
+Live PR still76d8eac; no successor SHA/tree is received or auto-pinned. Observed
+human approval5525315946 applies only to76d8eac, not to a future HEAD. Successor
+gate/task suites NOT_READY/NOT_RUN, R03 INCOMPLETE. No merge/closure.
+
+Earlier2026-10-15 V02 published candidate increment (pre-approval receipt):
 [exact-HEAD technical review packet](v02-review-20261015/review-packet.md),
 PR53 implementation76d8eac / approved tree dbad1e8 / only parent0c03197.
 Published run38637910883 SUCCESS with unchanged controls1b75c6e and confirmed

@@ -232,3 +232,26 @@ does not acquire a new global R03 dependency. Full R03 target still fails
 PENDING/empty command-map prerequisite, later stages NOT_RUN; accepted V02/I02,
 applicable V04 CLI, reviewed10/4 commands, full combined pipeline and independent
 Vladimir/Ilya R03 approvals remain outstanding. R03 ACTIVE / INCOMPLETE.
+
+### Authorized V02 direct successor intake — 2026-10-15
+
+User authorizes a narrow additional PR53 commit for HOME alias validation and
+pinned-release renderer context, with sole parent76d8eac. Old only-parent-BASE
+guard remains unchanged for the old candidate; a separate additive chain/delta
+guard checks BASE→76d8eac→new HEAD, independently reviewed patch/blob/metadata/
+attributes pins, original raw40/73 and controls preservation, before/after live
+HEAD, and fresh Linux actual checkout. It replays unchanged v3 only at original
+76d8eac and does not re-anchor that verifier to a different tree. No automatic
+new SHA/tree/policy pins or transfer of approval. Original input/control/evidence
+files stay unchanged; new pending intake has null successor pins.
+
+Live PR53 still76d8eac; new commit/diff and exact agreed renderer context handoff
+are not yet received. Human approval5525315946 by Tramsey00 at76d8eac is observed
+and recorded separately; the earlier pending packet is pre-receipt history.
+PR open/draft, no merge/ACCEPTED_INTEGRATION claim. Successor gate/task suites
+NOT_RUN / NOT_READY; required current-case inventory includes all old86 IDs plus
+reviewed new cases/subcases, V01 separate34/all23 PG, F01/F02, Content/contracts,
+§17 and target runtime without Django. No V02 implementation/lock/test changes.
+[Concrete successor handoff](../../acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
+records exact remaining inputs and review sequence. Preparation guard regressions
+are synthetic, not evidence for an unpublished successor. R03 INCOMPLETE.
