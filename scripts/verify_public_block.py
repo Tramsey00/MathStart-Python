@@ -22,7 +22,7 @@ from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.public_block_process import owned_http_service, run_browser_check, _stop
+from scripts.public_block_process import owned_http_service, run_browser_check, start_owned_process, _stop
 
 
 def npm_command(script):
@@ -84,10 +84,9 @@ def main(argv=None):
         entry = {'id':name,'argv':command,'cwd':str(cwd.relative_to(ROOT)) or '.',
                  'log':logfile.name, 'exit_code':None}
         report['stages'].append(entry)
-        options = {'creationflags':subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session':True}
         with logfile.open('wb') as log:
-            child = subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
-                                     stdout=log, stderr=subprocess.STDOUT, **options)
+            child = start_owned_process(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
+                                        stdout=log, stderr=subprocess.STDOUT)
             try:
                 entry['exit_code'] = child.wait(timeout=timeout)
             finally:
