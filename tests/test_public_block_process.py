@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 
-from scripts.public_block_process import LifecycleFailure, run_browser_check
+from scripts.public_block_process import LifecycleFailure, owned_http_service, run_browser_check
 
 
 class PublicBlockLifecycle(unittest.TestCase):
@@ -86,6 +86,23 @@ class PublicBlockLifecycle(unittest.TestCase):
             run_browser_check(self.server, [], base_url='http://example.com',
                 cwd=self.root, evidence_root=self.root / 'evidence')
         self.assertFalse((self.root / 'evidence').exists())
+
+    def test_two_owned_origins_are_ready_and_both_cleaned_up(self):
+        with socket.socket() as reservation:
+            reservation.bind(('127.0.0.1', 0))
+            other_port = reservation.getsockname()[1]
+        other_origin = f'http://127.0.0.1:{other_port}'
+        other_server = [sys.executable, '-m', 'http.server', str(other_port), '--bind', '127.0.0.1']
+        with owned_http_service(other_server, base_url=other_origin, cwd=self.root,
+                                evidence_root=self.root / 'baseline', startup_timeout=3):
+            code = ('import urllib.request; '
+                    f"assert urllib.request.urlopen({other_origin!r}).status==200; "
+                    f"assert urllib.request.urlopen({self.origin!r}).status==200")
+            self.assertEqual(self.execute(check=[sys.executable,'-c',code])['browser_exit'], 0)
+        self.assert_closed()
+        with socket.socket() as connection:
+            connection.settimeout(0.2)
+            self.assertNotEqual(connection.connect_ex(('127.0.0.1', other_port)), 0)
 
 
 if __name__ == '__main__':

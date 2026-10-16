@@ -1,0 +1,164 @@
+"""Reproduce the I02/I03 synthetic PostgreSQL, SSG and browser block.
+
+Dependencies and browser binaries must be installed from the documented locks.
+The operator supplies a new empty disposable PostgreSQL database. This command
+does not create/drop databases, deploy, implement login, or run full publication.
+"""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+from hashlib import sha256
+import importlib.util
+import json
+import os
+from pathlib import Path
+import secrets
+import shutil
+import subprocess
+import sys
+import time
+from uuid import uuid4
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from scripts.public_block_process import owned_http_service, run_browser_check, _stop
+
+
+def npm_command(script):
+    if script not in {'typecheck', 'test', 'build', 'test:e2e'}:
+        raise ValueError('Unknown frontend check')
+    npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
+    if not npm:
+        raise ValueError('npm is unavailable')
+    if os.name == 'nt':
+        return [os.environ.get('COMSPEC', 'cmd.exe'), '/d', '/s', '/c',
+                '""' + npm + '" run ' + script + '"']
+    return [npm, 'run', script]
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--runtime-root', type=Path, required=True)
+    parser.add_argument('--legacy-python', type=Path, required=True)
+    parser.add_argument('--port', type=int, default=8111)
+    parser.add_argument('--legacy-port', type=int, default=8112)
+    parser.add_argument('--allow-dirty', action='store_true', help='Development only; receipt remains DIRTY_SOURCE')
+    args = parser.parse_args(argv)
+    root = args.runtime_root.resolve()
+    if not root.is_relative_to(ROOT / 'var') or root.exists():
+        parser.error('A new owned directory under this checkout var/ is required')
+    if args.port == args.legacy_port or any(not 1024 <= p <= 65535 for p in (args.port, args.legacy_port)):
+        parser.error('Distinct unprivileged loopback ports are required')
+    if not args.legacy_python.is_file():
+        parser.error('A separate installed legacy interpreter is required')
+    if os.environ.get('MATHSTART_DISPOSABLE') != '1' or not os.environ.get('MATHSTART_DATABASE_URL'):
+        parser.error('Explicit disposable PostgreSQL configuration required')
+    if importlib.util.find_spec('django') or importlib.util.find_spec('rest_framework'):
+        parser.error('The target interpreter must not have Django or DRF installed')
+    dirty = subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=normal'], cwd=ROOT, text=True).splitlines()
+    if dirty and not args.allow_dirty:
+        parser.error('Commit the reviewable source first; dirty development runs need --allow-dirty')
+    root.mkdir(parents=True)
+    report = {'version':'i02-i03-public-block-run-v1', 'status':'IN_PROGRESS',
+              'started_at':datetime.now(timezone.utc).isoformat(),
+              'implementation_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+              'tree_sha':subprocess.check_output(['git','log','-1','--format=%T'],cwd=ROOT,text=True).strip(),
+              'dirty_paths':dirty, 'scope':'I02/I03 plus initial synthetic read-serving dependency only',
+              'full_V03_V04_R03':'NOT_VERIFIED', 'formal_acceptance':'HUMAN_PENDING', 'stages':[]}
+    env = os.environ.copy()
+    # Keys are private in-memory fixtures. Never echo the environment or cookies.
+    env['MATHSTART_HTTP_SIGNING_KEY'] = secrets.token_urlsafe(48)
+    env['MATHSTART_PUBLIC_ORIGIN'] = f'http://127.0.0.1:{args.port}'
+    env['MATHSTART_PYTHON'] = sys.executable
+    env['MATHSTART_LEGACY_PYTHON'] = str(args.legacy_python.resolve())
+    env['PYTHONUNBUFFERED'] = '1'
+    env['MATHSTART_V04_DATABASE_URL'] = env['MATHSTART_DATABASE_URL']
+    release_id = 'public-' + uuid4().hex
+    setup_root = root / 'runtime'
+    frontend = ROOT / 'frontend'
+
+    def stage(name, command, cwd=ROOT, timeout=540):
+        logfile = root / (name + '.log')
+        started = time.monotonic()
+        entry = {'id':name,'argv':command,'cwd':str(cwd.relative_to(ROOT)) or '.',
+                 'log':logfile.name, 'exit_code':None}
+        report['stages'].append(entry)
+        options = {'creationflags':subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session':True}
+        with logfile.open('wb') as log:
+            child = subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
+                                     stdout=log, stderr=subprocess.STDOUT, **options)
+            try:
+                entry['exit_code'] = child.wait(timeout=timeout)
+            finally:
+                _stop(child)
+                entry['elapsed_seconds'] = round(time.monotonic() - started, 3)
+        if entry['exit_code']:
+            raise RuntimeError('Required stage failed: ' + name)
+        print('PASS: ' + name, flush=True)
+
+    try:
+        stage('target-lock', [sys.executable,'-m','pip','check'])
+        stage('python-version', [sys.executable,'--version'])
+        stage('node-version', [shutil.which('node') or 'node','--version'])
+        stage('synthetic-prepare', [sys.executable,'-m','backend.content.synthetic_setup','prepare','--disposable',
+            '--runtime-root',str(setup_root),'--release-id',release_id,'--source-sha',report['implementation_sha']])
+        prepared = json.loads((setup_root / 'prepare-result.json').read_text(encoding='utf-8'))
+        config = {key:prepared[key] for key in ('input_root','release_id','manifest_digest','receipt_digest')}
+        config.update(output=str(root / 'artifact'), origin=env['MATHSTART_PUBLIC_ORIGIN'])
+        config_path = root / 'build-config.json'
+        config_path.write_text(json.dumps(config),encoding='utf-8')
+        env['MATHSTART_BUILD_CONFIG'] = str(config_path)
+        env['MATHSTART_STAFF_COOKIE_FILE'] = str(setup_root / 'private-staff-cookie.json')
+        stage('frontend-typecheck', npm_command('typecheck'), frontend)
+        stage('frontend-unit', npm_command('test'), frontend)
+        stage('frontend-build', npm_command('build'), frontend)
+        artifact_digest = sha256((root / 'artifact/output-manifest.json').read_bytes()).hexdigest()
+        stage('initial-synthetic-activation', [sys.executable,'-m','backend.content.synthetic_setup','activate-initial',
+            '--disposable','--runtime-root',str(setup_root),'--release-id',release_id,
+            '--receipt-digest',prepared['receipt_digest'],'--artifact-root',str(root / 'artifact'),
+            '--artifact-digest',artifact_digest])
+        env['MATHSTART_RELEASE_ROOT'] = str(setup_root / 'releases')
+        env['MATHSTART_PUBLIC_ARTIFACT_ROOT'] = str(root / 'artifact')
+        env['MATHSTART_PUBLIC_ARTIFACT_DIGESTS'] = json.dumps({release_id:artifact_digest})
+        env['MATHSTART_PUBLIC_VIEW'] = str(frontend / '.cache' / ('public-view-' + release_id + '.json'))
+        env['MATHSTART_LEGACY_BASE_URL'] = f'http://127.0.0.1:{args.legacy_port}'
+        stage('source-render-and-read-runtime', [sys.executable,'-m','unittest',
+            'backend.tests.v04.test_build','backend.tests.v04.test_read_runtime',
+            'frontend.tests.test_public_artifact','-v'])
+        legacy_argv = [sys.executable,'-m','frontend.legacy_comparator','--build-config',str(config_path),
+            '--legacy-python',str(args.legacy_python.resolve()),'--runtime-root',str(root / 'legacy'),
+            '--port',str(args.legacy_port)]
+        target_argv = [sys.executable,'-m','uvicorn','backend.content.public_runtime:application',
+            '--factory','--host','127.0.0.1','--port',str(args.port),'--no-access-log']
+        # Target and comparator have separately owned process trees and logs.
+        with owned_http_service(legacy_argv,base_url=env['MATHSTART_LEGACY_BASE_URL'],
+                                cwd=ROOT,evidence_root=root / 'legacy-service',environment=env):
+            browser_env = dict(env)
+            browser_env['MATHSTART_CHECK_ID'] = 'frontend-e2e'
+            browser_env['MATHSTART_CHECK_RESULT'] = str(root / 'browser-receipt.json')
+            # npm requires frontend cwd; the server module needs repository cwd.
+            browser_command = [sys.executable,str(ROOT / 'scripts/public_frontend_command.py'),'test:e2e']
+            browser = run_browser_check(target_argv,browser_command,base_url=env['MATHSTART_PUBLIC_ORIGIN'],
+                cwd=ROOT,evidence_root=root / 'target-service',environment=browser_env,check_timeout=1500)
+        report['browser_lifecycle'] = browser
+        if browser != {'startup':'PASS','browser_exit':0,'cleanup':'PASS'}:
+            raise RuntimeError('Browser check or service lifecycle failed')
+        receipt = json.loads((root / 'browser-receipt.json').read_text(encoding='utf-8'))
+        if receipt.get('status') != 'PASS' or receipt.get('skipped') != 0 or receipt.get('assertions',0) < 1:
+            raise RuntimeError('Missing nonempty unskipped browser proof')
+        report.update(status='PASS' if not dirty else 'PASS_DIRTY_SOURCE_ONLY', release_id=release_id,
+            input_manifest_digest=prepared['manifest_digest'],input_receipt_digest=prepared['receipt_digest'],
+            output_manifest_digest=artifact_digest,browser_receipt='browser-receipt.json')
+        return 0
+    except Exception as error:
+        report.update(status='FAIL', failure_class=type(error).__name__)
+        print('FAIL: public block verification; inspect the named stage logs.',file=sys.stderr)
+        return 1
+    finally:
+        report['finished_at'] = datetime.now(timezone.utc).isoformat()
+        (root / 'result.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
