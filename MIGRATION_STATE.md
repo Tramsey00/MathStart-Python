@@ -2,12 +2,18 @@
 
 ## 1. Текущее состояние пакета
 
-- Package: PREPARED_NOT_STARTED.
-- Execution: NOT_STARTED; подготовлены только инструкции, миграция не запускалась.
+- Package: ACTIVATED_BY_USER on 2026-10-16, Europe/Moscow.
+- Execution: IN_PROGRESS; isolated bootstrap complete, implementation agents active.
 - Process authority: пользователь поручил подготовить единое выполнение всех
   оставшихся задач, без персональных очередей/сроков, с нуля для V04/I02.
 - Final acceptance: HUMAN_PENDING.
-- Execution checkout / current candidate / package import commit: не назначены.
+- Execution checkout: C:/Projects/MathStart-Python/migration-execution/integration.
+- Current committed candidate / package import: `24d06112bcd6abcd1abad9b052de14a0a7b49e8e`.
+- Execution plan: docs/exec-plans/active/migration-execution.md; trace:
+  docs/agent-traces/migration-execution.md. No release candidate verified yet.
+- User-selected subagent model: `gpt-6.1-sol`, reasoning effort `high`.
+  Active roles: backend_sol, frontend_sol, reviewer_sol; prior contexts stopped
+  after preserving their checkouts. No concurrent writers in the same area.
 - Source snapshot observed: 2026-10-16, Europe/Moscow. Это дата наблюдения,
   не дедлайн; при старте повторно проверить GitHub и не доверять stale snapshot.
 
@@ -127,7 +133,10 @@ Canonical migration ТЗ находится в migration-ветке по пут�
 
 | Slice / роль | Input SHA | Checkout / paths / DB / port | Candidate SHA | Checks / review | Status / next step |
 | --- | --- | --- | --- | --- | --- |
-| — | — | — | — | Ничего не выполнялось | NOT_STARTED |
+| Bootstrap / coordinator | a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6 | migration-execution/integration; ports8111–8119; ms7exec_coord_* | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | fresh refs and ten matching package hashes | COMPLETE; R03 intake next |
+| V04/V03 / backend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | migration-execution/backend; ports8121–8129; ms7exec_backend_* | — | source inspection | IN_PROGRESS |
+| I02/I03 / frontend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | migration-execution/frontend; ports8131–8139 | — | source inspection | IN_PROGRESS |
+| R03 intake / reviewer | fb39647beb983a4f488ad82d4984d3f96e87b9a8 | migration-execution/review; ports8141–8149; ms7exec_review_* | — | review requested | REVIEW_PENDING |
 
 Для каждого blocking finding: ID, task, description, reproduction/contract,
 fix SHA, regression run, reviewer disposition. Для CI указать workflow/event/
@@ -137,10 +146,18 @@ actual checkout отдельно. Для долгого внешнего зап�
 
 ## 8. Следующий шаг
 
-После явного исполнения [стартового поручения](MIGRATION_START.md):
-прочитать пакет -> проверить live refs/worktrees -> подготовить isolated
-integration checkout и перенести только пакет -> R03 intake -> runnable tooling
-и baseline -> доступные V03/V04/I02/R03 slices по TASKS.
+Bootstrap выполнен. Продолжить R03 intake из immutable fb39647, locked tooling
+и baseline; backend готовит V04 H-BUILD-INPUTS/V03, frontend — I02 с нуля.
+Три первые agent turns остановились на service usage limit до реализации;
+после «Продолжай» роли перезапущены. Не считать их запуск проверкой или review.
+Рабочий Python 3.12.14 найден в bundled runtime; Node24.19.0/npm11.17.0.
+Docker Engine29.8.1/Desktop4.93.0 подтверждён. Owned disposable PostgreSQL
+container ms7exec_backend_pg запущен на loopback55432; backend проверяет PG.
+R03 pure в detached fb39647: PASS6 checks; независимый reviewer воспроизвёл
+215 tests/0 skips. Raw coordinator log: var/execution/bootstrap/r03-pure-owner.log.
+Первый sandbox run сохранён как environment FAIL (Git dubious ownership),
+повтор в owner context PASS без изменения глобальной Git safety.
+Полный target/PG/browser остаётся NOT_RUN, R03 ещё не TECHNICALLY_VERIFIED.
 
 При возобновлении сначала проверить факты из журнала, затем продолжить первый
 доступный незавершённый срез. Не возвращаться к этой первоначальной TODO-таблице,
