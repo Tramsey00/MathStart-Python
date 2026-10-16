@@ -81,6 +81,17 @@ because port8121 refused connections. It is preserved as environment failure.
 After the backend owner restarted the API, the full nine-project matrix began
 with 1044 tests; `var/real-matrix-06.log` records that attempt. A start is not a
 passing result, and no successful E2E receipt exists until the wrapper finishes.
+Matrix06 was stopped after three page-load timeouts. Backend investigation found
+that synchronous complete release validation during each auxiliary resource
+request blocked serving. This is a failed attempt, not partial browser acceptance;
+the backend owner is preparing and independently reviewing the serving fix before
+another full run. No E2E success receipt was emitted.
+
+The actual build view independently enumerates 280 routes and 263 topic pages,
+97 distinct local CSS files and seven distinct local JS files. Including shared
+dependencies, it references 108 distinct stylesheet URLs and 11 script URLs.
+The browser suite derives representatives from those full inventories rather
+than hard-coding a smaller list.
 
 ## Portable command contract
 
