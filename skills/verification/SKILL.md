@@ -1,5 +1,18 @@
 # Verification Skill
 
+## Current migration adapter (MS7-MIG-R03)
+
+For migration acceptance use `python scripts/verify_repo.py --profile target`.
+The explicit `--profile pure` runs only portable domain/model/Harness checks,
+with `specs/migration/r03-v1/verification.lock`; it does not establish runtime
+or PG/browser parity. The transitional default remains legacy for frozen ci.yml.
+Absent owner locks/commands, empty suites, skips and timeout are failures.
+See [current adapter contract](../../specs/migration/r03-v1/README.md),
+[active plan](../../docs/exec-plans/active/MS7-MIG-R03.md) and
+[trace](../../docs/agent-traces/MS7-MIG-R03.md). Final default cutover and full
+target evidence remain pending accepted integration; historical guidance below
+describes the preserved Django baseline, not target acceptance.
+
 ## Purpose
 
 Use this skill when a coding-agent task reaches its verification phase.

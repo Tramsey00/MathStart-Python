@@ -2,12 +2,10 @@
 """
 MathStart repository verification entry point.
 
-R01 / Harness v1 baseline, extended with R03 contracts and the R04 Harness suite.
-
-This script intentionally runs only checks that are already part of the current
-MathStart repository workflow. It does not pretend that future tooling
-(Ruff, mypy, pytest, PostgreSQL smoke, architecture validators, etc.) is already
-configured.
+R01/R04 legacy baseline plus explicit MS7-MIG-R03 target/pure profiles.
+Target wrappers fail when required owner implementations are absent. The pure
+profile proves only portable contracts/model/Harness behavior, never runtime
+parity. The legacy default preserves the frozen CI baseline during migration.
 
 Exit code:
     0 - all enabled checks passed
@@ -25,8 +23,9 @@ from typing import Sequence
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 MANAGE_PY = ROOT / "manage.py"
-GROUPS = ("backend", "database", "content", "tests", "harness")
+GROUPS = ("backend", "database", "content", "tests", "harness", "frontend")
 
 
 @dataclass(frozen=True)
@@ -115,17 +114,25 @@ CHECKS: tuple[Check, ...] = (
 
 def run_command(command: Sequence[str]) -> int:
     print(f"$ {' '.join(command)}", flush=True)
-    completed = subprocess.run(
-        list(command),
-        cwd=ROOT,
-        check=False,
-    )
+    try:
+        completed = subprocess.run(list(command), cwd=ROOT, check=False,
+                                   shell=False, timeout=600)
+    except subprocess.TimeoutExpired:
+        print("Verification check timed out (600 seconds).", file=sys.stderr)
+        return 124
+    except OSError:
+        print("Verification tool unavailable.", file=sys.stderr)
+        return 127
     return completed.returncode
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run MathStart Harness verification checks."
+    )
+    parser.add_argument(
+        "--profile", choices=("legacy", "target", "pure"), default="legacy",
+        help="Explicit migration profile; target is required for migration acceptance.",
     )
     parser.add_argument(
         "--group",
@@ -156,7 +163,15 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 
 def select_checks(args: argparse.Namespace) -> list[Check]:
-    selected = list(CHECKS)
+    if args.profile == "legacy":
+        selected = list(CHECKS)
+    else:
+        # Importing the target registry must never initialize the legacy runtime.
+        from scripts.target_verification import target_checks
+        selected = [Check(*row) for row in target_checks()]
+        if args.profile == "pure":
+            selected = [check for check in selected if check.group in {"tests", "harness"}
+                        and "scripts/target_check.py" not in check.command]
 
     if args.group:
         groups = set(args.group)
@@ -174,7 +189,7 @@ def select_checks(args: argparse.Namespace) -> list[Check]:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
 
-    if not MANAGE_PY.is_file():
+    if args.profile == "legacy" and not MANAGE_PY.is_file():
         print(
             f"ERROR: manage.py not found at expected repository root: {MANAGE_PY}",
             file=sys.stderr,
@@ -192,12 +207,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     if not selected:
-        print("No checks selected.")
-        return 0
+        print("ERROR: no checks selected; empty verification is not PASS.", file=sys.stderr)
+        return 1
 
     results: list[tuple[Check, int]] = []
 
     print("MathStart Harness verification")
+    print(f"Profile: {args.profile}; selected checks only, not full target acceptance")
     print(f"Repository: {ROOT}")
     print()
 

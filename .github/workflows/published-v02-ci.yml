@@ -1,0 +1,64 @@
+name: R03 V02 published commit verification
+
+on:
+  push:
+    branches: [ms7-mig-r03-verification]
+    paths:
+      - 'specs/migration/r03-v1/v02-published-candidate.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  published-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Exact R03 orchestration and candidate input revision
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          path: orchestrator
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Human-confirmed immutable controls
+        uses: actions/checkout@v7
+        with:
+          ref: 1b75c6e58ecdcb4bb172d4df979e9b9efa7dde68
+          path: owner
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Check controller and decision before execution
+        working-directory: orchestrator
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git diff --exit-code
+          git diff --cached --exit-code
+          echo '4e85a7ecb2aacae740caca75a1bf42b5eef36ae30e28897dd7125de8c663fdaa  scripts/published_v02_ci.py' | sha256sum --check --strict
+          echo '0a872e5f2c15fd6e6e031c87c97e6ca41323db4bdfa84da60383978319e3a8f4  docs/acceptance/MS7-MIG-R03/v02-publication-20261014/owner-confirmation.json' | sha256sum --check --strict
+          echo '8235b72cc34b60b4eae1da2ced1b7d705000fbecd4fa6f93f36be16825215f49  ../owner/scripts/v02_publication_gate.py' | sha256sum --check --strict
+          echo 'ce17cd0814b37d0c208279719bb945324e097aa50ad80e27715796e63f2cadd8  ../owner/scripts/v02_publication_intake.py' | sha256sum --check --strict
+      - name: Publication orchestration guards (synthetic regressions only)
+        working-directory: orchestrator
+        run: python -I -B -m unittest discover -s tests -p test_published_v02_ci.py -v
+      - name: Live HEAD and commit provenance, fresh Linux checkout, published gate, live HEAD recheck
+        working-directory: orchestrator
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -I -B scripts/published_v02_ci.py --owner ../owner --orchestrator-revision "$GITHUB_SHA" --output ../evidence/v02-published
+      - name: Retain raw published-commit evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: r03-v02-published-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            evidence/v02-published/*.json
+            evidence/v02-published/orchestrator-raw/
+            evidence/v02-published/gate/
+          if-no-files-found: error
+          retention-days: 90

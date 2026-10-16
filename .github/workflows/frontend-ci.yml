@@ -1,0 +1,85 @@
+name: R03 frontend accepted integration verification
+
+on:
+  push:
+    branches: [ms7-mig-r03-verification]
+    paths:
+      - '.github/workflows/frontend-ci.yml'
+      - 'scripts/frontend_ci.py'
+      - 'tests/test_frontend_ci.py'
+      - 'specs/migration/r03-v1/frontend-ci-pr50.json'
+      - 'scripts/accepted_integration_ci.py'
+      - 'scripts/check_migration_preservation.py'
+      - 'tests/test_accepted_integration_ci.py'
+      - 'specs/migration/r03-v1/accepted-integration-20261015.json'
+  pull_request:
+    branches: [ms7-mig-react-fastapi]
+    paths:
+      - '.github/workflows/frontend-ci.yml'
+      - 'scripts/frontend_ci.py'
+      - 'tests/test_frontend_ci.py'
+      - 'specs/migration/r03-v1/frontend-ci-pr50.json'
+      - 'scripts/accepted_integration_ci.py'
+      - 'scripts/check_migration_preservation.py'
+      - 'tests/test_accepted_integration_ci.py'
+      - 'specs/migration/r03-v1/accepted-integration-20261015.json'
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: R03 workflow implementation checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          path: r03
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Exact accepted combined integration checkout
+        uses: actions/checkout@v7
+        with:
+          ref: a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6
+          path: candidate
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Fetch exact approved source objects for squash provenance
+        run: >-
+          git -C candidate fetch --no-tags origin
+          150279e6ca7f1c82a6f23d8899e50992cf358f55
+          393d98890649c6c7c47908424ba0d076b5b5e56e
+          8256cbf4b38e97fc1169fea85f2d558950543be8
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Workflow provenance and adapter negative regressions
+        working-directory: r03
+        run: |
+          python scripts/ci_provenance.py --output var/frontend-ci/workflow-provenance.json
+          python -m unittest discover -s tests -p test_frontend_ci.py -v
+          python -m unittest discover -s tests -p test_accepted_integration_ci.py -v
+      - name: Human receipts, integration checkout, frozen workflow and capture pins
+        working-directory: r03
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/frontend_ci.py intake --candidate ../candidate
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.21.0'
+      - name: Exact npm tooling
+        run: npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+      - name: Locked install and full frontend foundation suite
+        working-directory: r03
+        run: python scripts/frontend_ci.py run --candidate ../candidate
+      - name: Retain raw evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: r03-integration-frontend-${{ github.run_id }}-${{ github.run_attempt }}
+          ref: ${{ github.sha }}
+          path: r03/var/frontend-ci/
+          if-no-files-found: error
+          retention-days: 30

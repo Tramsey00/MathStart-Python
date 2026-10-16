@@ -1,0 +1,84 @@
+{
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "checks": [
+    {
+      "name": "accepted-provenance-tests",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_accepted_integration_ci.py",
+        "-v"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "elapsed_seconds": 0.905
+    },
+    {
+      "name": "frontend-adapter-tests",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_frontend_ci.py",
+        "-v"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "elapsed_seconds": 0.682
+    },
+    {
+      "name": "postgres-adapter-tests",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_postgres_ci.py",
+        "-v"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "elapsed_seconds": 0.841
+    },
+    {
+      "name": "pure-verification",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\.venv\\Scripts\\python.exe",
+        "-B",
+        "scripts/verify_repo.py",
+        "--profile",
+        "pure"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "elapsed_seconds": 23.913
+    },
+    {
+      "name": "actual-merge-checkout-guard",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-c",
+        "from pathlib import Path; import json; from scripts import accepted_integration_ci as ci; x=json.loads(ci.CONFIG.read_text()); print(json.dumps(ci.validate_tree(Path('C:/Projects/MathStart-Python/tmp/ms7-mig-r03/accepted-v02-integration'),ci.ROOT,x),indent=2))"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "elapsed_seconds": 6.988
+    }
+  ]
+}

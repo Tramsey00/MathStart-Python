@@ -1,0 +1,337 @@
+{
+  "format": "r03-accepted-input-ci-reconciliation-v1",
+  "result": "PASS",
+  "approved_v02_sha": "8256cbf4b38e97fc1169fea85f2d558950543be8",
+  "accepted_checkout_sha": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
+  "tree": "74c3014516ec3a2110d2cfec13c8e7afb8ae5024",
+  "r03_head_revision": "b541bf0be2bada6ada81e6cb15f60155f93b3c3f",
+  "frontend": {
+    "run": 38801486277,
+    "job": 116651355161,
+    "actual_workflow_checkout": "2935a86c5003ef3da83e854efd404f6448bec7c3",
+    "event_sha": "2935a86c5003ef3da83e854efd404f6448bec7c3",
+    "counts": {
+      "frontend_tests_passed": 112,
+      "historical_tests_passed": 5,
+      "required_commands_passed": 10
+    },
+    "versions": {
+      "node": "v24.21.0",
+      "npm": "11.19.0"
+    }
+  },
+  "v01": {
+    "run": 38801476734,
+    "job": 116651322932,
+    "actual_workflow_checkout": "b541bf0be2bada6ada81e6cb15f60155f93b3c3f",
+    "event_sha": "b541bf0be2bada6ada81e6cb15f60155f93b3c3f",
+    "counts": {
+      "target_tests_passed": 34,
+      "postgres_tests_passed": 23,
+      "unit_tests_passed": 11,
+      "skips": 0,
+      "fresh_install_databases": [
+        "test_ms7_mig_v01_dff959e7fece4446a1ce8597a305b7ac",
+        "test_ms7_mig_v01_6fa1b5b2523345ae95989e8224bd7fe9"
+      ],
+      "upgrade_profiles": [
+        "A",
+        "B",
+        "C"
+      ],
+      "disposable_databases_cleaned": 57
+    },
+    "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+    "postgres": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "locked_packages": 22,
+    "db_before_after_empty": true,
+    "owned_service_stopped": true,
+    "execution_mode": "R03_ACCEPTED_INPUT_ADAPTER_UNCHANGED_OWNER_CASES"
+  },
+  "failed_attempts": [
+    {
+      "run": 38800500641,
+      "reason": "R03 snapshot compared all backend to historical V01 implementation",
+      "suite": "NOT_RUN"
+    },
+    {
+      "run": 38800895139,
+      "reason": "Unchanged historical v5 all-backend prerequisite rejected accepted V02 additions",
+      "cases_executed": 0,
+      "suite": "NOT_RUN"
+    }
+  ],
+  "v02_suite_rerun_on_squash": false,
+  "artifacts": [
+    {
+      "artifact_id": 12003218574,
+      "bytes": 47403,
+      "sha256": "ae8748967674d040cbf2879d2acd460604f14340731841739eeeb9657e53fd5f",
+      "members": [
+        {
+          "path": "candidate-provenance.json",
+          "bytes": 186459,
+          "sha256": "1e0f9daa54b47ee5d81ce1d57b88843ad69828ff7a18117f9613fcf57167e8fa"
+        },
+        {
+          "path": "execution.json",
+          "bytes": 13436,
+          "sha256": "f343364858ac7cae791f489f6dc74afc5d765c060ec9076d27119bf51f4e8d74"
+        },
+        {
+          "path": "foundation-command-results.json",
+          "bytes": 52718,
+          "sha256": "8a8f543b018cf6d8efd8c12eb06a104d8f72a43bd34c36876e8af3cb51df0e3a"
+        },
+        {
+          "path": "foundation.log",
+          "bytes": 489,
+          "sha256": "580920d62915200052a06c04184b11f6dcedd0af972180c0f466198e6b17efe1"
+        },
+        {
+          "path": "locked-install.log",
+          "bytes": 377,
+          "sha256": "f4ce33b45469ff985f5f25fb525032e117bce4be19b6ad30d9160c74fe55524e"
+        },
+        {
+          "path": "workflow-provenance.json",
+          "bytes": 306,
+          "sha256": "2dbba5522dac852d68c609410449862b7ea2717b369789534d0804259662e285"
+        }
+      ]
+    },
+    {
+      "artifact_id": 12003918089,
+      "bytes": 3094,
+      "sha256": "58d18a43fd64b5536fddc018c17a70c523099fe8a3f033be00c00c4acc907d3e",
+      "members": [
+        {
+          "path": "postgres-service.log",
+          "bytes": 4850,
+          "sha256": "2a7047a24cf95c7197fa0bee17b26ff1da782a555df37dc0b80213c8c3d95107"
+        },
+        {
+          "path": "service-cleanup.json",
+          "bytes": 3725,
+          "sha256": "688009ff8b6e6833ce908a515feae250fc8c85e2f75734f1db3f87854e5a9a22"
+        },
+        {
+          "path": "workflow-provenance.json",
+          "bytes": 306,
+          "sha256": "8fb55d8a0f14d5cc82c76234bee25dfeb946ad302faeef9a1f5afd2565fb8c8b"
+        }
+      ]
+    },
+    {
+      "artifact_id": 12004077318,
+      "bytes": 45438,
+      "sha256": "e9eb0edba2e685fa0ff09d10c3f4dbf9fa59fd89110d44e8c5efd15947199ba3",
+      "members": [
+        {
+          "path": "candidate-provenance.json",
+          "bytes": 191113,
+          "sha256": "c1f9951a7c5bd2ea890f7bb8388616d993d85772a09e75ebe476d3ec14f16171"
+        },
+        {
+          "path": "create-target-venv.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "execution.json",
+          "bytes": 2728,
+          "sha256": "13166d70ab62e80e716f839c58ce04ec28918e5b680341406535eb0f70db7b54"
+        },
+        {
+          "path": "locked-install.log",
+          "bytes": 6627,
+          "sha256": "b0c9fab879f90d7c3e90b9ec74aeec1e3cb9b166f135358fa0493ebeed37f84c"
+        },
+        {
+          "path": "pip-check.log",
+          "bytes": 30,
+          "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+        },
+        {
+          "path": "pip-freeze.log",
+          "bytes": 432,
+          "sha256": "65cc6be2901dfc3ee7be309e14a0d420428fb75e32f3b5a9a0edb6eb87b44cba"
+        },
+        {
+          "path": "postgres-before.json",
+          "bytes": 888,
+          "sha256": "a73805597c49c0cb933deaf6253406a41ceaf7aea75c5df6e39b62d84c3d9cce"
+        },
+        {
+          "path": "postgres-before.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "postgres-service.log",
+          "bytes": 4850,
+          "sha256": "ffb5d988495f236a64cc6c75429ddb02a00ece6559317b36e452845127fcb225"
+        },
+        {
+          "path": "service-before.json",
+          "bytes": 1880,
+          "sha256": "08163fdf94c1e123abb3ca65fa1f0fec7eb1fad12a6b2878047968aac089cbbd"
+        },
+        {
+          "path": "service-cleanup.json",
+          "bytes": 4665,
+          "sha256": "f37c9994fe9ad6d2c008e05834c5018d4a1071bd5e13dde4a09730e49731a0d4"
+        },
+        {
+          "path": "target-suite.log",
+          "bytes": 1073,
+          "sha256": "6db52ff5403a78c86661c7708a008dfb575c60c2faf2948bca0d7351b0ea22d4"
+        },
+        {
+          "path": "test-observations.json",
+          "bytes": 37,
+          "sha256": "2bba986f1174f228b80e4f1d155bc74742d55cc0b8b9a1a29416e8cdc70b7ed5"
+        },
+        {
+          "path": "workflow-provenance.json",
+          "bytes": 306,
+          "sha256": "b5211c965468c396c4743d0f12aa26b76aa72f9a8b529d54983115fd782de2ca"
+        }
+      ]
+    },
+    {
+      "artifact_id": 12004342356,
+      "bytes": 47496,
+      "sha256": "ec8aed5a431eb62e243768fe5a449d9e8b467b834db8d8e51b35f7f3912ade04",
+      "members": [
+        {
+          "path": "candidate-provenance.json",
+          "bytes": 186450,
+          "sha256": "d0737a3ad7d1f46dddfcdefcabe82d1f670f55d6311014d4acd918080768cb8c"
+        },
+        {
+          "path": "execution.json",
+          "bytes": 13436,
+          "sha256": "efed103897449427c1573ecaffc18da7c7274a0d5e31a02a001f441b46c336a7"
+        },
+        {
+          "path": "foundation-command-results.json",
+          "bytes": 52865,
+          "sha256": "8e0d2aadd3cf3474a1a1d2625caca93d7086ef28cdcbe5d76a2697461c5b53e4"
+        },
+        {
+          "path": "foundation.log",
+          "bytes": 489,
+          "sha256": "580920d62915200052a06c04184b11f6dcedd0af972180c0f466198e6b17efe1"
+        },
+        {
+          "path": "locked-install.log",
+          "bytes": 377,
+          "sha256": "f4ce33b45469ff985f5f25fb525032e117bce4be19b6ad30d9160c74fe55524e"
+        },
+        {
+          "path": "workflow-provenance.json",
+          "bytes": 573,
+          "sha256": "98d8c07956baf55d1f5b7f653fae033e4be1199491c57ce41e2ed1a9af4249b4"
+        }
+      ]
+    },
+    {
+      "artifact_id": 12004746600,
+      "bytes": 62898,
+      "sha256": "8f0f38ead4902731af45235cfc3d0a6e61211dd0097fe01931fa435f05c465bd",
+      "members": [
+        {
+          "path": "candidate-provenance.json",
+          "bytes": 191113,
+          "sha256": "07293f6f8035c0ee7d2085a2742456961cd4d2d050b3e8858ce72892b816347f"
+        },
+        {
+          "path": "create-target-venv.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "execution.json",
+          "bytes": 20597,
+          "sha256": "7fd2fff2daf9be697d5235db3332a3602bb4b554b24a18c72b347ad4ac0b89d1"
+        },
+        {
+          "path": "locked-install.log",
+          "bytes": 6628,
+          "sha256": "da01be4aa440d8547b2a8fcf2a6c9643305042323a96081d60e56faa58e3605f"
+        },
+        {
+          "path": "owner-diagnostics/f1-timestamp-parity.json",
+          "bytes": 1965,
+          "sha256": "ca369be165992940a86afb7093c6eb516ef19322237f0186be7f20a315bae62c"
+        },
+        {
+          "path": "pip-check.log",
+          "bytes": 30,
+          "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+        },
+        {
+          "path": "owner-diagnostics/f2-concurrency.json",
+          "bytes": 1460,
+          "sha256": "c7291b6fad1e6e099d8b5ffccc5c3dc3ef7fcdf8e81ec8b41f38ef9b72407a04"
+        },
+        {
+          "path": "pip-freeze.log",
+          "bytes": 432,
+          "sha256": "65cc6be2901dfc3ee7be309e14a0d420428fb75e32f3b5a9a0edb6eb87b44cba"
+        },
+        {
+          "path": "postgres-after.json",
+          "bytes": 888,
+          "sha256": "0508686546082ece338f8da1072d9a4a74d0c193829a0c84782f61bef6762c81"
+        },
+        {
+          "path": "postgres-after.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "postgres-before.json",
+          "bytes": 888,
+          "sha256": "4d3c43026425aa535fb1979a6691be6820a5c67e009570a33dcc66951ffbae96"
+        },
+        {
+          "path": "postgres-before.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "postgres-service.log",
+          "bytes": 34574,
+          "sha256": "521874d02dd1f0e32b989ff47b19a7b2d5a975e6ae4ddcaf236b6061ee4f53b5"
+        },
+        {
+          "path": "service-before.json",
+          "bytes": 1657,
+          "sha256": "1a3d91f4cb95005589bf6b7016b6fb0a4794e36149fa74d956d53fabd733439a"
+        },
+        {
+          "path": "service-cleanup.json",
+          "bytes": 4665,
+          "sha256": "e3a2b9e96b5e195211142be1557d6b821d7ddd69f6dd7f299e4af6b8703582ef"
+        },
+        {
+          "path": "target-suite.log",
+          "bytes": 5448,
+          "sha256": "c9b0b48ad212e7f73a2d29b64856c2b8402e31125b869ccf3f63d4d046930740"
+        },
+        {
+          "path": "test-observations.json",
+          "bytes": 38732,
+          "sha256": "f60205539499cbc3352b436c4c6dcc0457689e1e68613c11e930010366dd6140"
+        },
+        {
+          "path": "workflow-provenance.json",
+          "bytes": 306,
+          "sha256": "e54a439ba1ff822b50892e8694b0939293c7a3304db437ba5f86c358a9410232"
+        }
+      ]
+    }
+  ]
+}
