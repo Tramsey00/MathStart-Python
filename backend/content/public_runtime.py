@@ -15,8 +15,10 @@ from urllib.parse import urlsplit
 
 import sqlalchemy as sa
 from starlette.responses import Response
+from starlette.concurrency import run_in_threadpool
 
 from backend.content.releases import ReleaseStore, active_release, inside
+from backend.content.verified_release_cache import VerifiedReleaseStore
 from backend.content.projection import seo
 from backend.infrastructure.database import DatabaseConfig, create_engine, check_connection
 from backend.infrastructure.http.app import create_app
@@ -120,7 +122,7 @@ PRIVATE_READ = re.compile(r'^/admin/(?:(?:content/(?:grade|subject|section|conte
 
 def create_public_app(engine, signer, *, release_root, artifact_root, artifact_digests, origin):
     from frontend.rendering import PublicRenderer
-    store = ReleaseStore(release_root)
+    store = VerifiedReleaseStore(release_root)
     renderer = PublicRenderer(artifact_root, artifact_digests)
     authenticate = ReadSessionAuthenticator(engine, signer.key, signer.fallback_keys)
 
@@ -152,6 +154,18 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
                      csrf_check=lambda request: public_csrf_check(request, origin))
     trusted_host = urlsplit(origin).netloc.lower()
 
+    def auxiliary_response(request, private):
+        with UnitOfWork(engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
+            release = active_release(uow, store, 'public')
+        root, manifest = artifact_for(artifact_root, artifact_digests, release)
+        relative = '_private/shell.html' if private else request.url.path.lstrip('/')
+        raw = artifact_bytes(root, manifest, relative)
+        mime = 'text/html' if private else mimetypes.guess_type(relative)[0] or 'application/octet-stream'
+        return Response(raw if request.method == 'GET' else b'', media_type=mime,
+                        headers={'Cache-Control': 'private, no-store' if private else 'no-cache',
+                                 'X-Content-Type-Options': 'nosniff'})
+
     @app.middleware('http')
     async def verified_auxiliary(request, call_next):
         try:
@@ -162,16 +176,7 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
             if private or path.startswith('/assets/'):
                 if request.method != 'GET' and not (path.startswith('/assets/') and request.method == 'HEAD'):
                     return Response(status_code=405, headers={'Allow': 'GET', 'Cache-Control': 'private, no-store'})
-                with UnitOfWork(engine) as uow:
-                    uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
-                    release = active_release(uow, store, 'public')
-                root, manifest = artifact_for(artifact_root, artifact_digests, release)
-                relative = '_private/shell.html' if private else path.lstrip('/')
-                raw = artifact_bytes(root, manifest, relative)
-                mime = 'text/html' if private else mimetypes.guess_type(relative)[0] or 'application/octet-stream'
-                return Response(raw if request.method == 'GET' else b'', media_type=mime,
-                                headers={'Cache-Control': 'private, no-store' if private else 'no-cache',
-                                         'X-Content-Type-Options': 'nosniff'})
+                return await run_in_threadpool(auxiliary_response, request, private)
             return await call_next(request)
         except wire.APIError as error:
             return wire.error_response(request, error)

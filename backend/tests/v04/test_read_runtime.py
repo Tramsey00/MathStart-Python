@@ -5,6 +5,12 @@ import os
 from pathlib import Path
 import unittest
 import string
+import asyncio
+import threading
+import time
+from unittest.mock import patch
+
+import httpx
 
 import sqlalchemy as sa
 from starlette.requests import Request
@@ -50,6 +56,35 @@ class PublicCsrfTests(unittest.TestCase):
             self.assertFalse(public_csrf_check(self.request(self.secret, self.secret, referer=referer), 'https://localhost'))
         self.assertTrue(public_csrf_check(self.request(self.secret, self.secret,
                         referer='https://localhost/path?q=1'), 'https://localhost'))
+
+
+class AuxiliaryConcurrencyTests(unittest.IsolatedAsyncioTestCase):
+    async def test_asset_verification_does_not_block_other_requests(self):
+        started, release = threading.Event(), threading.Event()
+        def slow_release(*args):
+            started.set()
+            release.wait(3)
+            return object()
+        with patch('backend.content.public_runtime.UnitOfWork'), \
+             patch('backend.content.public_runtime.active_release', side_effect=slow_release), \
+             patch('backend.content.public_runtime.artifact_for', return_value=(Path('.'), {})), \
+             patch('backend.content.public_runtime.artifact_bytes', return_value=b'body'):
+            app = create_public_app(object(), Signer('synthetic-concurrency-key'),
+                    release_root=Path('.'), artifact_root=Path('.'), artifact_digests={}, origin='http://localhost')
+            async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://localhost') as client:
+                pending = asyncio.create_task(client.get('/assets/slow.js'))
+                try:
+                    self.assertTrue(await asyncio.to_thread(started.wait, 5))
+                    before = time.monotonic()
+                    response = await client.get('/', headers={'Host': 'untrusted.example'})
+                    self.assertEqual(response.status_code, 400)
+                    self.assertLess(time.monotonic() - before, 1)
+                    self.assertFalse(pending.done())
+                finally:
+                    release.set()
+                    result = await pending
+                self.assertEqual(result.status_code, 200)
+                self.assertEqual(result.content, b'body')
 
 
 class ReadSessionTests(unittest.TestCase):
