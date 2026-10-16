@@ -2,6 +2,36 @@
 
 ## Оперативная контрольная точка текущего блока
 
+### Обновление перед общим прогоном I02/I03
+
+Эта запись заменяет оперативные кандидаты ниже; предыдущие записи сохранены
+как история, а не как актуальный список открытых замечаний.
+
+- Integration `00fe49583db4eed2dd4b0efa7a35f34f132c233c` содержит reviewed
+  backend runtime `3d08b089f2c19ee75aa42a0cc0fb7b2948328aeb` (implementation
+  `ef7a2b2a0c13e41b67f5bb21af9607c69e1331de`) и verifier
+  `db15b8c763c5a4dab28b448a08f552b62254b040`.
+- Frontend application `48fadcce82b19bb6e5b2dc6f722602e56c746287` и усиленные
+  положительные staff tests `05dd3626847182a6fad9af2714f41988d8a6aef8`
+  независимо reviewed; предстоит merge и полный combined run.
+- HBUILD-01/02, READRT-01, PROCESS-01 и PRIVATE-01 закрыты независимыми
+  проверками соответствующих исходников. Последний дефект React hydration
+  воспроизведён до fix и проверен настоящим Chrome после fix. Все девять
+  staff resources требуют непустую fixture и list/detail/history200.
+- Author frontend141 tests PASS; reviewer typecheck/build703 assertions PASS;
+  backend reviewer13 PG tests PASS; lifecycle reviewer10 tests PASS и
+  provenance reviewer4 tests PASS. Это узкие проверки, не полная матрица.
+- Планируемый authoritative run: `var/public-block-combined-01`, отдельная
+  новая DB `test_ms7_mig_v01_ms7exec_coord_public_20261016a`, порты8111/8112.
+  После запуска session metadata хранится только в ignored var. До окончания
+  strict source-guard run не менять исходники integration. Полная матрица
+  девяти browser/width projects и final visual review ещё NOT_RUN.
+- Backend runtime branch опубликована на `3d08b089`; три отдельные WIP refs
+  backend identity `fdac6e6`, I04 `bcdb121`, R05 `07dad69` опубликованы.
+  Integration/frontend/verifier publication и MIGRATION_HANDOFF ещё впереди.
+- Все три субагента используют GPT-6.1 Sol / medium. Текущий объём I02/I03;
+  общий release и финальные human gates остаются незавершёнными.
+
 - Current integration code/checkpoint:2369165154f06dba4b203507b840807e728eacf5,
   including independently reviewed H-BUILDcd62406 via merge4529092.
 - Текущая модель всех трёх субагентов: GPT-6.1 Sol / medium по последнему
