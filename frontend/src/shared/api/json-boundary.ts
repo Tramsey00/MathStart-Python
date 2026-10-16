@@ -25,7 +25,7 @@ export function isJsonTree(value: unknown): boolean {
 }
 
 // Preserve JSON semantics while rejecting duplicate members (JSON.parse alone loses them).
-export function parseJson(text: string): unknown {
+export function parseJson(text: string, exactIntegers = false): unknown {
   let pos=0;
   const fail=(): never => { throw new Error("Invalid JSON"); };
   const space=() => { while (/[ \t\r\n]/.test(text[pos] ?? "") && pos<text.length) pos++; };
@@ -38,7 +38,7 @@ export function parseJson(text: string): unknown {
     }
     return fail();
   }
-  function value(depth: number): unknown {
+  function value(depth: number, field = ""): unknown {
     if (depth>64) return fail(); space();
     const c=text[pos];
     if (c === '"') return string();
@@ -53,7 +53,7 @@ export function parseJson(text: string): unknown {
           if (text[pos]!=='"') return fail(); key=string(); space();
           if (Object.hasOwn(out,key) || text[pos++]!==":") return fail();
         }
-        const child=value(depth+1); if (object) out[key]=child; else list.push(child);
+        const child=value(depth+1,key); if (object) out[key]=child; else list.push(child);
         space(); const next=text[pos++]; if (next===close) return object?out:list;
         if (next!==",") return fail();
       }
@@ -63,7 +63,15 @@ export function parseJson(text: string): unknown {
     }
     const number=text.slice(pos).match(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/);
     if (!number) return fail();
-    pos+=number[0].length; const n=Number(number[0]); return Number.isFinite(n)?n:fail();
+    pos+=number[0].length; const n=Number(number[0]);
+    if (/^-?\d+$/.test(number[0]) && !Number.isSafeInteger(n)) {
+      if(exactIntegers)return BigInt(number[0]);
+      // Canonical identity IDs allow numeric or decimal-string transport. Keep
+      // numeric int64 bytes exact as an internal label before Number can round.
+      if(field === "id" || field.endsWith("_id"))return number[0];
+      return fail();
+    }
+    return Number.isFinite(n)?n:fail();
   }
   const out=value(0); space(); if(pos!==text.length) fail(); return out;
 }
