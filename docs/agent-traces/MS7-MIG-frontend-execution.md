@@ -47,3 +47,18 @@ browser matrix, without claiming completion. Added portable original-Django
 comparator with reserved PostgreSQL/V01 marker and enforced read-only probes;
 its separate full historical environment is not a target runtime dependency.
 The actual Django probe and public GETs returned successfully on owned8132.
+
+Fullmatrix06 stopped after three page-load timeouts; backend isolated the
+blocking release-validation serving cost and supplied independently reviewed
+ef7a2b2. Smoke07 then11PASS/1FAIL: cumulative nine-resource test timeout, plus
+a separate diagnostic found private SPA shell/public home view hydration error.
+Fixed PRIVATE-01 at48fadcc; focused2PASS, full141PASS48.22s, typecheck4PASS,
+build08 703assertionsPASS. All exact inputs/output digests are in the report.
+Reviewer independently verified all9 real private list/detail/history flows
+with zero page errors, and inspected360 matched F01–F04 visuals without findings.
+05dd362 requires nonempty synthetic rows and all positive detail/history reads;
+each resource retains60s. Only full280URL inventory gets a bounded per-URL budget
+and elapsed attachment. No full matrix success or I02/I03 completion claimed.
+Author realstaff09 subsequently10/10PASS2.1minutes: anonymous denial plusall9
+positive resource list/detail/history/no-store/zero pageerrors on48fadcc build08
+and backendef7a2b2, test source05dd362. Root owns authoritative1116case matrix.

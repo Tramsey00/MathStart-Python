@@ -93,6 +93,50 @@ dependencies, it references 108 distinct stylesheet URLs and 11 script URLs.
 The browser suite derives representatives from those full inventories rather
 than hard-coding a smaller list.
 
+## Private hydration correction and live diagnostic
+
+After the independently reviewed backend serving correction (`ef7a2b2`),
+Chrome360 smoke07 passed 11 cases and failed its combined nine-resource staff
+case after exhausting the cumulative 60-second budget. A focused real browser
+diagnostic confirmed that detail GETs worked, while also revealing React418 on
+every private full navigation: the framework SPA fallback contained the home
+loader's public view, so the root HTML differed from the private client layout.
+
+Source `48fadcc` prevents public loading only for the framework's explicit
+`X-React-Router-SPA-Mode: yes` fallback build request. Ordinary public prerender
+retains the verified loader. The complete initial route manifest avoids a
+separate runtime route discovery service. Build now refuses a missing private
+shell or one containing public view/canonical/lesson-host markers.
+Two focused regressions passed; full Vitest141/141 passed in48.22s and fresh
+typecheck passed all four stages. Build08 passed703 assertions with279 pages
+and422 files; output manifest digest:
+`a7a24e34f3364ecaa9a9c42e72b6a6af1b6967f4a45e7eac88858b5d58344d81`.
+It uses the same pinned release/index/receipt as build05.
+
+Each of the nine staff resources now has its own browser case with the unchanged
+60-second limit, mandatory positive fixture rows, successful list/detail/history
+GETs, private/no-store and zero page errors. No positive read is conditionally
+omitted (`05dd362`). Only the complete public inventory case gets a volume-based
+budget of30000ms plus5000ms per manifest URL; individual inventory requests
+remain bounded at5000ms and the case attaches measured elapsed time. All body,
+SEO, alias and private-exclusion assertions remain.
+
+The independent reviewer reports PRIVATE-01 closed on48fadcc: its own newly
+built artifact, actual Chrome155/360 and real backend passed anonymous/private
+shell plus all nine positive list/detail/history flows with no page errors.
+It also manually inspected all18 matched Chrome360 smoke07 captures and found
+F01–F04 readable without clipping/overlap at ordinary scale. This is360-only
+evidence on the recorded build05 visual source, not a complete matrix claim.
+Author staff recheck09 on build08 passed10/10 Chrome360 cases (2.1 minutes):
+anonymous denial plus all nine positive list/detail/history flows, at least
+three real200/no-store API responses per resource and zero page errors. Raw
+results are `var/staff-smoke-09.json` and `var/staff-smoke-09.log`, with sanitized
+network attachments in `var/playwright-staff-09/`. This verifies the committed
+05dd362 test source against the48fadcc build08 serving bytes and backendef7a2b2.
+The authoritative clean combined matrix (1116 cases across nine projects) remains
+pending. The coordinator owns that run to avoid duplicating the lengthy full
+matrix. No full E2E receipt or I02/I03 completion is claimed by these diagnostics.
+
 ## Portable command contract
 
 Install frontend lock with npm ci. Use a no-Django Python3.12+ environment with
