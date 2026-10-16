@@ -38,3 +38,12 @@ limitations are in the distinct frontend execution report. Active-release/API,
 full browser/style matrix, matched live baseline captures, manual F04 visual
 review and independent code review remain required. No completion/acceptance
 claim, production write or integration ref change.
+
+Continuation: source5308ae1 passed full Vitest139/139 and build05 with703
+assertions on the new pinned backend release; exact digests are in the report.
+The earlier real API smoke12/12 failed with connection refused8121; preserved
+as an environment failure. After backend restart, started full9project/1044case
+browser matrix, without claiming completion. Added portable original-Django
+comparator with reserved PostgreSQL/V01 marker and enforced read-only probes;
+its separate full historical environment is not a target runtime dependency.
+The actual Django probe and public GETs returned successfully on owned8132.

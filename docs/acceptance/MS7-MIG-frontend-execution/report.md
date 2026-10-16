@@ -63,6 +63,25 @@ manual ordinary-scale F04 review; real V02 active-release/public/staff API brows
 checks and negative/security/retention integration. Independent review and final
 human acceptance remain pending. No I02/I03 completion is claimed here.
 
+## Committed-source verification checkpoint
+
+Source `5308ae1e355edbf0296c6c6aa09db0d9dd21e832` was verified with
+139/139 Vitest cases (71.14 seconds, `var/frontend-tests-05.json`) and full
+build05: 703 assertions, 279 pages, 280 HTML URLs, robots/sitemap and 422 files.
+Input release `ms7exec-i02-public-20261016` has manifest digest
+`3d9a389bba5adcb6c097526fa440ad72b1efdd167536a661155b08e4e6dd435f`
+and trusted receipt digest
+`db059ce5e13fe0bd12904254348122ee15c6f7acd199c0e04f05969ec7db6eab`.
+Output `var/frontend-public-05/output-manifest.json` digest is
+`b44ab4d4cafec31410e09cdb4a99ffe3a4008f17bc13c56c6fe34f118014581e`.
+These are build/unit results, with browser and independent review pending.
+
+The first real-server smoke, `var/real-smoke-05.json`, failed all 12 cases
+because port8121 refused connections. It is preserved as environment failure.
+After the backend owner restarted the API, the full nine-project matrix began
+with 1044 tests; `var/real-matrix-06.log` records that attempt. A start is not a
+passing result, and no successful E2E receipt exists until the wrapper finishes.
+
 ## Portable command contract
 
 Install frontend lock with npm ci. Use a no-Django Python3.12+ environment with
@@ -82,6 +101,19 @@ staff session and MATHSTART_LEGACY_BASE_URL for matched live baseline captures.
 Playwright uses installed Chrome/Edge and its pinned Firefox runtime. Browser
 installation is explicit: npm exec -- playwright install firefox. Set
 PLAYWRIGHT_BROWSERS_PATH if not using frontend/.cache/browsers.
+
+Matched legacy captures use a separate original Django environment installed
+from the accepted historical requirements.lock. The portable comparator is
+`python -m frontend.legacy_comparator --build-config CONFIG --legacy-python PYTHON
+--runtime-root var/OWNED-DIRECTORY --port 8132`, run from the repository root
+using a configured backend interpreter. It requires MATHSTART_DISPOSABLE=1 and
+an explicitly configured reserved synthetic PostgreSQL database with the V01
+disposable marker. It verifies the immutable release before copying only its
+hash-checked media into its own runtime. Both a SQL preflight and the actual
+Django connection must report transaction_read_only=on. The process uses
+PGOPTIONS default_transaction_read_only=on and performs no migrations/bootstrap.
+The caller owns health checks, process termination and its own runtime cleanup;
+this comparator is excluded from normal target runtime requirements.
 
 All four npm check wrappers honor MATHSTART_CHECK_ID/MATHSTART_CHECK_RESULT and
 emit a fresh structured receipt only after actual success, nonempty case IDs and
