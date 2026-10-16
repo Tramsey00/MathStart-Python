@@ -56,8 +56,11 @@ def success(request, data, *, pagination=None, delivery=False, schema=None):
 
 
 def error_response(request, error):
-    return json_response({"error": {"code": error.code, "message": error.message, "field_errors": {},
+    response = json_response({"error": {"code": error.code, "message": error.message, "field_errors": {},
                                    "retryable": error.status in (429, 503), "request_id": request_id(request)}}, error.status)
+    if error.status == 429 and hasattr(error, 'retry_after'):
+        response.headers['Retry-After'] = str(error.retry_after)
+    return response
 
 
 def unique_object(pairs):
