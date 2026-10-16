@@ -7,6 +7,7 @@ This helper does not mark any migration task or browser matrix as passing.
 from __future__ import annotations
 
 import os
+from contextlib import contextmanager
 from pathlib import Path
 import signal
 import socket
@@ -28,13 +29,10 @@ def _listening(host, port):
 
 def _stop(process):
     if os.name == 'nt':
-        if process.poll() is None:
-            stopped = subprocess.run(['taskkill.exe', '/PID', str(process.pid), '/T', '/F'],
-                                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                                     timeout=5, check=False,
-                                     creationflags=subprocess.CREATE_NO_WINDOW)
-            if stopped.returncode and process.poll() is None:
-                raise LifecycleFailure('Owned process tree cleanup was refused')
+        try:
+            process._public_job.stop()
+        except OSError as error:
+            raise LifecycleFailure('Owned process job cleanup was refused') from error
     else:
         try:
             os.killpg(process.pid, signal.SIGTERM)
@@ -53,8 +51,29 @@ def _stop(process):
         process.wait(timeout=5)
 
 
-def run_browser_check(server_argv, check_argv, *, base_url, cwd, evidence_root,
-                      environment=None, startup_timeout=30, check_timeout=540):
+def start_owned_process(argv, **kwargs):
+    if os.name != 'nt':
+        return subprocess.Popen(argv,start_new_session=True,**kwargs)
+    from scripts.windows_job import WindowsJob
+    job = WindowsJob()
+    process = None
+    try:
+        process = subprocess.Popen(argv,creationflags=subprocess.CREATE_NEW_PROCESS_GROUP | 0x00000004,
+                                   **kwargs)  # CREATE_SUSPENDED: assign before any descendants exist.
+        process._public_job = job
+        job.assign_and_resume(process.pid)
+        return process
+    except Exception:
+        try:
+            job.stop()
+        finally:
+            if process is not None:
+                process.kill()
+                process.wait(timeout=5)
+        raise
+@contextmanager
+def owned_http_service(server_argv, *, base_url, cwd, evidence_root,
+                       environment=None, startup_timeout=30):
     parsed = urlsplit(base_url)
     if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1'
             or parsed.username or parsed.password or parsed.query or parsed.fragment
@@ -66,12 +85,9 @@ def run_browser_check(server_argv, check_argv, *, base_url, cwd, evidence_root,
     root = Path(evidence_root)
     root.mkdir(parents=True, exist_ok=False)
     env = os.environ.copy() if environment is None else dict(environment)
-    env['MATHSTART_E2E_BASE_URL'] = base_url.rstrip('/')
-    result = {'startup': 'NOT_RUN', 'browser_exit': None, 'cleanup': 'NOT_RUN'}
     with (root / 'server.log').open('wb') as server_log:
-        options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}
-        process = subprocess.Popen(server_argv, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
-                                   stdout=server_log, stderr=subprocess.STDOUT, **options)
+        process = start_owned_process(server_argv, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
+                                      stdout=server_log, stderr=subprocess.STDOUT)
         try:
             deadline = time.monotonic() + startup_timeout
             while True:
@@ -87,14 +103,7 @@ def run_browser_check(server_argv, check_argv, *, base_url, cwd, evidence_root,
                 if time.monotonic() >= deadline:
                     raise LifecycleFailure('Owned server readiness timed out')
                 time.sleep(0.1)
-            result['startup'] = 'PASS'
-            with (root / 'browser.log').open('wb') as browser_log:
-                check = subprocess.Popen(check_argv, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
-                                         stdout=browser_log, stderr=subprocess.STDOUT, **options)
-                try:
-                    result['browser_exit'] = check.wait(timeout=check_timeout)
-                finally:
-                    _stop(check)
+            yield
         finally:
             _stop(process)
             deadline = time.monotonic() + 3
@@ -102,5 +111,23 @@ def run_browser_check(server_argv, check_argv, *, base_url, cwd, evidence_root,
                 time.sleep(0.1)
             if _listening('127.0.0.1', port):
                 raise LifecycleFailure('Owned server listener survived cleanup')
-            result['cleanup'] = 'PASS'
+
+
+def run_browser_check(server_argv, check_argv, *, base_url, cwd, evidence_root,
+                      environment=None, startup_timeout=30, check_timeout=540):
+    env = os.environ.copy() if environment is None else dict(environment)
+    env['MATHSTART_E2E_BASE_URL'] = base_url.rstrip('/')
+    root = Path(evidence_root)
+    result = {'startup': 'NOT_RUN', 'browser_exit': None, 'cleanup': 'NOT_RUN'}
+    with owned_http_service(server_argv, base_url=base_url, cwd=cwd, evidence_root=root,
+                            environment=env, startup_timeout=startup_timeout):
+        result['startup'] = 'PASS'
+        with (root / 'browser.log').open('wb') as browser_log:
+            check = start_owned_process(check_argv, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
+                                        stdout=browser_log, stderr=subprocess.STDOUT)
+            try:
+                result['browser_exit'] = check.wait(timeout=check_timeout)
+            finally:
+                _stop(check)
+    result['cleanup'] = 'PASS'
     return result
