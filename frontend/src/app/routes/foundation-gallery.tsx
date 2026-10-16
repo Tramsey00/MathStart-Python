@@ -20,7 +20,7 @@ export default function FoundationGallery() {
   const slot=dispatchExercise(mode==="unsupported"?{interaction_mode:"UNKNOWN"}:fixtures.exercises[Number(mode)]);
   function showState(next:ViewState) {setState(next);setChanged(true);setFieldAlert(next==="error"?fixtures.states.find(s=>s.state===next)!.message:"");}
   return <main id="foundation-main" className="ms-ui" tabIndex={-1}>
-    <p className="ms-ui-fixture-mark"><strong>FIXTURE ONLY · Только синтетические примеры</strong><br/>Не сохраняются, не оцениваются и не меняют прогресс.</p>
+    <p className="ms-ui-fixture-mark" style={{position:"static"}}><strong>FIXTURE ONLY · Только синтетические примеры</strong><br/>Не сохраняются, не оцениваются и не меняют прогресс.</p>
     <header className="ms-ui-intro">
       <p className="ms-ui-muted">MS7-I02 · UI fixtures v{fixtures.fixture_version} · {fixtures.provenance.http_artifact}</p>
       <h1>Основа интерфейса</h1>
