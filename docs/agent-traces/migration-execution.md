@@ -48,3 +48,30 @@ No task has newly reached TECHNICALLY_VERIFIED or READY_FOR_HUMAN_ACCEPTANCE.
   loopback55432 with disposable tmpfs storage; coordinator observed status only.
 - Product v7.1 PDF source exists and SHA256 equals the package pin. Extracted114
   pages under ignored var/spec-source for full R05 inspection. No v7.2 authored yet.
+
+## R03 continuation and documentation preparation
+
+- Separate intake review VERIFIED_WITH_LIMITATIONS preserved1,876 accepted input
+  files outside the explicit adapter boundary, pure215 and additional guard61
+  passing cases. Controlled merge f5c05588ee68dfe21f9676a2ab79535f2a6de9c8 retains
+  R03 as INCOMPLETE. Actual R03 head tree is08f0181373b2bc3458bf1c6bc012117d36f254fd;
+  earlier unquoted PowerShell tree query was invalid, corrected with literal argv.
+- R03-INTAKE-01 reproduced a real empty successful frontend subprocess passing
+  without a receipt. Fixed all14 interfaces to receive/check nonempty results and
+  reject nonobject receipts. Commit916d16da9378a71fae6bde5cc79e7e34ed6bcd68.
+  Coordinator26 tests PASS/0skips/59.577s; independent reviewer26 PASS/27.701s.
+  Finding CLOSED in scope; empty command map R03-INTAKE-02 remains OPEN.
+- Import initially exposed Git CRLF normalization of raw review output. Scoped
+  attributes preserve original log/receipt bytes; additive restoration49d1eef
+  and CRLF-aware raw TXT/JSON attribute correction8679be3 retained the source.
+  Initial diff-check warnings are not reported as PASS. The full R03 intake diff
+  also includes pre-existing raw PostgreSQL-log whitespace; those historical bytes
+  are retained rather than edited. New scoped source/document diffs are checked.
+- Read all114 original product PDF pages. Archived exact original PDF and built
+  an explicitly DRAFT full v7.2 Markdown source (32chapters/52cards), with specific
+  platform changes rather than replacing frozen documents. Extracted all52 cards
+  and independently compared their typed edges to the separate52-row source
+  dependency table: exact equality, no mismatches. Future product domains remain
+  planned; no new calendar promises or product gate completion.
+- Added new18-task and40-row execution ledgers. No new full migration task PASS
+  is inferred from an interface slice, source mapping, build or standalone suite.

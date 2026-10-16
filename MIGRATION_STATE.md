@@ -8,7 +8,12 @@
   оставшихся задач, без персональных очередей/сроков, с нуля для V04/I02.
 - Final acceptance: HUMAN_PENDING.
 - Execution checkout: C:/Projects/MathStart-Python/migration-execution/integration.
-- Current committed candidate / package import: `24d06112bcd6abcd1abad9b052de14a0a7b49e8e`.
+- Package import: `24d06112bcd6abcd1abad9b052de14a0a7b49e8e`.
+- R03 controlled intake merge: `f5c05588ee68dfe21f9676a2ab79535f2a6de9c8`.
+- Reviewed R03 receipt fix: `916d16da9378a71fae6bde5cc79e7e34ed6bcd68`;
+  subsequent raw-evidence-only checkpoints through `8679be3`.
+- Authoritative new task/parity execution ledgers:
+  docs/acceptance/migration-execution/{task-ledger,parity-ledger}.json.
 - Execution plan: docs/exec-plans/active/migration-execution.md; trace:
   docs/agent-traces/migration-execution.md. No release candidate verified yet.
 - User-selected subagent model: `gpt-6.1-sol`, reasoning effort `high`.
@@ -137,6 +142,9 @@ Canonical migration ТЗ находится в migration-ветке по пут�
 | V04/V03 / backend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | migration-execution/backend; ports8121–8129; ms7exec_backend_* | — | source inspection | IN_PROGRESS |
 | I02/I03 / frontend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | migration-execution/frontend; ports8131–8139 | — | source inspection | IN_PROGRESS |
 | R03 intake / reviewer | fb39647beb983a4f488ad82d4984d3f96e87b9a8 | migration-execution/review; ports8141–8149; ms7exec_review_* | — | review requested | REVIEW_PENDING |
+| R03 receipt fix / coordinator+reviewer | f5c05588ee68dfe21f9676a2ab79535f2a6de9c8 | integration; own verification env | 916d16da9378a71fae6bde5cc79e7e34ed6bcd68 | independent26 PASS/0skips; R03-INTAKE-01 CLOSED | VERIFIED_IN_SCOPE; full R03 pending |
+| V04 H-BUILD-INPUTS / backend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | backend; owned PG16.15 loopback55432 | 2b3a60da04346ed8c747ec35c3fe751bbbb9f9cd | 8 PASS; golden263 and bootstrap twice; independent review running | REVIEW_PENDING; not full V04 |
+| R05 full source / coordinator | pinned v7.1 PDF | integration/docs/specifications; source hash verified | draft uncommitted | all114pages read; exact52 cards/dependency-table rows matched | IN_PROGRESS; full draft and current runtime alignment pending |
 
 Для каждого blocking finding: ID, task, description, reproduction/contract,
 fix SHA, regression run, reviewer disposition. Для CI указать workflow/event/
@@ -158,6 +166,10 @@ R03 pure в detached fb39647: PASS6 checks; независимый reviewer во
 Первый sandbox run сохранён как environment FAIL (Git dubious ownership),
 повтор в owner context PASS без изменения глобальной Git safety.
 Полный target/PG/browser остаётся NOT_RUN, R03 ещё не TECHNICALLY_VERIFIED.
+Backend narrow build suite прошёл на PG; frontend сообщил RR build280URLs
+и typecheck, но эти отдельные результаты ещё не full target/activation/browser
+acceptance. Все13 task rows не завершены. Draft v7.2 полный по объёму32глав/52карточки,
+source/disposition и old-to-new evidence требуют дальнейшего review/final alignment.
 
 При возобновлении сначала проверить факты из журнала, затем продолжить первый
 доступный незавершённый срез. Не возвращаться к этой первоначальной TODO-таблице,
