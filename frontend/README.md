@@ -170,3 +170,26 @@ Implementation SHA is bound below; PR CI/tested merge-ref and independent Task A
 Publication: owner accepted the final verification checkpoint and authorized commit/push/PR. Independent task acceptance is pending. Final recorder is for the pre-commit checkpoint only; do not refresh historical captures after publication. Exact implementation binding is recorded separately in current §17 references and the PR.
 
 Implementation commit: `c54a98b91195458b22a14aa4a6cbf14c7fe57e28` (exact accepted input parent). Current §17/matrix bind this code SHA. PR candidate additionally contains a docs-only binding commit. Captured verification/screenshot metadata retain their original pre-commit provenance; PR exact HEAD/CI and independent approval are separate facts.
+
+## Current I02/I03 execution
+
+The current migration command contract and actual readiness are recorded in
+[the separate I02/I03 report](../docs/acceptance/MS7-MIG-frontend-execution/report.md).
+The foundation record above remains historical evidence. Public production build
+now consumes verified immutable H-BUILD-INPUTS; it cannot build content from an
+empty shell. Copy build-config.example.json to an ignored runtime path, fill its
+trusted release/index/receipt values, set MATHSTART_BUILD_CONFIG and the configured
+no-Django MATHSTART_PYTHON, then run npm run build. Build outputs must be new.
+React Router prerenders every public route; Node is not a serving process.
+
+npm run typecheck checks both frozen contract generators, Router types and TS,
+including browser tests. npm test runs the actual Vitest suite and produces a
+structured receipt. npm run test:e2e requires the externally managed real ASGI
+and separate live baseline origins, verified build view and disposable staff
+cookie file described in the report. It requires all nine browser/width projects
+and zero skips. The lifecycle owner starts, health-checks and stops both servers.
+Private cookie files, storage state and auth headers must not be published.
+
+Current staff UI is read-only: nine native registered model list/detail/history
+views plus publication state. Account/staff write forms are deferred and preserved
+only in separate unverified WIP commitbcdb121eccc7643de154b7e8b3f70544cb209766.

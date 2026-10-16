@@ -53,7 +53,7 @@ export function createApiClient(fetcher:Fetcher = globalThis.fetch.bind(globalTh
     if (!config.receipt && options.idempotencyKey!==undefined) return error("INVALID_REQUEST",null,"not-sent");
     let path:string=config.path;
     if (options.query!==undefined) {
-      if(operation!=="list_grades" || !isJsonTree(options.query)
+      if(operation!=="list_grades" || options.query===null || typeof options.query!=="object" || Array.isArray(options.query) || !isJsonTree(options.query)
         || Object.keys(options.query).some(k=>k!=="cursor"&&k!=="page_size")) return error("INVALID_REQUEST",null,"not-sent");
       const {cursor,page_size}=options.query;
       if ((cursor!==undefined&&(typeof cursor!=="string"||!cursor.length||cursor.length>1024))
