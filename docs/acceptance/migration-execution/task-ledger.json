@@ -108,13 +108,23 @@
       "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
-      "technical_receipts": [],
-      "blocking_findings": [
-        "HBUILD-01: coherent hierarchy drift accepted at2b3a60d",
-        "HBUILD-02: READ COMMITTED mixed edition at2b3a60d; fixes/review pending"
+      "technical_receipts": [
+        "review/hbuild-2b3a60d/review.md",
+        "review/hbuild-fix-74745c7/review.md",
+        "review/hbuild-fix-cd62406/review.md"
       ],
+      "blocking_findings": [],
       "in_current_block": false,
-      "scope_note": "Only H-BUILD-INPUTS/read-serving dependency work authorized in current block; full publication task remains incomplete"
+      "scope_note": "Only H-BUILD-INPUTS/read-serving dependency work authorized in current block; full publication task remains incomplete",
+      "verified_slices": [
+        {
+          "id": "H-BUILD-INPUTS",
+          "sha": "cd62406c6e0ff029c6e4445e8f015243731fd194",
+          "status": "VERIFIED_IN_SCOPE",
+          "integration_merge": "452909218df49202f3577e81664a2f8e6722e9c0",
+          "full_task": "INCOMPLETE"
+        }
+      ]
     },
     {
       "id": "MS7-MIG-V05",
@@ -212,15 +222,22 @@
     {
       "branch": "ms7-mig-documentation-checkpoint",
       "sha": "07dad695c5114ae461078b367bd9eb94aaa671d5",
-      "status": "LOCAL_CHECKPOINT_NOT_YET_PUSHED",
+      "status": "PUSHED_REMOTE_SHA_CONFIRMED",
       "task": "R05",
       "acceptance": "WIP_NOT_VERIFIED"
     },
     {
       "branch": "ms7-mig-frontend-i04-wip",
       "sha": "bcdb121eccc7643de154b7e8b3f70544cb209766",
-      "status": "LOCAL_CHECKPOINT_NOT_YET_PUSHED",
+      "status": "PUSHED_REMOTE_SHA_CONFIRMED",
       "task": "I04",
+      "acceptance": "WIP_NOT_VERIFIED"
+    },
+    {
+      "branch": "ms7-mig-backend-execution",
+      "sha": "fdac6e68b4c7c55ed0effe6e2107bff45dd3416b",
+      "status": "PUSHED_REMOTE_SHA_CONFIRMED",
+      "task": "V03",
       "acceptance": "WIP_NOT_VERIFIED"
     }
   ]

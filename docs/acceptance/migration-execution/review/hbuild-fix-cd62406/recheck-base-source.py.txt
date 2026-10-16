@@ -1,0 +1,51 @@
+from datetime import datetime, timezone
+from hashlib import sha256
+import importlib.util
+import json
+import os
+from pathlib import Path
+import sys
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+CODE = ROOT / 'var/review-build-fix-74745c7'
+sys.path.insert(0, str(CODE))
+import sqlalchemy as sa
+from backend.content.build import write_build_inputs, verify_build_inputs
+from backend.infrastructure.uow import UnitOfWork
+from backend.models.baseline import ContentPage, Subject
+
+OUT = ROOT / 'docs/acceptance/migration-execution/review/hbuild-fix-74745c7'
+OUT.mkdir(parents=True, exist_ok=True)
+URL = 'postgresql+psycopg://postgres@127.0.0.1:55432/test_ms7_mig_v01_ms7exec_review_hbuild_20261016'
+os.environ['MATHSTART_V04_DATABASE_URL'] = URL
+from backend.tests.v04.test_build import BuildTests, SourceTests
+suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(BuildTests), SourceTests('test_complete_source_set_and_authored_assets'), SourceTests('test_paths_duplicate_json_and_nonfinite_fail_closed')])
+report = {'start': datetime.now(timezone.utc).isoformat(), 'reviewed_sha': '74745c72ae58d4cd4f5dd04344ad2ad3e82dea75', 'tree': '3626c53597749902618d82b04711d6dccefdabce', 'python': sys.version, 'no_django': importlib.util.find_spec('django') is None}
+with (OUT / 'independent-tests.log').open('w', encoding='utf-8') as stream:
+    result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
+report['tests'] = {'run': result.testsRun, 'failures': len(result.failures), 'errors': len(result.errors), 'skipped': len(result.skipped), 'successful': result.wasSuccessful()}
+engine = sa.create_engine(URL, hide_parameters=True)
+with tempfile.TemporaryDirectory(prefix='ms7exec_review_same_slug_') as directory:
+    with UnitOfWork(engine) as uow:
+        uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ'))
+        page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.slug == '10-klass-naturalnye-chisla-povtorenie'))
+        original_subject_id = page.subject_id
+        subject_slug = uow.session.scalar(sa.select(Subject.slug).where(Subject.id == page.subject_id))
+        foreign = uow.session.execute(sa.select(Subject.id, Subject.grade_id).where(Subject.slug == subject_slug, Subject.grade_id != page.grade_id).order_by(Subject.id)).first()
+        assert foreign is not None
+        page.subject_id = foreign.id
+        uow.session.flush()
+        try:
+            descriptor, receipt = write_build_inputs(uow, CODE, Path(directory), 'same-slug-review', '24d06112bcd6abcd1abad9b052de14a0a7b49e8e')
+            digest = sha256((Path(directory) / descriptor.release_id / 'receipt.json').read_bytes()).hexdigest()
+            release = verify_build_inputs(Path(directory), descriptor.release_id, digest)
+            report['same_slug_cross_grade'] = {'result': 'ACCEPTED', 'topic': page.slug, 'page_grade_id': page.grade_id, 'original_subject_id': original_subject_id, 'new_subject_id': foreign.id, 'new_subject_grade_id': foreign.grade_id, 'same_subject_slug': subject_slug, 'exported_subject_id': release.pages[page.id]['subject_id'], 'expected': 'REFUSED; grade-local subject identity and section-parent identity differ from reviewed source'}
+        except Exception as error:
+            report['same_slug_cross_grade'] = {'result': 'REFUSED', 'error_type': type(error).__name__}
+engine.dispose()
+report['cleanup'] = 'Transaction-local foreign subject mutation rolled back; temporary artifacts removed; own review DB retained'
+report['end'] = datetime.now(timezone.utc).isoformat()
+(OUT / 'review-probes.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+print(json.dumps(report, indent=2))

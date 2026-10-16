@@ -99,3 +99,26 @@ The integration copies were restored only after successful checkpoint and
 matching bytes; its task ledger changes were preserved. Frontend separately
 preserved incomplete I04 atbcdb121eccc7643de154b7e8b3f70544cb209766.
 Neither WIP branch is published yet at this observation.
+## Reviewed build dependency and publication checkpoint
+
+HBUILD-01 and HBUILD-02 are independently closed for the H-BUILD dependency
+at cd62406c6e0ff029c6e4445e8f015243731fd194. Coordinator read the implementation,
+tests and review, then integrated only that candidate with merge452909218df49202f3577e81664a2f8e6722e9c0.
+Full V04 remains incomplete. Twenty raw review/import files were byte-verified;
+the failed zero-collected environment attempt is preserved separately.
+
+Explicit WIP-only pushes succeeded and fresh ls-remote confirmed exact refs:
+documentation07dad695c5114ae461078b367bd9eb94aaa671d5,
+frontend I04bcdb121eccc7643de154b7e8b3f70544cb209766,
+backend identityfdac6e68b4c7c55ed0effe6e2107bff45dd3416b.
+Each changed-file set was inspected; forbidden runtime/env/DB paths and private
+key/token patterns were absent. No WIP implementation was integrated.
+
+The new necessary browser service lifecycle helper received seven real process/
+HTTP tests, including occupied ports, nonzero checks, timeout and descendant
+cleanup. The first sandbox run exposed failed Windows tree cleanup and a surviving
+owned child. The exact own PID/port were inspected and taskkill in owner context
+terminated PID19308 and child7484. Owner-context reruns passed7/0skips in15.376s
+and15.417s (the latter after fail-closed cleanup-refusal handling). Logs/result
+are under acceptance/migration-execution/public-block-lifecycle. This is only
+runner lifecycle evidence; real I02/I03 browser/combined acceptance remains open.
