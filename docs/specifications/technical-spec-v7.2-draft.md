@@ -141,15 +141,15 @@ content не должна менять historical evidence.
 
 ---
 
-## 4. Решения и границы доверия
+4. Решения и границы доверия
 ADR-0006 заменяет платформенную часть ADR-0001: FastAPI/Pydantic, SQLAlchemy2/Alembic, React/TypeScript/Vite/React Router с полным public prerender. PostgreSQL16+ и модульный Python-монолит сохраняются. ADR-0002 фиксирует exercise boundaries; ADR-0003 фиксирует Knowledge/Progress. Frozen HTTP/CompletionFact contracts и их текущие acceptance receipts сохраняются; будущая persistence не объявляется реализованной. D-021–026 из v6 были предложениями, а не
 автоматически принятыми ADR; v7 сохраняет их смысл и задаёт новые задачи для согласования.
 Решение
 Статус и реализация
 D-021 CompletionFact/progress-v1.1
-Предложено; MS7-R03A оформляет ADR/addendum и parity до V08/V09. Старые формулы v1 сохраняются.
+Контракт MS7-R03A принят в историческом scope согласно R02 acceptance reconciliation. Dual identity, immutable DTO и neutral mirror сохраняются; runtime V08/V09 planned. Старые формулы v1 сохраняются.
 D-022 immutable revision, cross-attempt exposure, один positive
-Предложено как backend addendum MS7-R02A; отражённые в I01 UX-требования не равны реализации.
+Принятый MS7-R02A/OpenAPI/policy/fixtures; target Assessment runtime planned. UX-контракт I01 не является реализацией.
 D-023 HTTP/idempotency/retry
 MS7-R02A; OpenAPI + fixtures раньше auth/attempt clients.
 D-024 limits/evals/retention/performance
@@ -349,81 +349,29 @@ Attempt — конкретная попытка с неизменяемым от
 ---
 
 ## 8. Knowledge Graph и точный Progress
-Skill — стабильный математический навык, а Topic — страница обучения. Knowledge Graph задаёт
-prerequisite dependent, не обратное направление. 10 codes: integer_number_line, negative_numbers, →
-sign_rules_add_sub, sign_rules_mul_div, distributive_property, expand_parentheses, combine_like_terms,
-equation_balance, linear_one_step, linear_parentheses. Названия сверяются с R03 fixture; окончательные
-machine codes всегда из fixture, без алиасов в DB.
-13 рёбер: integer_number_line negative_numbers; negative_numbers sign_rules_add_sub; → →
-negative_numbers sign_rules_mul_div; sign_rules_add_sub distributive_property; → →
-sign_rules_mul_div distributive_property; distributive_property expand_parentheses; → →
-sign_rules_add_sub combine_like_terms; expand_parentheses combine_like_terms; → →
-combine_like_terms equation_balance; equation_balance linear_one_step; → →
-linear_one_step linear_parentheses; expand_parentheses linear_parentheses; → →
-combine_like_terms linear_parentheses. Все веса 1.0; graph_version pilot-v1. Self-edges, duplicates, cycles →
-отклоняются целиком. basic_arithmetic — внешняя предпосылка, не одиннадцатый skill. Mastery отражает
-накопленную оценку владения, Confidence — достаточность подтверждений; оба 0..100. Confidence не
-является вероятностью истинности ответа LLM. Начало с нуля: 0/0. Самоотметка: один
-SELF_REPORTED_KNOWN на skill даёт 60/15, не доказывает MASTERED. Повторная и postassessment
-самоотметка отклоняется; «до assessment» определяется replay order, поэтому валидный backfill до
-первого assessed event допустим. Режим onboarding выбирается явно: START_ZERO, SELF_REPORT,
-DIAGNOSTIC; чтение тем не является evidence. Progress event
-Δ mastery
-Δ confidence
-SELF_REPORTED_KNOWN
-установить 60
-установить 15
-CORRECT_FIRST_TRY
-+6
-+5
-CORRECT_AFTER_HINT
-+3
-+4
-WRONG_ATTEMPT
-2−
-+3
-MISCONCEPTION_DETECTED
-5 × repeat factor−
-+5
-ANSWER_REVEALED
-0
-0
-DIAGNOSTIC_CORRECT
-+8
-+8
-DIAGNOSTIC_WRONG
-6−
-+8
-Точные event names и reference behavior проверяются against specs/progress/BASELINE-v1.md/fixtures.
-Коэффициент difficulty для assessed deltas mastery: уровни 1/2 — 0.8; 3 — 1.0; 4 — 1.2. Confidence не
-масштабируется. Decimal, clamp [0,100], ROUND_HALF_UP до 2 знаков после каждого event. Не
-использовать float; decay отсутствует. Missing/invalid difficulty — validation error, не default. Повтор одной
-misconception на skill: 1, 1.25, затем 1.5. Самостоятельный correct сбрасывает repeat counters всех codes
-этого skill; helped correct и иной wrong не сбрасывают. На evidence unit (user,skill,attempt,evidence_ref)
-нельзя одновременно начислять WRONG и MISCONCEPTION за один дефект; диагностическая ошибка
-даёт один DIAGNOSTIC_WRONG. Wrong final сам по себе не доказывает misconception. Pilot подтверждает
-первую доказанную ошибку на skill; дополнительные независимые шаги требуют отдельного
-проверенного evidence. Status: evidence_count=0  NOT_STARTED. Иначе mastery 80, confidence 60 и 3 → ≥ ≥ ≥
-independent correct в последних 10 завершениях  MASTERED. Иначе mastery<50 и confidence 30  → ≥ →
-WEAK. Остальное  LEARNING. Самоотметка даёт LEARNING. Topic mastery — importance-weighted average→
-mapped skills; coverage — доля assessed PRIMARY skills по accepted UI contract. Topic coverage считается по
-его PRIMARY mapped skills, не по всем десяти; supplementary skills показываются отдельно. Нулевой
-denominator — «нет оценочных навыков», не 0% знаний. Replay упорядочивает events по
-(occurred_at,event_id,policy_version), UTC precision не более 6 дробных знаков; точность не усекать. Exact
-duplicate event/source с тем же payload — no-op; иной payload под тем же ключом — conflict. Поздний
-event вызывает пересчёт истории затронутого user+skill, не прибавляется поверх нынешнего состояния.
-Replay result должен совпадать с online reducer по всем полям. D-021 добавляет CompletionFact stream
-для каждого завершённого assessed attempt/skill. Neutral completions занимают место в последних 10,
-могут снять MASTERED, но не меняют mastery/confidence/evidence_count/last_updated. Не создавать fake
-WRONG/ANSWER_REVEALED лишь ради окна. Completion mirror принадлежит Progress; Assessment
-отправляет immutable DTO. Окно completions сортируется по (completed_at,attempt_id), как R03;
-объединённый replay сохраняет порядок events (occurred_at,event_id,policy_version), explicit dedupe и
-связь streams; R03A задаёт fixtures, включая одинаковые timestamps и поздние facts. progress-v1
-сохраняется для исторических events; новый reducer_version progress-v1.1 вводится additive с parity вне
-нейтрального окна.
-Простыми словами: граф показывает, что надо знать раньше. Прогресс — воспроизводимый расчёт по
-журналу доказательств. Replay позволяет пересчитать результат; CompletionFact не даёт системе забыть
-неудачные или подсмотренные завершения только потому, что у них нет числового штрафа.
+
+Это сохранённый договор будущего продукта. Migration не создаёт Knowledge/Progress persistence. Skill — атомарный навык, Topic — ContentPage. Machine codes и edges — frozen specs/knowledge/fixtures/pilot-skills-v1.json и pilot-dependencies-v1.json, graph_version pilot-v1:10 навыков/13 рёбер prerequisite→dependent, все веса1.0. basic_arithmetic — внешняя предпосылка, не11-й Skill. Self-edge/cycle/duplicate/unknown отклоняются целиком.
+
+Навыки: integer_number_line, negative_numbers, sign_rules_add_sub, sign_rules_mul_div, distributive_property, expand_parentheses, combine_like_terms, equation_balance, linear_one_step, linear_parentheses.
+
+Рёбра: integer_number_line→negative_numbers; negative_numbers→sign_rules_add_sub; negative_numbers→sign_rules_mul_div; sign_rules_add_sub→distributive_property; sign_rules_mul_div→distributive_property; distributive_property→expand_parentheses; sign_rules_add_sub→combine_like_terms; expand_parentheses→combine_like_terms; combine_like_terms→equation_balance; equation_balance→linear_one_step; linear_one_step→linear_parentheses; expand_parentheses→linear_parentheses; combine_like_terms→linear_parentheses.
+
+| ProgressEvent | Δ mastery | Δ confidence |
+| --- | --- | --- |
+| SELF_REPORTED_KNOWN | установить60 | установить15 |
+| CORRECT_FIRST_TRY | +6 | +5 |
+| CORRECT_AFTER_HINT | +3 | +4 |
+| WRONG_ATTEMPT | −2 | +3 |
+| MISCONCEPTION_DETECTED | −5 × repeat factor | +5 |
+| ANSWER_REVEALED | 0 | 0 |
+| DIAGNOSTIC_CORRECT | +8 | +8 |
+| DIAGNOSTIC_WRONG | −6 | +8 |
+
+Начало0/0. Self-report допускается один раз до assessed evidence в replay order, valid earlier backfill допустим. Чтение не evidence. Mastery delta умножается на difficulty0.8 для1–2,1.0 для3,1.2 для4; confidence не масштабируется. Decimal clamp[0,100] и ROUND_HALF_UP до2 знаков после каждого event; float/decay/default difficulty при invalid/missing запрещены. Repeat одной misconception на skill:1.0,1.25,1.5; independent correct сбрасывает все repeat counters этого skill, helped correct/wrong не сбрасывают. Одно evidence unit не даёт WRONG и MISCONCEPTION одновременно; diagnostic error даёт один DIAGNOSTIC_WRONG. Wrong final не доказывает misconception.
+
+Status precedence: evidence_count=0→NOT_STARTED; иначе mastery≥80/confidence≥60 и≥3 independent correct в последних10 завершениях→MASTERED; иначе mastery<50/confidence≥30→WEAK; иначе LEARNING. Self-report даёт LEARNING. Topic mastery — importance-weighted average mapped skills; coverage — assessed PRIMARY mapped skills данного topic, supplementary отдельно. При denominator0 показывается «нет оценочных навыков», а не0% знаний.
+
+Event replay сортирует(occurred_at,event_id,policy_version), aware UTC с точностью до6 дробных знаков без усечения. Exact event/source retry — no-op, conflicting payload — conflict; late event перепроецирует полный затронутый log. Online/replay равны по всем полям. Assessment authoritative CompletionFact имеет permanent completion_id и UNIQUE(attempt,skill), owner/outcome/independent/time/policy immutable. Progress mirror сортирует(completed_at,attempt_id), neutral completions занимают последние10 и могут снять MASTERED, сохраняя mastery/confidence/evidence_count/last_updated. Fake penalty/reveal ради окна запрещены. Только validated ProgressEvent изменяет числа; CompletionFact не получает numerical authority. Historical progress-v1 fixtures и additive progress-v1.1 parity сохраняются буквально; authoritative details — frozen R03/R03A schemas/reference suites.
 
 ---
 
@@ -1036,24 +984,24 @@ blockers своих потребителей. Принятые R01/R02/R03 не 
 Источник всех четырёх кейсов — PR #10 reviews и main tests; это наблюдаемая история разработки с
 coding-agent workflow. Публичное review не позволяет надёжно приписать каждую строку конкретной
 модели: hidden reasoning и «мысли агента» не реконструируются.
-## 1. Review Владимира 26.09 выявил manifest digest, protocol version,
+1. Review Владимира 26.09 выявил manifest digest, protocol version,
 deadline, branch-sensitive smoke,
 отсутствие Harness suite в canonical CI и неправильное продолжение MESSAGE. Commit13945bd исправил
 основную часть. Regression: adapter/message/protocol/manifest и runner boundary suites. Урок:
 заявленного adapter protocol недостаточно без executable negative cases.
-## 2. После первого исправления deadline мог истечь во время result
+2. После первого исправления deadline мог истечь во время result
 write. 27.09 16:04 reviewer сохранил
 blocker. Commit85dd0ff добавил staged write и post-write checks; 61 tests и CI success не доказывали
 отсутствие всех publication races. Следующее review21:20 нашло истечение внутри final replace.
 Regression test_expiry_during_result_persistence_cannot_publish_ready и
 test_expiry_during_final_result_replace_cannot_return_ready. Урок: проверка до операции не доказывает её
 завершения до deadline.
-## 3. Commits5863bd/eabea37 усилили commit/receipt protocol. Regression
+3. Commits5863bd/eabea37 усилили commit/receipt protocol. Regression
 в
 tests/harness/test_ready_publication.py: crash after canonical replace, corrupt/missing receipt, digest
 mismatch, late final replace. В истории есть failed runs eabea37/66b071; их нельзя называть green. Урок:
 supported status reader обязан проверять commit evidence, а не один state field.
-## 4. Review27.09 22:25 выявил ambiguous receipt replacement: запись
+4. Review27.09 22:25 выявил ambiguous receipt replacement: запись
 могла фактически пройти, но вернуть
 OSError; cleanup и diagnostic overwrite тоже могли упасть. Runner выдавал exit2, status —exit0. Final
 f401dc6 согласовал чтение canonical publication. Regression
@@ -1148,7 +1096,7 @@ additions. Canonical ID и название стоят в заголовке. Un
 дублируется. Requirements covered перечисляет прямые связи из §26/28; общие NFR применяются по
 своему scope, а не искусственно приписываются каждой карточке. Inputs включают только принятые
 версии артефактов названных dependencies и соответствующие §§5–
-## 16. Контракты §7–11, Registry/Policy §12–14, eval/security §15–16
+16. Контракты §7–11, Registry/Policy §12–14, eval/security §15–16
 остаются нормативными в полном
 объёме. Пустой список direct FR не означает, что задача необязательна: Harness/contract closeout может
 закрывать D-решение, C/NFR либо быть upstream для требуемого runtime. Scope каждого исходного task
@@ -3382,17 +3330,17 @@ P, §§5–16
 Scope/failure tests карточки; E(MS7-I08)
 G1
 NFR-12 authoritative cold-start route:
-## 1. fresh git clone публичного MathStart-Python;
-## 2. checkout pinned release/task SHA;
-## 3. установка документированной версии Python и dependency lock в
+1. fresh git clone публичного MathStart-Python;
+2. checkout pinned release/task SHA;
+3. установка документированной версии Python и dependency lock в
 чистой среде;
-## 4. только документированные non-secret environment values;
+4. только документированные non-secret environment values;
 credentials остаются вне repo;
-## 5. doctor/runtime report;
-## 6. canonical repository verification;
-## 7. cold-start Harness run по repo instructions без прежней переписки;
-## 8. сохранение run/context/tool/verification evidence;
-## 9. проверка contract/digest/version consistency.
+5. doctor/runtime report;
+6. canonical repository verification;
+7. cold-start Harness run по repo instructions без прежней переписки;
+8. сохранение run/context/tool/verification evidence;
+9. проверка contract/digest/version consistency.
 Source-only ZIP допустим только как audit snapshot и не является достаточным evidence для Git-aware
 Harness reproducibility, поскольку не содержит полного Git metadata.
 
