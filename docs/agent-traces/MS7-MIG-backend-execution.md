@@ -163,3 +163,39 @@ supplied; this is not full V02 acceptance. Exact raw result is retained under
 of READRT-01 and the cache/offload candidate is pending; browser acceptance,
 full publication/identity, clean final integration and human acceptance remain
 unclaimed.
+
+## Independent read review and applicable V02 PostgreSQL regressions
+
+Reviewer medium independently verified sourceef7a2b2 on a fresh owned PG fixture
+and independently built React artifact:13 tests passed,0 skips in10.634s;
+all279 initial activation pages passed; five preflight negatives performed zero
+SQL writes; ten real ASGI probes passed, including permission revocation403 and
+same-size HTML tamper503. READRT-01 was closed and the source slice was reported
+VERIFIED_IN_SCOPE. Combined I02/I03 and human acceptance are separate gates.
+
+The frozen V02 PG guard permits only loopback15441. After confirming no listener,
+created `ms7exec_backend_v02_medium_20261016`, labeled
+`mathstart.task=migration-execution-backend-v02-medium`, on that port. Never
+changed the guard or reused the shared55432 staff DB. PostgreSQL16.15 executed
+22 V02 asset/redirect/security cases in the no-Django target environment:
+22 passed,0 skips in13.349s. The remaining real Django comparator first failed
+because the backend's minimal legacy environment lacked python-dotenv; this
+failure is preserved in run01. Repeated only that case using the frontend's
+configured separate legacy interpreter with target libraries on PYTHONPATH:
+1 passed,0 skips in3.779s (run02). Target environment remains without Django.
+These fresh PG results supplement, rather than rewrite, the23 historical skips
+in the combined run. Raw receipts are under
+`i02-v02-pg-assets-20261016-01/` and `i02-v02-pg-assets-20261016-02/`.
+
+Each frozen test dropped its newly created marked UUID DB. Post-run query found
+zero remaining V02 UUID databases. Rechecked the owned container label, then
+stopped and removed only that container. Shared55432 remained running.
+
+Restarted the independently reviewed ef7a2b2 public runtime on8121 with access
+logging disabled; initial robots request returned200. The earlier process
+stop failed, and automatic approval review initially rejected a force-stop due
+to insufficient current ownership proof. Fresh TCP owner plus exact executable,
+command and parent verification established the same owned Uvicorn PID;
+the reviewed stop then succeeded. No rejection was bypassed. Frontend was
+informed before restart and received readiness afterward; browser runs remain
+frontend-owned. No shared DB mutation is running during its matrix.
