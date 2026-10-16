@@ -75,3 +75,27 @@ No task has newly reached TECHNICALLY_VERIFIED or READY_FOR_HUMAN_ACCEPTANCE.
   planned; no new calendar promises or product gate completion.
 - Added new18-task and40-row execution ledgers. No new full migration task PASS
   is inferred from an interface slice, source mapping, build or standalone suite.
+# Scope change and recovery, 2026-10-16
+
+The user's attached request narrows this execution to I02/I03 plus necessary
+V04 dependency corrections, verification, publication and handoff. It explicitly
+replaces continuous execution of all thirteen tasks. Subsequent separately
+initiated blocks contain three available tasks, publish/handoff and stop.
+
+Fresh owner-context `git ls-remote` confirms main60b341f and integrationa359b0b.
+All execution worktrees/ref/dirty inventories were checked, including detached
+review candidates; no original or historical checkout was reset. Process
+inspection was denied in the sandbox; owner-context CIM inspection found no
+execution Python/Node/browser processes. Existing role contexts resumed at
+GPT-6.1 Sol/high. Frontend received a service usage-limit error once and resumed
+on the next follow-up without model substitution.
+
+New R05 working changes were byte-verified into a separate documentation
+checkout and committed as07dad695c5114ae461078b367bd9eb94aaa671d5 on
+ms7-mig-documentation-checkpoint. Explicit staging included only the full draft,
+platform-change JSON, historical-adaptation JSON and WIP checkpoint note.
+JSON parsing and staged whitespace check passed; this is no R05 acceptance.
+The integration copies were restored only after successful checkpoint and
+matching bytes; its task ledger changes were preserved. Frontend separately
+preserved incomplete I04 atbcdb121eccc7643de154b7e8b3f70544cb209766.
+Neither WIP branch is published yet at this observation.

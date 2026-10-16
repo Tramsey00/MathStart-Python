@@ -2,6 +2,19 @@
 
 Status: IN_PROGRESS. Final human acceptance: HUMAN_PENDING.
 
+## Current authorized block — supersedes the original continuous sequence
+
+The user narrowed this execution on 2026-10-16 to complete I02 then I03, perform
+only necessary V04 dependency corrections, verify and independently review the
+combined result, publish commits/branches, and stop with MIGRATION_HANDOFF.md.
+Do not continue V03, full V04, I04, R05 or the remaining program in this run.
+Preserve and publish existing work in those areas as explicitly incomplete WIP
+branches. Original acceptance and data/security boundaries remain unchanged.
+
+Future work uses separately initiated blocks of three available tasks, selected
+from actual dependency readiness. Each block ends in publication and handoff;
+there is no automatic continuation into the next block.
+
 The user explicitly activated MIGRATION_START.md on 2026-10-16 and confirmed
 the unified execution process. MIGRATION_AGENT.md, MIGRATION_TASKS.md and
 MIGRATION_VERIFICATION.md define scope, dependencies and acceptance. Preserve

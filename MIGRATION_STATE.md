@@ -1,5 +1,41 @@
 # Состояние единого выполнения миграции
 
+## Действующий объём запуска — I02/I03 и передача
+
+Пользователь 2026-10-16 заменил непрерывное выполнение всех13 задач текущим
+блоком **MS7-MIG-I02 затем MS7-MIG-I03**. Разрешены только необходимые fixes
+зависимости V04, проверки, отдельное ревью, push и MIGRATION_HANDOFF.md.
+Другие направления не расширять; существующий WIP сохранить отдельно и
+опубликовать без объявления готовым. После передачи остановиться.
+Следующие запуски — отдельные блоки по три доступные задачи с публикацией
+и передачей после каждого. Исходные архитектурные и человеческие границы
+сохраняются. Общая программа и весь release ещё не готовы.
+
+Повторное восстановление фактов этого запуска:
+- local integration:7551cb35ee76c2a7838ab7679b47df645d7a8457;
+- local backend:74745c72ae58d4cd4f5dd04344ad2ad3e82dea75 плюс dirty dependency/identity;
+- local frontend:24d06112bcd6abcd1abad9b052de14a0a7b49e8e плюс dirty I02/I03;
+- live remote integration:a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6;
+- live remote main:60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7;
+- владельческий Get-CimInstance не обнаружил execution python/node/browser
+  процессов при восстановлении; sandbox attempt denied, owner-context PASS;
+- документация R05 WIP отделена в ms7-mig-documentation-checkpoint,
+  07dad695c5114ae461078b367bd9eb94aaa671d5; не интегрировать ради сохранения;
+- I04 WIP отделён автором в ms7-mig-frontend-i04-wip,
+  bcdb121eccc7643de154b7e8b3f70544cb209766; runtime проверка не завершена;
+- эти новые WIP refs пока LOCAL_ONLY; remote publication требует проверки SHA;
+- агенты backend_sol/frontend_sol/reviewer_sol возобновлены с Sol/high;
+  frontend получил один usage-limit error, после следующего запроса продолжил.
+
+HBUILD-02 repeatable-read fix на74745c7 independently9tests PASS72.319s;
+HBUILD-01 остаётся OPEN: same-slug subject из другого grade принимается.
+До закрытия и отдельного review dependency не интегрировать. I02/I03 пока
+IN_PROGRESS; SSG/typecheck/unit и первый Chrome360 run не заменяют полный
+реальный API/browser/visual/combined review. Актуальные receipts обновлять
+в execution ledgers и handoff; исторический журнал ниже не перезаписывать.
+
+---
+
 ## 1. Текущее состояние пакета
 
 - Package: ACTIVATED_BY_USER on 2026-10-16, Europe/Moscow.

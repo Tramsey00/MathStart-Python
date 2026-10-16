@@ -13,7 +13,8 @@
       "formal_status": "HISTORICAL_ACCEPTED",
       "historical_pr": 46,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-R02",
@@ -22,7 +23,8 @@
       "formal_status": "HISTORICAL_ACCEPTED",
       "historical_pr": 48,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-R03",
@@ -36,7 +38,8 @@
       ],
       "blocking_findings": [
         "R03-INTAKE-02: empty backend command map/full target pipeline pending"
-      ]
+      ],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-R04",
@@ -45,7 +48,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-R05",
@@ -54,7 +58,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-R06",
@@ -63,7 +68,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-V01",
@@ -72,7 +78,8 @@
       "formal_status": "HISTORICAL_ACCEPTED",
       "historical_pr": 51,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-V02",
@@ -81,16 +88,19 @@
       "formal_status": "HISTORICAL_ACCEPTED",
       "historical_pr": 53,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-V03",
       "issue": 36,
-      "execution_status": "TODO",
+      "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false,
+      "scope_note": "Existing partial WIP preserved; no further implementation in current block"
     },
     {
       "id": "MS7-MIG-V04",
@@ -99,7 +109,12 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [
+        "HBUILD-01: coherent hierarchy drift accepted at2b3a60d",
+        "HBUILD-02: READ COMMITTED mixed edition at2b3a60d; fixes/review pending"
+      ],
+      "in_current_block": false,
+      "scope_note": "Only H-BUILD-INPUTS/read-serving dependency work authorized in current block; full publication task remains incomplete"
     },
     {
       "id": "MS7-MIG-V05",
@@ -108,7 +123,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-V06",
@@ -117,7 +133,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-I01",
@@ -126,7 +143,8 @@
       "formal_status": "HISTORICAL_ACCEPTED",
       "historical_pr": 50,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-I02",
@@ -135,7 +153,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": true
     },
     {
       "id": "MS7-MIG-I03",
@@ -144,16 +163,19 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": true
     },
     {
       "id": "MS7-MIG-I04",
       "issue": 43,
-      "execution_status": "TODO",
+      "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false,
+      "scope_note": "Existing partial WIP preserved; no further implementation in current block"
     },
     {
       "id": "MS7-MIG-I05",
@@ -162,7 +184,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
     },
     {
       "id": "MS7-MIG-I06",
@@ -171,7 +194,34 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": []
+      "blocking_findings": [],
+      "in_current_block": false
+    }
+  ],
+  "current_block": {
+    "id": "i02-i03-publication-20261016",
+    "tasks": [
+      "MS7-MIG-I02",
+      "MS7-MIG-I03"
+    ],
+    "allowed_dependency_work": "necessary V04 H-BUILD-INPUTS and serving interfaces only",
+    "completion": "verify, independent review, publish, handoff, stop",
+    "next_block_policy": "three dependency-ready tasks per separately initiated block; publish/handoff and stop"
+  },
+  "work_in_progress_branches": [
+    {
+      "branch": "ms7-mig-documentation-checkpoint",
+      "sha": "07dad695c5114ae461078b367bd9eb94aaa671d5",
+      "status": "LOCAL_CHECKPOINT_NOT_YET_PUSHED",
+      "task": "R05",
+      "acceptance": "WIP_NOT_VERIFIED"
+    },
+    {
+      "branch": "ms7-mig-frontend-i04-wip",
+      "sha": "bcdb121eccc7643de154b7e8b3f70544cb209766",
+      "status": "LOCAL_CHECKPOINT_NOT_YET_PUSHED",
+      "task": "I04",
+      "acceptance": "WIP_NOT_VERIFIED"
     }
   ]
 }
