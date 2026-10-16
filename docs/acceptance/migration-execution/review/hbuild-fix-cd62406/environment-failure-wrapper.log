@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\Projects\MathStart-Python\migration-execution\review\var\review_hbuild_parent_fix.py", line 11, in <module>
+    exec(compile(source, str(ROOT / 'var/review_hbuild_fix.py'), 'exec'))
+  File "C:\Projects\MathStart-Python\migration-execution\review\var\review_hbuild_fix.py", line 31, in <module>
+    with UnitOfWork(engine) as uow:
+         ^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\MathStart-Python\migration-execution\review\var\review-build-fix-cd62406\backend\infrastructure\uow.py", line 39, in __exit__
+    raise DatabaseUnavailable('Database operation unavailable; outcome requires reconciliation') from None
+backend.infrastructure.database.DatabaseUnavailable: Database operation unavailable; outcome requires reconciliation
