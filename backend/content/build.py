@@ -144,6 +144,9 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
         if any((getattr(page, key).slug if getattr(page, key) is not None else None) != bundle.snapshot[key]
                for key in ['grade', 'subject', 'section']):
             raise SourceError('Published catalogue identity differs from reviewed source')
+        if ((page.subject is not None and page.subject.grade_id != page.grade_id)
+                or (page.section is not None and page.section.subject_id != page.subject_id)):
+            raise SourceError('Published catalogue parents differ from reviewed source identity')
         assets = assets_for(source_root, bundle)
         for asset, raw in assets:
             previous = files.setdefault(asset['storage_key'], raw)

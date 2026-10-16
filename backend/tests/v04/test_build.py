@@ -130,6 +130,18 @@ class BuildTests(unittest.TestCase):
                 write_build_inputs(uow, ROOT, self.root, 'relation-conflict', INPUT_SHA)
             self.assertFalse((self.root / 'relation-conflict').exists())
 
+    def test_hbuild_01_same_slug_cross_grade_subject_refused(self):
+        with UnitOfWork(self.engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ'))
+            page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.slug == '10-klass-naturalnye-chisla-povtorenie'))
+            page.subject_id = 3  # algebra exists in both grades; slug alone is insufficient.
+            uow.session.flush()
+            self.assertEqual(page.subject.slug, 'algebra')
+            self.assertNotEqual(page.subject.grade_id, page.grade_id)
+            with self.assertRaises(SourceError):
+                write_build_inputs(uow, ROOT, self.root, 'cross-grade-conflict', INPUT_SHA)
+            self.assertFalse((self.root / 'cross-grade-conflict').exists())
+
     def test_hbuild_02_read_committed_refused_and_snapshot_pinned(self):
         with UnitOfWork(self.engine) as uow, self.assertRaises(SourceError):
             write_build_inputs(uow, ROOT, self.root, 'mixed-snapshot', INPUT_SHA)
