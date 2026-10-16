@@ -4,6 +4,9 @@ import type { PublicPageView } from "../../server/public-types";
 
 export const handle = { publicDocument: true };
 export async function loader({request}:{request:Request}) {
+  // The framework builds the private SPA shell at the home URL. That shell
+  // must render the same empty root layout that hydrates on a private path.
+  if(request.headers.get('X-React-Router-SPA-Mode') === 'yes') return null;
   return loadPublicPage(new URL(request.url).pathname);
 }
 

@@ -22,14 +22,19 @@ for(const route of styleRepresentatives)test('style family '+route,async({page})
 });
 
 test('complete public URL/body/head manifest, alias and private exclusion',async({request})=>{
+ // This case deliberately requests the full inventory sequentially. Keep each
+ // response bounded while allowing the measured volume to grow with the manifest.
+ test.setTimeout(30_000+entries.length*5_000);
+ const started=Date.now();
  for(const [url,view] of entries){
-  const r=await request.get(url);expect(r.status(),url).toBe(200);
+  const r=await request.get(url,{timeout:5_000});expect(r.status(),url).toBe(200);
   const html=await r.text();expect(html,url).toContain(view.page.body_html);
   expect(html,url).toContain('lang="ru"');expect(html,url).toContain('<link rel="canonical" href="'+view.canonical_url+'"');
   expect(html,url).not.toContain('window.__reactRouterContext');expect(html,url).not.toContain('fixture_only_');
  }
  for(const path of ['/not-a-real-page/','/__ui__/foundation/','/_private/shell.html','/api/unknown/'])expect((await request.get(path)).status(),path).toBe(404);
  expect((await request.get('/sitemap.xml')).status()).toBe(200);expect((await request.get('/robots.txt')).status()).toBe(200);
+ await test.info().attach('complete-inventory-elapsed.json',{body:JSON.stringify({urls:entries.length,elapsed_ms:Date.now()-started,per_url_timeout_ms:5000,total_timeout_ms:30000+entries.length*5000}),contentType:'application/json'});
 });
 
 test('no JavaScript home/catalogue/GET search, keyboard and focus',async({browser})=>{

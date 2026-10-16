@@ -91,8 +91,14 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
                     raise ValueError('Private/debug production payload')
             write(path.relative_to(client).as_posix(), path.read_bytes())
     fallback = client / '__spa-fallback.html'
-    if fallback.exists():
-        write('_private/shell.html', fallback.read_bytes())
+    if not fallback.is_file():
+        raise ValueError('Private framework hydration shell is missing')
+    fallback_raw = fallback.read_bytes()
+    fallback_text = fallback_raw.decode('utf-8')
+    if ('window.__reactRouterContext' not in fallback_text
+            or any(marker in fallback_text for marker in ('canonical_url', 'data-lesson-host', 'rel="canonical"'))):
+        raise ValueError('Private hydration shell contains a public publication view')
+    write('_private/shell.html', fallback_raw)
     write('404.html', '<!doctype html><html lang="ru"><meta charset="UTF-8"><title>Страница не найдена | MathStart</title><main><h1>Страница не найдена</h1><a href="/">На главную</a></main></html>'.encode('utf-8'))
     receipt = {'version':'frontend-public-output-v1', 'release_id':release_id,
         'input_manifest_digest':manifest_digest, 'input_receipt_digest':receipt_digest, 'origin':origin, 'pages':len(release.pages),

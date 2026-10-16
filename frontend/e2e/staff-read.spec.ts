@@ -11,13 +11,13 @@ test('real anonymous staff reads remain denied, with private no-store',async({pa
  await expect(page.getByRole('status')).toHaveText('Войдите в аккаунт.');
 });
 
-test('real staff list/detail/history reads across all nine registered resources',async({page,context})=>{
+for(const [resource,native]of resources)test('real staff list/detail/history reads '+resource,async({page,context})=>{
  const file=process.env.MATHSTART_STAFF_COOKIE_FILE;if(!file)throw Error('Guarded disposable staff cookie file required');
  const input=JSON.parse(readFileSync(file,'utf8'));
  await context.addCookies(Array.isArray(input)?input:input.cookies);
  const network:{path:string;status:number;cache:string}[]=[];
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{const path=new URL(r.url()).pathname;if(path.startsWith('/api/v1/staff/'))network.push({path,status:r.status(),cache:r.headers()['cache-control']??''});});
- for(const [resource,native]of resources){
   const list=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/v1/staff/'+resource+'/');await page.goto('/admin/'+native+'/');
   expect((await list).status(),resource).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
   const links=page.locator('#staff-main > ul a');
@@ -26,7 +26,7 @@ test('real staff list/detail/history reads across all nine registered resources'
    const detail=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/${resource}/${id}/`);await links.first().click();expect((await detail).status()).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
    const history=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/${resource}/${id}/history/`);await page.getByRole('link',{name:'История',exact:true}).click();expect((await history).status()).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
   }
- }
- expect(network.length).toBeGreaterThanOrEqual(9);expect(network.every(r=>r.status===200&&r.cache.includes('no-store'))).toBe(true);
+ expect(network.length).toBeGreaterThanOrEqual(1);expect(network.every(r=>r.status===200&&r.cache.includes('no-store'))).toBe(true);
+ expect(errors).toEqual([]);
  await test.info().attach('sanitized-staff-network.json',{body:JSON.stringify(network),contentType:'application/json'});
 });

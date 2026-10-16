@@ -8,6 +8,7 @@ export default {
   appDirectory: "src/app",
   buildDirectory: "build",
   ssr: false,
+  routeDiscovery: { mode: 'initial' },
   prerender: paths,
   future: { v8_trailingSlashAwareDataRequests: true },
 } satisfies Config;
