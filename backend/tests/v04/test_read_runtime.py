@@ -4,16 +4,52 @@ import json
 import os
 from pathlib import Path
 import unittest
+import string
 
 import sqlalchemy as sa
 from starlette.requests import Request
+from starlette.testclient import TestClient
 
 from backend.content.public_runtime import ReadSessionAuthenticator
+from backend.content.public_runtime import create_public_app
+from backend.content.public_runtime import public_csrf_check
+from backend.infrastructure.http.signing import Signer
 from backend.infrastructure.database import DatabaseConfig, create_engine
 from backend.infrastructure.uow import UnitOfWork
 from backend.migrations.upgrade import require_disposable
 from backend.models.baseline import User
 from backend.models.protocol import TargetSession
+
+
+class PublicCsrfTests(unittest.TestCase):
+    secret = 'aB3d' * 8
+
+    def masked(self, secret):
+        alphabet, mask = string.ascii_letters + string.digits, 'zY7w' * 8
+        return mask + ''.join(alphabet[(alphabet.index(a) + alphabet.index(b)) % 62]
+                              for a, b in zip(secret, mask))
+
+    def request(self, cookie=None, token=None, origin=None, referer=None):
+        headers = {name: value for name, value in [('cookie', 'csrftoken=' + cookie if cookie else None),
+                   ('x-csrftoken', token), ('origin', origin), ('referer', referer)] if value is not None}
+        return Request({'type': 'http', 'headers': [(k.encode(), v.encode()) for k, v in headers.items()]})
+
+    def test_raw_and_masked_tokens_accept_only_matching_secrets(self):
+        for cookie in [self.secret, self.masked(self.secret)]:
+            for token in [self.secret, self.masked(self.secret)]:
+                self.assertTrue(public_csrf_check(self.request(cookie, token, 'http://localhost'), 'http://localhost'))
+        for token in [None, '', 'a' * 31, 'a' * 33, 'a' * 63, 'a' * 65, '!' * 32, 'b' * 32]:
+            self.assertFalse(public_csrf_check(self.request(self.secret, token), 'http://localhost'))
+        self.assertFalse(public_csrf_check(self.request(None, self.secret), 'http://localhost'))
+
+    def test_origin_and_https_referer_are_required_and_exact(self):
+        for origin in ['http://evil.example', 'null', 'http://localhost:81', 'http://localhost.evil.example']:
+            self.assertFalse(public_csrf_check(self.request(self.secret, self.secret, origin), 'http://localhost'))
+        self.assertTrue(public_csrf_check(self.request(self.secret, self.secret), 'http://localhost'))
+        for referer in [None, 'http://localhost/path', 'https://evil.example/', 'https://[invalid']:
+            self.assertFalse(public_csrf_check(self.request(self.secret, self.secret, referer=referer), 'https://localhost'))
+        self.assertTrue(public_csrf_check(self.request(self.secret, self.secret,
+                        referer='https://localhost/path?q=1'), 'https://localhost'))
 
 
 class ReadSessionTests(unittest.TestCase):
@@ -75,6 +111,69 @@ class ReadSessionTests(unittest.TestCase):
                 c.execute(sa.update(User).where(User.id == identity.user_id).values(is_active=True))
         self.assertIsNotNone(ReadSessionAuthenticator(self.engine, 'synthetic-new-key', [self.key])(self.request(self.token)))
         self.assertIsNone(ReadSessionAuthenticator(self.engine, 'synthetic-wrong-key')(self.request(self.token)))
+
+    def client(self):
+        app = create_public_app(self.engine, Signer(self.key),
+                release_root=Path(os.environ['MATHSTART_STAFF_COOKIE_FILE']).parent / 'releases',
+                artifact_root=Path('var/unused-artifact-in-api-tests'), artifact_digests={},
+                origin='http://127.0.0.1:8121')
+        client = TestClient(app, base_url='http://127.0.0.1:8121')
+        client.cookies.set('sessionid', self.token, domain='127.0.0.1', path='/')
+        return client
+
+    def test_real_nine_staff_lists_details_history_are_private_read_only(self):
+        statements = []
+        def observe(conn, cursor, statement, parameters, context, executemany):
+            statements.append(statement)
+        sa.event.listen(self.engine, 'before_cursor_execute', observe)
+        try:
+            with self.client() as client:
+                for resource in ['grades', 'subjects', 'sections', 'pages', 'publications', 'media_assets', 'redirects', 'users', 'groups']:
+                    response = client.get(f'/api/v1/staff/{resource}/?page_size=1')
+                    self.assertEqual(response.status_code, 200, resource)
+                    self.assertEqual(response.headers['cache-control'], 'private, no-store')
+                    self.assertTrue(response.json()['data'], resource)
+                    identity = response.json()['data'][0]['id']
+                    for suffix in ['', 'history/']:
+                        result = client.get(f'/api/v1/staff/{resource}/{identity}/' + suffix)
+                        self.assertEqual(result.status_code, 200, resource + suffix)
+                        self.assertEqual(result.headers['cache-control'], 'private, no-store')
+            self.assertTrue(all(s.lstrip().upper().startswith(('SELECT', 'SET TRANSACTION READ ONLY')) for s in statements))
+        finally:
+            sa.event.remove(self.engine, 'before_cursor_execute', observe)
+
+    def test_staff_api_anonymous_nonstaff_bad_host_and_mutations_fail_closed(self):
+        with self.client() as client:
+            client.cookies.clear()
+            self.assertEqual(client.get('/api/v1/staff/users/').status_code, 401)
+            client.cookies.set('sessionid', self.token, domain='127.0.0.1', path='/')
+            identity = self.auth(self.request(self.token))
+            try:
+                with self.engine.begin() as c:
+                    c.execute(sa.update(User).where(User.id == identity.user_id).values(is_staff=False))
+                self.assertEqual(client.get('/api/v1/staff/users/').status_code, 403)
+            finally:
+                with self.engine.begin() as c:
+                    c.execute(sa.update(User).where(User.id == identity.user_id).values(is_staff=True))
+            self.assertEqual(client.get('/api/v1/staff/users/', headers={'Host': 'untrusted.example'}).status_code, 400)
+            self.assertEqual(client.post('/api/v1/staff/pages/', json={}).status_code, 403)
+            self.assertEqual(client.post('/api/v1/staff/users/', json={}).status_code, 400)
+
+    def test_public_unsafe_csrf_wiring_preserves_read_and_error_precedence(self):
+        secret = PublicCsrfTests.secret
+        with self.client() as client:
+            client.cookies.set('csrftoken', secret, domain='127.0.0.1', path='/')
+            headers = {'X-CSRFToken': PublicCsrfTests().masked(secret), 'Origin': 'http://127.0.0.1:8121'}
+            for path, expected in [('/robots.txt', 200), ('/sitemap.xml', 200),
+                                   ('/absent-csrf-test-page/', 404), ('/', 503)]:
+                for method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+                    with self.subTest(path=path, method=method):
+                        self.assertEqual(client.request(method, path, headers=headers).status_code, expected)
+                        rejected = client.request(method, path)
+                        self.assertEqual(rejected.status_code, 403)
+                        self.assertEqual(rejected.json()['error']['code'], 'CSRF_FAILED')
+            self.assertEqual(client.post('/robots.txt', headers={**headers, 'Origin': 'http://evil.example'}).status_code, 403)
+            self.assertEqual(client.post('/robots.txt', headers={**headers, 'Host': 'evil.example'}).status_code, 400)
 
 
 if __name__ == '__main__':

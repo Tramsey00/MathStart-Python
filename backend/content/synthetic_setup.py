@@ -5,6 +5,7 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import re
 import secrets
 import sys
 import uuid
@@ -27,7 +28,8 @@ from backend.migrations.upgrade import fresh, require_disposable
 def prepare(engine, source_root, runtime_root, release_id, source_sha, key):
     with engine.begin() as connection:
         name = connection.scalar(sa.text('SELECT current_database()'))
-        if not name.startswith('test_ms7_mig_v01_') or sa.inspect(connection).get_table_names():
+        major = int(connection.scalar(sa.text('SHOW server_version_num'))) // 10000
+        if major < 16 or not name.startswith('test_ms7_mig_v01_') or sa.inspect(connection).get_table_names():
             raise RuntimeError('Only an empty explicitly reserved synthetic V01 database is allowed')
         connection.execute(sa.text('COMMENT ON DATABASE ' + connection.dialect.identifier_preparer.quote(name)
                             + " IS 'MS7-MIG-V01 disposable synthetic test database'"))
@@ -78,12 +80,23 @@ def prepare(engine, source_root, runtime_root, release_id, source_sha, key):
 def activate_initial(engine, release_root, release_id, receipt_digest, artifact_root, artifact_digest, origin):
     release = verify_build_inputs(release_root, release_id, receipt_digest)
     root, manifest = artifact_for(artifact_root, {release_id: artifact_digest}, release)
-    if manifest['origin'] != origin:
+    if manifest['origin'] != origin or manifest['input_receipt_digest'] != receipt_digest:
         raise RuntimeError('Artifact origin mismatch')
     for item in manifest['files']:
         artifact_bytes(root, manifest, item['path'])
     if set(manifest['page_ids']) != {str(pk) for pk in release.pages}:
         raise RuntimeError('Incomplete frontend page coverage')
+    canonical = {page['seo']['canonical_path'] for page in release.pages.values()}
+    public_urls = canonical | {a['url'] for a in release.index['aliases']} | set(release.index['system_urls'])
+    if (set(manifest['public_urls']) != public_urls or set(manifest['page_semantic_digests']) != canonical
+            or manifest['redirects'] != release.index['redirects'] or manifest['private_exports'] != []):
+        raise RuntimeError('Frontend public coverage mismatch')
+    from frontend.rendering import PublicRenderer
+    renderer = PublicRenderer(artifact_root, {release_id: artifact_digest})
+    for page in release.pages.values():
+        html = renderer(page, release.renderer_context(page, {}), origin + page['seo']['canonical_path'])
+        if page['body_html'] not in html:
+            raise RuntimeError('Incomplete frontend authored HTML')
     with engine.begin() as c:
         require_disposable(c)
         # Initial fixture only: never replace a real or preexisting authority.
@@ -106,7 +119,8 @@ def activate_initial(engine, release_root, release_id, receipt_digest, artifact_
         operation, owner = uuid.uuid4(), uuid.uuid4()
         c.execute(sa.insert(journal).values(id=operation, namespace='public', key_digest=sha256(release_id.encode()).hexdigest(),
                   plan_digest=sha256(encoded({'kind': 'initial-synthetic-i02-i03', 'manifest': release.descriptor.manifest_digest})).hexdigest(),
-                  plan={'kind': 'initial-synthetic-i02-i03', 'source_sha': manifest.get('source_sha')},
+                  plan={'kind': 'initial-synthetic-i02-i03', 'input_receipt_digest': receipt_digest,
+                        'output_manifest_digest': artifact_digest},
                   release_id=release_id, manifest_digest=release.descriptor.manifest_digest, owner_id=owner,
                   fence_generation=1, lease_until=now, phase='COMPLETE', db_committed=True,
                   activation_status='APPLIED', created_at=now, updated_at=now))
@@ -133,6 +147,8 @@ def main(argv=None):
     try:
         if os.environ.get('MATHSTART_DISPOSABLE') != '1':
             raise RuntimeError('Explicit disposable environment required')
+        if not re.fullmatch(r'https?://[A-Za-z0-9.-]+(?::[0-9]+)?', os.environ['MATHSTART_PUBLIC_ORIGIN']):
+            raise RuntimeError('Explicit trusted public origin required')
         root = args.runtime_root.resolve()
         if not root.is_relative_to(Path('var').resolve()):
             raise RuntimeError('Synthetic output must stay under this checkout var/')

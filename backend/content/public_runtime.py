@@ -10,6 +10,7 @@ import mimetypes
 import os
 from pathlib import Path
 import re
+import string
 from urllib.parse import urlsplit
 
 import sqlalchemy as sa
@@ -38,6 +39,31 @@ def session_digest(token, key):
 
 def user_auth_hash(password_hash, key):
     return keyed('django.contrib.auth.models.AbstractBaseUser.get_session_auth_hash', password_hash, key)
+
+
+def public_csrf_check(request, origin):
+    """Accepted Django cookie/masked-token and same-origin policy for public POST."""
+    alphabet = string.ascii_letters + string.digits
+    def unmask(token):
+        if not isinstance(token, str) or len(token) not in {32, 64} or any(c not in alphabet for c in token):
+            return None
+        if len(token) == 32:
+            return token
+        return ''.join(alphabet[(alphabet.index(a) - alphabet.index(b)) % len(alphabet)]
+                       for a, b in zip(token[32:], token[:32]))
+    supplied_origin = request.headers.get('origin')
+    if supplied_origin is not None and supplied_origin != origin:
+        return False
+    if supplied_origin is None and origin.startswith('https:'):
+        try:
+            referer = urlsplit(request.headers.get('referer', ''))
+        except ValueError:
+            return False
+        trusted = urlsplit(origin)
+        if referer.scheme != 'https' or referer.netloc != trusted.netloc:
+            return False
+    cookie, token = unmask(request.cookies.get('csrftoken')), unmask(request.headers.get('x-csrftoken'))
+    return cookie is not None and token is not None and hmac.compare_digest(cookie, token)
 
 
 class ReadSessionAuthenticator:
@@ -122,7 +148,8 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
                 'state': 'IN_SYNC', 'active': edition, 'db_edition': edition.copy(), 'pending': None}
 
     app = create_app(engine, signer, release_store=store, authenticate=authenticate,
-                     render_page=renderer, public_origin=origin, observe_publication=initial_edition)
+                     render_page=renderer, public_origin=origin, observe_publication=initial_edition,
+                     csrf_check=lambda request: public_csrf_check(request, origin))
     trusted_host = urlsplit(origin).netloc.lower()
 
     @app.middleware('http')
