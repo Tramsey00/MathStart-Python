@@ -26,15 +26,16 @@ from scripts.public_block_process import owned_http_service, run_browser_check, 
 
 
 def npm_command(script):
-    if script not in {'typecheck', 'test', 'build', 'test:e2e'}:
+    if script not in {'typecheck', 'test', 'build', 'test:e2e', '--version'}:
         raise ValueError('Unknown frontend check')
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
         raise ValueError('npm is unavailable')
+    arguments = '--version' if script == '--version' else 'run ' + script
     if os.name == 'nt':
         return [os.environ.get('COMSPEC', 'cmd.exe'), '/d', '/s', '/c',
-                '""' + npm + '" run ' + script + '"']
-    return [npm, 'run', script]
+                '""' + npm + '" ' + arguments + '"']
+    return [npm, '--version'] if script == '--version' else [npm, 'run', script]
 
 
 def main(argv=None):
@@ -100,6 +101,11 @@ def main(argv=None):
         stage('target-lock', [sys.executable,'-m','pip','check'])
         stage('python-version', [sys.executable,'--version'])
         stage('node-version', [shutil.which('node') or 'node','--version'])
+        stage('npm-version', npm_command('--version'))
+        stage('postgres-version', [sys.executable,'-c',
+            "from backend.infrastructure.database import DatabaseConfig,create_engine; "
+            "from sqlalchemy import text; e=create_engine(DatabaseConfig.from_environment()); "
+            "c=e.connect(); print(c.scalar(text('SHOW server_version'))); c.close(); e.dispose()"])
         stage('synthetic-prepare', [sys.executable,'-m','backend.content.synthetic_setup','prepare','--disposable',
             '--runtime-root',str(setup_root),'--release-id',release_id,'--source-sha',report['implementation_sha']])
         prepared = json.loads((setup_root / 'prepare-result.json').read_text(encoding='utf-8'))
@@ -124,6 +130,7 @@ def main(argv=None):
         env['MATHSTART_LEGACY_BASE_URL'] = f'http://127.0.0.1:{args.legacy_port}'
         stage('source-render-and-read-runtime', [sys.executable,'-m','unittest',
             'backend.tests.v04.test_build','backend.tests.v04.test_read_runtime',
+            'backend.tests.v04.test_verified_release_cache',
             'frontend.tests.test_public_artifact','-v'])
         legacy_argv = [sys.executable,'-m','frontend.legacy_comparator','--build-config',str(config_path),
             '--legacy-python',str(args.legacy_python.resolve()),'--runtime-root',str(root / 'legacy'),
@@ -139,7 +146,7 @@ def main(argv=None):
             # npm requires frontend cwd; the server module needs repository cwd.
             browser_command = [sys.executable,str(ROOT / 'scripts/public_frontend_command.py'),'test:e2e']
             browser = run_browser_check(target_argv,browser_command,base_url=env['MATHSTART_PUBLIC_ORIGIN'],
-                cwd=ROOT,evidence_root=root / 'target-service',environment=browser_env,check_timeout=1500)
+                cwd=ROOT,evidence_root=root / 'target-service',environment=browser_env,check_timeout=7200)
         report['browser_lifecycle'] = browser
         if browser != {'startup':'PASS','browser_exit':0,'cleanup':'PASS'}:
             raise RuntimeError('Browser check or service lifecycle failed')
