@@ -26,7 +26,8 @@ FRONTEND_SCRIPTS = {"frontend-typecheck": "typecheck", "frontend-tests": "test",
 def validate_result(path, check):
     """A successful process must supply nonempty, unskipped target evidence."""
     result = json.loads(path.read_text(encoding="utf-8"))
-    if (result.get("check_id") != check or result.get("status") != "PASS"
+    if (not isinstance(result, dict)
+            or result.get("check_id") != check or result.get("status") != "PASS"
             or result.get("evidence_class") != "TARGET_RUNTIME"
             or type(result.get("assertions")) is not int or result["assertions"] < 1
             or type(result.get("skipped")) is not int or result["skipped"] != 0):
@@ -97,11 +98,13 @@ def main(argv=None):
     try:
         command, directory = command_for(args.check)
         environment = os.environ.copy()
-        receipt = None
-        if args.check in BACKEND_CHECKS:
-            receipt = ROOT / "var/target-checks" / (args.check + "-" + uuid4().hex) / "result.json"
-            receipt.parent.mkdir(parents=True, exist_ok=False)
-            environment["MATHSTART_CHECK_RESULT"] = str(receipt)
+        # Every interface must prove that it actually checked its target. A
+        # frontend command which exits successfully without running any cases
+        # is no stronger evidence than an empty backend suite.
+        receipt = ROOT / "var/target-checks" / (args.check + "-" + uuid4().hex) / "result.json"
+        receipt.parent.mkdir(parents=True, exist_ok=False)
+        environment["MATHSTART_CHECK_RESULT"] = str(receipt)
+        environment["MATHSTART_CHECK_ID"] = args.check
         result = subprocess.run(command, cwd=directory, shell=False, check=False,
                                 capture_output=True, text=True, encoding="utf-8",
                                 errors="replace", timeout=540, env=environment)
@@ -116,7 +119,7 @@ def main(argv=None):
     from harness.runner.verification import _safe_diagnostic
     print(_safe_diagnostic(result.stdout), end="")
     print(_safe_diagnostic(result.stderr), end="", file=sys.stderr)
-    if result.returncode == 0 and receipt is not None:
+    if result.returncode == 0:
         try:
             validate_result(receipt, args.check)
         except (ValueError, OSError, TypeError, KeyError):

@@ -1,0 +1,27 @@
+{
+  "base": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
+  "head": "fb39647beb983a4f488ad82d4984d3f96e87b9a8",
+  "tree": "08f0181373b2bc3458bf1c6bc012117d36f254fd",
+  "preservation": {
+    "accepted_input": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
+    "preserved_files": 1876,
+    "adapted_files": [
+      ".github/workflows/migration-ci.yml",
+      "harness/runner/verification.py",
+      "scripts/check_database.py",
+      "scripts/fresh_install_smoke.py",
+      "scripts/verify_repo.py",
+      "scripts/version_report.py",
+      "skills/verification/SKILL.md",
+      "specs/harness/README.md",
+      "tests/harness/test_canonical_verification.py",
+      "tests/harness/test_verification.py"
+    ]
+  },
+  "reproduction": {
+    "description": "An actual empty successful child accepted by frontend wrapper; patched command resolution only, subprocess executed normally. No frontend receipt created or asserted.",
+    "check_id": "frontend-e2e",
+    "exit_code": 0,
+    "expected_after_fix": "nonzero for absent structured receipt/cases"
+  }
+}

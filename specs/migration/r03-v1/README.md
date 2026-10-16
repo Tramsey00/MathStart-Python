@@ -52,7 +52,7 @@ The wrappers are real executable dispatchers; the domain implementations are abs
 | upgrade-A/B/C | Exact schema/data/ID/FK/default/timestamp/sequence preservation for the3 specified disposable profiles, V01 |
 | frontend-typecheck/tests/build/e2e | Locked `npm run typecheck/test/build/test:e2e`, I01/I02 |
 
-Backend command runs receive `MATHSTART_CHECK_RESULT` naming a unique output
+All fourteen command interfaces receive `MATHSTART_CHECK_RESULT` naming a unique output
 under var/target-checks. Exit0 additionally requires a JSON receipt containing
 `check_id` (exact key), `status:PASS`, `evidence_class:TARGET_RUNTIME`, integer
 `assertions>0`, integer `skipped:0`. lesson-sources requires at least263 assertions.
@@ -61,6 +61,10 @@ Migration/backend-tests/fresh/upgrade receipts additionally require
 Counts and receipts prevent empty/skip success; independent assertion review
 and real implementation evidence are still required. They do not prove parity
 by themselves and model/synthetic results cannot use this evidence class.
+Each command also receives `MATHSTART_CHECK_ID` with its exact interface key.
+Frontend commands must write the same nonempty structured result from actual
+tool/test/build observations; exit0 with no receipt is failure. Typecheck/build
+assertions describe checked source/build invariants, not browser acceptance.
 Frontend package, lock, each script and npm must exist; missing tool is fail.
 Scripts must use deterministic test execution and fail on no tests, not watch mode.
 
