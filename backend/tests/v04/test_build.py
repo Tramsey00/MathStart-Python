@@ -14,9 +14,10 @@ from backend.content.releases import ReleaseStore
 from backend.content.sources import SourceError, file_inside, load_sources, read_json
 from backend.infrastructure.http.transport import APIError
 from backend.infrastructure.uow import UnitOfWork
-from backend.models.baseline import ContentPage
+from backend.models.baseline import ContentPage, Grade
 
 ROOT = Path(__file__).resolve().parents[3]
+INPUT_SHA = '24d06112bcd6abcd1abad9b052de14a0a7b49e8e'
 
 
 class SourceTests(unittest.TestCase):
@@ -57,7 +58,7 @@ class BuildTests(unittest.TestCase):
         cls.temp = tempfile.TemporaryDirectory()
         cls.root = Path(cls.temp.name)
         with UnitOfWork(cls.engine) as uow:
-            uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
+            uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
             cls.descriptor, cls.receipt = write_build_inputs(uow, ROOT, cls.root, 'test-inputs',
                                                             '24d06112bcd6abcd1abad9b052de14a0a7b49e8e')
 
@@ -79,7 +80,7 @@ class BuildTests(unittest.TestCase):
 
     def test_immutable_identity_cannot_be_overwritten(self):
         with UnitOfWork(self.engine) as uow, self.assertRaises(SourceError):
-            write_build_inputs(uow, ROOT, self.root, 'test-inputs', 'a' * 40)
+            write_build_inputs(uow, ROOT, self.root, 'test-inputs', INPUT_SHA)
 
     def test_trusted_receipt_rejects_metadata_edit_and_unlisted_private_export(self):
         base = self.root / self.descriptor.release_id
@@ -107,16 +108,44 @@ class BuildTests(unittest.TestCase):
 
     def test_unreviewed_database_edit_refused_without_overwrite(self):
         with UnitOfWork(self.engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ'))
             page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.slug == 'glavnaya'))
             before = page.body_html
             page.body_html = 'PRIVATE-UNREVIEWED-SENTINEL'
             uow.session.flush()
             with self.assertRaises(SourceError):
-                write_build_inputs(uow, ROOT, self.root, 'unreviewed', 'a' * 40)
+                write_build_inputs(uow, ROOT, self.root, 'unreviewed', INPUT_SHA)
             self.assertEqual(page.body_html, 'PRIVATE-UNREVIEWED-SENTINEL')
             self.assertFalse((self.root / 'unreviewed').exists())
         with UnitOfWork(self.engine) as uow:
             self.assertEqual(uow.session.scalar(sa.select(ContentPage.body_html).where(ContentPage.slug == 'glavnaya')), before)
+
+    def test_hbuild_01_coherent_alternate_catalogue_identity_refused(self):
+        with UnitOfWork(self.engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ'))
+            page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.slug == '10-klass-naturalnye-chisla-povtorenie'))
+            page.grade_id, page.subject_id, page.section_id = 1, 1, 1
+            uow.session.flush()
+            with self.assertRaises(SourceError):
+                write_build_inputs(uow, ROOT, self.root, 'relation-conflict', INPUT_SHA)
+            self.assertFalse((self.root / 'relation-conflict').exists())
+
+    def test_hbuild_02_read_committed_refused_and_snapshot_pinned(self):
+        with UnitOfWork(self.engine) as uow, self.assertRaises(SourceError):
+            write_build_inputs(uow, ROOT, self.root, 'mixed-snapshot', INPUT_SHA)
+        with UnitOfWork(self.engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
+            grade = uow.session.scalar(sa.select(Grade).where(Grade.id == 1))
+            original = grade.title
+            try:
+                with self.engine.begin() as connection:
+                    connection.execute(sa.update(Grade).where(Grade.id == 1).values(title='Concurrent edition'))
+                descriptor, receipt = write_build_inputs(uow, ROOT, self.root, 'pinned-snapshot', INPUT_SHA)
+                release = ReleaseStore(self.root).load(descriptor)
+                self.assertEqual(next(g['title'] for g in release.index['catalogue']['grades'] if g['id'] == 1), original)
+            finally:
+                with self.engine.begin() as connection:
+                    connection.execute(sa.update(Grade).where(Grade.id == 1).values(title=original))
 
     def test_missing_or_corrupt_assets_and_pages_rejected(self):
         release = ReleaseStore(self.root).load(self.descriptor)

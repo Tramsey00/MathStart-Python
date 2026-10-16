@@ -7,6 +7,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import re
+import subprocess
 import uuid
 
 import sqlalchemy as sa
@@ -19,6 +20,19 @@ from backend.models.baseline import ContentPage
 
 def encoded(value):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')
+
+
+def verify_source_checkout(root, source_sha):
+    paths = ['curriculum', 'site_content', 'static', 'templates/lessons/components']
+    commands = [
+        ['git', '-C', str(root), 'rev-parse', '--verify', source_sha + '^{commit}'],
+        ['git', '-C', str(root), 'diff', '--quiet', source_sha, '--', *paths],
+        ['git', '-C', str(root), 'ls-files', '--others', '--exclude-standard', '--', *paths],
+    ]
+    for index, command in enumerate(commands):
+        result = subprocess.run(command, capture_output=True, timeout=30)
+        if result.returncode or index == 2 and result.stdout:
+            raise SourceError('Reviewed source commit does not match checkout')
 
 
 def verify_build_inputs(root, release_id, receipt_digest):
@@ -115,6 +129,10 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
     target = output_root / release_id
     if target.exists():
         raise SourceError('Immutable release already exists')
+    verify_source_checkout(source_root, source_sha)
+    if (uow.session.bind.dialect.name == 'postgresql'
+            and uow.session.scalar(sa.text('SHOW transaction_isolation')) not in {'repeatable read', 'serializable'}):
+        raise SourceError('Build requires one repeatable PostgreSQL snapshot')
     bundles = {b.snapshot['slug']: b for b in load_sources(source_root)}
     pages = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
     deliveries, files = {}, {}
@@ -123,6 +141,9 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
         if bundle is None or any(getattr(page, k) != bundle.snapshot[k] for k in
                 ['slug', 'page_type', 'title', 'order', 'seo_title', 'seo_description', 'body_html', 'page_css', 'page_js', 'is_published']):
             raise SourceError('Published DB edition differs from reviewed source; explicit publication required')
+        if any((getattr(page, key).slug if getattr(page, key) is not None else None) != bundle.snapshot[key]
+               for key in ['grade', 'subject', 'section']):
+            raise SourceError('Published catalogue identity differs from reviewed source')
         assets = assets_for(source_root, bundle)
         for asset, raw in assets:
             previous = files.setdefault(asset['storage_key'], raw)

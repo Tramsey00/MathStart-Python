@@ -53,3 +53,20 @@ full publication reconciliation/force behavior remains a later V04 increment.
 H-BUILD-INPUTS is a candidate interface; it does not activate a release or claim
 V04 completion. Identity/staff writes, full CLI inventory, recovery, operational
 restore, R04 and V06 remain unverified. No historical approvals were rewritten.
+
+## Independent H-BUILD review corrections
+
+Reviewer reproduced HBUILD-01: a coherent alternate grade/subject/section triple
+was exported even though reviewed source identity was unchanged. Writer now
+compares all three related slugs before export, and a real PG regression changes
+the tenth-grade topic to the valid first-grade triple and requires rejection.
+
+Reviewer reproduced HBUILD-02: READ COMMITTED read-only transactions could mix
+delivery metadata and a later concurrently committed catalogue edition. Every
+PG writer entry now requires REPEATABLE READ or SERIALIZABLE; CLI starts
+REPEATABLE READ READ ONLY. Regression uses a real second connection to commit
+a Grade label change while the first snapshot is held and requires the original
+coherent catalogue. Both new regressions passed in40.991s. A source checkout
+guard additionally proves the supplied source commit exists, source paths have
+no tracked diff against it and no untracked source additions. Full post-fix
+verification is pending the next exact-SHA run.

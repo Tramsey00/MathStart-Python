@@ -48,7 +48,7 @@ def main(argv=None):
                     if args.dry_run:
                         parser.error('build-inputs has no dry-run; use check-sources')
                     if engine.dialect.name == 'postgresql':
-                        uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
+                        uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
                     _, result = write_build_inputs(uow, root, args.output_root, args.release_id, args.source_sha)
                     result = {k: v for k, v in result.items() if k not in {'files', 'source_files'}}
         print(json.dumps(result, ensure_ascii=False, sort_keys=True))
