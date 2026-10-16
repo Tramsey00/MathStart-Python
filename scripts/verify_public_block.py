@@ -38,6 +38,30 @@ def npm_command(script):
     return [npm, '--version'] if script == '--version' else [npm, 'run', script]
 
 
+def source_snapshot(repository):
+    def git(*arguments):
+        return subprocess.check_output(['git',*arguments],cwd=repository)
+    untracked = {}
+    for relative in git('ls-files','--others','--exclude-standard','-z').decode('utf-8').split('\0'):
+        if not relative:
+            continue
+        path = repository / relative
+        raw = os.readlink(path).encode('utf-8') if path.is_symlink() else path.read_bytes()
+        untracked[relative] = sha256(raw).hexdigest()
+    return {'head':git('rev-parse','HEAD').decode().strip(),
+            'tree':git('log','-1','--format=%T').decode().strip(),
+            'dirty_paths':git('status','--porcelain','--untracked-files=normal').decode('utf-8').splitlines(),
+            'tracked_diff_sha256':sha256(git('diff','HEAD','--binary','--no-ext-diff')).hexdigest(),
+            'untracked_sha256':untracked}
+
+
+def assert_source_unchanged(expected, repository):
+    actual = source_snapshot(repository)
+    if actual != expected:
+        raise RuntimeError('Candidate source changed during public block verification')
+    return actual
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runtime-root', type=Path, required=True)
@@ -57,14 +81,15 @@ def main(argv=None):
         parser.error('Explicit disposable PostgreSQL configuration required')
     if importlib.util.find_spec('django') or importlib.util.find_spec('rest_framework'):
         parser.error('The target interpreter must not have Django or DRF installed')
-    dirty = subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=normal'], cwd=ROOT, text=True).splitlines()
+    source_before = source_snapshot(ROOT)
+    dirty = source_before['dirty_paths']
     if dirty and not args.allow_dirty:
         parser.error('Commit the reviewable source first; dirty development runs need --allow-dirty')
     root.mkdir(parents=True)
     report = {'version':'i02-i03-public-block-run-v1', 'status':'IN_PROGRESS',
               'started_at':datetime.now(timezone.utc).isoformat(),
-              'implementation_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-              'tree_sha':subprocess.check_output(['git','log','-1','--format=%T'],cwd=ROOT,text=True).strip(),
+              'implementation_sha':source_before['head'], 'tree_sha':source_before['tree'],
+              'source_before':source_before,
               'dirty_paths':dirty, 'scope':'I02/I03 plus initial synthetic read-serving dependency only',
               'full_V03_V04_R03':'NOT_VERIFIED', 'formal_acceptance':'HUMAN_PENDING', 'stages':[]}
     env = os.environ.copy()
@@ -80,6 +105,7 @@ def main(argv=None):
     frontend = ROOT / 'frontend'
 
     def stage(name, command, cwd=ROOT, timeout=540):
+        assert_source_unchanged(source_before,ROOT)
         logfile = root / (name + '.log')
         started = time.monotonic()
         entry = {'id':name,'argv':command,'cwd':str(cwd.relative_to(ROOT)) or '.',
@@ -95,6 +121,7 @@ def main(argv=None):
                 entry['elapsed_seconds'] = round(time.monotonic() - started, 3)
         if entry['exit_code']:
             raise RuntimeError('Required stage failed: ' + name)
+        assert_source_unchanged(source_before,ROOT)
         print('PASS: ' + name, flush=True)
 
     try:
@@ -153,6 +180,7 @@ def main(argv=None):
         receipt = json.loads((root / 'browser-receipt.json').read_text(encoding='utf-8'))
         if receipt.get('status') != 'PASS' or receipt.get('skipped') != 0 or receipt.get('assertions',0) < 1:
             raise RuntimeError('Missing nonempty unskipped browser proof')
+        report['source_after'] = assert_source_unchanged(source_before,ROOT)
         report.update(status='PASS' if not dirty else 'PASS_DIRTY_SOURCE_ONLY', release_id=release_id,
             input_manifest_digest=prepared['manifest_digest'],input_receipt_digest=prepared['receipt_digest'],
             output_manifest_digest=artifact_digest,browser_receipt='browser-receipt.json')
