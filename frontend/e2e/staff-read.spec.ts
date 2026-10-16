@@ -21,12 +21,13 @@ for(const [resource,native]of resources)test('real staff list/detail/history rea
   const list=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/v1/staff/'+resource+'/');await page.goto('/admin/'+native+'/');
   expect((await list).status(),resource).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
   const links=page.locator('#staff-main > ul a');
-  if(await links.count()){
+  // The disposable runtime fixture contains one row in every registered resource.
+  // An empty list is a setup/API/UI failure, never a reason to omit detail reads.
+  expect(await links.count(),resource+' fixture rows').toBeGreaterThanOrEqual(1);
    const href=await links.first().getAttribute('href');const id=href!.split('/').at(-3)!;expect(id).toMatch(/^[1-9]\d*$/);
    const detail=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/${resource}/${id}/`);await links.first().click();expect((await detail).status()).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
    const history=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/${resource}/${id}/history/`);await page.getByRole('link',{name:'История',exact:true}).click();expect((await history).status()).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
-  }
- expect(network.length).toBeGreaterThanOrEqual(1);expect(network.every(r=>r.status===200&&r.cache.includes('no-store'))).toBe(true);
+ expect(network.length).toBeGreaterThanOrEqual(3);expect(network.every(r=>r.status===200&&r.cache.includes('no-store'))).toBe(true);
  expect(errors).toEqual([]);
  await test.info().attach('sanitized-staff-network.json',{body:JSON.stringify(network),contentType:'application/json'});
 });
