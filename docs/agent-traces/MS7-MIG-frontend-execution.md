@@ -62,3 +62,14 @@ and elapsed attachment. No full matrix success or I02/I03 completion claimed.
 Author realstaff09 subsequently10/10PASS2.1minutes: anonymous denial plusall9
 positive resource list/detail/history/no-store/zero pageerrors on48fadcc build08
 and backendef7a2b2, test source05dd362. Root owns authoritative1116case matrix.
+
+CI-LEGACY-01: actual Linux CI showed that resolving the historical venv Python
+symlink selected its base interpreter. The comparator now preserves an absolute
+lexical executable path for both the read-only probe and original runserver.
+Added a platform-neutral no-dereference regression and an actual POSIX symlink
+regression for Linux CI. Windows Python3.12.14 ran these plus artifact boundary
+checks:6PASS/0skip; the POSIX-only real symlink branch was not executed on Windows
+and requires the Linux workflow. No target Django dependency was introduced.
+Combined02 partial Chrome360 matched captures were manually viewed as18original
+PNGs and recorded separately with hashes in ignored var; their candidate remains
+b8a9382 and does not imply acceptance of a later combined source or full matrix.
