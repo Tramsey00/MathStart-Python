@@ -1,5 +1,36 @@
 # Состояние единого выполнения миграции
 
+## Оперативная контрольная точка текущего блока
+
+- Current integration code/checkpoint:2369165154f06dba4b203507b840807e728eacf5,
+  including independently reviewed H-BUILDcd62406 via merge4529092.
+- Текущая модель всех трёх субагентов: GPT-6.1 Sol / medium по последнему
+  явному указанию пользователя; роли backend_medium, frontend_medium,
+  reviewer_medium. Старые *_sol остановлены после передачи, вторых writers нет.
+- Frontend source candidate27079677b18b198b80bb6519f3f45b0528fd8659
+  (I02/I03 implementation5308ae1 plus guarded readonly legacy comparator).
+  I02/I03 ещё не TECHNICALLY_VERIFIED и пока не интегрированы.
+- Backend read-runtime candidate5b7f3be20598e1117408fd23df5ecb34b3550280;
+  новый offload/cache delta13 author tests PASS15.182s, exactSHA/review pending.
+  READRT-01 требует независимого закрытия на новом SHA.
+- Portable combined verifier/CI candidate702bcd88d6cde31540fe4c787380a64be5a278d9,
+  branch ms7-mig-public-verification-wip; не интегрирован, full run/review pending.
+  Lifecycle context-manager8 real tests PASS22.872s; Python compile/CLI help PASS.
+- Author frontend unit139 PASS71.14s; build05 complete279pages/280HTML+2system.
+  Старые реальный smoke05 (connection refused) и matrix06 (timeouts/CPU load)
+  FAIL сохранены, не переименованы в PASS. Новая полная9-project matrix ждёт
+  проверенный serving delta; matched visual/manual review остаются pending.
+- Сервис прервал все medium contexts сообщением usage-limit; один повтор на
+  той же модели после read-only проверки доступности успешно возобновил роли.
+  Модель/effort для обхода ограничения не менялись. Это не текущий BLOCKED.
+- Чистая среда координатора var/public-target-env установлена по точным
+  no-Django HTTP/test locks из официального PyPI; locked certifi pin существует,
+  менять его не потребовалось. Reviewer восстановил собственную locked среду
+  с проверенным официальным wheel и сохранил исходный mirror failure.
+- Три WIP refs уже опубликованы и их remote SHA подтверждены: backend identity
+  fdac6e6, I04bcdb121, R05 docs07dad69. Публикация новой integration ещё впереди.
+
+
 ## Действующий объём запуска — I02/I03 и передача
 
 Пользователь 2026-10-16 заменил непрерывное выполнение всех13 задач текущим
@@ -52,8 +83,9 @@ IN_PROGRESS; SSG/typecheck/unit и первый Chrome360 run не заменя�
   docs/acceptance/migration-execution/{task-ledger,parity-ledger}.json.
 - Execution plan: docs/exec-plans/active/migration-execution.md; trace:
   docs/agent-traces/migration-execution.md. No release candidate verified yet.
-- User-selected subagent model: `gpt-6.1-sol`, reasoning effort `high`.
-  Active roles: backend_sol, frontend_sol, reviewer_sol; prior contexts stopped
+- Current user-selected subagent model: `gpt-6.1-sol`, reasoning effort `medium`.
+  Earlier high-effort runs remain historical evidence; new role contexts use medium.
+  Active roles: backend_medium, frontend_medium, reviewer_medium; prior contexts stopped
   after preserving their checkouts. No concurrent writers in the same area.
 - Source snapshot observed: 2026-10-16, Europe/Moscow. Это дата наблюдения,
   не дедлайн; при старте повторно проверить GitHub и не доверять stale snapshot.
@@ -168,7 +200,7 @@ Canonical migration ТЗ находится в migration-ветке по пут�
 подтверждённым содержимым; иначе запросить конкретный источник, продолжая
 независимые задачи. Не восстанавливать полное ТЗ по пересказу.
 
-## 7. Журнал выполнения — пока пуст
+## 7. Журнал фактического выполнения
 
 При запуске координатор ведёт эту секцию и detailed evidence отдельно.
 

@@ -4,7 +4,7 @@
   "final_acceptance": "HUMAN_PENDING",
   "release_status": "IN_PROGRESS",
   "subagent_model": "gpt-6.1-sol",
-  "subagent_reasoning_effort": "high",
+  "subagent_reasoning_effort": "medium",
   "rows": [
     {
       "id": "MS7-MIG-R01",
@@ -240,5 +240,27 @@
       "task": "V03",
       "acceptance": "WIP_NOT_VERIFIED"
     }
-  ]
+  ],
+  "model_preference_history": [
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "high",
+      "authority": "earlier explicit user request"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "authority": "latest explicit user request; supersedes high"
+    }
+  ],
+  "active_roles": [
+    "backend_medium",
+    "frontend_medium",
+    "reviewer_medium"
+  ],
+  "pending_verifier_candidate": {
+    "branch": "ms7-mig-public-verification-wip",
+    "sha": "702bcd88d6cde31540fe4c787380a64be5a278d9",
+    "status": "WIP_REVIEW_PENDING_NOT_INTEGRATED"
+  }
 }

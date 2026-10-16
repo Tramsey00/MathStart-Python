@@ -122,3 +122,22 @@ terminated PID19308 and child7484. Owner-context reruns passed7/0skips in15.376s
 and15.417s (the latter after fail-closed cleanup-refusal handling). Logs/result
 are under acceptance/migration-execution/public-block-lifecycle. This is only
 runner lifecycle evidence; real I02/I03 browser/combined acceptance remains open.
+## Medium-effort role continuation
+
+The user's latest instruction changed all subagents from Sol/high to Sol/medium.
+Each prior role preserved its exact SHA, dirty paths, processes, private fixture
+locations and open findings, then stopped. New backend_medium, frontend_medium
+and reviewer_medium contexts were spawned explicitly with gpt-6.1-sol/medium and
+no full-history override. Exclusive worktree ownership was retained.
+
+A simultaneous service usage-limit interruption later affected all three new
+contexts. A single same-model retry after a read-only availability check resumed
+them; no model change or repeated blind dispatch was used. Independent locked
+dependency installation recovered using the exact official certifi wheel/hash,
+retaining the original resolver failure and unchanged pins.
+
+The scoped CI/driver work is checkpointed separately at702bcd88d6cde31540fe4c787380a64be5a278d9,
+not integrated for preservation. Its two-origin lifecycle has8 real passing
+tests in22.872s; full combined driver/CI review and actual run are pending.
+Backend and frontend candidates remain in review; failed browser runs are
+retained. I02 and I03 are still IN_PROGRESS.
