@@ -1,0 +1,47 @@
+{
+  "runtime_sha": "ef7a2b2a0c13e41b67f5bb21af9607c69e1331de",
+  "frontend_sha": "5308ae1e355edbf0296c6c6aa09db0d9dd21e832",
+  "real_asgi_no_mock": true,
+  "cases": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/glavnaya/",
+      "status": 200
+    },
+    {
+      "path": "/karta-sajta/?q=\u0443\u0440\u0430\u0432\u043d\u0435\u043d\u0438\u044f",
+      "status": 200
+    },
+    {
+      "path": "/karta-sajta/?q=%3Cscript%3E",
+      "status": 200
+    },
+    {
+      "path": "/not-real-medium/",
+      "status": 404
+    },
+    {
+      "path": "/_private/shell.html",
+      "status": 404
+    },
+    {
+      "path": "/__ui__/foundation/",
+      "status": 404
+    },
+    {
+      "path": "/admin/auth/user/",
+      "status": 200
+    },
+    {
+      "case": "same-opaque-session-current-superuser-revocation",
+      "status": 403
+    },
+    {
+      "case": "same-size-mtime-HTML-artifact-tamper",
+      "status": 503
+    }
+  ]
+}

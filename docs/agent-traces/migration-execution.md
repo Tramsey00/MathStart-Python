@@ -141,3 +141,16 @@ not integrated for preservation. Its two-origin lifecycle has8 real passing
 tests in22.872s; full combined driver/CI review and actual run are pending.
 Backend and frontend candidates remain in review; failed browser runs are
 retained. I02 and I03 are still IN_PROGRESS.
+
+## Combined I02/I03 candidate and Windows npm invocation
+
+Reviewed backend3d08b08, verifierdb15b8c and frontendaf0be7c were merged into
+clean340eba98581271e05b4fea21958875fef31a567d. Frontend author final diagnostic:
+10/10 actual staff cases PASS, all9positive resources, zero skips/JS errors;
+independent PRIVATE-01 and test strengthening review passed before merge.
+Combined01 preserved FAIL at npm-version before any PostgreSQL access: cmd /c
+quoting under Program Files was incompatible with subprocess list escaping.
+Changed Windows invocation to resolved Node + installed npm-cli.js + closed argv;
+actual npm11.17.0 and four typecheck stages PASS. POSIX remains unchanged.
+The failed result is retained; a new strict clean-source combined02 is required.
+No current I02/I03 technical completion or full program acceptance is claimed.

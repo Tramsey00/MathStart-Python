@@ -4,6 +4,14 @@
 
 ### Обновление перед общим прогоном I02/I03
 
+Combined candidate `340eba98581271e05b4fea21958875fef31a567d` включает frontend
+`af0be7c12a63150c9be052adb2a7f1356908d61d`, опубликованный автором. На этом SHA
+combined-01 завершился FAIL на npm-version: Windows cmd quoting для Program Files;
+до обращения к PG. Raw result/logs сохранены в acceptance/public-block-combined-01.
+Прямой запуск установленного Node/npm CLI исправляет quoting; actual npm11.17.0
+и четыре стадии typecheck PASS. После независимого review fix нужен новый clean
+combined-02 на той же ещё пустой DB; не продолжать failed run и не считать его PASS.
+
 Эта запись заменяет оперативные кандидаты ниже; предыдущие записи сохранены
 как история, а не как актуальный список открытых замечаний.
 

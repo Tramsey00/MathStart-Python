@@ -31,10 +31,14 @@ def npm_command(script):
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
         raise ValueError('npm is unavailable')
-    arguments = '--version' if script == '--version' else 'run ' + script
     if os.name == 'nt':
-        return [os.environ.get('COMSPEC', 'cmd.exe'), '/d', '/s', '/c',
-                '""' + npm + '" ' + arguments + '"']
+        # Invoke the installed CLI directly: list2cmdline escaping is not cmd /c
+        # escaping, especially when npm.cmd lives under Program Files.
+        node = shutil.which('node')
+        cli = Path(npm).parent / 'node_modules/npm/bin/npm-cli.js'
+        if not node or not cli.is_file():
+            raise ValueError('Installed Node/npm CLI is unavailable')
+        return [node, str(cli), *(['--version'] if script == '--version' else ['run', script])]
     return [npm, '--version'] if script == '--version' else [npm, 'run', script]
 
 
