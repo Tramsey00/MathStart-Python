@@ -163,7 +163,9 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
-      "blocking_findings": [],
+      "blocking_findings": [
+        "CI-LEGACY-01: POSIX legacy executable resolution escapes virtualenv; narrow invocation regression and I02 verification pending"
+      ],
       "in_current_block": true
     },
     {
@@ -174,7 +176,8 @@
       "historical_pr": null,
       "technical_receipts": [],
       "blocking_findings": [],
-      "in_current_block": true
+      "in_current_block": false,
+      "scope_note": "Existing code preserved; paused outside I02-only run; final browser/visual acceptance not claimed"
     },
     {
       "id": "MS7-MIG-I04",
@@ -209,14 +212,18 @@
     }
   ],
   "current_block": {
-    "id": "i02-i03-publication-20261016",
+    "id": "i02-only-20261016",
     "tasks": [
-      "MS7-MIG-I02",
-      "MS7-MIG-I03"
+      "MS7-MIG-I02"
     ],
-    "allowed_dependency_work": "necessary V04 H-BUILD-INPUTS and serving interfaces only",
-    "completion": "verify, independent review, publish, handoff, stop",
-    "next_block_policy": "three dependency-ready tasks per separately initiated block; publish/handoff and stop"
+    "allowed_dependency_work": "necessary I02 verifier and dependency fixes only",
+    "completion": "verify, one independent review after candidate readiness, commit, push, remote SHA, short handoff, stop",
+    "next_block_policy": "one task per separately initiated run",
+    "primary_executor": "coordinator",
+    "reviewer_policy": "one reviewer after candidate readiness; exact diff and delta review",
+    "full_cross_browser_visual_matrix": "I05",
+    "known_unchanged_R03_target": "PENDING_DO_NOT_RERUN",
+    "same_cause_failed_cycle_limit": 2
   },
   "work_in_progress_branches": [
     {
@@ -254,13 +261,10 @@
     }
   ],
   "active_roles": [
-    "backend_medium",
-    "frontend_medium",
-    "reviewer_medium"
+    "coordinator"
   ],
   "pending_verifier_candidate": {
-    "branch": "ms7-mig-public-verification-wip",
-    "sha": "702bcd88d6cde31540fe4c787380a64be5a278d9",
-    "status": "WIP_REVIEW_PENDING_NOT_INTEGRATED"
+    "sha": "b8a93821eccf37eebaebe744460a9f9c6b002cc2",
+    "status": "INTEGRATED_PUBLISHED_CI_LEGACY_01_OPEN"
   }
 }

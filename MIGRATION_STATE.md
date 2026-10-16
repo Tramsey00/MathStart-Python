@@ -1,3 +1,47 @@
+# Актуальное состояние: одна задача I02
+
+Последний порядок пользователя: одна задача на отдельно инициированный запуск.
+Сейчас только MS7-MIG-I02 и необходимые исправления verifier/зависимостей.
+I03 и другие задачи не продолжать автоматически; весь существующий код сохранить.
+Один основной исполнитель; постоянную команду backend/frontend/reviewer не запускать.
+Один отдельный reviewer после готовности кандидата (GPT-6.1 Sol / medium): exact
+base/head/diff, контракты, результаты и открытые findings без истории чата;
+correctness, security и test gaps. Исправления проверять по delta. Полный повтор
+только при существенном изменении или новой конкретной проблеме. Полная итоговая
+cross-browser/visual matrix принадлежит I05; assertions сохранить. R03 target
+с неизменным пустым command map не повторять, оставить pending. После docs-only
+изменений не повторять полные проверки при прежних code/config/inputs.
+Полные логи хранить в файлах; долгие процессы не опрашивать часто. После двух
+безуспешных циклов одной причины — checkpoint и конкретный блокер.
+После проверки, commit, push, remote SHA и короткого MIGRATION_HANDOFF.md
+остановиться. Архитектура, данные и обязательные критерии сохраняются.
+Не выполнять main merge, закрытие Issues и production deployment.
+Все новые имена — без брендовых приписок.
+
+## Контрольная точка при изменении порядка
+
+- Integration clean HEAD и remote: b8a93821eccf37eebaebe744460a9f9c6b002cc2.
+- Remote main60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; main не изменён.
+- CI38951840140 FAILED:27/28 source/read tests PASS, golden child ERROR;
+  Path.resolve() выбрал базовый Python вместо POSIX legacy venv. Browsers NOT_RUN.
+- General R03 CI38951840175 FAILED на известном пустом command map;
+  pure/verify SUCCESS; target downstream SKIPPED. Повтор не назначать.
+- Local combined02: preparation/typecheck141unit/build703/activation/28backend
+  PASS, затем partial browser matrix. Прогон намеренно остановлен из-за
+  CI-LEGACY-01; interruption.json и partial-browser-results сохранены в
+  var/public-block-combined-02. Не PASS матрицы. Owned порты8111/8112 закрыты;
+  running verifier процессов при восстановлении не обнаружено.
+- Comparator fix66c66399fdd27b1d164753ead282441dea35e73f уже опубликован в
+  ms7-mig-frontend-execution, ещё не включён в integration. Не писать заново.
+- Прежние backend/frontend/reviewer contexts завершены/прерваны и больше не
+  образуют команду. Новый reviewer подключается после готовности I02 candidate.
+- Следующий шаг: узкий Linux regression с реальным symlink virtualenv;
+  завершить driver fix, отдельный проверяемый I02 запуск, review и handoff.
+
+---
+
+# Исторический журнал (устаревшие указания не действуют)
+
 # Состояние единого выполнения миграции
 
 ## Оперативная контрольная точка текущего блока

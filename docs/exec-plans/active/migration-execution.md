@@ -2,36 +2,19 @@
 
 Status: IN_PROGRESS. Final human acceptance: HUMAN_PENDING.
 
-## Current authorized block — supersedes the original continuous sequence
+## Current authorized task
 
-The user narrowed this execution on 2026-10-16 to complete I02 then I03, perform
-only necessary V04 dependency corrections, verify and independently review the
-combined result, publish commits/branches, and stop with MIGRATION_HANDOFF.md.
-Do not continue V03, full V04, I04, R05 or the remaining program in this run.
-Preserve and publish existing work in those areas as explicitly incomplete WIP
-branches. Original acceptance and data/security boundaries remain unchanged.
+Single primary executor, I02 only; no standing implementation team. One reviewer
+only after candidate readiness, using exact base/head/diff, contracts, measured
+results and findings. Full cross-browser/visual matrix remains I05. Preserve all
+existing code; no automatic I03/V03/V04/R03 or other task work. Necessary verifier
+and dependency corrections are in scope. Two failed cycles of one cause require
+a checkpoint/blocker. Do not repeat unchanged R03 target or full checks after
+only documentation changes. Commit, push, verify remote SHA, handoff, stop.
 
-Future work uses separately initiated blocks of three available tasks, selected
-from actual dependency readiness. Each block ends in publication and handoff;
-there is no automatic continuation into the next block.
-
-The user explicitly activated MIGRATION_START.md on 2026-10-16 and confirmed
-the unified execution process. MIGRATION_AGENT.md, MIGRATION_TASKS.md and
-MIGRATION_VERIFICATION.md define scope, dependencies and acceptance. Preserve
-R01/R02/V01/V02/I01; implement V04/I02 from zero; inspect R03 before intake.
-
-## Execution sequence
-
-1. Verify live refs and dirty worktrees; isolate execution and copy the ten
-   allowlisted package files byte-for-byte with hash receipts.
-2. Review R03 at immutable fb39647beb983a4f488ad82d4984d3f96e87b9a8;
-   preserve its useful code and provenance without claiming task acceptance.
-3. Backend delivers V04 build inputs and V03 identity; frontend implements I02,
-   I03 and I04; coordinator continues R03 verification and prepares R05 sources.
-4. Integrate independently reviewed candidates, complete V05/I05/R03, and R04
-   combined audit. Fix blocking findings with regression evidence.
-5. Complete full R05 documentation, V06 rehearsal, I06 freeze, release delta
-   review and R06. Run final mandatory checks on the actual combined candidate.
+Continue existing integration; no bootstrap or implementation restart. First
+exercise correct POSIX legacy virtualenv invocation, then scoped I02 checks and
+affected boundaries. Historical program sequence remains in Git history.
 
 ## Ownership and isolation
 
@@ -45,7 +28,8 @@ The original dirty main and prior tmp worktrees are untouched.
 | Frontend | frontend | frontend, frontend lock, browser evidence | 8131–8139 / ms7exec_frontend_ |
 | Reviewer | review | review evidence only; application code read-only | 8141–8149 / ms7exec_review_ |
 
-Each checkout uses its own var/ runtime/reports and isolated dependencies.
+The worktree ownership table records historical isolation, not an active team.
+The sole executor now works in integration with its own var/ runtime/reports.
 Only coordinator changes integration refs. No force push, main merge, issue
 closure, production writes, deployment, or messages to colleagues/chats.
 
