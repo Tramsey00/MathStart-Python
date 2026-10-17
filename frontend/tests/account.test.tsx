@@ -14,7 +14,7 @@ it('keeps anonymous state quiet and distinguishes old login names from registrat
  render(<AccountPage/>);await screen.findByLabelText('Пароль');
  expect(screen.getByRole('status').textContent).toBe('');
  expect(screen.getByLabelText('Имя пользователя').getAttribute('maxlength')).toBe('150');
- fireEvent.click(screen.getByRole('button',{name:'Регистрация',exact:true}));
+ fireEvent.click(screen.getByRole('button',{name:'Регистрация'}));
  expect(screen.getByLabelText('Имя пользователя').getAttribute('maxlength')).toBe('30');
 });
 
@@ -32,7 +32,7 @@ it('ignores an earlier GET response after a newer reconciliation completes',asyn
 
 async function enter(mode:'login'|'register'){
  await screen.findByLabelText('Пароль');
- if(mode==='register')fireEvent.click(screen.getByRole('button',{name:'Регистрация',exact:true}));
+ if(mode==='register')fireEvent.click(screen.getByRole('button',{name:'Регистрация'}));
  fireEvent.change(screen.getByLabelText('Имя пользователя'),{target:{value:'syntheticStudent'}});
  fireEvent.change(screen.getByLabelText('Пароль'),{target:{value:'Qm9!Vx2#Lr7@Zh4%'}});
  fireEvent.submit(screen.getByLabelText('Пароль').closest('form')!);
