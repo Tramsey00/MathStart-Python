@@ -7,10 +7,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends git \
     && rm -rf /var/lib/apt/lists/*
-COPY backend /app/backend
+COPY backend/requirements.lock /app/backend/requirements.lock
+COPY backend/infrastructure/http/requirements.lock /app/backend/infrastructure/http/requirements.lock
 RUN python -m pip install --no-deps -r backend/infrastructure/http/requirements.lock \
     && python -m pip check \
     && python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+COPY backend /app/backend
 COPY specs /app/specs
 COPY content/__init__.py content/quality.py /app/content/
 RUN useradd --uid 10001 --create-home mathstart \
@@ -30,6 +32,8 @@ ENTRYPOINT ["python", "-m", "frontend.build_public"]
 
 FROM nginx:stable-bookworm@sha256:552e7481ca93ffccd046aa658dbbed22caefbc09c66fa7cd247cbb90b8a5c609 AS edge
 COPY deploy/nginx.conf /etc/nginx/nginx.conf
+COPY deploy/nginx.tls.conf /etc/nginx/nginx.tls.conf
+COPY deploy/proxy.conf /etc/nginx/proxy.conf
 USER 101:101
 EXPOSE 8080
 ENTRYPOINT ["nginx"]

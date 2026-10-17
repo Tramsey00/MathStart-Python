@@ -1,0 +1,10 @@
+# Compose2.24.4+; replace the local HTTP listener, do not keep an HTTP auth path.
+services:
+  edge:
+    command: [-c, /etc/nginx/nginx.tls.conf, -g, 'daemon off;']
+    ports: !override ['127.0.0.1:${MATHSTART_HTTPS_PORT:?Explicit local TLS port required}:8443']
+    volumes:
+      - type: bind
+        source: ${MATHSTART_TLS_DIRECTORY:?Private TLS directory readable by UID101 required}
+        target: /run/tls
+        read_only: true

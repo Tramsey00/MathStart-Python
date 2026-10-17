@@ -3,10 +3,17 @@ name: Migration verification
 on:
   pull_request:
     branches: [ms7-mig-react-fastapi, main]
-    paths: ['backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+    paths: ['deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
   push:
     branches: [ms7-mig-react-fastapi, main, 'ms7-mig-*']
-    paths: ['backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+    paths: ['deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+
+  workflow_dispatch:
+    inputs:
+      full_target:
+        description: Run the complete managed target and all nine browser projects
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -196,29 +203,64 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-  target:
-    needs: target-readiness
-    if: needs.target-readiness.outputs.ready == 'true'
+  deployment-images:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Exact deployment checkout
+        run: python scripts/ci_provenance.py --output var/deployment-provenance.json
+      - name: Build independent API and non-root edge images
+        run: |
+          docker build -f deploy/Dockerfile --target api -t mathstart-api:verification .
+          docker build -f deploy/Dockerfile --target edge -t mathstart-edge:verification .
+          docker pull postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+      - name: Owned Compose release schema and fail-closed startup
+        run: >-
+          python scripts/verify_deployment.py --disposable
+          --runtime-root var/deployment-ci
+          --api-image mathstart-api:verification
+          --edge-image mathstart-edge:verification
+      - name: Retain safe deployment receipts only
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: deployment-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/deployment-provenance.json
+            var/deployment-ci/result.json
+          if-no-files-found: error
+          retention-days: 30
+
+  target:
+    needs: target-readiness
+    if: needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
     services:
       postgres:
         image: postgres:16-bookworm
         env:
-          POSTGRES_DB: ms7_mig_r03_ci
+          POSTGRES_DB: test_ms7_mig_v01_full_target
           POSTGRES_USER: mathstart_ci
-          POSTGRES_PASSWORD: disposable-ci-only-password
-        ports: ['5432:5432']
+          POSTGRES_PASSWORD: disposable-target-ci-only
+        ports: ['55441:5432']
         options: >-
-          --health-cmd="pg_isready -U mathstart_ci -d ms7_mig_r03_ci"
+          --health-cmd="pg_isready -U mathstart_ci -d test_ms7_mig_v01_full_target"
           --health-interval=2s --health-timeout=3s --health-retries=30
     env:
-      MATHSTART_DB_HOST: 127.0.0.1
-      MATHSTART_DB_PORT: '5432'
-      MATHSTART_DB_NAME: ms7_mig_r03_ci
-      MATHSTART_DB_USER: mathstart_ci
-      MATHSTART_DB_PASSWORD: disposable-ci-only-password
+      MATHSTART_DATABASE_URL: postgresql+psycopg://mathstart_ci:disposable-target-ci-only@127.0.0.1:55441/test_ms7_mig_v01_full_target
+      MATHSTART_V04_DATABASE_URL: postgresql+psycopg://mathstart_ci:disposable-target-ci-only@127.0.0.1:55441/test_ms7_mig_v01_full_target
+      MATHSTART_DB_BACKEND: postgresql
       MATHSTART_DISPOSABLE: '1'
+      MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/full-legacy-env/bin/python
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/frontend/.cache/browsers
     steps:
       - uses: actions/checkout@v7
         with:
@@ -230,40 +272,36 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '24.21.0'
-      - name: Exact frontend npm tooling
-        run: npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
-      - name: Exact target checkout before prerequisite checks
-        run: python scripts/ci_provenance.py --output var/ci/provenance.json
-      - name: Owner locks and concrete command handoff required (V01/V02/I01/I02/V04)
+      - name: Separate locked target and legacy environments
         run: |
-          test -f backend/requirements.lock
-          test -f frontend/package-lock.json
-          python -c "import json; x=json.load(open('specs/migration/r03-v1/runtime-commands.json')); assert x['status']=='REVIEWED'; assert set(x['required_backend_checks']) <= set(x['commands'])"
-          python -m pip install --no-deps -r backend/requirements.lock
-          python -m pip install --no-deps -r specs/migration/r03-v1/verification.lock
-          python -m pip check
-          python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
-          cd frontend
-          npm ci
-          npx --no-install playwright install --with-deps chromium
-      - name: Actual versions and bounded failed PostgreSQL connection
-        run: |
-          python scripts/version_report.py --profile target
-          node --version
-          npm --version
-          if MATHSTART_DB_PORT=1 python scripts/check_database.py --profile target; then exit 1; fi
-      - name: Fresh Alembic/bootstrap twice/assets/frontend smoke
-        run: python scripts/fresh_install_smoke.py --profile target --disposable
-      - name: Populated upgrade profiles A B C
-        run: |
-          python scripts/migration_smoke.py --disposable --source-profile A
-          python scripts/migration_smoke.py --disposable --source-profile B
-          python scripts/migration_smoke.py --disposable --source-profile C
-      - name: Full target registry including frontend build/browser smoke
-        run: python scripts/verify_repo.py --profile target
-      - uses: actions/upload-artifact@v7
+          python -m venv var/full-target-env
+          var/full-target-env/bin/python -m pip install --no-deps -r backend/tests/v04/requirements.lock
+          var/full-target-env/bin/python -m pip check
+          var/full-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          python -m venv var/full-legacy-env
+          var/full-legacy-env/bin/python -m pip install --no-deps -r requirements.lock
+          var/full-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
+          var/full-legacy-env/bin/python -m pip check
+          npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          npm --prefix frontend ci --maxsockets=1 --cache var/full-npm-cache
+      - name: Install the actual Chrome Edge and Firefox browsers
+        working-directory: frontend
+        run: npx --no-install playwright install --with-deps chrome msedge firefox
+      - name: Exact checkout provenance
+        run: python scripts/ci_provenance.py --output var/full-target-provenance.json
+      - name: Complete registry and fresh twice plus populated A B C
+        run: >-
+          var/full-target-env/bin/python scripts/verify_target.py
+          --runtime-root var/full-target
+          --legacy-python var/full-legacy-env/bin/python
+      - name: Retain safe combined receipts without cookies or runtime secrets
         if: always()
+        uses: actions/upload-artifact@v7
         with:
-          name: r03-target-provenance-${{ github.run_id }}-${{ github.run_attempt }}
-          path: var/ci/
+          name: full-target-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/full-target-provenance.json
+            var/full-target/result.json
+            var/target-checks/**/result.json
           if-no-files-found: error
+          retention-days: 30

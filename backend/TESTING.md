@@ -55,6 +55,11 @@ produce scoped development evidence, never full target PASS. The portable
 `verify_repo.py --profile target` registry is also retained for an already managed
 runtime; by itself it does not start/build the common runtime.
 
+The backend suite also includes the real release schema CLI, signed maintenance
+plan/drift refusals, populated A/B/C retention and transactional DDL rollback.
+The explicit operator command is `python -m backend.release_migrate`; API startup
+does not invoke it. See `deploy/RELEASE.md` for the review/maintenance boundary.
+
 The backend suite includes byte-for-byte legacy INDEX comparison, pure bootstrap
 previews, retained retired rows/private facts, proposed-ID source registration,
 real fenced bootstrap/publication/HTTP and row-version output-pin invalidation.

@@ -39,8 +39,14 @@ def require_disposable(connection):
 
 def fresh(connection):
     require_disposable(connection)
+    return _fresh(connection)
+
+
+def _fresh(connection):
+    # Internal executor. Release callers must first validate their signed,
+    # database-bound maintenance plan. Public rehearsals retain their marker.
     if sa.inspect(connection).get_table_names():
-        raise SchemaMismatch('Fresh install requires an empty disposable database')
+        raise SchemaMismatch('Fresh install requires an empty database')
     command.upgrade(configuration(connection), HEAD)
     if connection.dialect.name == 'postgresql':
         assert_baseline(connection, 'FRESH', allow_protocol=True, require_history=False)
@@ -75,6 +81,11 @@ def upgrade_profile(connection, profile, *, reviewed=False, failure_at=None):
         raise SchemaMismatch('Upgrade profiles require PostgreSQL')
     if not reviewed:
         raise SchemaMismatch('Independent schema/stamp review is required even for rehearsal')
+    return _upgrade_profile(connection, profile, failure_at=failure_at)
+
+
+def _upgrade_profile(connection, profile, *, failure_at=None):
+    # Used only behind rehearsal or release maintenance authorization.
     # Prove tracking structure/state before Alembic reads/stamps it. Existing
     # target heads remain inapplicable to legacy adoption, even when known.
     before = assert_baseline(connection, profile)

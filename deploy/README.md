@@ -76,7 +76,9 @@ The receipt binds actual image IDs and before/after source snapshots. A failed
 assertion, source change or cleanup is FAIL. Private temporary env files are
 removed in `finally`; do not interrupt the owning process with a hard kill.
 
-The current edge is HTTP for an isolated local rehearsal. TLS/compose, a separate
-reviewed release migration command, clean-clone startup, backup/restore and
-release rollback remain part of the unified migration. The scoped image checks
-do not establish final acceptance or authorize a production deployment.
+The default edge is HTTP for an isolated local rehearsal. The separate checked
+release schema CLI, Compose/TLS configuration and operator commands are in
+`deploy/RELEASE.md`. The actual empty Compose/schema rehearsal passed and remains
+UNREADY without publication. Full TLS/cookie, clean-clone startup, backup/restore
+and release rollback checks remain part of the unified migration. Scoped image
+checks do not establish final acceptance or authorize production deployment.

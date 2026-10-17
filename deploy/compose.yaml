@@ -1,0 +1,79 @@
+# Explicit existing volumes and private env files; never attaches to legacy5432.
+name: ${MATHSTART_STACK:?Select a unique reviewed stack name}
+services:
+  db:
+    image: postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+    env_file: ["${MATHSTART_POSTGRES_ENV_FILE:?Private PostgreSQL env file required}"]
+    volumes: [database:/var/lib/postgresql/data]
+    networks: [internal]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+  api:
+    image: ${MATHSTART_API_IMAGE:?Candidate API image required}
+    env_file: ["${MATHSTART_RUNTIME_ENV_FILE:?Private target runtime env file required}"]
+    environment:
+      MATHSTART_RELEASE_ROOT: /runtime/releases
+      MATHSTART_PUBLIC_ARTIFACT_ROOT: /runtime/frontend
+    command: [python, -m, uvicorn, 'backend.content.public_runtime:application', --factory,
+              --host, 0.0.0.0, --port, '8000', --workers, '2', --no-access-log,
+              --proxy-headers, --forwarded-allow-ips, '${MATHSTART_EDGE_IP:?Exact reserved trusted edge IP required}']
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ['/tmp:rw,nosuid,noexec,size=32m']
+    volumes: [public:/runtime:ro]
+    networks: [internal]
+    depends_on:
+      db: {condition: service_healthy}
+    restart: unless-stopped
+  edge:
+    image: ${MATHSTART_EDGE_IMAGE:?Candidate edge image required}
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ['/tmp:rw,nosuid,noexec,size=16m,uid=101,gid=101']
+    ports: ['127.0.0.1:${MATHSTART_HTTP_PORT:?Explicit local rehearsal port required}:8080']
+    networks:
+      internal:
+        ipv4_address: ${MATHSTART_EDGE_IP:?Exact reserved trusted edge IP required}
+      front: {}
+    depends_on:
+      api: {condition: service_healthy}
+    restart: unless-stopped
+  release:
+    profiles: [tools]
+    image: ${MATHSTART_API_IMAGE:?Candidate API image required}
+    env_file:
+      - "${MATHSTART_RUNTIME_ENV_FILE:?Private target runtime env file required}"
+      - "${MATHSTART_SCHEMA_ENV_FILE:?Separate private schema env file required}"
+    entrypoint: [python, -m, backend.release_migrate]
+    command: [check]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ['/tmp:rw,nosuid,noexec,size=32m']
+    volumes:
+      - type: bind
+        source: ${MATHSTART_PLAN_DIRECTORY:?Private owned plan directory required}
+        target: /plans
+    networks: [internal]
+    restart: 'no'
+networks:
+  internal:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${MATHSTART_INTERNAL_SUBNET:?Unused dedicated IPv4 subnet required}
+  front: {}
+volumes:
+  database:
+    external: true
+    name: ${MATHSTART_DATABASE_VOLUME:?Explicit owned PostgreSQL volume required}
+  public:
+    external: true
+    name: ${MATHSTART_PUBLIC_VOLUME:?Explicit installed release volume required}
