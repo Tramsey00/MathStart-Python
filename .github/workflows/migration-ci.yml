@@ -21,17 +21,20 @@ jobs:
         with:
           ref: ${{ github.sha }}
       - id: handoff
-        name: Record pending R03 handoff without repeating the known failed target
+        name: Record implemented commands and explicit remaining target gaps
         run: |
           python - <<'PY'
           import json, os
           from pathlib import Path
           data = json.loads(Path('specs/migration/r03-v1/runtime-commands.json').read_text())
           required = data['required_backend_checks']
+          missing = [key for key in required if not data.get('commands', {}).get(key)]
           ready = data.get('status') == 'REVIEWED' and all(data.get('commands', {}).get(k) for k in required)
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write('ready=' + str(ready).lower() + '\n')
-          print('R03 target: READY to exercise unchanged assertions' if ready else 'R03 target: PENDING — owner command map remains incomplete; target not rerun')
+          print('Implemented target commands: ' + ', '.join(sorted(data.get('commands', {}))))
+          print('Missing required target commands: ' + ', '.join(missing))
+          print('R03 target: READY to exercise unchanged assertions' if ready else 'R03 target: INCOMPLETE; full target is not verified. Available entries run in public scoped CI.')
           PY
   verify:
     runs-on: ubuntu-latest

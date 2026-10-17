@@ -67,6 +67,7 @@ class StaffWrites:
         self.engine, self.signer = self.security.engine, signer
 
     def _scope(self, uow, identity, resource, action, ids=()):
+        self.security.writer(uow.session)
         locks = OrderedLocks(uow.session)
         locks.namespace('identity', 'lineage:' + str(identity.lineage_id))
         # Group permission changes and user mutations share one authorization
@@ -141,6 +142,16 @@ class StaffWrites:
             lineages = sorted(set(s.scalars(sa.select(TargetSession.lineage_id).where(TargetSession.user_id == row.id))), key=str)
             for lineage in lineages:
                 revoke_lineage(s, lineage, now)
+            # Imported legacy bridges may have no target lineage yet. A target
+            # password change revokes those detached capabilities as well.
+            detached = list(s.scalars(sa.select(ReceiptBridge).where(ReceiptBridge.owner_user_id == row.id,
+                ReceiptBridge.state.in_(['ACTIVE', 'DETACHED'])).order_by(ReceiptBridge.id).with_for_update()))
+            for bridge in detached:
+                bridge.state, bridge.session_id = 'REVOKED', None
+                bridge.revocation_epoch += 1
+                bridge.ticket_version += 1
+                bridge.ticket_revoked_at = now
+                bridge.transfer_binding_digest = None
             row.password = value
             cookies = None
             if row.id == identity.user_id:

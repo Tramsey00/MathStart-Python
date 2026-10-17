@@ -29,6 +29,19 @@ def transfer_digest(session_key, user, key):
                        session_key + '\0' + str(user.id) + '\0' + auth_hash(user, key), key)
 
 
+def session_owner(legacy_session, keys):
+    """Verified routing hint only; full registration_proof is still required."""
+    try:
+        data = Signer(keys[0], keys[1:]).loads(legacy_session.session_data,
+                    'django.contrib.sessions.SessionStore', max_length=131072)
+    except APIError:
+        return None
+    owner = data.get('_auth_user_id') if isinstance(data, dict) else None
+    if not isinstance(owner, str) or not re.fullmatch('[1-9][0-9]{0,9}', owner):
+        return None
+    return int(owner) if int(owner) < 2**31 else None
+
+
 def registration_proof(legacy_session, user, keys, now):
     """Return a private verified fact or None, without DB/filesystem effects."""
     keys = tuple(keys)

@@ -1,9 +1,16 @@
 {
   "version": "migration-r03-command-handoff-v1",
-  "status": "PENDING_OWNER_IMPLEMENTATIONS_AND_REVIEW",
+  "status": "IMPLEMENTED_PARTIAL",
   "accepted_input": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
   "previous_accepted_input": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
-  "commands": {},
+  "commands": {
+    "system": {"script": "backend/verification.py", "args": ["system"]},
+    "migrations": {"script": "backend/verification.py", "args": ["migrations"]},
+    "lesson-sources": {"script": "backend/verification.py", "args": ["lesson-sources"]},
+    "site-integrity": {"script": "backend/verification.py", "args": ["site-integrity"]},
+    "content-quality": {"script": "backend/verification.py", "args": ["content-quality"]}
+  },
+  "pending_implementations": ["backend-tests", "fresh-install", "upgrade-A", "upgrade-B", "upgrade-C"],
   "required_backend_checks": [
     "system",
     "migrations",
@@ -23,6 +30,6 @@
     "frontend": "13baybars / I01/I02",
     "registry": "Tramsey00 / R03"
   },
-  "rule": "No empty PASS. Each backend command requires an existing backend Python script and args array, reviewed in R03; no runtime implementation or API is invented here. Frontend uses the prescribed package scripts. REVIEWED is a command-contract state, never task acceptance.",
+  "rule": "No empty PASS. IMPLEMENTED_PARTIAL executes available real checks; absent entries remain failures. Final target readiness still requires all ten entries and REVIEWED command contract. Frontend uses prescribed package scripts. Neither state establishes task acceptance.",
   "historical_input": "8d958aeeb17da46839722441425ccbb5889e2ab7"
 }

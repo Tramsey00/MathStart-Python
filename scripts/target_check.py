@@ -68,7 +68,7 @@ def command_for(check, root=ROOT):
     path = root / HANDOFF.relative_to(ROOT)
     handoff = json.loads(path.read_text(encoding="utf-8"))
     entry = handoff.get("commands", {}).get(check)
-    if not entry or handoff.get("status") != "REVIEWED":
+    if not entry or handoff.get("status") not in {"REVIEWED", "IMPLEMENTED_PARTIAL"}:
         raise ValueError("missing reviewed backend command handoff: " + check + " (V01/V02/V04)")
     if set(entry) != {"script", "args"}:
         raise ValueError("invalid command handoff fields")

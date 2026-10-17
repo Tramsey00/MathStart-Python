@@ -60,7 +60,8 @@ def install(app, service):
             if action == 'login':
                 # Forwarded headers never supply REMOTE_ADDR authority.
                 remote = request.client.host if request.client else ''
-                data, cookies = await run_in_threadpool(service.login, body, remote, identity)
+                data, cookies = await run_in_threadpool(service.login, body, remote, identity,
+                    legacy_session_key=request.cookies.get('sessionid'))
                 return security.cookies(wire.success(request, data, schema='UserResponse'), *cookies)
             if action == 'logout':
                 await run_in_threadpool(service.logout, identity)

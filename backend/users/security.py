@@ -58,7 +58,8 @@ class SessionIdentity:
 
 
 class Security:
-    def __init__(self, engine, key, origin, *, fallback_keys=(), secure=True, session_ttl=1209600):
+    def __init__(self, engine, key, origin, *, fallback_keys=(), secure=True, session_ttl=1209600,
+                 cutover_digest=None, legacy_writer_role=None):
         parsed = urlsplit(origin)
         if parsed.scheme not in {'http', 'https'} or not parsed.netloc or parsed.path or parsed.query or parsed.fragment:
             raise ValueError('Trusted origin required')
@@ -66,6 +67,11 @@ class Security:
         self.keys = (key, *fallback_keys)
         self.host = parsed.netloc.lower()
         self.secure, self.session_ttl = secure, session_ttl
+        self.cutover_digest, self.legacy_writer_role = cutover_digest, legacy_writer_role
+
+    def writer(self, session):
+        from backend.users.cutover import guard
+        guard(session, self.keys, expected=self.cutover_digest, legacy_role=self.legacy_writer_role)
 
     def host_check(self, request):
         if request.headers.get('host', '').lower() != self.host:
@@ -107,7 +113,7 @@ class Security:
         if owner is None:
             return None
         from backend.users.bridge import reconcile_expiry
-        reconcile_expiry(self.engine, user_id=owner, auth_keys=self.keys)
+        reconcile_expiry(self.engine, user_id=owner, auth_keys=self.keys, writer_check=self.writer)
         with UnitOfWork(self.engine) as uow:
             now = uow.session.scalar(sa.select(sa.func.clock_timestamp()))
             row = uow.session.scalar(sa.select(TargetSession).where(TargetSession.token_digest.in_(

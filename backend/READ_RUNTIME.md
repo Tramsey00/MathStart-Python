@@ -124,8 +124,44 @@ replay accepts the existing bound owner session or the original bootstrap proof;
 after an explicit same-owner login, that original proof may rebind a detached
 receipt without issuing another session. A receipt key or owner login alone
 cannot select an anonymous scope. Old-epoch concurrent rebinds fail closed.
-Verified legacy cutover checkpoint/import/F-proof recovery remains unfinished;
-the current identity checks do not establish production cutover readiness.
+Private legacy cutover import is implemented in `backend.users.cutover_cli`.
+It verifies the configured sole legacy writer's actual PostgreSQL NOLOGIN,
+absence of sessions and role members; it never changes roles or deletes old
+sessions/receipts. The operator must first drain the old runtime, revoke its
+writer's login and role memberships, and retain the original signing keyring.
+This is an explicit maintenance operation; no production cutover was performed.
+
+With the target database/signing/origin environment configured, set
+`MATHSTART_LEGACY_WRITER_ROLE` to that legacy role and use a new UUID:
+
+```text
+python -m backend.users.cutover_cli preview --checkpoint-id <uuid> --plan var/cutover-plan.json
+python -m backend.users.cutover_cli apply --plan var/cutover-plan.json
+```
+
+Preview takes the exclusive identity barrier and produces private HMAC digests,
+without DB changes. Apply rechecks role provenance and the entire identity
+snapshot, preserves receipt bytes/scope/digests/results, imports owner-bound
+verified legacy session facts, detaches eligible bridges, revokes target sessions
+and stores one checkpoint atomically. Ambiguous mappings or source drift refuse
+the import. Keep the plan private. Repeating its completed apply is read-only,
+including after a target rebind; a different checkpoint refuses writes.
+
+Configure the returned checkpoint digest as `MATHSTART_IDENTITY_CUTOVER_DIGEST`
+for every target runtime, retaining `MATHSTART_LEGACY_WRITER_ROLE`. Identity,
+staff and lifecycle writes share the import barrier and check durable provenance;
+unknown checkpoints, a re-enabled writer or new role memberships return503.
+Fresh targets without legacy sessions/orphan receipts need no checkpoint.
+
+An old `sessionid` never authenticates the target. One explicit password login
+by its exact owner may use the imported private F binding to establish a fresh
+opaque target session. Registration then replays only the original receipt
+under current S authority. Login/key alone cannot select an old bootstrap
+scope. Terminal bridges stay terminal; competing F logins from one observed
+epoch cannot establish two sessions. Original B proof recovery remains available
+under its existing password/owner/digest/retention checks. Imported detached
+bridges without a target lineage are also revoked on target password changes.
+These scoped checks do not establish the full migration/cutover rehearsal.
 
 The internal `backend.content.publication.PublisherAuthority` now implements the
 PostgreSQL P1 pending slot, owner/generation lease, takeover, domain-commit fact,

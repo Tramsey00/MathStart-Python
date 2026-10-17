@@ -206,7 +206,9 @@ def application():
     from backend.users.security import Security
     from backend.users.service import IdentityService
     identity = IdentityService(Security(engine, key, origin, fallback_keys=fallbacks,
-                                        secure=origin.startswith('https:')))
+                                        secure=origin.startswith('https:'),
+                                        cutover_digest=os.environ.get('MATHSTART_IDENTITY_CUTOVER_DIGEST'),
+                                        legacy_writer_role=os.environ.get('MATHSTART_LEGACY_WRITER_ROLE')))
     return create_public_app(engine, Signer(key, fallbacks), release_root=os.environ['MATHSTART_RELEASE_ROOT'],
             artifact_root=os.environ['MATHSTART_PUBLIC_ARTIFACT_ROOT'], artifact_digests=digests, origin=origin,
             identity_service=identity)

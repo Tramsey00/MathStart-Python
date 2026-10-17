@@ -13,18 +13,23 @@ from backend.models.baseline import User
 from backend.models.protocol import ReceiptBridge, TargetSession
 
 
-def reconcile_expiry(engine, *, user_id=None, scope=None, auth_keys=()):
+def reconcile_expiry(engine, *, user_id=None, scope=None, auth_keys=(), writer_check=None):
     if (user_id is None) == (scope is None):
         raise ValueError('Exactly one bridge owner selector is required')
     for _ in range(3):
-        if _reconcile_expiry(engine, user_id=user_id, scope=scope, auth_keys=auth_keys):
+        if _reconcile_expiry(engine, user_id=user_id, scope=scope, auth_keys=auth_keys, writer_check=writer_check):
             return
     raise RuntimeError('Bridge authority changed repeatedly during cleanup')
 
 
-def _reconcile_expiry(engine, *, user_id, scope, auth_keys):
+def _reconcile_expiry(engine, *, user_id, scope, auth_keys, writer_check):
     with UnitOfWork(engine) as uow:
         s = uow.session
+        if writer_check:
+            writer_check(s)
+        else:
+            from backend.users.cutover import guard
+            guard(s, auth_keys)
         query = sa.select(ReceiptBridge).where(ReceiptBridge.state.in_(['ACTIVE', 'DETACHED']))
         query = query.where(ReceiptBridge.owner_user_id == user_id) if user_id is not None else query.where(ReceiptBridge.original_scope == scope)
         observed = list(s.execute(query.with_only_columns(ReceiptBridge.original_scope, ReceiptBridge.session_lineage_id, ReceiptBridge.owner_user_id)))

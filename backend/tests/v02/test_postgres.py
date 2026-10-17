@@ -12,6 +12,8 @@ from sqlalchemy.engine import make_url
 from backend.infrastructure.database import DatabaseConfig, create_engine
 from backend.tests.v02.test_http import HTTPAssertions
 from backend.staff.reads import POLICY, effective_order
+from backend.tests.legacy_tools import legacy_python
+from backend.tests.v02.oracle_environment import comparator_environment
 
 ADMIN = os.environ.get('MATHSTART_V02_TEST_ADMIN_URL')
 
@@ -21,7 +23,7 @@ class PostgreSQLHTTPTests(HTTPAssertions, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         url = make_url(ADMIN)
-        if (url.drivername, url.host, url.port, url.database) != ('postgresql+psycopg', '127.0.0.1', 15441, 'postgres'):
+        if (url.drivername, url.host, url.database) != ('postgresql+psycopg', '127.0.0.1', 'postgres') or url.port not in {15441, 55441}:
             raise RuntimeError('Refusing unreserved/shared database endpoint')
         cls.admin = sa.create_engine(url, isolation_level='AUTOCOMMIT', hide_parameters=True, connect_args={'connect_timeout': 5})
         with cls.admin.connect() as c:
@@ -62,12 +64,8 @@ class PostgreSQLHTTPTests(HTTPAssertions, unittest.TestCase):
                 cases.append({'resource': resource, 'sort': '-' + policy['allowed_fields'][0] + ',' + policy['allowed_fields'][1]})
             cases.append({'resource': resource, 'q': '"Private draft"'})
             cases.append({'resource': resource, 'q': 'Straße'})
-        environment = {**os.environ, 'DJANGO_DB_BACKEND': 'postgresql', 'DJANGO_DB_HOST': '127.0.0.1',
-            'DJANGO_DB_PORT': '15441', 'DJANGO_DB_NAME': self.name, 'DJANGO_DB_USER': 'postgres',
-            'DJANGO_DB_PASSWORD': 'synthetic-local-only', 'DJANGO_SECRET_KEY': 'synthetic-v02-comparator',
-            'DJANGO_DEBUG': '0', 'DJANGO_RUNTIME_ROOT': str(__import__('pathlib').Path('var/v02-comparator-runtime').resolve()),
-            'PYTHONIOENCODING': 'utf-8'}
-        result = subprocess.run([sys.executable, '-m', 'backend.tests.v02.legacy_comparator'],
+        environment = comparator_environment(self.engine.url, self.name, self.files.name)
+        result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_comparator'],
             input=json.dumps(cases).encode(), capture_output=True, env=environment, timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace')[-1600:])
         self.actor = 902
@@ -94,11 +92,8 @@ class PostgreSQLHTTPTests(HTTPAssertions, unittest.TestCase):
         from backend.infrastructure.uow import UnitOfWork
         from backend.models.baseline import ContentPage
         from backend.models.protocol import active
-        environment = {**os.environ, 'DJANGO_DB_BACKEND': 'postgresql', 'DJANGO_DB_HOST': '127.0.0.1',
-            'DJANGO_DB_PORT': '15441', 'DJANGO_DB_NAME': self.name, 'DJANGO_DB_USER': 'postgres',
-            'DJANGO_DB_PASSWORD': 'synthetic-local-only', 'DJANGO_SECRET_KEY': 'synthetic-v02-comparator',
-            'DJANGO_DEBUG': '0', 'PYTHONIOENCODING': 'utf-8'}
-        result = subprocess.run([sys.executable, '-m', 'backend.tests.v02.legacy_comparator'],
+        environment = comparator_environment(self.engine.url, self.name, self.files.name)
+        result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_comparator'],
             input=b'[{"resource":"__content"}]', capture_output=True, env=environment, timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace')[-1000:])
         oracle = json.loads(result.stdout)[0]

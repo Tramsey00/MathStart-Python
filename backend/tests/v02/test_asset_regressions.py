@@ -15,6 +15,8 @@ from sqlalchemy.pool import StaticPool
 from backend.models.protocol import active, journal
 from backend.tests.v02.test_http import HTTPAssertions
 from backend.tests.v02 import test_postgres as postgres_fixture
+from backend.tests.legacy_tools import legacy_python
+from backend.tests.v02.oracle_environment import comparator_environment
 
 ADMIN = postgres_fixture.ADMIN
 
@@ -283,11 +285,8 @@ class PostgreSQLAssetTests(AssetRegressions, unittest.TestCase):
             {'old_path': '/static/old.css', 'new_path': '/static/theme.css', 'is_permanent': True, 'method': 'POST'},
             {'old_path': '/static/старый.css', 'new_path': '/static/theme%2Ecss', 'is_permanent': True, 'method': 'GET'},
             {'old_path': '/media/старый.pdf', 'new_path': '/media/карта.pdf', 'is_permanent': False, 'method': 'HEAD'}]
-        environment = {**os.environ, 'DJANGO_DB_BACKEND': 'postgresql', 'DJANGO_DB_HOST': '127.0.0.1',
-            'DJANGO_DB_PORT': '15441', 'DJANGO_DB_NAME': self.name, 'DJANGO_DB_USER': 'postgres',
-            'DJANGO_DB_PASSWORD': 'synthetic-local-only', 'DJANGO_SECRET_KEY': 'synthetic-f02-comparator',
-            'DJANGO_DEBUG': '0', 'DJANGO_RUNTIME_ROOT': str(Path(self.files.name).resolve()), 'PYTHONIOENCODING': 'utf-8'}
-        result = subprocess.run([sys.executable, '-m', 'backend.tests.v02.legacy_comparator'],
+        environment = comparator_environment(self.engine.url, self.name, self.files.name)
+        result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_comparator'],
             input=json.dumps([{'resource': '__asset_redirect', **case} for case in cases]).encode(),
             env=environment, capture_output=True, timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace')[-1500:])

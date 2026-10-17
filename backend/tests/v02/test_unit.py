@@ -3,10 +3,11 @@ from pathlib import Path
 import tempfile
 import unittest
 import asyncio
+import os
+import subprocess
 from unittest.mock import patch
 
-from django.conf import settings
-from django.core import signing as old
+from backend.tests.legacy_tools import legacy_python
 from starlette.datastructures import QueryParams
 from starlette.requests import Request
 
@@ -20,8 +21,13 @@ from dataclasses import replace
 from hashlib import sha256
 from backend.tests.v02.fixtures import KEY, STAMP, release_files
 
-if not settings.configured:
-    settings.configure(SECRET_KEY=KEY, SECRET_KEY_FALLBACKS=[])
+def legacy_oracle(data):
+    env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+    result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_unit_oracle'],
+        input=json.dumps(data).encode(), capture_output=True, env=env, timeout=30)
+    if result.returncode:
+        raise RuntimeError('Independent legacy unit oracle failed')
+    return json.loads(result.stdout)
 
 
 class UnitContractTests(unittest.TestCase):
@@ -29,12 +35,13 @@ class UnitContractTests(unittest.TestCase):
         salt = 'content.grades.http-v1.cursor'
         payload = {'scope': 'public:/api/v1/grades/', 'page_size': 1, 'created_at': STAMP.isoformat(), 'id': 70}
         for compress in [False, True]:
-            with patch('django.core.signing.time.time', return_value=1234567):
-                previous = old.dumps(payload, key=KEY, salt=salt, compress=compress)
             signer = Signer(KEY, clock=lambda: 1234567)
+            oracle = legacy_oracle({'operation': 'signer', 'payload': payload, 'key': KEY, 'salt': salt,
+                'clock': 1234567, 'compress': compress, 'target_token': signer.dumps(payload, salt)})
+            previous = oracle['token']
             self.assertEqual(signer.dumps(payload, salt, compress=compress), previous)
             self.assertEqual(signer.loads(previous, salt), payload)
-            self.assertEqual(old.loads(signer.dumps(payload, salt), key=KEY, salt=salt), payload)
+            self.assertEqual(oracle['decoded_target'], payload)
             self.assertEqual(Signer('new-key', [KEY]).loads(previous, salt), payload)
         # No expiration is added: accepted legacy loads does not use max_age.
         self.assertEqual(Signer(KEY, clock=lambda: 9999999999).loads(previous, salt), payload)
@@ -137,11 +144,11 @@ class UnitContractTests(unittest.TestCase):
 
     def test_staff_search_tokenization_matches_native_quoted_and_unicode_cases(self):
         from backend.staff.reads import search_terms
-        from django.utils.text import smart_split, unescape_string_literal
-        for query in ['plain words', '"Private draft"', 'one"two three"', "one'two three'",
-                      '"escaped \\" word"', "'unclosed phrase", 'Straße\u2003слово', "'"]:
-            expected = [unescape_string_literal(word) if word[0] in {'"', "'"} and word[0] == word[-1] else word
-                        for word in smart_split(query)]
+        queries = ['plain words', '"Private draft"', 'one"two three"', "one'two three'",
+                      '"escaped \\" word"', "'unclosed phrase", 'Straße\u2003слово', "'"]
+        results = legacy_oracle({'operation': 'search', 'queries': queries})
+        self.assertEqual(len(results), len(queries))
+        for query, expected in zip(queries, results):
             self.assertEqual(search_terms(query), expected, query)
 
 

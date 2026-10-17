@@ -169,6 +169,10 @@ def main(argv=None):
         env['MATHSTART_RELEASE_ROOT'] = str(setup_root / 'releases')
         env['MATHSTART_PUBLIC_ARTIFACT_ROOT'] = str(root / 'artifact')
         env['MATHSTART_PUBLIC_ARTIFACT_DIGESTS'] = json.dumps({release_id:artifact_digest})
+        env['MATHSTART_STATIC_ROOTS'] = json.dumps([str(ROOT / 'static')])
+        env['MATHSTART_MEDIA_ROOT'] = str(ROOT / 'site_content/media')
+        for check in ('system', 'migrations', 'lesson-sources', 'site-integrity'):
+            stage('target-' + check, [sys.executable, 'scripts/target_check.py', check])
         env['MATHSTART_PUBLIC_VIEW'] = str(frontend / '.cache' / ('public-view-' + release_id + '.json'))
         env['MATHSTART_LEGACY_BASE_URL'] = f'http://127.0.0.1:{args.legacy_port}'
         stage('source-render-and-read-runtime', [sys.executable,'-m','unittest',
@@ -187,6 +191,9 @@ def main(argv=None):
             '--port',str(args.legacy_port)]
         target_argv = [sys.executable,'-m','uvicorn','backend.content.public_runtime:application',
             '--factory','--host','127.0.0.1','--port',str(args.port),'--no-access-log','--no-proxy-headers']
+        with owned_http_service(target_argv, base_url=env['MATHSTART_PUBLIC_ORIGIN'],
+                                cwd=ROOT,evidence_root=root / 'quality-service',environment=env):
+            stage('target-content-quality', [sys.executable, 'scripts/target_check.py', 'content-quality'])
         # Target and comparator have separately owned process trees and logs.
         with owned_http_service(legacy_argv,base_url=env['MATHSTART_LEGACY_BASE_URL'],
                                 cwd=ROOT,evidence_root=root / 'legacy-service',environment=env):

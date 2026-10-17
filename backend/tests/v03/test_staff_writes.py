@@ -1,5 +1,6 @@
 """Real disposable PostgreSQL coverage of baseline staff mutation contracts."""
 import unittest
+from datetime import timedelta
 from unittest.mock import patch
 from concurrent.futures import ThreadPoolExecutor
 from threading import Event
@@ -70,6 +71,25 @@ class StaffWriteTests(unittest.TestCase):
         self.assertEqual(result.status_code, 403, result.text)
         with UnitOfWork(self.engine) as uow:
             self.assertIsNone(uow.session.scalar(sa.select(User).where(User.username == 'denied')))
+
+    def test_password_change_revokes_detached_bridge_without_target_lineage(self):
+        from backend.models.protocol import ReceiptBridge
+        user = self.create_user()
+        import uuid
+        with self.engine.begin() as c:
+            now = c.scalar(sa.select(sa.func.clock_timestamp()))
+            c.execute(sa.insert(ReceiptBridge).values(id=uuid.uuid4(), original_scope='bootstrap:' + 'e' * 64,
+                bootstrap_fingerprint='e' * 64, owner_user_id=user['id'], state='DETACHED', session_id=None,
+                session_lineage_id=None, revocation_epoch=0, created_at=now,
+                replay_until=now + timedelta(days=7), ticket_version=0,
+                transfer_binding_digest='f' * 64))
+        response = self.post(f"users/{user['id']}/password/", {'usable_password': True,
+            'password1': 'Reviewed:new-pass!9237', 'password2': 'Reviewed:new-pass!9237'})
+        self.assertEqual(response.status_code, 200, response.text)
+        with self.engine.connect() as c:
+            row = c.execute(sa.select(ReceiptBridge.state, ReceiptBridge.transfer_binding_digest).where(
+                ReceiptBridge.owner_user_id == user['id'])).one()
+            self.assertEqual(tuple(row), ('REVOKED', None))
 
     def test_private_ui_capabilities_preserve_combined_gate_and_content_readonly(self):
         from backend.staff.presentation import capabilities

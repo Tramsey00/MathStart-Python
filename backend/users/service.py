@@ -108,6 +108,7 @@ class IdentityService:
         retry = None
         with UnitOfWork(self.engine) as uow:
             s = uow.session
+            self.security.writer(s)
             now = s.scalar(sa.select(sa.func.clock_timestamp()))
             s.execute(insert(metadata.tables['users_loginwindow']).values(id=uuid.uuid4(), ip_digest=digest, started_at=now, count=0)
                       .on_conflict_do_nothing(index_elements=['ip_digest']))
@@ -156,7 +157,7 @@ class IdentityService:
             if existing is not None:
                 scope = existing.original_scope
         from backend.users.bridge import reconcile_expiry
-        reconcile_expiry(self.engine, scope=scope, auth_keys=self.security.keys)
+        reconcile_expiry(self.engine, scope=scope, auth_keys=self.security.keys, writer_check=self.security.writer)
         with UnitOfWork(self.engine) as uow:
             observed = uow.session.execute(sa.select(ReceiptBridge.revocation_epoch, ReceiptBridge.session_lineage_id).where(
                 ReceiptBridge.original_scope == scope)).first()
@@ -165,6 +166,7 @@ class IdentityService:
         digest = receipt_digest(scope, 'register', '/api/v1/auth/register/', body)
         with UnitOfWork(self.engine) as uow:
             s = uow.session
+            self.security.writer(s)
             locks = OrderedLocks(s)
             namespaces = {scope}
             if identity:
@@ -252,7 +254,7 @@ class IdentityService:
             uow.commit()
             return row.response, row.status, (token, csrf_next)
 
-    def login(self, body, remote, identity):
+    def login(self, body, remote, identity, *, legacy_session_key=None):
         self.budget(remote)
         with UnitOfWork(self.engine) as uow:
             candidate = uow.session.scalar(sa.select(User).where(User.username == body['username']))
@@ -261,11 +263,33 @@ class IdentityService:
             if candidate is None or not candidate.is_active or not valid:
                 raise wire.authentication_required()
             candidate_id, candidate_hash = candidate.id, candidate.password
+            observed = None
+            if isinstance(legacy_session_key, str) and 8 <= len(legacy_session_key) <= 40:
+                from backend.users.legacy_proof import transfer_digest
+                digests = [transfer_digest(legacy_session_key, candidate, key) for key in self.security.keys]
+                # This mapping exists only after verified cutover import. The
+                # cookie alone never authenticates; password was checked above.
+                bindings = list(uow.session.execute(sa.select(ReceiptBridge.id, ReceiptBridge.original_scope,
+                    ReceiptBridge.session_lineage_id, ReceiptBridge.revocation_epoch).where(
+                        ReceiptBridge.owner_user_id == candidate.id,
+                        ReceiptBridge.transfer_binding_digest.in_(digests),
+                        ReceiptBridge.cutover_checkpoint_id.is_not(None))))
+                if len(bindings) > 1:
+                    raise conflict()
+                observed = bindings[0] if bindings else None
         with UnitOfWork(self.engine) as uow:
             s = uow.session
+            self.security.writer(s)
             locks = OrderedLocks(s)
+            namespaces = set()
             if identity:
-                locks.namespace('identity', 'lineage:' + str(identity.lineage_id))
+                namespaces.add('lineage:' + str(identity.lineage_id))
+            if observed:
+                namespaces.add(observed.original_scope)
+                if observed.session_lineage_id:
+                    namespaces.add('lineage:' + str(observed.session_lineage_id))
+            for namespace in sorted(namespaces):
+                locks.namespace('identity', namespace)
             user_ids = sorted({candidate_id, identity.user_id} if identity else {candidate_id})
             users = {u.id: u for u in s.scalars(sa.select(User).where(User.id.in_(user_ids)).order_by(User.id).with_for_update())}
             user = users[candidate_id]
@@ -280,7 +304,23 @@ class IdentityService:
                 previous = None
             transfers = list(s.scalars(sa.select(ReceiptBridge).where(ReceiptBridge.session_id == previous.id,
                         ReceiptBridge.state == 'ACTIVE').order_by(ReceiptBridge.id).with_for_update())) if previous else []
+            imported = s.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.id == observed.id).with_for_update()) if observed else None
+            if imported:
+                from backend.models.protocol import CutoverCheckpoint
+                checkpoint = s.get(CutoverCheckpoint, imported.cutover_checkpoint_id)
+                if (checkpoint is None or checkpoint.checkpoint_digest != self.security.cutover_digest
+                        or imported.owner_user_id != user.id or imported.revocation_epoch != observed.revocation_epoch
+                        or imported.session_lineage_id != observed.session_lineage_id
+                        or imported.state != 'DETACHED' or imported.replay_until <= now
+                        or imported.transfer_binding_digest not in digests):
+                    raise conflict()
             issued, token, csrf = self.security.issue(s, user, now, previous=previous)
+            if imported:
+                imported.state, imported.session_id, imported.session_lineage_id = 'ACTIVE', issued.id, issued.lineage_id
+                imported.revocation_epoch += 1
+                imported.ticket_version += 1
+                imported.ticket_revoked_at = now
+                issued.revocation_epoch = imported.revocation_epoch
             if previous:
                 for bridge in transfers:
                     bridge.session_id = issued.id
@@ -297,6 +337,7 @@ class IdentityService:
     def logout(self, identity):
         with UnitOfWork(self.engine) as uow:
             s = uow.session
+            self.security.writer(s)
             OrderedLocks(s).namespace('identity', 'lineage:' + str(identity.lineage_id))
             user = s.scalar(sa.select(User).where(User.id == identity.user_id).with_for_update())
             validate_current(s, identity, user, self.security.keys, lock=False)
@@ -307,6 +348,7 @@ class IdentityService:
     def update_profile(self, identity, body, *, key=None, request_id=None):
         with UnitOfWork(self.engine) as uow:
             s = uow.session
+            self.security.writer(s)
             OrderedLocks(s).namespace('identity', 'lineage:' + str(identity.lineage_id))
             user = s.scalar(sa.select(User).where(User.id == identity.user_id).with_for_update())
             if user is None or not user.is_active:

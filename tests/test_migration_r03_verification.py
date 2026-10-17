@@ -68,7 +68,16 @@ class TargetRegistryTests(unittest.TestCase):
             with self.assertRaises(OSError): target_check.command_for("system", root)
             with self.assertRaises(ValueError): target_check.command_for("frontend-build", root)
         with redirect_stdout(io.StringIO()):
-            self.assertEqual(target_check.main(["system"]), 1)
+            self.assertEqual(target_check.main(["backend-tests"]), 1)
+
+    def test_partial_map_executes_real_entries_but_preserves_missing_failures(self):
+        for check in ('system', 'migrations', 'lesson-sources', 'content-quality', 'site-integrity'):
+            command, cwd = target_check.command_for(check)
+            self.assertEqual(Path(command[1]), target_check.ROOT / 'backend/verification.py')
+            self.assertEqual(command[2:], [check])
+        for check in ('backend-tests', 'fresh-install', 'upgrade-A', 'upgrade-B', 'upgrade-C'):
+            with self.assertRaises(ValueError):
+                target_check.command_for(check)
 
     def test_reviewed_handoff_requires_real_backend_file_and_rejects_escape(self):
         with tempfile.TemporaryDirectory() as temp:

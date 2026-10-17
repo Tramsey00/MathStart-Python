@@ -15,9 +15,8 @@ def asset_redirect_comparison(case):
     from whitenoise.middleware import WhiteNoiseMiddleware
     from content.middleware import RedirectFallbackMiddleware
     from content.models import Redirect
-    if (not connection.settings_dict['NAME'].startswith('test_ms7_mig_v01_v02_')
-            or str(connection.settings_dict['PORT']) != '15441'):
-        raise RuntimeError('Only disposable V02 comparator fixture is allowed')
+    from backend.tests.v02.oracle_environment import require_comparator_database
+    require_comparator_database(connection)
     with tempfile.TemporaryDirectory(dir='var') as directory, transaction.atomic():
         root = Path(directory)
         (root / 'static').mkdir(); (root / 'media').mkdir()
@@ -45,6 +44,9 @@ def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
     import django
     django.setup()
+    from django.db import connection
+    from backend.tests.v02.oracle_environment import require_comparator_database
+    require_comparator_database(connection)
     from django.apps import apps
     from django.contrib import admin
     from django.contrib.admin.views.main import ChangeList

@@ -32,13 +32,16 @@ Product locks remain the V01/I01 owners' deliverables. No latest dependency inst
 
 ## Required semantic equivalents and owner handoff
 
-The [command handoff](runtime-commands.json) is intentionally PENDING with no
-invented backend entry points: each absent required command fails. V/I owners
-provide concrete commands to R03 for review/integration; this file is R03-owned.
+The [command handoff](runtime-commands.json) now has five real read-only target
+entry points: system/routes/security, exact schema/head, all263 lesson sources,
+full279-page filesystem integrity and live HTTP quality. `IMPLEMENTED_PARTIAL`
+allows these entries to execute while every missing command still fails.
+The backend suite and full fresh/upgrade rehearsals remain explicit gaps.
 Set REVIEWED only after command-contract review, not to claim task acceptance.
 Backend entry: `{ "script": "backend/<existing-script>.py", "args": ["..."] }`.
 Only Python scripts resolving inside backend are accepted; no arbitrary shell.
-The wrappers are real executable dispatchers; the domain implementations are absent.
+Each entry emits nonempty unskipped target receipts. The public scoped verifier
+also executes these five entries; this does not establish full target acceptance.
 
 | Key / old assertion | Required target assertion / owner |
 | --- | --- |
@@ -128,8 +131,8 @@ runs: [handoff](../../../docs/acceptance/MS7-MIG-R03/accepted-integration-ci-202
 [Concrete owner/review checklist](../../../docs/acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md) maps all10 backend checks,4 frontend
 checks and7 baseline content commands to V02/I02/V04 deliverables and R02 parity
 assertions. Accepted V01 schema/foundation evidence remains separate. The new
-machine checklist is PREPARED_FOR_OWNER_REVIEW; runtime-commands remains PENDING
-with no invented commands. No accepted V02/I02/V04 input is available at intake.
+machine checklist is PREPARED_FOR_OWNER_REVIEW. That historical intake predated
+the five concrete target entries now recorded above; remaining gaps are explicit.
 Full target execution awaits accepted exact-SHA inputs and reviewed command
 contracts; R03 stays INCOMPLETE until full checks and independent approvals.
 
