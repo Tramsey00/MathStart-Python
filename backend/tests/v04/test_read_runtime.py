@@ -1,5 +1,6 @@
 """PG read-session authorization without importing the deferred identity service."""
 from datetime import timedelta
+from hashlib import sha256
 import json
 import os
 from pathlib import Path
@@ -209,6 +210,51 @@ class ReadSessionTests(unittest.TestCase):
                         self.assertEqual(rejected.json()['error']['code'], 'CSRF_FAILED')
             self.assertEqual(client.post('/robots.txt', headers={**headers, 'Origin': 'http://evil.example'}).status_code, 403)
             self.assertEqual(client.post('/robots.txt', headers={**headers, 'Host': 'evil.example'}).status_code, 400)
+
+
+class CompiledArtifactTests(unittest.TestCase):
+    """Output hashes and live authority protect UI assets without lesson loading."""
+    @classmethod
+    def setUpClass(cls):
+        cls.engine = create_engine(DatabaseConfig.from_environment())
+        with cls.engine.begin() as connection:
+            require_disposable(connection)
+        cls.artifact_root = Path(os.environ['MATHSTART_PUBLIC_ARTIFACT_ROOT'])
+        cls.digests = json.loads(os.environ['MATHSTART_PUBLIC_ARTIFACT_DIGESTS'])
+        cls.manifest = json.loads((cls.artifact_root / 'output-manifest.json').read_bytes())
+        cls.app = create_public_app(cls.engine, Signer('synthetic-ui-artifact-test-key'),
+            release_root=Path(os.environ['MATHSTART_STAFF_COOKIE_FILE']).parent / 'releases',
+            artifact_root=cls.artifact_root, artifact_digests=cls.digests, origin='http://127.0.0.1:8121')
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.engine.dispose()
+
+    def test_ui_shell_and_compiled_asset_check_output_not_unrelated_lesson_dtos(self):
+        from backend.content.verified_release_cache import VerifiedReleaseStore
+        item = next(row for row in self.manifest['files'] if row['path'].startswith('assets/') and row['path'].endswith('.js'))
+        with patch.object(VerifiedReleaseStore, 'load', side_effect=AssertionError('UI asset does not consume lesson DTOs')):
+            with TestClient(self.app, base_url='http://127.0.0.1:8121') as client:
+                result = client.get('/' + item['path'])
+                self.assertEqual(result.status_code, 200)
+                self.assertEqual(sha256(result.content).hexdigest(), item['sha256'])
+                private = client.get('/account/')
+                self.assertEqual(private.status_code, 200)
+                self.assertEqual(private.headers['cache-control'], 'private, no-store')
+                self.assertNotIn('canonical_url', private.text)
+
+    def test_compiled_asset_corruption_still_fails_closed(self):
+        item = next(row for row in self.manifest['files'] if row['path'].startswith('assets/') and row['path'].endswith('.js'))
+        path = self.artifact_root / item['path']
+        raw = path.read_bytes()
+        try:
+            path.write_bytes(raw[:-1] + bytes([raw[-1] ^ 1]))
+            with TestClient(self.app, base_url='http://127.0.0.1:8121') as client:
+                result = client.get('/' + item['path'])
+                self.assertEqual(result.status_code, 503)
+                self.assertEqual(result.json()['error']['code'], 'SERVICE_UNAVAILABLE')
+        finally:
+            path.write_bytes(raw)
 
 
 if __name__ == '__main__':

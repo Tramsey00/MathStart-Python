@@ -88,7 +88,7 @@ export default function AccountPage(){
    await finish(await api.call('complete_onboarding',{body,idempotencyKey:pending.current.key,signal:controller.current!.signal}),current);
   }else await finish(await api.call('update_me',{body:{selected_grade_id:grade.id},signal:controller.current!.signal}),current);
  }
- async function logout(){clear();invalidate();setUser(null);setBusy(true);const current=generation.current;await finish(await api.call('logout',{body:{},signal:controller.current!.signal}),current);}
+ async function logout(){clear();invalidate();setMode('login');setUser(null);setBusy(true);const current=generation.current;await finish(await api.call('logout',{body:{},signal:controller.current!.signal}),current);}
  function select(id:string,label:string){return <div className="ms-ui-field"><label htmlFor={id}>{label}</label><select id={id} name="selected_grade_id" required defaultValue={user?.selected_grade_id===null?'':String(user?.selected_grade_id??'')}><option value="">Выберите класс</option>{grades.map(g=><option key={String(g.id)} value={String(g.id)}>{g.title}</option>)}</select></div>;}
  return <main id="account-main" className="ms-ui ms-account" tabIndex={-1} aria-busy={busy||!ready}>
   <header className="ms-ui-intro"><h1>Личный кабинет</h1><p>Войдите или зарегистрируйтесь, чтобы сохранить класс и выбрать, с чего начать.</p></header>

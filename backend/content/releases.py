@@ -28,11 +28,19 @@ def safe_public_path(path):
 
 
 def inside(root, relative):
+    return _inside_resolved(Path(root).resolve(), relative)
+
+
+def _inside_resolved(root, relative):
+    """Internal fast path: root was resolved and confined by this operation.
+
+    Every child is still resolved on every read, so replaced symlinks and path
+    escapes are rejected. Avoid resolving the same root for every release file.
+    """
     if (not isinstance(relative, str) or not relative or '\\' in relative or ':' in relative
             or '%' in relative or relative.startswith('/') or any(ord(c) < 32 for c in relative)
             or any(p in ('.', '..', '') for p in relative.split('/'))):
         raise unavailable()
-    root = Path(root).resolve()
     target = (root / relative).resolve()
     if not target.is_relative_to(root):
         raise unavailable()
@@ -238,8 +246,15 @@ class Release:
 
 
 def active_release(uow, store, namespace):
+    if store is None:
+        raise unavailable()
+    return store.load(active_descriptor(uow, namespace))
+
+
+def active_descriptor(uow, namespace):
+    """Read the same committed authority for content and compiled UI artifacts."""
     row = uow.repository(ActiveReleaseDescriptor).get(namespace)
-    if row is None or store is None:
+    if row is None:
         raise unavailable()
     gate = uow.repository(PublicationGate).get(namespace)
     operation = uow.repository(PublicationJournal).get(row.operation_id)
@@ -248,4 +263,4 @@ def active_release(uow, store, namespace):
             or operation.activation_status != 'APPLIED' or operation.release_id != row.release_id
             or operation.manifest_digest != row.manifest_digest):
         raise unavailable()
-    return store.load(Descriptor(row.operation_id, row.release_id, row.manifest_digest, row.fence_generation))
+    return Descriptor(row.operation_id, row.release_id, row.manifest_digest, row.fence_generation)

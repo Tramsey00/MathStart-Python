@@ -66,3 +66,18 @@ it('requires successful GET-first reconciliation before explicit same-key replay
  await waitFor(()=>expect(call.mock.calls.filter(([op])=>op==='get_me').length).toBe(3));
  expect(registrations).toBe(1);
 });
+
+it('returns to the login form after logging out from registration',async()=>{
+ let active=false;
+ call.mockImplementation(async op=>{
+  if(op==='list_grades')return grades;
+  if(op==='register'){active=true;return user('syntheticStudent');}
+  if(op==='logout'){active=false;return {ok:true,value:{data:{completed:true}}};}
+  return active?user('syntheticStudent'):anonymous;
+ });
+ render(<AccountPage/>);await enter('register');
+ fireEvent.click(await screen.findByRole('button',{name:'Выйти'}));
+ await screen.findByRole('heading',{name:'Вход'});
+ expect(screen.getByLabelText('Имя пользователя').getAttribute('maxlength')).toBe('150');
+ expect((screen.getByLabelText('Пароль') as HTMLInputElement).value).toBe('');
+});

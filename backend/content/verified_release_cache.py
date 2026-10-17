@@ -5,7 +5,7 @@ from hashlib import sha256
 from threading import RLock
 import re
 
-from backend.content.releases import ReleaseStore, inside
+from backend.content.releases import ReleaseStore, inside, _inside_resolved
 from backend.infrastructure.http.transport import unavailable
 
 
@@ -52,7 +52,7 @@ class VerifiedReleaseStore(ReleaseStore):
                 root = inside(self.root, descriptor.release_id)
                 try:
                     for relative, (size, digest) in cached[1].items():
-                        raw = inside(root, relative).read_bytes()
+                        raw = _inside_resolved(root, relative).read_bytes()
                         if len(raw) != size or sha256(raw).digest() != digest:
                             raise unavailable()
                 except OSError:

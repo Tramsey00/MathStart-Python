@@ -1,8 +1,10 @@
-# I02/I03 synthetic read runtime
+# Target public and identity runtime (migration candidate)
 
-This scoped adapter composes accepted V02 with `frontend.rendering.PublicRenderer`
-and read-only PostgreSQL opaque session validation. It has no login, account or
-staff mutations and does not implement full V03/V04 publication/recovery.
+The normal ASGI factory composes public releases, `frontend.rendering.PublicRenderer`,
+PostgreSQL identity/session services and React account/staff forms. The explicit
+`create_public_app` test factory retains its read-only default unless an identity
+service is supplied. Full publication/recovery and production cutover remain
+unfinished; these commands describe a disposable demonstration candidate.
 
 Install `backend/infrastructure/http/requirements.lock` in the target environment.
 For tests also install `backend/tests/v04/requirements.lock`. Neither requires
@@ -52,13 +54,17 @@ For the read server set:
   to output manifest SHA256.
 
 ```text
-python -m uvicorn backend.content.public_runtime:application --factory --host 127.0.0.1 --port 8121 --no-access-log
+python -m uvicorn backend.content.public_runtime:application --factory --host 127.0.0.1 --port 8121 --no-access-log --no-proxy-headers
 ```
 
 Public documents/API/assets pin the authoritative DB release. Explicit native
-staff read URLs serve only the verified anonymous shell with private/no-store;
-their API reads authenticate the opaque session, expiry/revocation/auth-hash and
-current DB permissions. Private data never enters the public artifact. Unknown
+account/staff URLs serve only the verified anonymous shell with private/no-store;
+their API reads and mutations authenticate the opaque session, expiry/revocation/
+auth-hash and current DB permissions. Mutations enforce CSRF and validators.
+Compiled UI files check the pinned committed descriptor, trusted output manifest
+and requested file hash; public content still checks the full source release.
+Proxy headers are disabled until an explicit edge trust policy is implemented.
+Private data never enters the public artifact. Unknown
 staff URLs remain404. Generated frontend assets must be in the trusted output
 manifest. Corrupt/missing files fail closed. There is no constant Node server.
 

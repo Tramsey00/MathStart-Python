@@ -130,6 +130,16 @@ class PostgreSQLIdentityTests(unittest.TestCase):
             self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(User)), 1)
             self.assertEqual(set(uow.session.scalars(sa.select(ReceiptBridge.state))), {'REVOKED'})
 
+    def test_implemented_canonical_route_metadata_matches_exact_eight_operation_set(self):
+        document = json.loads(Path('specs/migration/r02-v1/implemented-routes-v1.json').read_text(encoding='utf-8'))
+        expected = {(row['path'], row['method'].upper(), row['operation_id']) for row in document['operations']
+                    if row['baseline_state'] == 'IMPLEMENTED'}
+        canonical = {row['path'] for row in document['operations']}
+        actual = {(row['path'], row['method'], row['operation_id']) for row in self.app.state.implemented_routes
+                  if row['path'] in canonical}
+        self.assertEqual(len(expected), 8)
+        self.assertEqual(actual, expected)
+
     def test_exact_registration_and_onboarding_replay_conflict(self):
         first = self.register()
         cookie = self.client.cookies.get('sessionid')

@@ -177,7 +177,7 @@ def main(argv=None):
             '--legacy-python',legacy_executable(args.legacy_python),'--runtime-root',str(root / 'legacy'),
             '--port',str(args.legacy_port)]
         target_argv = [sys.executable,'-m','uvicorn','backend.content.public_runtime:application',
-            '--factory','--host','127.0.0.1','--port',str(args.port),'--no-access-log']
+            '--factory','--host','127.0.0.1','--port',str(args.port),'--no-access-log','--no-proxy-headers']
         # Target and comparator have separately owned process trees and logs.
         with owned_http_service(legacy_argv,base_url=env['MATHSTART_LEGACY_BASE_URL'],
                                 cwd=ROOT,evidence_root=root / 'legacy-service',environment=env):

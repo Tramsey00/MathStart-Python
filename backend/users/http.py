@@ -9,6 +9,9 @@ from backend.users.security import csrf_secret, mask, unmask
 
 def install(app, service):
     security = service.security
+    from backend.infrastructure.http.contracts import document
+    operations = {(row['path'], row['method'].upper()): row['operation_id'] for row in
+                  document('specs/migration/r02-v1/implemented-routes-v1.json')['operations']}
 
     @app.middleware('http')
     async def trusted_host(request, call_next):
@@ -78,7 +81,8 @@ def install(app, service):
         app.add_api_route(path, handler(action, methods, schema, private),
                 methods=['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'TRACE'], include_in_schema=False)
         for method in sorted(methods):
-            app.state.implemented_routes.append({'path': path, 'method': method, 'operation_id': action})
+            app.state.implemented_routes.append({'path': path, 'method': method,
+                                                'operation_id': operations[(path, method)]})
 
         async def slashless(request: Request):
             query = '?' + request.url.query if request.url.query else ''

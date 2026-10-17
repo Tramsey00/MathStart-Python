@@ -17,7 +17,7 @@ import sqlalchemy as sa
 from starlette.responses import Response
 from starlette.concurrency import run_in_threadpool
 
-from backend.content.releases import ReleaseStore, active_release, inside
+from backend.content.releases import ReleaseStore, active_release, active_descriptor, inside
 from backend.content.verified_release_cache import VerifiedReleaseStore
 from backend.content.projection import seo
 from backend.infrastructure.database import DatabaseConfig, create_engine, check_connection
@@ -94,14 +94,18 @@ class ReadSessionAuthenticator:
 
 
 def artifact_for(root, digests, release):
+    return artifact_for_descriptor(root, digests, release.descriptor)
+
+
+def artifact_for_descriptor(root, digests, descriptor):
     root = Path(root).resolve()
-    base = root if (root / 'output-manifest.json').is_file() else inside(root, release.descriptor.release_id)
+    base = root if (root / 'output-manifest.json').is_file() else inside(root, descriptor.release_id)
     raw = inside(base, 'output-manifest.json').read_bytes()
-    if sha256(raw).hexdigest() != digests.get(release.descriptor.release_id):
+    if sha256(raw).hexdigest() != digests.get(descriptor.release_id):
         raise wire.unavailable()
     manifest = wire.decode_json(raw)
-    if (manifest['release_id'] != release.descriptor.release_id
-            or manifest['input_manifest_digest'] != release.descriptor.manifest_digest):
+    if (manifest['release_id'] != descriptor.release_id
+            or manifest['input_manifest_digest'] != descriptor.manifest_digest):
         raise wire.unavailable()
     return base, manifest
 
@@ -157,8 +161,11 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
     def auxiliary_response(request, private):
         with UnitOfWork(engine) as uow:
             uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
-            release = active_release(uow, store, 'public')
-        root, manifest = artifact_for(artifact_root, artifact_digests, release)
+            descriptor = active_descriptor(uow, 'public')
+        # Compiled UI artifacts carry no lesson DTOs. Verify their trusted output
+        # manifest, its pinned input identity, and the requested file's bytes.
+        # Public documents/content assets still validate the full source release.
+        root, manifest = artifact_for_descriptor(artifact_root, artifact_digests, descriptor)
         relative = '_private/shell.html' if private else request.url.path.lstrip('/')
         raw = artifact_bytes(root, manifest, relative)
         mime = 'text/html' if private else mimetypes.guess_type(relative)[0] or 'application/octet-stream'
