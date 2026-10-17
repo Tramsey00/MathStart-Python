@@ -8,7 +8,7 @@ import uuid
 import sqlalchemy as sa
 
 from backend.content.build import encoded
-from backend.content.editions import snapshot, fingerprint, apply_updates
+from backend.content.editions import snapshot, fingerprint, apply_updates, project_updates
 from backend.content.publication import PublicationConflict
 from backend.infrastructure.uow import UnitOfWork
 from backend.migrations.upgrade import require_disposable
@@ -107,6 +107,20 @@ class PostgreSQLEditionTests(unittest.TestCase):
             uow.session.execute(sa.text("SET LOCAL TIME ZONE 'Europe/Moscow'"))
             self.assertEqual(fingerprint(uow.session), expected)
             self.assertEqual(snapshot(uow.session), original)
+
+    def test_pure_projection_isolated_and_empty_patch_does_not_allocate_or_write(self):
+        with UnitOfWork(self.engine) as uow:
+            before, after, change = self.fixture(uow.session)
+            projected = project_updates(before, [change])
+            self.assertEqual(projected, after)
+            self.assertNotEqual(before, projected)
+            self.assertEqual(snapshot(uow.session), before)
+            projected['content_grade'][0]['title'] = 'Caller mutation'
+            self.assertEqual(snapshot(uow.session), before)
+            apply_updates(uow.session, [], sha256(encoded(before)).hexdigest(), sha256(encoded(before)).hexdigest())
+            self.assertEqual(snapshot(uow.session), before)
+            with self.assertRaises(PublicationConflict):
+                project_updates(before, [change, change])
 
 
 if __name__ == '__main__':

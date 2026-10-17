@@ -8,7 +8,7 @@ from hashlib import sha256
 
 import sqlalchemy as sa
 
-from backend.models.baseline import ContentPage, Grade, Subject, Section
+from backend.models.baseline import ContentPage, Grade, Subject, Section, metadata
 from backend.infrastructure.http.contracts import validate
 from backend.infrastructure.http.transport import missing
 from backend.infrastructure.http.transport import timestamp as stamp
@@ -51,6 +51,12 @@ def delivery_candidate(uow, slug, reviewed_source):
     page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.slug == slug, ContentPage.is_published.is_(True)))
     if page is None:
         raise missing()
+    return delivery_for_page(page, reviewed_source)
+
+
+def delivery_for_page(page, reviewed_source):
+    if type(reviewed_source) is not ReviewedSource or not page.is_published:
+        raise TypeError('Reviewed published page required')
     data = {field: getattr(page, field) for field in ['id', 'slug', 'page_type', 'title', 'grade_id',
             'subject_id', 'section_id', 'order', 'body_html', 'is_published']}
     data.update(delivery_version='content-delivery-v1', seo=seo(page), created_at=stamp(page.created_at),
@@ -62,36 +68,62 @@ def delivery_candidate(uow, slug, reviewed_source):
 
 def catalogue_candidate(uow):
     """Execute baseline PG ordering here; frontend never reproduces DB collation."""
+    return catalogue_query(uow.session, *(metadata.tables[name] for name in
+                           ('content_contentpage', 'content_grade', 'content_subject', 'content_section')))
+
+
+def catalogue_query(session, pages, grades, subjects, sections):
+    p, g, s, c = pages.c, grades.c, subjects.c, sections.c
     fields = ['id', 'title', 'slug', 'order', 'grade_id', 'subject_id', 'section_id']
-    statement = sa.select(*(getattr(ContentPage, f) for f in fields)).outerjoin(
-        Grade, ContentPage.grade_id == Grade.id).outerjoin(Subject, ContentPage.subject_id == Subject.id).outerjoin(
-        Section, ContentPage.section_id == Section.id).where(ContentPage.is_published.is_(True), ContentPage.page_type == 'topic').order_by(
-        Grade.order.asc().nulls_last(), ContentPage.grade_id.asc().nulls_last(),
-        Subject.order.asc().nulls_last(), ContentPage.subject_id.asc().nulls_last(),
-        Section.order.asc().nulls_last(), ContentPage.section_id.asc().nulls_last(),
-        ContentPage.order, ContentPage.title, ContentPage.id)
+    statement = sa.select(*(p[f] for f in fields)).select_from(pages.outerjoin(
+        grades, p.grade_id == g.id).outerjoin(subjects, p.subject_id == s.id).outerjoin(
+        sections, p.section_id == c.id)).where(p.is_published.is_(True), p.page_type == 'topic').order_by(
+        g.order.asc().nulls_last(), p.grade_id.asc().nulls_last(),
+        s.order.asc().nulls_last(), p.subject_id.asc().nulls_last(),
+        c.order.asc().nulls_last(), p.section_id.asc().nulls_last(), p.order, p.title, p.id)
     topics = []
-    for row in uow.session.execute(statement):
+    for row in session.execute(statement):
         item = dict(row._mapping)
         item['url'] = f'/{item["slug"]}/'
         topics.append(item)
     data = {'topics': topics}
-    for name, model, columns, ordering in [
-        ('grades', Grade, ['id', 'title', 'slug', 'order'], [Grade.order, Grade.title, Grade.id]),
-        ('subjects', Subject, ['id', 'title', 'slug', 'order', 'grade_id'], [Grade.order, Subject.order, Subject.title, Subject.id]),
-        ('sections', Section, ['id', 'title', 'slug', 'order', 'subject_id'], [Grade.order, Subject.order, Section.order, Section.title, Section.id])]:
-        statement = sa.select(*(getattr(model, f) for f in columns))
-        if model is Subject:
-            statement = statement.join(Grade, Subject.grade_id == Grade.id)
-        elif model is Section:
-            statement = statement.join(Subject, Section.subject_id == Subject.id).join(Grade, Subject.grade_id == Grade.id)
-        data[name] = [dict(row._mapping) for row in uow.session.execute(statement.order_by(*ordering))]
+    for name, table, columns, ordering, source in [
+        ('grades', grades, ['id', 'title', 'slug', 'order'], [g.order, g.title, g.id], grades),
+        ('subjects', subjects, ['id', 'title', 'slug', 'order', 'grade_id'], [g.order, s.order, s.title, s.id], subjects.join(grades, s.grade_id == g.id)),
+        ('sections', sections, ['id', 'title', 'slug', 'order', 'subject_id'], [g.order, s.order, c.order, c.title, c.id],
+         sections.join(subjects, c.subject_id == s.id).join(grades, s.grade_id == g.id))]:
+        statement = sa.select(*(table.c[f] for f in columns)).select_from(source)
+        data[name] = [dict(row._mapping) for row in session.execute(statement.order_by(*ordering))]
     return validate(data, 'PublicCatalogue', True)
+
+
+def catalogue_from_snapshot(session, state):
+    """Order a prepared edition using the real PostgreSQL collation, no writes."""
+    tables = []
+    for name, fields in [
+        ('content_contentpage', ['id', 'title', 'slug', 'order', 'grade_id', 'subject_id', 'section_id', 'is_published', 'page_type']),
+        ('content_grade', ['id', 'title', 'slug', 'order']),
+        ('content_subject', ['id', 'title', 'slug', 'order', 'grade_id']),
+        ('content_section', ['id', 'title', 'slug', 'order', 'subject_id'])]:
+        physical = metadata.tables[name]
+        columns = [sa.column(key, physical.c[key].type) for key in fields]
+        rows = [tuple(row[key] for key in fields) for row in state[name]]
+        if rows:
+            table = sa.values(*columns).data(rows).cte('prepared_' + name)
+        else:
+            table = sa.select(*(sa.cast(sa.null(), col.type).label(col.name) for col in columns)).where(sa.false()).cte('prepared_' + name)
+        tables.append(table)
+    return catalogue_query(session, *tables)
 
 
 def build_index_candidate(uow, release_id, deliveries):
     """Complete read-only candidate; V04 validates/stages/activates it separately."""
     published = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
+    redirects = list(uow.session.scalars(sa.select(Redirect).where(Redirect.is_active.is_(True)).order_by(Redirect.old_path)))
+    return index_for_pages(published, release_id, deliveries, catalogue_candidate(uow), redirects)
+
+
+def index_for_pages(published, release_id, deliveries, catalogue, redirect_rows):
     if set(deliveries) != {p.id for p in published}:
         raise unavailable()
     pages, aliases = [], []
@@ -108,11 +140,11 @@ def build_index_candidate(uow, release_id, deliveries):
         if page.page_type == 'home':
             aliases.append({'url': f'/{page.slug}/', 'page_id': page.id, 'status': 200, 'canonical_path': '/'})
     redirects = []
-    for row in uow.session.scalars(sa.select(Redirect).where(Redirect.is_active.is_(True)).order_by(Redirect.old_path)):
+    for row in redirect_rows:
         if not safe_public_path(row.old_path) or not safe_public_path(row.new_path) or row.old_path == row.new_path:
             raise unavailable()
         redirects.append({'old_path': row.old_path, 'new_path': row.new_path, 'is_permanent': row.is_permanent})
     index = {'version': 'public-build-index-v1', 'release_id': release_id, 'pages': pages,
-             'catalogue': catalogue_candidate(uow), 'aliases': aliases, 'redirects': redirects,
+             'catalogue': catalogue, 'aliases': aliases, 'redirects': redirects,
              'system_urls': ['/sitemap.xml', '/robots.txt']}
     return validate(index, 'PublicBuildIndex', True)

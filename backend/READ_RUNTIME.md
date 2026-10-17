@@ -72,9 +72,12 @@ written to the public artifact. Unknown
 staff URLs remain404. Generated frontend assets must be in the trusted output
 manifest. Corrupt/missing files fail closed. There is no constant Node server.
 
-The staff publication-state observer supports the coherent initial synthetic
-edition only. Any pending publication or DB drift fails closed; it does not
-claim to observe a full publication/recovery implementation.
+The staff publication-state observer reports the immutable active release, the
+committed DB edition and the durable pending operation, including takeover
+eligibility and recovery. Authority is sampled around the representation;
+conflicting data or corrupt artifacts fail closed. Reads never claim/renew a
+publisher lease. Unpublished pages retain their DB identities and report a
+null public page digest/path.
 
 For browser tests set `MATHSTART_STAFF_COOKIE_FILE` to the ignored private cookie
 file. For the focused PG session tests use the same DB/signing/cookie environment:
@@ -112,7 +115,7 @@ when issues produce a nonzero exit. They do not offer a misleading dry-run flag.
 Missing tools, storage, source mismatch, non-200 HTTP and invalid HTML fail;
 unused registered media is reported without becoming a critical error, preserving
 the existing command policy. Files are confined to the configured storage roots.
-These adapters do not implement publication, index writes or cutover/recovery.
+These inspection adapters do not perform publication, index writes or cutover.
 
 Identity cleanup records natural session expiry as `DETACHED`, and replay-window
 expiry as `EXPIRED`, without deleting receipt identity or response. Revocation is
@@ -139,7 +142,73 @@ no filesystem active pointer and no cleanup of unowned paths.
 tables and guarded prepared before/after updates, preserving IDs and timestamps.
 It rejects auth tables, primary-key changes, duplicate patches and stale rows;
 it does not allocate IDs or delete content. These internal layers are covered
-by real PostgreSQL crash/race/rollback tests. They still need the concrete
-reviewed content/SSG participant, publisher CLI orchestration and coherent staff
-publication observer. The existing synthetic initial activation remains a
-separate fixture; it is not evidence that the full publisher is integrated.
+by real PostgreSQL crash/race/rollback tests. The concrete prepared content/SSG
+participant and operator CLI are now integrated. Initial synthetic activation
+remains a separate fixture. New source registration/ID allocation, general
+bootstrap/index operations, production cutover and final publication acceptance
+remain unfinished.
+
+Prepare and publish existing sources from a reviewed Git commit:
+
+```text
+python -m backend.content.publish prepare-sources --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --all --input-root var/publication-inputs --changes var/prepared-edition.json
+python -m frontend.build_public --input-root var/publication-inputs --release-id <unique release> --manifest-digest <input manifest digest> --receipt-digest <input receipt digest> --output var/publication-output/<unique release> --origin http://127.0.0.1:8121
+python -m backend.content.publish plan --changes var/prepared-edition.json --plan var/publication-plan.json --input-root var/publication-inputs --output-root var/publication-output/<unique release> --output-digest <trusted output manifest SHA256> --release-root var/serving/releases --artifact-root var/serving/frontend --origin http://127.0.0.1:8121
+python -m backend.content.publish publish --plan var/publication-plan.json --key <stable unique operation key> --owner <stable owner UUID> --input-root var/publication-inputs --output-root var/publication-output/<unique release> --release-root var/serving/releases --artifact-root var/serving/frontend
+python -m backend.content.publish status
+```
+
+The target DB must already contain its checked schema and existing content.
+Source preparation reads one repeatable snapshot and preserves PK/FK/created_at.
+Only changed rows get the captured updated_at; source ownership/digests refuse
+runtime edits. All published sources/assets must agree with the candidate.
+PostgreSQL orders a VALUES projection of the captured catalogue, retaining its
+real collation without writing rows or allocating sequences. The command creates
+immutable input files and an exclusive prepared-edition file; it does not claim
+or activate a publication. `--dry-run` performs source/selection/conflict checks
+without creating those files. New IDs/source registrations fail explicitly.
+
+Build output is independently verified before `plan` writes its exclusive plan
+file. The bound edition file rejects drift between preparation and planning.
+`publish` claims the durable gate, stages in operation/owner/generation paths,
+installs only absent or byte-identical files, commits domain updates once, and
+switches the descriptor only after complete installed-byte verification. A lease
+worker uses its own sessions while staging/probing. Actual HTTP verifies current
+release identity, every public document/alias and reviewed asset, asset ETags,
+sitemap/robots, redirects and removed URLs. Failed probes retain pending recovery
+and return nonzero. No filesystem active pointer or Node serving process exists.
+
+Use per-release subdirectories in the serving frontend root. Retain the initial
+artifact under its release ID there as well; do not mix an old single-output
+manifest with the parent directory of future releases. New output pins are read
+from the matching committed/applied journal plan, including its plan digest;
+rendering a previously selected release never resolves latest again. The env pin
+map is retained for explicitly trusted older initial artifacts and may be `{}`
+when all releases use the prepared publisher.
+
+To unpublish an existing page, replace `--all` with `--slug <slug>` and add
+`--kind unpublish` to both `prepare-sources` and `plan`; invoke `unpublish` instead
+of `publish`. The next build excludes its HTML/catalogue/sitemap entry and leaves
+the DB row and historical releases intact. Explicit redirects keep their usual
+precedence. No cache purge success is invented; public documents revalidate at
+the Python gateway and public assets use content ETags.
+
+Recovery/control commands use the operation UUID and observed/current generation
+from `status`; all errors are sanitized and nonzero:
+
+```text
+python -m backend.content.publish resume --operation-id <operation> --owner <current owner> --generation <current generation> --input-root var/publication-inputs --output-root var/publication-output/<release> --release-root var/serving/releases --artifact-root var/serving/frontend
+python -m backend.content.publish recover --operation-id <operation> --owner <new recovery owner> --generation <observed expired generation> --input-root var/serving/releases --output-root var/serving/frontend/<release> --release-root var/serving/releases --artifact-root var/serving/frontend
+python -m backend.content.publish renew --operation-id <operation> --owner <current owner> --generation <generation>
+python -m backend.content.publish surrender --operation-id <operation> --owner <current owner> --generation <generation>
+python -m backend.content.publish abort --operation-id <operation> --owner <current owner> --generation <generation> --release-root var/serving/releases
+```
+
+Takeover requires an expired/surrendered lease and the exact observed generation.
+After commit, recovery always moves forward and reconciles the actual descriptor;
+it never reapplies the domain patch. Before commit, abort proves the unchanged DB
+and previous release even if the candidate files are lost. Lease controls and
+terminal resume do not require candidate files. For recovery before successful
+staging, supply the original reviewed input/output handoffs instead of the
+installed roots shown above. Keep operation-owned staging paths for diagnosis;
+automatic garbage collection is not implemented and no other paths are deleted.

@@ -51,7 +51,7 @@ def public_redirect_or_missing(release, path):
         raise wire.unavailable()
     # Same URI serialization as Django iri_to_uri; existing escapes stay intact.
     return Response(status_code=301 if redirect['is_permanent'] else 302,
-                    headers={'Location': quote(target, safe="/#%[]=:;$&()+,!?*@'~")})
+                    headers={'Location': quote(target, safe="/#%[]=:;$&()+,!?*@'~"), 'Cache-Control': 'no-cache'})
 
 
 def create_app(engine, signer, *, release_store=None, namespace='public', authenticate=None,
@@ -254,11 +254,11 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
             mime = {'style': 'text/css', 'script': 'text/javascript'}.get(desc['kind'], mimetypes.guess_type(path)[0] or 'application/octet-stream')
             etag = '"' + desc['sha256'] + '"'
             if request.headers.get('if-none-match') == etag:
-                return Response(status_code=304, headers={'ETag': etag})
-            return Response(raw if request.method == 'GET' else b'', headers={'Content-Type': mime, 'ETag': etag, 'X-Content-Type-Options': 'nosniff'})
+                return Response(status_code=304, headers={'ETag': etag, 'Cache-Control': 'no-cache'})
+            return Response(raw if request.method == 'GET' else b'', headers={'Content-Type': mime, 'ETag': etag, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-cache'})
         if path == '/robots.txt':
             text = 'User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: ' + public_origin + '/sitemap.xml\n'
-            return Response(text if request.method != 'HEAD' else '', headers={'Content-Type': 'text/plain; charset=utf-8'})
+            return Response(text if request.method != 'HEAD' else '', headers={'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache'})
         if path == '/sitemap.xml':
             root = Element('urlset', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
             for entry in sorted(release.index['pages'], key=lambda p: p['id']):
@@ -267,7 +267,7 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
                                     ('changefreq', entry['sitemap_changefreq']), ('priority', str(entry['sitemap_priority']))]:
                     SubElement(url, name).text = value
             raw = b'<?xml version="1.0" encoding="UTF-8"?>\n' + tostring(root, encoding='utf-8')
-            return Response(raw if request.method != 'HEAD' else b'', headers={'Content-Type': 'application/xml; charset=utf-8'})
+            return Response(raw if request.method != 'HEAD' else b'', headers={'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'no-cache'})
         try:
             page = release.page_path(path)
         except wire.APIError as error:
@@ -278,7 +278,7 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
             raise wire.unavailable()
         context = release.renderer_context(page, request.query_params)
         html = render_page(deepcopy(page), context, public_origin + page['seo']['canonical_path'])
-        return Response(html if request.method != 'HEAD' else '', headers={'Content-Type': 'text/html; charset=utf-8'})
+        return Response(html if request.method != 'HEAD' else '', headers={'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache'})
 
     app.add_api_route('/{path:path}', public, methods=['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'TRACE'], include_in_schema=False)
     return app

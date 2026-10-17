@@ -17,16 +17,15 @@ import sqlalchemy as sa
 from starlette.responses import Response
 from starlette.concurrency import run_in_threadpool
 
-from backend.content.releases import ReleaseStore, active_release, active_descriptor, inside
+from backend.content.releases import active_descriptor, inside
 from backend.content.verified_release_cache import VerifiedReleaseStore
-from backend.content.projection import seo
 from backend.infrastructure.database import DatabaseConfig, create_engine, check_connection
 from backend.infrastructure.http.app import create_app
 from backend.infrastructure.http.signing import Signer
 from backend.infrastructure.http import transport as wire
 from backend.infrastructure.uow import UnitOfWork
-from backend.models.baseline import User, ContentPage
-from backend.models.protocol import TargetSession, PublicationGate
+from backend.models.baseline import User
+from backend.models.protocol import TargetSession
 from backend.staff.authorization import AuthenticatedIdentity
 
 
@@ -101,7 +100,9 @@ def artifact_for_descriptor(root, digests, descriptor):
     root = Path(root).resolve()
     base = root if (root / 'output-manifest.json').is_file() else inside(root, descriptor.release_id)
     raw = inside(base, 'output-manifest.json').read_bytes()
-    if sha256(raw).hexdigest() != digests.get(descriptor.release_id):
+    pin = {'release_id': descriptor.release_id, 'manifest_digest': descriptor.manifest_digest}
+    trusted_digest = digests(pin) if callable(digests) else digests.get(descriptor.release_id)
+    if sha256(raw).hexdigest() != trusted_digest:
         raise wire.unavailable()
     manifest = wire.decode_json(raw)
     if (manifest['release_id'] != descriptor.release_id
@@ -130,35 +131,15 @@ PRIVATE_READ = re.compile(
 
 def create_public_app(engine, signer, *, release_root, artifact_root, artifact_digests, origin, identity_service=None):
     from frontend.rendering import PublicRenderer
+    from backend.content.artifact_pins import PublicationArtifactPins
+    from backend.content.observation import PublicationObserver
+    artifact_digests = PublicationArtifactPins(engine, artifact_digests)
     store = VerifiedReleaseStore(release_root)
     renderer = PublicRenderer(artifact_root, artifact_digests)
     authenticate = ReadSessionAuthenticator(engine, signer.key, signer.fallback_keys)
 
-    def initial_edition(uow, page_id):
-        gate_row = uow.session.get(PublicationGate, 'public')
-        if gate_row is None or gate_row.pending_operation_id is not None:
-            raise wire.unavailable()
-        release = active_release(uow, store, 'public')
-        row, page = uow.session.get(ContentPage, page_id), release.pages.get(page_id)
-        if row is None or page is None or not row.is_published or any(getattr(row, key) != page[key]
-                for key in ['title', 'slug', 'page_type', 'body_html', 'grade_id', 'subject_id', 'section_id', 'order']):
-            raise wire.unavailable()
-        if any(wire.timestamp(getattr(row, key)) != page[key] for key in ['created_at', 'updated_at']):
-            raise wire.unavailable()
-        if seo(row) != page['seo']:
-            raise wire.unavailable()
-        for field, suffix in [('page_css', 'css'), ('page_js', 'js')]:
-            artifact = release.assets.get(f'/static/mathstart/pages/{row.slug}/page.{suffix}')
-            if getattr(row, field).encode('utf-8') != (artifact[1] if artifact else b''):
-                raise wire.unavailable()
-        edition = {'release_id': release.descriptor.release_id, 'manifest_digest': release.descriptor.manifest_digest,
-                   'page_published': True, 'page_digest': sha256(release.page_raw[page_id]).hexdigest(),
-                   'canonical_path': page['seo']['canonical_path']}
-        return {'page_id': page_id, 'observed_at': wire.timestamp(uow.session.scalar(sa.select(sa.func.clock_timestamp()))),
-                'state': 'IN_SYNC', 'active': edition, 'db_edition': edition.copy(), 'pending': None}
-
     app = create_app(engine, signer, release_store=store, authenticate=authenticate,
-                     render_page=renderer, public_origin=origin, observe_publication=initial_edition,
+                     render_page=renderer, public_origin=origin, observe_publication=PublicationObserver(store),
                      csrf_check=lambda request: public_csrf_check(request, origin), identity_service=identity_service)
     trusted_host = urlsplit(origin).netloc.lower()
 

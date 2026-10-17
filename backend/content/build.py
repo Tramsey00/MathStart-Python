@@ -5,6 +5,7 @@ trust or select files. No active descriptor or publication state is changed.
 """
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -164,6 +165,16 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
                'topics': len(index['catalogue']['topics']), 'assets': len(files) - len(pages) - 1,
                'files': inventory, 'source_files': [f for b in bundles.values() for f in b.files],
                'activation': 'NOT_PERFORMED'}
+    install_build_inputs(output_root, release_id, descriptor, receipt, files)
+    return descriptor, receipt
+
+
+def install_build_inputs(output_root, release_id, descriptor, receipt, files):
+    """Build-only handoff; does not claim a gate or activate any release."""
+    output_root = Path(output_root).resolve()
+    target = inside(output_root, release_id)
+    if target.exists():
+        raise SourceError('Immutable release already exists')
     # Stage under the same filesystem; verification precedes one directory rename.
     stage = output_root / ('.staging-' + uuid.uuid4().hex)
     stage.mkdir(parents=True)
@@ -173,9 +184,9 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
         with destination.open('xb') as stream:
             stream.write(raw)
             stream.flush()
-            import os
             os.fsync(stream.fileno())
-    (stage / 'receipt.json').write_bytes(encoded(receipt))
+    with (stage / 'receipt.json').open('xb') as stream:
+        stream.write(encoded(receipt)); stream.flush(); os.fsync(stream.fileno())
     # ReleaseStore resolves by release identity, so validate via the staging name.
     temporary = stage / release_id
     temporary.mkdir()
@@ -185,4 +196,3 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
     ReleaseStore(stage).load(descriptor)
     temporary.rename(target)
     stage.rmdir()
-    return descriptor, receipt

@@ -79,7 +79,8 @@ class PublicRenderer:
         if not (root / 'output-manifest.json').exists():
             root = inside(root, pin['release_id'])
         manifest_raw = (root / 'output-manifest.json').read_bytes()
-        if sha256(manifest_raw).hexdigest() != self.digests.get(pin['release_id']):
+        trusted_digest = self.digests(pin) if callable(self.digests) else self.digests.get(pin['release_id'])
+        if sha256(manifest_raw).hexdigest() != trusted_digest:
             raise ValueError('Untrusted or corrupted artifact manifest')
         receipt = json.loads(manifest_raw)
         if receipt['release_id'] != pin['release_id'] or receipt['input_manifest_digest'] != pin['manifest_digest']:

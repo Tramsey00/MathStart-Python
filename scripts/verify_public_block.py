@@ -2,7 +2,9 @@
 
 Dependencies and browser binaries must be installed from the documented locks.
 The operator supplies a new empty disposable PostgreSQL database. This command
-does not create/drop databases, deploy, implement login, or run full publication.
+uses only marked disposable data. The publisher rehearsal creates/drops its own
+uniquely named child database and builds synthetic React editions. It does not
+deploy or establish final migration/publication acceptance.
 """
 from __future__ import annotations
 
@@ -174,9 +176,12 @@ def main(argv=None):
             'backend.tests.v04.test_content_checks',
             'backend.tests.v04.test_publication',
             'backend.tests.v04.test_editions',
+            'backend.tests.v04.test_preparation',
             'backend.tests.v04.test_artifacts',
             'backend.tests.v04.test_verified_release_cache',
             'frontend.tests.test_public_artifact','frontend.tests.test_legacy_comparator','-v'])
+        stage('prepared-publication-recovery', [sys.executable,'scripts/run_unittest.py',
+            '--start','backend/tests/v04','--pattern','test_participant.py'])
         legacy_argv = [sys.executable,'-m','frontend.legacy_comparator','--build-config',str(config_path),
             '--legacy-python',legacy_executable(args.legacy_python),'--runtime-root',str(root / 'legacy'),
             '--port',str(args.legacy_port)]

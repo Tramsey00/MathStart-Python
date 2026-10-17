@@ -84,6 +84,40 @@ def decoded(table, row):
     return result
 
 
+def project_updates(before, changes):
+    """Validate existing-row patches without SQL, sequences or filesystem effects."""
+    from copy import deepcopy
+    if not isinstance(before, dict) or set(before) != set(TABLES) or not isinstance(changes, list):
+        raise PublicationConflict('INVALID_EDITION')
+    result, rows = deepcopy(before), {}
+    for name in TABLES:
+        table = metadata.tables[name]
+        indexed = {}
+        for row in result[name]:
+            canonical = normalized(decoded(table, row))
+            keys = tuple(canonical[c.name] for c in table.primary_key)
+            if keys in indexed or canonical != row:
+                raise PublicationConflict('INVALID_EDITION')
+            indexed[keys] = row
+        rows[name] = indexed
+    seen = set()
+    for change in changes:
+        if (not isinstance(change, dict) or set(change) != {'table', 'before', 'after'}
+                or change['table'] not in TABLES):
+            raise PublicationConflict('INVALID_EDITION')
+        table = metadata.tables[change['table']]
+        old, new = (normalized(decoded(table, change[key])) for key in ('before', 'after'))
+        keys = tuple(old[c.name] for c in table.primary_key)
+        if keys != tuple(new[c.name] for c in table.primary_key) or (table.name, keys) in seen:
+            raise PublicationConflict('INVALID_EDITION')
+        seen.add((table.name, keys))
+        current = rows[table.name].get(keys)
+        if current != old:
+            raise PublicationConflict('SOURCE_CONFLICT')
+        current.update(new)
+    return result
+
+
 def apply_updates(session, changes, before_digest, after_digest):
     """Called inside the P1 gate transaction; a caller must never commit alone.
 
@@ -91,7 +125,7 @@ def apply_updates(session, changes, before_digest, after_digest):
     Fingerprints include catalogue, media, redirects and publication metadata,
     so a stale plan cannot silently replace a concurrent runtime edit.
     """
-    if not isinstance(changes, list) or not changes:
+    if not isinstance(changes, list):
         raise PublicationConflict('INVALID_EDITION')
     if fingerprint(session, lock=True) != before_digest:
         raise PublicationConflict('SOURCE_CONFLICT')
