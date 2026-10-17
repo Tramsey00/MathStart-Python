@@ -13,9 +13,9 @@ import uuid
 import sqlalchemy as sa
 
 from backend.content.bootstrap import bootstrap_sources
-from backend.content.build import write_build_inputs, verify_build_inputs, encoded
+from backend.content.build import write_build_inputs, encoded
 from backend.content.sources import read_json
-from backend.content.public_runtime import session_digest, user_auth_hash, artifact_for, artifact_bytes
+from backend.content.public_runtime import session_digest, user_auth_hash
 from backend.infrastructure.database import DatabaseConfig, create_engine
 from backend.infrastructure.uow import UnitOfWork
 from backend.infrastructure.http.signing import Signer
@@ -80,25 +80,9 @@ def prepare(engine, source_root, runtime_root, release_id, source_sha, key):
 
 
 def activate_initial(engine, release_root, release_id, receipt_digest, artifact_root, artifact_digest, origin):
-    release = verify_build_inputs(release_root, release_id, receipt_digest)
-    root, manifest = artifact_for(artifact_root, {release_id: artifact_digest}, release)
-    if manifest['origin'] != origin or manifest['input_receipt_digest'] != receipt_digest:
-        raise RuntimeError('Artifact origin mismatch')
-    for item in manifest['files']:
-        artifact_bytes(root, manifest, item['path'])
-    if set(manifest['page_ids']) != {str(pk) for pk in release.pages}:
-        raise RuntimeError('Incomplete frontend page coverage')
-    canonical = {page['seo']['canonical_path'] for page in release.pages.values()}
-    public_urls = canonical | {a['url'] for a in release.index['aliases']} | set(release.index['system_urls'])
-    if (set(manifest['public_urls']) != public_urls or set(manifest['page_semantic_digests']) != canonical
-            or manifest['redirects'] != release.index['redirects'] or manifest['private_exports'] != []):
-        raise RuntimeError('Frontend public coverage mismatch')
-    from frontend.rendering import PublicRenderer
-    renderer = PublicRenderer(artifact_root, {release_id: artifact_digest})
-    for page in release.pages.values():
-        html = renderer(page, release.renderer_context(page, {}), origin + page['seo']['canonical_path'])
-        if page['body_html'] not in html:
-            raise RuntimeError('Incomplete frontend authored HTML')
+    from backend.content.artifacts import verify_public_artifacts
+    release, _, _ = verify_public_artifacts(release_root, release_id, receipt_digest,
+                                           artifact_root, artifact_digest, origin)
     with engine.begin() as c:
         require_disposable(c)
         # Initial fixture only: never replace a real or preexisting authority.
