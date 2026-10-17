@@ -9,6 +9,7 @@ an aborted transaction permitted. Rows/history are never deleted here.
 from datetime import datetime, timezone
 from hashlib import sha256
 import uuid
+from itertools import groupby
 
 import sqlalchemy as sa
 
@@ -160,12 +161,19 @@ def apply_updates(session, changes, before_digest, after_digest):
             raise PublicationConflict('SOURCE_CONFLICT')
         prepared.append((TABLE_ORDER[table.name], keys, table, predicate, after, before is None))
     inserted = set()
-    for _, _, table, predicate, after, is_insert in sorted(prepared, key=lambda row: row[:2]):
+    ordered = sorted(prepared, key=lambda row: row[:2])
+    # Consecutive inserts share a table/column set. Send them as one DBAPI batch
+    # instead of one network roundtrip per bootstrap row, while retaining the
+    # existing parent/PK order and every interleaved update's original position.
+    for (_, name, is_insert), items in groupby(ordered, key=lambda row: (row[0], row[2].name, row[5])):
+        batch = list(items)
+        table = batch[0][2]
         if is_insert:
-            session.execute(sa.insert(table).values(**after))
-            inserted.add(table.name)
+            session.execute(sa.insert(table), [row[4] for row in batch])
+            inserted.add(name)
         else:
-            session.execute(sa.update(table).where(predicate).values(**after))
+            for _, _, _, predicate, after, _ in batch:
+                session.execute(sa.update(table).where(predicate).values(**after))
     if fingerprint(session) != after_digest:
         raise PublicationConflict('EDITION_CONFLICT')
     # Explicit prepared PKs must not collide with later ordinary ORM inserts.

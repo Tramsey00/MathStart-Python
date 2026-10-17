@@ -198,6 +198,24 @@
       "skipped": 0,
       "status": "PASS",
       "scope": "Actual loopback readiness, trusted Host, redirect/503/partial document denial, no environment proxy"
+    },
+    {
+      "scope": "Backend actual case-ID aggregation,3 health tests; deliberately skipped suite rejected with RuntimeError, not target PASS",
+      "log": "var/backend-case-ids-20261017-2352.log",
+      "log_sha256": "fc61d3df735253e769a62eb7f6202f8d5ed0d04f538c4e8159079fe88be9b605",
+      "status": "PASS_FAILURE_ROUTING"
+    },
+    {
+      "scope": "Actual managed CLI dirty-source preflight; exit2 and FAIL/DirtySource result, no DB/runtime started",
+      "log": "var/managed-dirty-refusal-20261017-2353.log",
+      "log_sha256": "9394e76ef315f31ebdd1ecc6b21817693bb1a367628a9c7fdeb7ea971194b461",
+      "status": "EXPECTED_FAILURE_CONFIRMED"
+    },
+    {
+      "scope": "After final child-bound assertion and managed diagnostics change,2 addressed R03 registry/deadline cases",
+      "status": "PASS",
+      "tests": 2,
+      "skipped": 0
     }
   ],
   "failed_attempts": [
@@ -227,9 +245,9 @@
     }
   ],
   "pending": [
-    "Diagnose full bootstrap public probe failure with safe endpoint timing/status trace; new tracing assertions not run yet",
-    "Real managed lifecycle execution",
-    "Actual frontend builder image prerender and staged infrastructure",
+    "Full bootstrap after lease retry/batch fix, with every public assertion and private/session/sequence repeat checks",
+    "Real managed lifecycle after npm cache relocated under ignored var/; dirty policy remains strict",
+    "Staged infrastructure, clean clone, backup/restore/rollback/performance",
     "Final combined migration QA and independent review"
   ],
   "original_database": "mathstart-python-db-1:5432 untouched; owned helper containers removed after listed completed runs",
@@ -256,7 +274,159 @@
       "log_sha256": "69ac2232c292af7b0292e46d3531ba71236b90829dbc49f8c59e94577897290a"
     },
     "full_runtime": "NOT_RUN",
-    "builder_actual_prerender": "NOT_RUN",
+    "builder_actual_prerender": {
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 228.047,
+      "scope": "Actual containerized frontend build of retained synthetic immutable inputs; not final candidate QA",
+      "input_release_id": "backend-e63bf34109f447118858df996066a923",
+      "input_manifest_digest": "6935905740be774c02f16ad8b0d66618fb53817b0d3b282794796a69c94e7a5e",
+      "input_receipt_digest": "e980bd60f418b1c0b20574e6aa792e8037a41c458374baa18fae6cc1a4f8db90",
+      "log_sha256": "e0526bc039db2da8453c80c4151c7aa82b0446ea4bbebfad8f3b8da9527a4df3",
+      "pages": 279,
+      "files": 423,
+      "output_manifest_digest": "46bef25eb7ef4298a21ed770cc8eff47ae67c8e43e5013866844376de97f82af"
+    },
     "base_digests_pinned_to_resolved_build_inputs": true
-  }
+  },
+  "followup_runs": [
+    {
+      "log": "var/bootstrap-probe-diagnostic-20261017-233200.log",
+      "log_sha256": "71fe9ac600a98f175da5cb33ac0e83ad79ed3dfcc685e51db7bba3e0a1384f17",
+      "status": "FAIL",
+      "tests": 1,
+      "scope": "All813 public probes completed, maximum4.641s; final current-owner acknowledgement FENCED",
+      "test_ids": [
+        "backend.tests.v04.test_bootstrap_plan.BootstrapPlanTests.test_real_full_bootstrap_publication_preserves_auth_profiles_receipts_sessions_and_media.test_real_full_bootstrap_publication_preserves_auth_profiles_receipts_sessions_and_media"
+      ]
+    },
+    {
+      "log": "var/lease-worker-red-20261017-234419.log",
+      "log_sha256": "08af9af38c511fc8781760029528f0e62dd76b7f905c59a0be5d00fb4862460d",
+      "status": "EXPECTED_FAILURE_REPRODUCED",
+      "tests": 2,
+      "scope": "Before fix: real gate lock timeout stopped renewal permanently; two regression failures expected",
+      "test_ids": [
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_lease_worker_recovers_real_gate_lock_timeout_before_expiry.test_lease_worker_recovers_real_gate_lock_timeout_before_expiry",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_lease_retry_never_revives_expired_owner.test_lease_retry_never_revives_expired_owner"
+      ]
+    },
+    {
+      "log": "var/publication-lease-batch-20261017-234529.log",
+      "log_sha256": "b0a603ab6b07f15cbec43b809ff38b8bd5c938cbf3765e99169b0bc106999f4b",
+      "status": "PASS",
+      "tests": 30,
+      "scope": "After fix: PG lock-timeout renewal/expired fence + full publication/edition regression suites",
+      "test_ids": [
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_changed_domain_before_commit_rolls_back_and_retains_pending.test_changed_domain_before_commit_rolls_back_and_retains_pending",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_competing_takeovers_have_one_winner_and_never_replace_operation.test_competing_takeovers_have_one_winner_and_never_replace_operation",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_corrupt_immutable_artifact_does_not_switch_active.test_corrupt_immutable_artifact_does_not_switch_active",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_delayed_activation_loses_to_takeover_without_switching_pointer.test_delayed_activation_loses_to_takeover_without_switching_pointer",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_delayed_public_probe_cannot_acknowledge_or_clear_new_owner_pending.test_delayed_public_probe_cannot_acknowledge_or_clear_new_owner_pending",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_delayed_stage_cannot_advance_after_takeover.test_delayed_stage_cannot_advance_after_takeover",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_domain_commit_once_and_terminal_ack_never_reactivates_old_release.test_domain_commit_once_and_terminal_ack_never_reactivates_old_release",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_expired_pending_does_not_admit_new_operation_or_renew_old_owner.test_expired_pending_does_not_admit_new_operation_or_renew_old_owner",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_failed_public_probe_keeps_pending_and_blocks_next_publish.test_failed_public_probe_keeps_pending_and_blocks_next_publish",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_lease_expiry_inside_domain_apply_rolls_back_domain_and_journal.test_lease_expiry_inside_domain_apply_rolls_back_domain_and_journal",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_lease_retry_never_revives_expired_owner.test_lease_retry_never_revives_expired_owner",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_lease_worker_recovers_real_gate_lock_timeout_before_expiry.test_lease_worker_recovers_real_gate_lock_timeout_before_expiry",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_legacy_history_stops_publication_before_any_gate_or_domain_write.test_legacy_history_stops_publication_before_any_gate_or_domain_write",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_lost_activation_ack_reconciles_exact_next_after_takeover.test_lost_activation_ack_reconciles_exact_next_after_takeover",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_plan_is_detached_and_fence_overflow_never_wraps.test_plan_is_detached_and_fence_overflow_never_wraps",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_postcommit_takeover_reconciles_previous_without_reapplying_domain.test_postcommit_takeover_reconciles_previous_without_reapplying_domain",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_same_key_changed_plan_and_foreign_owner_do_not_gain_authority.test_same_key_changed_plan_and_foreign_owner_do_not_gain_authority",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_sql_barrier_rejects_expiry_after_python_guard_and_domain_flush.test_sql_barrier_rejects_expiry_after_python_guard_and_domain_flush",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_unrelated_corrupt_pointer_is_never_overwritten_or_released.test_unrelated_corrupt_pointer_is_never_overwritten_or_released",
+        "backend.tests.v04.test_publication.PostgreSQLPublicationTests.test_verification_receipt_is_bound_to_current_owner_and_generation.test_verification_receipt_is_bound_to_current_owner_and_generation",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_auth_table_unknown_columns_primary_key_and_boolean_coercion_refused.test_auth_table_unknown_columns_primary_key_and_boolean_coercion_refused",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_database_session_timezone_does_not_change_edition_identity.test_database_session_timezone_does_not_change_edition_identity",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_duplicate_patch_and_changed_before_row_are_rejected.test_duplicate_patch_and_changed_before_row_are_rejected",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_full_snapshot_update_preserves_identity_timestamps_and_rolls_back_by_default.test_full_snapshot_update_preserves_identity_timestamps_and_rolls_back_by_default",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_insert_collision_and_duplicate_are_refused_before_domain_sql.test_insert_collision_and_duplicate_are_refused_before_domain_sql",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_insert_wrong_digest_rolls_back_without_advancing_sequence.test_insert_wrong_digest_rolls_back_without_advancing_sequence",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_prepared_insert_consumes_no_sequence_until_apply_and_never_rewinds.test_prepared_insert_consumes_no_sequence_until_apply_and_never_rewinds",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_pure_projection_isolated_and_empty_patch_does_not_allocate_or_write.test_pure_projection_isolated_and_empty_patch_does_not_allocate_or_write",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_stale_full_database_fingerprint_refuses_without_overwrite.test_stale_full_database_fingerprint_refuses_without_overwrite",
+        "backend.tests.v04.test_editions.PostgreSQLEditionTests.test_wrong_next_digest_rolls_back_even_after_domain_sql_was_flushed.test_wrong_next_digest_rolls_back_even_after_domain_sql_was_flushed"
+      ]
+    },
+    {
+      "log": "var/r03-frozen-ignore-fix-20261017-2336.log",
+      "log_sha256": "ae7d07de06d0117743cde75018e66f87cde6056b9ca08c024ca9e58ba66c3977",
+      "status": "PASS",
+      "tests": 30,
+      "scope": "Frozen root .dockerignore restored, Dockerfile-specific exclusions retained",
+      "test_ids": [
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_failed_frontend_child_stays_failure_even_if_it_writes_pass_receipt.test_failed_frontend_child_stays_failure_even_if_it_writes_pass_receipt",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_frontend_result_rejects_zero_skipped_wrong_check_and_invalid_counts.test_frontend_result_rejects_zero_skipped_wrong_check_and_invalid_counts",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_real_child_receives_its_check_id_and_unique_result_destination.test_real_child_receives_its_check_id_and_unique_result_destination",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_real_empty_success_child_is_rejected_for_each_frontend_interface.test_real_empty_success_child_is_rejected_for_each_frontend_interface",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_real_success_child_with_empty_malformed_or_nonobject_result_is_rejected.test_real_success_child_with_empty_malformed_or_nonobject_result_is_rejected",
+        "test_migration_r03_verification.TargetRegistryTests.test_backend_suite_parent_allows_child_deadline_and_cleanup.test_backend_suite_parent_allows_child_deadline_and_cleanup",
+        "test_migration_r03_verification.TargetRegistryTests.test_ci_linkage_rejects_old_checkout_and_wrong_merge_parents.test_ci_linkage_rejects_old_checkout_and_wrong_merge_parents",
+        "test_migration_r03_verification.TargetRegistryTests.test_concrete_map_executes_real_entries_and_missing_partial_entry_fails.test_concrete_map_executes_real_entries_and_missing_partial_entry_fails",
+        "test_migration_r03_verification.TargetRegistryTests.test_database_configuration_does_not_fallback_to_sqlite.test_database_configuration_does_not_fallback_to_sqlite",
+        "test_migration_r03_verification.TargetRegistryTests.test_database_timeout_and_sensitive_child_errors_not_forwarded.test_database_timeout_and_sensitive_child_errors_not_forwarded",
+        "test_migration_r03_verification.TargetRegistryTests.test_dsn_and_session_headers_are_redacted_before_evidence.test_dsn_and_session_headers_are_redacted_before_evidence",
+        "test_migration_r03_verification.TargetRegistryTests.test_empty_and_skipped_unittest_are_failure.test_empty_and_skipped_unittest_are_failure",
+        "test_migration_r03_verification.TargetRegistryTests.test_failed_check_cannot_make_canonical_pass.test_failed_check_cannot_make_canonical_pass",
+        "test_migration_r03_verification.TargetRegistryTests.test_frontend_missing_script_and_missing_npm_are_failures.test_frontend_missing_script_and_missing_npm_are_failures",
+        "test_migration_r03_verification.TargetRegistryTests.test_group_semantics_and_empty_is_failure.test_group_semantics_and_empty_is_failure",
+        "test_migration_r03_verification.TargetRegistryTests.test_managed_lifecycle_keeps_exact_registry_and_only_moves_real_build.test_managed_lifecycle_keeps_exact_registry_and_only_moves_real_build",
+        "test_migration_r03_verification.TargetRegistryTests.test_missing_handoff_and_frontend_package_fail.test_missing_handoff_and_frontend_package_fail",
+        "test_migration_r03_verification.TargetRegistryTests.test_nested_target_registry_is_nonrecursive.test_nested_target_registry_is_nonrecursive",
+        "test_migration_r03_verification.TargetRegistryTests.test_nine_project_browser_deadline_is_bounded_above_child_cleanup.test_nine_project_browser_deadline_is_bounded_above_child_cleanup",
+        "test_migration_r03_verification.TargetRegistryTests.test_not_run_never_ready.test_not_run_never_ready",
+        "test_migration_r03_verification.TargetRegistryTests.test_preserved_input_and_frozen_manifest_bytes.test_preserved_input_and_frozen_manifest_bytes",
+        "test_migration_r03_verification.TargetRegistryTests.test_pure_is_explicit_subset_not_full_target.test_pure_is_explicit_subset_not_full_target",
+        "test_migration_r03_verification.TargetRegistryTests.test_rehearsals_require_explicit_disposable_guard.test_rehearsals_require_explicit_disposable_guard",
+        "test_migration_r03_verification.TargetRegistryTests.test_reviewed_handoff_requires_real_backend_file_and_rejects_escape.test_reviewed_handoff_requires_real_backend_file_and_rejects_escape",
+        "test_migration_r03_verification.TargetRegistryTests.test_runtime_receipt_requires_nonempty_unskipped_pg_evidence.test_runtime_receipt_requires_nonempty_unskipped_pg_evidence",
+        "test_migration_r03_verification.TargetRegistryTests.test_six_historical_chains_preserve_original_results_and_references.test_six_historical_chains_preserve_original_results_and_references",
+        "test_migration_r03_verification.TargetRegistryTests.test_success_exit_without_required_runtime_receipt_is_failure.test_success_exit_without_required_runtime_receipt_is_failure",
+        "test_migration_r03_verification.TargetRegistryTests.test_target_selection_contains_named_equivalents_and_pure_suites.test_target_selection_contains_named_equivalents_and_pure_suites",
+        "test_migration_r03_verification.TargetRegistryTests.test_timeout_and_missing_tool_nonzero.test_timeout_and_missing_tool_nonzero",
+        "test_migration_r03_verification.TargetRegistryTests.test_wrapper_timeout_and_output_redaction.test_wrapper_timeout_and_output_redaction"
+      ]
+    },
+    {
+      "log": "var/r03-lease-orchestration-20261017-2347.log",
+      "log_sha256": "8be366e7e75da435351b53d77b60440faafa0190cb26ba02ceb2d3e9ab6f71c3",
+      "status": "PASS",
+      "tests": 30,
+      "scope": "Backend volume deadlines1800/1860, exact registry and receipt adapters",
+      "test_ids": [
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_failed_frontend_child_stays_failure_even_if_it_writes_pass_receipt.test_failed_frontend_child_stays_failure_even_if_it_writes_pass_receipt",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_frontend_result_rejects_zero_skipped_wrong_check_and_invalid_counts.test_frontend_result_rejects_zero_skipped_wrong_check_and_invalid_counts",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_real_child_receives_its_check_id_and_unique_result_destination.test_real_child_receives_its_check_id_and_unique_result_destination",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_real_empty_success_child_is_rejected_for_each_frontend_interface.test_real_empty_success_child_is_rejected_for_each_frontend_interface",
+        "test_migration_r03_frontend_receipts.FrontendReceiptTests.test_real_success_child_with_empty_malformed_or_nonobject_result_is_rejected.test_real_success_child_with_empty_malformed_or_nonobject_result_is_rejected",
+        "test_migration_r03_verification.TargetRegistryTests.test_backend_suite_parent_allows_child_deadline_and_cleanup.test_backend_suite_parent_allows_child_deadline_and_cleanup",
+        "test_migration_r03_verification.TargetRegistryTests.test_ci_linkage_rejects_old_checkout_and_wrong_merge_parents.test_ci_linkage_rejects_old_checkout_and_wrong_merge_parents",
+        "test_migration_r03_verification.TargetRegistryTests.test_concrete_map_executes_real_entries_and_missing_partial_entry_fails.test_concrete_map_executes_real_entries_and_missing_partial_entry_fails",
+        "test_migration_r03_verification.TargetRegistryTests.test_database_configuration_does_not_fallback_to_sqlite.test_database_configuration_does_not_fallback_to_sqlite",
+        "test_migration_r03_verification.TargetRegistryTests.test_database_timeout_and_sensitive_child_errors_not_forwarded.test_database_timeout_and_sensitive_child_errors_not_forwarded",
+        "test_migration_r03_verification.TargetRegistryTests.test_dsn_and_session_headers_are_redacted_before_evidence.test_dsn_and_session_headers_are_redacted_before_evidence",
+        "test_migration_r03_verification.TargetRegistryTests.test_empty_and_skipped_unittest_are_failure.test_empty_and_skipped_unittest_are_failure",
+        "test_migration_r03_verification.TargetRegistryTests.test_failed_check_cannot_make_canonical_pass.test_failed_check_cannot_make_canonical_pass",
+        "test_migration_r03_verification.TargetRegistryTests.test_frontend_missing_script_and_missing_npm_are_failures.test_frontend_missing_script_and_missing_npm_are_failures",
+        "test_migration_r03_verification.TargetRegistryTests.test_group_semantics_and_empty_is_failure.test_group_semantics_and_empty_is_failure",
+        "test_migration_r03_verification.TargetRegistryTests.test_managed_lifecycle_keeps_exact_registry_and_only_moves_real_build.test_managed_lifecycle_keeps_exact_registry_and_only_moves_real_build",
+        "test_migration_r03_verification.TargetRegistryTests.test_missing_handoff_and_frontend_package_fail.test_missing_handoff_and_frontend_package_fail",
+        "test_migration_r03_verification.TargetRegistryTests.test_nested_target_registry_is_nonrecursive.test_nested_target_registry_is_nonrecursive",
+        "test_migration_r03_verification.TargetRegistryTests.test_nine_project_browser_deadline_is_bounded_above_child_cleanup.test_nine_project_browser_deadline_is_bounded_above_child_cleanup",
+        "test_migration_r03_verification.TargetRegistryTests.test_not_run_never_ready.test_not_run_never_ready",
+        "test_migration_r03_verification.TargetRegistryTests.test_preserved_input_and_frozen_manifest_bytes.test_preserved_input_and_frozen_manifest_bytes",
+        "test_migration_r03_verification.TargetRegistryTests.test_pure_is_explicit_subset_not_full_target.test_pure_is_explicit_subset_not_full_target",
+        "test_migration_r03_verification.TargetRegistryTests.test_rehearsals_require_explicit_disposable_guard.test_rehearsals_require_explicit_disposable_guard",
+        "test_migration_r03_verification.TargetRegistryTests.test_reviewed_handoff_requires_real_backend_file_and_rejects_escape.test_reviewed_handoff_requires_real_backend_file_and_rejects_escape",
+        "test_migration_r03_verification.TargetRegistryTests.test_runtime_receipt_requires_nonempty_unskipped_pg_evidence.test_runtime_receipt_requires_nonempty_unskipped_pg_evidence",
+        "test_migration_r03_verification.TargetRegistryTests.test_six_historical_chains_preserve_original_results_and_references.test_six_historical_chains_preserve_original_results_and_references",
+        "test_migration_r03_verification.TargetRegistryTests.test_success_exit_without_required_runtime_receipt_is_failure.test_success_exit_without_required_runtime_receipt_is_failure",
+        "test_migration_r03_verification.TargetRegistryTests.test_target_selection_contains_named_equivalents_and_pure_suites.test_target_selection_contains_named_equivalents_and_pure_suites",
+        "test_migration_r03_verification.TargetRegistryTests.test_timeout_and_missing_tool_nonzero.test_timeout_and_missing_tool_nonzero",
+        "test_migration_r03_verification.TargetRegistryTests.test_wrapper_timeout_and_output_redaction.test_wrapper_timeout_and_output_redaction"
+      ]
+    }
+  ]
 }

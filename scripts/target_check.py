@@ -21,7 +21,7 @@ BACKEND_CHECKS = frozenset({"system", "migrations", "lesson-sources", "content-q
                             "upgrade-A", "upgrade-B", "upgrade-C"})
 FRONTEND_SCRIPTS = {"frontend-typecheck": "typecheck", "frontend-tests": "test",
                     "frontend-build": "build", "frontend-e2e": "test:e2e"}
-CHECK_TIMEOUTS = {'backend-tests': 900, 'frontend-e2e': 7200}
+CHECK_TIMEOUTS = {'backend-tests': 1800, 'frontend-e2e': 7200}
 
 
 def validate_result(path, check):

@@ -26,8 +26,11 @@ Fresh runs twice, preserves repeat-bootstrap content/users, validates the full
 commands execute the target schema CLI on populated historical fixtures and
 check data, migration history, grade epoch, constraints/head and sequences.
 Result receipts are under `var/target-checks/<check>-<uuid>/result.json`; failures,
-empty suites or skipped tests cannot produce PASS. The backend child has a900s
-bound and its repository parent reserves960s including cleanup. The full nine-project
+empty suites or skipped tests cannot produce PASS. The backend child has a1800s
+bound and its repository parent reserves1860s including cleanup. The full bootstrap
+adds813 actual public probes to the existing backend/legacy/build suites; its
+measured Windows duration alone exceeded the old backend timeout's spare time.
+All assertions and zero-skip requirements remain enforced. The full nine-project
 browser child has a7200s bound, with7500s for its parent/cleanup; ordinary
 commands retain their shorter bounds. These commands do not establish final migration acceptance.
 

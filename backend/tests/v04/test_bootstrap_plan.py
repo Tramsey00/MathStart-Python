@@ -210,6 +210,8 @@ class BootstrapPlanTests(unittest.TestCase):
                     probes.append(item)
                     measured['requests'] += 1
                     measured['maximum_seconds'] = max(measured['maximum_seconds'], elapsed)
+                    if measured['requests'] % 100 == 0:
+                        print(json.dumps({'full_bootstrap_public_probes': measured}), flush=True)
             with patch.object(httpx.Client, 'send', observed):
                 try:
                     self.assertEqual(finish(authority, token), 'COMPLETE')

@@ -71,9 +71,10 @@ class TargetRegistryTests(unittest.TestCase):
                 self.assertEqual(verify_repo.run_command(["missing"]), code)
 
     def test_backend_suite_parent_allows_child_deadline_and_cleanup(self):
+        self.assertEqual(target_check.CHECK_TIMEOUTS['backend-tests'], 1800)
         with patch.object(verify_repo.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)) as run, redirect_stdout(io.StringIO()):
             verify_repo.run_command([sys.executable, 'scripts/target_check.py', 'backend-tests'])
-            self.assertEqual(run.call_args.kwargs['timeout'], 960)
+            self.assertEqual(run.call_args.kwargs['timeout'], 1860)
             verify_repo.run_command([sys.executable, 'scripts/target_check.py', 'migrations'])
             self.assertEqual(run.call_args.kwargs['timeout'], 600)
 

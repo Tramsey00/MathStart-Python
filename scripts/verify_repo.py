@@ -117,7 +117,7 @@ def run_command(command: Sequence[str]) -> int:
     # The full backend suite includes schema replays, separate legacy oracles
     # and real React/HTTP publication. Allow its bounded child deadline plus
     # cleanup, while retaining the ordinary command deadline for other checks.
-    timeout = ({'backend-tests': 960, 'frontend-e2e': 7500}.get(command[-1], 600)
+    timeout = ({'backend-tests': 1860, 'frontend-e2e': 7500}.get(command[-1], 600)
                if 'scripts/target_check.py' in command else 600)
     try:
         completed = subprocess.run(list(command), cwd=ROOT, check=False,

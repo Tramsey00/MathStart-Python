@@ -39,7 +39,7 @@ def selection(groups):
 
 def deadline(check):
     # Nine actual browser projects have an explicitly bounded, longer lifecycle.
-    return 7500 if check.command[-1] == 'frontend-e2e' else 960 if check.command[-1] == 'backend-tests' else 600
+    return 7500 if check.command[-1] == 'frontend-e2e' else 1860 if check.command[-1] == 'backend-tests' else 600
 
 
 def main(argv=None):
@@ -67,6 +67,12 @@ def main(argv=None):
         parser.error('Dedicated loopback PostgreSQL endpoint 55441 required')
     source = source_snapshot(ROOT)
     if source['dirty_paths'] and not args.allow_dirty:
+        root.mkdir(parents=True)
+        (root / 'result.json').write_text(json.dumps({
+            'version': 'managed-target-v1', 'status': 'FAIL', 'failure_class': 'DirtySource',
+            'source_before': source, 'cleanup': 'NOT_STARTED', 'formal_acceptance': 'HUMAN_PENDING'
+        }, indent=2) + '\n', encoding='utf-8', newline='\n')
+        print('Dirty source paths: ' + ', '.join(source['dirty_paths'][:10]), file=sys.stderr)
         parser.error('Commit the candidate or explicitly use development --allow-dirty')
     checks = selection(set(args.group or []))
     root.mkdir(parents=True)

@@ -19,7 +19,7 @@ from backend.content.build import encoded
 from backend.content.editions import snapshot, project_updates
 from backend.content.participant import PreparedPublication, PrecommitProof, NoDomainWork, digest
 from backend.content.publication import PublisherAuthority, PublicationConflict, OwnerToken, descriptor
-from backend.infrastructure.database import DatabaseConfig, create_engine
+from backend.infrastructure.database import DatabaseConfig, create_engine, DatabaseUnavailable
 from backend.infrastructure.http.transport import decode_json
 from backend.infrastructure.uow import UnitOfWork
 from backend.models.protocol import ActiveReleaseDescriptor, PublicationJournal, PublicationGate
@@ -29,9 +29,19 @@ from backend.models.protocol import ActiveReleaseDescriptor, PublicationJournal,
 def keep_lease(authority, token):
     stop = threading.Event()
     def renew():
-        while not stop.wait(authority.lease.total_seconds() / 3):
+        interval = authority.lease.total_seconds() / 3
+        delay = interval
+        while not stop.wait(delay):
             try:
                 authority.renew(token)
+                delay = interval
+            except DatabaseUnavailable:
+                # The publisher's own short gate transaction can temporarily
+                # exceed lock_timeout. A lease-only retry uses a new UoW and
+                # rechecks DB time, owner and generation before any write. It
+                # cannot revive an expired lease or a replaced owner, including
+                # after an unknown renewal COMMIT outcome.
+                delay = min(interval, 1)
             except Exception:
                 return
     thread = threading.Thread(target=renew, name='publication-lease', daemon=True)

@@ -64,13 +64,20 @@ def owned_database(admin, url, label):
                 c.execute(sa.text('DROP DATABASE ' + quote))
 
 
-def execute(modules):
+def execute(modules, *, case_ids=None):
     suite = unittest.defaultTestLoader.loadTestsFromNames(modules)
     if suite.countTestCases() == 0:
         raise RuntimeError('Backend suite is empty')
+    def identifiers(node):
+        if isinstance(node, unittest.TestSuite):
+            return [identity for child in node for identity in identifiers(child)]
+        return [node.id()]
+    planned = identifiers(suite)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
-    if not result.wasSuccessful() or result.skipped:
+    if not result.wasSuccessful() or result.skipped or result.testsRun != len(planned):
         raise RuntimeError('Backend tests failed or skipped')
+    if case_ids is not None:
+        case_ids.extend(planned)
     return result.testsRun
 
 
@@ -96,16 +103,17 @@ def run():
         os.environ['MATHSTART_V01_TEST_ADMIN_URL'] = url.set(database='postgres').render_as_string(hide_password=False)
         os.environ['MATHSTART_V02_TEST_ADMIN_URL'] = os.environ['MATHSTART_V01_TEST_ADMIN_URL']
         os.environ['MATHSTART_V01_EVIDENCE_DIR'] = str(Path(os.environ['MATHSTART_CHECK_RESULT']).parent / 'schema')
+        case_ids = []
         count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_postgres',
-                         'backend.tests.test_remediation', 'backend.tests.test_discovery'])
+                         'backend.tests.test_remediation', 'backend.tests.test_discovery'], case_ids=case_ids)
         count += execute(['backend.tests.v02.test_unit', 'backend.tests.v02.test_http',
-                          'backend.tests.v02.test_postgres', 'backend.tests.v02.test_asset_regressions'])
+                          'backend.tests.v02.test_postgres', 'backend.tests.v02.test_asset_regressions'], case_ids=case_ids)
         with owned_database(admin, url, 'identity') as engine:
             with engine.begin() as c:
                 fresh(c)
             os.environ['MATHSTART_V03_DATABASE_URL'] = engine.url.render_as_string(hide_password=False)
             count += execute(['backend.tests.v03.test_legacy_proof', 'backend.tests.v03.test_cutover',
-                              'backend.tests.v03.test_identity', 'backend.tests.v03.test_staff_writes'])
+                              'backend.tests.v03.test_identity', 'backend.tests.v03.test_staff_writes'], case_ids=case_ids)
         with owned_database(admin, url, 'content') as engine:
             prepare_content_runtime(engine, Path(os.environ['MATHSTART_CHECK_RESULT']).parent)
             count += execute(['backend.tests.v04.test_build', 'backend.tests.v04.test_read_runtime',
@@ -113,11 +121,12 @@ def run():
                 'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation', 'backend.tests.v04.test_registration',
                 'backend.tests.v04.test_bootstrap_plan',
                 'backend.tests.v04.test_artifacts', 'backend.tests.v04.test_artifact_pins', 'backend.tests.v04.test_verified_release_cache',
-                'backend.tests.v04.test_participant'])
+                'backend.tests.v04.test_participant'], case_ids=case_ids)
         if any(name == 'django' or name.startswith('django.') for name in sys.modules):
             raise RuntimeError('Django imported by target suite')
         return {'check_id': 'backend-tests', 'status': 'PASS', 'evidence_class': 'TARGET_RUNTIME',
-                'assertions': count, 'skipped': 0, 'database_vendor': 'postgresql', 'postgresql_major': major}
+                'assertions': count, 'case_ids': case_ids, 'skipped': 0,
+                'database_vendor': 'postgresql', 'postgresql_major': major}
     finally:
         admin.dispose()
         os.environ.clear()

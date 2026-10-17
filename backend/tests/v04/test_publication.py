@@ -12,14 +12,18 @@ import os
 from pathlib import Path
 import tempfile
 from threading import Barrier, Event
+import time
 import unittest
 import uuid
+from unittest.mock import patch
 
 import sqlalchemy as sa
 
 from backend.content.build import encoded
 from backend.content.publication import PublisherAuthority, PublicationConflict, WorkReceipt, descriptor
 from backend.infrastructure.uow import UnitOfWork
+from backend.infrastructure.database import DatabaseUnavailable
+from backend.content.publish import keep_lease
 from backend.migrations.upgrade import require_disposable
 from backend.models.baseline import Grade
 from backend.models.protocol import (PublicationGate as Gate, PublicationJournal as Journal,
@@ -166,6 +170,71 @@ class PostgreSQLPublicationTests(unittest.TestCase):
         finally:
             with self.engine.begin() as c:
                 c.execute(sa.delete(table).where(table.c.id == record))
+
+    def test_lease_worker_recovers_real_gate_lock_timeout_before_expiry(self):
+        engine = sa.create_engine(self.engine.url, hide_parameters=True,
+            connect_args={'connect_timeout': 3, 'options': '-c lock_timeout=100ms -c statement_timeout=2000'})
+        self.addCleanup(engine.dispose)
+        service = PublisherAuthority(engine, self.participant, lease_seconds=4)
+        token, _ = service.claim(self.namespace, 'lease-lock', self.plan(), self.owner)
+        until = time.monotonic() + 4.3
+        with self.engine.connect() as c:
+            original_expiry = c.scalar(sa.select(Gate.lease_until).where(Gate.namespace == self.namespace))
+        failed, renewed = Event(), Event()
+        original = service.renew
+        def observed(*args, **kwargs):
+            try:
+                result = original(*args, **kwargs)
+                renewed.set()
+                return result
+            except DatabaseUnavailable:
+                failed.set()
+                raise
+        with self.engine.connect() as blocker, patch.object(service, 'renew', observed):
+            blocker.execute(sa.select(Gate.namespace).where(Gate.namespace == self.namespace).with_for_update())
+            with keep_lease(service, token):
+                try:
+                    self.assertTrue(failed.wait(3), 'Actual PostgreSQL lock timeout required')
+                finally:
+                    blocker.rollback()
+                self.assertTrue(renewed.wait(3), 'Worker must retry in a new UoW before lease expiry')
+                time.sleep(max(0, until - time.monotonic()))
+                with self.engine.connect() as c:
+                    self.assertGreater(c.scalar(sa.select(sa.func.clock_timestamp())), original_expiry)
+                service.renew(token)  # Actual DB-time fence still accepts this current owner.
+        self.assertEqual(service.inspect(token)['token'], token)
+
+    def test_lease_retry_never_revives_expired_owner(self):
+        engine = sa.create_engine(self.engine.url, hide_parameters=True,
+            connect_args={'connect_timeout': 3, 'options': '-c lock_timeout=100ms -c statement_timeout=2000'})
+        self.addCleanup(engine.dispose)
+        service = PublisherAuthority(engine, self.participant, lease_seconds=2)
+        token, _ = service.claim(self.namespace, 'lease-expired', self.plan(), self.owner)
+        failed, fenced = Event(), Event()
+        original = service.renew
+        def observed(*args, **kwargs):
+            try:
+                return original(*args, **kwargs)
+            except DatabaseUnavailable:
+                failed.set()
+                raise
+            except PublicationConflict as error:
+                if error.code == 'FENCED':
+                    fenced.set()
+                raise
+        with self.engine.connect() as blocker, patch.object(service, 'renew', observed):
+            blocker.execute(sa.select(Gate.namespace).where(Gate.namespace == self.namespace).with_for_update())
+            with keep_lease(service, token):
+                try:
+                    self.assertTrue(failed.wait(3), 'Actual PostgreSQL lock timeout required')
+                    expired = blocker.scalar(sa.select(sa.func.clock_timestamp() - sa.text("interval '1 second'")))
+                    blocker.execute(sa.update(Gate).where(Gate.namespace == self.namespace).values(lease_until=expired))
+                    blocker.execute(sa.update(Journal).where(Journal.id == token.operation_id).values(lease_until=expired))
+                    blocker.commit()
+                finally:
+                    blocker.rollback()
+                self.assertTrue(fenced.wait(3), 'Retry must recheck authoritative expiry')
+                self.assert_conflict('FENCED', original, token)
 
     def test_domain_commit_once_and_terminal_ack_never_reactivates_old_release(self):
         plan = self.plan()
