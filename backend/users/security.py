@@ -99,6 +99,14 @@ class Security:
         if not token or len(token) > 256:
             return None
         with UnitOfWork(self.engine) as uow:
+            row = uow.session.scalar(sa.select(TargetSession).where(TargetSession.token_digest.in_(
+                [digest_token(token, key) for key in self.keys])))
+            owner = row.user_id if row is not None else None
+        if owner is None:
+            return None
+        from backend.users.bridge import reconcile_expiry
+        reconcile_expiry(self.engine, user_id=owner)
+        with UnitOfWork(self.engine) as uow:
             now = uow.session.scalar(sa.select(sa.func.clock_timestamp()))
             row = uow.session.scalar(sa.select(TargetSession).where(TargetSession.token_digest.in_(
                 [digest_token(token, key) for key in self.keys])))
@@ -147,3 +155,4 @@ def revoke_lineage(session, lineage, now):
             bridge.revocation_epoch += 1
             bridge.ticket_version += 1
             bridge.ticket_revoked_at = now
+            bridge.transfer_binding_digest = None

@@ -238,11 +238,19 @@ class CompiledArtifactTests(unittest.TestCase):
                 result = client.get('/' + item['path'])
                 self.assertEqual(result.status_code, 200)
                 self.assertEqual(sha256(result.content).hexdigest(), item['sha256'])
-                private = client.get('/account/')
-                self.assertEqual(private.status_code, 200)
-                self.assertEqual(private.headers['cache-control'], 'private, no-store')
-                self.assertEqual(private.headers['x-robots-tag'], 'noindex, nofollow')
-                self.assertNotIn('canonical_url', private.text)
+                for path in ['/account/', '/admin/password_change/', '/admin/password_change/done/']:
+                    private = client.get(path)
+                    self.assertEqual(private.status_code, 200, path)
+                    self.assertEqual(private.headers['cache-control'], 'private, no-store')
+                    self.assertEqual(private.headers['x-robots-tag'], 'noindex, nofollow')
+                    self.assertNotIn('canonical_url', private.text)
+                    if path.startswith('/admin/'):
+                        marker = '<script id="mathstart-staff-capabilities" type="application/json">'
+                        self.assertEqual(private.text.count(marker), 1)
+                        hints = json.loads(private.text.split(marker, 1)[1].split('</script>', 1)[0])
+                        self.assertEqual(set(hints), {'version', 'own_password', 'resources'})
+                        self.assertFalse(hints['own_password'])
+                        self.assertFalse(any(any(row.values()) for row in hints['resources'].values()))
 
     def test_unregistered_content_write_and_group_password_urls_are_real_404(self):
         with TestClient(self.app, base_url='http://127.0.0.1:8121') as client:

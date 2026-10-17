@@ -150,6 +150,11 @@ class IdentityService:
                         ReceiptBridge.bootstrap_fingerprint.in_(fingerprints)))
             if existing is not None:
                 scope = existing.original_scope
+        from backend.users.bridge import reconcile_expiry
+        reconcile_expiry(self.engine, scope=scope)
+        with UnitOfWork(self.engine) as uow:
+            observed_epoch = uow.session.scalar(sa.select(ReceiptBridge.revocation_epoch).where(
+                ReceiptBridge.original_scope == scope))
         digest = receipt_digest(scope, 'register', '/api/v1/auth/register/', body)
         with UnitOfWork(self.engine) as uow:
             s = uow.session
@@ -170,7 +175,8 @@ class IdentityService:
                 validate_current(s, identity, user, self.security.keys)
             if row.status is not None:
                 if (bridge is None or bridge.state in {'REVOKED', 'EXPIRED'} or now >= bridge.replay_until
-                        or user is None or not user.is_active or bridge.owner_user_id != user.id):
+                        or user is None or not user.is_active or bridge.owner_user_id != user.id
+                        or observed_epoch is not None and bridge.revocation_epoch != observed_epoch):
                     raise conflict()
                 if identity:
                     if bridge.session_id != identity.session_id or bridge.revocation_epoch != identity.revocation_epoch:

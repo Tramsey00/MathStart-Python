@@ -122,7 +122,7 @@ def artifact_bytes(root, manifest, relative):
 
 
 PRIVATE_READ = re.compile(
-    r'^(?:/account/|/admin/(?:password_change/|'
+    r'^(?:/account/|/admin/(?:password_change/|password_change/done/|'
     r'content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)/(?:[1-9][0-9]*/(?:change/|history/))?|'
     r'auth/(?:user|group)/(?:add/|[1-9][0-9]*/(?:change/|history/|delete/))?|'
     r'auth/user/[1-9][0-9]*/password/)?)$')
@@ -172,6 +172,19 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
         root, manifest = artifact_for_descriptor(artifact_root, artifact_digests, descriptor)
         relative = '_private/shell.html' if private else request.url.path.lstrip('/')
         raw = artifact_bytes(root, manifest, relative)
+        if private and request.url.path.startswith('/admin/'):
+            from backend.staff.presentation import capabilities
+            identity = authenticate(request)
+            with UnitOfWork(engine) as uow:
+                uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
+                hints = capabilities(uow, identity)
+            # Closed boolean-only data, never account IDs, permissions, PII or
+            # credentials. The immutable shell on disk remains public-data-free.
+            payload = json.dumps(hints, separators=(',', ':'), allow_nan=False).encode('ascii')
+            tag = b'<script id="mathstart-staff-capabilities" type="application/json">' + payload + b'</script>'
+            if raw.count(b'</head>') != 1:
+                raise wire.unavailable()
+            raw = raw.replace(b'</head>', tag + b'</head>')
         mime = 'text/html' if private else mimetypes.guess_type(relative)[0] or 'application/octet-stream'
         return Response(raw if request.method == 'GET' else b'', media_type=mime,
                         headers={'Cache-Control': 'private, no-store' if private else 'no-cache',

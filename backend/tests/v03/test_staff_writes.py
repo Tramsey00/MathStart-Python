@@ -1,5 +1,8 @@
 """Real disposable PostgreSQL coverage of baseline staff mutation contracts."""
 import unittest
+from unittest.mock import patch
+from concurrent.futures import ThreadPoolExecutor
+from threading import Event
 
 import sqlalchemy as sa
 
@@ -68,12 +71,97 @@ class StaffWriteTests(unittest.TestCase):
         with UnitOfWork(self.engine) as uow:
             self.assertIsNone(uow.session.scalar(sa.select(User).where(User.username == 'denied')))
 
+    def test_private_ui_capabilities_preserve_combined_gate_and_content_readonly(self):
+        from backend.staff.presentation import capabilities
+        from backend.staff.authorization import AuthenticatedIdentity
+        with UnitOfWork(self.engine) as uow:
+            scope = capabilities(uow, AuthenticatedIdentity(self.actor))
+            self.assertTrue(scope['own_password'])
+            self.assertTrue(scope['resources']['users']['add'])
+            self.assertTrue(scope['resources']['groups']['delete'])
+            for name in ['grades', 'subjects', 'sections', 'pages', 'publications', 'media_assets', 'redirects']:
+                self.assertEqual(scope['resources'][name], {'view': True, 'add': False, 'change': False, 'delete': False})
+            actor = uow.session.get(User, self.actor)
+            actor.is_superuser = False
+            p = uow.session.scalar(sa.select(Permission.id).join(ContentType).where(
+                ContentType.app_label == 'auth', Permission.codename == 'add_user'))
+            uow.session.execute(sa.insert(metadata.tables['auth_user_user_permissions']).values(user_id=self.actor, permission_id=p))
+            uow.session.flush()
+            self.assertFalse(capabilities(uow, AuthenticatedIdentity(self.actor))['resources']['users']['add'])
+            p = uow.session.scalar(sa.select(Permission.id).join(ContentType).where(
+                ContentType.app_label == 'auth', Permission.codename == 'change_user'))
+            uow.session.execute(sa.insert(metadata.tables['auth_user_user_permissions']).values(user_id=self.actor, permission_id=p))
+            self.assertTrue(capabilities(uow, AuthenticatedIdentity(self.actor))['resources']['users']['add'])
+            actor.is_staff = False
+            uow.session.flush()
+            denied = capabilities(uow, AuthenticatedIdentity(self.actor))
+            self.assertFalse(denied['own_password'])
+            self.assertFalse(any(any(row.values()) for row in denied['resources'].values()))
+            self.assertEqual(denied, capabilities(uow, None))
+
     def test_mutations_require_csrf_and_reject_unknown_duplicate_fields(self):
         self.assertEqual(self.client.post('/api/v1/staff/groups/', json={}).status_code, 403)
         headers = {**self.headers(), 'Content-Type': 'application/json'}
         for raw in [b'{"name":"x","permissions":[],"unknown":true}',
                     b'{"name":"x","name":"y","permissions":[]}', b'{"name":NaN,"permissions":[]}']:
             self.assertEqual(self.client.post('/api/v1/staff/groups/', content=raw, headers=headers).status_code, 400)
+
+    def test_group_permission_revocation_serializes_with_another_actors_user_write(self):
+        from backend.staff import writes
+        from backend.infrastructure.http.signing import Signer
+        from backend.infrastructure.http.transport import APIError
+        from backend.models.protocol import TargetSession
+        from backend.users.security import SessionIdentity
+        managed = self.create_user('syntheticDelegatedStaff')
+        with UnitOfWork(self.engine) as uow:
+            s = uow.session
+            staff = s.get(User, managed['id'])
+            staff.is_staff = True
+            group = Group(name='Synthetic delegated authorization')
+            s.add(group)
+            s.flush()
+            group_id = group.id
+            permissions = list(s.scalars(sa.select(Permission.id).join(ContentType).where(
+                ContentType.app_label == 'auth', Permission.codename.in_(['add_user', 'change_user']))))
+            self.assertEqual(len(permissions), 2)
+            s.execute(sa.insert(metadata.tables['auth_group_permissions']), [{'group_id': group_id, 'permission_id': p} for p in permissions])
+            s.execute(sa.insert(metadata.tables['auth_user_groups']).values(user_id=staff.id, group_id=group_id))
+            issued, _, _ = self.security.issue(s, staff, s.scalar(sa.select(sa.func.clock_timestamp())))
+            actor = s.scalar(sa.select(TargetSession).where(TargetSession.user_id == self.actor, TargetSession.revoked_at.is_(None)))
+            identity = lambda row: SessionIdentity(row.user_id, row.id, row.lineage_id, row.revocation_epoch)
+            delegated, operator = identity(issued), identity(actor)
+            uow.commit()
+        service = writes.StaffWrites(self.service, Signer(identity_fixture.KEY))
+        entered, proceed, revocation_started, revoked = Event(), Event(), Event(), Event()
+        original = writes.permission
+        def checked(scope, resource, action):
+            original(scope, resource, action)
+            if scope.user_id == managed['id'] and resource == 'users' and action == 'add':
+                entered.set()
+                if not proceed.wait(10):
+                    raise RuntimeError('Concurrent authorization test coordination deadline')
+        def revoke():
+            revocation_started.set()
+            result = service.mutate(operator, 'groups', 'update', {'name': 'Synthetic delegated authorization', 'permissions': []}, group_id)
+            revoked.set()
+            return result
+        body = {'username': 'syntheticInFlightAllowed', 'usable_password': False}
+        with patch.object(writes, 'permission', checked), ThreadPoolExecutor(max_workers=2) as executor:
+            mutation = executor.submit(service.mutate, delegated, 'users', 'create', body)
+            try:
+                self.assertTrue(entered.wait(10))
+                revocation = executor.submit(revoke)
+                self.assertTrue(revocation_started.wait(10))
+                self.assertFalse(revoked.wait(.25), 'Revocation overtook an authorized in-flight user mutation')
+            finally:
+                proceed.set()
+            self.assertEqual(mutation.result(timeout=10)['username'], body['username'])
+            self.assertEqual(revocation.result(timeout=10)['permissions'], [])
+        with self.assertRaises(APIError) as denied:
+            service.mutate(delegated, 'users', 'create', {**body, 'username': 'syntheticAfterRevocation'})
+        self.assertEqual(denied.exception.status, 403)
+        with UnitOfWork(self.engine) as uow:
+            self.assertIsNone(uow.session.scalar(sa.select(User).where(User.username == 'syntheticAfterRevocation')))
 
     def test_password_change_revokes_other_sessions_and_returns_no_secret(self):
         user = self.create_user()

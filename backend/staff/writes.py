@@ -69,7 +69,9 @@ class StaffWrites:
     def _scope(self, uow, identity, resource, action, ids=()):
         locks = OrderedLocks(uow.session)
         locks.namespace('identity', 'lineage:' + str(identity.lineage_id))
-        locks.namespace('staff', resource)
+        # Group permission changes and user mutations share one authorization
+        # boundary: a permission snapshot stays valid through its mutation.
+        locks.namespace('staff', 'authorization')
         user_ids = sorted(set([identity.user_id, *ids] if resource == 'users' else [identity.user_id]))
         list(uow.session.scalars(sa.select(User).where(User.id.in_(user_ids)).order_by(User.id).with_for_update()))
         scope = authorize(uow, AuthenticatedIdentity(identity.user_id))

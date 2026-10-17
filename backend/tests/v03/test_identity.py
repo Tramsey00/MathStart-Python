@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import subprocess
 import unittest
+from unittest.mock import patch
+from threading import Barrier
 
 import sqlalchemy as sa
 from starlette.testclient import TestClient
@@ -256,11 +258,46 @@ class PostgreSQLIdentityTests(unittest.TestCase):
         with self.engine.begin() as connection:
             connection.execute(sa.update(TargetSession).values(expires_at=sa.func.clock_timestamp() - sa.text("interval '1 second'")))
         self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'DETACHED')
+            self.assertIsNone(bridge.session_id)
+            self.assertEqual(bridge.revocation_epoch, 1)
+            self.assertEqual(bridge.ticket_version, 0)
+            self.assertIsNone(bridge.ticket_revoked_at)
+            self.assertIsNotNone(bridge.session_lineage_id)
+        # A second expired read records no new revocation/epoch.
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
         self.client.cookies.clear()
         self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
         recovered = self.register(key='expiry-key')
         self.assertEqual(recovered.content, first.content)
         self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 200)
+
+    def test_concurrent_old_epoch_rebinds_do_not_issue_two_sessions(self):
+        from backend.users import service
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='rebind-cas-key')
+        self.assertEqual(first.status_code, 201)
+        barrier, digest = Barrier(2), service.receipt_digest
+        def observed(*args):
+            result = digest(*args)
+            barrier.wait(timeout=10)
+            return result
+        def recover(_):
+            with TestClient(self.app, base_url=ORIGIN) as client:
+                client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+                response = self.register(client=client, key='rebind-cas-key')
+                return response.status_code, response.content
+        with patch.object(service, 'receipt_digest', observed), ThreadPoolExecutor(max_workers=2) as executor:
+            results = list(executor.map(recover, range(2)))
+        self.assertEqual(sorted(row[0] for row in results), [201, 409])
+        self.assertEqual(next(row[1] for row in results if row[0] == 201), first.content)
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(User)), 1)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(TargetSession)), 2)
+            self.assertEqual(uow.session.scalar(sa.select(ReceiptBridge.revocation_epoch)), 1)
 
     def test_replay_window_expiry_refuses_original_bootstrap_and_preserves_receipt(self):
         self.headers()
@@ -275,6 +312,44 @@ class PostgreSQLIdentityTests(unittest.TestCase):
         self.assertEqual(self.register(key='window-key').status_code, 409)
         with UnitOfWork(self.engine) as uow:
             self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'EXPIRED')
+            self.assertIsNone(bridge.session_id)
+            self.assertIsNotNone(bridge.ticket_revoked_at)
+            epoch, ticket = bridge.revocation_epoch, bridge.ticket_version
+        self.assertEqual(self.register(key='window-key').status_code, 409)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('EXPIRED', epoch, ticket))
+
+    def test_competing_expiry_sweeps_record_one_terminal_transition(self):
+        from backend.users.bridge import reconcile_expiry
+        self.assertEqual(self.register(key='sweep-key').status_code, 201)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(ReceiptBridge).values(
+                created_at=sa.func.clock_timestamp() - sa.text("interval '8 days'"),
+                replay_until=sa.func.clock_timestamp() - sa.text("interval '1 day'")))
+            owner = connection.scalar(sa.select(ReceiptBridge.owner_user_id))
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            list(executor.map(lambda _: reconcile_expiry(self.engine, user_id=owner), range(2)))
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('EXPIRED', 1, 1))
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+
+    def test_revoked_bridge_remains_terminal_when_replay_window_expires(self):
+        from backend.users.bridge import reconcile_expiry
+        result = self.register(key='terminal-key')
+        owner = result.json()['data']['id']
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(ReceiptBridge).values(
+                created_at=sa.func.clock_timestamp() - sa.text("interval '8 days'"),
+                replay_until=sa.func.clock_timestamp() - sa.text("interval '1 day'")))
+        reconcile_expiry(self.engine, user_id=owner)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('REVOKED', 1, 1))
 
     def test_account_switch_revokes_old_bootstrap_and_never_transfers_to_foreign_owner(self):
         self.headers()
