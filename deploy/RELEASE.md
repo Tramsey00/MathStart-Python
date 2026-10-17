@@ -86,17 +86,40 @@ role/cutover provenance and the before snapshot. The read-only `check` proves
 physical schema compatibility only; it does not prove the result of a lost
 prior COMMIT. Sequence gaps after a failed transaction are allowed.
 
+For a fresh unused target identity database, create its first operator explicitly
+before starting API/publishers. This is the retained staff/superuser capability,
+not an automatic seed account. Supply credentials with non-echoing prompts:
+
+```text
+python -m backend.users.operator --maintenance
+```
+
+For automation, set private `MATHSTART_OPERATOR_USERNAME`,
+`MATHSTART_OPERATOR_PASSWORD` and optional `MATHSTART_OPERATOR_EMAIL` in the
+process environment and add `--from-environment`. They are not accepted as argv
+values and are never printed. The command uses the retained password validators
+and hasher, creates the profile, and refuses any existing user, legacy history,
+session, pending receipt, cutover state or other connected client. It cannot
+reset or adopt an imported user. After uncertain COMMIT, reconcile privately;
+existing identity blocks replay instead of overwriting it.
+
 After installation/adoption, complete identity import and the fenced content
 publication using the documented `backend.users.cutover_cli` / `backend.content.publish`
-commands and reviewed immutable inputs. Provisioning the first fresh operator,
-clean-clone release installation and full cutover/backup/rollback runbooks are
-still pending migration work. Do not mistake a compatible empty schema for an
+commands and reviewed immutable inputs. Clean-clone full release installation
+and the complete legacy-cluster return procedure are still pending migration
+work. Do not mistake a compatible empty schema for an
 installed site. Readiness must remain UNREADY until matching content/frontend
 publication is installed and reconciled.
 
 ```text
 docker compose -f deploy/compose.yaml up -d api edge
 ```
+
+The edge starts when API is running and may serve503 until a matching release
+is installed. It must be reachable for initial publication's actual HTTP probes;
+waiting for API readiness before starting the edge would create an initial
+publication dependency cycle. The ordinary authority gateway and readiness
+continue to refuse an incomplete publication.
 
 For isolated HTTPS rehearsal, Compose2.24.4+ can apply
 `-f deploy/compose.tls.yaml`. Set `MATHSTART_HTTPS_PORT` and a private

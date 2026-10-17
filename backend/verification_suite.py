@@ -106,6 +106,7 @@ def run():
         case_ids = []
         count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_postgres',
                          'backend.tests.test_release_migrate',
+                         'backend.tests.test_operator',
                          'backend.tests.test_remediation', 'backend.tests.test_discovery'], case_ids=case_ids)
         count += execute(['backend.tests.v02.test_unit', 'backend.tests.v02.test_http',
                           'backend.tests.v02.test_postgres', 'backend.tests.v02.test_asset_regressions'], case_ids=case_ids)

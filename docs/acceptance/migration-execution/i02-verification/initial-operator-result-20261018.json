@@ -1,0 +1,25 @@
+{
+  "scope": "Fresh operator4 actual PG/CLI/HTTP cases plus affected private-facts replay case; no skipped tests",
+  "runs": [
+    {
+      "status": "PASS",
+      "log": "var/initial-operator-20261018-012016.log",
+      "sha256": "7a7273e5d3444d4cfcc23f22cf2d57d045bb0634d3dd3236c69c50c4c56481b8",
+      "case_ids": [
+        "backend.tests.test_operator.InitialOperatorTests.test_actual_cli_creates_hash_profile_and_real_staff_login_then_refuses_replay",
+        "backend.tests.test_operator.InitialOperatorTests.test_invalid_credentials_or_missing_maintenance_do_not_seed_or_write",
+        "backend.tests.test_operator.InitialOperatorTests.test_other_database_client_blocks_fresh_operator",
+        "backend.tests.test_operator.InitialOperatorTests.test_pending_identity_or_legacy_history_blocks_even_without_users"
+      ]
+    },
+    {
+      "status": "PASS",
+      "log": "var/initial-operator-private-20261018-012313.log",
+      "sha256": "877d729cac31a140b81954dc46e532c012bdcda34e8aeeb18addc2ac96585e99",
+      "case_ids": [
+        "backend.tests.test_operator.InitialOperatorTests.test_actual_cli_creates_hash_profile_and_real_staff_login_then_refuses_replay"
+      ]
+    }
+  ],
+  "full_target": "NOT_RUN"
+}

@@ -43,7 +43,9 @@ services:
         ipv4_address: ${MATHSTART_EDGE_IP:?Exact reserved trusted edge IP required}
       front: {}
     depends_on:
-      api: {condition: service_healthy}
+      # Initial publication must probe the real edge while API readiness is
+      # still503. The authority gateway remains the readiness/security fence.
+      api: {condition: service_started}
     restart: unless-stopped
   release:
     profiles: [tools]
