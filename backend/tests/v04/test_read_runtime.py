@@ -67,8 +67,8 @@ class AuxiliaryConcurrencyTests(unittest.IsolatedAsyncioTestCase):
             release.wait(3)
             return object()
         with patch('backend.content.public_runtime.UnitOfWork'), \
-             patch('backend.content.public_runtime.active_release', side_effect=slow_release), \
-             patch('backend.content.public_runtime.artifact_for', return_value=(Path('.'), {})), \
+             patch('backend.content.public_runtime.active_descriptor', side_effect=slow_release), \
+             patch('backend.content.public_runtime.artifact_for_descriptor', return_value=(Path('.'), {})), \
              patch('backend.content.public_runtime.artifact_bytes', return_value=b'body'):
             app = create_public_app(object(), Signer('synthetic-concurrency-key'),
                     release_root=Path('.'), artifact_root=Path('.'), artifact_digests={}, origin='http://localhost')
@@ -241,7 +241,13 @@ class CompiledArtifactTests(unittest.TestCase):
                 private = client.get('/account/')
                 self.assertEqual(private.status_code, 200)
                 self.assertEqual(private.headers['cache-control'], 'private, no-store')
+                self.assertEqual(private.headers['x-robots-tag'], 'noindex, nofollow')
                 self.assertNotIn('canonical_url', private.text)
+
+    def test_unregistered_content_write_and_group_password_urls_are_real_404(self):
+        with TestClient(self.app, base_url='http://127.0.0.1:8121') as client:
+            for path in ['/admin/content/grade/add/', '/admin/content/grade/1/delete/', '/admin/auth/group/1/password/']:
+                self.assertEqual(client.get(path).status_code, 404, path)
 
     def test_compiled_asset_corruption_still_fails_closed(self):
         item = next(row for row in self.manifest['files'] if row['path'].startswith('assets/') and row['path'].endswith('.js'))

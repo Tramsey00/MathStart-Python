@@ -183,6 +183,29 @@ class PostgreSQLIdentityTests(unittest.TestCase):
         self.assertEqual(response.status_code, 409, response.text)
         self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
 
+    def test_revoked_proof_cannot_reveal_digest_conflict_for_a_changed_body(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='revoked-digest').status_code, 201)
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        response = self.client.post('/api/v1/auth/register/', json={'username': 'changed', 'password': PASSWORD},
+                         headers=self.headers(**{'Idempotency-Key': 'revoked-digest'}))
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['error']['code'], 'STATE_CONFLICT')
+
+    def test_anonymous_wrong_password_is_not_authorized_to_observe_digest_conflict(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='password-proof').status_code, 201)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        response = self.client.post('/api/v1/auth/register/', json={'username': 'syntheticStudent', 'password': 'incorrect'},
+                         headers=self.headers(**{'Idempotency-Key': 'password-proof'}))
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['error']['code'], 'STATE_CONFLICT')
+
     def test_csrf_host_origin_and_auth_precedence_before_json(self):
         self.assertEqual(self.client.patch('/api/v1/users/me/', content=b'bad').status_code, 401)
         self.assertEqual(self.client.post('/api/v1/auth/register/', content=b'bad').status_code, 403)

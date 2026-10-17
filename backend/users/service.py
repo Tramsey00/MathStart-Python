@@ -67,7 +67,7 @@ def receipt_key(key):
     return hashlib.sha256(key.encode()).hexdigest()
 
 
-def receipt(session, scope, operation, key_digest, digest, now):
+def receipt(session, scope, operation, key_digest, digest, now, *, verify_digest=True):
     row = session.scalar(sa.select(IdentityReceipt).where(IdentityReceipt.scope == scope,
                 IdentityReceipt.operation == operation, IdentityReceipt.key_digest == key_digest).with_for_update())
     if row is None:
@@ -75,7 +75,7 @@ def receipt(session, scope, operation, key_digest, digest, now):
                               request_digest=digest, expires_at=now + timedelta(days=7))
         session.add(row)
         session.flush()
-    if row.request_digest != digest:
+    if verify_digest and row.request_digest != digest:
         raise conflict('IDEMPOTENCY_CONFLICT')
     return row
 
@@ -164,7 +164,7 @@ class IdentityService:
                 user = s.scalar(sa.select(User).where(User.id == prior.user_id).with_for_update())
             if identity and (user is None or identity.user_id != user.id):
                 raise conflict()
-            row = receipt(s, scope, 'register', key_digest, digest, now)
+            row = receipt(s, scope, 'register', key_digest, digest, now, verify_digest=False)
             bridge = s.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.original_scope == scope).with_for_update())
             if identity:
                 validate_current(s, identity, user, self.security.keys)
@@ -175,9 +175,13 @@ class IdentityService:
                 if identity:
                     if bridge.session_id != identity.session_id or bridge.revocation_epoch != identity.revocation_epoch:
                         raise conflict()
+                    if row.request_digest != digest:
+                        raise conflict('IDEMPOTENCY_CONFLICT')
                     return row.response, row.status, None
                 if bridge.bootstrap_fingerprint not in fingerprints or not passwords.verify(body['password'], user.password):
                     raise conflict()
+                if row.request_digest != digest:
+                    raise conflict('IDEMPOTENCY_CONFLICT')
                 previous = s.get(TargetSession, bridge.session_id) if bridge.session_id else None
                 issued, token, csrf_next = self.security.issue(s, user, now, previous=previous)
                 bridge.state, bridge.session_id, bridge.session_lineage_id = 'ACTIVE', issued.id, issued.lineage_id
@@ -189,6 +193,8 @@ class IdentityService:
                 return row.response, row.status, (token, csrf_next)
             if bridge is not None:
                 raise conflict()
+            if row.request_digest != digest:
+                raise conflict('IDEMPOTENCY_CONFLICT')
             user = User(username=body['username'], email=body.get('email', ''))
             if not passwords.valid_username(user.username) or not passwords.valid_email(user.email) or not passwords.validate_password(body['password'], user):
                 raise wire.invalid()
@@ -271,6 +277,7 @@ class IdentityService:
             user = s.scalar(sa.select(User).where(User.id == identity.user_id).with_for_update())
             if user is None or not user.is_active:
                 raise wire.authentication_required()
+            validate_current(s, identity, user, self.security.keys, lock=False)
             row = None
             if key is not None:
                 owner = str(user.id)

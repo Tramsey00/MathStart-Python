@@ -121,7 +121,11 @@ def artifact_bytes(root, manifest, relative):
     return raw
 
 
-PRIVATE_READ = re.compile(r'^(?:/account/|/admin/(?:password_change/|(?:content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)|auth/(?:user|group))/(?:add/|[1-9][0-9]*/(?:change/|history/|password/|delete/))?)?)$')
+PRIVATE_READ = re.compile(
+    r'^(?:/account/|/admin/(?:password_change/|'
+    r'content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)/(?:[1-9][0-9]*/(?:change/|history/))?|'
+    r'auth/(?:user|group)/(?:add/|[1-9][0-9]*/(?:change/|history/|delete/))?|'
+    r'auth/user/[1-9][0-9]*/password/)?)$')
 
 
 def create_public_app(engine, signer, *, release_root, artifact_root, artifact_digests, origin, identity_service=None):
@@ -171,6 +175,7 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
         mime = 'text/html' if private else mimetypes.guess_type(relative)[0] or 'application/octet-stream'
         return Response(raw if request.method == 'GET' else b'', media_type=mime,
                         headers={'Cache-Control': 'private, no-store' if private else 'no-cache',
+                                 **({'X-Robots-Tag': 'noindex, nofollow'} if private else {}),
                                  'X-Content-Type-Options': 'nosniff'})
 
     @app.middleware('http')
