@@ -64,7 +64,11 @@ auth-hash and current DB permissions. Mutations enforce CSRF and validators.
 Compiled UI files check the pinned committed descriptor, trusted output manifest
 and requested file hash; public content still checks the full source release.
 Proxy headers are disabled until an explicit edge trust policy is implemented.
-Private data never enters the public artifact. Unknown
+Private staff documents receive a boolean-only presentation snapshot from the
+current DB permissions. It hides unavailable actions, preserves combined User
+creation permissions and Content read-only controls; each API still authorizes
+independently. The snapshot contains no user IDs, PII or credentials and is never
+written to the public artifact. Unknown
 staff URLs remain404. Generated frontend assets must be in the trusted output
 manifest. Corrupt/missing files fail closed. There is no constant Node server.
 
@@ -82,3 +86,30 @@ python -m unittest backend.tests.v04.test_read_runtime -v
 Stop the owned Uvicorn process after checks. Retain or drop only the newly named
 reserved synthetic DB and its own var subtree according to the run ledger.
 Root portable verification/CI owns combined lifecycle and final exact-SHA runs.
+
+Existing content inspection commands now have target adapters:
+
+```text
+python -m backend.cli check-lesson-sources --source-root . --all
+python -m backend.cli check-lesson-sources --source-root . --slug <existing lesson slug>
+python -m backend.cli check-site-integrity --static-root static --media-root site_content/media --report-root var/inspection-reports
+python -m backend.cli check-content-quality --origin http://127.0.0.1:8121 --report-root var/inspection-reports
+```
+
+They use the explicitly configured target DB. Lesson verification compares all
+lesson metadata, HTML, CSS, JS and catalogue identities with the DB; `check-sources`
+alone only validates source files. Integrity checks current DB pages, redirects,
+references and registered media against the supplied storage roots. Quality
+checks actual HTTP responses and uses the preserved authoring/SVG/anchor checker;
+it refuses redirects and empty published inventories. It requires the running
+target origin; the fixture HTTP tests are command wiring evidence, not public
+rendering acceptance. Storage roots must match the actual deployment; the media
+path above is for the synthetic seed.
+
+PostgreSQL inspections use a repeatable read-only transaction. Quality/integrity
+also create or replace their JSON report in the explicit report root, including
+when issues produce a nonzero exit. They do not offer a misleading dry-run flag.
+Missing tools, storage, source mismatch, non-200 HTTP and invalid HTML fail;
+unused registered media is reported without becoming a critical error, preserving
+the existing command policy. Files are confined to the configured storage roots.
+These adapters do not implement publication, index writes or cutover/recovery.

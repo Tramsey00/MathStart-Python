@@ -171,6 +171,7 @@ def main(argv=None):
         env['MATHSTART_LEGACY_BASE_URL'] = f'http://127.0.0.1:{args.legacy_port}'
         stage('source-render-and-read-runtime', [sys.executable,'-m','unittest',
             'backend.tests.v04.test_build','backend.tests.v04.test_read_runtime',
+            'backend.tests.v04.test_content_checks',
             'backend.tests.v04.test_verified_release_cache',
             'frontend.tests.test_public_artifact','frontend.tests.test_legacy_comparator','-v'])
         legacy_argv = [sys.executable,'-m','frontend.legacy_comparator','--build-config',str(config_path),
