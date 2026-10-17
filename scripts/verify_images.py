@@ -4,9 +4,12 @@ Uses retained synthetic build inputs, not production data. Requires existing
 locally built API and pinned PostgreSQL/edge images. Never pulls or deploys.
 Actual HTTP/auth/proxy checks and cleanup determine the scoped result.
 """
+import ssl
+from http.cookies import SimpleCookie
 import argparse,importlib.util,json,os,secrets,shutil,socket,subprocess,sys,time,uuid,ipaddress
 from pathlib import Path
 from hashlib import sha256
+from datetime import datetime,timezone
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from scripts.verify_public_block import source_snapshot,assert_source_unchanged
@@ -29,7 +32,11 @@ parser.add_argument('--source-runtime',type=Path,required=True)
 parser.add_argument('--artifact-root',type=Path,required=True)
 parser.add_argument('--api-image',required=True)
 parser.add_argument('--edge-image',required=True)
+parser.add_argument('--recovery',action='store_true',help='Also rehearse physical DB/public restore and a measured API workload')
+parser.add_argument('--rollback-image',help='Prior compatible API image to exercise before/after target writes in recovery')
 parser.add_argument('--docker',default=shutil.which('docker'))
+parser.add_argument('--tls-cert',type=Path)
+parser.add_argument('--tls-key',type=Path)
 parser.add_argument('--pg-port',type=int,default=55442)
 args=parser.parse_args()
 if not args.docker or importlib.util.find_spec('django') or importlib.util.find_spec('rest_framework'):
@@ -44,8 +51,15 @@ if not 1024<=args.pg_port<=65535:parser.error('Unprivileged loopback PG port req
 manifest=json.loads((build/'output-manifest.json').read_text(encoding='utf-8'))
 from urllib.parse import urlsplit
 public=urlsplit(manifest['origin'])
-if public.scheme!='http' or public.hostname!='127.0.0.1' or not public.port or public.username or public.password or public.path or public.query or public.fragment:
- parser.error('Synthetic build origin must be explicit loopback HTTP with port')
+if public.scheme not in {'http','https'} or public.hostname!='127.0.0.1' or not public.port or public.username or public.password or public.path or public.query or public.fragment:
+ parser.error('Synthetic build origin must be explicit loopback HTTP(S) with port')
+tls=public.scheme=='https'
+if tls != bool(args.tls_cert and args.tls_key) or bool(args.tls_cert)!=bool(args.tls_key):
+ parser.error('HTTPS requires both TLS certificate and key; HTTP does not accept them')
+if tls and any(not p.is_file() for p in (args.tls_cert,args.tls_key)):
+ parser.error('Existing private TLS files required')
+if args.rollback_image and not args.recovery:parser.error('Application rollback image requires --recovery')
+verify=ssl.create_default_context(cafile=str(args.tls_cert.resolve())) if tls else True
 run_id=uuid.uuid4().hex[:12]
 source_before=source_snapshot(ROOT)
 directory.mkdir(parents=True)
@@ -57,8 +71,10 @@ for port in (public.port,pgport):
  with socket.socket() as listener:
   listener.bind(('127.0.0.1',port))
 image=args.api_image
-label='disposable-image-rehearsal'; names={kind:'mathstart-image-'+kind+'-'+run_id for kind in ('api','db','net','front','edge','public','copy','client')}
-owned={}; engine=None; result={'status':'IN_PROGRESS','scope':'Containerized API/PG/read-only public volume + actual login/logout; retained synthetic inputs, not final QA','assertions':[]}
+label='disposable-image-rehearsal'; names={kind:'mathstart-image-'+kind+'-'+run_id for kind in ('api','db','net','front','edge','public','copy','client','backup','restored-database','restored-public','restored-media')}
+owned={}; engine=None; result={'status':'IN_PROGRESS','scope':'Containerized API/PG/read-only public volume + actual login/logout; retained synthetic inputs, not final QA','assertions':[],
+ 'argv':sys.argv,'cwd':str(ROOT),'started_at':datetime.now(timezone.utc).isoformat()}
+run_started=time.monotonic()
 password=secrets.token_urlsafe(32); signing=secrets.token_urlsafe(48); account_password=secrets.token_urlsafe(28)
 pg_env=directory/'private-postgres.env'; api_env=directory/'private-api.env'; client_env=directory/'private-client.env'
 def command(args,timeout=120,log=None):
@@ -78,6 +94,8 @@ def check(condition,name):
 try:
  result['source_before']=source_before
  result['images']={name:json.loads(command(['image','inspect',reference]))[0]['Id'] for name,reference in [('api',image),('postgres','postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'),('edge',args.edge_image)]}
+ if args.rollback_image:result['images']['prior_api']=json.loads(command(['image','inspect',args.rollback_image]))[0]['Id']
+ if args.rollback_image and result['images']['prior_api']==result['images']['api']:raise RuntimeError('Rollback rehearsal requires a distinct prior image')
  owned['net']=command(['network','create','--internal','--label','mathstart.purpose='+label,names['net']])
  owned['front']=command(['network','create','--label','mathstart.purpose='+label,names['front']])
  subnet=ipaddress.ip_network(inspected('network',owned['net'])['IPAM']['Config'][0]['Subnet'])
@@ -85,9 +103,13 @@ try:
  edge_ip=str(subnet.network_address+10)
  if subprocess.run([docker,'volume','inspect',names['public']],capture_output=True,timeout=10).returncode==0: raise RuntimeError('Volume name already occupied')
  command(['volume','create','--label','mathstart.purpose='+label,names['public']]);owned['public']=names['public']
+ if args.recovery:
+  if subprocess.run([docker,'volume','inspect',names['backup']],capture_output=True,timeout=10).returncode==0:raise RuntimeError('Backup volume name already occupied')
+  command(['volume','create','--label','mathstart.purpose='+label,names['backup']]);owned['backup']=names['backup']
+ backup_mount=['--mount','type=volume,source='+names['backup']+',target=/backup'] if args.recovery else []
  database='test_ms7_mig_v01_image_'+run_id
  pg_env.write_text('POSTGRES_USER=image_test\nPOSTGRES_PASSWORD='+password+'\nPOSTGRES_DB='+database+'\n',encoding='utf-8')
- owned['db']=command(['run','--detach','--name',names['db'],'--label','mathstart.purpose='+label,'--network',names['front'],'--publish','127.0.0.1:'+str(pgport)+':5432','--tmpfs','/var/lib/postgresql/data','--env-file',str(pg_env),'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'])
+ owned['db']=command(['run','--detach','--name',names['db'],'--label','mathstart.purpose='+label,'--network',names['front'],'--publish','127.0.0.1:'+str(pgport)+':5432','--tmpfs','/var/lib/postgresql/data',*backup_mount,'--env-file',str(pg_env),'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'])
  command(['network','connect','--alias',names['db'],names['net'],owned['db']])
  url=URL.create('postgresql+psycopg',username='image_test',password=password,host='127.0.0.1',port=pgport,database=database)
  engine=sa.create_engine(url,hide_parameters=True,connect_args={'connect_timeout':3})
@@ -130,13 +152,16 @@ try:
  result['phase']='start_internal_api'
  owned['api']=command(['run','--detach','--name',names['api'],'--label','mathstart.purpose='+label,'--network',names['net'],'--network-alias','api','--read-only','--cap-drop','ALL','--tmpfs','/tmp:rw,nosuid,noexec,size=32m','--env-file',str(api_env),'--mount','type=volume,source='+names['public']+',target=/runtime,readonly',image,'python','-m','uvicorn','backend.content.public_runtime:application','--factory','--host','0.0.0.0','--port','8000','--workers','2','--no-access-log','--proxy-headers','--forwarded-allow-ips',edge_ip])
  result['phase']='start_nonroot_edge'
+ edge_port=8443 if tls else 8080
+ edge_tls_mounts=['--mount','type=bind,source='+str(args.tls_cert.resolve())+',target=/run/tls/tls.crt,readonly','--mount','type=bind,source='+str(args.tls_key.resolve())+',target=/run/tls/tls.key,readonly'] if tls else []
+ edge_command=['-c','/etc/nginx/nginx.tls.conf','-g','daemon off;'] if tls else ['-g','daemon off;']
  edge_image=args.edge_image
  command(['image','inspect',edge_image],log='edge-image.json')
- owned['edge']=command(['create','--name',names['edge'],'--label','mathstart.purpose='+label,'--network',names['front'],'--read-only','--cap-drop','ALL','--user','101:101','--tmpfs','/tmp:rw,nosuid,noexec,size=16m,uid=101,gid=101','--publish','127.0.0.1:'+str(public.port)+':8080','--entrypoint','nginx',edge_image,'-g','daemon off;'])
+ owned['edge']=command(['create','--name',names['edge'],'--label','mathstart.purpose='+label,'--network',names['front'],'--read-only','--cap-drop','ALL','--user','101:101','--tmpfs','/tmp:rw,nosuid,noexec,size=16m,uid=101,gid=101',*edge_tls_mounts,'--publish','127.0.0.1:'+str(public.port)+':'+str(edge_port),'--entrypoint','nginx',edge_image,*edge_command])
  command(['network','connect','--ip',edge_ip,names['net'],owned['edge']])
  command(['start',owned['edge']])
  result['phase']='real_http_proxy_auth_checks'
- with httpx.Client(trust_env=False,follow_redirects=False,timeout=10) as client:
+ with httpx.Client(trust_env=False,follow_redirects=False,timeout=10,verify=verify) as client:
   deadline=time.monotonic()+90
   while time.monotonic()<deadline:
    if not inspected('container',owned['edge'])['State']['Running']:raise RuntimeError('Owned edge exited before readiness')
@@ -147,6 +172,15 @@ try:
    except httpx.RequestError:pass
    time.sleep(.5)
   else:raise RuntimeError('Owned API image did not become ready')
+  if tls:
+   try:
+    with httpx.Client(trust_env=False,timeout=10) as untrusted:untrusted.get(origin+'/')
+   except httpx.ConnectError as error:
+    check('CERTIFICATE_VERIFY_FAILED' in str(error),'tls_untrusted_certificate_rejected')
+   else:raise AssertionError('tls_untrusted_certificate_was_accepted')
+   protocol=home.extensions['network_stream'].get_extra_info('ssl_object').version()
+   check(protocol in {'TLSv1.2','TLSv1.3'},'actual_negotiated_tls12_or_tls13')
+   result['tls_protocol']=protocol
   check(home.content==(build/'index.html').read_bytes(),'actual_container_public_html_matches_build')
   check(home.headers.get('cache-control')=='no-cache','public_revalidation')
   asset_url=next(iter(release.assets));asset=client.get(origin+asset_url)
@@ -159,6 +193,11 @@ try:
   token=csrf.json()['data']['csrf_token']
   login=client.post(origin+'/api/v1/auth/login/',json={'username':'image_fixture_'+run_id,'password':account_password},headers={'Origin':origin,'X-CSRFToken':token,'X-Forwarded-For':'198.51.100.11','Forwarded':'for=198.51.100.11;proto=https'})
   check(login.status_code==200 and login.json()['data']['id']==user_id,'real_container_password_login')
+  if tls:
+   cookies=SimpleCookie()
+   for header in login.headers.get_list('set-cookie'):cookies.load(header)
+   cookie=cookies.get('sessionid')
+   check(bool(cookie and cookie['secure'] and cookie['httponly'] and cookie['samesite'].lower()=='lax'),'actual_https_session_cookie_policy')
   me=client.get(origin+'/api/v1/users/me/');check(me.status_code==200 and me.json()['data']['id']==user_id,'opaque_session_across_workers')
   token=client.get(origin+'/api/v1/auth/csrf/').json()['data']['csrf_token']
   rotated=client.post(origin+'/api/v1/auth/login/',json={'username':'image_fixture_'+run_id,'password':account_password},headers={'Origin':origin,'X-CSRFToken':token,'X-Forwarded-For':'198.51.100.12'})
@@ -167,8 +206,9 @@ try:
    budgets=list(c.execute(sa.text('SELECT count FROM users_loginwindow')))
   check(len(budgets)==1 and budgets[0][0]==2,'spoofed_forwarded_ip_cannot_split_shared_login_budget')
   client_env.write_text('MATHSTART_TEST_USERNAME=image_fixture_'+run_id+'\nMATHSTART_TEST_PASSWORD='+account_password+'\n',encoding='utf-8')
-  client_code="import os,sys,httpx; url='http://'+sys.argv[1]+':8080'; c=httpx.Client(trust_env=False,timeout=10,headers={'Host':sys.argv[2]}); r=c.get(url+'/api/v1/auth/csrf/'); assert r.status_code==200; token=r.json()['data']['csrf_token']; r=c.post(url+'/api/v1/auth/login/',json={'username':os.environ['MATHSTART_TEST_USERNAME'],'password':os.environ['MATHSTART_TEST_PASSWORD']},headers={'Origin':'http://'+sys.argv[2],'X-CSRFToken':token,'X-Forwarded-For':'198.51.100.11'}); assert r.status_code==200; c.close(); print('CLIENT_LOGIN_OK')"
-  owned['client']=command(['run','--detach','--name',names['client'],'--label','mathstart.purpose='+label,'--network',names['front'],'--no-healthcheck','--read-only','--cap-drop','ALL','--env-file',str(client_env),'--entrypoint','python',image,'-c',client_code,names['edge'],public.netloc])
+  client_code="import os,socket,ssl,sys,httpx\norigin=sys.argv[2]\noriginal=socket.getaddrinfo\n# Route this independent container's public-origin connection to the edge's\n# internal network name/port. URL, Host, SNI, CA and hostname verification stay\n# the actual public origin; no verify=False or hostname-verification bypass.\ndef resolve(host,port,*args,**kwargs):\n return original(sys.argv[1],int(sys.argv[3]),*args,**kwargs) if host=='127.0.0.1' else original(host,port,*args,**kwargs)\nsocket.getaddrinfo=resolve\nverify=ssl.create_default_context(cafile='/run/test-ca.crt') if origin.startswith('https:') else True\nwith httpx.Client(trust_env=False,timeout=10,verify=verify) as client:\n response=client.get(origin+'/api/v1/auth/csrf/');assert response.status_code==200\n token=response.json()['data']['csrf_token']\n response=client.post(origin+'/api/v1/auth/login/',json={'username':os.environ['MATHSTART_TEST_USERNAME'],'password':os.environ['MATHSTART_TEST_PASSWORD']},headers={'Origin':origin,'X-CSRFToken':token,'X-Forwarded-For':'198.51.100.11'})\n assert response.status_code==200\nprint('CLIENT_LOGIN_OK')\n"
+  client_mount=['--mount','type=bind,source='+str(args.tls_cert.resolve())+',target=/run/test-ca.crt,readonly'] if tls else []
+  owned['client']=command(['run','--detach','--name',names['client'],'--label','mathstart.purpose='+label,'--network',names['front'],'--no-healthcheck','--read-only','--cap-drop','ALL','--env-file',str(client_env),*client_mount,'--entrypoint','python',image,'-c',client_code,names['edge'],origin,str(edge_port)])
   check(command(['wait',owned['client']],timeout=60)=='0','independent_tcp_client_real_login')
   command(['logs',owned['client']],log='independent-client.log');command(['rm',owned['client']]);del owned['client']
   with engine.connect() as c:budgets=list(c.execute(sa.text('SELECT count FROM users_loginwindow')))
@@ -180,6 +220,13 @@ try:
   logged_out=client.post(origin+'/api/v1/auth/logout/',json={},headers={'Origin':origin,'X-CSRFToken':token})
   check(logged_out.status_code==200 and client.get(origin+'/api/v1/users/me/').status_code==401,'real_logout_revokes_session')
  check(command(['exec',owned['api'],'python','-m','backend.health'])=='READY','actual_image_readiness')
+ if args.recovery:
+  from scripts.image_recovery import rehearse
+  result['phase']='physical_backup_restore'
+  result['recovery']=rehearse(engine,command=command,check=check,owned=owned,names=names,
+      image=image,directory=directory,label=label,pg_env=pg_env,api_env=api_env,env=env,
+      origin=origin,verify=verify,edge_ip=edge_ip,release=release,build=build,rollback_image=args.rollback_image)
+ result['transport']='https' if tls else 'http'
  result.update(status='PASS',edge_image=edge_image,edge_allowlisted_ip=edge_ip,api_internal_network=True,pg_host_seed_loopback_port=pgport,pages=279,media=29,workers=2,output_manifest_digest=artifact,api_image=image)
 except Exception as error:
  result.update(status='FAIL',failure_class=type(error).__name__)
@@ -194,7 +241,7 @@ finally:
    if key in ('api','edge'):command(['logs',owned[key]],log=key+'.log')
    command(['stop',owned[key]],timeout=30);command(['rm',owned[key]],timeout=30)
   except Exception as error:errors.append(type(error).__name__)
- for key,kind in (('public','volume'),('net','network'),('front','network')):
+ for key,kind in (('restored-media','volume'),('restored-public','volume'),('restored-database','volume'),('backup','volume'),('public','volume'),('net','network'),('front','network')):
   if key not in owned:continue
   try:
    state=inspected(kind,owned[key]);assert state['Labels']['mathstart.purpose']==label
@@ -207,6 +254,7 @@ finally:
  result['cleanup']='PASS' if not errors else 'FAIL';result['cleanup_errors']=errors
  if errors:result['status']='FAIL'
  result['assertions_count']=len(result['assertions'])
+ result.update(finished_at=datetime.now(timezone.utc).isoformat(),elapsed_seconds=round(time.monotonic()-run_started,3))
  (directory/'result.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
  print(json.dumps({'status':result['status'],'failure_class':result.get('failure_class'),'assertions':result['assertions_count'],'cleanup':result['cleanup'],'result':str(directory.relative_to(ROOT)/'result.json')}))
 raise SystemExit(0 if result['status']=='PASS' else 1)

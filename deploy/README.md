@@ -79,6 +79,8 @@ removed in `finally`; do not interrupt the owning process with a hard kill.
 The default edge is HTTP for an isolated local rehearsal. The separate checked
 release schema CLI, Compose/TLS configuration and operator commands are in
 `deploy/RELEASE.md`. The actual empty Compose/schema rehearsal passed and remains
-UNREADY without publication. Full TLS/cookie, clean-clone startup, backup/restore
-and release rollback checks remain part of the unified migration. Scoped image
-checks do not establish final acceptance or authorize production deployment.
+UNREADY without publication. HTTPS/cookie, physical DB/media/frontend recovery
+and compatible application switches have scoped actual evidence documented in
+`deploy/RECOVERY.md`. Clean-clone installation, the complete legacy-cluster return
+procedure and final combined checks remain migration work. Scoped image checks
+do not establish final acceptance or authorize production deployment.

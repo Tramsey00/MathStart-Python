@@ -106,8 +106,11 @@ the API. The override replaces the HTTP port with a loopback TLS8443 listener,
 supports TLS1.2/1.3, disables session tickets and mounts certificates read-only.
 It trusts no forwarded header from the external client. Certificate renewal,
 external ingress/firewall and production exposure require operator review.
-TLS end-to-end/cookie rehearsal has not yet run; the current proven HTTP edge
-run is not evidence for HTTPS.
+Actual isolated HTTPS/cookie rehearsal has passed with an explicitly trusted
+loopback test certificate, default-client rejection and full CA/hostname checks.
+This is not evidence of public-domain deployment or certificate ownership.
+See `deploy/RECOVERY.md` for the real physical backup/restore/application-switch
+rehearsal and its remaining legacy-cluster return boundary.
 
 The reproducible empty-stack check creates a unique project and labelled
 volumes, runs actual container preview/apply/check, verifies no startup data
