@@ -25,8 +25,14 @@ sys.path.insert(0, str(ROOT))
 from scripts.public_block_process import owned_http_service, run_browser_check, start_owned_process, _stop
 
 
+def legacy_executable(path):
+    # A POSIX virtualenv executable is a symlink to the base interpreter.
+    # Preserve its invocation path so Python discovers that venv's pyvenv.cfg.
+    return str(Path(path).absolute())
+
+
 def npm_command(script):
-    if script not in {'typecheck', 'test', 'build', 'test:e2e', '--version'}:
+    if script not in {'typecheck', 'test', 'build', 'test:e2e', 'test:i02', '--version'}:
         raise ValueError('Unknown frontend check')
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
@@ -72,6 +78,7 @@ def main(argv=None):
     parser.add_argument('--legacy-python', type=Path, required=True)
     parser.add_argument('--port', type=int, default=8111)
     parser.add_argument('--legacy-port', type=int, default=8112)
+    parser.add_argument('--scope', choices=['i02', 'combined'], default='combined')
     parser.add_argument('--allow-dirty', action='store_true', help='Development only; receipt remains DIRTY_SOURCE')
     args = parser.parse_args(argv)
     root = args.runtime_root.resolve()
@@ -94,14 +101,15 @@ def main(argv=None):
               'started_at':datetime.now(timezone.utc).isoformat(),
               'implementation_sha':source_before['head'], 'tree_sha':source_before['tree'],
               'source_before':source_before,
-              'dirty_paths':dirty, 'scope':'I02/I03 plus initial synthetic read-serving dependency only',
+              'dirty_paths':dirty, 'scope':args.scope,
+              'scope_description':'I02 public/staff-read checks; final cross-browser/visual matrix remains I05' if args.scope == 'i02' else 'I02/I03 combined matrix',
               'full_V03_V04_R03':'NOT_VERIFIED', 'formal_acceptance':'HUMAN_PENDING', 'stages':[]}
     env = os.environ.copy()
     # Keys are private in-memory fixtures. Never echo the environment or cookies.
     env['MATHSTART_HTTP_SIGNING_KEY'] = secrets.token_urlsafe(48)
     env['MATHSTART_PUBLIC_ORIGIN'] = f'http://127.0.0.1:{args.port}'
     env['MATHSTART_PYTHON'] = sys.executable
-    env['MATHSTART_LEGACY_PYTHON'] = str(args.legacy_python.resolve())
+    env['MATHSTART_LEGACY_PYTHON'] = legacy_executable(args.legacy_python)
     env['PYTHONUNBUFFERED'] = '1'
     env['MATHSTART_V04_DATABASE_URL'] = env['MATHSTART_DATABASE_URL']
     release_id = 'public-' + uuid4().hex
@@ -129,6 +137,8 @@ def main(argv=None):
         print('PASS: ' + name, flush=True)
 
     try:
+        stage('legacy-interpreter-regression', [sys.executable,'-m','unittest','discover',
+            '-s','tests','-p','test_legacy_interpreter.py','-v'])
         stage('target-lock', [sys.executable,'-m','pip','check'])
         stage('python-version', [sys.executable,'--version'])
         stage('node-version', [shutil.which('node') or 'node','--version'])
@@ -162,9 +172,9 @@ def main(argv=None):
         stage('source-render-and-read-runtime', [sys.executable,'-m','unittest',
             'backend.tests.v04.test_build','backend.tests.v04.test_read_runtime',
             'backend.tests.v04.test_verified_release_cache',
-            'frontend.tests.test_public_artifact','-v'])
+            'frontend.tests.test_public_artifact','frontend.tests.test_legacy_comparator','-v'])
         legacy_argv = [sys.executable,'-m','frontend.legacy_comparator','--build-config',str(config_path),
-            '--legacy-python',str(args.legacy_python.resolve()),'--runtime-root',str(root / 'legacy'),
+            '--legacy-python',legacy_executable(args.legacy_python),'--runtime-root',str(root / 'legacy'),
             '--port',str(args.legacy_port)]
         target_argv = [sys.executable,'-m','uvicorn','backend.content.public_runtime:application',
             '--factory','--host','127.0.0.1','--port',str(args.port),'--no-access-log']
@@ -172,10 +182,11 @@ def main(argv=None):
         with owned_http_service(legacy_argv,base_url=env['MATHSTART_LEGACY_BASE_URL'],
                                 cwd=ROOT,evidence_root=root / 'legacy-service',environment=env):
             browser_env = dict(env)
-            browser_env['MATHSTART_CHECK_ID'] = 'frontend-e2e'
+            browser_env['MATHSTART_CHECK_ID'] = 'frontend-i02' if args.scope == 'i02' else 'frontend-e2e'
             browser_env['MATHSTART_CHECK_RESULT'] = str(root / 'browser-receipt.json')
             # npm requires frontend cwd; the server module needs repository cwd.
-            browser_command = [sys.executable,str(ROOT / 'scripts/public_frontend_command.py'),'test:e2e']
+            browser_command = [sys.executable,str(ROOT / 'scripts/public_frontend_command.py'),
+                               'test:i02' if args.scope == 'i02' else 'test:e2e']
             browser = run_browser_check(target_argv,browser_command,base_url=env['MATHSTART_PUBLIC_ORIGIN'],
                 cwd=ROOT,evidence_root=root / 'target-service',environment=browser_env,check_timeout=7200)
         report['browser_lifecycle'] = browser

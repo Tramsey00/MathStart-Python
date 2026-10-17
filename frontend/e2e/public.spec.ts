@@ -21,7 +21,7 @@ for(const route of styleRepresentatives)test('style family '+route,async({page})
  const path=test.info().outputPath('style.png');await page.screenshot({path});await test.info().attach('style.png',{path,contentType:'image/png'});
 });
 
-test('complete public URL/body/head manifest, alias and private exclusion',async({request})=>{
+test('complete public URL/body/head manifest, alias and private exclusion',async({request,page})=>{
  // This case deliberately requests the full inventory sequentially. Keep each
  // response bounded while allowing the measured volume to grow with the manifest.
  test.setTimeout(30_000+entries.length*5_000);
@@ -31,6 +31,8 @@ test('complete public URL/body/head manifest, alias and private exclusion',async
   const html=await r.text();expect(html,url).toContain(view.page.body_html);
   expect(html,url).toContain('lang="ru"');expect(html,url).toContain('<link rel="canonical" href="'+view.canonical_url+'"');
   expect(html,url).not.toContain('window.__reactRouterContext');expect(html,url).not.toContain('fixture_only_');
+  const head=await page.evaluate(html=>{const d=new DOMParser().parseFromString(html,'text/html');return {title:d.title,description:d.querySelector('meta[name="description"]')?.getAttribute('content'),ogTitle:d.querySelector('meta[property="og:title"]')?.getAttribute('content'),ogDescription:d.querySelector('meta[property="og:description"]')?.getAttribute('content'),ogUrl:d.querySelector('meta[property="og:url"]')?.getAttribute('content')};},html);
+  expect(head,url).toEqual({title:view.page.seo.title,description:view.page.seo.description,ogTitle:view.page.seo.title,ogDescription:view.page.seo.description,ogUrl:view.canonical_url});
  }
  for(const path of ['/not-a-real-page/','/__ui__/foundation/','/_private/shell.html','/api/unknown/'])expect((await request.get(path)).status(),path).toBe(404);
  expect((await request.get('/sitemap.xml')).status()).toBe(200);expect((await request.get('/robots.txt')).status()).toBe(200);

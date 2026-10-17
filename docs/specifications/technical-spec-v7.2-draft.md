@@ -1,12 +1,17 @@
 # MathStart — техническое задание v7.2 (полная рабочая редакция)
 
+> DRAFT_REFERENCE_ONLY. Это черновик продуктового ТЗ, а не поручение на реализацию.
+> Единственная текущая задача миграции — [MIGRATION.md](../../MIGRATION.md).
+> Исторические карточки, роли и даты ниже сохраняют требования и provenance;
+> они не создают отдельные задания и не разрешают реализацию будущих функций продукта.
+
 **DRAFT / R05 IN_PROGRESS / HUMAN_PENDING.** Дата наблюдения16.10.2026, Europe/Moscow. Документ содержит все32 главы и52 canonical product task cards исходного v7.1. Техническая готовность всей миграции ещё не установлена. Полный исходный PDF сохранён отдельно; исторический G0 v7.1 не переносится как approval этого draft.
 
 Изменения этой редакции: принятая FastAPI/SQLAlchemy/Alembic и React/TypeScript платформа; Django-independent operational boundary; public manifest prerender; совместимые auth/session/receipt adapters; task/Issue migration workflow;52-row platform disposition и dependency/readiness вместо новых обещаний календаря. Доменная семантика, numerical defaults, organisational roles и course requirements сохраняются. Исходные карточки и зависимость каждого типа доступны в machine-readable source registry. Финальные SHA/evidence/current docs/rollback будут привязаны после объединённого R04 и release freeze.
 
 ## 1. Паспорт и правила применения
 
-Редакция v7.2 — DRAFT, человеческая приёмка HUMAN_PENDING. Полный исходный v7.1 сохранён в sources/technical-spec-v7.1.pdf с SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Исторический G0 v7.1 принят30.09.2026; это не approval редакции v7.2. Нормативная платформа переноса принята в ADR-0006 и R02 migration contracts. Состояние реализации и конкретные evidence определяются MIGRATION_STATE.md и execution ledger, а не датой этого документа. Новые сроки основной программы не назначены.
+Редакция v7.2 — DRAFT, человеческая приёмка HUMAN_PENDING. Полный исходный v7.1 сохранён в sources/technical-spec-v7.1.pdf с SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Исторический G0 v7.1 принят30.09.2026; это не approval редакции v7.2. Нормативная платформа переноса принята в ADR-0006 и R02 migration contracts. Состояние реализации и конкретные evidence определяются корневым MIGRATION.md и execution ledger, а не датой этого документа. Новые сроки основной программы не назначены.
 
 ### Исторический паспорт и источники v7.1
 
@@ -1027,7 +1032,7 @@ blockers своих потребителей. Принятые R01/R02/R03 не 
 
 ### Переходный workflow MS7-MIG
 
-Только программа миграции исполняется одной командой технических ролей по MIGRATION_AGENT.md. Проверенный candidate и отдельное агентное ревью разрешают следующие технические срезы; TECHNICALLY_VERIFIED не заменяет historical ACCEPTED_INTEGRATION. Финальный human gate выполняет пользователь. Task branches интегрируются в ms7-mig-react-fastapi с Refs; final draft PR перечисляет18 Issues, но main merge, Issue closure, public deployment и production writer switch остаются HUMAN_PENDING до отдельного решения. Product G1–G5 и организационные роли основной программы сохраняются.
+Программа миграции выполняется как единая оставшаяся задача по корневому MIGRATION.md: один основной исполнитель продолжает текущий код в ms7-mig-react-fastapi, после готовности общего кандидата проводится отдельное ревью. Отдельных поручений по карточкам, закреплённых владельцев областей и обязательного ревью каждого промежуточного шага нет. TECHNICALLY_VERIFIED не заменяет historical ACCEPTED_INTEGRATION. Финальный human gate выполняет пользователь. Main merge, Issue closure, public deployment и production writer switch остаются HUMAN_PENDING до отдельного решения. Product G1–G5 и организационные роли основной программы сохраняются; они не задают состав исполнителей миграции.
 
 
 ---
@@ -3807,7 +3812,7 @@ scheduling (Руслан, проверяют все, course deadline09.10). Он
 
 ## 32. Источники и статус утверждения
 
-Полный source v7.1: sources/technical-spec-v7.1.pdf, SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Canonical migration ТЗ: ../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md, SHA256 c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae. Accepted ADR-0006/R02 и explicit user process overlay MIGRATION_AGENT.md определяют платформу/порядок переноса. v7.2 approval: HUMAN_PENDING; Product G1–G5 не закрыты.
+Полный source v7.1: sources/technical-spec-v7.1.pdf, SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Canonical migration ТЗ: ../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md, SHA256 c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae. Accepted ADR-0006/R02 и explicit user process overlay корневого MIGRATION.md определяют платформу/порядок переноса. v7.2 approval: HUMAN_PENDING; Product G1–G5 не закрыты.
 
 ### Исторические источники и G0 v7.1
 
