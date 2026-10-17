@@ -299,6 +299,61 @@ class PostgreSQLIdentityTests(unittest.TestCase):
             self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(TargetSession)), 2)
             self.assertEqual(uow.session.scalar(sa.select(ReceiptBridge.revocation_epoch)), 1)
 
+    def test_explicit_same_owner_login_and_original_bootstrap_rebind_detached_receipt(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(first.status_code, 201)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(TargetSession).values(expires_at=sa.func.clock_timestamp() - sa.text("interval '1 second'")))
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        self.client.cookies.clear()
+        login = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticStudent', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200, login.text)
+        cookie = self.client.cookies.get('sessionid')
+        # Fresh login/CSRF and the idempotency key alone cannot select old scope.
+        denied = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(denied.status_code, 409)
+        self.assertEqual(denied.json()['error']['code'], 'STATE_CONFLICT')
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        replay = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(replay.content, first.content)
+        self.assertEqual(self.client.cookies.get('sessionid'), cookie)
+        # S now suffices even after fresh CSRF replacement. No extra session.
+        self.client.cookies.set('csrftoken', csrf_secret(), domain='mathstart.example', path='/')
+        repeated = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(repeated.content, first.content)
+        self.assertEqual(self.client.cookies.get('sessionid'), cookie)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'ACTIVE')
+            self.assertEqual(bridge.revocation_epoch, 2)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(TargetSession)), 2)
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        self.assertEqual(self.register(key='authenticated-bootstrap-key').status_code, 409)
+
+    def test_foreign_login_and_original_bootstrap_never_rebind_another_owners_receipt(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='foreign-bootstrap-key')
+        self.assertEqual(first.status_code, 201)
+        with TestClient(self.app, base_url=ORIGIN) as other:
+            second = self.register(username='syntheticForeignOwner', client=other, key='foreign-owner-key')
+            self.assertEqual(second.status_code, 201)
+        self.client.cookies.clear()
+        login = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticForeignOwner', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200)
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        denied = self.register(key='foreign-bootstrap-key')
+        self.assertEqual(denied.status_code, 409)
+        self.assertEqual(denied.json()['error']['code'], 'STATE_CONFLICT')
+        self.assertEqual(self.client.get('/api/v1/users/me/').json()['data']['id'], second.json()['data']['id'])
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.owner_user_id == first.json()['data']['id']))
+            self.assertEqual(bridge.revocation_epoch, 0)
+
     def test_replay_window_expiry_refuses_original_bootstrap_and_preserves_receipt(self):
         self.headers()
         original = self.client.cookies.get('csrftoken')
@@ -350,6 +405,39 @@ class PostgreSQLIdentityTests(unittest.TestCase):
         with UnitOfWork(self.engine) as uow:
             bridge = uow.session.scalar(sa.select(ReceiptBridge))
             self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('REVOKED', 1, 1))
+
+    def test_auth_hash_invalidation_is_durable_revocation_not_recoverable_detach(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='auth-hash-revoke-key')
+        # A second independent login has no registration bridge binding. Its
+        # revoked authority must also remain terminal if a hash is restored.
+        self.client.cookies.clear()
+        login = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticStudent', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200)
+        old_cookie = self.client.cookies.get('sessionid')
+        changed = 'Changed:synthetic-auth-hash!9327'
+        with self.engine.begin() as connection:
+            original_hash = connection.scalar(sa.select(User.password).where(User.id == first.json()['data']['id']))
+            connection.execute(sa.update(User).where(User.id == first.json()['data']['id']).values(password=passwords.encode(changed)))
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        # Even the correct new password does not authorize a changed digest or
+        # revive the original registration after security revocation.
+        result = self.client.post('/api/v1/auth/register/', json={'username': 'syntheticStudent', 'password': changed},
+            headers=self.headers(**{'Idempotency-Key': 'auth-hash-revoke-key'}))
+        self.assertEqual(result.status_code, 409)
+        self.assertEqual(result.json()['error']['code'], 'STATE_CONFLICT')
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'REVOKED')
+            self.assertIsNone(bridge.session_id)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(User).where(User.id == first.json()['data']['id']).values(password=original_hash))
+        self.client.cookies.set('sessionid', old_cookie, domain='mathstart.example', path='/')
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
 
     def test_account_switch_revokes_old_bootstrap_and_never_transfers_to_foreign_owner(self):
         self.headers()

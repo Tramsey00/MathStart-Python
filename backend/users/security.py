@@ -101,11 +101,13 @@ class Security:
         with UnitOfWork(self.engine) as uow:
             row = uow.session.scalar(sa.select(TargetSession).where(TargetSession.token_digest.in_(
                 [digest_token(token, key) for key in self.keys])))
+            if row is None or row.revoked_at is not None:
+                return None
             owner = row.user_id if row is not None else None
         if owner is None:
             return None
         from backend.users.bridge import reconcile_expiry
-        reconcile_expiry(self.engine, user_id=owner)
+        reconcile_expiry(self.engine, user_id=owner, auth_keys=self.keys)
         with UnitOfWork(self.engine) as uow:
             now = uow.session.scalar(sa.select(sa.func.clock_timestamp()))
             row = uow.session.scalar(sa.select(TargetSession).where(TargetSession.token_digest.in_(

@@ -142,24 +142,36 @@ class IdentityService:
         fingerprint = fingerprints[0]
         scope = 'bootstrap:' + fingerprint
         key_digest = receipt_key(key)
-        # S may select only this current session's already-bound original scope.
+        # S selects only this session's binding; B may separately select the
+        # original scope after an explicit same-owner login. A key alone never
+        # selects a receipt or bridge.
+        session_proof = False
         with UnitOfWork(self.engine) as uow:
             s = uow.session
             existing = s.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.session_id == identity.session_id,
-                    ReceiptBridge.state == 'ACTIVE')) if identity else s.scalar(sa.select(ReceiptBridge).where(
-                        ReceiptBridge.bootstrap_fingerprint.in_(fingerprints)))
+                    ReceiptBridge.state == 'ACTIVE')) if identity else None
+            session_proof = existing is not None
+            if existing is None:
+                existing = s.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.bootstrap_fingerprint.in_(fingerprints)))
             if existing is not None:
                 scope = existing.original_scope
         from backend.users.bridge import reconcile_expiry
-        reconcile_expiry(self.engine, scope=scope)
+        reconcile_expiry(self.engine, scope=scope, auth_keys=self.security.keys)
         with UnitOfWork(self.engine) as uow:
-            observed_epoch = uow.session.scalar(sa.select(ReceiptBridge.revocation_epoch).where(
-                ReceiptBridge.original_scope == scope))
+            observed = uow.session.execute(sa.select(ReceiptBridge.revocation_epoch, ReceiptBridge.session_lineage_id).where(
+                ReceiptBridge.original_scope == scope)).first()
+            observed_epoch = observed.revocation_epoch if observed else None
+            observed_lineage = observed.session_lineage_id if observed else None
         digest = receipt_digest(scope, 'register', '/api/v1/auth/register/', body)
         with UnitOfWork(self.engine) as uow:
             s = uow.session
             locks = OrderedLocks(s)
-            for namespace in sorted({scope, 'lineage:' + str(identity.lineage_id)} if identity else {scope}):
+            namespaces = {scope}
+            if identity:
+                namespaces.add('lineage:' + str(identity.lineage_id))
+            if observed_lineage:
+                namespaces.add('lineage:' + str(observed_lineage))
+            for namespace in sorted(namespaces):
                 locks.namespace('identity', namespace)
             now = s.scalar(sa.select(sa.func.clock_timestamp()))
             prior = s.scalar(sa.select(IdentityReceipt).where(IdentityReceipt.scope == scope,
@@ -172,17 +184,33 @@ class IdentityService:
             row = receipt(s, scope, 'register', key_digest, digest, now, verify_digest=False)
             bridge = s.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.original_scope == scope).with_for_update())
             if identity:
-                validate_current(s, identity, user, self.security.keys)
+                session_ids = {identity.session_id}
+                if bridge and bridge.session_id:
+                    session_ids.add(bridge.session_id)
+                list(s.scalars(sa.select(TargetSession).where(TargetSession.id.in_(session_ids)).order_by(TargetSession.id).with_for_update()))
+                current = validate_current(s, identity, user, self.security.keys, lock=False)
             if row.status is not None:
                 if (bridge is None or bridge.state in {'REVOKED', 'EXPIRED'} or now >= bridge.replay_until
                         or user is None or not user.is_active or bridge.owner_user_id != user.id
                         or observed_epoch is not None and bridge.revocation_epoch != observed_epoch):
                     raise conflict()
                 if identity:
-                    if bridge.session_id != identity.session_id or bridge.revocation_epoch != identity.revocation_epoch:
+                    if session_proof and (bridge.session_id != identity.session_id or bridge.revocation_epoch != identity.revocation_epoch):
+                        raise conflict()
+                    if not session_proof and bridge.bootstrap_fingerprint not in fingerprints:
                         raise conflict()
                     if row.request_digest != digest:
                         raise conflict('IDEMPOTENCY_CONFLICT')
+                    if not session_proof:
+                        previous = s.get(TargetSession, bridge.session_id) if bridge.session_id else None
+                        if previous is not None and previous.id != current.id:
+                            previous.revoked_at = now
+                        bridge.state, bridge.session_id, bridge.session_lineage_id = 'ACTIVE', current.id, current.lineage_id
+                        bridge.revocation_epoch += 1
+                        current.revocation_epoch = bridge.revocation_epoch
+                        bridge.ticket_version += 1
+                        bridge.ticket_revoked_at = now
+                        uow.commit()
                     return row.response, row.status, None
                 if bridge.bootstrap_fingerprint not in fingerprints or not passwords.verify(body['password'], user.password):
                     raise conflict()

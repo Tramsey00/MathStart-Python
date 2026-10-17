@@ -113,3 +113,13 @@ Missing tools, storage, source mismatch, non-200 HTTP and invalid HTML fail;
 unused registered media is reported without becoming a critical error, preserving
 the existing command policy. Files are confined to the configured storage roots.
 These adapters do not implement publication, index writes or cutover/recovery.
+
+Identity cleanup records natural session expiry as `DETACHED`, and replay-window
+expiry as `EXPIRED`, without deleting receipt identity or response. Revocation is
+terminal, including auth-hash invalidation of independent sessions. Registration
+replay accepts the existing bound owner session or the original bootstrap proof;
+after an explicit same-owner login, that original proof may rebind a detached
+receipt without issuing another session. A receipt key or owner login alone
+cannot select an anonymous scope. Old-epoch concurrent rebinds fail closed.
+Verified legacy cutover checkpoint/import/F-proof recovery remains unfinished;
+the current identity checks do not establish production cutover readiness.
