@@ -18,17 +18,17 @@ export default function StaffPage(){
  const editable=resource==='users'||resource==='groups',base=info?'/admin/'+info[1]+'/':'/admin/';
  const [data,setData]=useState<any>(null),[fields,setFields]=useState<Record<string,any>>({}),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[unknown,setUnknown]=useState(false);
  const [pagination,setPagination]=useState<any>(null),[selected,setSelected]=useState<string[]>([]),[preview,setPreview]=useState<any>(null),[permissions,setPermissions]=useState<any[]>([]),[groups,setGroups]=useState<any[]>([]);
- const gen=useRef(0),abort=useRef<AbortController|null>(null),form=useRef<HTMLFormElement>(null),lastQuery=useRef<Record<string,string|string[]>>({});
+ const gen=useRef(0),readSequence=useRef(0),abort=useRef<AbortController|null>(null),form=useRef<HTMLFormElement>(null),lastQuery=useRef<Record<string,string|string[]>>({});
  const operation=action==='add'?'create_staff_'+resource:action==='password'?'change_staff_password':action==='own-password'?'change_own_staff_password':'update_staff_'+resource;
  const op=staffOperations.find(o=>o.operationId===operation);
  const rule=op?.requestBody?.content?.['application/json']?.schema?.$ref?.split('/').at(-1),definition=rule?staffDefinition(rule):null;
  function clearPasswords(){setFields(old=>Object.fromEntries(Object.entries(old).filter(([k])=>!k.includes('password')||k==='usable_password')));form.current?.querySelectorAll<HTMLInputElement>('input[type=password]').forEach(input=>input.value='');}
  async function read(query:Record<string,string|string[]>=lastQuery.current){
-  const current=gen.current;setBusy(true);setMessage('Загружаем данные…');lastQuery.current=query;
+  const current=gen.current,sequence=++readSequence.current;setBusy(true);setMessage('Загружаем данные…');lastQuery.current=query;
   const operation=resource?(action==='history'?'staff_history_':id?'staff_get_':'staff_list_')+resource:null;
   if(!operation){setBusy(false);setMessage('');return;}
   const r=await api.call(operation,{...(id?{id}:{}),...(!id||action==='history'?{query}:{}),signal:abort.current!.signal});
-  if(current!==gen.current)return;
+  if(current!==gen.current||sequence!==readSequence.current)return;
   if(r.ok){setData(r.value.data);setPagination(r.value.meta.pagination??null);setMessage('Данные загружены.');if(!Array.isArray(r.value.data)){const next:Record<string,any>={};for(const name of Object.keys(definition?.properties??{}))if(name in r.value.data)next[name]=r.value.data[name];if(action==='password')next.usable_password=true;setFields(next);}}
   else{setData(null);setMessage(r.error.message);}
   setBusy(false);

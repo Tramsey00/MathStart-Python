@@ -18,14 +18,14 @@ export default function AccountPage(){
  const [mode,setMode]=useState<'login'|'register'>('login'),[message,setMessage]=useState('Загружаем сохранённое состояние…');
  const [grades,setGrades]=useState<Grade[]>([]),[cursor,setCursor]=useState<string|null>(null),[canRetry,setCanRetry]=useState(false);
  const [retryAfter,setRetryAfter]=useState(0);
- const pending=useRef<Pending|null>(null),generation=useRef(0),controller=useRef<AbortController|null>(null);
+ const pending=useRef<Pending|null>(null),generation=useRef(0),restoreSequence=useRef(0),gradeSequence=useRef(0),controller=useRef<AbortController|null>(null);
  const forms=useRef<HTMLDivElement>(null);
  function clear(){pending.current=null;setCanRetry(false);forms.current?.querySelectorAll<HTMLInputElement>('input[type=password]').forEach(input=>input.value='');}
  function invalidate(){generation.current++;controller.current?.abort();controller.current=new AbortController();}
  async function restore(quiet=false){
-  const current=generation.current;
+  const current=generation.current,sequence=++restoreSequence.current;
   const r=await api.call('get_me',{signal:controller.current!.signal});
-  if(current!==generation.current)return;
+  if(current!==generation.current||sequence!==restoreSequence.current)return;
   if(r.ok){
    const p=pending.current;
    if(p&&(p.operation==='register'?p.body.username!==r.value.data.username:String(p.owner)!==String(r.value.data.id)))clear();
@@ -37,9 +37,9 @@ export default function AccountPage(){
   return r.ok||r.error.code==='AUTHENTICATION_REQUIRED';
  }
  async function loadGrades(next?:string){
-  const current=generation.current;
+  const current=generation.current,sequence=++gradeSequence.current;
   const r=await api.call('list_grades',{query:next?{cursor:next}:{},signal:controller.current!.signal});
-  if(current!==generation.current)return;
+  if(current!==generation.current||sequence!==gradeSequence.current)return;
   if(r.ok){setGrades(old=>next?[...old,...r.value.data]:r.value.data);setCursor(r.value.meta.pagination?.next_cursor??null);}
   else setMessage(r.error.message);
  }

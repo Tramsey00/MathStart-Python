@@ -1,7 +1,7 @@
-"""I02/I03 read runtime over a pinned release and verified React artifacts.
+"""Pinned public release and private forms over verified React artifacts.
 
-This adapter deliberately has no identity mutations or publication writer. The
-initial synthetic descriptor is installed by the separately guarded setup CLI.
+The read factory retains its explicit read-only contract. The normal ASGI entry
+point supplies the identity service. Publication remains separately owned.
 """
 from hashlib import sha256
 import hmac
@@ -120,15 +120,11 @@ def artifact_bytes(root, manifest, relative):
 PRIVATE_READ = re.compile(r'^(?:/account/|/admin/(?:password_change/|(?:content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)|auth/(?:user|group))/(?:add/|[1-9][0-9]*/(?:change/|history/|password/|delete/))?)?)$')
 
 
-def create_public_app(engine, signer, *, release_root, artifact_root, artifact_digests, origin):
+def create_public_app(engine, signer, *, release_root, artifact_root, artifact_digests, origin, identity_service=None):
     from frontend.rendering import PublicRenderer
     store = VerifiedReleaseStore(release_root)
     renderer = PublicRenderer(artifact_root, artifact_digests)
     authenticate = ReadSessionAuthenticator(engine, signer.key, signer.fallback_keys)
-    from backend.users.security import Security
-    from backend.users.service import IdentityService
-    identity = IdentityService(Security(engine, signer.key, origin, fallback_keys=signer.fallback_keys,
-                                        secure=origin.startswith('https:')))
 
     def initial_edition(uow, page_id):
         gate_row = uow.session.get(PublicationGate, 'public')
@@ -155,7 +151,7 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
 
     app = create_app(engine, signer, release_store=store, authenticate=authenticate,
                      render_page=renderer, public_origin=origin, observe_publication=initial_edition,
-                     csrf_check=lambda request: public_csrf_check(request, origin), identity_service=identity)
+                     csrf_check=lambda request: public_csrf_check(request, origin), identity_service=identity_service)
     trusted_host = urlsplit(origin).netloc.lower()
 
     def auxiliary_response(request, private):
@@ -201,5 +197,10 @@ def application():
         raise ValueError('Trusted artifact digests required')
     engine = create_engine(DatabaseConfig.from_environment())
     check_connection(engine)
+    from backend.users.security import Security
+    from backend.users.service import IdentityService
+    identity = IdentityService(Security(engine, key, origin, fallback_keys=fallbacks,
+                                        secure=origin.startswith('https:')))
     return create_public_app(engine, Signer(key, fallbacks), release_root=os.environ['MATHSTART_RELEASE_ROOT'],
-            artifact_root=os.environ['MATHSTART_PUBLIC_ARTIFACT_ROOT'], artifact_digests=digests, origin=origin)
+            artifact_root=os.environ['MATHSTART_PUBLIC_ARTIFACT_ROOT'], artifact_digests=digests, origin=origin,
+            identity_service=identity)

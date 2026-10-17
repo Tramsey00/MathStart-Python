@@ -47,6 +47,8 @@ def prepare(engine, source_root, runtime_root, release_id, source_sha, key):
     token = secrets.token_urlsafe(32)
     with UnitOfWork(engine) as uow:
         now = uow.session.scalar(sa.select(sa.func.clock_timestamp()))
+        from backend.users.bootstrap import seed_permissions
+        seed_permissions(uow.session)
         staff = User(username='synthetic-read-staff', password='!synthetic-unusable', is_staff=True,
                      is_active=True, is_superuser=True)
         uow.session.add_all([staff, Group(name='Synthetic read group')])
