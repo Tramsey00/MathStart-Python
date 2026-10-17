@@ -54,15 +54,18 @@ def command_for(check, root=ROOT):
         package = json.loads((directory / "package.json").read_text(encoding="utf-8"))
         if not package.get("scripts", {}).get(script):
             raise ValueError("missing required frontend script: " + script)
-        # .cmd launch needs cmd.exe on Windows; subprocess's shell=True is never used.
         npm = shutil.which("npm.cmd" if os.name == "nt" else "npm")
         if not npm:
             raise ValueError("npm tool unavailable")
         argv = [npm, "run", script]
         if os.name == "nt":
-            # Only the resolved tool path and closed script allowlist enter cmd.exe.
-            argv = [os.environ.get("COMSPEC", "cmd.exe"), "/d", "/s", "/c",
-                    '""' + npm + '" run ' + script + '"']
+            # list2cmdline quoting is not cmd.exe's /s /c quoting. Invoke the
+            # installed CLI directly, including when the tool path has spaces.
+            node = shutil.which('node')
+            cli = Path(npm).parent / 'node_modules/npm/bin/npm-cli.js'
+            if not node or not cli.is_file():
+                raise ValueError('Installed Node/npm CLI unavailable')
+            argv = [node, str(cli), 'run', script]
         return argv, directory
     if check not in BACKEND_CHECKS:
         raise ValueError("unknown required check")
@@ -88,6 +91,12 @@ def command_for(check, root=ROOT):
 
 
 def main(argv=None):
+    # Captured npm output is UTF-8 even when redirected Python stdout inherits
+    # a Windows code page. Keep diagnostics lossless instead of crashing after
+    # a successful build on characters such as Vite's check mark.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("check", choices=sorted(BACKEND_CHECKS | FRONTEND_SCRIPTS.keys()))
     parser.add_argument("--disposable", action="store_true")

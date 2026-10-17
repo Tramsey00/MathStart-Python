@@ -7,6 +7,7 @@ new runtime and locked dependencies:
 ```text
 docker build -f deploy/Dockerfile --target api -t mathstart-api:<candidate> .
 docker build -f deploy/Dockerfile --target frontend-builder -t mathstart-frontend-builder:<candidate> .
+docker build -f deploy/Dockerfile --target edge -t mathstart-edge:<candidate> .
 ```
 
 The base digests are the actual Python and Node images resolved during the local
@@ -48,7 +49,34 @@ incomplete document produces UNREADY. It adds no public health API route and
 does not write to the DB or filesystem. Keep serving mounts read-only; the
 separately invoked publisher owns writes to them.
 
-These image build/import checks are scoped packaging evidence. The full staged
-edge/proxy setup, separate reviewed release migration command, clean-clone
-startup, backup/restore and release rollback rehearsal remain part of the
-unified migration and are not established by an image import test.
+The edge image runs Nginx as UID101 on8080. Run it read-only with all capabilities
+dropped and a writable `/tmp` tmpfs owned by101:101. All Nginx temporary paths
+are under `/tmp`. Access logs are disabled. It sends every public HTML/static/
+media and private API request through the authority gateway, preserving cache
+and error contracts. It overwrites forwarded client/scheme headers, clears
+untrusted alternatives and disables upstream retries, including unsafe POSTs.
+Use a dedicated internal network with API alias `api`, expose only the edge,
+and enable Uvicorn proxy headers only for that edge's exact reserved IP. An
+arbitrary client must never be able to join the trusted network.
+
+The reproducible disposable image rehearsal requires already built local API
+and edge images, the pinned PostgreSQL16 image, and retained synthetic inputs
+from `scripts/verify_target.py`. It derives the loopback HTTP port from the
+verified frontend output. It rejects existing output directories and occupied
+ports, creates unique labelled DB/volume/networks, checks actual HTTP/auth and
+independent TCP client budgets, and removes only its owned resources:
+
+```text
+python scripts/verify_images.py --disposable --runtime-root var/image-check-<run> --source-runtime var/<managed-run>/runtime --artifact-root var/<managed-run>/artifact --api-image mathstart-api:<candidate> --edge-image mathstart-edge:<candidate>
+```
+
+Run it in the Django-free target environment. `--docker <executable>` supports a
+CLI outside PATH; `--pg-port` selects an unused loopback port (default55442).
+The receipt binds actual image IDs and before/after source snapshots. A failed
+assertion, source change or cleanup is FAIL. Private temporary env files are
+removed in `finally`; do not interrupt the owning process with a hard kill.
+
+The current edge is HTTP for an isolated local rehearsal. TLS/compose, a separate
+reviewed release migration command, clean-clone startup, backup/restore and
+release rollback remain part of the unified migration. The scoped image checks
+do not establish final acceptance or authorize a production deployment.

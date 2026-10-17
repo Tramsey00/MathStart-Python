@@ -28,6 +28,13 @@ RUN npm --prefix frontend ci --maxsockets=1 --no-audit --no-fund \
 USER mathstart
 ENTRYPOINT ["python", "-m", "frontend.build_public"]
 
+FROM nginx:stable-bookworm@sha256:552e7481ca93ffccd046aa658dbbed22caefbc09c66fa7cd247cbb90b8a5c609 AS edge
+COPY deploy/nginx.conf /etc/nginx/nginx.conf
+USER 101:101
+EXPOSE 8080
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]
+
 FROM python-runtime AS api
 COPY frontend/__init__.py frontend/rendering.py /app/frontend/
 USER mathstart

@@ -175,6 +175,21 @@
         "test_artifact_pins.ArtifactPinTests.test_hit_checks_metadata_but_does_not_transfer_site_sized_plan.test_hit_checks_metadata_but_does_not_transfer_site_sized_plan",
         "test_artifact_pins.ArtifactPinTests.test_same_digest_changed_plan_cannot_reuse_verified_output.test_same_digest_changed_plan_cannot_reuse_verified_output"
       ]
+    },
+    {
+      "status": "FAIL",
+      "scope": "Windows managed build completed but wrapper failed printing Vite UTF-8 check mark to inherited CP1251; source preserved, owned container removed",
+      "result": "windows-managed-encoding-failure-20261018.json"
+    },
+    {
+      "status": "PASS_SCOPED_DEVELOPMENT",
+      "scope": "Windows Node/npm direct CLI plus UTF-8 wrapper; real build, initial activation, ASGI and system7; source unchanged and cleanup PASS. Not full target",
+      "result": "windows-managed-result-20261018.json"
+    },
+    {
+      "status": "PASS",
+      "scope": "Reproducible scripts/verify_images.py, built edge image, actual2-worker API +PG +immutable volume;328 real fixture/HTTP/auth/proxy assertions, source unchanged and cleanup PASS. API image is retained packaging input, not latest final candidate",
+      "result": "image-runtime-result-20261018.json"
     }
   ],
   "additional_transcript_checks": [
@@ -245,9 +260,9 @@
     }
   ],
   "pending": [
-    "Full bootstrap after lease retry/batch fix, with every public assertion and private/session/sequence repeat checks",
-    "Real managed lifecycle after npm cache relocated under ignored var/; dirty policy remains strict",
-    "Staged infrastructure, clean clone, backup/restore/rollback/performance",
+    "Positive Windows managed lifecycle after npm argv fix; use backend group delta, reuse Linux10dcd46 read commands",
+    "Image edge/API smoke with read-only/non-root cache tmpfs; previous attempts retained as FAIL",
+    "Staged infrastructure/release migration CLI, clean clone, backup/restore/rollback/performance",
     "Final combined migration QA and independent review"
   ],
   "original_database": "mathstart-python-db-1:5432 untouched; owned helper containers removed after listed completed runs",
@@ -287,7 +302,49 @@
       "files": 423,
       "output_manifest_digest": "46bef25eb7ef4298a21ed770cc8eff47ae67c8e43e5013866844376de97f82af"
     },
-    "base_digests_pinned_to_resolved_build_inputs": true
+    "base_digests_pinned_to_resolved_build_inputs": true,
+    "runtime_followups": [
+      {
+        "result": "var/image-runtime-066ca7ea945a/result.json",
+        "sha256": "f3f73cb360eb8f80222460c433ccaf2f34774aa433643e9f1ec91891d145b04c",
+        "status": "FAIL",
+        "assertions": 0,
+        "phase": null,
+        "failure_class": "RuntimeError",
+        "failure_check": null,
+        "cleanup": "PASS"
+      },
+      {
+        "result": "var/image-runtime-95a3c82aa14c/result.json",
+        "sha256": "22557f7294d5d7bb5968517bc0c42e3c9d431495fbc8efa6f6a579268ead18f4",
+        "status": "FAIL",
+        "assertions": 310,
+        "phase": "real_http_proxy_auth_checks",
+        "failure_class": "RuntimeError",
+        "failure_check": "Owned API image did not become ready",
+        "cleanup": "PASS"
+      },
+      {
+        "result": "var/image-runtime-b72823d7118f/result.json",
+        "sha256": "7d01d82fca9dd7d861e052b2623e30aac14fe5194704a4580fc11f6ff40fee38",
+        "status": "FAIL",
+        "assertions": 310,
+        "phase": "start_nonroot_edge",
+        "failure_class": "RuntimeError",
+        "failure_check": "Owned Docker command failed",
+        "cleanup": "PASS"
+      },
+      {
+        "result": "var/image-runtime-d4159c5c83b3/result.json",
+        "sha256": "720fd9f1046b743e35fbeedef5d51a58f20bc300de0152bab05862b17548fbfb",
+        "status": "FAIL",
+        "assertions": 309,
+        "phase": null,
+        "failure_class": "RuntimeError",
+        "failure_check": null,
+        "cleanup": "PASS"
+      }
+    ]
   },
   "followup_runs": [
     {
@@ -427,6 +484,36 @@
         "test_migration_r03_verification.TargetRegistryTests.test_timeout_and_missing_tool_nonzero.test_timeout_and_missing_tool_nonzero",
         "test_migration_r03_verification.TargetRegistryTests.test_wrapper_timeout_and_output_redaction.test_wrapper_timeout_and_output_redaction"
       ]
+    },
+    {
+      "status": "PASS",
+      "scope": "Full bootstrap on clean10dcd46 after lease/batch fix; COMPLETE,813 real public probes, retained auth/profile/receipt/session facts, unchanged repeat rows/sequences",
+      "tests": 1,
+      "skipped": 0,
+      "elapsed_seconds": 510.162,
+      "log": "var/bootstrap-probe-diagnostic-20261017-235514.log",
+      "log_sha256": "843526a906971d89831d42adb85af494a5e9dcdfd6fc3924b996b5072a315707",
+      "source_before": {
+        "head": "10dcd46a1f8499e4600e531487c70307c40533bc",
+        "tree": "f5be1a8f36d12e76ccc26e824ae402a7c6c84c48",
+        "dirty_paths": [],
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untracked_sha256": {}
+      }
+    },
+    {
+      "status": "FAIL",
+      "scope": "Actual clean Windows managed lifecycle reached frontend build; old cmd.exe quoting failed before build, exit1; outer owned tmpfs container removed",
+      "result": "var/managed-target-check-20261018-000428/result.json",
+      "result_sha256": "f2d05bf7174a964936cccb2dc480a8f6c3805397c72604104d3ff17b41203885"
+    },
+    {
+      "status": "PASS",
+      "scope": "30 affected R03 receipt/registry tests after direct Windows Node/npm CLI fix; real positive Windows managed run still pending",
+      "tests": 30,
+      "skipped": 0,
+      "log": "var/r03-windows-node-cli-20261018-0007.log",
+      "log_sha256": "c265540de11c414ea0d41c9248920c4994301c867ca459b806bbe27e3f4f9778"
     }
   ]
 }
