@@ -1,0 +1,59 @@
+{
+  "checks": [
+    {
+      "name": "worktree-ordinary",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": "",
+      "classification": "PASS"
+    },
+    {
+      "name": "worktree-cr-at-eol",
+      "argv": [
+        "git",
+        "-c",
+        "core.whitespace=cr-at-eol",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": "",
+      "classification": "PASS"
+    },
+    {
+      "name": "cached-ordinary",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": "",
+      "classification": "PASS"
+    },
+    {
+      "name": "cached-cr-at-eol",
+      "argv": [
+        "git",
+        "-c",
+        "core.whitespace=cr-at-eol",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout_base64": "",
+      "stderr_base64": "",
+      "classification": "PASS"
+    }
+  ],
+  "scope": "Diff against published candidate; original151-file publication diagnostics are historical and unchanged"
+}

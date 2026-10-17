@@ -106,11 +106,16 @@ def smoke():
             raise ValueError("Repository source materials changed during smoke")
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile", choices=("legacy", "target"), default="legacy")
     parser.add_argument("--disposable", action="store_true", required=True,
                         help="Acknowledge writes to a new disposable database/runtime")
-    parser.parse_args()
+    args = parser.parse_args(argv)
+    if args.profile == "target":
+        sys.path.insert(0, str(ROOT))
+        from scripts.target_check import main as target_main
+        return target_main(["fresh-install", "--disposable"])
     try:
         smoke()
     except (ValueError, subprocess.SubprocessError) as exc:

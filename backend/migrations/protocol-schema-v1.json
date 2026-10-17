@@ -1,0 +1,947 @@
+{
+  "version": "v01-protocol-schema-v1",
+  "status": "PROPOSED_V01_DDL_REVIEW_PENDING",
+  "source_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+  "tables": [
+    "target_active_release",
+    "target_identity_cutover",
+    "target_publication_gate",
+    "target_publication_history",
+    "target_publication_journal",
+    "target_receipt_bridge",
+    "target_session"
+  ],
+  "columns": [
+    {
+      "table_name": "target_active_release",
+      "column_name": "namespace",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 160,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_active_release",
+      "column_name": "operation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_active_release",
+      "column_name": "release_id",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 160,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_active_release",
+      "column_name": "manifest_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_active_release",
+      "column_name": "fence_generation",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_identity_cutover",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_identity_cutover",
+      "column_name": "checkpoint_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_identity_cutover",
+      "column_name": "provenance_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_identity_cutover",
+      "column_name": "verified_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_publication_gate",
+      "column_name": "namespace",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 160,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_gate",
+      "column_name": "pending_operation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_gate",
+      "column_name": "owner_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_gate",
+      "column_name": "fence_generation",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_gate",
+      "column_name": "lease_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "operation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "owner_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "fence_generation",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "phase",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "recorded_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_publication_history",
+      "column_name": "error_code",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "namespace",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 160,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "key_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "plan_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "plan",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "release_id",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 160,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "manifest_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "owner_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "fence_generation",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "lease_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "phase",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "db_committed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "activation_status",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 24,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "error_code",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_publication_journal",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "original_scope",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 80,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "bootstrap_fingerprint",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "owner_user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "state",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 16,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "session_lineage_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "revocation_epoch",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "replay_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "ticket_version",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "ticket_expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "ticket_revoked_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "cutover_checkpoint_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "column_name": "transfer_binding_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "lineage_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "token_digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "auth_hash",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 128,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "revocation_epoch",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "target_session",
+      "column_name": "revoked_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "target_active_release",
+      "name": "target_active_fence_positive",
+      "type": "c",
+      "definition": "CHECK ((fence_generation > 0))"
+    },
+    {
+      "table_name": "target_active_release",
+      "name": "target_active_gate_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (namespace) REFERENCES target_publication_gate(namespace) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_active_release",
+      "name": "target_active_journal_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (operation_id, namespace) REFERENCES target_publication_journal(id, namespace) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_active_release",
+      "name": "target_active_release_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (namespace)"
+    },
+    {
+      "table_name": "target_identity_cutover",
+      "name": "target_checkpoint_unique",
+      "type": "u",
+      "definition": "UNIQUE (checkpoint_digest)"
+    },
+    {
+      "table_name": "target_identity_cutover",
+      "name": "target_cutover_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "target_publication_gate",
+      "name": "target_gate_fence_nonnegative",
+      "type": "c",
+      "definition": "CHECK ((fence_generation >= 0))"
+    },
+    {
+      "table_name": "target_publication_gate",
+      "name": "target_gate_pending_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (pending_operation_id, namespace) REFERENCES target_publication_journal(id, namespace) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_publication_gate",
+      "name": "target_gate_pending_tuple",
+      "type": "c",
+      "definition": "CHECK ((((pending_operation_id IS NULL) AND (owner_id IS NULL) AND (lease_until IS NULL)) OR ((pending_operation_id IS NOT NULL) AND (owner_id IS NOT NULL) AND (lease_until IS NOT NULL) AND (fence_generation > 0))))"
+    },
+    {
+      "table_name": "target_publication_gate",
+      "name": "target_publication_gate_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (namespace)"
+    },
+    {
+      "table_name": "target_publication_history",
+      "name": "target_history_fence_positive",
+      "type": "c",
+      "definition": "CHECK ((fence_generation > 0))"
+    },
+    {
+      "table_name": "target_publication_history",
+      "name": "target_history_journal_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (operation_id) REFERENCES target_publication_journal(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_publication_history",
+      "name": "target_publication_history_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_journal_commit_phase",
+      "type": "c",
+      "definition": "CHECK ((((phase)::text <> ALL ((ARRAY['DB_COMMITTED'::character varying, 'ACTIVATING'::character varying, 'ACTIVATED'::character varying, 'COMPLETE'::character varying])::text[])) OR db_committed))"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_journal_fence_positive",
+      "type": "c",
+      "definition": "CHECK ((fence_generation > 0))"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_journal_namespace_unique",
+      "type": "u",
+      "definition": "UNIQUE (id, namespace)"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_journal_phase",
+      "type": "c",
+      "definition": "CHECK (((phase)::text = ANY ((ARRAY['VALIDATED'::character varying, 'STAGED'::character varying, 'DB_COMMITTED'::character varying, 'ACTIVATING'::character varying, 'ACTIVATED'::character varying, 'RECOVERY_REQUIRED'::character varying, 'COMPLETE'::character varying, 'FAILED_PRECOMMIT'::character varying])::text[])))"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_journal_precommit",
+      "type": "c",
+      "definition": "CHECK ((((phase)::text <> 'FAILED_PRECOMMIT'::text) OR (NOT db_committed)))"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_publication_journal_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_publication_key_unique",
+      "type": "u",
+      "definition": "UNIQUE (namespace, key_digest)"
+    },
+    {
+      "table_name": "target_publication_journal",
+      "name": "target_publication_release_unique",
+      "type": "u",
+      "definition": "UNIQUE (namespace, release_id)"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_binding",
+      "type": "c",
+      "definition": "CHECK (((((state)::text = 'ACTIVE'::text) AND (owner_user_id IS NOT NULL) AND (session_id IS NOT NULL) AND (session_lineage_id IS NOT NULL)) OR (((state)::text <> 'ACTIVE'::text) AND (session_id IS NULL))))"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_counters",
+      "type": "c",
+      "definition": "CHECK (((revocation_epoch >= 0) AND (ticket_version >= 0)))"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_cutover_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (cutover_checkpoint_id) REFERENCES target_identity_cutover(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_min_retention",
+      "type": "c",
+      "definition": "CHECK ((replay_until >= (created_at + '168:00:00'::interval)))"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_owner_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (owner_user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_scope_unique",
+      "type": "u",
+      "definition": "UNIQUE (original_scope, bootstrap_fingerprint)"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_session_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (session_id) REFERENCES target_session(id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_state",
+      "type": "c",
+      "definition": "CHECK (((state)::text = ANY ((ARRAY['ACTIVE'::character varying, 'DETACHED'::character varying, 'REVOKED'::character varying, 'EXPIRED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "target_receipt_bridge",
+      "name": "target_bridge_time_order",
+      "type": "c",
+      "definition": "CHECK ((replay_until >= created_at))"
+    },
+    {
+      "table_name": "target_session",
+      "name": "target_session_epoch_nonnegative",
+      "type": "c",
+      "definition": "CHECK ((revocation_epoch >= 0))"
+    },
+    {
+      "table_name": "target_session",
+      "name": "target_session_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "target_session",
+      "name": "target_session_token_unique",
+      "type": "u",
+      "definition": "UNIQUE (token_digest)"
+    },
+    {
+      "table_name": "target_session",
+      "name": "target_session_user_fk",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "target_active_release",
+      "indexname": "target_active_release_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_active_release_pkey ON public.target_active_release USING btree (namespace)"
+    },
+    {
+      "tablename": "target_identity_cutover",
+      "indexname": "target_checkpoint_unique",
+      "indexdef": "CREATE UNIQUE INDEX target_checkpoint_unique ON public.target_identity_cutover USING btree (checkpoint_digest)"
+    },
+    {
+      "tablename": "target_identity_cutover",
+      "indexname": "target_cutover_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_cutover_pkey ON public.target_identity_cutover USING btree (id)"
+    },
+    {
+      "tablename": "target_publication_gate",
+      "indexname": "target_publication_gate_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_publication_gate_pkey ON public.target_publication_gate USING btree (namespace)"
+    },
+    {
+      "tablename": "target_publication_history",
+      "indexname": "target_publication_history_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_publication_history_pkey ON public.target_publication_history USING btree (id)"
+    },
+    {
+      "tablename": "target_publication_journal",
+      "indexname": "target_journal_namespace_unique",
+      "indexdef": "CREATE UNIQUE INDEX target_journal_namespace_unique ON public.target_publication_journal USING btree (id, namespace)"
+    },
+    {
+      "tablename": "target_publication_journal",
+      "indexname": "target_publication_journal_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_publication_journal_pkey ON public.target_publication_journal USING btree (id)"
+    },
+    {
+      "tablename": "target_publication_journal",
+      "indexname": "target_publication_key_unique",
+      "indexdef": "CREATE UNIQUE INDEX target_publication_key_unique ON public.target_publication_journal USING btree (namespace, key_digest)"
+    },
+    {
+      "tablename": "target_publication_journal",
+      "indexname": "target_publication_release_unique",
+      "indexdef": "CREATE UNIQUE INDEX target_publication_release_unique ON public.target_publication_journal USING btree (namespace, release_id)"
+    },
+    {
+      "tablename": "target_receipt_bridge",
+      "indexname": "target_bridge_expiry_idx",
+      "indexdef": "CREATE INDEX target_bridge_expiry_idx ON public.target_receipt_bridge USING btree (replay_until)"
+    },
+    {
+      "tablename": "target_receipt_bridge",
+      "indexname": "target_bridge_lineage_idx",
+      "indexdef": "CREATE INDEX target_bridge_lineage_idx ON public.target_receipt_bridge USING btree (session_lineage_id)"
+    },
+    {
+      "tablename": "target_receipt_bridge",
+      "indexname": "target_bridge_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_bridge_pkey ON public.target_receipt_bridge USING btree (id)"
+    },
+    {
+      "tablename": "target_receipt_bridge",
+      "indexname": "target_bridge_scope_unique",
+      "indexdef": "CREATE UNIQUE INDEX target_bridge_scope_unique ON public.target_receipt_bridge USING btree (original_scope, bootstrap_fingerprint)"
+    },
+    {
+      "tablename": "target_session",
+      "indexname": "target_session_expiry_idx",
+      "indexdef": "CREATE INDEX target_session_expiry_idx ON public.target_session USING btree (expires_at)"
+    },
+    {
+      "tablename": "target_session",
+      "indexname": "target_session_lineage_idx",
+      "indexdef": "CREATE INDEX target_session_lineage_idx ON public.target_session USING btree (lineage_id)"
+    },
+    {
+      "tablename": "target_session",
+      "indexname": "target_session_pkey",
+      "indexdef": "CREATE UNIQUE INDEX target_session_pkey ON public.target_session USING btree (id)"
+    },
+    {
+      "tablename": "target_session",
+      "indexname": "target_session_token_unique",
+      "indexdef": "CREATE UNIQUE INDEX target_session_token_unique ON public.target_session USING btree (token_digest)"
+    }
+  ],
+  "identity_columns": [
+    {
+      "table_name": "target_publication_history",
+      "column_name": "id",
+      "identity_kind": "d",
+      "owned_sequence": "public.target_publication_history_id_seq"
+    }
+  ],
+  "sequences": [
+    {
+      "schemaname": "public",
+      "sequencename": "target_publication_history_id_seq",
+      "data_type": "bigint",
+      "start_value": 1,
+      "min_value": 1,
+      "max_value": 9223372036854775807,
+      "increment_by": 1,
+      "cycle": false,
+      "cache_size": 1
+    }
+  ]
+}

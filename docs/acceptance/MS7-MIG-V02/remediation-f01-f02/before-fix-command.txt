@@ -1,0 +1,26 @@
+test_f01_shared_asset_different_page_order_preserved_over_http (backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http) ... FAIL
+test_f02_missing_static_permanent_redirect_get_and_head (backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_permanent_redirect_get_and_head) ... FAIL
+
+======================================================================
+FAIL: test_f01_shared_asset_different_page_order_preserved_over_http (backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\MathStart-Python-V02\backend\tests\v02\test_asset_regressions.py", line 62, in test_f01_shared_asset_different_page_order_preserved_over_http
+    topic = self.response(self.direct('/api/v1/content/pages/topic/'), schema='ContentDeliveryResponse', delivery=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\MathStart-Python-V02\backend\tests\v02\test_http.py", line 44, in response
+    self.assertEqual(response.status_code, status, response.text[:400])
+AssertionError: 503 != 200 : {"error": {"code": "SERVICE_UNAVAILABLE", "field_errors": {}, "message": "Service temporarily unavailable.", "request_id": "b0dc4401-9ebc-4943-8fa7-6efe9dd81632", "retryable": true}}
+
+======================================================================
+FAIL: test_f02_missing_static_permanent_redirect_get_and_head (backend.tests.v02.test_asset_regressions.SQLiteAssetTests.test_f02_missing_static_permanent_redirect_get_and_head)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\MathStart-Python-V02\backend\tests\v02\test_asset_regressions.py", line 122, in test_f02_missing_static_permanent_redirect_get_and_head
+    self.assertEqual(response.status_code, 301)
+AssertionError: 404 != 301
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.175s
+
+FAILED (failures=2)

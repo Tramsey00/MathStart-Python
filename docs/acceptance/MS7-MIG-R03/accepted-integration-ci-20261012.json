@@ -1,0 +1,208 @@
+{
+  "format": "r03-joint-accepted-integration-evidence-v1",
+  "verified_on": "2026-10-12",
+  "r03_status": "INCOMPLETE",
+  "task_statuses": {
+    "MS7-MIG-I01": "ACCEPTED_INTEGRATION",
+    "MS7-MIG-V01": "ACCEPTED_INTEGRATION"
+  },
+  "acceptance_authority": "Human reviews and external merges; CI does not grant approval",
+  "integration_input": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+  "integration_tree": "1ff96bde5c938b1d00159e9ee1349f5db1f44d9a",
+  "mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "historical_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "suites": {
+    "frontend": {
+      "run_id": 38250865546,
+      "run_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38250865546",
+      "job_id": 114816500523,
+      "status": "SUCCESS",
+      "approved_pr_head": "150279e6ca7f1c82a6f23d8899e50992cf358f55",
+      "actual_test_checkout": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+      "workflow_provenance": {
+        "checkout_sha": "b8cca88f101030cdd56a4714ccd5c5c183e25cb6",
+        "tree_sha": "f8fa0d06e45e9fc8703bfc5dcd79dc329f0ba7dc",
+        "parents": [
+          "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+          "8ee33acadbf78b27ab801ea6ce9cb3454997c5a6"
+        ],
+        "event": "pull_request",
+        "ref": "refs/pull/49/merge",
+        "run_id": "38250865546",
+        "run_attempt": "1",
+        "pr_head_sha": "8ee33acadbf78b27ab801ea6ce9cb3454997c5a6",
+        "pr_base_sha": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+        "tested_merge_ref": "refs/pull/49/merge",
+        "pr_head_tree": "f8fa0d06e45e9fc8703bfc5dcd79dc329f0ba7dc"
+      },
+      "execution_counts": {
+        "started_at": "2026-10-12T12:44:15.509091+00:00",
+        "finished_at": "2026-10-12T12:44:40.406020+00:00",
+        "exit_code": 0,
+        "versions": {
+          "node": "v24.21.0",
+          "npm": "11.19.0"
+        },
+        "frontend_tests_passed": 112,
+        "historical_tests_passed": 5,
+        "required_commands_passed": 10
+      },
+      "artifact": {
+        "format": "r03-raw-artifact-manifest-v1",
+        "run_id": 38250865546,
+        "artifact_id": 11747519439,
+        "archive_sha256": "765d3e086b1363fae4d6d67c995135300d2c496271ba67a405d34052b0b135d7",
+        "raw_files_sha256": {
+          "candidate-provenance.json": "90bbf370f844967370c9549f56ba5ffa8917b4f4b30f8b07848b1c1ee226158e",
+          "execution.json": "52c9166ab37d86e48c49ce503aef3c82d5ecbc0f6e1737dbf9361d8dc3f283ce",
+          "foundation-command-results.json": "72481a7ba3e4f90a71b815fcc2b0096cb83b39b57485b5e70c020ba78879dd51",
+          "foundation.log": "b7e28ae66abbace1ad03ad0c4a7849e799af842bab720b67f8c79cd5252bad6f",
+          "locked-install.log": "f4ce33b45469ff985f5f25fb525032e117bce4be19b6ad30d9160c74fe55524e",
+          "workflow-provenance.json": "b3ffa6826fbdd8d5a88349a654095eeec528e6fcca074569acfa563fc1318536"
+        }
+      },
+      "raw_evidence": "accepted-integration-ci/run-38250865546"
+    },
+    "postgres": {
+      "run_id": 38250865494,
+      "run_url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/38250865494",
+      "job_id": 114816500013,
+      "status": "SUCCESS",
+      "approved_pr_head": "393d98890649c6c7c47908424ba0d076b5b5e56e",
+      "actual_test_checkout": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+      "workflow_provenance": {
+        "checkout_sha": "b8cca88f101030cdd56a4714ccd5c5c183e25cb6",
+        "tree_sha": "f8fa0d06e45e9fc8703bfc5dcd79dc329f0ba7dc",
+        "parents": [
+          "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+          "8ee33acadbf78b27ab801ea6ce9cb3454997c5a6"
+        ],
+        "event": "pull_request",
+        "ref": "refs/pull/49/merge",
+        "run_id": "38250865494",
+        "run_attempt": "1",
+        "pr_head_sha": "8ee33acadbf78b27ab801ea6ce9cb3454997c5a6",
+        "pr_base_sha": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+        "tested_merge_ref": "refs/pull/49/merge",
+        "pr_head_tree": "f8fa0d06e45e9fc8703bfc5dcd79dc329f0ba7dc"
+      },
+      "execution_counts": {
+        "started_at": "2026-10-12T12:44:26.213424+00:00",
+        "exit_code": 0,
+        "lock": "backend/requirements-test.lock",
+        "independent_task_approval": "ACCEPTED_INTEGRATION",
+        "target_tests_passed": 34,
+        "postgres_tests_passed": 23,
+        "unit_tests_passed": 11,
+        "skips": 0,
+        "fresh_install_databases": [
+          "test_ms7_mig_v01_e79eb59db2f34c5ea233795690ed1c5d",
+          "test_ms7_mig_v01_36063ddf63c142d3b380cbf681795221"
+        ],
+        "upgrade_profiles": [
+          "A",
+          "B",
+          "C"
+        ],
+        "disposable_databases_cleaned": 57,
+        "locked_packages_verified": 22,
+        "finished_at": "2026-10-12T12:45:15.592105+00:00"
+      },
+      "artifact": {
+        "format": "r03-raw-artifact-manifest-v1",
+        "run_id": 38250865494,
+        "artifact_id": 11747804358,
+        "archive_sha256": "221444dd9811cbe52e4bcacaba2c2482840826462f297f7450536abaed113cf7",
+        "raw_files_sha256": {
+          "candidate-provenance.json": "56604c373e0878e305c1cccbf6eda21bb07d1306ac6c1a44a47dcb299e809280",
+          "create-target-venv.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution.json": "513673993fd7116ffc564f42b3db5a3ffba10316d49137d970cc5b4a76d68e06",
+          "locked-install.log": "dcc5f2503c85c4ba428a13e1e1aa0eb1cf15953c9a28e6c771dc68e661c1d01f",
+          "owner-diagnostics/f1-timestamp-parity.json": "ca369be165992940a86afb7093c6eb516ef19322237f0186be7f20a315bae62c",
+          "owner-diagnostics/f2-concurrency.json": "c7291b6fad1e6e099d8b5ffccc5c3dc3ef7fcdf8e81ec8b41f38ef9b72407a04",
+          "pip-check.log": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+          "pip-freeze.log": "65cc6be2901dfc3ee7be309e14a0d420428fb75e32f3b5a9a0edb6eb87b44cba",
+          "postgres-after.json": "63b91f04d04f9d18fc36d80b2325f7f7b3b9489bf610cfa7b8c893d671542fc8",
+          "postgres-after.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "postgres-before.json": "deb0cda5ef02566250afaa417d861780b741fb74de1ed2fdbfdf1acffe9e634e",
+          "postgres-before.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "postgres-service.log": "b2ca0e53a71cbf8e3fc4d937b6699ac210d69323e89c3af9f0ff5bad96275224",
+          "service-before.json": "2c105a9a3567fcb0cc17069de8aa839245d145be5b2b98b0bfa444e3ce44bb81",
+          "service-cleanup.json": "a3fd113a012db6c71e7f48787bc944f63fc6c98c6061b838f0d9b9d4853ec084",
+          "target-suite.log": "76e25c01779f559e199f571c42b4d9e46c137c6faecc415bd13151bece1f7012",
+          "test-observations.json": "cebf596145ac30a869d39fa949fa547d86d1434700417b3bf49ce7f5f47736ee",
+          "workflow-provenance.json": "7b8e0d5d92468e2076e1b7bd39850b58dac4a57d7f4d97c247cc468c15912c58"
+        }
+      },
+      "raw_evidence": "accepted-integration-ci/run-38250865494"
+    }
+  },
+  "postgres_environment": {
+    "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+    "server": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "packages": 22,
+    "passed_subtests": 40,
+    "databases_before": [],
+    "databases_after": [],
+    "tmpfs_service_stop": "PASS",
+    "github_post_job_removal": "SUCCESS"
+  },
+  "preservation": {
+    "accepted_input": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+    "preserved_files": 1662,
+    "adapted_files": [
+      ".github/workflows/migration-ci.yml",
+      "harness/runner/verification.py",
+      "scripts/check_database.py",
+      "scripts/fresh_install_smoke.py",
+      "scripts/verify_repo.py",
+      "scripts/version_report.py",
+      "skills/verification/SKILL.md",
+      "specs/harness/README.md",
+      "tests/harness/test_canonical_verification.py",
+      "tests/harness/test_verification.py"
+    ]
+  },
+  "baseline": {
+    "run_id": 38157082399,
+    "status": "SUCCESS",
+    "actual_checkout": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+    "frontend_suite": "NOT_RUN by baseline design"
+  },
+  "r03_migration_run": {
+    "run_id": 38250865462,
+    "overall_status": "FAILURE",
+    "verify": "SUCCESS",
+    "pure": "SUCCESS",
+    "target": "FAILURE",
+    "failed_stage": "Owner reviewed command-handoff prerequisite assertion",
+    "remaining_target_execution": "NOT_RUN",
+    "classification": "Missing owner runtime commands / outstanding integration dependencies",
+    "jobs_receipt": "accepted-integration-ci/external-receipts/jobs-38250865462-final.json"
+  },
+  "local_checks": {
+    "python": "3.12.14",
+    "frontend_adapter": 8,
+    "postgres_adapter": 11,
+    "accepted_input_negatives": 8,
+    "configured_locked_pure_profile": "PASS 6/6",
+    "first_unconfigured_pure_profile": "FAIL: jsonschema missing",
+    "initial_temp_directory_error": "Environment/sandbox access; workspace TEMP rerun PASS"
+  },
+  "remaining_dependencies": {
+    "hard_R02": "ACCEPTED_INTEGRATION",
+    "parity_contract_R02": "ACCEPTED",
+    "integration_V02": "ABSENT from input / Issue35 OPEN",
+    "integration_I02": "ABSENT from input / Issue41 OPEN",
+    "runtime_command_handoff": "PENDING_OWNER_IMPLEMENTATIONS_AND_REVIEW; includes V04 content CLI",
+    "full_target_evidence": "API/services/staff/content/263 sources/bootstrap/assets/integrated browser + runtime historical equivalents",
+    "final_default_cutover": "PENDING legacy-to-target",
+    "independent_R03_task_approval": "PENDING Vladimir/Ilya"
+  },
+  "next_available_r03_step": "Review concrete owner CLI/receipt handoff against old-to-new registry contracts; intake accepted V02/I02 exact SHAs before the full target gate",
+  "issues": {
+    "34": "OPEN until final integration into main",
+    "40": "OPEN until final integration into main"
+  },
+  "historical_runs_record": "accepted-integration-ci/historical-runs.json"
+}

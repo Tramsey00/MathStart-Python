@@ -1,0 +1,124 @@
+{
+  "implementation_sha": "0fdce4e1376e6958f0b3eb2518fd986c390a5ff1",
+  "source_candidate_sha": "ef7a2b2a0c13e41b67f5bb21af9607c69e1331de",
+  "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\backend",
+  "env_names": [
+    "MATHSTART_V02_TEST_ADMIN_URL",
+    "PYTHONPATH"
+  ],
+  "postgresql": "16; dedicated task-owned container at reserved frozen port15441",
+  "ownership_label": "migration-execution-backend-v02-medium",
+  "checks": [
+    {
+      "environment_profile": "target",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\backend\\var\\venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_missing_and_damaged_asset_still_fail_closed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_multiple_css_js_page_orders_and_unique_union",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_page_order_preserved_over_http",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_different_valid_digests_fail_closed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_asset_same_order_release_available",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_corrupt_index503_not_redirect",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_active_release503_not_redirect",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_asset_without_active_rule404",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_media_redirect_get_and_head",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_permanent_redirect_get_and_head",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_missing_static_temporary_redirect",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_private_and_csrf_errors_not_redirected",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_private_storage_restriction503_not_bypassed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unicode_and_percent_encoded_location_preserved",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_unsafe_redirect_targets_fail_closed",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_working_asset_precedes_conflicting_redirect_and_method405",
+        "-v"
+      ],
+      "case_ids": [
+        "test_f01_missing_and_damaged_asset_still_fail_closed",
+        "test_f01_multiple_css_js_page_orders_and_unique_union",
+        "test_f01_shared_asset_different_page_order_preserved_over_http",
+        "test_f01_shared_asset_different_storage_same_bytes_fail_closed",
+        "test_f01_shared_asset_different_valid_digests_fail_closed",
+        "test_f01_shared_asset_incompatible_kind_lifecycle_fail_closed",
+        "test_f01_shared_asset_same_order_release_available",
+        "test_f01_shared_script_valid_but_different_lifecycle_fail_closed",
+        "test_f02_asset_integrity_failure503_not_hidden_by_redirect",
+        "test_f02_corrupt_index503_not_redirect",
+        "test_f02_missing_active_release503_not_redirect",
+        "test_f02_missing_asset_without_active_rule404",
+        "test_f02_missing_media_redirect_get_and_head",
+        "test_f02_missing_static_permanent_redirect_get_and_head",
+        "test_f02_missing_static_temporary_redirect",
+        "test_f02_non404_private_and_csrf_errors_not_redirected",
+        "test_f02_non404_resolver_errors_and_internal_failure_not_redirected",
+        "test_f02_private_storage_restriction503_not_bypassed",
+        "test_f02_traversal_invalid_encoding_private_paths_never_redirect",
+        "test_f02_unicode_and_percent_encoded_location_preserved",
+        "test_f02_unsafe_redirect_targets_fail_closed",
+        "test_f02_working_asset_precedes_conflicting_redirect_and_method405"
+      ],
+      "start": "2026-10-16T18:15:48.458371+00:00",
+      "end": "2026-10-16T18:16:04.002865+00:00",
+      "exit_code": 0,
+      "raw": {
+        "stdout": {
+          "base64": "",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "base64": "dGVzdF9mMDFfbWlzc2luZ19hbmRfZGFtYWdlZF9hc3NldF9zdGlsbF9mYWlsX2Nsb3NlZCAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMV9taXNzaW5nX2FuZF9kYW1hZ2VkX2Fzc2V0X3N0aWxsX2ZhaWxfY2xvc2VkKSAuLi4gb2sNCnRlc3RfZjAxX211bHRpcGxlX2Nzc19qc19wYWdlX29yZGVyc19hbmRfdW5pcXVlX3VuaW9uIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAxX211bHRpcGxlX2Nzc19qc19wYWdlX29yZGVyc19hbmRfdW5pcXVlX3VuaW9uKSAuLi4gb2sNCnRlc3RfZjAxX3NoYXJlZF9hc3NldF9kaWZmZXJlbnRfcGFnZV9vcmRlcl9wcmVzZXJ2ZWRfb3Zlcl9odHRwIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAxX3NoYXJlZF9hc3NldF9kaWZmZXJlbnRfcGFnZV9vcmRlcl9wcmVzZXJ2ZWRfb3Zlcl9odHRwKSAuLi4gb2sNCnRlc3RfZjAxX3NoYXJlZF9hc3NldF9kaWZmZXJlbnRfc3RvcmFnZV9zYW1lX2J5dGVzX2ZhaWxfY2xvc2VkIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAxX3NoYXJlZF9hc3NldF9kaWZmZXJlbnRfc3RvcmFnZV9zYW1lX2J5dGVzX2ZhaWxfY2xvc2VkKSAuLi4gb2sNCnRlc3RfZjAxX3NoYXJlZF9hc3NldF9kaWZmZXJlbnRfdmFsaWRfZGlnZXN0c19mYWlsX2Nsb3NlZCAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMV9zaGFyZWRfYXNzZXRfZGlmZmVyZW50X3ZhbGlkX2RpZ2VzdHNfZmFpbF9jbG9zZWQpIC4uLiBvaw0KdGVzdF9mMDFfc2hhcmVkX2Fzc2V0X2luY29tcGF0aWJsZV9raW5kX2xpZmVjeWNsZV9mYWlsX2Nsb3NlZCAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMV9zaGFyZWRfYXNzZXRfaW5jb21wYXRpYmxlX2tpbmRfbGlmZWN5Y2xlX2ZhaWxfY2xvc2VkKSAuLi4gb2sNCnRlc3RfZjAxX3NoYXJlZF9hc3NldF9zYW1lX29yZGVyX3JlbGVhc2VfYXZhaWxhYmxlIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAxX3NoYXJlZF9hc3NldF9zYW1lX29yZGVyX3JlbGVhc2VfYXZhaWxhYmxlKSAuLi4gb2sNCnRlc3RfZjAxX3NoYXJlZF9zY3JpcHRfdmFsaWRfYnV0X2RpZmZlcmVudF9saWZlY3ljbGVfZmFpbF9jbG9zZWQgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDFfc2hhcmVkX3NjcmlwdF92YWxpZF9idXRfZGlmZmVyZW50X2xpZmVjeWNsZV9mYWlsX2Nsb3NlZCkgLi4uIG9rDQp0ZXN0X2YwMl9hc3NldF9pbnRlZ3JpdHlfZmFpbHVyZTUwM19ub3RfaGlkZGVuX2J5X3JlZGlyZWN0IChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAyX2Fzc2V0X2ludGVncml0eV9mYWlsdXJlNTAzX25vdF9oaWRkZW5fYnlfcmVkaXJlY3QpIC4uLiBvaw0KdGVzdF9mMDJfY29ycnVwdF9pbmRleDUwM19ub3RfcmVkaXJlY3QgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDJfY29ycnVwdF9pbmRleDUwM19ub3RfcmVkaXJlY3QpIC4uLiBvaw0KdGVzdF9mMDJfbWlzc2luZ19hY3RpdmVfcmVsZWFzZTUwM19ub3RfcmVkaXJlY3QgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDJfbWlzc2luZ19hY3RpdmVfcmVsZWFzZTUwM19ub3RfcmVkaXJlY3QpIC4uLiBvaw0KdGVzdF9mMDJfbWlzc2luZ19hc3NldF93aXRob3V0X2FjdGl2ZV9ydWxlNDA0IChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAyX21pc3NpbmdfYXNzZXRfd2l0aG91dF9hY3RpdmVfcnVsZTQwNCkgLi4uIG9rDQp0ZXN0X2YwMl9taXNzaW5nX21lZGlhX3JlZGlyZWN0X2dldF9hbmRfaGVhZCAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMl9taXNzaW5nX21lZGlhX3JlZGlyZWN0X2dldF9hbmRfaGVhZCkgLi4uIG9rDQp0ZXN0X2YwMl9taXNzaW5nX3N0YXRpY19wZXJtYW5lbnRfcmVkaXJlY3RfZ2V0X2FuZF9oZWFkIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAyX21pc3Npbmdfc3RhdGljX3Blcm1hbmVudF9yZWRpcmVjdF9nZXRfYW5kX2hlYWQpIC4uLiBvaw0KdGVzdF9mMDJfbWlzc2luZ19zdGF0aWNfdGVtcG9yYXJ5X3JlZGlyZWN0IChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAyX21pc3Npbmdfc3RhdGljX3RlbXBvcmFyeV9yZWRpcmVjdCkgLi4uIG9rDQp0ZXN0X2YwMl9ub240MDRfcHJpdmF0ZV9hbmRfY3NyZl9lcnJvcnNfbm90X3JlZGlyZWN0ZWQgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDJfbm9uNDA0X3ByaXZhdGVfYW5kX2NzcmZfZXJyb3JzX25vdF9yZWRpcmVjdGVkKSAuLi4gb2sNCnRlc3RfZjAyX25vbjQwNF9yZXNvbHZlcl9lcnJvcnNfYW5kX2ludGVybmFsX2ZhaWx1cmVfbm90X3JlZGlyZWN0ZWQgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDJfbm9uNDA0X3Jlc29sdmVyX2Vycm9yc19hbmRfaW50ZXJuYWxfZmFpbHVyZV9ub3RfcmVkaXJlY3RlZCkgLi4uIG9rDQp0ZXN0X2YwMl9wcml2YXRlX3N0b3JhZ2VfcmVzdHJpY3Rpb241MDNfbm90X2J5cGFzc2VkIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAyX3ByaXZhdGVfc3RvcmFnZV9yZXN0cmljdGlvbjUwM19ub3RfYnlwYXNzZWQpIC4uLiBvaw0KdGVzdF9mMDJfdHJhdmVyc2FsX2ludmFsaWRfZW5jb2RpbmdfcHJpdmF0ZV9wYXRoc19uZXZlcl9yZWRpcmVjdCAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMl90cmF2ZXJzYWxfaW52YWxpZF9lbmNvZGluZ19wcml2YXRlX3BhdGhzX25ldmVyX3JlZGlyZWN0KSAuLi4gb2sNCnRlc3RfZjAyX3VuaWNvZGVfYW5kX3BlcmNlbnRfZW5jb2RlZF9sb2NhdGlvbl9wcmVzZXJ2ZWQgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDJfdW5pY29kZV9hbmRfcGVyY2VudF9lbmNvZGVkX2xvY2F0aW9uX3ByZXNlcnZlZCkgLi4uIG9rDQp0ZXN0X2YwMl91bnNhZmVfcmVkaXJlY3RfdGFyZ2V0c19mYWlsX2Nsb3NlZCAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMl91bnNhZmVfcmVkaXJlY3RfdGFyZ2V0c19mYWlsX2Nsb3NlZCkgLi4uIG9rDQp0ZXN0X2YwMl93b3JraW5nX2Fzc2V0X3ByZWNlZGVzX2NvbmZsaWN0aW5nX3JlZGlyZWN0X2FuZF9tZXRob2Q0MDUgKGJhY2tlbmQudGVzdHMudjAyLnRlc3RfYXNzZXRfcmVncmVzc2lvbnMuUG9zdGdyZVNRTEFzc2V0VGVzdHMudGVzdF9mMDJfd29ya2luZ19hc3NldF9wcmVjZWRlc19jb25mbGljdGluZ19yZWRpcmVjdF9hbmRfbWV0aG9kNDA1KSAuLi4gb2sNCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KUmFuIDIyIHRlc3RzIGluIDEzLjM0OXMNCg0KT0sNCg==",
+          "sha256": "ca1561294e0ea9c58283c88c54703c4cafe1cf0264009d6a9a3d37fe466e49e6"
+        }
+      },
+      "collected": 22,
+      "skipped": 0,
+      "passed": 22
+    },
+    {
+      "environment_profile": "separate-legacy-oracle",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\backend\\var\\legacy-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_asset_regressions.PostgreSQLAssetTests.test_f02_actual_django_static_media_redirect_comparator",
+        "-v"
+      ],
+      "case_ids": [
+        "test_f02_actual_django_static_media_redirect_comparator"
+      ],
+      "start": "2026-10-16T18:16:04.002865+00:00",
+      "end": "2026-10-16T18:16:09.062021+00:00",
+      "exit_code": 1,
+      "raw": {
+        "stdout": {
+          "base64": "",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "base64": "dGVzdF9mMDJfYWN0dWFsX2RqYW5nb19zdGF0aWNfbWVkaWFfcmVkaXJlY3RfY29tcGFyYXRvciAoYmFja2VuZC50ZXN0cy52MDIudGVzdF9hc3NldF9yZWdyZXNzaW9ucy5Qb3N0Z3JlU1FMQXNzZXRUZXN0cy50ZXN0X2YwMl9hY3R1YWxfZGphbmdvX3N0YXRpY19tZWRpYV9yZWRpcmVjdF9jb21wYXJhdG9yKSAuLi4gRkFJTA0KDQo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQpGQUlMOiB0ZXN0X2YwMl9hY3R1YWxfZGphbmdvX3N0YXRpY19tZWRpYV9yZWRpcmVjdF9jb21wYXJhdG9yIChiYWNrZW5kLnRlc3RzLnYwMi50ZXN0X2Fzc2V0X3JlZ3Jlc3Npb25zLlBvc3RncmVTUUxBc3NldFRlc3RzLnRlc3RfZjAyX2FjdHVhbF9kamFuZ29fc3RhdGljX21lZGlhX3JlZGlyZWN0X2NvbXBhcmF0b3IpDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQpUcmFjZWJhY2sgKG1vc3QgcmVjZW50IGNhbGwgbGFzdCk6DQogIEZpbGUgIkM6XFByb2plY3RzXE1hdGhTdGFydC1QeXRob25cbWlncmF0aW9uLWV4ZWN1dGlvblxiYWNrZW5kXGJhY2tlbmRcdGVzdHNcdjAyXHRlc3RfYXNzZXRfcmVncmVzc2lvbnMucHkiLCBsaW5lIDI5MywgaW4gdGVzdF9mMDJfYWN0dWFsX2RqYW5nb19zdGF0aWNfbWVkaWFfcmVkaXJlY3RfY29tcGFyYXRvcg0KICAgIHNlbGYuYXNzZXJ0RXF1YWwocmVzdWx0LnJldHVybmNvZGUsIDAsIHJlc3VsdC5zdGRlcnIuZGVjb2RlKGVycm9ycz0ncmVwbGFjZScpWy0xNTAwOl0pDQpBc3NlcnRpb25FcnJvcjogMSAhPSAwIDogbnZcTGliXHNpdGUtcGFja2FnZXNcZGphbmdvXGNvbmZcX19pbml0X18ucHkiLCBsaW5lIDgxLCBpbiBfX2dldGF0dHJfXw0NCiAgICBzZWxmLl9zZXR1cChuYW1lKQ0NCiAgRmlsZSAiQzpcUHJvamVjdHNcTWF0aFN0YXJ0LVB5dGhvblxtaWdyYXRpb24tZXhlY3V0aW9uXGJhY2tlbmRcdmFyXGxlZ2FjeS12ZW52XExpYlxzaXRlLXBhY2thZ2VzXGRqYW5nb1xjb25mXF9faW5pdF9fLnB5IiwgbGluZSA2OCwgaW4gX3NldHVwDQ0KICAgIHNlbGYuX3dyYXBwZWQgPSBTZXR0aW5ncyhzZXR0aW5nc19tb2R1bGUpDQ0KICAgICAgICAgICAgICAgICAgICBeXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eDQ0KICBGaWxlICJDOlxQcm9qZWN0c1xNYXRoU3RhcnQtUHl0aG9uXG1pZ3JhdGlvbi1leGVjdXRpb25cYmFja2VuZFx2YXJcbGVnYWN5LXZlbnZcTGliXHNpdGUtcGFja2FnZXNcZGphbmdvXGNvbmZcX19pbml0X18ucHkiLCBsaW5lIDE2NiwgaW4gX19pbml0X18NDQogICAgbW9kID0gaW1wb3J0bGliLmltcG9ydF9tb2R1bGUoc2VsZi5TRVRUSU5HU19NT0RVTEUpDQ0KICAgICAgICAgIF5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXg0NCiAgRmlsZSAiQzpcVXNlcnNcVHJhbXNleVwuY2FjaGVcY29kZXgtcnVudGltZXNcY29kZXgtcHJpbWFyeS1ydW50aW1lXGRlcGVuZGVuY2llc1xweXRob25cTGliXGltcG9ydGxpYlxfX2luaXRfXy5weSIsIGxpbmUgOTAsIGluIGltcG9ydF9tb2R1bGUNDQogICAgcmV0dXJuIF9ib290c3RyYXAuX2djZF9pbXBvcnQobmFtZVtsZXZlbDpdLCBwYWNrYWdlLCBsZXZlbCkNDQogICAgICAgICAgIF5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl4NDQogIEZpbGUgIjxmcm96ZW4gaW1wb3J0bGliLl9ib290c3RyYXA+IiwgbGluZSAxMzg3LCBpbiBfZ2NkX2ltcG9ydA0NCiAgRmlsZSAiPGZyb3plbiBpbXBvcnRsaWIuX2Jvb3RzdHJhcD4iLCBsaW5lIDEzNjAsIGluIF9maW5kX2FuZF9sb2FkDQ0KICBGaWxlICI8ZnJvemVuIGltcG9ydGxpYi5fYm9vdHN0cmFwPiIsIGxpbmUgMTMzMSwgaW4gX2ZpbmRfYW5kX2xvYWRfdW5sb2NrZWQNDQogIEZpbGUgIjxmcm96ZW4gaW1wb3J0bGliLl9ib290c3RyYXA+IiwgbGluZSA5MzUsIGluIF9sb2FkX3VubG9ja2VkDQ0KICBGaWxlICI8ZnJvemVuIGltcG9ydGxpYi5fYm9vdHN0cmFwX2V4dGVybmFsPiIsIGxpbmUgOTk5LCBpbiBleGVjX21vZHVsZQ0NCiAgRmlsZSAiPGZyb3plbiBpbXBvcnRsaWIuX2Jvb3RzdHJhcD4iLCBsaW5lIDQ4OCwgaW4gX2NhbGxfd2l0aF9mcmFtZXNfcmVtb3ZlZA0NCiAgRmlsZSAiQzpcUHJvamVjdHNcTWF0aFN0YXJ0LVB5dGhvblxtaWdyYXRpb24tZXhlY3V0aW9uXGJhY2tlbmRcY29uZmlnXHNldHRpbmdzLnB5IiwgbGluZSA0LCBpbiA8bW9kdWxlPg0NCiAgICBmcm9tIGRvdGVudiBpbXBvcnQgbG9hZF9kb3RlbnYNDQpNb2R1bGVOb3RGb3VuZEVycm9yOiBObyBtb2R1bGUgbmFtZWQgJ2RvdGVudicNDQoNCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KUmFuIDEgdGVzdCBpbiAyLjAwM3MNCg0KRkFJTEVEIChmYWlsdXJlcz0xKQ0K",
+          "sha256": "50d1af7c278c1412888d1bdb578cc069e999ce50fb8cddab966f00440b779e97"
+        }
+      },
+      "collected": 1,
+      "skipped": 0,
+      "passed": 0
+    }
+  ],
+  "cleanup": "Each frozen test drops only its newly created UUID marked fixture DB; dedicated container retained for bounded owner cleanup",
+  "limitations": [
+    "This PG suite exercises accepted V02 ReleaseStore; new cached wrapper is additionally covered by new13 tests and independent reviewer PG runtime probes"
+  ],
+  "actual_postgresql_version": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "post_run_cleanup": {
+    "remaining_v02_uuid_databases": 0,
+    "container_ownership_rechecked": true,
+    "owned_container_stopped_removed": true,
+    "shared_container_unchanged": true
+  }
+}

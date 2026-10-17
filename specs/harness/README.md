@@ -1,5 +1,15 @@
 # MathStart Harness R04: запуск и границы
 
+Текущая migration адаптация MS7-MIG-R03: `repo-baseline` использует
+`verify_repo.py --profile target --exclude-group harness` (15 checks).
+`harness-unit` и `harness-cli-smoke` сохраняют прежние IDs/argv.
+Для pure/Harness без Django: `pip install --no-deps -r specs/migration/r03-v1/verification.lock`,
+`pip check`, `python scripts/verify_repo.py --profile pure` на Python3.12+.
+Отсутствующие V/I runtime commands дают FAIL и не разрешают READY.
+[Current adapter contract](../migration/r03-v1/README.md) и
+[R03 trace](../../docs/agent-traces/MS7-MIG-R03.md) отделяют текущие результаты
+от исторического описания R04 ниже; historical acceptance не переписана.
+
 R04 даёт bootstrap CLI runner, версионированные TaskManifest/RunResult, заменяемый ModelAdapter protocol и детерминированный FakeAdapter. Это локальный исполняемый каркас для проверки workflow; он пока не доказывает G1.
 
 ## Подготовка

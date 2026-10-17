@@ -1,0 +1,33 @@
+{
+  "version": "public-build-handoff-v1",
+  "state": "PROPOSED_NOT_IMPLEMENTED",
+  "index_schema": "delivery-v1.schema.json#/$defs/PublicBuildIndex",
+  "page_schema": "delivery-v1.schema.json#/$defs/ContentDelivery",
+  "build_artifact": "<release-root>/index.json with <release-root>/pages/<id>.json for every published page",
+  "frontend_active_index": "/_content/index.json -> the activated complete release index; atomic pointer resolution, no-store",
+  "frontend_immutable_root": "/_content/releases/<release_id>/; index.json and pages/<id>.json; immutable hash-verified release",
+  "consistency": "Load one active index, fetch referenced pages from its pinned immutable release, verify manifest and DTOs; never mix latest DB catalogue with an old page. Failed activation retains previous index/pages/catalogue/sitemap/redirects.",
+  "public_urls": "Every published ContentPage.get_absolute_url, every published home /<slug>/ alias with canonical/, robots/sitemap, retained active redirects only after404; assets are the union of per-page Asset descriptors. No account/admin/private API/unpublished content.",
+  "catalogue_order": [
+    "grade__order",
+    "grade_id",
+    "subject__order",
+    "subject_id",
+    "section__order",
+    "section_id",
+    "order",
+    "title",
+    "id"
+  ],
+  "catalogue_query": "QueryDict.get last singleton; unknown params ignored; grade valid among topic grades else empty; subjects dedupe by slug after grade filter, keep first entity; invalid subject becomes empty; q Python strip then Unicode casefold substring of topic title, no normalization; ordering unchanged.",
+  "catalogue_render": "q nonempty gives flat results with grade/subject/section labels; q empty regroup by entity grade/subject/section in stable topic order; selected grade/subject opens sections; zero matches shows baseline empty state/count0; fallback labels from templates/includes/catalogue.html",
+  "publication_state_operation": "GET /api/v1/staff/pages/{id}/publication_state/ (private/no-store/read-only), separate from public index",
+  "implementation_owners": [
+    "V02",
+    "V04",
+    "I02",
+    "I03",
+    "V05"
+  ],
+  "target_evidence": "NOT_RUN"
+}

@@ -1,0 +1,293 @@
+{
+  "version": "i02-i03-public-block-run-v1",
+  "status": "PASS",
+  "started_at": "2026-10-17T15:32:19.474340+00:00",
+  "implementation_sha": "0589911d31f098bb46788e71ae178c956b4c5569",
+  "tree_sha": "f68c7af79b7b33ef38e28c501a20f5b664a5e35c",
+  "source_before": {
+    "head": "0589911d31f098bb46788e71ae178c956b4c5569",
+    "tree": "f68c7af79b7b33ef38e28c501a20f5b664a5e35c",
+    "dirty_paths": [],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_sha256": {}
+  },
+  "dirty_paths": [],
+  "scope": "identity",
+  "scope_description": "I02 + identity narrow Chrome checks; final matrix pending",
+  "full_V03_V04_R03": "NOT_VERIFIED",
+  "formal_acceptance": "HUMAN_PENDING",
+  "stages": [
+    {
+      "id": "legacy-interpreter-regression",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_legacy_interpreter.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "log": "legacy-interpreter-regression.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.164
+    },
+    {
+      "id": "target-lock",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "cwd": ".",
+      "log": "target-lock.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.365
+    },
+    {
+      "id": "python-version",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "--version"
+      ],
+      "cwd": ".",
+      "log": "python-version.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.004
+    },
+    {
+      "id": "node-version",
+      "argv": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "--version"
+      ],
+      "cwd": ".",
+      "log": "node-version.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.008
+    },
+    {
+      "id": "npm-version",
+      "argv": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/npm",
+        "--version"
+      ],
+      "cwd": ".",
+      "log": "npm-version.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.114
+    },
+    {
+      "id": "postgres-version",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "-c",
+        "from backend.infrastructure.database import DatabaseConfig,create_engine; from sqlalchemy import text; e=create_engine(DatabaseConfig.from_environment()); c=e.connect(); print(c.scalar(text('SHOW server_version'))); c.close(); e.dispose()"
+      ],
+      "cwd": ".",
+      "log": "postgres-version.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.515
+    },
+    {
+      "id": "synthetic-prepare",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "-m",
+        "backend.content.synthetic_setup",
+        "prepare",
+        "--disposable",
+        "--runtime-root",
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-block-ci/runtime",
+        "--release-id",
+        "public-dba19f91de9a42fcb83da9e15b20a958",
+        "--source-sha",
+        "0589911d31f098bb46788e71ae178c956b4c5569"
+      ],
+      "cwd": ".",
+      "log": "synthetic-prepare.log",
+      "exit_code": 0,
+      "elapsed_seconds": 14.249
+    },
+    {
+      "id": "frontend-typecheck",
+      "argv": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "frontend",
+      "log": "frontend-typecheck.log",
+      "exit_code": 0,
+      "elapsed_seconds": 5.586
+    },
+    {
+      "id": "frontend-unit",
+      "argv": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/npm",
+        "run",
+        "test"
+      ],
+      "cwd": "frontend",
+      "log": "frontend-unit.log",
+      "exit_code": 0,
+      "elapsed_seconds": 11.227
+    },
+    {
+      "id": "frontend-build",
+      "argv": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/npm",
+        "run",
+        "build"
+      ],
+      "cwd": "frontend",
+      "log": "frontend-build.log",
+      "exit_code": 0,
+      "elapsed_seconds": 26.302
+    },
+    {
+      "id": "initial-synthetic-activation",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "-m",
+        "backend.content.synthetic_setup",
+        "activate-initial",
+        "--disposable",
+        "--runtime-root",
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-block-ci/runtime",
+        "--release-id",
+        "public-dba19f91de9a42fcb83da9e15b20a958",
+        "--receipt-digest",
+        "a115674e0ebc394f6084e2e9c7bc5edd6324c4adc14c30790df0c87c0f363766",
+        "--artifact-root",
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-block-ci/artifact",
+        "--artifact-digest",
+        "31f7150b46057d7d5539100c689e8c7cb02552e6584978a6473d99e58579cdd1"
+      ],
+      "cwd": ".",
+      "log": "initial-synthetic-activation.log",
+      "exit_code": 0,
+      "elapsed_seconds": 3.072
+    },
+    {
+      "id": "target-system",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "scripts/target_check.py",
+        "system"
+      ],
+      "cwd": ".",
+      "log": "target-system.log",
+      "exit_code": 0,
+      "elapsed_seconds": 1.468
+    },
+    {
+      "id": "target-migrations",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "scripts/target_check.py",
+        "migrations"
+      ],
+      "cwd": ".",
+      "log": "target-migrations.log",
+      "exit_code": 0,
+      "elapsed_seconds": 0.716
+    },
+    {
+      "id": "target-lesson-sources",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "scripts/target_check.py",
+        "lesson-sources"
+      ],
+      "cwd": ".",
+      "log": "target-lesson-sources.log",
+      "exit_code": 0,
+      "elapsed_seconds": 3.473
+    },
+    {
+      "id": "target-site-integrity",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "scripts/target_check.py",
+        "site-integrity"
+      ],
+      "cwd": ".",
+      "log": "target-site-integrity.log",
+      "exit_code": 0,
+      "elapsed_seconds": 6.781
+    },
+    {
+      "id": "source-render-and-read-runtime",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "-m",
+        "unittest",
+        "backend.tests.v04.test_build",
+        "backend.tests.v04.test_read_runtime",
+        "backend.tests.v04.test_content_checks",
+        "backend.tests.v04.test_publication",
+        "backend.tests.v04.test_editions",
+        "backend.tests.v04.test_preparation",
+        "backend.tests.v04.test_artifacts",
+        "backend.tests.v04.test_verified_release_cache",
+        "frontend.tests.test_public_artifact",
+        "frontend.tests.test_legacy_comparator",
+        "-v"
+      ],
+      "cwd": ".",
+      "log": "source-render-and-read-runtime.log",
+      "exit_code": 0,
+      "elapsed_seconds": 129.001
+    },
+    {
+      "id": "prepared-publication-recovery",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "scripts/run_unittest.py",
+        "--start",
+        "backend/tests/v04",
+        "--pattern",
+        "test_participant.py"
+      ],
+      "cwd": ".",
+      "log": "prepared-publication-recovery.log",
+      "exit_code": 0,
+      "elapsed_seconds": 19.284
+    },
+    {
+      "id": "target-content-quality",
+      "argv": [
+        "/home/runner/work/MathStart-Python/MathStart-Python/var/public-target-env/bin/python",
+        "scripts/target_check.py",
+        "content-quality"
+      ],
+      "cwd": ".",
+      "log": "target-content-quality.log",
+      "exit_code": 0,
+      "elapsed_seconds": 34.844
+    }
+  ],
+  "browser_lifecycle": {
+    "startup": "PASS",
+    "browser_exit": 0,
+    "cleanup": "PASS"
+  },
+  "source_after": {
+    "head": "0589911d31f098bb46788e71ae178c956b4c5569",
+    "tree": "f68c7af79b7b33ef38e28c501a20f5b664a5e35c",
+    "dirty_paths": [],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_sha256": {}
+  },
+  "release_id": "public-dba19f91de9a42fcb83da9e15b20a958",
+  "input_manifest_digest": "247d7c0920f8927ac21766727b7e7badf1e60e6c3a5fb700963fc4860da2b68d",
+  "input_receipt_digest": "a115674e0ebc394f6084e2e9c7bc5edd6324c4adc14c30790df0c87c0f363766",
+  "output_manifest_digest": "31f7150b46057d7d5539100c689e8c7cb02552e6584978a6473d99e58579cdd1",
+  "browser_receipt": "browser-receipt.json",
+  "finished_at": "2026-10-17T15:38:09.074995+00:00"
+}

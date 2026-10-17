@@ -1,0 +1,276 @@
+{
+  "version": "migration-execution-tasks-v1",
+  "process_authority": "Single unified remaining-migration assignment in MIGRATION.md; user clarification2026-10-17",
+  "final_acceptance": "HUMAN_PENDING",
+  "release_status": "IN_PROGRESS",
+  "rows": [
+    {
+      "id": "MS7-MIG-R01",
+      "issue": 28,
+      "execution_status": "BASELINE_ACCEPTED",
+      "formal_status": "HISTORICAL_ACCEPTED",
+      "historical_pr": 46,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": false
+    },
+    {
+      "id": "MS7-MIG-R02",
+      "issue": 29,
+      "execution_status": "BASELINE_ACCEPTED",
+      "formal_status": "HISTORICAL_ACCEPTED",
+      "historical_pr": 48,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": false
+    },
+    {
+      "id": "MS7-MIG-R03",
+      "issue": 30,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": 49,
+      "technical_receipts": [
+        "review/r03-intake-20261016/review.md",
+        "review/r03-receipt-fix-916d16d/review.json"
+      ],
+      "blocking_findings": [
+        "R03-INTAKE-02: empty backend command map/full target pipeline pending"
+      ],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-R04",
+      "issue": 31,
+      "execution_status": "TODO",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-R05",
+      "issue": 32,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-R06",
+      "issue": 33,
+      "execution_status": "TODO",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-V01",
+      "issue": 34,
+      "execution_status": "BASELINE_ACCEPTED",
+      "formal_status": "HISTORICAL_ACCEPTED",
+      "historical_pr": 51,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": false
+    },
+    {
+      "id": "MS7-MIG-V02",
+      "issue": 35,
+      "execution_status": "BASELINE_ACCEPTED",
+      "formal_status": "HISTORICAL_ACCEPTED",
+      "historical_pr": 53,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": false
+    },
+    {
+      "id": "MS7-MIG-V03",
+      "issue": 36,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [
+        "public-verifier-candidate.json#latest_observed"
+      ],
+      "blocking_findings": [],
+      "in_current_block": true,
+      "scope_note": "Clean 45a4a31 public/identity CI passed 24 PostgreSQL and 18 Chrome360 cases; remaining bridge/cutover/admin inventory and full final acceptance are incomplete"
+    },
+    {
+      "id": "MS7-MIG-V04",
+      "issue": 37,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [
+        "review/hbuild-2b3a60d/review.md",
+        "review/hbuild-fix-74745c7/review.md",
+        "review/hbuild-fix-cd62406/review.md"
+      ],
+      "blocking_findings": [],
+      "in_current_block": true,
+      "scope_note": "Build-inputs/read-serving has partial evidence; complete publication and recovery within the unified migration goal",
+      "verified_slices": [
+        {
+          "id": "H-BUILD-INPUTS",
+          "sha": "cd62406c6e0ff029c6e4445e8f015243731fd194",
+          "status": "VERIFIED_IN_SCOPE",
+          "integration_merge": "452909218df49202f3577e81664a2f8e6722e9c0",
+          "full_task": "INCOMPLETE"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V05",
+      "issue": 38,
+      "execution_status": "TODO",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-V06",
+      "issue": 39,
+      "execution_status": "TODO",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-I01",
+      "issue": 40,
+      "execution_status": "BASELINE_ACCEPTED",
+      "formal_status": "HISTORICAL_ACCEPTED",
+      "historical_pr": 50,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": false
+    },
+    {
+      "id": "MS7-MIG-I02",
+      "issue": 41,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [
+        "i02-verification/CI-LEGACY-01.md",
+        "public-verifier-candidate.json#latest_observed"
+      ],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-I03",
+      "issue": 42,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true,
+      "scope_note": "Existing code preserved; continue within the unified migration goal; final browser/visual acceptance not claimed"
+    },
+    {
+      "id": "MS7-MIG-I04",
+      "issue": 43,
+      "execution_status": "IN_PROGRESS",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [
+        "public-verifier-candidate.json#latest_observed"
+      ],
+      "blocking_findings": [],
+      "in_current_block": true,
+      "scope_note": "Clean 45a4a31 public/identity CI passed 24 PostgreSQL and 18 Chrome360 cases; remaining bridge/cutover/admin inventory and full final acceptance are incomplete"
+    },
+    {
+      "id": "MS7-MIG-I05",
+      "issue": 44,
+      "execution_status": "TODO",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    },
+    {
+      "id": "MS7-MIG-I06",
+      "issue": 45,
+      "execution_status": "TODO",
+      "formal_status": "HUMAN_PENDING",
+      "historical_pr": null,
+      "technical_receipts": [],
+      "blocking_findings": [],
+      "in_current_block": true
+    }
+  ],
+  "current_block": {
+    "id": "unified-remaining-migration",
+    "goal": "Complete all remaining migration functionality; original IDs are coverage records only",
+    "mode": "UNIFIED_GOAL_SINGLE_EXECUTOR",
+    "primary_executor": "primary",
+    "tasks": [
+      "MS7-MIG-R03",
+      "MS7-MIG-R04",
+      "MS7-MIG-R05",
+      "MS7-MIG-R06",
+      "MS7-MIG-V03",
+      "MS7-MIG-V04",
+      "MS7-MIG-V05",
+      "MS7-MIG-V06",
+      "MS7-MIG-I02",
+      "MS7-MIG-I03",
+      "MS7-MIG-I04",
+      "MS7-MIG-I05",
+      "MS7-MIG-I06"
+    ],
+    "reviewer_policy": "Final candidate; earlier only concrete high-risk question; delta recheck",
+    "next_block_policy": "Continue the same migration; no separate assignments or task stop gates",
+    "full_target_required_for_final": true,
+    "instruction": "MIGRATION.md"
+  },
+  "work_in_progress_branches": [
+    {
+      "branch": "ms7-mig-documentation-checkpoint",
+      "sha": "07dad695c5114ae461078b367bd9eb94aaa671d5",
+      "status": "PUSHED_REMOTE_SHA_CONFIRMED",
+      "task": "R05",
+      "acceptance": "WIP_NOT_VERIFIED"
+    },
+    {
+      "branch": "ms7-mig-frontend-i04-wip",
+      "sha": "bcdb121eccc7643de154b7e8b3f70544cb209766",
+      "status": "PUSHED_REMOTE_SHA_CONFIRMED",
+      "task": "I04",
+      "acceptance": "WIP_NOT_VERIFIED"
+    },
+    {
+      "branch": "ms7-mig-backend-execution",
+      "sha": "fdac6e68b4c7c55ed0effe6e2107bff45dd3416b",
+      "status": "PUSHED_REMOTE_SHA_CONFIRMED",
+      "task": "V03",
+      "acceptance": "WIP_NOT_VERIFIED"
+    }
+  ],
+  "active_roles": [
+    "primary_executor"
+  ],
+  "pending_verifier_candidate": {
+    "sha": "2d707db68fe3abaff2bb6b685e3fba7c0a6dbcd5",
+    "status": "PREPARED_PUBLISHER_INTEGRATED_PASS_SCHEMA_FIXTURE_AND_PROOF_DELTA_SAVED",
+    "latest_integrated_scope_pass": "1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7",
+    "full_target": "PENDING_COMMAND_MAP",
+    "independent_final_review": "NOT_RUN"
+  },
+  "record_usage": "Coverage and observed acceptance only; no task dispatch, model setting or separate stop gate. Current instructions: MIGRATION.md"
+}

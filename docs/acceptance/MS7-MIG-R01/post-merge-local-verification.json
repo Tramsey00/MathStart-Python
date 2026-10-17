@@ -1,0 +1,155 @@
+{
+  "result": "PASS",
+  "verification_date": "2026-10-08 Europe/Moscow",
+  "source_input_commit": "8c11edadc8debc81432d1db1145feac504f09061",
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "task": "MS7-MIG-R01",
+  "branch": "ms7-mig-r01-baseline",
+  "tested_material": "Post-merge task checkout with unchanged application tree from MIG_BASE_SHA; final staged records verified separately. Containing record HEAD external task PR; no circular self-pin.",
+  "versions": {
+    "python": "3.12.10",
+    "packages": {
+      "asgiref": "3.12.1",
+      "attrs": "26.1.0",
+      "beautifulsoup4": "4.15.0",
+      "django": "5.2.16",
+      "djangorestframework": "3.18.1",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "python-dotenv": "1.2.2",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.6.3",
+      "soupsieve": "2.10",
+      "sqlparse": "0.6.0",
+      "typing-extensions": "4.16.0",
+      "tzdata": "2026.3",
+      "whitenoise": "6.12.0"
+    },
+    "pip": "26.2.1",
+    "database": "PostgreSQL connection OK; server_version_num=160015"
+  },
+  "checks": [
+    {
+      "name": "python-version",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "6a5d9f6462ca5dfc6788cfd216ba579fffd7875776ab9d9b35659be78858f73a",
+      "private_log_bytes": 16,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    },
+    {
+      "name": "pip-check",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "private_log_bytes": 31,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    },
+    {
+      "name": "version-report",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "scripts/version_report.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "4005cf5d6430b992ab8db902d967153e75aa2ccecc8615cd9c598abc089a4b0e",
+      "private_log_bytes": 650,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    },
+    {
+      "name": "fresh-smoke",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "scripts/fresh_install_smoke.py",
+        "--disposable"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "93a4f2bed1bef2cacbae5d7f84f770d98df1c182b4cf1ac95b82e84fdb6fa023",
+      "private_log_bytes": 4592,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    },
+    {
+      "name": "verify-repo",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "scripts/verify_repo.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "491c25a7e93e34cf52f7184901f7f5e47ad0246980b38f65dfe7635e0bca71e5",
+      "private_log_bytes": 16954,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    },
+    {
+      "name": "r02a",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r02a_contract.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "fe0a018951b5cf60922b4a1cd726b6bd99c6fe3f7fb99b896fbcfdda2fbe6acf",
+      "private_log_bytes": 134,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    },
+    {
+      "name": "r03a",
+      "argv": [
+        "C:/Projects/MathStart-Python/.venv312/Scripts/python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r03a_contract.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "private_log_sha256": "c6cef3fdf14032ee5f53e92535485cdd080e7241b5097d382aa9a9d4cb63a54e",
+      "private_log_bytes": 145,
+      "log_publication": "Raw logs retained in local QA only; contain synthetic smoke rows; exact sanitized results here."
+    }
+  ],
+  "verify_repo": {
+    "result": "PASS",
+    "exit_code": 0,
+    "checks_passed": 8,
+    "django_tests": 107,
+    "R03_reference_tests": 18,
+    "Harness_tests": 73
+  },
+  "R02A_reference_tests": 30,
+  "R03A_reference_tests": 41,
+  "isolation": {
+    "container": "ms7-mig-r01-postmerge-pg-20261008",
+    "port": 55438,
+    "runtime_database": "ms6_v01_smoke_ms7_mig_r01_postmerge_20261008",
+    "test_database": "test_ms7_mig_r01_postmerge_20261008",
+    "runtime_root": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r01\\qa\\postmerge-runtime",
+    "working_database_used": false,
+    "target_runtime_created": false
+  },
+  "task_PR_GitHub_CI": "NOT RUN / NOT TRIGGERED by existing unchanged main-only PR and main-push workflow. Not presented as current-task-head green CI.",
+  "merged_snapshot_CI": "Both PR46 head run37696561717 and resulting-main run37698445057 SUCCESS."
+}

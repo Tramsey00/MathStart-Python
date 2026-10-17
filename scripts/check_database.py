@@ -44,8 +44,13 @@ def probe():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile", choices=("legacy", "target"), default="legacy")
     parser.add_argument("--probe", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
+    if args.profile == "target":
+        sys.path.insert(0, str(ROOT))
+        from scripts.target_database import main as target_main
+        return target_main()
     if args.probe:
         return probe()
     try:

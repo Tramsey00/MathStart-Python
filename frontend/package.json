@@ -1,0 +1,48 @@
+{
+  "name": "@mathstart/frontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "npm": ">=11.0.0 <12"
+  },
+  "packageManager": "npm@11.19.0",
+  "scripts": {
+    "dev": "react-router dev --host 127.0.0.1 --port 5171",
+    "typecheck": "node scripts/run-check.mjs typecheck",
+    "test": "node scripts/run-check.mjs tests",
+    "build": "node scripts/run-check.mjs build",
+    "preview": "node scripts/preview.mjs",
+    "generate:api": "node scripts/generate-api.mjs",
+    "check:contracts": "node scripts/generate-api.mjs --check && node scripts/generate-staff.mjs --check",
+    "verify:foundation": "node scripts/verify-foundation.mjs",
+    "test:e2e": "node scripts/run-check.mjs e2e",
+    "test:i02": "node scripts/run-check.mjs i02",
+    "test:identity": "node scripts/run-check.mjs identity",
+    "generate:staff": "node scripts/generate-staff.mjs"
+  },
+  "dependencies": {
+    "@react-router/node": "7.18.4",
+    "isbot": "5.1.44",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router": "7.18.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "@react-router/dev": "7.18.4",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.0",
+    "@types/node": "24.12.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "jsdom": "27.4.0",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vitest": "4.1.11"
+  }
+}

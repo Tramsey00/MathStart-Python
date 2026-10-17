@@ -290,3 +290,194 @@ package entries/228 provenance entries,168 relative participant evidence links;
 original_result objects/source/runtime/frozen snapshots and earlier scoped/import
 receipts unchanged.1023 input files and18568 original output/tmp preserved.
 See [current import audit](../acceptance/MS7-MIG-R01/final-acceptance-import-validation.json). Own whitespace changes checked before commit.
+
+## Post-merge R01 — 08.10.2026 Europe/Moscow
+
+User authorizes only R01 post-merge provenance, integration/R01 branches and
+records; no later task or direct main push. Live GitHub PR46 mergedtrue at
+2026-10-07T22:47:59Z byTramsey00, accepted head `e510744fcd87a22956aa71d5e22f20235e2af1c1`,
+actual resulting commit `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`, single parent `8c11edadc8debc81432d1db1145feac504f09061`.
+MIG_BASE_SHA is the actual resulting squash commit, not source/head/tested merge.
+PR-head CI37696561717 SUCCESS; tested merge-ref76f16c02591f5e8fcd7ffa4f661b60981973d362
+tree f54cd4c9d6c8d461167f9586bdcbf661219693aa equals resulting/PR-head tree.
+Separate resulting-main CI37698445057 SUCCESS at exact60b341f, job113055830577
+checkout log confirms it. [Provenance](../acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json).
+
+Live original Ilya/Ruslan/Vladimir records remain atdaf4e603. No public e510744
+reviewer confirmation found; asked owner, who explicitly replied
+“Да, они всё подтвердили в нашем чате” to exact e510744/Ilya+Vladimir question.
+Recorded as owner report of their agreement, not independent GitHub comment,
+API review or automatic approval due to merge. D09 prior owner report preserved.
+
+git fetch origin exit0 updates origin/main to60b341f, original local main stays8c11edad
+with original untracked recovery/output/tmp. No reset/clean/force or working DB use.
+Live branches lacked integration/R01 task; created integration via API exactly at
+MIG_BASE_SHA, fetched; git worktree add -b ms7-mig-r01-baseline at
+C:/Projects/MathStart-Python/tmp/ms7-mig-r01/post-merge fromorigin/integration exit0.
+Snapshot e510744 checkout preserved. All18 canonical Issues liveOPEN, unchanged.
+No R02/I01/target scaffold or other branch/environment created.
+
+Updated only R01 current provenance/acceptance/index/owner map/ADR status/active
+plan/trace/current root links and manifests. Exact pre-merge acceptance/snapshot
+review copies retained alongside older daf4e603 snapshots and frozen/source
+runtime/contracts/package; original final-human receipt kept byte-exact.
+Core snapshot/ADR and MIG-G0 accepted. New post-merge records task PR → integration
+Refs #28 awaits independent review/intake; active plan retained for that phase.
+No approval transfer to new post-merge containing head; no merge/Issue closure.
+F01–F04 unchanged mandatory assigned13baybars I03/I05; separate Vladimir F04
+review not agreed. Remaining calendar/scope/checks and delay history preserved.
+
+Verification skill reapplied. Initial unprivileged Docker listing returned
+permission denied; read-only escalated listing exit0 revealed only working
+mathstart-python-db-1, not reused. New disposable R01-only container
+ms7-mig-r01-postmerge-pg-20261008 on127.0.0.1:55438 with distinct runtime/test DB
+and QA runtime. No original DB connection. Fresh smoke/verify results recorded
+below after completion; logs remain private because smoke includes synthetic rows.
+Current record task workflow CI applicability reported separately; existing
+CI triggers only main PR/main push, no target CI adaptation.
+
+Post-merge full local verification completed exit0: fresh disposable smoke PASS,
+verify_repo8/8 PASS, Django107/R03reference18/Harness73, R02A30/R03A41.
+Python3.12.10/Django5.2.16/PostgreSQL16.15, distinct from CI/Ilya versions.
+pip check/version report exit0. No dependency installation. Source/preservation
+audit exit0:1023 unchanged input,1026 original files,18568 existing output/tmp.
+Import audit exit0:232 exact Git blobs/bytes,231 package entries/228 provenance,
+169 relative participant links; historical receipts/source/contracts/old
+original_results preserved. New audit derives actual post-merge status rather
+than hardcoded pre-merge PENDING; this changes only R01 evidence utility.
+
+[Local sanitized results](../acceptance/MS7-MIG-R01/post-merge-local-verification.json),
+[current import audit](../acceptance/MS7-MIG-R01/post-merge-import-validation.json),
+[post-merge scope/merge/history audit](../acceptance/MS7-MIG-R01/post-merge-validation.json).
+Task PR→integration not selected by unchanged main-only CI: NOT RUN/TRIGGERED,
+not a claimed green run. Full merged-main CI and local baseline reported distinctly.
+Staged record blob manifest excludes itself; hashes/links/scope verified before
+explicit-allowlist commit/push. Exact record HEAD/task PR URL external review
+evidence. No direct main push, merge or migration Issue closure.
+
+Intermediate staged whitespace check exited1 on one R01-owned blank line in
+verification.md; repaired the line without altering preserved snapshots.
+Final whitespace check rerun before commit; no check suppression.
+
+Task records committed and normal push to ms7-mig-r01-baseline succeeded. [Draft PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) created → ms7-mig-react-fastapi, Refs #28, first published head77d8c81dcb777cc29d6b50ed92e65a1a25bcfbd4 with sole parent MIG_BASE_SHA. Live PR drafttrue/mergedfalse/mergeabletrue, no task head check-runs (workflow not triggered). Exact300 record blobs/33,695,989bytes validated at INDEX and first HEAD. Publication receipt added separately, final containing SHA external PR. Original checkout stays main8c11edad with original untracked recovery/output/tmp, no loss. Own disposable R01 container stopped, working container untouched. No task/integration merge or Issue closure.
+
+## Authorized integration CI filters — 08.10.2026 Europe/Moscow
+
+Owner grants only existing CI pull_request base and push branch filters for
+ms7-mig-react-fastapi, preserving main/jobs/PG/locks/tests/frozen pins.
+Reapplied verification skill; live PR47 head9fde3e53deba29b08574c41539e68b4d43e7a6b4,
+base/integration60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7, draftfalse/mergedfalse.
+Fresh fetch exit0; task worktree clean before edit, original checkout preserved.
+Exactly two branch arrays extended; entire jobs suffix byte-identical.
+No application/working DB/baseline/target dependency/Harness change.
+
+Pin conflict detected before push: specs/api/candidate-manifest-v1.json pins
+ci.yml1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7.
+Authorized triggers produce e5e85afeee397ee2348b3a2020915646729b12b1a054d4b335ac62da5e3e4dc1.
+Local existing R02A suite ran30, FAILED1, exit1 at
+HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts.
+Classified as authorized change versus strict preserved historical whole-file pin.
+No pin/test/history rewrite, validation weakening or skip. Existing source audit
+utilities still require exact input workflow and are not modified to suppress this
+delta; separate exact trigger/scope audit records the explicit source exception.
+
+[Trigger audit](../acceptance/MS7-MIG-R01/ci-trigger-adjustment-20261008.json)
+checks both triggers/main preservation/jobs bytes/locks/source preservation.
+1022 other input files plus explicit root exceptions checked; source manifest
+stays exact historical input. Original pre-trigger provenance preserved at9fde3e5.
+New head CI required; no NOT RUN or old green result substituted for it.
+Post-merge reviewer delta now includes exact trigger change and blocking pin.
+MIG_BASE_SHA/integration60b341f unchanged; all migration Issues remain open,
+no R02/I01/R03 implementation, merge or Issue closure.
+
+Private initial source audit exited1 because git show interpreted a long Windows
+revision:path as a filename. Replaced that private lookup with exact SHA256
+comparison to unchanged original source manifest; rerun exit0 for1022 files.
+No historical source manifest, digest or validation check weakened.
+
+CI on authorized trigger head e64d9a4b2682ee5b206f9d88f11fff2867071686 completed
+FAIL: [run37701885197](https://github.com/Tramsey00/MathStart-Python/actions/runs/37701885197),
+job113067016184. Actual checkout/tested merge-ref
+4a62032c033543ef4a282981a8d97585a579ca33 confirmed in job git log.
+Python3.12.14/Django5.2.16/PostgreSQL160015, independently observed, not copied
+from prior CI3.12.15 or local3.12.10/Ilya3.14.7.
+Fresh smoke PASS, verify_repo PASS8/8,Django107/R03reference18/Harness73.
+R02A FAIL1/30 on old/current ci.yml hashes, exit1; R03A NOT RUN (existing normal
+job step skipped after failure, no skip flag or command change).
+[Sanitized step/log receipt](../acceptance/MS7-MIG-R01/ci-integration-trigger-first-run.json);
+no raw synthetic DB rows/credentials published.
+
+Existing historical manifest/test/source/runtime/participant evidence untouched.
+Exact304 staged/committed record blobs checked before first push; first run
+records added now, record manifest refreshed excluding itself. Final exact
+evidence-recording head requires its own CI; final run/checkout external PR47.
+Acceptance is BLOCKED by unresolved strict pin compatibility and missing
+independent final-head approvals. No autonomous pin/test repair outside scope,
+no task/integration merge, Issue closure, working DB or later task execution.
+
+## Separate integration workflow correction — 08.10.2026 Europe/Moscow
+
+Live PR47 headf0c913e1eb7acfcde175a06cc6ab57d778acd828, base/integration60b341f,
+OPEN, draftfalse, mergedfalse; no reviews. Existing task worktree clean; fetchexit0.
+Owner explicitly authorizes restoring original ci.yml and adding a separate
+migration-ci.yml instead of changing the pinned file. Original checkout kept.
+
+Restored ci.yml using exact git cat-file blob bytes from MIG_BASE_SHA60b341f.
+SHA2561edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7 equals
+historical specs/api/candidate-manifest-v1.json. No historical pin/test rewrite.
+Created Migration baseline verification integration-only PR/push workflow;
+full jobs:→EOF byte-identical to accepted ci.yml, SHA256
+ca8c95c2691306cc0ac8099b9b4ef09e9b2ad2a5a040aa5e014a2b2816d648c0.
+Main remains exclusively covered by original ci.yml; no reusable conversion,
+skip/continue-on-error/check exclusions or new dependency.
+New whole-workflow SHA2566bec1d5aa38f4794eef3e0044033cfaa53526c51d66e485f1ff8f42bef5afb96.
+
+Local existing Python3.12.10 --version/pip check exit0; R02A30 exit0 PASS,
+I02 UI contract7 exit0 PASS including frozen upstream digest check,
+R03A41 exit0 PASS. No local DB connection/setup. Full baseline uses unchanged
+workflow jobs on GitHub disposable PostgreSQL after push.
+[Current correction record](../acceptance/MS7-MIG-R01/migration-ci-correction-20261008.json).
+Earlier filters and actual CI failures preserved in historical commits, first
+receipt and [failed final-head receipt](../acceptance/MS7-MIG-R01/ci-trigger-failed-final-head.json);
+[old PR body](../acceptance/MS7-MIG-R01/pr47-body-at-f0c913e.md) preserves its real
+final failure/checkout/status. No failure rewritten as PASS.
+
+Current records/plan/verification/reviewer delta supersede earlier unresolved
+pin status only through this explicitly authorized restore/new workflow.
+Final containing head and new CI checkout/result remain external PR47;
+no old successful check or approval transferred. No R02/I01/R03 implementation,
+working DB/app/locks/API/MIG_BASE_SHA/integration change, merge or Issue closure.
+### Separate-workflow preservation audit, 2026-10-08
+
+The restored candidate passed `validate_records.py` (exit 0): 1,023 unchanged
+source inputs, all 1,026 original tracked files and 18,568 original output/tmp
+files preserved. `validate_ilya_import.py --ref INDEX` with a separate current
+output passed (exit 0): all 232 imported files / 31,057,740 bytes exact in
+checkout and Git blobs, 231 package entries, 228 provenance entries and 169
+relative links. No original ZIP recheck was claimed. Private scope audit passed
+(exit 0), including 137 relative document links, original workflow pin,
+unchanged historical receipts/tests/contracts, exact jobs bytes and unchanged
+integration SHA. Receipts: `validation.json`,
+`migration-ci-import-validation.json`, `migration-ci-scope-validation.json` in
+the R01 acceptance directory. Record manifest is regenerated from staged Git
+blobs and verified separately before publication; its own digest is excluded.
+
+## Separate integration CI: first corrected run, 2026-10-08
+
+[Run 37753830717](https://github.com/Tramsey00/MathStart-Python/actions/runs/37753830717)
+completed SUCCESS for head `939bd1317fa3587dc79132544cff45212260fbc0`.
+Actual checkout from job logs: `b1ababf2ec25a50d47c77239792e318d32a2ac16`,
+parents accepted base `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` and that PR head.
+Python 3.12.14, Django 5.2.16, PostgreSQL server_version_num 160015.
+
+All unchanged workflow stages succeeded: lock installation/pip check, version
+report, expected bounded connection failure, disposable PostgreSQL fresh smoke,
+verify_repo (8/8; Django 107, R03 reference 18, Harness 73), R02A 30 and R03A 41.
+Local I02 remains 7/7 PASS including frozen-upstream digests; no extra CI step
+was added. Sanitized receipt: `migration-ci-first-success.json` in R01 acceptance.
+The earlier filter-attempt FAIL records are preserved. This successful run
+belongs only to the exact head above. The containing records update will get
+its own CI; final full head, run and actual tested merge-ref are external in
+PR47, avoiding a circular self-pin. Independent Vladimir/Ilya review and human
+integration intake remain required. No application/working DB/MIG_BASE_SHA or
+integration change, Issue closure, merge or downstream implementation.

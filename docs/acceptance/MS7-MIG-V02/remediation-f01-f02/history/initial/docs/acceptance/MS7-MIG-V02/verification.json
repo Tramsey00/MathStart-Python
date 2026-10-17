@@ -1,0 +1,335 @@
+{
+  "run_id": "MS7-MIG-V02-8104493b654146c680073df4d7a16796",
+  "recorded_at_utc": "2026-10-12T21:22:45.322921+00:00",
+  "surface": "bootstrap Codex; no subagents/live Product LLM",
+  "input_sha": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+  "current_head": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
+  "tested_implementation_sha": null,
+  "publication": "PENDING_PUBLICATION",
+  "versions": {
+    "windows_python": "3.12.10",
+    "v01_linux_python": "3.12.15",
+    "postgresql": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "docker": "29.8.0",
+    "compose": "5.5.1",
+    "packages": {
+      "alembic": "1.18.4",
+      "annotated-types": "0.8.0",
+      "anyio": "4.15.1",
+      "asgiref": "3.12.1",
+      "attrs": "26.1.0",
+      "beautifulsoup4": "4.15.0",
+      "certifi": "2026.7.22",
+      "click": "8.5.0",
+      "Django": "5.2.16",
+      "djangorestframework": "3.18.1",
+      "fastapi": "0.115.12",
+      "greenlet": "3.5.6",
+      "h11": "0.16.0",
+      "httpcore": "1.0.9",
+      "httpx": "0.28.1",
+      "idna": "3.20",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "Mako": "1.4.3",
+      "MarkupSafe": "3.0.4",
+      "pip": "25.0.1",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pydantic": "2.11.4",
+      "pydantic_core": "2.33.2",
+      "python-dotenv": "1.2.2",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.6.3",
+      "soupsieve": "2.10",
+      "SQLAlchemy": "2.0.46",
+      "sqlparse": "0.6.0",
+      "starlette": "0.46.2",
+      "typing_extensions": "4.16.0",
+      "typing-inspection": "0.4.4",
+      "tzdata": "2026.3",
+      "uvicorn": "0.34.2",
+      "whitenoise": "6.12.0"
+    }
+  },
+  "commands": [
+    {
+      "check": "v02",
+      "status": "PASS",
+      "tests": 41,
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-final-verification.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/v02-command.txt",
+      "sha256": "eb7b35590d12e4d3324cc205a83043a520f061e27e5a3b67fbbb6f7e57b70334",
+      "performed": true,
+      "source_log_mtime_utc": "2026-10-12T21:18:52.300900+00:00",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "backend.tests.v02.test_unit",
+        "backend.tests.v02.test_http",
+        "backend.tests.v02.test_postgres",
+        "-v"
+      ]
+    },
+    {
+      "check": "v01",
+      "status": "PASS",
+      "tests": 34,
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-v01-regression.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/v01-command.txt",
+      "sha256": "75d29c0df286c2a0b6db843ead8df5edc1bfe27cfb63e5b7dfbc79043b4c9add",
+      "performed": true,
+      "source_log_mtime_utc": "2026-10-12T21:02:43.058914+00:00",
+      "exit_code": 0,
+      "argv": [
+        "docker",
+        "exec",
+        "ms7-mig-v02-v01-tests-20261012",
+        "python",
+        "-m",
+        "unittest",
+        "backend.tests.test_unit",
+        "backend.tests.test_postgres",
+        "backend.tests.test_remediation",
+        "-v"
+      ]
+    },
+    {
+      "check": "r02",
+      "status": "PASS",
+      "tests": 63,
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-r02.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/r02-command.txt",
+      "sha256": "faa185cf2db3682ccbaa98bccb4951c8eadfa472223a97d871441ed7ddf71409",
+      "performed": true,
+      "source_log_mtime_utc": "2026-10-12T20:59:53.541571+00:00",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_migration_r02_*.py",
+        "-v"
+      ]
+    },
+    {
+      "check": "full_content",
+      "status": "PASS",
+      "tests": null,
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-full-content-projection.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/full_content-command.txt",
+      "sha256": "abb7ca52c7445d7e0225df99cef1a0d0defab765cde53dcb1589fa3291363130",
+      "performed": true,
+      "source_log_mtime_utc": "2026-10-12T21:17:43.385591+00:00",
+      "exit_code": 0,
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "backend.tests.v02.public_baseline_projection"
+      ]
+    },
+    {
+      "check": "legacy-fresh-smoke",
+      "status": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-0.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/legacy-fresh-smoke-command.txt",
+      "sha256": "88a168d66b7a679dcf8fe30eabd32cadf4cc297273f62c3d0c8c615fa986748b",
+      "performed": true,
+      "exit_code": 0,
+      "source_log_mtime_utc": "2026-10-12T21:09:44.383956+00:00",
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "scripts/fresh_install_smoke.py",
+        "--disposable"
+      ]
+    },
+    {
+      "check": "verify-repo",
+      "status": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-1.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/verify-repo-command.txt",
+      "sha256": "b350b6ec5e6bfb56e3064f210aa337a95a89a8edd0f714bd3706a8031db57b75",
+      "performed": true,
+      "exit_code": 0,
+      "source_log_mtime_utc": "2026-10-12T21:12:30.604258+00:00",
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "scripts/verify_repo.py"
+      ]
+    },
+    {
+      "check": "legacy-version-report",
+      "status": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-2.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/legacy-version-report-command.txt",
+      "sha256": "105803c51de34022a77ffdef02852ce75ce1fcfea2cfd7d849e1cfff9a1b1a43",
+      "performed": true,
+      "exit_code": 0,
+      "source_log_mtime_utc": "2026-10-12T21:12:31.496552+00:00",
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "scripts/version_report.py"
+      ]
+    },
+    {
+      "check": "r02a",
+      "status": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-3.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/r02a-command.txt",
+      "sha256": "dafd961558154ceb3cddfff4f90dd7229aa6ea73d40bbadf280c8174d6ce747a",
+      "performed": true,
+      "exit_code": 0,
+      "source_log_mtime_utc": "2026-10-12T21:12:33.013968+00:00",
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r02a_contract.py",
+        "-v"
+      ]
+    },
+    {
+      "check": "r03a",
+      "status": "PASS",
+      "source_log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-4.log",
+      "retained_log": "docs/acceptance/MS7-MIG-V02/r03a-command.txt",
+      "sha256": "33d07eed6d2827fa5fc7a2254aa7fdeced40065f2aeea01275d1c34f80c028d1",
+      "performed": true,
+      "exit_code": 0,
+      "source_log_mtime_utc": "2026-10-12T21:12:33.403581+00:00",
+      "argv": [
+        "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_r03a_contract.py",
+        "-v"
+      ]
+    }
+  ],
+  "baseline_argv_results": {
+    "database": "ms6_v01_smoke_v02_1b8e722a1c174affa26629889705e1a0",
+    "runtime": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0",
+    "disposable": true,
+    "commands": [
+      {
+        "argv": [
+          "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+          "scripts/fresh_install_smoke.py",
+          "--disposable"
+        ],
+        "exit_code": 0,
+        "log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-0.log"
+      },
+      {
+        "argv": [
+          "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+          "scripts/verify_repo.py"
+        ],
+        "exit_code": 0,
+        "log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-1.log"
+      },
+      {
+        "argv": [
+          "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+          "scripts/version_report.py"
+        ],
+        "exit_code": 0,
+        "log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-2.log"
+      },
+      {
+        "argv": [
+          "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_r02a_contract.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-3.log"
+      },
+      {
+        "argv": [
+          "C:\\Projects\\MathStart-Python-V02\\var\\ms7-mig-v02-venv\\Scripts\\python.exe",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_r03a_contract.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "C:\\Projects\\MathStart-Python-V02\\var\\v02-baseline-1b8e722a1c174affa26629889705e1a0\\check-4.log"
+      }
+    ],
+    "implementation_sha": null,
+    "publication": "PENDING_PUBLICATION"
+  },
+  "runtime_without_django": {
+    "runtime_lock_install": "PASS",
+    "pip_check": "PASS",
+    "django_installed": false,
+    "django_imported": false,
+    "factory_GET_operations": 32,
+    "generated_openapi": null
+  },
+  "test_environment_pip_check": "PASS",
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "ruff_mypy_formatter": "NOT_CONFIGURED",
+  "postgresql_isolation": {
+    "new_container": "ms7-mig-v02-pg-alt-20261012",
+    "host_port": 15441,
+    "internal_port": 55441,
+    "v01_test_container": "ms7-mig-v02-v01-tests-20261012",
+    "checkout_mount": "read-only",
+    "scratch": "tmpfs /repo/var",
+    "baseline_database": "ms6_v01_smoke_v02_1b8e722a1c174affa26629889705e1a0",
+    "working_or_production_db_used": false,
+    "cleanup": "Only successful test-owned UUID DBs; baseline/early setup failure DBs retained"
+  },
+  "final_candidate_CI": "PENDING_PUBLICATION",
+  "independent_task_approval": "PENDING",
+  "not_verified": [
+    "real V03 session/CSRF runtime",
+    "V04 edition production/activation/recovery",
+    "I02/I03/V05 full asset/HTML/browser/gateway parity",
+    "production/performance/live Product LLM"
+  ],
+  "source_pdf": {
+    "path": "C:\\Users\\vladimir\\Downloads\\MathStart_Technical_Specification_v7_1_SECTION20_PARALLEL_DEADLINES.pdf",
+    "pages": 114,
+    "readable_pages": 114,
+    "sha256": "e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd"
+  },
+  "migration_pdf": {
+    "path": "C:\\Users\\vladimir\\Downloads\\MathStart_Migration_React_FastAPI_2026-10-07_v1.1 (1).pdf",
+    "pages": 60,
+    "readable_pages": 60,
+    "sha256": "a0c72fda223f86622d01665eaa7ec9d854c7b0b3014de38174f9ad4c582eb66e"
+  },
+  "v02_test_env": {
+    "MATHSTART_V02_TEST_ADMIN_URL": "postgresql+psycopg://postgres@127.0.0.1:15441/postgres",
+    "database_ownership": "New test_ms7_mig_v01_v02_<UUID>, marked V01 rehearsal"
+  },
+  "command_time_policy": "Source-log modification time is recorded as provenance; no fabricated precise command start/finish timestamp."
+}

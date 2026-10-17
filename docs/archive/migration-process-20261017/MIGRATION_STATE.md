@@ -1,0 +1,326 @@
+# Актуальное состояние: одна задача I02
+
+Последний порядок пользователя: одна задача на отдельно инициированный запуск.
+Сейчас только MS7-MIG-I02 и необходимые исправления verifier/зависимостей.
+I03 и другие задачи не продолжать автоматически; весь существующий код сохранить.
+Один основной исполнитель; постоянную команду backend/frontend/reviewer не запускать.
+Один отдельный reviewer после готовности кандидата (GPT-6.1 Sol / medium): exact
+base/head/diff, контракты, результаты и открытые findings без истории чата;
+correctness, security и test gaps. Исправления проверять по delta. Полный повтор
+только при существенном изменении или новой конкретной проблеме. Полная итоговая
+cross-browser/visual matrix принадлежит I05; assertions сохранить. R03 target
+с неизменным пустым command map не повторять, оставить pending. После docs-only
+изменений не повторять полные проверки при прежних code/config/inputs.
+Полные логи хранить в файлах; долгие процессы не опрашивать часто. После двух
+безуспешных циклов одной причины — checkpoint и конкретный блокер.
+После проверки, commit, push, remote SHA и короткого MIGRATION_HANDOFF.md
+остановиться. Архитектура, данные и обязательные критерии сохраняются.
+Не выполнять main merge, закрытие Issues и production deployment.
+Все новые имена — без брендовых приписок.
+
+## Контрольная точка при изменении порядка
+
+- Integration clean HEAD и remote: b8a93821eccf37eebaebe744460a9f9c6b002cc2.
+- Remote main60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; main не изменён.
+- CI38951840140 FAILED:27/28 source/read tests PASS, golden child ERROR;
+  Path.resolve() выбрал базовый Python вместо POSIX legacy venv. Browsers NOT_RUN.
+- General R03 CI38951840175 FAILED на известном пустом command map;
+  pure/verify SUCCESS; target downstream SKIPPED. Повтор не назначать.
+- Local combined02: preparation/typecheck141unit/build703/activation/28backend
+  PASS, затем partial browser matrix. Прогон намеренно остановлен из-за
+  CI-LEGACY-01; interruption.json и partial-browser-results сохранены в
+  var/public-block-combined-02. Не PASS матрицы. Owned порты8111/8112 закрыты;
+  running verifier процессов при восстановлении не обнаружено.
+- Comparator fix66c66399fdd27b1d164753ead282441dea35e73f уже опубликован в
+  ms7-mig-frontend-execution, ещё не включён в integration. Не писать заново.
+- Прежние backend/frontend/reviewer contexts завершены/прерваны и больше не
+  образуют команду. Новый reviewer подключается после готовности I02 candidate.
+- Следующий шаг: узкий Linux regression с реальным symlink virtualenv;
+  завершить driver fix, отдельный проверяемый I02 запуск, review и handoff.
+
+---
+
+# Исторический журнал (устаревшие указания не действуют)
+
+# Состояние единого выполнения миграции
+
+## Оперативная контрольная точка текущего блока
+
+### Обновление перед общим прогоном I02/I03
+
+Combined candidate `340eba98581271e05b4fea21958875fef31a567d` включает frontend
+`af0be7c12a63150c9be052adb2a7f1356908d61d`, опубликованный автором. На этом SHA
+combined-01 завершился FAIL на npm-version: Windows cmd quoting для Program Files;
+до обращения к PG. Raw result/logs сохранены в acceptance/public-block-combined-01.
+Прямой запуск установленного Node/npm CLI исправляет quoting; actual npm11.17.0
+и четыре стадии typecheck PASS. После независимого review fix нужен новый clean
+combined-02 на той же ещё пустой DB; не продолжать failed run и не считать его PASS.
+
+Эта запись заменяет оперативные кандидаты ниже; предыдущие записи сохранены
+как история, а не как актуальный список открытых замечаний.
+
+- Integration `00fe49583db4eed2dd4b0efa7a35f34f132c233c` содержит reviewed
+  backend runtime `3d08b089f2c19ee75aa42a0cc0fb7b2948328aeb` (implementation
+  `ef7a2b2a0c13e41b67f5bb21af9607c69e1331de`) и verifier
+  `db15b8c763c5a4dab28b448a08f552b62254b040`.
+- Frontend application `48fadcce82b19bb6e5b2dc6f722602e56c746287` и усиленные
+  положительные staff tests `05dd3626847182a6fad9af2714f41988d8a6aef8`
+  независимо reviewed; предстоит merge и полный combined run.
+- HBUILD-01/02, READRT-01, PROCESS-01 и PRIVATE-01 закрыты независимыми
+  проверками соответствующих исходников. Последний дефект React hydration
+  воспроизведён до fix и проверен настоящим Chrome после fix. Все девять
+  staff resources требуют непустую fixture и list/detail/history200.
+- Author frontend141 tests PASS; reviewer typecheck/build703 assertions PASS;
+  backend reviewer13 PG tests PASS; lifecycle reviewer10 tests PASS и
+  provenance reviewer4 tests PASS. Это узкие проверки, не полная матрица.
+- Планируемый authoritative run: `var/public-block-combined-01`, отдельная
+  новая DB `test_ms7_mig_v01_ms7exec_coord_public_20261016a`, порты8111/8112.
+  После запуска session metadata хранится только в ignored var. До окончания
+  strict source-guard run не менять исходники integration. Полная матрица
+  девяти browser/width projects и final visual review ещё NOT_RUN.
+- Backend runtime branch опубликована на `3d08b089`; три отдельные WIP refs
+  backend identity `fdac6e6`, I04 `bcdb121`, R05 `07dad69` опубликованы.
+  Integration/frontend/verifier publication и MIGRATION_HANDOFF ещё впереди.
+- Все три субагента используют GPT-6.1 Sol / medium. Текущий объём I02/I03;
+  общий release и финальные human gates остаются незавершёнными.
+
+- Current integration code/checkpoint:2369165154f06dba4b203507b840807e728eacf5,
+  including independently reviewed H-BUILDcd62406 via merge4529092.
+- Текущая модель всех трёх субагентов: GPT-6.1 Sol / medium по последнему
+  явному указанию пользователя; роли backend_medium, frontend_medium,
+  reviewer_medium. Старые *_sol остановлены после передачи, вторых writers нет.
+- Frontend source candidate27079677b18b198b80bb6519f3f45b0528fd8659
+  (I02/I03 implementation5308ae1 plus guarded readonly legacy comparator).
+  I02/I03 ещё не TECHNICALLY_VERIFIED и пока не интегрированы.
+- Backend read-runtime candidate5b7f3be20598e1117408fd23df5ecb34b3550280;
+  новый offload/cache delta13 author tests PASS15.182s, exactSHA/review pending.
+  READRT-01 требует независимого закрытия на новом SHA.
+- Portable combined verifier/CI candidate702bcd88d6cde31540fe4c787380a64be5a278d9,
+  branch ms7-mig-public-verification-wip; не интегрирован, full run/review pending.
+  Lifecycle context-manager8 real tests PASS22.872s; Python compile/CLI help PASS.
+- Author frontend unit139 PASS71.14s; build05 complete279pages/280HTML+2system.
+  Старые реальный smoke05 (connection refused) и matrix06 (timeouts/CPU load)
+  FAIL сохранены, не переименованы в PASS. Новая полная9-project matrix ждёт
+  проверенный serving delta; matched visual/manual review остаются pending.
+- Сервис прервал все medium contexts сообщением usage-limit; один повтор на
+  той же модели после read-only проверки доступности успешно возобновил роли.
+  Модель/effort для обхода ограничения не менялись. Это не текущий BLOCKED.
+- Чистая среда координатора var/public-target-env установлена по точным
+  no-Django HTTP/test locks из официального PyPI; locked certifi pin существует,
+  менять его не потребовалось. Reviewer восстановил собственную locked среду
+  с проверенным официальным wheel и сохранил исходный mirror failure.
+- Три WIP refs уже опубликованы и их remote SHA подтверждены: backend identity
+  fdac6e6, I04bcdb121, R05 docs07dad69. Публикация новой integration ещё впереди.
+
+
+## Действующий объём запуска — I02/I03 и передача
+
+Пользователь 2026-10-16 заменил непрерывное выполнение всех13 задач текущим
+блоком **MS7-MIG-I02 затем MS7-MIG-I03**. Разрешены только необходимые fixes
+зависимости V04, проверки, отдельное ревью, push и MIGRATION_HANDOFF.md.
+Другие направления не расширять; существующий WIP сохранить отдельно и
+опубликовать без объявления готовым. После передачи остановиться.
+Следующие запуски — отдельные блоки по три доступные задачи с публикацией
+и передачей после каждого. Исходные архитектурные и человеческие границы
+сохраняются. Общая программа и весь release ещё не готовы.
+
+Повторное восстановление фактов этого запуска:
+- local integration:7551cb35ee76c2a7838ab7679b47df645d7a8457;
+- local backend:74745c72ae58d4cd4f5dd04344ad2ad3e82dea75 плюс dirty dependency/identity;
+- local frontend:24d06112bcd6abcd1abad9b052de14a0a7b49e8e плюс dirty I02/I03;
+- live remote integration:a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6;
+- live remote main:60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7;
+- владельческий Get-CimInstance не обнаружил execution python/node/browser
+  процессов при восстановлении; sandbox attempt denied, owner-context PASS;
+- документация R05 WIP отделена в ms7-mig-documentation-checkpoint,
+  07dad695c5114ae461078b367bd9eb94aaa671d5; не интегрировать ради сохранения;
+- I04 WIP отделён автором в ms7-mig-frontend-i04-wip,
+  bcdb121eccc7643de154b7e8b3f70544cb209766; runtime проверка не завершена;
+- эти новые WIP refs пока LOCAL_ONLY; remote publication требует проверки SHA;
+- агенты backend_sol/frontend_sol/reviewer_sol возобновлены с Sol/high;
+  frontend получил один usage-limit error, после следующего запроса продолжил.
+
+HBUILD-02 repeatable-read fix на74745c7 independently9tests PASS72.319s;
+HBUILD-01 остаётся OPEN: same-slug subject из другого grade принимается.
+До закрытия и отдельного review dependency не интегрировать. I02/I03 пока
+IN_PROGRESS; SSG/typecheck/unit и первый Chrome360 run не заменяют полный
+реальный API/browser/visual/combined review. Актуальные receipts обновлять
+в execution ledgers и handoff; исторический журнал ниже не перезаписывать.
+
+---
+
+## 1. Текущее состояние пакета
+
+- Package: ACTIVATED_BY_USER on 2026-10-16, Europe/Moscow.
+- Execution: IN_PROGRESS; isolated bootstrap complete, implementation agents active.
+- Process authority: пользователь поручил подготовить единое выполнение всех
+  оставшихся задач, без персональных очередей/сроков, с нуля для V04/I02.
+- Final acceptance: HUMAN_PENDING.
+- Execution checkout: C:/Projects/MathStart-Python/migration-execution/integration.
+- Package import: `24d06112bcd6abcd1abad9b052de14a0a7b49e8e`.
+- R03 controlled intake merge: `f5c05588ee68dfe21f9676a2ab79535f2a6de9c8`.
+- Reviewed R03 receipt fix: `916d16da9378a71fae6bde5cc79e7e34ed6bcd68`;
+  subsequent raw-evidence-only checkpoints through `8679be3`.
+- Authoritative new task/parity execution ledgers:
+  docs/acceptance/migration-execution/{task-ledger,parity-ledger}.json.
+- Execution plan: docs/exec-plans/active/migration-execution.md; trace:
+  docs/agent-traces/migration-execution.md. No release candidate verified yet.
+- Current user-selected subagent model: `gpt-6.1-sol`, reasoning effort `medium`.
+  Earlier high-effort runs remain historical evidence; new role contexts use medium.
+  Active roles: backend_medium, frontend_medium, reviewer_medium; prior contexts stopped
+  after preserving their checkouts. No concurrent writers in the same area.
+- Source snapshot observed: 2026-10-16, Europe/Moscow. Это дата наблюдения,
+  не дедлайн; при старте повторно проверить GitHub и не доверять stale snapshot.
+
+## 2. Проверенные исходные refs
+
+Repository: <https://github.com/Tramsey00/MathStart-Python>.
+
+| Назначение | Ref / полный SHA |
+| --- | --- |
+| Immutable MIG_BASE_SHA; remote main при подготовке | `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` |
+| Принятый integration `ms7-mig-react-fastapi` | `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6` |
+| Integration tree по существующему receipt | `74c3014516ec3a2110d2cfec13c8e7afb8ae5024` |
+| R03 draft `ms7-mig-r03-verification` | `fb39647beb983a4f488ad82d4984d3f96e87b9a8` |
+| Historical I01 candidate | `150279e6ca7f1c82a6f23d8899e50992cf358f55` |
+| Historical V01 candidate | `393d98890649c6c7c47908424ba0d076b5b5e56e` |
+| Historical V02 candidate | `8256cbf4b38e97fc1169fea85f2d558950543be8` |
+
+История integration: R01 records `c133f920…` -> R02 `8d958aee…` ->
+V01 `4a1b8b05…` -> I01 `0c03197e…` -> V02 `a359b0bf…`.
+MIG_BASE_SHA не заменять новым integration/candidate SHA.
+
+Источники: [integration](https://github.com/Tramsey00/MathStart-Python/tree/ms7-mig-react-fastapi),
+[PR49](https://github.com/Tramsey00/MathStart-Python/pull/49),
+[PR53](https://github.com/Tramsey00/MathStart-Python/pull/53).
+
+## 3. Локальная подготовка и bootstrap
+
+Пакет подготовлен в `C:/Projects/MathStart-Python`, локальный `main` на
+`8c11edadc8debc81432d1db1145feac504f09061`. Это не execution base.
+До подготовки уже существовали:
+
+```text
+ M AGENTS.md
+?? docs/agent-traces/local-runtime-recovery-20261007.md
+?? output/
+?? tmp/
+```
+
+Пользовательский `AGENTS.md` перед подготовкой:
+SHA256 `b960506c0ea0e64ae6544875d5045d4de443293310246d163ccf0628a36e00e6`.
+Не переносить этот dirty файл в migration checkout автоматически.
+
+Существующие worktrees R03 и старых verification candidates обнаружены;
+не использовать их как свободные рабочие каталоги. Для нового execution
+подготовить отдельный checkout и выполнить selective package transfer по AGENT.
+Никакие ветки/commits/PR при подготовке пакета не создавались и не изменялись.
+
+Локальные `.venv` и `.venv312` при подготовке не запускаются: отсутствуют
+интерпретаторы, на которые указывают их launchers. `py -0p` сообщает, что
+установленных Python не найдено. Это environment observation, не свойство
+GitHub target. При execution заново проверить инструменты и создать scoped
+совместимое окружение; старые venv не считать пригодными по наличию каталога.
+
+## 4. Task ledger — исходная таблица
+
+Execution status и formal status — разные поля. Старые acceptance сохраняются;
+новые task rows переходят TODO -> IN_PROGRESS -> IMPLEMENTED -> REVIEW_PENDING
+-> TECHNICALLY_VERIFIED. BLOCKED содержит конкретную внешнюю причину, а не
+отсутствие человека из прежней очереди. Candidate integration SHA записывается
+отдельно; formal acceptance новых задач до решения пользователя HUMAN_PENDING.
+
+| Task | Issue | Execution status | Formal status / source |
+| --- | --- | --- | --- |
+| MS7-MIG-R01 | #28 | BASELINE_ACCEPTED | Historical accepted, PR46/47 |
+| MS7-MIG-R02 | #29 | BASELINE_ACCEPTED | Historical accepted, PR48 |
+| MS7-MIG-R03 | #30 | PARTIAL_INTAKE_REQUIRED | Draft PR49, incomplete |
+| MS7-MIG-R04 | #31 | TODO | HUMAN_PENDING |
+| MS7-MIG-R05 | #32 | TODO | HUMAN_PENDING |
+| MS7-MIG-R06 | #33 | TODO | HUMAN_PENDING |
+| MS7-MIG-V01 | #34 | BASELINE_ACCEPTED | Historical accepted, PR51 |
+| MS7-MIG-V02 | #35 | BASELINE_ACCEPTED | Historical accepted, PR53 |
+| MS7-MIG-V03 | #36 | TODO | HUMAN_PENDING |
+| MS7-MIG-V04 | #37 | TODO_FROM_ZERO | HUMAN_PENDING |
+| MS7-MIG-V05 | #38 | TODO | HUMAN_PENDING |
+| MS7-MIG-V06 | #39 | TODO | HUMAN_PENDING |
+| MS7-MIG-I01 | #40 | BASELINE_ACCEPTED | Historical accepted, PR50 |
+| MS7-MIG-I02 | #41 | TODO_FROM_ZERO | HUMAN_PENDING |
+| MS7-MIG-I03 | #42 | TODO | HUMAN_PENDING |
+| MS7-MIG-I04 | #43 | TODO | HUMAN_PENDING |
+| MS7-MIG-I05 | #44 | TODO | HUMAN_PENDING |
+| MS7-MIG-I06 | #45 | TODO | HUMAN_PENDING |
+
+Прежний локальный I02 не является dependency нового исполнения по решению
+пользователя. Исходные reviewed V02 interfaces обязательны независимо от этого.
+
+## 5. Известные проверки и gaps исходного состояния
+
+- [R03 общий run38811690819](https://github.com/Tramsey00/MathStart-Python/actions/runs/38811690819):
+  verify/pure SUCCESS, target FAILURE на prerequisite executable handoff;
+  последующие target steps SKIPPED. Это исторический CI read, не новый local run.
+- [V01 run38811690821](https://github.com/Tramsey00/MathStart-Python/actions/runs/38811690821)
+  и [frontend run38811690796](https://github.com/Tramsey00/MathStart-Python/actions/runs/38811690796)
+  SUCCESS; отдельные suites не принимают полный target.
+- В R03 `specs/migration/r03-v1/runtime-commands.json` исходно `commands={}`,
+  status pending. Нужно создать реальные interfaces и проверить их.
+- На accepted integration в `frontend/package.json` отсутствует `test:e2e`.
+- H-BUILD-INPUTS ещё не реализован в новом execution: требуется V04 -> I02.
+- Open follow-ups: R01 visual F01–F04; I01 fixture overlap Issue52;
+  I01 query-validation P3; V01 helper follow-up по исходному record.
+
+## 6. Источники R05
+
+Полное исходное product ТЗ v7.1 доступно при подготовке:
+`C:/Users/Tramsey/Desktop/MathStart_Technical_Specification_v7.1_SECTION20_PARALLEL_DEADLINES_2026-10-01.pdf`.
+SHA256 проверен:
+`e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd`.
+
+Canonical migration ТЗ находится в migration-ветке по пути из AGENT.
+Его source hash: `c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae`.
+Если доступ к исходному PDF пропадёт, сначала искать repository source с тем же
+подтверждённым содержимым; иначе запросить конкретный источник, продолжая
+независимые задачи. Не восстанавливать полное ТЗ по пересказу.
+
+## 7. Журнал фактического выполнения
+
+При запуске координатор ведёт эту секцию и detailed evidence отдельно.
+
+| Slice / роль | Input SHA | Checkout / paths / DB / port | Candidate SHA | Checks / review | Status / next step |
+| --- | --- | --- | --- | --- | --- |
+| Bootstrap / coordinator | a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6 | migration-execution/integration; ports8111–8119; ms7exec_coord_* | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | fresh refs and ten matching package hashes | COMPLETE; R03 intake next |
+| V04/V03 / backend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | migration-execution/backend; ports8121–8129; ms7exec_backend_* | — | source inspection | IN_PROGRESS |
+| I02/I03 / frontend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | migration-execution/frontend; ports8131–8139 | — | source inspection | IN_PROGRESS |
+| R03 intake / reviewer | fb39647beb983a4f488ad82d4984d3f96e87b9a8 | migration-execution/review; ports8141–8149; ms7exec_review_* | — | review requested | REVIEW_PENDING |
+| R03 receipt fix / coordinator+reviewer | f5c05588ee68dfe21f9676a2ab79535f2a6de9c8 | integration; own verification env | 916d16da9378a71fae6bde5cc79e7e34ed6bcd68 | independent26 PASS/0skips; R03-INTAKE-01 CLOSED | VERIFIED_IN_SCOPE; full R03 pending |
+| V04 H-BUILD-INPUTS / backend | 24d06112bcd6abcd1abad9b052de14a0a7b49e8e | backend; owned PG16.15 loopback55432 | 2b3a60da04346ed8c747ec35c3fe751bbbb9f9cd | 8 PASS; golden263 and bootstrap twice; independent review running | REVIEW_PENDING; not full V04 |
+| R05 full source / coordinator | pinned v7.1 PDF | integration/docs/specifications; source hash verified | draft uncommitted | all114pages read; exact52 cards/dependency-table rows matched | IN_PROGRESS; full draft and current runtime alignment pending |
+
+Для каждого blocking finding: ID, task, description, reproduction/contract,
+fix SHA, regression run, reviewer disposition. Для CI указать workflow/event/
+actual checkout отдельно. Для долгого внешнего запуска сохранить run/session ID.
+Не сохранять credentials, private reasoning или бессодержательные периодические
+записи. Finished run не перезаписывается новым.
+
+## 8. Следующий шаг
+
+Bootstrap выполнен. Продолжить R03 intake из immutable fb39647, locked tooling
+и baseline; backend готовит V04 H-BUILD-INPUTS/V03, frontend — I02 с нуля.
+Три первые agent turns остановились на service usage limit до реализации;
+после «Продолжай» роли перезапущены. Не считать их запуск проверкой или review.
+Рабочий Python 3.12.14 найден в bundled runtime; Node24.19.0/npm11.17.0.
+Docker Engine29.8.1/Desktop4.93.0 подтверждён. Owned disposable PostgreSQL
+container ms7exec_backend_pg запущен на loopback55432; backend проверяет PG.
+R03 pure в detached fb39647: PASS6 checks; независимый reviewer воспроизвёл
+215 tests/0 skips. Raw coordinator log: var/execution/bootstrap/r03-pure-owner.log.
+Первый sandbox run сохранён как environment FAIL (Git dubious ownership),
+повтор в owner context PASS без изменения глобальной Git safety.
+Полный target/PG/browser остаётся NOT_RUN, R03 ещё не TECHNICALLY_VERIFIED.
+Backend narrow build suite прошёл на PG; frontend сообщил RR build280URLs
+и typecheck, но эти отдельные результаты ещё не full target/activation/browser
+acceptance. Все13 task rows не завершены. Draft v7.2 полный по объёму32глав/52карточки,
+source/disposition и old-to-new evidence требуют дальнейшего review/final alignment.
+
+При возобновлении сначала проверить факты из журнала, затем продолжить первый
+доступный незавершённый срез. Не возвращаться к этой первоначальной TODO-таблице,
+если новые commits/receipts уже доказывают выполненную работу.
