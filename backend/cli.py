@@ -37,6 +37,8 @@ def main(argv=None):
                     if not args.disposable:
                         parser.error('bootstrap currently requires --disposable')
                     require_disposable(uow.session.connection())
+                    from backend.users.bootstrap import seed_permissions
+                    seed_permissions(uow.session)
                     bundles = bootstrap_sources(uow.session, root)
                     if not args.dry_run:
                         uow.commit()

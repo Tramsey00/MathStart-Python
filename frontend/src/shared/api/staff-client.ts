@@ -4,7 +4,8 @@ import type {ApiResult} from './client';
 type Schema=Record<string,any>;
 const schema=contracts.schema as Schema;
 const errors=contracts.errors as Schema;
-export const staffOperations=contracts.operations as Schema[];
+export const staffWriteOperations=contracts.operations as Schema[];
+export const staffOperations=staffWriteOperations.filter(op=>op.method==='GET'&&/^(?:staff_(?:list|get|history)_|get_page_publication_state$)/.test(op.operationId));
 export function stringifyExact(value:any):string {
  if(typeof value==='bigint')return value.toString();
  if(value===null||typeof value!=='object')return JSON.stringify(value);

@@ -55,12 +55,20 @@ def public_redirect_or_missing(release, path):
 
 
 def create_app(engine, signer, *, release_store=None, namespace='public', authenticate=None,
-               csrf_check=None, render_page=None, observe_publication=None, public_origin='https://mathstart.example'):
+               csrf_check=None, render_page=None, observe_publication=None, public_origin='https://mathstart.example',
+               identity_service=None):
     if not re.fullmatch(r'https?://[A-Za-z0-9.-]+(?::[0-9]+)?', public_origin):
         raise ValueError('Explicit trusted public origin required')
     app = FastAPI(redirect_slashes=False, openapi_url=None, docs_url=None, redoc_url=None)
     app.router.route_class = AllMethodRoute
     app.state.implemented_routes = []
+    if identity_service is not None:
+        from backend.users.http import install
+        authenticate = identity_service.security.identity
+        csrf_check = identity_service.security.csrf_check
+        install(app, identity_service)
+        from backend.staff.http_writes import install_special
+        install_special(app, identity_service, signer)
 
     @contextmanager
     def operation():
@@ -125,7 +133,10 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
     register('/api/v1/content/pages/{slug}/', delivery, 'get_content_page')
 
     def staff_handler(resource, action):
-        def handler(request: Request):
+        async def handler(request: Request):
+            if request.method != 'GET' and resource in ('users', 'groups') and identity_service is not None:
+                from backend.staff.http_writes import mutate
+                return await mutate(request, identity_service, signer, resource, action)
             with operation() as uow:
                 scope = staff_scope(request, uow, *reads.view_permissions(resource))
                 if request.method != 'GET':

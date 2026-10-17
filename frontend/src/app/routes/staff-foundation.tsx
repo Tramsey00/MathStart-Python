@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState,type FormEvent} from 'react';
 import {useLocation,type LinksFunction} from 'react-router';
 import {createStaffClient,staffOperations,stringifyExact} from '../../shared/api/staff-client';
+import StaffWritePage from './staff-write';
 import tokens from '../../../../static/mathstart/css/ui/tokens.css?url';
 import foundation from '../../../../static/mathstart/css/ui/foundation.css?url';
 export const links:LinksFunction=()=>[{rel:'stylesheet',href:tokens},{rel:'stylesheet',href:foundation}];
@@ -9,7 +10,7 @@ export const handle={skipLink:{target:'staff-main',label:'К администр�
 export const staffResources=[['grades','content/grade','Классы'],['subjects','content/subject','Предметы'],['sections','content/section','Разделы'],['pages','content/contentpage','Страницы'],['publications','content/lessonpublication','Публикации'],['media_assets','content/mediaasset','Медиафайлы'],['redirects','content/redirect','Перенаправления'],['users','auth/user','Пользователи'],['groups','auth/group','Группы']] as const;
 const labels:Record<string,string>={is_staff:'Доступ к администрированию',is_superuser:'Суперпользователь',is_active:'Активен',groups:'Группа',grade:'Класс',subject:'Предмет',section:'Раздел',page_type:'Тип страницы',is_published:'Опубликовано',is_permanent:'Постоянное перенаправление',is_active_redirect:'Активно'};
 const api=createStaffClient();
-export default function StaffReadPage(){
+function StaffReadPage(){
  const location=useLocation(),parts=location.pathname.replace(/^\/admin\/?/,'').split('/').filter(Boolean);
  const info=staffResources.find(r=>parts.slice(0,2).join('/')===r[1]),resource=info?.[0];
  const id=parts[2]&&/^[1-9]\d*$/.test(parts[2])?parts[2]:undefined;
@@ -38,4 +39,10 @@ export default function StaffReadPage(){
   {Array.isArray(data)?<ul>{data.map((row,index)=><li key={String(row.id??index)}>{!history?<a href={base+String(row.id)+'/change/'}>{row.title??row.username??row.name??row.slug??row.source_path??row.old_path??String(row.id)}</a>:<pre style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{stringifyExact(row)}</pre>}</li>)}</ul>:data&&<dl>{Object.entries(data).map(([key,value])=><div key={key}><dt>{key}</dt><dd style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{typeof value==='string'?value:stringifyExact(value)}</dd></div>)}</dl>}
   {pagination?.next_cursor&&<button type="button" className="ms-ui-button" disabled={busy} onClick={()=>void load({...query,cursor:pagination.next_cursor})}>Следующая страница</button>}
   </>}<noscript><p>Для загрузки административных данных нужен JavaScript.</p></noscript></main>;
+}
+
+export default function StaffPage(){
+ const {pathname}=useLocation();
+ const write=/^\/admin\/(?:auth\/(?:user|group)\/|password_change\/)/.test(pathname);
+ return write?<StaffWritePage/>:<StaffReadPage/>;
 }

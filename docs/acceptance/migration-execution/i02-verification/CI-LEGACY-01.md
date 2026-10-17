@@ -1,4 +1,4 @@
-# CI-LEGACY-01 — P1 OPEN
+# CI-LEGACY-01 — fixed public candidate verified
 
 Independent review of public GitHub Actions run38951840140, push event and actual
 checkout b8a93821eccf37eebaebe744460a9f9c6b002cc2, tree
@@ -55,3 +55,7 @@ only PR-triggered runs, explaining its empty list for these push-triggered runs.
 Neither run needs unchanged-state polling now that both are terminal. Follow
 the next actual run after the owner fixes the defect. The local authoritative
 Windows matrix is a distinct run and was not stopped or modified by this review.
+
+## Continuation 2026-10-17
+
+Public push CI [39022103101](https://github.com/Tramsey00/MathStart-Python/actions/runs/39022103101) completed SUCCESS at exact checkout `360e75bdbad6d199a037ebeb0a9c79ade7ed74dd`. This run executes the retained real POSIX invocation regression, separate target/legacy environments, golden stage and the 14-case I02 Chrome scope. General workflow [39022103093](https://github.com/Tramsey00/MathStart-Python/actions/runs/39022103093) completed SUCCESS with the full target job gated PENDING by its still-empty command map. Neither workflow is full migration acceptance. Later identity/staff changes require their own candidate evidence.

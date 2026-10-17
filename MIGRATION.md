@@ -380,13 +380,10 @@ writes/deployment или сообщения людям/чатам без отд�
 
 ## Короткая запись для следующего запуска
 
-Обновлять только эту запись и existing machine ledgers, не дублировать всё ТЗ
-в новом STATE/hand-off документе. Старые snapshots сохраняются в Git history.
-
-- Сейчас: новое единое ТЗ подготовлено; implementation этим изменением не запускалась.
-- Code base: local a46daa9 + сохранённые dirty Linux/comparator/verification fixes.
-- Последний public CI: FAIL на опубликованном b8a9382; новая narrow regression PASS,
-  combined fixed candidate ещё не проверен. General target command map пока пуст.
-- Следующее действие: actual Git/tooling inventory, narrow interpreter tests,
-  затем продолжение общей реализации и заполнение runtime проверки по зависимостям.
-- Final acceptance: HUMAN_PENDING; main и production не изменялись.
+- Исполнение общего задания начато 2026-10-17 в существующем integration, ветка ms7-mig-react-fastapi. Fetch проверен; remote migration был b8a9382, local a46daa9. Все исходные dirty fixes/instructions/archive сохранены коммитом 360e75b и опубликованы.
+- Public Linux CI 39022103101 на 360e75b SUCCESS: POSIX regression, golden/read stage и 14-case I02 Chrome scope. General CI 39022103093 SUCCESS только в выполненных pure/legacy группах; full target остаётся PENDING по пустому command map. Это не final acceptance.
+- В рабочий кандидат включены backend WIP fdac6e6 и account/staff UI из bcdb121 с сохранением новых read/comparator/int64 fixes. Исправлены frozen DTO ответы password/delete, bulk pagination, protected UI и GET-first pending-owner guards. Target runtime подключает identity service и private account/staff формы. Existing locks сохранены; hash deps взяты из WIP lock.
+- Локально: pure 6/6 групп; interpreter 1/1, comparator 2/2; identity+staff PostgreSQL 21/21; frontend unit 141/141 до добавления нового write-suite, затем affected staff read/write 29/29; typecheck PASS; public process/provenance 14/14. Logs в ignored var/: unified-pure-initial.log, identity-staff-combined.log, unified-frontend-unit.log, staff-frontend-tests-02.log, unified-typecheck-04.log, public-process-regressions.log. Эти локальные runs относятся к промежуточному dirty candidate и не являются exact-SHA final QA.
+- Disposable инфраструктура этого запуска: container mathstart-migration-verify, ID 935b01d466027882d1fc6f87c8442c52382aa0e3862989bdd3a60828efeccc22, postgres16-bookworm, loopback55441, tmpfs, БД test_ms7_mig_v01_identity. Существующий mathstart-python-db-1/5432 не изменён. Docker требует запуска вне sandbox; executable найден в пользовательском DockerDesktop/resources/bin. Secrets/реальные данные не читались.
+- Ближайшее: проверить новый immutable identity+public candidate существующим scripts/verify_public_block.py --scope identity (14 I02 + 4 новых account/staff browser cases), затем продолжать ту же общую миграцию: bridge lifecycle/cutover и auth/staff delta, complete publisher/recovery/CLI, concrete target command map, инфраструктура/restore/performance, полный source/product-document mapping и финальные обязательные проверки. Не повторять пустой target prerequisite.
+- Общий кандидат ещё не готов; independent final reviewer ещё не запускался. Полный target/fresh/upgrade A/B/C и финальная Chrome/Edge/Firefox 360/768/1440 matrix обязательны. Final acceptance HUMAN_PENDING; main, Issues и production не изменялись.

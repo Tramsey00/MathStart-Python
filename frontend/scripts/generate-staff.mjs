@@ -5,7 +5,7 @@ const source=new URL('../../specs/migration/r02-v1/delivery-v1.schema.json',impo
 const api=new URL('../../specs/migration/r02-v1/delivery-staff-v1.openapi.json',import.meta.url);
 const schema=JSON.parse(readFileSync(source,'utf8').replaceAll('9223372036854775807','"int64:9223372036854775807"'));
 const operations=[];
-for(const [path,item]of Object.entries(JSON.parse(readFileSync(api,'utf8').replaceAll('9223372036854775807','"int64:9223372036854775807"')).paths))for(const[method,op]of Object.entries(item))if(method==='get'&&(/^(?:staff_(?:list|get|history)_|get_page_publication_state$)/.test(op.operationId)))operations.push({path,method:method.toUpperCase(),...op});
+for(const [path,item]of Object.entries(JSON.parse(readFileSync(api,'utf8').replaceAll('9223372036854775807','"int64:9223372036854775807"')).paths))for(const[method,op]of Object.entries(item))if(['get','post','put'].includes(method))operations.push({path,method:method.toUpperCase(),...op});
 const dto=JSON.parse(readFileSync(new URL('../../specs/api/schemas/dto-v1.schema.json',import.meta.url),'utf8'));
 const errors={};
 function collect(name){if(errors[name])return;errors[name]=dto.$defs[name];if(!errors[name])throw Error('Unknown error schema '+name);JSON.stringify(errors[name],(key,value)=>{if(key==='$ref')collect(value.split('/').at(-1));return value;});}
@@ -13,6 +13,7 @@ for(const op of operations)for(const [status,response]of Object.entries(op.respo
 const needed={};
 function delivery(name){if(needed[name])return;needed[name]=schema.$defs[name];if(!needed[name])throw Error('Unknown delivery schema '+name);JSON.stringify(needed[name],(key,value)=>{if(key==='$ref')delivery(value.split('/').at(-1));return value;});}
 for(const op of operations)for(const [status,response]of Object.entries(op.responses))if(Number(status)<400)delivery(response.content['application/json'].schema.$ref.split('/').at(-1));
+for(const op of operations)if(op.requestBody)delivery(op.requestBody.content['application/json'].schema.$ref.split('/').at(-1));
 const raw=JSON.stringify({schema:{...schema,$defs:needed},errors,operations})+'\n';
 const output=new URL('../src/shared/api/generated/staff-contracts.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(output,'utf8')!==raw)throw Error('Stale generated staff contracts');}

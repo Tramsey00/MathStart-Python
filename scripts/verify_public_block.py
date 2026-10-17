@@ -32,7 +32,7 @@ def legacy_executable(path):
 
 
 def npm_command(script):
-    if script not in {'typecheck', 'test', 'build', 'test:e2e', 'test:i02', '--version'}:
+    if script not in {'typecheck', 'test', 'build', 'test:e2e', 'test:i02', 'test:identity', '--version'}:
         raise ValueError('Unknown frontend check')
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
@@ -78,7 +78,7 @@ def main(argv=None):
     parser.add_argument('--legacy-python', type=Path, required=True)
     parser.add_argument('--port', type=int, default=8111)
     parser.add_argument('--legacy-port', type=int, default=8112)
-    parser.add_argument('--scope', choices=['i02', 'combined'], default='combined')
+    parser.add_argument('--scope', choices=['i02', 'identity', 'combined'], default='combined')
     parser.add_argument('--allow-dirty', action='store_true', help='Development only; receipt remains DIRTY_SOURCE')
     args = parser.parse_args(argv)
     root = args.runtime_root.resolve()
@@ -102,7 +102,7 @@ def main(argv=None):
               'implementation_sha':source_before['head'], 'tree_sha':source_before['tree'],
               'source_before':source_before,
               'dirty_paths':dirty, 'scope':args.scope,
-              'scope_description':'I02 public/staff-read checks; final cross-browser/visual matrix remains I05' if args.scope == 'i02' else 'I02/I03 combined matrix',
+              'scope_description':'I02 public/staff-read checks; final cross-browser/visual matrix remains I05' if args.scope == 'i02' else 'I02 + identity narrow Chrome checks; final matrix pending' if args.scope == 'identity' else 'I02/I03 combined matrix',
               'full_V03_V04_R03':'NOT_VERIFIED', 'formal_acceptance':'HUMAN_PENDING', 'stages':[]}
     env = os.environ.copy()
     # Keys are private in-memory fixtures. Never echo the environment or cookies.
@@ -182,11 +182,11 @@ def main(argv=None):
         with owned_http_service(legacy_argv,base_url=env['MATHSTART_LEGACY_BASE_URL'],
                                 cwd=ROOT,evidence_root=root / 'legacy-service',environment=env):
             browser_env = dict(env)
-            browser_env['MATHSTART_CHECK_ID'] = 'frontend-i02' if args.scope == 'i02' else 'frontend-e2e'
+            browser_env['MATHSTART_CHECK_ID'] = {'i02':'frontend-i02','identity':'frontend-identity','combined':'frontend-e2e'}[args.scope]
             browser_env['MATHSTART_CHECK_RESULT'] = str(root / 'browser-receipt.json')
             # npm requires frontend cwd; the server module needs repository cwd.
             browser_command = [sys.executable,str(ROOT / 'scripts/public_frontend_command.py'),
-                               'test:i02' if args.scope == 'i02' else 'test:e2e']
+                               {'i02':'test:i02','identity':'test:identity','combined':'test:e2e'}[args.scope]]
             browser = run_browser_check(target_argv,browser_command,base_url=env['MATHSTART_PUBLIC_ORIGIN'],
                 cwd=ROOT,evidence_root=root / 'target-service',environment=browser_env,check_timeout=7200)
         report['browser_lifecycle'] = browser

@@ -117,7 +117,7 @@ def artifact_bytes(root, manifest, relative):
     return raw
 
 
-PRIVATE_READ = re.compile(r'^/admin/(?:(?:content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)|auth/(?:user|group))/(?:[1-9][0-9]*/(?:change/|history/))?)?$')
+PRIVATE_READ = re.compile(r'^(?:/account/|/admin/(?:password_change/|(?:content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)|auth/(?:user|group))/(?:add/|[1-9][0-9]*/(?:change/|history/|password/|delete/))?)?)$')
 
 
 def create_public_app(engine, signer, *, release_root, artifact_root, artifact_digests, origin):
@@ -125,6 +125,10 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
     store = VerifiedReleaseStore(release_root)
     renderer = PublicRenderer(artifact_root, artifact_digests)
     authenticate = ReadSessionAuthenticator(engine, signer.key, signer.fallback_keys)
+    from backend.users.security import Security
+    from backend.users.service import IdentityService
+    identity = IdentityService(Security(engine, signer.key, origin, fallback_keys=signer.fallback_keys,
+                                        secure=origin.startswith('https:')))
 
     def initial_edition(uow, page_id):
         gate_row = uow.session.get(PublicationGate, 'public')
@@ -151,7 +155,7 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
 
     app = create_app(engine, signer, release_store=store, authenticate=authenticate,
                      render_page=renderer, public_origin=origin, observe_publication=initial_edition,
-                     csrf_check=lambda request: public_csrf_check(request, origin))
+                     csrf_check=lambda request: public_csrf_check(request, origin), identity_service=identity)
     trusted_host = urlsplit(origin).netloc.lower()
 
     def auxiliary_response(request, private):

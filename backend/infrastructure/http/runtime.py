@@ -19,8 +19,12 @@ def application():
     engine = create_engine(DatabaseConfig.from_environment())
     check_connection(engine)
     root = os.environ.get('MATHSTART_RELEASE_ROOT')
+    from backend.users.security import Security
+    from backend.users.service import IdentityService
+    identity = IdentityService(Security(engine, key, origin, fallback_keys=fallback,
+                                        secure=origin.startswith('https:')))
     return create_app(engine, Signer(key, fallback), release_store=ReleaseStore(root) if root else None,
-                      public_origin=origin)
+                      public_origin=origin, identity_service=identity)
 
 
 if __name__ == '__main__':
