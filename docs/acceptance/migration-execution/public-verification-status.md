@@ -1,4 +1,29 @@
-# Current publication continuation
+# Current prepared publisher continuation
+
+Runtime `1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7` integrates real prepared
+content/SSG publication, source snapshot projection, operator publish/unpublish/
+recovery CLI, coherent staff observation and exact-release journal output pins.
+It remains IN_PROGRESS. New source IDs/bootstrap/index/cutover, full target,
+ops/browser/documentation gates and final independent review remain unfinished.
+
+Local affected checks:7 PG/actual React/HTTP publisher cases,5 full-source
+preparation cases,2 changed unpublish/redirect/dry-run/sequence cases and7 edition
+cases passed. One terminal CLI failure was retained and fixed; its targeted case
+then passed, followed by the7-case run. A subsequent directory-fsync helper was
+compile/import checked; exact-SHA POSIX CI still needs observation. Details and
+log paths are in MIGRATION.md and the existing candidate JSON.
+
+Both already-running prior CIs completed SUCCESS without rerun:
+[4d14bdc](https://github.com/Tramsey00/MathStart-Python/actions/runs/39038397436),
+[840c7e1](https://github.com/Tramsey00/MathStart-Python/actions/runs/39038587513).
+Exact840:167 frontend,68 source/read/golden/content/protocol/edition/artifact,
+18 Chrome360 with0 skips,32 identity/staff PG. Artifact12103128658 SHA256
+`c4284967cddebf86f1319c044478124871143c99867d2eb37551e0455ccee839` was verified.
+[Receipt](i02-verification/ci-840c7e1-result.json), browser and provenance retained.
+General CI target was SKIPPED, so full target is NOT_VERIFIED. These prior runs
+do not establish a PASS for1cc7c3a or final migration acceptance.
+
+# Historical authority checkpoint
 
 Runtime code `840c7e122d828b81f9648bd438c1a941a57b0a0c` is IN_PROGRESS.
 The P1 authority and guarded content-edition layers are implemented and tested;
