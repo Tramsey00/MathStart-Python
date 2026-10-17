@@ -107,7 +107,7 @@ def main(argv=None):
         environment["MATHSTART_CHECK_ID"] = args.check
         result = subprocess.run(command, cwd=directory, shell=False, check=False,
                                 capture_output=True, text=True, encoding="utf-8",
-                                errors="replace", timeout=540, env=environment)
+                                errors="replace", timeout=900 if args.check == 'backend-tests' else 540, env=environment)
     except (ValueError, OSError, KeyError, TypeError):
         print("FAIL: required command/tool/handoff unavailable or invalid: " + args.check)
         return 1

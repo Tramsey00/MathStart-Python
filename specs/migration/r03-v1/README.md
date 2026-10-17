@@ -32,16 +32,23 @@ Product locks remain the V01/I01 owners' deliverables. No latest dependency inst
 
 ## Required semantic equivalents and owner handoff
 
-The [command handoff](runtime-commands.json) now has five real read-only target
-entry points: system/routes/security, exact schema/head, all263 lesson sources,
-full279-page filesystem integrity and live HTTP quality. `IMPLEMENTED_PARTIAL`
-allows these entries to execute while every missing command still fails.
-The backend suite and full fresh/upgrade rehearsals remain explicit gaps.
+The [command handoff](runtime-commands.json) now has real target
+entry points for all ten backend checks: system/routes/security, exact schema/head,
+all263 lesson sources, full279-page filesystem integrity, live HTTP quality,
+the complete backend suites in isolated databases, fresh twice with real React
+artifacts and repeated bootstrap, and populated upgrade A/B/C via actual schema
+CLI with retained data/history/sequence assertions. `IMPLEMENTED_PARTIAL` allows
+these entries to execute while any absent entry still fails. The remaining gap
+is managed combined runtime/build/browser orchestration and final verification.
 Set REVIEWED only after command-contract review, not to claim task acceptance.
 Backend entry: `{ "script": "backend/<existing-script>.py", "args": ["..."] }`.
 Only Python scripts resolving inside backend are accepted; no arbitrary shell.
-Each entry emits nonempty unskipped target receipts. The public scoped verifier
-also executes these five entries; this does not establish full target acceptance.
+Each entry emits nonempty unskipped target receipts. Public scoped CI executes
+the five read-only checks; the backend-install CI job executes backend/fresh/
+upgrades against its own PostgreSQL16 service on55441. Neither job claims full
+target acceptance. Actual local entry-point checks are recorded under
+`docs/acceptance/migration-execution/i02-verification/`; historical failures stay
+retained beside successful continuation receipts.
 
 | Key / old assertion | Required target assertion / owner |
 | --- | --- |

@@ -149,9 +149,26 @@ class Security:
         return response
 
 
+def revoke_user(session, user_id, now):
+    """Security revocation includes imported bridges with no target lineage.
+
+    Caller holds the owner User lock. Acquire the complete bridge set before
+    any session rows, rather than interleaving per-lineage lock subsets.
+    """
+    bridges = list(session.scalars(sa.select(ReceiptBridge).where(ReceiptBridge.owner_user_id == user_id)
+                                  .order_by(ReceiptBridge.id).with_for_update()))
+    rows = list(session.scalars(sa.select(TargetSession).where(TargetSession.user_id == user_id)
+                               .order_by(TargetSession.id).with_for_update()))
+    _revoke(bridges, rows, now)
+
+
 def revoke_lineage(session, lineage, now):
     bridges = list(session.scalars(sa.select(ReceiptBridge).where(ReceiptBridge.session_lineage_id == lineage).order_by(ReceiptBridge.id).with_for_update()))
     rows = list(session.scalars(sa.select(TargetSession).where(TargetSession.lineage_id == lineage).order_by(TargetSession.id).with_for_update()))
+    _revoke(bridges, rows, now)
+
+
+def _revoke(bridges, rows, now):
     for row in rows:
         if row.revoked_at is None:
             row.revoked_at = now

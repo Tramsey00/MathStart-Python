@@ -17,7 +17,7 @@ from backend.staff.authorization import authorize, AuthenticatedIdentity
 from backend.staff import reads
 from backend.users import passwords
 from backend.users.service import conflict, validate_current
-from backend.users.security import revoke_lineage
+from backend.users.security import revoke_user
 
 
 def permission(scope, resource, action):
@@ -116,8 +116,7 @@ class StaffWrites:
                 joins(s, 'auth_user_user_permissions', 'user_id', row.id, 'permission_id', body['user_permissions'], Permission)
                 if not row.is_active:
                     now = s.scalar(sa.select(sa.func.clock_timestamp()))
-                    for lineage in s.scalars(sa.select(TargetSession.lineage_id).where(TargetSession.user_id == row.id).distinct()):
-                        revoke_lineage(s, lineage, now)
+                    revoke_user(s, row.id, now)
             if resource == 'groups':
                 joins(s, 'auth_group_permissions', 'group_id', row.id, 'permission_id', body['permissions'], Permission)
             audit(s, identity.user_id, resource, row, 'created' if action == 'create' else 'changed')
@@ -139,19 +138,7 @@ class StaffWrites:
                 body = {'usable_password': True, 'password1': body['new_password1'], 'password2': body['new_password2']}
             value = password_value(body, row)
             now = s.scalar(sa.select(sa.func.clock_timestamp()))
-            lineages = sorted(set(s.scalars(sa.select(TargetSession.lineage_id).where(TargetSession.user_id == row.id))), key=str)
-            for lineage in lineages:
-                revoke_lineage(s, lineage, now)
-            # Imported legacy bridges may have no target lineage yet. A target
-            # password change revokes those detached capabilities as well.
-            detached = list(s.scalars(sa.select(ReceiptBridge).where(ReceiptBridge.owner_user_id == row.id,
-                ReceiptBridge.state.in_(['ACTIVE', 'DETACHED'])).order_by(ReceiptBridge.id).with_for_update()))
-            for bridge in detached:
-                bridge.state, bridge.session_id = 'REVOKED', None
-                bridge.revocation_epoch += 1
-                bridge.ticket_version += 1
-                bridge.ticket_revoked_at = now
-                bridge.transfer_binding_digest = None
+            revoke_user(s, row.id, now)
             row.password = value
             cookies = None
             if row.id == identity.user_id:

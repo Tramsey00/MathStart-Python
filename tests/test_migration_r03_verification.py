@@ -50,6 +50,13 @@ class TargetRegistryTests(unittest.TestCase):
             with patch.object(verify_repo.subprocess, "run", side_effect=error), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
                 self.assertEqual(verify_repo.run_command(["missing"]), code)
 
+    def test_backend_suite_parent_allows_child_deadline_and_cleanup(self):
+        with patch.object(verify_repo.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)) as run, redirect_stdout(io.StringIO()):
+            verify_repo.run_command([sys.executable, 'scripts/target_check.py', 'backend-tests'])
+            self.assertEqual(run.call_args.kwargs['timeout'], 960)
+            verify_repo.run_command([sys.executable, 'scripts/target_check.py', 'migrations'])
+            self.assertEqual(run.call_args.kwargs['timeout'], 600)
+
     def test_failed_check_cannot_make_canonical_pass(self):
         with patch.object(verify_repo, "run_command", return_value=9), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
             self.assertEqual(verify_repo.main(["--profile", "target", "--group", "backend"]), 1)
@@ -68,16 +75,27 @@ class TargetRegistryTests(unittest.TestCase):
             with self.assertRaises(OSError): target_check.command_for("system", root)
             with self.assertRaises(ValueError): target_check.command_for("frontend-build", root)
         with redirect_stdout(io.StringIO()):
-            self.assertEqual(target_check.main(["backend-tests"]), 1)
+            self.assertEqual(target_check.main(["fresh-install"]), 1)
 
-    def test_partial_map_executes_real_entries_but_preserves_missing_failures(self):
+    def test_concrete_map_executes_real_entries_and_missing_partial_entry_fails(self):
         for check in ('system', 'migrations', 'lesson-sources', 'content-quality', 'site-integrity'):
             command, cwd = target_check.command_for(check)
             self.assertEqual(Path(command[1]), target_check.ROOT / 'backend/verification.py')
             self.assertEqual(command[2:], [check])
-        for check in ('backend-tests', 'fresh-install', 'upgrade-A', 'upgrade-B', 'upgrade-C'):
+        command, cwd = target_check.command_for('backend-tests')
+        self.assertEqual(Path(command[1]), target_check.ROOT / 'backend/verification_suite.py')
+        self.assertEqual(command[2:], [])
+        for check in ('fresh-install', 'upgrade-A', 'upgrade-B', 'upgrade-C'):
+            command, cwd = target_check.command_for(check)
+            self.assertEqual(Path(command[1]), target_check.ROOT / 'backend/verification_install.py')
+            self.assertEqual(command[2:], [check])
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path = root / target_check.HANDOFF.relative_to(target_check.ROOT)
+            path.parent.mkdir(parents=True)
+            path.write_text(json.dumps({'status': 'IMPLEMENTED_PARTIAL', 'commands': {}}))
             with self.assertRaises(ValueError):
-                target_check.command_for(check)
+                target_check.command_for('backend-tests', root)
 
     def test_reviewed_handoff_requires_real_backend_file_and_rejects_escape(self):
         with tempfile.TemporaryDirectory() as temp:

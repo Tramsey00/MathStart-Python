@@ -114,11 +114,15 @@ CHECKS: tuple[Check, ...] = (
 
 def run_command(command: Sequence[str]) -> int:
     print(f"$ {' '.join(command)}", flush=True)
+    # The full backend suite includes schema replays, separate legacy oracles
+    # and real React/HTTP publication. Allow its bounded child deadline plus
+    # cleanup, while retaining the ordinary command deadline for other checks.
+    timeout = 960 if 'scripts/target_check.py' in command and command[-1] == 'backend-tests' else 600
     try:
         completed = subprocess.run(list(command), cwd=ROOT, check=False,
-                                   shell=False, timeout=600)
+                                   shell=False, timeout=timeout)
     except subprocess.TimeoutExpired:
-        print("Verification check timed out (600 seconds).", file=sys.stderr)
+        print(f"Verification check timed out ({timeout} seconds).", file=sys.stderr)
         return 124
     except OSError:
         print("Verification tool unavailable.", file=sys.stderr)

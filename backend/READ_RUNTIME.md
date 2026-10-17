@@ -161,6 +161,8 @@ scope. Terminal bridges stay terminal; competing F logins from one observed
 epoch cannot establish two sessions. Original B proof recovery remains available
 under its existing password/owner/digest/retention checks. Imported detached
 bridges without a target lineage are also revoked on target password changes.
+Staff deactivation revokes the same complete owner bridge/session set before
+reactivation can occur; reactivation cannot restore a revoked capability.
 These scoped checks do not establish the full migration/cutover rehearsal.
 
 The internal `backend.content.publication.PublisherAuthority` now implements the

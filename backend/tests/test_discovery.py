@@ -5,6 +5,7 @@ import subprocess
 import sys
 import textwrap
 import unittest
+from backend.tests.legacy_tools import legacy_python
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,7 +27,7 @@ class LegacyDiscoveryTests(unittest.TestCase):
         env = {**os.environ, 'DJANGO_SETTINGS_MODULE': 'config.settings',
                'DJANGO_DB_BACKEND': 'sqlite', 'DJANGO_DB_PATH': ':memory:',
                'DJANGO_SECRET_KEY': 'synthetic-discovery-only'}
-        return subprocess.run([sys.executable, '-c', BLOCK_TARGET_IMPORTS + textwrap.dedent(code)],
+        return subprocess.run([legacy_python(), '-c', BLOCK_TARGET_IMPORTS + textwrap.dedent(code)],
                               cwd=ROOT, env=env, capture_output=True, text=True, timeout=30)
 
     def test_default_django_discovery_preserves_legacy_without_target_imports(self):

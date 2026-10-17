@@ -1,5 +1,35 @@
 # V01 and legacy verification environments
 
+The combined backend entry point now uses a target environment installed from
+`backend/tests/v04/requirements.lock` (no Django), plus an explicitly separate
+`MATHSTART_LEGACY_PYTHON` environment installed from the historical root lock.
+The legacy environment also needs the pinned password-oracle dependencies shown
+in `.github/workflows/migration-ci.yml`. Historical combined environments below
+remain evidence, rather than the normal target runtime.
+
+For a locally owned disposable PostgreSQL16 service on127.0.0.1:55441, set
+`MATHSTART_DATABASE_URL`, `MATHSTART_DISPOSABLE=1`, and the separate legacy
+interpreter path, then execute from the repository root:
+
+```text
+python scripts/target_check.py backend-tests
+python scripts/target_check.py fresh-install --disposable
+python scripts/target_check.py upgrade-A --disposable
+python scripts/target_check.py upgrade-B --disposable
+python scripts/target_check.py upgrade-C --disposable
+```
+
+The entry points create and remove new marked UUID databases and real React
+artifacts. They never attach the test suites to the existing application data.
+Fresh runs twice, preserves repeat-bootstrap content/users, validates the full
+279-page/263-lesson/29-media release and actually builds the frontend. Upgrade
+commands execute the target schema CLI on populated historical fixtures and
+check data, migration history, grade epoch, constraints/head and sequences.
+Result receipts are under `var/target-checks/<check>-<uuid>/result.json`; failures,
+empty suites or skipped tests cannot produce PASS. The backend child has a900s
+bound and its repository parent reserves960s including cleanup. Other command
+bounds stay unchanged. These commands do not establish final migration acceptance.
+
 Until cutover, Django and its historical CI install only `requirements.lock`.
 V01 runtime dependencies are in `backend/requirements.lock`; migration tests
 also need Django fixtures and use the complete `backend/requirements-test.lock`.
