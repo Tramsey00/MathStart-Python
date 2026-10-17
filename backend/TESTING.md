@@ -33,7 +33,26 @@ and removes its own marked database on the reserved localhost:55441 container:
 python -m backend.tests.legacy_ci_verification --disposable
 ```
 
-Target test environment, separately installed:
+The target PostgreSQL suites also run in the ordinary Django-free environment.
+Set `MATHSTART_LEGACY_PYTHON` to the separately installed legacy interpreter;
+historical fixture migration and timestamp comparisons run only in that child
+environment. POSIX virtualenv invocation paths are preserved without resolving
+their symlinks. Missing oracle tools fail rather than skip required cases.
+
+```text
+python -m pip install --no-deps -r backend/requirements.lock
+python -m pip check
+python -m unittest backend.tests.test_postgres backend.tests.test_remediation -v
+python -m backend.tests.runtime_verification
+```
+
+The runtime CLI rehearsal uses the current target interpreter by default;
+`MATHSTART_TARGET_PYTHON` can explicitly select another installed target-only
+interpreter. It checks absence of Django both before and after every command.
+The earlier fixed Windows venv location is no longer required. Set a new
+`MATHSTART_V01_EVIDENCE_DIR` per run to retain receipts and failures.
+
+The historical combined target-test environment remains supported:
 
 ```text
 python -m pip install --no-deps -r backend/requirements-test.lock

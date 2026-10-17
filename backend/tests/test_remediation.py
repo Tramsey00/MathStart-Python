@@ -23,6 +23,7 @@ from backend.models.baseline import metadata, Grade, ContentPage, LessonPublicat
 from backend.migrations.schema import assert_baseline, inventory, SchemaMismatch
 from backend.migrations.upgrade import fresh, upgrade_profile, advance_sequences, HEAD
 from backend.migrate import main as cli
+from backend.tests.legacy_tools import legacy_python
 
 
 def write_evidence(name, result):
@@ -54,8 +55,8 @@ class RemediationTests(unittest.TestCase):
                    'DJANGO_DB_USER': engine.url.username, 'DJANGO_DB_PASSWORD': engine.url.password or 'synthetic-local-only',
                    'DJANGO_SECRET_KEY': 'synthetic-f1-only',
                    'DJANGO_RUNTIME_ROOT': str(Path('var/ms7-mig-v01-f1-runtime').resolve())}
-            process = subprocess.run([sys.executable, '-m', 'backend.tests.django_timestamp_probe'],
-                                     env=env, capture_output=True, text=True)
+            process = subprocess.run([legacy_python(), '-m', 'backend.tests.django_timestamp_probe'],
+                                     env=env, capture_output=True, text=True,timeout=60)
             self.assertEqual(process.returncode, 0, 'Real Django timestamp probe failed')
             django = json.loads(process.stdout)
             with UnitOfWork(engine) as uow:

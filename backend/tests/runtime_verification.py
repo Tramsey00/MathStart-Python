@@ -3,11 +3,14 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 from backend.tests.test_postgres import PostgreSQLTests
 
 
 def main():
-    interpreter = Path('var/ms7-mig-v01-runtime-venv/Scripts/python.exe').resolve()
+    interpreter = Path(os.environ.get('MATHSTART_TARGET_PYTHON', sys.executable)).absolute()
+    if not interpreter.is_file():
+        raise RuntimeError('Explicit target interpreter unavailable')
     checks = []
     PostgreSQLTests.setUpClass()
     try:
@@ -22,14 +25,14 @@ def main():
                             'from backend.migrate import main; result=main(' + repr(command) + '); '
                             'assert not any(m=="django" or m.startswith("django.") for m in sys.modules); '
                             'raise SystemExit(result)')
-                    process = subprocess.run([str(interpreter), '-c', code], env=env, capture_output=True)
+                    process = subprocess.run([str(interpreter), '-c', code], env=env, capture_output=True,timeout=60)
                     result = {'profile': profile or 'FRESH', 'command': command, 'exit_code': process.returncode,
-                              'Django_installed_or_imported': False,
+                              'Django_installed_or_imported': False if process.returncode == 0 else None,
                               'safe_output': process.stdout.decode(errors='replace').strip()}
                     checks.append(result)
                     print((profile or 'FRESH') + ' ' + command[0] + ': exit ' + str(process.returncode), flush=True)
                     if process.returncode:
-                        raise RuntimeError('Target-only runtime smoke failed: '+process.stderr.decode(errors='replace')[-1200:])
+                        raise RuntimeError('Target-only runtime smoke failed; no Django-absence proof for failed command')
     finally:
         PostgreSQLTests.tearDownClass()
         directory = Path(os.environ.get('MATHSTART_V01_EVIDENCE_DIR', 'var/ms7-mig-v01-evidence'))
