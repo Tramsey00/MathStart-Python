@@ -27,87 +27,174 @@
   },
   "latest_observed": {
     "status": "IN_PROGRESS",
-    "runtime_sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+    "runtime_sha": "ebe27f0003f50618ac12589e9405f7485acf5c2d",
     "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
-    "clean_public_identity_ci": {
-      "run_id": 39029833587,
-      "job_id": 117387900251,
-      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39029833587",
-      "status": "PASS",
-      "exact_checkout": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
-      "source_unchanged": true,
-      "frontend_tests": 157,
-      "source_read_golden_tests": 33,
+    "latest_integrated_scope_pass": {
+      "runtime_sha": "62197b3d25251b7f157af203cccb2aa65135b173",
+      "run_id": 39035330261,
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39035330261",
+      "artifact_id": 12101498432,
+      "artifact_sha256": "028bdf09a1adc54181f042be6844fed611280ced701651ad4f42347c92ae1f00",
+      "frontend_tests": 167,
+      "source_read_golden_content_checks": 40,
       "browser_cases": 18,
+      "browser_skips": 0,
       "browser_projects": [
         "chrome-360"
       ],
-      "identity_staff_postgresql_tests": 24,
-      "artifact_id": 12100316135,
-      "artifact_sha256": "34046163a86648af619ac058e3cc8470623d83149f9f00ef4007da705ab25e0c",
-      "versions": {
-        "python": "3.12.15",
-        "node": "24.21.0",
-        "npm": "11.19.0",
-        "postgresql": "16.15"
+      "identity_staff_pg_tests": 29,
+      "startup_cleanup": "PASS",
+      "source_before_after": "UNCHANGED",
+      "full_V03_V04_R03": "NOT_VERIFIED"
+    },
+    "current_recovery_delta": {
+      "parent": "62197b3d25251b7f157af203cccb2aa65135b173",
+      "affected_pg_suite": {
+        "passed": 32,
+        "failed": 0,
+        "skipped": 0,
+        "log": "var/identity-admin-20261017-161324.log"
       },
-      "receipt_files": [
-        "i02-verification/ci-45a4a31-result.json",
-        "i02-verification/ci-45a4a31-browser-receipt.json",
-        "i02-verification/ci-45a4a31-public-provenance.json"
+      "revoked_cookie_delta": {
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "log": "var/auth-revocation-20261017-161452.log"
+      },
+      "integrated_ci": {
+        "status": "IN_PROGRESS",
+        "push_run": 39035893192,
+        "pr_run": 39035897143
+      }
+    },
+    "content_cli_local": {
+      "suite_passed": 7,
+      "suite_log": "var/content-cli-20261017-160451.log",
+      "extended_subprocess_test_passed": 1,
+      "subprocess_log": "var/content-cli-subprocess-20261017-160600.log",
+      "topics": 263,
+      "pages": 279,
+      "django_installed_or_imported": false,
+      "checks": [
+        "source DB metadata/HTML/CSS/JS equality",
+        "complete current site references and registered media",
+        "HTTP quality/404/no redirect following",
+        "CLI positive and negative exits",
+        "report file effects",
+        "DB digest unchanged"
       ]
     },
     "general_ci": {
-      "run_id": 39029833597,
-      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39029833597",
-      "pure": "PASS",
-      "verify_legacy": "PASS",
-      "full_target": "SKIPPED_PENDING_COMMAND_MAP"
+      "last_completed_push_run": 39035330259,
+      "pure_legacy": "PASS",
+      "full_target": "SKIPPED_PENDING_COMMAND_MAP_NOT_PASS"
     },
-    "local_browser_delta": {
-      "runtime_sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
-      "frontend_build_sha": "a287bc62088896257cf176f2d7e242087f81de58",
-      "status": "PASS_BROWSER_DELTA_ONLY",
-      "assertions": 18,
-      "skipped": 0,
-      "scope": "Chrome360; reused unchanged frontend/source build, DB-journal digest verified",
-      "result": "var/identity-browser-delta-03/result.json",
-      "startup": "PASS",
-      "cleanup": "PASS"
-    },
-    "local_affected_checks": {
-      "identity_staff_tests": 24,
-      "account_staff_ui_adapter_tests": 36,
-      "http_cache_concurrency_tests": 29,
-      "compiled_artifact_private_url_tests": 3,
-      "canonical_lifecycle_provenance": {
-        "passed": 16,
-        "skipped": 0,
-        "environment": "PYTHONUNBUFFERED=1",
-        "log": "var/public-lifecycle-unbuffered.log",
-        "earlier_failures": "Preserved in var/public-lifecycle-cold-delta.log and var/public-lifecycle-cold-elevated.log; not relabelled"
-      }
-    },
-    "independent_final_review": "NOT_RUN_GLOBAL_CANDIDATE_INCOMPLETE",
-    "full_migration": "NOT_VERIFIED",
+    "independent_final_review": "NOT_RUN_COMBINED_CANDIDATE_NOT_READY",
+    "full_migration": "IN_PROGRESS",
     "final_acceptance": "HUMAN_PENDING",
     "production": "UNCHANGED",
+    "remaining_engineering": [
+      "verified legacy cutover/checkpoint/import/F-proof recovery",
+      "full admin permission/role/password/bulk inventory proof",
+      "durable publisher/fencing/lease/recovery/ack and remaining write CLI inventory",
+      "concrete target command map and all mandatory profiles",
+      "images/edge/dev/staging/backup-restore/performance/cutover/rollback",
+      "complete source product-spec and versioned docs",
+      "full browser/responsive/visual/interactivity matrix",
+      "final independent review after combined readiness"
+    ],
     "local_cleanup": {
-      "owned_browser_asgi_legacy": "STOPPED",
-      "owned_ports": [
-        8131,
-        8132,
-        55441
-      ],
-      "os_listeners_on_owned_ports": 0,
-      "owned_postgresql_container": "935b01d466027882d1fc6f87c8442c52382aa0e3862989bdd3a60828efeccc22",
-      "owned_postgresql_container_removed": true,
-      "original_postgresql_5432": "UNCHANGED_AND_RUNNING",
-      "evidence": [
-        "var/owned-postgres-cleanup.json",
-        "var/owned-port-cleanup.json"
-      ],
-      "note": "A prior connect_ex10035 probe was inconclusive; Windows OS LISTEN table and Docker exact-ID absence provide the cleanup proof."
+      "owned_disposable_containers": "REMOVED_BY_EXACT_ID_NAME_LABEL_TMPFS_CHECK",
+      "owned_http_fixture_servers": "SHUTDOWN_AND_JOINED",
+      "original_database_5432": "UNTOUCHED",
+      "private_keys_cookies": "IGNORED_NOT_PUBLISHED"
     }
-  }
+  },
+  "previous_observations": [
+    {
+      "status": "IN_PROGRESS",
+      "runtime_sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+      "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
+      "clean_public_identity_ci": {
+        "run_id": 39029833587,
+        "job_id": 117387900251,
+        "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39029833587",
+        "status": "PASS",
+        "exact_checkout": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+        "source_unchanged": true,
+        "frontend_tests": 157,
+        "source_read_golden_tests": 33,
+        "browser_cases": 18,
+        "browser_projects": [
+          "chrome-360"
+        ],
+        "identity_staff_postgresql_tests": 24,
+        "artifact_id": 12100316135,
+        "artifact_sha256": "34046163a86648af619ac058e3cc8470623d83149f9f00ef4007da705ab25e0c",
+        "versions": {
+          "python": "3.12.15",
+          "node": "24.21.0",
+          "npm": "11.19.0",
+          "postgresql": "16.15"
+        },
+        "receipt_files": [
+          "i02-verification/ci-45a4a31-result.json",
+          "i02-verification/ci-45a4a31-browser-receipt.json",
+          "i02-verification/ci-45a4a31-public-provenance.json"
+        ]
+      },
+      "general_ci": {
+        "run_id": 39029833597,
+        "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39029833597",
+        "pure": "PASS",
+        "verify_legacy": "PASS",
+        "full_target": "SKIPPED_PENDING_COMMAND_MAP"
+      },
+      "local_browser_delta": {
+        "runtime_sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+        "frontend_build_sha": "a287bc62088896257cf176f2d7e242087f81de58",
+        "status": "PASS_BROWSER_DELTA_ONLY",
+        "assertions": 18,
+        "skipped": 0,
+        "scope": "Chrome360; reused unchanged frontend/source build, DB-journal digest verified",
+        "result": "var/identity-browser-delta-03/result.json",
+        "startup": "PASS",
+        "cleanup": "PASS"
+      },
+      "local_affected_checks": {
+        "identity_staff_tests": 24,
+        "account_staff_ui_adapter_tests": 36,
+        "http_cache_concurrency_tests": 29,
+        "compiled_artifact_private_url_tests": 3,
+        "canonical_lifecycle_provenance": {
+          "passed": 16,
+          "skipped": 0,
+          "environment": "PYTHONUNBUFFERED=1",
+          "log": "var/public-lifecycle-unbuffered.log",
+          "earlier_failures": "Preserved in var/public-lifecycle-cold-delta.log and var/public-lifecycle-cold-elevated.log; not relabelled"
+        }
+      },
+      "independent_final_review": "NOT_RUN_GLOBAL_CANDIDATE_INCOMPLETE",
+      "full_migration": "NOT_VERIFIED",
+      "final_acceptance": "HUMAN_PENDING",
+      "production": "UNCHANGED",
+      "local_cleanup": {
+        "owned_browser_asgi_legacy": "STOPPED",
+        "owned_ports": [
+          8131,
+          8132,
+          55441
+        ],
+        "os_listeners_on_owned_ports": 0,
+        "owned_postgresql_container": "935b01d466027882d1fc6f87c8442c52382aa0e3862989bdd3a60828efeccc22",
+        "owned_postgresql_container_removed": true,
+        "original_postgresql_5432": "UNCHANGED_AND_RUNNING",
+        "evidence": [
+          "var/owned-postgres-cleanup.json",
+          "var/owned-port-cleanup.json"
+        ],
+        "note": "A prior connect_ex10035 probe was inconclusive; Windows OS LISTEN table and Docker exact-ID absence provide the cleanup proof."
+      }
+    }
+  ]
 }
