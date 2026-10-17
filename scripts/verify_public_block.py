@@ -172,6 +172,8 @@ def main(argv=None):
         stage('source-render-and-read-runtime', [sys.executable,'-m','unittest',
             'backend.tests.v04.test_build','backend.tests.v04.test_read_runtime',
             'backend.tests.v04.test_content_checks',
+            'backend.tests.v04.test_publication',
+            'backend.tests.v04.test_editions',
             'backend.tests.v04.test_verified_release_cache',
             'frontend.tests.test_public_artifact','frontend.tests.test_legacy_comparator','-v'])
         legacy_argv = [sys.executable,'-m','frontend.legacy_comparator','--build-config',str(config_path),

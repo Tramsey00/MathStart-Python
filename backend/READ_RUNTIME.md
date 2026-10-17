@@ -123,3 +123,23 @@ receipt without issuing another session. A receipt key or owner login alone
 cannot select an anonymous scope. Old-epoch concurrent rebinds fail closed.
 Verified legacy cutover checkpoint/import/F-proof recovery remains unfinished;
 the current identity checks do not establish production cutover readiness.
+
+The internal `backend.content.publication.PublisherAuthority` now implements the
+PostgreSQL P1 pending slot, owner/generation lease, takeover, domain-commit fact,
+descriptor activation, reconciliation and acknowledgement. Its participant must
+provide reviewed content/artifact staging, short DB edition checks/updates and
+public probes; a fixture participant is not a production content publisher.
+Staging/probes run outside row locks. Their receipts bind operation, owner, fence,
+plan and release identity, and are accepted only under the same current lease.
+Final conditional SQL guards use DB time and roll back flushed domain changes
+on expiry. Only COMPLETE or proven FAILED_PRECOMMIT releases pending. There is
+no filesystem active pointer and no cleanup of unowned paths.
+
+`backend.content.editions` supplies exact fingerprints of the seven content
+tables and guarded prepared before/after updates, preserving IDs and timestamps.
+It rejects auth tables, primary-key changes, duplicate patches and stale rows;
+it does not allocate IDs or delete content. These internal layers are covered
+by real PostgreSQL crash/race/rollback tests. They still need the concrete
+reviewed content/SSG participant, publisher CLI orchestration and coherent staff
+publication observer. The existing synthetic initial activation remains a
+separate fixture; it is not evidence that the full publisher is integrated.
