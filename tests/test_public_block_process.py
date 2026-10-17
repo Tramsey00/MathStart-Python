@@ -38,6 +38,30 @@ class PublicBlockLifecycle(unittest.TestCase):
         self.assertEqual(result, {'startup':'PASS','browser_exit':0,'cleanup':'PASS'})
         self.assert_closed()
 
+    def delayed_server(self, seconds):
+        code = f'''import http.server,time
+class Handler(http.server.BaseHTTPRequestHandler):
+    def do_GET(self):
+        time.sleep({seconds!r})
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'ready')
+http.server.HTTPServer(('127.0.0.1',{self.port}),Handler).serve_forever()
+'''
+        return [sys.executable, '-c', code]
+
+    def test_cold_response_within_startup_budget_is_not_cancelled_every_half_second(self):
+        result = self.execute(server=self.delayed_server(.8))
+        self.assertEqual(result, {'startup': 'PASS', 'browser_exit': 0, 'cleanup': 'PASS'})
+        self.assert_closed()
+
+    def test_hung_readiness_keeps_absolute_deadline_and_never_runs_browser(self):
+        with self.assertRaisesRegex(LifecycleFailure, 'readiness timed out'):
+            self.execute(server=self.delayed_server(30),
+                         check=[sys.executable, '-c', "open('unexpected-browser','w').close()"])
+        self.assertFalse((self.root / 'unexpected-browser').exists())
+        self.assert_closed()
+
     def test_nonzero_browser_remains_nonzero_and_server_is_stopped(self):
         result = self.execute(check=[sys.executable, '-c', 'raise SystemExit(7)'])
         self.assertEqual(result['browser_exit'], 7)

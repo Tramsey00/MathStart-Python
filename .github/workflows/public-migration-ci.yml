@@ -80,9 +80,36 @@ jobs:
           --scope identity
       - name: Identity and staff PostgreSQL regressions (no empty or skipped suites)
         env:
-          MATHSTART_V03_DATABASE_URL: ${{ env.MATHSTART_DATABASE_URL }}
           MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/public-legacy-env/bin/python
-        run: var/public-target-env/bin/python scripts/run_unittest.py --start backend/tests/v03 --pattern 'test_*.py'
+        run: |
+          var/public-target-env/bin/python - <<'PY'
+          import os, subprocess, sys
+          import sqlalchemy as sa
+          from sqlalchemy.engine import make_url
+          from backend.migrations.upgrade import fresh
+          name = 'test_ms7_mig_v01_identity_ci'
+          url = make_url(os.environ['MATHSTART_DATABASE_URL'])
+          admin = sa.create_engine(url.set(database='postgres'), isolation_level='AUTOCOMMIT', hide_parameters=True)
+          target = sa.create_engine(url.set(database=name), hide_parameters=True)
+          owned = False
+          try:
+              with admin.connect() as connection:
+                  connection.execute(sa.text('CREATE DATABASE ' + name))
+                  owned = True
+                  connection.execute(sa.text("COMMENT ON DATABASE " + name + " IS 'MS7-MIG-V01 disposable synthetic test database'"))
+              with target.begin() as connection:
+                  fresh(connection)
+              environment = {**os.environ, 'MATHSTART_V03_DATABASE_URL': url.set(database=name).render_as_string(hide_password=False)}
+              result = subprocess.run([sys.executable, 'scripts/run_unittest.py', '--start', 'backend/tests/v03', '--pattern', 'test_*.py'], env=environment, timeout=240)
+              code = result.returncode
+          finally:
+              target.dispose()
+              if owned:
+                  with admin.connect() as connection:
+                      connection.execute(sa.text('DROP DATABASE ' + name + ' WITH (FORCE)'))
+              admin.dispose()
+          raise SystemExit(code)
+          PY
       - name: Retain public evidence; exclude private cookies, keys and traces
         if: always()
         uses: actions/upload-artifact@v7

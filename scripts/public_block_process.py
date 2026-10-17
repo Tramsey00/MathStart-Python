@@ -93,8 +93,14 @@ def owned_http_service(server_argv, *, base_url, cwd, evidence_root,
             while True:
                 if process.poll() is not None:
                     raise LifecycleFailure('Owned server exited before readiness')
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise LifecycleFailure('Owned server readiness timed out')
                 try:
-                    with urlopen(base_url, timeout=0.5) as response:
+                    # A cold integrity-checked release may take several seconds.
+                    # Keep the absolute startup deadline, but do not queue a new
+                    # request every 500ms while the previous request still runs.
+                    with urlopen(base_url, timeout=min(5, remaining)) as response:
                         ready = response.status == 200
                     if ready:
                         break
