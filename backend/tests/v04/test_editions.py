@@ -100,6 +100,14 @@ class PostgreSQLEditionTests(unittest.TestCase):
         with self.engine.connect() as c:
             self.assertEqual(c.scalar(sa.select(Grade.title).where(Grade.id == self.id)), 'Original edition')
 
+    def test_database_session_timezone_does_not_change_edition_identity(self):
+        with UnitOfWork(self.engine) as uow:
+            expected = fingerprint(uow.session)
+            original = snapshot(uow.session)
+            uow.session.execute(sa.text("SET LOCAL TIME ZONE 'Europe/Moscow'"))
+            self.assertEqual(fingerprint(uow.session), expected)
+            self.assertEqual(snapshot(uow.session), original)
+
 
 if __name__ == '__main__':
     unittest.main()

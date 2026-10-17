@@ -5,7 +5,7 @@ tables. This layer does not allocate IDs, delete content, update user data, or
 pretend a dry-run can roll PostgreSQL sequences back. Fresh/bootstrap allocation
 and reviewed source rendering are owned by the publisher's orchestration.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from hashlib import sha256
 import uuid
 
@@ -21,8 +21,16 @@ TABLES = tuple(sorted((name for name in metadata.tables if name.startswith('cont
 
 
 def normalized(row):
-    return {key: value.isoformat(timespec='microseconds') if isinstance(value, datetime)
-            else str(value) if isinstance(value, uuid.UUID) else value for key, value in row.items()}
+    result = {}
+    for key, value in row.items():
+        if isinstance(value, datetime):
+            if value.tzinfo is None:
+                raise PublicationConflict('INVALID_EDITION')
+            value = value.astimezone(timezone.utc).isoformat(timespec='microseconds')
+        elif isinstance(value, uuid.UUID):
+            value = str(value)
+        result[key] = value
+    return result
 
 
 def snapshot(session, *, lock=False):
