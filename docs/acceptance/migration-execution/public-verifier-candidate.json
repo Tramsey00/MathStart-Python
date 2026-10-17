@@ -27,15 +27,16 @@
   },
   "latest_observed": {
     "status": "IN_PROGRESS",
-    "runtime_sha": "1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7",
+    "runtime_sha": "2d707db68fe3abaff2bb6b685e3fba7c0a6dbcd5",
     "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
     "latest_integrated_scope_pass": {
-      "runtime_sha": "840c7e122d828b81f9648bd438c1a941a57b0a0c",
-      "run_id": 39038587513,
-      "artifact_id": 12103128658,
-      "artifact_sha256": "c4284967cddebf86f1319c044478124871143c99867d2eb37551e0455ccee839",
+      "runtime_sha": "1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7",
+      "run_id": 39041389171,
+      "artifact_id": 12104600565,
+      "artifact_sha256": "c12bf38e00e84f365b3a8bf400a4f5ccd78e64f0701c39198795d60da4407ce1",
       "frontend_tests": 167,
-      "source_read_golden_content_publication_tests": 68,
+      "source_read_golden_content_publication_tests": 74,
+      "prepared_publication_recovery_tests": 7,
       "browser_cases": 18,
       "browser_projects": [
         "chrome-360"
@@ -48,7 +49,8 @@
       "prepared_publication_recovery": {
         "passed": 7,
         "log": "var/publication-participant-20261017-173213.log",
-        "scope": "Real PG, 3 actual React builds, HTTP/ETag/unpublish, lost ACK, observer and CLI. Directory creation fsync helper added afterward; compile checked; POSIX exact-SHA CI pending."
+        "scope": "Real PG, 3 actual React builds, HTTP/ETag/unpublish, lost ACK, observer and CLI. Directory creation fsync helper added afterward; compile checked; POSIX exact-SHA CI pending.",
+        "exact_posix_confirmation": "1cc7c3a CI39041389171; 7 tests PASS18.257s including fsync helper"
       },
       "source_preparation": {
         "passed": 5,
@@ -70,12 +72,31 @@
       },
       "django_imports": "NONE",
       "pip_check": "PASS",
-      "owned_postgres_cleanup": "PASS"
+      "owned_postgres_cleanup": "PASS",
+      "legacy_session_proof": {
+        "passed": 4,
+        "log": "var/legacy-proof-20261017-174650.log",
+        "scope": "READ_ONLY_VERIFIER_ONLY; actual separate Django session serializer; no target authentication, checkpoint import or F login integration"
+      },
+      "schema_postgresql": {
+        "passed": 23,
+        "log": "var/schema-target-20261017-174833.log",
+        "scope": "Existing fresh/upgrade A/B/C and F1/F2/F3 suites from target without Django; separate legacy fixture child"
+      },
+      "schema_cli": {
+        "commands": 10,
+        "passed": 10,
+        "log": "var/schema-runtime-20261017-175114.log",
+        "receipt": "i02-verification/schema-runtime-continuation.json",
+        "scope": "SCHEMA_ONLY; not full installation/media/frontend acceptance; actual absence check before and after each target CLI"
+      }
     },
     "integrated_ci_pending": [
       {
-        "sha": "1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7",
-        "trigger": "ordinary authorized push; observe existing run, do not rerun unchanged workflows"
+        "sha": "2d707db68fe3abaff2bb6b685e3fba7c0a6dbcd5",
+        "push_public": 39042754683,
+        "push_general": 39042754669,
+        "status": "RUNNING_AT_LAST_OBSERVATION"
       }
     ],
     "full_target": "PENDING_COMMAND_MAP_NOT_PASS",
@@ -85,7 +106,7 @@
     "production": "UNCHANGED",
     "remaining_engineering": [
       "New content IDs/source registration and general bootstrap/index/write CLI inventory",
-      "Legacy cutover/checkpoint/import/F-proof and full staff parity",
+      "Durable legacy cutover checkpoint/import/exclusive-writer proof, F-proof login wiring and full staff parity",
       "Real target command map, fresh and populated A/B/C adapters, no-Django verification",
       "Images/edge/dev/staging/clean clone, backup restore/performance/cutover/rollback",
       "Full 52-card product documentation and nine-project browser/visual/interactivity coverage",
@@ -93,6 +114,73 @@
     ]
   },
   "previous_observations": [
+    {
+      "status": "IN_PROGRESS",
+      "runtime_sha": "1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7",
+      "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
+      "latest_integrated_scope_pass": {
+        "runtime_sha": "840c7e122d828b81f9648bd438c1a941a57b0a0c",
+        "run_id": 39038587513,
+        "artifact_id": 12103128658,
+        "artifact_sha256": "c4284967cddebf86f1319c044478124871143c99867d2eb37551e0455ccee839",
+        "frontend_tests": 167,
+        "source_read_golden_content_publication_tests": 68,
+        "browser_cases": 18,
+        "browser_projects": [
+          "chrome-360"
+        ],
+        "skips": 0,
+        "identity_staff_pg_tests": 32,
+        "full_V03_V04_R03": "NOT_VERIFIED"
+      },
+      "local_affected": {
+        "prepared_publication_recovery": {
+          "passed": 7,
+          "log": "var/publication-participant-20261017-173213.log",
+          "scope": "Real PG, 3 actual React builds, HTTP/ETag/unpublish, lost ACK, observer and CLI. Directory creation fsync helper added afterward; compile checked; POSIX exact-SHA CI pending."
+        },
+        "source_preparation": {
+          "passed": 5,
+          "log": "var/publication-preparation-20261017-172255.log"
+        },
+        "source_unpublish_redirect_and_sequence_delta": {
+          "passed": 2,
+          "log": "var/publication-preparation-delta-20261017-173347.log"
+        },
+        "edition_projection": {
+          "passed": 7,
+          "log": "var/publication-editions-20261017-171814.log"
+        },
+        "terminal_cli_regression": {
+          "initial_failure": "var/publication-participant-20261017-172733.log",
+          "cause": "Detached ORM phase after UoW close",
+          "fixed_delta_passed": 1,
+          "log": "var/publication-cli-delta-20261017-172844.log"
+        },
+        "django_imports": "NONE",
+        "pip_check": "PASS",
+        "owned_postgres_cleanup": "PASS"
+      },
+      "integrated_ci_pending": [
+        {
+          "sha": "1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7",
+          "trigger": "ordinary authorized push; observe existing run, do not rerun unchanged workflows"
+        }
+      ],
+      "full_target": "PENDING_COMMAND_MAP_NOT_PASS",
+      "independent_final_review": "NOT_RUN_COMBINED_CANDIDATE_NOT_READY",
+      "full_migration": "IN_PROGRESS",
+      "final_acceptance": "HUMAN_PENDING",
+      "production": "UNCHANGED",
+      "remaining_engineering": [
+        "New content IDs/source registration and general bootstrap/index/write CLI inventory",
+        "Legacy cutover/checkpoint/import/F-proof and full staff parity",
+        "Real target command map, fresh and populated A/B/C adapters, no-Django verification",
+        "Images/edge/dev/staging/clean clone, backup restore/performance/cutover/rollback",
+        "Full 52-card product documentation and nine-project browser/visual/interactivity coverage",
+        "Combined final QA and independent reviewer after implementation ready"
+      ]
+    },
     {
       "status": "IN_PROGRESS",
       "runtime_sha": "840c7e122d828b81f9648bd438c1a941a57b0a0c",

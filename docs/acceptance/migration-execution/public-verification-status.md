@@ -1,4 +1,22 @@
-# Current prepared publisher continuation
+# Current continuation
+
+Latest code is `2d707db68fe3abaff2bb6b685e3fba7c0a6dbcd5`. It adds a
+read-only legacy session transfer verifier and separates historical schema
+fixture tools from the ordinary target interpreter. Local4 legacy proof tests,
+23 existing PostgreSQL/schema regressions and10 real fresh/upgrade/check CLI
+commands passed without Django installed/imported in target. Cutover checkpoint
+import, exclusive-writer verification and F login wiring are still unfinished.
+
+Exact [1cc7c3a CI39041389171](https://github.com/Tramsey00/MathStart-Python/actions/runs/39041389171)
+completed SUCCESS:167 frontend,74 source/read/content,7 real PG/React/HTTP
+publisher cases,18 Chrome360/0 skips,32 identity/staff PG. Its POSIX fsync path
+is now confirmed. Artifact12104600565 matched SHA256
+`c12bf38e00e84f365b3a8bf400a4f5ccd78e64f0701c39198795d60da4407ce1`.
+Receipts and provenance are retained in i02-verification. The general target
+was SKIPPED and is NOT_VERIFIED. New2d707db CI was still running at last check.
+This remains IN_PROGRESS, with no final combined QA/review or migration readiness.
+
+# Historical prepared publisher continuation
 
 Runtime `1cc7c3a422b96fbc1cb89e5cb6dac0f534c422f7` integrates real prepared
 content/SSG publication, source snapshot projection, operator publish/unpublish/
