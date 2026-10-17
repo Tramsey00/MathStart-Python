@@ -27,108 +27,64 @@
   },
   "latest_observed": {
     "status": "IN_PROGRESS",
-    "runtime_sha": "ebe27f0003f50618ac12589e9405f7485acf5c2d",
+    "runtime_sha": "840c7e122d828b81f9648bd438c1a941a57b0a0c",
     "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
     "latest_integrated_scope_pass": {
-      "runtime_sha": "ebe27f0003f50618ac12589e9405f7485acf5c2d",
-      "run_id": 39035893192,
-      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39035893192",
-      "artifact_id": 12102715584,
-      "artifact_sha256": "fce62c58e52b4daef8227362ebb4ea9ad3559661cf2358f2d6eee0795b70b22d",
+      "runtime_sha": "7ee2ee8fd96e4f59b68bcfa7eda284c8bb1848f2",
+      "run_id": 39037963113,
+      "artifact_id": 12102328632,
+      "artifact_sha256": "b3177654690b34dac473d0245d17e8bb13a329c508c885c7cb70695bf668f39d",
       "frontend_tests": 167,
-      "source_read_golden_content_checks": 40,
+      "source_read_golden_content_publication_tests": 62,
       "browser_cases": 18,
-      "browser_skips": 0,
       "browser_projects": [
         "chrome-360"
       ],
+      "skips": 0,
       "identity_staff_pg_tests": 32,
-      "startup_cleanup": "PASS",
-      "source_before_after": "UNCHANGED",
       "full_V03_V04_R03": "NOT_VERIFIED"
     },
-    "current_recovery_delta": {
-      "parent": "62197b3d25251b7f157af203cccb2aa65135b173",
-      "affected_pg_suite": {
-        "passed": 32,
-        "failed": 0,
-        "skipped": 0,
-        "log": "var/identity-admin-20261017-161324.log"
+    "local_affected": {
+      "publication_protocol": {
+        "passed": 17,
+        "log": "var/publication-protocol-20261017-164237.log"
       },
-      "revoked_cookie_delta": {
-        "passed": 2,
-        "failed": 0,
-        "skipped": 0,
-        "log": "var/auth-revocation-20261017-161452.log"
+      "edition_timezone_and_guards": {
+        "passed": 6,
+        "log": "var/publication-editions-20261017-165454.log"
       },
-      "integrated_ci": {
-        "status": "SUCCESS",
-        "push_run": 39035893192,
-        "pr_run": 39035897143,
-        "pr_run_status_at_last_observation": "IN_PROGRESS"
+      "real_artifact_boundary": {
+        "passed": 5,
+        "log": "var/artifact-boundary-c869f6c1d0134f5985210906a1ba576d/verification.log",
+        "fixture_runtime": "ebe27f0",
+        "fixture_artifact": "4453e75eff572d724b39b7046e412529b958cd50e35053b8b6eb851c3d340b74",
+        "scope": "COPIED_IMMUTABLE_ARTIFACT_VERIFICATION_ONLY"
+      },
+      "django_imports": "NONE",
+      "owned_postgres_cleanup": "PASS"
+    },
+    "integrated_ci_pending": [
+      {
+        "sha": "4d14bdc9f4689ca36999d8a8b90fef4816d02e39",
+        "push_run": 39038397436
+      },
+      {
+        "sha": "840c7e122d828b81f9648bd438c1a941a57b0a0c",
+        "push_run": 39038587513
       }
-    },
-    "content_cli_local": {
-      "suite_passed": 7,
-      "suite_log": "var/content-cli-20261017-160451.log",
-      "extended_subprocess_test_passed": 1,
-      "subprocess_log": "var/content-cli-subprocess-20261017-160600.log",
-      "topics": 263,
-      "pages": 279,
-      "django_installed_or_imported": false,
-      "checks": [
-        "source DB metadata/HTML/CSS/JS equality",
-        "complete current site references and registered media",
-        "HTTP quality/404/no redirect following",
-        "CLI positive and negative exits",
-        "report file effects",
-        "DB digest unchanged"
-      ]
-    },
-    "general_ci": {
-      "push_run": 39035893193,
-      "pr_run": 39035897060,
-      "pure_legacy": "PASS",
-      "full_target": "SKIPPED_PENDING_COMMAND_MAP_NOT_PASS"
-    },
+    ],
+    "full_target": "PENDING_COMMAND_MAP_NOT_PASS",
     "independent_final_review": "NOT_RUN_COMBINED_CANDIDATE_NOT_READY",
     "full_migration": "IN_PROGRESS",
     "final_acceptance": "HUMAN_PENDING",
     "production": "UNCHANGED",
     "remaining_engineering": [
-      "verified legacy cutover/checkpoint/import/F-proof recovery",
-      "full admin permission/role/password/bulk inventory proof",
-      "durable publisher/fencing/lease/recovery/ack and remaining write CLI inventory",
-      "concrete target command map and all mandatory profiles",
-      "images/edge/dev/staging/backup-restore/performance/cutover/rollback",
-      "complete source product-spec and versioned docs",
-      "full browser/responsive/visual/interactivity matrix",
-      "final independent review after combined readiness"
-    ],
-    "local_cleanup": {
-      "owned_disposable_containers": "REMOVED_BY_EXACT_ID_NAME_LABEL_TMPFS_CHECK",
-      "owned_http_fixture_servers": "SHUTDOWN_AND_JOINED",
-      "original_database_5432": "UNTOUCHED",
-      "private_keys_cookies": "IGNORED_NOT_PUBLISHED"
-    },
-    "prior_integrated_scope_pass": {
-      "runtime_sha": "62197b3d25251b7f157af203cccb2aa65135b173",
-      "run_id": 39035330261,
-      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39035330261",
-      "artifact_id": 12101498432,
-      "artifact_sha256": "028bdf09a1adc54181f042be6844fed611280ced701651ad4f42347c92ae1f00",
-      "frontend_tests": 167,
-      "source_read_golden_content_checks": 40,
-      "browser_cases": 18,
-      "browser_skips": 0,
-      "browser_projects": [
-        "chrome-360"
-      ],
-      "identity_staff_pg_tests": 29,
-      "startup_cleanup": "PASS",
-      "source_before_after": "UNCHANGED",
-      "full_V03_V04_R03": "NOT_VERIFIED"
-    }
+      "concrete reviewed content/SSG participant and prepared plan projection",
+      "publish/unpublish/recovery/index/bootstrap CLI orchestration and coherent staff observer",
+      "dynamic trusted artifact pins from journal for active releases",
+      "verified cutover/checkpoint/import/F-proof recovery",
+      "full admin inventory and required target/upgrade/ops/browser/document gates"
+    ]
   },
   "previous_observations": [
     {
@@ -214,6 +170,111 @@
           "var/owned-port-cleanup.json"
         ],
         "note": "A prior connect_ex10035 probe was inconclusive; Windows OS LISTEN table and Docker exact-ID absence provide the cleanup proof."
+      }
+    },
+    {
+      "status": "IN_PROGRESS",
+      "runtime_sha": "ebe27f0003f50618ac12589e9405f7485acf5c2d",
+      "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
+      "latest_integrated_scope_pass": {
+        "runtime_sha": "ebe27f0003f50618ac12589e9405f7485acf5c2d",
+        "run_id": 39035893192,
+        "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39035893192",
+        "artifact_id": 12102715584,
+        "artifact_sha256": "fce62c58e52b4daef8227362ebb4ea9ad3559661cf2358f2d6eee0795b70b22d",
+        "frontend_tests": 167,
+        "source_read_golden_content_checks": 40,
+        "browser_cases": 18,
+        "browser_skips": 0,
+        "browser_projects": [
+          "chrome-360"
+        ],
+        "identity_staff_pg_tests": 32,
+        "startup_cleanup": "PASS",
+        "source_before_after": "UNCHANGED",
+        "full_V03_V04_R03": "NOT_VERIFIED"
+      },
+      "current_recovery_delta": {
+        "parent": "62197b3d25251b7f157af203cccb2aa65135b173",
+        "affected_pg_suite": {
+          "passed": 32,
+          "failed": 0,
+          "skipped": 0,
+          "log": "var/identity-admin-20261017-161324.log"
+        },
+        "revoked_cookie_delta": {
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "log": "var/auth-revocation-20261017-161452.log"
+        },
+        "integrated_ci": {
+          "status": "SUCCESS",
+          "push_run": 39035893192,
+          "pr_run": 39035897143,
+          "pr_run_status_at_last_observation": "IN_PROGRESS"
+        }
+      },
+      "content_cli_local": {
+        "suite_passed": 7,
+        "suite_log": "var/content-cli-20261017-160451.log",
+        "extended_subprocess_test_passed": 1,
+        "subprocess_log": "var/content-cli-subprocess-20261017-160600.log",
+        "topics": 263,
+        "pages": 279,
+        "django_installed_or_imported": false,
+        "checks": [
+          "source DB metadata/HTML/CSS/JS equality",
+          "complete current site references and registered media",
+          "HTTP quality/404/no redirect following",
+          "CLI positive and negative exits",
+          "report file effects",
+          "DB digest unchanged"
+        ]
+      },
+      "general_ci": {
+        "push_run": 39035893193,
+        "pr_run": 39035897060,
+        "pure_legacy": "PASS",
+        "full_target": "SKIPPED_PENDING_COMMAND_MAP_NOT_PASS"
+      },
+      "independent_final_review": "NOT_RUN_COMBINED_CANDIDATE_NOT_READY",
+      "full_migration": "IN_PROGRESS",
+      "final_acceptance": "HUMAN_PENDING",
+      "production": "UNCHANGED",
+      "remaining_engineering": [
+        "verified legacy cutover/checkpoint/import/F-proof recovery",
+        "full admin permission/role/password/bulk inventory proof",
+        "durable publisher/fencing/lease/recovery/ack and remaining write CLI inventory",
+        "concrete target command map and all mandatory profiles",
+        "images/edge/dev/staging/backup-restore/performance/cutover/rollback",
+        "complete source product-spec and versioned docs",
+        "full browser/responsive/visual/interactivity matrix",
+        "final independent review after combined readiness"
+      ],
+      "local_cleanup": {
+        "owned_disposable_containers": "REMOVED_BY_EXACT_ID_NAME_LABEL_TMPFS_CHECK",
+        "owned_http_fixture_servers": "SHUTDOWN_AND_JOINED",
+        "original_database_5432": "UNTOUCHED",
+        "private_keys_cookies": "IGNORED_NOT_PUBLISHED"
+      },
+      "prior_integrated_scope_pass": {
+        "runtime_sha": "62197b3d25251b7f157af203cccb2aa65135b173",
+        "run_id": 39035330261,
+        "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39035330261",
+        "artifact_id": 12101498432,
+        "artifact_sha256": "028bdf09a1adc54181f042be6844fed611280ced701651ad4f42347c92ae1f00",
+        "frontend_tests": 167,
+        "source_read_golden_content_checks": 40,
+        "browser_cases": 18,
+        "browser_skips": 0,
+        "browser_projects": [
+          "chrome-360"
+        ],
+        "identity_staff_pg_tests": 29,
+        "startup_cleanup": "PASS",
+        "source_before_after": "UNCHANGED",
+        "full_V03_V04_R03": "NOT_VERIFIED"
       }
     }
   ]

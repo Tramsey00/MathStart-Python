@@ -1,3 +1,25 @@
+# Current publication continuation
+
+Runtime code `840c7e122d828b81f9648bd438c1a941a57b0a0c` is IN_PROGRESS.
+The P1 authority and guarded content-edition layers are implemented and tested;
+the concrete content/SSG participant, publisher CLI and coherent observer still
+need integration. This is not complete publication acceptance.
+
+Exact [7ee2ee8 CI39037963113](https://github.com/Tramsey00/MathStart-Python/actions/runs/39037963113)
+passed167 frontend tests,62 source/read/golden/content/authority/edition tests,
+18 Chrome360 cases without skips and32 identity/staff PG tests. Artifact12102328632
+matched SHA256 `b3177654690b34dac473d0245d17e8bb13a329c508c885c7cb70695bf668f39d`.
+[Exact checkout receipt](i02-verification/ci-7ee2ee8-result.json) and provenance
+are retained. Affected local checks:17 real PG protocol tests,6 edition tests
+including session timezone,5 complete real-artifact boundary tests. The artifact
+tests use a copied prior immutable build; they are not a new full build/run.
+
+[4d14bdc integration](https://github.com/Tramsey00/MathStart-Python/actions/runs/39038397436)
+and [840c7e1 integration](https://github.com/Tramsey00/MathStart-Python/actions/runs/39038587513)
+were RUNNING at this record. Full target/upgrade/ops/browser matrix and final
+review are still pending. See MIGRATION.md and the candidate record for exact
+continuation. Earlier evidence below retains its original runtime SHA.
+
 # Public and identity migration checkpoint
 
 Current authority: MIGRATION.md. Overall status: **IN_PROGRESS**. The combined
