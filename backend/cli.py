@@ -16,7 +16,7 @@ from backend.content.build import write_build_inputs
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['check-sources', 'check-lesson-sources', 'check-content-quality', 'check-site-integrity', 'bootstrap', 'build-inputs'])
+    parser.add_argument('action', choices=['check-sources', 'check-lesson-sources', 'check-content-quality', 'check-site-integrity', 'index-lessons', 'bootstrap', 'build-inputs'])
     parser.add_argument('--source-root', type=Path, default=Path('.'))
     parser.add_argument('--output-root', type=Path)
     parser.add_argument('--release-id')
@@ -41,7 +41,15 @@ def main(argv=None):
         else:
             engine = create_engine(DatabaseConfig.from_environment())
             with UnitOfWork(engine) as uow:
-                if args.action in {'check-lesson-sources', 'check-content-quality', 'check-site-integrity'}:
+                if args.action == 'index-lessons':
+                    if not args.output_root or args.slug or args.all_lessons:
+                        parser.error('index-lessons requires output-root and always indexes all lessons')
+                    if engine.dialect.name == 'postgresql':
+                        uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
+                    from backend.content.indexing import index_bytes, write_index
+                    payload, count = index_bytes(uow.session, root)
+                    result = {'indexed': count, 'effects': write_index(args.output_root, payload, dry_run=args.dry_run)}
+                elif args.action in {'check-lesson-sources', 'check-content-quality', 'check-site-integrity'}:
                     if args.dry_run:
                         parser.error('inspection commands have no dry-run; reports are an explicit file effect')
                     if engine.dialect.name == 'postgresql':
@@ -69,15 +77,21 @@ def main(argv=None):
                         exit_code = 1 if errors else 0
                 elif args.action == 'bootstrap':
                     if not args.disposable:
-                        parser.error('bootstrap currently requires --disposable')
+                        parser.error('fixture bootstrap requires --disposable; use prepare-bootstrap for fenced publication')
                     require_disposable(uow.session.connection())
-                    from backend.users.bootstrap import seed_permissions
-                    seed_permissions(uow.session)
-                    bundles = bootstrap_sources(uow.session, root)
-                    if not args.dry_run:
+                    if args.dry_run:
+                        if not args.source_sha:
+                            parser.error('bootstrap dry-run requires an explicit reviewed source-sha')
+                        from backend.content.preparation import prepare_sources
+                        result = prepare_sources(engine, root, None, args.release_id or 'bootstrap-preview',
+                            args.source_sha, bootstrap=True, dry_run=True)
+                    else:
+                        from backend.users.bootstrap import seed_permissions
+                        seed_permissions(uow.session)
+                        bundles = bootstrap_sources(uow.session, root)
                         uow.commit()
-                    result = {'pages': len(bundles), 'transaction': 'ROLLED_BACK' if args.dry_run else 'COMMITTED',
-                              'sequence_side_effects': 'possible even in dry-run'}
+                        result = {'pages': len(bundles), 'transaction': 'COMMITTED',
+                                  'sequence_side_effects': 'normal committed inserts'}
                 else:
                     if not args.output_root or not args.release_id or not args.source_sha:
                         parser.error('build-inputs requires output-root, release-id and source-sha')

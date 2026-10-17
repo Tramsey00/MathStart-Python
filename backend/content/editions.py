@@ -1,9 +1,10 @@
 """Exact content-table fingerprints and guarded prepared-edition updates.
 
 Publisher plans contain full before/after rows, never arbitrary SQL or auth
-tables. This layer does not allocate IDs, delete content, update user data, or
-pretend a dry-run can roll PostgreSQL sequences back. Fresh/bootstrap allocation
-and reviewed source rendering are owned by the publisher's orchestration.
+tables. A null before row means an explicit, reviewed new content identity.
+Preparation never consumes a sequence; inserts occur only under the P1 gate.
+Sequence advancement is monotone and last, with ordinary PostgreSQL gaps after
+an aborted transaction permitted. Rows/history are never deleted here.
 """
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -85,7 +86,7 @@ def decoded(table, row):
 
 
 def project_updates(before, changes):
-    """Validate existing-row patches without SQL, sequences or filesystem effects."""
+    """Validate updates/inserts without SQL, sequences or filesystem effects."""
     from copy import deepcopy
     if not isinstance(before, dict) or set(before) != set(TABLES) or not isinstance(changes, list):
         raise PublicationConflict('INVALID_EDITION')
@@ -106,15 +107,23 @@ def project_updates(before, changes):
                 or change['table'] not in TABLES):
             raise PublicationConflict('INVALID_EDITION')
         table = metadata.tables[change['table']]
-        old, new = (normalized(decoded(table, change[key])) for key in ('before', 'after'))
-        keys = tuple(old[c.name] for c in table.primary_key)
-        if keys != tuple(new[c.name] for c in table.primary_key) or (table.name, keys) in seen:
+        old = normalized(decoded(table, change['before'])) if change['before'] is not None else None
+        new = normalized(decoded(table, change['after']))
+        keys = tuple(new[c.name] for c in table.primary_key)
+        if (old is not None and keys != tuple(old[c.name] for c in table.primary_key)
+                or old is None and any(type(value) is not int or not 0 < value < 2**63 for value in keys)
+                or (table.name, keys) in seen):
             raise PublicationConflict('INVALID_EDITION')
         seen.add((table.name, keys))
         current = rows[table.name].get(keys)
         if current != old:
             raise PublicationConflict('SOURCE_CONFLICT')
-        current.update(new)
+        if old is None:
+            rows[table.name][keys] = new
+        else:
+            current.update(new)
+    for name in TABLES:
+        result[name] = [row for _, row in sorted(rows[name].items())]
     return result
 
 
@@ -127,24 +136,49 @@ def apply_updates(session, changes, before_digest, after_digest):
     """
     if not isinstance(changes, list):
         raise PublicationConflict('INVALID_EDITION')
-    if fingerprint(session, lock=True) != before_digest:
+    current_state = snapshot(session, lock=True)
+    if sha256(encoded(current_state)).hexdigest() != before_digest:
         raise PublicationConflict('SOURCE_CONFLICT')
+    # Validate all full rows, PK uniqueness and absence claims before any DML.
+    project_updates(current_state, changes)
     prepared, seen = [], set()
     for change in changes:
         if not isinstance(change, dict) or set(change) != {'table', 'before', 'after'} or change['table'] not in TABLES:
             raise PublicationConflict('INVALID_EDITION')
         table = metadata.tables[change['table']]
-        before, after = decoded(table, change['before']), decoded(table, change['after'])
-        keys = tuple(before[c.name] for c in table.primary_key)
-        if keys != tuple(after[c.name] for c in table.primary_key) or (table.name, keys) in seen:
+        before = decoded(table, change['before']) if change['before'] is not None else None
+        after = decoded(table, change['after'])
+        keys = tuple(after[c.name] for c in table.primary_key)
+        if (before is not None and keys != tuple(before[c.name] for c in table.primary_key)
+                or (table.name, keys) in seen):
             raise PublicationConflict('INVALID_EDITION')
         seen.add((table.name, keys))
-        predicate = sa.and_(*(c == before[c.name] for c in table.primary_key))
+        predicate = sa.and_(*(c == after[c.name] for c in table.primary_key))
         current = session.execute(sa.select(table).where(predicate)).mappings().first()
-        if current is None or normalized(current) != normalized(before):
+        if ((before is None and current is not None)
+                or before is not None and (current is None or normalized(current) != normalized(before))):
             raise PublicationConflict('SOURCE_CONFLICT')
-        prepared.append((TABLE_ORDER[table.name], keys, table, predicate, after))
-    for _, _, table, predicate, after in sorted(prepared, key=lambda row: row[:2]):
-        session.execute(sa.update(table).where(predicate).values(**after))
+        prepared.append((TABLE_ORDER[table.name], keys, table, predicate, after, before is None))
+    inserted = set()
+    for _, _, table, predicate, after, is_insert in sorted(prepared, key=lambda row: row[:2]):
+        if is_insert:
+            session.execute(sa.insert(table).values(**after))
+            inserted.add(table.name)
+        else:
+            session.execute(sa.update(table).where(predicate).values(**after))
     if fingerprint(session) != after_digest:
         raise PublicationConflict('EDITION_CONFLICT')
+    # Explicit prepared PKs must not collide with later ordinary ORM inserts.
+    # setval cannot roll back: run only after complete row/fingerprint checks,
+    # never in preparation/dry-run, and never rewind an already-ahead sequence.
+    for name in sorted(inserted, key=lambda item: TABLE_ORDER[item]):
+        table = metadata.tables[name]
+        column = next(iter(table.primary_key))
+        sequence = session.scalar(sa.text('SELECT pg_get_serial_sequence(:table_name,:column_name)'),
+                                  {'table_name': name, 'column_name': column.name})
+        if sequence is None:
+            raise PublicationConflict('INVALID_EDITION')
+        maximum = session.scalar(sa.select(sa.func.max(column)))
+        session.execute(sa.text('SELECT setval(CAST(:sequence AS regclass), '
+            'GREATEST(COALESCE(pg_sequence_last_value(CAST(:sequence AS regclass)), 0), :maximum), true)'),
+            {'sequence': sequence, 'maximum': maximum})

@@ -115,7 +115,8 @@ when issues produce a nonzero exit. They do not offer a misleading dry-run flag.
 Missing tools, storage, source mismatch, non-200 HTTP and invalid HTML fail;
 unused registered media is reported without becoming a critical error, preserving
 the existing command policy. Files are confined to the configured storage roots.
-These inspection adapters do not perform publication, index writes or cutover.
+These inspection adapters do not perform publication or cutover. The separate
+`index-lessons` command writes only the explicitly selected INDEX.md output.
 
 Identity cleanup records natural session expiry as `DETACHED`, and replay-window
 expiry as `EXPIRED`, without deleting receipt identity or response. Revocation is
@@ -179,14 +180,16 @@ no filesystem active pointer and no cleanup of unowned paths.
 `backend.content.editions` supplies exact fingerprints of the seven content
 tables and guarded prepared before/after updates, preserving IDs and timestamps.
 It rejects auth tables, primary-key changes, duplicate patches and stale rows;
-it does not allocate IDs or delete content. These internal layers are covered
+it accepts explicit proposed IDs for new content and never deletes content.
+Preparation does not consume sequences; committed inserts advance sequences
+monotonically. Aborted PostgreSQL transactions may leave ordinary sequence gaps. These internal layers are covered
 by real PostgreSQL crash/race/rollback tests. The concrete prepared content/SSG
 participant and operator CLI are now integrated. Initial synthetic activation
-remains a separate fixture. New source registration/ID allocation, general
-bootstrap/index operations, production cutover and final publication acceptance
-remain unfinished.
+remains a separate fixture. Source registration, proposed new IDs and full-site
+bootstrap use the same fenced participant. Production cutover and final
+publication acceptance remain unperformed.
 
-Prepare and publish existing sources from a reviewed Git commit:
+Prepare and publish sources from a reviewed Git commit:
 
 ```text
 python -m backend.content.publish prepare-sources --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --all --input-root var/publication-inputs --changes var/prepared-edition.json
@@ -196,7 +199,10 @@ python -m backend.content.publish publish --plan var/publication-plan.json --key
 python -m backend.content.publish status
 ```
 
-The target DB must already contain its checked schema and existing content.
+The target DB must already contain its checked schema. `prepare-sources` needs
+existing catalogue parents; it may register a matching existing topic or propose
+a new topic and publication row. Full-site catalogue/media/redirect initialization
+uses `prepare-bootstrap` below.
 Source preparation reads one repeatable snapshot and preserves PK/FK/created_at.
 Only changed rows get the captured updated_at; source ownership/digests refuse
 runtime edits. All published sources/assets must agree with the candidate.
@@ -204,7 +210,10 @@ PostgreSQL orders a VALUES projection of the captured catalogue, retaining its
 real collation without writing rows or allocating sequences. The command creates
 immutable input files and an exclusive prepared-edition file; it does not claim
 or activate a publication. `--dry-run` performs source/selection/conflict checks
-without creating those files. New IDs/source registrations fail explicitly.
+without creating those files, claiming the gate, inserting rows or advancing
+sequences. Proposed IDs become real only during the guarded domain transaction.
+Source/path identity collisions, missing catalogue parents and runtime edits fail
+closed. Existing PKs, FKs and created_at values are retained.
 
 Build output is independently verified before `plan` writes its exclusive plan
 file. The bound edition file rejects drift between preparation and planning.
@@ -250,3 +259,35 @@ terminal resume do not require candidate files. For recovery before successful
 staging, supply the original reviewed input/output handoffs instead of the
 installed roots shown above. Keep operation-owned staging paths for diagnosis;
 automatic garbage collection is not implemented and no other paths are deleted.
+
+Full-site bootstrap and the lesson index:
+
+```text
+python -m backend.content.publish prepare-bootstrap --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --input-root var/publication-inputs --changes var/bootstrap-edition.json --dry-run
+python -m backend.content.publish prepare-bootstrap --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --input-root var/publication-inputs --changes var/bootstrap-edition.json
+python -m backend.cli index-lessons --source-root . --output-root var/lesson-index --dry-run
+python -m backend.cli index-lessons --source-root . --output-root var/lesson-index
+```
+
+Continue bootstrap with the same build, plan and publish commands, supplying
+`bootstrap-edition.json`. It prepares all public/lesson sources, catalogue, seed
+media metadata and redirects in one edition. Media bytes must match the reviewed
+manifest. Existing matches retain their IDs and timestamps; runtime edits and
+ambiguous identities refuse preparation. Only the two explicitly retired baseline
+static pages `materialy` and `pamyatki` are unpublished; their rows, content, dates
+and references remain. Auth, permission membership, profiles, receipts, login
+windows and sessions are outside the content patch. Repeat bootstrap is a pure
+zero-change proposal when sources and runtime match. The `backend.cli bootstrap
+--disposable` helper is restricted to synthetic fixture setup.
+
+The index uses PostgreSQL ordering and produces bytes matching the retained
+Django index oracle. It reads the DB and reviewed source tree, writes only
+`<output-root>/INDEX.md` atomically, and leaves an unchanged file's mtime intact.
+Dry-run creates no output directory. It performs no publication or SQL writes.
+
+The cutover writer barrier applies to publication as well as identity/staff.
+Any retained Django migration history requires the durable reviewed cutover
+checkpoint even when no legacy session or bootstrap receipt remains. The HMAC
+source snapshot includes login windows, permissions, profiles, receipts, sessions,
+admin history, content types and migration history. Unsupported or malformed
+retained password encodings block preview/apply; no reset or hash rewrite occurs.

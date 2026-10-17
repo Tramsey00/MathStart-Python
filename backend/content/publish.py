@@ -1,6 +1,6 @@
 """Operator publication/recovery CLI; no HTTP writer or Django dependency.
 
-Prepared existing-row changes and immutable input/React build handoffs are
+Prepared content changes and immutable input/React build handoffs are
 reviewable before claim. Recovery resumes the durable plan, never reruns a
 committed domain update or switches an older completed operation back on.
 """
@@ -103,7 +103,7 @@ def plan_candidate(engine, args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare-sources', 'plan', 'publish', 'unpublish', 'status', 'resume', 'recover', 'abort', 'renew', 'surrender'])
+    parser.add_argument('action', choices=['prepare-sources', 'prepare-bootstrap', 'plan', 'publish', 'unpublish', 'status', 'resume', 'recover', 'abort', 'renew', 'surrender'])
     parser.add_argument('--namespace', default='public')
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--changes', type=Path)
@@ -127,21 +127,22 @@ def main(argv=None):
     parser.add_argument('--generation', type=int)
     parser.add_argument('--lease-seconds', type=int, default=120)
     args = parser.parse_args(argv)
-    if args.dry_run and args.action != 'prepare-sources':
-        parser.error('only prepare-sources supports a read-only dry-run')
+    if args.dry_run and args.action not in {'prepare-sources', 'prepare-bootstrap'}:
+        parser.error('only source/bootstrap preparation supports a read-only dry-run')
     engine, token = None, None
     try:
         engine = create_engine(DatabaseConfig.from_environment())
         if engine.dialect.name != 'postgresql':
             raise PublicationConflict('POSTGRESQL_REQUIRED')
-        if args.action == 'prepare-sources':
+        if args.action in {'prepare-sources', 'prepare-bootstrap'}:
             if not args.source_sha or not args.release_id or (not args.dry_run and (not args.input_root or not args.changes)):
-                parser.error('prepare-sources requires source-sha/release-id, and input-root/changes destination unless dry-run')
+                parser.error('preparation requires source-sha/release-id, and input-root/changes destination unless dry-run')
             if not args.dry_run and args.changes.exists():
                 raise PublicationConflict('EXISTING_HANDOFF')
             from backend.content.preparation import prepare_sources
             result = prepare_sources(engine, args.source_root, args.input_root, args.release_id, args.source_sha,
-                        slugs=args.slug, all_lessons=args.all_lessons, unpublish=args.kind == 'unpublish', dry_run=args.dry_run)
+                        slugs=args.slug, all_lessons=args.all_lessons, unpublish=args.kind == 'unpublish',
+                        dry_run=args.dry_run, bootstrap=args.action == 'prepare-bootstrap')
             if not args.dry_run:
                 handoff = {'version': 'prepared-source-edition-v1', **{key: result[key] for key in ('before_digest', 'after_digest', 'changes')}}
                 with args.changes.open('xb') as stream:

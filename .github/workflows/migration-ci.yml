@@ -172,6 +172,12 @@ jobs:
         run: python scripts/ci_provenance.py --output var/backend-ci-provenance.json
       - name: Full backend suites with owned databases and no skipped tests
         run: var/backend-target-env/bin/python scripts/target_check.py backend-tests
+      - name: Managed build, ASGI and all read-only target commands
+        run: >-
+          var/backend-target-env/bin/python scripts/verify_target.py
+          --runtime-root var/target-managed
+          --legacy-python var/backend-legacy-env/bin/python
+          --group backend --group database --group content
       - name: Real fresh twice and populated upgrade A B C
         run: |
           var/backend-target-env/bin/python scripts/target_check.py fresh-install --disposable
@@ -186,6 +192,7 @@ jobs:
           path: |
             var/backend-ci-provenance.json
             var/target-checks/**/result.json
+            var/target-managed/result.json
           if-no-files-found: error
           retention-days: 30
 

@@ -1,6 +1,6 @@
 """Prepared content/React handoff for the fenced PostgreSQL publisher.
 
-An operator supplies reviewed immutable inputs and an exact existing-row patch.
+An operator supplies reviewed immutable inputs and an exact content edition.
 Construction only reads/verifies artifacts. All staging effects follow claim;
 DB callbacks use cached verified metadata and never run Node, filesystem or HTTP.
 """
@@ -108,6 +108,8 @@ class PreparedPublication:
         # Unpublish is a retained DB row, absent from every next public view.
         if plan['kind'] == 'unpublish':
             changes = plan['changes']
+            if any(c.get('before') is None for c in changes):
+                raise PublicationConflict('INVALID_UNPUBLISH')
             removed = [c for c in changes if c.get('table') == 'content_contentpage'
                        and c['before']['is_published'] is True and c['after']['is_published'] is False]
             if not removed or any(c['after']['id'] in self.release.pages for c in removed):

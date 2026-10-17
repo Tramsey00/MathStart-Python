@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 from hashlib import sha256
 import json
+import os
 import re
 import uuid
 
@@ -82,6 +83,17 @@ class PublisherAuthority:
         self.lease = timedelta(seconds=lease_seconds)
 
     def _gate(self, session, namespace, *, create=False):
+        # Same outer writer barrier as identity/staff, before the publication
+        # gate or any domain locks. Legacy history requires a durable cutover
+        # even when no old session/registration receipt happens to remain.
+        from backend.users.cutover import guard
+        key = os.environ.get('MATHSTART_HTTP_SIGNING_KEY')
+        fallback = json.loads(os.environ.get('MATHSTART_HTTP_SIGNING_FALLBACK_KEYS', '[]'))
+        if not isinstance(fallback, list) or any(not isinstance(item, str) or not item for item in fallback):
+            raise ValueError('Explicit publication writer keyring required')
+        guard(session, ((key,) if key else ()) + tuple(fallback),
+              expected=os.environ.get('MATHSTART_IDENTITY_CUTOVER_DIGEST'),
+              legacy_role=os.environ.get('MATHSTART_LEGACY_WRITER_ROLE'))
         if not isinstance(namespace, str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,120}', namespace):
             raise ValueError('Explicit publication namespace required')
         if create:

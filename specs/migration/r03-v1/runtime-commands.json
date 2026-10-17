@@ -4,19 +4,70 @@
   "accepted_input": "a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6",
   "previous_accepted_input": "0c03197e23f69a233c0fcf8bdffa336feca20b92",
   "commands": {
-    "system": {"script": "backend/verification.py", "args": ["system"]},
-    "migrations": {"script": "backend/verification.py", "args": ["migrations"]},
-    "lesson-sources": {"script": "backend/verification.py", "args": ["lesson-sources"]},
-    "site-integrity": {"script": "backend/verification.py", "args": ["site-integrity"]},
-    "content-quality": {"script": "backend/verification.py", "args": ["content-quality"]},
-    "backend-tests": {"script": "backend/verification_suite.py", "args": []},
-    "fresh-install": {"script": "backend/verification_install.py", "args": ["fresh-install"]},
-    "upgrade-A": {"script": "backend/verification_install.py", "args": ["upgrade-A"]},
-    "upgrade-B": {"script": "backend/verification_install.py", "args": ["upgrade-B"]},
-    "upgrade-C": {"script": "backend/verification_install.py", "args": ["upgrade-C"]}
+    "system": {
+      "script": "backend/verification.py",
+      "args": [
+        "system"
+      ]
+    },
+    "migrations": {
+      "script": "backend/verification.py",
+      "args": [
+        "migrations"
+      ]
+    },
+    "lesson-sources": {
+      "script": "backend/verification.py",
+      "args": [
+        "lesson-sources"
+      ]
+    },
+    "site-integrity": {
+      "script": "backend/verification.py",
+      "args": [
+        "site-integrity"
+      ]
+    },
+    "content-quality": {
+      "script": "backend/verification.py",
+      "args": [
+        "content-quality"
+      ]
+    },
+    "backend-tests": {
+      "script": "backend/verification_suite.py",
+      "args": []
+    },
+    "fresh-install": {
+      "script": "backend/verification_install.py",
+      "args": [
+        "fresh-install"
+      ]
+    },
+    "upgrade-A": {
+      "script": "backend/verification_install.py",
+      "args": [
+        "upgrade-A"
+      ]
+    },
+    "upgrade-B": {
+      "script": "backend/verification_install.py",
+      "args": [
+        "upgrade-B"
+      ]
+    },
+    "upgrade-C": {
+      "script": "backend/verification_install.py",
+      "args": [
+        "upgrade-C"
+      ]
+    }
   },
   "pending_implementations": [],
-  "pending_integration": ["Managed combined target runtime/build/browser lifecycle", "Full target command-contract and final candidate verification"],
+  "pending_integration": [
+    "Managed lifecycle real execution and full nine-project browser coverage",
+    "Full target command-contract and final candidate verification"
+  ],
   "required_backend_checks": [
     "system",
     "migrations",
@@ -37,5 +88,6 @@
     "registry": "Tramsey00 / R03"
   },
   "rule": "No empty PASS. IMPLEMENTED_PARTIAL executes available real checks; absent entries remain failures. Final target readiness still requires all ten entries and REVIEWED command contract. Frontend uses prescribed package scripts. Neither state establishes task acceptance.",
-  "historical_input": "8d958aeeb17da46839722441425ccbb5889e2ab7"
+  "historical_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "managed_entry_point": "scripts/verify_target.py"
 }

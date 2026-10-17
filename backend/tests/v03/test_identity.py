@@ -56,10 +56,18 @@ print(json.dumps(rows))
         self.assertEqual(len(vectors), 5)
         for algorithm, encoded in vectors:
             with self.subTest(algorithm=algorithm):
+                self.assertTrue(passwords.supported_encoding(encoded))
                 self.assertTrue(passwords.verify('Sample:пароль!8592', encoded))
                 self.assertFalse(passwords.verify('incorrect-password', encoded))
         for encoded in ['!', '!unusable', 'unknown$encoded', 'pbkdf2_sha256$bad$salt$hash']:
             self.assertFalse(passwords.verify(PASSWORD, encoded))
+
+    def test_cutover_hash_inventory_refuses_unknown_and_malformed_without_password_reset(self):
+        self.assertTrue(passwords.supported_encoding('!retained-unusable'))
+        for encoded in ['', 'unknown$encoded', 'md5$salt$encoded', 'pbkdf2_sha256$bad$salt$hash',
+                        'pbkdf2_sha256$0$salt$hash', 'argon2$invalid', 'bcrypt_sha256$$2b$03$invalid',
+                        'scrypt$3$salt$8$1$invalid']:
+            self.assertFalse(passwords.supported_encoding(encoded), encoded.split('$', 1)[0])
 
     def test_validators_preserve_no_trim_similarity_common_numeric(self):
         user = User(username='syntheticStudent', first_name='Alexandra', last_name='Example', email='study@example.test')

@@ -41,13 +41,13 @@ class CutoverTests(unittest.TestCase):
         try:
             with cls.engine.begin() as c:
                 c.execute(sa.text('DROP ROLE ' + cls.role))
-                c.execute(sa.text('TRUNCATE target_receipt_bridge,target_session,target_identity_cutover,django_session,users_identityreceipt,users_studentprofile,users_loginwindow,auth_user RESTART IDENTITY CASCADE'))
+                c.execute(sa.text('TRUNCATE target_receipt_bridge,target_session,target_identity_cutover,django_session,django_migrations,users_identityreceipt,users_studentprofile,users_loginwindow,auth_user RESTART IDENTITY CASCADE'))
         finally:
             cls.engine.dispose()
 
     def setUp(self):
         with self.engine.begin() as c:
-            c.execute(sa.text('TRUNCATE target_receipt_bridge,target_session,target_identity_cutover,django_session,users_identityreceipt,users_studentprofile,users_loginwindow,auth_user RESTART IDENTITY CASCADE'))
+            c.execute(sa.text('TRUNCATE target_receipt_bridge,target_session,target_identity_cutover,django_session,django_migrations,users_identityreceipt,users_studentprofile,users_loginwindow,auth_user RESTART IDENTITY CASCADE'))
         self.security = Security(self.engine, KEY, ORIGIN)
         self.service = IdentityService(self.security)
         self.app = create_app(self.engine, Signer(KEY), identity_service=self.service, public_origin=ORIGIN)
@@ -147,6 +147,21 @@ print(SessionStore().encode(json.load(sys.stdin)))
         with self.engine.connect() as c:
             self.assertEqual(c.scalar(sa.select(sa.func.count()).select_from(CutoverCheckpoint)), 1)
 
+    def test_legacy_history_without_sessions_or_receipts_still_requires_cutover(self):
+        from backend.models.baseline import metadata
+        with self.engine.begin() as c:
+            c.execute(sa.delete(ReceiptBridge))
+            c.execute(sa.delete(IdentityReceipt))
+            c.execute(sa.delete(LegacySession))
+            c.execute(sa.insert(metadata.tables['django_migrations']).values(app='sessions', name='0001_initial',
+                applied=sa.func.clock_timestamp()))
+        with self.assertRaises(APIError) as rejected:
+            self.service.budget('synthetic-cutover-client')
+        self.assertEqual(rejected.exception.status, 503)
+        self.apply()
+        _, logged = self.login()
+        self.assertEqual(logged.status_code, 200, logged.text)
+
     def test_password_or_login_alone_cannot_select_original_receipt(self):
         self.apply()
         _, rejected = self.login(key=self.old_key, password='incorrect')
@@ -185,6 +200,15 @@ print(SessionStore().encode(json.load(sys.stdin)))
         with UnitOfWork(self.engine) as uow:
             self.assertEqual(source_digest(uow.session, KEY), before)
             self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(CutoverCheckpoint)), 0)
+
+    def test_unsupported_retained_password_format_blocks_preview_without_reset(self):
+        with self.engine.begin() as c:
+            c.execute(sa.update(User).values(password='unknown$synthetic-retained-format'))
+        with self.assertRaises(APIError):
+            self.importer.preview(uuid.uuid4())
+        with self.engine.connect() as c:
+            self.assertEqual(c.scalar(sa.select(User.password)), 'unknown$synthetic-retained-format')
+            self.assertEqual(c.scalar(sa.select(sa.func.count()).select_from(CutoverCheckpoint)), 0)
 
     def test_draining_login_flag_does_not_hide_an_already_connected_writer(self):
         import secrets

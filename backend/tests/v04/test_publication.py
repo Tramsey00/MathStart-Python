@@ -148,6 +148,25 @@ class PostgreSQLPublicationTests(unittest.TestCase):
         with self.engine.connect() as c:
             return c.scalar(sa.select(Grade.title).where(Grade.id == self.grade_id))
 
+    def test_legacy_history_stops_publication_before_any_gate_or_domain_write(self):
+        from backend.infrastructure.http.transport import APIError
+        from backend.models.baseline import metadata
+        table = metadata.tables['django_migrations']
+        with self.engine.begin() as c:
+            record = c.scalar(sa.insert(table).values(app='synthetic_' + uuid.uuid4().hex,
+                name='0001_initial', applied=sa.func.clock_timestamp()).returning(table.c.id))
+        try:
+            with self.assertRaises(APIError) as rejected:
+                self.service.claim(self.namespace, 'legacy-writer', self.plan(), self.owner)
+            self.assertEqual(rejected.exception.status, 503)
+            self.assertEqual(self.value(), 'Before')
+            with self.engine.connect() as c:
+                self.assertIsNone(c.scalar(sa.select(Gate.namespace).where(Gate.namespace == self.namespace)))
+                self.assertIsNone(c.scalar(sa.select(Journal.id).where(Journal.namespace == self.namespace)))
+        finally:
+            with self.engine.begin() as c:
+                c.execute(sa.delete(table).where(table.c.id == record))
+
     def test_domain_commit_once_and_terminal_ack_never_reactivates_old_release(self):
         plan = self.plan()
         token = self.claim(plan)

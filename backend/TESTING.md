@@ -27,8 +27,36 @@ commands execute the target schema CLI on populated historical fixtures and
 check data, migration history, grade epoch, constraints/head and sequences.
 Result receipts are under `var/target-checks/<check>-<uuid>/result.json`; failures,
 empty suites or skipped tests cannot produce PASS. The backend child has a900s
-bound and its repository parent reserves960s including cleanup. Other command
-bounds stay unchanged. These commands do not establish final migration acceptance.
+bound and its repository parent reserves960s including cleanup. The full nine-project
+browser child has a7200s bound, with7500s for its parent/cleanup; ordinary
+commands retain their shorter bounds. These commands do not establish final migration acceptance.
+
+The managed entry point owns the common target database, one actual main frontend
+build, target ASGI and the separate legacy comparator. It executes all16 registry
+commands exactly once (moving frontend-build before its runtime consumers), then
+fresh-install and all three upgrades. Backend/install suites retain their own
+child databases. It requires the same locked target/legacy/Node dependencies plus
+installed Playwright Chrome, Edge and Firefox; absent browsers fail.
+
+```text
+python scripts/verify_target.py --runtime-root var/target-candidate-<unique> --legacy-python <separate legacy interpreter>
+```
+
+A new runtime-root under this checkout's ignored var/ is mandatory. The supplied
+PostgreSQL parent is only a connection endpoint; the command creates and removes
+a new marked database. Services refuse an occupied port and clean up their owned
+process trees. Nonzero/timeout/empty/skipped child outcomes remain failures. Logs
+and source snapshots are under runtime-root; private fixture cookies and DSNs must
+not be uploaded. `--group content` (or another explicit group) and `--allow-dirty`
+produce scoped development evidence, never full target PASS. The portable
+`verify_repo.py --profile target` registry is also retained for an already managed
+runtime; by itself it does not start/build the common runtime.
+
+The backend suite includes byte-for-byte legacy INDEX comparison, pure bootstrap
+previews, retained retired rows/private facts, proposed-ID source registration,
+real fenced bootstrap/publication/HTTP and row-version output-pin invalidation.
+Historical CI receipts apply only to their recorded checkout; current new code
+requires its own affected checks and final combined candidate verification.
 
 Until cutover, Django and its historical CI install only `requirements.lock`.
 V01 runtime dependencies are in `backend/requirements.lock`; migration tests

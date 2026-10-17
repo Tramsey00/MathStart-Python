@@ -10,7 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from scripts import verify_repo, target_check, target_database, run_unittest
+from scripts import verify_repo, verify_target, target_check, target_database, run_unittest
 from scripts.check_migration_preservation import verify
 from harness.runner.verification import CHECK_COMMANDS, VerificationOutcome
 
@@ -44,6 +44,26 @@ class TargetRegistryTests(unittest.TestCase):
         checks = verify_repo.select_checks(verify_repo.parse_args(["--profile", "pure"]))
         self.assertEqual(len(checks), 6)
         self.assertFalse(any("scripts/target_check.py" in c.command for c in checks))
+
+    def test_managed_lifecycle_keeps_exact_registry_and_only_moves_real_build(self):
+        expected = verify_repo.select_checks(verify_repo.parse_args(['--profile', 'target']))
+        actual = verify_target.selection(set())
+        self.assertEqual(len(actual), 16)
+        self.assertEqual(set(actual), set(expected))
+        self.assertEqual(actual[0].command[-1], 'frontend-build')
+        self.assertEqual(sum(c.command[-1] == 'frontend-build' for c in actual), 1)
+        selected = verify_target.selection({'content'})
+        self.assertEqual([c for c in selected if c.group == 'content'], [c for c in expected if c.group == 'content'])
+        self.assertEqual(len(selected), 4)  # Three actual content checks + prerequisite build.
+
+    def test_nine_project_browser_deadline_is_bounded_above_child_cleanup(self):
+        checks = verify_target.selection(set())
+        browser = next(c for c in checks if c.command[-1] == 'frontend-e2e')
+        self.assertEqual(target_check.CHECK_TIMEOUTS['frontend-e2e'], 7200)
+        self.assertEqual(verify_target.deadline(browser), 7500)
+        with patch.object(verify_repo.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)) as run, redirect_stdout(io.StringIO()):
+            verify_repo.run_command(browser.command)
+            self.assertEqual(run.call_args.kwargs['timeout'], 7500)
 
     def test_timeout_and_missing_tool_nonzero(self):
         for error, code in [(subprocess.TimeoutExpired(["x"], 600), 124), (FileNotFoundError(), 127)]:

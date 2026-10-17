@@ -21,7 +21,8 @@ from backend.models.protocol import CutoverCheckpoint, ReceiptBridge, TargetSess
 LOCK = int.from_bytes(hashlib.sha256(b'identity\0!cutover').digest()[:8], 'big', signed=True)
 SOURCE_TABLES = ('auth_user', 'auth_group', 'auth_permission', 'auth_user_groups',
                  'auth_user_user_permissions', 'auth_group_permissions', 'users_studentprofile',
-                 'users_identityreceipt', 'django_session', 'target_session', 'target_receipt_bridge')
+                 'users_identityreceipt', 'users_loginwindow', 'django_content_type', 'django_admin_log',
+                 'django_session', 'django_migrations', 'target_session', 'target_receipt_bridge')
 
 
 def unavailable():
@@ -104,7 +105,10 @@ def guard(session, keys, *, expected=None, legacy_role=None):
         orphan = sa.select(IdentityReceipt.id).where(IdentityReceipt.operation == 'register',
             IdentityReceipt.scope.like('bootstrap:%'), ~sa.exists(sa.select(ReceiptBridge.id).where(
                 ReceiptBridge.original_scope == IdentityReceipt.scope)))
-        if expected or session.scalar(sa.select(sa.exists(sa.select(LegacySession.session_key)))) or session.scalar(sa.select(sa.exists(orphan))):
+        history = sa.select(metadata.tables['django_migrations'].c.id)
+        if (expected or session.scalar(sa.select(sa.exists(history)))
+                or session.scalar(sa.select(sa.exists(sa.select(LegacySession.session_key))))
+                or session.scalar(sa.select(sa.exists(orphan)))):
             raise unavailable()
 
 
@@ -120,6 +124,9 @@ class CutoverImport:
             s = uow.session
             outer_lock(s, exclusive=True)
             if s.scalar(sa.select(sa.exists(sa.select(CutoverCheckpoint.id)))):
+                raise unavailable()
+            from backend.users.passwords import supported_encoding
+            if any(not supported_encoding(value) for value in s.scalars(sa.select(User.password))):
                 raise unavailable()
             provenance = _digest(self.keys[0], 'identity.cutover.writer.v1', writer_fact(s, self.legacy_role))
             source = source_digest(s, self.keys[0])
@@ -155,6 +162,9 @@ class CutoverImport:
             if not hmac.compare_digest(source_digest(s, signing_key), plan['source_digest']):
                 raise unavailable()
             users = {row.id: row for row in s.scalars(sa.select(User).order_by(User.id).with_for_update())}
+            from backend.users.passwords import supported_encoding
+            if any(not supported_encoding(user.password) for user in users.values()):
+                raise unavailable()
             receipts = list(s.scalars(sa.select(IdentityReceipt).where(IdentityReceipt.operation == 'register',
                 IdentityReceipt.scope.like('bootstrap:%')).order_by(IdentityReceipt.scope,
                     IdentityReceipt.operation, IdentityReceipt.key_digest).with_for_update()))

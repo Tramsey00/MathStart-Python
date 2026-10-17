@@ -5,6 +5,7 @@ from hashlib import sha256
 from pathlib import Path, PurePosixPath
 import re
 from urllib.parse import unquote
+import sqlalchemy as sa
 
 from backend.infrastructure.http.contracts import validate
 from backend.infrastructure.http.transport import decode_json, unavailable, missing
@@ -257,7 +258,12 @@ def active_descriptor(uow, namespace):
     if row is None:
         raise unavailable()
     gate = uow.repository(PublicationGate).get(namespace)
-    operation = uow.repository(PublicationJournal).get(row.operation_id)
+    # Serving needs authority metadata, never the potentially site-sized plan.
+    # Keep every check on each read without transferring/parsing that payload.
+    operation = uow.session.execute(sa.select(
+        PublicationJournal.namespace, PublicationJournal.db_committed,
+        PublicationJournal.activation_status, PublicationJournal.release_id,
+        PublicationJournal.manifest_digest).where(PublicationJournal.id == row.operation_id)).first()
     if (gate is None or operation is None or gate.fence_generation < row.fence_generation
             or operation.namespace != namespace or not operation.db_committed
             or operation.activation_status != 'APPLIED' or operation.release_id != row.release_id

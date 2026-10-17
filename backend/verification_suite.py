@@ -96,7 +96,7 @@ def run():
         os.environ['MATHSTART_V01_TEST_ADMIN_URL'] = url.set(database='postgres').render_as_string(hide_password=False)
         os.environ['MATHSTART_V02_TEST_ADMIN_URL'] = os.environ['MATHSTART_V01_TEST_ADMIN_URL']
         os.environ['MATHSTART_V01_EVIDENCE_DIR'] = str(Path(os.environ['MATHSTART_CHECK_RESULT']).parent / 'schema')
-        count = execute(['backend.tests.test_unit', 'backend.tests.test_postgres',
+        count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_postgres',
                          'backend.tests.test_remediation', 'backend.tests.test_discovery'])
         count += execute(['backend.tests.v02.test_unit', 'backend.tests.v02.test_http',
                           'backend.tests.v02.test_postgres', 'backend.tests.v02.test_asset_regressions'])
@@ -109,9 +109,10 @@ def run():
         with owned_database(admin, url, 'content') as engine:
             prepare_content_runtime(engine, Path(os.environ['MATHSTART_CHECK_RESULT']).parent)
             count += execute(['backend.tests.v04.test_build', 'backend.tests.v04.test_read_runtime',
-                'backend.tests.v04.test_content_checks', 'backend.tests.v04.test_publication',
-                'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation',
-                'backend.tests.v04.test_artifacts', 'backend.tests.v04.test_verified_release_cache',
+                'backend.tests.v04.test_content_checks', 'backend.tests.v04.test_indexing', 'backend.tests.v04.test_publication',
+                'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation', 'backend.tests.v04.test_registration',
+                'backend.tests.v04.test_bootstrap_plan',
+                'backend.tests.v04.test_artifacts', 'backend.tests.v04.test_artifact_pins', 'backend.tests.v04.test_verified_release_cache',
                 'backend.tests.v04.test_participant'])
         if any(name == 'django' or name.startswith('django.') for name in sys.modules):
             raise RuntimeError('Django imported by target suite')

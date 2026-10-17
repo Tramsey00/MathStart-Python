@@ -21,6 +21,7 @@ BACKEND_CHECKS = frozenset({"system", "migrations", "lesson-sources", "content-q
                             "upgrade-A", "upgrade-B", "upgrade-C"})
 FRONTEND_SCRIPTS = {"frontend-typecheck": "typecheck", "frontend-tests": "test",
                     "frontend-build": "build", "frontend-e2e": "test:e2e"}
+CHECK_TIMEOUTS = {'backend-tests': 900, 'frontend-e2e': 7200}
 
 
 def validate_result(path, check):
@@ -107,7 +108,7 @@ def main(argv=None):
         environment["MATHSTART_CHECK_ID"] = args.check
         result = subprocess.run(command, cwd=directory, shell=False, check=False,
                                 capture_output=True, text=True, encoding="utf-8",
-                                errors="replace", timeout=900 if args.check == 'backend-tests' else 540, env=environment)
+                                errors="replace", timeout=CHECK_TIMEOUTS.get(args.check, 540), env=environment)
     except (ValueError, OSError, KeyError, TypeError):
         print("FAIL: required command/tool/handoff unavailable or invalid: " + args.check)
         return 1

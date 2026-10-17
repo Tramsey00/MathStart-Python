@@ -122,6 +122,61 @@ class PostgreSQLEditionTests(unittest.TestCase):
             with self.assertRaises(PublicationConflict):
                 project_updates(before, [change, change])
 
+    def test_prepared_insert_consumes_no_sequence_until_apply_and_never_rewinds(self):
+        inserted_id = None
+        try:
+            with UnitOfWork(self.engine) as uow:
+                before = snapshot(uow.session)
+                inserted_id = max(row['id'] for row in before['content_grade']) + 10
+                template = next(row for row in before['content_grade'] if row['id'] == self.id)
+                new = {**template, 'id': inserted_id, 'slug': 'insert-' + uuid.uuid4().hex, 'title': 'Prepared insertion'}
+                change = {'table': 'content_grade', 'before': None, 'after': new}
+                uow.session.execute(sa.text("SELECT setval('content_grade_id_seq', :ahead, true)"), {'ahead': inserted_id + 1000})
+                sequence = uow.session.scalar(sa.text("SELECT pg_sequence_last_value('content_grade_id_seq')"))
+                after = project_updates(before, [change])
+                self.assertEqual(uow.session.scalar(sa.text("SELECT pg_sequence_last_value('content_grade_id_seq')")), sequence)
+                self.assertEqual(snapshot(uow.session), before)
+                apply_updates(uow.session, [change], sha256(encoded(before)).hexdigest(), sha256(encoded(after)).hexdigest())
+                self.assertEqual(snapshot(uow.session), after)
+                self.assertGreaterEqual(uow.session.scalar(sa.text("SELECT pg_sequence_last_value('content_grade_id_seq')")), sequence)
+                uow.commit()
+            with UnitOfWork(self.engine) as uow:
+                ordinary = Grade(title='Later ordinary insertion', slug='ordinary-' + uuid.uuid4().hex, order=99)
+                uow.session.add(ordinary); uow.session.flush()
+                self.assertGreater(ordinary.id, inserted_id)
+        finally:
+            if inserted_id is not None:
+                with self.engine.begin() as c:
+                    c.execute(sa.delete(Grade).where(Grade.id == inserted_id))
+
+    def test_insert_collision_and_duplicate_are_refused_before_domain_sql(self):
+        with UnitOfWork(self.engine) as uow:
+            before = snapshot(uow.session)
+            existing = next(row for row in before['content_grade'] if row['id'] == self.id)
+            collided = {'table': 'content_grade', 'before': None, 'after': existing}
+            new = {**existing, 'id': max(row['id'] for row in before['content_grade']) + 1,
+                   'slug': 'duplicate-' + uuid.uuid4().hex}
+            inserted = {**collided, 'after': new}
+            for changes in ([collided], [inserted, inserted]):
+                with self.assertRaises(PublicationConflict):
+                    apply_updates(uow.session, changes, sha256(encoded(before)).hexdigest(), '0' * 64)
+                self.assertEqual(snapshot(uow.session), before)
+
+    def test_insert_wrong_digest_rolls_back_without_advancing_sequence(self):
+        with self.engine.connect() as c:
+            original_sequence = c.scalar(sa.text("SELECT pg_sequence_last_value('content_grade_id_seq')"))
+        with UnitOfWork(self.engine) as uow:
+            before = snapshot(uow.session)
+            existing = next(row for row in before['content_grade'] if row['id'] == self.id)
+            new = {**existing, 'id': max(row['id'] for row in before['content_grade']) + 1,
+                   'slug': 'rollback-' + uuid.uuid4().hex}
+            with self.assertRaises(PublicationConflict):
+                apply_updates(uow.session, [{'table': 'content_grade', 'before': None, 'after': new}],
+                              sha256(encoded(before)).hexdigest(), '0' * 64)
+        with self.engine.connect() as c:
+            self.assertIsNone(c.scalar(sa.select(Grade.id).where(Grade.slug == new['slug'])))
+            self.assertEqual(c.scalar(sa.text("SELECT pg_sequence_last_value('content_grade_id_seq')")), original_sequence)
+
 
 if __name__ == '__main__':
     unittest.main()

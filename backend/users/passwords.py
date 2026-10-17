@@ -13,6 +13,50 @@ import string
 ITERATIONS = 1_000_000
 
 
+def supported_encoding(encoded):
+    """Read-only cutover shape/support check; never asserts password validity."""
+    if not isinstance(encoded, str) or not encoded:
+        return False
+    if encoded.startswith('!'):
+        return True  # Retain deliberately unusable accounts without a reset.
+    try:
+        algorithm = encoded.split('$', 1)[0]
+        if algorithm in {'pbkdf2_sha256', 'pbkdf2_sha1'}:
+            _, count, salt, value = encoded.split('$')
+            raw = base64.b64decode(value, validate=True)
+            return (bool(re.fullmatch('[1-9][0-9]*', count)) and 0 < int(count) < 2**31 and bool(salt)
+                    and len(raw) == (32 if algorithm == 'pbkdf2_sha256' else 20)
+                    and base64.b64encode(raw).decode() == value)
+        if algorithm == 'scrypt':
+            _, n, salt, r, p, value = encoded.split('$')
+            if not all(re.fullmatch('[1-9][0-9]*', item) for item in (n, r, p)):
+                return False
+            n, r, p = int(n), int(r), int(p)
+            raw = base64.b64decode(value, validate=True)
+            return (n > 1 and n & (n - 1) == 0 and r > 0 and p > 0 and bool(salt)
+                    and n * r * 128 < 2**31 - 1 and len(raw) == 64
+                    and base64.b64encode(raw).decode() == value)
+        if algorithm == 'bcrypt_sha256':
+            return re.fullmatch(r'bcrypt_sha256\$\$2[aby]\$(?:0[4-9]|[12][0-9]|3[01])\$[./A-Za-z0-9]{53}', encoded) is not None
+        if algorithm == 'argon2':
+            from argon2 import extract_parameters
+            if not re.fullmatch(r'argon2\$argon2(?:id|i|d)\$(?:v=(?:16|19)\$)?m=[1-9][0-9]*,t=[1-9][0-9]*,p=[1-9][0-9]*\$[A-Za-z0-9+/]+\$[A-Za-z0-9+/]+', encoded):
+                return False
+            parameters = extract_parameters(encoded.removeprefix('argon2'))
+            parts = encoded.split('$')
+            for value in parts[-2:]:
+                raw = base64.b64decode(value + '=' * (-len(value) % 4), validate=True)
+                if base64.b64encode(raw).decode().rstrip('=') != value:
+                    return False
+            return (parameters.time_cost > 0 and parameters.parallelism > 0
+                    and parameters.memory_cost >= 8 * parameters.parallelism
+                    and parameters.salt_len >= 8 and parameters.hash_len >= 4
+                    and all(re.fullmatch('[A-Za-z0-9+/]+', value) for value in parts[-2:]))
+    except (ValueError, TypeError, OverflowError):
+        return False
+    return False
+
+
 def encode(password, salt=None, iterations=ITERATIONS):
     salt = salt or ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(22))
     result = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), iterations)

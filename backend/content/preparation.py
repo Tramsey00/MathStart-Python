@@ -1,8 +1,9 @@
-"""Prepare existing source updates without changing DB rows or sequences.
+"""Prepare source publication, including new identities, without DB effects.
 
 The result is an immutable build handoff and explicit full before/after patches.
-It is not a publication or a claim. Source registration/new IDs and bootstrap
-remain separate operations and are refused rather than allocated in a dry-run.
+It is not a publication or a claim. Proposed new PKs are checked against the
+captured edition and installed only by the fenced participant's SQL commit.
+Preparation and dry-run never consume sequences or register rows.
 """
 from copy import deepcopy
 from hashlib import sha256
@@ -44,43 +45,81 @@ def source_snapshot(row, relations):
 
 
 def source_changes(before, bundles, selected, instant, *, unpublish=False):
-    """No ID allocation, timestamp rewrite, source rebind or runtime overwrite."""
+    """Pure proposed identities; no sequences, source rebind or runtime overwrite."""
     if not selected or len(selected) != len(set(selected)):
         raise SourceError('Explicit nonempty unique selection required')
     by_slug = {row['slug']: row for row in before['content_contentpage']}
     sources = {bundle.snapshot['slug']: bundle for bundle in bundles}
     relations = related(before)
     publications = {row['page_id']: row for row in before['content_lessonpublication']}
+    source_owners = {row['source_path']: row['page_id'] for row in before['content_lessonpublication']}
+    next_ids = {name: max([0, *[row['id'] for row in before[name]]]) for name in
+                ('content_contentpage', 'content_lessonpublication')}
+    def identifier(name):
+        next_ids[name] += 1
+        if next_ids[name] >= 2**63:
+            raise PublicationConflict('INVALID_EDITION')
+        return next_ids[name]
+
+    def catalogue_identity(desired):
+        result = {}
+        for key in ('grade', 'subject', 'section'):
+            slug = desired[key]
+            options = [row for row in relations[key].values() if row.slug == slug] if slug is not None else []
+            if key == 'subject':
+                options = [row for row in options if row.grade_id == result['grade_id']]
+            if key == 'section':
+                options = [row for row in options if row.subject_id == result['subject_id']]
+            if slug is not None and len(options) != 1:
+                raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
+            result[key + '_id'] = options[0].id if options else None
+        return result
     changes = []
     removed = set()
-    for slug in selected:
+    for slug in sorted(selected, key=lambda value: sources[value].path if value in sources else value):
         row, bundle = by_slug.get(slug), sources.get(slug)
-        if row is None or bundle is None:
+        if bundle is None or row is None and unpublish:
             raise PublicationConflict('SOURCE_REGISTRATION_REQUIRED')
-        current = source_snapshot(row, relations)
         desired = bundle.snapshot
+        original = row
+        if row is None:
+            row = {'id': identifier('content_contentpage'), **{key: desired[key] for key in ('slug', 'page_type', *EDITABLE)},
+                   **catalogue_identity(desired), 'created_at': instant, 'updated_at': instant}
+        current = source_snapshot(row, relations)
         if any(current[key] != desired[key] for key in ('slug', 'page_type', 'grade', 'subject', 'section')):
             raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
         publication = publications.get(row['id'])
         if row['page_type'] == 'topic':
-            if publication is None:
-                raise PublicationConflict('SOURCE_REGISTRATION_REQUIRED')
-            if publication['source_path'] != bundle.path.removeprefix('curriculum/'):
+            source_path = bundle.path.removeprefix('curriculum/')
+            if any(row[key + '_id'] is None for key in ('grade', 'subject', 'section')):
                 raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
-            if digest(current) != publication['published_digest']:
+            if source_path in source_owners and source_owners[source_path] != row['id']:
+                raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
+            if publication is not None and publication['source_path'] != source_path:
+                raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
+            if publication is None and unpublish:
+                raise PublicationConflict('SOURCE_REGISTRATION_REQUIRED')
+            accepted = (publication['published_digest'], digest(desired)) if publication else (digest(desired),)
+            if digest(current) not in accepted:
                 raise PublicationConflict('SOURCE_CONFLICT')
         after = {**row, **({key: desired[key] for key in EDITABLE} if not unpublish else {'is_published': False})}
-        if after != row:
+        if original is None or after != row:
             from content.quality import inspect_html
             if not unpublish and inspect_html(after['body_html'])['issues']:
                 raise PublicationConflict('CONTENT_QUALITY_FAILED')
             after['updated_at'] = instant
-            changes.append({'table': 'content_contentpage', 'before': row, 'after': after})
-            if row['is_published'] and not after['is_published']:
+            changes.append({'table': 'content_contentpage', 'before': original, 'after': after})
+            if original is not None and row['is_published'] and not after['is_published']:
                 removed.add('/' if row['page_type'] == 'home' else '/' + row['slug'] + '/')
                 if row['page_type'] == 'home':
                     removed.add('/' + row['slug'] + '/')
-        if publication is not None:
+        if row['page_type'] == 'topic' and publication is None:
+            new = {'id': identifier('content_lessonpublication'), 'page_id': after['id'],
+                   'source_path': bundle.path.removeprefix('curriculum/'),
+                   'published_digest': digest(source_snapshot(after, relations)), 'published_at': instant}
+            changes.append({'table': 'content_lessonpublication', 'before': None, 'after': new})
+            source_owners[new['source_path']] = new['page_id']
+        elif publication is not None:
             desired_digest = digest(source_snapshot(after, relations))
             if publication['published_digest'] != desired_digest:
                 changes.append({'table': 'content_lessonpublication', 'before': publication,
@@ -105,20 +144,26 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
 
 
 def prepare_sources(engine, source_root, output_root, release_id, source_sha, *, slugs=None, all_lessons=False,
-                    unpublish=False, dry_run=False):
+                    unpublish=False, dry_run=False, bootstrap=False):
     import re
     if (not re.fullmatch('[A-Za-z0-9_-]{1,120}', release_id or '')
-            or not re.fullmatch('[a-f0-9]{40}', source_sha or '') or bool(slugs) == bool(all_lessons)):
+            or not re.fullmatch('[a-f0-9]{40}', source_sha or '')
+            or (bool(slugs) == bool(all_lessons) if not bootstrap else bool(slugs) or all_lessons or unpublish)):
         raise SourceError('Reviewed identity and exactly one nonempty selection required')
     source_root = Path(source_root).resolve()
     verify_source_checkout(source_root, source_sha)
     bundles = load_sources(source_root)
-    selected = [b.snapshot['slug'] for b in bundles if b.snapshot['page_type'] == 'topic'] if all_lessons else slugs
+    selected = ([b.snapshot['slug'] for b in bundles] if bootstrap else
+                [b.snapshot['slug'] for b in bundles if b.snapshot['page_type'] == 'topic'] if all_lessons else slugs)
     with UnitOfWork(engine) as uow:
         uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
         before = snapshot(uow.session)
         instant = normalized({'at': uow.session.scalar(sa.select(sa.func.clock_timestamp()))})['at']
-    changes = source_changes(before, bundles, selected, instant, unpublish=unpublish)
+    if bootstrap:
+        from backend.content.bootstrap_plan import bootstrap_changes
+        changes = bootstrap_changes(before, bundles, source_root, instant)
+    else:
+        changes = source_changes(before, bundles, selected, instant, unpublish=unpublish)
     after = project_updates(before, changes)
     if dry_run:
         return {'selected': len(selected), 'changes': len(changes), 'effects': 'NONE', 'activation': 'NOT_PERFORMED'}

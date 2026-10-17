@@ -219,9 +219,10 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         immutable = re.fullmatch(r'/_content/releases/([A-Za-z0-9_-]+)/(index\.json|pages/([1-9][0-9]*)\.json)', path)
         with operation() as uow:
             if immutable:
-                record = uow.session.scalar(sa.select(PublicationJournal).where(
+                record = uow.session.execute(sa.select(PublicationJournal.id, PublicationJournal.release_id,
+                    PublicationJournal.manifest_digest, PublicationJournal.fence_generation).where(
                     PublicationJournal.namespace == namespace, PublicationJournal.release_id == immutable[1],
-                    PublicationJournal.db_committed.is_(True), PublicationJournal.activation_status == 'APPLIED'))
+                    PublicationJournal.db_committed.is_(True), PublicationJournal.activation_status == 'APPLIED')).first()
                 if record is None:
                     raise wire.missing()
                 if release_store is None:
