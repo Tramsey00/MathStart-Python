@@ -15,7 +15,7 @@ downloaded and matched SHA256
 The subsequent recovery/revocation runtime `ebe27f0003f50618ac12589e9405f7485acf5c2d`
 passed32 affected PG tests and2 revoked-cookie/session delta tests locally.
 Its integrated [push CI39035893192](https://github.com/Tramsey00/MathStart-Python/actions/runs/39035893192)
-was RUNNING at this record. Prior integrated results are not attributed to that SHA.
+completed SUCCESS:167 frontend,40 source/read/golden/content-command tests,18 Chrome360 cases/zero skips,32 PG identity/staff, source guard/startup/cleanup PASS. Artifact12102715584 matched SHA256 `fce62c58e52b4daef8227362ebb4ea9ad3559661cf2358f2d6eee0795b70b22d`. Its [exact-SHA receipt](i02-verification/ci-ebe27f0-result.json) and provenance are retained. Later checkpoint commits change docs/evidence only.
 The earlier45a4a31 andc1dd872 results remain historical exact-checkout evidence.
 
 Content CLI now compares263 source lessons including metadata/HTML/CSS/JS with
