@@ -95,10 +95,12 @@
       "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
-      "technical_receipts": [],
+      "technical_receipts": [
+        "public-verifier-candidate.json#latest_observed"
+      ],
       "blocking_findings": [],
       "in_current_block": true,
-      "scope_note": "WIP integrated under unified assignment; identity/staff runtime and React forms are under affected-area verification; full lifecycle/cutover/final acceptance not claimed"
+      "scope_note": "Clean 45a4a31 public/identity CI passed 24 PostgreSQL and 18 Chrome360 cases; remaining bridge/cutover/admin inventory and full final acceptance are incomplete"
     },
     {
       "id": "MS7-MIG-V04",
@@ -161,7 +163,8 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [
-        "i02-verification/CI-LEGACY-01.md"
+        "i02-verification/CI-LEGACY-01.md",
+        "public-verifier-candidate.json#latest_observed"
       ],
       "blocking_findings": [],
       "in_current_block": true
@@ -183,10 +186,12 @@
       "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
-      "technical_receipts": [],
+      "technical_receipts": [
+        "public-verifier-candidate.json#latest_observed"
+      ],
       "blocking_findings": [],
       "in_current_block": true,
-      "scope_note": "WIP integrated under unified assignment; identity/staff runtime and React forms are under affected-area verification; full lifecycle/cutover/final acceptance not claimed"
+      "scope_note": "Clean 45a4a31 public/identity CI passed 24 PostgreSQL and 18 Chrome360 cases; remaining bridge/cutover/admin inventory and full final acceptance are incomplete"
     },
     {
       "id": "MS7-MIG-I05",
@@ -261,8 +266,10 @@
     "primary_executor"
   ],
   "pending_verifier_candidate": {
-    "sha": "360e75bdbad6d199a037ebeb0a9c79ade7ed74dd",
-    "status": "I02_SCOPE_CI_PASS_FULL_TARGET_PENDING"
+    "sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+    "status": "PUBLIC_IDENTITY_CI_PASS_FULL_MIGRATION_IN_PROGRESS",
+    "full_target": "PENDING_COMMAND_MAP",
+    "independent_final_review": "NOT_RUN"
   },
   "record_usage": "Coverage and observed acceptance only; no task dispatch, model setting or separate stop gate. Current instructions: MIGRATION.md"
 }

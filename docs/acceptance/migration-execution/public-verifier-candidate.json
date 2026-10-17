@@ -1,26 +1,113 @@
 {
-  "status": "WIP_REVIEW_PENDING",
-  "scope": "I02/I03 verifier only",
-  "author_checks": {
-    "lifecycle_tests": 8,
-    "passed": 8,
-    "failed": 0,
-    "skipped": 0,
-    "seconds": 22.872,
-    "log": "public-block-lifecycle/owner-tests-03.log",
-    "python_compile": "PASS",
-    "cli_help": "PASS",
-    "full_combined_run": "NOT_RUN",
-    "CI": "NOT_RUN"
+  "historical_verifier_checkpoint": {
+    "status": "WIP_REVIEW_PENDING",
+    "scope": "I02/I03 verifier only",
+    "author_checks": {
+      "lifecycle_tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 22.872,
+      "log": "public-block-lifecycle/owner-tests-03.log",
+      "python_compile": "PASS",
+      "cli_help": "PASS",
+      "full_combined_run": "NOT_RUN",
+      "CI": "NOT_RUN"
+    },
+    "parent_sha": "2369165154f06dba4b203507b840807e728eacf5",
+    "code_hashes": {
+      "scripts/public_block_process.py": "f19c53834584ed0888f9ee8acc6a9a4b0fcaf53b5a68e0c27ead0afe40d50003",
+      "tests/test_public_block_process.py": "35360fe7608da70d737941bd1f74cc9a88450d3ddac1b6a122ace44fbaf37fd0",
+      "scripts/public_frontend_command.py": "617601d1080232613e5afddef2a5ae00f5aa7f3188e6f90320b385265dc19b1a",
+      "scripts/verify_public_block.py": "4fe5e8aa8a54739c9e9f99e5dde7d6d67d6c4ddb6e3d4868a2303a924eac4b1b",
+      ".github/workflows/public-migration-ci.yml": "eda011e284f92d4a90dd68ee4ef81f95fba7737286323911e91f77c28a16015a"
+    },
+    "model": "gpt-6.1-sol",
+    "subagent_reasoning_effort": "medium"
   },
-  "parent_sha": "2369165154f06dba4b203507b840807e728eacf5",
-  "code_hashes": {
-    "scripts/public_block_process.py": "f19c53834584ed0888f9ee8acc6a9a4b0fcaf53b5a68e0c27ead0afe40d50003",
-    "tests/test_public_block_process.py": "35360fe7608da70d737941bd1f74cc9a88450d3ddac1b6a122ace44fbaf37fd0",
-    "scripts/public_frontend_command.py": "617601d1080232613e5afddef2a5ae00f5aa7f3188e6f90320b385265dc19b1a",
-    "scripts/verify_public_block.py": "4fe5e8aa8a54739c9e9f99e5dde7d6d67d6c4ddb6e3d4868a2303a924eac4b1b",
-    ".github/workflows/public-migration-ci.yml": "eda011e284f92d4a90dd68ee4ef81f95fba7737286323911e91f77c28a16015a"
-  },
-  "model": "gpt-6.1-sol",
-  "subagent_reasoning_effort": "medium"
+  "latest_observed": {
+    "status": "IN_PROGRESS",
+    "runtime_sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+    "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
+    "clean_public_identity_ci": {
+      "run_id": 39029833587,
+      "job_id": 117387900251,
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39029833587",
+      "status": "PASS",
+      "exact_checkout": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+      "source_unchanged": true,
+      "frontend_tests": 157,
+      "source_read_golden_tests": 33,
+      "browser_cases": 18,
+      "browser_projects": [
+        "chrome-360"
+      ],
+      "identity_staff_postgresql_tests": 24,
+      "artifact_id": 12100316135,
+      "artifact_sha256": "34046163a86648af619ac058e3cc8470623d83149f9f00ef4007da705ab25e0c",
+      "versions": {
+        "python": "3.12.15",
+        "node": "24.21.0",
+        "npm": "11.19.0",
+        "postgresql": "16.15"
+      },
+      "receipt_files": [
+        "i02-verification/ci-45a4a31-result.json",
+        "i02-verification/ci-45a4a31-browser-receipt.json",
+        "i02-verification/ci-45a4a31-public-provenance.json"
+      ]
+    },
+    "general_ci": {
+      "run_id": 39029833597,
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39029833597",
+      "pure": "PASS",
+      "verify_legacy": "PASS",
+      "full_target": "SKIPPED_PENDING_COMMAND_MAP"
+    },
+    "local_browser_delta": {
+      "runtime_sha": "45a4a316e5826151124fbf77f19d6d3aa1b411f2",
+      "frontend_build_sha": "a287bc62088896257cf176f2d7e242087f81de58",
+      "status": "PASS_BROWSER_DELTA_ONLY",
+      "assertions": 18,
+      "skipped": 0,
+      "scope": "Chrome360; reused unchanged frontend/source build, DB-journal digest verified",
+      "result": "var/identity-browser-delta-03/result.json",
+      "startup": "PASS",
+      "cleanup": "PASS"
+    },
+    "local_affected_checks": {
+      "identity_staff_tests": 24,
+      "account_staff_ui_adapter_tests": 36,
+      "http_cache_concurrency_tests": 29,
+      "compiled_artifact_private_url_tests": 3,
+      "canonical_lifecycle_provenance": {
+        "passed": 16,
+        "skipped": 0,
+        "environment": "PYTHONUNBUFFERED=1",
+        "log": "var/public-lifecycle-unbuffered.log",
+        "earlier_failures": "Preserved in var/public-lifecycle-cold-delta.log and var/public-lifecycle-cold-elevated.log; not relabelled"
+      }
+    },
+    "independent_final_review": "NOT_RUN_GLOBAL_CANDIDATE_INCOMPLETE",
+    "full_migration": "NOT_VERIFIED",
+    "final_acceptance": "HUMAN_PENDING",
+    "production": "UNCHANGED",
+    "local_cleanup": {
+      "owned_browser_asgi_legacy": "STOPPED",
+      "owned_ports": [
+        8131,
+        8132,
+        55441
+      ],
+      "os_listeners_on_owned_ports": 0,
+      "owned_postgresql_container": "935b01d466027882d1fc6f87c8442c52382aa0e3862989bdd3a60828efeccc22",
+      "owned_postgresql_container_removed": true,
+      "original_postgresql_5432": "UNCHANGED_AND_RUNNING",
+      "evidence": [
+        "var/owned-postgres-cleanup.json",
+        "var/owned-port-cleanup.json"
+      ],
+      "note": "A prior connect_ex10035 probe was inconclusive; Windows OS LISTEN table and Docker exact-ID absence provide the cleanup proof."
+    }
+  }
 }
