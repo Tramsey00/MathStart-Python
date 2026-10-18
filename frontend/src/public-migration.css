@@ -1,4 +1,6 @@
 /* Migration readability corrections; authored lesson styling stays authoritative. */
+/* Keep the existing renderer boundary while restoring the legacy catalogue main. */
+#topics-catalogue > [data-mathstart-catalogue] { display: contents; }
 @media (max-width: 620px) {
   .ms-lesson-page .ms-lesson-links { grid-template-columns: minmax(0, 1fr); }
   .ms-lesson-page .ms-toc-copy { overflow-wrap: anywhere; }

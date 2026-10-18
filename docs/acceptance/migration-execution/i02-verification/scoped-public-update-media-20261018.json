@@ -1,0 +1,73 @@
+{
+  "kind": "SCOPED_DEVELOPMENT_NOT_FINAL_QA",
+  "base_sha": "30509004691405b5cabed6ccfc6f5f294f4da4c7",
+  "dirty": true,
+  "files_sha256": {
+    "backend/content/public_update.py": "a512d1beafad43e40504cabe7585278c9b782d3ed09e65aa5d35b2b93c15e936",
+    "backend/content/preparation.py": "71e5977974edea27878bbafe14d77f7972cb824ac46ef575c35f68f54fef3ed0",
+    "backend/content/publish.py": "fc8ac7b6f84416b9e503d5401fd4d68f90941527d73480de4406fe6c99b82206",
+    "backend/content/build.py": "edcc96331d7d56beb82f26dc1e9f4e87f6854da579e69193558e1549d0bec174",
+    "backend/tests/v04/test_public_update.py": "afb73041c19efc6712baf136926561635d1ba3b721ca0896d2aa6bd38f7fbd7d",
+    "backend/tests/v04/test_build.py": "004dc17425e7d0ba644f1e3f2bcd834f75efa3e328d7adfe8df8fd3b8cb943dd",
+    "backend/verification_suite.py": "a64843dcbd3d522561386143e622f2acab0fd74c733724f2a960c45afcf852c1",
+    "frontend/src/app/routes/public-foundation.tsx": "9e47804b659bfbd011fdbe5faafbe07590585c3c1f2e74a4b0f47db3565a80fd",
+    "frontend/src/public-migration.css": "29c44b3a5c8da99cbe619d444e0372f750f82751bc15962931032638a4ae375a",
+    "frontend/e2e/parity.spec.ts": "7025132faabefdda0517d3ce3b600339cf615c7addccbf6444a439793d1f08c9"
+  },
+  "public_update": {
+    "run03_status": "PASS",
+    "case_id": "backend.tests.v04.test_public_update.PublicUpdateTests.test_real_scoped_publication_backup_pdf_redirects_and_unrelated_private_preservation",
+    "seconds": 421.475,
+    "private_and_unrelated_content_preserved": true,
+    "media_count": 29,
+    "http": "All29 original media URLs 200 and exact hash, including the previously404 unlinked PDF; four retired redirects, five selected public pages, ordinary P1 COMPLETE",
+    "cleanup": "PASS",
+    "log_sha256": "ae2f870d24fc9464579ad5780558bbed7b907bf8fbc75e3c7bacd406a7e3f440",
+    "prior_failures": [
+      {
+        "run": "01",
+        "reason": "Windows test JSON reader omitted explicit UTF-8; two other cases passed"
+      },
+      {
+        "run": "02",
+        "reason": "Ordinary P1 COMPLETE but requested PDF404 because unreferenced reviewed media absent from release; preserved failure led to actual builder correction"
+      }
+    ],
+    "negative_run04": {
+      "status": "PASS",
+      "cases": 2,
+      "seconds": 46.649,
+      "cleanup": "PASS",
+      "log_sha256": "f0abb3c117343e4e29f99439763930726e31dc61bd27671a9dc774eac1d6a9d3"
+    }
+  },
+  "other_checks": {
+    "home_media_inventory_and_duplicate_traversal_wrong_hash": "PASS",
+    "frontend_typecheck": {
+      "status": "PASS",
+      "assertions": 4
+    },
+    "frontend_npm_test": {
+      "status": "PASS",
+      "assertions": 181,
+      "skipped": 0
+    },
+    "legacy_discovery": {
+      "status": "PASS",
+      "cases": 2,
+      "initial_error": "missing explicit legacy interpreter; corrected separate env then PASS"
+    },
+    "source_preservation": {
+      "status": "PASS",
+      "preserved_files": 1370
+    },
+    "browser_discovery_only": {
+      "count": 1269,
+      "mapped_exact_browser_ids": 378,
+      "missing": 0,
+      "execution": "NOT_CLAIMED"
+    },
+    "backend_mapped_exact_ids": 251
+  },
+  "remaining": "Affected browser captures and full agreed candidate CI; independent reviewer and human acceptance"
+}

@@ -60,17 +60,31 @@ class StaffWriteTests(unittest.TestCase):
         self.assertNotIn('password', history.text)
 
     def test_combined_create_permissions_checked_on_server(self):
+        permission_table = metadata.tables['auth_user_user_permissions']
+        for selected in [('add_user',), ('change_user',), ()]:
+            with self.subTest(permissions=selected):
+                with UnitOfWork(self.engine) as uow:
+                    uow.session.get(User, self.actor).is_superuser = False
+                    uow.session.execute(sa.delete(permission_table).where(permission_table.c.user_id == self.actor))
+                    ids = list(uow.session.scalars(sa.select(Permission.id).join(ContentType).where(
+                        ContentType.app_label == 'auth', Permission.codename.in_(selected))))
+                    for permission_id in ids:
+                        uow.session.execute(sa.insert(permission_table).values(user_id=self.actor, permission_id=permission_id))
+                    uow.commit()
+                result = self.post('users/', {'username': 'denied', 'usable_password': False})
+                self.assertEqual(result.status_code, 403, result.text)
+                with UnitOfWork(self.engine) as uow:
+                    self.assertIsNone(uow.session.scalar(sa.select(User).where(User.username == 'denied')))
+        # Positive control: rejecting every request would not preserve this gate.
         with UnitOfWork(self.engine) as uow:
-            uow.session.get(User, self.actor).is_superuser = False
-            p = uow.session.scalar(sa.select(Permission.id).join(ContentType).where(
-                ContentType.app_label == 'auth', Permission.codename == 'add_user'))
-            uow.session.execute(sa.insert(metadata.tables['auth_user_user_permissions']).values(
-                user_id=self.actor, permission_id=p))
+            ids = list(uow.session.scalars(sa.select(Permission.id).join(ContentType).where(
+                ContentType.app_label == 'auth', Permission.codename.in_(['add_user', 'change_user']))))
+            self.assertEqual(len(ids), 2)
+            for permission_id in ids:
+                uow.session.execute(sa.insert(permission_table).values(user_id=self.actor, permission_id=permission_id))
             uow.commit()
-        result = self.post('users/', {'username': 'denied', 'usable_password': False})
-        self.assertEqual(result.status_code, 403, result.text)
-        with UnitOfWork(self.engine) as uow:
-            self.assertIsNone(uow.session.scalar(sa.select(User).where(User.username == 'denied')))
+        allowed = self.post('users/', {'username': 'allowed_both', 'usable_password': False})
+        self.assertEqual(allowed.status_code, 201, allowed.text)
 
     def test_password_change_revokes_detached_bridge_without_target_lineage(self):
         from backend.models.protocol import ReceiptBridge

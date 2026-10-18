@@ -144,22 +144,28 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
 
 
 def prepare_sources(engine, source_root, output_root, release_id, source_sha, *, slugs=None, all_lessons=False,
-                    unpublish=False, dry_run=False, bootstrap=False):
+                    unpublish=False, dry_run=False, bootstrap=False, public_update=False, public_backup_path=None):
     import re
     if (not re.fullmatch('[A-Za-z0-9_-]{1,120}', release_id or '')
             or not re.fullmatch('[a-f0-9]{40}', source_sha or '')
-            or (bool(slugs) == bool(all_lessons) if not bootstrap else bool(slugs) or all_lessons or unpublish)):
+            or bootstrap and public_update
+            or (bool(slugs) == bool(all_lessons) if not (bootstrap or public_update) else bool(slugs) or all_lessons or unpublish)
+            or public_update and not dry_run and public_backup_path is None):
         raise SourceError('Reviewed identity and exactly one nonempty selection required')
     source_root = Path(source_root).resolve()
     verify_source_checkout(source_root, source_sha)
     bundles = load_sources(source_root)
-    selected = ([b.snapshot['slug'] for b in bundles] if bootstrap else
+    from backend.content.public_update import SELECTED
+    selected = (list(SELECTED) if public_update else [b.snapshot['slug'] for b in bundles] if bootstrap else
                 [b.snapshot['slug'] for b in bundles if b.snapshot['page_type'] == 'topic'] if all_lessons else slugs)
     with UnitOfWork(engine) as uow:
         uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
         before = snapshot(uow.session)
         instant = normalized({'at': uow.session.scalar(sa.select(sa.func.clock_timestamp()))})['at']
-    if bootstrap:
+    if public_update:
+        from backend.content.public_update import public_update_changes
+        changes = public_update_changes(before, bundles, source_root, instant)
+    elif bootstrap:
         from backend.content.bootstrap_plan import bootstrap_changes
         changes = bootstrap_changes(before, bundles, source_root, instant)
     else:
@@ -206,8 +212,12 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
                'files': [{'path': key, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)} for key, raw in sorted(files.items())],
                'source_files': [entry for bundle in bundles for entry in bundle.files]}
     descriptor = Descriptor(uuid.UUID(int=0), release_id, manifest_digest, 1)
+    if public_update:
+        from backend.content.public_update import backup_public_records
+        backup_public_records(before, Path(public_backup_path), source_sha, digest(before))
     install_build_inputs(output_root, release_id, descriptor, receipt, files)
     return {'selected': len(selected), 'changes': changes, 'before_digest': digest(before), 'after_digest': digest(after),
             'release_id': release_id, 'manifest_digest': manifest_digest,
             'input_receipt_digest': sha256(encoded(receipt)).hexdigest(), 'activation': 'NOT_PERFORMED',
-            'effects': 'immutable build handoff only; no DB rows or sequences changed'}
+            'effects': 'immutable build handoff and selected public backup only; no DB rows or sequences changed' if public_update else 'immutable build handoff only; no DB rows or sequences changed',
+            **({'backup': str(public_backup_path)} if public_update else {})}

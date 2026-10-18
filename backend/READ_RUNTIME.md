@@ -298,3 +298,44 @@ checkpoint even when no legacy session or bootstrap receipt remains. The HMAC
 source snapshot includes login windows, permissions, profiles, receipts, sessions,
 admin history, content types and migration history. Unsupported or malformed
 retained password encodings block preview/apply; no reset or hash rewrite occurs.
+
+
+## Scoped update of installed public pages
+
+The legacy `update_public_pages` operation maps to the ordinary publisher's
+`prepare-public-update` action. It requires the existing power-properties lesson;
+it does not install a fresh curriculum or rewrite unrelated catalogue/media rows.
+With the same target DB environment and reviewed source checkout:
+
+```text
+python -m backend.content.publish prepare-public-update --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --dry-run
+python -m backend.content.publish prepare-public-update --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --input-root var/public-update-inputs --changes var/public-update-edition.json --backup var/public-update-before.json
+```
+
+The selection is the four information pages (`glavnaya`, `karta-sajta`, `o-proekte`,
+`kontakty`), the installed `bazovye-svojstva-stepenej-s-naturalnym-pokazatelem`
+lesson, publication metadata, two retained retirement flags, four reviewed retired
+redirects and `uploads/2026/07/pamyatka-stepeni.pdf` metadata. Existing PKs and
+creation timestamps remain; retiring pages retain their bodies and both timestamps.
+Unrelated content rows, users, roles, profiles, receipts and sessions are not patched.
+
+Dry-run validates the proposed changes and PDF hash without writing files, rows
+or sequences. Normal preparation validates lesson conflicts and the complete
+published-source edition before writing an exclusive selected public-record backup
+(`public-records-before-update-v1`, no private tables), then immutable build inputs
+and the edition handoff. An occupied backup is refused; an omitted `--backup`
+defaults to `<changes stem>-before.json` beside the edition file. Destination parents
+must already exist. A later preparation/build failure can leave that public backup
+for inspection; it does not claim publication or roll SQL forward.
+
+Build these inputs and use the same ordinary `plan` and `publish` steps above.
+Only the fenced publication participant commits the selected SQL patches and
+activates the complete matching HTML/assets/catalogue/sitemap edition. The PDF
+comes from reviewed immutable source assets. The home delivery also anchors all29
+public uploads in the reviewed media manifest, including25 no longer directly
+linked by current authored HTML/CSS. Their original URLs and exact hashes remain
+addressable, including unbound media. Only these public seed files are exported;
+mutable retained uploads are not
+silently replaced. An unrelated published page edited outside reviewed sources
+fails the complete build handoff with `SOURCE_CONFLICT`; reconcile that source
+before publication. Repeat matching dry-run proposes zero changes.

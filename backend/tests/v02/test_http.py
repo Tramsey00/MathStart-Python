@@ -92,7 +92,7 @@ class HTTPAssertions:
         for change in [{'scope': 'foreign'}, {'id': True}, {'id': 2**63}, {'page_size': True}, {'created_at': '2026-10-04T00:00:00'}, {'extra': 'x'}]:
             forged = self.signer.dumps({**value, **change}, 'content.grades.http-v1.cursor')
             self.error(self.client.get('/api/v1/grades/', params={'page_size': 1, 'cursor': forged}))
-        for query in ['page_size=0', 'page_size=101', 'page_size=true', 'page_size=1&page_size=2', 'foreign=x']:
+        for query in ['page_size=0', 'page_size=101', 'page_size=true', 'page_size=1&page_size=2', 'foreign=x', 'cursor=', 'cursor=' + 'x' * 1025]:
             self.error(self.client.get('/api/v1/grades/?' + query))
 
     def test_grade_unsupported_row_and_database_failure_safe(self):
@@ -101,6 +101,11 @@ class HTTPAssertions:
         response = self.client.get('/api/v1/grades/')
         self.error(response, 503, 'SERVICE_UNAVAILABLE')
         self.assertNotIn('PRIVATE-UNSUPPORTED', response.text)
+        with self.engine.begin() as c:
+            c.execute(sa.update(Grade).where(Grade.id == 70).values(slug='5-klass', title=''))
+        self.error(self.client.get('/api/v1/grades/'), 503, 'SERVICE_UNAVAILABLE')
+        with self.engine.begin() as c:
+            c.execute(sa.update(Grade).where(Grade.id == 70).values(title='5 класс'))
         with patch('backend.infrastructure.http.app.list_grades', side_effect=RuntimeError('SQL PASSWORD DSN private path')):
             response = self.client.get('/api/v1/grades/')
             self.error(response, 503, 'SERVICE_UNAVAILABLE')
@@ -226,11 +231,13 @@ class HTTPAssertions:
     def test_selectors_and_publication_observer_fail_closed(self):
         self.actor = 901
         self.response(self.client.get('/api/v1/staff/users/902/group_choices/'), schema='StaffGroupChoiceListResponse', delivery=True)
+        self.error(self.client.get('/api/v1/staff/users/999/group_choices/'), 404, 'NOT_FOUND')
         self.error(self.client.get('/api/v1/staff/groups/61/'), 403, 'FORBIDDEN')
         self.error(self.client.get('/api/v1/staff/pages/302/publication_state/'), 503, 'SERVICE_UNAVAILABLE')
         self.error(self.client.get('/api/v1/staff/pages/999/publication_state/'), 404, 'NOT_FOUND')
         self.actor = 905
         self.error(self.client.get('/api/v1/staff/users/901/group_choices/'), 403, 'FORBIDDEN')
+        self.error(self.client.get('/api/v1/staff/users/999/group_choices/'), 403, 'FORBIDDEN')
 
     def test_all_gets_no_dml_no_profile_or_evidence_and_safe_uow(self):
         self.actor = 902

@@ -100,6 +100,20 @@ def assets_for(root, bundle):
     # Authored direct asset references are reviewed source bytes, never client input.
     urls = set(re.findall(r'''(?:src|href)\s*=\s*["']((?:/static/|/media/)[^"'?#]+)''', page['body_html']))
     urls.update(re.findall(r'''url\(\s*["']?((?:/static/|/media/)[^\s)"'?#]+)''', page['page_css']))
+    # Reviewed public uploads remain addressable even when no current document
+    # links them. The home delivery anchors this retained public-media inventory;
+    # no runtime upload directory, private row or arbitrary file is exported.
+    if page['page_type'] == 'home':
+        media = read_json(root / 'site_content/media.json')
+        if set(media) != {'schema_version', 'assets'} or media['schema_version'] != 1:
+            raise SourceError('Invalid reviewed media manifest')
+        seen = set()
+        for item in media['assets']:
+            if (set(item) != {'title', 'file', 'alt_text', 'related_page', 'sha256'}
+                    or not isinstance(item['file'], str) or item['file'] in seen):
+                raise SourceError('Invalid/duplicate reviewed media identity')
+            seen.add(item['file'])
+            urls.add('/media/' + item['file'])
     known = {r[1] for r in rows}
     for url in sorted(urls - known):
         if not safe_public_path(url) or Path(url).suffix.lower() not in {'.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.pdf'}:

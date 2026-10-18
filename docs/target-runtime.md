@@ -128,6 +128,15 @@ actual login/readiness/sources/repeat bootstrap и cleanup; это не final ta
 Synthetic_setup prepare/activate-initial используется только для controlled QA
 fixtures. Не применять его вместо обычной установки или поверх existing authority.
 
+Existing `update_public_pages` имеет отдельный target action
+`backend.content.publish prepare-public-update`: только четыре public pages,
+существующий POWER lesson, два retirement flags, четыре redirects и один PDF.
+Reviewed media manifest целиком включён в immutable delivery главной: все29
+public media URL доступны независимо от прямых ссылок в HTML/CSS, hash-verified.
+Dry-run не пишет файлы/SQL/sequences; normal prepare сохраняет exclusive public-only
+backup до immutable inputs. Затем обычные build/plan/publish и recovery authority.
+Точные команды и границы: [READ_RUNTIME.md](../backend/READ_RUNTIME.md#scoped-update-of-installed-public-pages).
+
 ## Edge, maintenance и восстановление
 
 Target stack — deploy/compose.yaml, optional compose.tls.yaml. API/edge работают
@@ -177,7 +186,9 @@ MATHSTART_DATABASE_URL на dedicated loopback PostgreSQL55441. Он созда�
 дочерние DB, immutable fixture/build, ASGI и legacy comparator, выполняет все16
 registry commands и fresh/upgrade A/B/C. Environment secrets не печатать.
 Группы/allow-dirty дают только scoped development evidence. Полный набор backend
-сейчас314 actual cases; его counts не заменяют exact IDs/negative cases.
+на3b8ab32 прошёл317 actual cases/0 skipped; counts не заменяют exact IDs/negative cases.
+Тот же полный managed run подтвердил179 frontend units и1170 browser cases;
+в54b22af добавлены2 terminal-credential unit cases, полный новый CI ещё pending.
 Финальный target включает actual Chrome/Edge/Firefox на360/768/1440, source/
 assets inventory, no-JS/SEO, math/widget/lifecycle/private/keyboard/responsive
 и matched visual review. Скриншоты без просмотра не означают visual PASS.

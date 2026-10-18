@@ -113,10 +113,11 @@ def plan_candidate(engine, args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare-sources', 'prepare-bootstrap', 'plan', 'publish', 'unpublish', 'status', 'resume', 'recover', 'abort', 'renew', 'surrender'])
+    parser.add_argument('action', choices=['prepare-sources', 'prepare-bootstrap', 'prepare-public-update', 'plan', 'publish', 'unpublish', 'status', 'resume', 'recover', 'abort', 'renew', 'surrender'])
     parser.add_argument('--namespace', default='public')
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--changes', type=Path)
+    parser.add_argument('--backup', type=Path, help='Exclusive selected public-record backup for prepare-public-update')
     parser.add_argument('--source-root', type=Path, default=Path('.'))
     parser.add_argument('--source-sha')
     parser.add_argument('--release-id')
@@ -137,14 +138,16 @@ def main(argv=None):
     parser.add_argument('--generation', type=int)
     parser.add_argument('--lease-seconds', type=int, default=120)
     args = parser.parse_args(argv)
-    if args.dry_run and args.action not in {'prepare-sources', 'prepare-bootstrap'}:
+    if args.dry_run and args.action not in {'prepare-sources', 'prepare-bootstrap', 'prepare-public-update'}:
         parser.error('only source/bootstrap preparation supports a read-only dry-run')
+    if args.backup is not None and args.action != 'prepare-public-update':
+        parser.error('backup destination is supported only for scoped public update')
     engine, token = None, None
     try:
         engine = create_engine(DatabaseConfig.from_environment())
         if engine.dialect.name != 'postgresql':
             raise PublicationConflict('POSTGRESQL_REQUIRED')
-        if args.action in {'prepare-sources', 'prepare-bootstrap'}:
+        if args.action in {'prepare-sources', 'prepare-bootstrap', 'prepare-public-update'}:
             if not args.source_sha or not args.release_id or (not args.dry_run and (not args.input_root or not args.changes)):
                 parser.error('preparation requires source-sha/release-id, and input-root/changes destination unless dry-run')
             if not args.dry_run and args.changes.exists():
@@ -152,7 +155,9 @@ def main(argv=None):
             from backend.content.preparation import prepare_sources
             result = prepare_sources(engine, args.source_root, args.input_root, args.release_id, args.source_sha,
                         slugs=args.slug, all_lessons=args.all_lessons, unpublish=args.kind == 'unpublish',
-                        dry_run=args.dry_run, bootstrap=args.action == 'prepare-bootstrap')
+                        dry_run=args.dry_run, bootstrap=args.action == 'prepare-bootstrap',
+                        public_update=args.action == 'prepare-public-update',
+                        public_backup_path=args.backup or (args.changes.with_name(args.changes.stem + '-before.json') if args.changes else None))
             if not args.dry_run:
                 handoff = {'version': 'prepared-source-edition-v1', **{key: result[key] for key in ('before_digest', 'after_digest', 'changes')}}
                 with args.changes.open('xb') as stream:

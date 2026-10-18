@@ -28,6 +28,26 @@ class SourceTests(unittest.TestCase):
         topics = [b for b in bundles if b.snapshot['page_type'] == 'topic']
         self.assertEqual(sum(bool(b.snapshot['page_css']) for b in topics), 97)
         self.assertEqual(sum(bool(b.snapshot['page_js']) for b in topics), 7)
+        from backend.content.build import assets_for
+        home = next(bundle for bundle in bundles if bundle.snapshot['page_type'] == 'home')
+        exported = {asset['url']: (asset, raw) for asset, raw in assets_for(ROOT, home) if asset['kind'] == 'media'}
+        reviewed = read_json(ROOT / 'site_content/media.json')['assets']
+        self.assertEqual(set(exported), {'/media/' + item['file'] for item in reviewed})
+        for item in reviewed:
+            asset, raw = exported['/media/' + item['file']]
+            self.assertEqual(asset['sha256'], item['sha256'])
+            self.assertEqual(sha256(raw).hexdigest(), item['sha256'])
+        from unittest.mock import patch
+        from copy import deepcopy
+        manifest = read_json(ROOT / 'site_content/media.json')
+        for attack in ('duplicate', 'traversal', 'wrong-hash'):
+            altered = deepcopy(manifest)
+            if attack == 'duplicate': altered['assets'].append(altered['assets'][0])
+            elif attack == 'traversal': altered['assets'][0]['file'] = '../private.env'
+            else: altered['assets'][0]['sha256'] = '0' * 64
+            with self.subTest(attack=attack), patch('backend.content.build.read_json', return_value=altered), self.assertRaises(SourceError):
+                assets_for(ROOT, home)
+
 
     def test_legacy_template_golden_all_lessons(self):
         python = os.environ.get('MATHSTART_LEGACY_PYTHON')

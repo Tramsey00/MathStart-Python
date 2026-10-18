@@ -11,22 +11,25 @@ const routes=[
  {path:'/stepennaya-funkcziya-s-naturalnym-pokazatelem/',regions:['.ms-lesson-toc','#ms-power-lab-935']},
  {path:'/stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/',regions:['.ms-lesson-toc','#ms-negative-power-lab-936']},
 ];
-test('matched live Django and React all script families plus F01–F04 at ordinary scale',async({browser})=>{
+const templates=[...routes,{path:'/',regions:['body']},{path:'/karta-sajta/',regions:['body']},{path:'structural-grade',regions:['body']}];
+for(const [r,template] of templates.entries())test(`matched live Django and React ${template.path} at ordinary scale`,async({browser})=>{
  const legacy=process.env.MATHSTART_LEGACY_BASE_URL;if(!legacy)throw Error('Separate live disposable legacy origin required for matched captures');
  const target=process.env.MATHSTART_E2E_BASE_URL;if(!target)throw Error('Real target origin required');
  const input=process.env.MATHSTART_PUBLIC_VIEW;if(!input)throw Error('Verified complete public view required');
- const data=JSON.parse(readFileSync(input,'utf8')) as {routes:Record<string,{page:{assets:{kind:string;url:string}[]}}>} ;
+ const data=JSON.parse(readFileSync(input,'utf8')) as {routes:Record<string,{page:{page_type:string;assets:{kind:string;url:string}[]}}>} ;
+ const grade=Object.entries(data.routes).find(([,view])=>view.page.page_type==='grade')?.[0];expect(grade,'Real published structural grade route required').toBeTruthy();
+ const allRoutes=templates.map(entry=>({...entry,path:entry.path==='structural-grade'?grade!:entry.path}));
  const scripts=(view:{page:{assets:{kind:string;url:string}[]}})=>view.page.assets.filter(asset=>asset.kind==='script').map(asset=>asset.url);
  const required=[...new Set(Object.values(data.routes).flatMap(scripts))].sort();
- const covered=[...new Set(routes.flatMap(route=>{const view=data.routes[route.path];expect(view,route.path).toBeTruthy();return scripts(view!);} ))].sort();
+ const covered=[...new Set(allRoutes.flatMap(route=>{const view=data.routes[route.path];expect(view,route.path).toBeTruthy();return scripts(view!);} ))].sort();
  expect(covered,'Every published script family needs matched baseline/target captures').toEqual(required);
- const coverage=test.info().outputPath('matched-family-coverage.json');writeFileSync(coverage,JSON.stringify({required,covered,routes:routes.map(route=>route.path)}));await test.info().attach('matched-family-coverage.json',{path:coverage,contentType:'application/json'});
+ const coverage=test.info().outputPath('matched-family-coverage.json');writeFileSync(coverage,JSON.stringify({required,covered,routes:allRoutes.map(route=>route.path)}));await test.info().attach('matched-family-coverage.json',{path:coverage,contentType:'application/json'});
  const context=await browser.newContext({viewport:test.info().project.use.viewport!});
  try{
   const page=await context.newPage();const pairs=[];
-  for(let r=0;r<routes.length;r++)for(const [side,origin]of [['legacy',legacy],['target',target]]){
-   const entry=routes[r]!;expect((await page.goto(origin+entry.path))?.status()).toBe(200);
-   await page.locator('.ms-lesson-toc').evaluate(n=>(n as HTMLDetailsElement).open=true);
+  for(const [side,origin]of [['legacy',legacy],['target',target]]){
+   const entry=allRoutes[r]!;expect((await page.goto(origin+entry.path))?.status()).toBe(200);
+   if(entry.regions.includes('.ms-lesson-toc'))await page.locator('.ms-lesson-toc').evaluate(n=>(n as HTMLDetailsElement).open=true);
    for(let i=0;i<entry.regions.length;i++){
     const selector=entry.regions[i]!,path=test.info().outputPath(`r${r}-region${i}-${side}.png`);
     await page.locator(selector).screenshot({path});await test.info().attach(`r${r}-region${i}-${side}.png`,{path,contentType:'image/png'});

@@ -121,7 +121,7 @@ def run():
             count += execute(['backend.tests.v04.test_build', 'backend.tests.v04.test_read_runtime',
                 'backend.tests.v04.test_content_checks', 'backend.tests.v04.test_indexing', 'backend.tests.v04.test_publication',
                 'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation', 'backend.tests.v04.test_registration',
-                'backend.tests.v04.test_bootstrap_plan',
+                'backend.tests.v04.test_bootstrap_plan', 'backend.tests.v04.test_public_update',
                 'backend.tests.v04.test_artifacts', 'backend.tests.v04.test_artifact_pins', 'backend.tests.v04.test_verified_release_cache',
                 'backend.tests.v04.test_participant'], case_ids=case_ids)
         if any(name == 'django' or name.startswith('django.') for name in sys.modules):

@@ -13,11 +13,13 @@ export async function loader({request}:{request:Request}) {
 // Reviewed HTML is publication output. Complete document navigation disposes
 // authored scripts, observers, timers and styles. Public pages never hydrate.
 export function LessonHost({view}:{view:PublicPageView}) {
-  return <>
-    <div data-lesson-host="" data-public-slug={view.page.slug} style={{display:"contents"}} dangerouslySetInnerHTML={{__html:view.page.body_html}}/>
-    {view.catalogue_html !== null && <section data-mathstart-catalogue="" className="ms-catalogue" dangerouslySetInnerHTML={{__html:view.catalogue_html}}/>}
-    {view.catalogue_html !== null && <template data-mathstart-catalogue-end=""/>}
-  </>;
+  const authored=<div data-lesson-host="" data-public-slug={view.page.slug} style={{display:"contents"}} dangerouslySetInnerHTML={{__html:view.page.body_html}}/>;
+  if(view.catalogue_html === null)return authored;
+  return <main className="ms-catalogue" id="topics-catalogue">
+    {authored}
+    <section data-mathstart-catalogue="" className="ms-catalogue" dangerouslySetInnerHTML={{__html:view.catalogue_html}}/>
+    <template data-mathstart-catalogue-end=""/>
+  </main>;
 }
 export default function PublicPage() {
   return <LessonHost view={useLoaderData<PublicPageView>()}/>;

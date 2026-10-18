@@ -179,7 +179,7 @@ class AssetRegressions:
             self.assertNotIn('location', response.headers)
 
     def test_f02_unsafe_redirect_targets_fail_closed(self):
-        for target in ['https://evil.test/x', '//evil.test/x', '/admin/secret/', '/media/../secret', '/static/%252e%252e/secret']:
+        for target in ['https://evil.test/x', '//evil.test/x', '/admin/secret/', '/media/../secret', '/static/%252e%252e/secret', '/static/old.css']:
             with self.subTest(target=target):
                 self.redirects([{'old_path': '/static/old.css', 'new_path': target, 'is_permanent': True}])
                 response = self.direct('/static/old.css')
