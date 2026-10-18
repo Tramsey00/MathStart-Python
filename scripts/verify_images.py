@@ -84,6 +84,14 @@ def command(args,timeout=120,log=None):
   diagnostic=(r.stdout+r.stderr).decode('utf-8',errors='replace')
   for secret in (password,signing,account_password):diagnostic=diagnostic.replace(secret,'[REDACTED]')
   (directory/'docker-failure.log').write_text(diagnostic,encoding='utf-8')
+  # Export only a closed diagnostic classification, never arbitrary stderr,
+  # command arguments, DSNs, cookies or the private env-file contents.
+  known = ('No such image', 'permission denied', 'Cannot connect to the Docker daemon',
+           'port is already allocated', 'manifest unknown', 'no matching manifest')
+  result['docker_failure'] = {'operation': args[0], 'exit_code': r.returncode,
+      'classification': next((text for text in known if text.lower() in diagnostic.lower()), 'UNCLASSIFIED')}
+  if args[:2] == ['image', 'inspect']:
+   result['docker_failure']['image_reference'] = args[2]
   raise RuntimeError('Owned Docker command failed')
  return r.stdout.decode('utf-8').strip()
 def inspected(kind,identity):
@@ -93,7 +101,10 @@ def check(condition,name):
  result['assertions'].append(name)
 try:
  result['source_before']=source_before
- result['images']={name:json.loads(command(['image','inspect',reference]))[0]['Id'] for name,reference in [('api',image),('postgres','postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'),('edge',args.edge_image)]}
+ result['phase']='inspect_required_images'
+ result['images']={}
+ for name,reference in [('api',image),('postgres','postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'),('edge',args.edge_image)]:
+  result['images'][name]=json.loads(command(['image','inspect',reference]))[0]['Id']
  if args.rollback_image:result['images']['prior_api']=json.loads(command(['image','inspect',args.rollback_image]))[0]['Id']
  if args.rollback_image and result['images']['prior_api']==result['images']['api']:raise RuntimeError('Rollback rehearsal requires a distinct prior image')
  owned['net']=command(['network','create','--internal','--label','mathstart.purpose='+label,names['net']])

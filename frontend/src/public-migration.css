@@ -1,10 +1,13 @@
-/* Accepted R01 F01–F04 corrections; existing lesson styling stays authoritative. */
+/* Migration readability corrections; authored lesson styling stays authoritative. */
 @media (max-width: 620px) {
   .ms-lesson-page .ms-lesson-links { grid-template-columns: minmax(0, 1fr); }
   .ms-lesson-page .ms-toc-copy { overflow-wrap: anywhere; }
   .ms-lesson-page #power-lab-v2 .ms-power-presets { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .ms-lesson-page #power-lab-v2 .ms-live-table { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ms-lesson-page #power-lab-v2 .ms-live-table-cell { min-width: 0; overflow-wrap: anywhere; }
+  /* Visual review: six native quadratic cells overflowed/clipped at360. */
+  .ms-lesson-page #ms-quadratic-lab-660 .ms-live-table { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ms-lesson-page #ms-quadratic-lab-660 .ms-live-table-cell { min-width: 0; overflow-wrap: anywhere; }
   [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 { padding: 10px; }
   [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 .v2-plot-card { padding: 4px; }
   [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 svg text { font-size: 22px; }

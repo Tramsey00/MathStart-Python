@@ -62,6 +62,33 @@ test('native staff user create profile roles password history and guarded deleti
   expect(refused.status()).toBe(409);expect((await refused.json()).error.code).toBe('STATE_CONFLICT');
   expect((await other.request.get(origin+'/api/v1/users/me/')).status()).toBe(200);
   await page.getByRole('link',{name:'Изменить',exact:true}).click();await saved(page);
+  await page.getByRole('checkbox',{name:'Доступ к администрированию',exact:true}).check();
+  await page.getByRole('checkbox',{name:'Подтверждаю изменение профиля, доступа и прав этой записи.'}).check();
+  const promoted=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/users/${id}/`&&r.request().method()==='PUT');
+  await page.getByRole('button',{name:'Сохранить',exact:true}).click();expect((await promoted).status()).toBe(200);await saved(page);
+  const ownPage=await other.newPage();await ownPage.goto(origin+'/admin/password_change/');
+  await expect(ownPage.getByLabel('Текущий пароль',{exact:true})).toBeVisible();
+  const ownPassword='Jq8!Rm4#Ts7@Uz2%';
+  for(const [old,status]of [['wrong-current-password',400],[changed,200]] as const){
+   await ownPage.getByLabel('Текущий пароль',{exact:true}).fill(old);
+   await ownPage.getByLabel('Новый пароль',{exact:true}).fill(ownPassword);
+   await ownPage.getByLabel('Повторите новый пароль',{exact:true}).fill(ownPassword);
+   const priorCookies=await other.cookies();
+   const ownSaved=ownPage.waitForResponse(r=>new URL(r.url()).pathname==='/api/v1/staff/password_change/'&&r.request().method()==='POST');
+   await ownPage.getByRole('button',{name:'Сохранить',exact:true}).click();expect((await ownSaved).status()).toBe(status);
+   if(status===400){
+    await expect(ownPage.getByLabel('Текущий пароль',{exact:true})).toHaveValue('');
+    await expect(ownPage.getByLabel('Новый пароль',{exact:true})).toHaveValue('');
+    await expect(ownPage.getByLabel('Повторите новый пароль',{exact:true})).toHaveValue('');
+    expect((await other.request.get(origin+'/api/v1/users/me/')).status()).toBe(200);
+   }else{
+    await expect(ownPage).toHaveURL(/\/admin\/password_change\/done\/$/);
+    await expect(ownPage.getByRole('heading',{name:'Пароль изменён'})).toBeVisible();
+    expect((await other.request.get(origin+'/api/v1/users/me/')).status()).toBe(200);
+    const stale=await browser.newContext();
+    try{await stale.addCookies(priorCookies);expect((await stale.request.get(origin+'/api/v1/users/me/')).status()).toBe(401);}finally{await stale.close();}
+   }
+  }
   await page.getByRole('checkbox',{name:'Активен',exact:true}).uncheck();
   await page.getByRole('checkbox',{name:'Подтверждаю изменение профиля, доступа и прав этой записи.'}).check();
   const deactivated=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/users/${id}/`&&r.request().method()==='PUT');

@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {readFileSync} from 'node:fs';
+import {readFileSync,writeFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 const input=process.env.MATHSTART_PUBLIC_VIEW;
 if(!input)throw Error('MATHSTART_PUBLIC_VIEW is required for complete manifest browser verification');
@@ -11,7 +11,7 @@ const representatives=[...new Set(families.values())];
 const styleFamilies=new Map<string,string>();
 for(const [url,view] of entries)for(const asset of view.page.assets)if(asset.kind==='style'&&!styleFamilies.has(asset.url))styleFamilies.set(asset.url,url);
 const styleRepresentatives=[...new Set(styleFamilies.values())].filter(url=>!representatives.includes(url));
-test.beforeEach(async({browser},info)=>{await info.attach('browser-version.json',{body:JSON.stringify({project:info.project.name,actual_version:browser.version(),input_release:data.release_id,input_digest:data.manifest_digest}),contentType:'application/json'});});
+test.beforeEach(async({browser},info)=>{const path=info.outputPath('browser-version.json');writeFileSync(path,JSON.stringify({project:info.project.name,actual_version:browser.version(),input_release:data.release_id,input_digest:data.manifest_digest}));await info.attach('browser-version.json',{path,contentType:'application/json'});});
 
 for(const route of styleRepresentatives)test('style family '+route,async({page})=>{
  const errors:string[]=[];const failed:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)failed.push(new URL(r.url()).pathname);});

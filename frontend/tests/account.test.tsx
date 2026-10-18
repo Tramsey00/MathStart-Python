@@ -81,3 +81,21 @@ it('returns to the login form after logging out from registration',async()=>{
  expect(screen.getByLabelText('Имя пользователя').getAttribute('maxlength')).toBe('150');
  expect((screen.getByLabelText('Пароль') as HTMLInputElement).value).toBe('');
 });
+
+for(const [status,code]of [[400,'INVALID_REQUEST'],[401,'AUTHENTICATION_REQUIRED']] as const)it('clears terminal '+status+' registration credentials without storage/logging or replay',async()=>{
+ const storage=vi.spyOn(Storage.prototype,'setItem'),logs=vi.spyOn(console,'log');
+ try{
+  call.mockImplementation(async op=>op==='list_grades'?grades:op==='register'?{ok:false,error:{code,status,message:'Операция отклонена.',outcome:'rejected'}}:anonymous);
+  render(<AccountPage/>);await enter('register');
+  await waitFor(()=>expect(screen.getByRole('status').textContent).toBe('Операция отклонена.'));
+  expect((screen.getByLabelText('Пароль') as HTMLInputElement).value).toBe('');
+  expect(screen.queryByRole('button',{name:'Повторить тот же запрос'})).toBeNull();
+  const first=call.mock.calls.find(([op])=>op==='register')![1].idempotencyKey;
+  fireEvent.click(screen.getByRole('button',{name:'Загрузить сохранённое состояние'}));
+  await waitFor(()=>expect(screen.getByRole('status').textContent).toBe('Войдите или зарегистрируйтесь.'));
+  expect(call.mock.calls.filter(([op])=>op==='register')).toHaveLength(1);
+  await enter('register');await waitFor(()=>expect(call.mock.calls.filter(([op])=>op==='register')).toHaveLength(2));
+  const second=call.mock.calls.filter(([op])=>op==='register')[1]![1].idempotencyKey;
+  expect(second).not.toBe(first);expect(storage.mock.calls.length).toBe(0);expect(logs.mock.calls.length).toBe(0);
+ }finally{storage.mockRestore();logs.mockRestore();}
+});

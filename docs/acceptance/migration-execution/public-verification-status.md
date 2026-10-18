@@ -140,3 +140,37 @@ including both origins, browser failure/timeout/descendant cleanup, pre-existing
 listener refusal and startup failure. The full combined driver and CI are pending
 the independently reviewed backend serving fix and frontend browser matrix.
 Do not merge this WIP into integration merely to preserve it.
+
+
+## Combined candidate3b8ab32 and remaining corrections, 2026-10-18
+
+The complete managed target on3b8ab32 passed (dispatch39118597663,
+job117649419482):317 backend cases,179 frontend unit cases,1170 browser cases,
+all9 Chrome/Edge/Firefox projects at360/768/1440,0 skips/flaky/unexpected,
+all16 registry entries and fresh/A/B/C. The194222367-byte full-target ZIP was
+verified against SHA256ec390f8be854d9e6fc39b4c036af48db51572853c46b8321fb0df506588609b8.
+Exact case sets and every command receipt are retained as `i02-verification/ci-3b8ab32-*`.
+Image-recovery failed before its first assertion; therefore the workflow and
+combined gate did not pass. The old artifact lacks Docker stderr, so the exact
+missing-image diagnosis for that runner is not claimed. Current dependency
+preparation and safe failure classification require a successful new CI run.
+
+Visual comparison covered180 baseline/target region pairs across all9 projects:
+118 are pixel-identical. The62 different pairs are predominantly360px captures
+of the explicit F01-F04 corrections and shifted fractional canvas rasterization;
+these numbers are descriptive, not acceptance thresholds. Manual ordinary-scale
+inspection included Chrome360 all6 native graph families and F01-F04 regions,
+Firefox360 power12 presets/exact0.0625 and both8/12-part circle SVGs, Firefox768
+power table, and Edge1440 circle controls. Captures preserve authored math and
+readouts, and native F01/F02 repairs deliberately differ from the clipped legacy
+baseline. A real additional defect was found: the quadratic table's six62px-min
+columns cut off two cells at360. Current narrowly scoped mobile CSS uses two
+columns; real9-project visible-cell assertions passed. Its corrected final
+capture and remaining cross-browser observations are still pending.
+
+All11 published script families are covered by the matched capture test's exact
+required/covered set assertion. Public browser-version, matched-index/coverage
+and SVG JSON body attachments were absent from the old filesystem artifact;
+current tests write explicit safe files, with a narrow workflow upload list.
+Actual final metadata must be inspected before claiming the final visual gate.
+No private traces, cookies, passwords or service logs are exported.

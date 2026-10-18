@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {readFileSync} from 'node:fs';
+import {readFileSync,writeFileSync} from 'node:fs';
 const routes=[
  {path:'/linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/',regions:['.ms-lesson-toc','#ms-linear-lab-723']},
  {path:'/10-klass-stepennye-funkcii-i-grafiki-2-0/',regions:['.ms-lesson-toc','#power-lab-v2 .ms-power-presets','#power-lab-v2 .ms-live-table']},
@@ -20,7 +20,7 @@ test('matched live Django and React all script families plus F01–F04 at ordina
  const required=[...new Set(Object.values(data.routes).flatMap(scripts))].sort();
  const covered=[...new Set(routes.flatMap(route=>{const view=data.routes[route.path];expect(view,route.path).toBeTruthy();return scripts(view!);} ))].sort();
  expect(covered,'Every published script family needs matched baseline/target captures').toEqual(required);
- await test.info().attach('matched-family-coverage.json',{body:JSON.stringify({required,covered,routes:routes.map(route=>route.path)}),contentType:'application/json'});
+ const coverage=test.info().outputPath('matched-family-coverage.json');writeFileSync(coverage,JSON.stringify({required,covered,routes:routes.map(route=>route.path)}));await test.info().attach('matched-family-coverage.json',{path:coverage,contentType:'application/json'});
  const context=await browser.newContext({viewport:test.info().project.use.viewport!});
  try{
   const page=await context.newPage();const pairs=[];
@@ -33,6 +33,6 @@ test('matched live Django and React all script families plus F01–F04 at ordina
     pairs.push({route:entry.path,selector,side,project:test.info().project.name,viewport:test.info().project.use.viewport,device_scale_factor:1,browser_version:browser.version(),screenshot:`r${r}-region${i}-${side}.png`});
    }
   }
-  await test.info().attach('matched-capture-index.json',{body:JSON.stringify(pairs,null,2),contentType:'application/json'});
+  const index=test.info().outputPath('matched-capture-index.json');writeFileSync(index,JSON.stringify(pairs,null,2));await test.info().attach('matched-capture-index.json',{path:index,contentType:'application/json'});
  }finally{await context.close();}
 });

@@ -336,6 +336,11 @@ jobs:
             frontend/test-results/**/r*-region*-legacy.png
             frontend/test-results/**/r*-region*-target.png
             frontend/test-results/**/graph-controls.png
+            frontend/test-results/**/graph-table.png
+            frontend/test-results/**/browser-version.json
+            frontend/test-results/**/matched-capture-index.json
+            frontend/test-results/**/matched-family-coverage.json
+            frontend/test-results/**/svg-labels.json
             frontend/test-results/**/initial-contents-*.png
             frontend/test-results/**/contents-*.png
             frontend/test-results/**/power-twelve-presets.png
@@ -508,6 +513,20 @@ jobs:
           subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--user', '0', '--no-healthcheck', '--mount', 'type=bind,source=' + str(output) + ',target=/output', '--entrypoint', 'python', 'mathstart-api:candidate', '-c', "import os;os.chown('/output',10001,10001);os.chmod('/output',0o755)"], check=True, timeout=30)
           subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--label', 'mathstart.purpose=disposable-release-https-build', '--mount', 'type=bind,source=' + str(source) + ',target=/inputs,readonly', '--mount', 'type=bind,source=' + str(output) + ',target=/output', 'mathstart-frontend-builder:candidate', '--input-root', '/inputs', '--release-id', prepared['release_id'], '--manifest-digest', prepared['manifest_digest'], '--receipt-digest', prepared['receipt_digest'], '--output', '/output/site', '--origin', 'https://127.0.0.1:18121'], check=True, timeout=600)
           PY
+      - name: Inspect required images and explicitly prepare pinned PostgreSQL
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          images = ['mathstart-api:candidate', 'mathstart-edge:candidate', 'mathstart-api:prior-042caf8', 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67']
+          checks = []
+          for image in images:
+              result = subprocess.run(['docker', 'image', 'inspect', '--format', '{{.Id}}', image], capture_output=True, text=True)
+              checks.append({'image': image, 'present_before_preparation': result.returncode == 0, 'exit_code': result.returncode})
+          Path('var/image-prerequisites.json').write_text(json.dumps(checks, indent=2) + '\n')
+          print(json.dumps(checks))
+          PY
+          docker pull postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
       - name: HTTPS physical recovery compatible rollback and ordinary API400 at10
         run: >-
           var/image-target-env/bin/python scripts/verify_images.py
@@ -523,6 +542,7 @@ jobs:
           name: image-recovery-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             var/image-input-provenance.json
+            var/image-prerequisites.json
             var/release-image-recovery/result.json
             var/release-image-recovery/ordinary-api-workload.json
             var/release-https-build/site/output-manifest.json

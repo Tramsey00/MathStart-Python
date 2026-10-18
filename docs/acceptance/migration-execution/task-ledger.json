@@ -36,7 +36,7 @@
         "i02-verification/ci-c205ef1-summary.json"
       ],
       "blocking_findings": [
-        "Full managed default target/nine browser projects and independent command review pending; map IMPLEMENTED_PARTIAL, not REVIEWED."
+        "Full managed3b8 target passed. Current image-recovery/combined gate and independent command-contract review pending; map still IMPLEMENTED_PARTIAL."
       ],
       "in_current_block": true,
       "resolved_implementation_findings": [
@@ -72,7 +72,7 @@
     {
       "id": "MS7-MIG-R06",
       "issue": 33,
-      "execution_status": "TODO",
+      "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
@@ -106,11 +106,12 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [
-        "public-verifier-candidate.json#latest_observed"
+        "public-verifier-candidate.json#latest_observed",
+        "i02-verification/ci-3b8ab32-full-target-summary.json"
       ],
       "blocking_findings": [],
       "in_current_block": true,
-      "scope_note": "Clean 45a4a31 public/identity CI passed 24 PostgreSQL and 18 Chrome360 cases; remaining bridge/cutover/admin inventory and full final acceptance are incomplete"
+      "scope_note": "Actual3b8 managed target PASS with exact safe receipts; current corrected candidate and independent review/human acceptance pending."
     },
     {
       "id": "MS7-MIG-V04",
@@ -156,10 +157,12 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [
-        "i02-verification/ci-c205ef1-backend-result.json"
+        "i02-verification/ci-c205ef1-backend-result.json",
+        "i02-verification/ci-3b8ab32-full-target-summary.json"
       ],
       "blocking_findings": [],
-      "in_current_block": true
+      "in_current_block": true,
+      "scope_note": "Actual3b8 managed target PASS with exact safe receipts; current corrected candidate and independent review/human acceptance pending."
     },
     {
       "id": "MS7-MIG-I01",
@@ -203,11 +206,12 @@
       "historical_pr": null,
       "technical_receipts": [
         "public-verifier-candidate.json#latest_observed",
-        "i02-verification/ci-4a4d357-browser-receipt.json"
+        "i02-verification/ci-4a4d357-browser-receipt.json",
+        "i02-verification/ci-3b8ab32-full-target-summary.json"
       ],
       "blocking_findings": [],
       "in_current_block": true,
-      "scope_note": "Clean 45a4a31 public/identity CI passed 24 PostgreSQL and 18 Chrome360 cases; remaining bridge/cutover/admin inventory and full final acceptance are incomplete"
+      "scope_note": "Actual3b8 managed target PASS with exact safe receipts; current corrected candidate and independent review/human acceptance pending."
     },
     {
       "id": "MS7-MIG-I05",
@@ -216,15 +220,17 @@
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [
-        "i02-verification/ci-4a4d357-browser-receipt.json"
+        "i02-verification/ci-4a4d357-browser-receipt.json",
+        "i02-verification/ci-3b8ab32-full-target-summary.json"
       ],
       "blocking_findings": [],
-      "in_current_block": true
+      "in_current_block": true,
+      "scope_note": "Actual3b8 managed target PASS with exact safe receipts; current corrected candidate and independent review/human acceptance pending."
     },
     {
       "id": "MS7-MIG-I06",
       "issue": 45,
-      "execution_status": "TODO",
+      "execution_status": "IN_PROGRESS",
       "formal_status": "HUMAN_PENDING",
       "historical_pr": null,
       "technical_receipts": [],
@@ -284,11 +290,10 @@
     "primary_executor"
   ],
   "pending_verifier_candidate": {
-    "sha": "3116fda332ae17e4c983d6cf7cc907cee7894adf",
-    "status": "FULL_TARGET_FAILED_STAFF_E2E_CORRECTED_SCOPED_PASS_NEW_COMBINED_CANDIDATE_PENDING",
-    "full_target": "39114949722 FAIL;1155/1170 browser cases,0 skipped; corrected staff-write Chrome2/2 PASS",
-    "ordinary_installation": "Linux3116fda release-operations SUCCESS; independent clean clone PASS",
-    "recovery_performance": "Local455 PASS; ordinary400/10 p95 203ms,0 failures; CI job pending",
+    "sha": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+    "status": "FULL_TARGET_PASS_IMAGE_RECOVERY_FAIL_CURRENT_CORRECTED_CANDIDATE_PENDING",
+    "full_target": "39118597663/117649419482 PASS:317 backend,179 frontend unit,1170 browser cases,0 skipped; all16 registry+4 installs; cleanup PASS",
+    "image_recovery": "117659165720 FAIL before first assertion, cleanup PASS; old Docker stderr absent. Explicit PG prerequisite and safe diagnostics added; changed controller local455 PASS. New CI pending.",
     "independent_final_review": "NOT_RUN"
   },
   "record_usage": "Coverage and observed acceptance only; no task dispatch, model setting or separate stop gate. Current instructions: MIGRATION.md"
