@@ -6,6 +6,8 @@ import { SkipLink } from "../shared/ui/components";
 import siteCss from "../../../static/mathstart/css/site.css?url";
 import type { PublicPageView } from "../server/public-types";
 import migrationCss from "../public-migration.css?url";
+// Compile-time repository CSS only; never request, author or account strings.
+import migrationInlineCss from "../public-migration.css?inline";
 
 export const links: Route.LinksFunction = () => [{ rel: "stylesheet", href: siteCss }];
 export const meta: Route.MetaFunction = () => [{ title: "MathStart" }];
@@ -31,7 +33,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <meta property="og:type" content={view.page.page_type === "topic" ? "article" : "website"}/>
           <meta name="twitter:card" content="summary"/>
           {view.page.assets.filter(a=>a.kind === "style").map(a=><link key={a.url} rel="stylesheet" href={a.url}/>)}
-          <link rel="stylesheet" href={migrationCss}/>
+          {view.page.page_type === "topic" ? <link rel="stylesheet" href={migrationCss}/> : <style data-public-migration="" dangerouslySetInnerHTML={{__html:migrationInlineCss}}/>}
         </> : <><Meta/><Links/></>}
       </head>
       <body>

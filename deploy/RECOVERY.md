@@ -9,9 +9,11 @@ An installed release is a tuple: PostgreSQL schema/data/history/protocol state,
 the complete mutable source media root, immutable input releases, compiled
 frontend, their receipts/manifests/digests, signing verifier keys and the cutover
 writer binding. A copy of compiled public files alone is insufficient. The
-current public release references only4 of29 source media files. Back up all29,
-including currently unreferenced uploads, rather than inferring the media set
-from HTML or the immutable asset manifest.
+earlier public release included only4 directly referenced media files. The
+current reviewed home delivery retains all29 public seed media URLs and hashes,
+including unreferenced files. Still back up the entire mutable media root,
+including retained uploads outside that reviewed seed; do not infer the complete
+backup set from current HTML or the immutable asset manifest.
 
 The physical method is intentional. Cutover provenance binds database and role
 OIDs as well as the drained writer fact. A logical restore into another DB/role
