@@ -1,7 +1,11 @@
 # R03 verification adapter contract v1
 
-Status: PROPOSED / INCOMPLETE; independent review and runtime handoff pending.
-Owner Tramsey00; reviewers VladimirFrolov777 /13baybars. [Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30).
+Status: command contract REVIEWED after actual independent technical review.
+Normal mandatory CI with the reviewed map and human acceptance remain separate.
+[Review and limits](../../../docs/acceptance/migration-execution/review/final-review-20261018.md).
+Historical owner attribution: Tramsey00 / VladimirFrolov777 /13baybars.
+[Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) remains open;
+the unified execution authority is MIGRATION.md.
 Current accepted input `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
 previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts retained;
 historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
@@ -37,10 +41,13 @@ entry points for all ten backend checks: system/routes/security, exact schema/he
 all263 lesson sources, full279-page filesystem integrity, live HTTP quality,
 the complete backend suites in isolated databases, fresh twice with real React
 artifacts and repeated bootstrap, and populated upgrade A/B/C via actual schema
-CLI with retained data/history/sequence assertions. `IMPLEMENTED_PARTIAL` allows
-these entries to execute while any absent entry still fails. The remaining gap
-is managed combined runtime/build/browser orchestration and final verification.
-Set REVIEWED only after command-contract review, not to claim task acceptance.
+CLI with retained data/history/sequence assertions. Managed combined orchestration
+passed on42f6249:320 backend,181 frontend unit,1269 browser cases across all9
+projects, zero skips, fresh/upgrade profiles, recovery455 and combined gate.
+The independent reviewer inspected all10 backend and4 frontend handoffs and
+approved their technical REVIEWED status. Normal mandatory CI now exercises this
+state. `IMPLEMENTED_PARTIAL` remains an available intermediate state with missing
+entries failing closed; neither state establishes human task acceptance.
 Backend entry: `{ "script": "backend/<existing-script>.py", "args": ["..."] }`.
 Only Python scripts resolving inside backend are accepted; no arbitrary shell.
 Each entry emits nonempty unskipped target receipts. Public scoped CI executes

@@ -161,8 +161,9 @@ target writes или DDL на общих owned tables запрещены. HMAC/c
 
 Backup — согласованный tuple PostgreSQL/WAL/roles, полный mutable media root,
 immutable public inputs/frontend, manifests/receipts/digests, verifier keys и
-cutover provenance. Текущий immutable public manifest содержит лишь4 из29 source
-media: копировать все29. [Recovery runbook](../deploy/RECOVERY.md) описывает
+cutover provenance. Текущий reviewed public manifest сохраняет все29 source media,
+включая файлы без прямой ссылки в HTML. Резервировать весь mutable media root,
+в том числе файлы вне reviewed seed. [Recovery runbook](../deploy/RECOVERY.md) описывает
 реально проверенный physical restore с OID сохранением и distinct compatible app
 switch до/после synthetic target writes. Отдельный pre-admission legacy-cluster return
 прошёл scoped rehearsal34 assertions с actual Django, physical snapshot и новым
