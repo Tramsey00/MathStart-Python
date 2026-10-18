@@ -3,8 +3,12 @@
 Это versioned руководство текущего переноса. Исторические корневые документы и
 их digest manifests сохранены. Единственное действующее задание —
 [MIGRATION.md](../MIGRATION.md); готовность определяется проверками конкретного
-кандидата. Пока общий target и final review не завершены, статус IN_PROGRESS /
-HUMAN_PENDING. Этот документ не разрешает production deployment или merge main.
+кандидата. Общий target на42f6249 и независимое техническое review завершены;
+обычный mandatory CI проверяет actual latest PR HEAD. Все required jobs, включая
+target/release/image/combined, должны иметь SUCCESS без skipped acceptance:
+[актуальные checks](https://github.com/Tramsey00/MathStart-Python/pull/54/checks).
+После этого технический статус READY_FOR_HUMAN_ACCEPTANCE; human acceptance
+остаётся отдельным решением. Документ не разрешает production deployment или merge main.
 
 | Исторический источник | Текущее применение |
 | --- | --- |

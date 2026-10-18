@@ -26,7 +26,7 @@
     "subagent_reasoning_effort": "medium"
   },
   "latest_observed": {
-    "status": "FULL_QA_REVIEW_PASS_NORMAL_CI_PENDING",
+    "status": "IMPLEMENTED_QA_AND_TECHNICALLY_REVIEWED",
     "runtime_sha": "42f6249d7b49f4a5ee44eaa1ee7353f50141abdb",
     "draft_pr": "https://github.com/Tramsey00/MathStart-Python/pull/54",
     "public_run": 39157536179,
@@ -41,7 +41,41 @@
     "formal_acceptance": "HUMAN_PENDING",
     "authority": "MIGRATION.md; historical records retain exact scope and SHA",
     "image_assertions": 455,
-    "normal_reviewed_map_ci": "AWAITING_PUSH"
+    "normal_reviewed_map_ci": {
+      "candidate_sha": "a3830bd470dd060c8a61e25d72d4712423678873",
+      "push": 39163424869,
+      "pull_request": 39163431069,
+      "public_push": 39163424912,
+      "public_pull_request": 39163431051,
+      "harness_pull_request": 39163431022,
+      "scope": "Normal mandatory triggers after actual review; target and release-operations execute, not skipped. No duplicate explicit dispatch.",
+      "observed_status": "RUNNING",
+      "observed_at": "2026-10-18T20:30:49Z",
+      "current_status_authority": "https://github.com/Tramsey00/MathStart-Python/pull/54/checks"
+    },
+    "candidate_sha": "a3830bd470dd060c8a61e25d72d4712423678873",
+    "readiness_gate": {
+      "authority": "https://github.com/Tramsey00/MathStart-Python/pull/54/checks",
+      "source": "Latest actual PR HEAD and its workflow checkout provenance",
+      "required": [
+        "Migration verify",
+        "target-readiness",
+        "pure",
+        "backend-install",
+        "deployment-images",
+        "target",
+        "release-operations",
+        "image-recovery",
+        "combined-candidate-checks",
+        "public-block",
+        "Harness verify"
+      ],
+      "all_required_conclusions": "SUCCESS",
+      "skipped_is_success": false,
+      "technical_status_when_satisfied": "READY_FOR_HUMAN_ACCEPTANCE",
+      "human_acceptance": "PENDING",
+      "manual_duplicate_dispatch": "NOT_REQUIRED"
+    }
   },
   "previous_observations": [
     {

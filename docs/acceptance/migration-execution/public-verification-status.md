@@ -10,8 +10,12 @@ and adjacent provenance/browser receipts.
 [Full combined CI39157581728](https://github.com/Tramsey00/MathStart-Python/actions/runs/39157581728)
 completed SUCCESS, including target320/181/1269 with0skip, image455 and combined gate.
 Independent technical review found no unresolved blockers; the stale media prose is fixed.
-The command map is now REVIEWED on that actual basis. Normal mandatory CI with this state
-must still pass after push; human acceptance remains pending. Public scope alone is not full acceptance. MIGRATION.md contains current next actions
+The command map is now REVIEWED on that actual basis. Normal mandatory CI for the actual latest PR HEAD must have all required jobs SUCCESS,
+including target/release/image/combined, with no skipped acceptance.
+[Current check results](https://github.com/Tramsey00/MathStart-Python/pull/54/checks)
+and their exact checkout provenance determine this gate. Its satisfied technical state is
+READY_FOR_HUMAN_ACCEPTANCE; human acceptance remains separate.
+The recorded42 receipts keep their original SHA; public scope alone is not full acceptance. MIGRATION.md contains current next actions
 and the user-authorized cosmetic boundary. Earlier records below retain their original SHA
 and historical unfinished-work statements; they are not current execution instructions.
 
