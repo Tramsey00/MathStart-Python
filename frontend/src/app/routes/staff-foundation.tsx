@@ -1,7 +1,8 @@
 import {useEffect,useRef,useState,type FormEvent} from 'react';
 import {useLocation,type LinksFunction} from 'react-router';
-import {createStaffClient,staffOperations,stringifyExact} from '../../shared/api/staff-client';
+import {createStaffClient,staffOperations} from '../../shared/api/staff-client';
 import StaffWritePage from './staff-write';
+import {StaffList,StaffDetails,StaffHistory} from '../../shared/ui/staff-records';
 import {readStaffCapabilities} from '../../shared/api/staff-capabilities';
 import tokens from '../../../../static/mathstart/css/ui/tokens.css?url';
 import foundation from '../../../../static/mathstart/css/ui/foundation.css?url';
@@ -37,7 +38,7 @@ function StaffReadPage(){
   {!valid?<h2>Страница не найдена</h2>:!resource?<ul>{staffResources.filter(r=>Object.values(readStaffCapabilities().resources[r[0]]).some(Boolean)).map(r=><li key={r[0]}><a href={'/admin/'+r[1]+'/'}>{r[2]}</a></li>)}</ul>:<><h2>{info?.[2]}{history?' · История':''}</h2><p role="status" aria-live="polite">{message}</p><a href={base}>К списку</a> <button className="ms-ui-button" type="button" disabled={busy} onClick={()=>void load()}>Загрузить данные ещё раз</button>
   {!id&&<form onSubmit={search}><div className="ms-ui-field"><label htmlFor="staff-search">Поиск</label><input id="staff-search" name="q"/></div>{(listOp?.parameters??[]).filter((p:any)=>p.name.startsWith('filter__')).map((p:any)=><div className="ms-ui-field" key={p.name}><label htmlFor={p.name}>{labels[p.name.slice(8)]??p.name.slice(8)}</label>{p.schema.type==='boolean'?<select id={p.name} name={p.name}><option value="">Все</option><option value="true">Да</option><option value="false">Нет</option></select>:p.schema.enum?<select id={p.name} name={p.name}><option value="">Все</option>{p.schema.enum.map((v:string)=><option key={v} value={v}>{v}</option>)}</select>:<input id={p.name} name={p.name}/>}</div>)}<div className="ms-ui-field"><label htmlFor="staff-sort">Порядок</label><select id="staff-sort" name="sort"><option value="default">По умолчанию</option>{Object.keys(listOp?.['x-sort-contract']?.explicit_single_field_orders??{}).map(key=><option key={key} value={key}>{key}</option>)}</select></div><button type="submit" className="ms-ui-button" disabled={busy}>Показать</button></form>}
   {id&&<nav><a href={base+id+'/change/'}>Просмотр</a> · <a href={base+id+'/history/'}>История</a>{resource==='pages'&&<button type="button" className="ms-ui-button" disabled={busy} onClick={()=>void publication()}>Состояние публикации</button>}</nav>}
-  {Array.isArray(data)?<ul>{data.map((row,index)=><li key={String(row.id??index)}>{!history?<a href={base+String(row.id)+'/change/'}>{row.title??row.username??row.name??row.slug??row.source_path??row.old_path??String(row.id)}</a>:<pre style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{stringifyExact(row)}</pre>}</li>)}</ul>:data&&<dl>{Object.entries(data).map(([key,value])=><div key={key}><dt>{key}</dt><dd style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{typeof value==='string'?value:stringifyExact(value)}</dd></div>)}</dl>}
+  {Array.isArray(data)?history?<StaffHistory rows={data}/>:<StaffList resource={resource} rows={data} base={base} caption={info?.[2]??'Записи'}/>:data&&<StaffDetails record={data}/>}
   {pagination?.next_cursor&&<button type="button" className="ms-ui-button" disabled={busy} onClick={()=>void load({...query,cursor:pagination.next_cursor})}>Следующая страница</button>}
   </>}<noscript><p>Для загрузки административных данных нужен JavaScript.</p></noscript></main>;
 }
