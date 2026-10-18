@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
-import inventory from '../../docs/acceptance/MS7-MIG-R01/admin-inventory.json';
+import inventory from '../../docs/acceptance/MS7-MIG-R01/admin-inventory.json' with {type:'json'};
 // The external disposable-runtime orchestrator mints this opaque cookie. Never
 // attach it, storageState, request headers or a private trace to evidence.
 test.use({trace:'off'});
