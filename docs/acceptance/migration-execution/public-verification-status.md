@@ -1,4 +1,19 @@
-# Current continuation
+# Current public verification
+
+Code candidate `42f6249d7b49f4a5ee44eaa1ee7353f50141abdb` passed
+[public CI39157536179](https://github.com/Tramsey00/MathStart-Python/actions/runs/39157536179):
+18 Chrome360 browser cases, zero skips, unchanged source and successful lifecycle cleanup;
+subsequent identity/staff PostgreSQL regressions also passed. Exact safe receipts are
+[i02-verification/ci-42f6249-public-result.json](i02-verification/ci-42f6249-public-result.json)
+and adjacent provenance/browser receipts.
+
+[Full combined CI39157581728](https://github.com/Tramsey00/MathStart-Python/actions/runs/39157581728)
+is still running. Public scope alone is not full target acceptance. Overall IN_PROGRESS,
+independent review and human acceptance pending. MIGRATION.md contains current next actions
+and the user-authorized cosmetic boundary. Earlier records below retain their original SHA
+and historical unfinished-work statements; they are not current execution instructions.
+
+# Historical continuation at2d707db
 
 Latest code is `2d707db68fe3abaff2bb6b685e3fba7c0a6dbcd5`. It adds a
 read-only legacy session transfer verifier and separates historical schema
