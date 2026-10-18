@@ -14,6 +14,10 @@ on:
         description: Run the complete managed target and all nine browser projects
         type: boolean
         default: false
+      recovery_handoff_run:
+        description: Scoped image-only check using a previous successful full target; does not establish combined acceptance
+        type: number
+        default: 0
 
 permissions:
   contents: read
@@ -28,11 +32,16 @@ jobs:
         with:
           ref: ${{ github.sha }}
       - id: handoff
+        env:
+          RECOVERY_HANDOFF_RUN: ${{ inputs.recovery_handoff_run || 0 }}
+          FULL_TARGET_REQUESTED: ${{ inputs.full_target || false }}
         name: Record implemented commands and explicit remaining target gaps
         run: |
           python - <<'PY'
           import json, os
           from pathlib import Path
+          if int(os.environ['RECOVERY_HANDOFF_RUN']) and os.environ['FULL_TARGET_REQUESTED'] == 'true':
+              raise SystemExit('Choose full_target or scoped recovery_handoff_run, not both')
           data = json.loads(Path('specs/migration/r03-v1/runtime-commands.json').read_text())
           required = data['required_backend_checks']
           missing = [key for key in required if not data.get('commands', {}).get(key)]
@@ -45,6 +54,7 @@ jobs:
           print('R03 target: READY to exercise unchanged assertions' if ready else 'R03 target: INCOMPLETE; full target is not verified. Available entries run in public scoped CI.')
           PY
   verify:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
     runs-on: ubuntu-latest
     timeout-minutes: 20
     services:
@@ -105,6 +115,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_migration_r02*.py' -v
 
   pure:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -133,6 +144,7 @@ jobs:
           if-no-files-found: error
 
   backend-install:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
     runs-on: ubuntu-latest
     timeout-minutes: 40
     services:
@@ -204,6 +216,7 @@ jobs:
           retention-days: 30
 
   deployment-images:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -240,7 +253,7 @@ jobs:
 
   target:
     needs: target-readiness
-    if: needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)
+    if: (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)) && !(github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0)
     runs-on: ubuntu-latest
     timeout-minutes: 180
     services:
@@ -361,7 +374,7 @@ jobs:
 
   release-operations:
     needs: target-readiness
-    if: needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)
+    if: (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)) && !(github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0)
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
@@ -407,7 +420,7 @@ jobs:
 
   combined-candidate-checks:
     needs: [target-readiness, verify, pure, backend-install, deployment-images, target, release-operations, image-recovery]
-    if: always() && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target))
+    if: always() && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)) && !(github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0)
     runs-on: ubuntu-latest
     steps:
       - name: Every mandatory technical job must execute successfully
@@ -426,7 +439,7 @@ jobs:
 
   image-recovery:
     needs: [target-readiness, target]
-    if: needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)
+    if: always() && needs.target-readiness.result == 'success' && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && (inputs.full_target || inputs.recovery_handoff_run > 0)))
     runs-on: ubuntu-latest
     timeout-minutes: 55
     permissions:
@@ -449,9 +462,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           EXPECTED_EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          RECOVERY_HANDOFF_RUN: ${{ inputs.recovery_handoff_run || 0 }}
         run: |
           python - <<'PY'
-          import hashlib, io, json, os, urllib.request, urllib.error, urllib.parse, zipfile
+          import hashlib, io, json, os, subprocess, urllib.request, urllib.error, urllib.parse, zipfile
           from pathlib import Path
           repo, run, attempt = os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_RUN_ID'], os.environ['GITHUB_RUN_ATTEMPT']
           headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
@@ -468,11 +482,26 @@ jobs:
                       return response.read()
               except urllib.error.HTTPError as error:
                   raise SystemExit('Artifact request failed with HTTP ' + str(error.code)) from None
+          current_run = run
+          retained = int(os.environ['RECOVERY_HANDOFF_RUN'])
+          expected_head, expected_checkout = os.environ['EXPECTED_EVENT_HEAD_SHA'], os.environ['GITHUB_SHA']
+          if retained:
+              source = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + str(retained)))
+              current = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + current_run))
+              assert source['workflow_id'] == current['workflow_id'] and source['event'] == 'workflow_dispatch'
+              assert source['head_repository']['full_name'] == repo and source['head_branch'] == 'ms7-mig-react-fastapi'
+              jobs = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + str(retained) + '/jobs?filter=latest'))
+              assert any(job['name'] == 'target' and job['conclusion'] == 'success' for job in jobs['jobs'])
+              subprocess.run(['git', 'merge-base', '--is-ancestor', source['head_sha'], os.environ['GITHUB_SHA']], check=True)
+              protected = ['curriculum', 'site_content', 'static', 'templates', 'content', 'users', 'frontend/rendering.py', 'backend/content/components.py', 'backend/content/component_templates.py', 'backend/content/sources.py', 'backend/content/build.py', 'backend/content/projection.py']
+              subprocess.run(['git', 'diff', '--quiet', source['head_sha'], os.environ['GITHUB_SHA'], '--', *protected], check=True)
+              run, attempt = str(retained), str(source['run_attempt'])
+              expected_head = expected_checkout = source['head_sha']
           data = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + run + '/artifacts'))
           selected = [a for a in data['artifacts'] if a['name'] == 'full-target-' + run + '-' + attempt and not a['expired']]
           assert len(selected) == 1, 'Missing exact current-attempt target artifact'
           artifact = selected[0]
-          assert artifact['workflow_run']['head_sha'] == os.environ['EXPECTED_EVENT_HEAD_SHA']
+          assert artifact['workflow_run']['head_sha'] == expected_head
           raw = get('https://api.github.com/repos/' + repo + '/actions/artifacts/' + str(artifact['id']) + '/zip')
           assert 'sha256:' + hashlib.sha256(raw).hexdigest() == artifact['digest']
           archive = zipfile.ZipFile(io.BytesIO(raw)); root = Path.cwd().resolve()
@@ -480,8 +509,8 @@ jobs:
               if entry.filename.startswith(('var/full-target/runtime/releases/', 'var/full-target/artifact/')) or entry.filename in {'var/full-target/runtime/prepare-result.json', 'var/full-target-provenance.json'}:
                   assert (root / entry.filename).resolve().is_relative_to(root / 'var')
                   archive.extract(entry, root)
-          assert json.loads(Path('var/full-target-provenance.json').read_text())['checkout_sha'] == os.environ['GITHUB_SHA']
-          Path('var/image-input-provenance.json').write_text(json.dumps({'artifact_id': artifact['id'], 'sha256': artifact['digest'], 'checkout_sha': os.environ['GITHUB_SHA']}, indent=2) + '\n')
+          assert json.loads(Path('var/full-target-provenance.json').read_text())['checkout_sha'] == expected_checkout
+          Path('var/image-input-provenance.json').write_text(json.dumps({'artifact_id': artifact['id'], 'sha256': artifact['digest'], 'checkout_sha': os.environ['GITHUB_SHA'], 'handoff_checkout_sha': expected_checkout, 'handoff_run': run, 'scope': 'SCOPED_RETAINED_HANDOFF_NOT_COMBINED_ACCEPTANCE' if retained else 'CURRENT_FULL_CANDIDATE'}, indent=2) + '\n')
           print('Verified exact public handoff; private runtime/cookies were not extracted')
           PY
       - name: Build current images and a distinct retained compatible API
@@ -527,6 +556,9 @@ jobs:
           print(json.dumps(checks))
           PY
           docker pull postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+      - name: Classify automatic IPAM using stopped owned container
+        if: github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0
+        run: python scripts/probe_network_ipam.py --image mathstart-api:candidate --output var/network-ipam-probe.json
       - name: HTTPS physical recovery compatible rollback and ordinary API400 at10
         run: >-
           var/image-target-env/bin/python scripts/verify_images.py
@@ -543,6 +575,7 @@ jobs:
           path: |
             var/image-input-provenance.json
             var/image-prerequisites.json
+            var/network-ipam-probe.json
             var/release-image-recovery/result.json
             var/release-image-recovery/ordinary-api-workload.json
             var/release-https-build/site/output-manifest.json

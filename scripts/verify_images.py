@@ -71,7 +71,7 @@ for port in (public.port,pgport):
  with socket.socket() as listener:
   listener.bind(('127.0.0.1',port))
 image=args.api_image
-label='disposable-image-rehearsal'; names={kind:'mathstart-image-'+kind+'-'+run_id for kind in ('api','db','net','front','edge','public','copy','client','backup','restored-database','restored-public','restored-media')}
+label='disposable-image-rehearsal'; names={kind:'mathstart-image-'+kind+'-'+run_id for kind in ('api','db','net','allocation','front','edge','public','copy','client','backup','restored-database','restored-public','restored-media')}
 owned={}; engine=None; result={'status':'IN_PROGRESS','scope':'Containerized API/PG/read-only public volume + actual login/logout; retained synthetic inputs, not final QA','assertions':[],
  'argv':sys.argv,'cwd':str(ROOT),'started_at':datetime.now(timezone.utc).isoformat()}
 run_started=time.monotonic()
@@ -86,9 +86,9 @@ def command(args,timeout=120,log=None):
   (directory/'docker-failure.log').write_text(diagnostic,encoding='utf-8')
   # Export only a closed diagnostic classification, never arbitrary stderr,
   # command arguments, DSNs, cookies or the private env-file contents.
-  known = ('No such image', 'permission denied', 'Cannot connect to the Docker daemon',
+  known = ('user specified IP address is supported only when connecting to networks with user configured subnets', 'Pool overlaps with other one on this address space', 'Address already in use', 'No such image', 'permission denied', 'Cannot connect to the Docker daemon',
            'port is already allocated', 'manifest unknown', 'no matching manifest')
-  result['docker_failure'] = {'operation': args[0], 'exit_code': r.returncode,
+  result['docker_failure'] = {'operation': args[0], 'subcommand': args[1] if args[0] in {'network', 'image', 'volume'} and len(args)>1 else None, 'exit_code': r.returncode,
       'classification': next((text for text in known if text.lower() in diagnostic.lower()), 'UNCLASSIFIED')}
   if args[:2] == ['image', 'inspect']:
    result['docker_failure']['image_reference'] = args[2]
@@ -107,11 +107,22 @@ try:
   result['images'][name]=json.loads(command(['image','inspect',reference]))[0]['Id']
  if args.rollback_image:result['images']['prior_api']=json.loads(command(['image','inspect',args.rollback_image]))[0]['Id']
  if args.rollback_image and result['images']['prior_api']==result['images']['api']:raise RuntimeError('Rollback rehearsal requires a distinct prior image')
- owned['net']=command(['network','create','--internal','--label','mathstart.purpose='+label,names['net']])
- owned['front']=command(['network','create','--label','mathstart.purpose='+label,names['front']])
- subnet=ipaddress.ip_network(inspected('network',owned['net'])['IPAM']['Config'][0]['Subnet'])
+ # Ask Docker's allocator for a free pool, then recreate only our empty
+ # reservation with an explicit subnet. Linux engines require user-configured
+ # IPAM for the exact trusted edge IP; never replace it with a broad CIDR trust.
+ owned['allocation']=command(['network','create','--internal','--label','mathstart.purpose='+label,names['allocation']])
+ allocation=inspected('network',owned['allocation'])
+ assert allocation['Id']==owned['allocation'] and allocation['Labels']['mathstart.purpose']==label and not allocation.get('Containers')
+ subnet=ipaddress.ip_network(allocation['IPAM']['Config'][0]['Subnet'])
  assert subnet.version==4 and subnet.num_addresses>12
+ command(['network','rm',owned['allocation']]);del owned['allocation']
+ # A concurrent claimant makes Docker refuse the explicit pool; no adoption,
+ # range widening or retry against someone else's network is performed.
+ owned['net']=command(['network','create','--internal','--subnet',str(subnet),'--label','mathstart.purpose='+label,names['net']])
+ owned['front']=command(['network','create','--label','mathstart.purpose='+label,names['front']])
+ assert inspected('network',owned['net'])['IPAM']['Config'][0]['Subnet']==str(subnet)
  edge_ip=str(subnet.network_address+10)
+ result['network_configuration']={'explicit_subnet':str(subnet),'exact_trusted_edge_ip':edge_ip}
  if subprocess.run([docker,'volume','inspect',names['public']],capture_output=True,timeout=10).returncode==0: raise RuntimeError('Volume name already occupied')
  command(['volume','create','--label','mathstart.purpose='+label,names['public']]);owned['public']=names['public']
  if args.recovery:
@@ -169,6 +180,7 @@ try:
  edge_image=args.edge_image
  command(['image','inspect',edge_image],log='edge-image.json')
  owned['edge']=command(['create','--name',names['edge'],'--label','mathstart.purpose='+label,'--network',names['front'],'--read-only','--cap-drop','ALL','--user','101:101','--tmpfs','/tmp:rw,nosuid,noexec,size=16m,uid=101,gid=101',*edge_tls_mounts,'--publish','127.0.0.1:'+str(public.port)+':'+str(edge_port),'--entrypoint','nginx',edge_image,*edge_command])
+ result['phase']='connect_edge_explicit_internal_ip'
  command(['network','connect','--ip',edge_ip,names['net'],owned['edge']])
  command(['start',owned['edge']])
  result['phase']='real_http_proxy_auth_checks'
@@ -252,7 +264,7 @@ finally:
    if key in ('api','edge'):command(['logs',owned[key]],log=key+'.log')
    command(['stop',owned[key]],timeout=30);command(['rm',owned[key]],timeout=30)
   except Exception as error:errors.append(type(error).__name__)
- for key,kind in (('restored-media','volume'),('restored-public','volume'),('restored-database','volume'),('backup','volume'),('public','volume'),('net','network'),('front','network')):
+ for key,kind in (('restored-media','volume'),('restored-public','volume'),('restored-database','volume'),('backup','volume'),('public','volume'),('net','network'),('front','network'),('allocation','network')):
   if key not in owned:continue
   try:
    state=inspected(kind,owned[key]);assert state['Labels']['mathstart.purpose']==label
