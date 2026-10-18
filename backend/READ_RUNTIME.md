@@ -3,8 +3,12 @@
 The normal ASGI factory composes public releases, `frontend.rendering.PublicRenderer`,
 PostgreSQL identity/session services and React account/staff forms. The explicit
 `create_public_app` test factory retains its read-only default unless an identity
-service is supplied. Full publication/recovery and production cutover remain
-unfinished; these commands describe a disposable demonstration candidate.
+service is supplied. The ordinary publication/recovery and fresh installation paths have scoped
+real evidence; combined final QA, the complete legacy-cluster return rehearsal
+and human acceptance remain pending. Current setup/architecture and historical
+document mapping are in [docs/target-runtime.md](../docs/target-runtime.md).
+The synthetic commands below are QA fixtures; ordinary installation uses
+[deploy/RELEASE.md](../deploy/RELEASE.md).
 
 Install `backend/infrastructure/http/requirements.lock` in the target environment.
 For tests also install `backend/tests/v04/requirements.lock`. Neither requires
@@ -63,7 +67,10 @@ their API reads and mutations authenticate the opaque session, expiry/revocation
 auth-hash and current DB permissions. Mutations enforce CSRF and validators.
 Compiled UI files check the pinned committed descriptor, trusted output manifest
 and requested file hash; public content still checks the full source release.
-Proxy headers are disabled until an explicit edge trust policy is implemented.
+Direct ASGI commands disable proxy headers. The target Compose configuration
+uses two workers and trusts only its explicitly reserved edge IP; the edge
+overwrites forwarded client/protocol headers and clears alternative headers.
+Never trust arbitrary proxy peers or expose that API port directly.
 Private staff documents receive a boolean-only presentation snapshot from the
 current DB permissions. It hides unavailable actions, preserves combined User
 creation permissions and Content read-only controls; each API still authorizes

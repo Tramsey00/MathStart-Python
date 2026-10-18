@@ -5,7 +5,9 @@
 > Исторические карточки, роли и даты ниже сохраняют требования и provenance;
 > они не создают отдельные задания и не разрешают реализацию будущих функций продукта.
 
-**DRAFT / R05 IN_PROGRESS / HUMAN_PENDING.** Дата наблюдения16.10.2026, Europe/Moscow. Документ содержит все32 главы и52 canonical product task cards исходного v7.1. Техническая готовность всей миграции ещё не установлена. Полный исходный PDF сохранён отдельно; исторический G0 v7.1 не переносится как approval этого draft.
+**DRAFT / R05 IN_PROGRESS / HUMAN_PENDING.** Дата сверки18.10.2026, Europe/Moscow. Документ содержит все32 главы и52 canonical product task cards исходного v7.1. Техническая готовность всей миграции ещё не установлена. Полный исходный PDF сохранён отдельно; исторический G0 v7.1 не переносится как approval этого draft.
+
+Сверка полного114-страничного PDF и52 карточек выполнена;115 явных typed dependency edges совпадают с источником. Исправлено геометрическое расположение знаков ≤/≥/→, искажённое первоначальным извлечением PDF; численные значения не менялись. [Provenance/changelog](technical-spec-v7.2-provenance.md) фиксирует источники, границы сверки и ещё ожидающуюся общую приёмку.
 
 Изменения этой редакции: принятая FastAPI/SQLAlchemy/Alembic и React/TypeScript платформа; Django-independent operational boundary; public manifest prerender; совместимые auth/session/receipt adapters; task/Issue migration workflow;52-row platform disposition и dependency/readiness вместо новых обещаний календаря. Доменная семантика, numerical defaults, organisational roles и course requirements сохраняются. Исходные карточки и зависимость каждого типа доступны в machine-readable source registry. Финальные SHA/evidence/current docs/rollback будут привязаны после объединённого R04 и release freeze.
 
@@ -129,11 +131,10 @@ CORE MVP: сохранить каталог и публикацию, auth/profil
 (отрицательные числа; распределительное свойство/скобки; линейные уравнения со скобками), 10
 skills/13 edges, 40 assessed exercises и минимум 3 SELF_CHECK, Analyzer, Progress, diagnostics/adaptive
 practice, Tutor. Engineering Harness — отдельный обязательный проектный результат, используемый
-командой для разработки. В 40 assessed exercises должно быть 4 PRIMARY упражнения на каждый skill, ≥
-12 STEP_BY_STEP, 12 FINAL_ANSWER, 2 содержательно разных STRUCTURED_SOLUTION schemas. Один ≥ ≥ ≥
+командой для разработки. В 40 assessed exercises должно быть ≥4 PRIMARY упражнения на каждый skill,
+≥12 STEP_BY_STEP, ≥12 FINAL_ANSWER, ≥2 содержательно разных STRUCTURED_SOLUTION schemas. Один
 exercise имеет один PRIMARY skill для подсчёта покрытия; secondary mappings не позволяют дважды
-закрывать квоту. Для каждого skill 2 уровня сложности; для скобок/уравнений присутствуют уровни 2, 3,≥
-## 4. Схемы structured: например, поля раскрытия скобок и переносов/упрощения уравнения; это
+закрывать квоту. Для каждого skill ≥2 уровня сложности; для скобок/уравнений присутствуют уровни 2, 3, 4. Схемы structured: например, поля раскрытия скобок и переносов/упрощения уравнения; это
 различные проверяемые формы, а не две копии UI. POST-MVP FR-25–29: вся школьная математика с
 произвольными преобразованиями, геометрический canvas, OCR рукописных решений, полный RAG,
 роли родителей/учителей. Не входят обучение собственной LLM, дополнительный frontend-стек помимо принятого React/TypeScript, microservices, Neo4j,
@@ -218,8 +219,8 @@ SDK только здесь; не зависит от доменных ORM
 harness
 инженерные run/context/tools/policy/trace
 Checkout и разрешённые checks; не импортируется production app
-Стрелка A B означает «A вызывает публичный контракт B». FK/string references не оправдывают →
-циклические runtime imports. Зависимость Assessment Progress односторонняя: он передаёт →
+Стрелка A→B означает «A вызывает публичный контракт B». FK/string references не оправдывают
+циклические runtime imports. Зависимость Assessment→Progress односторонняя: он передаёт
 валидированный пакет evidence, Progress проверяет и изменяет только свою проекцию.
 Идентификаторы source в Progress — значения/DTO; reverse ORM dependency на Assessment не нужен.
 Анализатор возвращает результат, а Assessment решает, какой event допустим. Topic — термин API для
@@ -227,8 +228,8 @@ ContentPage(TOPIC), новый дублирующий Topic model не созд�
 связывает ContentPage с Knowledge.Skill. Архивирование skill/version защищает историю; удаление
 evidence-referenced объектов запрещено. Публикационный pipeline читает filemanaged sources и
 обновляет content, не пытается «инициализировать заново» пользовательский прогресс. Основной
-поток: browser Assessment draft/submit immutable snapshot deterministic validation возможный → → → →
-bounded Analyzer transactional finalization Progress ingest/reducer public result. Tutor help/reveal → → →
+поток: browser→Assessment draft/submit→immutable snapshot→deterministic validation→возможный
+bounded Analyzer→transactional finalization→Progress ingest/reducer→public result. Tutor help/reveal
 проходят тот же Assessment service. Adaptive выбирает задачу из разрешённого pool, не начисляет
 прогресс сам. Sequence submit: (1) auth/CSRF/owner/schema/idempotency; (2) короткая транзакция lock
 attempt и exposure, freeze revision, operation_id, SUBMITTED; (3) вычисление/LLM вне DB transaction; (4)
@@ -324,8 +325,8 @@ STRUCTURED_FIELDS, FINAL_STATEMENT. Client отправляет только ste
 normalized_repr и parse_status устанавливает сервер. R02A добавляет revision/identity, не
 переименовывая эти поля. Новые types требуют contract review; произвольный текст не получает
 математической оценки без поддерживаемого validator. Reorder разрешён только в draft; после submit
-порядок входит в digest. State machine: STARTED SUBMITTED COMPLETED для assessed; → →
-STARTED REVIEWED для SELF_CHECK; STARTED ABANDONED. SUBMITTED immutable. COMPLETED имеет → →
+порядок входит в digest. State machine: STARTED→SUBMITTED→COMPLETED для assessed;
+STARTED→REVIEWED для SELF_CHECK; STARTED→ABANDONED. SUBMITTED immutable. COMPLETED имеет
 CORRECT/WRONG/UNSUPPORTED/INDETERMINATE, а не четыре новых state. Сетевой сбой не означает
 WRONG. После submit исправление — новый Attempt с previous_attempt_id. GET никогда не увеличивает
 mastery. PUT draft требует expected_revision и целый валидный draft; успешный update повышает
@@ -355,17 +356,17 @@ Attempt — конкретная попытка с неизменяемым от
 
 ## 8. Knowledge Graph и точный Progress
 Skill — стабильный математический навык, а Topic — страница обучения. Knowledge Graph задаёт
-prerequisite dependent, не обратное направление. 10 codes: integer_number_line, negative_numbers, →
+prerequisite→dependent, не обратное направление. 10 codes: integer_number_line, negative_numbers,
 sign_rules_add_sub, sign_rules_mul_div, distributive_property, expand_parentheses, combine_like_terms,
 equation_balance, linear_one_step, linear_parentheses. Названия сверяются с R03 fixture; окончательные
 machine codes всегда из fixture, без алиасов в DB.
-13 рёбер: integer_number_line negative_numbers; negative_numbers sign_rules_add_sub; → →
-negative_numbers sign_rules_mul_div; sign_rules_add_sub distributive_property; → →
-sign_rules_mul_div distributive_property; distributive_property expand_parentheses; → →
-sign_rules_add_sub combine_like_terms; expand_parentheses combine_like_terms; → →
-combine_like_terms equation_balance; equation_balance linear_one_step; → →
-linear_one_step linear_parentheses; expand_parentheses linear_parentheses; → →
-combine_like_terms linear_parentheses. Все веса 1.0; graph_version pilot-v1. Self-edges, duplicates, cycles →
+13 рёбер: integer_number_line→negative_numbers; negative_numbers→sign_rules_add_sub;
+negative_numbers→sign_rules_mul_div; sign_rules_add_sub→distributive_property;
+sign_rules_mul_div→distributive_property; distributive_property→expand_parentheses;
+sign_rules_add_sub→combine_like_terms; expand_parentheses→combine_like_terms;
+combine_like_terms→equation_balance; equation_balance→linear_one_step;
+linear_one_step→linear_parentheses; expand_parentheses→linear_parentheses;
+combine_like_terms→linear_parentheses. Все веса 1.0; graph_version pilot-v1. Self-edges, duplicates, cycles
 отклоняются целиком. basic_arithmetic — внешняя предпосылка, не одиннадцатый skill. Mastery отражает
 накопленную оценку владения, Confidence — достаточность подтверждений; оба 0..100. Confidence не
 является вероятностью истинности ответа LLM. Начало с нуля: 0/0. Самоотметка: один
@@ -408,9 +409,9 @@ misconception на skill: 1, 1.25, затем 1.5. Самостоятельны�
 нельзя одновременно начислять WRONG и MISCONCEPTION за один дефект; диагностическая ошибка
 даёт один DIAGNOSTIC_WRONG. Wrong final сам по себе не доказывает misconception. Pilot подтверждает
 первую доказанную ошибку на skill; дополнительные независимые шаги требуют отдельного
-проверенного evidence. Status: evidence_count=0  NOT_STARTED. Иначе mastery 80, confidence 60 и 3 → ≥ ≥ ≥
-independent correct в последних 10 завершениях  MASTERED. Иначе mastery<50 и confidence 30  → ≥ →
-WEAK. Остальное  LEARNING. Самоотметка даёт LEARNING. Topic mastery — importance-weighted average→
+проверенного evidence. Status: evidence_count=0 → NOT_STARTED. Иначе mastery≥80, confidence≥60 и ≥3
+independent correct в последних 10 завершениях → MASTERED. Иначе mastery<50 и confidence≥30 →
+WEAK. Остальное → LEARNING. Самоотметка даёт LEARNING. Topic mastery — importance-weighted average
 mapped skills; coverage — доля assessed PRIMARY skills по accepted UI contract. Topic coverage считается по
 его PRIMARY mapped skills, не по всем десяти; supplementary skills показываются отдельно. Нулевой
 denominator — «нет оценочных навыков», не 0% знаний. Replay упорядочивает events по
@@ -442,9 +443,9 @@ pilot: целые/рациональные выражения, знаки, ра�
 ax+b=cx+d, включая no solution/all solutions. x² может лексически распознаться, но нелинейный смысл —
 UNSUPPORTED. Variable denominator, функции, системы, произвольные доказательства, геометрия и OCR
 вне scope. Parse statuses: OK, INVALID, UNSUPPORTED, NOT_REQUIRED. INVALID syntax не является
-misconception; неподдерживаемая область не считается WRONG. Лимиты D-024: request 64 KiB, 40 ≤ ≤
-steps, 512 chars на expression, 128 tokens, nesting 16, numeric literal 12 digits, абсолютная ≤ ≤ ≤ ≤
-степень 10; 250 ms на expression и 2 s на пакет в отдельном процессе. Превышение возвращает ≤ ≤ ≤
+misconception; неподдерживаемая область не считается WRONG. Лимиты D-024: request ≤64 KiB, ≤40
+steps, ≤512 chars на expression, ≤128 tokens, nesting≤16, numeric literal≤12 digits, абсолютная
+степень≤10; ≤250 ms на expression и ≤2 s на пакет в отдельном процессе. Превышение возвращает
 controlled unsupported/limit result без strong negative. Родитель останавливает процесс по deadline;
 timeout не держит worker и DB transaction. Диапазоны и repeated operators тестируются на worst-case
 input. Step validator рассматривает непрерывный проверенный prefix. First proven error — первый
@@ -458,7 +459,7 @@ DISTRIBUTIVE_PROPERTY; LIKE_TERMS; EQUATION_BALANCE; ARITHMETIC_ERROR тольк
 ближайшим pilot skill ради штрафа. AnalysisResult содержит schema_version, verdict, classification,
 first_error_step_id nullable, misconception_code nullable, skill_codes, evidence_refs, confidence 0..1, source,
 parser/validator/taxonomy/prompt/model versions, safe_feedback. Model response проходит
-Pydantic/schema plus domain validation. confidence 0.8 необходимо, но недостаточно для strong negative: ≥
+Pydantic/schema plus domain validation. confidence≥0.8 необходимо, но недостаточно для strong negative:
 нужны известное правило и независимо проверенный evidence. LLM не изменяет математический
 verdict поверх доказанного deterministic result. Fallback: deterministic safe feedback или INDETERMINATE с
 объяснением ограничения. Invalid JSON/schema, unknown code/skill, low confidence, provider timeout,
@@ -470,8 +471,8 @@ injection — abstain; ноль strong negative. Retry максимум в пр�
 ---
 
 ## 10. Tutor, диагностика и адаптивная практика
-Tutor Context Builder берёт public exercise, текущую помощь, 4000 chars релевантной теории, 10 skills, ≤ ≤
-5 последних подтверждённых ошибок, 6 сообщений. Общий budget 6000 estimated tokens, с reserve ≤ ≤ ≤
+Tutor Context Builder берёт public exercise, текущую помощь, ≤4000 chars релевантной теории, ≤10 skills,
+≤5 последних подтверждённых ошибок, ≤6 сообщений. Общий budget ≤6000 estimated tokens, с reserve
 под schema/output. Checker/answer/private solution до reveal не попадают в prompt. Контекст имеет
 версии/digests и обрезает сначала историю, сохраняя policy и текущее действие.
 До reveal модель может выбрать только schema-valid intent/hint_id/level/followup_id из reviewed hint bank.
@@ -479,18 +480,18 @@ Tutor Context Builder берёт public exercise, текущую помощь, 4
 event; только затем отдаёт заранее проверенный текст. Произвольная сгенерированная математика не
 выводится. Даже «общий совет» может раскрыть одношаговый ответ, поэтому bank проверяется
 редактором. После reveal разрешён bounded explanation по раскрытому solution, escaped output, без raw
-HTML/scripts и с fallback. Product LLM: общий deadline 12 s, 2 model calls на action; retries не сбрасывают ≤
-deadline. Budget exhausted  safe fallback, никакого скрытого третьего вызова. Provider/model/pricing и →
+HTML/scripts и с fallback. Product LLM: общий deadline 12 s, ≤2 model calls на action; retries не сбрасывают
+deadline. Budget exhausted → safe fallback, никакого скрытого третьего вызова. Provider/model/pricing и
 общий денежный лимит TBD до live smoke; model identifier и actual token usage фиксируются, стоимость
 не выдумывается. Product AI действительно вызывается в отдельном live acceptance, хотя core и CI
-работают offline. Диагностика: 10 заданий, по одному PRIMARY skill в топологическом порядке. Skip ≤
+работают offline. Диагностика: ≤10 заданий, по одному PRIMARY skill в топологическом порядке. Skip
 нейтрален; помощь снижает независимость, reveal запрещает diagnostic correct credit. Выбор
 опубликованного supported упражнения фиксируется до отправки клиенту. Завершение или повтор next
 не создаёт новый item. Onboarding не блокируется навечно при unsupported/no candidate: сохраняется
 безопасный результат и доступен START_ZERO с явным выбором. Adaptive selector: сначала слабые
 prerequisites target до глубины 2; сортировка mastery ascending, depth descending, code ascending. Если
 слабых нет, но есть confidence<30 — diagnostic route с depth/code tiebreak; иначе target. Difficulty при
-достаточной confidence: mastery<40 1–2, <70 2–3, иначе 3–4; выбрать ближе к нижней границе. При → →
+достаточной confidence: mastery<40→1–2, <70→2–3, иначе 3–4; выбрать ближе к нижней границе. При
 confidence<30 диагностический выбор начинает с 2, при отсутствии допустимого уровня 2 — с 1; это
 отдельный low-confidence fallback, а не правило всегда выбирать 1. Выбирается published supported
 mode; фиксируются reason/policy version/candidate IDs. Среди подходящих candidates предпочесть
@@ -501,7 +502,7 @@ FINAL_ANSWER; затем difficulty ближе к нижней границе, c
 positive. Диагностика исключает revealed versions. Если допустимого кандидата нет — NO_CANDIDATE с
 доступным возвратом, без бесконечного цикла и без подмены unsupported задачей. PracticeSession:
 один active на user; target и origin_topic immutable. Успех: три последовательных independent correct на
-различных versions, либо mastery 70/confidence 60 после хотя бы одного session item. Лимит семь ≥ ≥
+различных versions, либо mastery≥70/confidence≥60 после хотя бы одного session item. Лимит семь
 items, включая skip; wrong/help/reveal/unsupported/skip сбрасывают streak. Exit reasons SUCCESS,
 LIMIT_REACHED, NO_CANDIDATE, ABANDONED. Next/finish idempotent; refresh восстанавливает текущий
 item. При архивном origin возврат на опубликованного parent/catalogue, без 404-тупика. Простыми
@@ -541,7 +542,7 @@ GET health/live/, health/ready/; не возвращать credentials, SQL, pro
 Error envelope: {error:{code,message,field_errors,retryable,request_id}}; success содержит data и
 meta(request_id,version/pagination). Idempotency-Key для create/submit/help/reveal/next/finish/self-report;
 request_digest включает owner, route, body, expected revision. Повтор с тем же digest получает прежний
-operation/result; иной digest под ключом —409. Receipts хранятся 7 дней, permanent source uniqueness в≥
+operation/result; иной digest под ключом —409. Receipts хранятся ≥7 дней, permanent source uniqueness в
 evidence живёт по retention evidence и не исчезает с receipt. 400 invalid schema/limit; 401 no auth; 403
 CSRF/forbidden role; 404 foreign/missing resource; 409 revision/idempotency/version/state conflict; 429 с
 Retry-After; 503 только если действие не может безопасно завершиться. Supported business result
@@ -554,7 +555,7 @@ empty/loading/error/ready/pending/degraded/conflict/unsupported/unauthorized. Fr
 в evidence. Graph обязательно имеет доступный list view, цвет не единственный носитель статуса.
 Exercise renderer dispatch по mode/schema, не по угадыванию текста. Draft autosave debounce с revision;
 stale response не затирает новый ввод. Submit lock UI снижает дубли, но безопасность обеспечивает
-сервер. Help/reveal отображается после server acceptance; timeout GET canonical state. Structured →
+сервер. Help/reveal отображается после server acceptance; timeout→GET canonical state. Structured
 unknown schema показывает controlled unsupported. XSS payload в raw response/feedback всегда escaped.
 Public build не содержит hidden checker/solution, в том числе в HTML <details>, JSON, JS bundle, cache и
 network. Legacy SELF_CHECK <details> в существующем content остаётся compatibility baseline, не
@@ -597,7 +598,7 @@ https://learn.chatgpt.com/docs/app-server на выбранной версии. 
 credentials в repo. Adapter capability matrix: can_request_tools, intercept_all_actions, supports_messages,
 supports_cancel, usage_reporting, vision, structured_output. Для enforcement нужны intercept_all_actions и
 sandbox proof. Нет обязательного vision/MCP, если они не нужны approved task. Cancel best effort в
-adapter дополняется hard subprocess/network deadline исполнителя. Unknown event/protocol/schema  →
+adapter дополняется hard subprocess/network deadline исполнителя. Unknown event/protocol/schema →
 safe failed run. Простыми словами: adapter переводит сообщения модели в язык Harness. Возможность
 наблюдать агента ещё не означает возможность запретить ему действие заранее.
 
@@ -609,8 +610,8 @@ skill, relevant source ranges, результатов tools и summary. Manifest
 range, role, bytes/tokens estimate, source trust. Обязательные contracts либо помещаются целиком/с
 approved excerpt digest, либо run останавливается до model call. Случайное усечение rule запрещено.
 Default run limits: context24k estimated tokens, 30 model turns, 30 minutes wall, суммарно 100k tokens
-вместе с children, tool output32 KiB, child depth1/max2children. 80% budget checkpoint/compaction, →
-90% запрет новых child,100% stop. Если provider tokenizer недоступен, conservatively estimate и → →
+вместе с children, tool output32 KiB, child depth1/max2children. 80% budget→checkpoint/compaction,
+90%→запрет новых child,100%→stop. Если provider tokenizer недоступен, conservatively estimate и
 отмечать estimated, а не точные tokens. Output reserve вычитается до call. Compaction сохраняет
 task/acceptance, policy, mandatory contract versions, unresolved failures/denials, pending tool pairs, decisions
 и artifacts. Summary не является новым system instruction и не может повысить права. Нельзя разрывать
@@ -618,7 +619,7 @@ request/result пару. Full raw tool result может храниться reda
 содержит ссылку и truncation marker. Каждый compact event фиксирует before/after
 budget/digests/retained constraints. Overflow — controlled stop до опасного вызова. Registry spec каждого
 tool: name/version/input schema/output schema, side_effects, allowed roots/hosts, timeout, max output,
-authorization class, audit metadata, executor identity. Unknown tool/arg/property deny. Минимум: →
+authorization class, audit metadata, executor identity. Unknown tool/arg/property →deny. Минимум:
 list(path,depth); read(path); range_read(path,start,end); search(pattern,roots,limit);
 patch(expected_digest,changes); git_status; git_diff; run_check(check_id);
 local_browser(approved_origin,action); optional read_image(artifact_id). Read outputs содержат source
@@ -660,7 +661,7 @@ corrections, tests, review. Hash chain и manifest digest позволяют о�
 digest, последний complete tool pair и remaining budgets; при drift требует new run/human review, не
 повторяет неоднозначный side effect автоматически. Harness skills — versioned workflow instructions со
 входами, check IDs и выходными artifacts. Они не дают прав. Backend skill знает migrations/PG/ownership;
-frontend skill — fixture runtime contract/browser/a11y; reviewer skill read-only. Skill validator проверяет →
+frontend skill — fixture→runtime contract/browser/a11y; reviewer skill read-only. Skill validator проверяет
 references и limits. Термин Harness skill не равен математическому Skill. Subagents: независимый
 минимальный context, subset parent permissions, отдельный trace, общий budget ledger, depth1/max2;
 один writer в конкретной области. Reviewer read-only; ребёнок не approve/merge и не запускает детей.
@@ -682,14 +683,14 @@ Attempt/operation/Analysis/ProgressEvent/AIRun и policy versions. Metrics:
 outcome/latency/fallback/error/abstention, DB query counts, dedupe conflicts, replay queue/operation age,
 budget use. Наблюдаемость не хранит secret answer в общедоступных logs.
 Health/live не зависит от модели; ready проверяет необходимую БД/config, provider outage не скрывается,
-core fallback работает. Golden Analyzer set 50: 12 correct,16 доказанных ошибок (по 4 основных ≥
+core fallback работает. Golden Analyzer set ≥50: 12 correct,16 доказанных ошибок (по 4 основных
 taxonomy),10 ambiguous,6 wrong-final без локализации,6 structured; минимум 20 holdout, не использовать
-их для prompt tuning. Deterministic accuracy 95% на supported/applicable subset, LLM taxonomy 85% на ≥ ≥
+их для prompt tuning. Deterministic accuracy≥95% на supported/applicable subset, LLM taxonomy≥85% на
 applicable cases; abstention не засчитывается как верный ответ. Отдельно показывать coverage, false
 positive, denominator и unknowns. False strong negative на invalid/unsupported/ambiguous safety subset =0.
-Числа — release criterion пилота, не заявление педагогической эффективности. Tutor eval 20 cases: ≥
+Числа — release criterion пилота, не заявление педагогической эффективности. Tutor eval ≥20 cases:
 prompt injection, answer request, hint levels, single-step leakage, timeout/malformed/lowconfidence, after-
-reveal explanation. Harness eval 12 cases: unknown tool, path escape, network deny, protected writes, ≥
+reveal explanation. Harness eval ≥12 cases: unknown tool, path escape, network deny, protected writes,
 malicious file instruction, child escalation, overflow/compaction, resume drift, deadline during tool/publication,
 failing checks, forged READY, interrupted run. Реальные регрессии R04 остаются в suite, synthetic eval
 отдельно помечается. No-live normal CI: fake Product provider и FakeAdapter; release smoke отдельно с
@@ -714,13 +715,13 @@ privacy/consent/deletion review и изменения retention policy до сб
 не заявляется этим документом. Delete workflow учитывает replay integrity: персональные ссылки
 удаляются/анонимизируются по утверждённой политике, не произвольным SQL. Performance: p95
 обычных API<500ms, AI<15s. Фиксировать CPU/RAM, app/DB versions, seed size, network region. После
-warmup 200 ordinary requests при 10 concurrent users; 30 AI requests при 2 concurrent в согласованном ≥ ≥
+warmup ≥200 ordinary requests при 10 concurrent users; ≥30 AI requests при 2 concurrent в согласованном
 бюджете. Раздельные cohorts catalogue,submit,progress,AI; p50/p95/max/error rate. p95=ceil(0.95*n)-й
 отсортированный sample. Failures/timeouts не исключаются; upstreamsuccess/fallback отдельными
 рядами. Это demo profile, не интернет-SLA. Недостижение — finding с исключением human gate, не
 удаление неудобных samples. Deployment: public HTTPS URL, Python3.12+/FastAPI/Pydantic/SQLAlchemy2/Alembic/PostgreSQL16, versioned locks, отдельный migration release step, static/media separation и ASGI Uvicorn. React/TypeScript/Vite/React Router генерирует весь public HTML по manifest; Node нужен для build/publish, постоянный Node SSR server не требуется. Production process manager/config утверждаются V14; dev server не является production evidence. Host/domain/region/secrets/backups
 owner TBD до G3; перед G4 публичный доступ проверяется с внешнего браузера. Pydantic включён в target HTTP runtime; SymPy добавляется в будущей задаче математической проверки с compatible pins. Django/DRF остаются в отдельно изолированных исторических comparator окружениях и не требуются normal target startup/API/auth/publisher/migrations/verification. Backup: daily encrypted DB+needed
-media/config references, RPO 24h/RTO 2h, retention30days. Restore drill в disposable environment ≤ ≤
+media/config references, RPO≤24h/RTO≤2h, retention30days. Restore drill в disposable environment
 измеряет фактическую длительность, проверяет integrity/progress replay/content, не только exit0
 pg_restore. Upgrade drill с текущего release; rollback app совместим с additive schema, breaking migration
 имеет отдельный план. Never rewrite applied migrations. Public operation не зависит от Harness или каких-
@@ -750,8 +751,8 @@ OD-02 / Exercise и eligibility §§6/7/11
 API status semantics
 Совместимость и честность evidence
 OD-03 / Пилот §3/8
-3 темы;10skills/13edges, weights1.0;40assessed+3self-check; 4PRIMARY/skill; 12step/ 12final/ 2schemas; ≥ ≥ ≥ ≥
-2difficulty/skill≥
+3 темы;10skills/13edges, weights1.0;40assessed+3self-check; ≥4PRIMARY/skill; ≥12step/≥12final/≥2schemas;
+≥2difficulty/skill
 Проверяемое покрытие продукта
 OD-04 / Парсер размер §9
 64KiB request;40steps;512chars/expression;128tokens; nesting16; literal12digits; abs power10
@@ -760,16 +761,16 @@ OD-05 / Парсер deadline §9
 250ms/expression;2s/batch
 Освобождать worker при тяжёлом вводе
 OD-06 / Strong negative §9
-confidence 0.8 и отдельно доказанное known evidence≥
+confidence≥0.8 и отдельно доказанное known evidence
 Не путать уверенность модели с математической истиной
 OD-07 / Tutor context §10
 4000chars theory;10skills;5confirmed errors;6messages;6000estimated tokens
 Минимизировать контекст и стоимость
 OD-08 / Product calls §10
-12s общий deadline; 2calls/action, retries внутри него≤
+12s общий deadline;≤2calls/action, retries внутри него
 Ограничить ожидание и обеспечить fallback
 OD-09 / Diagnostic/Adaptive/Practice §10
-Diagnostic 10; depth2; confidence30; mastery bands40/70; последние 10 excluded; streak3 или ≤
+Diagnostic≤10; depth2; confidence30; mastery bands40/70; последние 10 excluded; streak3 или
 mastery70/confidence60 после 1item; max7; oneactive
 Сохранить воспроизводимую учебную семантику
 OD-10 / API pagination/poll §11
@@ -788,11 +789,11 @@ OD-14 / Subagents §§13/14
 depth1/max2children; один writer; reviewer read-only; subset rights
 Сдержать расширение прав и конфликт записи
 OD-15 / Analyzer eval §15
-50:12correct/16errors/10ambiguous/6wrongfinal/6structured; 20holdout; 95%deterministic/≥ ≥ ≥
-85%taxonomy;false strong=0 safety subset≥
+≥50:12correct/16errors/10ambiguous/6wrongfinal/6structured;≥20holdout;≥95%deterministic/
+≥85%taxonomy;false strong=0 safety subset
 Измерить качество на объявленных denominators
 OD-16 / Tutor/Harness eval §15
-20Tutor; 12Harness;3real owner runs; live Product + fallback; обычный CI offline≥ ≥
+≥20Tutor;≥12Harness;3real owner runs; live Product + fallback; обычный CI offline
 Доказать обе AIинтеграции и сохранить воспроизводимость CI
 ID / Parameter
 Default или требование
@@ -804,10 +805,10 @@ OD-18 / Retention §16
 AIRun/trace90days;attempts/messages до защиты+30days;backups30days
 Ограничить хранение и сохранить evidence для приёмки
 OD-19 / Performance §16
-p95 API<500ms/AI<15s; 200ordinary при 10concurrent; 30AI при 2concurrent;ceil(0.95*n)≥ ≥
+p95 API<500ms/AI<15s;≥200ordinary при 10concurrent;≥30AI при 2concurrent;ceil(0.95*n)
 Воспроизводимая приёмка demo profile
 OD-20 / Backup/restore §16
-daily encrypted;RPO 24h/RTO 2h;retention30days поOD-18≤ ≤
+daily encrypted;RPO≤24h/RTO≤2h;retention30days поOD-18
 Проверяемое восстановление данных
 OD-21 / Browser/public runtime §§11/16
 360/768/1440;Chrome/Edge/Firefox;Python3.12+/FastAPI/React/PostgreSQL16, exact locks
@@ -946,7 +947,7 @@ Unified DoD Эти правила нормативны для всех буду�
 Gate — контрольная точка проекта, а не человек и не замена task acceptance. Для frontend/API-sensitive
 задач Руслан принимает UX и общую интеграцию, Владимир подтверждает API/backend совместимость;
 Илья выполняет browser acceptance, не одобряя собственную работу. До изменения кода Owner читает
-spec  AGENTS/ARCHITECTURE  accepted ADR/contracts  task inputs, проверяет scoped checkout, → → →
+spec → AGENTS/ARCHITECTURE → accepted ADR/contracts → task inputs, проверяет scoped checkout,
 состояние файлов и digests. HARD и CONTRACT зависимости должны быть приняты до основной
 реализации; отдельное знакомство с документами и предварительный fixture sketch не закрывают
 задачу. HANDOFF и INTEGRATION могут поступать во время разработки, но обязательно приняты до task
@@ -1041,24 +1042,24 @@ blockers своих потребителей. Принятые R01/R02/R03 не 
 Источник всех четырёх кейсов — PR #10 reviews и main tests; это наблюдаемая история разработки с
 coding-agent workflow. Публичное review не позволяет надёжно приписать каждую строку конкретной
 модели: hidden reasoning и «мысли агента» не реконструируются.
-## 1. Review Владимира 26.09 выявил manifest digest, protocol version,
+1. Review Владимира 26.09 выявил manifest digest, protocol version,
 deadline, branch-sensitive smoke,
 отсутствие Harness suite в canonical CI и неправильное продолжение MESSAGE. Commit13945bd исправил
 основную часть. Regression: adapter/message/protocol/manifest и runner boundary suites. Урок:
 заявленного adapter protocol недостаточно без executable negative cases.
-## 2. После первого исправления deadline мог истечь во время result
+2. После первого исправления deadline мог истечь во время result
 write. 27.09 16:04 reviewer сохранил
 blocker. Commit85dd0ff добавил staged write и post-write checks; 61 tests и CI success не доказывали
 отсутствие всех publication races. Следующее review21:20 нашло истечение внутри final replace.
 Regression test_expiry_during_result_persistence_cannot_publish_ready и
 test_expiry_during_final_result_replace_cannot_return_ready. Урок: проверка до операции не доказывает её
 завершения до deadline.
-## 3. Commits5863bd/eabea37 усилили commit/receipt protocol. Regression
+3. Commits5863bd/eabea37 усилили commit/receipt protocol. Regression
 в
 tests/harness/test_ready_publication.py: crash after canonical replace, corrupt/missing receipt, digest
 mismatch, late final replace. В истории есть failed runs eabea37/66b071; их нельзя называть green. Урок:
 supported status reader обязан проверять commit evidence, а не один state field.
-## 4. Review27.09 22:25 выявил ambiguous receipt replacement: запись
+4. Review27.09 22:25 выявил ambiguous receipt replacement: запись
 могла фактически пройти, но вернуть
 OSError; cleanup и diagnostic overwrite тоже могли упасть. Runner выдавал exit2, status —exit0. Final
 f401dc6 согласовал чтение canonical publication. Regression
@@ -1078,7 +1079,7 @@ MathStart может независимо принять полезный мех
 преподавателю как MathStart mandate. Разрешение LearnForge около 24:21 не является согласованием
 MathStart. Совет другой команде в L2 также не создаёт обязательного требования к конкретному
 внешнему context/memory tool для MathStart. 9 октября включительно — регистрация/согласование
-проекта; L2 исправляет 5 9 в 02:16–02:29, L3 подтверждает в 31:58–32:12. Защита — зачётная неделя, →
+проекта; L2 исправляет 5→9 в 02:16–02:29, L3 подтверждает в 31:58–32:12. Защита — зачётная неделя,
 точная дата TBD (L3 32:41–32:58). Ранняя сдача разрешена: вопрос 33:00.133–33:03.853, ответ 33:04.818–
 33:14.358. Принадлежность вопроса нашей команде известна из задания пользователя; SRT не содержит
 speaker identity. Следующая встреча — «восьмого в девять вечера», L3 33:42.737–34:11.458; рабочий
@@ -1153,7 +1154,7 @@ additions. Canonical ID и название стоят в заголовке. Un
 дублируется. Requirements covered перечисляет прямые связи из §26/28; общие NFR применяются по
 своему scope, а не искусственно приписываются каждой карточке. Inputs включают только принятые
 версии артефактов названных dependencies и соответствующие §§5–
-## 16. Контракты §7–11, Registry/Policy §12–14, eval/security §15–16
+16. Контракты §7–11, Registry/Policy §12–14, eval/security §15–16
 остаются нормативными в полном
 объёме. Пустой список direct FR не означает, что задача необязательна: Harness/contract closeout может
 закрывать D-решение, C/NFR либо быть upstream для требуемого runtime. Scope каждого исходного task
@@ -1637,7 +1638,7 @@ HANDOFF: —.
 
 INTEGRATION: MS7-V10, MS7-V09.
 Что можно делать параллельно: MS7-V12, MS7-I11.
-Inputs/contracts: MS7-V10 Finalize Analysis Progress; MS7-V09 Replay и concurrency; MS7-R10 Validators и →
+Inputs/contracts: MS7-V10 Finalize Analysis→Progress; MS7-V09 Replay и concurrency; MS7-R10 Validators и
 deterministic Analyzer; нормативные разделы по §21.
 Detailed Scope: Cross-domain import audit, atomic finalize/Progress replay/eligibility; G2 evidence и
 негативные race scenarios.
@@ -1674,12 +1675,12 @@ INTEGRATION: MS7-V11, MS7-V13.
 Что можно делать параллельно: MS7-V14, MS7-I13.
 Inputs/contracts: MS7-V11 Product provider и AIRun; MS7-V13 Tutor context и conversations; MS7-R10
 Validators и deterministic Analyzer; нормативные разделы по §21.
-Detailed Scope: 50 Analyzer/20 Tutor/12 Harness cases, holdout 20, denominators и live smoke; report ≥
+Detailed Scope: 50 Analyzer/20 Tutor/12 Harness cases, holdout≥20, denominators и live smoke; report
 metrics §15.
 Область файлов: домены §5, specs/ и tests; точные files определяет exec plan.
 Out of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.
 Deliverables: Versioned golden/holdout sets, denominators и eval report.
-Acceptance criteria: 50 Analyzer/20 Tutor/12 Harness cases, holdout 20, denominators и live smoke; ≥
+Acceptance criteria: 50 Analyzer/20 Tutor/12 Harness cases, holdout≥20, denominators и live smoke;
 соответствие named contract и ожидаемые результаты task-specific tests.
 Negative/failure acceptance: abstention не записывается как correct; false strong=0 на safety set.
 Task-specific tests: Analyzer 50+, Tutor 20+, Harness 12+, holdout 20+; separate deterministic/live lanes.
@@ -2177,7 +2178,7 @@ INTEGRATION: —.
 
 
 
-Inputs/contracts: MS7-R10 Validators и deterministic Analyzer; MS7-V10 Finalize Analysis Progress; →
+Inputs/contracts: MS7-R10 Validators и deterministic Analyzer; MS7-V10 Finalize Analysis→Progress;
 нормативные разделы по §21.
 Detailed Scope: Infrastructure adapter, Pydantic/schema/domain gates, prompt version, redaction/deadlines;
 live bounded Analyzer smoke.
@@ -2187,7 +2188,7 @@ Out of Scope: Общие исключения §17; доверие клиент�
 Deliverables: Provider adapter, AIRun persistence, structured output validation и live smoke.
 Acceptance criteria: Infrastructure adapter, Pydantic/schema/domain gates, prompt version,
 redaction/deadlines; соответствие named contract и ожидаемые результаты task-specific tests.
-Negative/failure acceptance: timeout/invalid/unknown code abstain без strong negative.→
+Negative/failure acceptance: timeout/invalid/unknown code→abstain без strong negative.
 Task-specific tests: Malformed/unknown/low-confidence response, timeout, unavailable provider.
 Task-specific security checks: Credentials только infrastructure; domain validation и redaction до
 сохранения.
@@ -2212,7 +2213,7 @@ CONTRACT: MS7-R11.
 HANDOFF: —.
 INTEGRATION: —.
 Что можно делать параллельно: MS7-R13, MS7-I11.
-Inputs/contracts: MS7-R11 Adaptive и diagnostic policy; MS7-V10 Finalize Analysis Progress; нормативные →
+Inputs/contracts: MS7-R11 Adaptive и diagnostic policy; MS7-V10 Finalize Analysis→Progress; нормативные
 разделы по §21.
 Detailed Scope: Persist selected item, one-active, next/finish idempotency, max10/7, target/originreturn,
 selfreport integration.
@@ -2755,7 +2756,7 @@ CONTRACT: —.
 HANDOFF: —.
 INTEGRATION: MS7-V10, MS7-V09.
 Что можно делать параллельно: MS7-R12, MS7-V11.
-Inputs/contracts: MS7-I09 Hints/reveal и recovery UI; MS7-V10 Finalize Analysis Progress; MS7-V09 Replay и →
+Inputs/contracts: MS7-I09 Hints/reveal и recovery UI; MS7-V10 Finalize Analysis→Progress; MS7-V09 Replay и
 concurrency; нормативные разделы по §21.
 Detailed Scope: Confirmed/uncertain/unsupported, first error, skill list/map, topic denominator и history.
 Область файлов: frontend/, reviewed static/ assets, UI fixtures и browser tests.
@@ -3201,7 +3202,7 @@ P; C-02/03/11 по scope
 Руслан; MS7-R10, MS7-V08
 AT-06; E(MS7-R10)
 G3
-FR-14 Evidence Progress→
+FR-14 Evidence→Progress
 P; C-02/03/11 по scope
 Владимир; MS7-V08, MS7-V10
 AT-06; E(MS7-V08)
@@ -3387,17 +3388,17 @@ P, §§5–16
 Scope/failure tests карточки; E(MS7-I08)
 G1
 NFR-12 authoritative cold-start route:
-## 1. fresh git clone публичного MathStart-Python;
-## 2. checkout pinned release/task SHA;
-## 3. установка документированной версии Python и dependency lock в
+1. fresh git clone публичного MathStart-Python;
+2. checkout pinned release/task SHA;
+3. установка документированной версии Python и dependency lock в
 чистой среде;
-## 4. только документированные non-secret environment values;
+4. только документированные non-secret environment values;
 credentials остаются вне repo;
-## 5. doctor/runtime report;
-## 6. canonical repository verification;
-## 7. cold-start Harness run по repo instructions без прежней переписки;
-## 8. сохранение run/context/tool/verification evidence;
-## 9. проверка contract/digest/version consistency.
+5. doctor/runtime report;
+6. canonical repository verification;
+7. cold-start Harness run по repo instructions без прежней переписки;
+8. сохранение run/context/tool/verification evidence;
+9. проверка contract/digest/version consistency.
 Source-only ZIP допустим только как audit snapshot и не является достаточным evidence для Git-aware
 Harness reproducibility, поскольку не содержит полного Git metadata.
 
@@ -3534,9 +3535,9 @@ L3 33:00.133– 33:14.358; вопрос нашей команды по user cont
 данные другой команде, — contextual material; выбор конкретных сторонних инструментов не является
 mandate MathStart.
 Внедрение собственного controlled Harness, numeric eval/limits и repo trace — PROJECT DECISION; их
-требования перечислены в D-024/026/027 и NFR. Course FR/NFR: C-01/08/09/10 NFR-12/19/20; → →
-C-02/03 FR-01–23; C-04/05/06/12/13/14/15/16/17 workflow/report/ORG01; C-07 NFR-01/10; → → →
-C-11 FR-24/NFR-11/13. Рекомендации остаются рекомендациями даже когда команда принимает их →
+требования перечислены в D-024/026/027 и NFR. Course→FR/NFR: C-01/08/09/10→NFR-12/19/20;
+C-02/03→FR-01–23; C-04/05/06/12/13/14/15/16/17→workflow/report/ORG01; C-07→NFR-01/10;
+C-11→FR-24/NFR-11/13. Рекомендации остаются рекомендациями даже когда команда принимает их
 реализацию.
 
 ---
@@ -3553,7 +3554,7 @@ PK/FK; submit/finalize transaction; help/reveal race; progress replay/neutral co
 Harness tool decision flow. Они выводятся из accepted contracts. Приложения — короткая redacted trace,
 commands/eval summary, не полный листинг repo. Screenshot содержит release SHA/date/browser version
 в evidence caption, без student PII. Основной demo5–7min — план команды, длительность согласуется:
-login тема пошаговое решение first proven error hint practice prerequisite возврат history/progress.→ → → → → → →
+login→тема→пошаговое решение→first proven error→hint→practice prerequisite→возврат→history/progress.
 Второй маршрут показывает independent success и затем reveal без переписывания прошлого. Короткий
 Harness run демонстрирует allowed patch/check, denied action и verified review bundle. Каждый участник
 объясняет свой scope, модель не отвечает за него на защите. При provider outage показывается
@@ -3815,6 +3816,8 @@ scheduling (Руслан, проверяют все, course deadline09.10). Он
 Полный source v7.1: sources/technical-spec-v7.1.pdf, SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Canonical migration ТЗ: ../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md, SHA256 c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae. Accepted ADR-0006/R02 и explicit user process overlay корневого MIGRATION.md определяют платформу/порядок переноса. v7.2 approval: HUMAN_PENDING; Product G1–G5 не закрыты.
 
 ### Исторические источники и G0 v7.1
+
+Весь остаток этой главы — исторический снимок v7.1. Его календарь, очереди по людям, READY/BLOCKED и G0 approvals не являются действующими поручениями, текущими статусами migration или новыми назначениями. Работу определяет только MIGRATION.md; future product cards не реализуются в переносе.
 
 Основные pinned sources: main fc4e907149da026e4710c3e453d8065c0106e4b9: AGENTS.md, PRODUCT.md,
 ARCHITECTURE.md, ADR-0001/0002/0003, specs/exercises/R02-exercise-architecture.md,
