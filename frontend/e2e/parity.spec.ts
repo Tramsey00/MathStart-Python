@@ -30,6 +30,17 @@ for(const [r,template] of templates.entries())test(`matched live Django and Reac
   for(const [side,origin]of [['legacy',legacy],['target',target]]){
    const entry=allRoutes[r]!;expect((await page.goto(origin+entry.path))?.status()).toBe(200);
    if(entry.regions.includes('.ms-lesson-toc'))await page.locator('.ms-lesson-toc').evaluate(n=>(n as HTMLDetailsElement).open=true);
+   if(side==='target'&&entry.path==='/karta-sajta/'){
+    await expect(page.locator('#topics-catalogue h1')).toHaveText('Все темы');
+    await expect(page.locator('#topics-catalogue > [data-mathstart-catalogue]')).toHaveCSS('display','contents');
+   }
+   if(side==='target'&&template.path==='structural-grade'){
+    const cards=page.locator('.ms-site-page .ms-stat-grid > .ms-stat');
+    await expect(cards).toHaveCount(3);
+    const clipped=await cards.evaluateAll(nodes=>nodes.flatMap(n=>{const p=n.getBoundingClientRect();return [...n.children].map(c=>{const r=c.getBoundingClientRect();return{text:c.textContent?.trim(),width:r.width,left:r.left,right:r.right,scroll:c.scrollWidth,client:c.clientWidth,parentLeft:p.left,parentRight:p.right};}).filter(c=>c.width<=0||c.left<c.parentLeft-1||c.right>c.parentRight+1||c.scroll>c.client+1);}));
+    expect(clipped,'All three structural statistics and their labels must remain readable').toEqual([]);
+   }
+
    for(let i=0;i<entry.regions.length;i++){
     const selector=entry.regions[i]!,path=test.info().outputPath(`r${r}-region${i}-${side}.png`);
     await page.locator(selector).screenshot({path});await test.info().attach(`r${r}-region${i}-${side}.png`,{path,contentType:'image/png'});

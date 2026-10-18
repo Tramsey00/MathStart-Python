@@ -1,0 +1,157 @@
+{
+  "version": "managed-target-v1",
+  "status": "PASS_SCOPED_DEVELOPMENT",
+  "source_before": {
+    "head": "70cac0f16d039e6d66fef5fb6ee9c24e4013691c",
+    "tree": "724d03f514991c210ec293d9bab326829fc4e459",
+    "dirty_paths": [],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_sha256": {}
+  },
+  "started_at": "2026-10-18T16:25:21.295955+00:00",
+  "groups": [
+    "frontend"
+  ],
+  "formal_acceptance": "HUMAN_PENDING",
+  "stages": [
+    {
+      "id": "prepare-synthetic-inputs",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.content.synthetic_setup",
+        "prepare",
+        "--disposable",
+        "--runtime-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-template-matched-07\\runtime",
+        "--release-id",
+        "target-18a31ec2bba94199a1dff1b62512c520",
+        "--source-sha",
+        "70cac0f16d039e6d66fef5fb6ee9c24e4013691c"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "01.log",
+      "elapsed_seconds": 29.453,
+      "log_sha256": "80ed471b43a8e1d8ea40f36a1a8265e5081bdd9acc6a9917eff6789297283d42"
+    },
+    {
+      "id": "Frontend build",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+        "scripts/target_check.py",
+        "frontend-build"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "02.log",
+      "elapsed_seconds": 70.562,
+      "log_sha256": "5ce595c5f83716d538bb40ba41ab6a0075e4fd9b9db2a05b614b3091d69aced1"
+    },
+    {
+      "id": "activate-synthetic-fixture",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.content.synthetic_setup",
+        "activate-initial",
+        "--disposable",
+        "--runtime-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-template-matched-07\\runtime",
+        "--release-id",
+        "target-18a31ec2bba94199a1dff1b62512c520",
+        "--receipt-digest",
+        "7f9ddc94988a4ade0f1f20e57f65a4b26a538497836493f829bbee554097642d",
+        "--artifact-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-template-matched-07\\artifact",
+        "--artifact-digest",
+        "1d176df5d0767608fcce5ed538122367564c2b663daa257fb356f806d09b1a76"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "03.log",
+      "elapsed_seconds": 13.813,
+      "log_sha256": "1b8b655927db9e308faf1abb04e24a68630016dba78f86bdc1e7f0d3f1101cbf"
+    },
+    {
+      "id": "Remaining seven routes Firefox360 and768",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "frontend/node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "frontend/playwright.config.ts",
+        "parity.spec.ts",
+        "--project=firefox-360",
+        "--project=firefox-768",
+        "--grep-invert",
+        "linejnaya-funkcziya-y-kx-b|10-klass-stepennye|10-klass-chislovaya|polozhitelnye-i-otriczatelnye|funkcziya-kvadratnogo-kornya",
+        "--output",
+        "var/public-template-matched-07/browser-small"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "04.log",
+      "elapsed_seconds": 63.547,
+      "log_sha256": "d750a02850eceab592ce94db36b971cc44a9b6aa1e9b4bd784483b75d3686763"
+    },
+    {
+      "id": "Catalogue wrapper affected Chrome and Edge captures",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "frontend/node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "frontend/playwright.config.ts",
+        "parity.spec.ts",
+        "--project=chrome-360",
+        "--project=chrome-768",
+        "--project=chrome-1440",
+        "--project=edge-360",
+        "--project=edge-768",
+        "--project=edge-1440",
+        "--grep",
+        "karta-sajta",
+        "--output",
+        "var/public-template-matched-07/browser-catalogue"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "05.log",
+      "elapsed_seconds": 37.281,
+      "log_sha256": "c559242fbb3c0f24e52797721bb53a11519d82af75788b69619f6fe65fd946b0"
+    },
+    {
+      "id": "All twelve routes Firefox1440",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "frontend/node_modules/@playwright/test/cli.js",
+        "test",
+        "--config",
+        "frontend/playwright.config.ts",
+        "parity.spec.ts",
+        "--project=firefox-1440",
+        "--output",
+        "var/public-template-matched-07/browser-wide"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log": "06.log",
+      "elapsed_seconds": 61.297,
+      "log_sha256": "df48bf0d99027e0931939dfbc686eb89d12be54438b2786ea15d663285028f49"
+    }
+  ],
+  "cleanup": "PASS",
+  "release_id": "target-18a31ec2bba94199a1dff1b62512c520",
+  "input_manifest_digest": "76314b1eb12e91d78172f101ea73cd9042efc441bf9a00c2384702160b7643b8",
+  "input_receipt_digest": "7f9ddc94988a4ade0f1f20e57f65a4b26a538497836493f829bbee554097642d",
+  "output_manifest_digest": "1d176df5d0767608fcce5ed538122367564c2b663daa257fb356f806d09b1a76",
+  "source_after": {
+    "head": "70cac0f16d039e6d66fef5fb6ee9c24e4013691c",
+    "tree": "724d03f514991c210ec293d9bab326829fc4e459",
+    "dirty_paths": [],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_sha256": {}
+  },
+  "finished_at": "2026-10-18T16:30:19.226626+00:00"
+}

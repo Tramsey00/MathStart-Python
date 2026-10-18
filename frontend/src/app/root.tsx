@@ -31,7 +31,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <meta property="og:type" content={view.page.page_type === "topic" ? "article" : "website"}/>
           <meta name="twitter:card" content="summary"/>
           {view.page.assets.filter(a=>a.kind === "style").map(a=><link key={a.url} rel="stylesheet" href={a.url}/>)}
-          {view.page.page_type === "topic" && <link rel="stylesheet" href={migrationCss}/>}
+          <link rel="stylesheet" href={migrationCss}/>
         </> : <><Meta/><Links/></>}
       </head>
       <body>

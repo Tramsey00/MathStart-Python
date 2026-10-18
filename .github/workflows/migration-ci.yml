@@ -439,7 +439,7 @@ jobs:
 
   image-recovery:
     needs: [target-readiness, target]
-    if: always() && needs.target-readiness.result == 'success' && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && (inputs.full_target || inputs.recovery_handoff_run > 0)))
+    if: always() && needs.target-readiness.result == 'success' && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && (inputs.full_target || inputs.recovery_handoff_run > 0))) && (needs.target.result == 'success' || (github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0))
     runs-on: ubuntu-latest
     timeout-minutes: 55
     permissions:

@@ -2,6 +2,8 @@
 /* Keep the existing renderer boundary while restoring the legacy catalogue main. */
 #topics-catalogue > [data-mathstart-catalogue] { display: contents; }
 @media (max-width: 620px) {
+  /* Preserve all structural-page statistics instead of clipping zero-width numbers. */
+  .ms-site-page .ms-stat-grid { grid-template-columns: minmax(0, 1fr); }
   .ms-lesson-page .ms-lesson-links { grid-template-columns: minmax(0, 1fr); }
   .ms-lesson-page .ms-toc-copy { overflow-wrap: anywhere; }
   .ms-lesson-page #power-lab-v2 .ms-power-presets { grid-template-columns: repeat(4, minmax(0, 1fr)); }
