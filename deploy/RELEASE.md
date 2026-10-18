@@ -105,10 +105,9 @@ existing identity blocks replay instead of overwriting it.
 
 After installation/adoption, complete identity import and the fenced content
 publication using the documented `backend.users.cutover_cli` / `backend.content.publish`
-commands and reviewed immutable inputs. Clean-clone full release installation
-and the complete legacy-cluster return procedure are still pending migration
-work. Do not mistake a compatible empty schema for an
-installed site. Readiness must remain UNREADY until matching content/frontend
+commands and reviewed immutable inputs. The complete legacy-cluster return
+procedure remains pending migration work. Do not mistake a compatible empty
+schema for an installed site. Readiness must remain UNREADY until matching content/frontend
 publication is installed and reconciled.
 
 ```text
@@ -147,3 +146,35 @@ python scripts/verify_deployment.py --disposable --runtime-root var/deployment-<
 `scripts/verify_images.py` separately checks a fully installed synthetic release
 and real auth through the edge. Both receipts are scoped evidence, not final
 QA or human acceptance.
+
+## Independent clean-clone rehearsal
+
+From a target Python3.12+ environment, run this disposable check with Docker
+available and unused loopback ports55443/18125 (or explicit `--pg-port`/`--port`):
+
+```text
+python scripts/verify_installation.py --disposable --runtime-root var/install-<new-run>
+```
+
+The verifier clones the committed HEAD without hardlinks, creates a new locked
+Python environment, and builds API/edge/Node-builder images from that exact clean
+clone. It uses the ordinary reviewed schema CLI, initial operator CLI,
+`prepare-bootstrap`, real locked Node build, publication plan/publish, readiness,
+network login/private admin shell and lesson-source checks. It requires initial503,
+COMPLETE publication with every public HTTP assertion, zero-change repeat bootstrap,
+clean clone source and cleanup. It never installs a synthetic fixture in place of
+the ordinary installation path. Only new owned labelled Docker resources are used.
+
+API and publisher share a named public volume; API mounts it read-only, publisher
+read-write. The builder writes a separate immutable output. For this disposable
+loopback origin only, the publisher process resolves its exact public-origin socket
+to the actual edge container; URL/Host, response bytes, cache assertions and the5s
+HTTP timeout remain unchanged. Real deployments use their reachable public DNS.
+
+The c205ef1 rehearsal on18 October2026 passed:279 pages/282 public URLs/424 files,
+813 real HTTP probes (maximum1.165s), normal initial operator login,263 lesson
+sources, repeat preview with no changes, source guard and cleanup PASS. Receipts:
+`docs/acceptance/migration-execution/i02-verification/clean-install-03-20261018.json`
+and the adjacent public-probes log. This is scoped c205ef1 installation evidence,
+not final combined migration QA. The preceding install-02 failure is retained;
+the original bind-mount explanation remains a hypothesis rather than a proven cause.
