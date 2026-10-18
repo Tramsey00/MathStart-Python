@@ -105,8 +105,9 @@ existing identity blocks replay instead of overwriting it.
 
 After installation/adoption, complete identity import and the fenced content
 publication using the documented `backend.users.cutover_cli` / `backend.content.publish`
-commands and reviewed immutable inputs. The complete legacy-cluster return
-procedure remains pending migration work. Do not mistake a compatible empty
+commands and reviewed immutable inputs. The isolated pre-admission legacy-cluster return procedure now has scoped
+real evidence in deploy/RECOVERY.md; operated return still requires independent
+fencing/admission review. Do not mistake a compatible empty
 schema for an installed site. Readiness must remain UNREADY until matching content/frontend
 publication is installed and reconciled.
 

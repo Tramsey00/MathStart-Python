@@ -155,8 +155,10 @@ immutable public inputs/frontend, manifests/receipts/digests, verifier keys и
 cutover provenance. Текущий immutable public manifest содержит лишь4 из29 source
 media: копировать все29. [Recovery runbook](../deploy/RECOVERY.md) описывает
 реально проверенный physical restore с OID сохранением и distinct compatible app
-switch до/после synthetic target writes. Полный legacy-cluster return до target
-writes ещё требует отдельного rehearsal. После target writes старый snapshot
+switch до/после synthetic target writes. Отдельный pre-admission legacy-cluster return
+прошёл scoped rehearsal34 assertions с actual Django, physical snapshot и новым
+cutover/F-login. Он контролирует только owned lifecycle, не внешние записи;
+операторская проверка ingress/writer fencing и admission history остаётся обязательной. После target writes старый snapshot
 нельзя выдавать за безопасный rollback: сохранять current data/WAL, использовать
 compatible application switch или reviewed forward recovery.
 

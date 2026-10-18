@@ -294,6 +294,32 @@ jobs:
           var/full-target-env/bin/python scripts/verify_target.py
           --runtime-root var/full-target
           --legacy-python var/full-legacy-env/bin/python
+      - name: Retain browser case status diagnostics without private values
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          summaries = []
+          for path in Path('frontend/.cache/checks').glob('run-*/playwright.json'):
+              data = json.loads(path.read_text())
+              cases = []
+              def walk(suite):
+                  for spec in suite.get('specs', []):
+                      for test in spec.get('tests', []):
+                          errors = []
+                          for result in test.get('results', []):
+                              for error in result.get('errors', []):
+                                  message = error.get('message', '')
+                                  errors.append({'name': error.get('name'), 'matcher': re.findall(r'\b(toBe|toEqual|toHaveText|toHaveURL|toBeVisible|toHaveCount|toHaveValue|toHaveAttribute)\b', message)[:2]})
+                          cases.append({'title': spec['title'], 'file': spec.get('file'), 'line': spec.get('line'), 'project': test.get('projectName'), 'status': test.get('status'), 'errors': errors})
+                  for child in suite.get('suites', []):
+                      walk(child)
+              for suite in data.get('suites', []):
+                  walk(suite)
+              summaries.append({'stats': data.get('stats'), 'cases': cases, 'global_error_count': len(data.get('errors', []))})
+          Path('var/full-target-browser-diagnostics.json').write_text(json.dumps(summaries, indent=2) + '\n')
+          PY
       - name: Retain safe combined receipts without cookies or runtime secrets
         if: always()
         uses: actions/upload-artifact@v7
@@ -303,5 +329,88 @@ jobs:
             var/full-target-provenance.json
             var/full-target/result.json
             var/target-checks/**/result.json
+            var/full-target-browser-diagnostics.json
+            frontend/test-results/**/r*-region*-legacy.png
+            frontend/test-results/**/r*-region*-target.png
+            frontend/test-results/**/graph-controls.png
+            frontend/test-results/**/initial-contents-*.png
+            frontend/test-results/**/contents-*.png
+            frontend/test-results/**/power-twelve-presets.png
+            frontend/test-results/**/power-exact-table.png
+            frontend/test-results/**/circle-lab-controls-coordinates.png
+            frontend/test-results/**/circle-model-eight-parts.png
+            frontend/test-results/**/circle-model-twelve-parts.png
+            frontend/test-results/**/style.png
+            frontend/test-results/**/lesson.png
+            frontend/test-results/**/catalogue-no-js.png
+            frontend/test-results/**/attachments/matched-capture-index*
+            frontend/test-results/**/attachments/browser-version*
+            frontend/test-results/**/attachments/svg-labels*
+            frontend/test-results/**/attachments/sanitized-staff-network*
           if-no-files-found: error
           retention-days: 30
+
+  release-operations:
+    needs: target-readiness
+    if: needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Separate locked target and native legacy tools
+        run: |
+          python -m venv var/operations-target-env
+          var/operations-target-env/bin/python -m pip install --no-deps -r backend/infrastructure/http/requirements.lock
+          var/operations-target-env/bin/python -m pip check
+          var/operations-target-env/bin/python -c "import importlib.util; assert not importlib.util.find_spec('django'); assert not importlib.util.find_spec('rest_framework')"
+          python -m venv var/operations-legacy-env
+          var/operations-legacy-env/bin/python -m pip install --no-deps -r requirements.lock
+          var/operations-legacy-env/bin/python -m pip check
+      - name: Exact release operations checkout
+        run: python scripts/ci_provenance.py --output var/operations-provenance.json
+      - name: Full product source and documentation reconciliation
+        run: var/operations-target-env/bin/python docs/acceptance/migration-execution/check_product_source.py --output var/operations-document-check.json
+      - name: Ordinary independent clean clone installation
+        run: var/operations-target-env/bin/python scripts/verify_installation.py --disposable --runtime-root var/operations-install
+      - name: Native legacy physical return and new reviewed identity cutover
+        run: >-
+          var/operations-target-env/bin/python scripts/verify_legacy_return.py
+          --disposable --runtime-root var/operations-legacy-return
+          --legacy-python var/operations-legacy-env/bin/python
+      - name: Retain safe operational receipts only
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-operations-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/operations-provenance.json
+            var/operations-document-check.json
+            var/operations-install/result.json
+            var/operations-legacy-return/result.json
+          if-no-files-found: error
+          retention-days: 30
+
+  combined-candidate-checks:
+    needs: [target-readiness, verify, pure, backend-install, deployment-images, target, release-operations]
+    if: always() && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every mandatory technical job must execute successfully
+        env:
+          REQUIRED_JOB_RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python - <<'PY'
+          import json, os
+          results = json.loads(os.environ['REQUIRED_JOB_RESULTS'])
+          required = {'verify', 'pure', 'backend-install', 'deployment-images', 'target', 'release-operations'}
+          failed = {name: results.get(name, {}).get('result', 'missing') for name in required if results.get(name, {}).get('result') != 'success'}
+          if failed:
+              raise SystemExit('FAIL: required technical jobs failed, skipped or missing: ' + json.dumps(failed, sort_keys=True))
+          print('PASS: all six required technical jobs executed successfully. Independent command review and human acceptance are separate remaining gates.')
+          PY

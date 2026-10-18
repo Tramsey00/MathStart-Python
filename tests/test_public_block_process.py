@@ -38,6 +38,26 @@ class PublicBlockLifecycle(unittest.TestCase):
         self.assertEqual(result, {'startup':'PASS','browser_exit':0,'cleanup':'PASS'})
         self.assert_closed()
 
+    def test_explicit_readiness_route_and_origin_escape_refusal(self):
+        code = f'''import http.server
+class Handler(http.server.BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200 if self.path=='/health.txt' else 503)
+        self.end_headers()
+http.server.HTTPServer(('127.0.0.1',{self.port}),Handler).serve_forever()
+'''
+        with owned_http_service([sys.executable, '-c', code], base_url=self.origin, cwd=self.root,
+                evidence_root=self.root / 'route', readiness_path='/health.txt', startup_timeout=3):
+            with socket.create_connection(('127.0.0.1', self.port), timeout=1):
+                pass
+        self.assert_closed()
+        for path in ('//example.invalid/', 'https://example.invalid/', '/?secret=x', '/#fragment', '/\\elsewhere'):
+            with self.subTest(path=path), self.assertRaisesRegex(LifecycleFailure, 'local readiness path'):
+                with owned_http_service(self.server, base_url=self.origin, cwd=self.root,
+                        evidence_root=self.root / 'must-not-start', readiness_path=path):
+                    self.fail('Unsafe readiness path admitted')
+        self.assertFalse((self.root / 'must-not-start').exists())
+
     def delayed_server(self, seconds):
         code = f'''import http.server,time
 class Handler(http.server.BaseHTTPRequestHandler):

@@ -94,8 +94,8 @@ later reusing the old cutover checkpoint is unsupported. After target writes,
 do not replace current data with an older snapshot. Keep current data/WAL and
 use a proved compatible application switch or forward recovery. Applied
 migrations/history, receipts and sequences must not be rewritten to appear safe.
-The complete legacy-cluster return procedure still needs its own rehearsal;
-the test here covers actual compatible target API switches.
+The separate legacy-cluster return rehearsal below now covers the pre-admission
+whole-cluster boundary; the image test above covers compatible target API switches.
 
 Latest scoped local evidence is `image-recovery-result-20261018.json` under
 `docs/acceptance/migration-execution/i02-verification`:449 real assertions,
@@ -108,3 +108,49 @@ two API workers measured p50=70.5ms, p95=110ms and max=1157ms after restore.
 These are measured synthetic local results, not production capacity or SLO.
 Previous failures and partial immutable-public-only recovery remain in evidence.
 Final combined QA and human operational acceptance remain pending.
+
+## Legacy-cluster return before target admission
+
+```text
+python scripts/verify_legacy_return.py --disposable --runtime-root var/legacy-return-<new-run> --legacy-python <separate installed Django interpreter>
+```
+
+The target interpreter must remain Django-free; Docker and unused loopback ports
+55444/18135/18136 are required. This creates new labelled volumes/containers only.
+It runs the actual retained Django migrations, bootstrap and collectstatic; a
+real HTTP registration/onboarding creates native session/profile/success receipts.
+Private group/permission/admin-history/pending fixtures are retained as well.
+It stops the legacy process, disables the sole legacy LOGIN role, proves sessions
+are drained, and records full schema/row/sequence HMAC plus DB/role OIDs. Physical
+pg_basebackup with streamed WAL and pg_verifybackup retains the pre-cutover cluster;
+all29 media and the immutable legacy static build are retained separately.
+
+The ordinary reviewed target schema and cutover CLI then execute. Target user
+traffic has not been admitted: only controlled migration/import changes exist.
+The target cluster is stopped and verified fenced before copying that physical
+pre-snapshot to a new owned volume. Before re-enabling any legacy LOGIN role,
+the restored full private HMAC/schema/history/sequences/OIDs must equal the
+recorded pre-snapshot facts. The old target cluster stays stopped. The returned
+Django process must serve the same public HTML and complete profile/session and
+pass an actual password login. This is the narrow point at which a pre-cutover
+whole-cluster return can be considered; it is not a rollback after live writes.
+
+If migration resumes after returning to legacy, stop/drain legacy again and
+create new reviewed schema and cutover plans from its current state. The old
+checkpoint must not be reused. This rehearsal performs that new adoption,
+requires one F-login with the retained password/native proof, preserves the
+complete profile, then makes a real target profile write. Its owned procedure
+refuses the old physical snapshot after target admission and proves current
+private facts remain unchanged. This guard tracks its own controlled lifecycle;
+it is not a production oracle for writes made by external operators. In an
+operated stack, independent ingress/writer fencing and audited admission history
+remain operator responsibilities. After target writes use the compatible API
+switch/forward recovery procedure, preserving current data/WAL.
+
+Scoped result18 October2026:34 measured assertion events, backup1.313s,
+physical return through authenticated Django login7.860s; source unchanged and
+cleanup PASS. Receipts `i02-verification/legacy-return-02-20261018.json`; the prior
+CookieConflict harness failure/cleanup PASS is retained in legacy-return-01.
+Cookie jars now preserve domain/path instead of flattening duplicate scoped
+names. This proves the synthetic procedure, not production configuration,
+operator approval, public-domain acceptance or final combined QA.

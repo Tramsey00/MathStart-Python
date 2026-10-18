@@ -1,7 +1,11 @@
 from pathlib import Path
-import json,re,hashlib,subprocess,collections,sys
+import json,re,hashlib,subprocess,collections,sys,argparse
 from datetime import datetime,timezone
 started=datetime.now(timezone.utc).isoformat()
+parser=argparse.ArgumentParser(description='Read-only product source reconciliation; optional new report under var/')
+parser.add_argument('--output',type=Path)
+args=parser.parse_args()
+if args.output and (args.output.exists() or not args.output.resolve().is_relative_to(Path('var').resolve())):parser.error('New owned report under var/ required')
 checks=[]
 def check(ok,label):
     assert ok,label
@@ -39,5 +43,7 @@ for fix in a['operator_repairs']:
 for p in ['docs/specifications/technical-spec-v7.2-draft.md','docs/acceptance/migration-execution/product-task-disposition-draft.json']:
     check(hashlib.sha256(Path(p).read_bytes()).hexdigest() in Path('docs/specifications/technical-spec-v7.2-provenance.md').read_text(encoding='utf-8'),p+' current provenance digest')
 report={'status':'PASS_SCOPED_DOCUMENT_SOURCE_RECONCILIATION','assertions':len(checks),'case_ids':checks,'source_pdf_sha256':r['source_pdf_sha256'],'full_target':'NOT_RUN','formal_acceptance':'HUMAN_PENDING','started_at':started,'finished_at':datetime.now(timezone.utc).isoformat(),'argv':[sys.executable,*sys.argv],'cwd':str(Path.cwd()),'python':sys.version,'helper_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'exit_code':0,'previous_failure':{'assertion':'all32 chapters exactly once in order','reason':'Six additional PDF list fragments were incorrectly promoted to chapter headings by the old draft. Removed those headings, preserved all text/numerical values, then reran the source checks.'}}
-Path('docs/acceptance/migration-execution/product-source-check-result.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
+if args.output:
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    with args.output.open('x',encoding='utf-8',newline='\n') as output:output.write(json.dumps(report,indent=2)+'\n')
 print('PASS',len(checks),'source/document checks')

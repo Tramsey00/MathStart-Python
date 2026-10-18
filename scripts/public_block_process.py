@@ -73,12 +73,17 @@ def start_owned_process(argv, **kwargs):
         raise
 @contextmanager
 def owned_http_service(server_argv, *, base_url, cwd, evidence_root,
-                       environment=None, startup_timeout=30):
+                       environment=None, startup_timeout=30, readiness_path='/'):
     parsed = urlsplit(base_url)
     if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1'
             or parsed.username or parsed.password or parsed.query or parsed.fragment
             or parsed.path not in ('', '/')):
         raise LifecycleFailure('An explicit loopback HTTP origin is required')
+    probe = urlsplit(readiness_path)
+    if (not readiness_path.startswith('/') or readiness_path.startswith('//')
+            or probe.scheme or probe.netloc or probe.query or probe.fragment
+            or '\\' in readiness_path):
+        raise LifecycleFailure('An explicit local readiness path is required')
     port = parsed.port or 80
     if _listening('127.0.0.1', port):
         raise LifecycleFailure('Reserved port already has a listener')
@@ -100,7 +105,7 @@ def owned_http_service(server_argv, *, base_url, cwd, evidence_root,
                     # A cold integrity-checked release may take several seconds.
                     # Keep the absolute startup deadline, but do not queue a new
                     # request every 500ms while the previous request still runs.
-                    with urlopen(base_url, timeout=min(5, remaining)) as response:
+                    with urlopen(base_url.rstrip('/') + readiness_path, timeout=min(5, remaining)) as response:
                         ready = response.status == 200
                     if ready:
                         break
