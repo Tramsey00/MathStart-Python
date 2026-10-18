@@ -29,6 +29,14 @@ for(const [resource,native]of resources)test('real staff list/detail/history rea
   const nativeFields=inventory.registered.find(entry=>entry.model.toLowerCase().replace('.', '/')===native)!.list_display;
   const columns=await page.getByRole('columnheader').allTextContents();
   expect(columns.filter(label=>label!=='Выбор'),resource+' native columns').toHaveLength(nativeFields.length);
+  const region=page.getByRole('region').filter({has:page.getByRole('table')});
+  const overflow=await region.evaluate(node=>node.scrollWidth>node.clientWidth);
+  if(overflow){
+   await region.focus();await page.keyboard.press('ArrowRight');
+   await expect.poll(()=>region.evaluate(node=>node.scrollLeft)).toBeGreaterThan(0);
+   await region.evaluate(node=>node.scrollLeft=0);
+  }
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
    const href=await links.first().getAttribute('href');const id=href!.split('/').at(-3)!;expect(id).toMatch(/^[1-9]\d*$/);
    const detail=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/${resource}/${id}/`);await links.first().click();expect((await detail).status()).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');
    const history=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/${resource}/${id}/history/`);await page.getByRole('link',{name:'История',exact:true}).click();expect((await history).status()).toBe(200);await expect(page.getByRole('status')).toHaveText('Данные загружены.');

@@ -5,7 +5,9 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import time
 import unittest
+import uuid
 from unittest.mock import patch
 from threading import Barrier
 
@@ -19,7 +21,7 @@ from backend.migrations.upgrade import require_disposable
 from backend.models.baseline import User, Grade, IdentityReceipt, StudentProfile, metadata
 from backend.models.protocol import ReceiptBridge, TargetSession
 from backend.users import passwords
-from backend.users.security import Security, csrf_secret, mask
+from backend.users.security import Security, csrf_secret, mask, salted_hmac
 from backend.users.service import IdentityService
 
 ORIGIN = 'https://mathstart.example'
@@ -242,6 +244,80 @@ class PostgreSQLIdentityTests(unittest.TestCase):
         response = self.client.post('/api/v1/auth/login/', json={'username': 'absent', 'password': PASSWORD}, headers=headers)
         self.assertEqual(response.status_code, 429)
         self.assertGreaterEqual(int(response.headers['retry-after']), 1)
+
+    def test_api_username150_login_and151_refusal_without_identity_effects(self):
+        username = 'u' * 150
+        response = self.register(username=username)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()['data']['username'], username)
+        login = self.client.post('/api/v1/auth/login/', json={'username': username, 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200)
+        self.assertEqual(login.json()['data']['username'], username)
+        def counts():
+            with self.engine.connect() as connection:
+                return tuple(connection.scalar(sa.select(sa.func.count()).select_from(table))
+                             for table in (User, StudentProfile, IdentityReceipt, TargetSession))
+        before = counts()
+        with TestClient(self.app, base_url=ORIGIN) as other:
+            refused = self.register(username='u' * 151, client=other, key='oversize-username')
+            self.assertEqual(refused.status_code, 400)
+            self.assertEqual(refused.json()['error']['code'], 'INVALID_REQUEST')
+        self.assertEqual(counts(), before)
+
+    def test_invalid_onboarding_grade_mode_and_foreign_profile_leave_saved_state(self):
+        self.assertEqual(self.register().status_code, 201)
+        before = self.client.get('/api/v1/users/me/').json()['data']
+        with self.engine.connect() as connection:
+            receipts = connection.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt))
+        for index, body in enumerate(({'selected_grade_id': None, 'mode': 'START_ZERO'},
+                {'selected_grade_id': True, 'mode': 'SELF_REPORT'},
+                {'selected_grade_id': 999999, 'mode': 'DIAGNOSTIC'},
+                {'selected_grade_id': 73, 'mode': 'UNKNOWN'}, {'mode': 'START_ZERO'})):
+            with self.subTest(body=body):
+                result = self.client.post('/api/v1/onboarding/complete/', json=body,
+                    headers=self.headers(**{'Idempotency-Key': 'invalid-onboarding-' + str(index)}))
+                self.assertEqual(result.status_code, 400)
+                self.assertEqual(result.json()['error']['code'], 'INVALID_REQUEST')
+        self.assertEqual(self.client.get('/api/v1/users/999999/').status_code, 404)
+        self.assertEqual(self.client.get('/api/v1/users/me/').json()['data'], before)
+        with self.engine.connect() as connection:
+            self.assertEqual(connection.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), receipts)
+
+    def test_real_queued_login_budget_resets_using_post_lock_database_time(self):
+        remote = 'queued-budget-' + uuid.uuid4().hex
+        digest = salted_hmac('users.login.ip', remote, KEY)
+        table = metadata.tables['users_loginwindow']
+        with self.engine.begin() as connection:
+            connection.execute(sa.insert(table).values(id=uuid.uuid4(), ip_digest=digest,
+                started_at=sa.func.clock_timestamp() - sa.text("interval '299 seconds'"), count=10))
+        application = 'queued_budget_' + uuid.uuid4().hex
+        other_engine = sa.create_engine(self.engine.url, hide_parameters=True,
+                                       connect_args={'application_name': application, 'connect_timeout': 3})
+        self.addCleanup(other_engine.dispose)
+        other = IdentityService(Security(other_engine, KEY, ORIGIN, secure=True))
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            with self.engine.begin() as holder:
+                holder.execute(sa.select(table).where(table.c.ip_digest == digest).with_for_update())
+                pending = pool.submit(other.budget, remote)
+                deadline, queued = time.monotonic() + 1.5, None
+                while time.monotonic() < deadline:
+                    with self.engine.connect() as observer:
+                        queued = observer.scalar(sa.text("SELECT query_start FROM pg_stat_activity WHERE application_name=:application AND wait_event_type='Lock'"), {'application': application})
+                    if queued is not None:
+                        break
+                    time.sleep(.01)
+                self.assertIsNotNone(queued, 'A real independent PostgreSQL worker must wait on the held row')
+                # Move the window close to its boundary while that worker is
+                # demonstrably queued. Its pre-lock clock is too early to reset.
+                started = holder.scalar(sa.update(table).where(table.c.ip_digest == digest).values(
+                    started_at=sa.func.clock_timestamp() - sa.text("interval '299.8 seconds'")).returning(table.c.started_at))
+                self.assertLess((queued - started).total_seconds(), 300)
+                time.sleep(.25)
+            pending.result(timeout=5)  # A cached pre-lock clock would raise429.
+        with self.engine.connect() as connection:
+            row = connection.execute(sa.select(table).where(table.c.ip_digest == digest)).mappings().one()
+            self.assertEqual(row['count'], 1)
+            self.assertGreater((row['started_at'] - started).total_seconds(), 300)
 
     def test_concurrent_same_proof_registration_one_account_exact_receipt(self):
         secret = csrf_secret()

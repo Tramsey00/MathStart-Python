@@ -154,3 +154,46 @@ CookieConflict harness failure/cleanup PASS is retained in legacy-return-01.
 Cookie jars now preserve domain/path instead of flattening duplicate scoped
 names. This proves the synthetic procedure, not production configuration,
 operator approval, public-domain acceptance or final combined QA.
+
+### Ordinary API concurrent workload, 2026-10-18
+
+The later `var/image-performance-01` rehearsal retained the complete physical
+recovery and distinct compatible-image rollback checks and passed455 assertions.
+It additionally measured400 real HTTPS requests at10 concurrent clients against
+existing `/api/v1/grades/` and authenticated `/api/v1/users/me/` (200 each), after
+20 separate warmup requests. All400 succeeded with valid DTOs/no-store;400 request
+correlations were unique and observed peak concurrency was10. Overall nearest-rank
+p95 was203ms; Grade32ms and profile219ms, each below the existing500ms criterion.
+Failures remain in the denominator and latency distribution; no automatic retries.
+The complete database, sequences and private-fact HMAC were unchanged by the load.
+
+Scope: Windows/WSL2 Docker Desktop,12 logical CPUs,7,978,807,296 bytes memory,
+PostgreSQL16.15, Python3.12.15 and two API workers through the owned HTTPS edge.
+Windows clock resolution quantized individual samples; these are local disposable
+measurements, not a production capacity or future AI claim. The exact runtime
+images were built from3116fda, with the new host recovery controller; raw timings,
+cohort sizes, package versions and source hashes are retained in
+`i02-verification/ordinary-api-workload-20261018.json` and the455-check result.
+The full-candidate workflow now runs this ordinary workload with physical recovery
+as a required seventh technical job; syntax checking alone does not prove that job.
+
+### Ordinary API concurrent workload, 2026-10-18
+
+`var/image-performance-01` passed455 assertions including the existing physical
+recovery and distinct compatible-image rollback. It measured400 actual HTTPS
+requests at10 concurrent clients,200 Grade and200 authenticated profile reads,
+after20 separate warmup requests. All400 succeeded with valid DTOs/no-store;
+400 correlations were unique and peak concurrency was10. Nearest-rank p95:
+overall203ms, Grade32ms, profile219ms, each below the existing500ms criterion.
+Failures stay in the denominator and latency distribution; no automatic retries.
+The complete database, sequences and private-fact HMAC stayed unchanged.
+
+Scope: Windows/WSL2 Docker Desktop,12 logical CPUs,7,978,807,296 bytes memory,
+PostgreSQL16.15, Python3.12.15 and two API workers through the owned HTTPS edge.
+Windows clock resolution quantized individual samples. This is a disposable
+measurement, not a production capacity or future AI claim. Runtime images were
+built from3116fda; the new workload is in the host recovery controller. Exact
+samples, versions and source hashes: `i02-verification/ordinary-api-workload-20261018.json`
+and `image-performance-result-20261018.json`. The candidate workflow now requires
+this workload plus real image recovery as a seventh technical job; actual CI is
+still pending, syntax checking alone does not prove that job.

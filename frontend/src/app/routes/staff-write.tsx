@@ -1,6 +1,6 @@
 import {useEffect,useRef,useState,type FormEvent} from 'react';
 import {useLocation,type LinksFunction} from 'react-router';
-import {staffWriteOperations as staffOperations,staffDefinition,stringifyExact} from '../../shared/api/staff-client';
+import {staffWriteOperations as staffOperations,staffDefinition} from '../../shared/api/staff-client';
 import {createStaffWriteClient} from '../../shared/api/staff-write-client';
 import {StaffList,StaffDetails,StaffHistory} from '../../shared/ui/staff-records';
 import {readStaffCapabilities} from '../../shared/api/staff-capabilities';
@@ -85,6 +85,6 @@ export default function StaffPage(){
    {canSubmit&&definition&&(action==='add'||action==='detail'&&editable||action==='password'||action==='own-password')&&<form ref={form} onSubmit={e=>void submit(e)}><fieldset disabled={busy||unknown}>{Object.entries(definition.properties).map(([name,r])=>field(name,r))}{action==='detail'&&<label><input type="checkbox" required/>Подтверждаю изменение профиля, доступа и прав этой записи.</label>}<button type="submit" className="ms-ui-button">Сохранить</button></fieldset></form>}
    {action==='history'&&pagination?.next_cursor&&<button type="button" className="ms-ui-button" disabled={busy} onClick={()=>void read({...lastQuery.current,cursor:pagination.next_cursor})}>Следующая страница</button>}
    {allowed?.delete&&action==='delete'&&id&&!preview&&<button type="button" className="ms-ui-button" disabled={busy} onClick={()=>void deletePreview([id])}>Проверить возможность удаления</button>}
-   {preview&&<section className="ms-ui-card"><h3>Подтверждение удаления</h3><pre style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{stringifyExact(Object.fromEntries(Object.entries(preview).filter(([k])=>k!=='confirmation_token')))}</pre><form onSubmit={e=>void remove(e)}><label><input type="checkbox" required/>Подтверждаю удаление показанных записей.</label><button type="submit" className="ms-ui-button" disabled={busy||unknown||preview.protected===true}>Удалить</button><button type="button" className="ms-ui-button" onClick={()=>setPreview(null)}>Отмена</button></form></section>}
+   {preview&&<section className="ms-ui-card"><h3>Подтверждение удаления</h3><StaffDetails record={Object.fromEntries(Object.entries(preview).filter(([k])=>k!=='confirmation_token'))}/><form onSubmit={e=>void remove(e)}><label><input type="checkbox" required/>Подтверждаю удаление показанных записей.</label><button type="submit" className="ms-ui-button" disabled={busy||unknown||preview.protected===true}>Удалить</button><button type="button" className="ms-ui-button" onClick={()=>setPreview(null)}>Отмена</button></form></section>}
   </>}<noscript><p>Для административных операций нужен JavaScript.</p></noscript></main>;
 }

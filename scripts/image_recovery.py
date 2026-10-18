@@ -5,11 +5,14 @@ inside PostgreSQL/volumes and exports only HMACs, public hashes and measurements
 The restored cluster preserves database/role OIDs required by cutover provenance.
 """
 from datetime import timedelta
+from concurrent.futures import ThreadPoolExecutor
 from hashlib import sha256
 import json
 import os
 from pathlib import Path
 import statistics
+from math import ceil
+from threading import Barrier, Lock
 import time
 import uuid
 
@@ -23,6 +26,81 @@ from backend.migrations.schema import inventory
 from backend.users.cutover import CutoverImport
 
 PG_IMAGE = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
+
+
+def ordinary_api_workload(client, origin, verify):
+    """Ten real clients,200 measured GETs per existing API cohort, no retries.
+
+    Warm-up/handshakes are separate. Errors remain in the denominator/latencies;
+    callers retain this report before asserting the actual success/SLO criteria.
+    Private DTOs/cookies stay in memory and never enter the timing records.
+    """
+    paths = ('/api/v1/grades/', '/api/v1/users/me/')
+    expected = {}
+    for path in paths:
+        response = client.get(origin + path)
+        if response.status_code != 200:
+            raise RuntimeError('Ordinary API benchmark prerequisite refused')
+        expected[path] = response.json()['data']
+    cookies = httpx.Cookies(client.cookies)
+    barrier, lock = Barrier(10), Lock()
+    flight, peak = 0, 0
+
+    def worker(index):
+        nonlocal flight, peak
+        records, warm_errors = [], 0
+        with httpx.Client(trust_env=False, follow_redirects=False, timeout=10, verify=verify,
+                          cookies=httpx.Cookies(cookies)) as active:
+            for path in paths:
+                try:
+                    warm_errors += active.get(origin + path).status_code != 200
+                except httpx.RequestError:
+                    warm_errors += 1
+            barrier.wait(timeout=60)
+            for iteration in range(40):
+                path = paths[(index + iteration) % len(paths)]
+                tick = time.monotonic()
+                with lock:
+                    flight += 1
+                    peak = max(peak, flight)
+                record = {'request': index * 40 + iteration, 'path': path}
+                try:
+                    response = active.get(origin + path)
+                    record['status'] = response.status_code
+                    body = response.json()
+                    record['valid'] = (response.status_code == 200 and body.get('data') == expected[path]
+                                       and 'no-store' in response.headers.get('cache-control', ''))
+                    correlation = str(uuid.UUID(body['meta']['request_id']))
+                    record['correlation'] = correlation  # Removed before exporting.
+                except Exception as error:
+                    record.update(valid=False, failure_class=type(error).__name__)
+                finally:
+                    record['milliseconds'] = round((time.monotonic() - tick) * 1000, 3)
+                    with lock:
+                        flight -= 1
+                    records.append(record)
+        return records, int(warm_errors)
+
+    started = time.monotonic()
+    with ThreadPoolExecutor(max_workers=10) as pool:
+        parts = list(pool.map(worker, range(10)))
+    records = sorted((record for part, _ in parts for record in part), key=lambda row: row['request'])
+    correlations = [row.pop('correlation') for row in records if 'correlation' in row]
+
+    def stats(rows):
+        ordered = sorted(row['milliseconds'] for row in rows)
+        return {'requests': len(rows), 'failures': sum(not row['valid'] for row in rows),
+                'p50_ms': round(statistics.median(ordered), 3),
+                'p95_ms': ordered[ceil(.95 * len(ordered)) - 1], 'max_ms': max(ordered)}
+
+    return {**stats(records), 'concurrency': 10, 'observed_peak_inflight': peak,
+            'warmup_requests': 20, 'warmup_failures': sum(errors for _, errors in parts),
+            'cohorts': {path: stats([row for row in records if row['path'] == path]) for path in paths},
+            'unique_request_correlations': len(set(correlations)), 'nearest_rank': 'ceil(0.95*n)',
+            'elapsed_with_warmup_seconds': round(time.monotonic() - started, 3),
+            'transport': origin.split(':', 1)[0], 'network': 'Owned loopback edge, internal two-worker API and PostgreSQL',
+            'claim': 'Measured existing ordinary APIs only; no Product AI or production capacity claim',
+            'samples': records}
 
 
 def rehearse(engine, *, command, check, owned, names, image, directory, label,
@@ -272,6 +350,32 @@ def rehearse(engine, *, command, check, owned, names, image, directory, label,
             'p50_ms': round(statistics.median(latencies), 3), 'p95_ms': round(ordered[int(len(ordered) * .95) - 1], 3),
             'max_ms': round(max(latencies), 3), 'total_request_ms': round(sum(latencies), 3),
             'claim': 'Measured synthetic local workload only; no production capacity/SLO claim'}
+        with engine.connect() as connection:
+            readonly_before = source_digest(connection, env['MATHSTART_HTTP_SIGNING_KEY'], inventory(connection))
+            seed_counts = {name: connection.scalar(sa.text('SELECT count(*) FROM ' + connection.dialect.identifier_preparer.quote(name)))
+                           for name in inventory(connection)['tables']}
+            database_version = connection.scalar(sa.text('SHOW server_version'))
+        report['ordinary_api_workload'] = ordinary_api_workload(client, origin, verify)
+        measured = report['ordinary_api_workload']
+        measured['seed_rows'] = seed_counts
+        measured['postgresql'] = database_version
+        runtime = command(['exec', owned['api'], 'python', '-c',
+            "import json,os,platform,importlib.metadata as m; print(json.dumps({'python':platform.python_version(),'platform':platform.platform(),'logical_cpus':os.cpu_count(),'memory_bytes':os.sysconf('SC_PAGE_SIZE')*os.sysconf('SC_PHYS_PAGES'),'packages':{p:m.version(p) for p in ['fastapi','starlette','SQLAlchemy','psycopg','uvicorn']}}))"])
+        measured['runtime'] = json.loads(runtime)
+        measured['workers'] = 2
+        with engine.connect() as connection:
+            measured['all_rows_sequences_private_state_unchanged'] = (
+                source_digest(connection, env['MATHSTART_HTTP_SIGNING_KEY'], inventory(connection)) == readonly_before)
+        # Keep the actual distribution/failures even when its SLO assertion fails.
+        with (directory / 'ordinary-api-workload.json').open('x', encoding='utf-8', newline='\n') as stream:
+            stream.write(json.dumps(measured, indent=2) + '\n')
+        check(measured['requests'] == 400 and all(value['requests'] == 200 for value in measured['cohorts'].values()), 'ordinary_api_at_least200_each_cohort')
+        check(measured['observed_peak_inflight'] == 10, 'ordinary_api_ten_real_concurrent_clients')
+        check(measured['failures'] == 0 and measured['warmup_failures'] == 0, 'ordinary_api_failures_are_not_omitted')
+        check(measured['unique_request_correlations'] == 400, 'ordinary_api_all_request_correlations_are_fresh')
+        check(measured['p95_ms'] < 500 and all(value['p95_ms'] < 500 for value in measured['cohorts'].values()), 'ordinary_api_p95_below500ms_in_each_cohort')
+        check(measured['all_rows_sequences_private_state_unchanged'],
+              'ordinary_api_benchmark_preserves_all_rows_sequences_private_state')
     check(command(['exec', owned['api'], 'python', '-m', 'backend.health']) == 'READY', 'restored_actual_readiness')
     report.update(status='PASS', retained_input_hmac=before, elapsed_seconds=round(time.monotonic() - started, 3),
                   rollback_policy='No older snapshot restore after target writes; preserve current DB and forward recover or use a proven schema-compatible application')

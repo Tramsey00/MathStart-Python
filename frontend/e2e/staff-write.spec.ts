@@ -54,11 +54,35 @@ test('native staff user create profile roles password history and guarded deleti
   await page.getByRole('link',{name:'Удалить',exact:true}).click();
   await page.getByRole('button',{name:'Проверить возможность удаления'}).click();
   await expect(page.getByRole('heading',{name:'Подтверждение удаления'})).toBeVisible();
-  await page.getByRole('checkbox',{name:'Подтверждаю удаление показанных записей.'}).check();
-  const deleted=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/users/${id}/delete/`&&r.request().method()==='POST');
-  await page.getByRole('button',{name:'Удалить',exact:true}).click();expect((await deleted).status()).toBe(200);
-  await expect(page).toHaveURL('/admin/auth/user/');await saved(page);
+  await expect(page.getByRole('button',{name:'Удалить',exact:true})).toBeDisabled();
+  const preview=await page.request.get(origin+`/api/v1/staff/users/${id}/delete/`);
+  expect(preview.status()).toBe(200);const protectedState=(await preview.json()).data;expect(protectedState.protected).toBe(true);
+  const staffCsrf=await page.request.get(origin+'/api/v1/auth/csrf/');expect(staffCsrf.status()).toBe(200);
+  const refused=await page.request.post(origin+`/api/v1/staff/users/${id}/delete/`,{data:{ids:[Number(id)],confirmation_token:protectedState.confirmation_token},headers:{Origin:origin,'X-CSRFToken':(await staffCsrf.json()).data.csrf_token}});
+  expect(refused.status()).toBe(409);expect((await refused.json()).error.code).toBe('STATE_CONFLICT');
+  expect((await other.request.get(origin+'/api/v1/users/me/')).status()).toBe(200);
+  await page.getByRole('link',{name:'Изменить',exact:true}).click();await saved(page);
+  await page.getByRole('checkbox',{name:'Активен',exact:true}).uncheck();
+  await page.getByRole('checkbox',{name:'Подтверждаю изменение профиля, доступа и прав этой записи.'}).check();
+  const deactivated=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/users/${id}/`&&r.request().method()==='PUT');
+  await page.getByRole('button',{name:'Сохранить',exact:true}).click();expect((await deactivated).status()).toBe(200);await saved(page);
   expect((await other.request.get(origin+'/api/v1/users/me/')).status()).toBe(401);
+  // A native staff-created account without a profile/receipt remains deletable.
+  await page.goto('/admin/auth/user/add/');
+  await page.getByLabel('Имя пользователя',{exact:true}).fill(username+'_deletable');
+  await page.getByLabel('Пароль',{exact:true}).fill(initial);await page.getByLabel('Повторите пароль',{exact:true}).fill(initial);
+  const unprotectedCreated=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/v1/staff/users/'&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'Сохранить',exact:true}).click();expect((await unprotectedCreated).status()).toBe(201);
+  await expect(page).toHaveURL(/\/admin\/auth\/user\/\d+\/change\/$/);await saved(page);
+  const deletableId=new URL(page.url()).pathname.split('/').at(-3)!;
+  await page.getByRole('link',{name:'Удалить',exact:true}).click();
+  await page.getByRole('button',{name:'Проверить возможность удаления'}).click();
+  await expect(page.getByRole('heading',{name:'Подтверждение удаления'})).toBeVisible();
+  await page.getByRole('checkbox',{name:'Подтверждаю удаление показанных записей.'}).check();
+  const deleted=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/v1/staff/users/${deletableId}/delete/`&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'Удалить',exact:true}).click();expect((await deleted).status()).toBe(200);
+  await expect(page).toHaveURL(/\/admin\/auth\/user\/$/);await saved(page);
+  expect((await page.request.get(origin+`/api/v1/staff/users/${deletableId}/`)).status()).toBe(404);
  }finally{await other.close();}
 });
 
@@ -73,10 +97,11 @@ test('native group delete-selected previews and removes the complete selected se
  await page.goto('/admin/auth/group/');await saved(page);
  for(const name of names)await page.getByRole('checkbox',{name:'Выбрать '+name,exact:true}).check();
  const preview=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/v1/staff/groups/delete_selected/'&&r.request().method()==='GET');
- await page.getByRole('button',{name:'Удалить выбранные',exact:true}).click();expect((await preview).status()).toBe(200);
+ await page.getByRole('button',{name:'Удалить выбранные',exact:true}).click();const previewResponse=await preview;expect(previewResponse.status()).toBe(200);const ids=(await previewResponse.json()).data.ids;expect(ids).toHaveLength(2);
  await page.getByRole('checkbox',{name:'Подтверждаю удаление показанных записей.'}).check();
  const deleted=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/v1/staff/groups/delete_selected/'&&r.request().method()==='POST');
- await page.getByRole('button',{name:'Удалить',exact:true}).click();const result=await deleted;expect(result.status()).toBe(200);expect((await result.json()).data).toHaveLength(2);
- await expect(page).toHaveURL('/admin/auth/group/');await saved(page);
+ await page.getByRole('button',{name:'Удалить',exact:true}).click();const result=await deleted;expect(result.status()).toBe(200);
+ await expect(page).toHaveURL(/\/admin\/auth\/group\/$/);await saved(page);
+ for(const id of ids)expect((await page.request.get(`/api/v1/staff/groups/${id}/`)).status()).toBe(404);
  for(const name of names)await expect(page.getByRole('checkbox',{name:'Выбрать '+name,exact:true})).toHaveCount(0);
 });

@@ -311,7 +311,7 @@ jobs:
                           for result in test.get('results', []):
                               for error in result.get('errors', []):
                                   message = error.get('message', '')
-                                  errors.append({'name': error.get('name'), 'matcher': re.findall(r'\b(toBe|toEqual|toHaveText|toHaveURL|toBeVisible|toHaveCount|toHaveValue|toHaveAttribute)\b', message)[:2]})
+                                  errors.append({'name': error.get('name'), 'matcher': re.findall(r'\b(toBe|toEqual|toHaveText|toHaveURL|toBeVisible|toHaveCount|toHaveValue|toHaveAttribute)\b', message)[:2], 'locations': sorted(set(re.findall(r'[A-Za-z0-9_.-]+\.spec\.ts:\d+:\d+', str(error.get('stack', '')))))[:4], 'timeout': 'timeout' in message.lower()})
                           cases.append({'title': spec['title'], 'file': spec.get('file'), 'line': spec.get('line'), 'project': test.get('projectName'), 'status': test.get('status'), 'errors': errors})
                   for child in suite.get('suites', []):
                       walk(child)
@@ -328,6 +328,9 @@ jobs:
           path: |
             var/full-target-provenance.json
             var/full-target/result.json
+            var/full-target/runtime/prepare-result.json
+            var/full-target/runtime/releases/
+            var/full-target/artifact/
             var/target-checks/**/result.json
             var/full-target-browser-diagnostics.json
             frontend/test-results/**/r*-region*-legacy.png
@@ -343,6 +346,7 @@ jobs:
             frontend/test-results/**/style.png
             frontend/test-results/**/lesson.png
             frontend/test-results/**/catalogue-no-js.png
+            frontend/test-results/**/attachments/matched-family-coverage*
             frontend/test-results/**/attachments/matched-capture-index*
             frontend/test-results/**/attachments/browser-version*
             frontend/test-results/**/attachments/svg-labels*
@@ -397,7 +401,7 @@ jobs:
           retention-days: 30
 
   combined-candidate-checks:
-    needs: [target-readiness, verify, pure, backend-install, deployment-images, target, release-operations]
+    needs: [target-readiness, verify, pure, backend-install, deployment-images, target, release-operations, image-recovery]
     if: always() && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target))
     runs-on: ubuntu-latest
     steps:
@@ -408,9 +412,119 @@ jobs:
           python - <<'PY'
           import json, os
           results = json.loads(os.environ['REQUIRED_JOB_RESULTS'])
-          required = {'verify', 'pure', 'backend-install', 'deployment-images', 'target', 'release-operations'}
+          required = {'verify', 'pure', 'backend-install', 'deployment-images', 'target', 'release-operations', 'image-recovery'}
           failed = {name: results.get(name, {}).get('result', 'missing') for name in required if results.get(name, {}).get('result') != 'success'}
           if failed:
               raise SystemExit('FAIL: required technical jobs failed, skipped or missing: ' + json.dumps(failed, sort_keys=True))
-          print('PASS: all six required technical jobs executed successfully. Independent command review and human acceptance are separate remaining gates.')
+          print('PASS: all seven required technical jobs executed successfully. Independent command review and human acceptance are separate remaining gates.')
           PY
+
+  image-recovery:
+    needs: [target-readiness, target]
+    if: needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Locked no-Django image recovery controller
+        run: |
+          python -m venv var/image-target-env
+          var/image-target-env/bin/python -m pip install --no-deps -r backend/infrastructure/http/requirements.lock
+          var/image-target-env/bin/python -m pip check
+      - name: Download the exact verified public handoff from the successful target job
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, os, urllib.request, urllib.error, urllib.parse, zipfile
+          from pathlib import Path
+          repo, run, attempt = os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_RUN_ID'], os.environ['GITHUB_RUN_ATTEMPT']
+          headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
+          class Redirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, request, *args):
+                  redirected = super().redirect_request(request, *args)
+                  if redirected is not None and urllib.parse.urlsplit(redirected.full_url).hostname != 'api.github.com':
+                      redirected.remove_header('Authorization')
+                  return redirected
+          opener = urllib.request.build_opener(Redirect())
+          def get(url):
+              try:
+                  with opener.open(urllib.request.Request(url, headers=headers), timeout=60) as response:
+                      return response.read()
+              except urllib.error.HTTPError as error:
+                  raise SystemExit('Artifact request failed with HTTP ' + str(error.code)) from None
+          data = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + run + '/artifacts'))
+          selected = [a for a in data['artifacts'] if a['name'] == 'full-target-' + run + '-' + attempt and not a['expired']]
+          assert len(selected) == 1, 'Missing exact current-attempt target artifact'
+          artifact = selected[0]
+          assert artifact['workflow_run']['head_sha'] == os.environ['EXPECTED_EVENT_HEAD_SHA']
+          raw = get('https://api.github.com/repos/' + repo + '/actions/artifacts/' + str(artifact['id']) + '/zip')
+          assert 'sha256:' + hashlib.sha256(raw).hexdigest() == artifact['digest']
+          archive = zipfile.ZipFile(io.BytesIO(raw)); root = Path.cwd().resolve()
+          for entry in archive.infolist():
+              if entry.filename.startswith(('var/full-target/runtime/releases/', 'var/full-target/artifact/')) or entry.filename in {'var/full-target/runtime/prepare-result.json', 'var/full-target-provenance.json'}:
+                  assert (root / entry.filename).resolve().is_relative_to(root / 'var')
+                  archive.extract(entry, root)
+          assert json.loads(Path('var/full-target-provenance.json').read_text())['checkout_sha'] == os.environ['GITHUB_SHA']
+          Path('var/image-input-provenance.json').write_text(json.dumps({'artifact_id': artifact['id'], 'sha256': artifact['digest'], 'checkout_sha': os.environ['GITHUB_SHA']}, indent=2) + '\n')
+          print('Verified exact public handoff; private runtime/cookies were not extracted')
+          PY
+      - name: Build current images and a distinct retained compatible API
+        run: |
+          docker build -f deploy/Dockerfile --target api --label org.opencontainers.image.revision=$GITHUB_SHA -t mathstart-api:candidate .
+          docker build -f deploy/Dockerfile --target edge --label org.opencontainers.image.revision=$GITHUB_SHA -t mathstart-edge:candidate .
+          docker build -f deploy/Dockerfile --target frontend-builder --label org.opencontainers.image.revision=$GITHUB_SHA -t mathstart-frontend-builder:candidate .
+          python - <<'PY'
+          import io, subprocess, tarfile
+          from pathlib import Path
+          prior = Path('var/prior-image-source'); prior.mkdir()
+          raw = subprocess.check_output(['git', 'archive', '042caf8825d1ba8518cd103d5cdabeac7e7739c4'])
+          with tarfile.open(fileobj=io.BytesIO(raw)) as archive:
+              archive.extractall(prior, filter='data')
+          subprocess.run(['docker', 'build', '-f', 'deploy/Dockerfile', '--target', 'api', '--label', 'org.opencontainers.image.revision=042caf8825d1ba8518cd103d5cdabeac7e7739c4', '-t', 'mathstart-api:prior-042caf8', '.'], cwd=prior, check=True, timeout=600)
+          PY
+      - name: Actual locked HTTPS build and private loopback test certificate
+        run: |
+          mkdir -p var/release-tls
+          openssl req -x509 -newkey rsa:2048 -nodes -keyout var/release-tls/tls.key -out var/release-tls/tls.crt -days 1 -subj /CN=127.0.0.1 -addext subjectAltName=IP:127.0.0.1
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          root = Path.cwd(); source = root / 'var/full-target/runtime/releases'
+          prepared = json.loads(Path('var/full-target/runtime/prepare-result.json').read_text())
+          output = root / 'var/release-https-build'; output.mkdir()
+          # Only this newly generated disposable key becomes readable by edge UID101.
+          subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--user', '0', '--no-healthcheck', '--mount', 'type=bind,source=' + str(root / 'var/release-tls') + ',target=/tls', '--entrypoint', 'python', 'mathstart-api:candidate', '-c', "import os;os.chown('/tls/tls.key',101,101);os.chmod('/tls/tls.key',0o400);os.chmod('/tls/tls.crt',0o444)"], check=True, timeout=30)
+          subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--user', '0', '--no-healthcheck', '--mount', 'type=bind,source=' + str(output) + ',target=/output', '--entrypoint', 'python', 'mathstart-api:candidate', '-c', "import os;os.chown('/output',10001,10001);os.chmod('/output',0o755)"], check=True, timeout=30)
+          subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--label', 'mathstart.purpose=disposable-release-https-build', '--mount', 'type=bind,source=' + str(source) + ',target=/inputs,readonly', '--mount', 'type=bind,source=' + str(output) + ',target=/output', 'mathstart-frontend-builder:candidate', '--input-root', '/inputs', '--release-id', prepared['release_id'], '--manifest-digest', prepared['manifest_digest'], '--receipt-digest', prepared['receipt_digest'], '--output', '/output/site', '--origin', 'https://127.0.0.1:18121'], check=True, timeout=600)
+          PY
+      - name: HTTPS physical recovery compatible rollback and ordinary API400 at10
+        run: >-
+          var/image-target-env/bin/python scripts/verify_images.py
+          --disposable --recovery --rollback-image mathstart-api:prior-042caf8
+          --runtime-root var/release-image-recovery
+          --source-runtime var/full-target/runtime --artifact-root var/release-https-build/site
+          --api-image mathstart-api:candidate --edge-image mathstart-edge:candidate
+          --tls-cert var/release-tls/tls.crt --tls-key var/release-tls/tls.key
+      - name: Retain safe recovery and performance evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: image-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/image-input-provenance.json
+            var/release-image-recovery/result.json
+            var/release-image-recovery/ordinary-api-workload.json
+            var/release-https-build/site/output-manifest.json
+          if-no-files-found: error
+          retention-days: 30
