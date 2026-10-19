@@ -7,7 +7,7 @@
 `pip check`, `python scripts/verify_repo.py --profile pure` на Python3.12+.
 Отсутствующие V/I runtime commands дают FAIL и не разрешают READY.
 [Current adapter contract](../migration/r03-v1/README.md) и
-[R03 trace](../../docs/agent-traces/MS7-MIG-R03.md) отделяют текущие результаты
+[R03 trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R03.md) отделяют текущие результаты
 от исторического описания R04 ниже; historical acceptance не переписана.
 
 Далее — исторический R04 интерфейс. Его manifest закрепляет исходные PRODUCT/ARCHITECTURE
@@ -81,7 +81,7 @@ RunResult сохраняется как BUDGET_EXCEEDED, exit 4. Blocking adapte
 которые уже начались, не прерываются на уровне ОС в R04.
 
 PR #10 после REQUEST_CHANGES требует повторного human review. Human gate PENDING;
-актуальные test counts и fixture run ID находятся в [trace](../../docs/agent-traces/MS6-R04.md).
+актуальные test counts и fixture run ID находятся в [trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS6-R04.md).
 
 
 ## Committed publication для READY

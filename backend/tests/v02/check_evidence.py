@@ -1,28 +1,39 @@
-"""Read-only current workspace evidence check; never refreshes historical pins."""
+"""Read-only historical V02 intake audit, requiring its separate original workspace."""
+import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[3]
-EVIDENCE = ROOT / 'docs/acceptance/MS7-MIG-V02'
+sys.path.insert(0, str(ROOT))
+from scripts.historical_sources import retired_json
 
 
 def main():
-    load = lambda name: json.loads((EVIDENCE / name).read_text(encoding='utf-8'))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--workspace', type=Path, required=True)
+    workspace = parser.parse_args().workspace.resolve()
+    if workspace == ROOT:
+        raise ValueError('Historical audit cannot establish current target readiness')
+    load = lambda name: retired_json('docs/acceptance/MS7-MIG-V02/' + name)
     manifest = load('workspace-manifest.json')
+    head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=workspace).decode().strip()
+    if head != manifest['input_sha']:
+        raise ValueError('Historical intake workspace must use its exact original input SHA')
     for path, record in manifest['files'].items():
-        if sha256((ROOT / path).read_bytes()).hexdigest() != record['checkout_byte_sha256']:
+        if sha256((workspace / path).read_bytes()).hexdigest() != record['checkout_byte_sha256']:
             raise AssertionError('Workspace drift: ' + path)
     ownership = load('frozen-ownership.json')
     for record in ownership['checked_frozen_files']:
-        blob = subprocess.check_output(['git', 'show', 'HEAD:' + record['path']], cwd=ROOT)
+        blob = subprocess.check_output(['git', 'show', 'HEAD:' + record['path']], cwd=workspace)
         if sha256(blob).hexdigest() != record['head_blob_sha256']:
             raise AssertionError('Frozen Git blob drift: ' + record['path'])
-    tracked = subprocess.check_output(['git', 'diff', '--name-only'], cwd=ROOT).decode().splitlines()
+    tracked = subprocess.check_output(['git', 'diff', '--name-only'], cwd=workspace).decode().splitlines()
     if tracked:
         raise AssertionError('Existing tracked files changed')
-    files = subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard'], cwd=ROOT).decode().splitlines()
+    files = subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard'], cwd=workspace).decode().splitlines()
     allowed = ('backend/content/', 'backend/staff/', 'backend/infrastructure/http/',
                'backend/tests/v02/', 'docs/acceptance/MS7-MIG-V02/')
     records = {'docs/agent-traces/MS7-MIG-V02.md', 'docs/exec-plans/active/MS7-MIG-V02.md'}

@@ -5,8 +5,8 @@
 - **Last updated:** 2026-10-02
 - **Issue:** [#18](https://github.com/Tramsey00/MathStart-Python/issues/18)
 - **ADR:** [ADR-0005 / D-021](../../docs/adr/ADR-0005-completion-fact.md), Proposed
-- **Plan:** [active MS7-R03A](../../docs/exec-plans/active/MS7-R03A-completion-fact.md)
-- **Trace:** [MS7-R03A](../../docs/agent-traces/MS7-R03A.md)
+- **Plan:** [active MS7-R03A](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-R03A-completion-fact.md)
+- **Trace:** [MS7-R03A](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-R03A.md)
 - **Direct CONTRACT dependency:** [frozen R03](R03-progress-contract.md)
 - **Numerical authority:** [BASELINE-v1](BASELINE-v1.md), unchanged
 - **Canonical authority:** task owner's supplied v7.1 requirements; corrected §20

@@ -266,12 +266,13 @@ class HelperEvidenceIntegrityTests(unittest.TestCase):
         import base64
         import importlib.util
         self.root = Path(__file__).resolve().parents[3]
-        self.evidence = self.root / 'docs/acceptance/MS7-MIG-V02/i02-handoff-p2-p3-20261015'
-        spec = importlib.util.spec_from_file_location('i02_helper_integrity', self.evidence / 'verify_helper_sources.py')
+        from scripts.historical_sources import retired_json
+        self.evidence = 'docs/acceptance/MS7-MIG-V02/i02-handoff-p2-p3-20261015/'
+        spec = importlib.util.spec_from_file_location('i02_helper_integrity', self.root / 'scripts/verify_helper_sources.py')
         self.verifier = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.verifier)
-        self.bundle = json.loads((self.evidence / 'helper-sources-v2.json').read_bytes().decode('utf-8'))
-        self.pins = json.loads((self.evidence / 'intake.json').read_bytes().decode('utf-8'))['helper_source_pins']
+        self.bundle = retired_json(self.evidence + 'helper-sources-v2.json')
+        self.pins = retired_json(self.evidence + 'intake.json')['helper_source_pins']
         # Reconstruct fixtures from retained bytes: a clean checkout need not
         # contain ignored local verification scripts. The separate CLI receipt
         # verifies the actual original files with two physical reads each.
@@ -303,8 +304,8 @@ class HelperEvidenceIntegrityTests(unittest.TestCase):
                 self.verifier.verify(bundle, self.pins, self.source_root)
 
     def test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard(self):
-        original = self.root / 'docs/acceptance/MS7-MIG-V02/i02-handoff-followup-20261015/raw-command-receipts.json'
-        raw = original.read_bytes()
+        from scripts.historical_sources import retired_bytes
+        raw = retired_bytes('docs/acceptance/MS7-MIG-V02/i02-handoff-followup-20261015/raw-command-receipts.json')
         correct, wrong = json.loads(raw.decode('utf-8')), json.loads(raw.decode('cp1251'))
         expected = {'var/i02_handoff_full_content.py': '3a10fc80fe13e3965931f11d2e168f4352bd96e89504cdf3f6cb60b9af8aa28d',
                     'var/i02_handoff_finalize.py': '0d45e3ef0ba0654f0e16e8e7e715fe7bfc66c1fc433c6fd26d639472d88b69d3'}

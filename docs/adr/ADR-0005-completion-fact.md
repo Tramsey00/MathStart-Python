@@ -13,7 +13,7 @@
   [R03](../../specs/progress/R03-progress-contract.md),
   [baseline](../../specs/progress/BASELINE-v1.md),
   [R02A integration terminology](../../specs/api/MS7-R02A-http-eligibility.md)
-- **Plan / audit:** [MS7-R03A](../exec-plans/active/MS7-R03A-completion-fact.md)
+- **Plan / audit:** [MS7-R03A](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-R03A-completion-fact.md)
 - **Human approval:** PENDING; no runtime implementation authorized in this pass
 
 ## 1. Context and canonical authority
@@ -305,7 +305,7 @@ The plan defines future files/cases for neutral eviction, dual keys, mandatory
 outcome/policy, late facts, numerical isolation, authority and compatibility.
 This correction runs git diff --check, canonical verify_repo.py, unchanged R03
 tests and git diff --stat. Actual results/versions are in
-[the trace](../agent-traces/MS7-R03A.md). Checks verify the unchanged executable
+[the trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-R03A.md). Checks verify the unchanged executable
 baseline, not R03A implementation.
 
 **Reviewer / Task Approver:** Владимир. **Decision:** PENDING.

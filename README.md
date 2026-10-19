@@ -16,6 +16,10 @@ PostgreSQL 16+ и React/TypeScript с immutable SSG. Сохранены исхо
 | specs/ | Сохранённые доменные контракты и manifests |
 | var/ | Игнорируемые локальные окружения, private настройки и отчёты |
 
+Подготовленное локальное окружение: [запуск и остановка](docs/local-development.md).
+Рабочая копия — основной Git root на main. История переноса —
+[краткая maintenance-запись](docs/maintenance.md).
+
 ## Чистый клон и запуск
 
 Нужны Python 3.12+, Git, PostgreSQL 16+, Node 24 и npm 11.19.0; для контейнерного

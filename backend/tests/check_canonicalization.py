@@ -53,7 +53,8 @@ def main():
         with PostgreSQLTests().database() as engine:
             with engine.begin() as connection:
                 result = investigate(connection)
-        path = Path('docs/acceptance/MS7-MIG-V01/check-canonicalization-v1.json')
+        path = Path('var/check-canonicalization-v1.json')
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         print(json.dumps({k: result[k] for k in ['PostgreSQL', 'original_in_matches_frozen_exactly',
             'frozen_deparse_roundtrip_matches', 'truth_table_cases', 'truth_table_mismatches']}, indent=2))
