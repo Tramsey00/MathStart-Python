@@ -136,3 +136,117 @@ only. Exact cleanup SHA, run links and final conclusions are recorded in PR 54.
 If normal paths do not start the full gate, use the existing explicit full-target
 dispatch; do not change the reviewed command map or combined conditions.
 The acceptance environment is left running for the user's outstanding review.
+
+
+## Second and final focused pass
+
+Source cleanup SHA: `467866e7038071dce35883e1d20fa5be2d7d5fd3`.
+The first pass is complete: all 65 indexed deletions and their source hashes,
+preservation and mandatory CI were confirmed. CI39181017096 passed all nine jobs,
+including actual target, image-recovery and combined, at that source SHA.
+The first-pass report above remains a record of that pass; the decisions below
+supersede its deliberately deferred archive inventory only. No first-pass work
+was redone and no historical results/approvals/digests were reassigned.
+
+### Instruction corrections
+
+- `docs/exec-plans/active/migration-execution.md` now links to the completed
+  MIGRATION result: READY_FOR_HUMAN_ACCEPTANCE / HUMAN_PENDING. It no longer
+  assigns implementation/review or calls the migration IN_PROGRESS.
+- `specs/migration/r03-v1/README.md` now describes implemented install wrappers,
+  the REVIEWED map and the successful exact-SHA full gates. The explicit target
+  is Django-free; the legacy default belongs to a separate operated cutover.
+  Dated historical sections remain unchanged below an explicit historical
+  boundary. No contract assertions or command receipt requirements were changed.
+- `specs/migration/r03-v1/v02-publication/README.md` is explicitly historical and
+  retired. It no longer proposes executing deleted controllers or treats the old
+  INCOMPLETE as the current migration state. Historical replay points to original
+  source1d9e4d3 and this restoration index. Approved controls/hashes are unchanged.
+
+### Final ZIP decisions and dynamic consumers
+
+All 25 ZIP candidates under `docs/acceptance/MS7-MIG-R03/` were removed: exactly
+7,079,188 canonical Git blob bytes at source467866e. Full paths, canonical sizes,
+SHA256 and per-entry source SHA are appended to the existing restoration index
+(90 entries total); the original 65 entries are unchanged. No replacement ZIP,
+placeholder or archive copy was created. Git history remains intact.
+
+| Historical directory/group under R03 | ZIPs | Canonical bytes |
+| --- | ---: | ---: |
+| `v02-integration-a359b0b` | 6 | 214424 |
+| `v02-publication-20261014` | 5 | 4043421 |
+| `root reference-document archives` | 2 | 297791 |
+| `v02-review-20261015` | 5 | 377902 |
+| `v02-successor-20261015` | 1 | 2696 |
+| `v02-successor-review-8256cbf` | 5 | 509310 |
+| `v02-successor-review-8256cbf/gate` | 1 | 1633644 |
+
+These are downloaded fixed-candidate artifacts, raw/decoded logs, local and Linux
+preparation/replay evidence, a reviewed diff and old gate reference documents.
+The reference-document ZIPs are historical publication/transport instructions,
+not the original product PDF, v7.2 draft, 52-card disposition or approved controls.
+All those product/final-review/parity/acceptance/negative sources remain unchanged.
+
+Dependency review covered literal references and dynamic paths/manifests/tests:
+
+- The live ZIP reader in `migration-ci.yml` downloads the exact current run's
+  full-target artifact through the Actions API, verifies its digest/head and
+  extracts selected inputs only under `var/`. It never reads the 25 repository
+  archives. Its workflow/combined conditions remain unchanged.
+- Runtime/build/test glob/rglob paths enumerate curriculum/site_content, immutable
+  build/runtime roots or test-local receipts/fixtures. Historical R01/I01 tools
+  enumerate their own records/source materials. None consumes these R03 ZIPs.
+- The current R03 test reads `old-to-new-evidence.json` and its named trace and
+  verification files, which remain; it does not open the archive manifests/ZIPs.
+  `check_migration_preservation.py` checks accepted Git input and frozen digest
+  manifests; none of these 25 ZIPs is an input.
+- Historical artifact/reconciliation/member inventories and approvals remain
+  byte-identical. 21 path/size/digest references in existing manifests were
+  independently matched to candidate blobs before deletion. All 25 blobs were
+  hashed against Git, including archives without such a manifest row.
+- Retained inventory-only `check-v02-inventory-tree.py` consumes supplied JSON
+  inventory and Git tree metadata, not a ZIP. Historical links/dedup locations
+  refer to the old tree; restore their exact bytes via each index entry's
+  source_sha. The first 65 entries use1d9e4d3; these 25 use467866e.
+
+**Retained among the 25 candidates: none.** Approved archives outside this scope
+were not candidates and were not modified. In particular
+`specs/migration/r03-v1/v02-publication/trusted-controls.zip` remains pinned by
+`approved-pins.json`; historical consumers were the retired publication gate's
+materialize/check-controls functions, recoverable from1d9e4d3. Its six controls,
+standalone owner anchor, approved pins and original hashes remain unchanged.
+No current-check dependency was removed and no check was changed to permit removal.
+
+### Size and verification for the final pass
+
+The following table uses **canonical Git blob bytes**, unlike the first pass's
+explicit physical Windows checkout metric. It excludes Git history, ignored
+runtime/private data and local environments. Archive savings are7,079,188 bytes;
+net savings account for the three instruction edits and appended report/index.
+
+| Canonical current tree | Files | Bytes | MiB |
+| --- | ---: | ---: | ---: |
+| Before final pass (467866e) | 2784 | 104962876 | 100.100 |
+| After final pass | 2759 | 97899384 | 93.364 |
+| Net reduction | 25 | 7063492 | 6.736 |
+
+- Preservation: PASS,1370 accepted originals and frozen manifest pins unchanged.
+- Product/source reconciliation: PASS,233 assertions; original PDF/v7.2/52 cards
+  and dependency disposition preserved.
+- Pure/Harness: PASS,224 tests/six checks, no skips claimed as success.
+- Dependency/link/delta review: PASS; exact25 deletions/five doc-index-report
+  edits only. All appended source blob hashes checked; first65 entries preserved;
+  dated historical README sections, controls and every approved hash retained;
+  current local links resolve and remaining Python modules parse.
+- `git diff --check`: PASS. No tests, runtime, CSS, schemas, dependencies, locks,
+  contracts, guards, registry or active workflows/combined gate were changed.
+- No acceptance-directory/private-file access, container operation, rebuild,
+  restart, local environment cleanup, parent/other-worktree change or source
+  Django DB access was performed in this pass. No agents/new report package.
+
+The new final cleanup SHA needs its own normal mandatory CI (or the existing
+explicit full-target dispatch if normal paths do not select the gate). Its exact
+run links and conclusions are recorded in PR54; the first cleanup's green CI is
+not attributed to this new commit. Human acceptance is still pending. After this
+focused pass no new cleanup or optimization direction is assigned. Main merge,
+production and Issue closure remain separate and were not performed.

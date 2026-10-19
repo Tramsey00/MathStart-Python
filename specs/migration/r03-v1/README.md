@@ -1,11 +1,13 @@
 # R03 verification adapter contract v1
 
 Status: command contract REVIEWED after actual independent technical review.
-Normal mandatory CI with the reviewed map and human acceptance remain separate.
+Normal mandatory CI with the reviewed map has passed on the candidates below;
+human acceptance remains pending and separate.
 [Review and limits](../../../docs/acceptance/migration-execution/review/final-review-20261018.md).
 Historical owner attribution: Tramsey00 / VladimirFrolov777 /13baybars.
 [Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) remains open;
-the unified execution authority is MIGRATION.md.
+the completed migration result and human acceptance status are in
+[MIGRATION.md](../../../MIGRATION.md). This document does not start another task.
 Current accepted input `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
 previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts retained;
 historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
@@ -21,8 +23,9 @@ backend/database/content/tests/harness/frontend. `--group`, repeated groups,
 An empty execution fails. A partial selection never establishes full target
 acceptance. `--profile pure` runs only6 pure/Harness checks; no runtime claim.
 The transitional default is explicitly legacy to keep frozen ci.yml reproducible.
-At final cutover R03 must switch the default through reviewed intake; until then
-this increment does not satisfy the final no-Django verification requirement.
+Switching that default belongs to a separately reviewed operated cutover.
+The explicit target verifier already runs without Django; the retained legacy
+default is not evidence that target implementations are missing.
 
 Harness keeps `repo-baseline`, `harness-unit`, `harness-cli-smoke`; repo-baseline
 now explicitly selects target and excludes harness. Its15 checks cannot recursively
@@ -32,7 +35,8 @@ Historical TaskManifest/RunResult schemas, manifests and domain suites stay inta
 
 Use Python3.12+, an isolated venv, `pip install --no-deps -r verification.lock`
 from this directory (or its full root-relative path), then `pip check`.
-Product locks remain the V01/I01 owners' deliverables. No latest dependency install.
+Product dependencies use the checked-in backend/frontend locks; verification.lock
+is the tooling lock. No latest dependency install.
 
 ## Required semantic equivalents and owner handoff
 
@@ -90,7 +94,9 @@ Scripts must use deterministic test execution and fail on no tests, not watch mo
 the owner-reviewed rehearsals, requiring `MATHSTART_DISPOSABLE=1` as a second
 explicit guard. The owner implementation must also enforce DB/runtime isolation,
 empty fresh DB and populated profile identity; a flag is no production authorization.
-The wrapper currently fails because implementations are absent; no schema is created.
+These wrappers dispatch implemented commands from the REVIEWED map. Fresh and
+populated A/B/C rehearsals have passed with actual schema/data assertions on the
+recorded candidates. API startup itself still performs no schema installation.
 
 `python scripts/check_database.py --profile target` uses psycopg directly with
 MATHSTART_DB_HOST/PORT/NAME/USER/PASSWORD, a read-only SELECT1/version query,
@@ -107,21 +113,40 @@ tooling lock with an explicit no-Django/DRF import-availability assertion. The
 historical baseline job runs unchanged standalone R02 suite63 at accepted input
 in its own detached worktree; its all-input HEAD assertion remains meaningful.
 Its Django observations are historical, not target portability. Current target
-pure R02 protocol32 are included separately. Remaining standalone R02 runtime
-assertions need V/I equivalents; no tests are removed or silently skipped.
+pure R02 protocol32 are included separately. Runtime equivalents are exercised
+by the complete target registry; the standalone historical suite is not relabelled
+as current runtime evidence. Required current tests are not removed or skipped.
 
-The target job has PG16, owner locks, fresh and upgrades A/B/C, full target registry
-and frontend browser smoke. It fails on missing owners' inputs today; no job-level
-skip/continue-on-error hides that blocker. Provenance records actual checkout SHA,
+The target job has PG16, owner locks, fresh and upgrades A/B/C, the full target
+registry and real Chrome/Edge/Firefox projects at360/768/1440. Implementations and
+inputs are present; the map is REVIEWED. Missing inputs still fail closed, with
+no job-level skip/continue-on-error. Provenance records actual checkout SHA,
 tree, event, run/attempt, PR head/base and tested merge parents/ref. Evidence is
 uploaded even on failure. Green pure/historical jobs do not override failed target.
 `ci_provenance.py` detects stale checkout and wrong merge parents; local invocation
 does not count as CI. No live Product LLM or production credentials are required.
 
-Plan stays active and Issue30 open. Accepted V02/I02 plus fresh/upgrade/content/
-frontend real evidence, final current-head/merge-ref CI and independent approvals
-are required before task acceptance. [Handoff](../../../docs/acceptance/MS7-MIG-R03/handoff.md)
-and [trace](../../../docs/agent-traces/MS7-MIG-R03.md) record exact current limits.
+The technical migration is complete; human acceptance and Issue closure have not
+been performed. Full target/recovery/combined passed on runtime42f6249, then on
+candidate1d9e4d39aa103ccc049dd9569c2354893af30a75 in
+[CI39164124957](https://github.com/Tramsey00/MathStart-Python/actions/runs/39164124957),
+and on cleanup467866e7038071dce35883e1d20fa5be2d7d5fd3 in
+[CI39181017096](https://github.com/Tramsey00/MathStart-Python/actions/runs/39181017096):
+all nine jobs SUCCESS, including actual target/image-recovery/combined, no skipped
+jobs. Each result belongs only to its own SHA. New HEAD checks remain required.
+The [runtime guide](../../../docs/target-runtime.md) is current operational
+guidance. Historical [handoff](../../../docs/acceptance/MS7-MIG-R03/handoff.md)
+and [trace](../../../docs/agent-traces/MS7-MIG-R03.md) retain their original limits.
+
+## Historical stages (2026-10-12 through 2026-10-15)
+
+The dated sections below are historical snapshots, not current execution
+instructions. Their INCOMPLETE/NOT_READY/pending statements describe those old
+stages; they do not override the completed result above. Approvals, results,
+digests and reviewed input identities are not reassigned. Old fixed-candidate
+workflows/controllers are retired. Raw artifacts and removed tools can be
+recovered using the per-entry source SHA in the existing
+[restoration index](../../../docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
 
 ## Accepted I01/V01 joint-input CI — 2026-10-12
 
