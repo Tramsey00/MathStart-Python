@@ -1,4 +1,5 @@
 # Canonical target services and configuration: deploy/compose.yaml.
 # Use --env-file <private compose file>; see deploy/RELEASE.md.
+name: ${MATHSTART_STACK:?Select a unique reviewed stack name}
 include:
   - path: deploy/compose.yaml

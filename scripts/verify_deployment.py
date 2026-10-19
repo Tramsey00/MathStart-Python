@@ -106,6 +106,16 @@ def main(argv=None):
                    MATHSTART_PUBLIC_VOLUME=project + '-public')
         command([*compose, 'config', '--quiet'])
         check(True, 'actual_compose_config')
+        # Include does not inherit the child's project name. Both documented
+        # entry points must manage the same resources, including tools/release.
+        # Compare base models: the POSIX release group_add override is only for
+        # canonical tool execution. Parent overrides conflict with include.
+        canonical = json.loads(command([*compose[:3], '--profile', 'tools', 'config', '--format', 'json']))
+        shorthand = json.loads(command(['compose', '-f', str(ROOT / 'compose.yaml'),
+                                      '--profile', 'tools', 'config', '--format', 'json']))
+        check(all(canonical.get(key) == shorthand.get(key)
+                  for key in ('name', 'services', 'networks', 'volumes')),
+              'root_canonical_compose_equivalent')
         for name in (env['MATHSTART_DATABASE_VOLUME'], env['MATHSTART_PUBLIC_VOLUME']):
             occupied = subprocess.run([args.docker, 'volume', 'inspect', name], capture_output=True, timeout=10)
             if occupied.returncode == 0:

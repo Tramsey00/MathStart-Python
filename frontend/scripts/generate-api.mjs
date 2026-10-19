@@ -1,12 +1,12 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import openapiTS, { astToString } from "openapi-typescript";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import standaloneCode from "ajv/dist/standalone/index.js";
+import {preservedContract} from "./preserved-contracts.mjs";
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const read = p => JSON.parse(readFileSync(resolve(root, p), "utf8"));
 const hash = b => createHash("sha256").update(b).digest("hex");
@@ -16,11 +16,8 @@ for (const [manifest, field] of [
 ]) {
   const pins = read(manifest)[field];
   for (const [p, expected] of Object.entries(pins)) {
-    const blob = execFileSync("git", ["show", "HEAD:" + p], { cwd: root });
+    const blob = preservedContract(root, p);
     if (hash(blob) !== expected) throw new Error("Frozen Git pin mismatch: " + p);
-    // Windows checkout newline normalization is the only permitted difference.
-    if (readFileSync(resolve(root,p),"utf8").replace(/\r\n/g,"\n") !== blob.toString("utf8").replace(/\r\n/g,"\n"))
-      throw new Error("Contract working copy changed: " + p);
   }
 }
 const oas = read("specs/api/openapi-v1.json");

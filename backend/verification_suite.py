@@ -64,6 +64,21 @@ def owned_database(admin, url, label):
                 c.execute(sa.text('DROP DATABASE ' + quote))
 
 
+class SuiteFailure(RuntimeError):
+    """Safe case identities survive bounded/redacted stdout without trace values."""
+    def __init__(self, result):
+        super().__init__('Backend tests failed or skipped')
+        def identity(test):
+            # unittest subtest IDs include parameter reprs, possibly private.
+            return getattr(test, 'test_case', test).id()
+        self.diagnostics = {
+            'tests_run': result.testsRun,
+            'failed_case_ids': [identity(test) for test, _ in result.failures],
+            'error_case_ids': [identity(test) for test, _ in result.errors],
+            'skipped_case_ids': [identity(test) for test, _ in result.skipped],
+        }
+
+
 def execute(modules, *, case_ids=None):
     suite = unittest.defaultTestLoader.loadTestsFromNames(modules)
     if suite.countTestCases() == 0:
@@ -75,7 +90,7 @@ def execute(modules, *, case_ids=None):
     planned = identifiers(suite)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     if not result.wasSuccessful() or result.skipped or result.testsRun != len(planned):
-        raise RuntimeError('Backend tests failed or skipped')
+        raise SuiteFailure(result)
     if case_ids is not None:
         case_ids.extend(planned)
     return result.testsRun
@@ -104,7 +119,7 @@ def run():
         os.environ['MATHSTART_V02_TEST_ADMIN_URL'] = os.environ['MATHSTART_V01_TEST_ADMIN_URL']
         os.environ['MATHSTART_V01_EVIDENCE_DIR'] = str(Path(os.environ['MATHSTART_CHECK_RESULT']).parent / 'schema')
         case_ids = []
-        count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_postgres',
+        count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_diagnostics', 'backend.tests.test_postgres',
                          'backend.tests.test_release_migrate',
                          'backend.tests.test_operator',
                          'backend.tests.test_remediation', 'backend.tests.test_discovery'], case_ids=case_ids)
@@ -145,6 +160,8 @@ def main():
     except Exception as error:
         result = {'check_id': 'backend-tests', 'status': 'FAIL', 'evidence_class': 'TARGET_RUNTIME',
                   'assertions': 0, 'skipped': 0, 'failure_class': type(error).__name__}
+        if isinstance(error, SuiteFailure):
+            result['suite_diagnostics'] = error.diagnostics
     if path is not None:
         with path.open('x', encoding='utf-8', newline='\n') as output:
             output.write(json.dumps(result, indent=2) + '\n')

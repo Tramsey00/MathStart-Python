@@ -99,9 +99,18 @@ fencing/admission, dedicated roles/secrets/TLS и off-host backup/retention,
 перенесены byte-for-byte, comparisons/legacy return изолированы в pinned checkout,
 default/CI/setup/docs переключены на target, preservation разделён на current
 retained bytes и historical provenance. [План и проверки](docs/exec-plans/active/post-django.md).
-Адресные73 и57 тестов, frontend181/0skip и pure6 checks/232 cases PASS;
-dependency/link/source/diff checks PASS. Локальный Docker daemon недоступен;
-PostgreSQL/installation PASS локально не заявляется. Следующий шаг — commit/push,
-обязательный CI нового SHA и ограниченное независимое review (ещё не завершены).
+Checkpoint `9c8d93698b1407696c4198479b1b6bbcf9e5e97c` сохранён и отправлен в PR54.
+Его CI: Harness39258254322 SUCCESS; main39258254154 — verify/pure/readiness/images/
+release-operations SUCCESS (настоящие clean-clone install и legacy return),
+backend-install/target FAIL(RuntimeError без case в обрезанном stdout), recovery
+SKIPPED, combined FAIL. Public39258254217 FAIL на frozen HEAD pin в generate-api.
+Кандидат после9c исправляет generator/preservation routing, safe case diagnostics,
+oracle ignored var для historical temp probes и Compose name/config equivalence.
+Один [ограниченный reviewer](docs/acceptance/migration-execution/review/post-django-20261019.md)
+завершён; замечания исправлены. Адресные73/57, frontend181 и pure232 PASS на9c;
+delta: JS3 negative tests, diagnostic4 и actual typecheck4 PASS. Docker config
+root/deploy/tools PASS без daemon; local daemon недоступен. Новому кандидату
+требуется собственный обязательный CI. Продолжение: прочитать latest PR HEAD
+checks, разобрать реальные failures; не повторять успешные неизменные проверки.
 Приёмочный runtime1d9e4d3 не затронут и
 не доказывает готовность post-Django кандидата. Main/production не изменялись.

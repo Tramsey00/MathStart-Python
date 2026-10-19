@@ -50,8 +50,22 @@ Local PostgreSQL rehearsal could not start: Docker Linux daemon pipe unavailable
 no container was created. This is NOT a PostgreSQL/installation PASS and no
 acceptance resource was inspected, stopped or rebuilt. Use real CI services.
 
-Next: commit a coherent candidate, run mandatory full CI including actual target,
-public/identity, Harness, install, recovery and combined (skip is not PASS),
-perform one limited independent review of deletion/extraction/oracle/preservation,
-repair findings and repeat affected checks. Record exact SHA/run evidence here
-and in PR54. No merge or production action.
+Checkpoint9c8d936 CI: Harness39258254322 SUCCESS; main39258254154 passed verify,
+pure, readiness, deployment-images and release-operations (including genuine
+independent clean clone and physical legacy return), but backend-install and
+target failed RuntimeError. Their bounded stdout lost the eventual failing case;
+safe failure-case receipt diagnostics were added without reducing assertions.
+Oracle now supplies its ignored var/ used by historical asset temporary probes;
+this suspected backend cause still requires the real PostgreSQL rerun.
+Public39258254217 failed at actual frontend-typecheck: generate-api read the
+authorized changed test_r02a_contract.py as a frozen HEAD pin. Its source read
+now follows explicit dispositions while separately checking current adapters;
+old expected digests remain untouched. Actual typecheck/generation PASS(4),
+three new JS preservation negatives PASS, four safe diagnostic tests PASS.
+
+[One limited independent review](../../acceptance/migration-execution/review/post-django-20261019.md)
+completed; its Compose identity and resolution-override findings were corrected.
+Client-only config confirms root/canonical equivalence for all four services.
+New mandatory CI after these fixes must establish target/backend/public/recovery/
+combined success on that candidate; old successes remain evidence only for9c.
+No successful jobs were rerun on9c, and no human acceptance/merge/production done.

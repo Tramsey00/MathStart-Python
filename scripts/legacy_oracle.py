@@ -50,6 +50,9 @@ def oracle_root():
             or git(path, 'rev-parse', 'HEAD') != ORACLE_SHA
             or git(path, 'status', '--porcelain', '--untracked-files=all')):
         raise RuntimeError('Oracle checkout must be pristine and match the pinned SHA')
+    # Historical rollback-only asset probes use TemporaryDirectory(dir='var').
+    # This is ignored oracle runtime, never an authored or target source copy.
+    (path / 'var').mkdir(exist_ok=True)
     return path
 
 
