@@ -1,10 +1,10 @@
 # MathStart: текущий FastAPI/React runtime
 
-Это versioned руководство текущего переноса. Исторические корневые документы и
-их digest manifests сохранены. Единственное действующее задание —
-[MIGRATION.md](../MIGRATION.md); готовность определяется проверками конкретного
-кандидата. Общий target на42f6249 и независимое техническое review завершены;
-обычный mandatory CI проверяет actual latest PR HEAD. Все required jobs, включая
+Это versioned руководство текущего runtime. Исторические корневые документы и
+их digest manifests сохранены. [MIGRATION.md](../MIGRATION.md) фиксирует итог
+технически завершённого переноса и ожидающую human acceptance, а не поручение
+начать миграцию заново. Target и независимое техническое review завершены;
+ordinary mandatory CI проверяет actual latest PR HEAD. Все required jobs, включая
 target/release/image/combined, должны иметь SUCCESS без skipped acceptance:
 [актуальные checks](https://github.com/Tramsey00/MathStart-Python/pull/54/checks).
 После этого технический статус READY_FOR_HUMAN_ACCEPTANCE; human acceptance
@@ -12,7 +12,7 @@ target/release/image/combined, должны иметь SUCCESS без skipped ac
 
 | Исторический источник | Текущее применение |
 | --- | --- |
-| AGENTS.md, старые active plans/role queues | MIGRATION.md и AGENTS.override.md; один основной исполнитель, один независимый reviewer после готовности общего кандидата. |
+| AGENTS.md, старые active plans/role queues | MIGRATION.md и AGENTS.override.md: итог миграции, human acceptance; новая работа только по поручению пользователя. |
 | README.md | Окружения и команды ниже, [release](../deploy/RELEASE.md), [recovery](../deploy/RECOVERY.md). Корневые Django Docker/Compose файлы остаются историческими. |
 | PRODUCT.md | Перенос существующего сайта и границы продукта ниже; [полный v7.2](specifications/technical-spec-v7.2-draft.md) сохраняет будущие требования. |
 | ARCHITECTURE.md, docs/architecture.md | ADR-0006 и текущие границы runtime/content ниже; старые domain contracts остаются обязательными. |
@@ -190,11 +190,11 @@ python scripts/verify_target.py --runtime-root var/target-<new-run> --legacy-pyt
 MATHSTART_DATABASE_URL на dedicated loopback PostgreSQL55441. Он создаёт свои
 дочерние DB, immutable fixture/build, ASGI и legacy comparator, выполняет все16
 registry commands и fresh/upgrade A/B/C. Environment secrets не печатать.
-Группы/allow-dirty дают только scoped development evidence. Полный набор backend
-на3b8ab32 прошёл317 actual cases/0 skipped; counts не заменяют exact IDs/negative cases.
-Тот же полный managed run подтвердил179 frontend units и1170 browser cases;
-в54b22af добавлены2 terminal-credential unit cases, полный новый CI ещё pending.
-Финальный target включает actual Chrome/Edge/Firefox на360/768/1440, source/
+Группы/allow-dirty дают только scoped development evidence. На кандидате1d9e4d3
+normal PR CI39164124957 прошёл все девять jobs, включая target/image/combined:
+320 backend,181 frontend units,1269 browser cases,0 skipped. Counts не заменяют
+exact IDs/negative cases. Этот результат не присваивается более позднему SHA.
+Полный target включает actual Chrome/Edge/Firefox на360/768/1440, source/
 assets inventory, no-JS/SEO, math/widget/lifecycle/private/keyboard/responsive
 и matched visual review. Скриншоты без просмотра не означают visual PASS.
 
@@ -202,7 +202,8 @@ Existing workflow_dispatch `full_target=true` запускает полный ma
 без поддельного REVIEWED. Успешный CI с target SKIPPED не закрывает migration.
 Остальные image/install/recovery/document checks сохраняют свои recorded SHA и
 scope; финальная проверка должна описывать согласованный combined candidate.
-После общего QA — один independent reviewer, исправления и affected rechecks.
-Draft PR содержит фактическое состояние, failures/pending и human acceptance
-вопросы. Merge main, production, Issue closure и сообщения людям требуют
+Общий QA и одно independent review миграции завершены; [итог и evidence](../MIGRATION.md)
+сохраняют exact SHA. Точечное обслуживание проверяется по diff и зависимостям,
+а обязательный CI — на новом кандидате. Draft PR сохраняет фактическое состояние
+и human acceptance вопросы. Merge main, production, Issue closure и сообщения людям требуют
 отдельного человеческого решения.
