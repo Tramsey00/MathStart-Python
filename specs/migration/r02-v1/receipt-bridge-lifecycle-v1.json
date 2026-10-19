@@ -1,0 +1,85 @@
+{
+  "version": "migration-r02-v1.0.2",
+  "status": "PROPOSED",
+  "evidence": "MODEL_SYNTHETIC_ONLY",
+  "proofs": {
+    "S": "active matching owner session binding + epoch",
+    "B": "original verified bootstrap proof + password if anonymous, same owner if authenticated",
+    "T": "unexpired signed nonrevoked ticket + B",
+    "F": "fresh same-owner login + verified original server transfer binding"
+  },
+  "transitions": [
+    {
+      "event": "logout",
+      "from": [
+        "ACTIVE",
+        "DETACHED"
+      ],
+      "to": "REVOKED",
+      "ticket": "REVOKE",
+      "binding": "CLEAR",
+      "proof": "authenticated current session + CSRF",
+      "repeat": "old session401; internal revocation idempotent",
+      "unknown": "GET me only; never blind logout retry"
+    },
+    {
+      "event": "account_switch",
+      "from": [
+        "ACTIVE",
+        "DETACHED"
+      ],
+      "to": "REVOKED",
+      "ticket": "REVOKE",
+      "binding": "NEVER_TRANSFER_TO_FOREIGN_OWNER",
+      "proof": "successful new-owner credentials + CSRF",
+      "repeat": "same-owner login rotates/transfers own active binding only",
+      "unknown": "GET me; discard old pending"
+    },
+    {
+      "event": "session_expiry",
+      "from": [
+        "ACTIVE"
+      ],
+      "to": "DETACHED",
+      "ticket": "RETAIN_UNTIL_OWN_EXPIRY",
+      "binding": "CLEAR",
+      "proof": "DB expiry fact",
+      "repeat": "DETACHED unchanged; REVOKED never revived",
+      "unknown": "reread; B/T/F exact-owner explicit recovery only"
+    },
+    {
+      "event": "cutover",
+      "from": [
+        "ACTIVE",
+        "DETACHED"
+      ],
+      "to": "DETACHED",
+      "ticket": "RETAIN_VERIFIER_AND_EXPIRY",
+      "binding": "CLEAR_LEGACY_AUTH_KEEP_VERIFIED_TRANSFER",
+      "proof": "exclusive writer checkpoint + verified import provenance",
+      "repeat": "same checkpoint unchanged; REVOKED never revived",
+      "unknown": "stop writes and reconcile checkpoint"
+    },
+    {
+      "event": "replay_window_expiry",
+      "from": [
+        "ACTIVE",
+        "DETACHED"
+      ],
+      "to": "EXPIRED",
+      "ticket": "REVOKE",
+      "binding": "CLEAR",
+      "proof": "DB time >= replay_until",
+      "repeat": "EXPIRED unchanged",
+      "unknown": "reread; no receipt deletion"
+    }
+  ],
+  "terminal": [
+    "REVOKED",
+    "EXPIRED"
+  ],
+  "receipt_policy": "immutable original scope/digest/status/response; uniqueness retained permanently; at least604800s replay facts",
+  "onboarding": "authenticated same-owner user:<pk> replay independent of anonymous bridge",
+  "unknown_retry": "GET first; explicit same registration key/body + valid proof only; never logout/login blind retry",
+  "cutover_checkpoint": "durable completed checkpoint repeats read-only, including after target rebind; unknown/different/unverified checkpoint stops writes"
+}

@@ -1,0 +1,3605 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mathstart.example/specs/migration/r02-v1/delivery-v1.schema.json",
+  "$defs": {
+    "Asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "storage_key": {
+          "type": "string",
+          "pattern": "^(?!.*(?:\\.\\.|[\\\\]|://))/?[a-zA-Z0-9_./-]+$",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^(?!.*(?:\\.\\.|[\\\\]|://))/?[a-zA-Z0-9_./-]+$",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "style",
+            "script",
+            "media"
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lifecycle": {
+          "enum": [
+            "none",
+            "mount_dispose",
+            "full_document"
+          ]
+        }
+      },
+      "required": [
+        "storage_key",
+        "url",
+        "kind",
+        "sha256",
+        "order",
+        "lifecycle"
+      ]
+    },
+    "ContentDelivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "delivery_version": {
+          "const": "content-delivery-v1"
+        },
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$",
+          "maxLength": 255
+        },
+        "page_type": {
+          "enum": [
+            "home",
+            "grade",
+            "subject",
+            "topic",
+            "static"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "grade_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "section_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "body_html": {
+          "type": "string"
+        },
+        "is_published": {
+          "const": true
+        },
+        "seo": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "canonical_path": {
+              "type": "string",
+              "pattern": "^(?!.*(?:\\.\\.|[\\\\]|://))/?[a-zA-Z0-9_./-]+$",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "title",
+            "description",
+            "canonical_path"
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!.*(?:\\.\\.|[\\\\]|://))/?[a-zA-Z0-9_./-]+$",
+              "minLength": 1
+            },
+            "source_digest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "render_digest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "path",
+            "source_digest",
+            "render_digest"
+          ]
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Asset"
+          }
+        }
+      },
+      "required": [
+        "delivery_version",
+        "id",
+        "slug",
+        "page_type",
+        "title",
+        "grade_id",
+        "subject_id",
+        "section_id",
+        "order",
+        "body_html",
+        "is_published",
+        "seo",
+        "created_at",
+        "updated_at",
+        "source",
+        "assets"
+      ]
+    },
+    "StaffUserDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "is_staff": {
+          "type": "boolean"
+        },
+        "is_superuser": {
+          "type": "boolean"
+        },
+        "last_login": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "date_joined": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "groups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        },
+        "user_permissions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        },
+        "has_usable_password": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "is_active",
+        "is_staff",
+        "is_superuser",
+        "last_login",
+        "date_joined",
+        "groups",
+        "user_permissions",
+        "has_usable_password"
+      ]
+    },
+    "StaffGroupDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "permissions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "permissions"
+      ]
+    },
+    "StaffHistoryDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "actor_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "object_id": {
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "ADD",
+            "CHANGE",
+            "DELETE"
+          ]
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "actor_id",
+        "object_id",
+        "action",
+        "occurred_at",
+        "summary"
+      ]
+    },
+    "PermissionChoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "name": {
+          "type": "string"
+        },
+        "codename": {
+          "type": "string"
+        },
+        "content_type_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "codename",
+        "content_type_id"
+      ]
+    },
+    "PublicationJournal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operation": {
+          "enum": [
+            "publish",
+            "unpublish",
+            "bootstrap"
+          ]
+        },
+        "stage": {
+          "enum": [
+            "VALIDATED",
+            "STAGED",
+            "DB_COMMITTED",
+            "ACTIVATING",
+            "ACTIVATED",
+            "COMPLETE",
+            "FAILED_PRECOMMIT",
+            "RECOVERY_REQUIRED"
+          ]
+        },
+        "previous_release": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "next_release": {
+          "type": "string"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "plan_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "affected_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!.*(?:\\.\\.|[\\\\]|://))/?[a-zA-Z0-9_./-]+$",
+            "minLength": 1
+          }
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "failure_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resume_cursor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "lease_until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "db_committed": {
+          "type": "boolean"
+        },
+        "activation_status": {
+          "enum": [
+            "NOT_STARTED",
+            "UNKNOWN",
+            "NOT_APPLIED",
+            "APPLIED"
+          ]
+        },
+        "key_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "operation_id",
+        "operation",
+        "stage",
+        "previous_release",
+        "next_release",
+        "manifest_digest",
+        "plan_digest",
+        "affected_paths",
+        "updated_at",
+        "failure_code",
+        "resume_cursor",
+        "owner_id",
+        "fence_generation",
+        "lease_until",
+        "db_committed",
+        "activation_status",
+        "key_digest"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "COMPLETE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "failure_code": {
+                "type": "null"
+              },
+              "resume_cursor": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "FAILED_PRECOMMIT",
+                  "RECOVERY_REQUIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "failure_code": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "VALIDATED",
+                  "STAGED",
+                  "FAILED_PRECOMMIT"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              },
+              "activation_status": {
+                "const": "NOT_STARTED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "DB_COMMITTED",
+                  "ACTIVATING",
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "APPLIED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "ACTIVATING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "UNKNOWN"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "NOT_STARTED"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "StaffGradeDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "description",
+        "created_at"
+      ]
+    },
+    "StaffSubjectDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "grade_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "grade_id",
+        "order",
+        "description"
+      ]
+    },
+    "StaffSectionDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "subject_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "subject_id",
+        "order",
+        "description"
+      ]
+    },
+    "StaffPageDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "page_type": {
+          "type": "string"
+        },
+        "is_published": {
+          "type": "boolean"
+        },
+        "grade_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "section_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "body_html": {
+          "type": "string"
+        },
+        "page_css": {
+          "type": "string"
+        },
+        "page_js": {
+          "type": "string"
+        },
+        "seo_title": {
+          "type": "string"
+        },
+        "seo_description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "source_location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "page_type",
+        "is_published",
+        "grade_id",
+        "subject_id",
+        "section_id",
+        "order",
+        "body_html",
+        "page_css",
+        "page_js",
+        "seo_title",
+        "seo_description",
+        "created_at",
+        "updated_at",
+        "source_location"
+      ]
+    },
+    "StaffPublicationDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "page_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "source_path": {
+          "type": "string"
+        },
+        "published_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "published_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        }
+      },
+      "required": [
+        "id",
+        "page_id",
+        "source_path",
+        "published_digest",
+        "published_at"
+      ]
+    },
+    "StaffMediaAssetDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "alt_text": {
+          "type": "string"
+        },
+        "related_page_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "file",
+        "alt_text",
+        "related_page_id",
+        "created_at"
+      ]
+    },
+    "StaffRedirectDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "old_path": {
+          "type": "string"
+        },
+        "new_path": {
+          "type": "string"
+        },
+        "is_permanent": {
+          "type": "boolean"
+        },
+        "is_active": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "old_path",
+        "new_path",
+        "is_permanent",
+        "is_active"
+      ]
+    },
+    "StaffUserCreateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "usable_password": {
+          "type": "boolean"
+        },
+        "password1": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "password2": {
+          "type": "string",
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "username",
+        "usable_password"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "usable_password": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "password1",
+              "password2"
+            ]
+          }
+        }
+      ]
+    },
+    "StaffUserUpdateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "is_staff": {
+          "type": "boolean"
+        },
+        "is_superuser": {
+          "type": "boolean"
+        },
+        "last_login": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "date_joined": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "groups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        },
+        "user_permissions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        }
+      },
+      "required": [
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "is_active",
+        "is_staff",
+        "is_superuser",
+        "last_login",
+        "date_joined",
+        "groups",
+        "user_permissions"
+      ]
+    },
+    "StaffGroupWriteRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "permissions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        }
+      },
+      "required": [
+        "name",
+        "permissions"
+      ]
+    },
+    "PasswordChangeRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "usable_password": {
+          "type": "boolean"
+        },
+        "password1": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "password2": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "confirm_disable": {
+          "const": true
+        }
+      },
+      "required": [
+        "usable_password"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "usable_password": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "password1",
+              "password2"
+            ],
+            "not": {
+              "required": [
+                "confirm_disable"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "usable_password": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "confirm_disable"
+            ]
+          }
+        }
+      ]
+    },
+    "OwnPasswordChangeRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "old_password": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "new_password1": {
+          "type": "string",
+          "writeOnly": true
+        },
+        "new_password2": {
+          "type": "string",
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "old_password",
+        "new_password1",
+        "new_password2"
+      ]
+    },
+    "DeleteConfirmationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        },
+        "confirmation_token": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "ids",
+        "confirmation_token"
+      ]
+    },
+    "DeletionPreviewDTO": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854775807
+          }
+        },
+        "confirmation_token": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protected": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ids",
+        "confirmation_token",
+        "protected",
+        "summary"
+      ]
+    },
+    "ContentDeliveryResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/ContentDelivery"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "ContentDeliveryListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ContentDelivery"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffUserDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffUserDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffUserDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffUserDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffGroupDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffGroupDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffGroupDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffGroupDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffHistoryDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffHistoryDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffHistoryDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffHistoryDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffGradeDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffGradeDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffGradeDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffGradeDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffSubjectDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffSubjectDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffSubjectDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffSubjectDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffSectionDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffSectionDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffSectionDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffSectionDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffPageDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffPageDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffPageDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffPageDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffPublicationDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffPublicationDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffPublicationDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffPublicationDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffMediaAssetDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffMediaAssetDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffMediaAssetDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffMediaAssetDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffRedirectDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/StaffRedirectDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffRedirectDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffRedirectDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "DeletionPreviewDTOResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/DeletionPreviewDTO"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "DeletionPreviewDTOListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DeletionPreviewDTO"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            },
+            "pagination": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "page_size": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "next_cursor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "has_more": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "page_size",
+                "next_cursor",
+                "has_more"
+              ]
+            }
+          },
+          "required": [
+            "request_id",
+            "version",
+            "pagination"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "PermissionChoiceListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PermissionChoice"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "CatalogueGrade": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order"
+      ]
+    },
+    "CatalogueSubject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "grade_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "grade_id"
+      ]
+    },
+    "CatalogueSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "subject_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "subject_id"
+      ]
+    },
+    "CatalogueTopic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "grade_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "section_id": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "order",
+        "grade_id",
+        "subject_id",
+        "section_id",
+        "url"
+      ]
+    },
+    "PublicCatalogue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grades": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueGrade"
+          }
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueSubject"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueSection"
+          }
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogueTopic"
+          }
+        }
+      },
+      "required": [
+        "grades",
+        "subjects",
+        "sections",
+        "topics"
+      ]
+    },
+    "PublicPageEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "page_type": {
+          "enum": [
+            "home",
+            "grade",
+            "subject",
+            "topic",
+            "static"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+        },
+        "canonical_path": {
+          "type": "string",
+          "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+        },
+        "delivery_path": {
+          "type": "string",
+          "pattern": "^pages/[1-9][0-9]*\\.json$"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sitemap_changefreq": {
+          "enum": [
+            "weekly",
+            "monthly"
+          ]
+        },
+        "sitemap_priority": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": [
+        "id",
+        "slug",
+        "page_type",
+        "url",
+        "canonical_path",
+        "delivery_path",
+        "updated_at",
+        "sitemap_changefreq",
+        "sitemap_priority"
+      ]
+    },
+    "PublicBuildIndex": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "public-build-index-v1"
+        },
+        "release_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PublicPageEntry"
+          }
+        },
+        "catalogue": {
+          "$ref": "#/$defs/PublicCatalogue"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              },
+              "page_id": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+              },
+              "status": {
+                "const": 200
+              },
+              "canonical_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              }
+            },
+            "required": [
+              "url",
+              "page_id",
+              "status",
+              "canonical_path"
+            ]
+          }
+        },
+        "redirects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "old_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              },
+              "new_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              },
+              "is_permanent": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "old_path",
+              "new_path",
+              "is_permanent"
+            ]
+          }
+        },
+        "system_urls": {
+          "const": [
+            "/sitemap.xml",
+            "/robots.txt"
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "release_id",
+        "pages",
+        "catalogue",
+        "aliases",
+        "redirects",
+        "system_urls"
+      ]
+    },
+    "StaffGroupChoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 150
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "StaffGroupChoiceListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StaffGroupChoice"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "ReleasePageState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "release_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "page_published": {
+          "type": "boolean"
+        },
+        "page_digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "canonical_path": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "release_id",
+        "manifest_digest",
+        "page_published",
+        "page_digest",
+        "canonical_path"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "page_published": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "page_digest": {
+                "type": "null"
+              },
+              "canonical_path": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "page_published": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "page_digest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "canonical_path": {
+                "type": "string",
+                "pattern": "^/(?!.*(?:\\.\\.|[\\\\]|://|[?#\\x00-\\x20]))[^?#\\x00-\\x20]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PendingPublicationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "next_release": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "stage": {
+          "enum": [
+            "VALIDATED",
+            "STAGED",
+            "DB_COMMITTED",
+            "ACTIVATING",
+            "ACTIVATED",
+            "RECOVERY_REQUIRED"
+          ]
+        },
+        "failure_code": {
+          "enum": [
+            null,
+            "ACTIVATION_FAILED",
+            "CACHE_PURGE_FAILED",
+            "HEALTH_FAILED",
+            "JOURNAL_ACK_LOST",
+            "PRECOMMIT_FAILED",
+            "OWNER_LOST",
+            "ACTIVATION_UNKNOWN",
+            "POINTER_CONFLICT"
+          ]
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "ownership": {
+          "enum": [
+            "LEASED",
+            "TAKEOVER_ELIGIBLE"
+          ]
+        },
+        "db_committed": {
+          "type": "boolean"
+        },
+        "activation_status": {
+          "enum": [
+            "NOT_STARTED",
+            "UNKNOWN",
+            "NOT_APPLIED",
+            "APPLIED"
+          ]
+        }
+      },
+      "required": [
+        "operation_id",
+        "next_release",
+        "manifest_digest",
+        "stage",
+        "failure_code",
+        "updated_at",
+        "fence_generation",
+        "ownership",
+        "db_committed",
+        "activation_status"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "RECOVERY_REQUIRED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "failure_code": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "VALIDATED",
+                  "STAGED",
+                  "FAILED_PRECOMMIT"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              },
+              "activation_status": {
+                "const": "NOT_STARTED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "DB_COMMITTED",
+                  "ACTIVATING",
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "db_committed": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "enum": [
+                  "ACTIVATED",
+                  "COMPLETE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "APPLIED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "ACTIVATING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "UNKNOWN"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "db_committed": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activation_status": {
+                "const": "NOT_STARTED"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PublicationObservableState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "page_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "enum": [
+            "IN_SYNC",
+            "PENDING",
+            "RECOVERY_REQUIRED",
+            "UNAVAILABLE"
+          ]
+        },
+        "active": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleasePageState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "db_edition": {
+          "$ref": "#/$defs/ReleasePageState"
+        },
+        "pending": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PendingPublicationState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "page_id",
+        "observed_at",
+        "state",
+        "active",
+        "db_edition",
+        "pending"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "IN_SYNC"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "active": {
+                "$ref": "#/$defs/ReleasePageState"
+              },
+              "pending": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "PENDING",
+                  "RECOVERY_REQUIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "pending": {
+                "$ref": "#/$defs/PendingPublicationState"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "PENDING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "pending": {
+                "properties": {
+                  "stage": {
+                    "enum": [
+                      "VALIDATED",
+                      "STAGED",
+                      "DB_COMMITTED",
+                      "ACTIVATING",
+                      "ACTIVATED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "UNAVAILABLE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "active": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "RECOVERY_REQUIRED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "pending": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/PendingPublicationState"
+                  },
+                  {
+                    "properties": {
+                      "stage": {
+                        "const": "RECOVERY_REQUIRED"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PublicationObservableStateResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/PublicationObservableState"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "version": {
+              "const": "migration-r02-v1"
+            }
+          },
+          "required": [
+            "request_id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "data",
+        "meta"
+      ]
+    },
+    "StaffBooleanFilter": {
+      "type": "boolean"
+    },
+    "StaffSortQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grades": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|slug|order)(?:,-?(?:title|slug|order))*)$",
+          "default": "default"
+        },
+        "subjects": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|grade|slug|order)(?:,-?(?:title|grade|slug|order))*)$",
+          "default": "default"
+        },
+        "sections": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|subject|slug|order)(?:,-?(?:title|subject|slug|order))*)$",
+          "default": "default"
+        },
+        "pages": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|page_type|grade|subject|section|order|is_published|updated_at)(?:,-?(?:title|page_type|grade|subject|section|order|is_published|updated_at))*)$",
+          "default": "default"
+        },
+        "publications": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:page|source_path|published_at)(?:,-?(?:page|source_path|published_at))*)$",
+          "default": "default"
+        },
+        "media_assets": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:title|file|related_page)(?:,-?(?:title|file|related_page))*)$",
+          "default": "default"
+        },
+        "redirects": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:old_path|new_path|is_permanent|is_active)(?:,-?(?:old_path|new_path|is_permanent|is_active))*)$",
+          "default": "default"
+        },
+        "users": {
+          "type": "string",
+          "pattern": "^(?:default|-?(?:username|email|first_name|last_name|is_staff)(?:,-?(?:username|email|first_name|last_name|is_staff))*)$",
+          "default": "default"
+        },
+        "groups": {
+          "type": "string",
+          "pattern": "^default$",
+          "default": "default"
+        }
+      },
+      "required": []
+    },
+    "PublicationAuthorityToken": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "owner_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "operation_id",
+        "owner_id",
+        "fence_generation"
+      ],
+      "description": "INTERNAL ONLY. Current unexpired equality with durable gate required; shape is not authorization."
+    },
+    "ReceiptBridgeFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bridge_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "original_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bootstrap_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "receipt_owner_id": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "session_binding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "revocation_epoch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "state": {
+          "enum": [
+            "ACTIVE",
+            "DETACHED",
+            "REVOKED",
+            "EXPIRED"
+          ]
+        },
+        "replay_until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ticket_version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "ticket_expires_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "ticket_revoked": {
+          "type": "boolean"
+        },
+        "transfer_binding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "session_lineage_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "bridge_id",
+        "original_scope",
+        "bootstrap_fingerprint",
+        "receipt_owner_id",
+        "session_binding",
+        "revocation_epoch",
+        "state",
+        "replay_until",
+        "ticket_version",
+        "ticket_expires_at",
+        "ticket_revoked",
+        "transfer_binding",
+        "session_lineage_id"
+      ],
+      "description": "PRIVATE logical contract only, never public/staff DTO or implemented table. Relational proof/owner/epoch invariants enforced by service.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "DETACHED",
+                  "REVOKED",
+                  "EXPIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "session_binding": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "REVOKED",
+                  "EXPIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "ticket_revoked": {
+                "const": true
+              },
+              "transfer_binding": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "ACTIVE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "receipt_owner_id": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "session_binding": {
+                "type": "string",
+                "minLength": 1
+              },
+              "session_lineage_id": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "PublicationGateFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pending_operation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "owner_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "lease_until": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "namespace",
+        "pending_operation_id",
+        "owner_id",
+        "fence_generation",
+        "lease_until"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "pending_operation_id": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "owner_id": {
+                "type": "null"
+              },
+              "lease_until": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "owner_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "lease_until": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "fence_generation": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ActiveReleaseDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "release_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "manifest_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "fence_generation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        }
+      },
+      "required": [
+        "operation_id",
+        "release_id",
+        "manifest_digest",
+        "fence_generation"
+      ],
+      "description": "PostgreSQL authority only; gateway snapshot pinned per request. Initial verified descriptor may use generation0."
+    }
+  }
+}

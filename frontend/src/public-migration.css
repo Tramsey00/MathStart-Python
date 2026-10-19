@@ -1,0 +1,22 @@
+/* Migration readability corrections; authored lesson styling stays authoritative. */
+/* Keep the existing renderer boundary while restoring the legacy catalogue main. */
+#topics-catalogue > [data-mathstart-catalogue] { display: contents; }
+@media (max-width: 620px) {
+  /* Preserve all structural-page statistics instead of clipping zero-width numbers. */
+  .ms-site-page .ms-stat-grid { grid-template-columns: minmax(0, 1fr); }
+  .ms-lesson-page .ms-lesson-links { grid-template-columns: minmax(0, 1fr); }
+  .ms-lesson-page .ms-toc-copy { overflow-wrap: anywhere; }
+  .ms-lesson-page #power-lab-v2 .ms-power-presets { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ms-lesson-page #power-lab-v2 .ms-live-table { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ms-lesson-page #power-lab-v2 .ms-live-table-cell { min-width: 0; overflow-wrap: anywhere; }
+  /* Visual review: six native quadratic cells overflowed/clipped at360. */
+  .ms-lesson-page #ms-quadratic-lab-660 .ms-live-table { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ms-lesson-page #ms-quadratic-lab-660 .ms-live-table-cell { min-width: 0; overflow-wrap: anywhere; }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 { padding: 10px; }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 .v2-plot-card { padding: 4px; }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 svg text { font-size: 22px; }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 svg g[fill="#647a9a"] text:first-child { transform: translateX(-18px); }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #circle-lab-v2 svg g[fill="#647a9a"] text:nth-child(3) { transform: translateX(18px); }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #models .ms-figure { padding: 6px; }
+  [data-public-slug="10-klass-chislovaya-okruzhnost-2-0"] #models svg text { font-size: 22px; }
+}

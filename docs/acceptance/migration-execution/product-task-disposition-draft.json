@@ -1,0 +1,1461 @@
+{
+  "version": "product-v7.2-source-registry-draft-v1",
+  "status": "DRAFT_SOURCE_MAPPING_NOT_R05_ACCEPTANCE",
+  "source_pdf": "docs/specifications/sources/technical-spec-v7.1.pdf",
+  "source_pdf_sha256": "e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd",
+  "source_pages": 114,
+  "card_pages": [
+    45,
+    78
+  ],
+  "source_count": 52,
+  "organizational_tasks_preserved": [
+    "MS7-ORG01",
+    "MS7-HK01"
+  ],
+  "rows": [
+    {
+      "id": "MS7-R02A",
+      "title": "HTTP и eligibility addendum",
+      "source_page": 45,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1\n(contract closeout; не повтор G0). Relation to previous task: FOLLOW-UP / ADDENDUM TO FROZEN R02.\nЧто получим простыми словами: Сервер и интерфейс получат единые правила отправки решений,\nповторных запросов и показа подсказок; два разработчика смогут независимо делать совместимые\nчасти.\nЗачем нужна задача: Устранить пробел между принятым Exercise contract и будущим HTTP API.\nRequirements covered: FR-04.\nHARD: —.\nCONTRACT: R02.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: у остальных участников — review/подготовка по §20.\nInputs/contracts: R02 accepted artifact §2; нормативные разделы по §21.\nDetailed Scope: OpenAPI всех endpoints §11; immutable revision, exposure и idempotency fixtures; human\nreview D-022/023 до клиентов.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; полная реализация зависимых runtime-потребителей.\nDeliverables: OpenAPI, DTO и набор fixtures для revision/exposure/idempotency.\nAcceptance criteria: OpenAPI всех endpoints §11; соответствие named contract и ожидаемые результаты\ntask-specific tests.\nNegative/failure acceptance: help-submit race и повторный positive не проходят.\nTask-specific tests: Повтор submit, stale revision, help-submit race, second-positive eligibility.\nTask-specific security checks: Исключение answer/checker из public DTO; данные чужого owner\nнедоступны.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R02A).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R09, MS7-R10, MS7-R11, MS7-R12, MS7-V02, MS7-V03, MS7-V04, MS7-V05, MS7V06,\nMS7-I02.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Accepted OpenAPI digest перед V02/I02; R02 имена полей сохранены.",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "R02"
+        }
+      ],
+      "platform_disposition": "CONTRACT_PRESERVED",
+      "current_status": "HISTORICAL_RESULT_PRESERVED",
+      "migration_follow_up": [
+        "MS7-MIG-R02",
+        "MS7-MIG-R03"
+      ],
+      "target_evidence": [
+        {
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39074944287",
+          "scope": "Completed c205ef1 pure/contract/oracle job; preserves accepted contracts, not future product persistence or full combined acceptance."
+        },
+        {
+          "path": "docs/acceptance/migration-execution/i02-verification/ci-c205ef1-summary.json",
+          "scope": "Exact completed jobs and scoped results; full target SKIPPED."
+        }
+      ],
+      "original_result": {
+        "id": "MS7-R02A",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/15",
+        "head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+        "merge_sha": "428ece726918f635549fc7dd8fdd352f799c3308",
+        "merged_at": "2026-10-01T14:38:47Z",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/16",
+        "ci": [
+          {
+            "id": 36876278599,
+            "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36876278599",
+            "event": "pull_request",
+            "head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "acceptance": {
+          "review_submissions": [],
+          "pr_comment": "https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-5933686950",
+          "finding": "owner comment states Vladimir acceptance pending; Issue16 comments empty; candidate manifest/ADR0004/spec/active plan/trace retain pending. Search: live PR15 reviews/comments, Issue16 comments, repo acceptance-bearing records."
+        }
+      },
+      "original_result_source": "docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json",
+      "current_acceptance_reconciliation": {
+        "task": "MS7-R02A",
+        "decision": "APPROVED_BY_INDEPENDENT_PARTICIPANT",
+        "record_type": "issue_comment; current Task Approval / acceptance reconciliation, not a historical PR review submission",
+        "author": "VladimirFrolov777",
+        "url": "https://github.com/Tramsey00/MathStart-Python/pull/15#issuecomment-6042594492",
+        "comment_id": 6042594492,
+        "created_at_utc": "2026-10-07T16:49:02Z",
+        "updated_at_utc": "2026-10-07T16:49:02Z",
+        "created_at_europe_moscow": "2026-10-07T19:49:02+03:00",
+        "reviewed_head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+        "merge_sha": "428ece726918f635549fc7dd8fdd352f799c3308",
+        "live_pr_metadata_matches_comment": true,
+        "comment_body_sha256": "79e0bdff42e40aafc4cbc41bbd7192089f61185d735a81e59977746a9365eb71",
+        "digest_semantics": "UTF-8 decoded exact GitHub API comment body; CRLF retained",
+        "historical_ci_verified_live": {
+          "id": 36876278599,
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36876278599",
+          "head_sha": "917cdc4ef72b6996254809b77d7aa5b0f251831e",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        "participant_reports_no_blocking_findings": true,
+        "participant_reported_checks": [
+          "R02A contract 30/30 PASS",
+          "R03 pure 18/18 PASS",
+          "artifact pins 17/17 PASS"
+        ],
+        "non_blocking_note": "Participant notes LF documentation vs CRLF pinned JSON discrepancy; frozen bytes preserved; no normalization in R01.",
+        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution.",
+        "historical_stage_note": "Earlier partial D02/D03 scoped receipt; superseded in current status only by final records and post-merge provenance, original receipt unchanged."
+      },
+      "source_card_text_sha256": "f2a568a592c8f2dcd96f9c83b988e8a0197f809e6233315e7ab2b1e0251dd05a",
+      "target_evidence_state": "SCOPED_EVIDENCE_FINAL_COMBINED_ACCEPTANCE_PENDING"
+    },
+    {
+      "id": "MS7-R03A",
+      "title": "CompletionFact addendum",
+      "source_page": 45,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1\n(contract closeout; не повтор G0). Relation to previous task: FOLLOW-UP / ADDENDUM TO FROZEN R03.\nЧто получим простыми словами: Будет точно определено, как завершение попытки без оценки\nвлияет на историю и последние десять попыток, не меняя числовые знания ученика.\nЗачем нужна задача: Согласовать CompletionFact отдельно от уже принятого progress-v1.\nRequirements covered: D-021; FR14/15; NFR-03.\nHARD: —.\nCONTRACT: R03.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V02, MS7-I02.\nInputs/contracts: R03 accepted artifact §2; нормативные разделы по §21.\n\n\n\n\n\n                                                     MathStart v7.1  |  45\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nDetailed Scope: ADR D-021, progress-v1.1 и parity fixtures; порядок completed_at/attempt_id, neutral window,\nlate facts; старые deltas\nнеизменны.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; полная реализация зависимых runtime-потребителей.\nDeliverables: ADR D-021, addendum progress-v1.1, neutral/late/parity fixtures.\nAcceptance criteria: ADR D021, progress-v1.1 и parity fixtures; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\nNegative/failure acceptance: нейтральное завершение не создаёт fake penalty.\nTask-specific tests: Одинаковые timestamps, поздний факт, дубликат, вытеснение independent из окна.\nTask-specific security checks: Нейтральный факт не превращается в штраф и не получает полномочия\nменять mastery.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R03A).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R11, MS7-V08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Parity fixtures с progress-v1 и versioned CompletionFact принят отдельно.",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "R03"
+        }
+      ],
+      "platform_disposition": "CONTRACT_PRESERVED",
+      "current_status": "HISTORICAL_RESULT_PRESERVED",
+      "migration_follow_up": [
+        "MS7-MIG-R02",
+        "MS7-MIG-R03"
+      ],
+      "target_evidence": [
+        {
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39074944287",
+          "scope": "Completed c205ef1 pure/contract/oracle job; preserves accepted contracts, not future product persistence or full combined acceptance."
+        },
+        {
+          "path": "docs/acceptance/migration-execution/i02-verification/ci-c205ef1-summary.json",
+          "scope": "Exact completed jobs and scoped results; full target SKIPPED."
+        }
+      ],
+      "original_result": {
+        "id": "MS7-R03A",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/20",
+        "head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+        "merge_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+        "merged_at": "2026-10-02T11:24:22Z",
+        "issue": "https://github.com/Tramsey00/MathStart-Python/issues/18",
+        "ci": [
+          {
+            "id": 36999556028,
+            "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36999556028",
+            "event": "pull_request",
+            "head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "acceptance": {
+          "review_submissions": [],
+          "pr_comments": [],
+          "issue_comments": [],
+          "finding": "ADR0005/spec/active plan/trace pending; live PR20 reviews/comments and Issue18 comments contain no explicit Task Approval. No standalone acceptance ledger found in input tree."
+        }
+      },
+      "original_result_source": "docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json",
+      "current_acceptance_reconciliation": {
+        "task": "MS7-R03A",
+        "decision": "APPROVED_BY_INDEPENDENT_PARTICIPANT",
+        "record_type": "issue_comment; current Task Approval / acceptance reconciliation, not a historical PR review submission",
+        "author": "VladimirFrolov777",
+        "url": "https://github.com/Tramsey00/MathStart-Python/pull/20#issuecomment-6042793058",
+        "comment_id": 6042793058,
+        "created_at_utc": "2026-10-07T17:06:07Z",
+        "updated_at_utc": "2026-10-07T17:06:07Z",
+        "created_at_europe_moscow": "2026-10-07T20:06:07+03:00",
+        "reviewed_head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+        "merge_sha": "fa0d87033113a30abc6e9de2acc174b01e98d9db",
+        "live_pr_metadata_matches_comment": true,
+        "comment_body_sha256": "2076e979ff493b7b69ad376655e43c4da2abb12af953cbd7fe7a3d1f79a2e496",
+        "digest_semantics": "UTF-8 decoded exact GitHub API comment body; CRLF retained",
+        "historical_ci_verified_live": {
+          "id": 36999556028,
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/36999556028",
+          "head_sha": "908a9aed6ca2f1319dabbf094e2432427d86a36d",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        "participant_reports_no_blocking_findings": true,
+        "participant_reported_checks": [
+          "frozen R03 18/18 PASS",
+          "independent negative/parity checks PASS"
+        ],
+        "non_blocking_note": null,
+        "scope_limit": "Accepts specified original contract head on 2026-10-07; does not assert an approval existed earlier; no R01/MIG-G0/platform acceptance or downstream execution.",
+        "historical_stage_note": "Earlier partial D02/D03 scoped receipt; superseded in current status only by final records and post-merge provenance, original receipt unchanged."
+      },
+      "source_card_text_sha256": "f755ab2494e21a9f20b546e0ca649fc670b9659261345d492ae3a19ecaf551a3",
+      "target_evidence_state": "SCOPED_EVIDENCE_FINAL_COMBINED_ACCEPTANCE_PENDING"
+    },
+    {
+      "id": "MS7-R05",
+      "title": "Context Layer и typed tools",
+      "source_page": 46,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1.\nЧто получим простыми словами: Агент сможет получать нужные части репозитория и вызывать\nзаранее описанные инструменты с понятными входами и результатами.\nЗачем нужна задача: Ограничить контекст и подготовить проверяемые вызовы для Policy.\nRequirements covered: NFR-12.\nHARD: MS6-R04.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V02, MS7-V03, MS7-I02, MS7-I03.\nInputs/contracts: MS6-R04 accepted artifact §2; нормативные разделы по §21.\nDetailed Scope: Manifest digests/range reads; context budgets/compaction; registry schemas всех tools §13;\ntests обязательного контекста.\nОбласть файлов: harness/, specs/, tests/harness/.\nOut of Scope: Общие исключения §17; повторная реализация frozen Runner/publication.\nDeliverables: Context manifest, compaction format, schemas typed tools.\nAcceptance criteria: Manifest digests/range reads; соответствие named contract и ожидаемые результаты\ntask-specific tests.\nNegative/failure acceptance: overflow до model call; stale patch запрещён.\nTask-specific tests: Digest drift, missing mandatory contract, oversized context, truncated range и output.\nTaskspecific security checks: Patch только с expected digest; run_check из registry, без произвольной\nshellстроки.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R05).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R06A, MS7-R04A.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–02.10.\n\n\n\n\n                                                       MathStart v7.1  |  46\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nTarget deadline: NORMAL 03.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS6-R04"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "e0039f1da9f15057bf66292e628ffacafbfd304f67695c2348c5bc0ee9c99938",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R06A",
+      "title": "Policy, hooks и machine trace",
+      "source_page": 47,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1.\nRelation to previous task: SPLIT PART A OF PLANNED R06.\nЧто получим простыми словами: Harness будет проверять действие до исполнения, разрешать или\nзапрещать его и сохранять причину решения.\nЗачем нужна задача: Превратить наблюдение за агентом в предварительный контроль действий.\nRequirements covered: D-026; NFR-19.\nHARD: MS7-R05.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V03, MS7-V04, MS7-I03.\nInputs/contracts: MS7-R05 Context Layer и typed tools; нормативные разделы по §21.\nDetailed Scope: before-tool fail-closed, approval binding, hooks lifecycle, redacted append-only trace/resume;\nunknown schema\ndeny.\nОбласть файлов: harness/, specs/, tests/harness/.\nOut of Scope: Общие исключения §17; повторная реализация frozen Runner/publication.\nDeliverables: Policy rules, before/after hooks, approval binding, redacted trace/resume.\nAcceptance criteria: before-tool fail-closed, approval binding, hooks lifecycle, redacted append-only\ntrace/resume; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: ошибка security hook останавливает действие.\nTask-specific tests: Unknown tool/arg, hook failure, expired approval, resume drift и forged permit.\nTaskspecific security checks: Fail-closed при ошибке hook; разрешение связано с точным действием и\nсостоянием.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R06A).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R06B.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–05.10.\nTarget deadline: NORMAL 03.10; EARLY 05.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R05"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "62925982f41c304c26edd32d94c8de18d0f91b5facb993596cedd043c70f5756",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R06B",
+      "title": "Физический sandbox",
+      "source_page": 47,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1.\nRelation to previous task: SPLIT PART B OF PLANNED R06.\nЧто получим простыми словами: Даже при ошибке агента исполнитель не сможет выйти за\nразрешённые файлы, сеть и дочерние процессы.\nЗачем нужна задача: Обеспечить физическое выполнение ограничений Policy.\nRequirements covered: D-026; NFR-19.\nHARD: MS7-R06A.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V04, MS7-V05, MS7-I04.\nInputs/contracts: MS7-R06A Policy, hooks и machine trace; нормативные разделы по §21.\nDetailed Scope: Изолированный executor с roots/network/process tree limits; real escape и timeout tests на\nобъявленной ОС.\n\n\n                                                      MathStart v7.1  |  47\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nОбласть файлов: harness/, specs/, tests/harness/.\nOut of Scope: Общие исключения §17; повторная реализация frozen Runner/publication.\nDeliverables: Изолированный executor и матрица реально доказанных ограничений ОС.\nAcceptance criteria: Изолированный executor с roots/network/process tree limits; соответствие named\ncontract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: junction/symlink/path traversal и child escape блокируются физически.\nTask-specific tests: Real symlink/junction/traversal escape, inherited handles, subprocess tree timeout.\nTaskspecific security checks: Нет host socket/credentials; ограничения проверяются вне mocked Policy.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R06B).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R04A, MS7-R07.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–07.10; EARLY 01.10–06.10.\nTarget deadline: NORMAL 07.10; EARLY 06.10 (2026, включая integration/review).\nTask-specific DoD additions: Доказанная ОС и реальные denial tests; advisory mode не закрывает задачу.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R06A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "a1cf5088d36bb2dba80683ace4a1e580e54361a583fdff3f7feeb71df2ac27ae",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R04A",
+      "title": "Live coding-model adapter",
+      "source_page": 48,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1.\nRelation to previous task: FOLLOW-UP IMPLEMENTATION TO FROZEN MS6-R04.\nЧто получим простыми словами: Настоящая coding-модель сможет изменить разрешённый участок\nкода через Harness, пройти проверки и подготовить результат человеку.\nЗачем нужна задача: Подтвердить полный live loop, которого FakeAdapter не доказывает.\nRequirements covered: D-027; NFR-19.\nHARD: —.\nCONTRACT: MS7-R05.\nHANDOFF: —.\nINTEGRATION: MS7-R06B.\nЧто можно делать параллельно: MS7-V05, MS7-V06, MS7-I04, MS7-I05.\nInputs/contracts: MS7-R05 Context Layer и typed tools; MS7-R06B Физический sandbox; нормативные\nразделы по §21.\nDetailed Scope: Capability spike direct API/App Server; start/message/tool loop; usage/cancel; реальная\nscoped правка через Registry и checks.\nОбласть файлов: harness/, specs/, tests/harness/.\nOut of Scope: Общие исключения §17; повторная реализация frozen Runner/publication.\nDeliverables: Capability matrix, live adapter, redacted end-to-end run bundle.\nAcceptance criteria: Capability spike direct API/App Server; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\nNegative/failure acceptance: opaque tools не получают enforcement label; no hidden bypass.\nTask-specific tests: Start/message/tool/cancel/usage, неизвестный event, deadline, denied tool.\nTask-specific security checks: Все действия проходят Registry и sandbox; непрозрачные внутренние tools\nне получают enforcement label.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-R04A).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R08, MS7-V07, MS7-I08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–05.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 05.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: Verified capability matrix: intercept_all_actions и sandbox proof.\n\n\n\n\n\n\n                                                       MathStart v7.1  |  48\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R05"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-R06B"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "8c4f76872a87ab20871a04f9f958955eca0ef460cca3dd8786ca964d4562ab19",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R07",
+      "title": "Skills и bounded subagents",
+      "source_page": 49,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1.\nЧто получим простыми словами: Агент сможет подключать инструкции для задачи и помощника с\nменьшими правами, не теряя контроля над изменениями.\nЗачем нужна задача: Разделять специализированную работу без расширения доверия.\nRequirements covered: D-026; NFR-19.\nHARD: MS7-R06B.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V06, MS7-I05, MS7-I06.\nInputs/contracts: MS7-R06B Физический sandbox; нормативные разделы по §21.\nDetailed Scope: Versioned skill schema, subset rights, depth1/max2, one-writer ledger, reviewer read-only и\nstructured handoff.\nОбласть файлов: harness/, specs/, tests/harness/.\nOut of Scope: Общие исключения §17; повторная реализация frozen Runner/publication.\nDeliverables: Versioned skills, subagent protocol, rights/budget ledger и handoff schema.\nAcceptance criteria: Versioned skill schema, subset rights, depth1/max2, one-writer ledger, reviewer read-only\nи structured handoff; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: child не расширяет permissions/budget.\nTask-specific tests: Invalid skill reference, excessive depth/count, concurrent writer, malformed handoff.\nTaskspecific security checks: Reviewer child read-only, subset permissions, запрет самоодобрения и запуска\nвнуков.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R07).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R08, MS7-V07, MS7-I08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 02.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R06B"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "4a988b76c89c72ef0072d325eecd3c15717e5c9ad67002903c3841c636235611",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R08",
+      "title": "Harness eval и G1",
+      "source_page": 49,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G1.\nЧто получим простыми словами: Команда получит доказательство, что собственный Harness работает\nна реальных задачах всех трёх участников и выдерживает опасные сценарии.\nЗачем нужна задача: Закрыть G1 по наблюдаемым результатам, а не по наличию CLI.\nRequirements covered: NFR-08, NFR-19, C-01 (+ действующие внутренние D-requirements).\nHARD: MS7-R04A, MS7-R07.\nCONTRACT: —.\nHANDOFF: MS7-V07, MS7-I08.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V10, MS7-I09.\nInputs/contracts: MS7-R04A Live coding-model adapter; MS7-R07 Skills и bounded subagents; MS7-V07\nBackend skill и real run; MS7-I08 Frontend skill и visual run; нормативные разделы по §21.\nDetailed Scope: 12 eval cases, три real owner runs, final CI и независимая приёмка; собрать R04 regressions\nбез ослабления.\nОбласть файлов: harness/, specs/, tests/harness/.\nOut of Scope: Общие исключения §17; повторная реализация frozen Runner/publication.\nDeliverables: Harness eval report и сводный пакет трёх owner runs для G1.\nAcceptance criteria: 12 eval cases, три real owner runs, final CI и независимая приёмка; соответствие\n\n\n\n                                                      MathStart v7.1  |  49\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nnamed contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: fake run не закрывает live criterion.\nTask-specific tests: Все 12 eval cases §15, R04 publication regressions, denied actions и failed checks.\nTaskspecific security checks: Проверка физических запретов, forged READY и отсутствия скрытого обхода.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-R08).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R16.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Три real owner runs приняты до решения G1.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R04A"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-R07"
+        },
+        {
+          "kind": "HANDOFF",
+          "id": "MS7-V07"
+        },
+        {
+          "kind": "HANDOFF",
+          "id": "MS7-I08"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "3f19e522e401d184e3201942dca6fab4d1d07e27da2a8a027cc45262f5b55589",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R09",
+      "title": "Parser и normalizer",
+      "source_page": 50,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G2.\nЧто получим простыми словами: Система сможет безопасно прочитать поддерживаемую\nматематическую запись, сохранив исходный текст ученика.\nЗачем нужна задача: Отделить понимание записи от оценки правильности решения.\nRequirements covered: FR-10, NFR-15.\nHARD: —.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V08, MS7-I06, MS7-I08.\nInputs/contracts: MS7-R02A HTTP и eligibility addendum; нормативные разделы по §21.\nDetailed Scope: Whitelist AST, rational semantics и isolated limits §9; raw/normalized roundtrip; grammar\nfixtures.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; OCR, геометрия и unsupported grammar вне whitelist §9.\nDeliverables: Whitelist parser/normalizer и versioned grammar fixtures.\nAcceptance criteria: Whitelist AST, rational semantics и isolated limits §9; соответствие named contract и\nожидаемые результаты task-specific tests.\nNegative/failure acceptance: malicious/large/deep/nonlinear input даёт safe status.\nTask-specific tests: Rational equivalence, raw roundtrip, глубина/размер/степень, unsupported nonlinear\ninput.\nTask-specific security checks: Запрещён eval; процессные лимиты, злонамеренные и worst-case\nвыражения.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R09).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R10.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–05.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 05.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "8f5b4a0eecbf54a0017c5e77a5dca091e6cf0e62f5be7ece60a9a3a8cd82aaf3",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R10",
+      "title": "Validators и deterministic Analyzer",
+      "source_page": 50,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G2.\nЧто получим простыми словами: MathStart сможет проверить ответ и шаги решения и указать первую\nдоказанную ошибку, не обвиняя ученика при непонятном вводе.\nЗачем нужна задача: Создать детерминированную основу Analyzer и проверяемую связь с taxonomy.\nRequirements covered: FR-06, FR07, FR-08, FR-10, FR-11, FR-12, FR-13, NFR-14.\n\n\n\n                                                       MathStart v7.1  |  50\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nHARD: MS7-R09.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V07, MS7-V09, MS7-I08, MS7-I07.\nInputs/contracts: MS7-R09 Parser и normalizer; MS7-R02A HTTP и eligibility addendum; нормативные\nразделы по §21.\nDetailed Scope: Final/steps/две structured schemas, first proven error, taxonomy mapping;\nAnalysisResult domain validation.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: Validators оцениваемых режимов, два structured validators, AnalysisResult validation.\nAcceptance criteria: Final/steps/две structured schemas, first proven error, taxonomy mapping; соответствие\nnamed contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: wrong final и broken prefix не создают misconception.\nTask-specific tests: Equivalent answers, first error, cascade, invalid prefix, wrong-final-only, unknown\ntaxonomy.\nTask-specific security checks: Недоверенный payload не выбирает validator произвольно; unsupported не\nсоздаёт misconception.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R10).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R13, MS7-R14, MS7-V10, MS7-V11.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–06.10.\nTarget deadline: NORMAL 04.10; EARLY 06.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R09"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "7d8d53f410900fe1af95918efd2e63182d97b8d61113ec8281b7bcb33fd6c991",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R11",
+      "title": "Adaptive и diagnostic policy",
+      "source_page": 51,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G3.\nЧто получим простыми словами: Система получит понятные правила, какое упражнение предложить\nдальше и когда остановить тренировку.\nЗачем нужна задача: Сделать диагностику и адаптацию воспроизводимыми.\nRequirements covered: FR-16, FR-19.\nHARD: —.\nCONTRACT: MS7-R03A, MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V10.\nInputs/contracts: MS7-R03A CompletionFact addendum; MS7-R02A HTTP и eligibility addendum;\nнормативные разделы по §21.\nDetailed Scope: Pure selector depth2, stable tie-break, difficulty bands, exclude/repeat/no-candidate и session\nstop fixtures.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; полная реализация зависимых runtimeпотребителей.\nDeliverables: Pure selector и versioned diagnostic/practice policy fixtures.\nAcceptance criteria: Pure selector depth2, stable tie-break, difficulty bands, exclude/repeat/no-candidate и\nsession stop fixtures; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: revealed diagnostics и бесконечная практика запрещены.\nTask-specific tests: Tie-break, prerequisite depth, difficulty fallback, repeats, empty pool, session limits.\nTaskspecific security checks: Revealed diagnostics не считаются независимым успехом; нет бесконечной\nпрактики.\n\n\n\n                                                       MathStart v7.1  |  51\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R11).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V12, MS7-I13.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R03A"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "a87e81347210175ed646923d36113ae18f6ff165b5b5a5f48f21cca4eb193066",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R12",
+      "title": "Tutor policy и hint bank",
+      "source_page": 52,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G3.\nЧто получим простыми словами: До раскрытия ответа ученик будет получать только заранее\nпроверенные подсказки; правила общения не позволят модели выдать всё решение.\nЗачем нужна задача: Согласовать границу полезной помощи и раскрытия ответа.\nRequirements covered: FR-17.\nHARD: —.\nCONTRACT: MS7-R02A.\nHANDOFF: MS7-V04.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V11, MS7-I10.\nInputs/contracts: MS7-R02A HTTP и eligibility addendum; MS7-V04 Exercise versions и pilot bank;\nнормативные разделы по §21.\nDetailed Scope: Review pre-reveal curated bank, context minimization и allowed intent schema; prompt\nversions и fallback.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; полная реализация зависимых runtimeпотребителей.\nDeliverables: Reviewed hint bank, intent schema, prompt versions, fallback policy.\nAcceptance criteria: Review pre-reveal curated bank, context minimization и allowed intent schema;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: одношаговая подсказка не раскрывает весь ответ.\nTask-specific tests: Single-step leakage, unsupported intent, exhausted hints, before/after reveal.\nTask-specific security checks: В контекст до reveal не попадает checker/answer; curated bank проходит\nнезависимый review.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R12).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V13, MS7-I12.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 04.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        },
+        {
+          "kind": "HANDOFF",
+          "id": "MS7-V04"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "2eba18e3636daff3cae42156c2720cb24007e585116fec60ddcc60da8c8efe58",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R13",
+      "title": "Аудит persisted evidence loop",
+      "source_page": 52,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G2.\nЧто получим простыми словами: Команда проверит, что результат решения один раз и целиком\nпопадает в прогресс и восстанавливается из истории.\nЗачем нужна задача: Подтвердить границы Assessment/Progress на работающей базе.\nRequirements covered: NFR-01.\nHARD: MS7-R10.\nCONTRACT: —.\nHANDOFF: —.\n\n\n                                                      MathStart v7.1  |  52\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nINTEGRATION: MS7-V10, MS7-V09.\nЧто можно делать параллельно: MS7-V12, MS7-I11.\nInputs/contracts: MS7-V10 Finalize Analysis   Progress; MS7-V09 Replay и concurrency; MS7-R10 Validators и →\ndeterministic Analyzer; нормативные разделы по §21.\nDetailed Scope: Cross-domain import audit, atomic finalize/Progress replay/eligibility; G2 evidence и\nнегативные race scenarios.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: Cross-domain audit и G2 evidence pack.\nAcceptance criteria: Cross-domain import audit, atomic finalize/Progress replay/eligibility; соответствие\nnamed contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: дубли и прямые writes Analyzer/Tutor в Progress запрещены.\nTask-specific tests: Atomic finalize, crash/retry, concurrent reveal/submit, duplicate ingest, replay parity.\nTaskspecific security checks: Поиск прямых Progress writes из Analyzer/Tutor/frontend; неверная eligibility\nблокирует событие.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R13).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R16.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 02.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: AT-02–08 на PostgreSQL и crossdomain audit приняты до G2.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R10"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V10"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V09"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "8d2d93fab62417d73cfc36d1e702cf2c0f5af2dd0b8c28f78d0798ec867e0136",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R14",
+      "title": "Golden eval и AI gates",
+      "source_page": 53,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G4.\nЧто получим простыми словами: Появится измеримый отчёт о правильных ответах, ошибках и\nотказах Analyzer, Tutor и Harness на заранее зафиксированных примерах.\nЗачем нужна задача: Не выпускать AIповедение по впечатлению от нескольких удачных запросов.\nRequirements covered: NFR-02.\nHARD: MS7-R10.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V11, MS7-V13.\nЧто можно делать параллельно: MS7-V14, MS7-I13.\nInputs/contracts: MS7-V11 Product provider и AIRun; MS7-V13 Tutor context и conversations; MS7-R10\nValidators и deterministic Analyzer; нормативные разделы по §21.\nDetailed Scope: 50 Analyzer/20 Tutor/12 Harness cases, holdout   20, denominators и live smoke; report ≥\nmetrics §15.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: Versioned golden/holdout sets, denominators и eval report.\nAcceptance criteria: 50 Analyzer/20 Tutor/12 Harness cases, holdout   20, denominators и live smoke; ≥\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: abstention не записывается как correct; false strong=0 на safety set.\nTask-specific tests: Analyzer 50+, Tutor 20+, Harness 12+, holdout 20+; separate deterministic/live lanes.\nTask-specific security checks: Safety subset без ложного strong negative; injection/unknown/malformed\nвходят в отчёт.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-R14).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R17.\n\n\n\n                                                       MathStart v7.1  |  53\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 03.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Denominators/holdout зафиксированы, safety false strong=0.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R10"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V11"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V13"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "cb0e0899e124db8159e4aaa97ed2a1da6896e4789a0c400aa793d40a203a1953",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R15",
+      "title": "Security/privacy release audit",
+      "source_page": 54,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G4.\nЧто получим простыми словами: До выпуска команда получит проверенный список рисков утечки\nданных, чужого доступа и опасных настроек.\nЗачем нужна задача: Закрыть security/privacy blockers на интегрированной системе.\nRequirements covered: NFR-04, NFR-06.\nHARD: —.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V14, MS7-I14.\nЧто можно делать параллельно: у остальных участников — review/подготовка по §20.\nInputs/contracts: MS7-V14 Staging сборка; MS7-I14 Полная интеграция; нормативные разделы по §21.\nDetailed Scope: Threat review, CSRF/IDOR/leaks/rate/retention и deployment checks; findings с\nowner/severity.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: Threat review, severity/owner register и исправления блокирующих findings.\nAcceptance criteria: Threat review, CSRF/IDOR/leaks/rate/retention и deployment checks; соответствие\nnamed contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: critical finding блокирует RC, не снимается сменой severity без review.\nTask-specific tests: CSRF, IDOR, XSS, secret leak, rate bypass, retention и deployment checks.\nTask-specific security checks: Понижение severity требует review; неизвестный доступ к данным\nблокирует release.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R15).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R17, MS7-V15, MS7-I15.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V14"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-I14"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "b02a7c2386164b2e1c0409dc2c3acdcd422fa28272d7949dfa5af2f68d21e23c",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R16",
+      "title": "Архитектура и глава Harness",
+      "source_page": 54,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G5.\nЧто получим простыми словами: В отчёте появится объяснение архитектуры и собственного Harness с\nреальными ошибками, исправлениями и вкладом участников.\nЗачем нужна задача: Сделать инженерные решения проверяемыми на защите.\nRequirements covered: C-06, C-08, C-09, C-10.\nHARD: MS7-R08.\nCONTRACT: —.\nHANDOFF: MS7-R13.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-V15, MS7-I15.\nInputs/contracts: MS7-R08 Harness eval и G1; MS7-R13 Аудит persisted evidence loop; нормативные\nразделы по §21.\nDetailed Scope: Chapters2/3, схемы из contracts, real failure cases с review/commit/test/CI; три вклада.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\n\n\n                                                      MathStart v7.1  |  54\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: Главы 2/3, схемы из contracts, ссылки на PR/CI/regressions.\nAcceptance criteria: Chapters2/3, схемы из contracts, real failure cases с review/commit/test/CI;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: не выдумывать model reasoning и неизвестные approvals.\nTask-specific tests: Сверка каждого кейса с review, commit, test name и CI; trace excerpt redaction.\nTaskspecific security checks: Нет secrets, student PII или выдуманной private chain-of-thought.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R16).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R18.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 03.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R08"
+        },
+        {
+          "kind": "HANDOFF",
+          "id": "MS7-R13"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "22d9b24cb9eadd5a80da58279e93a4463954f46db5c07d10c72c3b18b61d0dea",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R17",
+      "title": "Публичный RC и репетиция",
+      "source_page": 55,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G4.\nЧто получим простыми словами: Команда пройдёт общий показ публичной версии и убедится, что\nприложение, отчёт и доказательства относятся к одному выпуску.\nЗачем нужна задача: Снять расхождения между отдельными приёмками до G4.\nRequirements covered: C-02, C-05.\nHARD: MS7-R14, MS7-R15.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V17, MS7-I17.\nЧто можно делать параллельно: MS7-V18, MS7-I17, MS7-I18; до MS7-I17 — только contract fixtures,\nintegration после handoff.\nInputs/contracts: MS7-R14 Golden eval и AI gates; MS7-R15 Security/privacy release audit; MS7-V17\nПубличный backend release; MS7-I17 Public browser rehearsal; нормативные разделы по §21.\nDetailed Scope: AT-01–16 на одном release SHA; сверить URL/CI/evidence/report draft, провести общий\ndemo.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: RC ledger, AT-01–16 report, rehearsal record.\nAcceptance criteria: AT-01–16 на одном release SHA; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\nNegative/failure acceptance: видео/localhost не заменяют public system.\nTask-specific tests: Полный внешний browser маршрут и fallback на release SHA.\nTask-specific security checks: Критические findings, неизвестный owner и недоступный HTTPS блокируют\nRC.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R17).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R18.\nTask-specific risks: Непринятый runtime handoff: MS7-I17.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: AT-01–16 и public URL на одном RC SHA.\n\n\n\n\n\n\n\n                                                       MathStart v7.1  |  55\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R14"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-R15"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V17"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-I17"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "4f08b5f81e90d4058a3292e9525e350fcfb144ab34cdb1187ef284bfd1d4bbc9",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-R18",
+      "title": "Freeze и handover",
+      "source_page": 56,
+      "source_card_text": "Status: PLANNED. Owner: Руслан. Reviewer: Владимир. Task Approver: Владимир. Milestone Gate: G5.\nЧто получим простыми словами: Проект будет передан с окончательным отчётом, доступами,\nинструкциями и перечнем известных ограничений.\nЗачем нужна задача: Закрыть G5 и готовность к согласованной защите.\nRequirements covered: C-12, C-13, C-15, C-17.\nHARD: MS7-R17, MS7-V18, MS7-I18, MS7-R16.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: у остальных участников — review/подготовка по §20.\nInputs/contracts: MS7-R17 Публичный RC и репетиция; MS7-V18 Backend freeze; MS7-I18 Frontend freeze;\nMS7-R16 Архитектура и глава Harness; нормативные разделы по §21.\nDetailed Scope: Final report PDF, release ledger, accepted gates, links/runbooks/known limits; согласовать\nзащиту.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; изменение accepted Progress/Exercise семантики без addendum.\nDeliverables: Final report PDF, freeze ledger, runbooks и evidence index.\nAcceptance criteria: Final report PDF, release ledger, accepted gates, links/runbooks/known limits;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: pending gate не закрывать автоматически.\nTask-specific tests: Проверка всех gate approvals, ссылок, доступа и совпадения release SHA. Taskspecific\nsecurity checks: Секреты передаются вне repo/report; pending acceptance не превращается в DONE.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-R18).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: gate ledger / handover.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Все G0–G5 имеют отдельные approvals; дата защиты подтверждена.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                                      MathStart v7.1  |  56\n                                                                               MathStart · Technical Specification v7.1 · G0 Accepted\n\n23. Рабочие карточки: Владимир",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-R17"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-V18"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I18"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-R16"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "ec5928c45d028fcbd5f7e66b90127c3b78293846f361e579d3133affccca364e",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V02",
+      "title": "Аккаунты и права",
+      "source_page": 57,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G3.\nЧто получим простыми словами: Ученик сможет зарегистрироваться, войти и выбрать профиль, а\nсервер не позволит читать чужие данные.\nЗачем нужна задача: Создать настоящую идентичность для попыток и прогресса.\nRequirements covered: FR-01.\nHARD: MS6-V01.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R03A, MS7-R05, MS7-I02.\nInputs/contracts: MS7-R02A HTTP и eligibility addendum; MS6-V01 accepted artifact §2; нормативные\nразделы по §21.\nDetailed Scope: Django profile/auth/onboarding APIs; owner queries, CSRF/session, registration/login negative\ncases.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Django auth/profile/onboarding services и API.\nAcceptance criteria: Django profile/auth/onboarding APIs; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\nNegative/failure acceptance: чужой UUID404; GET не меняет знания.\nTask-specific tests: Registration/login/logout, three onboarding modes, invalid credentials и ownership.\nTaskspecific security checks: CSRF, session rotation, одинаковые login errors, чужой UUID 404.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V02).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V05, MS7-I03.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 04.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS6-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "NEW_PLATFORM_EVIDENCE_REQUIRED",
+      "current_status": "HISTORICAL_RESULT_PRESERVED",
+      "migration_follow_up": [
+        "MS7-MIG-V03",
+        "MS7-MIG-V06"
+      ],
+      "target_evidence": [
+        {
+          "path": "docs/acceptance/migration-execution/i02-verification/ci-c205ef1-backend-result.json",
+          "scope": "314 measured backend cases; exact IDs retained, including identity/staff. Recorded SHA c205ef1, not final combined QA."
+        },
+        {
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39074944322",
+          "scope": "Completed public/identity Chrome360 job only; final nine-project matrix pending."
+        }
+      ],
+      "original_result": {
+        "id": "MS7-V02",
+        "path": "docs/agent-traces/MS7-V02.md"
+      },
+      "original_result_source": "docs/acceptance/MS7-MIG-V01/old-to-new-evidence.json",
+      "source_card_text_sha256": "3e8de4f7033b1824cdd3cf4bcdac96690bdae1aef03cbe08921600b42bed972c",
+      "target_evidence_state": "SCOPED_EVIDENCE_FINAL_COMBINED_ACCEPTANCE_PENDING"
+    },
+    {
+      "id": "MS7-V03",
+      "title": "Knowledge и TopicSkill persistence",
+      "source_page": 57,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: В базе появятся навыки, связи между ними и соответствия темам;\nповторная загрузка не испортит историю.\nЗачем нужна задача: Дать общей модели знаний устойчивое хранилище.\nRequirements covered: FR-03, FR-16, C-07.\nHARD: MS6-V01.\nCONTRACT: R03, MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R05, MS7-R06A, MS7-I03.\nInputs/contracts: R03 accepted artifact §2; MS7-R02A HTTP и eligibility addendum; MS6-V01 accepted artifact\n§2; нормативные разделы по §21.\nDetailed Scope: Models/migrations/seed10skills13edges; ContentPage mappings; archive history и seed twice.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\n\n\n                                                      MathStart v7.1  |  57\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nвладельца.\nDeliverables: Models, additive migrations, pilot seed и TopicSkill mappings.\nAcceptance criteria: Models/migrations/seed10skills13edges; соответствие named contract и ожидаемые\nрезультаты taskspecific tests.\nNegative/failure acceptance: cycle/unknown/duplicate отклоняются атомарно.\nTask-specific tests: 10 skills/13 edges, seed twice, unknown/cycle/duplicate, fresh/upgrade.\nTask-specific security checks: Archive вместо удаления evidence-referenced объектов; Content не владеет\nSkill.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V03).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V04, MS7-V08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–05.10; EARLY 01.10–05.10.\nTarget deadline: NORMAL 05.10; EARLY 05.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS6-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "R03"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "eda986a3777ed8f6da7b9ec5e35ddfe0a342d0ed721448c5e6059eea93b1e6e3",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V04",
+      "title": "Exercise versions и pilot bank",
+      "source_page": 58,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: Преподавательский контент получит версии упражнений, а пилот —\nпроверенный банк заданий без ответов в браузере.\nЗачем нужна задача: Подготовить реальные задания для всех четырёх режимов.\nRequirements covered: FR-04, FR-08, FR-09, NFR-18.\nHARD: MS7-V03.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R06A, MS7-R06B.\nInputs/contracts: MS7-V03 Knowledge и TopicSkill persistence; MS7-R02A HTTP и eligibility addendum;\nнормативные разделы по §21.\nDetailed Scope: Immutable versions/private validators; import40assessed+3selfcheck; PRIMARY coverage и\nprovenance; minimum12steps12final2schemas.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Immutable ExerciseVersion storage, importer, 40 assessed + 3 self-check.\nAcceptance criteria: Immutable versions/private validators; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\nNegative/failure acceptance: digest conflict не затирает published version; public DTO не течёт.\nTask-specific tests: Coverage PRIMARY, two structured schemas, provenance, publication digest conflicts.\nTask-specific security checks: Private validators/answers не попадают в public JSON/HTML/JS.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V04).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R12, MS7-V05, MS7-I04.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–06.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 06.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.\n\n\n\n\n\n\n\n                                                       MathStart v7.1  |  58\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V03"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "02d06409c5cdcf80901482d6b1ef0e2148a8fe2156e581f82fc656543e86c744",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V05",
+      "title": "Attempts, revisions и steps",
+      "source_page": 59,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: Решение ученика будет сохраняться как черновик, а отправленная\nверсия станет неизменяемой и защищённой от дублей.\nЗачем нужна задача: Сделать попытку надёжным источником дальнейшей проверки.\nRequirements covered: FR-05, FR-07, FR-21.\nHARD: MS7-V02, MS7-V04.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R06B, MS7-R04A, MS7-I04.\nInputs/contracts: MS7-V02 Аккаунты и права; MS7-V04 Exercise versions и pilot bank; MS7-R02A HTTP и\neligibility addendum; нормативные разделы по §21.\nDetailed Scope: Draft CAS, submit snapshot, ordered typed steps, receipts/operation retry; schema migrations.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Attempt/revision/typed step persistence и draft/submit endpoints.\nAcceptance criteria: Draft CAS, submit snapshot, ordered typed steps, receipts/operation retry; соответствие\nnamed contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: stale revision409; submitted edit forbidden.\nTask-specific tests: CAS conflict 409, row reorder, immutable submit, retry receipt.\nTask-specific security checks: Owner scoping, лимиты входа, запрет редактирования submitted snapshot.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V05).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V06, MS7-V10, MS7-I05, MS7-I06, MS7-I07.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 04.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V02"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-V04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "d450aea5cfec42058a0a9c353ea36da0cccf1f713cceb02fb49b707abe9e802f",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V06",
+      "title": "Единая помощь и reveal",
+      "source_page": 59,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: Нажатая подсказка или раскрытый ответ будут надёжно записаны до\nпоказа, даже при одновременной отправке решения.\nЗачем нужна задача: Не выдавать помощь за независимый успех.\nRequirements covered: FR-09, FR-18.\nHARD: MS7-V05.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R04A, MS7-R07, MS7-I05, MS7-I06.\nInputs/contracts: MS7-V05 Attempts, revisions и steps; MS7-R02A HTTP и eligibility addendum; нормативные\nразделы по §21.\nDetailed Scope: Exposure lock, hints/reveal durable before return, cross-attempt policy, shared Tutor endpoint.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Exposure service, hint/reveal endpoints и durable help records.\nAcceptance criteria: Exposure lock, hints/reveal durable before return, cross-attempt policy, shared Tutor\n\n\n\n                                                      MathStart v7.1  |  59\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nendpoint; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: concurrent submit/help не теряет факт помощи.\nTask-specific tests: Submit/help race, retries, new attempt, interrupted response.\nTask-specific security checks: Cross-attempt eligibility и secret reveal только после server authorization.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V06).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V10, MS7-V13, MS7-I09.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 03.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V05"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "8317c18e8246d565e77095f6c7b73dce8cb4bb2dfa7744527b2bfc8aca95c238",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V07",
+      "title": "Backend skill и real run",
+      "source_page": 60,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G1.\nЧто получим простыми словами: Владимир выполнит настоящий backend increment через Harness и\nпокажет проверки базы и независимое ревью.\nЗачем нужна задача: Подтвердить, что Harness пригоден для backend работы команды.\nRequirements covered: C-01/08; NFR-19.\nHARD: —.\nCONTRACT: MS7-R07.\nHANDOFF: —.\nINTEGRATION: MS7-R04A.\nЧто можно делать параллельно: MS7-R10, MS7-I08, MS7-I07.\nInputs/contracts: MS7-R07 Skills и bounded subagents; MS7-R04A Live coding-model adapter; нормативные\nразделы по §21.\nDetailed Scope: Backend profile migrations/PG/ownership; реальный increment с reviewer child и evidence;\nhuman independent review.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Backend skill profile и live owner run bundle.\nAcceptance criteria: Backend profile migrations/PG/ownership; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\nNegative/failure acceptance: child read-only и отсутствующий PG не маскируются.\nTask-specific tests: Migrations/PG/ownership checks, reviewer child, final verification.\nTask-specific security checks: Child read-only; SQLite skips не маскируются как PostgreSQL proof.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-V07).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R07"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-R04A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "f24a86ba271e3dd59645d436ad87eebeaa43b9ca0aa45eea13219f15b9af90d9",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V08",
+      "title": "ProgressEvent и проекция",
+      "source_page": 60,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: Подтверждённые события начнут менять знания ученика по\nпринятой формуле; нейтральные завершения сохранятся отдельно.\nЗачем нужна задача: Реализовать единственного владельца долгосрочного прогресса.\nRequirements covered: FR-02, FR-13, FR-14, FR-22.\n\n\n                                                      MathStart v7.1  |  60\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nHARD: MS7-V03.\nCONTRACT: MS7-R03A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R09, MS7-I06, MS7-I08.\nInputs/contracts: MS7-V03 Knowledge и TopicSkill persistence; MS7-R03A CompletionFact addendum;\nнормативные разделы по §21.\nDetailed Scope: Only Progress writes, exact Decimal reducer, event/source uniqueness, Completion mirror,\natomic ingest.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: ProgressEvent, completion mirror, UserSkillState и ingest service.\nAcceptance criteria: Only Progress writes, exact Decimal reducer, event/source uniqueness, Completion\nmirror, atomic ingest; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: conflicting duplicate409; malformed evidence не меняет state.\nTask-specific tests: Decimal deltas/clamps, event/source uniqueness, duplicate conflict, atomic rollback.\nTaskspecific security checks: Только validated evidence через Progress API; malformed input не меняет state.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V08).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V09, MS7-I11.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–05.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 05.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V03"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R03A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "38cee25a205d382b068465f94d7f403842b6d78f605471be1eaa63beefaea204",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V09",
+      "title": "Replay и concurrency",
+      "source_page": 61,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: Прогресс будет одинаковым при обычной работе и повторном\nвоспроизведении истории, включая поздние события.\nЗачем нужна задача: Защитить данные от гонок, сбоев и разного порядка доставки.\nRequirements covered: FR-15, NFR-03.\nHARD: MS7-V08.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R10, MS7-I07.\nInputs/contracts: MS7-V08 ProgressEvent и проекция; нормативные разделы по §21.\nDetailed Scope: Late event/fact replay, last10neutral window, stable locks, online/replay parity PostgreSQL.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Replay service, locking protocol и PostgreSQL regression suite.\nAcceptance criteria: Late event/fact replay, last10neutral window, stable locks, online/replay parity\nPostgreSQL; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: crash/retry и одинаковое время не дают расхождения.\nTask-specific tests: Same timestamp, late facts, retry/crash, last-ten neutral window, online/replay parity.\nTaskspecific security checks: Stable lock order; повтор не создаёт второе положительное evidence.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V09).\n\n\n\n                                                       MathStart v7.1  |  61\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R13, MS7-V10, MS7-I10.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 02.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: PostgreSQL online/replay equality под concurrent writes.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V08"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "d24f699d6061e581a5c773f311612727f9484283d8fc1b48d32154d1be0925dc",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V10",
+      "title": "Finalize Analysis→Progress",
+      "source_page": 62,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G2.\nЧто получим простыми словами: Проверенное решение, завершение попытки и изменение прогресса\nбудут сохраняться вместе либо не сохраняться вовсе.\nЗачем нужна задача: Соединить Analyzer и Progress без частично завершённых операций.\nRequirements covered: FR-06, FR-11, FR-14, NFR-17.\nHARD: MS7-V05, MS7-V06, MS7-V09.\nCONTRACT: MS7-R10.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R08, MS7-R11, MS7-I09.\nInputs/contracts: MS7-V05 Attempts, revisions и steps; MS7-V06 Единая помощь и reveal; MS7-V09 Replay и\nconcurrency; MS7-R10 Validators и deterministic Analyzer; нормативные разделы по §21.\nDetailed Scope: Validate outside transaction, atomic result/completion/event, operation recovery;\nreveal/eligibility lock.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Finalize service, operation receipts/recovery и persisted result API.\nAcceptance criteria: Validate outside transaction, atomic result/completion/event, operation recovery;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: provider failure не оставляет halfcompleted state.\nTask-specific tests: Validate outside transaction, atomic commit, retry after crash, reveal lock.\nTask-specific security checks: Provider failure не оставляет half-completed state; client verdict не\nдоверяется.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V10).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R13, MS7-V11, MS7-V12, MS7-I10.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–06.10.\nTarget deadline: NORMAL 04.10; EARLY 06.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-V06"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-V09"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R10"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "9504e29b66669ea73e7ddbf48364c9d0e531eec171688e5c84e2d8367462a653",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V11",
+      "title": "Product provider и AIRun",
+      "source_page": 62,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G3.\nЧто получим простыми словами: Приложение сможет безопасно обращаться к настоящей модели и\nзаписывать версию, результат и причину отказа.\nЗачем нужна задача: Изолировать внешнего провайдера от доменных решений.\nRequirements covered: FR-12, FR-23, NFR-09, C-03.\nHARD: MS7-V10.\nCONTRACT: MS7-R10.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R12, MS7-I10.\n\n\n\n                                                       MathStart v7.1  |  62\n                                                                                  MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nInputs/contracts: MS7-R10 Validators и deterministic Analyzer; MS7-V10 Finalize Analysis   Progress; →\nнормативные разделы по §21.\nDetailed Scope: Infrastructure adapter, Pydantic/schema/domain gates, prompt version, redaction/deadlines;\nlive bounded Analyzer smoke.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Provider adapter, AIRun persistence, structured output validation и live smoke.\nAcceptance criteria: Infrastructure adapter, Pydantic/schema/domain gates, prompt version,\nredaction/deadlines; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: timeout/invalid/unknown code   abstain без strong negative.→\nTask-specific tests: Malformed/unknown/low-confidence response, timeout, unavailable provider.\nTask-specific security checks: Credentials только infrastructure; domain validation и redaction до\nсохранения.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-V11).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R14, MS7-V13.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 04.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V10"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R10"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "e6acea155daf86fd919cdecc085fc8e51b8c51963cbca257afefc7d8a0111c50",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V12",
+      "title": "Диагностика и Practice API",
+      "source_page": 63,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G3.\nЧто получим простыми словами: Диагностика и тренировка будут помнить выбранное задание и не\nменять его при обновлении страницы.\nЗачем нужна задача: Перенести адаптивную политику в устойчивые пользовательские сессии.\nRequirements covered: FR-02, FR-19, FR-20.\nHARD: MS7-V10.\nCONTRACT: MS7-R11.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R13, MS7-I11.\nInputs/contracts: MS7-R11 Adaptive и diagnostic policy; MS7-V10 Finalize Analysis   Progress; нормативные →\nразделы по §21.\nDetailed Scope: Persist selected item, one-active, next/finish idempotency, max10/7, target/originreturn,\nselfreport integration.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Diagnostic/Practice sessions и next/finish/skip APIs.\nAcceptance criteria: Persist selected item, one-active, next/finish idempotency, max10/7, target/originreturn,\nselfreport integration; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: refresh не выбирает новый item; empty pool завершает безопасно.\nTask-specific tests: One-active, max10/7, deterministic refresh, empty pool, origin return.\nTask-specific security checks: Чужая сессия недоступна; revealed evidence не получает independent credit.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V12).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V14, MS7-I11, MS7-I13.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\n\n\n\n                                                       MathStart v7.1  |  63\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 02.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V10"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R11"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "f7106e4ffbd3a96cf7aa3e5b57862f02ea8d8dbd4e39bde9284c09a96d94cc5a",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V13",
+      "title": "Tutor context и conversations",
+      "source_page": 64,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G3.\nЧто получим простыми словами: Ученик сможет вести связанный с текущим заданием диалог и\nполучать разрешённые подсказки даже при сбое модели.\nЗачем нужна задача: Подключить Tutor к реальным попыткам и правилам помощи.\nRequirements covered: FR-17, FR-18.\nHARD: MS7-V11, MS7-V06.\nCONTRACT: MS7-R12.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-I12.\nInputs/contracts: MS7-R12 Tutor policy и hint bank; MS7-V11 Product provider и AIRun; MS7-V06 Единая\nпомощь и reveal; нормативные разделы по §21.\nDetailed Scope: Owner conversations, bounded context, bank intent selection, durable help, after-reveal safe\nexplanation.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Owner conversations, context builder, intent selection и fallback.\nAcceptance criteria: Owner conversations, bounded context, bank intent selection, durable help, after-reveal\nsafe explanation; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: cross-owner/checker leak/injection не выдаёт ответ.\nTask-specific tests: Before/after reveal, repeated hints, timeout, malicious message, bounded history.\nTaskspecific security checks: No cross-owner context, checker leak, arbitrary pre-reveal math или unsafe HTML.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-V13).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R14, MS7-V14, MS7-I12.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V11"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-V06"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R12"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "fd2cd1b8a023f9af0dd6689f4e417d73c956b52df0e5be39221fe9dbb8c03683",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V14",
+      "title": "Staging сборка",
+      "source_page": 64,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G3.\nЧто получим простыми словами: Появится общая среда, где интерфейс и backend работают вместе на\nPostgreSQL с настройками, близкими к выпуску.\nЗачем нужна задача: Дать команде место для полной приёмки перед публичным размещением.\nRequirements covered: NFR-11.\nHARD: MS7-V12, MS7-V13.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R14, MS7-I13.\nInputs/contracts: MS7-V12 Диагностика и Practice API; MS7-V13 Tutor context и conversations;\nнормативные разделы по §21.\nDetailed Scope: Production-like PostgreSQL service, static/media, health/config, initial deploy runbook; clean\nbuild and full runtime.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\n\n\n\n                                                       MathStart v7.1  |  64\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Staging deployment, config/health checks и initial runbook.\nAcceptance criteria: Production-like PostgreSQL service, static/media, health/config, initial deploy runbook;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: не использовать runserver/SQLite как release proof.\nTask-specific tests: Clean build, static/media, full runtime routes, failed readiness.\nTask-specific security checks: Никакого runserver/SQLite в качестве production proof; secrets отделены от\nкода.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V14).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R15, MS7-V15, MS7-I14.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V12"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-V13"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "8f0cb336aed1dc0531cd2194bebade863aebf414ff568a712d2e39c00a6325a8",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V15",
+      "title": "Backend security/performance",
+      "source_page": 65,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G4.\nЧто получим простыми словами: Будут измерены скорость и ошибки backend, а ограничения\nзапросов начнут работать между несколькими процессами.\nЗачем нужна задача: Проверить выпуск под объявленной нагрузкой и закрыть backend findings.\nRequirements covered: NFR-05, NFR-07.\nHARD: MS7-V14.\nCONTRACT: —.\nHANDOFF: MS7-R15.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R16, MS7-I15.\nInputs/contracts: MS7-V14 Staging сборка; MS7-R15 Security/privacy release audit; нормативные разделы по\n§21.\nDetailed Scope: Shared rate limits, ownership/CSRF checks, measured cohorts §16, queries and errors/fallback\nreport.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Shared limits, cohort metrics и security/performance report.\nAcceptance criteria: Shared rate limits, ownership/CSRF checks, measured cohorts §16, queries and\nerrors/fallback report; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: concurrent workers не обходят limits; samples не фильтруются.\nTask-specific tests: Concurrent workers, rate window edges, retries, catalogue/submit/progress/AI cohorts.\nTask-specific security checks: Не исключать failures из выборки; ownership/CSRF/leak regressions\nобязательны.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V15).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V16.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 03.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.\n\n\n\n                                                       MathStart v7.1  |  65\n                                                                               MathStart · Technical Specification v7.1 · G0 Accepted",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V14"
+        },
+        {
+          "kind": "HANDOFF",
+          "id": "MS7-R15"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "cc2139cb951587cf53f4ac0ada6fe4cf92b242dd8e2db80dc407be49ed7c6fbf",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V16",
+      "title": "Restore/upgrade и backend chapter",
+      "source_page": 66,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G4.\nЧто получим простыми словами: Команда сможет восстановить данные из резервной копии и\nобновить выпуск без потери истории.\nЗачем нужна задача: Подтвердить восстановимость, а не только создание backup файла.\nRequirements covered: NFR-10.\nHARD: MS7-V15.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-I16.\nInputs/contracts: MS7-V15 Backend security/performance; нормативные разделы по §21.\nDetailed Scope: Measured backup restore RPO24h/RTO2h, additive upgrade drill, data consistency и report\nchapter.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Restore/upgrade runbooks, measured drill и backend chapter.\nAcceptance criteria: Measured backup restore RPO24h/RTO2h, additive upgrade drill, data consistency и\nreport chapter; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: повреждённый backup detected; исторические evidence не теряются.\nTask-specific tests: Corrupt backup, fresh restore, additive upgrade, replay/content integrity.\nTask-specific security checks: Encrypted backup, RPO/RTO evidence; applied migrations не переписываются.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V16).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-V17.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Измерены RPO/RTO и restore/upgrade consistency.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V15"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "9434e2243aa29e9fb639063e74082eb14b3b4f18a9998a506f6e4ba01f825d71",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V17",
+      "title": "Публичный backend release",
+      "source_page": 66,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G4.\nЧто получим простыми словами: Backend станет доступен по публичному HTTPS адресу и передаст\nинтерфейсу точную версию выпуска.\nЗачем нужна задача: Открыть реальный сервис для внешней проверки и защиты.\nRequirements covered: FR-24, C-11.\nHARD: MS7-V16.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: у остальных участников — review/подготовка по §20.\nInputs/contracts: MS7-V16 Restore/upgrade и backend chapter; нормативные разделы по §21.\nDetailed Scope: HTTPS URL, approved config/secrets, production migrations и health; build SHA handoff Илье.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Production release, migration/health evidence и SHA handoff.\nAcceptance criteria: HTTPS URL, approved config/secrets, production migrations и health; соответствие\nnamed contract и ожидаемые результаты task-specific tests.\n\n\n\n\n                                                      MathStart v7.1  |  66\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nNegative/failure acceptance: failed readiness/restore rollback блокирует выпуск.\nTask-specific tests: External HTTPS, startup/readiness, static/media, rollback check.\nTask-specific security checks: Approved config/secrets; failed readiness или restore blocker останавливает\nвыпуск.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V17).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R17, MS7-V18, MS7-I17.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V16"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "e7c7144ce7dfa5f2428866229e09c63574a5a4d2af4fd8a5ade8257c7ef389cb",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-V18",
+      "title": "Backend freeze",
+      "source_page": 67,
+      "source_card_text": "Status: PLANNED. Owner: Владимир. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G5.\nЧто получим простыми словами: Другой участник получит понятные инструкции по запуску и\nобслуживанию backend и его ограничениям.\nЗачем нужна задача: Завершить передачу серверной части до общего freeze.\nRequirements covered: FR-24; NFR-11.\nHARD: MS7-V17.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R17, MS7-I17.\nInputs/contracts: MS7-V17 Публичный backend release; нормативные разделы по §21.\nDetailed Scope: Runbooks, backup ownership, schema/lock versions, secure credential handover и known\nlimits.\nОбласть файлов: домены §5, specs/ и tests; точные files определяет exec plan.\nOut of Scope: Общие исключения §17; доверие клиентскому verdict и прямые записи Progress вне\nвладельца.\nDeliverables: Backend handover, dependency/schema versions и backup ownership.\nAcceptance criteria: Runbooks, backup ownership, schema/lock versions, secure credential handover и known\nlimits; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: секреты не попадают в repo/report.\nTask-specific tests: Проверка runbooks и доступа принимающим участником.\nTask-specific security checks: Никаких ключей в отчёте; credential transfer по отдельному защищённому\nканалу.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-V18).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R18.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 04.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                                      MathStart v7.1  |  67\n                                                                               MathStart · Technical Specification v7.1 · G0 Accepted\n\n24. Рабочие карточки: Илья",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-V17"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "5351fb5586786a80d153dd76656c91083ec9daf87aa77fb0b7737591169ecd9a",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I02",
+      "title": "UI foundation и fixtures",
+      "source_page": 68,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Появится общий каркас интерфейса: компоненты, мобильная основа\nи состояния загрузки, ошибок и пустых данных.\nЗачем нужна задача: Дать последующим экранам общую основу и согласованные fixtures.\nRequirements covered: NFR-13/16; FR-04.\nHARD: MS6-I01.\nCONTRACT: MS7-R02A.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R03A, MS7-R05, MS7-V02.\nInputs/contracts: MS7-R02A HTTP и eligibility addendum; MS6-I01 accepted artifact §2; нормативные\nразделы по §21.\nDetailed Scope: Reusable templates/components, tokens/state fixtures, schema dispatch, loading/error/empty;\nbaseline accessibility.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Templates/components, design tokens и versioned state fixtures.\nAcceptance criteria: Reusable templates/components, tokens/state fixtures, schema dispatch,\nloading/error/empty; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: fixture-only явно маркирован; checker не включается.\nTask-specific tests: Schema dispatch, loading/error/empty states, keyboard foundation.\nTask-specific security checks: Fixture-only маркируется; checker и answer не входят в bundle.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I02).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I03, MS7-I04, MS7-I08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 04.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS6-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R02A"
+        }
+      ],
+      "platform_disposition": "PLATFORM_ADAPTED_BASELINE",
+      "current_status": "HISTORICAL_RESULT_PRESERVED",
+      "migration_follow_up": [
+        "MS7-MIG-I01",
+        "MS7-MIG-I05"
+      ],
+      "target_evidence": [
+        {
+          "path": "docs/acceptance/migration-execution/i02-verification/admin-presentation-20261018.json",
+          "scope": "Native9-model columns/details/history:44 affected tests and typecheck4; real browser delta pending."
+        }
+      ],
+      "original_result": {
+        "id": "MS7-I02",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/22",
+        "head_sha": "09c8efb8a7df1f3408c2173cf18d3fe4f881058b",
+        "merge_sha": "46c1b3ddbb9611482d288262249152be839ddae6",
+        "observed_merged": true,
+        "observed_state": "closed",
+        "observed_on": "2026-10-16",
+        "trace": "docs/agent-traces/MS7-I02.md",
+        "scope": "Historical Django UI implementation; old pending descriptions retained as dated snapshots. No new FastAPI/React task acceptance inferred."
+      },
+      "source_card_text_sha256": "02a573960360c920e0453a67a29fed4929137ce171128545805233a9b6ae30ee",
+      "target_evidence_state": "SCOPED_EVIDENCE_FINAL_COMBINED_ACCEPTANCE_PENDING"
+    },
+    {
+      "id": "MS7-I03",
+      "title": "Auth/profile/onboarding UI",
+      "source_page": 68,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Ученик сможет пройти регистрацию, вход и начальную настройку\nчерез понятные формы.\nЗачем нужна задача: Сделать серверные аккаунты доступными пользователю.\nRequirements covered: FR-01, FR-02.\nHARD: MS7-I02.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V02.\nЧто можно делать параллельно: MS7-R05, MS7-R06A, MS7-V03.\nInputs/contracts: MS7-I02 UI foundation и fixtures; MS7-V02 Аккаунты и права; нормативные разделы по\n§21.\nDetailed Scope: Регистрация/вход/3onboarding modes, CSRF, safe errors, keyboard forms и saved state.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\n\n\n\n                                                      MathStart v7.1  |  68\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Auth/profile/onboarding screens на настоящем API.\nAcceptance criteria: Регистрация/вход/3onboarding modes, CSRF, safe errors, keyboard forms и saved state;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: retry не дублирует selfreport; чужой account не раскрывается.\nTask-specific tests: Три onboarding пути, saved state, retry, invalid credentials, keyboard.\nTask-specific security checks: CSRF; не раскрывать чужой account или повторно начислять self-report.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I03).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I11, MS7-I14.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–05.10; EARLY 01.10–05.10.\nTarget deadline: NORMAL 05.10; EARLY 05.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V02"
+        }
+      ],
+      "platform_disposition": "NEW_PLATFORM_EVIDENCE_REQUIRED",
+      "current_status": "HISTORICAL_RESULT_PRESERVED",
+      "migration_follow_up": [
+        "MS7-MIG-I04",
+        "MS7-MIG-I05"
+      ],
+      "target_evidence": [
+        {
+          "path": "docs/acceptance/migration-execution/i02-verification/ci-c205ef1-backend-result.json",
+          "scope": "314 measured backend cases; exact IDs retained, including identity/staff. Recorded SHA c205ef1, not final combined QA."
+        },
+        {
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39074944322",
+          "scope": "Completed public/identity Chrome360 job only; final nine-project matrix pending."
+        }
+      ],
+      "original_result": {
+        "id": "MS7-I03",
+        "pr": "https://github.com/Tramsey00/MathStart-Python/pull/26",
+        "head_sha": "23af7d68678e092466951226e94c230612b69d61",
+        "merge_sha": "4df7403208312d73adaa34f00f10b025db686fe4",
+        "observed_merged": true,
+        "observed_state": "closed",
+        "observed_on": "2026-10-16",
+        "trace": "docs/agent-traces/MS7-I03.md",
+        "scope": "Historical Django UI implementation; old pending descriptions retained as dated snapshots. No new FastAPI/React task acceptance inferred."
+      },
+      "source_card_text_sha256": "0a2d503a8615e3dbc48731f515452907bed497fdf0e5ec498f396583453868e5",
+      "target_evidence_state": "SCOPED_EVIDENCE_FINAL_COMBINED_ACCEPTANCE_PENDING"
+    },
+    {
+      "id": "MS7-I04",
+      "title": "Каталог и renderer",
+      "source_page": 69,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Каталог сохранит прежние темы и научится показывать новые\nзадания нужного типа на телефоне и компьютере.\nЗачем нужна задача: Связать существующий контент с пилотной учебной моделью.\nRequirements covered: FR-03.\nHARD: MS7-I02.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V04.\nЧто можно делать параллельно: MS7-R06B, MS7-R04A, MS7-V05.\nInputs/contracts: MS7-I02 UI foundation и fixtures; MS7-V04 Exercise versions и pilot bank; нормативные\nразделы по §21.\nDetailed Scope: ContentPage routes, PRIMARY coverage, four mode dispatch, schema versions, mobile theory.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Catalogue/topic templates и versioned four-mode renderer.\nAcceptance criteria: ContentPage routes, PRIMARY coverage, four mode dispatch, schema versions, mobile\ntheory; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: unknown schema controlled; old content preserved.\nTask-specific tests: ContentPage routes, PRIMARY denominator, unknown schema, old content.\nTask-specific security checks: Публичный renderer не содержит validation secrets и не доверяет HTML\nмодели.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I04).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I05, MS7-I07.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 03.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.\n\n\n\n\n\n\n\n\n                                                       MathStart v7.1  |  69\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V04"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "36117204b22c8bcef0921cbb32563c6c436ef6a10663c73f8827b41f4ac3eda2",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I05",
+      "title": "SELF_CHECK и final answer UI",
+      "source_page": 70,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Ученик сможет проверить себя или отправить итоговый ответ, не\nсоздавая новую попытку случайным повторным нажатием.\nЗачем нужна задача: Провести первый рабочий маршрут от задания к результату.\nRequirements covered: FR-05, FR-06.\nHARD: MS7-I04.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V05.\nЧто можно делать параллельно: MS7-R04A, MS7-R07, MS7-V06.\nInputs/contracts: MS7-I04 Каталог и renderer; MS7-V05 Attempts, revisions и steps; нормативные разделы\nпо §21.\nDetailed Scope: Server attempt creation/draft/submit, selfcheck label, immutable result и retry key.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: SELF_CHECK и FINAL_ANSWER forms, draft/submit/retry state.\nAcceptance criteria: Server attempt creation/draft/submit, selfcheck label, immutable result и retry key;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: refresh/двойной submit не удваивает completion.\nTask-specific tests: Double click, refresh, interrupted submit, immutable result.\nTask-specific security checks: Самопроверка явно отделена от оцениваемого решения; server receipt\nавторитетен.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I05).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I06, MS7-I09.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V05"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "ab003d56d5bc5aac8459525acf3909eca81c263276249a2a3f2eb120ee10bcb5",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I06",
+      "title": "Пошаговый редактор",
+      "source_page": 70,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Ученик сможет записывать и переставлять шаги решения, а\nинтерфейс сохранит ввод и покажет конфликт старого черновика.\nЗачем нужна задача: Собрать точное пошаговое решение для deterministic validation.\nRequirements covered: FR-07.\nHARD: MS7-I05.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V05.\nЧто можно делать параллельно: MS7-R07, MS7-R09, MS7-V06, MS7-V08.\nInputs/contracts: MS7-I05 SELF_CHECK и final answer UI; MS7-V05 Attempts, revisions и steps; нормативные\nразделы по §21.\nDetailed Scope: Typed ordered rows/reorder, raw text, CAS draft, focus restore и submitted freeze.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Typed ordered step editor, CAS draft и focus recovery.\n\n\n\n                                                      MathStart v7.1  |  70\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nAcceptance criteria: Typed ordered rows/reorder, raw text, CAS draft, focus restore и submitted freeze;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: stale response не затирает ввод; invalid step labelled.\nTask-specific tests: Add/reorder/delete, raw text, stale response, submitted freeze.\nTask-specific security checks: Клиент не утверждает parse status/verdict; limits и schema соблюдены.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I06).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I09.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 03.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I05"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V05"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "c9615edf9a397af3009f0b05e250a6ec810ba1b7bde696c8e76ee6bf54933bcf",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I07",
+      "title": "Structured solution UI",
+      "source_page": 71,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Для двух типов заданий появятся отдельные структурированные\nформы с понятными ошибками полей.\nЗачем нужна задача: Поддержать STRUCTURED режим без подмены его текстовым полем.\nRequirements covered: FR-08.\nHARD: MS7-I04.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V05.\nЧто можно делать параллельно: MS7-R10, MS7-V07, MS7-V09.\nInputs/contracts: MS7-I04 Каталог и renderer; MS7-V05 Attempts, revisions и steps; нормативные разделы\nпо §21.\nDetailed Scope: Два разных schemas через registry, field errors, keyboard и payload contract.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Schema registry dispatch и два structured editors.\nAcceptance criteria: Два разных schemas через registry, field errors, keyboard и payload contract;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: неизвестные поля не отправляются как trusted result.\nTask-specific tests: Valid/invalid/unknown field, keyboard order, request payload parity.\nTask-specific security checks: Неизвестные поля не отправляются как доверенный результат проверки.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I07).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I09.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–03.10.\nTarget deadline: NORMAL 03.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V05"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "728f6ac85bca27af0d5158eea805982ec58dca0a9ae68fc560d1a68970284e38",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I08",
+      "title": "Frontend skill и visual run",
+      "source_page": 71,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G1.\nЧто получим простыми словами: Илья выполнит реальное изменение интерфейса через Harness и\nподтвердит его работой браузера.\nЗачем нужна задача: Проверить пригодность frontend skill и browser tools.\n\n\n                                                       MathStart v7.1  |  71\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nRequirements covered: NFR-20.\nHARD: MS7-I02.\nCONTRACT: MS7-R07.\nHANDOFF: —.\nINTEGRATION: MS7-R04A.\nЧто можно делать параллельно: MS7-R09, MS7-R10, MS7-V08, MS7-V07.\nInputs/contracts: MS7-R07 Skills и bounded subagents; MS7-R04A Live coding-model adapter; MS7-I02 UI\nfoundation и fixtures; нормативные разделы по §21.\nDetailed Scope: Frontend profile/browser tools, real increment, DOM/network/console+screenshots и read-\nonly reviewer.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Frontend profile, live run, DOM/network/console evidence и screenshots.\nAcceptance criteria: Frontend profile/browser tools, real increment, DOM/network/console+screenshots и\nread-only reviewer; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: visual screenshot не заменяет DOM/assertions; no external browsing bypass.\nTask-specific tests: Real route assertions, failed UI state, reviewer child и allowed origin.\nTask-specific security checks: Нет внешнего browsing bypass; screenshot не подменяет DOM assertions.\nLive model/API requirement: Обязателен live evidence этой задачи; normal CI offline.\nEvidence: E(MS7-I08).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R08.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R07"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-R04A"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "64c80f3a4bf1b1bcbd5934e2c145fb69e215e7564b0574c56f2d4195493d3d15",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I09",
+      "title": "Hints/reveal и recovery UI",
+      "source_page": 72,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Подсказки и раскрытие ответа останутся видны после обновления\nстраницы или сбоя сети.\nЗачем нужна задача: Согласовать видимое состояние помощи с серверной историей.\nRequirements covered: FR-09, FR-18.\nHARD: MS7-I05, MS7-I06, MS7-I07.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V06.\nЧто можно делать параллельно: MS7-R08, MS7-V10.\nInputs/contracts: MS7-I05 SELF_CHECK и final answer UI; MS7-I06 Пошаговый редактор; MS7-I07 Structured\nsolution UI; MS7-V06 Единая помощь и reveal; нормативные разделы по §21.\nDetailed Scope: Server-accepted help levels, explicit reveal, refresh/network timeout canonical state.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Hint/reveal controls и canonical recovery views.\nAcceptance criteria: Server-accepted help levels, explicit reveal, refresh/network timeout canonical state;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: help не исчезает при новом attempt/back.\nTask-specific tests: New attempt/back/refresh, timeout after accepted help, explicit reveal.\nTask-specific security checks: Нельзя локально стереть факт помощи или показать answer до\nразрешения сервера.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\n\n\n\n                                                       MathStart v7.1  |  72\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nEvidence: E(MS7-I09).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I10, MS7-I12.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I06"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I07"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V06"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "d276ad4e04b9d99f287d0251b318a18f0e4e0aa33517a362fdfdcffb9a233dc8",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I10",
+      "title": "Feedback/progress views",
+      "source_page": 73,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Ученик увидит подтверждённую ошибку, неопределённый результат\nи свои знания без ложного обвинения или выдуманного прогресса.\nЗачем нужна задача: Показать настоящие результаты Analyzer и Progress.\nRequirements covered: FR-22.\nHARD: MS7-I09.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V10, MS7-V09.\nЧто можно делать параллельно: MS7-R12, MS7-V11.\nInputs/contracts: MS7-I09 Hints/reveal и recovery UI; MS7-V10 Finalize Analysis   Progress; MS7-V09 Replay и →\nconcurrency; нормативные разделы по §21.\nDetailed Scope: Confirmed/uncertain/unsupported, first error, skill list/map, topic denominator и history.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Feedback states, skill map/list, topic mastery/coverage и history views.\nAcceptance criteria: Confirmed/uncertain/unsupported, first error, skill list/map, topic denominator и history;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: NOT_STARTED не равен любой низкой confidence; uncertain не обвиняет.\nTask-specific tests: First error, unsupported/uncertain, NOT_STARTED, PRIMARY denominator.\nTask-specific security checks: Unknown confidence не превращается в misconception; owner-only data.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I10).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I13.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 04.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I09"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V10"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V09"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "f95ab7d9fcdc3b5eed879342a8624ae98101220a9eae53f0292065f386ab26cf",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I11",
+      "title": "Onboarding completion/history",
+      "source_page": 73,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: История и стартовая диагностика будут показывать реальные\nсохранённые попытки и выбранный путь обучения.\nЗачем нужна задача: Завершить onboarding и навигацию по доказательствам прогресса.\nRequirements covered: FR-21.\nHARD: MS7-I03.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V08, MS7-V12.\nЧто можно делать параллельно: MS7-R13, MS7-V12; до MS7-V12 — только contract fixtures, integration\n\n\n                                                      MathStart v7.1  |  73\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nпосле handoff.\nInputs/contracts: MS7-I03 Auth/profile/onboarding UI; MS7-V08 ProgressEvent и проекция; MS7-V12\nДиагностика и Practice API; нормативные разделы по §21.\nDetailed Scope: Real selfreport/zero/diagnostic entry, paginated attempts/events и filter labels.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Onboarding completion, diagnostic entry, paginated history/filter screens.\nAcceptance criteria: Real selfreport/zero/diagnostic entry, paginated attempts/events и filter labels;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: не изображать diagnostic fixtures как runtime.\nTask-specific tests: Zero/selfreport/diagnostic, pagination, filter labels, persisted refresh.\nTask-specific security checks: Fixtures не выдаются за runtime; чужие attempts/events не отображаются.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I11).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I14.\nTask-specific risks: Непринятый runtime handoff: MS7-V12.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 03.10; EARLY 06.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V08"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V12"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "8ddb8d8736f1227b33d92e0ee30913511f4d427aa7e9e20614d733c4d59bc5af",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I12",
+      "title": "Tutor panel",
+      "source_page": 74,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Ученик сможет пользоваться Tutor в задании и понимать, когда\nответ ожидается, ограничен или заменён безопасной подсказкой.\nЗачем нужна задача: Представить реальные состояния диалога и помощи.\nRequirements covered: FR-17/18 (UI потребитель R12/V13).\nHARD: MS7-I09.\nCONTRACT: MS7-R12.\nHANDOFF: —.\nINTEGRATION: MS7-V13.\nЧто можно делать параллельно: MS7-V13; до MS7-V13 — только contract fixtures, integration после\nhandoff.\nInputs/contracts: MS7-I09 Hints/reveal и recovery UI; MS7-R12 Tutor policy и hint bank; MS7-V13 Tutor\ncontext и conversations; нормативные разделы по §21.\nDetailed Scope: Scoped conversation, bounded messages, approved hints, degraded/rate/pending, reveal\nconfirmation.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Tutor panel, scoped messages, degraded/rate/pending states.\nAcceptance criteria: Scoped conversation, bounded messages, approved hints, degraded/rate/pending, reveal\nconfirmation; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: LLM HTML escaped; no free math before reveal.\nTask-specific tests: Bounded messages, retry, hint selection, reveal confirmation.\nTask-specific security checks: LLM HTML экранируется; произвольное решение до reveal не\nотображается.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I12).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I14.\n\n\n\n                                                       MathStart v7.1  |  74\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nTask-specific risks: Непринятый runtime handoff: MS7-V13.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 05.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I09"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R12"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V13"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "a0ffa847e50ecb0358c4ff4c3ae5577f59e59663268bef01f0ec8c8114e283ad",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I13",
+      "title": "Practice и diagnostics UI",
+      "source_page": 75,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Ученик сможет пройти диагностику или короткую тренировку и\nвернуться к исходной теме без потери места.\nЗачем нужна задача: Сделать адаптивный маршрут завершённым и понятным.\nRequirements covered: FR-20.\nHARD: MS7-I10.\nCONTRACT: MS7-R11.\nHANDOFF: —.\nINTEGRATION: MS7-V12.\nЧто можно делать параллельно: MS7-R14, MS7-V14.\nInputs/contracts: MS7-I10 Feedback/progress views; MS7-R11 Adaptive и diagnostic policy; MS7-V12\nДиагностика и Practice API; нормативные разделы по §21.\nDetailed Scope: Target/reason/streak/count/max7, next/finish/skip, deterministic refresh и origin return.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Practice/diagnostic screens с причиной выбора, счётчиком и возвратом.\nAcceptance criteria: Target/reason/streak/count/max7, next/finish/skip, deterministic refresh и origin return;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: no-candidate и archived topic не создают тупик.\nTask-specific tests: Next/skip/finish, max7, streak, refresh, empty pool, archived origin.\nTask-specific security checks: Server-selected item авторитетен; клиент не рисует успешное evidence сам.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I13).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I14.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 03.10; EARLY 03.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I10"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-R11"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V12"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "97fee28f9c09be1bdd2eee44356627fa58ce6a4e753892aec4cf4e00a8743f21",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I14",
+      "title": "Полная интеграция",
+      "source_page": 75,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G3.\nЧто получим простыми словами: Все основные действия ученика заработают вместе на общей среде\nбез подставных ответов.\nЗачем нужна задача: Проверить продукт целиком до release hardening.\nRequirements covered: FR-01–24 (интеграционная приёмка); NFR-11/13/17.\nHARD: MS7-I03, MS7-I11, MS7-I12, MS7-I13.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V14.\nЧто можно делать параллельно: у остальных участников — review/подготовка по §20.\nInputs/contracts: MS7-I03 Auth/profile/onboarding UI; MS7-I11 Onboarding completion/history; MS7-I12\nTutor panel; MS7-I13 Practice и diagnostics UI; MS7-V14 Staging сборка; нормативные разделы по §21.\nDetailed Scope: Все SC routes на PostgreSQL staging без mocks; four modes,\n\n\n                                                      MathStart v7.1  |  75\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nerrors/help/practice/return/history.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: SC route matrix, PostgreSQL staging browser suite и integration report.\nAcceptance criteria: Все SC routes на PostgreSQL staging без mocks; соответствие named contract и\nожидаемые результаты taskspecific tests.\nNegative/failure acceptance: network loss/relogin не портят evidence.\nTask-specific tests: Четыре режима, auth/help/practice/return/history, network loss/relogin.\nTask-specific security checks: Ни один основной путь не заменён mocks; interruption не портит evidence.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I14).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R15, MS7-I15.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: SC routes без mocks на PostgreSQL staging.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I03"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I11"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I12"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I13"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V14"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "0800f7172663b37f3fe8aed369a148ae551a90a359c319e5766f8702fda779e0",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I15",
+      "title": "A11y/mobile/security UX",
+      "source_page": 76,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G4.\nЧто получим простыми словами: Интерфейс станет пригоден для клавиатуры, маленьких экранов и\nнескольких браузеров, включая длинные формулы и ошибки.\nЗачем нужна задача: Закрыть доступность и клиентские security findings.\nRequirements covered: NFR-13, NFR-16.\nHARD: MS7-I14.\nCONTRACT: —.\nHANDOFF: MS7-R15.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R16, MS7-V15.\nInputs/contracts: MS7-I14 Полная интеграция; MS7-R15 Security/privacy release audit; нормативные\nразделы по §21.\nDetailed Scope: 360/768/1440, Chrome/Edge/Firefox, keyboard, labels/focus/live regions/contrast, XSS safe\nrendering.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: A11y/mobile/browser matrix и исправления UX.\nAcceptance criteria: 360/768/1440, Chrome/Edge/Firefox, keyboard, labels/focus/live regions/contrast, XSS\nsafe rendering; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: цвет/мышь не единственный путь; длинные формулы не ломают layout.\nTask-specific tests: 360/768/1440, Chrome/Edge/Firefox, labels/focus/live regions/contrast.\nTask-specific security checks: XSS safe rendering; мышь и цвет не являются единственным способом\nдействия.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I15).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I16, MS7-I17.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–03.10; EARLY 01.10–04.10.\nTarget deadline: NORMAL 03.10; EARLY 04.10 (2026, включая integration/review).\nTask-specific DoD additions: —.\n\n\n\n\n                                                       MathStart v7.1  |  76\n                                                                                MathStart · Technical Specification v7.1 · G0 Accepted",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I14"
+        },
+        {
+          "kind": "HANDOFF",
+          "id": "MS7-R15"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "3c0aa38edf343ecd2af96207d512cee9ed2a3a713d3cdd5c8f6985b48de8c920",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I16",
+      "title": "Demo и главы отчёта",
+      "source_page": 77,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G5.\nЧто получим простыми словами: Будут готовы два воспроизводимых демонстрационных маршрута и\nиллюстрации отчёта на искусственных данных.\nЗачем нужна задача: Показать реальный продукт и вклад каждого участника.\nRequirements covered: C-06/11/12 (demo и report).\nHARD: MS7-I15.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7V16.\nInputs/contracts: MS7-I15 A11y/mobile/security UX; нормативные разделы по §21.\nDetailed Scope: Synthetic stories, screenshots release SHA, главы 1/4, два demo маршрута и вклад каждого.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Demo stories, release-linked screenshots и главы 1/4.\nAcceptance criteria: Synthetic stories, screenshots release SHA, главы 1/4, два demo маршрута и вклад\nкаждого; соответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: не показывать реальные student данные и fake metrics.\nTask-specific tests: Повтор сценариев на указанном SHA, сверка цифр и результатов.\nTask-specific security checks: Не показывать реальных учеников и выдуманные метрики.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I16).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-I18.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 02.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: —.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I15"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "d25a3aa92ec1f00d821f6800e7e2d954255e4941236b27f7f0999c1dbf3a6c89",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I17",
+      "title": "Public browser rehearsal",
+      "source_page": 77,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан и Владимир. Task Approver: Руслан и Владимир. Milestone\nGate: G4.\nЧто получим простыми словами: Публичный сайт будет проверен из чистого внешнего браузера,\nвключая медленную сеть и повторный вход.\nЗачем нужна задача: Подтвердить, что выпуск работает за пределами компьютера разработчика.\nRequirements covered: FR-24.\nHARD: MS7-I15.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: MS7-V17.\nЧто можно делать параллельно: MS7-R17, MS7-V18.\nInputs/contracts: MS7-I15 A11y/mobile/security UX; MS7-V17 Публичный backend release; нормативные\nразделы по §21.\nDetailed Scope: Clean external browser на public URL; slow network, relogin, refresh, reveal/history; evidence\nversions.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: External browser acceptance bundle и release rehearsal findings.\nAcceptance criteria: Clean external browser на public URL; соответствие named contract и ожидаемые\nрезультаты task-specific tests.\n\n\n\n\n                                                      MathStart v7.1  |  77\n                                                                                 MathStart · Technical Specification v7.1 · G0 Accepted\n\n\nNegative/failure acceptance: localhost/video не закрывают acceptance.\nTask-specific tests: Public URL, relogin, refresh, reveal/history, slow network.\nTask-specific security checks: Localhost и видео не принимаются как доказательство публичной работы.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I17).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R17, MS7-I18.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–04.10; EARLY 01.10–02.10.\nTarget deadline: NORMAL 04.10; EARLY 02.10 (2026, включая integration/review).\nTask-specific DoD additions: Внешний чистый browser и production release SHA.",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I15"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-V17"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "42894247f280af3b79ba2754678d30a0cc448275bca9a1cb3717289ff3933170",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    },
+    {
+      "id": "MS7-I18",
+      "title": "Frontend freeze",
+      "source_page": 78,
+      "source_card_text": "Status: PLANNED. Owner: Илья. Reviewer: Руслан. Task Approver: Руслан. Milestone Gate: G5.\nЧто получим простыми словами: Принимающий участник получит окончательные ресурсы\nинтерфейса, версии и инструкции по проверке.\nЗачем нужна задача: Закрыть передачу frontend до общего G5.\nRequirements covered: FR-24; NFR-13.\nHARD: MS7-I17, MS7-I16.\nCONTRACT: —.\nHANDOFF: —.\nINTEGRATION: —.\nЧто можно делать параллельно: MS7-R17.\nInputs/contracts: MS7-I17 Public browser rehearsal; MS7-I16 Demo и главы отчёта; нормативные разделы\nпо §21.\nDetailed Scope: Static build/contracts/browser versions, release links, known limits, handover.\nОбласть файлов: templates/, static/, UI fixtures и browser tests.\nOut of Scope: Общие исключения §17; математическое оценивание в браузере и секреты validator.\nDeliverables: Frontend freeze ledger, asset/contract/browser versions и handover.\nAcceptance criteria: Static build/contracts/browser versions, release links, known limits, handover;\nсоответствие named contract и ожидаемые результаты task-specific tests.\nNegative/failure acceptance: сломанные production assets блокируют freeze.\nTask-specific tests: Static build, production assets, links и known limits.\nTask-specific security checks: Повреждённые assets или утечка секретов блокируют freeze.\nLive model/API requirement: Не требуется для task-specific функциональной приёмки; правило\nengineering run после G1 — §17.\nEvidence: E(MS7-I18).\nHandoff: принятая версия Deliverables; конкретный состав передачи — §25.\nDownstream tasks: MS7-R18.\nTask-specific risks: См. Negative/failure acceptance этой карточки.\nTarget start/window: NORMAL 01.10–02.10; EARLY 01.10–01.10.\nTarget deadline: NORMAL 02.10; EARLY 01.10 (2026, включая integration/review).\nTask-specific DoD additions: —.\nИсторические карточки FROZEN/DONE R01 — база знаний и workflow, PR #2; R02 — Exercise contract, PR\n#5; R03 — Knowledge/Progress reference, PR #7/#8; MS6-R04 — Runner/Adapter/publication, PR #10; MS6-V01\n— PostgreSQL dev/test/CI, PR #14; MS6-I01 — UX domain artifacts, PR #11. Owner, actual scope, accepted\nevidence и ограничения подробно сохранены в §2. Новых deadlines, implementation tasks и повторной\nприёмки им не назначается. R02A/R03A/R04A — новые дополнения за пределами frozen результата.\n\n\n\n\n\n\n\n\n\n\n                                                       MathStart v7.1  |  78",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-I17"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-I16"
+        }
+      ],
+      "platform_disposition": "PLANNED_EQUIVALENT",
+      "current_status": "PLANNED",
+      "migration_follow_up": [],
+      "target_evidence": [],
+      "platform_target": "FastAPI/Pydantic services and SQLAlchemy/Alembic persistence where required; React/TypeScript UI where required; unchanged domain contracts, task scope, dependency kinds and human gates. This migration does not implement this future product task.",
+      "source_card_text_sha256": "bb19d201704cbd3c7b3e1da26d29adb389c577b2c14f172c4532daaa4ca80aff",
+      "target_evidence_state": "FUTURE_PRODUCT_NOT_IMPLEMENTED_BY_MIGRATION"
+    }
+  ],
+  "source_card_text_policy": "Direct pypdf full body between canonical card headings, pages45–78, outer whitespace trimmed; running page heads/footers may remain. Historical deadlines/owners are preserved as source, never active assignments. Previous excerpts omitted some calendar lines; complete source bodies restored18 October2026.",
+  "source_dependency_audit": {
+    "cards": 52,
+    "typed_edges": 115,
+    "by_kind": {
+      "CONTRACT": 24,
+      "HARD": 60,
+      "INTEGRATION": 25,
+      "HANDOFF": 6
+    },
+    "mismatches": 0,
+    "soft": "Source has generic SOFT guidance, no separate SOFT task edges; it remains nonblocking."
+  }
+}

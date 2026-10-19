@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "scope": "new isolated install entry points, not full combined target QA",
+  "base_sha": "7f51b8481fa5d4421d327a1f555f9ea280930b65",
+  "checks": {
+    "fresh-install": {
+      "check_id": "fresh-install",
+      "status": "PASS",
+      "evidence_class": "TARGET_RUNTIME",
+      "assertions": 1654,
+      "skipped": 0,
+      "database_vendor": "postgresql",
+      "postgresql_major": 16
+    },
+    "upgrade-A": {
+      "check_id": "upgrade-A",
+      "status": "PASS",
+      "evidence_class": "TARGET_RUNTIME",
+      "assertions": 421,
+      "skipped": 0,
+      "database_vendor": "postgresql",
+      "postgresql_major": 16
+    },
+    "upgrade-B": {
+      "check_id": "upgrade-B",
+      "status": "PASS",
+      "evidence_class": "TARGET_RUNTIME",
+      "assertions": 423,
+      "skipped": 0,
+      "database_vendor": "postgresql",
+      "postgresql_major": 16
+    },
+    "upgrade-C": {
+      "check_id": "upgrade-C",
+      "status": "PASS",
+      "evidence_class": "TARGET_RUNTIME",
+      "assertions": 424,
+      "skipped": 0,
+      "database_vendor": "postgresql",
+      "postgresql_major": 16
+    }
+  },
+  "code_sha256": {
+    "backend/verification_install.py": "6d16a92fb9a3b2ff672ca98d62942e67b7db90d5f472cd93c25c46eeea128432",
+    "backend/verification_suite.py": "4c0e534c884ec3832eae394d8b5d9f72fef0a20312800b00eb1975a4b1a96015"
+  },
+  "raw_log": "var/install-orchestration-20261017-210134.log",
+  "raw_log_sha256": "0ef5576fd97a79afa9680826fcebf4deb0c3ac95ce117ceb6344811cbe4ce3e0",
+  "cleanup": "owned databases and tmpfs container removed; original5432 untouched"
+}

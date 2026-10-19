@@ -1,0 +1,52 @@
+"""Deterministically schedule a real second-connection commit at the build boundary."""
+from datetime import datetime, timezone
+from hashlib import sha256
+import json
+from pathlib import Path
+import sys
+import tempfile
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[1]
+CODE = ROOT / 'var/review-build-2b3a60d'
+sys.path.insert(0, str(CODE))
+import sqlalchemy as sa
+from backend.infrastructure.uow import UnitOfWork
+from backend.migrations.upgrade import require_disposable
+from backend.content import build
+from backend.models.baseline import Grade
+
+engine = sa.create_engine('postgresql+psycopg://postgres@127.0.0.1:55432/test_ms7_mig_v01_ms7exec_review_hbuild_20261016', hide_parameters=True)
+with engine.connect() as connection:
+    require_disposable(connection)
+    grade_id, grade_title = connection.execute(sa.select(Grade.id, Grade.title).order_by(Grade.id)).first()
+original = build.build_index_candidate
+report = {'start': datetime.now(timezone.utc).isoformat(), 'reviewed_sha': '2b3a60da04346ed8c747ec35c3fe751bbbb9f9cd', 'schedule': 'Real second-connection commit after all deliveries are read, before index/catalogue reads; only orchestration hook patched'}
+marker = 'REVIEW-CONCURRENT-GRADE-EDITION'
+def concurrent_catalogue_write(*args):
+    with engine.begin() as connection:
+        connection.execute(sa.update(Grade).where(Grade.id == grade_id).values(title=marker))
+    return original(*args)
+try:
+    with tempfile.TemporaryDirectory(prefix='ms7exec_review_snapshot_') as directory:
+        with UnitOfWork(engine) as uow:
+            uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
+            report['isolation'] = uow.session.scalar(sa.text('SHOW transaction_isolation'))
+            with patch.object(build, 'build_index_candidate', side_effect=concurrent_catalogue_write):
+                descriptor, receipt = build.write_build_inputs(uow, CODE, Path(directory), 'concurrent-review', '24d06112bcd6abcd1abad9b052de14a0a7b49e8e')
+        digest = sha256((Path(directory) / descriptor.release_id / 'receipt.json').read_bytes()).hexdigest()
+        release = build.verify_build_inputs(Path(directory), descriptor.release_id, digest)
+        grade = next(g for g in release.index['catalogue']['grades'] if g['id'] == grade_id)
+        pages = [p for p in release.pages.values() if p['page_type'] == 'grade' and p['grade_id'] == grade_id]
+        report.update(result='ACCEPTED', before_grade_title=grade_title, exported_catalogue_grade_title=grade['title'], grade_page_seo=[p['seo'] for p in pages], expected='Pinned coherent database snapshot or explicit fail-closed conflict')
+except Exception as error:
+    report.update(result='REFUSED', error_type=type(error).__name__)
+finally:
+    with engine.begin() as connection:
+        connection.execute(sa.update(Grade).where(Grade.id == grade_id).values(title=grade_title))
+    engine.dispose()
+report['end'] = datetime.now(timezone.utc).isoformat()
+report['cleanup'] = 'Concurrent synthetic catalogue change restored in dedicated review DB; temporary artifacts removed'
+out = ROOT / 'docs/acceptance/migration-execution/review/hbuild-2b3a60d/snapshot-probe.json'
+out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+print(json.dumps(report, ensure_ascii=True, indent=2))

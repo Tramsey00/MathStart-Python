@@ -1,0 +1,184 @@
+{
+  "task_id": "MS7-MIG-R03",
+  "status": "INCOMPLETE / DRAFT_REVIEWABLE_INCREMENT",
+  "date_europe_moscow": "2026-10-09",
+  "accepted_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "mig_base_sha": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "versions": {
+    "python": "3.12.10",
+    "pip": "25.0.1",
+    "django_legacy_only": "5.2.16",
+    "drf_legacy_only": "3.18.1",
+    "postgresql": "16.15",
+    "docker_client_server": "29.8.1",
+    "compose": "v5.5.1",
+    "git": "2.47.0.windows.1",
+    "jsonschema": "4.26.0",
+    "psycopg": "3.3.6"
+  },
+  "pure_django_and_drf_installed": false,
+  "local_checks": [
+    {
+      "name": "pure-version",
+      "command": "python scripts/version_report.py --profile pure",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "seconds": 0.3,
+      "suite_counts": [],
+      "output_sha256": "7be3141e1934e72cb3011308bb0612b00da8b314fc5c9d827fb3b3fe701a4f74"
+    },
+    {
+      "name": "pure-final",
+      "command": "python scripts/verify_repo.py --profile pure",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "seconds": 13.14,
+      "suite_counts": [
+        "18",
+        "30",
+        "41",
+        "32",
+        "19",
+        "73"
+      ],
+      "output_sha256": "43be3fbc2d2dcb93292d0b002d3f86eecf74b1e82ec3d56580e0b512c3187e69",
+      "stage": "before final redaction/lineage additions; superseded by current target and adapter suite results"
+    },
+    {
+      "name": "legacy-pip",
+      "command": "python -m pip check",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "seconds": 1.06,
+      "suite_counts": [],
+      "output_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "name": "legacy-version",
+      "command": "python scripts/version_report.py",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "seconds": 2.03,
+      "suite_counts": [],
+      "output_sha256": "ab0536a202d04ef280c49efce6aa830f246705b457aad3372f163f423ca48fb1"
+    },
+    {
+      "name": "legacy-fresh",
+      "command": "python scripts/fresh_install_smoke.py --disposable",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "seconds": 84.42,
+      "suite_counts": [],
+      "output_sha256": "f717c025b644192f4caf9a9fabdcd98cdb21aa42df2eb0a54954e5508a4070dd"
+    },
+    {
+      "name": "legacy-verify",
+      "command": "python scripts/verify_repo.py",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 0,
+      "seconds": 302.44,
+      "suite_counts": [
+        "107",
+        "18",
+        "73"
+      ],
+      "output_sha256": "adb63410a1951aa515ac713ab5159e6d0f6ef8179694c7b417650b189783dc44"
+    },
+    {
+      "name": "r02-historical63",
+      "command": "python -m unittest discover -s tests -p test_migration_r02*.py -v",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\baseline",
+      "exit_code": 0,
+      "seconds": 11.25,
+      "suite_counts": [
+        "63"
+      ],
+      "output_sha256": "fe18924832cb4ed99a660915bf8b430931a8693c2f7e54320470afc6f56efd79"
+    },
+    {
+      "name": "target-required",
+      "command": "python scripts/verify_repo.py --profile target",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 1,
+      "seconds": 15.38,
+      "suite_counts": [
+        "18",
+        "30",
+        "41",
+        "32",
+        "21",
+        "73"
+      ],
+      "output_sha256": "ecd7f3a905e2f0af91ccc9daefd0abdb62ccbac0967b6ab71c1df24e9f268013"
+    },
+    {
+      "name": "target-fresh-missing",
+      "command": "python scripts/fresh_install_smoke.py --profile target --disposable",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 1,
+      "seconds": 0.19,
+      "suite_counts": [],
+      "output_sha256": "23e2c733bca1e5031684049d48d289ed1dcb9e394b50683d8ea456aebb7dc64d"
+    },
+    {
+      "name": "target-upgrade-missing",
+      "command": "python scripts/migration_smoke.py --disposable --source-profile A",
+      "cwd": "C:\\Projects\\MathStart-Python\\tmp\\ms7-mig-r03\\worktree",
+      "exit_code": 1,
+      "seconds": 0.16,
+      "suite_counts": [],
+      "output_sha256": "e80387963b9086ea4d4671373babd080a38df54599d08ac502a4243b900d0000"
+    },
+    {
+      "name": "pure-reviewed",
+      "command": "python scripts/verify_repo.py --profile pure",
+      "exit_code": 0,
+      "suite_counts": [
+        "18",
+        "30",
+        "41",
+        "32",
+        "21",
+        "73"
+      ],
+      "output_sha256": "23f682a901bd2455597a47336e9889e8b57677b4ed1d861de27cb3a38cece3fd"
+    },
+    {
+      "name": "r03-final-adapters",
+      "command": "python scripts/run_unittest.py --start tests --pattern test_migration_r03*.py",
+      "exit_code": 0,
+      "suite_counts": [
+        "21"
+      ],
+      "output_sha256": "eb0ec2c0faff1ecb1951d11587cbf6a8a744186168cc3b85aebc4acdf56b3112"
+    }
+  ],
+  "real_target_pg_diagnostic": {
+    "positive_exit": 0,
+    "failed_port_exit": 1,
+    "server_version_num": 160015,
+    "scope": "SELECT1 and version, read-only; not fresh/upgrade/runtime parity"
+  },
+  "preservation": {
+    "input_files": 1380,
+    "exact_preserved_outside_r03_adapters": 1370,
+    "scoped_adapted_paths": 10,
+    "r02_contract_pins": 24,
+    "r02a_pins": 17,
+    "frozen_ci_yml_sha256": "1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+    "doc_links_checked": 11,
+    "missing_links": 0
+  },
+  "target_required_result": "FAIL exit1: 10 missing runtime checks /16; available6 pure/Harness PASS",
+  "blockers": [
+    "Accepted exact-SHA V02 and I02 integration results absent",
+    "V01/I01 owner backend/frontend locks absent",
+    "Reviewed concrete backend command handoff including V04 CLI absent",
+    "Target PG fresh/upgrade A/B/C/content/API/staff and frontend build/browser evidence absent",
+    "Remaining R02 historical runtime assertions need target equivalents",
+    "Default verification still transitional legacy; final reviewed cutover pending",
+    "Applicable final CI and independent Vladimir/Ilya approval pending"
+  ],
+  "final_ci": "External exact final commit PR/run/provenance artifacts; no approval transferred from local evidence",
+  "human_approval": "PENDING; no self-approval"
+}

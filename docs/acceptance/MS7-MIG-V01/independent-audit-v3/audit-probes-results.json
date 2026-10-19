@@ -1,0 +1,70 @@
+{
+  "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+  "F1_timestamp_parity": {
+    "django_preserves_explicit_old_time": [
+      false,
+      false,
+      false
+    ],
+    "target_preserves_explicit_old_time": [
+      true,
+      true,
+      true
+    ]
+  },
+  "F2_collector_deadlock": {
+    "outcomes": [
+      "COMMIT",
+      "DatabaseUnavailable"
+    ],
+    "sqlstates": [
+      "40P01"
+    ],
+    "rows_are_valid_under_baseline_constraints": true
+  },
+  "F3_alembic_tracking_drift": {
+    "upgrade": {
+      "source_profile": "B",
+      "head": "v01_0002",
+      "historical_migrations_preserved": true
+    },
+    "columns": [
+      [
+        "version_num",
+        true
+      ],
+      [
+        "unexpected",
+        true
+      ]
+    ],
+    "primary_key": [],
+    "unknown_head_check_exit": 0
+  },
+  "retry_after_ddl": {
+    "source_profile": "A",
+    "head": "v01_0002",
+    "historical_migrations_preserved": true
+  },
+  "retry_after_backfill": {
+    "source_profile": "A",
+    "head": "v01_0002",
+    "historical_migrations_preserved": true
+  },
+  "retry_after_protocol": {
+    "source_profile": "A",
+    "head": "v01_0002",
+    "historical_migrations_preserved": true
+  },
+  "post_setval_precommit_disconnect": {
+    "detected": true,
+    "data_unchanged": true,
+    "schema_history_unchanged": true,
+    "retry": {
+      "source_profile": "A",
+      "head": "v01_0002",
+      "historical_migrations_preserved": true
+    },
+    "commit_ack_loss_not_simulated": true
+  }
+}

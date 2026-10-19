@@ -1,0 +1,559 @@
+"""Real PostgreSQL identity/CSRF/receipt lifecycle and concurrent replay tests."""
+from scripts.legacy_oracle import oracle_root, oracle_environment
+
+from concurrent.futures import ThreadPoolExecutor
+from datetime import timedelta
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+import unittest
+import uuid
+from unittest.mock import patch
+from threading import Barrier
+
+import sqlalchemy as sa
+from starlette.testclient import TestClient
+
+from backend.infrastructure.http.app import create_app
+from backend.infrastructure.http.signing import Signer
+from backend.infrastructure.uow import UnitOfWork
+from backend.migrations.upgrade import require_disposable
+from backend.models.baseline import User, Grade, IdentityReceipt, StudentProfile, metadata
+from backend.models.protocol import ReceiptBridge, TargetSession
+from backend.users import passwords
+from backend.users.security import Security, csrf_secret, mask, salted_hmac
+from backend.users.service import IdentityService
+
+ORIGIN = 'https://mathstart.example'
+KEY = 'synthetic-identity-test-key-not-production'
+PASSWORD = 'Sample:mathematics!8592'
+
+
+class PasswordTests(unittest.TestCase):
+    def test_legacy_django_hashes_all_algorithms_unicode_old_iterations(self):
+        legacy = os.environ['MATHSTART_LEGACY_PYTHON']
+        script = '''
+from django.conf import settings
+settings.configure(USE_I18N=False)
+from django.contrib.auth.hashers import PBKDF2PasswordHasher,PBKDF2SHA1PasswordHasher,Argon2PasswordHasher,BCryptSHA256PasswordHasher,ScryptPasswordHasher
+import json
+password='Sample:пароль!8592'
+rows=[]
+for klass in [PBKDF2PasswordHasher,PBKDF2SHA1PasswordHasher,Argon2PasswordHasher,BCryptSHA256PasswordHasher,ScryptPasswordHasher]:
+ h=klass()
+ if h.algorithm.startswith('pbkdf2'):
+  encoded=h.encode(password,'synthetic-salt',iterations=12000)
+ elif h.algorithm=='bcrypt_sha256':
+  h.rounds=4
+  encoded=h.encode(password,h.salt())
+ else:
+  encoded=h.encode(password,'synthetic-salt')
+ rows.append([h.algorithm,encoded])
+print(json.dumps(rows))
+'''
+        env = os.environ.copy()
+        env.pop('PYTHONPATH', None)
+        result = subprocess.run([legacy, '-c', script], cwd=oracle_root(), env=oracle_environment(env), capture_output=True, timeout=60, check=True)
+        vectors = json.loads(result.stdout)
+        self.assertEqual(len(vectors), 5)
+        for algorithm, encoded in vectors:
+            with self.subTest(algorithm=algorithm):
+                self.assertTrue(passwords.supported_encoding(encoded))
+                self.assertTrue(passwords.verify('Sample:пароль!8592', encoded))
+                self.assertFalse(passwords.verify('incorrect-password', encoded))
+        for encoded in ['!', '!unusable', 'unknown$encoded', 'pbkdf2_sha256$bad$salt$hash']:
+            self.assertFalse(passwords.verify(PASSWORD, encoded))
+
+    def test_cutover_hash_inventory_refuses_unknown_and_malformed_without_password_reset(self):
+        self.assertTrue(passwords.supported_encoding('!retained-unusable'))
+        for encoded in ['', 'unknown$encoded', 'md5$salt$encoded', 'pbkdf2_sha256$bad$salt$hash',
+                        'pbkdf2_sha256$0$salt$hash', 'argon2$invalid', 'bcrypt_sha256$$2b$03$invalid',
+                        'scrypt$3$salt$8$1$invalid']:
+            self.assertFalse(passwords.supported_encoding(encoded), encoded.split('$', 1)[0])
+
+    def test_validators_preserve_no_trim_similarity_common_numeric(self):
+        user = User(username='syntheticStudent', first_name='Alexandra', last_name='Example', email='study@example.test')
+        for value in ['short', '123456789', 'password', 'syntheticStudent', 'Alexandra']:
+            self.assertFalse(passwords.validate_password(value, user))
+        self.assertTrue(passwords.validate_password(PASSWORD, user))
+        encoded = passwords.encode(' ' + PASSWORD + ' ')
+        self.assertTrue(passwords.verify(' ' + PASSWORD + ' ', encoded))
+        self.assertFalse(passwords.verify(PASSWORD, encoded))
+
+
+class PostgreSQLIdentityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.engine = sa.create_engine(os.environ['MATHSTART_V03_DATABASE_URL'], hide_parameters=True)
+        with cls.engine.begin() as c:
+            require_disposable(c)
+            if c.scalar(sa.text('SHOW server_version_num')) < '160000':
+                raise RuntimeError('PostgreSQL16 required')
+        cls.security = Security(cls.engine, KEY, ORIGIN, secure=True)
+        cls.service = IdentityService(cls.security)
+        cls.app = create_app(cls.engine, Signer(KEY), identity_service=cls.service, public_origin=ORIGIN)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.engine.dispose()
+
+    def setUp(self):
+        with self.engine.begin() as c:
+            c.execute(sa.text('TRUNCATE target_receipt_bridge,target_session,users_identityreceipt,users_studentprofile,users_loginwindow,auth_user RESTART IDENTITY CASCADE'))
+            if not c.scalar(sa.select(sa.func.count()).select_from(metadata.tables['content_grade'])):
+                c.execute(sa.insert(metadata.tables['content_grade']).values(id=73, title='5 класс', slug='5-klass', order=5))
+        self.client = TestClient(self.app, base_url=ORIGIN)
+
+    def tearDown(self):
+        self.client.close()
+
+    def headers(self, client=None, **extra):
+        client = client or self.client
+        token = client.get('/api/v1/auth/csrf/').json()['data']['csrf_token']
+        return {'X-CSRFToken': token, 'Origin': ORIGIN, **extra}
+
+    def register(self, username='syntheticStudent', client=None, key='register-key'):
+        client = client or self.client
+        return client.post('/api/v1/auth/register/', json={'username': username, 'password': PASSWORD},
+                           headers=self.headers(client, **{'Idempotency-Key': key}))
+
+    def test_register_login_rotation_profile_all_modes_logout(self):
+        result = self.register()
+        self.assertEqual(result.status_code, 201, result.text)
+        self.assertEqual(result.headers['cache-control'], 'private, no-store')
+        self.assertIn('HttpOnly', result.headers.get_list('set-cookie')[0])
+        self.assertIn('Secure', result.headers.get_list('set-cookie')[0])
+        before = self.client.cookies.get('sessionid')
+        self.assertEqual(self.client.get('/api/v1/users/me/').json()['data']['id'], result.json()['data']['id'])
+        for mode in ['START_ZERO', 'DIAGNOSTIC', 'SELF_REPORT']:
+            body = {'selected_grade_id': 73, 'mode': mode}
+            response = self.client.post('/api/v1/onboarding/complete/', json=body,
+                         headers=self.headers(**{'Idempotency-Key': mode}))
+            self.assertEqual(response.status_code, 200, response.text)
+            self.assertEqual(response.json()['data']['onboarding_mode'], mode)
+        response = self.client.patch('/api/v1/users/me/', json={'selected_grade_id': '73'}, headers=self.headers())
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticStudent', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertNotEqual(before, self.client.cookies.get('sessionid'))
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(User)), 1)
+            self.assertEqual(set(uow.session.scalars(sa.select(ReceiptBridge.state))), {'REVOKED'})
+
+    def test_implemented_canonical_route_metadata_matches_exact_eight_operation_set(self):
+        document = json.loads(Path('specs/migration/r02-v1/implemented-routes-v1.json').read_text(encoding='utf-8'))
+        expected = {(row['path'], row['method'].upper(), row['operation_id']) for row in document['operations']
+                    if row['baseline_state'] == 'IMPLEMENTED'}
+        canonical = {row['path'] for row in document['operations']}
+        actual = {(row['path'], row['method'], row['operation_id']) for row in self.app.state.implemented_routes
+                  if row['path'] in canonical}
+        self.assertEqual(len(expected), 8)
+        self.assertEqual(actual, expected)
+
+    def test_exact_registration_and_onboarding_replay_conflict(self):
+        first = self.register()
+        cookie = self.client.cookies.get('sessionid')
+        repeated = self.register()
+        self.assertEqual(repeated.content, first.content)
+        self.assertEqual(self.client.cookies.get('sessionid'), cookie)
+        response = self.client.post('/api/v1/auth/register/', json={'username': 'changed', 'password': PASSWORD},
+                      headers=self.headers(**{'Idempotency-Key': 'register-key'}))
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['error']['code'], 'IDEMPOTENCY_CONFLICT')
+        body = {'selected_grade_id': 73, 'mode': 'SELF_REPORT'}
+        first = self.client.post('/api/v1/onboarding/complete/', json=body, headers=self.headers(**{'Idempotency-Key': 'onboard-key'}))
+        repeated = self.client.post('/api/v1/onboarding/complete/', json=body, headers=self.headers(**{'Idempotency-Key': 'onboard-key'}))
+        self.assertEqual(first.content, repeated.content)
+        response = self.client.post('/api/v1/onboarding/complete/', json={**body, 'mode': 'START_ZERO'}, headers=self.headers(**{'Idempotency-Key': 'onboard-key'}))
+        self.assertEqual(response.status_code, 409)
+
+    def test_lost_body_and_cookies_recovers_with_original_bootstrap_proof(self):
+        headers = self.headers(**{'Idempotency-Key': 'lost-key'})
+        old_csrf = self.client.cookies.get('csrftoken')
+        body = {'username': 'lostResponse', 'password': PASSWORD}
+        first = self.client.post('/api/v1/auth/register/', json=body, headers=headers)
+        old_session = self.client.cookies.get('sessionid')
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', old_csrf, domain='mathstart.example', path='/')
+        response = self.client.post('/api/v1/auth/register/', json=body, headers=self.headers(**{'Idempotency-Key': 'lost-key'}))
+        self.assertEqual(response.content, first.content, response.text)
+        self.assertNotEqual(self.client.cookies.get('sessionid'), old_session)
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 200)
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(User)), 1)
+
+    def test_revoked_original_proof_never_resurrects_registration(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='revoke-key').status_code, 201)
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        response = self.register(key='revoke-key')
+        self.assertEqual(response.status_code, 409, response.text)
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+
+    def test_revoked_proof_cannot_reveal_digest_conflict_for_a_changed_body(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='revoked-digest').status_code, 201)
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        response = self.client.post('/api/v1/auth/register/', json={'username': 'changed', 'password': PASSWORD},
+                         headers=self.headers(**{'Idempotency-Key': 'revoked-digest'}))
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['error']['code'], 'STATE_CONFLICT')
+
+    def test_anonymous_wrong_password_is_not_authorized_to_observe_digest_conflict(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='password-proof').status_code, 201)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        response = self.client.post('/api/v1/auth/register/', json={'username': 'syntheticStudent', 'password': 'incorrect'},
+                         headers=self.headers(**{'Idempotency-Key': 'password-proof'}))
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()['error']['code'], 'STATE_CONFLICT')
+
+    def test_csrf_host_origin_and_auth_precedence_before_json(self):
+        self.assertEqual(self.client.patch('/api/v1/users/me/', content=b'bad').status_code, 401)
+        self.assertEqual(self.client.post('/api/v1/auth/register/', content=b'bad').status_code, 403)
+        headers = self.headers()
+        self.assertEqual(self.client.post('/api/v1/auth/login/', content=b'bad', headers={**headers, 'Origin': 'https://evil.example'}).status_code, 403)
+        self.assertEqual(self.client.get('/api/v1/auth/csrf/', headers={'Host': 'evil.example'}).status_code, 400)
+        self.assertEqual(self.client.head('/api/v1/auth/csrf/').status_code, 400)
+        self.assertEqual(self.client.post('/api/v1/auth/login', follow_redirects=False).status_code, 301)
+
+    def test_strict_mutation_json_unknown_duplicate_nonfinite_and_size(self):
+        headers = {**self.headers(), 'Content-Type': 'application/json', 'Idempotency-Key': 'strict'}
+        for raw in [b'{"username":"a","password":"x","unknown":1}', b'{"username":"a","username":"b","password":"x"}', b'{"username":NaN,"password":"x"}', b'[]', b'\xff']:
+            with self.subTest(raw_type=type(raw).__name__):
+                self.assertEqual(self.client.post('/api/v1/auth/register/', content=raw, headers=headers).status_code, 400)
+        response = self.client.post('/api/v1/auth/register/', content=b' ' * 65537, headers=headers)
+        self.assertEqual(response.json()['error']['code'], 'LIMIT_EXCEEDED')
+
+    def test_shared_pg_login_budget_and_forwarded_spoofing(self):
+        headers = self.headers()
+        for i in range(10):
+            response = self.client.post('/api/v1/auth/login/', json={'username': 'absent', 'password': PASSWORD},
+                        headers={**headers, 'X-Forwarded-For': f'192.0.2.{i}'})
+            self.assertEqual(response.status_code, 401)
+        response = self.client.post('/api/v1/auth/login/', json={'username': 'absent', 'password': PASSWORD}, headers=headers)
+        self.assertEqual(response.status_code, 429)
+        self.assertGreaterEqual(int(response.headers['retry-after']), 1)
+
+    def test_api_username150_login_and151_refusal_without_identity_effects(self):
+        username = 'u' * 150
+        response = self.register(username=username)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()['data']['username'], username)
+        login = self.client.post('/api/v1/auth/login/', json={'username': username, 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200)
+        self.assertEqual(login.json()['data']['username'], username)
+        def counts():
+            with self.engine.connect() as connection:
+                return tuple(connection.scalar(sa.select(sa.func.count()).select_from(table))
+                             for table in (User, StudentProfile, IdentityReceipt, TargetSession))
+        before = counts()
+        with TestClient(self.app, base_url=ORIGIN) as other:
+            refused = self.register(username='u' * 151, client=other, key='oversize-username')
+            self.assertEqual(refused.status_code, 400)
+            self.assertEqual(refused.json()['error']['code'], 'INVALID_REQUEST')
+        self.assertEqual(counts(), before)
+
+    def test_invalid_onboarding_grade_mode_and_foreign_profile_leave_saved_state(self):
+        self.assertEqual(self.register().status_code, 201)
+        before = self.client.get('/api/v1/users/me/').json()['data']
+        with self.engine.connect() as connection:
+            receipts = connection.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt))
+        for index, body in enumerate(({'selected_grade_id': None, 'mode': 'START_ZERO'},
+                {'selected_grade_id': True, 'mode': 'SELF_REPORT'},
+                {'selected_grade_id': 999999, 'mode': 'DIAGNOSTIC'},
+                {'selected_grade_id': 73, 'mode': 'UNKNOWN'}, {'mode': 'START_ZERO'})):
+            with self.subTest(body=body):
+                result = self.client.post('/api/v1/onboarding/complete/', json=body,
+                    headers=self.headers(**{'Idempotency-Key': 'invalid-onboarding-' + str(index)}))
+                self.assertEqual(result.status_code, 400)
+                self.assertEqual(result.json()['error']['code'], 'INVALID_REQUEST')
+        self.assertEqual(self.client.get('/api/v1/users/999999/').status_code, 404)
+        self.assertEqual(self.client.get('/api/v1/users/me/').json()['data'], before)
+        with self.engine.connect() as connection:
+            self.assertEqual(connection.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), receipts)
+
+    def test_real_queued_login_budget_resets_using_post_lock_database_time(self):
+        remote = 'queued-budget-' + uuid.uuid4().hex
+        digest = salted_hmac('users.login.ip', remote, KEY)
+        table = metadata.tables['users_loginwindow']
+        with self.engine.begin() as connection:
+            connection.execute(sa.insert(table).values(id=uuid.uuid4(), ip_digest=digest,
+                started_at=sa.func.clock_timestamp() - sa.text("interval '299 seconds'"), count=10))
+        application = 'queued_budget_' + uuid.uuid4().hex
+        other_engine = sa.create_engine(self.engine.url, hide_parameters=True,
+                                       connect_args={'application_name': application, 'connect_timeout': 3})
+        self.addCleanup(other_engine.dispose)
+        other = IdentityService(Security(other_engine, KEY, ORIGIN, secure=True))
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            with self.engine.begin() as holder:
+                holder.execute(sa.select(table).where(table.c.ip_digest == digest).with_for_update())
+                pending = pool.submit(other.budget, remote)
+                deadline, queued = time.monotonic() + 1.5, None
+                while time.monotonic() < deadline:
+                    with self.engine.connect() as observer:
+                        queued = observer.scalar(sa.text("SELECT query_start FROM pg_stat_activity WHERE application_name=:application AND wait_event_type='Lock'"), {'application': application})
+                    if queued is not None:
+                        break
+                    time.sleep(.01)
+                self.assertIsNotNone(queued, 'A real independent PostgreSQL worker must wait on the held row')
+                # Move the window close to its boundary while that worker is
+                # demonstrably queued. Its pre-lock clock is too early to reset.
+                started = holder.scalar(sa.update(table).where(table.c.ip_digest == digest).values(
+                    started_at=sa.func.clock_timestamp() - sa.text("interval '299.8 seconds'")).returning(table.c.started_at))
+                self.assertLess((queued - started).total_seconds(), 300)
+                time.sleep(.25)
+            pending.result(timeout=5)  # A cached pre-lock clock would raise429.
+        with self.engine.connect() as connection:
+            row = connection.execute(sa.select(table).where(table.c.ip_digest == digest)).mappings().one()
+            self.assertEqual(row['count'], 1)
+            self.assertGreater((row['started_at'] - started).total_seconds(), 300)
+
+    def test_concurrent_same_proof_registration_one_account_exact_receipt(self):
+        secret = csrf_secret()
+        headers = {'Origin': ORIGIN, 'X-CSRFToken': mask(secret), 'Idempotency-Key': 'concurrent-key'}
+        def worker(_):
+            with TestClient(self.app, base_url=ORIGIN) as client:
+                client.cookies.set('csrftoken', secret, domain='mathstart.example', path='/')
+                result = client.post('/api/v1/auth/register/', json={'username': 'concurrentStudent', 'password': PASSWORD}, headers=headers)
+                return result.status_code, result.content
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            results = list(executor.map(worker, range(2)))
+        self.assertEqual([r[0] for r in results], [201, 201])
+        self.assertEqual(results[0][1], results[1][1])
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(User)), 1)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+
+    def test_expired_session_is_denied_but_original_bootstrap_can_recover_within_window(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='expiry-key')
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(TargetSession).values(expires_at=sa.func.clock_timestamp() - sa.text("interval '1 second'")))
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'DETACHED')
+            self.assertIsNone(bridge.session_id)
+            self.assertEqual(bridge.revocation_epoch, 1)
+            self.assertEqual(bridge.ticket_version, 0)
+            self.assertIsNone(bridge.ticket_revoked_at)
+            self.assertIsNotNone(bridge.session_lineage_id)
+        # A second expired read records no new revocation/epoch.
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        recovered = self.register(key='expiry-key')
+        self.assertEqual(recovered.content, first.content)
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 200)
+
+    def test_concurrent_old_epoch_rebinds_do_not_issue_two_sessions(self):
+        from backend.users import service
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='rebind-cas-key')
+        self.assertEqual(first.status_code, 201)
+        barrier, digest = Barrier(2), service.receipt_digest
+        def observed(*args):
+            result = digest(*args)
+            barrier.wait(timeout=10)
+            return result
+        def recover(_):
+            with TestClient(self.app, base_url=ORIGIN) as client:
+                client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+                response = self.register(client=client, key='rebind-cas-key')
+                return response.status_code, response.content
+        with patch.object(service, 'receipt_digest', observed), ThreadPoolExecutor(max_workers=2) as executor:
+            results = list(executor.map(recover, range(2)))
+        self.assertEqual(sorted(row[0] for row in results), [201, 409])
+        self.assertEqual(next(row[1] for row in results if row[0] == 201), first.content)
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(User)), 1)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(TargetSession)), 2)
+            self.assertEqual(uow.session.scalar(sa.select(ReceiptBridge.revocation_epoch)), 1)
+
+    def test_explicit_same_owner_login_and_original_bootstrap_rebind_detached_receipt(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(first.status_code, 201)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(TargetSession).values(expires_at=sa.func.clock_timestamp() - sa.text("interval '1 second'")))
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        self.client.cookies.clear()
+        login = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticStudent', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200, login.text)
+        cookie = self.client.cookies.get('sessionid')
+        # Fresh login/CSRF and the idempotency key alone cannot select old scope.
+        denied = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(denied.status_code, 409)
+        self.assertEqual(denied.json()['error']['code'], 'STATE_CONFLICT')
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        replay = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(replay.content, first.content)
+        self.assertEqual(self.client.cookies.get('sessionid'), cookie)
+        # S now suffices even after fresh CSRF replacement. No extra session.
+        self.client.cookies.set('csrftoken', csrf_secret(), domain='mathstart.example', path='/')
+        repeated = self.register(key='authenticated-bootstrap-key')
+        self.assertEqual(repeated.content, first.content)
+        self.assertEqual(self.client.cookies.get('sessionid'), cookie)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'ACTIVE')
+            self.assertEqual(bridge.revocation_epoch, 2)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(TargetSession)), 2)
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        self.assertEqual(self.register(key='authenticated-bootstrap-key').status_code, 409)
+
+    def test_foreign_login_and_original_bootstrap_never_rebind_another_owners_receipt(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='foreign-bootstrap-key')
+        self.assertEqual(first.status_code, 201)
+        with TestClient(self.app, base_url=ORIGIN) as other:
+            second = self.register(username='syntheticForeignOwner', client=other, key='foreign-owner-key')
+            self.assertEqual(second.status_code, 201)
+        self.client.cookies.clear()
+        login = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticForeignOwner', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200)
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        denied = self.register(key='foreign-bootstrap-key')
+        self.assertEqual(denied.status_code, 409)
+        self.assertEqual(denied.json()['error']['code'], 'STATE_CONFLICT')
+        self.assertEqual(self.client.get('/api/v1/users/me/').json()['data']['id'], second.json()['data']['id'])
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge).where(ReceiptBridge.owner_user_id == first.json()['data']['id']))
+            self.assertEqual(bridge.revocation_epoch, 0)
+
+    def test_replay_window_expiry_refuses_original_bootstrap_and_preserves_receipt(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='window-key').status_code, 201)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(ReceiptBridge).values(
+                created_at=sa.func.clock_timestamp() - sa.text("interval '8 days'"),
+                replay_until=sa.func.clock_timestamp() - sa.text("interval '1 day'")))
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        self.assertEqual(self.register(key='window-key').status_code, 409)
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'EXPIRED')
+            self.assertIsNone(bridge.session_id)
+            self.assertIsNotNone(bridge.ticket_revoked_at)
+            epoch, ticket = bridge.revocation_epoch, bridge.ticket_version
+        self.assertEqual(self.register(key='window-key').status_code, 409)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('EXPIRED', epoch, ticket))
+
+    def test_competing_expiry_sweeps_record_one_terminal_transition(self):
+        from backend.users.bridge import reconcile_expiry
+        self.assertEqual(self.register(key='sweep-key').status_code, 201)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(ReceiptBridge).values(
+                created_at=sa.func.clock_timestamp() - sa.text("interval '8 days'"),
+                replay_until=sa.func.clock_timestamp() - sa.text("interval '1 day'")))
+            owner = connection.scalar(sa.select(ReceiptBridge.owner_user_id))
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            list(executor.map(lambda _: reconcile_expiry(self.engine, user_id=owner), range(2)))
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('EXPIRED', 1, 1))
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+
+    def test_revoked_bridge_remains_terminal_when_replay_window_expires(self):
+        from backend.users.bridge import reconcile_expiry
+        result = self.register(key='terminal-key')
+        owner = result.json()['data']['id']
+        self.assertEqual(self.client.post('/api/v1/auth/logout/', json={}, headers=self.headers()).status_code, 200)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(ReceiptBridge).values(
+                created_at=sa.func.clock_timestamp() - sa.text("interval '8 days'"),
+                replay_until=sa.func.clock_timestamp() - sa.text("interval '1 day'")))
+        reconcile_expiry(self.engine, user_id=owner)
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual((bridge.state, bridge.revocation_epoch, bridge.ticket_version), ('REVOKED', 1, 1))
+
+    def test_auth_hash_invalidation_is_durable_revocation_not_recoverable_detach(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        first = self.register(key='auth-hash-revoke-key')
+        # A second independent login has no registration bridge binding. Its
+        # revoked authority must also remain terminal if a hash is restored.
+        self.client.cookies.clear()
+        login = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticStudent', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(login.status_code, 200)
+        old_cookie = self.client.cookies.get('sessionid')
+        changed = 'Changed:synthetic-auth-hash!9327'
+        with self.engine.begin() as connection:
+            original_hash = connection.scalar(sa.select(User.password).where(User.id == first.json()['data']['id']))
+            connection.execute(sa.update(User).where(User.id == first.json()['data']['id']).values(password=passwords.encode(changed)))
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        # Even the correct new password does not authorize a changed digest or
+        # revive the original registration after security revocation.
+        result = self.client.post('/api/v1/auth/register/', json={'username': 'syntheticStudent', 'password': changed},
+            headers=self.headers(**{'Idempotency-Key': 'auth-hash-revoke-key'}))
+        self.assertEqual(result.status_code, 409)
+        self.assertEqual(result.json()['error']['code'], 'STATE_CONFLICT')
+        with UnitOfWork(self.engine) as uow:
+            bridge = uow.session.scalar(sa.select(ReceiptBridge))
+            self.assertEqual(bridge.state, 'REVOKED')
+            self.assertIsNone(bridge.session_id)
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(IdentityReceipt)), 1)
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(User).where(User.id == first.json()['data']['id']).values(password=original_hash))
+        self.client.cookies.set('sessionid', old_cookie, domain='mathstart.example', path='/')
+        self.assertEqual(self.client.get('/api/v1/users/me/').status_code, 401)
+
+    def test_account_switch_revokes_old_bootstrap_and_never_transfers_to_foreign_owner(self):
+        self.headers()
+        original = self.client.cookies.get('csrftoken')
+        self.assertEqual(self.register(key='switch-key').status_code, 201)
+        with TestClient(self.app, base_url=ORIGIN) as other:
+            second = self.register(username='syntheticOther', client=other, key='other-key')
+            self.assertEqual(second.status_code, 201)
+        response = self.client.post('/api/v1/auth/login/', json={'username': 'syntheticOther', 'password': PASSWORD}, headers=self.headers())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['data']['id'], second.json()['data']['id'])
+        self.client.cookies.clear()
+        self.client.cookies.set('csrftoken', original, domain='mathstart.example', path='/')
+        self.assertEqual(self.register(key='switch-key').status_code, 409)
+
+    def test_two_profile_writes_are_serialized_without_duplicate_profile_or_mastery(self):
+        self.assertEqual(self.register().status_code, 201)
+        cookie = self.client.cookies.get('sessionid')
+        secret = self.client.cookies.get('csrftoken')
+        def worker(mode):
+            with TestClient(self.app, base_url=ORIGIN) as client:
+                client.cookies.set('sessionid', cookie, domain='mathstart.example', path='/')
+                client.cookies.set('csrftoken', secret, domain='mathstart.example', path='/')
+                return client.post('/api/v1/onboarding/complete/', json={'selected_grade_id': 73, 'mode': mode},
+                    headers={'Origin': ORIGIN, 'X-CSRFToken': mask(secret), 'Idempotency-Key': mode}).status_code
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            self.assertEqual(list(executor.map(worker, ['START_ZERO', 'SELF_REPORT'])), [200, 200])
+        with UnitOfWork(self.engine) as uow:
+            self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(StudentProfile)), 1)
+
+
+if __name__ == '__main__':
+    unittest.main()

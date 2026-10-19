@@ -305,7 +305,9 @@ class ManifestValidationTests(unittest.TestCase):
 
 class CheckedInManifestTests(unittest.TestCase):
     def test_checked_in_r04_manifest_validates_actual_reference_bytes(self) -> None:
-        root = Path(__file__).resolve().parents[2]
+        # R04 task binds original platform instructions, not current setup.
+        from scripts.legacy_oracle import oracle_root
+        root = oracle_root()
         task = json.loads((root / "harness/tasks/MS6-R04.json").read_text(encoding="utf-8"))
         self.assertEqual(task["plan_ref"]["digest"], _sha256(root / task["plan_ref"]["path"]))
         # .gitattributes uses LF; avoid a digest that changes on a Linux checkout.

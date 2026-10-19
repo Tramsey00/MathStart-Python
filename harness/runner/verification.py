@@ -19,7 +19,7 @@ from harness.contracts.checks import (
 
 
 CHECK_COMMANDS: dict[str, tuple[str, ...]] = {
-    REPO_BASELINE: ("scripts/verify_repo.py", "--exclude-group", "harness"),
+    REPO_BASELINE: ("scripts/verify_repo.py", "--profile", "target", "--exclude-group", "harness"),
     HARNESS_UNIT: (
         "-m", "unittest", "discover", "-s", "tests/harness", "-t", ".", "-v",
     ),
@@ -32,7 +32,8 @@ if frozenset(CHECK_COMMANDS) != KNOWN_CHECKS:
     raise RuntimeError("R04 check registry differs from contract IDs")
 MAX_DIAGNOSTIC_CHARS = 16_384
 SECRET_LINE = re.compile(
-    r"(?i)(api[_-]?key|secret|password|authorization|bearer\s|token\s*[:=])"
+    r"(?i)(api[_-]?key|secret|password|authorization|bearer\s|token\s*[:=]|"
+    r"postgres(?:ql)?://|set-cookie:|sessionid\s*=|dsn\s*[:=])"
 )
 
 

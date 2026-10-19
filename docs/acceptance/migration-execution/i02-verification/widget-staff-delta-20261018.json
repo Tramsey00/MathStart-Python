@@ -1,0 +1,823 @@
+{
+  "base_sha": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+  "scope": "Scoped real browsers; source snapshots/diffs/argv/log digests retained below, not overall acceptance",
+  "runs": [
+    {
+      "runtime": "staff-write-graph-math-delta-01",
+      "status": "FAIL",
+      "source_before": {
+        "head": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+        "tree": "ac4671dd3a7d3074d3617369bddd63c69e05077b",
+        "dirty_paths": [
+          " M deploy/RECOVERY.md",
+          " M frontend/e2e/widgets.spec.ts"
+        ],
+        "tracked_diff_sha256": "386dde6c7b4ce9b3f502d47b530c33c1f1f963826a58c6c8c7ece970e91e7f07",
+        "untracked_sha256": {}
+      },
+      "source_after": null,
+      "stages": [
+        {
+          "id": "prepare-synthetic-inputs",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "-m",
+            "backend.content.synthetic_setup",
+            "prepare",
+            "--disposable",
+            "--runtime-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\staff-write-graph-math-delta-01\\runtime",
+            "--release-id",
+            "target-5f1ee38ccc204e75bf8edcef12eaf149",
+            "--source-sha",
+            "3b8ab323c533a9de040c77c4ab0747dac528cc1e"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "01.log",
+          "elapsed_seconds": 31.062,
+          "log_sha256": "2a280776d93d2e1b273dad34872c3fe5d2fc302818080f9b842cd02ad41c3f32"
+        },
+        {
+          "id": "Frontend build",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "scripts/target_check.py",
+            "frontend-build"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "02.log",
+          "elapsed_seconds": 64.0,
+          "log_sha256": "3ef337519d03e9bb2cb1207077edaea9315264d5ab22caae5787dd72d6ba5584"
+        },
+        {
+          "id": "activate-synthetic-fixture",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "-m",
+            "backend.content.synthetic_setup",
+            "activate-initial",
+            "--disposable",
+            "--runtime-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\staff-write-graph-math-delta-01\\runtime",
+            "--release-id",
+            "target-5f1ee38ccc204e75bf8edcef12eaf149",
+            "--receipt-digest",
+            "10212fc6769ddb5246079778696e4b7382b86b1864f3e01f680e96406dff1f30",
+            "--artifact-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\staff-write-graph-math-delta-01\\artifact",
+            "--artifact-digest",
+            "73458904893c787cc19194b14904a664b70e075663731e9c7f885af3ddc354fb"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "03.log",
+          "elapsed_seconds": 13.812,
+          "log_sha256": "14c663d617d5a5d2b85ff6faa20485fb69cab33dc3a14bfcf201456714787eb9"
+        },
+        {
+          "id": "Graph mathematical delta all nine projects",
+          "argv": [
+            "C:\\Program Files\\nodejs\\node.EXE",
+            "frontend/node_modules/@playwright/test/cli.js",
+            "test",
+            "--config",
+            "frontend/playwright.config.ts",
+            "widgets.spec.ts",
+            "--grep",
+            "real graph keyboard"
+          ],
+          "cwd": ".",
+          "exit_code": 1,
+          "log": "04.log",
+          "elapsed_seconds": 186.219,
+          "log_sha256": "66b20940e3ecb7a2e5eb974e06ca6303091e5abc6876731c87c151b3192b50a7"
+        }
+      ],
+      "actual_cases": {
+        "passed": 36,
+        "failed": 18,
+        "skipped": 0
+      },
+      "projects": [
+        "chrome-360",
+        "chrome-768",
+        "chrome-1440",
+        "edge-360",
+        "edge-768",
+        "edge-1440"
+      ],
+      "cleanup": "Owned PG removed, original DB untouched",
+      "note": "First run failed18 Firefox launches due local driver cwd browser path;36 Chrome/Edge graph cases passed. Next run18 Firefox graphs plus3 native user/own-password cases PASS. Last run9 corrected quadratic visible-cell cases plus6 Chrome/Edge native user/own-password cases PASS.",
+      "driver_log_sha256": "bbde6cbacda39dd608d6674280f7dfad8681fc447d450d45c82d174d7bf0b59e",
+      "browser_reports": [
+        {
+          "stage": "Graph mathematical delta all nine projects",
+          "log_sha256": "66b20940e3ecb7a2e5eb974e06ca6303091e5abc6876731c87c151b3192b50a7",
+          "stats": {
+            "startTime": "2026-10-18T10:23:20.573Z",
+            "duration": 184314.13,
+            "expected": 36,
+            "skipped": 0,
+            "unexpected": 18,
+            "flaky": 0
+          },
+          "case_ids_and_status": [
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "unexpected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "unexpected"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runtime": "staff-write-graph-math-delta-02",
+      "status": "PASS_SCOPED_DEVELOPMENT",
+      "source_before": {
+        "head": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+        "tree": "ac4671dd3a7d3074d3617369bddd63c69e05077b",
+        "dirty_paths": [
+          " M .github/workflows/migration-ci.yml",
+          " M deploy/RECOVERY.md",
+          " M frontend/e2e/staff-write.spec.ts",
+          " M frontend/e2e/widgets.spec.ts",
+          " M scripts/verify_images.py"
+        ],
+        "tracked_diff_sha256": "160e149da5e6f4b91f0d3db52d54a9e0139501564cb4e12b80bfab9d0a2c67a6",
+        "untracked_sha256": {}
+      },
+      "source_after": {
+        "head": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+        "tree": "ac4671dd3a7d3074d3617369bddd63c69e05077b",
+        "dirty_paths": [
+          " M .github/workflows/migration-ci.yml",
+          " M deploy/RECOVERY.md",
+          " M frontend/e2e/staff-write.spec.ts",
+          " M frontend/e2e/widgets.spec.ts",
+          " M scripts/verify_images.py"
+        ],
+        "tracked_diff_sha256": "160e149da5e6f4b91f0d3db52d54a9e0139501564cb4e12b80bfab9d0a2c67a6",
+        "untracked_sha256": {}
+      },
+      "stages": [
+        {
+          "id": "prepare-synthetic-inputs",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "-m",
+            "backend.content.synthetic_setup",
+            "prepare",
+            "--disposable",
+            "--runtime-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\staff-write-graph-math-delta-02\\runtime",
+            "--release-id",
+            "target-e645528135b34433a9458201bb7d44c7",
+            "--source-sha",
+            "3b8ab323c533a9de040c77c4ab0747dac528cc1e"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "01.log",
+          "elapsed_seconds": 33.875,
+          "log_sha256": "fddd6235a4bdcf66e037ba0aa7050f3b8f418fc6e495943bb4edd4bef52ff8a6"
+        },
+        {
+          "id": "Frontend build",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "scripts/target_check.py",
+            "frontend-build"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "02.log",
+          "elapsed_seconds": 77.625,
+          "log_sha256": "dc0f4e03d842ac5b07e7d375fa535d0070b3d6bbec33aaddd1a54a2182603b37"
+        },
+        {
+          "id": "activate-synthetic-fixture",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "-m",
+            "backend.content.synthetic_setup",
+            "activate-initial",
+            "--disposable",
+            "--runtime-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\staff-write-graph-math-delta-02\\runtime",
+            "--release-id",
+            "target-e645528135b34433a9458201bb7d44c7",
+            "--receipt-digest",
+            "f845718e365881d698725bfcba64ce86791422f9a6df73e22bbe85c347121f6e",
+            "--artifact-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\staff-write-graph-math-delta-02\\artifact",
+            "--artifact-digest",
+            "f7c28a143cfc147b1e406dce6a858b5a3e661c2001b748e5b0dc36e52b985e96"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "03.log",
+          "elapsed_seconds": 16.469,
+          "log_sha256": "7883bd624a7df5c873ac91d8a87be5a163648c7ada993997bc16dacdb08a9b7c"
+        },
+        {
+          "id": "Graph mathematical delta all nine projects",
+          "argv": [
+            "C:\\Program Files\\nodejs\\node.EXE",
+            "frontend/node_modules/@playwright/test/cli.js",
+            "test",
+            "--config",
+            "frontend/playwright.config.ts",
+            "widgets.spec.ts",
+            "staff-write.spec.ts",
+            "--grep",
+            "real graph keyboard|native staff user",
+            "--project=firefox-360",
+            "--project=firefox-768",
+            "--project=firefox-1440"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "04.log",
+          "elapsed_seconds": 122.469,
+          "log_sha256": "a13e3e45a3c8ab17c29ed9f6b93a51c4e8e37dc537293aef1d801960b6ab7b56"
+        }
+      ],
+      "actual_cases": {
+        "passed": 21,
+        "failed": 0,
+        "skipped": 0
+      },
+      "projects": [
+        "firefox-360",
+        "firefox-768",
+        "firefox-1440"
+      ],
+      "cleanup": "Owned PG removed, original DB untouched",
+      "note": "First run failed18 Firefox launches due local driver cwd browser path;36 Chrome/Edge graph cases passed. Next run18 Firefox graphs plus3 native user/own-password cases PASS. Last run9 corrected quadratic visible-cell cases plus6 Chrome/Edge native user/own-password cases PASS.",
+      "driver_log_sha256": "b3afec88e7595b0ba4469966aef09bf5e1bd947ce3b6a80fd8514c8a768b4ce7",
+      "browser_reports": [
+        {
+          "stage": "Graph mathematical delta all nine projects",
+          "log_sha256": "a13e3e45a3c8ab17c29ed9f6b93a51c4e8e37dc537293aef1d801960b6ab7b56",
+          "stats": {
+            "startTime": "2026-10-18T13:47:46.850Z",
+            "duration": 120107.245,
+            "expected": 21,
+            "skipped": 0,
+            "unexpected": 0,
+            "flaky": 0
+          },
+          "case_ids_and_status": [
+            {
+              "id": "firefox-360:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /funkcziya-y-k-x-i-eyo-svojstva-giperbola/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-naturalnym-pokazatelem/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/",
+              "status": "expected"
+            }
+          ]
+        }
+      ],
+      "driver_log_note": "The top-level local driver console log was overwritten by a later refused launch into the existing runtime path (return2, owned PG cleanup PASS). It is not evidence of the successful21-case run. The original owned runtime result and stage04.log remain intact; their verified hash and exact stats/IDs below prove that run."
+    },
+    {
+      "runtime": "widget-staff-delta-03",
+      "status": "PASS_SCOPED_DEVELOPMENT",
+      "source_before": {
+        "head": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+        "tree": "ac4671dd3a7d3074d3617369bddd63c69e05077b",
+        "dirty_paths": [
+          " M .github/workflows/migration-ci.yml",
+          " M deploy/RECOVERY.md",
+          " M frontend/e2e/parity.spec.ts",
+          " M frontend/e2e/public.spec.ts",
+          " M frontend/e2e/staff-write.spec.ts",
+          " M frontend/e2e/widgets.spec.ts",
+          " M frontend/src/public-migration.css",
+          " M scripts/verify_images.py"
+        ],
+        "tracked_diff_sha256": "863f25663351433c63dca55fef6ee89c44a9d97bbdb9e3c2d03c88898b830c7d",
+        "untracked_sha256": {}
+      },
+      "source_after": {
+        "head": "3b8ab323c533a9de040c77c4ab0747dac528cc1e",
+        "tree": "ac4671dd3a7d3074d3617369bddd63c69e05077b",
+        "dirty_paths": [
+          " M .github/workflows/migration-ci.yml",
+          " M deploy/RECOVERY.md",
+          " M frontend/e2e/parity.spec.ts",
+          " M frontend/e2e/public.spec.ts",
+          " M frontend/e2e/staff-write.spec.ts",
+          " M frontend/e2e/widgets.spec.ts",
+          " M frontend/src/public-migration.css",
+          " M scripts/verify_images.py"
+        ],
+        "tracked_diff_sha256": "863f25663351433c63dca55fef6ee89c44a9d97bbdb9e3c2d03c88898b830c7d",
+        "untracked_sha256": {}
+      },
+      "stages": [
+        {
+          "id": "prepare-synthetic-inputs",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "-m",
+            "backend.content.synthetic_setup",
+            "prepare",
+            "--disposable",
+            "--runtime-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\widget-staff-delta-03\\runtime",
+            "--release-id",
+            "target-e3243a9d6fd346b5a2be69a5871cfa74",
+            "--source-sha",
+            "3b8ab323c533a9de040c77c4ab0747dac528cc1e"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "01.log",
+          "elapsed_seconds": 30.14,
+          "log_sha256": "40eb7966f36270f82870e13151e7493c867e7cb7388a54534bad837cd905d285"
+        },
+        {
+          "id": "Frontend build",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "scripts/target_check.py",
+            "frontend-build"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "02.log",
+          "elapsed_seconds": 63.781,
+          "log_sha256": "6f46220bb7961e413ea96cffb798d330d4ec9b7bb8aa0d7625e192b0812eae22"
+        },
+        {
+          "id": "activate-synthetic-fixture",
+          "argv": [
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+            "-m",
+            "backend.content.synthetic_setup",
+            "activate-initial",
+            "--disposable",
+            "--runtime-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\widget-staff-delta-03\\runtime",
+            "--release-id",
+            "target-e3243a9d6fd346b5a2be69a5871cfa74",
+            "--receipt-digest",
+            "b829b3712a6015c287b566d64633592d9f58a0f8c09bec765d9df90c0ef17ff8",
+            "--artifact-root",
+            "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\widget-staff-delta-03\\artifact",
+            "--artifact-digest",
+            "40608d11152dbba7d12761f0289947d51cefee28c239e4cbb2fdec6a1cdeadea"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "03.log",
+          "elapsed_seconds": 13.813,
+          "log_sha256": "5297d1e5af17b1e01ef810f3e8e986b1186b9a459f5dc315c53b26e16a38e282"
+        },
+        {
+          "id": "Quadratic visible table and math all nine projects",
+          "argv": [
+            "C:\\Program Files\\nodejs\\node.EXE",
+            "frontend/node_modules/@playwright/test/cli.js",
+            "test",
+            "--config",
+            "frontend/playwright.config.ts",
+            "widgets.spec.ts",
+            "--grep",
+            "kvadratichnaya-funkcziya-y-ax2-bx-c"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "04.log",
+          "elapsed_seconds": 47.781,
+          "log_sha256": "6204323038d1a7fd93b3fa97994f3cb73778aae3d5e1eabceb526e612fee0f89"
+        },
+        {
+          "id": "Native own password and user lifecycle Chrome and Edge six projects",
+          "argv": [
+            "C:\\Program Files\\nodejs\\node.EXE",
+            "frontend/node_modules/@playwright/test/cli.js",
+            "test",
+            "--config",
+            "frontend/playwright.config.ts",
+            "staff-write.spec.ts",
+            "--grep",
+            "native staff user",
+            "--project=chrome-360",
+            "--project=chrome-768",
+            "--project=chrome-1440",
+            "--project=edge-360",
+            "--project=edge-768",
+            "--project=edge-1440"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "log": "05.log",
+          "elapsed_seconds": 65.109,
+          "log_sha256": "2ca00cc201c03cf9dddab4266b75db0bedfa941e8fedf879a4c5055ed006c1f2"
+        }
+      ],
+      "actual_cases": {
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0
+      },
+      "projects": [
+        "chrome-360",
+        "chrome-768",
+        "chrome-1440",
+        "edge-360",
+        "edge-768",
+        "edge-1440",
+        "firefox-360",
+        "firefox-768",
+        "firefox-1440"
+      ],
+      "cleanup": "Owned PG removed, original DB untouched",
+      "note": "First run failed18 Firefox launches due local driver cwd browser path;36 Chrome/Edge graph cases passed. Next run18 Firefox graphs plus3 native user/own-password cases PASS. Last run9 corrected quadratic visible-cell cases plus6 Chrome/Edge native user/own-password cases PASS.",
+      "driver_log_sha256": "a63f819e5a2ee6f3191586d06d4cd8d4d0db0ac3073c52d634273cfdb29ecdb1",
+      "browser_reports": [
+        {
+          "stage": "Quadratic visible table and math all nine projects",
+          "log_sha256": "6204323038d1a7fd93b3fa97994f3cb73778aae3d5e1eabceb526e612fee0f89",
+          "stats": {
+            "startTime": "2026-10-18T13:54:05.521Z",
+            "duration": 46118.993,
+            "expected": 9,
+            "skipped": 0,
+            "unexpected": 0,
+            "flaky": 0
+          },
+          "case_ids_and_status": [
+            {
+              "id": "chrome-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-360:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-768:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            },
+            {
+              "id": "firefox-1440:real graph keyboard/pointer/reset and mathematical readouts /kvadratichnaya-funkcziya-y-ax2-bx-c/",
+              "status": "expected"
+            }
+          ]
+        },
+        {
+          "stage": "Native own password and user lifecycle Chrome and Edge six projects",
+          "log_sha256": "2ca00cc201c03cf9dddab4266b75db0bedfa941e8fedf879a4c5055ed006c1f2",
+          "stats": {
+            "startTime": "2026-10-18T13:54:54.257Z",
+            "duration": 63455.536,
+            "expected": 6,
+            "skipped": 0,
+            "unexpected": 0,
+            "flaky": 0
+          },
+          "case_ids_and_status": [
+            {
+              "id": "chrome-360:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-768:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "chrome-1440:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "edge-360:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "edge-768:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            },
+            {
+              "id": "edge-1440:native staff user create profile roles password history and guarded deletion",
+              "status": "expected"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

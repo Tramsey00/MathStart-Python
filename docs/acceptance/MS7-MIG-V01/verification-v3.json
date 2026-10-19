@@ -1,0 +1,437 @@
+{
+  "task": "MS7-MIG-V01",
+  "phase": "F1/F2/F3 remediation",
+  "date": "2026-10-09",
+  "timezone": "Europe/Moscow",
+  "recorded_at_utc": "2026-10-09T15:54:42.376202+00:00",
+  "status": "LOCAL_F1_F2_F3_FIXED_INDEPENDENT_REAUDIT_PENDING",
+  "branch": "ms7-mig-v01-schema",
+  "input_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "final_local_head": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "MIG_BASE_SHA": "60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7",
+  "versions": {
+    "Python": "3.12.10",
+    "Django": "5.2.16",
+    "SQLAlchemy": "2.0.46",
+    "alembic": "1.18.4",
+    "psycopg": "3.3.6",
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "Docker": "29.8.0/29.8.0",
+    "Compose": "5.5.1"
+  },
+  "intake": {
+    "prior_untracked_files": 53,
+    "v2_hashes_matched": 52,
+    "deleted_files": [],
+    "preservation_copy": "var/ms7-mig-v01-remediation-input",
+    "delta": "continuation-delta-v3.json"
+  },
+  "independent_audit": {
+    "original_verdict": "NOT_READY_THREE_P2",
+    "sources": [
+      {
+        "original_path": "C:\\Users\\vladimir\\AppData\\Local\\Temp\\ms7-v01-independent-91mmom6u\\MS7-MIG-V01-INDEPENDENT-AUDIT-REPORT.md",
+        "copied_path": "docs/acceptance/MS7-MIG-V01/independent-audit-v3/MS7-MIG-V01-INDEPENDENT-AUDIT-REPORT.md",
+        "sha256": "480e550f92ba56451df5c474a7fc63598f3576760c2864a0ac275e56a7f21156",
+        "byte_identical": true
+      },
+      {
+        "original_path": "C:\\Users\\vladimir\\AppData\\Local\\Temp\\ms7-v01-independent-91mmom6u\\audit_probes.py",
+        "copied_path": "docs/acceptance/MS7-MIG-V01/independent-audit-v3/audit_probes.py",
+        "sha256": "6a8bdeaa3e254b41267429712d7d6f2ed6bc183d317c4a31a50743b6eab34ce6",
+        "byte_identical": true
+      },
+      {
+        "original_path": "C:\\Users\\vladimir\\AppData\\Local\\Temp\\ms7-v01-independent-91mmom6u\\audit-probes-results.json",
+        "copied_path": "docs/acceptance/MS7-MIG-V01/independent-audit-v3/audit-probes-results.json",
+        "sha256": "d67c1db9be619a72eff5392461e8d9faea94c2fe75e8ffb46a66780eab41abfb",
+        "byte_identical": true
+      }
+    ],
+    "report_modified": false,
+    "human_Task_Approval": false
+  },
+  "finding_verdicts": {
+    "F1": {
+      "verdict": "FIXED",
+      "initial_probe": "Django false/false/false vs target true/true/true",
+      "fix": "Ordinary mapper pre-save overrides auto fields; restricted/Core paths remain explicit; controlled historical Core import.",
+      "real_Django_differential_PG": "PASS",
+      "auto_timestamp_fields": 7,
+      "historical_fields_preserved": 7,
+      "evidence": "f1-timestamp-parity-v3.json"
+    },
+    "F2": {
+      "verdict": "FIXED",
+      "initial_probe": "40P01 with crossed Grade/Subject/Page references",
+      "fix": "Deleted/CASCADE/SET_NULL union plus complete FK reference closure in existing R02 order before mutation.",
+      "revalidation": "Unchanged mutations and all current locks within actual FOR UPDATE returned sets; missing/reused IDs or new needs require outer rollback/restart.",
+      "forced_two_session_outcomes": [
+        "COMMIT",
+        "COMMIT"
+      ],
+      "sqlstates": [],
+      "PROTECT_SET_NULL_CASCADE_conflict_rollback_tests": "PASS",
+      "R02_order_changed": false,
+      "SKIP_LOCKED_or_automatic_retry_added": false,
+      "evidence": "f2-concurrency-v3.json"
+    },
+    "F3": {
+      "verdict": "FIXED",
+      "initial_probe": "Malformed tracking adopted; unknown revision CLI exit0",
+      "fix": "Exact tracking shape and revision graph/state before adoption/stamp/proof; target requires one v01_0002 row.",
+      "negative_database_cases": 14,
+      "negative_CLI_subprocess_exits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "ambiguous_graph_in_process_negative": "PASS",
+      "canonical_empty_legacy_positive": "PASS",
+      "automatic_tracking_repairs": false,
+      "failed_operations_mutate_schema_data_tracking": false
+    }
+  },
+  "checks": [
+    {
+      "command": "python -m unittest backend.tests.test_unit backend.tests.test_postgres backend.tests.test_remediation -v",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 34,
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 62.914,
+      "unit_compatibility_methods": 11,
+      "real_PG_methods": 23,
+      "new_remediation_methods": 12,
+      "log": "var/ms7-mig-v01-target-final-v3.txt"
+    },
+    {
+      "command": "python -m backend.tests.runtime_verification",
+      "status": "PASS",
+      "exit_code": 0,
+      "CLI_calls": 10,
+      "fresh_installations": 2,
+      "upgrade_profiles": [
+        "A",
+        "B",
+        "C"
+      ],
+      "Django_installed_or_imported": false,
+      "evidence": "runtime-verification-v3.json"
+    },
+    {
+      "command": "python -m backend.tests.baseline_verification",
+      "status": "PASS",
+      "exit_code": 0,
+      "setup_commands": "migrate/bootstrap twice/collectstatic",
+      "verify_repo_checks": 8,
+      "Django_collected": 141,
+      "Django_executed": 118,
+      "Django_skipped": 23,
+      "skip_reason": "Baseline child omits explicit target admin URL; separately all23 PG methods pass without skips.",
+      "R03": 18,
+      "Harness": 73,
+      "R02_migration": 63,
+      "evidence": "baseline-verification-v3.json"
+    },
+    {
+      "command": "python -m unittest tests.test_r02a_contract tests.test_r03a_contract -v",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 71,
+      "R02A": 30,
+      "R03A": 41
+    },
+    {
+      "command": "python -m pip check (both pinned environments)",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check / git diff HEAD / staging audit",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "command": "git apply --check --ignore-space-change r03-ci-handoff-v3.patch",
+      "status": "PASS_APPLICABILITY_ONLY",
+      "exit_code": 0,
+      "patch_applied": false
+    }
+  ],
+  "scenario_results": {
+    "fresh_twice": "PASS",
+    "upgrade_A_B_C": "PASS",
+    "ID_FK_data_role_hash_history_preservation": "PASS",
+    "Grade_epoch_and_timestamp_precision": "PASS",
+    "B01_BIGINT_only_three_PK": "PASS",
+    "B01_actual_generated_INSERT_RETURNING_ids_above_int4_and_max": "PASS",
+    "CHECK_exact_comparator_and_42_truth_cases": "PASS",
+    "constraints_defaults_nullability": "PASS",
+    "sequences_empty_uncalled_already_ahead_no_rewind": "PASS",
+    "backfill_twice": "PASS",
+    "DDL_backfill_protocol_failure_rollback": "PASS",
+    "post_setval_precommit_disconnect_and_outer_retry": "PASS",
+    "post_COMMIT_lost_acknowledgement": "NOT_VERIFIED"
+  },
+  "isolation": {
+    "final_container_state": "STOPPED",
+    "id": "fa77de451fb4ea18ffe92f063b627cf473af734aea093dba107a6161d107513f",
+    "label": "mathstart.task=MS7-MIG-V01",
+    "PostgreSQL": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "remaining_test_databases": 0,
+    "container": "ms7-mig-v01-pg-20261009",
+    "production_or_shared_database_access": false,
+    "port": 55441,
+    "storage": "tmpfs",
+    "new_marked_databases_only": true
+  },
+  "raw_log_history": [
+    {
+      "path": "var/ms7-mig-v01-probes-before-v3.txt",
+      "sha256": "03b06856dba21329aa2c1544d0279a603ce93bbec2e5c6377a2235caba3658af",
+      "status": "EXPECTED_DEFECT_REPRODUCTION",
+      "exit_code": 0,
+      "methods": null,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-unit-v3-first.txt",
+      "sha256": "2e31845eb28d6a57700ccf3335647305f8a37329b1837b627849bb8b70ea12ae",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 11,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-remediation-first-v3.txt",
+      "sha256": "5b257ac129746b4d6a2614233963555295270b94734e4f77a7e4f305bdfcf968",
+      "status": "FAIL_40P01",
+      "exit_code": 1,
+      "methods": 9,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-f2-diagnostic-v3.txt",
+      "sha256": "be6e868e49355df8b82549fd5a395991adea74fb411461cb80a8031a57034744",
+      "status": "FAIL_40P01",
+      "exit_code": 1,
+      "methods": 1,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-f2-fk-diagnostic-v3.txt",
+      "sha256": "5faa36a4e9dee814c0bfae12bd83c850d2c0a3d5a968fb48afaac8001025b379",
+      "status": "FAIL_40P01",
+      "exit_code": 1,
+      "methods": 1,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-remediation-second-v3.txt",
+      "sha256": "20a54ed863431eafa072e27c6e7a74ae0c29013925c9f420f856bd29eef06c64",
+      "status": "FAIL_OVERSTRICT_REFERENCE_REVALIDATION_NO_40P01",
+      "exit_code": 1,
+      "methods": 9,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-remediation-third-v3.txt",
+      "sha256": "5ddf73ffadcf43d6ae35a3ab81b23912ce96f66b2ba69a9cbdc3dec16f7d1c99",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 10,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-target-first-complete-v3.txt",
+      "sha256": "f2f93724e65b735245e3b14898217891af488f8a4601c1ffd345cd525e87dbc8",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 33,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-f2-acquired-locks-v3.txt",
+      "sha256": "1bf1aa1fa6724282878d8b2ade14c488cfb4e432d1ef915ed138f7219cc1c3cb",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 2,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-target-final-v3.txt",
+      "sha256": "44debe68a4d8fa2fbff1d063a7807502a018eedf48d6a1fd478d542b1bc774ef",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 34,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-runtime-final-v3.txt",
+      "sha256": "2c5b74c819a5a17802ea01bec49841aa17f8cc7c2c12c54a8861d3208b314b4d",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": null,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-final-v3.txt",
+      "sha256": "70c1325e12dcf3fe753577e2adeedbf89b6588f8a8f189dae36daffc6b738ed9",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": null,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-domain-final-v3.txt",
+      "sha256": "264b63b7e55d15bc987ad91ed6b5b95ff55961c58be4a648364b92c0debb68a3",
+      "status": "PASS",
+      "exit_code": 0,
+      "methods": 71,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-7eeb10898cca46c5b3a2a86eba1c9520/migrate.txt",
+      "sha256": "de5117d83b935878458331e8fab081db569146a65ff862d73ff2b673f6a95e4c",
+      "status": "PASS",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-7eeb10898cca46c5b3a2a86eba1c9520/bootstrap-1.txt",
+      "sha256": "41ecc6f21a7ab0b3faca28c65cc0e48d54fac8adf4fefbd378c8d0ff95fcd905",
+      "status": "PASS",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-7eeb10898cca46c5b3a2a86eba1c9520/bootstrap-2.txt",
+      "sha256": "ba40e3b8a384b2a5783aa47e7e800824d2c337574e42eaee50893d367e616486",
+      "status": "PASS",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-7eeb10898cca46c5b3a2a86eba1c9520/collectstatic.txt",
+      "sha256": "38118620f5b0429e7b24a66f8ff75f5c389fda7adeb2a83bfab1b32b782e9ab0",
+      "status": "PASS",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-7eeb10898cca46c5b3a2a86eba1c9520/verify-repo.txt",
+      "sha256": "bbfedb7f480ea71bc05b4ce4025197a159b21467199e28f2ab6078f0bb81ba3e",
+      "status": "PASS",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-7eeb10898cca46c5b3a2a86eba1c9520/r02-migration.txt",
+      "sha256": "10a016e02cb9630480380b856c32b02b188a118e1c88a4db2085431ce5b0ae3c",
+      "status": "PASS",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-6a4af3b999fd42c4a9a684ae47b645b6/migrate.txt",
+      "sha256": "de5117d83b935878458331e8fab081db569146a65ff862d73ff2b673f6a95e4c",
+      "status": "PASS_FIRST_COMPLETE_BASELINE",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-6a4af3b999fd42c4a9a684ae47b645b6/bootstrap-1.txt",
+      "sha256": "41ecc6f21a7ab0b3faca28c65cc0e48d54fac8adf4fefbd378c8d0ff95fcd905",
+      "status": "PASS_FIRST_COMPLETE_BASELINE",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-6a4af3b999fd42c4a9a684ae47b645b6/bootstrap-2.txt",
+      "sha256": "ba40e3b8a384b2a5783aa47e7e800824d2c337574e42eaee50893d367e616486",
+      "status": "PASS_FIRST_COMPLETE_BASELINE",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-6a4af3b999fd42c4a9a684ae47b645b6/collectstatic.txt",
+      "sha256": "e871fbb0469949c5a85632df90b98762d0e94cb401ef9a3ea877d705558f2a80",
+      "status": "PASS_FIRST_COMPLETE_BASELINE",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-6a4af3b999fd42c4a9a684ae47b645b6/verify-repo.txt",
+      "sha256": "a808be996d9e41c5f79f1966fc61dce867826f6034b0b5359c572157e8d6d0d3",
+      "status": "PASS_FIRST_COMPLETE_BASELINE",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    },
+    {
+      "path": "var/ms7-mig-v01-baseline-6a4af3b999fd42c4a9a684ae47b645b6/r02-migration.txt",
+      "sha256": "7d6518cb2adc7fad549d9f29902f57362a1ff71ae06f9ccb8164586c1332acdf",
+      "status": "PASS_FIRST_COMPLETE_BASELINE",
+      "exit_code": 0,
+      "ignored_local_artifact": true
+    }
+  ],
+  "first_complete_baseline_result": {
+    "path": "var/ms7-mig-v01-baseline-first-complete-v3.json",
+    "sha256": "38ea2644c0e38896b92d6589cad00ec0abe758dcc3aac61e7ab7e0386e92b909",
+    "status": "PASS_140_COLLECTED_118_EXECUTED_22_SKIPPED_BEFORE_FINAL_LOCK_GUARD"
+  },
+  "initial_reproduction_results": {
+    "path": "var/ms7-mig-v01-probes-before-v3.json",
+    "sha256": "d67c1db9be619a72eff5392461e8d9faea94c2fe75e8ffb46a66780eab41abfb",
+    "status": "DEFECTS_REPRODUCED_NOT_ACCEPTANCE"
+  },
+  "safety_audit": {
+    "tracked_diff_empty": true,
+    "staging_empty": true,
+    "frozen_Git_digest_mismatches": [],
+    "frozen_checkout_digest_mismatches": [],
+    "frozen_copy_byte_identical": true,
+    "prior_v1_v2_evidence_unchanged": true,
+    "independent_audit_byte_identical": true,
+    "AST": "PASS",
+    "Python_files": 28,
+    "JSON": "PASS",
+    "trailing_whitespace_findings": [],
+    "unified_diff_whitespace": "Checked by patch applicability, not ordinary line whitespace audit",
+    "high_risk_secret_pattern_findings": [],
+    "secret_scan_limit": "Pattern scan plus manual synthetic credential review, not a mathematical guarantee",
+    "no_live_credentials_or_data_access": true,
+    "root_owned_files_unchanged": true,
+    "existing_Django_migrations_unchanged": true,
+    "no_reset_clean_commit_push_PR": true
+  },
+  "handoff": "r03-ci-handoff-v3.md",
+  "human_Task_Approval": "PENDING",
+  "GitHub_CI": "NOT_RUN",
+  "independent_reaudit": "PENDING",
+  "not_verified": [
+    "Linux/GitHub CI",
+    "Independent human Task Approval/re-audit",
+    "Deployed source variants/data",
+    "AFTER-COMMIT lost acknowledgement reconciliation",
+    "Exhaustive collector/V02-V04 lifecycle races/scaling",
+    "Distinct historical MS6-V02 source",
+    "Live historical GitHub approvals",
+    "Production/cutover"
+  ],
+  "known_F1_F2_F3_code_blockers_remaining": []
+}

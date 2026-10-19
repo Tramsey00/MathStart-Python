@@ -1,0 +1,303 @@
+MathStart Harness verification
+Profile: pure; selected checks only, not full target acceptance
+Repository: C:\Projects\MathStart-Python\migration-execution\review
+
+==============================================================================
+[1/6] R03 contract suite [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\migration-execution\review\var\review-env\Scripts\python.exe scripts/run_unittest.py --start tests --pattern test_r03_contract.py
+test_basic_arithmetic_is_external_and_modes_are_not_skills (test_r03_contract.PilotGraphContractTests.test_basic_arithmetic_is_external_and_modes_are_not_skills) ... ok
+test_depth_two_ancestors_are_minimal_deterministic_and_reverse_traversed (test_r03_contract.PilotGraphContractTests.test_depth_two_ancestors_are_minimal_deterministic_and_reverse_traversed) ... ok
+test_duplicate_unknown_self_edge_cycle_and_reversed_edge_rejected (test_r03_contract.PilotGraphContractTests.test_duplicate_unknown_self_edge_cycle_and_reversed_edge_rejected) ... ok
+test_exact_inventory_direction_weights_and_dag (test_r03_contract.PilotGraphContractTests.test_exact_inventory_direction_weights_and_dag) ... ok
+test_canonical_state_fields_initial_and_replayed (test_r03_contract.ProgressContractTests.test_canonical_state_fields_initial_and_replayed) ... ok
+test_completion_fact_may_precede_or_follow_event_and_must_be_consistent (test_r03_contract.ProgressContractTests.test_completion_fact_may_precede_or_follow_event_and_must_be_consistent) ... ok
+test_confidence_is_unscaled_by_difficulty_or_repeat (test_r03_contract.ProgressContractTests.test_confidence_is_unscaled_by_difficulty_or_repeat) ... ok
+test_decimal_round_half_up_and_clamp (test_r03_contract.ProgressContractTests.test_decimal_round_half_up_and_clamp) ... ok
+test_diagnostic_event_effects_and_independence (test_r03_contract.ProgressContractTests.test_diagnostic_event_effects_and_independence) ... ok
+test_difficulty_normalization_and_invalid_rejection (test_r03_contract.ProgressContractTests.test_difficulty_normalization_and_invalid_rejection) ... ok
+test_golden_fixture_cases_and_all_event_kinds (test_r03_contract.ProgressContractTests.test_golden_fixture_cases_and_all_event_kinds) ... ok
+test_idempotency_conflicts_and_one_penalty_per_evidence (test_r03_contract.ProgressContractTests.test_idempotency_conflicts_and_one_penalty_per_evidence) ... ok
+test_misconception_repeat_code_scope_hint_and_reset (test_r03_contract.ProgressContractTests.test_misconception_repeat_code_scope_hint_and_reset) ... ok
+test_recent_window_ten_completed_distinct_attempts (test_r03_contract.ProgressContractTests.test_recent_window_ten_completed_distinct_attempts) ... ok
+test_reveal_and_wrong_final_cannot_create_unsupported_evidence (test_r03_contract.ProgressContractTests.test_reveal_and_wrong_final_cannot_create_unsupported_evidence) ... ok
+test_self_report_once_before_assessed_and_reveal_no_gain (test_r03_contract.ProgressContractTests.test_self_report_once_before_assessed_and_reveal_no_gain) ... ok
+test_status_precedence_and_exact_boundaries (test_r03_contract.ProgressContractTests.test_status_precedence_and_exact_boundaries) ... ok
+test_total_order_reordered_delivery_late_event_and_recorded_version (test_r03_contract.ProgressContractTests.test_total_order_reordered_delivery_late_event_and_recorded_version) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.025s
+
+OK
+
+PASSED: R03 contract suite
+
+==============================================================================
+[2/6] R02A contract suite [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\migration-execution\review\var\review-env\Scripts\python.exe scripts/run_unittest.py --start tests --pattern test_r02a_contract.py
+test_all_operation_examples_and_negative_shapes_validate (test_r02a_contract.HTTPArtifactTests.test_all_operation_examples_and_negative_shapes_validate) ... ok
+test_auth_csrf_idempotency_revision_and_owner_isolation (test_r02a_contract.HTTPArtifactTests.test_auth_csrf_idempotency_revision_and_owner_isolation) ... ok
+test_candidate_package_pins_external_schemas_and_artifacts (test_r02a_contract.HTTPArtifactTests.test_candidate_package_pins_external_schemas_and_artifacts) ... ok
+test_digest_scope_and_permanent_uniqueness (test_r02a_contract.HTTPArtifactTests.test_digest_scope_and_permanent_uniqueness) ... ok
+test_envelopes_pagination_and_pending_status_contract (test_r02a_contract.HTTPArtifactTests.test_envelopes_pagination_and_pending_status_contract) ... ok
+test_get_attempt_rejects_changed_nested_exercise_id (test_r02a_contract.HTTPArtifactTests.test_get_attempt_rejects_changed_nested_exercise_id) ... ok
+test_get_exercise_rejects_changed_nested_topic_id (test_r02a_contract.HTTPArtifactTests.test_get_exercise_rejects_changed_nested_topic_id) ... ok
+test_list_items_and_conversation_context_preserve_identity (test_r02a_contract.HTTPArtifactTests.test_list_items_and_conversation_context_preserve_identity) ... ok
+test_official_openapi_structure_all_routes_and_offline_refs (test_r02a_contract.HTTPArtifactTests.test_official_openapi_structure_all_routes_and_offline_refs) ... ok
+test_other_known_nested_relations_reject_schema_valid_substitutions (test_r02a_contract.HTTPArtifactTests.test_other_known_nested_relations_reject_schema_valid_substitutions) ... ok
+test_pending_unsupported_and_degraded_are_typed_business_results (test_r02a_contract.HTTPArtifactTests.test_pending_unsupported_and_degraded_are_typed_business_results) ... ok
+test_public_schema_secrets_and_health_allowlist (test_r02a_contract.HTTPArtifactTests.test_public_schema_secrets_and_health_allowlist) ... ok
+test_r02_public_fields_and_all_frozen_examples_preserved (test_r02a_contract.HTTPArtifactTests.test_r02_public_fields_and_all_frozen_examples_preserved) ... ok
+test_schema_valid_identity_mismatches_are_rejected (test_r02a_contract.HTTPArtifactTests.test_schema_valid_identity_mismatches_are_rejected) ... ok
+test_semantic_identity_for_all_37_http_exchanges (test_r02a_contract.HTTPArtifactTests.test_semantic_identity_for_all_37_http_exchanges) ... ok
+test_status_specific_error_envelopes (test_r02a_contract.HTTPArtifactTests.test_status_specific_error_envelopes) ... ok
+test_successful_onboarding_preserves_mode_and_completion (test_r02a_contract.HTTPArtifactTests.test_successful_onboarding_preserves_mode_and_completion) ... ok
+test_unshown_resource_bindings_are_not_invented (test_r02a_contract.HTTPArtifactTests.test_unshown_resource_bindings_are_not_invented) ... ok
+test_version_alias_difficulty_and_order_are_checked (test_r02a_contract.HTTPArtifactTests.test_version_alias_difficulty_and_order_are_checked) ... ok
+test_all_serial_concurrency_fixtures (test_r02a_contract.TransactionFixtureTests.test_all_serial_concurrency_fixtures) ... ok
+test_help_submit_race (test_r02a_contract.TransactionFixtureTests.test_help_submit_race) ... ok
+test_hint_retry_after_expiry_keeps_original_level_and_route_scope (test_r02a_contract.TransactionFixtureTests.test_hint_retry_after_expiry_keeps_original_level_and_route_scope) ... ok
+test_hint_retry_after_receipt_expiry (test_r02a_contract.TransactionFixtureTests.test_hint_retry_after_receipt_expiry) ... ok
+test_no_foreign_existence_or_revision_disclosure (test_r02a_contract.TransactionFixtureTests.test_no_foreign_existence_or_revision_disclosure) ... ok
+test_repeat_submit (test_r02a_contract.TransactionFixtureTests.test_repeat_submit) ... ok
+test_reveal_retry_after_receipt_expiry (test_r02a_contract.TransactionFixtureTests.test_reveal_retry_after_receipt_expiry) ... ok
+test_second_positive_eligibility (test_r02a_contract.TransactionFixtureTests.test_second_positive_eligibility) ... ok
+test_snapshot_order_raw_data_and_get_are_immutable (test_r02a_contract.TransactionFixtureTests.test_snapshot_order_raw_data_and_get_are_immutable) ... ok
+test_stale_revision (test_r02a_contract.TransactionFixtureTests.test_stale_revision) ... ok
+test_submit_and_positive_credit_guards_survive_receipt_expiry (test_r02a_contract.TransactionFixtureTests.test_submit_and_positive_credit_guards_survive_receipt_expiry) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 3.243s
+
+OK
+
+PASSED: R02A contract suite
+
+==============================================================================
+[3/6] R03A contract suite [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\migration-execution\review\var\review-env\Scripts\python.exe scripts/run_unittest.py --start tests --pattern test_r03a_contract.py
+test_01_neutral_completed (test_r03a_contract.CompletionContractTests.test_01_neutral_completed) ... ok
+test_02_neutral_only (test_r03a_contract.CompletionContractTests.test_02_neutral_only) ... ok
+test_03_equal_time_tiebreak (test_r03a_contract.CompletionContractTests.test_03_equal_time_tiebreak) ... ok
+test_04_late_neutral (test_r03a_contract.CompletionContractTests.test_04_late_neutral) ... ok
+test_05_fact_before_event (test_r03a_contract.CompletionContractTests.test_05_fact_before_event) ... ok
+test_06_fact_after_event (test_r03a_contract.CompletionContractTests.test_06_fact_after_event) ... ok
+test_07_exact_duplicate (test_r03a_contract.CompletionContractTests.test_07_exact_duplicate) ... ok
+test_08_conflicting_duplicate (test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate) ... ok
+test_09_retry_no_second_entry (test_r03a_contract.CompletionContractTests.test_09_retry_no_second_entry) ... ok
+test_10_event_and_fact (test_r03a_contract.CompletionContractTests.test_10_event_and_fact) ... ok
+test_11_conflicting_time (test_r03a_contract.CompletionContractTests.test_11_conflicting_time) ... ok
+test_12_neutral_eviction (test_r03a_contract.CompletionContractTests.test_12_neutral_eviction) ... ok
+test_13_count_three_to_two (test_r03a_contract.CompletionContractTests.test_13_count_three_to_two) ... ok
+test_14_mastered_to_learning (test_r03a_contract.CompletionContractTests.test_14_mastered_to_learning)
+Neutral #11 evicts oldest independent; 100.00/67.00/11/time unchanged. ... ok
+test_15_numerical_neutrality (test_r03a_contract.CompletionContractTests.test_15_numerical_neutrality) ... ok
+test_16_late_independent (test_r03a_contract.CompletionContractTests.test_16_late_independent) ... ok
+test_17_malformed_no_wrong (test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong) ... ok
+test_18_client_flag_rejected (test_r03a_contract.CompletionContractTests.test_18_client_flag_rejected) ... ok
+test_19_progress_v1_parity (test_r03a_contract.CompletionContractTests.test_19_progress_v1_parity) ... ok
+test_20_delivery_permutations (test_r03a_contract.CompletionContractTests.test_20_delivery_permutations) ... ok
+test_21_timezone_duplicate (test_r03a_contract.CompletionContractTests.test_21_timezone_duplicate) ... ok
+test_22_owner_skill_binding (test_r03a_contract.CompletionContractTests.test_22_owner_skill_binding) ... ok
+test_23_lifecycle_boundary (test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary) ... ok
+test_24_help_and_credit (test_r03a_contract.CompletionContractTests.test_24_help_and_credit) ... ok
+test_25_repeat_isolation (test_r03a_contract.CompletionContractTests.test_25_repeat_isolation) ... ok
+test_26_event_reset_with_late_fact (test_r03a_contract.CompletionContractTests.test_26_event_reset_with_late_fact) ... ok
+test_27_outside_window (test_r03a_contract.CompletionContractTests.test_27_outside_window) ... ok
+test_28_legacy_reveal_import (test_r03a_contract.CompletionContractTests.test_28_legacy_reveal_import) ... ok
+test_29_final_result_conflict (test_r03a_contract.CompletionContractTests.test_29_final_result_conflict) ... ok
+test_30_late_event_is_event (test_r03a_contract.CompletionContractTests.test_30_late_event_is_event) ... ok
+test_31_scope_and_not_started (test_r03a_contract.CompletionContractTests.test_31_scope_and_not_started) ... ok
+test_32_immutable_conflict_order (test_r03a_contract.CompletionContractTests.test_32_immutable_conflict_order) ... ok
+test_all_outcomes_are_history_without_automatic_numeric_effects (test_r03a_contract.CompletionContractTests.test_all_outcomes_are_history_without_automatic_numeric_effects) ... ok
+test_bad_contexts_and_missing_legacy_outcome_fail_closed (test_r03a_contract.CompletionContractTests.test_bad_contexts_and_missing_legacy_outcome_fail_closed) ... ok
+test_cached_evidence_and_returned_results_are_detached (test_r03a_contract.CompletionContractTests.test_cached_evidence_and_returned_results_are_detached) ... ok
+test_cross_skill_agreement_and_foreign_event_owner (test_r03a_contract.CompletionContractTests.test_cross_skill_agreement_and_foreign_event_owner) ... ok
+test_full_window_fact_and_event_permutation_keeps_all_numerical_outputs (test_r03a_contract.CompletionContractTests.test_full_window_fact_and_event_permutation_keeps_all_numerical_outputs) ... ok
+test_global_keys_cannot_hide_in_other_owner_or_skill_partition (test_r03a_contract.CompletionContractTests.test_global_keys_cannot_hide_in_other_owner_or_skill_partition) ... ok
+test_later_reveal_does_not_revoke_finalized_independence (test_r03a_contract.CompletionContractTests.test_later_reveal_does_not_revoke_finalized_independence) ... ok
+test_schema_and_literal_case_inventory (test_r03a_contract.CompletionContractTests.test_schema_and_literal_case_inventory) ... ok
+test_temporal_relationships_and_max_precision (test_r03a_contract.CompletionContractTests.test_temporal_relationships_and_max_precision) ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.146s
+
+OK
+
+PASSED: R03A contract suite
+
+==============================================================================
+[4/6] R02 protocol models (synthetic) [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\migration-execution\review\var\review-env\Scripts\python.exe scripts/run_unittest.py --start tests --pattern test_migration_r02_protocols.py
+test_all_transition_orders_preserve_revocation_and_receipt_truth (test_migration_r02_protocols.BridgeLifecycleTests.test_all_transition_orders_preserve_revocation_and_receipt_truth) ... ok
+test_changed_body_key_cannot_rebind_or_replay_receipt (test_migration_r02_protocols.BridgeLifecycleTests.test_changed_body_key_cannot_rebind_or_replay_receipt) ... ok
+test_competing_rebind_and_superseded_ticket_session_epochs (test_migration_r02_protocols.BridgeLifecycleTests.test_competing_rebind_and_superseded_ticket_session_epochs) ... ok
+test_cutover_checkpoint_repeats_do_not_revoke_recovered_target_session (test_migration_r02_protocols.BridgeLifecycleTests.test_cutover_checkpoint_repeats_do_not_revoke_recovered_target_session) ... ok
+test_expired_ticket_independent_bootstrap_valid_until_bridge_window (test_migration_r02_protocols.BridgeLifecycleTests.test_expired_ticket_independent_bootstrap_valid_until_bridge_window) ... ok
+test_foreign_user_cannot_use_original_ticket_session_transfer_or_password (test_migration_r02_protocols.BridgeLifecycleTests.test_foreign_user_cannot_use_original_ticket_session_transfer_or_password) ... ok
+test_gate_descriptor_shapes_require_owner_and_pending_as_one_tuple (test_migration_r02_protocols.BridgeLifecycleTests.test_gate_descriptor_shapes_require_owner_and_pending_as_one_tuple) ... ok
+test_inactive_owner_and_absent_transfer_binding_fail_closed (test_migration_r02_protocols.BridgeLifecycleTests.test_inactive_owner_and_absent_transfer_binding_fail_closed) ... ok
+test_logout_and_switch_revoke_all_proof_classes_retain_receipt (test_migration_r02_protocols.BridgeLifecycleTests.test_logout_and_switch_revoke_all_proof_classes_retain_receipt) ... ok
+test_logout_keeps_another_independent_same_owner_session_bridge (test_migration_r02_protocols.BridgeLifecycleTests.test_logout_keeps_another_independent_same_owner_session_bridge) ... ok
+test_lost_all_cookies_replay_after_commit_needs_original_proof_and_password (test_migration_r02_protocols.BridgeLifecycleTests.test_lost_all_cookies_replay_after_commit_needs_original_proof_and_password) ... ok
+test_natural_expiry_and_cutover_detach_then_explicit_bound_recovery (test_migration_r02_protocols.BridgeLifecycleTests.test_natural_expiry_and_cutover_detach_then_explicit_bound_recovery) ... ok
+test_private_bridge_schema_terminal_binding_negatives_and_transition_coverage (test_migration_r02_protocols.BridgeLifecycleTests.test_private_bridge_schema_terminal_binding_negatives_and_transition_coverage) ... ok
+test_repeated_same_user_login_rotates_without_changing_receipt (test_migration_r02_protocols.BridgeLifecycleTests.test_repeated_same_user_login_rotates_without_changing_receipt) ... ok
+test_session_proof_cannot_be_used_from_another_session_same_owner (test_migration_r02_protocols.BridgeLifecycleTests.test_session_proof_cannot_be_used_from_another_session_same_owner) ... ok
+test_ticket_alone_wrong_password_bootstrap_and_signature_are_denied (test_migration_r02_protocols.BridgeLifecycleTests.test_ticket_alone_wrong_password_bootstrap_and_signature_are_denied) ... ok
+test_unknown_ack_does_not_authorize_logout_retry_or_foreign_restore (test_migration_r02_protocols.BridgeLifecycleTests.test_unknown_ack_does_not_authorize_logout_retry_or_foreign_restore) ... ok
+test_unknown_unverified_or_dual_writer_cutover_changes_no_authority (test_migration_r02_protocols.BridgeLifecycleTests.test_unknown_unverified_or_dual_writer_cutover_changes_no_authority) ... ok
+test_activation_commit_before_takeover_reconciles_old_generation_history (test_migration_r02_protocols.PublicationProtocolTests.test_activation_commit_before_takeover_reconciles_old_generation_history) ... ok
+test_all_stale_owner_writes_are_fenced_even_with_returning_worker_id (test_migration_r02_protocols.PublicationProtocolTests.test_all_stale_owner_writes_are_fenced_even_with_returning_worker_id) ... ok
+test_claim_stage_commit_activation_complete_and_repeats (test_migration_r02_protocols.PublicationProtocolTests.test_claim_stage_commit_activation_complete_and_repeats) ... ok
+test_competing_recovery_workers_both_orders_one_winner (test_migration_r02_protocols.PublicationProtocolTests.test_competing_recovery_workers_both_orders_one_winner) ... ok
+test_expired_current_owner_cannot_renew_or_activate (test_migration_r02_protocols.PublicationProtocolTests.test_expired_current_owner_cannot_renew_or_activate) ... ok
+test_health_failure_holds_slot_and_stale_probe_cannot_complete (test_migration_r02_protocols.PublicationProtocolTests.test_health_failure_holds_slot_and_stale_probe_cannot_complete) ... ok
+test_machine_table_covers_every_failure_and_no_new_runtime_mapping (test_migration_r02_protocols.PublicationProtocolTests.test_machine_table_covers_every_failure_and_no_new_runtime_mapping) ... ok
+test_pending_gate_survives_crash_expiry_and_db_commit (test_migration_r02_protocols.PublicationProtocolTests.test_pending_gate_survives_crash_expiry_and_db_commit) ... ok
+test_pointer_digest_or_operation_mismatch_never_reconciles_success (test_migration_r02_protocols.PublicationProtocolTests.test_pointer_digest_or_operation_mismatch_never_reconciles_success) ... ok
+test_precommit_abort_terminal_and_hash_source_guards (test_migration_r02_protocols.PublicationProtocolTests.test_precommit_abort_terminal_and_hash_source_guards) ... ok
+test_same_key_new_uuid_resolves_original_operation_without_new_write (test_migration_r02_protocols.PublicationProtocolTests.test_same_key_new_uuid_resolves_original_operation_without_new_write) ... ok
+test_schema_journal_and_observable_reject_impossible_commit_and_secret_owner (test_migration_r02_protocols.PublicationProtocolTests.test_schema_journal_and_observable_reject_impossible_commit_and_secret_owner) ... ok
+test_takeover_before_delayed_activation_rejects_stale_effect (test_migration_r02_protocols.PublicationProtocolTests.test_takeover_before_delayed_activation_rejects_stale_effect) ... ok
+test_unknown_activation_both_failure_windows_no_speculative_retry (test_migration_r02_protocols.PublicationProtocolTests.test_unknown_activation_both_failure_windows_no_speculative_retry) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.056s
+
+OK
+
+PASSED: R02 protocol models (synthetic)
+
+==============================================================================
+[5/6] R03 verification adapter suite [tests]
+==============================================================================
+$ C:\Projects\MathStart-Python\migration-execution\review\var\review-env\Scripts\python.exe scripts/run_unittest.py --start tests --pattern test_migration_r03*.py
+test_ci_linkage_rejects_old_checkout_and_wrong_merge_parents (test_migration_r03_verification.TargetRegistryTests.test_ci_linkage_rejects_old_checkout_and_wrong_merge_parents) ... ok
+test_database_configuration_does_not_fallback_to_sqlite (test_migration_r03_verification.TargetRegistryTests.test_database_configuration_does_not_fallback_to_sqlite) ... ok
+test_database_timeout_and_sensitive_child_errors_not_forwarded (test_migration_r03_verification.TargetRegistryTests.test_database_timeout_and_sensitive_child_errors_not_forwarded) ... ok
+test_dsn_and_session_headers_are_redacted_before_evidence (test_migration_r03_verification.TargetRegistryTests.test_dsn_and_session_headers_are_redacted_before_evidence) ... ok
+test_empty_and_skipped_unittest_are_failure (test_migration_r03_verification.TargetRegistryTests.test_empty_and_skipped_unittest_are_failure) ... ok
+test_failed_check_cannot_make_canonical_pass (test_migration_r03_verification.TargetRegistryTests.test_failed_check_cannot_make_canonical_pass) ... ok
+test_frontend_missing_script_and_missing_npm_are_failures (test_migration_r03_verification.TargetRegistryTests.test_frontend_missing_script_and_missing_npm_are_failures) ... ok
+test_group_semantics_and_empty_is_failure (test_migration_r03_verification.TargetRegistryTests.test_group_semantics_and_empty_is_failure) ... ok
+test_missing_handoff_and_frontend_package_fail (test_migration_r03_verification.TargetRegistryTests.test_missing_handoff_and_frontend_package_fail) ... ok
+test_nested_target_registry_is_nonrecursive (test_migration_r03_verification.TargetRegistryTests.test_nested_target_registry_is_nonrecursive) ... ok
+test_not_run_never_ready (test_migration_r03_verification.TargetRegistryTests.test_not_run_never_ready) ... ok
+test_preserved_input_and_frozen_manifest_bytes (test_migration_r03_verification.TargetRegistryTests.test_preserved_input_and_frozen_manifest_bytes) ... ok
+test_pure_is_explicit_subset_not_full_target (test_migration_r03_verification.TargetRegistryTests.test_pure_is_explicit_subset_not_full_target) ... ok
+test_rehearsals_require_explicit_disposable_guard (test_migration_r03_verification.TargetRegistryTests.test_rehearsals_require_explicit_disposable_guard) ... ok
+test_reviewed_handoff_requires_real_backend_file_and_rejects_escape (test_migration_r03_verification.TargetRegistryTests.test_reviewed_handoff_requires_real_backend_file_and_rejects_escape) ... ok
+test_runtime_receipt_requires_nonempty_unskipped_pg_evidence (test_migration_r03_verification.TargetRegistryTests.test_runtime_receipt_requires_nonempty_unskipped_pg_evidence) ... ok
+test_six_historical_chains_preserve_original_results_and_references (test_migration_r03_verification.TargetRegistryTests.test_six_historical_chains_preserve_original_results_and_references) ... ok
+test_success_exit_without_required_runtime_receipt_is_failure (test_migration_r03_verification.TargetRegistryTests.test_success_exit_without_required_runtime_receipt_is_failure) ... ok
+test_target_selection_contains_named_equivalents_and_pure_suites (test_migration_r03_verification.TargetRegistryTests.test_target_selection_contains_named_equivalents_and_pure_suites) ... ok
+test_timeout_and_missing_tool_nonzero (test_migration_r03_verification.TargetRegistryTests.test_timeout_and_missing_tool_nonzero) ... ok
+test_wrapper_timeout_and_output_redaction (test_migration_r03_verification.TargetRegistryTests.test_wrapper_timeout_and_output_redaction) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 3.296s
+
+OK
+
+PASSED: R03 verification adapter suite
+
+==============================================================================
+[6/6] Harness test suite [harness]
+==============================================================================
+$ C:\Projects\MathStart-Python\migration-execution\review\var\review-env\Scripts\python.exe -m unittest discover -s tests/harness -t . -v
+test_default_selection_runs_harness_suite (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_default_selection_runs_harness_suite) ... ok
+test_harness_failure_fails_canonical_entry_point_used_by_ci (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_harness_failure_fails_canonical_entry_point_used_by_ci) ... ok
+test_list_and_selected_harness_group (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_list_and_selected_harness_group) ... ok
+test_nested_baseline_excludes_harness_and_preserves_prior_checks (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_nested_baseline_excludes_harness_and_preserves_prior_checks) ... ok
+test_skip_tests_excludes_all_test_suites (tests.harness.test_canonical_verification.CanonicalVerificationTests.test_skip_tests_excludes_all_test_suites) ... ok
+test_dry_run_does_not_execute_engine (tests.harness.test_cli.CliTests.test_dry_run_does_not_execute_engine) ... ok
+test_execute_uses_persisted_result (tests.harness.test_cli.CliTests.test_execute_uses_persisted_result) ... ok
+test_invalid_manifest_is_blocked (tests.harness.test_cli.CliTests.test_invalid_manifest_is_blocked) ... ok
+test_profile_mismatch_is_blocked (tests.harness.test_cli.CliTests.test_profile_mismatch_is_blocked) ... ok
+test_doctor (tests.harness.test_cli_smoke.CliSmokeTests.test_doctor) ... ok
+test_help (tests.harness.test_cli_smoke.CliSmokeTests.test_help) ... ok
+test_valid_dry_run_and_no_execute_engine (tests.harness.test_cli_smoke.CliSmokeTests.test_valid_dry_run_and_no_execute_engine) ... ok
+test_cancelled_adapter_never_finishes (tests.harness.test_fake_adapter.FakeAdapterTests.test_cancelled_adapter_never_finishes) ... ok
+test_error_scenario (tests.harness.test_fake_adapter.FakeAdapterTests.test_error_scenario) ... ok
+test_fake_adapter_implements_protocol (tests.harness.test_fake_adapter.FakeAdapterTests.test_fake_adapter_implements_protocol) ... ok
+test_happy_scenario (tests.harness.test_fake_adapter.FakeAdapterTests.test_happy_scenario) ... ok
+test_loop_scenario_keeps_requesting_tools (tests.harness.test_fake_adapter.FakeAdapterTests.test_loop_scenario_keeps_requesting_tools) ... ok
+test_message_continuation_before_start_is_protocol_error (tests.harness.test_fake_adapter.FakeAdapterTests.test_message_continuation_before_start_is_protocol_error) ... ok
+test_message_scenario_continues_to_tool_then_finished (tests.harness.test_fake_adapter.FakeAdapterTests.test_message_scenario_continues_to_tool_then_finished) ... ok
+test_tool_result_cannot_replace_message_continuation (tests.harness.test_fake_adapter.FakeAdapterTests.test_tool_result_cannot_replace_message_continuation) ... ok
+test_checked_in_r04_manifest_validates_actual_reference_bytes (tests.harness.test_manifest.CheckedInManifestTests.test_checked_in_r04_manifest_validates_actual_reference_bytes) ... ok
+test_r04_documents_are_readable_utf8 (tests.harness.test_manifest.CheckedInManifestTests.test_r04_documents_are_readable_utf8) ... ok
+test_branch_mismatch_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_branch_mismatch_is_blocked) ... ok
+test_digest_mismatch_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_digest_mismatch_is_blocked) ... ok
+test_missing_spec_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_missing_spec_is_blocked) ... ok
+test_path_traversal_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_path_traversal_is_blocked) ... ok
+test_plan_digest_mismatch_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_plan_digest_mismatch_is_blocked) ... ok
+test_unknown_required_check_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_unknown_required_check_is_blocked) ... ok
+test_unsupported_profile_is_blocked (tests.harness.test_manifest.ManifestValidationTests.test_unsupported_profile_is_blocked) ... ok
+test_valid_manifest_is_accepted (tests.harness.test_manifest.ManifestValidationTests.test_valid_manifest_is_accepted) ... ok
+test_ambiguous_receipt_commit_recovers_ready_when_cleanup_and_rewrite_fail (tests.harness.test_ready_publication.ReadyPublicationTests.test_ambiguous_receipt_commit_recovers_ready_when_cleanup_and_rewrite_fail) ... ok
+test_crash_after_canonical_replace_before_receipt_is_not_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_crash_after_canonical_replace_before_receipt_is_not_ready) ... ok
+test_happy_path_has_matching_receipt_and_status_is_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_happy_path_has_matching_receipt_and_status_is_ready) ... ok
+test_invalid_receipt_identity_or_deadline_blocks_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_invalid_receipt_identity_or_deadline_blocks_ready) ... ok
+test_missing_or_corrupt_receipt_blocks_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_missing_or_corrupt_receipt_blocks_ready) ... ok
+test_non_ready_results_do_not_require_receipt (tests.harness.test_ready_publication.ReadyPublicationTests.test_non_ready_results_do_not_require_receipt) ... ok
+test_receipt_and_diagnostic_write_failure_leave_ready_uncommitted (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_and_diagnostic_write_failure_leave_ready_uncommitted) ... ok
+test_receipt_digest_mismatch_blocks_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_digest_mismatch_blocks_ready) ... ok
+test_receipt_may_finish_after_deadline_for_timely_canonical_replace (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_may_finish_after_deadline_for_timely_canonical_replace) ... ok
+test_receipt_replace_failure_returns_non_success (tests.harness.test_ready_publication.ReadyPublicationTests.test_receipt_replace_failure_returns_non_success) ... ok
+test_status_during_expired_final_replace_never_exposes_ready (tests.harness.test_ready_publication.ReadyPublicationTests.test_status_during_expired_final_replace_never_exposes_ready) ... ok
+test_expired_after_handler_prevents_next_model (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_after_handler_prevents_next_model) ... ok
+test_expired_before_initial_model_prevents_start (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_before_initial_model_prevents_start) ... ok
+test_expired_immediately_before_handler_prevents_tool (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_immediately_before_handler_prevents_tool) ... ok
+test_expired_immediately_before_verification_prevents_it (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expired_immediately_before_verification_prevents_it) ... ok
+test_expiry_during_final_result_replace_cannot_return_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_final_result_replace_cannot_return_ready) ... ok
+test_expiry_during_result_persistence_cannot_publish_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_result_persistence_cannot_publish_ready) ... ok
+test_expiry_during_result_validation_cannot_publish_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_expiry_during_result_validation_cannot_publish_ready) ... ok
+test_finished_returned_after_deadline_never_verifies (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_finished_returned_after_deadline_never_verifies) ... ok
+test_late_finished_continuation_never_verifies (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_finished_continuation_never_verifies) ... ok
+test_late_message_continuation_prevents_tool (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_message_continuation_prevents_tool) ... ok
+test_late_message_prevents_continuation (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_message_prevents_continuation) ... ok
+test_late_tool_continuation_never_executes_next_tool (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_late_tool_continuation_never_executes_next_tool) ... ok
+test_message_alone_exhausts_turns_without_success (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_message_alone_exhausts_turns_without_success) ... ok
+test_message_tool_finished_flow_preserves_content_and_verifies (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_message_tool_finished_flow_preserves_content_and_verifies) ... ok
+test_tool_request_returned_after_deadline_never_executes (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_tool_request_returned_after_deadline_never_executes) ... ok
+test_unsupported_protocol_blocked_before_any_invocation (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_unsupported_protocol_blocked_before_any_invocation) ... ok
+test_verification_overrun_cannot_return_ready (tests.harness.test_runner_boundaries.RunnerBoundaryTests.test_verification_overrun_cannot_return_ready) ... ok
+test_all_required_checks_pass_after_finished (tests.harness.test_verification.ExecuteVerificationTests.test_all_required_checks_pass_after_finished) ... ok
+test_cancelled_adapter_interrupts_without_verification (tests.harness.test_verification.ExecuteVerificationTests.test_cancelled_adapter_interrupts_without_verification) ... ok
+test_finalization_cannot_promote_expired_run (tests.harness.test_verification.ExecuteVerificationTests.test_finalization_cannot_promote_expired_run) ... ok
+test_finished_with_failed_check_is_not_ready (tests.harness.test_verification.ExecuteVerificationTests.test_finished_with_failed_check_is_not_ready) ... ok
+test_finished_without_all_required_checks_is_not_ready (tests.harness.test_verification.ExecuteVerificationTests.test_finished_without_all_required_checks_is_not_ready) ... ok
+test_injected_error_adapter_is_used (tests.harness.test_verification.ExecuteVerificationTests.test_injected_error_adapter_is_used) ... ok
+test_interrupt_during_verification_keeps_partial_evidence (tests.harness.test_verification.ExecuteVerificationTests.test_interrupt_during_verification_keeps_partial_evidence) ... ok
+test_keyboard_interrupt_persists_result (tests.harness.test_verification.ExecuteVerificationTests.test_keyboard_interrupt_persists_result) ... ok
+test_loop_exhausts_runner_turn_budget (tests.harness.test_verification.ExecuteVerificationTests.test_loop_exhausts_runner_turn_budget) ... ok
+test_wall_time_exhausted_during_verification (tests.harness.test_verification.ExecuteVerificationTests.test_wall_time_exhausted_during_verification) ... ok
+test_failed_exit_code_is_recorded (tests.harness.test_verification.RegistryTests.test_failed_exit_code_is_recorded) ... ok
+test_registered_checks_execute_with_fixed_argv_and_store_evidence (tests.harness.test_verification.RegistryTests.test_registered_checks_execute_with_fixed_argv_and_store_evidence) ... ok
+test_remaining_time_limits_checks_and_prevents_process_after_deadline (tests.harness.test_verification.RegistryTests.test_remaining_time_limits_checks_and_prevents_process_after_deadline) ... ok
+test_timeout_marks_budget_exceeded_and_keeps_evidence (tests.harness.test_verification.RegistryTests.test_timeout_marks_budget_exceeded_and_keeps_evidence) ... ok
+test_unknown_check_is_blocked_before_any_process (tests.harness.test_verification.RegistryTests.test_unknown_check_is_blocked_before_any_process) ... ok
+
+----------------------------------------------------------------------
+Ran 73 tests in 23.880s
+
+OK
+
+PASSED: Harness test suite
+
+==============================================================================
+Verification summary
+==============================================================================
+PASS  [tests] R03 contract suite
+PASS  [tests] R02A contract suite
+PASS  [tests] R03A contract suite
+PASS  [tests] R02 protocol models (synthetic)
+PASS  [tests] R03 verification adapter suite
+PASS  [harness] Harness test suite
+
+RESULT: PASS (6 checks passed).

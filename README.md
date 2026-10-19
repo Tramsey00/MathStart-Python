@@ -1,243 +1,76 @@
 # MathStart
 
-MathStart — образовательный сайт по математике на Django.
+Образовательный сайт по математике: FastAPI/Pydantic, SQLAlchemy/Alembic,
+PostgreSQL 16+ и React/TypeScript с immutable SSG. Сохранены исходные уроки,
+математика, URL, медиа, учётные записи и административные операции.
+Будущие Knowledge/Assessment/Progress/Analyzer/Tutor/AI функции не реализованы.
 
-Учебные материалы хранятся в файловых исходниках, публикуются в базу данных и отображаются через единую систему шаблонов, стилей и интерактивных компонентов.
-
-## Основные части проекта
-
-| Каталог | Назначение |
+| Путь | Назначение |
 | --- | --- |
-| `config/` | Настройки Django, URL-конфигурация и запуск проекта. |
-| `content/` | Модели, представления, сервисы публикации, проверки и management-команды. |
-| `curriculum/` | Источник истины для 263 учебных тем. |
-| `site_content/` | Источник структуры сайта, неучебных страниц, редиректов и seed-media. |
-| `templates/` | Django-шаблоны страниц и компонентов. |
-| `static/mathstart/` | Общие CSS и JavaScript-ресурсы сайта. |
-| `media/` | Runtime-хранилище медиафайлов Django. |
-| `docs/` | Техническая документация проекта. |
-| `var/` | Локальные резервные копии и отчёты проверок. |
+| backend/ | API, доменные сервисы, SQLAlchemy и Alembic, публикация и CLI |
+| frontend/ | React, TypeScript, build, rendering и browser tests |
+| curriculum/ | Исходные учебные HTML/JSON/CSS/JS/SVG, 263 темы |
+| site_content/ | Структура сайта, редиректы, страницы и reviewed media |
+| static/ | Общие authored CSS/JS/assets |
+| deploy/ | Единственные канонические Dockerfile/Compose и runbooks |
+| specs/ | Сохранённые доменные контракты и manifests |
+| var/ | Игнорируемые локальные окружения, private настройки и отчёты |
 
-## Источники данных
+## Чистый клон и запуск
 
-Схема базы данных определяется Django-миграциями.
-
-Учебные темы находятся в `curriculum/`.
-
-Каталог классов, предметов и разделов, структурные страницы сайта, редиректы и исходные медиафайлы находятся в `site_content/`.
-
-Рабочий `db.sqlite3` и runtime-каталог `media/` не являются источниками истины и могут быть восстановлены из файлов проекта.
-
-## Установка
-
-Основной dev/test путь MS6-V01 — Python 3.12+ и PostgreSQL 16+.
-Docker Compose, disposable smoke, диагностика и ограничения проверки описаны в
-[`docs/runbooks/postgres-dev-test.md`](docs/runbooks/postgres-dev-test.md).
-Это инфраструктура разработки, не production deployment. Локальный Docker/PostgreSQL
-путь проверен; результаты и отдельные статусы GitHub CI/human acceptance — в
-[`trace MS6-V01`](docs/agent-traces/MS6-V01-postgres-ci.md).
-
-Создайте и активируйте виртуальное окружение:
+Нужны Python 3.12+, Git, PostgreSQL 16+, Node 24 и npm 11.19.0; для контейнерного
+пути Docker/Compose. Версии пакетов закреплены существующими lock-файлами.
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-Установите зависимости:
-
-```powershell
 python -m pip install --no-deps -r requirements.lock
 python -m pip check
-```
-
-Создайте локальный `.env` на основе `.env.example`:
-
-```powershell
+npm --prefix frontend ci
 Copy-Item .env.example .env
 ```
 
-Замените placeholders локальными значениями. Запустите PostgreSQL и проверьте
-подключение (для Docker нужен установленный Docker Compose v2):
+Замените placeholders, храните ключи/DSN вне Git. Host CLI получает значения
+через process environment (не печатайте `.env`). Контейнерный путь использует
+отдельные private env files и явно выбранные volumes/subnet/loopback port.
+Следуйте [deploy/RELEASE.md](deploy/RELEASE.md): schema `preview/apply/check`,
+явный initial operator, `prepare-bootstrap`, locked frontend build,
+publication `plan/publish`. До публикации readiness остаётся 503.
+В [backend/READ_RUNTIME.md](backend/READ_RUNTIME.md) описаны env и content CLI.
 
 ```powershell
-docker compose up -d --wait db
-python scripts/check_database.py
+docker build -f deploy/Dockerfile --target api -t mathstart-api:local .
+docker build -f deploy/Dockerfile --target edge -t mathstart-edge:local .
+docker build -f deploy/Dockerfile --target frontend-builder -t mathstart-builder:local .
+docker compose --env-file <private-compose-env> -f deploy/compose.yaml up -d db
+# После schema/operator/build и перед HTTP publication probes:
+docker compose --env-file <private-compose-env> -f deploy/compose.yaml up -d api edge
 ```
 
-Примените миграции:
+Корневой compose.yaml включает этот же deploy/compose.yaml; отдельного старого
+Dockerfile/сервера нет. API запускается без Django, oracle и автоматического DDL.
+Recovery/rollback после target writes описан в [deploy/RECOVERY.md](deploy/RECOVERY.md).
+Не подключайте исходную Django-БД и чужие volumes к disposable-проверкам.
+
+## Разработка и проверки
 
 ```powershell
-python manage.py migrate
+python scripts/verify_repo.py --list
+python scripts/verify_repo.py --profile pure
+python scripts/check_migration_preservation.py
+# Полный registry; нужны подготовленные DB/SSG/HTTP/browser inputs по runbook:
+python scripts/verify_repo.py
 ```
 
-Восстановите содержимое сайта:
+Полный managed lifecycle, все 16 registry checks, fresh/upgrades и настоящие
+Chrome/Edge/Firefox × 360/768/1440: [docs/target-runtime.md](docs/target-runtime.md).
+Ordinary clean-clone installation отдельно проверяет `scripts/verify_installation.py`;
+это disposable QA, он не оставляет сайт для использования. Skipped не равен PASS.
+Локальные frontend команды: `npm --prefix frontend run dev`,
+`npm --prefix frontend run typecheck`, `npm --prefix frontend test` и
+`npm --prefix frontend run build`; build/preview требуют подготовленный публичный release.
 
-```powershell
-python manage.py bootstrap_site
-python manage.py collectstatic --noinput
-```
-
-Запустите сервер:
-
-```powershell
-python manage.py runserver
-```
-
-## Восстановление пустой базы
-
-Полное состояние MathStart восстанавливается двумя командами:
-
-```powershell
-python manage.py migrate
-python manage.py bootstrap_site
-```
-
-`bootstrap_site` восстанавливает:
-
-| Объект | Количество |
-| --- | ---: |
-| Классы | 6 |
-| Предметы | 12 |
-| Разделы | 63 |
-| Учебные темы | 263 |
-| Структурные и информационные страницы | 18 |
-| Всего `ContentPage` | 281 |
-| `LessonPublication` | 263 |
-| `MediaAsset` | 29 |
-| Redirect | 280 |
-
-Команда идемпотентна: повторный запуск на синхронизированном проекте не создаёт дубликатов.
-
-SQLite доступен только при явном `DJANGO_DB_BACKEND=sqlite`; можно задать
-`DJANGO_DB_PATH`. Ошибки PostgreSQL не переключают backend на SQLite.
-Для отдельного runtime-каталога задайте `DJANGO_RUNTIME_ROOT`.
-
-Проверка bootstrap с откатом транзакции (выполняет SQL-записи до rollback;
-не является read-only проверкой и не доказывает идемпотентность):
-
-```powershell
-python manage.py bootstrap_site --dry-run
-```
-
-## Работа с уроками
-
-Исходники уроков находятся в `curriculum/`.
-
-Публикация одной темы:
-
-```powershell
-python manage.py publish_lessons --slug SLUG --dry-run
-python manage.py publish_lessons --slug SLUG
-```
-
-Публикация всего каталога:
-
-```powershell
-python manage.py publish_lessons --all --dry-run
-python manage.py publish_lessons --all
-```
-
-Проверка соответствия файлов базе:
-
-```powershell
-python manage.py check_lesson_sources --all
-```
-
-Обновление указателя уроков:
-
-```powershell
-python manage.py index_lessons
-```
-
-Подробная инструкция находится в [`docs/editing-lessons.md`](docs/editing-lessons.md).
-
-## Проверки проекта
-
-### UI foundation MS7-I02 (fixture-only)
-
-При `DJANGO_DEBUG=True` существующий Django `runserver` предоставляет
-`/__ui__/foundation/`. Gallery демонстрирует ordinary/loading/error/empty,
-клавиатурные компоненты и выбор foundation slot по публичной schema четырёх
-режимов. При DEBUG=False маршрут отсутствует. Это только синтетические примеры:
-нет renderer, проверки математики, отправки решений или сохранения прогресса.
-
-Единственный fixture pack — `specs/ui/fixtures/ui-states-v1.json`, его версия и
-provenance проверяются через `specs/ui/ui-state-fixtures-v1.schema.json` и
-неизменённую MS7-R02A DTO schema. Полные upstream HTTP exchanges не загружаются.
-
-```powershell
-python -m unittest discover -s tests -p "test_i02_*.py" -v
-python manage.py test content.test_ui_foundation -v 2
-```
-
-Проверка браузером: Tab/Enter/Space, retry и ошибка поля, точное сохранение raw
-input, четыре режима и unknown fallback; ширины 360/768/1440. Фактические результаты
-и ограничения — в [trace MS7-I02](docs/agent-traces/MS7-I02.md). Нового frontend
-toolchain нет. Базовые connection/system checks не заменяют полный canonical run.
-
-Системная проверка Django:
-
-```powershell
-python manage.py check
-```
-
-Тесты:
-
-```powershell
-python manage.py test
-```
-
-Проверка учебных исходников:
-
-```powershell
-python manage.py check_lesson_sources --all
-```
-
-Проверка качества HTML и SVG:
-
-```powershell
-python manage.py check_content_quality
-```
-
-Проверка целостности сайта:
-
-```powershell
-python manage.py check_site_integrity
-```
-
-Проверка состояния моделей:
-
-```powershell
-python manage.py makemigrations --check --dry-run
-```
-
-## Документация
-
-Архитектура проекта:
-
-[`docs/architecture.md`](docs/architecture.md)
-
-Редактирование и публикация уроков:
-
-[`docs/editing-lessons.md`](docs/editing-lessons.md)
-
-Общие стили и ресурсы учебных страниц:
-
-[`docs/lesson-theme.md`](docs/lesson-theme.md)
-
-Каталог всех учебных тем:
-
-[`curriculum/INDEX.md`](curriculum/INDEX.md)
-
-
-## Migration acceptance status (MS7-MIG-R01)
-
-The current runnable version remains Django. Three participant baseline/ADR
-records and two independent R01 Task Approvals accept reviewed daf4e603.
-[ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md) records the accepted
-target decision; the [active plan](docs/exec-plans/active/MS7-MIG-R01.md) and
-[current acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md) track new-head
-documentation confirmation and snapshot merge. MIG_BASE_SHA remains PENDING.
-Existing startup/verification/frozen contracts/history remain current;
-target implementation and subsequent tasks are not started by this record.
+Legacy comparisons запускаются явно из [отдельного pinned oracle](docs/legacy-oracle.md).
+Обычный запуск сайта не требует этого checkout или его зависимостей.
+Старые инструкции/исходники доступны по Git SHA; они не описывают текущий runtime.
+[MIGRATION.md](MIGRATION.md) содержит evidence и состояние человеческой приёмки.

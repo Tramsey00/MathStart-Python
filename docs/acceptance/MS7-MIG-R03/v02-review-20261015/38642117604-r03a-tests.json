@@ -1,0 +1,447 @@
+{
+  "kind": "r03a",
+  "tests_run": 41,
+  "postgres_collected": 0,
+  "skips": 0,
+  "failures": 0,
+  "errors": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "case_inventory_matches": true,
+  "result": "PASS",
+  "cases": [
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_01_neutral_completed",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_02_neutral_only",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_03_equal_time_tiebreak",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_04_late_neutral",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_05_fact_before_event",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_06_fact_after_event",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_07_exact_duplicate",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate (candidate={'completion_id': '00000000-0000-0000-0000-000000000064', 'user_id': 'synthetic-student', 'skill_id': 'negative_numbers', 'attempt_id': 'attempt-01', 'outcome': 'CORRECT', 'independent_correct': False, 'completed_at': '2026-09-24T12:01:00Z', 'policy_version': 'progress-v1.1'})",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate (candidate={'completion_id': '00000000-0000-0000-0000-000000000001', 'user_id': 'synthetic-student', 'skill_id': 'negative_numbers', 'attempt_id': 'different-attempt', 'outcome': 'CORRECT', 'independent_correct': False, 'completed_at': '2026-09-24T12:01:00Z', 'policy_version': 'progress-v1.1'})",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate (candidate={'completion_id': '00000000-0000-0000-0000-000000000001', 'user_id': 'synthetic-student', 'skill_id': 'negative_numbers', 'attempt_id': 'attempt-01', 'outcome': 'CORRECT', 'independent_correct': False, 'completed_at': '2026-09-24T12:02:00Z', 'policy_version': 'progress-v1.1'})",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate (candidate={'completion_id': '00000000-0000-0000-0000-000000000001', 'user_id': 'synthetic-student', 'skill_id': 'negative_numbers', 'attempt_id': 'attempt-01', 'outcome': 'WRONG', 'independent_correct': False, 'completed_at': '2026-09-24T12:01:00Z', 'policy_version': 'progress-v1.1'})",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate (candidate={'completion_id': '00000000-0000-0000-0000-000000000001', 'user_id': 'synthetic-student', 'skill_id': 'negative_numbers', 'attempt_id': 'attempt-01', 'outcome': 'CORRECT', 'independent_correct': True, 'completed_at': '2026-09-24T12:01:00Z', 'policy_version': 'progress-v1.1'})",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_08_conflicting_duplicate (candidate={'completion_id': '00000000-0000-0000-0000-000000000001', 'user_id': 'foreign-owner', 'skill_id': 'negative_numbers', 'attempt_id': 'attempt-01', 'outcome': 'CORRECT', 'independent_correct': False, 'completed_at': '2026-09-24T12:01:00Z', 'policy_version': 'progress-v1.1'})",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_09_retry_no_second_entry",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_10_event_and_fact",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_11_conflicting_time",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_12_neutral_eviction",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_13_count_three_to_two",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_14_mastered_to_learning",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_15_numerical_neutrality",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_16_late_independent",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-completion_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-user_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-skill_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-attempt_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-outcome')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-independent_correct')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-completed_at')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='missing-policy_version')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='empty-completion_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='empty-user_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='empty-skill_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='empty-attempt_id')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='extra-field')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='bad-uuid')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='uppercase-uuid')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='bad-policy')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='fake-outcome')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='null-outcome')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='integer-flag')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='null-flag')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='naive-time')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='precision-seven')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='invalid-calendar')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='offset-hour')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='offset-minute')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='date-only')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='numeric-time')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='numeric-owner')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='not-object')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='unknown-skill')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='independent-wrong')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='independent-unsupported')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_17_malformed_no_wrong (case='independent-indeterminate')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_18_client_flag_rejected",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_19_progress_v1_parity",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_19_progress_v1_parity (case='mixed_baseline_events')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_19_progress_v1_parity (case='misconception_repeat_reset_and_normalized_evidence')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_19_progress_v1_parity (case='diagnostics_and_completion_time_independence')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_20_delivery_permutations",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_21_timezone_duplicate",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_22_owner_skill_binding",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary (state='STARTED')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary (state='SUBMITTED')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary (state='ABANDONED')",
+          "result": "PASS"
+        },
+        {
+          "id": "test_r03a_contract.CompletionContractTests.test_23_lifecycle_boundary (state='REVIEWED')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_24_help_and_credit",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_25_repeat_isolation",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_26_event_reset_with_late_fact",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_27_outside_window",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_28_legacy_reveal_import",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_29_final_result_conflict",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_30_late_event_is_event",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_31_scope_and_not_started",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_32_immutable_conflict_order",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_all_outcomes_are_history_without_automatic_numeric_effects",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_bad_contexts_and_missing_legacy_outcome_fail_closed",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_cached_evidence_and_returned_results_are_detached",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_cross_skill_agreement_and_foreign_event_owner",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_full_window_fact_and_event_permutation_keeps_all_numerical_outputs",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_global_keys_cannot_hide_in_other_owner_or_skill_partition",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_later_reveal_does_not_revoke_finalized_independence",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_schema_and_literal_case_inventory",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "test_r03a_contract.CompletionContractTests.test_temporal_relationships_and_max_precision",
+      "result": "PASS",
+      "subtests": []
+    }
+  ],
+  "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+  "installed": {
+    "jsonschema-specifications": "2025.9.1",
+    "httpx": "0.28.1",
+    "python-dotenv": "1.2.2",
+    "fastapi": "0.115.12",
+    "asgiref": "3.12.1",
+    "uvicorn": "0.34.2",
+    "SQLAlchemy": "2.0.46",
+    "beautifulsoup4": "4.15.0",
+    "djangorestframework": "3.18.1",
+    "pip": "25.0.1",
+    "idna": "3.20",
+    "rpds-py": "2026.6.3",
+    "whitenoise": "6.12.0",
+    "h11": "0.16.0",
+    "referencing": "0.37.0",
+    "certifi": "2026.7.22",
+    "alembic": "1.18.4",
+    "pydantic": "2.11.4",
+    "MarkupSafe": "3.0.4",
+    "attrs": "26.1.0",
+    "psycopg": "3.3.6",
+    "typing_extensions": "4.16.0",
+    "Django": "5.2.16",
+    "typing-inspection": "0.4.4",
+    "tzdata": "2026.3",
+    "Mako": "1.4.3",
+    "click": "8.5.0",
+    "greenlet": "3.5.6",
+    "pydantic_core": "2.33.2",
+    "jsonschema": "4.26.0",
+    "httpcore": "1.0.9",
+    "sqlparse": "0.6.0",
+    "soupsieve": "2.10",
+    "starlette": "0.46.2",
+    "annotated-types": "0.8.0",
+    "psycopg-binary": "3.3.6",
+    "anyio": "4.15.1"
+  }
+}

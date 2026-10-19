@@ -1,6 +1,6 @@
 # MS7-MIG-R01 — Baseline snapshot, architecture and ownership
 
-- Status: **Active / INCOMPLETE — reviewed-head human records accepted; new-head confirmation and merge pending**
+- Status: **Accepted snapshot / post-merge record amendment review pending — active only for final integration intake**
 - Owner: Руслан / Tramsey00
 - Independent Reviewers / Task Approvers: Владимир / VladimirFrolov777 and Илья / 13baybars
 - Issue: [#28](https://github.com/Tramsey00/MathStart-Python/issues/28)
@@ -142,13 +142,13 @@ Keep this plan active until actual human acceptance; no automatic completed move
 - [x] Working schema read-only and admin/route/command/source inventory captured
 - [x] Exact migration input imported; proposed ADR and §17 index prepared
 - [x] 18 Issues assigned with real URLs and acyclic dependencies; later tasks PLANNED
-- [ ] Independent review of final candidate/checks (agent evidence in PR46; human record required)
+- [x] Independent reviewed-head approvals and explicit owner report of both e510744 confirmations; PR/main CI PASS
 - [x] Snapshot draft PR46 prepared and attached; first head CI failure preserved, own frozen-document edits restored; corrected local baseline8/8/Harness73 PASS; current-head CI external PR evidence
-- [ ] Snapshot independently approved and merged; resulting MIG_BASE_SHA established
-- [ ] Integration/task branches created from accepted resulting baseline
+- [x] Snapshot independently approved at daf4e603, e510744 confirmation owner-reported; PR46 merged, resulting MIG_BASE_SHA established
+- [x] Integration/R01 task branches created from exact accepted resulting baseline; no later branch
 - [x] Separate MIG-G0 records from all three participants at reviewed daf4e603
 - [x] Independent R01 Task Approvals by Владимир and Илья at reviewed daf4e603
-- [ ] Active plan completed only after required acceptance
+- [ ] Complete/move plan after new post-merge records task PR review and accepted integration intake
 
 Preparation is reviewable; dependent steps stay PENDING. R01 stops at the
 required human gate and does not execute another migration task.
@@ -190,3 +190,100 @@ snapshot merge/MIG_BASE_SHA/integration and task branch steps PENDING. No later
 task execution, working DB/app change or Issue closure. Earlier partial/pending
 sections above are chronological preparation history, superseded only by these
 current human records.
+
+## Current post-merge phase — 08.10.2026 Europe/Moscow
+
+Snapshot PR46 merged at01:47:59 Moscow: accepted PR head `e510744fcd87a22956aa71d5e22f20235e2af1c1`,
+actual resulting commit/MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
+Live PR metadata, commit parent/tree, both CI and three human sources in
+[post-merge provenance](../../acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json).
+Owner explicitly reports both reviewers confirmed the e510744 documentation in
+their chat; GitHub approvals stay daf4e603, merge itself not treated as approval.
+
+Integration `ms7-mig-react-fastapi` created remotely exactly at resulting SHA;
+`ms7-mig-r01-baseline` input same SHA, worktree
+C:/Projects/MathStart-Python/tmp/ms7-mig-r01/post-merge. Only R01 post-merge
+records; task PR→integration Refs #28, no direct main push. Core R01 snapshot
+accepted / MIG-G0 accepted for that snapshot; active plan retained only pending
+post-merge amendment review/intake, no automatic acceptance of this new HEAD.
+
+Fresh verification uses a new disposable R01 PostgreSQL container
+ms7-mig-r01-postmerge-pg-20261008, localhost55438, runtime DB
+ms6_v01_smoke_ms7_mig_r01_postmerge_20261008, test DB
+test_ms7_mig_r01_postmerge_20261008, runtime root
+C:/Projects/MathStart-Python/tmp/ms7-mig-r01/qa/postmerge-runtime.
+Working5432/8000 untouched; no following task environment created.
+Remaining calendar and mandatory assigned F01–F04 I03/I05 unchanged.
+Original plan sections above describe historical preparation, not current
+pending snapshot/branch state. [R02 handoff inputs](../../acceptance/MS7-MIG-R01/R02-input-handoff.md)
+are records only. All18 Issues stay OPEN, no R02/I01 execution.
+
+Current post-merge amendment: [draft task PR47](https://github.com/Tramsey00/MathStart-Python/pull/47) → ms7-mig-react-fastapi, Refs #28. First published head77d8c81dcb777cc29d6b50ed92e65a1a25bcfbd4; final containing head/validation in live PR. Independent record amendment review/intake pending; no approval inferred for either new record commit.
+
+## Narrow CI trigger extension and pin conflict — 08.10.2026
+
+Owner explicitly authorizes two existing ci.yml branch filters to include
+ms7-mig-react-fastapi while preserving main, existing jobs/locks/PostgreSQL/checks.
+This enables §9 task PR→integration and integration push baseline verification;
+full target platform verification remains R03, not started.
+
+Input PR47 head9fde3e53deba29b08574c41539e68b4d43e7a6b4, live base/integration
+60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7, PR OPEN/ready (owner had removed draft).
+MIG_BASE_SHA unchanged. No local/working DB use; unchanged CI creates disposable PG.
+
+[Exact trigger delta/conflict](../../acceptance/MS7-MIG-R01/ci-trigger-adjustment-20261008.json):
+jobs byte-identical, but MS7-R02A candidate-manifest pins the whole ci.yml.
+Existing strict R02A test now fails1/30 with expected old/current digests.
+Preserve manifest, tests and historical evidence; do not regenerate pin for green,
+skip/relax check or silently classify the contract as compatible.
+CI current-head run required, actual outcome recorded in PR47. Acceptance blocked
+until separate human decision resolves this pin compatibility and required CI passes.
+Active plan retained; original baseline/ADR acceptance unaffected.
+[Reviewer delta](../../acceptance/MS7-MIG-R01/pr47-review-delta.md).
+
+Observed first integration CI run37701885197 on e64d9a4: FAIL R02A1/30,
+baseline8/8 and fresh PG smoke PASS, R03A NOT RUN after failure.
+Actual tested checkout4a62032c033543ef4a282981a8d97585a579ca33.
+[Sanitized receipt](../../acceptance/MS7-MIG-R01/ci-integration-trigger-first-run.json).
+Final record head needs a new actual run; final evidence external PR47.
+Human pin compatibility decision and authorized corrective scope remain required,
+followed by successful exact-head checks and independent amendment acceptance.
+No weakened checks/pin regeneration to manufacture PASS. Plan remains active.
+
+## Current separate migration workflow correction — 08.10.2026
+
+Owner authorizes restoring ci.yml exactly from MIG_BASE_SHA and adding separate
+migration-ci.yml, name Migration baseline verification, only integration PR/push.
+Old main-only ci.yml SHA2561edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7
+again matches the untouched R02A pin. New workflow full jobs block byte-identical
+to accepted ci.yml; no reusable conversion, locks/checks/PG/env/Python change.
+[Correction record](../../acceptance/MS7-MIG-R01/migration-ci-correction-20261008.json).
+
+Failed filter variant above remains historical: e64d9a4/run37701885197 and
+f0c913e/run37702653809 FAIL R02A. Both receipts/old PR description preserved.
+Pin incompatibility corrected through exact restoration, not pin/test edits.
+Local Python3.12.10 pip check PASS, R02A30/I02frozen-upstream7/R03A41 PASS/exit0.
+Actual new-head migration workflow CI and independent amendment review required.
+MIG_BASE_SHA/integration60b341f unchanged. No working DB/target dependencies/
+API contracts or R02/I01/R03 implementation. Scope is existing baseline checks,
+full target verification remains R03. Active plan retained until final intake.
+
+## Separate integration CI: first corrected run, 2026-10-08
+
+[Run 37753830717](https://github.com/Tramsey00/MathStart-Python/actions/runs/37753830717)
+completed SUCCESS for head `939bd1317fa3587dc79132544cff45212260fbc0`.
+Actual checkout from job logs: `b1ababf2ec25a50d47c77239792e318d32a2ac16`,
+parents accepted base `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` and that PR head.
+Python 3.12.14, Django 5.2.16, PostgreSQL server_version_num 160015.
+
+All unchanged workflow stages succeeded: lock installation/pip check, version
+report, expected bounded connection failure, disposable PostgreSQL fresh smoke,
+verify_repo (8/8; Django 107, R03 reference 18, Harness 73), R02A 30 and R03A 41.
+Local I02 remains 7/7 PASS including frozen-upstream digests; no extra CI step
+was added. Sanitized receipt: `migration-ci-first-success.json` in R01 acceptance.
+The earlier filter-attempt FAIL records are preserved. This successful run
+belongs only to the exact head above. The containing records update will get
+its own CI; final full head, run and actual tested merge-ref are external in
+PR47, avoiding a circular self-pin. Independent Vladimir/Ilya review and human
+integration intake remain required. No application/working DB/MIG_BASE_SHA or
+integration change, Issue closure, merge or downstream implementation.

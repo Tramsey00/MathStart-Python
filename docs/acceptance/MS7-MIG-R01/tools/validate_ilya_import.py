@@ -127,6 +127,10 @@ def main():
             assert (root / path).is_file(), path
         for path in f['evidence']:
             assert (package / path).is_file(), path
+    # A separate current audit can report actual post-merge provenance without
+    # rewriting the historical pre-merge import receipt.
+    post_merge_path = records / 'post-merge-provenance-20261008.json'
+    post_merge = json.loads(post_merge_path.read_text(encoding='utf-8')) if post_merge_path.exists() else {}
     result = {'result':'PASS', 'checked_git_ref':args.ref,
               'source_sha':INPUT, 'prior_candidate_head':PRIOR,
               'archive_sha256':receipt['archive_sha256'],
@@ -141,7 +145,9 @@ def main():
               'original_application_contract_tree_unchanged_from_prior':True,
               'D08_preserved_closed':True,
               'F01_F04_status':sorted({f['follow_up_status'] for f in followup['findings']}),
-              'MIG_BASE_SHA':'PENDING', 'R01':'INCOMPLETE', 'MIG_G0':'PENDING',
+              'MIG_BASE_SHA':post_merge.get('MIG_BASE_SHA', 'PENDING'),
+              'R01':post_merge.get('R01', 'INCOMPLETE'),
+              'MIG_G0':post_merge.get('MIG_G0', 'PENDING'),
               'links':links}
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({k:v for k,v in result.items() if k != 'links'}, ensure_ascii=True))

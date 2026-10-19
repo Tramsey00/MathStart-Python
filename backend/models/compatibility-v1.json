@@ -1,0 +1,13 @@
+{
+  "version": "migration-v01-compatibility-v1.0.0",
+  "source_sha": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "frozen_mapping_sha256": "4faf862e8810e817d241b9134a2f52a2d62a8236b491bdc7c658e588a863f588",
+  "approval_evidence": "docs/acceptance/MS7-MIG-V01/b01-owner-approval-v1.json",
+  "addendum": "docs/acceptance/MS7-MIG-V01/compatibility-addendum-v1.0.0.md",
+  "ddl_overrides": [
+    {"table": "auth_group_permissions", "column": "id", "model_db_type": "integer", "physical_db_type": "bigint"},
+    {"table": "auth_user_groups", "column": "id", "model_db_type": "integer", "physical_db_type": "bigint"},
+    {"table": "auth_user_user_permissions", "column": "id", "model_db_type": "integer", "physical_db_type": "bigint"}
+  ],
+  "scope": "Only the three listed primary keys. All related FK columns and every other baseline column remain unchanged."
+}

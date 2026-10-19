@@ -1,0 +1,373 @@
+{
+  "version": "migration-r02-v1",
+  "scope": "logical future domain adapters; no target imports implemented",
+  "domains": {
+    "users": [
+      "infrastructure",
+      "content"
+    ],
+    "content": [
+      "knowledge"
+    ],
+    "knowledge": [],
+    "math_validation": [],
+    "progress": [
+      "users",
+      "knowledge"
+    ],
+    "assessment": [
+      "users",
+      "content",
+      "knowledge",
+      "math_validation",
+      "solution_analyzer",
+      "progress"
+    ],
+    "solution_analyzer": [
+      "math_validation",
+      "knowledge",
+      "llm",
+      "progress"
+    ],
+    "adaptive_practice": [
+      "progress",
+      "knowledge",
+      "assessment"
+    ],
+    "ai_tutor": [
+      "content",
+      "knowledge",
+      "progress",
+      "assessment",
+      "llm"
+    ],
+    "llm": [
+      "infrastructure"
+    ],
+    "infrastructure": []
+  },
+  "migration_tasks": [
+    {
+      "id": "MS7-MIG-R01",
+      "dependencies": []
+    },
+    {
+      "id": "MS7-MIG-R02",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R03",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02",
+          "source": "Parity matrix R02; migration alias per §13"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R04",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R03"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V05"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I05"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R05",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-R04"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-R06",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R04"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V06"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I06"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V01",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V02",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V03",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V04",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V05",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V04"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-I04"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-V06",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-V05"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I01",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-R01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I02",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I03",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I02"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I04",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I01"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V03"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V02"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I05",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I03"
+        },
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I04"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V05"
+        }
+      ]
+    },
+    {
+      "id": "MS7-MIG-I06",
+      "dependencies": [
+        {
+          "kind": "HARD",
+          "id": "MS7-MIG-I05"
+        },
+        {
+          "kind": "CONTRACT",
+          "id": "MS7-MIG-R02"
+        },
+        {
+          "kind": "INTEGRATION",
+          "id": "MS7-MIG-V06"
+        }
+      ]
+    }
+  ]
+}

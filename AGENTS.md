@@ -1,38 +1,10 @@
 # MathStart repository map
 
-## Purpose
-
-MathStart extends an existing Django mathematics site with an intelligent
-learning layer. Work through `spec -> agent -> verification -> trace -> human
-review`. Recover context from the repository, not previous chats.
-
-## Read and discover
-
-1. Read `AGENTS.md`, `PRODUCT.md`, then `ARCHITECTURE.md`.
-2. Read relevant accepted decisions in `docs/adr/` (start with
-   `ADR-0001-preserve-django.md`), contracts in `specs/`, and the active task in
-   `docs/exec-plans/active/`.
-3. Inspect relevant code, tests, and migrations before editing. Use `README.md`
-   for setup and `docs/architecture.md` for the existing content pipeline.
-4. Use `skills/verification/SKILL.md` for checks and failure reporting.
-
-Documents define scope and ownership; tests and migrations provide executable
-evidence. Surface conflicts or missing essential contracts instead of inventing
-architecture. Templates live beside ADRs, specs, active plans, and traces.
-
-## Current and target platform
-
-Current runtime: Django, Django ORM/migrations, PostgreSQL dev/test configuration
-with explicit SQLite compatibility, Django Templates, and
-shared HTML/CSS/JavaScript. `requirements.txt` and `config/settings.py` describe
-what is installed; the `content/` app owns the existing site.
-PostgreSQL/Docker acceptance evidence is tracked in the active MS6-V01 plan;
-configured infrastructure must not be confused with verified execution.
-
-Accepted v3.1 target: Python 3.12+, Django 5.2+, PostgreSQL, Django Templates
-with progressive JavaScript, DRF where APIs are needed, deterministic/SymPy
-validation, Pydantic structured outputs, and isolated LLM providers. Future
-domains and tooling are introduced in scoped tasks, not implied to exist now.
+MathStart runs on FastAPI/Pydantic, SQLAlchemy/Alembic, PostgreSQL and React/SSG.
+Start with [README.md](README.md), [current runtime](docs/target-runtime.md),
+[release](deploy/RELEASE.md) and [recovery](deploy/RECOVERY.md). Read PRODUCT.md,
+ARCHITECTURE.md and the relevant accepted contracts before changing behavior.
+The intelligent learning domains remain future scope, not implemented features.
 
 ## Critical invariants
 
@@ -57,66 +29,30 @@ domains and tooling are introduced in scoped tasks, not implied to exist now.
 - Bootstrap must not overwrite historical user evidence. Never commit or log
   secrets; normal automated tests must not require a live LLM.
 
-## Scope and migrations
+## Working rules
 
-Preserve existing `content/`, `curriculum/`, `site_content/`, publication tools,
-templates, and tests. Prefer a complete pilot slice to broad rewrites; do not
-convert all lessons or add technologies/features outside `PRODUCT.md` scope.
-Do not replace Django or introduce a separate frontend without an accepted ADR.
-Do not delete content or historical evidence without explicit authorization.
+Inspect Git state and real imports/build inputs before editing. Preserve dirty
+fixes, data, authored content, media, deterministic mathematics and contracts.
+Use scoped changes and meaningful verification; never weaken checks for PASS.
+Schema changes use reviewed Alembic migrations and fresh/upgrade verification;
+never edit applied history. No automatic DDL or content/operator seed at startup.
+Never commit/log secrets. Normal tests do not call live LLM providers.
 
-Every schema change requires a reviewed Django migration, consistency checks,
-applicable migration/fresh-install verification, and tests. Do not edit applied
-migrations to repair local state; prefer additive changes and archive evidence-
-referenced objects. Details belong in `ARCHITECTURE.md` and the task plan.
+Default verification is target: `python scripts/verify_repo.py`. The portable
+subset is `--profile pure`; it cannot establish runtime readiness. The complete
+managed run with owned disposable PostgreSQL/browser prerequisites is described
+in docs/target-runtime.md. Empty, skipped, missing and timed-out checks fail.
+Use [verification skill](skills/verification/SKILL.md) for staged checks and
+honest evidence tied to the actual SHA. Full CI includes install/recovery and
+the combined gate; old results never establish readiness for a new candidate.
 
-## Task workflow and records
+Historical Django is only a separate pinned checkout and interpreter prepared
+on explicit comparison runs: [oracle](docs/legacy-oracle.md). Never install
+Django/DRF in target environments or copy the old platform back into HEAD.
+Preservation dispositions are explicit; unknown deletions/changes fail.
 
-1. Inspect repository state, required sources, affected boundaries, and acceptance
-   criteria. Use an execution plan for substantial work.
-2. Make small scoped changes; preserve behavior unless the spec changes it.
-   Update relevant tests/contracts and never weaken validation to pass checks.
-3. Run required verification, investigate failures, and fix only in-scope issues.
-   Record exact results and classify pre-existing/environment failures honestly.
-4. Update the trace and prepare the result for the required human gate.
-
-| Artifact / gate | When required | Location |
-| --- | --- | --- |
-| ADR | Significant platform, ownership/dependency, persistence, API, exercise, progress, graph, LLM-trust, or deployment decision changes | `docs/adr/ADR-TEMPLATE.md` |
-| Spec | New/changed feature or domain contract, including exercise, evidence, or LLM behavior | `specs/SPEC-TEMPLATE.md` |
-| Exec plan | Substantial work across domains, schema/migration sequences, new subsystems, public contracts, progress/LLM semantics, or multiple iterations | `docs/exec-plans/active/EXEC-PLAN-TEMPLATE.md` |
-| Trace | Significant agent task; observable actions/results only, no private chain-of-thought | `docs/agent-traces/TRACE-TEMPLATE.md` |
-| Human gate | Architectural/product decisions, breaking migrations, security/deployment/provider changes, or any gate required by the task/ADR/spec | Relevant task plan and PR template |
-
-Move active plans to `docs/exec-plans/completed/` only after completion and
-human acceptance. Keep detailed verification, observability, and record formats
-in the linked architecture, skill, and templates rather than duplicating them here.
-
-## Verification and Definition of Done
-
-Run from the configured project environment:
-
-```bash
-python scripts/verify_repo.py
-```
-
-Use the verification skill for relevant additional checks. Report actual tooling
-and interpreter versions; never claim checks passed when unconfigured or skipped.
-
-Done requires the requested result, preserved scope/invariants, required
-migrations and meaningful tests, passing relevant checks, updated contracts and
-trace, no secrets or unrelated changes, and completed human gates. The result
-must be understandable from repository artifacts. Do not declare completion
-while required checks fail or acceptance remains outstanding.
-
-
-## Migration acceptance status (MS7-MIG-R01)
-
-The current runnable version remains Django. Three participant baseline/ADR
-records and two independent R01 Task Approvals accept reviewed daf4e603.
-[ADR-0006](docs/adr/ADR-0006-react-fastapi-migration.md) records the accepted
-target decision; the [active plan](docs/exec-plans/active/MS7-MIG-R01.md) and
-[current acceptance](docs/acceptance/MS7-MIG-R01/acceptance.md) track new-head
-documentation confirmation and snapshot merge. MIG_BASE_SHA remains PENDING.
-Existing startup/verification/frozen contracts/history remain current;
-target implementation and subsequent tasks are not started by this record.
+For substantial work keep a scoped execution record, actual verification and
+review findings in the repository. Human acceptance, main merge, production
+changes and provider/security decisions require the appropriate human decision.
+MIGRATION.md records migration evidence/continuation; it does not start work.
+Do not operate the protected acceptance stack or original Django DB as tests.

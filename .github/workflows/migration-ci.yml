@@ -1,0 +1,599 @@
+name: Migration verification
+
+on:
+  pull_request:
+    branches: [ms7-mig-react-fastapi, main]
+    paths: ['deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+  push:
+    branches: [ms7-mig-react-fastapi, main, 'ms7-mig-*']
+    paths: ['deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+
+  workflow_dispatch:
+    inputs:
+      full_target:
+        description: Run the complete managed target and all nine browser projects
+        type: boolean
+        default: false
+      recovery_handoff_run:
+        description: Scoped image-only check using a previous successful full target; does not establish combined acceptance
+        type: number
+        default: 0
+
+permissions:
+  contents: read
+
+jobs:
+  target-readiness:
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.handoff.outputs.ready }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+      - id: handoff
+        env:
+          RECOVERY_HANDOFF_RUN: ${{ inputs.recovery_handoff_run || 0 }}
+          FULL_TARGET_REQUESTED: ${{ inputs.full_target || false }}
+        name: Record implemented commands and explicit remaining target gaps
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          if int(os.environ['RECOVERY_HANDOFF_RUN']) and os.environ['FULL_TARGET_REQUESTED'] == 'true':
+              raise SystemExit('Choose full_target or scoped recovery_handoff_run, not both')
+          data = json.loads(Path('specs/migration/r03-v1/runtime-commands.json').read_text())
+          required = data['required_backend_checks']
+          missing = [key for key in required if not data.get('commands', {}).get(key)]
+          ready = data.get('status') == 'REVIEWED' and all(data.get('commands', {}).get(k) for k in required)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('ready=' + str(ready).lower() + '\n')
+          print('Implemented target commands: ' + ', '.join(sorted(data.get('commands', {}))))
+          print('Missing required target commands: ' + ', '.join(missing))
+          print('Remaining combined integration: ' + ', '.join(data.get('pending_integration', [])))
+          print('R03 target: READY to exercise unchanged assertions' if ready else 'R03 target: INCOMPLETE; full target is not verified. Available entries run in public scoped CI.')
+          PY
+  verify:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: ms6_v01_smoke_ci
+          POSTGRES_USER: mathstart_ci
+          POSTGRES_PASSWORD: disposable-ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U mathstart_ci -d ms6_v01_smoke_ci"
+          --health-interval=2s --health-timeout=3s --health-retries=30
+    env:
+      MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/verify-legacy-env/bin/python
+      DJANGO_SECRET_KEY: ci-only-key-for-harness-verification
+      DJANGO_DEBUG: 'False'
+      DJANGO_DB_BACKEND: postgresql
+      DJANGO_DB_HOST: 127.0.0.1
+      DJANGO_DB_PORT: '5432'
+      DJANGO_DB_NAME: ms6_v01_smoke_ci
+      DJANGO_DB_USER: mathstart_ci
+      DJANGO_DB_PASSWORD: disposable-ci-only-password
+      DJANGO_DB_TEST_NAME: test_mathstart_ci
+      DJANGO_RUNTIME_ROOT: ${{ github.workspace }}/var/ci-runtime
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - name: Install dependencies
+        run: |
+          python -m venv var/verify-legacy-env
+          var/verify-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
+          var/verify-legacy-env/bin/python -m pip check
+      - name: Runtime version report
+        run: python scripts/legacy_oracle.py --run scripts/version_report.py
+      - name: Connection failure is bounded and nonzero
+        run: |
+          if DJANGO_DB_PORT=1 python scripts/legacy_oracle.py --run scripts/check_database.py; then
+            echo "Expected connection failure did not occur"
+            exit 1
+          fi
+      - name: Fresh PostgreSQL migration/bootstrap/static/content smoke
+        run: python scripts/legacy_oracle.py --run scripts/fresh_install_smoke.py --disposable
+      - name: Verify repository
+        run: python scripts/verify_repo.py --profile legacy
+      - name: R02A HTTP and eligibility contract
+        run: python scripts/legacy_oracle.py --run -m unittest discover -s tests -p test_r02a_contract.py -v
+      - name: R03A CompletionFact contract
+        run: python scripts/legacy_oracle.py --run -m unittest discover -s tests -p test_r03a_contract.py -v
+      - name: Unchanged standalone R02 suite on accepted input (historical baseline)
+        run: |
+          git worktree add --detach var/r02-baseline 8d958aeeb17da46839722441425ccbb5889e2ab7
+          cd var/r02-baseline
+          $MATHSTART_LEGACY_PYTHON -m unittest discover -s tests -p 'test_migration_r02*.py' -v
+
+  pure:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - name: Locked tooling without Django or DRF
+        run: |
+          python -m pip install --no-deps -r specs/migration/r03-v1/verification.lock
+          python -m pip check
+          python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          python scripts/version_report.py --profile pure
+      - name: Exact checkout and event linkage
+        run: python scripts/ci_provenance.py --output var/ci/provenance.json
+      - name: Pure, protocol models, adapters and Harness
+        run: python scripts/verify_repo.py --profile pure
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: r03-pure-provenance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: var/ci/
+          if-no-files-found: error
+
+  backend-install:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: test_ms7_mig_v01_backend_ci
+          POSTGRES_USER: mathstart_ci
+          POSTGRES_PASSWORD: disposable-backend-ci-only
+        ports: ['55441:5432']
+        options: >-
+          --health-cmd="pg_isready -U mathstart_ci -d test_ms7_mig_v01_backend_ci"
+          --health-interval=2s --health-timeout=3s --health-retries=30
+    env:
+      MATHSTART_DATABASE_URL: postgresql+psycopg://mathstart_ci:disposable-backend-ci-only@127.0.0.1:55441/test_ms7_mig_v01_backend_ci
+      MATHSTART_DB_BACKEND: postgresql
+      MATHSTART_DISPOSABLE: '1'
+      MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/backend-legacy-env/bin/python
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.21.0'
+      - name: Locked independent target and legacy environments
+        run: |
+          python -m venv var/backend-target-env
+          var/backend-target-env/bin/python -m pip install --no-deps -r backend/tests/v04/requirements.lock
+          var/backend-target-env/bin/python -m pip check
+          var/backend-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          python -m venv var/backend-legacy-env
+          var/backend-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
+          var/backend-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
+          var/backend-legacy-env/bin/python -m pip check
+          npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          npm --prefix frontend ci --maxsockets=1 --cache var/backend-npm-cache
+      - name: Exact checkout provenance
+        run: python scripts/ci_provenance.py --output var/backend-ci-provenance.json
+      - name: Full backend suites with owned databases and no skipped tests
+        run: var/backend-target-env/bin/python scripts/target_check.py backend-tests
+      - name: Managed build, ASGI and all read-only target commands
+        run: >-
+          var/backend-target-env/bin/python scripts/verify_target.py
+          --runtime-root var/target-managed
+          --legacy-python var/backend-legacy-env/bin/python
+          --group backend --group database --group content
+      - name: Real fresh twice and populated upgrade A B C
+        run: |
+          var/backend-target-env/bin/python scripts/target_check.py fresh-install --disposable
+          var/backend-target-env/bin/python scripts/target_check.py upgrade-A --disposable
+          var/backend-target-env/bin/python scripts/target_check.py upgrade-B --disposable
+          var/backend-target-env/bin/python scripts/target_check.py upgrade-C --disposable
+      - name: Retain safe command receipts, exclude runtime credentials
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: backend-install-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/backend-ci-provenance.json
+            var/target-checks/**/result.json
+            var/target-managed/result.json
+          if-no-files-found: error
+          retention-days: 30
+
+  deployment-images:
+    if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - name: Exact deployment checkout
+        run: python scripts/ci_provenance.py --output var/deployment-provenance.json
+      - name: Build independent API and non-root edge images
+        run: |
+          docker build -f deploy/Dockerfile --target api -t mathstart-api:verification .
+          docker build -f deploy/Dockerfile --target edge -t mathstart-edge:verification .
+          docker pull postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+      - name: Owned Compose release schema and fail-closed startup
+        run: >-
+          python scripts/verify_deployment.py --disposable
+          --runtime-root var/deployment-ci
+          --api-image mathstart-api:verification
+          --edge-image mathstart-edge:verification
+      - name: Retain safe deployment receipts only
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: deployment-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/deployment-provenance.json
+            var/deployment-ci/result.json
+          if-no-files-found: error
+          retention-days: 30
+
+  target:
+    needs: target-readiness
+    if: (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)) && !(github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0)
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: test_ms7_mig_v01_full_target
+          POSTGRES_USER: mathstart_ci
+          POSTGRES_PASSWORD: disposable-target-ci-only
+        ports: ['55441:5432']
+        options: >-
+          --health-cmd="pg_isready -U mathstart_ci -d test_ms7_mig_v01_full_target"
+          --health-interval=2s --health-timeout=3s --health-retries=30
+    env:
+      MATHSTART_DATABASE_URL: postgresql+psycopg://mathstart_ci:disposable-target-ci-only@127.0.0.1:55441/test_ms7_mig_v01_full_target
+      MATHSTART_V04_DATABASE_URL: postgresql+psycopg://mathstart_ci:disposable-target-ci-only@127.0.0.1:55441/test_ms7_mig_v01_full_target
+      MATHSTART_DB_BACKEND: postgresql
+      MATHSTART_DISPOSABLE: '1'
+      MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/full-legacy-env/bin/python
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/frontend/.cache/browsers
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.21.0'
+      - name: Separate locked target and legacy environments
+        run: |
+          python -m venv var/full-target-env
+          var/full-target-env/bin/python -m pip install --no-deps -r backend/tests/v04/requirements.lock
+          var/full-target-env/bin/python -m pip check
+          var/full-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          python -m venv var/full-legacy-env
+          var/full-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
+          var/full-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
+          var/full-legacy-env/bin/python -m pip check
+          npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          npm --prefix frontend ci --maxsockets=1 --cache var/full-npm-cache
+      - name: Install the actual Chrome Edge and Firefox browsers
+        working-directory: frontend
+        run: npx --no-install playwright install --with-deps chrome msedge firefox
+      - name: Exact checkout provenance
+        run: python scripts/ci_provenance.py --output var/full-target-provenance.json
+      - name: Complete registry and fresh twice plus populated A B C
+        run: >-
+          var/full-target-env/bin/python scripts/verify_target.py
+          --runtime-root var/full-target
+          --legacy-python var/full-legacy-env/bin/python
+      - name: Retain browser case status diagnostics without private values
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          summaries = []
+          for path in Path('frontend/.cache/checks').glob('run-*/playwright.json'):
+              data = json.loads(path.read_text())
+              cases = []
+              def walk(suite):
+                  for spec in suite.get('specs', []):
+                      for test in spec.get('tests', []):
+                          errors = []
+                          for result in test.get('results', []):
+                              for error in result.get('errors', []):
+                                  message = error.get('message', '')
+                                  errors.append({'name': error.get('name'), 'matcher': re.findall(r'\b(toBe|toEqual|toHaveText|toHaveURL|toBeVisible|toHaveCount|toHaveValue|toHaveAttribute)\b', message)[:2], 'locations': sorted(set(re.findall(r'[A-Za-z0-9_.-]+\.spec\.ts:\d+:\d+', str(error.get('stack', '')))))[:4], 'timeout': 'timeout' in message.lower()})
+                          cases.append({'title': spec['title'], 'file': spec.get('file'), 'line': spec.get('line'), 'project': test.get('projectName'), 'status': test.get('status'), 'errors': errors})
+                  for child in suite.get('suites', []):
+                      walk(child)
+              for suite in data.get('suites', []):
+                  walk(suite)
+              summaries.append({'stats': data.get('stats'), 'cases': cases, 'global_error_count': len(data.get('errors', []))})
+          Path('var/full-target-browser-diagnostics.json').write_text(json.dumps(summaries, indent=2) + '\n')
+          PY
+      - name: Retain safe combined receipts without cookies or runtime secrets
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: full-target-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/full-target-provenance.json
+            var/full-target/result.json
+            var/full-target/runtime/prepare-result.json
+            var/full-target/runtime/releases/
+            var/full-target/artifact/
+            var/target-checks/**/result.json
+            var/full-target-browser-diagnostics.json
+            frontend/test-results/**/r*-region*-legacy.png
+            frontend/test-results/**/r*-region*-target.png
+            frontend/test-results/**/graph-controls.png
+            frontend/test-results/**/graph-table.png
+            frontend/test-results/**/browser-version.json
+            frontend/test-results/**/matched-capture-index.json
+            frontend/test-results/**/matched-family-coverage.json
+            frontend/test-results/**/svg-labels.json
+            frontend/test-results/**/initial-contents-*.png
+            frontend/test-results/**/contents-*.png
+            frontend/test-results/**/power-twelve-presets.png
+            frontend/test-results/**/power-exact-table.png
+            frontend/test-results/**/circle-lab-controls-coordinates.png
+            frontend/test-results/**/circle-model-eight-parts.png
+            frontend/test-results/**/circle-model-twelve-parts.png
+            frontend/test-results/**/style.png
+            frontend/test-results/**/lesson.png
+            frontend/test-results/**/catalogue-no-js.png
+            frontend/test-results/**/attachments/matched-family-coverage*
+            frontend/test-results/**/attachments/matched-capture-index*
+            frontend/test-results/**/attachments/browser-version*
+            frontend/test-results/**/attachments/svg-labels*
+            frontend/test-results/**/attachments/sanitized-staff-network*
+          if-no-files-found: error
+          retention-days: 30
+
+  release-operations:
+    needs: target-readiness
+    if: (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)) && !(github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0)
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - name: Separate locked target and native legacy tools
+        run: |
+          python -m venv var/operations-target-env
+          var/operations-target-env/bin/python -m pip install --no-deps -r backend/infrastructure/http/requirements.lock
+          var/operations-target-env/bin/python -m pip check
+          var/operations-target-env/bin/python -c "import importlib.util; assert not importlib.util.find_spec('django'); assert not importlib.util.find_spec('rest_framework')"
+          python -m venv var/operations-legacy-env
+          var/operations-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
+          var/operations-legacy-env/bin/python -m pip check
+      - name: Exact release operations checkout
+        run: python scripts/ci_provenance.py --output var/operations-provenance.json
+      - name: Full product source and documentation reconciliation
+        run: var/operations-target-env/bin/python docs/acceptance/migration-execution/check_product_source.py --output var/operations-document-check.json
+      - name: Ordinary independent clean clone installation
+        run: var/operations-target-env/bin/python scripts/verify_installation.py --disposable --runtime-root var/operations-install
+      - name: Native legacy physical return and new reviewed identity cutover
+        run: >-
+          var/operations-target-env/bin/python scripts/verify_legacy_return.py
+          --disposable --runtime-root var/operations-legacy-return
+          --legacy-python var/operations-legacy-env/bin/python
+      - name: Retain safe operational receipts only
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-operations-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/operations-provenance.json
+            var/operations-document-check.json
+            var/operations-install/result.json
+            var/operations-legacy-return/result.json
+          if-no-files-found: error
+          retention-days: 30
+
+  combined-candidate-checks:
+    needs: [target-readiness, verify, pure, backend-install, deployment-images, target, release-operations, image-recovery]
+    if: always() && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && inputs.full_target)) && !(github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every mandatory technical job must execute successfully
+        env:
+          REQUIRED_JOB_RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python - <<'PY'
+          import json, os
+          results = json.loads(os.environ['REQUIRED_JOB_RESULTS'])
+          required = {'verify', 'pure', 'backend-install', 'deployment-images', 'target', 'release-operations', 'image-recovery'}
+          failed = {name: results.get(name, {}).get('result', 'missing') for name in required if results.get(name, {}).get('result') != 'success'}
+          if failed:
+              raise SystemExit('FAIL: required technical jobs failed, skipped or missing: ' + json.dumps(failed, sort_keys=True))
+          print('PASS: all seven required technical jobs executed successfully. Independent command review and human acceptance are separate remaining gates.')
+          PY
+
+  image-recovery:
+    needs: [target-readiness, target]
+    if: always() && needs.target-readiness.result == 'success' && (needs.target-readiness.outputs.ready == 'true' || (github.event_name == 'workflow_dispatch' && (inputs.full_target || inputs.recovery_handoff_run > 0))) && (needs.target.result == 'success' || (github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0))
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - name: Locked no-Django image recovery controller
+        run: |
+          python -m venv var/image-target-env
+          var/image-target-env/bin/python -m pip install --no-deps -r backend/infrastructure/http/requirements.lock
+          var/image-target-env/bin/python -m pip check
+      - name: Download the exact verified public handoff from the successful target job
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          RECOVERY_HANDOFF_RUN: ${{ inputs.recovery_handoff_run || 0 }}
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, os, subprocess, urllib.request, urllib.error, urllib.parse, zipfile
+          from pathlib import Path
+          repo, run, attempt = os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_RUN_ID'], os.environ['GITHUB_RUN_ATTEMPT']
+          headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
+          class Redirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, request, *args):
+                  redirected = super().redirect_request(request, *args)
+                  if redirected is not None and urllib.parse.urlsplit(redirected.full_url).hostname != 'api.github.com':
+                      redirected.remove_header('Authorization')
+                  return redirected
+          opener = urllib.request.build_opener(Redirect())
+          def get(url):
+              try:
+                  with opener.open(urllib.request.Request(url, headers=headers), timeout=60) as response:
+                      return response.read()
+              except urllib.error.HTTPError as error:
+                  raise SystemExit('Artifact request failed with HTTP ' + str(error.code)) from None
+          current_run = run
+          retained = int(os.environ['RECOVERY_HANDOFF_RUN'])
+          expected_head, expected_checkout = os.environ['EXPECTED_EVENT_HEAD_SHA'], os.environ['GITHUB_SHA']
+          if retained:
+              source = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + str(retained)))
+              current = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + current_run))
+              assert source['workflow_id'] == current['workflow_id'] and source['event'] == 'workflow_dispatch'
+              assert source['head_repository']['full_name'] == repo and source['head_branch'] == 'ms7-mig-react-fastapi'
+              jobs = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + str(retained) + '/jobs?filter=latest'))
+              assert any(job['name'] == 'target' and job['conclusion'] == 'success' for job in jobs['jobs'])
+              subprocess.run(['git', 'merge-base', '--is-ancestor', source['head_sha'], os.environ['GITHUB_SHA']], check=True)
+              protected = ['curriculum', 'site_content', 'static', 'templates', 'content', 'users', 'frontend/rendering.py', 'backend/content/components.py', 'backend/content/component_templates.py', 'backend/content/sources.py', 'backend/content/build.py', 'backend/content/projection.py']
+              subprocess.run(['git', 'diff', '--quiet', source['head_sha'], os.environ['GITHUB_SHA'], '--', *protected], check=True)
+              run, attempt = str(retained), str(source['run_attempt'])
+              expected_head = expected_checkout = source['head_sha']
+          data = json.loads(get('https://api.github.com/repos/' + repo + '/actions/runs/' + run + '/artifacts'))
+          selected = [a for a in data['artifacts'] if a['name'] == 'full-target-' + run + '-' + attempt and not a['expired']]
+          assert len(selected) == 1, 'Missing exact current-attempt target artifact'
+          artifact = selected[0]
+          assert artifact['workflow_run']['head_sha'] == expected_head
+          raw = get('https://api.github.com/repos/' + repo + '/actions/artifacts/' + str(artifact['id']) + '/zip')
+          assert 'sha256:' + hashlib.sha256(raw).hexdigest() == artifact['digest']
+          archive = zipfile.ZipFile(io.BytesIO(raw)); root = Path.cwd().resolve()
+          for entry in archive.infolist():
+              if entry.filename.startswith(('var/full-target/runtime/releases/', 'var/full-target/artifact/')) or entry.filename in {'var/full-target/runtime/prepare-result.json', 'var/full-target-provenance.json'}:
+                  assert (root / entry.filename).resolve().is_relative_to(root / 'var')
+                  archive.extract(entry, root)
+          assert json.loads(Path('var/full-target-provenance.json').read_text())['checkout_sha'] == expected_checkout
+          Path('var/image-input-provenance.json').write_text(json.dumps({'artifact_id': artifact['id'], 'sha256': artifact['digest'], 'checkout_sha': os.environ['GITHUB_SHA'], 'handoff_checkout_sha': expected_checkout, 'handoff_run': run, 'scope': 'SCOPED_RETAINED_HANDOFF_NOT_COMBINED_ACCEPTANCE' if retained else 'CURRENT_FULL_CANDIDATE'}, indent=2) + '\n')
+          print('Verified exact public handoff; private runtime/cookies were not extracted')
+          PY
+      - name: Build current images and a distinct retained compatible API
+        run: |
+          docker build -f deploy/Dockerfile --target api --label org.opencontainers.image.revision=$GITHUB_SHA -t mathstart-api:candidate .
+          docker build -f deploy/Dockerfile --target edge --label org.opencontainers.image.revision=$GITHUB_SHA -t mathstart-edge:candidate .
+          docker build -f deploy/Dockerfile --target frontend-builder --label org.opencontainers.image.revision=$GITHUB_SHA -t mathstart-frontend-builder:candidate .
+          python - <<'PY'
+          import io, subprocess, tarfile
+          from pathlib import Path
+          prior = Path('var/prior-image-source'); prior.mkdir()
+          raw = subprocess.check_output(['git', 'archive', '042caf8825d1ba8518cd103d5cdabeac7e7739c4'])
+          with tarfile.open(fileobj=io.BytesIO(raw)) as archive:
+              archive.extractall(prior, filter='data')
+          subprocess.run(['docker', 'build', '-f', 'deploy/Dockerfile', '--target', 'api', '--label', 'org.opencontainers.image.revision=042caf8825d1ba8518cd103d5cdabeac7e7739c4', '-t', 'mathstart-api:prior-042caf8', '.'], cwd=prior, check=True, timeout=600)
+          PY
+      - name: Actual locked HTTPS build and private loopback test certificate
+        run: |
+          mkdir -p var/release-tls
+          openssl req -x509 -newkey rsa:2048 -nodes -keyout var/release-tls/tls.key -out var/release-tls/tls.crt -days 1 -subj /CN=127.0.0.1 -addext subjectAltName=IP:127.0.0.1
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          root = Path.cwd(); source = root / 'var/full-target/runtime/releases'
+          prepared = json.loads(Path('var/full-target/runtime/prepare-result.json').read_text())
+          output = root / 'var/release-https-build'; output.mkdir()
+          # Only this newly generated disposable key becomes readable by edge UID101.
+          subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--user', '0', '--no-healthcheck', '--mount', 'type=bind,source=' + str(root / 'var/release-tls') + ',target=/tls', '--entrypoint', 'python', 'mathstart-api:candidate', '-c', "import os;os.chown('/tls/tls.key',101,101);os.chmod('/tls/tls.key',0o400);os.chmod('/tls/tls.crt',0o444)"], check=True, timeout=30)
+          subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--user', '0', '--no-healthcheck', '--mount', 'type=bind,source=' + str(output) + ',target=/output', '--entrypoint', 'python', 'mathstart-api:candidate', '-c', "import os;os.chown('/output',10001,10001);os.chmod('/output',0o755)"], check=True, timeout=30)
+          subprocess.run(['docker', 'run', '--rm', '--network', 'none', '--label', 'mathstart.purpose=disposable-release-https-build', '--mount', 'type=bind,source=' + str(source) + ',target=/inputs,readonly', '--mount', 'type=bind,source=' + str(output) + ',target=/output', 'mathstart-frontend-builder:candidate', '--input-root', '/inputs', '--release-id', prepared['release_id'], '--manifest-digest', prepared['manifest_digest'], '--receipt-digest', prepared['receipt_digest'], '--output', '/output/site', '--origin', 'https://127.0.0.1:18121'], check=True, timeout=600)
+          PY
+      - name: Inspect required images and explicitly prepare pinned PostgreSQL
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          images = ['mathstart-api:candidate', 'mathstart-edge:candidate', 'mathstart-api:prior-042caf8', 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67']
+          checks = []
+          for image in images:
+              result = subprocess.run(['docker', 'image', 'inspect', '--format', '{{.Id}}', image], capture_output=True, text=True)
+              checks.append({'image': image, 'present_before_preparation': result.returncode == 0, 'exit_code': result.returncode})
+          Path('var/image-prerequisites.json').write_text(json.dumps(checks, indent=2) + '\n')
+          print(json.dumps(checks))
+          PY
+          docker pull postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+      - name: Classify automatic IPAM using stopped owned container
+        if: github.event_name == 'workflow_dispatch' && inputs.recovery_handoff_run > 0
+        run: python scripts/probe_network_ipam.py --image mathstart-api:candidate --output var/network-ipam-probe.json
+      - name: HTTPS physical recovery compatible rollback and ordinary API400 at10
+        run: >-
+          var/image-target-env/bin/python scripts/verify_images.py
+          --disposable --recovery --rollback-image mathstart-api:prior-042caf8
+          --runtime-root var/release-image-recovery
+          --source-runtime var/full-target/runtime --artifact-root var/release-https-build/site
+          --api-image mathstart-api:candidate --edge-image mathstart-edge:candidate
+          --tls-cert var/release-tls/tls.crt --tls-key var/release-tls/tls.key
+      - name: Retain safe recovery and performance evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: image-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/image-input-provenance.json
+            var/image-prerequisites.json
+            var/network-ipam-probe.json
+            var/release-image-recovery/result.json
+            var/release-image-recovery/ordinary-api-workload.json
+            var/release-https-build/site/output-manifest.json
+          if-no-files-found: error
+          retention-days: 30

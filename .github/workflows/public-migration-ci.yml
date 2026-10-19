@@ -1,0 +1,137 @@
+name: Public and identity migration verification
+
+on:
+  push:
+    branches: [ms7-mig-react-fastapi]
+    paths: ['backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+  pull_request:
+    branches: [main, ms7-mig-react-fastapi]
+    paths: ['backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-block:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    services:
+      postgres:
+        image: postgres:16-bookworm
+        env:
+          POSTGRES_DB: test_ms7_mig_v01_public_ci
+          POSTGRES_USER: mathstart_ci
+          POSTGRES_PASSWORD: disposable-public-ci-only
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd="pg_isready -U mathstart_ci -d test_ms7_mig_v01_public_ci"
+          --health-interval=2s --health-timeout=3s --health-retries=30
+    env:
+      MATHSTART_DATABASE_URL: postgresql+psycopg://mathstart_ci:disposable-public-ci-only@127.0.0.1:5432/test_ms7_mig_v01_public_ci
+      MATHSTART_DISPOSABLE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.21.0'
+      - name: Accepted npm tooling
+        run: npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+      - name: Narrow real POSIX virtualenv invocation regression
+        run: python -B -m unittest discover -s tests -p test_legacy_interpreter.py -v
+      - name: Separate locked target and legacy environments
+        run: |
+          python -m venv var/public-target-env
+          var/public-target-env/bin/python -m pip install --no-deps -r backend/tests/v04/requirements.lock
+          var/public-target-env/bin/python -m pip check
+          var/public-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
+          python -m venv var/public-legacy-env
+          var/public-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
+          var/public-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
+          var/public-legacy-env/bin/python -m pip check
+      - name: Exact event and checkout provenance
+        run: python scripts/ci_provenance.py --output var/public-provenance.json
+      - name: Locked frontend and actual I02 Chrome channel
+        working-directory: frontend
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: .cache/browsers
+        run: |
+          npm ci --maxsockets=1 --cache .cache/npm
+          npx --no-install playwright install --with-deps chrome
+      - name: Owned service failure and cleanup regressions
+        run: |
+          var/public-target-env/bin/python -m unittest discover -s tests -p test_public_block_process.py -v
+          var/public-target-env/bin/python -m unittest discover -s tests -p test_public_block_provenance.py -v
+      - name: Public and identity synthetic PG, full HTTP manifest, SEO, account and staff
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/frontend/.cache/browsers
+        run: >-
+          var/public-target-env/bin/python scripts/verify_public_block.py
+          --runtime-root var/public-block-ci
+          --legacy-python var/public-legacy-env/bin/python
+          --port 8111 --legacy-port 8112
+          --scope identity
+      - name: Identity and staff PostgreSQL regressions (no empty or skipped suites)
+        env:
+          MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/public-legacy-env/bin/python
+        run: |
+          var/public-target-env/bin/python - <<'PY'
+          import os, subprocess, sys
+          import sqlalchemy as sa
+          from sqlalchemy.engine import make_url
+          from backend.migrations.upgrade import fresh
+          name = 'test_ms7_mig_v01_identity_ci'
+          url = make_url(os.environ['MATHSTART_DATABASE_URL'])
+          admin = sa.create_engine(url.set(database='postgres'), isolation_level='AUTOCOMMIT', hide_parameters=True)
+          target = sa.create_engine(url.set(database=name), hide_parameters=True)
+          owned = False
+          try:
+              with admin.connect() as connection:
+                  connection.execute(sa.text('CREATE DATABASE ' + name))
+                  owned = True
+                  connection.execute(sa.text("COMMENT ON DATABASE " + name + " IS 'MS7-MIG-V01 disposable synthetic test database'"))
+              with target.begin() as connection:
+                  fresh(connection)
+              environment = {**os.environ, 'MATHSTART_V03_DATABASE_URL': url.set(database=name).render_as_string(hide_password=False)}
+              result = subprocess.run([sys.executable, 'scripts/run_unittest.py', '--start', 'backend/tests/v03', '--pattern', 'test_*.py'], env=environment, timeout=240)
+              code = result.returncode
+          finally:
+              target.dispose()
+              if owned:
+                  with admin.connect() as connection:
+                      connection.execute(sa.text('DROP DATABASE ' + name + ' WITH (FORCE)'))
+              admin.dispose()
+          raise SystemExit(code)
+          PY
+      - name: Retain public evidence; exclude private cookies, keys and traces
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: public-block-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            var/public-provenance.json
+            var/public-block-ci/result.json
+            var/public-block-ci/browser-receipt.json
+            var/public-block-ci/*.log
+            var/public-block-ci/target-service/*.log
+            var/public-block-ci/legacy-service/*.log
+            var/public-block-ci/quality-service/*.log
+            var/target-checks/**/result.json
+            var/public-block-ci/runtime/prepare-result.json
+            var/public-block-ci/runtime/releases/
+            var/public-block-ci/artifact/
+            frontend/test-results/**/i02-*.png
+            frontend/test-results/**/catalogue-no-js.png
+            frontend/test-results/**/browser-version*.json
+            frontend/test-results/**/matched-capture-index*.json
+          if-no-files-found: error
+          retention-days: 30

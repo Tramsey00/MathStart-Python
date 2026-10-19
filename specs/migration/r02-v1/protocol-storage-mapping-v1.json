@@ -1,0 +1,98 @@
+{
+  "version": "migration-r02-v1.0.2",
+  "status": "PROPOSED_LOGICAL_FACTS_NOT_DDL",
+  "baseline_physical_mapping": "schema-mapping-v1.json unchanged",
+  "records": [
+    {
+      "record": "PublicationGate",
+      "store": "primary PostgreSQL",
+      "owner": "Content publisher/recovery service (V04)",
+      "facts": [
+        "namespace unique singleton",
+        "pending_operation nullable FK journal",
+        "owner_id opaque worker UUID",
+        "fence_generation monotone int64",
+        "lease_until DB timestamp"
+      ],
+      "constraints": [
+        "pending and journal tuple equal while nonterminal",
+        "only COMPLETE or proven FAILED_PRECOMMIT clears pending",
+        "CAS + row lock for takeover; generation never reused"
+      ]
+    },
+    {
+      "record": "PublicationJournal",
+      "store": "primary PostgreSQL",
+      "owner": "Content current fenced lease holder",
+      "facts": [
+        "existing frozen plan/key/release/manifest metadata",
+        "ownership tuple",
+        "db_committed monotone boolean",
+        "activation_status",
+        "durable phase/error/history"
+      ],
+      "constraints": [
+        "operation/key-plan uniqueness permanent",
+        "domain write and DB_COMMITTED atomic",
+        "terminal release and stage atomic"
+      ]
+    },
+    {
+      "record": "ActiveReleaseDescriptor",
+      "store": "primary PostgreSQL same authority transaction",
+      "owner": "Content current fenced lease holder; gateway read-only",
+      "facts": [
+        "operation_id",
+        "release_id",
+        "manifest_digest",
+        "fence_generation"
+      ],
+      "constraints": [
+        "activation CAS full previous descriptor",
+        "activation fact + descriptor atomic",
+        "per-request immutable snapshot; no writable external pointer"
+      ]
+    },
+    {
+      "record": "ReceiptBridge",
+      "store": "primary PostgreSQL private additive target record",
+      "owner": "identity/session service (V03); exclusive cutover importer",
+      "facts": [
+        "opaque bridge ID",
+        "original scope/bootstrap fingerprint",
+        "immutable receipt owner",
+        "state",
+        "session lineage binding",
+        "revocation epoch",
+        "replay_until",
+        "ticket version/expiry/revocation",
+        "verified cutover transfer binding",
+        "cutover checkpoint identity + verified import provenance (repeated checkpoint read-only)",
+        "durable session_lineage_id retained after detach for scoped revocation"
+      ],
+      "constraints": [
+        "scope never derived from key alone",
+        "owner bind once",
+        "REVOKED/EXPIRED cannot revive",
+        "epoch CAS serializes replay/rebind/revoke",
+        "facts retained >=604800s; receipt unchanged"
+      ]
+    },
+    {
+      "record": "StagedRelease",
+      "store": "operation-owned immutable filesystem/object files",
+      "owner": "current Content build/publisher; frontend renderer produces artifacts",
+      "facts": [
+        "manifest/page/assets exact hashes",
+        "generation-specific temporary staging"
+      ],
+      "constraints": [
+        "no credentials/authority",
+        "finalized hashes cannot be overwritten by delayed stale writes",
+        "retained active/pending roots cannot be cleaned"
+      ]
+    }
+  ],
+  "DDL": "V01 reviewed additive mapping/migrations later; no baseline table/constraint/default change here",
+  "writer_cutover": "Django sole live writer until drained/revoked; target shadow read-only; no overlapping writers"
+}

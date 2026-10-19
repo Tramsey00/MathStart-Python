@@ -1,12 +1,13 @@
 """Offline UI fixture checks against the unchanged accepted R02A package."""
 import copy
+from scripts.check_migration_preservation import historical_artifact
 import hashlib
 import json
 import unittest
 
 from jsonschema import ValidationError
 
-from content.ui_foundation import ROOT, SLOTS, dispatch_exercise, load_fixture_pack, validate_fixture_pack, validators
+from frontend.ui_foundation import ROOT, SLOTS, dispatch_exercise, load_fixture_pack, validate_fixture_pack, validators
 
 
 class UIFixtureContractTests(unittest.TestCase):
@@ -23,7 +24,7 @@ class UIFixtureContractTests(unittest.TestCase):
             (ROOT / "specs/api/openapi-v1.json").read_bytes()).hexdigest())
         manifest = json.loads((ROOT / "specs/api/candidate-manifest-v1.json").read_text())
         for path, digest in manifest["artifacts"].items():
-            self.assertEqual(hashlib.sha256((ROOT / path).read_bytes()).hexdigest(), digest, path)
+            self.assertEqual(hashlib.sha256(historical_artifact(path, ROOT)).hexdigest(), digest, path)
 
     def test_four_modes_dispatch_without_forms_and_four_distinct_states(self):
         for exercise in self.pack["exercises"]:

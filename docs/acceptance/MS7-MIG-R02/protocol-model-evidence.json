@@ -1,0 +1,158 @@
+{
+  "version": "migration-r02-v1.0.2",
+  "status": "MODEL_SYNTHETIC_ONLY_NOT_TARGET_RUNTIME",
+  "reviewed_head": "6c1603b3ac55f3f0e8ef3b2bfb09298a42de5974",
+  "suite_total": 63,
+  "protocol_tests": 32,
+  "test_cases": [
+    {
+      "test": "test_all_transition_orders_preserve_revocation_and_receipt_truth",
+      "class_case": "BridgeLifecycleTests.test_all_transition_orders_preserve_revocation_and_receipt_truth"
+    },
+    {
+      "test": "test_changed_body_key_cannot_rebind_or_replay_receipt",
+      "class_case": "BridgeLifecycleTests.test_changed_body_key_cannot_rebind_or_replay_receipt"
+    },
+    {
+      "test": "test_competing_rebind_and_superseded_ticket_session_epochs",
+      "class_case": "BridgeLifecycleTests.test_competing_rebind_and_superseded_ticket_session_epochs"
+    },
+    {
+      "test": "test_cutover_checkpoint_repeats_do_not_revoke_recovered_target_session",
+      "class_case": "BridgeLifecycleTests.test_cutover_checkpoint_repeats_do_not_revoke_recovered_target_session"
+    },
+    {
+      "test": "test_expired_ticket_independent_bootstrap_valid_until_bridge_window",
+      "class_case": "BridgeLifecycleTests.test_expired_ticket_independent_bootstrap_valid_until_bridge_window"
+    },
+    {
+      "test": "test_foreign_user_cannot_use_original_ticket_session_transfer_or_password",
+      "class_case": "BridgeLifecycleTests.test_foreign_user_cannot_use_original_ticket_session_transfer_or_password"
+    },
+    {
+      "test": "test_gate_descriptor_shapes_require_owner_and_pending_as_one_tuple",
+      "class_case": "BridgeLifecycleTests.test_gate_descriptor_shapes_require_owner_and_pending_as_one_tuple"
+    },
+    {
+      "test": "test_inactive_owner_and_absent_transfer_binding_fail_closed",
+      "class_case": "BridgeLifecycleTests.test_inactive_owner_and_absent_transfer_binding_fail_closed"
+    },
+    {
+      "test": "test_logout_and_switch_revoke_all_proof_classes_retain_receipt",
+      "class_case": "BridgeLifecycleTests.test_logout_and_switch_revoke_all_proof_classes_retain_receipt"
+    },
+    {
+      "test": "test_logout_keeps_another_independent_same_owner_session_bridge",
+      "class_case": "BridgeLifecycleTests.test_logout_keeps_another_independent_same_owner_session_bridge"
+    },
+    {
+      "test": "test_lost_all_cookies_replay_after_commit_needs_original_proof_and_password",
+      "class_case": "BridgeLifecycleTests.test_lost_all_cookies_replay_after_commit_needs_original_proof_and_password"
+    },
+    {
+      "test": "test_natural_expiry_and_cutover_detach_then_explicit_bound_recovery",
+      "class_case": "BridgeLifecycleTests.test_natural_expiry_and_cutover_detach_then_explicit_bound_recovery"
+    },
+    {
+      "test": "test_private_bridge_schema_terminal_binding_negatives_and_transition_coverage",
+      "class_case": "BridgeLifecycleTests.test_private_bridge_schema_terminal_binding_negatives_and_transition_coverage"
+    },
+    {
+      "test": "test_repeated_same_user_login_rotates_without_changing_receipt",
+      "class_case": "BridgeLifecycleTests.test_repeated_same_user_login_rotates_without_changing_receipt"
+    },
+    {
+      "test": "test_session_proof_cannot_be_used_from_another_session_same_owner",
+      "class_case": "BridgeLifecycleTests.test_session_proof_cannot_be_used_from_another_session_same_owner"
+    },
+    {
+      "test": "test_ticket_alone_wrong_password_bootstrap_and_signature_are_denied",
+      "class_case": "BridgeLifecycleTests.test_ticket_alone_wrong_password_bootstrap_and_signature_are_denied"
+    },
+    {
+      "test": "test_unknown_ack_does_not_authorize_logout_retry_or_foreign_restore",
+      "class_case": "BridgeLifecycleTests.test_unknown_ack_does_not_authorize_logout_retry_or_foreign_restore"
+    },
+    {
+      "test": "test_unknown_unverified_or_dual_writer_cutover_changes_no_authority",
+      "class_case": "BridgeLifecycleTests.test_unknown_unverified_or_dual_writer_cutover_changes_no_authority"
+    },
+    {
+      "test": "test_activation_commit_before_takeover_reconciles_old_generation_history",
+      "class_case": "PublicationProtocolTests.test_activation_commit_before_takeover_reconciles_old_generation_history"
+    },
+    {
+      "test": "test_all_stale_owner_writes_are_fenced_even_with_returning_worker_id",
+      "class_case": "PublicationProtocolTests.test_all_stale_owner_writes_are_fenced_even_with_returning_worker_id"
+    },
+    {
+      "test": "test_claim_stage_commit_activation_complete_and_repeats",
+      "class_case": "PublicationProtocolTests.test_claim_stage_commit_activation_complete_and_repeats"
+    },
+    {
+      "test": "test_competing_recovery_workers_both_orders_one_winner",
+      "class_case": "PublicationProtocolTests.test_competing_recovery_workers_both_orders_one_winner"
+    },
+    {
+      "test": "test_expired_current_owner_cannot_renew_or_activate",
+      "class_case": "PublicationProtocolTests.test_expired_current_owner_cannot_renew_or_activate"
+    },
+    {
+      "test": "test_health_failure_holds_slot_and_stale_probe_cannot_complete",
+      "class_case": "PublicationProtocolTests.test_health_failure_holds_slot_and_stale_probe_cannot_complete"
+    },
+    {
+      "test": "test_machine_table_covers_every_failure_and_no_new_runtime_mapping",
+      "class_case": "PublicationProtocolTests.test_machine_table_covers_every_failure_and_no_new_runtime_mapping"
+    },
+    {
+      "test": "test_pending_gate_survives_crash_expiry_and_db_commit",
+      "class_case": "PublicationProtocolTests.test_pending_gate_survives_crash_expiry_and_db_commit"
+    },
+    {
+      "test": "test_pointer_digest_or_operation_mismatch_never_reconciles_success",
+      "class_case": "PublicationProtocolTests.test_pointer_digest_or_operation_mismatch_never_reconciles_success"
+    },
+    {
+      "test": "test_precommit_abort_terminal_and_hash_source_guards",
+      "class_case": "PublicationProtocolTests.test_precommit_abort_terminal_and_hash_source_guards"
+    },
+    {
+      "test": "test_same_key_new_uuid_resolves_original_operation_without_new_write",
+      "class_case": "PublicationProtocolTests.test_same_key_new_uuid_resolves_original_operation_without_new_write"
+    },
+    {
+      "test": "test_schema_journal_and_observable_reject_impossible_commit_and_secret_owner",
+      "class_case": "PublicationProtocolTests.test_schema_journal_and_observable_reject_impossible_commit_and_secret_owner"
+    },
+    {
+      "test": "test_takeover_before_delayed_activation_rejects_stale_effect",
+      "class_case": "PublicationProtocolTests.test_takeover_before_delayed_activation_rejects_stale_effect"
+    },
+    {
+      "test": "test_unknown_activation_both_failure_windows_no_speculative_retry",
+      "class_case": "PublicationProtocolTests.test_unknown_activation_both_failure_windows_no_speculative_retry"
+    }
+  ],
+  "literal_expected_schedules": [
+    "both competing recovery winner orders",
+    "takeover before activation vs activation before takeover",
+    "all ten stale-owner command families",
+    "activation ACK lost before/after transaction commit",
+    "all24 logout/switch/expiry/cutover permutations",
+    "concurrent bridge rebind stale epoch",
+    "same cutover checkpoint after target session recovery",
+    "foreign user S/B/T/F proofs",
+    "all cookies lost repeated explicit bootstrap/password replay",
+    "logout revokes departing lineage, independent same-owner session stays valid"
+  ],
+  "log_sha256": "5ee80e2dd1464f7d9158a91b27e481bef5c3ca6dab4c96d5ca902914a098636e",
+  "implementation": "Pure abstract test-only state models with synthetic clock/proof booleans; no DB/threads/signature verifier/gateway/target service",
+  "required_future_evidence": [
+    "V01 reviewed additive DDL/upgrades",
+    "V03 populated session/receipt/cutover/signature/revocation races",
+    "V04 real PG competing recovery/crash/fence and staging failure tests",
+    "V05 actual gateway/caches/proxy visibility",
+    "I02/I04 browser private-state/lifecycle checks"
+  ]
+}

@@ -2,12 +2,10 @@
 """
 MathStart repository verification entry point.
 
-R01 / Harness v1 baseline, extended with R03 contracts and the R04 Harness suite.
-
-This script intentionally runs only checks that are already part of the current
-MathStart repository workflow. It does not pretend that future tooling
-(Ruff, mypy, pytest, PostgreSQL smoke, architecture validators, etc.) is already
-configured.
+Current target registry, portable pure subset and explicit pinned legacy oracle.
+Target wrappers fail when required owner implementations are absent. The pure
+profile proves only portable contracts/model/Harness behavior, never runtime
+parity. Historical comparisons require a separate pinned checkout and interpreter.
 
 Exit code:
     0 - all enabled checks passed
@@ -25,8 +23,8 @@ from typing import Sequence
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MANAGE_PY = ROOT / "manage.py"
-GROUPS = ("backend", "database", "content", "tests", "harness")
+sys.path.insert(0, str(ROOT))
+GROUPS = ("backend", "database", "content", "tests", "harness", "frontend")
 
 
 @dataclass(frozen=True)
@@ -36,96 +34,36 @@ class Check:
     group: str
 
 
-CHECKS: tuple[Check, ...] = (
-    Check(
-        name="Django system check",
-        command=(sys.executable, "manage.py", "check"),
-        group="backend",
-    ),
-    Check(
-        name="Migration consistency",
-        command=(
-            sys.executable,
-            "manage.py",
-            "makemigrations",
-            "--check",
-            "--dry-run",
-        ),
-        group="database",
-    ),
-    Check(
-        name="Lesson source validation",
-        command=(
-            sys.executable,
-            "manage.py",
-            "check_lesson_sources",
-            "--all",
-        ),
-        group="content",
-    ),
-    Check(
-        name="Content quality",
-        command=(
-            sys.executable,
-            "manage.py",
-            "check_content_quality",
-        ),
-        group="content",
-    ),
-    Check(
-        name="Site integrity",
-        command=(
-            sys.executable,
-            "manage.py",
-            "check_site_integrity",
-        ),
-        group="content",
-    ),
-    Check(
-        name="Django test suite",
-        command=(
-            sys.executable,
-            "manage.py",
-            "test",
-        ),
-        group="tests",
-    ),
-    Check(
-        name="R03 contract suite",
-        command=(
-            sys.executable,
-            "-m",
-            "unittest",
-            "discover",
-            "-s",
-            "tests",
-            "-p",
-            "test_r03_contract.py",
-        ),
-        group="tests",
-    ),
-    Check(
-        name="Harness test suite",
-        command=(sys.executable, "-m", "unittest", "discover",
-                 "-s", "tests/harness", "-t", ".", "-v"),
-        group="harness",
-    ),
-)
+from scripts.target_verification import target_checks
+CHECKS: tuple[Check, ...] = tuple(Check(*row) for row in target_checks())
 
 
 def run_command(command: Sequence[str]) -> int:
     print(f"$ {' '.join(command)}", flush=True)
-    completed = subprocess.run(
-        list(command),
-        cwd=ROOT,
-        check=False,
-    )
+    # The full backend suite includes schema replays, separate legacy oracles
+    # and real React/HTTP publication. Allow its bounded child deadline plus
+    # cleanup, while retaining the ordinary command deadline for other checks.
+    timeout = ({'backend-tests': 1860, 'frontend-e2e': 7500}.get(command[-1], 600)
+               if 'scripts/target_check.py' in command else 600)
+    try:
+        completed = subprocess.run(list(command), cwd=ROOT, check=False,
+                                   shell=False, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        print(f"Verification check timed out ({timeout} seconds).", file=sys.stderr)
+        return 124
+    except OSError:
+        print("Verification tool unavailable.", file=sys.stderr)
+        return 127
     return completed.returncode
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run MathStart Harness verification checks."
+    )
+    parser.add_argument(
+        "--profile", choices=("legacy", "target", "pure"), default="target",
+        help="Explicit migration profile; target is required for migration acceptance.",
     )
     parser.add_argument(
         "--group",
@@ -150,13 +88,22 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--skip-tests",
         action="store_true",
-        help="Skip Django, R03 and Harness test suites for a faster local pass.",
+        help="Skip backend, contract and Harness test suites for a faster local pass.",
     )
     return parser.parse_args(argv)
 
 
 def select_checks(args: argparse.Namespace) -> list[Check]:
-    selected = list(CHECKS)
+    if args.profile == "legacy":
+        selected = [Check("Pinned historical Django verification",
+                          (sys.executable, "scripts/legacy_oracle.py", "--run", "scripts/verify_repo.py"), "tests")]
+    else:
+        # Importing the target registry must never initialize the legacy runtime.
+        from scripts.target_verification import target_checks
+        selected = [Check(*row) for row in target_checks()]
+        if args.profile == "pure":
+            selected = [check for check in selected if check.group in {"tests", "harness"}
+                        and "scripts/target_check.py" not in check.command]
 
     if args.group:
         groups = set(args.group)
@@ -174,13 +121,6 @@ def select_checks(args: argparse.Namespace) -> list[Check]:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
 
-    if not MANAGE_PY.is_file():
-        print(
-            f"ERROR: manage.py not found at expected repository root: {MANAGE_PY}",
-            file=sys.stderr,
-        )
-        return 1
-
     selected = select_checks(args)
 
     if args.list:
@@ -192,12 +132,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     if not selected:
-        print("No checks selected.")
-        return 0
+        print("ERROR: no checks selected; empty verification is not PASS.", file=sys.stderr)
+        return 1
 
     results: list[tuple[Check, int]] = []
 
     print("MathStart Harness verification")
+    print(f"Profile: {args.profile}; selected checks only, not full target acceptance")
     print(f"Repository: {ROOT}")
     print()
 

@@ -1,0 +1,866 @@
+{
+  "version": 1,
+  "source_sha": "1a87b044e8c5a7519b0ab57e22d2a35d57b4a986",
+  "accepted_input": "8d958aeeb17da46839722441425ccbb5889e2ab7",
+  "authority": "User post-Django task: remove old platform, retain actual current content and historical provenance; no product/runtime behavior changes",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 810,
+      "sha256": "ada7ae126e6560eb3aed65888255f96214a015d2ec47b6345d7c30f80f23b77e",
+      "action": "updated",
+      "current_sha256": "f8a3e4fcd57d50ebc22e140d78f0d9fe5d262db8169c0a1105219d3c3e559c71",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 2063,
+      "sha256": "1edf8fc5023a171d6bd4c173b7a30e717b197a4d939649729b16054bf48e3ea7",
+      "action": "updated",
+      "current_sha256": "37ce46b519ce92ee5b8074da4fa1d865390de0a3eaf542a0ef4c1d639dedc30e",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": ".github/workflows/migration-ci.yml",
+      "bytes": 33695,
+      "sha256": "cc337080753b66fe7ea4ea90fc178fa39cd26b5ff9c7ab9f16c5943c670abf92",
+      "action": "updated",
+      "current_sha256": "3fd162e5cc3422e6671dd9a64a190288869c7a54ca0abeb3dbc68932a09e0381",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 7117,
+      "sha256": "fd4984aa08c4986b5b54a35fda7fe1df9ceed5cb6d19c846ea8d0086a1e2278c",
+      "action": "updated",
+      "current_sha256": "4a387cf6deefe76a2f05b36906e4b3af1d598492345202d0606724d33224b375",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "bytes": 42467,
+      "sha256": "eabea31580574b8f1cc5e3d38222e404be81f37837c2eb04988c60bb2bcbb42c",
+      "action": "updated",
+      "current_sha256": "6922fcd5764941372d7f46c93bdf927497891077cfe7d38647a0c981a1b8a6ba",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 740,
+      "sha256": "81340bea8c9c5cfef63a93279fb79e22cbd2ea96545bbb39d69d73db56f3a5fa",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "PRODUCT.md",
+      "bytes": 19495,
+      "sha256": "696da346aaa6b81ad8a779046b0a84c70176a81a6dd2e13f8dfb911f350c78d8",
+      "action": "updated",
+      "current_sha256": "a2d9b4a5c70afc0f3e8cb06e60d5d7b2418aa2747bee3d02e52b2c4c1d61c449",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9207,
+      "sha256": "02abd9f54abfc467828cab66c0fcb94f535488a7779c49bcec0f0d80bc17c1b3",
+      "action": "updated",
+      "current_sha256": "0b5a1d103fbac06f13169851c155674fbc67230af1c3aa71ad1f6c76907029f0",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "backend/requirements-test.lock",
+      "bytes": 530,
+      "sha256": "10bab9ad8f5c1a2af558e0be4a6363d5b6768d25dc6b22f80c6d2d60f3949f61",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/baseline_verification.py",
+      "bytes": 3111,
+      "sha256": "ce24ed605359fc3e50478d8afe75a7aa95107c89fe5c90a126651896e59acc89",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/django_timestamp_probe.py",
+      "bytes": 3579,
+      "sha256": "86993161409bbb0cfcd14c1384122673415ffe5ec1fcdec0ee0a9ee27cb7e32d",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/legacy_ci_verification.py",
+      "bytes": 5333,
+      "sha256": "56f0fa2ae363a6defea77ad05f4fd3b77b084d46d67e686a77a9fa29c6ddca5f",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/legacy_fixture.py",
+      "bytes": 1071,
+      "sha256": "5b6c55a2dbb160ff49b6b8997a2fafbd021597d4d1a5baf636e427a86a12b079",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/v02/baseline.py",
+      "bytes": 2854,
+      "sha256": "6e946c1a65f44ba8c0f5a9efb9e049d656d243e128bb3651be79d26de2fea0b7",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/v02/legacy_comparator.py",
+      "bytes": 4655,
+      "sha256": "1167ef1829d7a7b0bb8fc96782e01aff10eb3b12a5d57110938e8b9452d7f48e",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/v02/legacy_unit_oracle.py",
+      "bytes": 1173,
+      "sha256": "b0735ec3b665a3eaf880005dd274d61b611abbe8b98dce63f555fe52780ad2ab",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/v02/public_baseline_projection.py",
+      "bytes": 3665,
+      "sha256": "a53e26d6563d1f17ca5997a142121a3f26b6796f990223aac0ead6e5ae2bf379",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/v04/golden_oracle.py",
+      "bytes": 1005,
+      "sha256": "a308bd93676f54da5c58244df8c7fd020547de0b7f5936ce8a3aabe2e46516d2",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "backend/tests/v04/index_oracle.py",
+      "bytes": 1542,
+      "sha256": "63047bdb8f28cc0bbc09d36663863ebccd50029a646d8966910b855d0817af13",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "compose.verify.yaml",
+      "bytes": 617,
+      "sha256": "abd5e9f2fef6011fc83aead3975f4e00b1f5ab3df49693f77eab4b299b765525",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "compose.yaml",
+      "bytes": 1426,
+      "sha256": "b998c192348b1521e8cfe720c28b2a853432974d5dfffd0927067e0003b0cfb1",
+      "action": "updated",
+      "current_sha256": "ca5a0160c521417124994d8fa9575987c34b3bad670fe66edb1d3271dc4d0bc7",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "config/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "config/api_http.py",
+      "bytes": 1494,
+      "sha256": "92f2d8ffb002a154222728a1c07e19adb0ce2902b0e8e569e548727b5e967c66",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "config/asgi.py",
+      "bytes": 389,
+      "sha256": "8fee222f0301aad7dcdbd9a7a98b14ce945b0aefd0c6babda7a25632e1974341",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "config/database.py",
+      "bytes": 1908,
+      "sha256": "7919c6368dca639637c88f55700dc486eadea0985d18cdd2d1aa12f63fcba794",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "config/settings.py",
+      "bytes": 5492,
+      "sha256": "b927a224e73bd4cc27f0796e3d3f5379c11446bb26d5205f1f635ff24515d7c3",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "config/urls.py",
+      "bytes": 900,
+      "sha256": "9306784e78390aa2749d5b4a9442edc22835ab22cdc043bdc8f451976ca5b957",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "config/wsgi.py",
+      "bytes": 389,
+      "sha256": "0f17579a1bfad708ebac0a56dc8cc383cc2bb05b70a3194e2f5b217008209fb7",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/admin.py",
+      "bytes": 5908,
+      "sha256": "83e3f2176491b07661bc64116495d063a2e39b06e9522ebb8d0ab9917dbf2947",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/api_urls.py",
+      "bytes": 165,
+      "sha256": "e73652ec98df95ca9e4d92ee38289b0ab2bf6856bbcdc07590b347516ed5a441",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/api_views.py",
+      "bytes": 1346,
+      "sha256": "4c89b95972084017572f91d44b712bebe381da189fa1f1ba86013b3e9131cc8e",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/apps.py",
+      "bytes": 146,
+      "sha256": "9b14aa3ecedf75059b73fe9240f895e31ac8c3c789a037c0c21e38cefd0dcb32",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/bootstrap_site.py",
+      "bytes": 3023,
+      "sha256": "63b828c83e22c597379d1bbe9f87ad3cb68242374a0125c7f872ff508fd11b39",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/check_content_quality.py",
+      "bytes": 2036,
+      "sha256": "cac306039feea7d00cd5887d6041800f2a72580c25e6d98f57b0d79afdf8f491",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/check_lesson_sources.py",
+      "bytes": 1023,
+      "sha256": "dec4393305b82fc11edc47b6f581c662c0aeae1df5313f7bf9daa4bcaffc2d9f",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/check_site_integrity.py",
+      "bytes": 18540,
+      "sha256": "ea822c2fd784e6a21fa04bf45a4d9130cfc49c102cb763c59f4cc180aec4d5b1",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/index_lessons.py",
+      "bytes": 711,
+      "sha256": "2f8b34059122eec0d13fe965dc5af2121fdf1b588d0feeb149bd9f57155c56e3",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/publish_lessons.py",
+      "bytes": 1545,
+      "sha256": "37f5cf44dff8714fa1c6b7b773eca08cb32794994283c942ad77aec3f680837a",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/management/commands/update_public_pages.py",
+      "bytes": 1652,
+      "sha256": "9aef3b2c3bd90578ddc154f9dd5e6c6d5d9d5ef575c3edce4af77b8ba627eddb",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/middleware.py",
+      "bytes": 1408,
+      "sha256": "bb4ed7a97eea10fba32e747639aa6ae61ae90288ac611bc01d92200941b22425",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/migrations/0001_initial.py",
+      "bytes": 8864,
+      "sha256": "ec30ca2165e6f8b8b3087034cbada653616ba40cc5014ee08e7334ae8691e218",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/migrations/0002_grade_created_at.py",
+      "bytes": 860,
+      "sha256": "22cb03df721f23cb5743fc5189d1754b0c16a648b21081319337d057fd6aa1a3",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/migrations/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/models.py",
+      "bytes": 10555,
+      "sha256": "77d78f5b65920b45d570d2fee4dff4624fc40f4a25935e678a767c2349e53af1",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/quality.py",
+      "bytes": 2353,
+      "sha256": "17945d6cd9b18f3ae7626de8608c522b5496406baf77f0a6a51a73bdc14c6069",
+      "action": "moved",
+      "destination": "backend/content/quality.py",
+      "reason": "Shared pure function; identical bytes and behavior tests retained"
+    },
+    {
+      "path": "content/services/__init__.py",
+      "bytes": 75,
+      "sha256": "cfafadb6ae1b5c73eed9dbec2a6801a7637288671d4a13a03b48d4a2b2c7c359",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/catalogue.py",
+      "bytes": 1780,
+      "sha256": "3dd892c12633381041e58094abada34dfa059a1cd9bed4b7011cece3027e3447",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/grade_catalogue.py",
+      "bytes": 3259,
+      "sha256": "5f3b44858e8707da6117ea6a43959943de7f4f416d6ce1e7599d8148bc61b555",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/lesson_components.py",
+      "bytes": 8433,
+      "sha256": "0c9fdde1c41a2d21ae1831a8fbb5ca08b73105815d216501f51b2c73e2eba0dc",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/lesson_sources.py",
+      "bytes": 8290,
+      "sha256": "1528724e3004649e55e09441b471501e4d44924cc84e352569ba9e5f42cfe2a7",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/lesson_theme.py",
+      "bytes": 1339,
+      "sha256": "4cc11fe3fd9ad2893878fe1af827e20aee5cf1a75424cfb504c012d62cbaae49",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/public_pages.py",
+      "bytes": 3975,
+      "sha256": "3f6eca0f809348fbe52ae0f5d89e0bf000350f873f1009192b87cde981da67ab",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/publishing.py",
+      "bytes": 18840,
+      "sha256": "b27717086d68e0c46e5b14e35d9a12aeb89f394f727e2eadb8c39faf3355cab5",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/services/site_bootstrap.py",
+      "bytes": 26488,
+      "sha256": "e19105f69e5f8d8a503ab9335b3753730912e96e34f52815dd9ca29ad7cb1573",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/sitemaps.py",
+      "bytes": 1208,
+      "sha256": "fd70157d9db2c6907256fa2df8858d3734fa218cd1fa0d1f6b4d30d84d940276",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_bootstrap.py",
+      "bytes": 10938,
+      "sha256": "71e3b51ca268855c85e4ed9161986ea0333fbfb64372c7f3a23de9389de495e7",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_catalogue.py",
+      "bytes": 6506,
+      "sha256": "643c3975ee8998ba17dd2d3d3f40c9dafbe912fadd0c6394df0b0468dd72ed70",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_curriculum.py",
+      "bytes": 13051,
+      "sha256": "8adc54ccdc107c4dcbdb65f93ca9fca64c0df92ddad41751c475970f1635663c",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_grade_migrations.py",
+      "bytes": 2714,
+      "sha256": "085920c790dce893e158cf734359bb35681003018d35f0d54fb42f9f93e0075b",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_grades_api.py",
+      "bytes": 9620,
+      "sha256": "1fc2b20a3be622ff4cb1e554a3d0f83d7c346c92d901efdff9c76519ce5a40af",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_infrastructure.py",
+      "bytes": 3853,
+      "sha256": "65ffdc4719122067e7c607ecf8a3163c9fe87c36f9de80a892a7e9ea5ff75b8f",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_postgres_publication.py",
+      "bytes": 3325,
+      "sha256": "1872844b1c049a32e978d04724dbc319f1349d2974d75e60c6f6cc907eaab39e",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_public_pages.py",
+      "bytes": 11213,
+      "sha256": "4b7a16b33cf7168a2723e0256510fc82012f9529f1ff9f34196938672130b322",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/test_ui_foundation.py",
+      "bytes": 5622,
+      "sha256": "8a1e61c0210ac55cfa22a7273a36a232f679dcbad3fcc70152df3e387740c564",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/tests.py",
+      "bytes": 1285,
+      "sha256": "f631fa2a63499cb17c91b6f622bd68debab6852de197608e21ce6f6698fe9f67",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/ui_foundation.py",
+      "bytes": 3113,
+      "sha256": "414203705430dd268356a32a933f6b8357248e83b56f2541b2e6aba8d6639f7e",
+      "action": "moved",
+      "destination": "frontend/ui_foundation.py",
+      "reason": "Shared pure function; identical bytes and behavior tests retained"
+    },
+    {
+      "path": "content/urls.py",
+      "bytes": 345,
+      "sha256": "cbf6a0fd3ea44d9aeeb724eb5733f046ccccd9f4736bf2edf2fdea25b83648c6",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "content/views.py",
+      "bytes": 2206,
+      "sha256": "87d30be0e350c1b78e843527e8c7c7853f945c65340e752320d313c4fbc70801",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "docs/architecture.md",
+      "bytes": 10990,
+      "sha256": "701e7e91bb741f37f706c04e1b101f5eee754ba27585cd8408229605831cdd7c",
+      "action": "updated",
+      "current_sha256": "0853c32e545197faa0c673292cc432d26d1cdf762c758f9506bf40be235ec301",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "docs/runbooks/postgres-dev-test.md",
+      "bytes": 11540,
+      "sha256": "4b82ad07a86bdd86ea8cf49297278608ae83870fc1b580bd23d15b51a21e9228",
+      "action": "updated",
+      "current_sha256": "1c7e7931b845c4f7414a5218166e2905bcba8a28992bc1ceb882fbef28888532",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "manage.py",
+      "bytes": 662,
+      "sha256": "9e055a3ca49f173675232d3f61d1feb89f1350708fb25a002f6d3edefeec6db4",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "requirements.lock",
+      "bytes": 487,
+      "sha256": "b1323fd53b5433713dc58b847e801b2b3a75dbd281e9b08310325179aed51a55",
+      "action": "updated",
+      "current_sha256": "e93f8a102bedaf14f68321880ceefd1374a30f36f8111db453f94966f28a2597",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 163,
+      "sha256": "680157dd816d3fef9a5e4de028b45d8be59581d973716ebe4a7a97b7bfcdedba",
+      "action": "updated",
+      "current_sha256": "2a11cb6917e4efa8b1ee39061cb593bdc19b3c502709aee37d884c9e65ccea03",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "scripts/check_database.py",
+      "bytes": 2634,
+      "sha256": "7f53e9728f85525fa984abf901e77cf89e37da0616f0c2b3b98570b56be332bd",
+      "action": "updated",
+      "current_sha256": "9bf6ec83302446bdc45826c8658d3aa956e17e6926d1972e991ae02e11ab7b0f",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "scripts/fresh_install_smoke.py",
+      "bytes": 5995,
+      "sha256": "54d52cf6d19e67a02c07fd122f54f752e7e54ba0ddb05023afebcaa6e6c4289f",
+      "action": "updated",
+      "current_sha256": "03c390a49202e7c999b9a95bef11a75c554dabdd904a1570968911d1d2b2267c",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "scripts/verify_repo.py",
+      "bytes": 7456,
+      "sha256": "48ac697da7d700d1eb76fc3939e5078fe4aa648557a2ac989388f25cb7901a43",
+      "action": "updated",
+      "current_sha256": "4fab98506cf529232372cf4a2d0f0b9983db54616f643d874d853b41cd8df4f6",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "scripts/version_report.py",
+      "bytes": 2259,
+      "sha256": "2d8054a3167ce7ddac301ac70329d52d63a168e6391a9621f45bd25b65eb2df3",
+      "action": "updated",
+      "current_sha256": "c04c60a12744616ea5602fee6f1436da059e2737c95e44aa9602825e697428d3",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "skills/verification/SKILL.md",
+      "bytes": 956,
+      "sha256": "4ece60cfe4c02146d2922fa63b94e9da88f895f3cb4fc63314c8677fbd46022b",
+      "action": "updated",
+      "current_sha256": "54d4bc90d43c404ba891ed975c7334ed6399210c0dcb64ed677e64a10f1c2dfc",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "specs/harness/README.md",
+      "bytes": 11025,
+      "sha256": "c4bb83cf458b3ef22a28788bb212e98466e47e5e6c9877962f8e83481304ebfd",
+      "action": "updated",
+      "current_sha256": "5f41cc20d39990835970c29136310a0a80960b1a10bd34177f497d2216569dbe",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "templates/base.html",
+      "bytes": 1594,
+      "sha256": "da98f2c53dee05a0d31362e040146e8d414896b429d1257a4fe64f5a8a5579c4",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/includes/catalogue.html",
+      "bytes": 3683,
+      "sha256": "e06b9fb85b23649c1af31a472886a30477a0a4136a21631ae7e62265a9c8818e",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/lessons/components/contents.html",
+      "bytes": 1551,
+      "sha256": "ec0ae79ff8f9866184874b42d4994765be54a2fb32e48f281151af4821aa9774",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/lessons/components/exercise.html",
+      "bytes": 911,
+      "sha256": "6c26f7c939a72373214030b73c3d98df1e51761918e20c41df64850d5dae67d6",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/lessons/components/section.html",
+      "bytes": 713,
+      "sha256": "1b016b1a2a0cff24ad1166250becb8df481ae16d900849e30b86d655f44563de",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/page_detail.html",
+      "bytes": 1663,
+      "sha256": "9e76cf43fa627b575d949b02c1580998f5e530dbf2a894be081da1e6507721ab",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/ui/components/button.html",
+      "bytes": 201,
+      "sha256": "c43ad85c4e12262c2e2efae60a6dab3caa5b2eb8f590ebf8250562cb6821da8b",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/ui/components/card.html",
+      "bytes": 90,
+      "sha256": "ff449b98562226df80a468305e2b3e4b7264aad65430376c19b6e32d5f7e2cab",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/ui/components/field.html",
+      "bytes": 668,
+      "sha256": "59913446a781e4bd85d776b5805d7839134d9e166a2867adde14c4795c26612c",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/ui/components/state.html",
+      "bytes": 222,
+      "sha256": "577117b8d5caffe58855d3bb7d91da588337ac3cc2943ff1a1a999a581fb39fc",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/ui/fixture_gallery.html",
+      "bytes": 4790,
+      "sha256": "57127af20ab205111609a2a8f605914425b8e7811157f4dfb00ce752de8e77e3",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/users/account.html",
+      "bytes": 9102,
+      "sha256": "d1f18829f164afbfe844649bba00643aa020b94df248bfcd82a753fe83b429f3",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "templates/users/grade_field.html",
+      "bytes": 515,
+      "sha256": "519131d11249f11afe226a10e213b033042cfc24ad3c79ad8bd1e609a1626083",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "tests/harness/test_canonical_verification.py",
+      "bytes": 2610,
+      "sha256": "fe336db532d9886877ca56ced1a76aa8e62cefc2736de731715ca09dff0dda19",
+      "action": "updated",
+      "current_sha256": "7a409c00b4cc060c841a0c9c8df71c5fb31503fd2e721af4112269e2088216bf",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "tests/harness/test_manifest.py",
+      "bytes": 9494,
+      "sha256": "b468902cdc796fd29f6dd987381ee2ba3c4def313f78c23d222b3da6908f18c3",
+      "action": "updated",
+      "current_sha256": "aabed643842d78e8a2c575cccc4b01989d5567fae2424fa1aefaa70387b03601",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "tests/test_i02_ui_contract.py",
+      "bytes": 4637,
+      "sha256": "6818dcadb5002d516bad5b44b157abd2b436b8b9b1ee62d5fa39d2963812117e",
+      "action": "updated",
+      "current_sha256": "a134445bd316757f51c57ce8d2db431c43b7fd52863c9d3ff67491a0603ce1c4",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "tests/test_migration_r02_contract.py",
+      "bytes": 22739,
+      "sha256": "307aa24ba672e0da1ad32848ba87ed9ca71457809f0af3e9355b28b88db532bf",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "tests/test_migration_r02_protocols.py",
+      "bytes": 30384,
+      "sha256": "3704a3b9c1e2983826a3ee5aafa2a02a98d4c424421cd28d2f30a2acf8a98c38",
+      "action": "updated",
+      "current_sha256": "a95ec2c15ba0c90a274426bb4a91790e6c24c3b351a25d14eb9b3bf6a33f9052",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "tests/test_migration_r02_review.py",
+      "bytes": 18653,
+      "sha256": "2861eb6fe99a83934df6856cc57832ae69073f446277a1f24efb92e0404814b6",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "tests/test_r02a_contract.py",
+      "bytes": 48277,
+      "sha256": "7b8d85cce8770e4426c986e1b8e458059f8c5bb014ffdb3cadcebb1b53b63249",
+      "action": "updated",
+      "current_sha256": "cc050ee8b2345721ee0afa9326df37fbece029f0a4d1e537d5939013136ecb7a",
+      "reason": "Explicit current platform entry-point/preservation/oracle adapter authorized by post-Django task"
+    },
+    {
+      "path": "users/__init__.py",
+      "bytes": 72,
+      "sha256": "e746b51abe7ada3020df9318a4cf45af59a7f6e29609b0c17b37d2e14a1db0c7",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/apps.py",
+      "bytes": 123,
+      "sha256": "a40b34a7938544974de61b6e390bb0cd4f81c727e926dd63836fea642f1e664c",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/http.py",
+      "bytes": 3622,
+      "sha256": "e51c7c5fd51ae05acb74e024031df0e8ee07b1a8ec25445e4b5740fba76a662b",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/migrations/0001_initial.py",
+      "bytes": 3557,
+      "sha256": "8152a0236b21ab400e3fccb4806ff825f7c4df53b0052eb0d0714534fe408326",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/migrations/0002_backfill_profiles.py",
+      "bytes": 1198,
+      "sha256": "613f9cafe12838aa3b9efadc5c9a4297554075c463c4362eb52012b799d6d783",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/migrations/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/models.py",
+      "bytes": 3112,
+      "sha256": "b04a574a6eae7362777db1a16076a498b094b681de3ffdd76016e1ed3e0e8299",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/services.py",
+      "bytes": 10538,
+      "sha256": "13949fcc9d1179f0dbab0c7c4af6ef7006b02178b10c3de49c0eaee6b2d1e624",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/tests/test_i03_ui.py",
+      "bytes": 7737,
+      "sha256": "203811ac2de64b4720b62db7ecae01d4ca623921242126a06b4c62fa454c007c",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/tests/test_identity.py",
+      "bytes": 34649,
+      "sha256": "de93bb4095ebeb0e1186a529aacdc9f2555fb6f8c0a0b39b9fea2e696d46e815",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/tests/test_migrations.py",
+      "bytes": 3010,
+      "sha256": "514ab6821d3ea3fdfca3f5470186ebcd32be6b032eedc78cdcb5ba3fc78cf31b",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/tests/test_postgres.py",
+      "bytes": 5522,
+      "sha256": "6ccf42672e134c63b83338a8b2eb08a61ff4f407c1e94d39fde008c8b9412dee",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/ui_urls.py",
+      "bytes": 133,
+      "sha256": "f7ee3009541b11814fef794598bc3080af834ecb2b808972a1fa795b803479b9",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/ui_views.py",
+      "bytes": 329,
+      "sha256": "9e867ac7bf8ad3aff0185763783a8a2c9d3cfd08df6a3f0942ac3c985e35c58f",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/urls.py",
+      "bytes": 437,
+      "sha256": "b275bc9391a443ed37bd37bf86447663a2b2a95fc0615fffe3c3b587b0fa0b29",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    },
+    {
+      "path": "users/views.py",
+      "bytes": 4741,
+      "sha256": "c8e05c913ef0ee46849ab7d3cec56a97f67820c9a1a49ed6fb46b60945e72751",
+      "action": "removed",
+      "reason": "Django-only source/probe/setup; execute original from pinned oracle when needed"
+    }
+  ]
+}

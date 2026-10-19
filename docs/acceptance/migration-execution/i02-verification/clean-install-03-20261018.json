@@ -1,0 +1,1184 @@
+{
+  "status": "PASS",
+  "scope": "Fresh clean-clone ordinary operator/schema/build/publication flow; not final QA",
+  "started_at": "2026-10-18T08:25:56.836088+00:00",
+  "source_before": {
+    "head": "c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+    "tree": "e118d8d11b9d19f4cea54d7734b2a103dbc753df",
+    "dirty_paths": [
+      "?? scripts/verify_installation.py"
+    ],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_sha256": {
+      "scripts/verify_installation.py": "45c4da123364867fb12e289474cbc1bd9ac90c69e0019148bc11612627179ba7"
+    }
+  },
+  "stages": [
+    {
+      "id": "clone",
+      "argv": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "clone",
+        "--local",
+        "--no-hardlinks",
+        "--no-checkout",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 20.328,
+      "log": "01-clone.log",
+      "log_sha256": "37d6dd6eedc19b8d9711522b9252cd214ee7a6fa1473c7ab06ba70920dbc0cb2"
+    },
+    {
+      "id": "clone-config-core.longpaths",
+      "argv": [
+        "git",
+        "config",
+        "core.longpaths",
+        "true"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.093,
+      "log": "02-clone-config-core.longpaths.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "clone-config-core.autocrlf",
+      "argv": [
+        "git",
+        "config",
+        "core.autocrlf",
+        "false"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.078,
+      "log": "03-clone-config-core.autocrlf.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "clone-config-core.filemode",
+      "argv": [
+        "git",
+        "config",
+        "core.filemode",
+        "false"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.063,
+      "log": "04-clone-config-core.filemode.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "checkout",
+      "argv": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.filemode=false",
+        "checkout",
+        "--detach",
+        "c205ef1f875b70af988cbac9d2b7c4dca7459d80"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 4.062,
+      "log": "05-checkout.log",
+      "log_sha256": "9e530eb8060cc7a9936e5e8b885aa26c3d3b41dfe5c494f11f087f85f5284eb8"
+    },
+    {
+      "id": "clone-head",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.079,
+      "log": "06-clone-head.log",
+      "log_sha256": "10f43f9bce5536ff30c48d73208ae374d974070fd4037f3856f34649804fd708"
+    },
+    {
+      "id": "clone-clean-before",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.312,
+      "log": "07-clone-clean-before.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "new-target-venv",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\public-target-env\\Scripts\\python.exe",
+        "-m",
+        "venv",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 10.625,
+      "log": "08-new-target-venv.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "locked-target-install",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "--disable-pip-version-check",
+        "install",
+        "--no-deps",
+        "-r",
+        "backend/infrastructure/http/requirements.lock"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 30.563,
+      "log": "09-locked-target-install.log",
+      "log_sha256": "86654a381102072f4b63da25c04732a0cb9bca3a879a6ac97bf36c2a1d5469de"
+    },
+    {
+      "id": "target-pip-check",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 1.485,
+      "log": "10-target-pip-check.log",
+      "log_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "id": "target-no-django",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-c",
+        "import sys,importlib.util,json; assert sys.version_info>=(3,12); assert not importlib.util.find_spec('django'); assert not importlib.util.find_spec('rest_framework'); print(json.dumps({'python':sys.version,'prefix':sys.prefix}))"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.125,
+      "log": "11-target-no-django.log",
+      "log_sha256": "b55fc24cae1eb6dfb0cc76245be64f8b4588c4118988a1a539195857c13d94d8"
+    },
+    {
+      "id": "build-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "build",
+        "-f",
+        "deploy/Dockerfile",
+        "--target",
+        "api",
+        "--label",
+        "org.opencontainers.image.revision=c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+        "-t",
+        "mathstart-api:install-371c15596c76",
+        "."
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 11.891,
+      "log": "12-build-api.log",
+      "log_sha256": "c2ef24ad917f0a77900f8d383e7ad538d7bebabb4d5b7d11dd0592339f86e42c"
+    },
+    {
+      "id": "build-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "build",
+        "-f",
+        "deploy/Dockerfile",
+        "--target",
+        "edge",
+        "--label",
+        "org.opencontainers.image.revision=c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+        "-t",
+        "mathstart-edge:install-371c15596c76",
+        "."
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 1.86,
+      "log": "13-build-edge.log",
+      "log_sha256": "caedbc6c6c499325ecf8d51ccf8258a52e8f426cd85b09287a81867bc1ddd436"
+    },
+    {
+      "id": "build-frontend-builder",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "build",
+        "-f",
+        "deploy/Dockerfile",
+        "--target",
+        "frontend-builder",
+        "--label",
+        "org.opencontainers.image.revision=c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+        "-t",
+        "mathstart-frontend-builder:install-371c15596c76",
+        "."
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 3.594,
+      "log": "14-build-frontend-builder.log",
+      "log_sha256": "9fc1ad150ffb649066882171e500ad7d66b664f532d1b229858ba07f36d06ae6"
+    },
+    {
+      "id": "inspect-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "image",
+        "inspect",
+        "mathstart-api:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.359,
+      "log": "15-inspect-api.log",
+      "log_sha256": "42313e39a4da406c76d51087f1a6523dd398afb8e2054a2173d80cc5cd98f2da"
+    },
+    {
+      "id": "inspect-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "image",
+        "inspect",
+        "mathstart-edge:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.281,
+      "log": "16-inspect-edge.log",
+      "log_sha256": "9e0a1f2e5dbfa85b1adf820a7d699c335c992acd0415a814df9dab49fb649584"
+    },
+    {
+      "id": "inspect-frontend-builder",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "image",
+        "inspect",
+        "mathstart-frontend-builder:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.313,
+      "log": "17-inspect-frontend-builder.log",
+      "log_sha256": "65cdd4ac72efff3f1cd06e388d01e04fc3a95915701c59634c5509b82e0b330a"
+    },
+    {
+      "id": "image-source-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+        "mathstart-api:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.296,
+      "log": "18-image-source-api.log",
+      "log_sha256": "10f43f9bce5536ff30c48d73208ae374d974070fd4037f3856f34649804fd708"
+    },
+    {
+      "id": "image-source-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+        "mathstart-edge:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.282,
+      "log": "19-image-source-edge.log",
+      "log_sha256": "10f43f9bce5536ff30c48d73208ae374d974070fd4037f3856f34649804fd708"
+    },
+    {
+      "id": "image-source-frontend-builder",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+        "mathstart-frontend-builder:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.297,
+      "log": "20-image-source-frontend-builder.log",
+      "log_sha256": "10f43f9bce5536ff30c48d73208ae374d974070fd4037f3856f34649804fd708"
+    },
+    {
+      "id": "network-create",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "network",
+        "create",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "migration-install-network-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.281,
+      "log": "21-network-create.log",
+      "log_sha256": "6c38285b33de6b2b3900944f10422755bb22bb8915c76ada629a7269c1bb5e9c"
+    },
+    {
+      "id": "public-volume-create",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "volume",
+        "create",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "migration-install-public-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.25,
+      "log": "22-public-volume-create.log",
+      "log_sha256": "53068c4f1fbf38fca42933879286ecc9eb8306cdb6c59261266a445c4e02a695"
+    },
+    {
+      "id": "postgres-start",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "run",
+        "--detach",
+        "--name",
+        "migration-install-db-371c15596c76",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "--network",
+        "migration-install-network-371c15596c76",
+        "--network-alias",
+        "db",
+        "--tmpfs",
+        "/var/lib/postgresql/data",
+        "--publish",
+        "127.0.0.1:55443:5432",
+        "--env-file",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\private-postgres.env",
+        "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 1.109,
+      "log": "23-postgres-start.log",
+      "log_sha256": "7374cd41e7c4fff6aa3e36eb37dd3d5277e2374133034640457b8a256f148f9f"
+    },
+    {
+      "id": "schema-preview",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.release_migrate",
+        "preview",
+        "--profile",
+        "FRESH",
+        "--plan-file",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\schema.json"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 2.157,
+      "log": "24-schema-preview.log",
+      "log_sha256": "dee10a7d0b293facb2de294d31cd3dc502103c19dc635b26545ad5173f8eb2af"
+    },
+    {
+      "id": "schema-apply",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.release_migrate",
+        "apply",
+        "--maintenance",
+        "--plan-file",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\schema.json",
+        "--reviewed-plan-sha256",
+        "80885a57e145a905068303f5a05dea82b8f13c55627db8b67cbedfbb37f813e0"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 2.235,
+      "log": "25-schema-apply.log",
+      "log_sha256": "4019d4da7f43e1181c9053431227bec51e5c878fe0749ba1b9878069cec49644"
+    },
+    {
+      "id": "schema-check",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.release_migrate",
+        "check"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 1.563,
+      "log": "26-schema-check.log",
+      "log_sha256": "fcfa9f4e438c20206df90262ef9542b8e9d31087cc781d38b2ad83b2981c8470"
+    },
+    {
+      "id": "initial-operator",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.users.operator",
+        "--maintenance",
+        "--from-environment"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 2.329,
+      "log": "27-initial-operator.log",
+      "log_sha256": "2bfaa24e67a64ef8a1d18de389c2e4aaef59addba7ac12f998d5a82f5b98dfbd"
+    },
+    {
+      "id": "prepare-bootstrap",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.content.publish",
+        "prepare-bootstrap",
+        "--source-root",
+        ".",
+        "--source-sha",
+        "c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+        "--release-id",
+        "initial-371c15596c76",
+        "--input-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\inputs",
+        "--changes",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\edition.json"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 30.0,
+      "log": "28-prepare-bootstrap.log",
+      "log_sha256": "9f8cb7dd6562d835535a65dd4e63bca035903be316f844a92225a90e3af0ad87"
+    },
+    {
+      "id": "builder-output-permissions",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "run",
+        "--detach",
+        "--name",
+        "migration-install-permissions-371c15596c76",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "--network",
+        "none",
+        "--no-healthcheck",
+        "--user",
+        "0",
+        "--mount",
+        "type=bind,source=C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\output,target=/output",
+        "--mount",
+        "type=volume,source=migration-install-public-371c15596c76,target=/published",
+        "--entrypoint",
+        "python",
+        "mathstart-api:install-371c15596c76",
+        "-c",
+        "import os; os.chown('/output',10001,10001); os.chmod('/output',0o755); [os.mkdir('/published/'+p) for p in ('releases','frontend')]; [os.chown('/published/'+p,10001,10001) for p in ('releases','frontend')]; os.chown('/published',10001,10001)"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.61,
+      "log": "29-builder-output-permissions.log",
+      "log_sha256": "dadb0c80e0ac6dae2fb2b512b30b26eb5d76518f071d31660892dc3513395166"
+    },
+    {
+      "id": "builder-permissions-wait",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "wait",
+        "5f465baa745e67ca8bafb5d59a88d6db4890cf36a8e9f11593f565260013ef9c"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.25,
+      "log": "30-builder-permissions-wait.log",
+      "log_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "id": "builder-permissions-remove",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "rm",
+        "5f465baa745e67ca8bafb5d59a88d6db4890cf36a8e9f11593f565260013ef9c"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.281,
+      "log": "31-builder-permissions-remove.log",
+      "log_sha256": "dadb0c80e0ac6dae2fb2b512b30b26eb5d76518f071d31660892dc3513395166"
+    },
+    {
+      "id": "locked-node-prerender",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "run",
+        "--detach",
+        "--name",
+        "migration-install-builder-371c15596c76",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "--network",
+        "none",
+        "--mount",
+        "type=bind,source=C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\inputs,target=/inputs,readonly",
+        "--mount",
+        "type=bind,source=C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\output,target=/output",
+        "mathstart-frontend-builder:install-371c15596c76",
+        "--input-root",
+        "/inputs",
+        "--release-id",
+        "initial-371c15596c76",
+        "--manifest-digest",
+        "a5ce3e2cb0ab32349d26a0f51d2fcbeb194edfebbda91b2228b0dee7555701ff",
+        "--receipt-digest",
+        "26fcb53e5dc48abfaee0e61c843af6e4954b7cda3391a843bf0d7e0115ba366a",
+        "--output",
+        "/output/site",
+        "--origin",
+        "http://127.0.0.1:18125"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.609,
+      "log": "32-locked-node-prerender.log",
+      "log_sha256": "0be11237e21d1fd4a6f762327b6661764f138fa01e6edf5fcea95345f81c69df"
+    },
+    {
+      "id": "locked-node-prerender-wait",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "wait",
+        "9fb7b539f920b328c6db6eed346cc326339350996370986737ab6b017764f7a6"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 212.266,
+      "log": "33-locked-node-prerender-wait.log",
+      "log_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "id": "locked-node-prerender-logs",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "logs",
+        "9fb7b539f920b328c6db6eed346cc326339350996370986737ab6b017764f7a6"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.265,
+      "log": "34-locked-node-prerender-logs.log",
+      "log_sha256": "ee3c2c7d6ee5d36c05b22177c1a492c3c871e48160c3c091f8ebe00e808c6ab3"
+    },
+    {
+      "id": "locked-node-prerender-remove",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "rm",
+        "9fb7b539f920b328c6db6eed346cc326339350996370986737ab6b017764f7a6"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.312,
+      "log": "35-locked-node-prerender-remove.log",
+      "log_sha256": "0be11237e21d1fd4a6f762327b6661764f138fa01e6edf5fcea95345f81c69df"
+    },
+    {
+      "id": "publication-plan",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.content.publish",
+        "plan",
+        "--changes",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\edition.json",
+        "--plan",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\publication.json",
+        "--origin",
+        "http://127.0.0.1:18125",
+        "--output-digest",
+        "c9339fef14877e2c5cd650f9f57681de65fb238795e4e390bed3c26227e4aa47",
+        "--input-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\inputs",
+        "--output-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\output\\site",
+        "--release-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\serving\\releases",
+        "--artifact-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\serving\\frontend"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 7.266,
+      "log": "36-publication-plan.log",
+      "log_sha256": "423560ed0c9a2f02b88a21fb0df52848ff9b3d0846bbd223599623f4dcf35908"
+    },
+    {
+      "id": "api-start",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "run",
+        "--detach",
+        "--name",
+        "migration-install-api-371c15596c76",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "--network",
+        "migration-install-network-371c15596c76",
+        "--network-alias",
+        "api",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--tmpfs",
+        "/tmp:rw,nosuid,noexec,size=32m",
+        "--env-file",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\private-api.env",
+        "--mount",
+        "type=volume,source=migration-install-public-371c15596c76,target=/runtime,readonly",
+        "mathstart-api:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.687,
+      "log": "37-api-start.log",
+      "log_sha256": "a22f0bbc796947714c845e307cf2db54e8ca6b87001b751e267a1da0bf6ea912"
+    },
+    {
+      "id": "edge-start",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "run",
+        "--detach",
+        "--name",
+        "migration-install-edge-371c15596c76",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "--network",
+        "migration-install-network-371c15596c76",
+        "--network-alias",
+        "edge",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--tmpfs",
+        "/tmp:rw,nosuid,noexec,size=16m,uid=101,gid=101",
+        "--publish",
+        "127.0.0.1:18125:8080",
+        "mathstart-edge:install-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.765,
+      "log": "38-edge-start.log",
+      "log_sha256": "d70349d21ae8d74c8f1eafd054193593908e8e83723921f495789c15f6a85820"
+    },
+    {
+      "id": "initial-gateway-unready",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-c",
+        "import httpx,time; url='http://127.0.0.1:18125'; result=None\nfor _ in range(60):\n try:\n  result=httpx.get(url+'/',trust_env=False,timeout=5)\n  if result.status_code==503:break\n except httpx.RequestError:pass\n time.sleep(.5)\nassert result is not None and result.status_code==503\nprint('EXPECTED_UNREADY_503')"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 1.797,
+      "log": "39-initial-gateway-unready.log",
+      "log_sha256": "d6530630990bd7af8416354215116d4dd7966ddccb495678431f2ccdb6c11dc4"
+    },
+    {
+      "id": "publication-publisher-start",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "run",
+        "--detach",
+        "--name",
+        "migration-install-publisher-371c15596c76",
+        "--label",
+        "mathstart.purpose=disposable-clean-install",
+        "--network",
+        "migration-install-network-371c15596c76",
+        "--no-healthcheck",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--tmpfs",
+        "/tmp:rw,nosuid,noexec,size=32m",
+        "--env-file",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\private-api.env",
+        "--mount",
+        "type=bind,source=C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\inputs,target=/inputs,readonly",
+        "--mount",
+        "type=bind,source=C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\output\\site,target=/output,readonly",
+        "--mount",
+        "type=bind,source=C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\publication.json,target=/plan.json,readonly",
+        "--mount",
+        "type=volume,source=migration-install-public-371c15596c76,target=/runtime",
+        "mathstart-api:install-371c15596c76",
+        "python",
+        "-c",
+        "import collections,httpx,json,runpy,socket,sys,time\noriginal=socket.getaddrinfo\ndef resolve(host,port,*args,**kwargs):\n return original('edge',8080,*args,**kwargs) if host=='127.0.0.1' and int(port)==18125 else original(host,port,*args,**kwargs)\nsocket.getaddrinfo=resolve\nsend=httpx.Client.send\nrecent=collections.deque(maxlen=5); measured={'requests':0,'maximum_seconds':0}\ndef observed(client,request,*args,**kwargs):\n tick=time.monotonic(); item={'path':request.url.path}\n try:\n  response=send(client,request,*args,**kwargs); item.update(status=response.status_code,cache=response.headers.get('cache-control')); return response\n except Exception as error:\n  item['failure_class']=type(error).__name__; raise\n finally:\n  item['seconds']=round(time.monotonic()-tick,3); measured['requests']+=1; measured['maximum_seconds']=max(measured['maximum_seconds'],item['seconds']); recent.append(item)\nhttpx.Client.send=observed\nsys.argv=['backend.content.publish',*sys.argv[1:]]\ntry:runpy.run_module('backend.content.publish',run_name='__main__')\nfinally:print(json.dumps({'public_probe_trace':{**measured,'last':list(recent)}}),flush=True)\n",
+        "publish",
+        "--plan",
+        "/plan.json",
+        "--key",
+        "initial-371c15596c76",
+        "--owner",
+        "82e17893-463d-4ff9-aedd-b3fdbaee1acc",
+        "--input-root",
+        "/inputs",
+        "--output-root",
+        "/output",
+        "--release-root",
+        "/runtime/releases",
+        "--artifact-root",
+        "/runtime/frontend"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.719,
+      "log": "40-publication-publisher-start.log",
+      "log_sha256": "87a924560e9fdeeda3e50a03a18386c51497bd163f1a5db22b50e1ea6bb153fd"
+    },
+    {
+      "id": "publication-publisher-wait",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "wait",
+        "84b531ebe3a9b6f1e1ba2a5b79d983ce0137b9eed03437a5b3ce724bcbe6ce5e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 228.359,
+      "log": "41-publication-publisher-wait.log",
+      "log_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "id": "publication-publisher-logs",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "logs",
+        "84b531ebe3a9b6f1e1ba2a5b79d983ce0137b9eed03437a5b3ce724bcbe6ce5e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.266,
+      "log": "42-publication-publisher-logs.log",
+      "log_sha256": "9737a44f9026261a80166feb7ebdcc022e3469bd7736f3c61c45b3413f020c1d"
+    },
+    {
+      "id": "publication-publisher-remove",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "rm",
+        "84b531ebe3a9b6f1e1ba2a5b79d983ce0137b9eed03437a5b3ce724bcbe6ce5e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.281,
+      "log": "43-publication-publisher-remove.log",
+      "log_sha256": "87a924560e9fdeeda3e50a03a18386c51497bd163f1a5db22b50e1ea6bb153fd"
+    },
+    {
+      "id": "actual-image-readiness",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-c",
+        "import subprocess; r=subprocess.run(['C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe', 'exec', '2683c7e521bee1933c3383bc993ca0eb5f9912ca2f2d5a18678ccaa3d904407e', 'python', '-m', 'backend.health'],capture_output=True); assert r.returncode==0 and r.stdout.strip()==b'READY'; print('READY')"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 1.062,
+      "log": "44-actual-image-readiness.log",
+      "log_sha256": "5f14c516e0c7a2be0aa613a98a475138fe4e5824bd7715e51ae46652059c709b"
+    },
+    {
+      "id": "actual-operator-login",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-c",
+        "import os,httpx; origin=os.environ['MATHSTART_PUBLIC_ORIGIN']; c=httpx.Client(trust_env=False,timeout=10); r=c.get(origin+'/'); assert r.status_code==200 and b'</html>' in r.content; t=c.get(origin+'/api/v1/auth/csrf/').json()['data']['csrf_token']; r=c.post(origin+'/api/v1/auth/login/',json={'username':os.environ['MATHSTART_OPERATOR_USERNAME'],'password':os.environ['MATHSTART_OPERATOR_PASSWORD']},headers={'Origin':origin,'X-CSRFToken':t}); assert r.status_code==200; assert c.get(origin+'/api/v1/users/me/').status_code==200; r=c.get(origin+'/admin/auth/user/'); assert r.status_code==200 and 'no-store' in r.headers['cache-control']; c.close(); print('REAL_OPERATOR_LOGIN_AND_PRIVATE_SHELL')"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 1.5,
+      "log": "45-actual-operator-login.log",
+      "log_sha256": "33e3fd7865e5daa9e0d36ae05109449d6de15d4852a7bf401b324f994d239308"
+    },
+    {
+      "id": "actual-lesson-sources",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.cli",
+        "check-lesson-sources",
+        "--source-root",
+        ".",
+        "--all"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 6.703,
+      "log": "46-actual-lesson-sources.log",
+      "log_sha256": "12c8a6071225e9f9af6b3973f23135d0d13d3e35d2cc17b178301f0538503094"
+    },
+    {
+      "id": "repeat-bootstrap-preview",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env\\Scripts\\python.exe",
+        "-m",
+        "backend.content.publish",
+        "prepare-bootstrap",
+        "--source-root",
+        ".",
+        "--source-sha",
+        "c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+        "--release-id",
+        "repeat-371c15596c76",
+        "--input-root",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\absent-inputs",
+        "--changes",
+        "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\runtime\\absent-edition.json",
+        "--dry-run"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 7.312,
+      "log": "47-repeat-bootstrap-preview.log",
+      "log_sha256": "8923c9450f5f2377af228c1f4906e38dd0b8ac0ec69b48100fce2893778b3d92"
+    },
+    {
+      "id": "clone-clean-after",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout",
+      "exit_code": 0,
+      "seconds": 0.5,
+      "log": "48-clone-clean-after.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "inspect-owned-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "container",
+        "inspect",
+        "a89eea530c3c619af0f2753a9df259196099c5603c1f35f7b980e14c7137fbcf"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.265,
+      "log": "49-inspect-owned-edge.log",
+      "log_sha256": "fe52f232c55804c45fdfd3f732d39fc9d8d3d843d66b760446fbe53c7f4e5c6e"
+    },
+    {
+      "id": "logs-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "logs",
+        "a89eea530c3c619af0f2753a9df259196099c5603c1f35f7b980e14c7137fbcf"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.313,
+      "log": "50-logs-edge.log",
+      "log_sha256": "1c27f13d33b22f39c435b540d3f398ee7953dfdbe5970d45ebbac0ad6bc0c982"
+    },
+    {
+      "id": "stop-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "stop",
+        "a89eea530c3c619af0f2753a9df259196099c5603c1f35f7b980e14c7137fbcf"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 1.078,
+      "log": "51-stop-edge.log",
+      "log_sha256": "d70349d21ae8d74c8f1eafd054193593908e8e83723921f495789c15f6a85820"
+    },
+    {
+      "id": "remove-edge",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "rm",
+        "a89eea530c3c619af0f2753a9df259196099c5603c1f35f7b980e14c7137fbcf"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.328,
+      "log": "52-remove-edge.log",
+      "log_sha256": "d70349d21ae8d74c8f1eafd054193593908e8e83723921f495789c15f6a85820"
+    },
+    {
+      "id": "inspect-owned-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "container",
+        "inspect",
+        "2683c7e521bee1933c3383bc993ca0eb5f9912ca2f2d5a18678ccaa3d904407e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.281,
+      "log": "53-inspect-owned-api.log",
+      "log_sha256": "fe855656eb6c3af2640bb42c24eda84dba116f7544b39ac15a41332e1763d2a5"
+    },
+    {
+      "id": "logs-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "logs",
+        "2683c7e521bee1933c3383bc993ca0eb5f9912ca2f2d5a18678ccaa3d904407e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.359,
+      "log": "54-logs-api.log",
+      "log_sha256": "866969a732c2fcf300878953814bcf23fd2e1fbae82d3a5967c7052626517032"
+    },
+    {
+      "id": "stop-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "stop",
+        "2683c7e521bee1933c3383bc993ca0eb5f9912ca2f2d5a18678ccaa3d904407e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 1.234,
+      "log": "55-stop-api.log",
+      "log_sha256": "a22f0bbc796947714c845e307cf2db54e8ca6b87001b751e267a1da0bf6ea912"
+    },
+    {
+      "id": "remove-api",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "rm",
+        "2683c7e521bee1933c3383bc993ca0eb5f9912ca2f2d5a18678ccaa3d904407e"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.266,
+      "log": "56-remove-api.log",
+      "log_sha256": "a22f0bbc796947714c845e307cf2db54e8ca6b87001b751e267a1da0bf6ea912"
+    },
+    {
+      "id": "inspect-owned-db",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "container",
+        "inspect",
+        "5b34de7223ff36c3a017463d026abfc4e5f71352a68e55791d2145cbd2bf9f3c"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.235,
+      "log": "57-inspect-owned-db.log",
+      "log_sha256": "32e1ca0887a61d56d729fab42f591a84b25a0484c24fc62e26b4f92d8958095f"
+    },
+    {
+      "id": "logs-db",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "logs",
+        "5b34de7223ff36c3a017463d026abfc4e5f71352a68e55791d2145cbd2bf9f3c"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.25,
+      "log": "58-logs-db.log",
+      "log_sha256": "0075772b96832d3083c6608a96fb1d206cce3e1d354200eb60721ffbef9bcc38"
+    },
+    {
+      "id": "stop-db",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "stop",
+        "5b34de7223ff36c3a017463d026abfc4e5f71352a68e55791d2145cbd2bf9f3c"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.828,
+      "log": "59-stop-db.log",
+      "log_sha256": "7374cd41e7c4fff6aa3e36eb37dd3d5277e2374133034640457b8a256f148f9f"
+    },
+    {
+      "id": "remove-db",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "rm",
+        "5b34de7223ff36c3a017463d026abfc4e5f71352a68e55791d2145cbd2bf9f3c"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.266,
+      "log": "60-remove-db.log",
+      "log_sha256": "7374cd41e7c4fff6aa3e36eb37dd3d5277e2374133034640457b8a256f148f9f"
+    },
+    {
+      "id": "inspect-network",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "network",
+        "inspect",
+        "d13ae82b7586579796b7024b050848f0dbf9e987f198f2eef769870ae40ef184"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.25,
+      "log": "61-inspect-network.log",
+      "log_sha256": "f00cb8d6dfc18a6cc81daf4d80404a067d22459ad91a38bc60fdfcc5d268e9b6"
+    },
+    {
+      "id": "remove-network",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "network",
+        "rm",
+        "d13ae82b7586579796b7024b050848f0dbf9e987f198f2eef769870ae40ef184"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.641,
+      "log": "62-remove-network.log",
+      "log_sha256": "6c38285b33de6b2b3900944f10422755bb22bb8915c76ada629a7269c1bb5e9c"
+    },
+    {
+      "id": "inspect-public-volume",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "volume",
+        "inspect",
+        "migration-install-public-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.25,
+      "log": "63-inspect-public-volume.log",
+      "log_sha256": "ce5942e56d36d2fe8196be7396dfce0ca65a27cb051c688601b8ffa086a254a5"
+    },
+    {
+      "id": "remove-public-volume",
+      "argv": [
+        "C:/Users/Tramsey/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+        "volume",
+        "rm",
+        "migration-install-public-371c15596c76"
+      ],
+      "cwd": "C:\\Projects\\MathStart-Python\\migration-execution\\integration",
+      "exit_code": 0,
+      "seconds": 0.328,
+      "log": "64-remove-public-volume.log",
+      "log_sha256": "53068c4f1fbf38fca42933879286ecc9eb8306cdb6c59261266a445c4e02a695"
+    }
+  ],
+  "assertions": [
+    "independent_exact_clean_clone",
+    "actual_images_bound_to_clone_sha",
+    "actual_reviewable_schema_plan",
+    "actual_builder_output_permissions",
+    "actual_clean_node_build",
+    "actual_publication_process_exit",
+    "ordinary_publication_cli_completed",
+    "repeat_bootstrap_is_pure_zero_change",
+    "clone_source_unchanged"
+  ],
+  "clone_sha": "c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+  "new_target_environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "prefix": "C:\\Projects\\MathStart-Python\\migration-execution\\integration\\var\\install-03\\checkout\\var\\target-env"
+  },
+  "images": {
+    "api": "sha256:4d857e5966e2706cb93b2c959cb98c2723c608fab43ef9873ff97b917040d417",
+    "edge": "sha256:4d91031c0d959a8e6cf5fda9876513cc7d6ce3f3c675f7e6e0f3481ab4247222",
+    "frontend-builder": "sha256:e0dddbdedef8409b60b25b61f0ca58642df30a3e2e900617ad46cc0138884631"
+  },
+  "public_probe_trace": {
+    "requests": 813,
+    "maximum_seconds": 1.165,
+    "last": [
+      {
+        "path": "/mathstart/vzaimnoe-raspolozhenie-grafikov-linejnyh-funkczij/",
+        "status": 301,
+        "cache": "no-cache",
+        "seconds": 0.085
+      },
+      {
+        "path": "/mathstart/zamechatelnye-tochki-treugolnika-vpisannye-i-opisannye-chetyryohugolniki/",
+        "status": 301,
+        "cache": "no-cache",
+        "seconds": 0.08
+      },
+      {
+        "path": "/mathstart/zapis-funkczii-v-vide-u-fx/",
+        "status": 301,
+        "cache": "no-cache",
+        "seconds": 0.08
+      },
+      {
+        "path": "/pamyatki/",
+        "status": 301,
+        "cache": "no-cache",
+        "seconds": 0.082
+      },
+      {
+        "path": "/_content/index.json",
+        "status": 200,
+        "cache": "no-store",
+        "seconds": 0.083
+      }
+    ]
+  },
+  "release_id": "initial-371c15596c76",
+  "output_manifest_digest": "c9339fef14877e2c5cd650f9f57681de65fb238795e4e390bed3c26227e4aa47",
+  "input_manifest_digest": "a5ce3e2cb0ab32349d26a0f51d2fcbeb194edfebbda91b2228b0dee7555701ff",
+  "input_receipt_digest": "26fcb53e5dc48abfaee0e61c843af6e4954b7cda3391a843bf0d7e0115ba366a",
+  "source_after": {
+    "head": "c205ef1f875b70af988cbac9d2b7c4dca7459d80",
+    "tree": "e118d8d11b9d19f4cea54d7734b2a103dbc753df",
+    "dirty_paths": [
+      "?? scripts/verify_installation.py"
+    ],
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_sha256": {
+      "scripts/verify_installation.py": "45c4da123364867fb12e289474cbc1bd9ac90c69e0019148bc11612627179ba7"
+    }
+  },
+  "cleanup": "PASS",
+  "cleanup_errors": [],
+  "finished_at": "2026-10-18T08:36:06.287251+00:00"
+}

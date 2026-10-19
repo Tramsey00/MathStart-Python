@@ -1,0 +1,442 @@
+{
+  "result": "PASS_CURRENT_SUCCESSOR_TASK_MATRIX",
+  "implementation_sha": "8256cbf4b38e97fc1169fea85f2d558950543be8",
+  "source": {
+    "actual_checkout_sha": "8256cbf4b38e97fc1169fea85f2d558950543be8",
+    "actual_orchestrator_sha": "0effadc83ff360c54cb9a0f832c3911d30165ee5",
+    "anchor_sha256": "5a9a7a65dab43afe4e353b51523d86f3a15de2e371d19efacc8127ae6d0dbfd7",
+    "baseline_evidence_run": 38760171595,
+    "baseline_run_does_not_execute_v02": true,
+    "checkout_tree": "74c3014516ec3a2110d2cfec13c8e7afb8ae5024",
+    "control_revision": "1b75c6e58ecdcb4bb172d4df979e9b9efa7dde68",
+    "implementation_sha": "8256cbf4b38e97fc1169fea85f2d558950543be8",
+    "parents": [
+      "76d8eac6387a5fde5432a0e8130a881cb6d7ba82"
+    ],
+    "pr_head_before": "8256cbf4b38e97fc1169fea85f2d558950543be8",
+    "predecessor_sha": "76d8eac6387a5fde5432a0e8130a881cb6d7ba82",
+    "reviewed_scope_sha256": "04a471757f0baf918c27f06dadb93d82a1892d1766d3842063ab3cc63fced430",
+    "workflow_sha": "0effadc83ff360c54cb9a0f832c3911d30165ee5"
+  },
+  "suites": {
+    "v02": {
+      "tests_run": 118,
+      "postgres_collected": 50,
+      "skips": 0,
+      "errors": 0,
+      "failures": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "result": "PASS",
+      "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]"
+    },
+    "v01": {
+      "tests_run": 34,
+      "postgres_collected": 23,
+      "skips": 0,
+      "errors": 0,
+      "failures": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "result": "PASS",
+      "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]"
+    },
+    "r02": {
+      "tests_run": 63,
+      "postgres_collected": 0,
+      "skips": 0,
+      "errors": 0,
+      "failures": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "result": "PASS",
+      "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]"
+    },
+    "r02a": {
+      "tests_run": 30,
+      "postgres_collected": 0,
+      "skips": 0,
+      "errors": 0,
+      "failures": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "result": "PASS",
+      "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]"
+    },
+    "r03a": {
+      "tests_run": 41,
+      "postgres_collected": 0,
+      "skips": 0,
+      "errors": 0,
+      "failures": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "result": "PASS",
+      "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]"
+    }
+  },
+  "original86_cases_retained": true,
+  "new_case_count": 32,
+  "new_cases": [
+    {
+      "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails (joint=False)",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_corrupted_text_or_jointly_rehashed_source_fails (joint=True)",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail (change={'source_encoding': 'cp1251'})",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail (change={'raw_bytes_base64': 'not base64!'})",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_encoding_and_raw_byte_profile_tampering_fail (change={'byte_profile': {'bom_utf8': True, 'cr': 0, 'lf': 261, 'crlf': 0}})",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard (name='var/i02_handoff_full_content.py')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_reported_hashes_are_cp1251_misreads_and_fail_explicit_utf8_guard (name='var/i02_handoff_finalize.py')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_unit.HelperEvidenceIntegrityTests.test_p3_sources_roundtrip_and_two_physical_reads_match_original_byte_pins",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_catalogue_release_without_home_does_not_require_alias",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra (aliases=[{'url': '/glavnaya/', 'page_id': 999, 'status': 200, 'canonical_path': '/'}])",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra (aliases=[{'url': '/glavnaya/', 'page_id': 302, 'status': 200, 'canonical_path': '/'}])",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra (aliases=[{'url': '/glavnaya/', 'page_id': 301, 'status': 301, 'canonical_path': '/'}])",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra (aliases=[{'url': '/glavnaya/', 'page_id': 301, 'status': 200, 'canonical_path': '/topic/'}])",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra (aliases=[{'url': '/glavnaya/', 'page_id': 301, 'status': 200, 'canonical_path': '/'}, {'url': '/glavnaya/', 'page_id': 301, 'status': 200, 'canonical_path': '/'}])",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_invalid_reference_status_canonical_duplicate_and_extra (aliases=[{'url': '/glavnaya/', 'page_id': 301, 'status': 200, 'canonical_path': '/'}, {'url': '/extra-home/', 'page_id': 301, 'status': 200, 'canonical_path': '/'}])",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_alias_uses_actual_slug_and_canonical_root",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_home_requires_slug_alias_even_with_valid_manifest_digest",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters (query='')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters (query='q=strasse')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters (query='q=none')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters (query='grade=unknown&subject=foreign&ignored=x')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters (query='grade=5-klass&subject=matematika&q=none')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_catalogue_full_preserves_structure_for_all_filters (query='q=miss&q=Stra%C3%9Fe')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_context_deeply_isolates_filtered_and_full_catalogue",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_int64_ids_are_exact_python_integers",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_unit.I02HandoffUnitTests.test_renderer_non_catalogue_pages_receive_only_release_identity",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_catalogue_without_home_remains_available",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/glavnaya/')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/old.html')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/_content/index.json')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/api/v1/content/pages/glavnaya/')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_http.SQLiteHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_fields_filters_and_no_new_public_dto_or_routes",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_catalogue_without_home_remains_available",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect",
+      "result": "PASS",
+      "subtests": [
+        {
+          "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/glavnaya/')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/old.html')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/_content/index.json')",
+          "result": "PASS"
+        },
+        {
+          "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_home_missing_alias_fails_closed_without_renderer_or_redirect (path='/api/v1/content/pages/glavnaya/')",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_release_switch_before_context_does_not_mix_r1_and_r2",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_failure_uses_safe_existing_503",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_renderer_mutations_cannot_change_pinned_release_index",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_i02_valid_home_alias_canonical_and_identity_on_all_html_pages",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_mutating_renderer_failure_is_safe_and_leaves_release_intact",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_nested_page_and_context_mutations_preserve_data_and_next_http_request",
+      "result": "PASS",
+      "subtests": []
+    },
+    {
+      "id": "backend.tests.v02.test_postgres.PostgreSQLHTTPTests.test_p2_renderer_top_level_page_mutation_cannot_change_validated_release",
+      "result": "PASS",
+      "subtests": []
+    }
+  ],
+  "content": {
+    "candidate_activation": "NOT_PERFORMED",
+    "catalogue_order_vs_django": "PASS",
+    "full_asset_family_and_browser_render": "NOT_VERIFIED_BY_THIS_CHECK",
+    "pages": 279,
+    "read_only_sql": "PASS",
+    "seo_vs_django": "PASS",
+    "source_identity_mapping": "PASS",
+    "topics": 263
+  },
+  "phases": {
+    "content-parity": {
+      "result": "PASS"
+    },
+    "content-profile-create": {
+      "result": "PASS"
+    },
+    "content-profile-drop": {
+      "result": "PASS"
+    },
+    "content-profile-fresh": {
+      "result": "PASS"
+    },
+    "final-v02-pg-empty": {
+      "result": "PASS"
+    },
+    "install-runtime": {
+      "result": "PASS"
+    },
+    "install-v01": {
+      "result": "PASS"
+    },
+    "install-v02": {
+      "result": "PASS"
+    },
+    "published-source-unchanged": {
+      "result": "PASS"
+    },
+    "r02": {
+      "result": "PASS"
+    },
+    "r02a": {
+      "result": "PASS"
+    },
+    "r03a": {
+      "result": "PASS"
+    },
+    "runtime-no-django": {
+      "result": "PASS"
+    },
+    "runtime-service": {
+      "result": "PASS"
+    },
+    "v01-pg-after": {
+      "result": "PASS"
+    },
+    "v01-pg-before": {
+      "result": "PASS"
+    },
+    "v01-suite": {
+      "result": "PASS"
+    },
+    "v02-pg-after": {
+      "result": "PASS"
+    },
+    "v02-pg-before": {
+      "result": "PASS"
+    },
+    "v02-suite": {
+      "result": "PASS"
+    }
+  },
+  "f02_native_comparator_cases": 8,
+  "services_stopped_removed": true,
+  "databases_empty_before_after": true,
+  "task_approval": false,
+  "r03_status": "INCOMPLETE"
+}

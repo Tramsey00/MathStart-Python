@@ -1,0 +1,244 @@
+[
+  {
+    "actual_reason": "OWNER_CONTROL_DIGEST: verify_publication_v3.py",
+    "after_sha256": "8bdcb8c78a17d0eade85b6820d9bb7b2082d4172189920eda24b5d65a8ed4fda",
+    "before_sha256": "54da54d7a54f9ca714a393577a31a74e948c373bbee4c92045110958c59a56a5",
+    "case": "trusted-executable-replacement",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "OWNER_CONTROL_DIGEST: exception-policy.json",
+    "after_sha256": "a725640a9307ece816e474e18ceabfa1c6c9a0eb30a5841c5c7df74205964536",
+    "before_sha256": "0e990932da607ff62ad8ed51938d78ff830e0043c56708faa137076791a09d6a",
+    "case": "trusted-exception-policy.json",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "OWNER_CONTROL_DIGEST: publication-manifest-v3.json",
+    "after_sha256": "841027694c1e38ab2eb4f9934284fee677fea165167719ff6142e7ea92cb2c1d",
+    "before_sha256": "9763119d60d8355854c45df6c032424a3dfac54e7d0576de25ff0247a2dfd394",
+    "case": "trusted-publication-manifest-v3.json",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "OWNER_CONTROL_DIGEST: owner-handoff-bindings.json",
+    "after_sha256": "e4d18c78aa7b27a7262baa043adf12a78a3316f1f4458c9a513878ad9146b72e",
+    "before_sha256": "a3151ad6a39066a9cd01b952f9aa3fb89c5e124d0adac21438aea3aade024100",
+    "case": "trusted-owner-handoff-bindings.json",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "OWNER_CONTROL_DIGEST: root.gitattributes",
+    "after_sha256": "a50b9502550c513576bf1cb248c899061b3531fc49631ac4404f08ad334cab11",
+    "before_sha256": "7a281342095c7b25129c37566a80d778bbe992a17d11f6db26ff707e09350069",
+    "case": "trusted-root.gitattributes",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "OWNER_CONTROL_DIGEST: v02.gitattributes",
+    "after_sha256": "3587225fda791bc92379f0d311850cb3115327e6d96a33bceeb64160d46a262d",
+    "before_sha256": "176ca6dd41c2ce253a103f4d3a717004d6be84756ee3400b409a85a2b2f60e3f",
+    "case": "trusted-v02.gitattributes",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "OWNER_ANCHOR_DIGEST",
+    "after_sha256": "9d25864dc09c74675b738e8cd868f964c1f6f40a63f6624693a430b987196783",
+    "before_sha256": "5a9a7a65dab43afe4e353b51523d86f3a15de2e371d19efacc8127ae6d0dbfd7",
+    "case": "trusted-anchor-replacement",
+    "exit_code": 1,
+    "layer": "PRE_EXECUTION",
+    "result": "PASS_EXPECTED_REJECTION",
+    "verifier_spawned": false
+  },
+  {
+    "actual_reason": "POLICY_DIGEST_MISMATCH",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "candidate-policy-byte",
+    "expected_reason": "POLICY_DIGEST_MISMATCH",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "b8208a92b969340ca1dfdbee2d832d89c63e4739",
+    "mutations": [
+      {
+        "after_sha256": "a725640a9307ece816e474e18ceabfa1c6c9a0eb30a5841c5c7df74205964536",
+        "before_sha256": "0e990932da607ff62ad8ed51938d78ff830e0043c56708faa137076791a09d6a",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/exception-policy.json"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "HANDOFF_BINDINGS_CONTENT",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "candidate-manifest-byte",
+    "expected_reason": "HANDOFF_BINDINGS_CONTENT",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "0937c1eae61bf251868a985da5243868d1b408b0",
+    "mutations": [
+      {
+        "after_sha256": "841027694c1e38ab2eb4f9934284fee677fea165167719ff6142e7ea92cb2c1d",
+        "before_sha256": "9763119d60d8355854c45df6c032424a3dfac54e7d0576de25ff0247a2dfd394",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/publication-manifest-v3.json"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "HANDOFF_BINDINGS_CONTENT",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "candidate-bindings-byte",
+    "expected_reason": "HANDOFF_BINDINGS_CONTENT",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "d7ec40094a22cd8ae97c2d6faf8ff56b63b38257",
+    "mutations": [
+      {
+        "after_sha256": "e4d18c78aa7b27a7262baa043adf12a78a3316f1f4458c9a513878ad9146b72e",
+        "before_sha256": "a3151ad6a39066a9cd01b952f9aa3fb89c5e124d0adac21438aea3aade024100",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/owner-handoff-bindings.json"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "FIXED_MODE: docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/publication-manifest-v3.json",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "manifest-mode-same-bytes",
+    "expected_reason": "FIXED_MODE: docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/publication-manifest-v3.json",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "3d614dceb1fc36a98b23da31dd6c1133d2812348",
+    "mutations": [
+      {
+        "after_sha256": "9763119d60d8355854c45df6c032424a3dfac54e7d0576de25ff0247a2dfd394",
+        "before_sha256": "9763119d60d8355854c45df6c032424a3dfac54e7d0576de25ff0247a2dfd394",
+        "git_mode": "100755",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/publication-manifest-v3.json"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "BLOB_OID: docs/acceptance/MS7-MIG-V02/.gitattributes",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "manifest-attributes-same-bytes",
+    "expected_reason": "BLOB_OID: docs/acceptance/MS7-MIG-V02/.gitattributes",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "474bbf5f50bb669e7f92001fc0eb559ab5a5574d",
+    "mutations": [
+      {
+        "after_sha256": "989d2bb1e8cc1b7360b06021ceb6f73b7677e9018ce9094bc073b28e9a0360b2",
+        "before_sha256": "176ca6dd41c2ce253a103f4d3a717004d6be84756ee3400b409a85a2b2f60e3f",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/.gitattributes"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "BLOB_OID: docs/acceptance/MS7-MIG-V02/full_content-command.txt",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "raw-crlf-byte-mutation",
+    "expected_reason": "BLOB_OID: docs/acceptance/MS7-MIG-V02/full_content-command.txt",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "adccabefe94fe7af9547197e1b7cc17fce3ae976",
+    "mutations": [
+      {
+        "after_sha256": "da3097fb41b2e2b52591a39d22832d59131f1b35cdad66dff8f64d1e9cc08c36",
+        "before_sha256": "abb7ca52c7445d7e0225df99cef1a0d0defab765cde53dcb1589fa3291363130",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/full_content-command.txt"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "POLICY_DIGEST_MISMATCH",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "exception-set-expansion",
+    "expected_reason": "POLICY_DIGEST_MISMATCH",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "02e5f663dde6ec135ce978339ecc6034340bfa20",
+    "mutations": [
+      {
+        "after_sha256": "bc55f85935be7b25b8036ed87938dd2b93980cb1ef7cb452dbf8c27c0ae160de",
+        "before_sha256": "0e990932da607ff62ad8ed51938d78ff830e0043c56708faa137076791a09d6a",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/exception-policy.json"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "BLOB_OID: backend/content/__init__.py",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "new-whitespace-outside40",
+    "expected_reason": "BLOB_OID: backend/content/__init__.py",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "c78b3af7f4408d04d37f1b7c5778866667fe72a5",
+    "mutations": [
+      {
+        "after_sha256": "67f01070dcd0ac4eeb31e708991b58e0322c3cb70cd39709aeb451c2c1e9dc5b",
+        "before_sha256": "888503e4e274d50731b9e693aaea74e80727eafe716ef80329c9833f6fabe202",
+        "git_mode": "100644",
+        "path": "backend/content/__init__.py"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "POLICY_DIGEST_MISMATCH",
+    "approved_tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279",
+    "case": "joint-candidate-verifier-policy-pins",
+    "expected_reason": "POLICY_DIGEST_MISMATCH",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "mutated_tree": "cec8706c5c8c797884ae983b3892c1b52301223f",
+    "mutations": [
+      {
+        "after_sha256": "8bdcb8c78a17d0eade85b6820d9bb7b2082d4172189920eda24b5d65a8ed4fda",
+        "before_sha256": "54da54d7a54f9ca714a393577a31a74e948c373bbee4c92045110958c59a56a5",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/verify_publication_v3.py"
+      },
+      {
+        "after_sha256": "bc55f85935be7b25b8036ed87938dd2b93980cb1ef7cb452dbf8c27c0ae160de",
+        "before_sha256": "0e990932da607ff62ad8ed51938d78ff830e0043c56708faa137076791a09d6a",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/exception-policy.json"
+      },
+      {
+        "after_sha256": "4e4c971dec291efe266a10e5e7dcf9550d3fa324f1043225d37b44cfee76126c",
+        "before_sha256": "a3151ad6a39066a9cd01b952f9aa3fb89c5e124d0adac21438aea3aade024100",
+        "git_mode": "100644",
+        "path": "docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/owner-handoff-bindings.json"
+      }
+    ],
+    "result": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "actual_reason": "FIXED_ATTRIBUTES: docs/acceptance/MS7-MIG-V02/publication-byte-audit/round3/publication-manifest-v3.json",
+    "case": "effective-manifest-attributes-same-blobs",
+    "layer": "BOOTSTRAP_AND_VERIFIER",
+    "result": "PASS_EXPECTED_REJECTION",
+    "tree": "dbad1e853dff354c5d3255755afb5cc32e0ad279"
+  }
+]

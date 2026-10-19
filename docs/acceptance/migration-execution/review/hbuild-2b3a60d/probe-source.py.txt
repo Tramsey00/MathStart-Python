@@ -1,0 +1,74 @@
+import contextlib
+from datetime import datetime, timezone
+from hashlib import sha256
+import importlib.util
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+CODE = ROOT / "var/review-build-2b3a60d"
+sys.path.insert(0, str(CODE))
+import sqlalchemy as sa
+from backend.migrations.upgrade import fresh, require_disposable
+from backend.infrastructure.uow import UnitOfWork
+from backend.models.baseline import ContentPage, Grade, Subject, Section
+from backend.content.bootstrap import bootstrap_sources
+from backend.content.build import write_build_inputs, verify_build_inputs
+from backend.content.sources import load_sources, SourceError
+
+OUT = ROOT / "docs/acceptance/migration-execution/review/hbuild-2b3a60d"
+OUT.mkdir(parents=True, exist_ok=True)
+URL = 'postgresql+psycopg://postgres@127.0.0.1:55432/test_ms7_mig_v01_ms7exec_review_hbuild_20261016'
+engine = sa.create_engine(URL, hide_parameters=True, connect_args={'connect_timeout': 5})
+observations = {'start': datetime.now(timezone.utc).isoformat(), 'reviewed_sha': '2b3a60da04346ed8c747ec35c3fe751bbbb9f9cd', 'python': sys.version, 'no_django': importlib.util.find_spec('django') is None}
+with engine.begin() as connection:
+    require_disposable(connection)
+    observations['postgresql_version'] = connection.scalar(sa.text('select version()'))
+    fresh(connection)
+for iteration in range(2):
+    with UnitOfWork(engine) as uow:
+        bundles = bootstrap_sources(uow.session, CODE)
+        uow.commit()
+observations['bootstrap_twice_pages'] = len(bundles)
+import os
+os.environ['MATHSTART_V04_DATABASE_URL'] = URL
+from backend.tests.v04.test_build import BuildTests, SourceTests
+suite = unittest.TestSuite([unittest.defaultTestLoader.loadTestsFromTestCase(BuildTests),
+    SourceTests('test_complete_source_set_and_authored_assets'),
+    SourceTests('test_paths_duplicate_json_and_nonfinite_fail_closed')])
+with (OUT / 'independent-tests.log').open('w', encoding='utf-8') as stream:
+    result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
+observations['independent_tests'] = {'testsRun': result.testsRun, 'failures': len(result.failures), 'errors': len(result.errors), 'skipped': len(result.skipped), 'successful': result.wasSuccessful()}
+with tempfile.TemporaryDirectory(prefix='ms7exec_review_hbuild_') as temp:
+    output = Path(temp)
+    with UnitOfWork(engine) as uow:
+        descriptor, receipt = write_build_inputs(uow, CODE, output, 'review-positive', '24d06112bcd6abcd1abad9b052de14a0a7b49e8e')
+    receipt_digest = sha256((output / descriptor.release_id / 'receipt.json').read_bytes()).hexdigest()
+    release = verify_build_inputs(output, descriptor.release_id, receipt_digest)
+    seeds = json.loads((CODE / 'site_content/media.json').read_bytes())['assets']
+    exported = set(release.assets)
+    observations['asset_inventory'] = {'assets': len(exported), 'seed_media': len(seeds), 'omitted_seed_urls': ['/media/' + row['file'] for row in seeds if '/media/' + row['file'] not in exported]}
+    with UnitOfWork(engine) as uow:
+        page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.page_type == 'topic').order_by(ContentPage.id))
+        old_grade = page.grade_id
+        other = uow.session.execute(sa.select(Grade.id, Subject.id, Section.id).join(Subject, Subject.grade_id == Grade.id).join(Section, Section.subject_id == Subject.id).where(Grade.id != old_grade).order_by(Grade.id, Subject.id, Section.id)).first()
+        old_identity = [page.grade_id, page.subject_id, page.section_id]
+        page.grade_id, page.subject_id, page.section_id = other
+        uow.session.flush()
+        try:
+            drift_descriptor, drift_receipt = write_build_inputs(uow, CODE, output, 'review-identity-drift', '24d06112bcd6abcd1abad9b052de14a0a7b49e8e')
+            drift_digest = sha256((output / drift_descriptor.release_id / 'receipt.json').read_bytes()).hexdigest()
+            drift_release = verify_build_inputs(output, drift_descriptor.release_id, drift_digest)
+            observations['grade_identity_drift'] = {'result': 'ACCEPTED', 'slug': page.slug, 'old_identity': old_identity, 'new_identity': [page.grade_id, page.subject_id, page.section_id], 'exported_identity': [drift_release.pages[page.id][key] for key in ['grade_id', 'subject_id', 'section_id']], 'expected': 'REFUSED because reviewed source grade/subject/section are unchanged'}
+        except Exception as error:
+            observations['grade_identity_drift'] = {'result': 'REFUSED', 'type': type(error).__name__}
+observations['cleanup'] = 'TemporaryDirectory output removed; review database retained in exclusively reserved synthetic namespace; transaction-local identity mutation rolled back'
+observations['end'] = datetime.now(timezone.utc).isoformat()
+(OUT / 'independent-probes.json').write_text(json.dumps(observations, indent=2) + '\n', encoding='utf-8')
+engine.dispose()
+print(json.dumps(observations, indent=2))

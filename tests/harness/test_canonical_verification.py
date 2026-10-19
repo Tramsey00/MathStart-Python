@@ -15,14 +15,14 @@ class CanonicalVerificationTests(unittest.TestCase):
         harness = [check for check in checks if check.group == "harness"]
         self.assertEqual(len(harness), 1)
         self.assertIn("tests/harness", harness[0].command)
-        self.assertEqual(len(checks), 8)
+        self.assertEqual(len(checks), 16)
 
     def test_nested_baseline_excludes_harness_and_preserves_prior_checks(self) -> None:
         command = CHECK_COMMANDS["repo-baseline"]
         self.assertEqual(command[0], "scripts/verify_repo.py")
         checks = verify_repo.select_checks(verify_repo.parse_args(command[1:]))
         self.assertNotIn("harness", {check.group for check in checks})
-        self.assertEqual(len(checks), 7)
+        self.assertEqual(len(checks), 15)
         self.assertIn("tests/harness", CHECK_COMMANDS["harness-unit"])
         # Neither nested baseline nor Harness suite invokes execute CLI.
         self.assertFalse(any("harness" in check.command for check in checks))
@@ -48,7 +48,7 @@ class CanonicalVerificationTests(unittest.TestCase):
 
     def test_skip_tests_excludes_all_test_suites(self) -> None:
         checks = verify_repo.select_checks(verify_repo.parse_args(["--skip-tests"]))
-        self.assertEqual({check.group for check in checks}, {"backend", "database", "content"})
+        self.assertEqual({check.group for check in checks}, {"backend", "database", "content", "frontend"})
 
 
 if __name__ == "__main__":
