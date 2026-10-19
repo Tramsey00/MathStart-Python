@@ -1,4 +1,4 @@
-# Target public and identity runtime (migration candidate)
+# Current public and identity runtime
 
 The normal ASGI factory composes public releases, `frontend.rendering.PublicRenderer`,
 PostgreSQL identity/session services and React account/staff forms. The explicit
@@ -15,7 +15,7 @@ Install `backend/infrastructure/http/requirements.lock` in the target environmen
 For tests also install `backend/tests/v04/requirements.lock`. Neither requires
 Django. The legacy golden oracle remains a separate environment.
 
-Run from the combined repository root. Set these environment variables without
+Run from the primary repository root. Set these environment variables without
 printing their values:
 
 - `MATHSTART_DATABASE_URL`: PostgreSQL/psycopg connection to a newly created empty

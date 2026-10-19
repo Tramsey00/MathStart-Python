@@ -11,8 +11,8 @@
 - **Milestone Gate:** G3
 - **Acceptance deadline:** 09.10.2026, revised v7.1 §20.4
 - **Direct FR coverage:** FR-01, FR-02
-- **Exec plan:** [MS7-I03](../../docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
-- **Trace:** [MS7-I03](../../docs/agent-traces/MS7-I03.md)
+- **Exec plan:** [MS7-I03](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
+- **Trace:** [MS7-I03](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03.md)
 - **Last updated:** 2026-10-05
 - **Latest review feedback:** Registration UI limit 30; single-form auth switcher; local/browser verification PASS (see §18)
 
@@ -386,11 +386,11 @@ authorized PR/merge workflow are complete. No approval or G3 closure is inferred
 ## 12. Links
 
 - [Canonical Issue #25](https://github.com/Tramsey00/MathStart-Python/issues/25)
-- [Exec plan](../../docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
-- [Trace](../../docs/agent-traces/MS7-I03.md)
+- [Exec plan](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
+- [Trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03.md)
 - [Accepted grades handoff](../api/MS7-V02-grades-runtime.md)
 - [I02 spec](MS7-I02-ui-foundation.md)
-- [V02 trace](../../docs/agent-traces/MS7-V02.md)
+- [V02 trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-V02.md)
 - PR/demo/browser artifacts: not created in preparation.
 
 ## 13. Stage 2 core snapshot (2026-10-04)
@@ -466,9 +466,9 @@ empty and no JS stack trace was observed. Legacy `/favicon.ico` server 404 is a
 pre-existing shell request, not an I03 failure. One-browser walkthrough does not
 claim a cross-browser or auditory screen-reader audit.
 
-Evidence: [index](../../docs/agent-traces/MS7-I03-evidence/README.md),
-[acceptance record](../../docs/agent-traces/MS7-I03-evidence/acceptance.json),
-[sanitized network](../../docs/agent-traces/MS7-I03-evidence/network.json).
+Evidence: [index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/README.md),
+[acceptance record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/acceptance.json),
+[sanitized network](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/network.json).
 No passwords/cookies/CSRF/key values are retained. Tested source hashes and
 served/source equality are recorded. Final verifier, CI, commit/push/PR, human
 Task Approvals and G3 closure remain pending; Issue #25 is unchanged.
@@ -511,7 +511,7 @@ retry when applicable. CSRF/receipt transport, backend auth/API semantics and
 authoritative server state are unchanged. No extra normal-state action is needed.
 
 Regression tests, real API/browser keyboard re-check and full verifier passed;
-see [UX evidence](../../docs/agent-traces/MS7-I03-evidence/ux-recheck.json) and trace.
+see [UX evidence](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/ux-recheck.json) and trace.
 Stage 3/4 snapshots remain historical; the new record binds the final UX source
 bytes. The above sections describe their local-stage snapshots; current
 publication facts follow. Human Task Approvals and G3 remain pending.
@@ -566,7 +566,7 @@ Real Django/PostgreSQL browser checks passed both switch directions/focus,
 same-operation retry. Login/Registration layouts have no horizontal overflow at
 360/768/1440. Console warn/error capture empty; legacy favicon 404 non-blocking.
 
-Current evidence: [review record](../../docs/agent-traces/MS7-I03-evidence/review-auth-ui.json)
+Current evidence: [review record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/review-auth-ui.json)
 and its 11 new sanitized screenshots, 56 real network events and 13 source hashes.
 Older captures remain historical snapshots. No backend/API/model/migration,
 transport, frozen contract, Progress or diagnostic-engine changes. Publication
@@ -597,7 +597,7 @@ verifier **8/8** (96 Django / 18 R03 / 73 Harness), R02A **30/30**, no skips.
 Real Django/PostgreSQL browser checks PASS: both switch directions, 401/400 empty
 passwords without manual clearing, direct registration/login, frozen registration
 retry after lost response, rotation and saved-state restoration. See the new
-[security record](../../docs/agent-traces/MS7-I03-evidence/security-auth-credentials.json)
+[security record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/security-auth-credentials.json)
 and trace §21. Earlier evidence remains historical; independent re-review and
 Task Approvals/G3 remain pending. Publication uses the same branch/PR #26.
 
@@ -614,7 +614,7 @@ cleanup and server-state authority are unchanged.
 Node 34/34, I03 Django 6/6 and real API/browser initial/error/retry/keyboard checks
 PASS. All eight mandatory checks covered (first seven in default verifier, last
 Harness check completed via documented group after interruption). See trace §22
-and [quiet-state record](../../docs/agent-traces/MS7-I03-evidence/quiet-state.json).
+and [quiet-state record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/quiet-state.json).
 The acceptance snapshot was captured locally before publication. The Owner then
 authorized an ordinary commit/push in the same branch and existing PR #26. Trace
 §23 records the scoped publication procedure; the resulting commit SHA and

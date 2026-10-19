@@ -6,7 +6,7 @@
 - **Consumer:** Илья, MS7-I03
 - **Date:** 2026-10-04
 - **Issue:** https://github.com/Tramsey00/MathStart-Python/issues/23
-- **Plan:** [grades API plan](../../docs/exec-plans/active/MS7-V02-grades-api.md)
+- **Plan:** [grades API plan](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-V02-grades-api.md)
 
 ## Authority and scope
 

@@ -213,10 +213,11 @@ class TargetRegistryTests(unittest.TestCase):
             self.assertNotIn("private", _safe_diagnostic(value))
 
     def test_six_historical_chains_preserve_original_results_and_references(self):
+        from scripts.historical_sources import retired_json, retired_bytes
         root = target_check.ROOT
-        old = json.loads((root / "docs/acceptance/MS7-MIG-R01/old-to-new-evidence.json").read_text(encoding="utf-8"))
+        old = retired_json("docs/acceptance/MS7-MIG-R01/old-to-new-evidence.json")
         preserved = {r["original_result"]["id"]: r["original_result"] for r in old["records"]}
-        new = json.loads((root / "docs/acceptance/MS7-MIG-R03/old-to-new-evidence.json").read_text(encoding="utf-8"))
+        new = retired_json("docs/acceptance/MS7-MIG-R03/old-to-new-evidence.json")
         self.assertEqual({r["original_result"]["id"] for r in new["records"]}, {"R01", "R03", "MS6-R04", "MS6-V01", "MS7-R02A", "MS7-R03A"})
         for record in new["records"]:
             name = record["original_result"]["id"]
@@ -224,7 +225,7 @@ class TargetRegistryTests(unittest.TestCase):
                 self.assertEqual(record["original_result"], preserved[name])
             self.assertEqual(record["migration_follow_up"]["id"], "MS7-MIG-R03")
             for field in ("trace", "verification"):
-                self.assertTrue((root / record["target_evidence"][field]).is_file())
+                self.assertTrue(retired_bytes(record["target_evidence"][field]))
             self.assertIn("NOT_RUN", record["target_evidence"]["runtime_equivalents"])
 
 

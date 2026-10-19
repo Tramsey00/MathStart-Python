@@ -411,7 +411,7 @@ jobs:
       - name: Exact release operations checkout
         run: python scripts/ci_provenance.py --output var/operations-provenance.json
       - name: Full product source and documentation reconciliation
-        run: var/operations-target-env/bin/python docs/acceptance/migration-execution/check_product_source.py --output var/operations-document-check.json
+        run: var/operations-target-env/bin/python scripts/check_product_source.py --output var/operations-document-check.json
       - name: Ordinary independent clean clone installation
         run: var/operations-target-env/bin/python scripts/verify_installation.py --disposable --runtime-root var/operations-install
       - name: Native legacy physical return and new reviewed identity cutover

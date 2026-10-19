@@ -1,6 +1,6 @@
 import {it,expect,vi} from 'vitest';
 import {render,screen,fireEvent,within} from '@testing-library/react';
-import inventory from '../../docs/acceptance/MS7-MIG-R01/admin-inventory.json';
+import inventory from '../../specs/migration/admin-inventory.json';
 import {StaffList,StaffDetails,StaffHistory,staffColumns,staffLabel} from '../src/shared/ui/staff-records';
 
 const models:Record<string,string>={'auth.Group':'groups','auth.User':'users','content.ContentPage':'pages','content.Grade':'grades','content.LessonPublication':'publications','content.MediaAsset':'media_assets','content.Redirect':'redirects','content.Section':'sections','content.Subject':'subjects'};

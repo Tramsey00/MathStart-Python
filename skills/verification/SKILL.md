@@ -1,10 +1,10 @@
-# Проверка миграции
+# Verification
 
-Единственная инструкция и критерии — [MIGRATION.md](../../MIGRATION.md), раздел
-«Проверка результата». Это skill проверки, не отдельное задание или новый task gate.
-Порядок: narrow reproducer/preflight -> affected unit/integration -> full final run.
-Команда приёмки: `python scripts/verify_repo.py --profile target`; default теперь target, legacy только через отдельный pinned oracle.
-Pure/--list/PENDING/skip не доказывают target readiness. Missing required check — blocker.
-Только owned disposable data. Actual versions/exits/raw logs/CI SHA и cleanup фиксировать
-честно. Не повторять unchanged prerequisite FAIL и full QA после docs-only changes.
-Reviewer проверяет риски/delta, не дублирует весь QA без причины. Secrets/PII не выводить.
+Use the current user task, contracts and docs/target-runtime.md. Work from the primary Git root.
+Run affected checks first, then the mandatory coherent-candidate gate when required.
+Default: python scripts/verify_repo.py; portable subset: --profile pure.
+Pure, --list, missing, skipped, flaky or timed-out checks do not prove runtime readiness.
+Use owned disposable databases and runtimes. Real legacy comparisons use the pinned
+separate oracle from docs/legacy-oracle.md. Tie results to exact SHA/tree and preserve
+actual assertions, data, content and old approvals. Never print secrets/cookies/PII.
+Review the delta without duplicating successful unchanged QA.

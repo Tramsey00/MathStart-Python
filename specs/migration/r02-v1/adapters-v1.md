@@ -2,7 +2,7 @@
 
 PROPOSED; original_result, historical task IDs, scopes, approvals, original PRs,
 frozen manifests/pins/tests and bytes are preserved. New framework references
-are here only. [Old-to-new index](../../../docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
+are here only. [Old-to-new index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
 binds source input to R02 evidence and future implementation obligations.
 Historical pending R02A/R03A wording is not current rejection: R01 D08 receipt
 verified Vladimir's07.10 comments; no approval is backdated/transferred to R02.

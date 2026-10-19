@@ -1,15 +1,16 @@
 # R03 verification adapter contract v1
 
 Status: command contract REVIEWED after actual independent technical review.
-Normal mandatory CI with the reviewed map has passed on the candidates below;
-human acceptance remains pending and separate.
-[Review and limits](../../../docs/acceptance/migration-execution/review/final-review-20261018.md).
+Normal mandatory CI with the reviewed map passed on the candidates below.
+The user subsequently accepted the migration and authorized PR54's merge as
+3a290a46d991e22269a17dde41e39f0637576071; main CI also passed.
+[Review and limits](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/review/final-review-20261018.md).
 Historical owner attribution: Tramsey00 / VladimirFrolov777 /13baybars.
-[Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) remains open;
-the completed migration result and human acceptance status are in
+[Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) records its original scope;
+the completed migration result and current maintenance entry points are in
 [MIGRATION.md](../../../MIGRATION.md). This document does not start another task.
 Current accepted input `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
-previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts retained;
+previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts preserved in Git;
 historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
 MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
 Authority: [migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)§§9/17,
@@ -52,15 +53,15 @@ projects, zero skips, fresh/upgrade profiles, recovery455 and combined gate.
 The independent reviewer inspected all10 backend and4 frontend handoffs and
 approved their technical REVIEWED status. Normal mandatory CI now exercises this
 state. `IMPLEMENTED_PARTIAL` remains an available intermediate state with missing
-entries failing closed; neither state establishes human task acceptance.
+entries failing closed; neither state alone establishes human task acceptance.
 Backend entry: `{ "script": "backend/<existing-script>.py", "args": ["..."] }`.
 Only Python scripts resolving inside backend are accepted; no arbitrary shell.
 Each entry emits nonempty unskipped target receipts. Public scoped CI executes
 the five read-only checks; the backend-install CI job executes backend/fresh/
 upgrades against its own PostgreSQL16 service on55441. Neither job claims full
 target acceptance. Actual local entry-point checks are recorded under
-`docs/acceptance/migration-execution/i02-verification/`; historical failures stay
-retained beside successful continuation receipts.
+`docs/acceptance/migration-execution/i02-verification/` at the accepted main SHA
+above; historical failures and successful receipts remain recoverable from Git.
 
 | Key / old assertion | Required target assertion / owner |
 | --- | --- |
@@ -136,8 +137,8 @@ and on cleanup467866e7038071dce35883e1d20fa5be2d7d5fd3 in
 all nine jobs SUCCESS, including actual target/image-recovery/combined, no skipped
 jobs. Each result belongs only to its own SHA. New HEAD checks remain required.
 The [runtime guide](../../../docs/target-runtime.md) is current operational
-guidance. Historical [handoff](../../../docs/acceptance/MS7-MIG-R03/handoff.md)
-and [trace](../../../docs/agent-traces/MS7-MIG-R03.md) retain their original limits.
+guidance. Historical [handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/handoff.md)
+and [trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R03.md) retain their original limits.
 
 ## Historical stages (2026-10-12 through 2026-10-15)
 
@@ -147,14 +148,14 @@ stages; they do not override the completed result above. Approvals, results,
 digests and reviewed input identities are not reassigned. Old fixed-candidate
 workflows/controllers are retired. Raw artifacts and removed tools can be
 recovered using the per-entry source SHA in the existing
-[restoration index](../../../docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
+[restoration index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
 
 ## Accepted I01/V01 joint-input CI — 2026-10-12
 
 Historical joint-input runs below remain pinned to0c03197. Current V02 squash
 acceptance and guards now use [accepted-integration-20261015.json](accepted-integration-20261015.json)
 at a359b0b, with approval8256cbf/review5538854677 retained separately:
-[merge receipt and next steps](../../../docs/acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
+[merge receipt and next steps](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
 Post-merge baseline38796031561 is separate from candidate V02 suites; consumer
 review8256cbf/47baaa9 is source-only. R03 INCOMPLETE, full I02 not accepted.
 
@@ -164,11 +165,11 @@ using approved source heads only as provenance references. Strict receipt/tree/
 source/merge-chain/live-ref validation complements unchanged event-SHA and PR
 merge-parent checks. Historical runs, captures, workflow pins and previous8d958
 input remain separate. Current acceptance, retained follow-ups and actual joint
-runs: [handoff](../../../docs/acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
+runs: [handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
 
 ## CLI/receipt handoff preparation — 2026-10-12
 
-[Concrete owner/review checklist](../../../docs/acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md) maps all10 backend checks,4 frontend
+[Concrete owner/review checklist](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md) maps all10 backend checks,4 frontend
 checks and7 baseline content commands to V02/I02/V04 deliverables and R02 parity
 assertions. Accepted V01 schema/foundation evidence remains separate. The new
 machine checklist is PREPARED_FOR_OWNER_REVIEW. That historical intake predated
@@ -185,7 +186,7 @@ run38642117604 verifies unchanged owner86/all40 PG cases plus separate V01
 34/all23 PG,0 skips, historical contracts, full Content projection279/263 and
 real isolated runtime without Django/DRF. Complete downloaded raw artifacts,
 separate workflow/control/implementation/checkout revisions and digests are in
-[technical packet](../../../docs/acceptance/MS7-MIG-R03/v02-review-20261015/review-packet.md).
+[technical packet](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-review-20261015/review-packet.md).
 Human V02 Task Approval is pending; no accepted input is fabricated. First task
 run's incomplete hidden-cache upload is retained separately from the complete
 rerun. Global R03 target still requires its reviewed command map, accepted
@@ -199,7 +200,7 @@ Separate v02_successor_gate verifies direct parent76d8eac and unchanged original
 BASE lineage, owner-reviewed exact diff/blobs/metadata/attributes plus preserved
 controls40/73. Original publication-v3/control/input is unchanged; no blanket
 descendant acceptance or automatic tree/pin replacement. Human approval5525315946
-is received at predecessor76d8eac only. [Current handoff](../../../docs/acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
+is received at predecessor76d8eac only. [Current handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
 records required exact renderer contract/owner diff/current case inventory and
 new-SHA suite sequence. Guard preparation CI is not successor task evidence.
 
@@ -211,7 +212,7 @@ from unchanged original candidate/anchor/control inputs. Root workflow/control
 0effadc run38784183591 SUCCESS: original v3 replay at76d8eac, successor chain/
 delta at8256cbf/tree74c3014, V02118/all50 PG with original86 retained and0 skips,
 separate V0134/all23 PG, contracts/Content/runtime without Django. Full clean
-checkout includes helper verifier/evidence dependencies. [Current review](../../../docs/acceptance/MS7-MIG-R03/v02-successor-review-8256cbf/review-packet.md)
+checkout includes helper verifier/evidence dependencies. [Current review](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-successor-review-8256cbf/review-packet.md)
 retains raw hashes/reconciliation and baseline/stale/global-target classifications.
 Current intake is technical PASS, renewed human review pending; no approval
 transfer, merge or Issue closure. Global R03 remains INCOMPLETE.

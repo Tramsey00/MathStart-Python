@@ -59,4 +59,23 @@ describe("preservation during contract generation", () => {
     fixtures.blobs.set(source + ":retired.py", updated);
     expect(() => preservedContract(root, "retired.py")).toThrow("Historical source mismatch");
   });
+  it("pins a relocated adapter to original maintenance blobs and actual new bytes", () => {
+    const maintenance = "3a290a46d991e22269a17dde41e39f0637576071";
+    manifest([{path: "old/helper.py", source_sha: maintenance, action: "moved_updated",
+      destination: "scripts/helper.py", sha256: sha(original), bytes: original.length,
+      current_sha256: sha(updated)}]);
+    fixtures.blobs.set(maintenance + ":old/helper.py", original);
+    fixtures.files.set(resolve(root, "scripts/helper.py"), updated);
+    expect(preservedContract(root, "old/helper.py")).toEqual(original);
+    fixtures.files.set(resolve(root, "scripts/helper.py"), original);
+    expect(() => preservedContract(root, "old/helper.py")).toThrow("Unreviewed moved adapter");
+    fixtures.files.set(resolve(root, "scripts/helper.py"), updated);
+    fixtures.files.set(resolve(root, "old/helper.py"), original);
+    expect(() => preservedContract(root, "old/helper.py")).toThrow("reintroduced");
+  });
+  it("rejects an unpinned maintenance source before reading historical blobs", () => {
+    manifest([{path: "old/helper.py", source_sha: "main", action: "removed",
+      sha256: sha(original), bytes: original.length}]);
+    expect(() => preservedContract(root, "old/helper.py")).toThrow("Unreviewed historical source");
+  });
 });

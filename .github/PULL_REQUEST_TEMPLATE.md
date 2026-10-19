@@ -6,7 +6,7 @@ What does this PR achieve?
 
 ## Task / issue
 
-- Task ID: `Rxx / Vxx / Ixx`
+- Current user task / optional task ID:
 - Issue: #
 - Owner: <name>
 
@@ -26,7 +26,7 @@ What does this PR achieve?
 
 - Spec: `<path or none>`
 - ADR: `<path or none>`
-- Exec plan: `<path or none>`
+- Scoped execution record: `<path or PR description>`
 
 ## Acceptance
 
@@ -39,7 +39,7 @@ What does this PR achieve?
 
 ### Backend
 
-- [ ] `python manage.py check`
+- [ ] affected FastAPI/service checks from `docs/target-runtime.md`
 - [ ] relevant tests
 - [ ] broader test suite where applicable
 
@@ -47,15 +47,20 @@ What does this PR achieve?
 
 - [ ] No DB schema change
 - [ ] Migration added and reviewed
-- [ ] `python manage.py makemigrations --check --dry-run`
+- [ ] reviewed Alembic/metadata consistency checks when schema is affected
 - [ ] fresh PostgreSQL migration/bootstrap verified when required
 
 ### Existing content
 
 - [ ] N/A
-- [ ] `python manage.py check_lesson_sources --all`
-- [ ] `python manage.py check_content_quality`
-- [ ] `python manage.py check_site_integrity`
+- [ ] current lesson-sources, content-quality and site-integrity target commands
+- [ ] `python scripts/check_migration_preservation.py`
+
+Use `python scripts/verify_repo.py` for the full target registry with the
+prerequisites in `docs/target-runtime.md`. `--profile pure` is a portable subset.
+Record actual candidate SHA, commands/results and required CI links; skipped or
+missing checks do not establish readiness. Legacy comparisons use the separate
+pinned oracle, never Django in the target environment.
 
 ### Domain-specific
 
@@ -97,13 +102,11 @@ Attach screenshots or a short demo when UI behavior changes.
 
 N/A if this PR has no UI change.
 
-## Agent trace
+## Execution and review record
 
-Trace:
+Record actual changes, checks and review findings in this PR or a scoped document:
 
-`docs/agent-traces/<task>.md`
-
-If no trace is required, explain why.
+`<link>`
 
 ## Risks
 
@@ -135,5 +138,5 @@ Reviewer:
 - [ ] migrations included when required
 - [ ] required verification passed
 - [ ] known failures are documented
-- [ ] trace updated when required
+- [ ] execution/review record updated
 - [ ] main remains deployable

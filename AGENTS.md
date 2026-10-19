@@ -1,5 +1,9 @@
 # MathStart repository map
 
+Work from this primary Git root on main for the current user task. Historical
+migration worktrees and personal queues are retired; do not bootstrap them.
+See docs/maintenance.md for accepted history and docs/local-development.md for local start.
+
 MathStart runs on FastAPI/Pydantic, SQLAlchemy/Alembic, PostgreSQL and React/SSG.
 Start with [README.md](README.md), [current runtime](docs/target-runtime.md),
 [release](deploy/RELEASE.md) and [recovery](deploy/RECOVERY.md). Read PRODUCT.md,

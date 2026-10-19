@@ -35,7 +35,7 @@ This gate and its dedicated workflows/controllers were retired in cleanup467866e
 There is no current command to run the deleted controllers from this checkout.
 For historical investigation, recover the required chain at
 `1d9e4d39aa103ccc049dd9569c2354893af30a75`, the last source tree before retirement,
-using the existing [restoration index](../../../../docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
+using the existing [restoration index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
 Its original 65 entries identify the removed controllers/source snapshot by that
 SHA. Additional artifact entries use cleanup467866e as their own source SHA.
 Restore only the required historical paths in a separate investigation checkout,

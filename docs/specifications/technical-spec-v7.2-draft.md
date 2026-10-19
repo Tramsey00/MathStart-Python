@@ -1,19 +1,19 @@
 # MathStart — техническое задание v7.2 (полная рабочая редакция)
 
 > DRAFT_REFERENCE_ONLY. Это черновик продуктового ТЗ, а не поручение на реализацию.
-> Единственная текущая задача миграции — [MIGRATION.md](../../MIGRATION.md).
+> Перенос существующего сайта принят и слит; [текущий итог](../maintenance.md). Работа начинается только по новому поручению пользователя.
 > Исторические карточки, роли и даты ниже сохраняют требования и provenance;
 > они не создают отдельные задания и не разрешают реализацию будущих функций продукта.
 
-**DRAFT / R05 IN_PROGRESS / HUMAN_PENDING.** Дата сверки18.10.2026, Europe/Moscow. Документ содержит все32 главы и52 canonical product task cards исходного v7.1. Техническая готовность всей миграции ещё не установлена. Полный исходный PDF сохранён отдельно; исторический G0 v7.1 не переносится как approval этого draft.
+**DRAFT_REFERENCE_ONLY / PRODUCT HUMAN_PENDING.** Сверка источника18.10.2026, актуализация статуса19.10.2026, Europe/Moscow. Все32 главы и52 canonical product task cards исходного v7.1 сохранены. Миграция существующего сайта принята в PR54, main3a290a46d991e22269a17dde41e39f0637576071 прошёл обязательный CI. Это не утверждение будущих Product Gates и не production deployment. Исторический PDF доступен по закреплённому Git SHA/path; G0 v7.1 не переносится как approval этой продуктовой редакции.
 
 Сверка полного114-страничного PDF и52 карточек выполнена;115 явных typed dependency edges совпадают с источником. Исправлено геометрическое расположение знаков ≤/≥/→, искажённое первоначальным извлечением PDF; численные значения не менялись. [Provenance/changelog](technical-spec-v7.2-provenance.md) фиксирует источники, границы сверки и ещё ожидающуюся общую приёмку.
 
-Изменения этой редакции: принятая FastAPI/SQLAlchemy/Alembic и React/TypeScript платформа; Django-independent operational boundary; public manifest prerender; совместимые auth/session/receipt adapters; task/Issue migration workflow;52-row platform disposition и dependency/readiness вместо новых обещаний календаря. Доменная семантика, numerical defaults, organisational roles и course requirements сохраняются. Исходные карточки и зависимость каждого типа доступны в machine-readable source registry. Финальные SHA/evidence/current docs/rollback будут привязаны после объединённого R04 и release freeze.
+Изменения этой редакции: принятая FastAPI/SQLAlchemy/Alembic и React/TypeScript платформа; Django-independent operational boundary; public manifest prerender; совместимые auth/session/receipt adapters; task/Issue migration workflow;52-row platform disposition и dependency/readiness вместо новых обещаний календаря. Доменная семантика, numerical defaults, organisational roles и course requirements сохраняются. Исходные карточки и зависимость каждого типа доступны в machine-readable source registry. Принятый SHA, CI, текущие runbooks и границы production описаны в кратком maintenance-итоге; исторические результаты сохраняют свои SHA.
 
 ## 1. Паспорт и правила применения
 
-Редакция v7.2 — DRAFT, человеческая приёмка HUMAN_PENDING. Полный исходный v7.1 сохранён в sources/technical-spec-v7.1.pdf с SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Исторический G0 v7.1 принят30.09.2026; это не approval редакции v7.2. Нормативная платформа переноса принята в ADR-0006 и R02 migration contracts. Состояние реализации и конкретные evidence определяются корневым MIGRATION.md и execution ledger, а не датой этого документа. Новые сроки основной программы не назначены.
+Редакция v7.2 — DRAFT, человеческая приёмка HUMAN_PENDING. Полный исходный v7.1 сохранён в Git3a290a46d991e22269a17dde41e39f0637576071:docs/specifications/sources/technical-spec-v7.1.pdf с SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Исторический G0 v7.1 принят30.09.2026; это не approval редакции v7.2. Нормативная платформа переноса принята в ADR-0006 и R02 migration contracts. Состояние реализации и конкретные evidence определяются корневым MIGRATION.md и execution ledger, а не датой этого документа. Новые сроки основной программы не назначены.
 
 ### Исторический паспорт и источники v7.1
 

@@ -11,8 +11,8 @@
 - **Correction CI:** [37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060), SUCCESS
 - **Published pre-fix HEAD:** `931f83af01ea44c880ab94c5f7c134a29613a332`
 - **Related ADRs:** ADR-0001/0002/0003 and the accepted MS7-R02A addendum package
-- **Exec plan:** [MS7-I02](../../docs/exec-plans/active/MS7-I02-ui-foundation.md)
-- **Trace:** [MS7-I02](../../docs/agent-traces/MS7-I02.md)
+- **Exec plan:** [MS7-I02](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I02-ui-foundation.md)
+- **Trace:** [MS7-I02](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I02.md)
 - **Milestone Gate:** G3; I02 does not independently close G3
 - **Acceptance deadline:** 2026-10-05, from the revised Section 20 calendar
 - **Last updated:** 2026-10-02
@@ -386,7 +386,7 @@ No task acceptance, final SHA or G3 closure is asserted at preparation.
 - Issue: [#21](https://github.com/Tramsey00/MathStart-Python/issues/21).
 - Plan/trace: linked in the header; PR #22 OPEN; correction SHA/green CI pinned
   above, documentation-only follow-up separate; Task Approvals remain PENDING.
-- Browser evidence: [smoke record](../../docs/agent-traces/MS7-I02-evidence/smoke.json)
+- Browser evidence: [smoke record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I02-evidence/smoke.json)
   and 360/768/1440 plus keyboard screenshots beside it. Existing app browser control
   was used; no Node/Playwright toolchain was added to the project.
 - MS7-I03 receives accepted shell/tokens/labelled components/state conventions;

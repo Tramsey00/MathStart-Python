@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-This document defines the target architecture of MathStart v3.1 and the rules that preserve its domain boundaries while the existing Django project evolves into the intelligent educational system described in `PRODUCT.md`.
+This document defines the target architecture of MathStart v3.1 and the rules that preserve its domain boundaries while the existing FastAPI/React project evolves into the intelligent educational system described in `PRODUCT.md`.
 
 This is the architecture-level source of truth.
 
@@ -13,7 +13,7 @@ Use:
 - `ARCHITECTURE.md` for system structure, data ownership, dependencies, and invariants;
 - `docs/adr/` for significant accepted decisions and their rationale;
 - `specs/` for detailed subsystem contracts;
-- `docs/exec-plans/` for implementation plans.
+- the current user task and `docs/maintenance.md` for accepted implementation state.
 
 The existing `docs/architecture.md` remains useful documentation of the current content publication/bootstrap subsystem. It must not be deleted merely because this root architecture document exists.
 

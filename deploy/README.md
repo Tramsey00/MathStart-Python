@@ -82,6 +82,6 @@ release schema CLI, Compose/TLS configuration and operator commands are in
 `deploy/RELEASE.md`. The actual empty Compose/schema rehearsal passed and remains
 UNREADY without publication. HTTPS/cookie, physical DB/media/frontend recovery
 and compatible application switches have scoped actual evidence documented in
-`deploy/RECOVERY.md`. Clean-clone installation, the complete legacy-cluster return
-procedure and final combined checks remain migration work. Scoped image checks
+`deploy/RECOVERY.md`. Clean-clone installation, physical legacy return and the complete combined gate
+passed on accepted main3a290a46d991e22269a17dde41e39f0637576071; see docs/maintenance.md. Scoped image checks
 do not establish final acceptance or authorize production deployment.

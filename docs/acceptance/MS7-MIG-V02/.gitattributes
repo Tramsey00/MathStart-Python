@@ -1,9 +1,0 @@
-# V02 immutable historical copies must retain their original checkout bytes.
-remediation-f01-f02/history/initial/** -text
-remediation-f01-f02/original-audit/** -text
-
-# Actual captured command streams are raw evidence, including CRCRLF.
-*-command.txt -text
-remediation-f01-f02/*-command.txt -text
-
-# No whitespace/diff suppression: full checks remain visible and report failures.

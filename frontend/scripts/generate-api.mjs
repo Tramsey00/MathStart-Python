@@ -14,7 +14,7 @@ for (const [manifest, field] of [
   ["specs/api/candidate-manifest-v1.json", "artifacts"],
   ["docs/acceptance/MS7-MIG-R02/contract-digests.json", "files"],
 ]) {
-  const pins = read(manifest)[field];
+  const pins = JSON.parse(preservedContract(root, manifest).toString("utf8"))[field];
   for (const [p, expected] of Object.entries(pins)) {
     const blob = preservedContract(root, p);
     if (hash(blob) !== expected) throw new Error("Frozen Git pin mismatch: " + p);

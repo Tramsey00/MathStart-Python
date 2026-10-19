@@ -1,7 +1,7 @@
 # Staff delivery/authorization addendum v1.0.1
 
 PROPOSED. Exact nine registrations/actions/fields/filter/search/permissions from
-R01 [admin-inventory](../../../docs/acceptance/MS7-MIG-R01/admin-inventory.json)
+R01 [admin-inventory](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/admin-inventory.json)
 are copied by reference in the route map; every operation is included below.
 Seven Content models remain view-only even for superusers. User/Group are full
 existing administration; Permission has no standalone CRUD. StudentProfile,

@@ -28,11 +28,11 @@ additional adapters; they neither replace nor expand the implemented count of
 the frozen 37-operation OAS. [Synthetic candidate responses](synthetic-exchanges-v1.json)
 are specification examples checked against independent historical expectations.
 
-[New evidence index](../../../docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
+[New evidence index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
 preserves original_result literally and adds current framework references.
-[Verification/handoff](../../../docs/acceptance/MS7-MIG-R02/handoff.md),
-[plan](../../../docs/exec-plans/active/MS7-MIG-R02.md) and
-[trace](../../../docs/agent-traces/MS7-MIG-R02.md) record observable results.
+[Verification/handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/handoff.md),
+[plan](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-MIG-R02.md) and
+[trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R02.md) record observable results.
 
 Approval binds an exact commit and contract digest manifest. Until both reviewers
 approve and the integration owner accepts the merge, these addenda remain
@@ -44,7 +44,7 @@ Review revision1.0.1 addresses proposed B01–B07/N01 from
 [Ilya review5461343942](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942).
 Read [public build handoff](public-build-contract-v1.json) and
 [staff list wire policy](staff-list-policy-v1.json); see the
-[review change matrix](../../../docs/acceptance/MS7-MIG-R02/review-response.md).
+[review change matrix](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/review-response.md).
 The CHANGES_REQUESTED decision remains historical/current until independent
 re-review; this amendment does not create approval or change accepted inputs.
 

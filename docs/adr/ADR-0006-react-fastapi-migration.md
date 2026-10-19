@@ -7,8 +7,8 @@
 - Gate: three own baseline/ADR records and two independent Task Approvals verified at daf4e603; e510744 amendment confirmation reported explicitly by owner; actual merge verified
 - Issue: [MS7-MIG-R01 #28](https://github.com/Tramsey00/MathStart-Python/issues/28)
 - Specification: [exact migration addendum v1.1](../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
-- Plan: [active R01](../exec-plans/active/MS7-MIG-R01.md)
-- Inventory / decisions: [baseline inventory](../acceptance/MS7-MIG-R01/inventory.md), [human acceptance](../acceptance/MS7-MIG-R01/acceptance.md)
+- Plan: [active R01](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-MIG-R01.md)
+- Inventory / decisions: [baseline inventory](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/inventory.md), [human acceptance](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/acceptance.md)
 - Supersession: accepted target decision replaces only ADR-0001's backend/frontend/ORM/migration platform selection for migration scope at reviewed daf4e603; snapshot branch prerequisite fulfilled; target runtime activation still requires later task/cutover gates. Preserve its history and domain/evidence invariants, ADR-0002/0003 and frozen contracts.
 
 ## Context and authority
@@ -37,11 +37,11 @@ Current R01 evidence clarification (2026-10-08): the working DB counts and
 13 LF/CRLF-only variants above belong to Ruslan's original audit. Ilya's
 working DB has substantive drift in five specifically checked payloads;
 his separate disposable 8c11edad baseline has exact source/published parity.
-See the [three-source index](../acceptance/MS7-MIG-R01/ilya-20261007/README.md).
+See the [three-source index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/ilya-20261007/README.md).
 The earlier partial D02/D03 decision is historical. Later own final baseline/ADR
 records and independent Task Approvals accept the reviewed daf4e603 revision;
-[final receipt](../acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
-preserves pre-merge scope/confirmation requirement; [post-merge provenance](../acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json) records owner-reported e510744 confirmation and actual merge. F01–F04 assigned
+[final receipt](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
+preserves pre-merge scope/confirmation requirement; [post-merge provenance](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json) records owner-reported e510744 confirmation and actual merge. F01–F04 assigned
 to13baybars for I03/I05; no runtime/source repair occurs.
 
 Retain one modular Python monolith and one primary PostgreSQL 16+ database.
@@ -178,7 +178,7 @@ target evidence. A successful build alone will not establish parity.
 R01 runs the unchanged Django baseline on disposable PostgreSQL, fresh migrate/
 bootstrap/static smoke, pure/Harness/UI suites, source/frozen hashes, route/admin/
 schema inventory, links, delta/secrets review and current snapshot PR CI. See
-the [trace](../agent-traces/MS7-MIG-R01.md) for commands and results. Future
+the [trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R01.md) for commands and results. Future
 target tests belong to their registered tasks. No historical proof is rewritten.
 
 MIG-G0 requires separate records by Руслан, Владимир and Илья for exact
