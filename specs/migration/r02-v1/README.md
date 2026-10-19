@@ -1,5 +1,12 @@
 # MS7-MIG-R02 contract package v1.0.2
 
+**Historical stage snapshot.** Pending review and absent-runtime statements below
+describe this package at its recorded input SHA, not the current platform.
+The migration was accepted in PR54 and consolidation completed in PR55; see
+[maintenance](../../../docs/maintenance.md), [current checks](../../../docs/target-runtime.md),
+and [local start](../../../docs/local-development.md). Historical approvals,
+contracts and digests below retain their original scope.
+
 Status: PROPOSED / independent review pending. Owner Руслан / Tramsey00;
 reviewers and Task Approvers Владимир / VladimirFrolov777 and Илья / 13baybars.
 [Issue #29](https://github.com/Tramsey00/MathStart-Python/issues/29).

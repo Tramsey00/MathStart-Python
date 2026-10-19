@@ -4,14 +4,33 @@ __pycache__/
 
 # Virtual environment
 .venv/
+.venv312/
+.venv-verification/
 
-# Django
+# Local runtime data and generated output
 db.sqlite3
 staticfiles/
 var/
+/tmp/
+/output/
 
 # Environment variables
 .env
+.env.*
+!.env.example
+!.env.*.example
+
+# Tool caches and coverage artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+coverage.json
+/frontend/coverage/
 
 # PyCharm
 .idea/
@@ -21,5 +40,5 @@ var/
 .DS_Store
 Thumbs.db
 
-# Django runtime media. Rebuilt from site_content/media during bootstrap.
+# Local runtime media; canonical assets are kept in site_content/media.
 /media/

@@ -58,5 +58,6 @@ Preservation dispositions are explicit; unknown deletions/changes fail.
 For substantial work keep a scoped execution record, actual verification and
 review findings in the repository. Human acceptance, main merge, production
 changes and provider/security decisions require the appropriate human decision.
-MIGRATION.md records migration evidence/continuation; it does not start work.
+Accepted migration PR54 and consolidation PR55 are recorded in
+[maintenance](docs/maintenance.md); neither is a pending migration assignment.
 Do not operate the protected acceptance stack or original Django DB as tests.

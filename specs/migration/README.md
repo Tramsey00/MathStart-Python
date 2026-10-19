@@ -1,6 +1,6 @@
 # Historical migration specification inputs
 
-The migration was accepted and merged in PR54. Current operation, verification
+The migration was accepted and merged in PR54; consolidation was completed in PR55. Current operation, verification
 and maintenance start at [README](../../README.md) and
 [maintenance](../../docs/maintenance.md). The imported specification and frozen
 R01/R02/R03 materials below record their original stages; their old task queues,

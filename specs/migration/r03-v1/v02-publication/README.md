@@ -1,8 +1,8 @@
 # Historical R03 external V02 publication controls — retired gate
 
 **HISTORICAL / RETIRED.** This document describes the old fixed-candidate gate,
-not the current runtime or a pending implementation task. Current technical
-completion and HUMAN_PENDING status are in [MIGRATION.md](../../../../MIGRATION.md).
+not the current runtime or a pending implementation task. The accepted migration
+and completed PR54/PR55 are recorded in [maintenance](../../../../docs/maintenance.md).
 Approved controls and their hashes remain unchanged.
 
 These controls belong to the historical R03 stage. They record Ruslan's already approved **exact40**
@@ -65,5 +65,6 @@ The result, argv, stdout/stderr, exits, mutation hashes, versions and evidence
 manifest are retained even on failure. A clean positive is repeated after all
 attacks. The old INCOMPLETE label described prerequisites at that date. It is not the
 current migration status: full target/recovery/combined and independent technical
-review subsequently passed at the exact SHAs recorded in MIGRATION.md. Human
-acceptance remains pending.
+review subsequently passed at the exact SHAs linked in
+[maintenance](../../../../docs/maintenance.md). The migration was subsequently
+accepted and merged in PR54; this retired gate does not reopen that decision.

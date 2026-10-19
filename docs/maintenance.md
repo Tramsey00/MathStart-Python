@@ -22,8 +22,14 @@ still use actual current bytes, with unknown edits/deletions rejected.
 Active inventory, 40 parity rows and 12-scenario/negative mapping audit remain
 in specs/migration; the complete 52-card future product disposition is in specs/product.
 
-The consolidation maintenance PR records its actual candidate checks and diff
-review separately from the accepted migration's CI. It retires exactly1477
+Consolidation [PR55](https://github.com/Tramsey00/MathStart-Python/pull/55) merged as
+`12450dfd39b51166aa5a40955ce78e40169a1cb4`, with candidate
+`1ee38b286f7c0be5dd04a96113563e7b19168840`.
+[Post-merge Migration](https://github.com/Tramsey00/MathStart-Python/actions/runs/39325149624)
+passed all nine jobs, including target/image-recovery/combined, without skipped;
+[post-merge Harness](https://github.com/Tramsey00/MathStart-Python/actions/runs/39325149945)
+also passed. Candidate checks and diff review retain their separate SHA/scope
+from the accepted migration's CI. It retires exactly1477
 user-approved historical originals (60,801,077 canonical blob bytes); six active
 inputs/verifiers move to scripts/specs. Historical helper checks require explicit
 separate sources, while current contracts/content keep actual-file assertions.
@@ -40,7 +46,14 @@ and shared base images/build cache remain untouched. Physical disk reclamation
 was not measured; logical file bytes and Docker accounting are not that measure.
 
 The persistent local site, existing operator and published content are retained;
-see [local start](local-development.md). Migration Issues28–45 can be closed
-against PR54, its actual review and successful main CI after scope reconciliation.
+see [local start](local-development.md). Migration Issues28–45 were closed after
+scope reconciliation against PR54, its actual review and successful main CI.
+The user accepted the platform adaptation of v7.2 on20.10.2026; this does not
+approve the complete product draft, future product gates or production rollout.
+The completed root entry point and override instructions are historical only:
+[former MIGRATION.md](https://github.com/Tramsey00/MathStart-Python/blob/12450dfd39b51166aa5a40955ce78e40169a1cb4/MIGRATION.md) and
+[former AGENTS.override.md](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/AGENTS.override.md).
+These exact Git revisions preserve their original context without creating a
+new migration queue.
 Cosmetic UX issue52 remains a deferred follow-up; production and future features
 are outside this maintenance task.

@@ -13,7 +13,7 @@
 
 ## 1. Паспорт и правила применения
 
-Редакция v7.2 — DRAFT, человеческая приёмка HUMAN_PENDING. Полный исходный v7.1 сохранён в Git3a290a46d991e22269a17dde41e39f0637576071:docs/specifications/sources/technical-spec-v7.1.pdf с SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Исторический G0 v7.1 принят30.09.2026; это не approval редакции v7.2. Нормативная платформа переноса принята в ADR-0006 и R02 migration contracts. Состояние реализации и конкретные evidence определяются корневым MIGRATION.md и execution ledger, а не датой этого документа. Новые сроки основной программы не назначены.
+Редакция v7.2 — DRAFT, человеческая приёмка HUMAN_PENDING. Полный исходный v7.1 сохранён в Git3a290a46d991e22269a17dde41e39f0637576071:docs/specifications/sources/technical-spec-v7.1.pdf с SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Исторический G0 v7.1 принят30.09.2026; это не approval редакции v7.2. Нормативная платформа переноса принята в ADR-0006 и R02 migration contracts. Принятая миграция PR54 и завершённая консолидация PR55, их точные SHA и evidence описаны в [maintenance](../maintenance.md). Пользователь принял адаптацию платформы v7.2; это не утверждение всей продуктовой редакции, будущих gates или production rollout. Новые сроки основной программы не назначены.
 
 ### Исторический паспорт и источники v7.1
 
@@ -46,7 +46,7 @@ main, PR/reviews/CI; внешние учебные примеры Harness. Ма�
 
 ### 2.0. Снимок переноса
 
-MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; принятый migration integration a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6. Пять результатов R01/R02/V01/V02/I01 программы MS7-MIG сохранены. Единое выполнение остальных13 задач начато по прямому поручению пользователя. До проверенного release и человеческой приёмки READY_FOR_HUMAN_ACCEPTANCE не присвоен. Дальнейшая таблица описывает исторический baseline v7.1, а не современную полноту FastAPI/React.
+MIG_BASE_SHA60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7; принятый migration integration a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6. Пять результатов R01/R02/V01/V02/I01 программы MS7-MIG сохранены. Единая миграция завершена и принята в PR54; консолидация завершена в PR55. Точные результаты и границы приёмки — в [maintenance](../maintenance.md). Дальнейшая таблица описывает исторический baseline v7.1, а не современную полноту FastAPI/React.
 
 ### Исторические результаты v7.1
 2.1. Что работает сейчас
@@ -1033,7 +1033,7 @@ blockers своих потребителей. Принятые R01/R02/R03 не 
 
 ### Переходный workflow MS7-MIG
 
-Программа миграции выполняется как единая оставшаяся задача по корневому MIGRATION.md: один основной исполнитель продолжает текущий код в ms7-mig-react-fastapi, после готовности общего кандидата проводится отдельное ревью. Отдельных поручений по карточкам, закреплённых владельцев областей и обязательного ревью каждого промежуточного шага нет. TECHNICALLY_VERIFIED не заменяет historical ACCEPTED_INTEGRATION. Финальный human gate выполняет пользователь. Main merge, Issue closure, public deployment и production writer switch остаются HUMAN_PENDING до отдельного решения. Product G1–G5 и организационные роли основной программы сохраняются; они не задают состав исполнителей миграции.
+Программа миграции существующего сайта завершена: QA, техническое review, человеческая приёмка и merge PR54 состоялись; последующая консолидация PR55 завершена. [Maintenance](../maintenance.md) сохраняет точные SHA и evidence. Прежняя ветка и персональные очереди не являются действующими заданиями. Новую работу определяет только отдельное поручение пользователя. Product G1–G5, утверждение всей продуктовой редакции, public deployment и production writer switch остаются отдельными решениями; принятие миграции и адаптации платформы v7.2 их не закрывает.
 
 
 ---
@@ -1103,7 +1103,7 @@ ADR/specs и merged repository state.
 
 Основная программа содержит те же52 canonical task IDs и те же HARD/CONTRACT/HANDOFF/INTEGRATION рёбра (§25). До основной реализации должны быть приняты HARD/CONTRACT; HANDOFF/INTEGRATION обязательны к финальной приёмке. При ожидании входа фиксируется конкретный blocker и выполняется доступная независимая подготовка. Будущие Knowledge/Assessment/Progress/Analyzer/Tutor/adaptive задачи остаются planned.
 
-Готовность зависит от принятого migration release, затем от контракта и фактических upstream deliverables каждой карточки. Полная машинная52-row таблица с исходными карточками/типами зависимостей, historical result, platform disposition и target evidence: ../acceptance/migration-execution/product-task-disposition-draft.json. После финализации её draft статус должен быть снят только отдельным проверенным R05 результатом.
+Миграционный release принят; готовность каждой будущей задачи зависит от контракта и фактических upstream deliverables каждой карточки. Полная машинная52-row таблица с исходными карточками/типами зависимостей, historical result, platform disposition и target evidence: [текущий registry](../../specs/product/task-dispositions-v7.2.json). Исторические результаты карточек сохранены; принятие платформы не означает реализации будущих задач.
 
 
 ---
@@ -3813,11 +3813,11 @@ scheduling (Руслан, проверяют все, course deadline09.10). Он
 
 ## 32. Источники и статус утверждения
 
-Полный source v7.1: sources/technical-spec-v7.1.pdf, SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Canonical migration ТЗ: ../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md, SHA256 c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae. Accepted ADR-0006/R02 и explicit user process overlay корневого MIGRATION.md определяют платформу/порядок переноса. v7.2 approval: HUMAN_PENDING; Product G1–G5 не закрыты.
+Полный source v7.1: Git3a290a46d991e22269a17dde41e39f0637576071:docs/specifications/sources/technical-spec-v7.1.pdf, SHA256 e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd. Canonical migration ТЗ: ../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md, SHA256 c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae. Accepted ADR-0006/R02 определяют платформу. Итоги принятых PR54/PR55 и адаптации платформы v7.2 приведены в [maintenance](../maintenance.md); завершённые execution overlays не задают новую работу. v7.2 approval: HUMAN_PENDING; Product G1–G5 не закрыты.
 
 ### Исторические источники и G0 v7.1
 
-Весь остаток этой главы — исторический снимок v7.1. Его календарь, очереди по людям, READY/BLOCKED и G0 approvals не являются действующими поручениями, текущими статусами migration или новыми назначениями. Работу определяет только MIGRATION.md; future product cards не реализуются в переносе.
+Весь остаток этой главы — исторический снимок v7.1. Его календарь, очереди по людям, READY/BLOCKED и G0 approvals не являются действующими поручениями, текущими статусами migration или новыми назначениями. Новую работу определяет текущее поручение пользователя; future product cards сохранены как требования, не как реализованные функции.
 
 Основные pinned sources: main fc4e907149da026e4710c3e453d8065c0106e4b9: AGENTS.md, PRODUCT.md,
 ARCHITECTURE.md, ADR-0001/0002/0003, specs/exercises/R02-exercise-architecture.md,

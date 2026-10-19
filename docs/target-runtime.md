@@ -1,18 +1,17 @@
 # MathStart: текущий FastAPI/React runtime
 
 Это versioned руководство текущего runtime. Корневые инструкции описывают текущую платформу; исходные версии и
-исторические digest manifests сохранены в Git. См. [oracle](legacy-oracle.md). [MIGRATION.md](../MIGRATION.md) фиксирует итог
-технически завершённого переноса и ожидающую human acceptance, а не поручение
-начать миграцию заново. Target и независимое техническое review завершены;
-ordinary mandatory CI проверяет actual latest PR HEAD. Все required jobs, включая
-target/release/image/combined, должны иметь SUCCESS без skipped acceptance:
-[актуальные checks](https://github.com/Tramsey00/MathStart-Python/pull/54/checks).
-После этого технический статус READY_FOR_HUMAN_ACCEPTANCE; human acceptance
-остаётся отдельным решением. Документ не разрешает production deployment или merge main.
+исторические digest manifests сохранены в Git. См. [oracle](legacy-oracle.md).
+Миграция принята и слита в PR54; последующая консолидация PR55 завершена.
+[Итог и evidence](maintenance.md) связывают успешные проверки с точными SHA.
+Новая работа определяется текущим поручением пользователя. Все required jobs,
+включая target/release/image/combined, должны иметь SUCCESS без skipped;
+результаты прежнего SHA не подтверждают новый кандидат. Production rollout
+и будущие продуктовые gates остаются отдельными решениями.
 
 | Исторический источник | Текущее применение |
 | --- | --- |
-| AGENTS.md, старые active plans/role queues | MIGRATION.md и AGENTS.override.md: итог миграции, human acceptance; новая работа только по поручению пользователя. |
+| AGENTS.md, старые active plans/role queues | Действующие инструкции — AGENTS.md и текущее поручение пользователя; принятый результат — [maintenance](maintenance.md). Исторические очереди завершены. |
 | README.md | Окружения и команды ниже, [release](../deploy/RELEASE.md), [recovery](../deploy/RECOVERY.md). Корневой Compose включает deploy/compose.yaml; старый Dockerfile удалён. |
 | PRODUCT.md | Перенос существующего сайта и границы продукта ниже; [полный v7.2](specifications/technical-spec-v7.2-draft.md) сохраняет будущие требования. |
 | ARCHITECTURE.md, docs/architecture.md | ADR-0006 и текущие границы runtime/content ниже; старые domain contracts остаются обязательными. |
@@ -202,8 +201,8 @@ Existing workflow_dispatch `full_target=true` запускает полный ma
 без поддельного REVIEWED. Успешный CI с target SKIPPED не закрывает migration.
 Остальные image/install/recovery/document checks сохраняют свои recorded SHA и
 scope; финальная проверка должна описывать согласованный combined candidate.
-Общий QA и одно independent review миграции завершены; [итог и evidence](../MIGRATION.md)
-сохраняют exact SHA. Точечное обслуживание проверяется по diff и зависимостям,
-а обязательный CI — на новом кандидате. Draft PR сохраняет фактическое состояние
-и human acceptance вопросы. Merge main, production, Issue closure и сообщения людям требуют
-отдельного человеческого решения.
+Общий QA, independent review, человеческая приёмка миграции и merge PR54 завершены;
+[итог и evidence PR54/PR55](maintenance.md) сохраняют exact SHA. Точечное обслуживание
+проверяется по diff и зависимостям, а обязательный CI — на новом кандидате. Новые
+merge main, production, Issue closure и сообщения людям требуют соответствующего
+поручения; завершённая миграция не является новым заданием.

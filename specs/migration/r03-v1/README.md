@@ -8,7 +8,7 @@ The user subsequently accepted the migration and authorized PR54's merge as
 Historical owner attribution: Tramsey00 / VladimirFrolov777 /13baybars.
 [Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) records its original scope;
 the completed migration result and current maintenance entry points are in
-[MIGRATION.md](../../../MIGRATION.md). This document does not start another task.
+[maintenance](../../../docs/maintenance.md). This document does not start another task.
 Current accepted input `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
 previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts preserved in Git;
 historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
@@ -128,8 +128,8 @@ uploaded even on failure. Green pure/historical jobs do not override failed targ
 `ci_provenance.py` detects stale checkout and wrong merge parents; local invocation
 does not count as CI. No live Product LLM or production credentials are required.
 
-The technical migration is complete; human acceptance and Issue closure have not
-been performed. Full target/recovery/combined passed on runtime42f6249, then on
+The migration was accepted and merged in PR54; consolidation PR55 and scope-checked
+closure of migration Issues28–45 are complete (see maintenance above). Full target/recovery/combined passed on runtime42f6249, then on
 candidate1d9e4d39aa103ccc049dd9569c2354893af30a75 in
 [CI39164124957](https://github.com/Tramsey00/MathStart-Python/actions/runs/39164124957),
 and on cleanup467866e7038071dce35883e1d20fa5be2d7d5fd3 in

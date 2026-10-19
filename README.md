@@ -77,4 +77,6 @@ Ordinary clean-clone installation отдельно проверяет `scripts/v
 Legacy comparisons запускаются явно из [отдельного pinned oracle](docs/legacy-oracle.md).
 Обычный запуск сайта не требует этого checkout или его зависимостей.
 Старые инструкции/исходники доступны по Git SHA; они не описывают текущий runtime.
-[MIGRATION.md](MIGRATION.md) содержит evidence и состояние человеческой приёмки.
+Миграция принята и слита в PR54, консолидация завершена в PR55:
+[принятый результат и evidence](docs/maintenance.md). Будущие продуктовые gates
+и production rollout требуют отдельных решений.
