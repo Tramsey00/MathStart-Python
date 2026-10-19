@@ -1,4 +1,6 @@
 """Actual Django session serialization oracle; target verifier imports no Django."""
+from scripts.legacy_oracle import oracle_root, oracle_environment
+
 from datetime import datetime, timedelta, timezone
 import json
 import os
@@ -34,7 +36,7 @@ print(json.dumps([SessionStore().encode(data),signing.dumps(data,key=sys.argv[1]
 '''
         env = dict(os.environ); env.pop('PYTHONPATH', None)
         result = subprocess.run([os.environ['MATHSTART_LEGACY_PYTHON'], '-c', code, OLD_KEY],
-                                input=json.dumps(cls.data), text=True, capture_output=True, timeout=30, cwd=ROOT, env=env)
+                                input=json.dumps(cls.data), text=True, capture_output=True, timeout=30, cwd=oracle_root(), env=oracle_environment(env))
         if result.returncode:
             raise RuntimeError('Independent legacy session oracle failed')
         cls.vectors = json.loads(result.stdout)

@@ -30,6 +30,7 @@ from backend.migrations.schema import inventory, assert_baseline
 from backend.release_migrate import source_digest, database_fact
 from backend.users.cutover import writer_fact
 from scripts.public_block_process import owned_http_service
+from scripts.legacy_oracle import oracle_root, oracle_environment
 from scripts.verify_public_block import source_snapshot, assert_source_unchanged, legacy_executable
 
 PG_IMAGE = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
@@ -87,9 +88,10 @@ def main(argv=None):
 
     def run(name, command, *, environment=env, timeout=180):
         started = time.monotonic()
-        item = {'id': name, 'argv': list(map(str, command)), 'cwd': str(ROOT)}
+        cwd = oracle_root() if environment is legacy_env else ROOT
+        item = {'id': name, 'argv': list(map(str, command)), 'cwd': str(cwd)}
         report['stages'].append(item)
-        result = subprocess.run(item['argv'], cwd=ROOT, env=environment, capture_output=True, timeout=timeout)
+        result = subprocess.run(item['argv'], cwd=cwd, env=oracle_environment(environment), capture_output=True, timeout=timeout)
         output = result.stdout + result.stderr
         for secret in (password, role_password, key, schema_key, account_password):
             output = output.replace(secret.encode(), b'[REDACTED]')
@@ -153,7 +155,7 @@ def main(argv=None):
 
     def legacy_service(name):
         return owned_http_service([legacy_executable(args.legacy_python), 'manage.py', 'runserver', '127.0.0.1:18135', '--noreload', '--nothreading', '--no-color'],
-            base_url=origin, cwd=ROOT, evidence_root=root / name, environment=legacy_env)
+            base_url=origin, cwd=oracle_root(), evidence_root=root / name, environment=oracle_environment(legacy_env))
 
     def headers(client, base):
         response = client.get(base + '/api/v1/auth/csrf/')

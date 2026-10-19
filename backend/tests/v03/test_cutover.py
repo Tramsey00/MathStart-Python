@@ -1,4 +1,6 @@
 """Owned PostgreSQL cutover/import/F-login, refusal and lock regressions."""
+from scripts.legacy_oracle import oracle_root, oracle_environment
+
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from datetime import timedelta
 import json
@@ -79,7 +81,7 @@ print(SessionStore().encode(json.load(sys.stdin)))
 '''
             env = dict(os.environ); env.pop('PYTHONPATH', None)
             encoded = subprocess.run([env['MATHSTART_LEGACY_PYTHON'], '-c', code, KEY], input=json.dumps(data),
-                env=env, text=True, capture_output=True, timeout=30, check=True).stdout.strip()
+                cwd=oracle_root(), env=oracle_environment(env), text=True, capture_output=True, timeout=30, check=True).stdout.strip()
             now = s.scalar(sa.select(sa.func.clock_timestamp()))
             s.add(LegacySession(session_key=self.old_key, session_data=encoded, expire_date=now + timedelta(days=1)))
             uow.commit()

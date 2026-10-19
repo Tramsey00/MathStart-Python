@@ -1,11 +1,7 @@
-# MathStart migration
+# MathStart
 
-Итог технически завершённой миграции и ожидающая человеческая приёмка —
-[MIGRATION.md](MIGRATION.md). Не начинать перенос заново и не выполнять старые
-персональные очереди или карточки. Новая работа — только по поручению пользователя;
-contracts/code читать по затронутой области. Сохранить данные/контент/history и
-незакоммиченные fixes. Не ослаблять tests, не логировать secrets и не выполнять
-production mutations. Наличие документов не запускает реализацию или приёмку.
-
-Текущие runtime/product/architecture/setup guidance, вместо frozen platform описаний:
-[docs/target-runtime.md](docs/target-runtime.md). Исторические исходники сохраняются.
+Use [AGENTS.md](AGENTS.md) and [README.md](README.md) for the current FastAPI/React
+platform. New work requires a user task. Preserve dirty fixes, data/content,
+history and secrets; do not weaken checks. [MIGRATION.md](MIGRATION.md) records
+historical acceptance and current maintenance, not a new migration assignment.
+Main merge and production changes are separate human decisions.

@@ -22,10 +22,11 @@ backend/database/content/tests/harness/frontend. `--group`, repeated groups,
 `--exclude-group`, `--skip-tests` and `--list` preserve their selection semantics.
 An empty execution fails. A partial selection never establishes full target
 acceptance. `--profile pure` runs only6 pure/Harness checks; no runtime claim.
-The transitional default is explicitly legacy to keep frozen ci.yml reproducible.
-Switching that default belongs to a separately reviewed operated cutover.
-The explicit target verifier already runs without Django; the retained legacy
-default is not evidence that target implementations are missing.
+Default verification now selects target. Explicit `--profile legacy` invokes
+the unchanged historical verifier from the separate pinned checkout/interpreter.
+See [oracle isolation](../../../docs/legacy-oracle.md). Frozen historical CI
+digests are checked against original Git blobs; current adapters are checked
+separately by explicit preservation dispositions. Runtime has no Django dependency.
 
 Harness keeps `repo-baseline`, `harness-unit`, `harness-cli-smoke`; repo-baseline
 now explicitly selects target and excludes harness. Its15 checks cannot recursively

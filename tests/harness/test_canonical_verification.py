@@ -15,7 +15,7 @@ class CanonicalVerificationTests(unittest.TestCase):
         harness = [check for check in checks if check.group == "harness"]
         self.assertEqual(len(harness), 1)
         self.assertIn("tests/harness", harness[0].command)
-        self.assertEqual(len(checks), 8)
+        self.assertEqual(len(checks), 16)
 
     def test_nested_baseline_excludes_harness_and_preserves_prior_checks(self) -> None:
         command = CHECK_COMMANDS["repo-baseline"]
@@ -48,7 +48,7 @@ class CanonicalVerificationTests(unittest.TestCase):
 
     def test_skip_tests_excludes_all_test_suites(self) -> None:
         checks = verify_repo.select_checks(verify_repo.parse_args(["--skip-tests"]))
-        self.assertEqual({check.group for check in checks}, {"backend", "database", "content"})
+        self.assertEqual({check.group for check in checks}, {"backend", "database", "content", "frontend"})
 
 
 if __name__ == "__main__":

@@ -39,6 +39,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - uses: actions/setup-node@v6
         with:
           node-version: '24.21.0'
@@ -53,7 +55,7 @@ jobs:
           var/public-target-env/bin/python -m pip check
           var/public-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
           python -m venv var/public-legacy-env
-          var/public-legacy-env/bin/python -m pip install --no-deps -r requirements.lock
+          var/public-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
           var/public-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
           var/public-legacy-env/bin/python -m pip check
       - name: Exact event and checkout provenance

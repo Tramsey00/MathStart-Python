@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from backend.tests.legacy_tools import oracle_root, oracle_environment
 
 import sqlalchemy as sa
 
@@ -52,7 +53,7 @@ class SourceTests(unittest.TestCase):
     def test_legacy_template_golden_all_lessons(self):
         python = os.environ.get('MATHSTART_LEGACY_PYTHON')
         self.assertIsNotNone(python, 'Independent legacy interpreter must be supplied')
-        result = subprocess.run([python, '-m', 'backend.tests.v04.golden_oracle'], cwd=ROOT,
+        result = subprocess.run([python, '-m', 'backend.tests.v04.golden_oracle'], cwd=oracle_root(), env=oracle_environment(),
                                 capture_output=True, timeout=60, check=True)
         expected = json.loads(result.stdout)
         actual = {b.snapshot['slug']: sha256(b.snapshot['body_html'].encode()).hexdigest()

@@ -1,8 +1,9 @@
 # Target image commands
 
-Build from this Git root. The retained root Dockerfile/compose files still serve
-the historical Django development workflow. These separate targets contain the
-new runtime and locked dependencies:
+Build from this Git root. deploy/Dockerfile is the sole canonical build file; root compose.yaml includes
+deploy/compose.yaml. The historical Django startup is available only in the
+pinned oracle checkout (docs/legacy-oracle.md). These targets contain the current
+runtime and unchanged locked dependencies:
 
 ```text
 docker build -f deploy/Dockerfile --target api -t mathstart-api:<candidate> .

@@ -6,6 +6,7 @@ effects; table/schema coverage prevents a prose-only amendment. V03/V04 must
 replace these claims with real populated migration, transaction and race proof.
 """
 import copy
+from scripts.check_migration_preservation import historical_artifact
 import hashlib
 import itertools
 import json
@@ -495,9 +496,9 @@ class BridgeLifecycleTests(unittest.TestCase):
             with self.assertRaises(ValidationError):validator('ReceiptBridgeFacts').validate({**value,field:data})
         table=load('receipt-bridge-lifecycle-v1.json')
         self.assertEqual({r['event'] for r in table['transitions']},{'logout','account_switch','session_expiry','cutover','replay_window_expiry'})
-        source=(ROOT/'users/views.py').read_text(encoding='utf-8')
+        source=historical_artifact('users/views.py', ROOT).decode('utf-8')
         self.assertIn('django_logout(request)',source);self.assertIn('{"completed": True}',source)
-        baseline=(ROOT/'users/tests/test_identity.py').read_text(encoding='utf-8')
+        baseline=historical_artifact('users/tests/test_identity.py', ROOT).decode('utf-8')
         for name in ['test_register_lost_ack_replays_only_original_bootstrap','test_switch_user_flushes_previous_session','test_logout_invalidates_session_and_repeat_requires_auth']:
             self.assertIn(name,baseline)
 

@@ -5,8 +5,8 @@ production approval. Rehearse on owned disposable data first. API startup never
 performs DDL, seeds users/content, or adopts legacy history.
 
 Use a candidate API/edge image built from the same checkout and locked builder
-output. Keep the retained root Django Docker/Compose files as historical inputs.
-Use `deploy/compose.yaml` for the target stack. It requires an explicit unique
+output. Historical Django Docker/Compose files exist only in the pinned oracle.
+Use `deploy/compose.yaml` for the current stack (root Compose includes it). It requires an explicit unique
 project name, existing named PostgreSQL/public volumes, a dedicated unused IPv4
 subnet and exact edge IP, and private env/plan paths. It never exposes PostgreSQL
 or API to the host. Only the edge binds a specified loopback port. Do not attach

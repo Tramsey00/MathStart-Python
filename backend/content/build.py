@@ -24,7 +24,7 @@ def encoded(value):
 
 
 def verify_source_checkout(root, source_sha):
-    paths = ['curriculum', 'site_content', 'static', 'templates/lessons/components']
+    paths = ['curriculum', 'site_content', 'static']
     commands = [
         ['git', '-C', str(root), 'rev-parse', '--verify', source_sha + '^{commit}'],
         ['git', '-C', str(root), 'diff', '--quiet', source_sha, '--', *paths],

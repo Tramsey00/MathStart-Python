@@ -15,7 +15,7 @@ from sqlalchemy.pool import StaticPool
 from backend.models.protocol import active, journal
 from backend.tests.v02.test_http import HTTPAssertions
 from backend.tests.v02 import test_postgres as postgres_fixture
-from backend.tests.legacy_tools import legacy_python
+from backend.tests.legacy_tools import legacy_python, oracle_root, oracle_environment
 from backend.tests.v02.oracle_environment import comparator_environment
 
 ADMIN = postgres_fixture.ADMIN
@@ -288,7 +288,7 @@ class PostgreSQLAssetTests(AssetRegressions, unittest.TestCase):
         environment = comparator_environment(self.engine.url, self.name, self.files.name)
         result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_comparator'],
             input=json.dumps([{'resource': '__asset_redirect', **case} for case in cases]).encode(),
-            env=environment, capture_output=True, timeout=60)
+            cwd=oracle_root(), env=oracle_environment(environment), capture_output=True, timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace')[-1500:])
         probes = []
         for oracle in json.loads(result.stdout):

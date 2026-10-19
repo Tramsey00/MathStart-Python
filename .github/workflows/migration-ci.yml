@@ -70,6 +70,7 @@ jobs:
           --health-cmd="pg_isready -U mathstart_ci -d ms6_v01_smoke_ci"
           --health-interval=2s --health-timeout=3s --health-retries=30
     env:
+      MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/verify-legacy-env/bin/python
       DJANGO_SECRET_KEY: ci-only-key-for-harness-verification
       DJANGO_DEBUG: 'False'
       DJANGO_DB_BACKEND: postgresql
@@ -88,31 +89,34 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - name: Install dependencies
         run: |
-          python -m pip install --no-deps -r requirements.lock
-          python -m pip check
+          python -m venv var/verify-legacy-env
+          var/verify-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
+          var/verify-legacy-env/bin/python -m pip check
       - name: Runtime version report
-        run: python scripts/version_report.py
+        run: python scripts/legacy_oracle.py --run scripts/version_report.py
       - name: Connection failure is bounded and nonzero
         run: |
-          if DJANGO_DB_PORT=1 python scripts/check_database.py; then
+          if DJANGO_DB_PORT=1 python scripts/legacy_oracle.py --run scripts/check_database.py; then
             echo "Expected connection failure did not occur"
             exit 1
           fi
       - name: Fresh PostgreSQL migration/bootstrap/static/content smoke
-        run: python scripts/fresh_install_smoke.py --disposable
+        run: python scripts/legacy_oracle.py --run scripts/fresh_install_smoke.py --disposable
       - name: Verify repository
-        run: python scripts/verify_repo.py
+        run: python scripts/verify_repo.py --profile legacy
       - name: R02A HTTP and eligibility contract
-        run: python -m unittest discover -s tests -p test_r02a_contract.py -v
+        run: python scripts/legacy_oracle.py --run -m unittest discover -s tests -p test_r02a_contract.py -v
       - name: R03A CompletionFact contract
-        run: python -m unittest discover -s tests -p test_r03a_contract.py -v
+        run: python scripts/legacy_oracle.py --run -m unittest discover -s tests -p test_r03a_contract.py -v
       - name: Unchanged standalone R02 suite on accepted input (historical baseline)
         run: |
           git worktree add --detach var/r02-baseline 8d958aeeb17da46839722441425ccbb5889e2ab7
           cd var/r02-baseline
-          python -m unittest discover -s tests -p 'test_migration_r02*.py' -v
+          $MATHSTART_LEGACY_PYTHON -m unittest discover -s tests -p 'test_migration_r02*.py' -v
 
   pure:
     if: github.event_name != 'workflow_dispatch' || inputs.recovery_handoff_run == 0
@@ -126,6 +130,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - name: Locked tooling without Django or DRF
         run: |
           python -m pip install --no-deps -r specs/migration/r03-v1/verification.lock
@@ -172,6 +178,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - uses: actions/setup-node@v6
         with:
           node-version: '24.21.0'
@@ -182,7 +190,7 @@ jobs:
           var/backend-target-env/bin/python -m pip check
           var/backend-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
           python -m venv var/backend-legacy-env
-          var/backend-legacy-env/bin/python -m pip install --no-deps -r requirements.lock
+          var/backend-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
           var/backend-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
           var/backend-legacy-env/bin/python -m pip check
           npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
@@ -227,6 +235,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - name: Exact deployment checkout
         run: python scripts/ci_provenance.py --output var/deployment-provenance.json
       - name: Build independent API and non-root edge images
@@ -282,6 +292,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - uses: actions/setup-node@v6
         with:
           node-version: '24.21.0'
@@ -292,7 +304,7 @@ jobs:
           var/full-target-env/bin/python -m pip check
           var/full-target-env/bin/python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
           python -m venv var/full-legacy-env
-          var/full-legacy-env/bin/python -m pip install --no-deps -r requirements.lock
+          var/full-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
           var/full-legacy-env/bin/python -m pip install --no-deps argon2-cffi==25.1.0 argon2-cffi-bindings==25.1.0 bcrypt==4.3.0 cffi==2.0.0 pycparser==2.23
           var/full-legacy-env/bin/python -m pip check
           npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
@@ -385,6 +397,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - name: Separate locked target and native legacy tools
         run: |
           python -m venv var/operations-target-env
@@ -392,7 +406,7 @@ jobs:
           var/operations-target-env/bin/python -m pip check
           var/operations-target-env/bin/python -c "import importlib.util; assert not importlib.util.find_spec('django'); assert not importlib.util.find_spec('rest_framework')"
           python -m venv var/operations-legacy-env
-          var/operations-legacy-env/bin/python -m pip install --no-deps -r requirements.lock
+          var/operations-legacy-env/bin/python -m pip install --no-deps -r var/legacy-oracle/1a87b044e8c5a7519b0ab57e22d2a35d57b4a986/requirements.lock
           var/operations-legacy-env/bin/python -m pip check
       - name: Exact release operations checkout
         run: python scripts/ci_provenance.py --output var/operations-provenance.json
@@ -453,6 +467,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Prepare and verify pinned historical oracle
+        run: python scripts/legacy_oracle.py --prepare
       - name: Locked no-Django image recovery controller
         run: |
           python -m venv var/image-target-env

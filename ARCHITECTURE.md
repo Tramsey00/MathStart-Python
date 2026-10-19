@@ -19,113 +19,32 @@ The existing `docs/architecture.md` remains useful documentation of the current 
 
 ---
 
-## 2. Architectural baseline
+## 2. Current platform
 
-MathStart is a **Django modular monolith**.
+The existing modular monolith now runs on FastAPI/Pydantic with SQLAlchemy,
+Alembic, PostgreSQL and React/SSG, following ADR-0006. The old Django runtime
+exists only in a separate pinned historical oracle (docs/legacy-oracle.md).
+No Django imports/dependencies belong in target environments. Domain ownership,
+deterministic mathematical validation and structured evidence contracts below
+remain binding; future intelligent-learning domains are not implemented here.
 
-The project evolves incrementally from the existing Django application rather than being rewritten around a new backend framework.
+## 3. Current repository
 
-Baseline direction:
+backend/ owns API, persistence, identity/staff and explicit schema/content CLI;
+frontend/ owns React, build and rendering. curriculum/, site_content/ and static/
+remain authored sources and reviewed media. deploy/ owns canonical images,
+Compose, release and recovery. Startup never runs DDL/bootstrap/operator seeds.
+Use README.md and docs/target-runtime.md for current setup. Source templates and
+Django migrations are restored only from the pinned oracle for real comparisons.
+Historical table names/history remain in the target schema for data continuity.
 
-- Python 3.12+
-- Django 5.2+
-- Django ORM
-- Django migrations
-- PostgreSQL as the target primary database
-- Django Templates for server-rendered pages
-- progressive JavaScript for interactive learning UX
-- Django REST Framework for JSON API endpoints where needed
-- SymPy + deterministic/domain validators for supported mathematics
-- Pydantic for structured LLM outputs and selected typed contracts
-- provider abstraction for LLM integrations
-- Docker-based reproducible production path
-- GitHub Actions for CI
+Authored self-check HTML still embeds its original reveal interactions. It does
+not implement future Assessment attempts or Progress evidence. Preserve its
+existing behavior; this platform removal adds no new product capabilities.
 
-MS6-V01 configures PostgreSQL as the default dev/test database and retains
-explicit SQLite compatibility. PostgreSQL/Docker execution acceptance remains
-tracked in the active MS6-V01 plan; SQLite checks are not PostgreSQL evidence.
-
-Do not replace Django, Django ORM, or Django migrations without an accepted ADR.
-
----
-
-## 3. Current repository baseline
-
-The current project already contains a stable content platform.
-
-`requirements.txt` and `config/settings.py` describe the installed runtime.
-DRF, SymPy, Pydantic and the intelligent-learning apps remain target capabilities.
-PostgreSQL and Docker configuration are introduced by MS6-V01; GitHub Actions
-was introduced in R03. None was configured R01 tooling. See task traces for
-actual verification rather than inferring acceptance from configuration.
-Local setup is documented in `README.md`; current checks are documented in
-`skills/verification/SKILL.md` and run by `scripts/verify_repo.py`.
-
-Existing authored self-check lessons embed solutions in HTML (for example,
-`templates/lessons/components/exercise.html` uses `<details>`). They do not yet
-implement the new Assessment attempt, server-reveal, or knowledge-event
-contracts. Preserve this existing content during R01, as required by
-the scope rules in `AGENTS.md`. Sections 13-14 and 24 define the target contracts for
-the intelligent exercise system; they are not claims that legacy lessons
-already enforce answer secrecy or record reveals. Converting lessons requires
-a later scoped specification.
-
-Important existing components:
-
-```text
-config/
-    Django settings, URL configuration, WSGI/ASGI entry points
-
-content/
-    existing content models
-    page views
-    publishing services
-    site bootstrap
-    quality/integrity checks
-    management commands
-    content tests
-
-curriculum/
-    version-controlled source of truth for 263 lesson topics
-
-site_content/
-    version-controlled source of truth for:
-    - catalogue structure
-    - structural/informational pages
-    - redirects
-    - seed media metadata/files
-
-templates/
-    Django templates
-
-static/mathstart/
-    shared CSS/JavaScript
-
-docs/
-    existing technical documentation
-
-var/
-    local reports/backups; not source of truth
-```
-
-The existing `content` domain currently includes these models:
-
-- `Grade`
-- `Subject`
-- `Section`
-- `ContentPage`
-- `LessonPublication`
-- `MediaAsset`
-- `Redirect`
-
-The current content runtime is reproducible from migrations plus repository-managed sources:
-
-```text
-python manage.py migrate
-python manage.py bootstrap_site
-```
-
-This capability is valuable and must be preserved.
+The remaining domain/future design sections retain their original semantics;
+references there to Django implementation describe the original v3.1 design,
+superseded for current runtime technology by the platform above and ADR-0006.
 
 ---
 

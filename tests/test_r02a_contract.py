@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+from scripts.check_migration_preservation import historical_artifact
 import hashlib
 import json
 import re
@@ -74,7 +75,7 @@ class HTTPArtifactTests(unittest.TestCase):
         for relative, expected in manifest['artifacts'].items():
             target = (ROOT / relative).resolve()
             self.assertTrue(target.is_relative_to(ROOT))
-            self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), expected, relative)
+            self.assertEqual(hashlib.sha256(historical_artifact(relative, ROOT)).hexdigest(), expected, relative)
 
     def test_auth_csrf_idempotency_revision_and_owner_isolation(self):
         for p in self.policy["operations"]:

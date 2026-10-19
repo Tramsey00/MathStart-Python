@@ -10,8 +10,12 @@ import argparse
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--profile", choices=("legacy", "target", "pure"), default="legacy")
+    parser.add_argument("--profile", choices=("legacy", "target", "pure"), default="target")
     args = parser.parse_args(argv)
+    if args.profile == "legacy":
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from scripts.legacy_oracle import main as legacy
+        return legacy(["--run", "scripts/version_report.py"])
     report = {"python": platform.python_version(), "packages": {}, "lock_mismatches": []}
     root = Path(__file__).resolve().parents[1]
     lock = root / {"legacy": "requirements.lock", "pure": "specs/migration/r03-v1/verification.lock", "target": "backend/requirements.lock"}[args.profile]

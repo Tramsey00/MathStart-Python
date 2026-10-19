@@ -1,7 +1,7 @@
 """Closed equivalent of the three reviewed lesson templates, without Django.
 
 Only metadata is escaped; authored HTML fragments remain byte-for-byte intact.
-The source templates remain the independent golden-render oracle.
+The source templates in the separate pinned checkout remain the golden oracle.
 """
 from html import escape
 

@@ -104,7 +104,7 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
                 raise PublicationConflict('SOURCE_CONFLICT')
         after = {**row, **({key: desired[key] for key in EDITABLE} if not unpublish else {'is_published': False})}
         if original is None or after != row:
-            from content.quality import inspect_html
+            from backend.content.quality import inspect_html
             if not unpublish and inspect_html(after['body_html'])['issues']:
                 raise PublicationConflict('CONTENT_QUALITY_FAILED')
             after['updated_at'] = instant

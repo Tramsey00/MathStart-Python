@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 
 from backend.content.sources import SourceError, load_sources
 from backend.models.baseline import ContentPage, MediaAsset, Redirect
-from content.quality import inspect_html
+from backend.content.quality import inspect_html
 
 ATTRIBUTES = [('a', 'href'), ('img', 'src'), ('script', 'src'), ('link', 'href'),
               ('source', 'src'), ('iframe', 'src'), ('video', 'src'), ('video', 'poster'),

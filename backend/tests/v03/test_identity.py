@@ -1,4 +1,6 @@
 """Real PostgreSQL identity/CSRF/receipt lifecycle and concurrent replay tests."""
+from scripts.legacy_oracle import oracle_root, oracle_environment
+
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 import json
@@ -53,7 +55,7 @@ print(json.dumps(rows))
 '''
         env = os.environ.copy()
         env.pop('PYTHONPATH', None)
-        result = subprocess.run([legacy, '-c', script], env=env, capture_output=True, timeout=60, check=True)
+        result = subprocess.run([legacy, '-c', script], cwd=oracle_root(), env=oracle_environment(env), capture_output=True, timeout=60, check=True)
         vectors = json.loads(result.stdout)
         self.assertEqual(len(vectors), 5)
         for algorithm, encoded in vectors:

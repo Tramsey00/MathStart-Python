@@ -14,7 +14,6 @@ RUN python -m pip install --no-deps -r backend/infrastructure/http/requirements.
     && python -c "import importlib.util; assert importlib.util.find_spec('django') is None; assert importlib.util.find_spec('rest_framework') is None"
 COPY backend /app/backend
 COPY specs /app/specs
-COPY content/__init__.py content/quality.py /app/content/
 RUN useradd --uid 10001 --create-home mathstart \
     && mkdir -p /runtime && chown mathstart:mathstart /runtime
 

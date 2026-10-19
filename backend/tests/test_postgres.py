@@ -23,7 +23,7 @@ from backend.infrastructure.uow import UnitOfWork
 from backend.models.baseline import metadata, SNAPSHOT, GRADE_EPOCH, utc_now, User, Grade, StudentProfile
 from backend.migrations.upgrade import fresh, upgrade_profile, backfill, advance_sequences, HEAD
 from backend.migrations.schema import inventory, assert_baseline, SchemaMismatch
-from backend.tests.legacy_tools import legacy_python
+from backend.tests.legacy_tools import legacy_python, oracle_root, oracle_environment
 
 ADMIN_URL = os.environ.get('MATHSTART_V01_TEST_ADMIN_URL')
 
@@ -72,7 +72,7 @@ class PostgreSQLTests(unittest.TestCase):
                      'DJANGO_DB_PASSWORD':engine.url.password or 'synthetic-local-only',
                      'DJANGO_RUNTIME_ROOT':str(Path('var/ms7-mig-v01-runtime').resolve()),'DJANGO_SECRET_KEY':'synthetic-test-only-not-production',
                      'DJANGO_DEBUG':'0'}
-                process=subprocess.run([legacy_python(),'-m','backend.tests.legacy_fixture',profile],env=env,capture_output=True,timeout=60)
+                process=subprocess.run([legacy_python(),'-m','backend.tests.legacy_fixture',profile],cwd=oracle_root(), env=oracle_environment(env),capture_output=True,timeout=60)
                 if process.returncode: raise RuntimeError('Legacy fixture setup failed: '+process.stderr.decode(errors='replace')[-1500:])
             yield engine
         finally:

@@ -49,7 +49,8 @@ def public_server(status=200, body=b'<html><body><h1>Published mathematics</h1><
 
 class InspectionHelperTests(unittest.TestCase):
     def test_reference_extraction_and_normalization_match_original_command(self):
-        tree = ast.parse((ROOT / 'content/management/commands/check_site_integrity.py').read_text(encoding='utf-8'))
+        from scripts.legacy_oracle import oracle_root
+        tree = ast.parse((oracle_root() / 'content/management/commands/check_site_integrity.py').read_text(encoding='utf-8'))
         names = {'normalize_internal_path', 'normalize_page_path', 'extract_css_urls', 'extract_page_references'}
         nodes = [node for node in tree.body if isinstance(node, (ast.Import, ast.ImportFrom))
                  and not (isinstance(node, ast.ImportFrom) and node.module.startswith(('django', 'content')))

@@ -1,6 +1,6 @@
 # MathStart Harness R04: запуск и границы
 
-Текущая migration адаптация MS7-MIG-R03: `repo-baseline` использует
+Текущая FastAPI/React адаптация MS7-MIG-R03: `repo-baseline` использует
 `verify_repo.py --profile target --exclude-group harness` (15 checks).
 `harness-unit` и `harness-cli-smoke` сохраняют прежние IDs/argv.
 Для pure/Harness без Django: `pip install --no-deps -r specs/migration/r03-v1/verification.lock`,
@@ -9,6 +9,10 @@
 [Current adapter contract](../migration/r03-v1/README.md) и
 [R03 trace](../../docs/agent-traces/MS7-MIG-R03.md) отделяют текущие результаты
 от исторического описания R04 ниже; historical acceptance не переписана.
+
+Далее — исторический R04 интерфейс. Его manifest закрепляет исходные PRODUCT/ARCHITECTURE
+и выполняется только в [pinned oracle checkout](../../docs/legacy-oracle.md);
+он не является текущим setup или новым поручением.
 
 R04 даёт bootstrap CLI runner, версионированные TaskManifest/RunResult, заменяемый ModelAdapter protocol и детерминированный FakeAdapter. Это локальный исполняемый каркас для проверки workflow; он пока не доказывает G1.
 
@@ -53,9 +57,9 @@ python -m harness status <run-id>
 - Локальные результаты: `var/harness/runs/<run-id>/result.json`; там же initial/final Git evidence, events и ограниченные `checks/*.stdout.txt` / `*.stderr.txt`.
 - `var/harness/` — локальное runtime state, не история runs для коммита.
 
-Три R04 check ID (`repo-baseline`, `harness-unit`, `harness-cli-smoke`) сопоставлены фиксированным argv-командам; произвольный shell не исполняется. Обычный `python scripts/verify_repo.py` и CI запускают 8 checks в 5 группах,
+Три R04 check ID (`repo-baseline`, `harness-unit`, `harness-cli-smoke`) сопоставлены фиксированным argv-командам; произвольный shell не исполняется. Исторический `python scripts/verify_repo.py` в R04 checkout запускал 8 checks в 5 группах,
 включая `harness`. Внутренний `repo-baseline` использует
-`python scripts/verify_repo.py --exclude-group harness` (7 checks в 4 группах),
+`python scripts/verify_repo.py --exclude-group harness` (исторически7 checks в4 группах; сейчас target15),
 а `harness-unit` отдельно запускает Harness suite. Это исключает рекурсию.
 CLI dry-run smoke использует fixture и работает независимо от branch checkout;
 реальная команда MS6-R04 требует ветку из manifest. Подробности общей проверки находятся в [verification skill](../../skills/verification/SKILL.md).

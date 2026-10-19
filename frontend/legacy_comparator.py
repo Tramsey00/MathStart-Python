@@ -16,6 +16,7 @@ from backend.infrastructure.database import DatabaseConfig,create_engine
 from backend.migrations.upgrade import require_disposable
 from backend.content.releases import inside
 from frontend.build_input import verified_release
+from scripts.legacy_oracle import oracle_root, oracle_environment
 
 
 def legacy_executable(path):
@@ -59,9 +60,9 @@ def run(config,legacy_python,runtime_root,port):
         DJANGO_ALLOWED_HOSTS='127.0.0.1,localhost',PGOPTIONS='-c default_transaction_read_only=on -c statement_timeout=30000')
     # Verify the actual legacy Django connection before exposing HTTP.
     probe="import django;django.setup();from django.db import connection;c=connection.cursor();c.execute('SHOW transaction_read_only');assert c.fetchone()[0]=='on';c.close();print('PASS: legacy Django connection read-only')"
-    subprocess.run([legacy_executable(legacy_python),'-c',probe],cwd=repository,env=env,check=True)
+    subprocess.run([legacy_executable(legacy_python),'-c',probe],cwd=oracle_root(),env=oracle_environment(env),check=True)
     print('Comparator: original Django public GETs; reserved synthetic PostgreSQL; no migrations/bootstrap; read-only',flush=True)
-    return subprocess.call([legacy_executable(legacy_python),'manage.py','runserver',f'127.0.0.1:{port}','--noreload'],cwd=repository,env=env)
+    return subprocess.call([legacy_executable(legacy_python),'manage.py','runserver',f'127.0.0.1:{port}','--noreload'],cwd=oracle_root(),env=oracle_environment(env))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--build-config',required=True);parser.add_argument('--legacy-python',required=True);parser.add_argument('--runtime-root',required=True);parser.add_argument('--port',type=int,default=8132)

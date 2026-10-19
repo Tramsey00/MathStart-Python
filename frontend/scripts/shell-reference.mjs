@@ -1,9 +1,9 @@
-import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath, URL as NodeURL } from "node:url";
 
 // Controlled source-derived reference, NOT a running Django/DB parity assertion.
 export function shellReferenceHtml() {
-  let html = readFileSync(new NodeURL("../../templates/base.html", import.meta.url), "utf8");
+  let html = execFileSync("git", ["show", "1a87b044e8c5a7519b0ab57e22d2a35d57b4a986:templates/base.html"], {cwd: fileURLToPath(new NodeURL("../../", import.meta.url)), encoding: "utf8"});
   const css = fileURLToPath(new NodeURL("../../static/mathstart/css/site.css", import.meta.url)).replaceAll("\\", "/");
   html = html.replace("{% load static %}", "")
     .replace(/\{% block head %\}[\s\S]*?\{% endblock %\}/, "<title>MathStart</title>")

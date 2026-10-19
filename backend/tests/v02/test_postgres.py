@@ -12,7 +12,7 @@ from sqlalchemy.engine import make_url
 from backend.infrastructure.database import DatabaseConfig, create_engine
 from backend.tests.v02.test_http import HTTPAssertions
 from backend.staff.reads import POLICY, effective_order
-from backend.tests.legacy_tools import legacy_python
+from backend.tests.legacy_tools import legacy_python, oracle_root, oracle_environment
 from backend.tests.v02.oracle_environment import comparator_environment
 
 ADMIN = os.environ.get('MATHSTART_V02_TEST_ADMIN_URL')
@@ -66,7 +66,7 @@ class PostgreSQLHTTPTests(HTTPAssertions, unittest.TestCase):
             cases.append({'resource': resource, 'q': 'Straße'})
         environment = comparator_environment(self.engine.url, self.name, self.files.name)
         result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_comparator'],
-            input=json.dumps(cases).encode(), capture_output=True, env=environment, timeout=60)
+            input=json.dumps(cases).encode(), capture_output=True, cwd=oracle_root(), env=oracle_environment(environment), timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace')[-1600:])
         self.actor = 902
         for oracle in json.loads(result.stdout):
@@ -94,7 +94,7 @@ class PostgreSQLHTTPTests(HTTPAssertions, unittest.TestCase):
         from backend.models.protocol import active
         environment = comparator_environment(self.engine.url, self.name, self.files.name)
         result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_comparator'],
-            input=b'[{"resource":"__content"}]', capture_output=True, env=environment, timeout=60)
+            input=b'[{"resource":"__content"}]', capture_output=True, cwd=oracle_root(), env=oracle_environment(environment), timeout=60)
         self.assertEqual(result.returncode, 0, result.stderr.decode(errors='replace')[-1000:])
         oracle = json.loads(result.stdout)[0]
         with UnitOfWork(self.engine) as uow:

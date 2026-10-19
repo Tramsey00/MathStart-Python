@@ -4,8 +4,9 @@ The normal ASGI factory composes public releases, `frontend.rendering.PublicRend
 PostgreSQL identity/session services and React account/staff forms. The explicit
 `create_public_app` test factory retains its read-only default unless an identity
 service is supplied. The ordinary publication/recovery and fresh installation paths have scoped
-real evidence; combined final QA, the complete legacy-cluster return rehearsal
-and human acceptance remain pending. Current setup/architecture and historical
+real evidence on their respective SHAs. Current candidate QA uses its own CI;
+human acceptance remains a separate decision. Django probes run only from the
+[pinned oracle](../docs/legacy-oracle.md). Current setup/architecture and historical
 document mapping are in [docs/target-runtime.md](../docs/target-runtime.md).
 The synthetic commands below are QA fixtures; ordinary installation uses
 [deploy/RELEASE.md](../deploy/RELEASE.md).

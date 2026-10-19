@@ -7,7 +7,7 @@ import os
 import subprocess
 from unittest.mock import patch
 
-from backend.tests.legacy_tools import legacy_python
+from backend.tests.legacy_tools import legacy_python, oracle_root, oracle_environment
 from starlette.datastructures import QueryParams
 from starlette.requests import Request
 
@@ -24,7 +24,7 @@ from backend.tests.v02.fixtures import KEY, STAMP, release_files
 def legacy_oracle(data):
     env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
     result = subprocess.run([legacy_python(), '-m', 'backend.tests.v02.legacy_unit_oracle'],
-        input=json.dumps(data).encode(), capture_output=True, env=env, timeout=30)
+        input=json.dumps(data).encode(), capture_output=True, cwd=oracle_root(), env=oracle_environment(env), timeout=30)
     if result.returncode:
         raise RuntimeError('Independent legacy unit oracle failed')
     return json.loads(result.stdout)

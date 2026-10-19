@@ -17,7 +17,7 @@ from backend.content.sources import SourceError
 from backend.infrastructure.uow import UnitOfWork
 from backend.migrations.upgrade import require_disposable
 from backend.models.baseline import ContentPage
-from backend.tests.legacy_tools import legacy_python
+from backend.tests.legacy_tools import legacy_python, oracle_root, oracle_environment
 from backend.tests.test_postgres import data_digest
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -40,8 +40,8 @@ class IndexingTests(unittest.TestCase):
                'DJANGO_DB_PORT': str(url.port), 'DJANGO_DB_NAME': url.database, 'DJANGO_DB_USER': url.username,
                'DJANGO_DB_PASSWORD': url.password or '', 'DJANGO_SECRET_KEY': 'synthetic-index-oracle',
                'DJANGO_DEBUG': '0', 'PYTHONIOENCODING': 'utf-8'}
-        process = subprocess.run([legacy_python(), '-m', 'backend.tests.v04.index_oracle'], env=env,
-                                 cwd=ROOT, capture_output=True, timeout=60)
+        process = subprocess.run([legacy_python(), '-m', 'backend.tests.v04.index_oracle'], env=oracle_environment(env),
+                                 cwd=oracle_root(), capture_output=True, timeout=60)
         self.assertEqual(process.returncode, 0, 'Independent legacy index oracle failed')
         oracle = json.loads(process.stdout)
         with UnitOfWork(self.engine) as uow:

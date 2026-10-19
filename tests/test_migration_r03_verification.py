@@ -18,7 +18,8 @@ from harness.runner.verification import CHECK_COMMANDS, VerificationOutcome
 class TargetRegistryTests(unittest.TestCase):
     def test_preserved_input_and_frozen_manifest_bytes(self):
         result = verify()
-        self.assertEqual(result["preserved_files"], 1370)
+        self.assertEqual(result["preserved_files"] + result["baseline_dispositions"], 1370)
+        self.assertGreater(result["explicit_dispositions"], 90)
 
     def test_target_selection_contains_named_equivalents_and_pure_suites(self):
         checks = verify_repo.select_checks(verify_repo.parse_args(["--profile", "target"]))

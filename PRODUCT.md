@@ -6,7 +6,7 @@
 
 Its core purpose is not only to show theory and exercises, but to understand how a student solves supported problems, identify a confirmed problematic step, connect the error to an underlying skill, update the student's knowledge state, and select an appropriate next practice activity.
 
-The product evolves from an existing MathStart Django project that already contains educational content for grades 5-9.
+The product preserves the educational content of the original MathStart Django project. The current site runs on FastAPI/PostgreSQL and React/SSG; the intelligent learning layer below remains future scope. See docs/target-runtime.md.
 
 This document defines the product-level source of truth for MathStart v3.1.
 
@@ -43,7 +43,7 @@ Existing product assets include:
 - curriculum content for grades 5-9;
 - topic/theory pages;
 - existing exercise/self-check content;
-- Django-based publication/runtime infrastructure;
+- FastAPI/React publication/runtime infrastructure (historical Django is a separate oracle);
 - current content quality and integrity checks;
 - current tests and management tooling.
 

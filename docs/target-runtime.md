@@ -1,7 +1,7 @@
 # MathStart: текущий FastAPI/React runtime
 
-Это versioned руководство текущего runtime. Исторические корневые документы и
-их digest manifests сохранены. [MIGRATION.md](../MIGRATION.md) фиксирует итог
+Это versioned руководство текущего runtime. Корневые инструкции описывают текущую платформу; исходные версии и
+исторические digest manifests сохранены в Git. См. [oracle](legacy-oracle.md). [MIGRATION.md](../MIGRATION.md) фиксирует итог
 технически завершённого переноса и ожидающую human acceptance, а не поручение
 начать миграцию заново. Target и независимое техническое review завершены;
 ordinary mandatory CI проверяет actual latest PR HEAD. Все required jobs, включая
@@ -13,7 +13,7 @@ target/release/image/combined, должны иметь SUCCESS без skipped ac
 | Исторический источник | Текущее применение |
 | --- | --- |
 | AGENTS.md, старые active plans/role queues | MIGRATION.md и AGENTS.override.md: итог миграции, human acceptance; новая работа только по поручению пользователя. |
-| README.md | Окружения и команды ниже, [release](../deploy/RELEASE.md), [recovery](../deploy/RECOVERY.md). Корневые Django Docker/Compose файлы остаются историческими. |
+| README.md | Окружения и команды ниже, [release](../deploy/RELEASE.md), [recovery](../deploy/RECOVERY.md). Корневой Compose включает deploy/compose.yaml; старый Dockerfile удалён. |
 | PRODUCT.md | Перенос существующего сайта и границы продукта ниже; [полный v7.2](specifications/technical-spec-v7.2-draft.md) сохраняет будущие требования. |
 | ARCHITECTURE.md, docs/architecture.md | ADR-0006 и текущие границы runtime/content ниже; старые domain contracts остаются обязательными. |
 | verification skill | [skills/verification/SKILL.md](../skills/verification/SKILL.md), реальные registry commands; skip/empty/missing не равны PASS. |
@@ -58,8 +58,8 @@ python -c "import importlib.util; assert not importlib.util.find_spec('django');
 ```
 
 Для backend QA добавить locked `backend/tests/v04/requirements.lock`. Исторический
-Django golden comparator использует отдельное legacy окружение с requirements.txt;
-его interpreter передаётся явно. Не устанавливать Django в target ради comparator.
+Django golden comparator использует [отдельный pinned checkout и venv](legacy-oracle.md),
+requirements.lock берётся только из него; interpreter передаётся явно. Не устанавливать Django в target ради comparator.
 Frontend: Node24/npm11 с package-lock.json, принятый Docker builder Node24.21.0 /
 npm11.19.0. Из frontend выполнить `npm ci`, `npm run typecheck`, `npm test`.
 Public build требует проверенного immutable input и явного build config;

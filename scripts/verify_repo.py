@@ -2,10 +2,10 @@
 """
 MathStart repository verification entry point.
 
-R01/R04 legacy baseline plus explicit MS7-MIG-R03 target/pure profiles.
+Current target registry, portable pure subset and explicit pinned legacy oracle.
 Target wrappers fail when required owner implementations are absent. The pure
 profile proves only portable contracts/model/Harness behavior, never runtime
-parity. The legacy default preserves the frozen CI baseline during migration.
+parity. Historical comparisons require a separate pinned checkout and interpreter.
 
 Exit code:
     0 - all enabled checks passed
@@ -24,7 +24,6 @@ from typing import Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-MANAGE_PY = ROOT / "manage.py"
 GROUPS = ("backend", "database", "content", "tests", "harness", "frontend")
 
 
@@ -35,81 +34,8 @@ class Check:
     group: str
 
 
-CHECKS: tuple[Check, ...] = (
-    Check(
-        name="Django system check",
-        command=(sys.executable, "manage.py", "check"),
-        group="backend",
-    ),
-    Check(
-        name="Migration consistency",
-        command=(
-            sys.executable,
-            "manage.py",
-            "makemigrations",
-            "--check",
-            "--dry-run",
-        ),
-        group="database",
-    ),
-    Check(
-        name="Lesson source validation",
-        command=(
-            sys.executable,
-            "manage.py",
-            "check_lesson_sources",
-            "--all",
-        ),
-        group="content",
-    ),
-    Check(
-        name="Content quality",
-        command=(
-            sys.executable,
-            "manage.py",
-            "check_content_quality",
-        ),
-        group="content",
-    ),
-    Check(
-        name="Site integrity",
-        command=(
-            sys.executable,
-            "manage.py",
-            "check_site_integrity",
-        ),
-        group="content",
-    ),
-    Check(
-        name="Django test suite",
-        command=(
-            sys.executable,
-            "manage.py",
-            "test",
-        ),
-        group="tests",
-    ),
-    Check(
-        name="R03 contract suite",
-        command=(
-            sys.executable,
-            "-m",
-            "unittest",
-            "discover",
-            "-s",
-            "tests",
-            "-p",
-            "test_r03_contract.py",
-        ),
-        group="tests",
-    ),
-    Check(
-        name="Harness test suite",
-        command=(sys.executable, "-m", "unittest", "discover",
-                 "-s", "tests/harness", "-t", ".", "-v"),
-        group="harness",
-    ),
-)
+from scripts.target_verification import target_checks
+CHECKS: tuple[Check, ...] = tuple(Check(*row) for row in target_checks())
 
 
 def run_command(command: Sequence[str]) -> int:
@@ -136,7 +62,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         description="Run MathStart Harness verification checks."
     )
     parser.add_argument(
-        "--profile", choices=("legacy", "target", "pure"), default="legacy",
+        "--profile", choices=("legacy", "target", "pure"), default="target",
         help="Explicit migration profile; target is required for migration acceptance.",
     )
     parser.add_argument(
@@ -162,14 +88,15 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--skip-tests",
         action="store_true",
-        help="Skip Django, R03 and Harness test suites for a faster local pass.",
+        help="Skip backend, contract and Harness test suites for a faster local pass.",
     )
     return parser.parse_args(argv)
 
 
 def select_checks(args: argparse.Namespace) -> list[Check]:
     if args.profile == "legacy":
-        selected = list(CHECKS)
+        selected = [Check("Pinned historical Django verification",
+                          (sys.executable, "scripts/legacy_oracle.py", "--run", "scripts/verify_repo.py"), "tests")]
     else:
         # Importing the target registry must never initialize the legacy runtime.
         from scripts.target_verification import target_checks
@@ -193,13 +120,6 @@ def select_checks(args: argparse.Namespace) -> list[Check]:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
-
-    if args.profile == "legacy" and not MANAGE_PY.is_file():
-        print(
-            f"ERROR: manage.py not found at expected repository root: {MANAGE_PY}",
-            file=sys.stderr,
-        )
-        return 1
 
     selected = select_checks(args)
 

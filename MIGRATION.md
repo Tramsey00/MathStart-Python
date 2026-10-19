@@ -60,8 +60,10 @@ API не выполняет DDL/seed при старте. Схема устан�
 собственные SHA, результаты и digests.
 
 Будущие Knowledge/Assessment/Progress/Analyzer/Tutor/adaptive practice/AI функции
-продуктового ТЗ не реализованы в рамках переноса. Frozen originals
-AGENTS/PRODUCT/ARCHITECTURE/README, контракты и preservation manifests сохраняются.
+продуктового ТЗ не реализованы в рамках переноса. Исходные AGENTS/PRODUCT/ARCHITECTURE/README и прежняя Django-платформа
+сохраняются в Git. Текущие инструкции/entry points обновлены по отдельному
+post-Django поручению; контент и контракты проверяются по принятому baseline
+с [явными dispositions](specs/migration/post-django-preservation.json).
 Косметическая доводка отложена: новые pixel-perfect/spacing критерии не вводятся.
 Действующие functional/browser/math/accessibility проверки не ослабляются.
 
@@ -69,8 +71,8 @@ AGENTS/PRODUCT/ARCHITECTURE/README, контракты и preservation manifests
 
 Действующие entry points: `python scripts/verify_repo.py --profile pure` и
 `python scripts/verify_target.py` с owned disposable данными по runbook.
-Default verifier пока сохраняет legacy baseline; explicit target работает без
-Django. Все 16 registry checks, реальные browser projects и обязательный combined
+Default verifier теперь target; исторический legacy запускается только из
+отдельного pinned checkout/venv по [oracle runbook](docs/legacy-oracle.md). Все 16 registry checks, реальные browser projects и обязательный combined
 gate сохраняются. Пустой набор, missing, timeout и skip не становятся PASS.
 Для обслуживания сначала проверяются затронутые зависимости; неизменные полные
 прогоны не повторяются без причины. Новому проверяемому SHA соответствуют его CI
@@ -88,3 +90,18 @@ gate сохраняются. Пустой набор, missing, timeout и skip �
 Человек отдельно подтверждает перенос и адаптированное ТЗ, ingress/writer
 fencing/admission, dedicated roles/secrets/TLS и off-host backup/retention,
 затем отдельно решает main merge и production cutover.
+
+## Post-Django: краткая запись продолжения
+
+Отдельное пользовательское поручение начато от
+`1a87b044e8c5a7519b0ab57e22d2a35d57b4a986`; это также точный historical oracle pin.
+Текущие изменения: Django-only paths удалены явно, shared quality/UI helpers
+перенесены byte-for-byte, comparisons/legacy return изолированы в pinned checkout,
+default/CI/setup/docs переключены на target, preservation разделён на current
+retained bytes и historical provenance. [План и проверки](docs/exec-plans/active/post-django.md).
+Адресные73 и57 тестов, frontend181/0skip и pure6 checks/232 cases PASS;
+dependency/link/source/diff checks PASS. Локальный Docker daemon недоступен;
+PostgreSQL/installation PASS локально не заявляется. Следующий шаг — commit/push,
+обязательный CI нового SHA и ограниченное независимое review (ещё не завершены).
+Приёмочный runtime1d9e4d3 не затронут и
+не доказывает готовность post-Django кандидата. Main/production не изменялись.
