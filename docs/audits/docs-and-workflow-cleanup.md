@@ -273,3 +273,25 @@ framework wording объяснён в specs/current-contracts.md. Первона
 Новые implementation/review findings не объявлены независимым review. После
 коммита повторная verification должна записать конкретный candidate SHA и
 actual default verify_repo outcome. Отдельное ревью и human acceptance PENDING.
+
+### Default registry на50ba482 и дополнительная зависимость frontend tooling
+
+На50ba482db231bdacfc4e357f03ca60bd27a83928 default verify_repo вернул exit1:
+5/15 PASS,10 FAIL. Пять portable suites снова PASS169 tests. Шесть PG/API/content
+checks отказали без disposable DB/config; frontend build/e2e отказали без
+immutable build config/HTTP/public view. Это ожидаемые external prerequisites,
+не runtime readiness.
+
+Два других FAIL расследованы: frontend generation обнаружил stale current
+adapter hash CI (frontend/scripts/preserved-contracts.mjs ещё не учитывал новую
+explicit карту); frontend unit preview3 tests получили EACCES на owned loopback
+socket. В этом прогоне183/186 frontend units прошли;3 failures сохранены.
+Добавлен узкий tooling adapter по той же карте: фиксированный original SHA,
+exact before hash/size и actual current HEAD/working after hash. Old manifest
+digests не переписаны. Три regression tests сохраняют отказ при неверном source,
+before/after, drift HEAD/working и reintroduced source. Продуктовый UI не менялся.
+
+Следующая проверка выполняет исправленный кандидат с доступом к собственному
+preview loopback, без persistent MATHSTART/DJANGO environment. Дополнительная
+карта теперь72 entries:40 removed/32 updated. Последующий результат не стирает
+первоначальный FAIL и не означает полный runtime PASS.

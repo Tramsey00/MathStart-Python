@@ -8,7 +8,7 @@
 
 | Источник | SHA256 |
 | --- | --- |
-| Текущий полный Markdown v7.2 | `92446861fef1d008f55ed683540f9f6502fbd5d27a4b4194404b090905dbca07` |
+| Текущий полный Markdown v7.2 | `e3a2d4167f8565c629c33efd7cf86caae3eeef59f7775cd05ccf1a98245b3fc7` |
 | Текущий52-card source registry + отдельные workflow fields | `058cfa22bb350cbc4ad0b9848d4fd4d58660af6c594629dc19f7ab55d291ae02` |
 | Полный предыдущий v7.2 на HEAD 1a015f7513933901e8bb252e94c660e4383b6b0e | `1160bcdd0d690e968273aa0de48c50227bd6a87eb2c048fb569cb694654ee7dc` |
 | Historical114-page v7.1 PDF | `e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd` |

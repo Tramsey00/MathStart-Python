@@ -155,7 +155,7 @@ reveal interactions прямо в HTML; они не создают assessed evid
 | Alembic | Reviewed migrations | 1.18.4 exact | Тот же lock, `backend/alembic.ini` |
 | psycopg / binary | PostgreSQL driver | 3.3.6 exact | Backend и verification locks |
 | PostgreSQL | Основная БД | Target 16+; CI `16-bookworm` без patch; Compose image задан digest, tag/patch не заявлен | `deploy/compose.yaml`, `.github/workflows/migration-ci.yml` |
-| Node.js | Build/prerender/QA | Manifest >=24.0.0 <25; Docker 24.21.0 + digest; CI 24 | `frontend/package.json`, Dockerfile, workflows |
+| Node.js | Build/prerender/QA | Manifest >=24.0.0 <25; Docker 24.21.0 + digest; CI 24.21.0 | `frontend/package.json`, Dockerfile, workflows |
 | npm | Locked frontend install | engines >=11 <12; packageManager и Docker 11.19.0 exact | `frontend/package.json`, Dockerfile |
 | React / React DOM | UI | 19.2.8 exact | `frontend/package.json`, `package-lock.json` |
 | React Router / node / dev | Routes, framework SSG | 7.18.4 exact | Те же manifests и `react-router.config.ts` |

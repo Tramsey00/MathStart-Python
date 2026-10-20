@@ -1542,7 +1542,7 @@ SHA, commands/browser versions и gate ledger; провал блокирует �
 AT-15. Clean install/upgrade/backup restore, source preservation. Evidence:
 expected/actual assertions, SHA, commands/browser versions и gate ledger; провал блокирует
 соответствующий G2/G3/G4.
-AT-16. Public full loop, four modes, Product live+fallback . Evidence: expected/actual assertions, SHA, commands/browser versions и gate ledger; провал блокирует
+AT-16. Public full loop, four modes, Product live+fallback. Evidence: expected/actual assertions, SHA, commands/browser versions и gate ledger; провал блокирует
 соответствующий G2/G3/G4.
 
 ---
