@@ -295,3 +295,30 @@ before/after, drift HEAD/working и reintroduced source. Продуктовый 
 preview loopback, без persistent MATHSTART/DJANGO environment. Дополнительная
 карта теперь72 entries:40 removed/32 updated. Последующий результат не стирает
 первоначальный FAIL и не означает полный runtime PASS.
+
+### Проверенный исправленный кандидат13a90fe
+
+Actual HEAD `13a90fe08efe37b62df6eabcc9ea3e2afbf796d8`, tree
+`f61a918b9dfea97e90ba3dd8416ac5a69dba3dc1`. Рабочее дерево при проверке чистое.
+[Машинная запись команд, exit codes, log SHA256 и scope](docs-and-workflow-cleanup-checks.json).
+
+PASS: pip check;639 queue/doc/import/CI assertions;931 source/current spec
+assertions; preservation72 explicit task entries;279 pages/263 topic sources;
+7 I02 contract tests;5 pure suites/169 tests;frontend typecheck4 assertions;
+frontend189/189 units в21 files,0 skipped. Typecheck сохранил17 frozen и24 R02
+pins,37 OAS operations,16 generated boundary validators и45 staff methods.
+25 stock skill validations и3 parsed CI workflows относятся к тем же unchanged
+skills/workflow definitions; генератор не обновлял frozen contracts.
+
+Default `python scripts/verify_repo.py` — **exit1,7/15 PASS,8 FAIL**.
+Шесть backend/database/content checks не имели disposable PostgreSQL/runtime
+config; build/e2e не имели verified immutable build config, actual HTTP/public
+view/browser inputs. Их отказ ожидаем и сохранён, full target не объявлен PASS.
+Install/recovery/combined локально NOT_RUN: Docker Linux engine недоступен.
+Обычная БД/acceptance stack не использовались. Частичный успех не закрывает gates.
+
+Record добавлен отдельным documentation-only коммитом после проверенного
+технического SHA. Финальные doc/source/preservation checks и candidate CI
+должны относиться к окончательной голове PR; результаты13a90fe не выдаются за
+runtime verification нового SHA. Отдельное ревью/человеческая приёмка PENDING.
+Новая очередь не запускается. Main остаётся на1a015f7, production не менялся.
