@@ -124,11 +124,11 @@ def main(argv=None):
     except subprocess.TimeoutExpired:
         print("FAIL: required check timed out: " + args.check)
         return 124
-    # Share Harness's bounded redaction policy; never echo raw exceptions/env/DSN.
+    # Use shared bounded verification redaction; never echo raw exceptions/env/DSN.
     sys.path.insert(0, str(ROOT))
-    from harness.runner.verification import _safe_diagnostic
-    print(_safe_diagnostic(result.stdout), end="")
-    print(_safe_diagnostic(result.stderr), end="", file=sys.stderr)
+    from scripts.verification_diagnostics import safe_diagnostic
+    print(safe_diagnostic(result.stdout), end="")
+    print(safe_diagnostic(result.stderr), end="", file=sys.stderr)
     if result.returncode == 0:
         try:
             validate_result(receipt, args.check)

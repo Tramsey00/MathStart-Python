@@ -1,6 +1,7 @@
 # Local target runtime
 
-The primary checkout is the repository root on main. Docker uses the canonical
+Основной checkout — корень репозитория. Разработка — в отдельной ветке
+от проверенного main без `codex/`, по [AGENTS](../AGENTS.md). Docker uses the canonical
 deploy/compose.yaml and images built from the accepted main commit. Local private
 settings and the instance README live in ignored var/local/. There is no dependency
 on migration-execution, tmp, a historical checkout, or Django.
@@ -31,7 +32,8 @@ images, retain a tested database backup and check compatibility; see
 [recovery](../deploy/RECOVERY.md).
 
 Optional host tools use Python3.12 and the existing root requirements.lock;
-frontend tooling uses its existing package-lock. The current prepared host venv
-is var/local/venv and has no Django/DRF. Comparative QA prepares the separately
+frontend tooling uses its existing package-lock. На аудите20.10.2026 указанный прежде var/local/venv/Scripts/python.exe не обнаружен; наличие
+подготовленного host venv нужно проверять, а не считать обязательным фактом.
+Новая target среда создаётся из locks без Django/DRF. Comparative QA prepares the separately
 pinned [oracle](legacy-oracle.md) only when required. Full managed QA is described
 in [target testing](target-runtime.md); ordinary local start does not run it.

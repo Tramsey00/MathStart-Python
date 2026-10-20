@@ -8,7 +8,11 @@ Its core purpose is not only to show theory and exercises, but to understand how
 
 The product preserves the educational content of the original MathStart Django project. The current site runs on FastAPI/PostgreSQL and React/SSG; the intelligent learning layer below remains future scope. See docs/target-runtime.md.
 
-This document defines the product-level source of truth for MathStart v3.1.
+Этот документ сохраняет продуктовые инварианты MathStart. Полная текущая рабочая
+редакция требований — [ТЗ v7.2](docs/specifications/technical-spec-v7.2-draft.md)
+от20.10.2026, DRAFT_HUMAN_PENDING; новая очередь — [docs/tasks/INDEX.md](docs/tasks/INDEX.md).
+Платформенная миграция PR54 и консолидация PR55 завершены и приняты. Это не
+означает приёмку нового полного draft или реализацию будущих функций.
 
 Detailed architecture belongs in `ARCHITECTURE.md`.
 Detailed feature/domain contracts belong in `specs/`.
@@ -40,12 +44,12 @@ The repository already contains a working MathStart educational website.
 
 Existing product assets include:
 
-- curriculum content for grades 5-9;
+- curriculum content for grades 5-9 and retained grade-10 algebra;
 - topic/theory pages;
 - existing exercise/self-check content;
 - FastAPI/React publication/runtime infrastructure (historical Django is a separate oracle);
 - current content quality and integrity checks;
-- current tests and management tooling.
+- current tests and explicit schema/content/operator CLI.
 
 The existing educational content is an asset of the project and must be preserved.
 
@@ -76,7 +80,9 @@ The major new product capabilities are:
 - progress visualization;
 - LLM observability;
 - public web deployment;
-- coding-agent harness and reproducible development workflow.
+- reproducible development using Codex, task skills, checks and separate review;
+- full redesign and a design system, with visual/library decisions still open;
+- separately specified gamification, with mechanics still open.
 
 ---
 
@@ -111,7 +117,11 @@ The student can:
 
 A minimal content administration capability is required.
 
-For MVP, content administration may use Django Admin, management commands, seeds, or similar internal tooling.
+Текущие операции реализованы через React staff UI, permission-checked FastAPI
+API и явные Content/schema/operator CLI. Source-managed Content view-only;
+публикация выполняется reviewed prepare/build/plan/publish. Будущие skills,
+exercises и taxonomy получают отдельные versioned import/admin services по
+их заданиям. Исторический Django Admin не является текущим runtime.
 
 A polished standalone content-management frontend is not required.
 
@@ -701,3 +711,33 @@ Use `specs/` to answer:
 Use `docs/adr/` to answer:
 
 **Why was a significant engineering decision accepted?**
+
+## 28. Редизайн и дизайн-система
+
+Полный редизайн согласован как направление, конкретный внешний вид и libraries
+не утверждены. [Бриф](docs/ux/redesign-brief.md) и MS-N001–005 задают audit,
+три различимых направления на одинаковых теме/упражнении/прогрессе, выбор
+пользователя, отдельный library decision, design system, pilot и rollout.
+Сохранить контент, формулы/графики, URL/anchors/widgets и semantic проверки;
+visual references обновляются только под явно принятый дизайн. Mobile,
+keyboard/focus/contrast/reduced motion и failure/empty/AI unavailable — требования.
+
+## 29. Геймификация и граница знания
+
+Геймификация — направление проектирования MS-N006, не реализованный набор.
+XP, уровни, достижения, streaks, daily tasks, персонаж/награды — кандидаты.
+Спецификация определяет педагогическую цель, действия/начисления/лимиты,
+retries/hints/reveals, duplicate guards и UI. Data owner/storage/events требуют
+решения; реализация MS-N020 зависит от принятой спецификации и evidence runtime.
+Игровой прогресс отделён от знаний. Чтение/посещение/XP не повышают mastery;
+только валидированные ProgressEvent меняют долгосрочное состояние знаний.
+
+## 30. Процесс и границы текущего поручения
+
+Один исполнитель последовательно выполняет одно задание в отдельной ветке,
+затем проверки, PR, отдельное ревью, исправления и человеческая приёмка.
+Обязательных субагентов и собственного Engineering Harness нет; его
+реализация/исключительные будущие обязательства выведены после dependency audit.
+Проверки продукта, install/recovery/security/CI сохранены. Следующее задание
+автоматически не начинается. Приёмка нового draft, дизайна, игровых механик,
+provider/security/public deployment — отдельные решения, не следствие PASS.

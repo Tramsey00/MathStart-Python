@@ -204,64 +204,24 @@ curriculum/.../page.js
 
 ## Ресурсы страницы
 
-Сервис:
+Подготовка markup выполняется `backend/content/sources.py` и
+`backend/content/components.py`; shared resource delivery входит в immutable
+input/build и frontend LessonHost lifecycle. Общие styles/widgets — в
+`static/mathstart/`. Исторического `content/services/lesson_theme.py` в target нет.
 
-```text
-content/services/lesson_theme.py
-```
+## Публикация и контроль качества
 
-определяет набор общих и специализированных ресурсов, которые должны быть подключены странице.
+Изменение lesson.json/body/page.css/page.js проходит source preview и обычный
+prepare/build/plan/publish; точные commands —
+[редактирование уроков](editing-lessons.md#проверка-и-публикация).
+Изменение общих CSS/JS требует нового проверенного immutable asset/frontend
+artifact и активации через тот же authority protocol. `collectstatic` и
+development server не являются текущим deployment path.
 
-Учебные страницы получают базовый набор стилей урока.
-
-Неучебные страницы дополнительно используют `site-pages.css`.
-
-Интерактивные страницы могут получать дополнительные CSS или JavaScript из `widgets/`.
-
-## Публикация
-
-Изменения в:
-
-```text
-lesson.json
-body.html
-page.css
-page.js
-```
-
-требуют публикации соответствующего урока:
-
-```powershell
-python manage.py publish_lessons --slug SLUG --dry-run
-python manage.py publish_lessons --slug SLUG
-```
-
-После этого:
-
-```powershell
-python manage.py check_lesson_sources --slug SLUG
-```
-
-Изменения только в общих статических CSS/JS не изменяют содержимое `ContentPage` и не требуют публикации всех учебных исходников.
-
-При deployment статические ресурсы собираются стандартной командой Django:
-
-```powershell
-python manage.py collectstatic --noinput
-```
-
-## Контроль качества
-
-После значительных изменений оформления:
-
-```powershell
-python manage.py check
-python manage.py test
-python manage.py check_content_quality
-python manage.py check_site_integrity
-```
-
-Проверка кода не заменяет визуальную проверку страницы в браузере.
+Сохранить bytes/URL/anchors/math/SVG и поведение widgets; scoped CSS не должен
+менять другие уроки. Реальные content-quality/site-integrity и browser/visual
+checks из [target-runtime](target-runtime.md) обязательны по scope. При принятом
+редизайне semantic checks сохраняются, visual references обновляются явно.
 
 ## Связанные документы
 

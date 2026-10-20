@@ -3,10 +3,10 @@ name: Migration verification
 on:
   pull_request:
     branches: [ms7-mig-react-fastapi, main]
-    paths: ['deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+    paths: ['AGENTS.md', 'ARCHITECTURE.md', 'PRODUCT.md', 'README.md', 'docs/**', 'skills/**', 'deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
   push:
     branches: [ms7-mig-react-fastapi, main, 'ms7-mig-*']
-    paths: ['deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
+    paths: ['AGENTS.md', 'ARCHITECTURE.md', 'PRODUCT.md', 'README.md', 'docs/**', 'skills/**', 'deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
 
   workflow_dispatch:
     inputs:
@@ -140,7 +140,7 @@ jobs:
           python scripts/version_report.py --profile pure
       - name: Exact checkout and event linkage
         run: python scripts/ci_provenance.py --output var/ci/provenance.json
-      - name: Pure, protocol models, adapters and Harness
+      - name: Pure product contracts, protocol models and adapters
         run: python scripts/verify_repo.py --profile pure
       - uses: actions/upload-artifact@v7
         if: always()

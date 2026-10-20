@@ -12,6 +12,8 @@ INPUT = "8d958aeeb17da46839722441425ccbb5889e2ab7"
 SOURCE = "1a87b044e8c5a7519b0ab57e22d2a35d57b4a986"
 MAINTENANCE_SOURCE = "3a290a46d991e22269a17dde41e39f0637576071"
 DISPOSITIONS = "specs/migration/post-django-preservation.json"
+WORKFLOW_SOURCE = "1a015f7513933901e8bb252e94c660e4383b6b0e"
+WORKFLOW_DISPOSITIONS = "specs/maintenance/docs-workflow-dispositions.json"
 ADAPTED = frozenset({
     "scripts/verify_repo.py", "scripts/check_database.py", "scripts/version_report.py",
     "scripts/fresh_install_smoke.py", "harness/runner/verification.py",
@@ -75,10 +77,48 @@ def historical_artifact(name, root=ROOT):
     return raw
 
 
+def workflow_changes(root=ROOT):
+    """Explicit per-file current-task changes; original baseline pins stay intact.
+
+    Only the fixed audited source SHA is allowed. Before bytes are checked from
+    Git and every current file must match its reviewed after hash. No prefix or
+    wildcard exemption can permit an unknown deletion/change.
+    """
+    data = json.loads((root / WORKFLOW_DISPOSITIONS).read_text(encoding='utf-8'))
+    if data['base_sha'] != WORKFLOW_SOURCE or not data.get('authority'):
+        raise ValueError('Unexpected workflow preservation authority')
+    rows = data['files']
+    if len({r['path'] for r in rows}) != len(rows):
+        raise ValueError('Duplicate workflow disposition')
+    original = _historical_batch(str(root), tuple((WORKFLOW_SOURCE, row['path']) for row in rows))
+    for row in rows:
+        name = row['path']
+        target = root / name
+        if Path(name).is_absolute() or '..' in Path(name).parts or not target.resolve().is_relative_to(root.resolve()):
+            raise ValueError('Workflow disposition path escaped')
+        before = original[(WORKFLOW_SOURCE, name)]
+        if len(before) != row['before_bytes'] or hashlib.sha256(before).hexdigest() != row['before_sha256']:
+            raise ValueError('Workflow original bytes changed: ' + name)
+        if not row.get('reason'):
+            raise ValueError('Workflow disposition has no reason')
+        if row['action'] == 'removed':
+            if not name.startswith(('harness/', 'specs/harness/', 'tests/harness/')):
+                raise ValueError('Removal outside explicitly retired subsystem: ' + name)
+            if target.exists() or target.is_symlink():
+                raise ValueError('Retired workflow source reintroduced: ' + name)
+        elif row['action'] == 'updated':
+            if target.is_symlink() or not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest() != row['after_sha256']:
+                raise ValueError('Unreviewed workflow change: ' + name)
+        else:
+            raise ValueError('Unknown workflow disposition action')
+    return {r['path']: r for r in rows}
+
+
 def verify(root=ROOT, input_sha=INPUT):
     # Git object hashes are independent of the working tree, no historical rewrite.
     paths = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", input_sha], cwd=root).decode().splitlines()
     changes = dispositions(root)
+    workflow = workflow_changes(root)
     original = _historical_batch(str(root), tuple((row.get('source_sha', SOURCE), name)
                                                   for name, row in changes.items()))
     for name, row in changes.items():
@@ -86,6 +126,10 @@ def verify(root=ROOT, input_sha=INPUT):
         if len(raw) != row['bytes'] or hashlib.sha256(raw).hexdigest() != row['sha256']:
             raise ValueError('Historical provenance differs: ' + name)
         current = root / name
+        if name in workflow:
+            # Original source/pins above still verified; current bytes are bound
+            # separately to this user's explicit docs/Harness retirement scope.
+            continue
         action = row['action']
         if action in {'removed', 'moved', 'moved_updated'}:
             if current.exists() or current.is_symlink():
@@ -95,14 +139,20 @@ def verify(root=ROOT, input_sha=INPUT):
                 if not destination.resolve().is_relative_to(root.resolve()):
                     raise ValueError('Move escaped repository')
                 expected = row['sha256'] if action == 'moved' else row['current_sha256']
-                if hashlib.sha256(destination.read_bytes()).hexdigest() != expected:
+                followup = workflow.get(row['destination'])
+                if followup is not None and followup['action'] == 'updated':
+                    # The move itself remains immutable. A later explicit task
+                    # may change its destination only from the exact moved bytes.
+                    if followup['before_sha256'] != expected:
+                        raise ValueError('Moved workflow input differs: ' + name)
+                elif hashlib.sha256(destination.read_bytes()).hexdigest() != expected:
                     raise ValueError('Moved shared behavior source changed: ' + name)
         elif action == 'updated':
             if hashlib.sha256(current.read_bytes()).hexdigest() != row['current_sha256']:
                 raise ValueError('Unreviewed platform adapter change: ' + name)
         else:
             raise ValueError('Unknown preservation disposition')
-    names = [name for name in paths if name not in ADAPTED and name not in changes]
+    names = [name for name in paths if name not in ADAPTED and name not in changes and name not in workflow]
     requests = "".join(input_sha + ":" + name + "\n" for name in names).encode()
     data = subprocess.run(["git", "cat-file", "--batch"], cwd=root, input=requests,
                           capture_output=True, check=True, timeout=60).stdout
@@ -125,7 +175,8 @@ def verify(root=ROOT, input_sha=INPUT):
     return {"accepted_input": input_sha, "preserved_files": len(names),
             "explicit_dispositions": len(changes), "source_sha": SOURCE,
             "adapted_files": sorted(ADAPTED),
-            "baseline_dispositions": len(set(paths).intersection(changes) - ADAPTED)}
+            "baseline_dispositions": len(set(paths).intersection(set(changes) | set(workflow)) - ADAPTED),
+            "workflow_source": WORKFLOW_SOURCE, "workflow_dispositions": len(workflow)}
 
 
 if __name__ == "__main__":
