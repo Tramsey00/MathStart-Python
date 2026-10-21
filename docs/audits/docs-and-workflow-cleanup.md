@@ -322,3 +322,49 @@ Record добавлен отдельным documentation-only коммитом �
 должны относиться к окончательной голове PR; результаты13a90fe не выдаются за
 runtime verification нового SHA. Отдельное ревью/человеческая приёмка PENDING.
 Новая очередь не запускается. Main остаётся на1a015f7, production не менялся.
+
+### Исправление красного CI PR56,21.10.2026
+
+Исходный проверенный HEAD `bc58c0472c0dbab824ade9ccf4ce6803148d92a5` совпал
+с remote head Draft PR56. `git fetch origin` выполнен; main и origin/main —
+`1a015f7513933901e8bb252e94c660e4383b6b0e`. Основной checkout, ветка
+`docs-and-workflow-cleanup`, исходное рабочее дерево чистое: чужих изменений
+для переноса/сохранения нет. Новый PR/ветка/worktree не создавались.
+
+На исходном SHA backend-install и target упали, image-recovery был SKIPPED,
+combined-candidate-checks — FAIL; public-block также FAIL. Это не PASS.
+Первичная подтверждённая ошибка: BuildTests использовал старый source SHA
+`24d06112bcd6abcd1abad9b052de14a0a7b49e8e` при изменённом curriculum/README.md.
+`verify_source_checkout` правильно отказал. Неудачный setUpClass оставлял
+engine до невызываемого tearDownClass; ошибка DROP могла скрыть SuiteFailure.
+
+BuildTests теперь получает текущий SHA checkout один раз и использует его во
+всех своих build-input calls. Cleanup engine и temporary directory регистрируется
+сразу после создания через addClassCleanup. Реальный отдельный мини-checkout
+проверяет отказ предыдущего SHA, dirty и untracked source inputs. Неудачная
+подготовка temporary directory/build inputs проверяется через unittest lifecycle.
+
+verification_suite сохраняет исходный exception и безопасные case IDs/counts,
+отдельно добавляет тип/фазу cleanup failures и выполняет остальные owned cleanup.
+Cleanup-only error остаётся FAIL. Admin disposal не препятствует восстановлению
+environment. OID guard, обычный DROP и запрет terminate/force сохранены.
+Raw unittest traceback/assertion/skip values не печатаются; receipt/stdout содержат
+безопасные поля. Historical oracle, его SHA/pins, source guards, CI jobs/gates,
+historical receipts/approvals не менялись.
+
+Пофайловые reasons и точные before/after SHA256 трёх файлов добавлены в
+`specs/maintenance/docs-workflow-dispositions.json` от того же фиксированного
+main source. Старые72 rows и historical manifest сохранены без переписывания.
+
+Affected local regressions:9 tests PASS,0 skipped. Первая попытка выявила2 ошибки
+нового test double (отсутствовал строковый PostgreSQL identifier quote); они
+исправлены, повторный полный affected run PASS. Команда:
+`python -m unittest backend.tests.test_diagnostics backend.tests.v04.test_build.BuildSetupCleanupTests backend.tests.v04.test_build.SourceTests.test_source_checkout_rejects_wrong_commit_dirty_and_untracked_inputs -v`.
+Portable pure —5 suites/169 tests PASS,0 skipped; workflow/docs —640 checks PASS;
+product/source —932 checks PASS; preservation —75 exact task dispositions PASS;
+`git diff --check` PASS. [Команды, exit codes и digests](pr56-ci-fix-local-checks.json)
+относятся к исходному HEAD с тремя указанными в записи исправленными файлами.
+Локальный Docker недоступен; полный PostgreSQL/browser/install/recovery результат
+должен подтверждаться новым CI текущего PR, а не перезапуском исходного SHA.
+Новый CI будет дописан после проверки кандидата. Отдельное ревью/человеческая
+приёмка остаются PENDING.

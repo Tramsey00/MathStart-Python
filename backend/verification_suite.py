@@ -1,6 +1,7 @@
 """Full backend suites, isolated in newly created marked PostgreSQL databases."""
 from contextlib import contextmanager
 import importlib.util
+import io
 import json
 import os
 import secrets
@@ -15,6 +16,37 @@ sys.path.insert(0, str(ROOT))
 import sqlalchemy as sa
 from backend.infrastructure.database import DatabaseConfig, create_engine
 from backend.migrations.upgrade import fresh
+
+
+class CleanupFailure(RuntimeError):
+    def __init__(self, diagnostics):
+        super().__init__('Backend resource cleanup failed')
+        self.cleanup_diagnostics = diagnostics
+
+
+@contextmanager
+def cleanup_scope():
+    """Attempt every owned cleanup without replacing an active primary error."""
+    diagnostics = []
+    primary = None
+
+    def cleanup(phase, action):
+        try:
+            action()
+        except Exception as error:
+            # Exception text/SQL/URLs may contain credentials. Retain only types.
+            diagnostics.append({'phase': phase, 'failure_class': type(error).__name__})
+
+    try:
+        yield cleanup
+    except BaseException as error:
+        primary = error
+        raise
+    finally:
+        if diagnostics:
+            if primary is None:
+                raise CleanupFailure(diagnostics)
+            primary.cleanup_diagnostics = getattr(primary, 'cleanup_diagnostics', []) + diagnostics
 
 
 def prepare_content_runtime(engine, evidence):
@@ -46,22 +78,26 @@ def owned_database(admin, url, label):
     quote = admin.dialect.identifier_preparer.quote(name)
     owned_oid = None
     engine = None
-    try:
+    def drop_database():
         with admin.connect() as c:
-            c.execute(sa.text('CREATE DATABASE ' + quote))
-            owned_oid = c.scalar(sa.text('SELECT oid FROM pg_database WHERE datname=:name'), {'name': name})
-            c.execute(sa.text('COMMENT ON DATABASE ' + quote + " IS 'MS7-MIG-V01 disposable synthetic test database'"))
-        engine = create_engine(DatabaseConfig(url.set(database=name)))
-        yield engine
-    finally:
-        if engine is not None:
-            engine.dispose()
-        if owned_oid is not None:
+            if c.scalar(sa.text('SELECT oid FROM pg_database WHERE datname=:name'), {'name': name}) != owned_oid:
+                raise RuntimeError('Owned database identity changed; cleanup refused')
+            # Never terminate unrelated sessions to manufacture cleanup PASS.
+            c.execute(sa.text('DROP DATABASE ' + quote))
+
+    with cleanup_scope() as cleanup:
+        try:
             with admin.connect() as c:
-                if c.scalar(sa.text('SELECT oid FROM pg_database WHERE datname=:name'), {'name': name}) != owned_oid:
-                    raise RuntimeError('Owned database identity changed; cleanup refused')
-                # Never terminate unrelated sessions to manufacture cleanup PASS.
-                c.execute(sa.text('DROP DATABASE ' + quote))
+                c.execute(sa.text('CREATE DATABASE ' + quote))
+                owned_oid = c.scalar(sa.text('SELECT oid FROM pg_database WHERE datname=:name'), {'name': name})
+                c.execute(sa.text('COMMENT ON DATABASE ' + quote + " IS 'MS7-MIG-V01 disposable synthetic test database'"))
+            engine = create_engine(DatabaseConfig(url.set(database=name)))
+            yield engine
+        finally:
+            if engine is not None:
+                cleanup('owned_engine_dispose', engine.dispose)
+            if owned_oid is not None:
+                cleanup('owned_database_drop', drop_database)
 
 
 class SuiteFailure(RuntimeError):
@@ -88,7 +124,8 @@ def execute(modules, *, case_ids=None):
             return [identity for child in node for identity in identifiers(child)]
         return [node.id()]
     planned = identifiers(suite)
-    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    # Tracebacks and assertion/skip values are private; the receipt keeps safe IDs.
+    result = unittest.TextTestRunner(stream=io.StringIO(), verbosity=2).run(suite)
     if not result.wasSuccessful() or result.skipped or result.testsRun != len(planned):
         raise SuiteFailure(result)
     if case_ids is not None:
@@ -110,44 +147,45 @@ def run():
     admin = sa.create_engine(url.set(database='postgres'), isolation_level='AUTOCOMMIT', hide_parameters=True,
                              connect_args={'connect_timeout': 5, 'options': '-c statement_timeout=30000'})
     saved = dict(os.environ)
-    try:
-        with admin.connect() as c:
-            major = int(c.scalar(sa.text('SHOW server_version_num'))) // 10000
-            if major < 16:
-                raise RuntimeError('PostgreSQL16 required')
-        os.environ['MATHSTART_V01_TEST_ADMIN_URL'] = url.set(database='postgres').render_as_string(hide_password=False)
-        os.environ['MATHSTART_V02_TEST_ADMIN_URL'] = os.environ['MATHSTART_V01_TEST_ADMIN_URL']
-        os.environ['MATHSTART_V01_EVIDENCE_DIR'] = str(Path(os.environ['MATHSTART_CHECK_RESULT']).parent / 'schema')
-        case_ids = []
-        count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_diagnostics', 'backend.tests.test_postgres',
-                         'backend.tests.test_release_migrate',
-                         'backend.tests.test_operator',
-                         'backend.tests.test_remediation', 'backend.tests.test_discovery'], case_ids=case_ids)
-        count += execute(['backend.tests.v02.test_unit', 'backend.tests.v02.test_http',
-                          'backend.tests.v02.test_postgres', 'backend.tests.v02.test_asset_regressions'], case_ids=case_ids)
-        with owned_database(admin, url, 'identity') as engine:
-            with engine.begin() as c:
-                fresh(c)
-            os.environ['MATHSTART_V03_DATABASE_URL'] = engine.url.render_as_string(hide_password=False)
-            count += execute(['backend.tests.v03.test_legacy_proof', 'backend.tests.v03.test_cutover',
-                              'backend.tests.v03.test_identity', 'backend.tests.v03.test_staff_writes'], case_ids=case_ids)
-        with owned_database(admin, url, 'content') as engine:
-            prepare_content_runtime(engine, Path(os.environ['MATHSTART_CHECK_RESULT']).parent)
-            count += execute(['backend.tests.v04.test_build', 'backend.tests.v04.test_read_runtime',
-                'backend.tests.v04.test_content_checks', 'backend.tests.v04.test_indexing', 'backend.tests.v04.test_publication',
-                'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation', 'backend.tests.v04.test_registration',
-                'backend.tests.v04.test_bootstrap_plan', 'backend.tests.v04.test_public_update',
-                'backend.tests.v04.test_artifacts', 'backend.tests.v04.test_artifact_pins', 'backend.tests.v04.test_verified_release_cache',
-                'backend.tests.v04.test_participant'], case_ids=case_ids)
-        if any(name == 'django' or name.startswith('django.') for name in sys.modules):
-            raise RuntimeError('Django imported by target suite')
-        return {'check_id': 'backend-tests', 'status': 'PASS', 'evidence_class': 'TARGET_RUNTIME',
-                'assertions': count, 'case_ids': case_ids, 'skipped': 0,
-                'database_vendor': 'postgresql', 'postgresql_major': major}
-    finally:
-        admin.dispose()
-        os.environ.clear()
-        os.environ.update(saved)
+    with cleanup_scope() as cleanup:
+        try:
+            with admin.connect() as c:
+                major = int(c.scalar(sa.text('SHOW server_version_num'))) // 10000
+                if major < 16:
+                    raise RuntimeError('PostgreSQL16 required')
+            os.environ['MATHSTART_V01_TEST_ADMIN_URL'] = url.set(database='postgres').render_as_string(hide_password=False)
+            os.environ['MATHSTART_V02_TEST_ADMIN_URL'] = os.environ['MATHSTART_V01_TEST_ADMIN_URL']
+            os.environ['MATHSTART_V01_EVIDENCE_DIR'] = str(Path(os.environ['MATHSTART_CHECK_RESULT']).parent / 'schema')
+            case_ids = []
+            count = execute(['backend.tests.test_unit', 'backend.tests.test_health', 'backend.tests.test_diagnostics', 'backend.tests.test_postgres',
+                             'backend.tests.test_release_migrate',
+                             'backend.tests.test_operator',
+                             'backend.tests.test_remediation', 'backend.tests.test_discovery'], case_ids=case_ids)
+            count += execute(['backend.tests.v02.test_unit', 'backend.tests.v02.test_http',
+                              'backend.tests.v02.test_postgres', 'backend.tests.v02.test_asset_regressions'], case_ids=case_ids)
+            with owned_database(admin, url, 'identity') as engine:
+                with engine.begin() as c:
+                    fresh(c)
+                os.environ['MATHSTART_V03_DATABASE_URL'] = engine.url.render_as_string(hide_password=False)
+                count += execute(['backend.tests.v03.test_legacy_proof', 'backend.tests.v03.test_cutover',
+                                  'backend.tests.v03.test_identity', 'backend.tests.v03.test_staff_writes'], case_ids=case_ids)
+            with owned_database(admin, url, 'content') as engine:
+                prepare_content_runtime(engine, Path(os.environ['MATHSTART_CHECK_RESULT']).parent)
+                count += execute(['backend.tests.v04.test_build', 'backend.tests.v04.test_read_runtime',
+                    'backend.tests.v04.test_content_checks', 'backend.tests.v04.test_indexing', 'backend.tests.v04.test_publication',
+                    'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation', 'backend.tests.v04.test_registration',
+                    'backend.tests.v04.test_bootstrap_plan', 'backend.tests.v04.test_public_update',
+                    'backend.tests.v04.test_artifacts', 'backend.tests.v04.test_artifact_pins', 'backend.tests.v04.test_verified_release_cache',
+                    'backend.tests.v04.test_participant'], case_ids=case_ids)
+            if any(name == 'django' or name.startswith('django.') for name in sys.modules):
+                raise RuntimeError('Django imported by target suite')
+            return {'check_id': 'backend-tests', 'status': 'PASS', 'evidence_class': 'TARGET_RUNTIME',
+                    'assertions': count, 'case_ids': case_ids, 'skipped': 0,
+                    'database_vendor': 'postgresql', 'postgresql_major': major}
+        finally:
+            cleanup('admin_engine_dispose', admin.dispose)
+            os.environ.clear()
+            os.environ.update(saved)
 
 
 def main():
@@ -162,6 +200,8 @@ def main():
                   'assertions': 0, 'skipped': 0, 'failure_class': type(error).__name__}
         if isinstance(error, SuiteFailure):
             result['suite_diagnostics'] = error.diagnostics
+        if getattr(error, 'cleanup_diagnostics', None):
+            result['cleanup_diagnostics'] = error.cleanup_diagnostics
     if path is not None:
         with path.open('x', encoding='utf-8', newline='\n') as output:
             output.write(json.dumps(result, indent=2) + '\n')

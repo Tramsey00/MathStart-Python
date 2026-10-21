@@ -540,6 +540,30 @@
       "before_sha256": "1b29fb097b626b498bc1ac44bd5ce0816ed863c07e801d503985d7e546685183",
       "reason": "Три regression tests для subsequent current adapter/moved helper; отказы wrong source/baseline/actual bytes и original approval retention.",
       "after_sha256": "d0ea5f02d69a0d67842f55c2bae7a5314d01cfe1a2b189634eaff2d8f1ded515"
+    },
+    {
+      "path": "backend/tests/v04/test_build.py",
+      "action": "updated",
+      "before_bytes": 11041,
+      "before_sha256": "a0703f4d1795c99634aeb1341f00ceb65b6b82c313910bbb720b9390e9097718",
+      "reason": "Исправление CI PR56 по поручению21.10.2026: один текущий checkout SHA для build inputs; class cleanups при setup failure; реальные отрицательные source/dirty/untracked регрессии. Historical oracle/pins не меняются.",
+      "after_sha256": "f018de28bcd0ea6db45df21fb8ede2be67617db09d5788b3f4179f2d6f545ab4"
+    },
+    {
+      "path": "backend/verification_suite.py",
+      "action": "updated",
+      "before_bytes": 9204,
+      "before_sha256": "d3cde109347687acc4a96e4ff9b357b65597952d64eb07da9e839c04ce2b92e6",
+      "reason": "Исправление CI PR56: первичный suite failure сохраняется при ошибке owned cleanup; cleanup-only failure остаётся FAIL; безопасные раздельные диагностики без traceback/SQL/DSN; identity guard и обычный DROP без force сохранены.",
+      "after_sha256": "3d16673a0baf5b32322a4159feb5c6c3b6182174430a2feab6f6412b9c93edd1"
+    },
+    {
+      "path": "backend/tests/test_diagnostics.py",
+      "action": "updated",
+      "before_bytes": 1714,
+      "before_sha256": "ce8392598a209a762f2876fe525f26574cfb8e7901cebc9934502e73d9a2a0ba",
+      "reason": "Регрессии CI PR56: первичная ошибка и несколько cleanup failures раздельно, cleanup-only FAIL, отказ DROP при смене OID, восстановление environment и отсутствие приватных значений в receipt/stdout/stderr.",
+      "after_sha256": "28dd53dd85d13b6f448eb513bd65a8b63e71d40dc0774c752bffa24f8ca1b90a"
     }
   ]
 }
