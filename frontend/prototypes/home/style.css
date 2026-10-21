@@ -434,7 +434,7 @@ h1{
 .hero-copy>p{
   font-size:14px;
   line-height:1.85;
-  color:var(--muted-foreground);
+  color:color-mix(in oklch,var(--foreground) 76%,var(--background));
   max-width:430px;
   margin:0
 }
@@ -538,6 +538,12 @@ h1{
   font-family:var(--font-serif);
   font-style:italic
 }
+.materials{
+  background:var(--card);
+  color:var(--card-foreground);
+  padding:28px 30px 8px;
+  border-radius:12px
+}
 .materials-heading{
   display:flex;
   align-items:center;
@@ -628,12 +634,13 @@ h2{
   margin-bottom:17px
 }
 .card-number{
-  font-size:11px;
-  color:var(--muted-foreground);
+  font-size:12px;
+  font-weight:650;
+  color:var(--primary);
   font-variant-numeric:tabular-nums
 }
 .card-topic-count{
-  font-size:9px;
+  font-size:11px;
   background:transparent;
   padding:0;
   border-radius:0;
@@ -645,6 +652,9 @@ h3{
   font-weight:600;
   letter-spacing:-.3px;
   margin:0
+}
+.section-card h3{
+  color:var(--card-foreground)
 }
 .section-card>p{
   color:var(--muted-foreground);
@@ -664,8 +674,8 @@ h3{
   margin-top:auto;
   padding-top:13px;
   border-top:0;
-  color:var(--muted-foreground);
-  font-size:10px
+  color:var(--primary);
+  font-size:11px
 }
 .card-arrow{
   display:flex;
@@ -1027,6 +1037,10 @@ dialog::backdrop{
   }
   h2{
     font-size:21px
+  }
+  .materials{
+    padding:22px 17px 4px;
+    border-radius:10px
   }
   .materials-heading{
     align-items:flex-start;
