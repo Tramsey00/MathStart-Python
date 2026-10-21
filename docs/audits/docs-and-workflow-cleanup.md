@@ -368,3 +368,56 @@ product/source —932 checks PASS; preservation —75 exact task dispositions PA
 должен подтверждаться новым CI текущего PR, а не перезапуском исходного SHA.
 Новый CI будет дописан после проверки кандидата. Отдельное ревью/человеческая
 приёмка остаются PENDING.
+
+### Полный CI исправленного кандидата1090462
+
+Фактический HEAD PR56 `1090462df0764ebc9f2f81b8dc88917a1faa5ae7`, tree
+`ebd6523e5e922ec6e566d4855410a09023b7fc77`. CI checkout
+`618ba858c9b314886002c8bc8dcf33c462ecdcb6` — проверочный merge ref pull request
+с тем же tree, а не выполненное слияние в main. Remote HEAD сверён после
+возобновления; основной checkout чистый, чужих изменений нет.
+
+[Машинная запись CI, provenance и выполненных steps](pr56-ci-candidate-1090462.json)
+содержит результаты именно нового кандидата, run attempt1, не rerun старого SHA.
+Три workflows завершились SUCCESS: Migration verification39574201855,
+Public and identity migration verification39574202020 и сохранённый status-check
+Harness verification39574201889.
+
+| Обязательный job | Фактический результат |
+| --- | --- |
+| [backend-install](https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135548589) | SUCCESS |
+| [public-block](https://github.com/Tramsey00/MathStart-Python/actions/runs/39574202020/job/119135548864) | SUCCESS |
+| [target](https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135602197) | SUCCESS |
+| [image-recovery](https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119160975926) | SUCCESS |
+| [combined-candidate-checks](https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119162273260) | SUCCESS |
+
+Все обязательные jobs реально выполнялись. Backend suite, managed ASGI/read-only
+commands, fresh twice и populated upgrade A/B/C прошли. Safe upgrade receipts:
+PostgreSQL16,421/423/424 assertions,0 skipped. Target подтвердил15 registry checks,
+включая frontend browser smoke с9 проектами Chrome/Edge/Firefox на360/768/1440,
+а также подготовку/активацию и fresh-install/upgrade-A/B/C. В логе target есть
+21 безопасный PASS marker для этих stages. Recovery выполнил точный handoff
+этого CI, HTTPS build, physical recovery, compatible rollback и ordinary API400.
+
+В image-recovery отдельно зафиксирован SKIPPED условного диагностического шага
+`Classify automatic IPAM using stopped owned container`: он предназначен только
+для workflow_dispatch с recovery_handoff_run>0. Это не PASS диагностики IPAM;
+обязательный recovery step имеет SUCCESS. Отключённых jobs, continue-on-error,
+подмены skipped на PASS или изменений CI workflow в исправлении нет.
+
+Raw logs/DSN/cookies/пароли в execution record не включены. Первоначальные FAIL
+и локальные ограничения выше сохранены как история. Новая запись добавляется
+отдельным коммитом только с evidence; runtime/test/preservation-map bytes остаются
+проверенными на1090462. Этот documentation-only HEAD должен получить собственный
+полный CI; его окончательные результаты фиксируются в актуальном описании
+[PR56](https://github.com/Tramsey00/MathStart-Python/pull/56), как продолжение
+execution record, без выдачи результатов1090462 за проверку нового SHA.
+
+Самопроверка execution-record изменения:642 workflow/docs checks PASS,
+934 source/current-document checks PASS, preservation75 dispositions PASS,
+`git diff --check` PASS. Продуктовые/test-файлы в этом коммите не меняются.
+
+Отдельное ревью и человеческая приёмка PENDING; merge требует решения пользователя.
+Main остаётся на1a015f7513933901e8bb252e94c660e4383b6b0e. Следующая продуктовая
+задача не начиналась; после передачи результата текущего поручения работа
+останавливается.

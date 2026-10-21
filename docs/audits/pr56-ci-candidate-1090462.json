@@ -1,0 +1,204 @@
+{
+  "purpose": "Исправление красного CI существующего Draft PR56; отдельное ревью и человеческая приёмка не подтверждаются CI.",
+  "pr": "https://github.com/Tramsey00/MathStart-Python/pull/56",
+  "branch": "docs-and-workflow-cleanup",
+  "original_head": "bc58c0472c0dbab824ade9ccf4ce6803148d92a5",
+  "candidate_head": "1090462df0764ebc9f2f81b8dc88917a1faa5ae7",
+  "candidate_tree": "ebd6523e5e922ec6e566d4855410a09023b7fc77",
+  "verified_ci_checkout": "618ba858c9b314886002c8bc8dcf33c462ecdcb6",
+  "verified_ci_tree": "ebd6523e5e922ec6e566d4855410a09023b7fc77",
+  "base_main": "1a015f7513933901e8bb252e94c660e4383b6b0e",
+  "observed_at": "2026-10-21 15:30:53 UTC",
+  "evidence_sources": "GitHub Actions run/job metadata; selected safe PASS markers and provenance from logs. Raw logs/private runtime values are excluded.",
+  "mandatory_job_results": {
+    "backend-install": "success",
+    "public-block": "success",
+    "target": "success",
+    "image-recovery": "success",
+    "combined-candidate-checks": "success"
+  },
+  "target_pass_stages": [
+    "prepare-synthetic-inputs",
+    "Frontend build",
+    "activate-synthetic-fixture",
+    "FastAPI system",
+    "Metadata",
+    "Lesson source validation",
+    "Content quality",
+    "Site integrity",
+    "PostgreSQL API",
+    "R03 contract suite",
+    "R02A contract suite",
+    "R03A contract suite",
+    "R02 protocol models ",
+    "R03 verification adapter suite",
+    "Frontend typecheck",
+    "Frontend tests",
+    "Frontend browser smoke",
+    "fresh-install",
+    "upgrade-A",
+    "upgrade-B",
+    "upgrade-C"
+  ],
+  "conditional_step_note": "Classify automatic IPAM using stopped owned container имеет SKIPPED: условие workflow_dispatch + recovery_handoff_run>0 неприменимо к pull_request. Это не PASS диагностики IPAM. Обязательный HTTPS physical recovery/rollback/API400 step выполнен SUCCESS.",
+  "runs": [
+    {
+      "id": 39574201855,
+      "name": "Migration verification",
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855",
+      "event": "pull_request",
+      "head_sha": "1090462df0764ebc9f2f81b8dc88917a1faa5ae7",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-21T09:05:06Z",
+      "updated_at": "2026-10-21T10:07:18Z",
+      "jobs": [
+        {
+          "id": 119135547968,
+          "name": "deployment-images",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135547968",
+          "executed_steps": 11,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119135548206,
+          "name": "target-readiness",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135548206",
+          "executed_steps": 5,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119135548400,
+          "name": "pure",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135548400",
+          "executed_steps": 11,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119135548425,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135548425",
+          "executed_steps": 17,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119135548589,
+          "name": "backend-install",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135548589",
+          "executed_steps": 17,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119135602158,
+          "name": "release-operations",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135602158",
+          "executed_steps": 13,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119135602197,
+          "name": "target",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119135602197",
+          "executed_steps": 17,
+          "skipped_steps": [],
+          "failed_steps": []
+        },
+        {
+          "id": 119160975926,
+          "name": "image-recovery",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119160975926",
+          "executed_steps": 14,
+          "skipped_steps": [
+            "Classify automatic IPAM using stopped owned container"
+          ],
+          "failed_steps": []
+        },
+        {
+          "id": 119162273260,
+          "name": "combined-candidate-checks",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201855/job/119162273260",
+          "executed_steps": 3,
+          "skipped_steps": [],
+          "failed_steps": []
+        }
+      ]
+    },
+    {
+      "id": 39574202020,
+      "name": "Public and identity migration verification",
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574202020",
+      "event": "pull_request",
+      "head_sha": "1090462df0764ebc9f2f81b8dc88917a1faa5ae7",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-21T09:05:06Z",
+      "updated_at": "2026-10-21T09:13:48Z",
+      "jobs": [
+        {
+          "id": 119135548864,
+          "name": "public-block",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574202020/job/119135548864",
+          "executed_steps": 20,
+          "skipped_steps": [],
+          "failed_steps": []
+        }
+      ]
+    },
+    {
+      "id": 39574201889,
+      "name": "Harness verification",
+      "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201889",
+      "event": "pull_request",
+      "head_sha": "1090462df0764ebc9f2f81b8dc88917a1faa5ae7",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-21T09:05:06Z",
+      "updated_at": "2026-10-21T09:05:28Z",
+      "jobs": [
+        {
+          "id": 119135548063,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/Tramsey00/MathStart-Python/actions/runs/39574201889/job/119135548063",
+          "executed_steps": 8,
+          "skipped_steps": [],
+          "failed_steps": []
+        }
+      ]
+    }
+  ],
+  "review_status": "PENDING",
+  "human_acceptance": "PENDING",
+  "merge": "NOT_PERFORMED",
+  "followup": "Запись относится к точному техническому candidate1090462. Коммит только с execution record требует собственного CI нового HEAD; его окончательные результаты фиксируются в актуальном описании PR56."
+}
