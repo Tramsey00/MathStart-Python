@@ -375,13 +375,6 @@ main{
 .breadcrumbs>span:last-child{
   color:var(--foreground)
 }
-.intro-line{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:21px
-}
 .eyebrow{
   font-size:10px;
   letter-spacing:1.6px;
@@ -392,9 +385,10 @@ main{
 .hero{
   position:relative;
   display:flex;
-  justify-content:space-between;
-  gap:20px;
-  min-height:246px;
+  justify-content:flex-start;
+  align-items:flex-start;
+  gap:clamp(28px,4vw,64px);
+  min-height:0;
   padding:16px 0 28px;
   background:transparent;
   border:0;
@@ -406,8 +400,47 @@ main{
 .hero-copy{
   position:relative;
   z-index:1;
-  max-width:570px;
-  flex:1
+  min-width:0;
+  flex:1 1 0
+}
+.lesson-preview{
+  flex:1 1 0;
+  min-width:0;
+  padding:3px 0 0 25px;
+  border-left:2px solid color-mix(in oklch,var(--primary) 23%,transparent)
+}
+.preview-label{
+  margin:0 0 15px;
+  color:var(--primary);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:1.2px
+}
+.lesson-preview h2{
+  font-size:20px;
+  line-height:1.45;
+  font-weight:550;
+  margin:0 0 13px
+}
+.preview-excerpt{
+  margin:0;
+  font-size:13px;
+  line-height:1.85;
+  color:color-mix(in oklch,var(--foreground) 76%,var(--background))
+}
+.preview-link{
+  display:inline-flex;
+  align-items:center;
+  gap:18px;
+  margin-top:20px;
+  padding:6px 0;
+  color:var(--primary);
+  font-size:12px;
+  font-weight:550
+}
+.preview-link:hover{
+  text-decoration:underline;
+  text-underline-offset:4px
 }
 .subject-kicker{
   display:flex;
@@ -451,92 +484,8 @@ h1{
   align-items:center;
   gap:6px
 }
-.small-check{
-  color:var(--primary);
-  font-weight:750
-}
 .hero-tags>span:last-child{
   color:var(--muted-foreground)
-}
-.math-art{
-  width:260px;
-  min-width:180px;
-  position:relative;
-  align-self:stretch;
-  color:var(--primary);
-  margin:-5px -7px -5px 0
-}
-.art-grid{
-  position:absolute;
-  inset:8px 0;
-  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
-  background-size:24px 24px;
-  mask-image:radial-gradient(ellipse,#000 20%,transparent 73%)
-}
-.math-art>svg{
-  width:100%;
-  position:absolute;
-  top:12px;
-  left:0;
-  height:90%;
-  overflow:visible
-}
-.art-axis{
-  stroke:var(--muted-foreground);
-  stroke-width:1;
-  opacity:.35;
-  fill:none
-}
-.art-line{
-  stroke:var(--primary);
-  stroke-width:2;
-  fill:none
-}
-.art-point{
-  stroke:var(--secondary);
-  stroke-width:3;
-  fill:var(--primary)
-}
-.art-triangle{
-  stroke:var(--primary);
-  stroke-width:1;
-  stroke-dasharray:4;
-  fill:var(--primary);
-  fill-opacity:.07
-}
-.art-formula{
-  position:absolute;
-  top:4px;
-  right:-2px;
-  font-family:var(--font-serif);
-  font-style:italic;
-  font-size:20px;
-  transform:rotate(-8deg);
-  padding:8px 12px;
-  background:transparent;
-  border:0;
-  border-radius:var(--radius);
-  box-shadow:none
-}
-.art-x{
-  position:absolute;
-  right:0;
-  bottom:34px;
-  font-style:italic
-}
-.art-y{
-  position:absolute;
-  left:61px;
-  top:1px;
-  font-style:italic
-}
-.art-coordinate{
-  position:absolute;
-  left:99px;
-  bottom:27px;
-  font-size:13px;
-  font-family:var(--font-serif);
-  font-style:italic
 }
 .materials{
   background:var(--card);
@@ -611,6 +560,7 @@ h2{
   gap:0 40px
 }
 .section-card{
+  position:relative;
   display:flex;
   flex-direction:column;
   text-align:left;
@@ -624,8 +574,18 @@ h2{
   box-shadow:none
 }
 .section-card:hover{
+  background:color-mix(in oklch,var(--secondary) 40%,var(--card));
   border-bottom-color:var(--primary);
   box-shadow:none
+}
+.section-card:nth-child(even)::before{
+  content:'';
+  position:absolute;
+  left:-20px;
+  top:24px;
+  bottom:24px;
+  width:1px;
+  background:color-mix(in oklch,var(--border) 70%,transparent)
 }
 .card-top{
   display:flex;
@@ -811,9 +771,6 @@ dialog::backdrop{
   .hero{
     min-height:270px
   }
-  .math-art{
-    width:300px
-  }
   .hero-copy>p{
     font-size:14px;
     max-width:470px
@@ -847,21 +804,11 @@ dialog::backdrop{
   .hero-copy>p{
     max-width:340px
   }
-  .math-art{
-    width:185px;
-    min-width:145px
-  }
   .hero-tags{
     gap:12px
   }
   .section-grid{
     grid-template-columns:repeat(2,minmax(0,1fr))
-  }
-  .art-coordinate{
-    left:58px
-  }
-  .art-y{
-    left:40px
   }
 }
 @media(max-width:900px){
@@ -911,21 +858,8 @@ dialog::backdrop{
   .mobile-grade-selector .grade-picker{
     margin:0
   }
-  .math-art{
-    width:230px;
-    min-width:180px
-  }
   .hero-copy>p{
     max-width:390px
-  }
-  .art-coordinate{
-    left:85px
-  }
-  .art-y{
-    left:53px
-  }
-  .intro-line{
-    margin-bottom:18px
   }
   .breadcrumbs{
     margin-bottom:23px
@@ -995,19 +929,20 @@ dialog::backdrop{
     font-size:10px;
     margin-bottom:22px
   }
-  .intro-line{
-    align-items:flex-start
-  }
-  .intro-line>.eyebrow{
-    font-size:8px;
-    letter-spacing:1.1px;
-    line-height:1.7;
-    max-width:170px
-  }
   .hero{
     padding:10px 0 22px;
     min-height:0;
     display:block
+  }
+  .lesson-preview{
+    margin-top:28px;
+    padding-left:16px
+  }
+  .lesson-preview h2{
+    font-size:18px
+  }
+  .preview-excerpt{
+    font-size:12px
   }
   .subject-kicker{
     font-size:7px;
@@ -1030,9 +965,6 @@ dialog::backdrop{
     margin-top:18px
   }
   .hero-tags>span:last-child{
-    display:none
-  }
-  .math-art{
     display:none
   }
   h2{
@@ -1067,6 +999,9 @@ dialog::backdrop{
   .section-card{
     min-height:0;
     padding:23px 0
+  }
+  .section-card:nth-child(even)::before{
+    content:none
   }
   .card-top{
     margin-bottom:13px

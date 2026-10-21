@@ -94,7 +94,7 @@ test('global search, empty results, clear and section filter work', async ({ pag
   const search = page.getByRole('textbox', { name: 'Поиск по всем темам' });
   await search.fill('дроби');
   await expect(page.locator('.result-row').first()).toBeVisible();
-  await expect(page.getByRole('heading', { level: 2 }).first()).toContainText('Найденные темы');
+  await expect(page.getByRole('heading', { level: 2, name: /^Найденные темы/ })).toBeVisible();
   await search.fill('несуществующая-тема-zzzz');
   await expect(page.getByRole('heading', { name: 'Пока ничего не нашлось' })).toBeVisible();
   await page.getByRole('button', { name: 'Сбросить поиск' }).click();
@@ -118,4 +118,18 @@ test('both themes load local fonts and produce review screenshots', async ({ pag
   await page.getByRole('button', { name: 'Включить светлую тему' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   expect(failures).toEqual([]);
+});
+test('lesson preview shows authored introduction and follows the selected course', async ({ page }) => {
+  await page.goto('/');
+  const preview = page.getByRole('complementary', { name: 'Числовые выражения. Алгебраические выражения' });
+  await expect(preview).toBeVisible();
+  await expect(preview.locator('.preview-excerpt')).toContainText('правильно подставлять значения переменных');
+  await expect(preview.getByRole('link', { name: 'Открыть тему' })).toHaveAttribute('href', 'http://127.0.0.1:8121/chislovye-vyrazheniya-algebraicheskie-vyrazheniya/');
+  const nav = await navigation(page);
+  await nav.getByRole('button', { name: '5 класс', exact: true }).click();
+  if (await page.getByRole('button', { name: 'Открыть меню' }).isVisible()) await page.keyboard.press('Escape');
+  await expect(page.locator('#preview-title')).toHaveText('Числовые и буквенные выражения');
+  await expect(page.locator('.lesson-preview')).toBeVisible();
+  await expect(page.locator('.preview-excerpt')).not.toContainText('правильно подставлять значения переменных');
+  await noOverflow(page);
 });

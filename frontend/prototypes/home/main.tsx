@@ -40,8 +40,8 @@ function GradePicker({ grade, onChange }: { grade: string; onChange: (value: str
     <div className="grade-inline" role="group" aria-label="Выбор класса">{catalogue.grades.map(item => <button key={item.slug} aria-label={item.title} aria-pressed={grade === item.slug} onClick={() => onChange(item.slug)}>{item.order}</button>)}</div>
   </div>;
 }
-function plural(count: number) {
-  return count % 10 === 1 && count % 100 !== 11 ? 'тема' : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? 'темы' : 'тем';
+function plural(count: number, words: readonly [string, string, string] = ['тема', 'темы', 'тем']) {
+  return count % 10 === 1 && count % 100 !== 11 ? words[0] : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? words[1] : words[2];
 }
 function App() {
   const [grade, setGrade] = useState('7-klass');
@@ -58,6 +58,7 @@ function App() {
   const selected = subjects.find(item => item.slug === subject)!;
   const sections = catalogue.sections.filter(item => item.grade === grade && item.subject === subject && catalogue.topics.some(topic => topic.grade === grade && topic.subject === subject && topic.section === item.slug)).sort((a, b) => a.order - b.order);
   const topics = catalogue.topics.filter(item => item.grade === grade && item.subject === subject);
+  const preview = catalogue.previews.find(item => item.grade === grade && item.subject === subject);
   const results = query.trim() ? catalogue.topics.filter(item => item.title.toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru'))) : [];
   const visibleSections = sections.filter(item => !sectionQuery || item.title.toLocaleLowerCase('ru').includes(sectionQuery.toLocaleLowerCase('ru')));
   const sectionTopics = activeSection ? catalogue.topics.filter(item => item.grade === activeSection.grade && item.subject === activeSection.subject && item.section === activeSection.slug) : [];
@@ -103,10 +104,9 @@ function App() {
     <main id="learning" tabIndex={-1}>
       <div className="breadcrumbs"><span>Учебные материалы</span><Icon name="chevron" size={13}/><span>{catalogue.grades.find(item => item.slug === grade)!.title}</span></div>
       <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade}/></div>
-      <div className="intro-line"><p className="eyebrow">МАЛЕНЬКИЕ ШАГИ — БОЛЬШИЕ ОТКРЫТИЯ</p></div>
       <section className="hero" aria-labelledby="subject-title">
-        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>МАТЕМАТИКА СТАНОВИТСЯ ПОНЯТНЕЕ</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p><div className="hero-tags"><span><Icon name="book" size={16}/>{topics.length} {plural(topics.length)}</span><span><span className="small-check" aria-hidden="true">✓</span>Теория и примеры</span><span>Без спешки</span></div></div>
-        <div className="math-art" aria-hidden="true"><div className="art-grid"/><svg viewBox="0 0 300 200"><path className="art-axis" d="M32 154h244M82 184V22"/><path className="art-line" d="M42 164 244 35"/><circle className="art-point" cx="144" cy="99" r="6"/><circle className="art-point" cx="211" cy="56" r="6"/><path className="art-triangle" d="M144 99h67V56Z"/></svg><span className="art-formula">y = kx + b</span><span className="art-x">x</span><span className="art-y">y</span><span className="art-coordinate">(x, y)</span></div>
+        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title} · {sections.length} {plural(sections.length, ['раздел', 'раздела', 'разделов'])}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p><div className="hero-tags"><span><Icon name="book" size={16}/>{topics.length} {plural(topics.length)}</span><span>Теория и примеры</span></div></div>
+        {preview && <aside className="lesson-preview" aria-labelledby="preview-title"><p className="preview-label">ПЕРВАЯ ТЕМА КУРСА</p><h2 id="preview-title">{preview.title}</h2><p className="preview-excerpt">{preview.excerpt}</p><a className="preview-link" href={topicLink(preview)}>Открыть тему <Icon name="arrow" size={17}/></a></aside>}
       </section>
       <section className="materials" aria-labelledby="materials-title">
         <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'} <span className="count-badge">{query.trim() ? results.length : sections.length}</span></h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={16}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
