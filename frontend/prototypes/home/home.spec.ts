@@ -119,17 +119,30 @@ test('both themes load local fonts and produce review screenshots', async ({ pag
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   expect(failures).toEqual([]);
 });
-test('lesson preview shows authored introduction and follows the selected course', async ({ page }) => {
+test('shared illustration replaces removed labels and section hover leaves appearance unchanged', async ({ page }) => {
   await page.goto('/');
-  const preview = page.getByRole('complementary', { name: 'Числовые выражения. Алгебраические выражения' });
-  await expect(preview).toBeVisible();
-  await expect(preview.locator('.preview-excerpt')).toContainText('правильно подставлять значения переменных');
-  await expect(preview.getByRole('link', { name: 'Открыть тему' })).toHaveAttribute('href', 'http://127.0.0.1:8121/chislovye-vyrazheniya-algebraicheskie-vyrazheniya/');
-  const nav = await navigation(page);
-  await nav.getByRole('button', { name: '5 класс', exact: true }).click();
-  if (await page.getByRole('button', { name: 'Открыть меню' }).isVisible()) await page.keyboard.press('Escape');
-  await expect(page.locator('#preview-title')).toHaveText('Числовые и буквенные выражения');
-  await expect(page.locator('.lesson-preview')).toBeVisible();
-  await expect(page.locator('.preview-excerpt')).not.toContainText('правильно подставлять значения переменных');
+  const picture = page.locator('svg.math-illustration');
+  await expect(picture).toHaveCount(1);
+  await expect(picture).toBeVisible();
+  const bounds = await picture.boundingBox();
+  expect(bounds!.width).toBeGreaterThan(200);
+  await expect(page.locator('.lesson-preview, .hero-tags, .nav-active-dot')).toHaveCount(0);
+  await expect(page.locator('.hero')).not.toContainText('разделов');
+  await expect(page.getByText('Открыть раздел', { exact: true })).toHaveCount(0);
+  const section = page.locator('.section-card').first();
+  for (const dark of [false, true]) {
+    if (dark) await page.getByRole('button', { name: 'Включить тёмную тему' }).click();
+    await page.locator('h1').hover();
+    const before = await section.evaluate(element => {
+      const style = getComputedStyle(element);
+      return [style.backgroundColor, style.borderBottomColor, style.boxShadow, style.color];
+    });
+    await section.hover();
+    const after = await section.evaluate(element => {
+      const style = getComputedStyle(element);
+      return [style.backgroundColor, style.borderBottomColor, style.boxShadow, style.color];
+    });
+    expect(after).toEqual(before);
+  }
   await noOverflow(page);
 });

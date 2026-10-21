@@ -236,13 +236,6 @@ input::placeholder{
   border-radius:var(--radius);
   color:var(--primary)
 }
-.nav-active-dot{
-  height:5px;
-  width:5px;
-  margin-left:auto;
-  border-radius:50%;
-  background:var(--primary)
-}
 .sidebar-divider{
   height:1px;
   background:var(--border);
@@ -386,7 +379,7 @@ main{
   position:relative;
   display:flex;
   justify-content:flex-start;
-  align-items:flex-start;
+  align-items:center;
   gap:clamp(28px,4vw,64px);
   min-height:0;
   padding:16px 0 28px;
@@ -403,44 +396,51 @@ main{
   min-width:0;
   flex:1 1 0
 }
-.lesson-preview{
-  flex:1 1 0;
+.math-illustration{
+  display:block;
+  flex:1.15 1 0;
   min-width:0;
-  padding:3px 0 0 25px;
-  border-left:2px solid color-mix(in oklch,var(--primary) 23%,transparent)
+  width:52%;
+  max-height:310px;
+  align-self:center;
+  overflow:visible
 }
-.preview-label{
-  margin:0 0 15px;
-  color:var(--primary);
-  font-size:9px;
-  font-weight:600;
-  letter-spacing:1.2px
+.illustration-grid{
+  stroke:var(--border);
+  opacity:.45
 }
-.lesson-preview h2{
-  font-size:20px;
-  line-height:1.45;
-  font-weight:550;
-  margin:0 0 13px
+.illustration-axes{
+  stroke:var(--muted-foreground);
+  opacity:.65
 }
-.preview-excerpt{
-  margin:0;
-  font-size:13px;
-  line-height:1.85;
-  color:color-mix(in oklch,var(--foreground) 76%,var(--background))
+.illustration-circle-fill{
+  fill:var(--primary);
+  fill-opacity:.035
 }
-.preview-link{
-  display:inline-flex;
-  align-items:center;
-  gap:18px;
-  margin-top:20px;
-  padding:6px 0;
-  color:var(--primary);
-  font-size:12px;
-  font-weight:550
+.illustration-triangle-fill{
+  fill:var(--primary);
+  fill-opacity:.07
 }
-.preview-link:hover{
-  text-decoration:underline;
-  text-underline-offset:4px
+.illustration-line,.illustration-curve{
+  stroke:var(--primary)
+}
+.illustration-construction{
+  stroke:var(--primary);
+  opacity:.4
+}
+.illustration-points{
+  fill:var(--primary)
+}
+.illustration-labels,.illustration-equation{
+  fill:var(--primary);
+  font-family:var(--font-serif);
+  font-style:italic
+}
+.illustration-labels{
+  font-size:19px
+}
+.illustration-equation{
+  font-size:27px
 }
 .subject-kicker{
   display:flex;
@@ -471,27 +471,11 @@ h1{
   max-width:430px;
   margin:0
 }
-.hero-tags{
-  display:flex;
-  gap:19px;
-  flex-wrap:wrap;
-  margin-top:22px;
-  color:var(--secondary-foreground);
-  font-size:10px
-}
-.hero-tags>span{
-  display:flex;
-  align-items:center;
-  gap:6px
-}
-.hero-tags>span:last-child{
-  color:var(--muted-foreground)
-}
 .materials{
   background:var(--card);
   color:var(--card-foreground);
   padding:28px 30px 8px;
-  border-radius:12px
+  border-radius:calc(var(--radius) * 2)
 }
 .materials-heading{
   display:flex;
@@ -570,12 +554,6 @@ h2{
   border:0;
   border-bottom:1px solid var(--border);
   border-radius:0;
-  transition:color .15s;
-  box-shadow:none
-}
-.section-card:hover{
-  background:color-mix(in oklch,var(--secondary) 40%,var(--card));
-  border-bottom-color:var(--primary);
   box-shadow:none
 }
 .section-card:nth-child(even)::before{
@@ -629,7 +607,7 @@ h3{
 .card-bottom{
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-end;
   gap:10px;
   margin-top:auto;
   padding-top:13px;
@@ -641,9 +619,6 @@ h3{
   display:flex;
   color:var(--primary)
 }
-.section-card:hover .card-bottom{
-  color:var(--primary)
-}
 dialog{
   background:var(--background);
   color:var(--foreground);
@@ -653,7 +628,7 @@ dialog{
   box-shadow:var(--shadow-xl)
 }
 dialog::backdrop{
-  background:oklch(.1371 .036 258.5258 / .5)
+  background:color-mix(in oklch,var(--foreground) 50%,transparent)
 }
 .topics-dialog{
   width:min(650px,calc(100% - 32px));
@@ -804,9 +779,6 @@ dialog::backdrop{
   .hero-copy>p{
     max-width:340px
   }
-  .hero-tags{
-    gap:12px
-  }
   .section-grid{
     grid-template-columns:repeat(2,minmax(0,1fr))
   }
@@ -934,16 +906,6 @@ dialog::backdrop{
     min-height:0;
     display:block
   }
-  .lesson-preview{
-    margin-top:28px;
-    padding-left:16px
-  }
-  .lesson-preview h2{
-    font-size:18px
-  }
-  .preview-excerpt{
-    font-size:12px
-  }
   .subject-kicker{
     font-size:7px;
     letter-spacing:.8px;
@@ -959,20 +921,17 @@ dialog::backdrop{
     line-height:1.85;
     max-width:100%
   }
-  .hero-tags{
-    font-size:9px;
-    gap:11px;
-    margin-top:18px
-  }
-  .hero-tags>span:last-child{
-    display:none
-  }
   h2{
     font-size:21px
   }
   .materials{
     padding:22px 17px 4px;
-    border-radius:10px
+    border-radius:calc(var(--radius) + 4px)
+  }
+  .math-illustration{
+    width:100%;
+    max-height:190px;
+    margin-top:23px
   }
   .materials-heading{
     align-items:flex-start;

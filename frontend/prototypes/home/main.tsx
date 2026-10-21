@@ -40,6 +40,27 @@ function GradePicker({ grade, onChange }: { grade: string; onChange: (value: str
     <div className="grade-inline" role="group" aria-label="Выбор класса">{catalogue.grades.map(item => <button key={item.slug} aria-label={item.title} aria-pressed={grade === item.slug} onClick={() => onChange(item.slug)}>{item.order}</button>)}</div>
   </div>;
 }
+function MathIllustration() {
+  return <svg className="math-illustration" viewBox="0 0 600 310" fill="none" aria-hidden="true" focusable="false">
+    <g className="illustration-grid" strokeWidth="1">
+      {[80, 130, 180, 230, 280, 330, 380, 430, 480, 530].map(x => <path key={`x-${x}`} d={`M${x} 35V275`}/>)}
+      {[55, 105, 155, 205, 255].map(y => <path key={`y-${y}`} d={`M55 ${y}H555`}/>)}
+    </g>
+    <g className="illustration-axes" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M55 205H565m-8-5 8 5-8 5M180 275V25m-5 8 5-8 5 8"/>
+    </g>
+    <circle className="illustration-circle-fill" cx="180" cy="155" r="90"/>
+    <circle className="illustration-line" cx="180" cy="155" r="90" strokeWidth="1.8"/>
+    <path className="illustration-triangle-fill" d="M180 205H405V82Z"/>
+    <path className="illustration-line" d="M180 205H405V82Z" strokeWidth="2.2" strokeLinejoin="round"/>
+    <path className="illustration-construction" d="M180 155H405M405 82H510M180 82H405" strokeWidth="1.2" strokeDasharray="5 6"/>
+    <path className="illustration-curve" d="M295 44Q430 350 555 44" strokeWidth="2.5" strokeLinecap="round"/>
+    <path className="illustration-line" d="M388 205v-17h17M215 205a35 35 0 0 0-4.5-17" strokeWidth="1.5"/>
+    <g className="illustration-points"><circle cx="180" cy="205" r="4"/><circle cx="405" cy="82" r="4"/><circle cx="405" cy="205" r="4"/></g>
+    <g className="illustration-labels"><text x="158" y="228">0</text><text x="570" y="224">x</text><text x="162" y="23">y</text><text x="222" y="197">α</text><text x="292" y="228">a</text><text x="416" y="150">b</text><text x="277" y="126">c</text></g>
+    <text className="illustration-equation" x="300" y="284">a² + b² = c²</text>
+  </svg>;
+}
 function plural(count: number, words: readonly [string, string, string] = ['тема', 'темы', 'тем']) {
   return count % 10 === 1 && count % 100 !== 11 ? words[0] : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? words[1] : words[2];
 }
@@ -58,7 +79,6 @@ function App() {
   const selected = subjects.find(item => item.slug === subject)!;
   const sections = catalogue.sections.filter(item => item.grade === grade && item.subject === subject && catalogue.topics.some(topic => topic.grade === grade && topic.subject === subject && topic.section === item.slug)).sort((a, b) => a.order - b.order);
   const topics = catalogue.topics.filter(item => item.grade === grade && item.subject === subject);
-  const preview = catalogue.previews.find(item => item.grade === grade && item.subject === subject);
   const results = query.trim() ? catalogue.topics.filter(item => item.title.toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru'))) : [];
   const visibleSections = sections.filter(item => !sectionQuery || item.title.toLocaleLowerCase('ru').includes(sectionQuery.toLocaleLowerCase('ru')));
   const sectionTopics = activeSection ? catalogue.topics.filter(item => item.grade === activeSection.grade && item.subject === activeSection.subject && item.section === activeSection.slug) : [];
@@ -79,7 +99,7 @@ function App() {
   function topicLink(topic: Topic) { return `${site}/${topic.slug}/`; }
   const navigation = (surface: 'desktop' | 'mobile') => <>
     <p className="nav-label">ТВОЁ ОБУЧЕНИЕ</p>
-    <a className="nav-home" href="#learning" onClick={() => menuDialog.current?.close()}><Icon name="book"/>Учебные материалы<span className="nav-active-dot"/></a>
+    <a className="nav-home" href="#learning" onClick={() => menuDialog.current?.close()}><Icon name="book"/>Учебные материалы</a>
     <div className="sidebar-divider"/>
     <GradePicker grade={grade} onChange={chooseGrade}/>
     <p className="nav-label subject-label">ПРЕДМЕТЫ</p>
@@ -105,15 +125,15 @@ function App() {
       <div className="breadcrumbs"><span>Учебные материалы</span><Icon name="chevron" size={13}/><span>{catalogue.grades.find(item => item.slug === grade)!.title}</span></div>
       <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade}/></div>
       <section className="hero" aria-labelledby="subject-title">
-        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title} · {sections.length} {plural(sections.length, ['раздел', 'раздела', 'разделов'])}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p><div className="hero-tags"><span><Icon name="book" size={16}/>{topics.length} {plural(topics.length)}</span><span>Теория и примеры</span></div></div>
-        {preview && <aside className="lesson-preview" aria-labelledby="preview-title"><p className="preview-label">ПЕРВАЯ ТЕМА КУРСА</p><h2 id="preview-title">{preview.title}</h2><p className="preview-excerpt">{preview.excerpt}</p><a className="preview-link" href={topicLink(preview)}>Открыть тему <Icon name="arrow" size={17}/></a></aside>}
+        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p></div>
+        <MathIllustration/>
       </section>
       <section className="materials" aria-labelledby="materials-title">
         <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'} <span className="count-badge">{query.trim() ? results.length : sections.length}</span></h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={16}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
         {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <div className="empty-state"><Icon name="search" size={28}/><h3>Пока ничего не нашлось</h3><p>Попробуй более короткий запрос, например «дроби» или «уравнения»</p><button className="text-button" onClick={() => { setQuery(''); search.current?.focus(); }}>Сбросить поиск</button></div>}</div>
         : <><div className="section-grid">{visibleSections.map((section, index) => {
           const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><div className="card-top"><span className="card-number">{String(index + 1).padStart(2, '0')}</span><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-bottom"><span>Открыть раздел</span><span className="card-arrow"><Icon name="arrow" size={18}/></span></div></button>;
+          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><div className="card-top"><span className="card-number">{String(index + 1).padStart(2, '0')}</span><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-bottom"><span className="card-arrow"><Icon name="arrow" size={18}/></span></div></button>;
         })}</div>{visibleSections.length === 0 && <div className="empty-state"><h3>Таких разделов нет</h3><button className="text-button" onClick={() => setSectionQuery('')}>Показать все разделы</button></div>}</>}
       </section>
     </main>

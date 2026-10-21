@@ -3,6 +3,6 @@ declare module 'virtual:mathstart-catalogue' {
   interface Subject extends Item { grade: string }
   interface Section extends Subject { subject: string }
   interface Topic extends Section { section: string }
-  const catalogue: { grades: Item[]; subjects: Subject[]; sections: Section[]; topics: Topic[]; previews: (Topic & { excerpt: string })[] };
+  const catalogue: { grades: Item[]; subjects: Subject[]; sections: Section[]; topics: Topic[] };
   export default catalogue;
 }
