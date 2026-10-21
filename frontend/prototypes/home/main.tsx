@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { StrictMode, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalogue from 'virtual:mathstart-catalogue';
 import './theme.css';
@@ -15,7 +15,7 @@ const subjectNotes: Record<string, string> = {
   'veroyatnost-i-statistika': 'Учись работать с данными, оценивать вероятность и замечать закономерности',
 };
 const symbol: Record<string, string> = { matematika: '±', algebra: 'ƒ', geometriya: '△', 'veroyatnost-i-statistika': '▥' };
-function Icon({ name, size = 20 }: { name: 'search' | 'arrow' | 'chevron' | 'book' | 'sun' | 'moon' | 'menu' | 'close'; size?: number }) {
+function Icon({ name, size = 20 }: { name: 'search' | 'arrow' | 'chevron' | 'book' | 'sun' | 'moon' | 'menu' | 'close' | 'math'; size?: number }) {
   const paths: Record<typeof name, ReactNode> = {
     search: <><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></>,
     arrow: <><path d="M5 12h14M13 6l6 6-6 6"/></>,
@@ -25,42 +25,19 @@ function Icon({ name, size = 20 }: { name: 'search' | 'arrow' | 'chevron' | 'boo
     moon: <path d="M20 14a8 8 0 0 1-10-10 8.5 8.5 0 1 0 10 10Z"/>,
     menu: <path d="M4 6h16M4 12h16M4 18h16"/>,
     close: <path d="m6 6 12 12M6 18 18 6"/>,
+    math: <path d="M6 8h12M12 3v10M6 19h12"/>,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
+}
+function SubjectMark({ subject }: { subject: string }) {
+  return <span className="subject-symbol" aria-hidden="true">{subject === 'matematika' ? <Icon name="math"/> : symbol[subject] ?? '∑'}</span>;
 }
 function Brand() {
   return <a className="brand" href="/" aria-label="MathStart — главная"><span className="brand-mark" aria-hidden="true">√</span><span>MathStart</span></a>;
 }
 function GradePicker({ grade, onChange }: { grade: string; onChange: (value: string) => void }) {
-  const [open, setOpen] = useState(false);
-  const id = useId();
-  const container = useRef<HTMLDivElement>(null);
-  const trigger = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (!open) return;
-    container.current?.querySelector<HTMLButtonElement>('[aria-pressed="true"]')?.focus();
-    function outside(event: PointerEvent) {
-      if (event.target instanceof Node && !container.current?.contains(event.target)) setOpen(false);
-    }
-    document.addEventListener('pointerdown', outside);
-    return () => document.removeEventListener('pointerdown', outside);
-  }, [open]);
-  return <div ref={container} className="grade-picker" onKeyDown={event => {
-    if (event.key === 'Escape' && open) {
-      event.preventDefault(); event.stopPropagation(); setOpen(false); trigger.current?.focus();
-    }
-  }} onBlur={event => {
-    if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
-  }}>
-    <span className="nav-label" id={`${id}-label`}>КЛАСС</span>
-    <button ref={trigger} className="grade-trigger" aria-label={`Выбрать класс: ${catalogue.grades.find(item => item.slug === grade)!.title}`} aria-expanded={open} aria-controls={`${id}-options`} onClick={() => setOpen(value => !value)}>
-      <span className="grade-trigger-number">{catalogue.grades.find(item => item.slug === grade)!.order}</span><span>класс</span><Icon name="chevron" size={16}/>
-    </button>
-    {open && <div className="grade-picker-panel" id={`${id}-options`} role="group" aria-labelledby={`${id}-label`}>
-      <p>Выбери свой класс</p><div className="grade-picker-grid">{catalogue.grades.map(item => <button key={item.slug} aria-label={item.title} aria-pressed={grade === item.slug} onClick={() => { onChange(item.slug); setOpen(false); trigger.current?.focus(); }}>
-        <strong>{item.order}</strong><span>класс</span>{grade === item.slug && <span className="grade-check" aria-hidden="true">✓</span>}
-      </button>)}</div>
-    </div>}
+  return <div className="grade-picker"><span className="nav-label">КЛАСС</span>
+    <div className="grade-inline" role="group" aria-label="Выбор класса">{catalogue.grades.map(item => <button key={item.slug} aria-label={item.title} aria-pressed={grade === item.slug} onClick={() => onChange(item.slug)}>{item.order}</button>)}</div>
   </div>;
 }
 function plural(count: number) {
@@ -107,11 +84,10 @@ function App() {
     <p className="nav-label subject-label">ПРЕДМЕТЫ</p>
     <nav aria-label="Предметы">{subjects.map(item => <div key={item.slug}>
       <button className={`subject-button ${subject === item.slug ? 'is-selected' : ''}`} aria-current={subject === item.slug ? 'true' : undefined} aria-expanded={subject === item.slug && expandedSubject === item.slug} aria-controls={`${surface}-sections-${item.slug}`} onClick={() => toggleSubject(item.slug)}>
-        <span className="subject-symbol" aria-hidden="true">{symbol[item.slug] ?? '∑'}</span><span>{item.title}</span><Icon name="chevron" size={14}/>
+        <SubjectMark subject={item.slug}/><span>{item.title}</span><Icon name="chevron" size={14}/>
       </button>
       <div id={`${surface}-sections-${item.slug}`} className="section-navigation" hidden={subject !== item.slug || expandedSubject !== item.slug}>{subject === item.slug && sections.map(section => <button key={section.slug} onClick={() => { menuDialog.current?.close(); openSection(section); }}>{section.title}</button>)}</div>
     </div>)}</nav>
-    <div className="sidebar-tip"><span aria-hidden="true">✧</span><strong>В своём темпе</strong><p>Можно начать с любой темы и вернуться к сложному позже</p></div>
     <a className="sidebar-about" href={`${site}/o-proekte/`}>О проекте <Icon name="arrow" size={15}/></a>
   </>;
 
@@ -126,12 +102,12 @@ function App() {
     <dialog ref={menuDialog} className="menu-dialog" aria-labelledby="menu-title"><div className="dialog-heading"><h2 id="menu-title">Навигация</h2><button className="icon-button" aria-label="Закрыть меню" onClick={() => menuDialog.current?.close()}><Icon name="close"/></button></div>{navigation('mobile')}</dialog>
     <main id="learning" tabIndex={-1}>
       <div className="breadcrumbs"><span>Учебные материалы</span><Icon name="chevron" size={13}/><span>{catalogue.grades.find(item => item.slug === grade)!.title}</span></div>
-      <div className="intro-line"><p className="eyebrow">МАЛЕНЬКИЕ ШАГИ — БОЛЬШИЕ ОТКРЫТИЯ</p><span className="prototype-label">Пример нового дизайна</span></div>
+      <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade}/></div>
+      <div className="intro-line"><p className="eyebrow">МАЛЕНЬКИЕ ШАГИ — БОЛЬШИЕ ОТКРЫТИЯ</p></div>
       <section className="hero" aria-labelledby="subject-title">
-        <div className="hero-copy"><div className="subject-kicker"><span aria-hidden="true">{symbol[subject]}</span>МАТЕМАТИКА СТАНОВИТСЯ ПОНЯТНЕЕ</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p><div className="hero-tags"><span><Icon name="book" size={16}/>{topics.length} {plural(topics.length)}</span><span><span className="small-check" aria-hidden="true">✓</span>Теория и примеры</span><span>Без спешки</span></div></div>
+        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>МАТЕМАТИКА СТАНОВИТСЯ ПОНЯТНЕЕ</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p><div className="hero-tags"><span><Icon name="book" size={16}/>{topics.length} {plural(topics.length)}</span><span><span className="small-check" aria-hidden="true">✓</span>Теория и примеры</span><span>Без спешки</span></div></div>
         <div className="math-art" aria-hidden="true"><div className="art-grid"/><svg viewBox="0 0 300 200"><path className="art-axis" d="M32 154h244M82 184V22"/><path className="art-line" d="M42 164 244 35"/><circle className="art-point" cx="144" cy="99" r="6"/><circle className="art-point" cx="211" cy="56" r="6"/><path className="art-triangle" d="M144 99h67V56Z"/></svg><span className="art-formula">y = kx + b</span><span className="art-x">x</span><span className="art-y">y</span><span className="art-coordinate">(x, y)</span></div>
       </section>
-      <div className="grade-bar"><span>Твой класс</span><div className="grade-options" role="group" aria-label="Выбор класса">{catalogue.grades.map(item => <button key={item.slug} aria-label={item.title} aria-pressed={grade === item.slug} onClick={() => chooseGrade(item.slug)}>{item.order}<span> класс</span></button>)}</div></div>
       <section className="materials" aria-labelledby="materials-title">
         <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'} <span className="count-badge">{query.trim() ? results.length : sections.length}</span></h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={16}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
         {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <div className="empty-state"><Icon name="search" size={28}/><h3>Пока ничего не нашлось</h3><p>Попробуй более короткий запрос, например «дроби» или «уравнения»</p><button className="text-button" onClick={() => { setQuery(''); search.current?.focus(); }}>Сбросить поиск</button></div>}</div>
@@ -140,8 +116,6 @@ function App() {
           return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><div className="card-top"><span className="card-number">{String(index + 1).padStart(2, '0')}</span><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-bottom"><span>Открыть раздел</span><span className="card-arrow"><Icon name="arrow" size={18}/></span></div></button>;
         })}</div>{visibleSections.length === 0 && <div className="empty-state"><h3>Таких разделов нет</h3><button className="text-button" onClick={() => setSectionQuery('')}>Показать все разделы</button></div>}</>}
       </section>
-      {!query.trim() && <section className="other-subjects" aria-labelledby="other-title"><h2 id="other-title">Посмотрим на математику с другой стороны?</h2><div>{subjects.filter(item => item.slug !== subject).map(item => <button key={item.slug} onClick={() => { chooseSubject(item.slug); document.getElementById('learning')?.scrollIntoView({ behavior: 'instant' }); }}><span className="other-symbol" aria-hidden="true">{symbol[item.slug]}</span><span>{item.title}<small>{catalogue.topics.filter(topic => topic.grade === grade && topic.subject === item.slug).length} тем</small></span><Icon name="arrow" size={18}/></button>)}{subjects.length === 1 && <p className="single-subject-note">Здесь математика — единый курс. Другие материалы можно посмотреть, переключив класс</p>}</div></section>}
-      <footer className="page-footer"><span>MathStart <span aria-hidden="true">·</span> Разобраться может каждый</span><span>Прототип · ссылки на уроки и вход ведут на локальный сайт :8121</span><a href="https://www.figma.com/community/file/1652599323840288360/math-learning-website-ui">Структура: Ayush Kumbhar’s team · CC BY 4.0</a></footer>
     </main>
     <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title"><div className="dialog-heading"><div><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {sectionTopics.length} {plural(sectionTopics.length)}</p><h2 id="topics-dialog-title">{activeSection?.title}</h2></div><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><p className="dialog-help">Выбери тему. Материал откроется на текущем локальном сайте MathStart</p><div className="dialog-topic-list">{sectionTopics.map((topic, index) => <a key={topic.slug} href={topicLink(topic)}><span className="topic-index">{String(index + 1).padStart(2, '0')}</span><span>{topic.title}</span><Icon name="arrow" size={17}/></a>)}</div></dialog>
   </>;
