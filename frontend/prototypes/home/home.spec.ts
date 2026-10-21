@@ -9,7 +9,7 @@ test('all grades and subjects remain usable, including long Russian headings', a
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Алгебра.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Алгебра');
   for (const grade of [5, 6, 7, 8, 9, 10]) {
     await page.getByRole('group', { name: 'Выбор класса' }).getByRole('button', { name: `${grade} класс`, exact: true }).click();
     await expect(page.locator('.section-card').first()).toBeVisible();
@@ -20,19 +20,73 @@ test('all grades and subjects remain usable, including long Russian headings', a
       for (const button of await menu.locator('.subject-button').all()) {
         const name = (await button.innerText()).replace(/^[±ƒ△▥]\s*/, '').trim();
         await button.click();
-        await expect(page.locator('h1')).toHaveText(`${name}.`);
+        await expect(page.locator('h1')).toHaveText(name);
       }
       await page.keyboard.press('Escape');
     } else {
       for (const button of await subjects.all()) {
         const name = (await button.innerText()).replace(/^[±ƒ△▥]\s*/, '').trim();
         await button.click();
-        await expect(page.locator('h1')).toHaveText(`${name}.`);
+        await expect(page.locator('h1')).toHaveText(name);
       }
     }
     await noOverflow(page);
   }
   expect(errors).toEqual([]);
+});
+async function navigation(page: Page) {
+  if (await page.getByRole('button', { name: 'Открыть меню' }).isVisible()) {
+    await page.getByRole('button', { name: 'Открыть меню' }).click();
+    return page.getByRole('dialog', { name: 'Навигация' });
+  }
+  return page.locator('.sidebar');
+}
+test('subject list collapses without changing the selected subject', async ({ page }) => {
+  await page.goto('/');
+  const nav = await navigation(page);
+  const algebra = nav.getByRole('button', { name: 'Алгебра', exact: true });
+  await expect(algebra).toHaveAttribute('aria-expanded', 'true');
+  await algebra.click();
+  await expect(algebra).toHaveAttribute('aria-expanded', 'false');
+  await expect(nav.getByRole('button', { name: 'Математические модели', exact: true })).not.toBeVisible();
+  await expect(page.locator('h1')).toHaveText('Алгебра');
+  await algebra.click();
+  await expect(nav.getByRole('button', { name: 'Математические модели', exact: true })).toBeVisible();
+  await nav.getByRole('button', { name: 'Геометрия', exact: true }).click();
+  await expect(algebra).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('h1')).toHaveText('Геометрия');
+  await noOverflow(page);
+});
+test('grade picker supports dismissal, focus return and real grade changes', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const nav = await navigation(page);
+  const trigger = nav.getByRole('button', { name: /^Выбрать класс:/ });
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  await expect(nav.locator('.grade-picker-panel button')).toHaveCount(6);
+  await expect(nav.locator('.grade-picker-panel').getByRole('button', { name: '7 класс', exact: true })).toBeFocused();
+  await page.screenshot({ path: resolve(here, `../../.cache/home-${testInfo.project.name}-grade-picker.png`) });
+  await page.keyboard.press('Escape');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(trigger).toBeFocused();
+  await expect(nav).toBeVisible();
+  await trigger.click();
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await trigger.click();
+  await nav.getByText('ТВОЁ ОБУЧЕНИЕ', { exact: true }).click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await trigger.click();
+  await nav.locator('.grade-picker-panel').getByRole('button', { name: '5 класс', exact: true }).click();
+  await expect(trigger).toHaveAccessibleName('Выбрать класс: 5 класс');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(trigger).toBeFocused();
+  await expect(page.locator('h1')).toHaveText('Математика');
+  await trigger.click();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Shift+Tab');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await noOverflow(page);
 });
 test('section dialog has real topic links, keyboard dismissal and restored focus', async ({ page }) => {
   await page.goto('/');
