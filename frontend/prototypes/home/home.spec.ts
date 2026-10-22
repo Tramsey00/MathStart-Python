@@ -76,20 +76,42 @@ test('inline grades stay visible and support mouse and keyboard selection', asyn
   await expect(page.locator('.prototype-label, .sidebar-tip, .other-subjects, .page-footer')).toHaveCount(0);
   await noOverflow(page);
 });
-test('section dialog has real topic links, keyboard dismissal and restored focus', async ({ page }) => {
+test('section dialog has real topic links, keyboard dismissal and restored focus', async ({ page }, testInfo) => {
   await page.goto('/');
   const card = page.locator('.section-card').first();
   await card.click();
   const dialog = page.getByRole('dialog', { name: 'Математические модели' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole('link')).toHaveCount(5);
+  await expect(dialog.getByRole('listitem')).toHaveCount(5);
+  await expect(dialog.getByRole('heading', { name: 'Темы раздела' })).toBeVisible();
   await expect(dialog.getByRole('link').first()).toHaveAttribute('href', /^http:\/\/127\.0\.0\.1:8121\/[a-z0-9-]+\/$/);
+  expect(await dialog.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
+  await page.screenshot({ path: resolve(here, `../../.cache/home-${testInfo.project.name}-dialog.png`) });
+  await dialog.getByRole('button', { name: 'Закрыть раздел' }).click();
+  await expect(card).toBeFocused();
+  await card.click();
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
   await expect(card).toBeFocused();
+  const nav = await navigation(page);
+  await nav.getByRole('group', { name: 'Выбор класса' }).getByRole('button', { name: '8 класс', exact: true }).click();
+  if (await page.getByRole('button', { name: 'Открыть меню' }).isVisible()) await page.keyboard.press('Escape');
+  await page.locator('.section-card').first().click();
+  const longDialog = page.getByRole('dialog', { name: 'Алгебраические дроби. Арифметические операции над алгебраическими дробями', exact: true });
+  await expect(longDialog).toBeVisible();
+  await expect(longDialog.getByRole('listitem')).toHaveCount(7);
+  expect(await longDialog.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
+  await longDialog.getByRole('link').last().focus();
+  await expect(longDialog.getByRole('link').last()).toBeInViewport();
+  await page.screenshot({ path: resolve(here, `../../.cache/home-${testInfo.project.name}-dialog-long.png`) });
+  await page.keyboard.press('Escape');
+  await page.locator('.section-card').first().click();
+  await expect(longDialog.getByRole('link').first()).toBeInViewport();
+  await page.keyboard.press('Escape');
   await noOverflow(page);
 });
-test('global search, empty results, clear and section filter work', async ({ page }) => {
+test('global search, empty results, clear and section filter work', async ({ page }, testInfo) => {
   await page.goto('/');
   const search = page.getByRole('textbox', { name: 'Поиск по всем темам' });
   await search.fill('дроби');
@@ -109,6 +131,15 @@ test('global search, empty results, clear and section filter work', async ({ pag
   expect(await page.locator('.section-filter').evaluate(element => getComputedStyle(element).borderColor)).not.toBe(idleBorder);
   await filter.fill('многочлен');
   await expect(page.locator('.section-card')).toHaveCount(2);
+  await expect(page.locator('.section-card .card-number').first()).toHaveText('06');
+  await filter.fill('несуществующий-раздел-zzzz');
+  await expect(page.getByRole('heading', { name: 'Таких разделов нет' })).toBeVisible();
+  await expect(page.locator('.section-card')).toHaveCount(0);
+  await page.screenshot({ path: resolve(here, `../../.cache/home-${testInfo.project.name}-empty.png`), fullPage: true });
+  await page.getByRole('button', { name: 'Показать все разделы' }).click();
+  await expect(filter).toBeFocused();
+  await expect(filter).toHaveValue('');
+  await expect(page.locator('.section-card')).toHaveCount(7);
   await noOverflow(page);
 });
 test('both themes load local fonts and produce review screenshots', async ({ page }, testInfo) => {

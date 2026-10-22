@@ -353,15 +353,15 @@ main{
   display:flex;
   justify-content:flex-start;
   align-items:center;
-  gap:clamp(28px,4vw,64px);
+  gap:clamp(22px,3vw,44px);
   min-height:0;
-  padding:16px 0 28px;
+  padding:22px 0 12px;
   background:transparent;
   border:0;
   border-radius:0;
   overflow:hidden;
   box-shadow:none;
-  margin-bottom:32px
+  margin-bottom:26px
 }
 .hero-copy{
   position:relative;
@@ -371,28 +371,37 @@ main{
 }
 .math-illustration{
   display:block;
-  flex:1.15 1 0;
+  flex:1.1 1 0;
   min-width:0;
   width:52%;
-  max-height:310px;
+  max-height:350px;
   align-self:center;
   overflow:visible
 }
 .illustration-grid{
   stroke:var(--border);
-  opacity:.45
+  opacity:.65
 }
 .illustration-axes{
   stroke:var(--muted-foreground);
   opacity:.65
 }
-.illustration-circle-fill{
-  fill:var(--primary);
-  fill-opacity:.035
+.illustration-rule{
+  stroke:var(--border);
+  stroke-width:1
 }
-.illustration-triangle-fill{
+.fraction-first{
   fill:var(--primary);
-  fill-opacity:.07
+  fill-opacity:.85
+}
+.fraction-second{
+  fill:var(--primary);
+  fill-opacity:.3
+}
+.fraction-rest{
+  stroke:var(--muted-foreground);
+  stroke-opacity:.4;
+  stroke-width:1
 }
 .illustration-line,.illustration-curve{
   stroke:var(--primary)
@@ -404,16 +413,23 @@ main{
 .illustration-points{
   fill:var(--primary)
 }
-.illustration-labels,.illustration-equation{
+.illustration-formula,.illustration-small{
   fill:var(--primary);
   font-family:var(--font-serif);
   font-style:italic
 }
-.illustration-labels{
+.illustration-formula{
+  font-size:29px
+}
+.illustration-small{
   font-size:19px
 }
-.illustration-equation{
-  font-size:27px
+.illustration-caption{
+  fill:var(--muted-foreground);
+  font-size:12px;
+  font-weight:550;
+  letter-spacing:1.3px;
+  font-family:var(--font-sans)
 }
 .subject-kicker{
   display:flex;
@@ -437,7 +453,7 @@ main{
   height:26px
 }
 h1{
-  font-size:clamp(32px,3.4vw,49px);
+  font-size:clamp(32px,3.7vw,54px);
   letter-spacing:-2px;
   line-height:1.1;
   font-weight:650;
@@ -445,11 +461,18 @@ h1{
   overflow-wrap:anywhere
 }
 .hero-copy>p{
-  font-size:14px;
+  font-size:15px;
   line-height:1.85;
   color:color-mix(in oklch,var(--foreground) 76%,var(--background));
-  max-width:430px;
+  max-width:470px;
   margin:0
+}
+.hero-copy>.hero-note{
+  color:var(--muted-foreground);
+  font-size:12px;
+  line-height:1.7;
+  max-width:350px;
+  margin-top:19px
 }
 .materials{
   background:var(--card);
@@ -506,35 +529,39 @@ h2{
 .section-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:0 40px
+  gap:0;
+  border-top:1px solid var(--border)
+}
+.section-grid:empty{
+  display:none
 }
 .section-card{
   position:relative;
   display:flex;
   flex-direction:column;
   text-align:left;
-  min-height:210px;
-  padding:23px 0;
+  min-height:184px;
+  padding:20px 22px;
   background:transparent;
   border:0;
   border-bottom:1px solid var(--border);
   border-radius:0;
   box-shadow:none
 }
-.section-card:nth-child(even)::before{
-  content:'';
-  position:absolute;
-  left:-20px;
-  top:24px;
-  bottom:24px;
-  width:1px;
-  background:color-mix(in oklch,var(--border) 70%,transparent)
+.section-card:nth-child(odd):not(:last-child){
+  border-right:1px solid var(--border);
+}
+.section-card:nth-child(odd){
+  padding-left:0
+}
+.section-card:nth-child(even){
+  padding-right:0
 }
 .card-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:17px
+  margin-bottom:12px
 }
 .card-number{
   font-size:12px;
@@ -563,7 +590,7 @@ h3{
   color:var(--muted-foreground);
   font-size:12px;
   line-height:1.75;
-  margin:10px 0 23px;
+  margin:8px 0 16px;
   display:-webkit-box;
   -webkit-box-orient:vertical;
   -webkit-line-clamp:2;
@@ -575,7 +602,7 @@ h3{
   justify-content:flex-end;
   gap:10px;
   margin-top:auto;
-  padding-top:13px;
+  padding-top:6px;
   border-top:0;
   color:var(--primary);
   font-size:11px
@@ -596,8 +623,19 @@ dialog::backdrop{
   background:color-mix(in oklch,var(--foreground) 50%,transparent)
 }
 .topics-dialog{
-  width:min(650px,calc(100% - 32px));
-  max-height:85dvh
+  width:min(800px,calc(100% - 32px));
+  max-height:86dvh;
+  padding:0;
+  overflow-y:auto;
+  scrollbar-width:thin
+}
+.topics-dialog-header{
+  background:var(--secondary);
+  border-bottom:1px solid var(--border);
+  padding:28px 32px 23px
+}
+.topics-dialog-body{
+  padding:22px 32px 12px
 }
 .dialog-heading{
   display:flex;
@@ -609,26 +647,46 @@ dialog::backdrop{
   margin-bottom:10px
 }
 .dialog-heading h2{
-  font-size:23px;
+  font-size:24px;
   line-height:1.4
 }
 .dialog-help{
   color:var(--muted-foreground);
   font-size:12px;
   line-height:1.8;
-  margin:17px 0
+  margin:12px 0 0
+}
+.topics-list-heading{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px
+}
+.topics-list-heading h3{
+  font-size:13px;
+  font-weight:550;
+  letter-spacing:0
+}
+.topics-list-heading>span{
+  color:var(--muted-foreground);
+  font-size:12px;
+  white-space:nowrap
 }
 .dialog-topic-list{
   display:flex;
-  flex-direction:column
+  flex-direction:column;
+  list-style:none;
+  margin:0;
+  padding:0
 }
 .dialog-topic-list a{
   display:flex;
   align-items:center;
-  gap:15px;
-  padding:16px 4px;
+  gap:20px;
+  padding:20px 0;
   border-top:1px solid var(--border);
-  font-size:13px;
+  font-size:15px;
   line-height:1.6
 }
 .dialog-topic-list a:hover{
@@ -638,9 +696,14 @@ dialog::backdrop{
   flex:1
 }
 .topic-index{
-  font-size:11px;
-  color:var(--muted-foreground);
+  font-size:12px;
+  color:var(--primary);
+  align-self:flex-start;
+  line-height:24px;
   font-variant-numeric:tabular-nums
+}
+.dialog-topic-list a>svg{
+  color:var(--primary)
 }
 .menu-dialog{
   margin:0;
@@ -656,25 +719,51 @@ dialog::backdrop{
   margin-bottom:25px
 }
 .empty-state{
-  padding:40px 20px;
-  text-align:center;
-  background:var(--secondary);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:24px 0 28px;
+  border-top:1px solid var(--border);
   color:var(--muted-foreground)
+}
+.empty-mark{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:48px;
+  height:48px;
+  border-radius:var(--radius);
+  background:var(--secondary);
+  flex-shrink:0
+}
+.empty-copy{
+  flex:1;
+  min-width:0
 }
 .empty-state h3{
   color:var(--foreground);
-  margin-top:13px
+  font-size:16px
 }
 .empty-state p{
-  font-size:13px;
-  line-height:1.7
+  font-size:12px;
+  line-height:1.7;
+  max-width:480px;
+  margin:7px 0 0
 }
-.text-button{
+.reset-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
   color:var(--primary);
-  text-decoration:underline;
-  padding:12px
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:11px 14px;
+  font-size:12px;
+  flex-shrink:0
+}
+.reset-button:hover{
+  background:var(--secondary)
 }
 .search-results{
   display:flex;
@@ -712,11 +801,7 @@ dialog::backdrop{
     min-height:270px
   }
   .hero-copy>p{
-    font-size:14px;
     max-width:470px
-  }
-  .section-card{
-    min-height:235px
   }
 }
 @media(max-width:1200px){
@@ -739,13 +824,22 @@ dialog::backdrop{
     gap:13px
   }
   .hero{
-    padding:16px 0 28px
+    padding:14px 0 20px
   }
   .hero-copy>p{
     max-width:340px
   }
+  .hero-copy>.hero-note{
+    margin-top:14px
+  }
   .section-grid{
     grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+  .empty-state{
+    flex-wrap:wrap
+  }
+  .empty-state .reset-button{
+    margin-left:66px
   }
 }
 @media(max-width:900px){
@@ -797,6 +891,9 @@ dialog::backdrop{
   }
   .hero-copy>p{
     max-width:390px
+  }
+  .hero-copy>.hero-note{
+    max-width:300px
   }
   .menu-dialog .section-navigation button{
     padding:9px 5px;
@@ -875,7 +972,7 @@ dialog::backdrop{
     letter-spacing:-1.5px
   }
   .hero-copy>p{
-    font-size:12px;
+    font-size:13px;
     line-height:1.85;
     max-width:100%
   }
@@ -888,8 +985,12 @@ dialog::backdrop{
   }
   .math-illustration{
     width:100%;
-    max-height:190px;
+    max-height:none;
     margin-top:23px
+  }
+  .illustration-caption{
+    font-size:14px;
+    letter-spacing:.8px
   }
   .materials-heading{
     align-items:flex-start;
@@ -915,10 +1016,10 @@ dialog::backdrop{
   }
   .section-card{
     min-height:0;
-    padding:23px 0
+    padding:20px 0
   }
-  .section-card:nth-child(even)::before{
-    content:none
+  .section-card:nth-child(odd):not(:last-child){
+    border-right:0
   }
   .card-top{
     margin-bottom:13px
@@ -941,15 +1042,38 @@ dialog::backdrop{
     min-height:39px
   }
   .topics-dialog{
-    padding:20px;
     max-height:85dvh
+  }
+  .topics-dialog-header{
+    padding:22px 20px 20px
+  }
+  .topics-dialog-body{
+    padding:20px 20px 8px
   }
   .dialog-heading h2{
     font-size:20px
   }
   .dialog-topic-list a{
-    font-size:13px;
-    padding:17px 0
+    font-size:14px;
+    gap:13px;
+    padding:18px 0
+  }
+  .empty-state{
+    align-items:flex-start;
+    gap:13px;
+    padding:22px 0
+  }
+  .empty-mark{
+    width:36px;
+    height:36px
+  }
+  .empty-mark svg{
+    width:22px
+  }
+  .empty-state .reset-button{
+    margin-left:49px;
+    max-width:calc(100% - 49px);
+    text-align:left
   }
   .result-row{
     padding:17px

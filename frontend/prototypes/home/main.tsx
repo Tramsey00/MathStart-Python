@@ -9,10 +9,10 @@ const site = 'http://127.0.0.1:8121';
 type Topic = typeof catalogue.topics[number];
 type Section = typeof catalogue.sections[number];
 const subjectNotes: Record<string, string> = {
-  matematika: 'От первых правил к уверенным решениям. Числа, дроби, уравнения и наглядная геометрия',
-  algebra: 'Находи закономерности, разбирайся в формулах и учись решать уравнения. Одна понятная тема за другой',
-  geometriya: 'Исследуй фигуры и их свойства. От наглядного рисунка — к понятному доказательству',
-  'veroyatnost-i-statistika': 'Учись работать с данными, оценивать вероятность и замечать закономерности',
+  matematika: 'Как сравнить дроби, найти неизвестное и записать условие задачи? Здесь разбираем числа и действия с ними, учимся считать и объяснять своё решение',
+  algebra: 'За формулами стоят знакомые действия с числами. Разбираем выражения, решаем уравнения и смотрим, как одна зависимость записывается словами, формулой и графиком',
+  geometriya: 'Что можно узнать по рисунку, а что нужно доказать? Разбираем свойства фигур, связываем условия задачи и шаг за шагом находим решение',
+  'veroyatnost-i-statistika': 'Как прочитать диаграмму и сравнить данные? Разбираем случайные события, считаем вероятности и проверяем, какие выводы действительно следуют из чисел',
 };
 const symbol: Record<string, string> = { matematika: '±', algebra: 'ƒ', geometriya: '△', 'veroyatnost-i-statistika': '▥' };
 function Icon({ name, size = 20 }: { name: 'search' | 'arrow' | 'chevron' | 'book' | 'sun' | 'moon' | 'menu' | 'close' | 'math'; size?: number }) {
@@ -41,25 +41,52 @@ function GradePicker({ grade, onChange }: { grade: string; onChange: (value: str
   </div>;
 }
 function MathIllustration() {
-  return <svg className="math-illustration" viewBox="0 0 600 310" fill="none" aria-hidden="true" focusable="false">
-    <g className="illustration-grid" strokeWidth="1">
-      {[80, 130, 180, 230, 280, 330, 380, 430, 480, 530].map(x => <path key={`x-${x}`} d={`M${x} 35V275`}/>)}
-      {[55, 105, 155, 205, 255].map(y => <path key={`y-${y}`} d={`M55 ${y}H555`}/>)}
+  return <svg className="math-illustration" viewBox="0 0 580 330" fill="none" aria-hidden="true" focusable="false">
+    <path className="illustration-rule" d="M285 26v137M26 192h528"/>
+    <g transform="translate(28 25)">
+      <text className="illustration-caption" x="0" y="0">ЧАСТИ ЦЕЛОГО</text>
+      <g className="illustration-formula" textAnchor="middle">
+        <text x="28" y="43">1</text><text x="28" y="78">2</text>
+        <text x="80" y="62">+</text><text x="132" y="43">1</text><text x="132" y="78">3</text>
+        <text x="184" y="62">=</text><text x="225" y="43">5</text><text x="225" y="78">6</text>
+      </g>
+      <path className="illustration-line" d="M12 52h32m72 0h32m61 0h32" strokeWidth="1.5"/>
+      <g transform="translate(0 105)">
+        {[0, 1, 2, 3, 4, 5].map(i => <rect key={i} className={i < 3 ? 'fraction-first' : i < 5 ? 'fraction-second' : 'fraction-rest'} x={i * 42} y="0" width="36" height="25" rx="2"/>)}
+        <path className="illustration-construction" d="M0 35v5h120v-5m6 0v5h78v-5"/>
+      </g>
     </g>
-    <g className="illustration-axes" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M55 205H565m-8-5 8 5-8 5M180 275V25m-5 8 5-8 5 8"/>
+    <g transform="translate(321 25)">
+      <text className="illustration-caption" x="0" y="0">НАЙТИ НЕИЗВЕСТНОЕ</text>
+      <g className="illustration-formula"><text x="0" y="54">2x + 4 = 12</text><text x="0" y="99">2x = 8</text><text x="0" y="144">x = 4</text></g>
+      <path className="illustration-construction" d="M172 47h24v45h-19m5-5-5 5 5 5" strokeWidth="1.3"/>
+      <text className="illustration-small" x="199" y="75">−4</text>
+      <path className="illustration-line" d="M0 153h77" strokeWidth="1.6"/>
     </g>
-    <circle className="illustration-circle-fill" cx="180" cy="155" r="90"/>
-    <circle className="illustration-line" cx="180" cy="155" r="90" strokeWidth="1.8"/>
-    <path className="illustration-triangle-fill" d="M180 205H405V82Z"/>
-    <path className="illustration-line" d="M180 205H405V82Z" strokeWidth="2.2" strokeLinejoin="round"/>
-    <path className="illustration-construction" d="M180 155H405M405 82H510M180 82H405" strokeWidth="1.2" strokeDasharray="5 6"/>
-    <path className="illustration-curve" d="M295 44Q430 350 555 44" strokeWidth="2.5" strokeLinecap="round"/>
-    <path className="illustration-line" d="M388 205v-17h17M215 205a35 35 0 0 0-4.5-17" strokeWidth="1.5"/>
-    <g className="illustration-points"><circle cx="180" cy="205" r="4"/><circle cx="405" cy="82" r="4"/><circle cx="405" cy="205" r="4"/></g>
-    <g className="illustration-labels"><text x="158" y="228">0</text><text x="570" y="224">x</text><text x="162" y="23">y</text><text x="222" y="197">α</text><text x="292" y="228">a</text><text x="416" y="150">b</text><text x="277" y="126">c</text></g>
-    <text className="illustration-equation" x="300" y="284">a² + b² = c²</text>
+    <g transform="translate(28 221)">
+      <text className="illustration-caption" x="0" y="0">УВИДЕТЬ ЗАКОНОМЕРНОСТЬ</text>
+      <g className="illustration-points">
+        <circle cx="9" cy="47" r="4"/>
+        {[0, 1].flatMap(row => [0, 1].map(col => <circle key={`two-${row}-${col}`} cx={69 + col * 14} cy={40 + row * 14} r="4"/>))}
+        {[0, 1, 2].flatMap(row => [0, 1, 2].map(col => <circle key={`three-${row}-${col}`} cx={143 + col * 14} cy={33 + row * 14} r="4"/>))}
+      </g>
+      <g className="illustration-small" textAnchor="middle"><text x="9" y="85">1</text><text x="76" y="85">4</text><text x="157" y="85">9</text><text x="220" y="51">…</text></g>
+    </g>
+    <g transform="translate(337 209)">
+      <g className="illustration-grid"><path d="M0 22h190M0 48h190M0 74h190M28 2v94M68 2v94M108 2v94M148 2v94"/></g>
+      <path className="illustration-axes" d="M0 96h198m-5-4 5 4-5 4M0 96V0m-4 5 4-5 4 5" strokeWidth="1.2"/>
+      <path className="illustration-curve" d="M0 96Q80 96 160 0" strokeWidth="2"/>
+      <g className="illustration-points"><circle cx="40" cy="90" r="3.5"/><circle cx="80" cy="72" r="3.5"/><circle cx="120" cy="42" r="3.5"/></g>
+      <text className="illustration-small" x="120" y="19">y = x²</text>
+    </g>
   </svg>;
+}
+function SearchEmpty({ scope, onReset }: { scope: 'topics' | 'sections'; onReset: () => void }) {
+  return <div className="empty-state" role="status">
+    <span className="empty-mark"><Icon name="search" size={26}/></span>
+    <div className="empty-copy"><h3>{scope === 'sections' ? 'Таких разделов нет' : 'Пока ничего не нашлось'}</h3><p>{scope === 'sections' ? 'Попробуй часть названия. Поиск здесь работает только по разделам выбранного предмета' : 'Попробуй другое слово или более короткий запрос — например, «дроби»'}</p></div>
+    <button className="reset-button" onClick={onReset}>{scope === 'sections' ? 'Показать все разделы' : 'Сбросить поиск'}<Icon name="arrow" size={16}/></button>
+  </div>;
 }
 function plural(count: number, words: readonly [string, string, string] = ['тема', 'темы', 'тем']) {
   return count % 10 === 1 && count % 100 !== 11 ? words[0] : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? words[1] : words[2];
@@ -75,6 +102,7 @@ function App() {
   const topicDialog = useRef<HTMLDialogElement>(null);
   const menuDialog = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLInputElement>(null);
+  const sectionSearch = useRef<HTMLInputElement>(null);
   const subjects = catalogue.subjects.filter(item => item.grade === grade).sort((a, b) => a.order - b.order);
   const selected = subjects.find(item => item.slug === subject)!;
   const sections = catalogue.sections.filter(item => item.grade === grade && item.subject === subject && catalogue.topics.some(topic => topic.grade === grade && topic.subject === subject && topic.section === item.slug)).sort((a, b) => a.order - b.order);
@@ -95,7 +123,11 @@ function App() {
     if (next !== subject) chooseSubject(next);
     else setExpandedSubject(value => value === next ? null : next);
   }
-  function openSection(section: Section) { setActiveSection(section); topicDialog.current?.showModal(); }
+  function openSection(section: Section) {
+    setActiveSection(section);
+    topicDialog.current?.showModal();
+    if (topicDialog.current) topicDialog.current.scrollTop = 0;
+  }
   function topicLink(topic: Topic) { return `${site}/${topic.slug}/`; }
   const navigation = (surface: 'desktop' | 'mobile') => <>
     <GradePicker grade={grade} onChange={chooseGrade}/>
@@ -121,19 +153,22 @@ function App() {
     <main id="learning" tabIndex={-1}>
       <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade}/></div>
       <section className="hero" aria-labelledby="subject-title">
-        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p></div>
+        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p><p className="hero-note">Темы можно читать по порядку или сразу перейти к нужной</p></div>
         <MathIllustration/>
       </section>
       <section className="materials" aria-labelledby="materials-title">
-        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
-        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <div className="empty-state"><Icon name="search" size={28}/><h3>Пока ничего не нашлось</h3><p>Попробуй более короткий запрос, например «дроби» или «уравнения»</p><button className="text-button" onClick={() => { setQuery(''); search.current?.focus(); }}>Сбросить поиск</button></div>}</div>
-        : <><div className="section-grid">{visibleSections.map((section, index) => {
+        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input ref={sectionSearch} id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
+        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
+        : <><div className="section-grid">{visibleSections.map(section => {
           const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><div className="card-top"><span className="card-number">{String(index + 1).padStart(2, '0')}</span><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-bottom"><span className="card-arrow"><Icon name="arrow" size={18}/></span></div></button>;
-        })}</div>{visibleSections.length === 0 && <div className="empty-state"><h3>Таких разделов нет</h3><button className="text-button" onClick={() => setSectionQuery('')}>Показать все разделы</button></div>}</>}
+          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><div className="card-top"><span className="card-number">{String(sections.indexOf(section) + 1).padStart(2, '0')}</span><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-bottom"><span className="card-arrow"><Icon name="arrow" size={18}/></span></div></button>;
+        })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
       </section>
     </main>
-    <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title"><div className="dialog-heading"><div><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {sectionTopics.length} {plural(sectionTopics.length)}</p><h2 id="topics-dialog-title">{activeSection?.title}</h2></div><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><p className="dialog-help">Выбери тему. Материал откроется на текущем локальном сайте MathStart</p><div className="dialog-topic-list">{sectionTopics.map((topic, index) => <a key={topic.slug} href={topicLink(topic)}><span className="topic-index">{String(index + 1).padStart(2, '0')}</span><span>{topic.title}</span><Icon name="arrow" size={17}/></a>)}</div></dialog>
+    <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title" aria-describedby="topics-dialog-help">
+      <div className="topics-dialog-header"><div className="dialog-heading"><div><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {catalogue.subjects.find(item => item.grade === activeSection?.grade && item.slug === activeSection?.subject)?.title}</p><h2 id="topics-dialog-title">{activeSection?.title}</h2></div><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><p id="topics-dialog-help" className="dialog-help">Открой тему, чтобы перейти к объяснению и примерам</p></div>
+      <div className="topics-dialog-body"><div className="topics-list-heading"><h3>Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span>{topic.title}</span><Icon name="arrow" size={18}/></a></li>)}</ol></div>
+    </dialog>
   </>;
 }
 createRoot(document.getElementById('root')!).render(<StrictMode><App/></StrictMode>);
