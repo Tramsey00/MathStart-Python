@@ -698,3 +698,68 @@ light/dark, включая промежуточный breakpoint, которог
 а не полная сертификация доступности. После косметики TypeScript/build PASS,
 и повторный целевой light/dark/reduced-motion прогон **4/4 PASS**, retries,
 skipped/flaky 0. Основная функциональная матрица 40/40 остаётся описанной выше.
+
+## 2026-10-22 — переработка главной по отклонённому черновику
+
+Основа: `c12d8ad`, ветка ui/ux. Пользователь отклонил лозунги, повтор каталога,
+демонстрацию квадрата и прежний header/footer; запросил фотографии, третий
+цвет только главной и видимую форму почты/пароля. В ответ на уточнение явно
+выбрано: **сейчас форма, подключение почты следующим шагом**.
+
+Главная переписана: конкретное описание школьных материалов, две локальные
+фотографии, компактная форма и один блок перехода на /materials.html.
+Нет повторного выбора классов/предметов, лозунгов, квадрата суммы, дробного
+демо и scroll-reveal. Header упрощён: бренд, материалы, режим темы, фокус на
+форме. Footer обеих страниц сокращён до бренда, двух реальных ссылок и copyright.
+Тело утверждённого каталога, theme.css/registry и шрифты не менялись.
+
+Дополнительный цвет по прямому разрешению пользователя: приглушённый зелёный
+#176f56 (dark #79c7ab), только локальные CSS vars на .landing-page.
+Он не заменяет Professional tokens и отсутствует на body каталога.
+Фотографии Chris Liverani / Clay Banks найдены на Unsplash, source pages
+обозначают Unsplash License; источники/кредиты — images/README.md и figcaption.
+Изображения сохранены локально, не требуют внешних запросов при просмотре.
+Маска на фотографиях открывается 850ms, на fine-pointer hover — transform zoom;
+никаких петель/scroll hijack, reduced-motion отключает движение.
+
+Форма — согласованный preview: labels, native required/email validation,
+inline email error on blur, show/hide password, focus из header. Submit
+preventDefault, очищает поля, показывает правдивый статус preview. Нет отправки,
+записи credentials в storage/логи, фиктивной сессии, OAuth и отправки писем.
+Проверен фактический backend login: поиск идёт по User.username, email login
+не добавлялся. Существующий вход по логину остаётся на :8121/account/.
+
+Изучены без установки UI UX Pro Max (прошлая закреплённая ревизия), Web Animation
+Design и [Frontend Design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md).
+SHA-256 прочитанного Frontend Design SKILL.md:
+`d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3`.
+Применены рекомендации по реальному предметному содержимому, прямым подписям,
+отказу от accent-word/all-caps eyebrows/повсеместного fade-up, постоянным labels
+и validation feedback. Предлагаемые skill альтернативные палитры/шрифты не
+применялись; никаких UI-зависимостей или skills в окружение не установлено.
+
+Проверки рабочего дерева:
+
+- TypeScript и Vite production build PASS, обе страницы и обе фотографии в build.
+- Общая Chrome матрица **40/40 PASS**, 360/768/1440/1920; прежние сценарии
+  каталога сохранены, homepage scenarios заменены в соответствии с новым brief.
+  Проверены видимость формы, header focus, переход, отсутствие старых блоков,
+  invalid email, password reveal, отсутствие POST/credential storage, изображения,
+  light/dark, reduced-motion и отсутствие overflow.
+- После планшетной правки — **12/12 PASS** (25.2s). Финальные image/theme/
+  reduced-motion снимки после контрастной правки — **4/4 PASS**.
+  Все прогоны retries/skipped/flaky 0, exit 0.
+- Вручную просмотрены light desktop/mobile/tablet и dark desktop/mobile;
+  исправлена пустая область под intro на планшете: фотографии стоят под текстом.
+- Дополнительный browser review пяти ширин 360/801/1024/1440/1920 light/dark:
+  заголовки/кнопки не обрезаны, overflow нет. Все 58 применённых базовых tokens
+  обеих страниц совпадают с утверждённой основой. Зелёный отсутствует в каталоге.
+- Измерения нашли 4.36:1 у muted текста на зелёной подложке. Локальная производная
+  muted+foreground исправляет до **5.11:1 light / 7.92:1 dark**; зелёная подпись
+  **5.59/9.19**, основной button **4.94/4.85**, body **20.01/19.12**.
+  Это выборочные контрастные пары, не сертификация всей доступности.
+- git diff --check PASS. Полный product target/PG/recovery gate не запускался;
+  backend, identity contracts, контент, зависимости и workflows не менялись.
+
+Новая версия ожидает визуальной оценки пользователя. Email integration остаётся
+следующим шагом. Production/main не изменялись. [skip ci] сохраняется по запросу.

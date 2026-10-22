@@ -27,8 +27,8 @@ node node_modules/vite/bin/vite.js --config prototypes/home/vite.config.mjs
 Открыть http://127.0.0.1:5173/. БД и контейнеры не запускаются.
 Главная — index.html / landing.tsx; утверждённый навигационный каталог —
 http://127.0.0.1:5173/materials.html (materials.html / main.tsx).
-Ссылки с главной передают проверенные grade/subject query parameters;
-неизвестные значения возвращают безопасный начальный выбор.
+Главная содержит один прямой переход в каталог. Ссылки каталога с grade/subject
+query parameters по-прежнему поддерживаются; неизвестные значения дают начальный выбор.
 Остановка: Ctrl+C. Нужен Node из диапазона frontend/package.json.
 
 ## Проверки
@@ -45,17 +45,28 @@ Chrome: 360/768/1440/1920. Сервер запускается автомати�
 Build, результаты и снимки — в игнорируемом frontend/.cache/.
 Это проверки прототипа, они не заменяют product target gate.
 
-Главная содержит интерактивный квадрат суммы (a+b)²: a=4, b=1…4,
-площади частей и числовая сумма вычисляются детерминированно.
-Раздвижение частей анимирует только transform; входные и scroll-переходы —
-transform/opacity. Нет бесконечных циклов, parallax или scroll hijacking.
-При prefers-reduced-motion и клавиатурном управлении примером переходы выключены.
-Контент виден без IntersectionObserver. Режим light/dark сохраняется локально
-при переходах между страницами; отсутствие storage не ломает страницу.
-Общий подвал и бренд — site-shell.tsx; небольшой вход главной ведёт на :8121/account/.
+По последнему запросу главная переработана: удалены лозунги, дублирующий
+выбор классов/предметов, квадрат суммы и разбор дробей. Остались конкретное
+описание материалов, локальные фотографии, небольшой email/password preview
+и один блок перехода в каталог. Общие header/footer упрощены.
+
+Пользователь явно выбрал: сейчас только форма, подключение почты следующим
+шагом. Поля проверяются, пароль можно показать/скрыть. Submit не отправляет
+запросов, очищает форму и честно сообщает о preview. Пароли и почта не
+сохраняются и не логируются. Реальный вход по логину доступен на :8121/account/.
+OAuth, отправка писем, регистрация и изменения identity не добавлены.
+
+Дополнительный приглушённый зелёный применён только в .landing-page;
+общие Professional tokens/шрифты и каталог не перекрашивались.
+Фотографии открываются одной короткой анимацией маски; на fine pointer есть
+медленное приближение при наведении. Нет scroll-reveal, петель, parallax
+и перехвата прокрутки. Reduced-motion отключает движение.
+Режим light/dark сохраняется между страницами, отсутствие storage допустимо.
+Авторы/лицензии фотографий указаны в images/README.md и подписи на странице.
 
 Изучены без установки [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
-и [Web Animation Design](https://github.com/vercel-labs/open-agents/blob/main/.agents/skills/web-animation-design/SKILL.md).
+и [Web Animation Design](https://github.com/vercel-labs/open-agents/blob/main/.agents/skills/web-animation-design/SKILL.md),
+а также [Frontend Design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md).
 Рекомендации по структуре/доступности/движению адаптированы к утверждённой теме;
 их альтернативные палитры, шрифты и зависимости не применялись.
 
@@ -82,6 +93,6 @@ site_content/catalog.json; исходный контент не изменяет
 
 Освоение, XP и персональный прогресс не имитируются. Прототип не является
 authoritative publication и не меняет backend/auth/SSG. Перенос в основной
-продукт, шапка и подвал требуют отдельной задачи.
+продукт и подключение авторизации требуют отдельной задачи.
 Тема описана в [theme-baseline](../../../docs/ux/theme-baseline.md),
 история — в [audit](../../../docs/audits/ui-ux-home-prototype.md).
