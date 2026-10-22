@@ -1,3 +1,8 @@
+@font-face{font-family:Outfit;font-style:normal;font-weight:100 900;font-display:swap;src:url('./fonts/outfit-variable.ttf') format('truetype')}
+:root{--content-accent:var(--primary);--detail-accent:var(--secondary);--fraction-accent:var(--secondary);--fraction-opacity:.75}
+:root[data-palette=professional]{--detail-accent:var(--primary);--fraction-accent:var(--primary);--fraction-opacity:.3}
+:root[data-palette=qrafthive]{--detail-accent:var(--sidebar-primary);--fraction-accent:var(--sidebar-primary);--fraction-opacity:.8}
+:root[data-palette=qrafthive][data-theme=dark]{--content-accent:var(--sidebar-primary)}
 @font-face{
   font-family:Inter;
   font-style:normal;
@@ -124,7 +129,7 @@ input::placeholder{
   font-size:25px
 }
 .brand-accent{
-  color:var(--primary)
+  color:var(--content-accent)
 }
 .brand,.math-illustration{
   -webkit-user-select:none;
@@ -249,11 +254,11 @@ input::placeholder{
   color:var(--muted-foreground)
 }
 .grade-inline button[aria-pressed=true]{
-  color:var(--primary);
-  border-bottom-color:var(--secondary)
+  color:var(--content-accent);
+  border-bottom-color:var(--detail-accent)
 }
 .grade-inline button:hover{
-  color:var(--primary);
+  color:var(--content-accent);
   background:var(--accent)
 }
 .mobile-grade-selector{
@@ -292,13 +297,13 @@ input::placeholder{
 }
 .subject-button.is-selected{
   background:transparent;
-  color:var(--primary);
+  color:var(--content-accent);
   border-radius:0;
-  box-shadow:inset 2px 0 0 var(--secondary);
+  box-shadow:inset 2px 0 0 var(--detail-accent);
   font-weight:650
 }
 .subject-button.is-selected .subject-symbol{
-  color:var(--primary)
+  color:var(--content-accent)
 }
 .subject-button[aria-expanded=true]>svg{
   transform:rotate(90deg)
@@ -326,7 +331,7 @@ input::placeholder{
   border-radius:var(--radius)
 }
 .section-navigation button:hover{
-  color:var(--primary);
+  color:var(--content-accent);
   background:var(--sidebar-accent)
 }
 main{
@@ -390,8 +395,8 @@ main{
   fill-opacity:.85
 }
 .fraction-second{
-  fill:var(--secondary);
-  fill-opacity:.75
+  fill:var(--fraction-accent);
+  fill-opacity:var(--fraction-opacity)
 }
 .fraction-rest{
   stroke:var(--muted-foreground);
@@ -399,17 +404,17 @@ main{
   stroke-width:1
 }
 .illustration-line,.illustration-curve{
-  stroke:var(--primary)
+  stroke:var(--content-accent)
 }
 .illustration-construction{
-  stroke:var(--primary);
+  stroke:var(--content-accent);
   opacity:.4
 }
 .illustration-points{
-  fill:var(--secondary)
+  fill:var(--detail-accent)
 }
 .illustration-formula,.illustration-small{
-  fill:var(--primary);
+  fill:var(--content-accent);
   font-family:var(--font-serif);
   font-style:italic
 }
@@ -441,7 +446,7 @@ main{
   display:flex;
   align-items:center;
   gap:9px;
-  color:var(--primary);
+  color:var(--content-accent);
   font-size:15px;
   font-weight:650;
   letter-spacing:.2px
@@ -452,7 +457,7 @@ main{
   height:30px;
   font-weight:600;
   letter-spacing:0;
-  color:var(--primary)
+  color:var(--content-accent)
 }
 .subject-kicker .subject-symbol svg{
   width:26px;
@@ -697,7 +702,7 @@ dialog::backdrop{
   line-height:1.6
 }
 .dialog-topic-list a:hover{
-  color:var(--primary)
+  color:var(--content-accent)
 }
 .dialog-topic-list a>span:nth-child(2){
   flex:1
@@ -760,7 +765,7 @@ dialog::backdrop{
   align-items:center;
   justify-content:center;
   gap:12px;
-  color:var(--primary);
+  color:var(--content-accent);
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:11px 14px;
@@ -786,7 +791,7 @@ dialog::backdrop{
   border-radius:0
 }
 .result-row:hover{
-  border-color:var(--primary)
+  border-color:var(--content-accent)
 }
 .result-grade{
   display:block;

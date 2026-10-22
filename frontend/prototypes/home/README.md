@@ -6,7 +6,7 @@
 - Структура: [Math Learning Website UI](https://www.figma.com/community/file/1652599323840288360/math-learning-website-ui),
   Ayush Kumbhar’s team, CC BY 4.0. Адаптация: русский язык, классы/предметы/разделы
   MathStart, поиск и мобильная навигация; исходные иллюстрации/код не копировались.
-- Активная пробная тема: [ExploreMiam](https://tweakcn.com/themes/cmnfqba56000104la8fufb2f1).
+- Второй вариант: [ExploreMiam](https://tweakcn.com/themes/cmnfqba56000104la8fufb2f1).
   Полный исходный экспорт сохранён в `theme.registry.json`;
   `theme.css` — его light/dark/theme cssVars без ручной подмены цветов.
 - Предыдущая [Professional Theme](https://tweakcn.com/themes/cmluajfgz000004l5afke7znm),
@@ -14,6 +14,12 @@
   `themes/professional.css`. Новая проба не утверждает окончательный выбор.
 - React/Vite берутся из существующего lock. shadcn, Tailwind и Next.js не установлены:
   для пробы используются CSS-переменные темы и обычные React-компоненты.
+- Третий вариант по умолчанию: [QraftHive 1.0](https://tweakcn.com/themes/cmjgjiw79000304ji6e76e30k).
+  Точный экспорт: `themes/qrafthive.registry.json` / `themes/qrafthive.css`.
+  Красный — основные действия и светлые формулы; синий `sidebar-primary` — небольшие
+  маркеры и читаемые текстовые акценты тёмной версии. Исходные tokens не подменены.
+  Outfit variable получен из Google Fonts (`ofl/outfit/Outfit[wght].ttf`), локально с OFL.
+  В Outfit нет кириллицы: русский использует системный sans-serif согласно fallback экспорта.
 - Inter (Latin/Cyrillic) и Merriweather Italic для формул хранятся локально с OFL.
   Моноширинный Fira Code объявлен
   экспортом, но в этом макете не используется и не загружается.
@@ -26,7 +32,10 @@
 node node_modules/vite/bin/vite.js --config prototypes/home/vite.config.mjs
 ```
 
-Открыть http://127.0.0.1:5173/. Порт отдельный, БД/контейнеры не запускаются.
+Открыть http://127.0.0.1:5173/compare.html для сравнения трёх версий.
+Главная без параметров показывает QraftHive. Прямые ссылки: `/?theme=professional`,
+`/?theme=exploremiam`, `/?theme=qrafthive`; `&mode=dark` открывает тёмную версию.
+Выбор хранится в URL и независим между вкладками. Структура и контент общие. Порт отдельный, БД/контейнеры не запускаются.
 Нужен Node из диапазона `frontend/package.json`. Остановка: Ctrl+C.
 
 Проверки из `frontend/`:

@@ -1,7 +1,41 @@
 import { test, expect, type Page } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 const here = dirname(fileURLToPath(import.meta.url));
+test('three independent palette links preserve the catalogue and exact theme tokens', async ({ page }, testInfo) => {
+  await page.goto('/compare.html');
+  await expect(page.getByRole('link')).toHaveCount(6);
+  let sectionTitles: string[] | undefined;
+  for (const palette of ['professional', 'exploremiam', 'qrafthive']) {
+    const registryPath = palette === 'exploremiam' ? 'theme.registry.json' : `themes/${palette}.registry.json`;
+    const registry = JSON.parse(readFileSync(resolve(here, registryPath), 'utf8'));
+    for (const mode of ['light', 'dark']) {
+      await page.goto(`/?theme=${palette}&mode=${mode}`);
+      await expect(page.locator('html')).toHaveAttribute('data-palette', palette);
+      await expect(page.locator('html')).toHaveAttribute('data-theme', mode);
+      const values = await page.evaluate(() => {
+        const css = getComputedStyle(document.documentElement);
+        return Object.fromEntries(['primary', 'secondary', 'font-sans'].map(key => [key, css.getPropertyValue(`--${key}`).trim()]));
+      });
+      for (const key of ['primary', 'secondary', 'font-sans']) expect(values[key]).toBe(registry.cssVars[mode][key] ?? registry.cssVars.theme[key]);
+      const titles = await page.locator('.section-card h3').allTextContents();
+      expect(titles.length).toBe(7);
+      sectionTitles ??= titles;
+      expect(titles).toEqual(sectionTitles);
+      await page.evaluate(() => document.fonts.ready);
+      await noOverflow(page);
+      await page.screenshot({ path: resolve(here, `../../.cache/home-${palette}-${testInfo.project.name}-${mode}.png`), fullPage: true });
+      await page.locator('.section-card').first().click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      await expect(page.getByRole('dialog').getByRole('link')).toHaveCount(5);
+      await page.keyboard.press('Escape');
+      await expect(page.getByRole('dialog')).not.toBeVisible();
+    }
+  }
+  await page.goto('/?theme=unknown');
+  await expect(page.locator('html')).toHaveAttribute('data-palette', 'qrafthive');
+});
 async function noOverflow(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 }
@@ -173,7 +207,7 @@ test('both themes load local fonts and produce review screenshots', async ({ pag
   page.on('requestfailed', request => failures.push(request.url()));
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
-  expect(await page.evaluate(() => document.fonts.check('500 14px Inter', 'Математика Algebra'))).toBe(true);
+  expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Outfit' && face.status === 'loaded'))).toBe(true);
   expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Merriweather' && face.status === 'loaded'))).toBe(true);
   await noOverflow(page);
   await page.screenshot({ path: resolve(here, `../../.cache/home-${testInfo.project.name}-light.png`), fullPage: true });
