@@ -119,6 +119,11 @@ input::placeholder{
 .brand-accent{
   color:var(--primary)
 }
+.brand,.math-illustration{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-user-drag:none
+}
 .global-search{
   display:flex;
   align-items:center;
@@ -358,7 +363,8 @@ main{
   width:48%;
   max-height:none;
   align-self:center;
-  overflow:visible
+  overflow:visible;
+  pointer-events:none
 }
 .illustration-grid{
   stroke:var(--border);
@@ -570,7 +576,8 @@ h2{
   padding:0;
   border-radius:0;
   color:var(--muted-foreground);
-  line-height:18px
+  line-height:18px;
+  margin-top:auto
 }
 h3{
   font-size:16px;
@@ -593,22 +600,6 @@ h3{
   white-space:nowrap;
   text-overflow:ellipsis;
   overflow:hidden
-}
-.card-meta{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:16px;
-  margin-top:auto
-}
-.reading-action{
-  flex-shrink:0;
-  color:var(--primary);
-  font-size:12px;
-  font-weight:500;
-  text-decoration:underline;
-  text-decoration-thickness:1px;
-  text-underline-offset:3px
 }
 dialog{
   background:var(--background);

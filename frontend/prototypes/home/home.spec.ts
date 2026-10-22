@@ -85,7 +85,7 @@ test('section dialog has real topic links, keyboard dismissal and restored focus
   await expect(dialog.getByRole('link')).toHaveCount(5);
   await expect(dialog.getByRole('listitem')).toHaveCount(5);
   await expect(dialog.locator('.topic-index').first()).toHaveText('1');
-  await expect(dialog.getByRole('link').first()).toContainText('Читать');
+  await expect(dialog.getByText('Читать', { exact: true })).toHaveCount(0);
   await expect(dialog.getByRole('heading', { name: 'Темы раздела' })).toBeVisible();
   await expect(dialog.getByRole('link').first()).toHaveAttribute('href', /^http:\/\/127\.0\.0\.1:8121\/[a-z0-9-]+\/$/);
   expect(await dialog.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
@@ -196,10 +196,28 @@ test('shared illustration replaces removed labels and section hover leaves appea
   await expect(page.getByText('ТВОЁ ОБУЧЕНИЕ', { exact: true })).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'О проекте', exact: true })).toHaveCount(0);
   await expect(page.locator('.brand')).toHaveText('MathStart');
+  await expect(page.getByText('Темы', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Читать', { exact: true })).toHaveCount(0);
   await expect(page.locator('.brand-mark, .hero-note, .card-arrow')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 2, name: 'С чего начнём?', exact: true })).toBeVisible();
   await expect(page.locator('.hero')).not.toContainText('разделов');
   await expect(page.getByText('Открыть раздел', { exact: true })).toHaveCount(0);
+  for (const target of [page.locator('.brand'), picture.locator('text').first()]) {
+    await target.scrollIntoViewIfNeeded();
+    const box = (await target.boundingBox())!;
+    await page.mouse.move(box.x + 1, box.y + box.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(box.x + box.width - 1, box.y + box.height / 2, { steps: 8 });
+    expect(await page.evaluate(() => window.getSelection()?.toString())).toBe('');
+    // Release outside the link so this gesture checks selection, not home navigation.
+    await page.mouse.move(box.x + box.width + 12, box.y + box.height / 2);
+    await page.mouse.up();
+    expect(await page.evaluate(() => window.getSelection()?.toString())).toBe('');
+  }
+  const description = page.locator('.hero-copy>p');
+  await description.dblclick({ position: { x: 30, y: 10 } });
+  expect(await page.evaluate(() => window.getSelection()?.toString().length)).toBeGreaterThan(0);
+  await page.evaluate(() => window.getSelection()?.removeAllRanges());
   const section = page.locator('.section-card').first();
   for (const dark of [false, true]) {
     if (dark) await page.getByRole('button', { name: 'Включить тёмную тему' }).click();

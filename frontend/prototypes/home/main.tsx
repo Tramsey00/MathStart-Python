@@ -32,7 +32,7 @@ function SubjectMark({ subject }: { subject: string }) {
   return <span className="subject-symbol" aria-hidden="true">{subject === 'matematika' ? <Icon name="math"/> : symbol[subject] ?? '∑'}</span>;
 }
 function Brand() {
-  return <a className="brand" href="/" aria-label="MathStart — главная"><span>Math<span className="brand-accent">Start</span></span></a>;
+  return <a className="brand" href="/" draggable={false} aria-label="MathStart — главная"><span>Math<span className="brand-accent">Start</span></span></a>;
 }
 function GradePicker({ grade, onChange }: { grade: string; onChange: (value: string) => void }) {
   return <div className="grade-picker"><span className="nav-label">КЛАСС</span>
@@ -164,10 +164,10 @@ function App() {
       </section>
       <section className="materials" aria-labelledby="materials-title">
         <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input ref={sectionSearch} id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)} onKeyDown={e => { if (e.key === 'Escape') setSectionQuery(''); }}/>{sectionQuery && <button className="icon-button search-clear" aria-label="Очистить фильтр разделов" onClick={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>}</div>
-        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div><span className="reading-action">Читать</span></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
+        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
         : <><div className="section-grid">{visibleSections.map(section => {
           const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}</span><div className="card-copy"><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-meta"><span className="card-topic-count">{children.length} {plural(children.length)}</span><span className="reading-action">Темы</span></div></div></button>;
+          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}</span><div className="card-copy"><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><span className="card-topic-count">{children.length} {plural(children.length)}</span></div></button>;
         })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
       </section>
     </main>
@@ -180,7 +180,7 @@ function App() {
         if (startedOutside && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY)) event.currentTarget.close();
       }}>
       <div className="topics-dialog-header"><div className="topics-context"><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {catalogue.subjects.find(item => item.grade === activeSection?.grade && item.slug === activeSection?.subject)?.title}</p><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><h2 id="topics-dialog-title">{activeSection?.title}</h2></div>
-      <div className="topics-dialog-body"><div className="topics-list-heading"><h3 id="topics-dialog-help">Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{index + 1}</span><span>{topic.title}</span><span className="reading-action">Читать</span></a></li>)}</ol></div>
+      <div className="topics-dialog-body"><div className="topics-list-heading"><h3 id="topics-dialog-help">Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{index + 1}</span><span>{topic.title}</span></a></li>)}</ol></div>
     </dialog>
   </>;
 }
