@@ -61,7 +61,6 @@ function MathIllustration() {
       <g className="illustration-formula"><text x="0" y="54">2x + 4 = 12</text><text x="0" y="99">2x = 8</text><text x="0" y="144">x = 4</text></g>
       <path className="illustration-construction" d="M172 47h24v45h-19m5-5-5 5 5 5" strokeWidth="1.3"/>
       <text className="illustration-small" x="199" y="75">−4</text>
-      <path className="illustration-line" d="M0 153h77" strokeWidth="1.6"/>
     </g>
     <g transform="translate(28 221)">
       <text className="illustration-caption" x="0" y="0">УВИДЕТЬ ЗАКОНОМЕРНОСТЬ</text>
@@ -72,12 +71,15 @@ function MathIllustration() {
       </g>
       <g className="illustration-small" textAnchor="middle"><text x="9" y="85">1</text><text x="76" y="85">4</text><text x="157" y="85">9</text><text x="220" y="51">…</text></g>
     </g>
-    <g transform="translate(337 209)">
-      <g className="illustration-grid"><path d="M0 22h190M0 48h190M0 74h190M28 2v94M68 2v94M108 2v94M148 2v94"/></g>
-      <path className="illustration-axes" d="M0 96h198m-5-4 5 4-5 4M0 96V0m-4 5 4-5 4 5" strokeWidth="1.2"/>
-      <path className="illustration-curve" d="M0 96Q80 96 160 0" strokeWidth="2"/>
-      <g className="illustration-points"><circle cx="40" cy="90" r="3.5"/><circle cx="80" cy="72" r="3.5"/><circle cx="120" cy="42" r="3.5"/></g>
-      <text className="illustration-small" x="20" y="19">y = x²</text>
+    <g transform="translate(321 209)">
+      <g className="illustration-grid"><path d="M20 28h184M20 60h184M20 76h184M36 18v74M73 18v74M147 18v74M184 18v74"/></g>
+      <path className="illustration-axes" d="M20 92h194m-5-4 5 4-5 4M110 104V7m-4 5 4-5 4 5" strokeWidth="1.2"/>
+      <path className="illustration-construction" d="M36 28V92M184 28V92" strokeDasharray="3 4"/>
+      <path className="illustration-curve" d="M36 28Q110 156 184 28" strokeWidth="2"/>
+      <g className="illustration-points"><circle cx="36" cy="28" r="3"/><circle cx="73" cy="76" r="3"/><circle cx="110" cy="92" r="3"/><circle cx="147" cy="76" r="3"/><circle cx="184" cy="28" r="3"/></g>
+      <g className="illustration-ticks" textAnchor="middle"><text x="36" y="108">−2</text><text x="73" y="108">−1</text><text x="147" y="108">1</text><text x="184" y="108">2</text></g>
+      <g className="illustration-ticks" textAnchor="end"><text x="103" y="104">0</text><text x="103" y="80">1</text><text x="103" y="32">4</text></g>
+      <text className="illustration-small" x="133" y="14">y = x²</text><text className="illustration-axis-label" x="219" y="97">x</text><text className="illustration-axis-label" x="98" y="12">y</text>
     </g>
   </svg>;
 }
@@ -144,7 +146,6 @@ function App() {
       </button>
       <div id={`${surface}-sections-${item.slug}`} className="section-navigation" hidden={subject !== item.slug || expandedSubject !== item.slug}>{subject === item.slug && sections.map(section => <button key={section.slug} onClick={() => { menuDialog.current?.close(); openSection(section); }}>{section.title}</button>)}</div>
     </div>)}</nav>
-    <a className="sidebar-about" href={`${site}/o-proekte/`}>О проекте <Icon name="arrow" size={15}/></a>
   </>;
 
   return <>
@@ -163,11 +164,11 @@ function App() {
         <MathIllustration/>
       </section>
       <section className="materials" aria-labelledby="materials-title">
-        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input ref={sectionSearch} id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
-        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
+        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input ref={sectionSearch} id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)} onKeyDown={e => { if (e.key === 'Escape') setSectionQuery(''); }}/>{sectionQuery && <button className="icon-button search-clear" aria-label="Очистить фильтр разделов" onClick={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>}</div>
+        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
         : <><div className="section-grid">{visibleSections.map(section => {
           const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><div className="card-top"><span className="card-number">{String(sections.indexOf(section) + 1).padStart(2, '0')}</span><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><div className="card-bottom"><span className="card-arrow"><Icon name="arrow" size={18}/></span></div></button>;
+          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{String(sections.indexOf(section) + 1).padStart(2, '0')}</span><div className="card-copy"><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><span className="card-topic-count">{children.length} {plural(children.length)}</span></div><span className="card-arrow"><Icon name="arrow" size={18}/></span></button>;
         })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
       </section>
     </main>

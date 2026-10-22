@@ -136,7 +136,7 @@ input::placeholder{
   flex:1;
   min-width:100px;
   background:var(--secondary);
-  border:0;
+  border:1px solid var(--border);
   border-radius:var(--radius);
   padding:0 12px;
   height:42px;
@@ -151,8 +151,7 @@ input::placeholder{
   font-size:13px
 }
 .global-search:focus-within{
-  outline:2px solid var(--ring);
-  outline-offset:2px
+  border-color:var(--muted-foreground)
 }
 .global-search input:focus-visible{
   outline:none
@@ -327,14 +326,6 @@ input::placeholder{
   color:var(--primary);
   background:var(--sidebar-accent)
 }
-.sidebar-about{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:24px 16px 8px;
-  font-size:11px;
-  color:var(--muted-foreground)
-}
 main{
   margin-left:276px;
   padding:29px 44px 56px;
@@ -423,6 +414,17 @@ main{
 }
 .illustration-small{
   font-size:19px
+}
+.illustration-ticks{
+  fill:var(--muted-foreground);
+  font-family:var(--font-sans);
+  font-size:10px
+}
+.illustration-axis-label{
+  fill:var(--muted-foreground);
+  font-family:var(--font-serif);
+  font-size:13px;
+  font-style:italic
 }
 .illustration-caption{
   fill:var(--muted-foreground);
@@ -526,9 +528,15 @@ h2{
 .section-filter input:focus-visible{
   outline:none
 }
+.search-clear{
+  width:28px;
+  height:28px;
+  margin-right:-5px
+}
 .section-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-auto-rows:1fr;
   gap:0;
   border-top:1px solid var(--border)
 }
@@ -537,11 +545,13 @@ h2{
 }
 .section-card{
   position:relative;
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns:24px minmax(0,1fr) 18px;
+  align-items:start;
+  gap:12px;
   text-align:left;
-  min-height:184px;
-  padding:20px 22px;
+  min-height:0;
+  padding:18px 22px;
   background:transparent;
   border:0;
   border-bottom:1px solid var(--border);
@@ -557,16 +567,17 @@ h2{
 .section-card:nth-child(even){
   padding-right:0
 }
-.card-top{
+.card-copy{
+  min-width:0;
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:12px
+  flex-direction:column;
+  height:100%
 }
 .card-number{
   font-size:12px;
   font-weight:650;
   color:var(--primary);
+  line-height:22px;
   font-variant-numeric:tabular-nums
 }
 .card-topic-count{
@@ -574,7 +585,9 @@ h2{
   background:transparent;
   padding:0;
   border-radius:0;
-  color:var(--muted-foreground)
+  color:var(--muted-foreground);
+  margin-top:auto;
+  line-height:18px
 }
 h3{
   font-size:16px;
@@ -584,32 +597,24 @@ h3{
   margin:0
 }
 .section-card h3{
-  color:var(--card-foreground)
+  color:var(--card-foreground);
+  font-size:15px;
+  line-height:1.5;
+  min-height:3em
 }
-.section-card>p{
+.card-copy>p{
   color:var(--muted-foreground);
   font-size:12px;
-  line-height:1.75;
-  margin:8px 0 16px;
-  display:-webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:2;
+  line-height:1.7;
+  margin:6px 0 8px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
   overflow:hidden
-}
-.card-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:auto;
-  padding-top:6px;
-  border-top:0;
-  color:var(--primary);
-  font-size:11px
 }
 .card-arrow{
   display:flex;
-  color:var(--primary)
+  color:var(--primary);
+  align-self:center
 }
 dialog{
   background:var(--background);
@@ -827,7 +832,16 @@ dialog::backdrop{
     margin-top:14px
   }
   .section-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr))
+    grid-template-columns:1fr;
+    grid-auto-rows:auto
+  }
+  .section-card,.section-card:nth-child(odd):not(:last-child){
+    padding-left:0;
+    padding-right:0;
+    border-right:0
+  }
+  .section-card h3{
+    min-height:0
   }
   .empty-state{
     flex-wrap:wrap
@@ -1007,13 +1021,12 @@ dialog::backdrop{
   }
   .section-card{
     min-height:0;
-    padding:20px 0
+    padding:16px 0;
+    grid-template-columns:22px minmax(0,1fr) 18px;
+    gap:9px
   }
   .section-card:nth-child(odd):not(:last-child){
     border-right:0
-  }
-  .card-top{
-    margin-bottom:13px
   }
   .card-number{
     font-size:12px
@@ -1022,15 +1035,11 @@ dialog::backdrop{
     font-size:10px
   }
   .section-card h3{
-    font-size:16px
+    font-size:15px;
+    min-height:0
   }
-  .section-card>p{
-    font-size:12px;
-    margin-bottom:20px
-  }
-  .card-bottom{
-    font-size:11px;
-    min-height:39px
+  .card-copy>p{
+    margin-bottom:8px
   }
   .topics-dialog{
     max-height:85dvh

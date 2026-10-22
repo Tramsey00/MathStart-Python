@@ -129,7 +129,11 @@ test('global search, empty results, clear and section filter work', async ({ pag
   const search = page.getByRole('textbox', { name: 'Поиск по всем темам' });
   await search.fill('дроби');
   await expect(page.locator('.result-row').first()).toBeVisible();
+  await expect(page.locator('.result-grade').first()).toContainText(/класс · /);
   await expect(page.getByRole('heading', { level: 2, name: /^Найденные темы/ })).toBeVisible();
+  await page.getByRole('button', { name: 'Очистить поиск', exact: true }).click();
+  await expect(search).toHaveValue('');
+  await expect(search).toBeFocused();
   await search.fill('несуществующая-тема-zzzz');
   await expect(page.getByRole('heading', { name: 'Пока ничего не нашлось' })).toBeVisible();
   await page.getByRole('button', { name: 'Сбросить поиск' }).click();
@@ -145,6 +149,13 @@ test('global search, empty results, clear and section filter work', async ({ pag
   await filter.fill('многочлен');
   await expect(page.locator('.section-card')).toHaveCount(2);
   await expect(page.locator('.section-card .card-number').first()).toHaveText('06');
+  await page.getByRole('button', { name: 'Очистить фильтр разделов' }).click();
+  await expect(filter).toHaveValue('');
+  await expect(filter).toBeFocused();
+  await expect(page.locator('.section-card')).toHaveCount(7);
+  await filter.fill('многочлен');
+  await page.keyboard.press('Escape');
+  await expect(filter).toHaveValue('');
   await filter.fill('несуществующий-раздел-zzzz');
   await expect(page.getByRole('heading', { name: 'Таких разделов нет' })).toBeVisible();
   await expect(page.locator('.section-card')).toHaveCount(0);
@@ -181,6 +192,7 @@ test('shared illustration replaces removed labels and section hover leaves appea
   await expect(page.locator('.lesson-preview, .hero-tags, .nav-active-dot')).toHaveCount(0);
   await expect(page.locator('.breadcrumbs, .nav-home, .count-badge')).toHaveCount(0);
   await expect(page.getByText('ТВОЁ ОБУЧЕНИЕ', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'О проекте', exact: true })).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 2, name: 'С чего начнём?', exact: true })).toBeVisible();
   await expect(page.locator('.hero')).not.toContainText('разделов');
   await expect(page.getByText('Открыть раздел', { exact: true })).toHaveCount(0);
