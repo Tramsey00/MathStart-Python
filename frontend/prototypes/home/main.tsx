@@ -98,9 +98,6 @@ function App() {
   function openSection(section: Section) { setActiveSection(section); topicDialog.current?.showModal(); }
   function topicLink(topic: Topic) { return `${site}/${topic.slug}/`; }
   const navigation = (surface: 'desktop' | 'mobile') => <>
-    <p className="nav-label">ТВОЁ ОБУЧЕНИЕ</p>
-    <a className="nav-home" href="#learning" onClick={() => menuDialog.current?.close()}><Icon name="book"/>Учебные материалы</a>
-    <div className="sidebar-divider"/>
     <GradePicker grade={grade} onChange={chooseGrade}/>
     <p className="nav-label subject-label">ПРЕДМЕТЫ</p>
     <nav aria-label="Предметы">{subjects.map(item => <div key={item.slug}>
@@ -122,14 +119,13 @@ function App() {
     <aside className="sidebar">{navigation('desktop')}</aside>
     <dialog ref={menuDialog} className="menu-dialog" aria-labelledby="menu-title"><div className="dialog-heading"><h2 id="menu-title">Навигация</h2><button className="icon-button" aria-label="Закрыть меню" onClick={() => menuDialog.current?.close()}><Icon name="close"/></button></div>{navigation('mobile')}</dialog>
     <main id="learning" tabIndex={-1}>
-      <div className="breadcrumbs"><span>Учебные материалы</span><Icon name="chevron" size={13}/><span>{catalogue.grades.find(item => item.slug === grade)!.title}</span></div>
       <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade}/></div>
       <section className="hero" aria-labelledby="subject-title">
         <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p></div>
         <MathIllustration/>
       </section>
       <section className="materials" aria-labelledby="materials-title">
-        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'} <span className="count-badge">{query.trim() ? results.length : sections.length}</span></h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={16}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
+        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)}/></div>}</div>
         {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title}</span><h3>{topic.title}</h3></div><Icon name="arrow"/></a>) : <div className="empty-state"><Icon name="search" size={28}/><h3>Пока ничего не нашлось</h3><p>Попробуй более короткий запрос, например «дроби» или «уравнения»</p><button className="text-button" onClick={() => { setQuery(''); search.current?.focus(); }}>Сбросить поиск</button></div>}</div>
         : <><div className="section-grid">{visibleSections.map((section, index) => {
           const children = topics.filter(topic => topic.section === section.slug);

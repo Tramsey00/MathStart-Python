@@ -65,7 +65,7 @@ test('inline grades stay visible and support mouse and keyboard selection', asyn
   await expect(sixth).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(sixth).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('.breadcrumbs')).toContainText('6 класс');
+  await expect(page.locator('.subject-kicker')).toContainText('6 класс');
   await grades.getByRole('button', { name: '10 класс', exact: true }).click();
   await expect(page.locator('h1')).toHaveText('Алгебра');
   if (await page.getByRole('button', { name: 'Открыть меню' }).isVisible()) {
@@ -99,7 +99,15 @@ test('global search, empty results, clear and section filter work', async ({ pag
   await expect(page.getByRole('heading', { name: 'Пока ничего не нашлось' })).toBeVisible();
   await page.getByRole('button', { name: 'Сбросить поиск' }).click();
   await expect(search).toBeFocused();
-  await page.getByRole('textbox', { name: 'Найти раздел' }).fill('многочлен');
+  const filter = page.getByRole('textbox', { name: 'Найти раздел' });
+  const idleBorder = await page.locator('.section-filter').evaluate(element => getComputedStyle(element).borderColor);
+  await filter.click();
+  expect(await page.locator('.section-filter').evaluate(element => getComputedStyle(element).outlineStyle)).toBe('none');
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Shift+Tab');
+  await expect(filter).toBeFocused();
+  expect(await page.locator('.section-filter').evaluate(element => getComputedStyle(element).borderColor)).not.toBe(idleBorder);
+  await filter.fill('многочлен');
   await expect(page.locator('.section-card')).toHaveCount(2);
   await noOverflow(page);
 });
@@ -127,6 +135,9 @@ test('shared illustration replaces removed labels and section hover leaves appea
   const bounds = await picture.boundingBox();
   expect(bounds!.width).toBeGreaterThan(200);
   await expect(page.locator('.lesson-preview, .hero-tags, .nav-active-dot')).toHaveCount(0);
+  await expect(page.locator('.breadcrumbs, .nav-home, .count-badge')).toHaveCount(0);
+  await expect(page.getByText('ТВОЁ ОБУЧЕНИЕ', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('heading', { level: 2, name: 'С чего начнём?', exact: true })).toBeVisible();
   await expect(page.locator('.hero')).not.toContainText('разделов');
   await expect(page.getByText('Открыть раздел', { exact: true })).toHaveCount(0);
   const section = page.locator('.section-card').first();

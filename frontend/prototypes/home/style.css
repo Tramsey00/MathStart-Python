@@ -225,22 +225,6 @@ input::placeholder{
   letter-spacing:1.4px;
   color:var(--muted-foreground)
 }
-.nav-home{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  font-weight:600;
-  padding:12px;
-  background:transparent;
-  border-radius:var(--radius);
-  color:var(--primary)
-}
-.sidebar-divider{
-  height:1px;
-  background:var(--border);
-  margin:24px 12px
-}
 .grade-picker{
   position:relative;
   margin:0 10px
@@ -357,17 +341,6 @@ main{
   max-width:1610px;
   outline:none
 }
-.breadcrumbs{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:11px;
-  color:var(--muted-foreground);
-  margin-bottom:29px
-}
-.breadcrumbs>span:last-child{
-  color:var(--foreground)
-}
 .eyebrow{
   font-size:10px;
   letter-spacing:1.6px;
@@ -447,14 +420,21 @@ main{
   align-items:center;
   gap:9px;
   color:var(--primary);
-  font-size:9px;
+  font-size:15px;
   font-weight:650;
-  letter-spacing:1.2px
+  letter-spacing:.2px
 }
 .subject-kicker>span{
-  font-size:17px;
+  font-size:28px;
+  width:30px;
+  height:30px;
   font-weight:600;
-  letter-spacing:0
+  letter-spacing:0;
+  color:var(--primary)
+}
+.subject-kicker .subject-symbol svg{
+  width:26px;
+  height:26px
 }
 h1{
   font-size:clamp(32px,3.4vw,49px);
@@ -490,21 +470,6 @@ h2{
   font-weight:600;
   margin:0
 }
-.count-badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:24px;
-  height:23px;
-  font-size:11px;
-  vertical-align:middle;
-  border:0;
-  border-radius:5px;
-  background:transparent;
-  color:var(--muted-foreground);
-  margin-left:7px;
-  letter-spacing:0
-}
 .materials-heading p{
   font-size:11px;
   color:var(--muted-foreground);
@@ -516,24 +481,24 @@ h2{
   align-items:center;
   gap:8px;
   color:var(--muted-foreground);
-  border:0;
-  border-bottom:1px solid var(--border);
-  border-radius:0;
-  padding:0 10px;
-  height:36px;
-  width:175px
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--secondary);
+  padding:0 13px;
+  height:44px;
+  width:230px;
+  flex-shrink:0
 }
 .section-filter input{
   width:100%;
   height:100%;
   background:transparent;
   border:0;
-  font-size:11px;
+  font-size:13px;
   outline:none
 }
 .section-filter:focus-within{
-  outline:2px solid var(--ring);
-  outline-offset:2px
+  border-color:var(--muted-foreground)
 }
 .section-filter input:focus-visible{
   outline:none
@@ -833,9 +798,6 @@ dialog::backdrop{
   .hero-copy>p{
     max-width:390px
   }
-  .breadcrumbs{
-    margin-bottom:23px
-  }
   .menu-dialog .section-navigation button{
     padding:9px 5px;
     font-size:12px
@@ -897,19 +859,15 @@ dialog::backdrop{
   main{
     padding:21px 17px 40px
   }
-  .breadcrumbs{
-    font-size:10px;
-    margin-bottom:22px
-  }
   .hero{
     padding:10px 0 22px;
     min-height:0;
     display:block
   }
   .subject-kicker{
-    font-size:7px;
-    letter-spacing:.8px;
-    gap:6px
+    font-size:14px;
+    letter-spacing:.2px;
+    gap:9px
   }
   h1{
     font-size:37px;
@@ -946,10 +904,10 @@ dialog::backdrop{
   }
   .section-filter{
     width:100%;
-    height:40px
+    height:44px
   }
   .section-filter input{
-    font-size:12px
+    font-size:13px
   }
   .section-grid{
     grid-template-columns:1fr;

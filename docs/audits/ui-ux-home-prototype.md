@@ -251,3 +251,26 @@ computed background/border/shadow/color до/после hover в обеих те
 Desktop light/dark и mobile screenshots просмотрены. `git diff --check` PASS.
 Исходный контент, product routes/backend/dependencies/CI не менялись.
 Прежние ограничения общего runtime и незавершённое отдельное ревью сохраняются.
+
+## Итерация: один заголовок класса и упрощение навигации
+
+22.10.2026, исходный чистый HEAD `bd51951`, ветка `ui/ux`. По четырём
+скриншотам пользователя удалены верхние breadcrumbs с дублирующим классом,
+счётчик возле «С чего начнём?» и весь блок «Твоё обучение / Учебные материалы»
+в desktop/mobile навигации. Подпись класса над названием предмета увеличена
+до 15 px (14 px mobile), соседний знак — до 28 px.
+
+Поле «Найти раздел» увеличено до 230×44 px, на телефоне занимает ширину
+контейнера. Добавлены постоянная тонкая рамка и secondary surface из tokens.
+Резкая синяя обводка заменена изменением цвета рамки при фокусе; мышь,
+Tab/Shift+Tab и фильтрация проверены. Общие keyboard focus остальных элементов
+не изменены. Исходные theme.css/theme.registry.json сохранены без изменений.
+
+Изменены `main.tsx`, `style.css`, `home.spec.ts`, README прототипа и этот audit.
+TypeScript и standalone Vite build — PASS. Browser matrix — **21/21 PASS**,
+360/768/1440, retries/skipped/flaky 0, exit 0. Первый запуск в sandbox не смог
+подключиться к уже работающему серверу 5173 и попытался занять его порт;
+повтор с разрешённым локальным loopback прошёл, существующий сервер не остановлен.
+Проверены desktop/mobile screenshots и открытый preview; `git diff --check` PASS.
+Контент, production routes, backend, зависимости и CI не менялись.
+Это проверка изолированного прототипа; полный target runtime не запускался.
