@@ -174,6 +174,7 @@ test('both themes load local fonts and produce review screenshots', async ({ pag
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check('500 14px Inter', 'Математика Algebra'))).toBe(true);
+  expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Merriweather' && face.status === 'loaded'))).toBe(true);
   await noOverflow(page);
   await page.screenshot({ path: resolve(here, `../../.cache/home-${testInfo.project.name}-light.png`), fullPage: true });
   await page.getByRole('button', { name: 'Включить тёмную тему' }).click();

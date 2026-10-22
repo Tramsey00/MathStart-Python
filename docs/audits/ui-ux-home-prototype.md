@@ -429,3 +429,41 @@ TypeScript/build/diff-check PASS. Первый browser прогон: 24 PASS / 4
 Финальный matrix: **28/28 PASS**, 360/768/1440/1920, retries/skipped/flaky 0,
 exit 0. Desktop и dialog screenshots просмотрены. Полный target gate не запускался;
 результаты относятся к изолированному прототипу, не готовности релиза.
+
+## Итерация: сравнение палитры ExploreMiam
+
+22.10.2026, исходный чистый HEAD `3346094`, ветка `ui/ux`. По ссылке пользователя
+https://tweakcn.com/themes/cmnfqba56000104la8fufb2f1 применён пробный стиль
+ExploreMiam. Layout, контент и взаимодействия main.tsx не менялись. Итоговый
+выбор темы для всего сайта этой пробой не утверждён.
+
+Web tool не смог открыть страницу/registry; точный registry получен обычным
+HTTPS-запросом по https://tweakcn.com/r/themes/cmnfqba56000104la8fufb2f1.
+Все эффективные CSS-переменные соответствуют cssVars export: 58 light / 57 dark.
+SHA-256 нормализованного JSON:
+`4dd7db3d4feebf01b096215918f2f2b254ff6a9c738a7add512072484486041c`.
+Предыдущие CSS/JSON Professional Theme сохранены в themes/professional.*,
+побайтово сопоставлены с `3346094`; они доступны для возврата/сравнения.
+
+У новой темы secondary — насыщенный мятный, поэтому прежнее использование
+secondary как нейтральной большой поверхности заменено на muted/background/card.
+Sidebar использует sidebar; ссылка «Все темы» — foreground вместо
+secondary-foreground (в новом export это белый). Основной фиолетовый акцент,
+мятный secondary во второй группе долей, radius 0.5rem и tracking -0.01em —
+из export. Ручной подмены палитры нет. Правило 60/30/10 остаётся ориентиром,
+а не измеренным распределением пикселей.
+
+Inter уже локальный. Для реально используемого font-serif добавлен официальный
+Merriweather Italic 400 из Google Fonts, fonts.gstatic.com (v33), с OFL из
+google/fonts/ofl/merriweather. Файл 595652 bytes; SHA-256
+`afff81272b7653417bb6f8bef57add055b1f9fda36f27eba5f32b40752bd08da`.
+Неиспользуемый Fira Code не загружается. Browser проверяет, что Merriweather
+действительно loaded, и отсутствие request failures.
+
+Карта: theme.css/registry, архивы предыдущей темы, локальный шрифт/OFL,
+style.css, home.spec.ts, README, docs/ux/theme-baseline.md и этот audit.
+TypeScript/build/diff-check PASS; **28/28 Chrome PASS** на 360/768/1440/1920,
+retries/skipped/flaky 0, exit 0. Проверены light/dark/mobile screenshots,
+сохранённые сценарии поиска/окна/выделения и соответствие CSS/архивов источникам.
+Структура, main.tsx, backend, authored контент, locks, CI не менялись.
+Полный target gate не запускался; результаты относятся к пробному прототипу.

@@ -14,6 +14,13 @@
   src:url('./fonts/inter-cyrillic.woff2') format('woff2');
   unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116
 }
+@font-face{
+  font-family:Merriweather;
+  font-style:italic;
+  font-weight:400;
+  font-display:swap;
+  src:url('./fonts/merriweather-italic.ttf') format('truetype')
+}
 *{
   box-sizing:border-box
 }
@@ -26,7 +33,7 @@ html[data-theme=dark]{
 }
 body{
   margin:0;
-  background-color:color-mix(in oklch,var(--secondary) 78%,var(--background));
+  background-color:color-mix(in oklch,var(--muted) 78%,var(--background));
   color:var(--foreground);
   font-family:var(--font-sans);
   font-size:14px;
@@ -131,7 +138,7 @@ input::placeholder{
   max-width:465px;
   flex:1;
   min-width:100px;
-  background:var(--secondary);
+  background:var(--muted);
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:0 12px;
@@ -161,7 +168,7 @@ input::placeholder{
 }
 .all-topics{
   font-size:13px;
-  color:var(--secondary-foreground)
+  color:var(--foreground)
 }
 .all-topics:hover{
   text-decoration:underline
@@ -206,7 +213,7 @@ input::placeholder{
   left:0;
   width:276px;
   padding:30px 17px 16px;
-  background:var(--background);
+  background:var(--sidebar);
   border-right:1px solid var(--sidebar-border);
   overflow-y:auto;
   scrollbar-width:thin;
@@ -247,7 +254,7 @@ input::placeholder{
 }
 .grade-inline button:hover{
   color:var(--primary);
-  background:var(--secondary)
+  background:var(--accent)
 }
 .mobile-grade-selector{
   display:none
@@ -383,8 +390,8 @@ main{
   fill-opacity:.85
 }
 .fraction-second{
-  fill:var(--primary);
-  fill-opacity:.3
+  fill:var(--secondary);
+  fill-opacity:.75
 }
 .fraction-rest{
   stroke:var(--muted-foreground);
@@ -498,7 +505,7 @@ h2{
   color:var(--muted-foreground);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  background:var(--secondary);
+  background:var(--muted);
   padding:0 13px;
   height:44px;
   width:230px;
@@ -711,7 +718,7 @@ dialog::backdrop{
   max-width:none;
   border-radius:0;
   padding:20px;
-  background:var(--background)
+  background:var(--sidebar)
 }
 .menu-dialog .dialog-heading{
   margin-bottom:25px
@@ -731,7 +738,7 @@ dialog::backdrop{
   width:48px;
   height:48px;
   border-radius:var(--radius);
-  background:var(--secondary);
+  background:var(--muted);
   flex-shrink:0
 }
 .empty-copy{
@@ -761,7 +768,7 @@ dialog::backdrop{
   flex-shrink:0
 }
 .reset-button:hover{
-  background:var(--secondary)
+  background:var(--accent)
 }
 .search-results{
   display:flex;

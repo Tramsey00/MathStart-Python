@@ -6,12 +6,16 @@
 - Структура: [Math Learning Website UI](https://www.figma.com/community/file/1652599323840288360/math-learning-website-ui),
   Ayush Kumbhar’s team, CC BY 4.0. Адаптация: русский язык, классы/предметы/разделы
   MathStart, поиск и мобильная навигация; исходные иллюстрации/код не копировались.
-- Тема: [Professional Theme](https://tweakcn.com/themes/cmluajfgz000004l5afke7znm),
-  Rachel Hong. Полный исходный экспорт сохранён в `theme.registry.json`;
+- Активная пробная тема: [ExploreMiam](https://tweakcn.com/themes/cmnfqba56000104la8fufb2f1).
+  Полный исходный экспорт сохранён в `theme.registry.json`;
   `theme.css` — его light/dark/theme cssVars без ручной подмены цветов.
+- Предыдущая [Professional Theme](https://tweakcn.com/themes/cmluajfgz000004l5afke7znm),
+  Rachel Hong, сохранена побайтово в `themes/professional.registry.json` и
+  `themes/professional.css`. Новая проба не утверждает окончательный выбор.
 - React/Vite берутся из существующего lock. shadcn, Tailwind и Next.js не установлены:
   для пробы используются CSS-переменные темы и обычные React-компоненты.
-- Inter (Latin/Cyrillic) хранится локально с OFL. Моноширинный шрифт объявлен
+- Inter (Latin/Cyrillic) и Merriweather Italic для формул хранятся локально с OFL.
+  Моноширинный Fira Code объявлен
   экспортом, но в этом макете не используется и не загружается.
 
 ## Запуск
@@ -66,7 +70,9 @@ SSG/no-JS, поисковые URL, auth и rollout требуют следующ
 Tab перемещает фокус, Enter/Space выбирает класс; фокус остаётся на выбранной
 кнопке. Escape закрывает мобильное меню.
 
-Фон и поверхности используют те же tokens Professional Theme. Экспорт темы
+Фон и поверхности используют tokens активной темы. Нейтральные поверхности
+используют muted/background/card, secondary применяется как акцент второй группы
+долей в SVG. Sidebar использует sidebar token. Экспорт темы
 сохранён. Декоративные и финальные точки в коротких UI-подписях убраны;
 пунктуация авторских названий и учебных материалов сохранена.
 
@@ -124,6 +130,7 @@ autocomplete popup не реализован, текущий поиск пока
 Окно тем также закрывается нажатием на затемнённый фон. Нажатие внутри окна
 и перетаскивание из окна на фон не закрывают его.
 
-Выбранная тема принята пользователем как основа последующих страниц:
-[theme-baseline](../../../docs/ux/theme-baseline.md). Исходный export проверен
-повторно; применение общей темы во всём продукте — отдельное будущее внедрение.
+Текущая стадия — сравнение тем на неизменной структуре:
+[theme-baseline](../../../docs/ux/theme-baseline.md). ExploreMiam получена из
+registry, CSS сопоставлен с export; Professional сохранена для возврата.
+Применение окончательно выбранной темы во всём продукте — будущее внедрение.
