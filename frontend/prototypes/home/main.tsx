@@ -167,7 +167,7 @@ function App() {
         {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
         : <><div className="section-grid">{visibleSections.map(section => {
           const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}</span><div className="card-copy"><h3>{section.title}</h3><p>{children.slice(0, 2).map(topic => topic.title).join(' · ')}</p><span className="card-topic-count">{children.length} {plural(children.length)}</span></div></button>;
+          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}</span><div className="card-copy"><h3>{section.title}</h3></div><span className="card-topic-count">{children.length} {plural(children.length)}</span></button>;
         })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
       </section>
     </main>

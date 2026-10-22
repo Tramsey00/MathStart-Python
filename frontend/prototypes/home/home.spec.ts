@@ -18,6 +18,14 @@ test('all grades and subjects remain usable, including long Russian headings', a
       const name = (await button.innerText()).replace(/^[±ƒ△▥]\s*/, '').trim();
       await button.click();
       await expect(page.locator('h1')).toHaveText(name);
+      await expect(page.locator('.section-card p')).toHaveCount(0);
+      expect(await page.locator('.section-card').evaluateAll(cards => cards.every(card => {
+        const title = card.querySelector('h3')!;
+        const bounds = card.getBoundingClientRect();
+        const titleBounds = title.getBoundingClientRect();
+        return bounds.height >= 44 && title.scrollHeight <= title.clientHeight + 1
+          && titleBounds.left >= bounds.left && titleBounds.right <= bounds.right + 1;
+      }))).toBe(true);
     }
     if (await page.getByRole('button', { name: 'Открыть меню' }).isVisible()) await page.keyboard.press('Escape');
     await noOverflow(page);
