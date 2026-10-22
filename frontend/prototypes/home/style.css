@@ -353,7 +353,7 @@ main{
   display:flex;
   justify-content:flex-start;
   align-items:center;
-  gap:clamp(22px,3vw,44px);
+  gap:18px;
   min-height:0;
   padding:22px 0 12px;
   background:transparent;
@@ -374,7 +374,7 @@ main{
   flex:1.1 1 0;
   min-width:0;
   width:52%;
-  max-height:350px;
+  max-height:none;
   align-self:center;
   overflow:visible
 }
@@ -464,7 +464,7 @@ h1{
   font-size:15px;
   line-height:1.85;
   color:color-mix(in oklch,var(--foreground) 76%,var(--background));
-  max-width:470px;
+  max-width:none;
   margin:0
 }
 .hero-copy>.hero-note{
@@ -800,9 +800,6 @@ dialog::backdrop{
   .hero{
     min-height:270px
   }
-  .hero-copy>p{
-    max-width:470px
-  }
 }
 @media(max-width:1200px){
   .topbar{
@@ -825,9 +822,6 @@ dialog::backdrop{
   }
   .hero{
     padding:14px 0 20px
-  }
-  .hero-copy>p{
-    max-width:340px
   }
   .hero-copy>.hero-note{
     margin-top:14px
@@ -888,9 +882,6 @@ dialog::backdrop{
   }
   .mobile-grade-selector .grade-picker{
     margin:0
-  }
-  .hero-copy>p{
-    max-width:390px
   }
   .hero-copy>.hero-note{
     max-width:300px

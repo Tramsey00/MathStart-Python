@@ -77,7 +77,7 @@ function MathIllustration() {
       <path className="illustration-axes" d="M0 96h198m-5-4 5 4-5 4M0 96V0m-4 5 4-5 4 5" strokeWidth="1.2"/>
       <path className="illustration-curve" d="M0 96Q80 96 160 0" strokeWidth="2"/>
       <g className="illustration-points"><circle cx="40" cy="90" r="3.5"/><circle cx="80" cy="72" r="3.5"/><circle cx="120" cy="42" r="3.5"/></g>
-      <text className="illustration-small" x="120" y="19">y = x²</text>
+      <text className="illustration-small" x="20" y="19">y = x²</text>
     </g>
   </svg>;
 }
@@ -91,6 +91,10 @@ function SearchEmpty({ scope, onReset }: { scope: 'topics' | 'sections'; onReset
 function plural(count: number, words: readonly [string, string, string] = ['тема', 'темы', 'тем']) {
   return count % 10 === 1 && count % 100 !== 11 ? words[0] : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? words[1] : words[2];
 }
+function isOutsideDialog(dialog: HTMLDialogElement, x: number, y: number) {
+  const bounds = dialog.getBoundingClientRect();
+  return x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom;
+}
 function App() {
   const [grade, setGrade] = useState('7-klass');
   const [subject, setSubject] = useState('algebra');
@@ -100,6 +104,7 @@ function App() {
   const [activeSection, setActiveSection] = useState<Section | null>(null);
   const [sectionQuery, setSectionQuery] = useState('');
   const topicDialog = useRef<HTMLDialogElement>(null);
+  const topicBackdropPress = useRef(false);
   const menuDialog = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLInputElement>(null);
   const sectionSearch = useRef<HTMLInputElement>(null);
@@ -125,6 +130,7 @@ function App() {
   }
   function openSection(section: Section) {
     setActiveSection(section);
+    topicBackdropPress.current = false;
     topicDialog.current?.showModal();
     if (topicDialog.current) topicDialog.current.scrollTop = 0;
   }
@@ -165,7 +171,14 @@ function App() {
         })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
       </section>
     </main>
-    <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title" aria-describedby="topics-dialog-help">
+    <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title" aria-describedby="topics-dialog-help"
+      onPointerDown={event => { topicBackdropPress.current = event.button === 0 && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY); }}
+      onPointerCancel={() => { topicBackdropPress.current = false; }}
+      onClick={event => {
+        const startedOutside = topicBackdropPress.current;
+        topicBackdropPress.current = false;
+        if (startedOutside && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY)) event.currentTarget.close();
+      }}>
       <div className="topics-dialog-header"><div className="dialog-heading"><div><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {catalogue.subjects.find(item => item.grade === activeSection?.grade && item.slug === activeSection?.subject)?.title}</p><h2 id="topics-dialog-title">{activeSection?.title}</h2></div><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><p id="topics-dialog-help" className="dialog-help">Открой тему, чтобы перейти к объяснению и примерам</p></div>
       <div className="topics-dialog-body"><div className="topics-list-heading"><h3>Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span>{topic.title}</span><Icon name="arrow" size={18}/></a></li>)}</ol></div>
     </dialog>
