@@ -33,7 +33,7 @@ html[data-theme=dark]{
 }
 body{
   margin:0;
-  background-color:color-mix(in oklch,var(--muted) 78%,var(--background));
+  background-color:color-mix(in oklab,var(--secondary) 22%,var(--background));
   color:var(--foreground);
   font-family:var(--font-sans);
   font-size:14px;
@@ -138,8 +138,8 @@ input::placeholder{
   max-width:465px;
   flex:1;
   min-width:100px;
-  background:var(--muted);
-  border:1px solid var(--border);
+  background:color-mix(in oklab,var(--secondary) 10%,var(--muted));
+  border:1px solid color-mix(in oklab,var(--secondary) 30%,var(--border));
   border-radius:var(--radius);
   padding:0 12px;
   height:42px;
@@ -250,11 +250,12 @@ input::placeholder{
 }
 .grade-inline button[aria-pressed=true]{
   color:var(--primary);
-  border-bottom-color:var(--primary)
+  border-bottom-color:var(--primary);
+  background:color-mix(in oklab,var(--secondary) 20%,var(--sidebar))
 }
 .grade-inline button:hover{
   color:var(--primary);
-  background:var(--accent)
+  background:color-mix(in oklab,var(--secondary) 14%,var(--sidebar))
 }
 .mobile-grade-selector{
   display:none
@@ -291,10 +292,10 @@ input::placeholder{
   color:var(--muted-foreground)
 }
 .subject-button.is-selected{
-  background:transparent;
-  color:var(--primary);
+  background:color-mix(in oklab,var(--secondary) 18%,var(--sidebar));
+  color:var(--sidebar-foreground);
   border-radius:0;
-  box-shadow:inset 2px 0 0 var(--primary);
+  box-shadow:inset 2px 0 0 var(--secondary);
   font-weight:650
 }
 .subject-button.is-selected .subject-symbol{
@@ -406,7 +407,7 @@ main{
   opacity:.4
 }
 .illustration-points{
-  fill:var(--primary)
+  fill:var(--secondary)
 }
 .illustration-formula,.illustration-small{
   fill:var(--primary);
@@ -503,9 +504,9 @@ h2{
   align-items:center;
   gap:8px;
   color:var(--muted-foreground);
-  border:1px solid var(--border);
+  border:1px solid color-mix(in oklab,var(--secondary) 30%,var(--border));
   border-radius:var(--radius);
-  background:var(--muted);
+  background:color-mix(in oklab,var(--secondary) 10%,var(--muted));
   padding:0 13px;
   height:44px;
   width:230px;
