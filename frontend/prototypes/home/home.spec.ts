@@ -8,7 +8,7 @@ async function noOverflow(page: Page) {
 test('all grades and subjects remain usable, including long Russian headings', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('/');
+  await page.goto('/materials.html');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Алгебра');
   for (const grade of [5, 6, 7, 8, 9, 10]) {
     const nav = await navigation(page);
@@ -40,7 +40,7 @@ async function navigation(page: Page) {
   return page.locator('.sidebar');
 }
 test('subject list collapses without changing the selected subject', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/materials.html');
   const nav = await navigation(page);
   const algebra = nav.getByRole('button', { name: 'Алгебра', exact: true });
   await expect(algebra).toHaveAttribute('aria-expanded', 'true');
@@ -56,7 +56,7 @@ test('subject list collapses without changing the selected subject', async ({ pa
   await noOverflow(page);
 });
 test('inline grades stay visible and support mouse and keyboard selection', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await page.goto('/materials.html');
   const nav = await navigation(page);
   const grades = nav.getByRole('group', { name: 'Выбор класса' });
   await expect(grades.getByRole('button')).toHaveCount(6);
@@ -85,7 +85,7 @@ test('inline grades stay visible and support mouse and keyboard selection', asyn
   await noOverflow(page);
 });
 test('section dialog has real topic links, keyboard dismissal and restored focus', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await page.goto('/materials.html');
   const card = page.locator('.section-card').first();
   await card.click();
   const dialog = page.getByRole('dialog', { name: 'Математические модели' });
@@ -135,7 +135,7 @@ test('section dialog has real topic links, keyboard dismissal and restored focus
   await noOverflow(page);
 });
 test('global search, empty results, clear and section filter work', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await page.goto('/materials.html');
   const search = page.getByRole('textbox', { name: 'Поиск по всем темам' });
   await search.fill('дроби');
   await expect(page.locator('.result-row').first()).toBeVisible();
@@ -179,7 +179,7 @@ test('global search, empty results, clear and section filter work', async ({ pag
 test('both themes load local fonts and produce review screenshots', async ({ page }, testInfo) => {
   const failures: string[] = [];
   page.on('requestfailed', request => failures.push(request.url()));
-  await page.goto('/');
+  await page.goto('/materials.html');
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Outfit' && face.status === 'loaded'))).toBe(true);
   expect(await page.evaluate(() => [...document.fonts].some(face => face.family === 'Merriweather' && face.status === 'loaded'))).toBe(true);
@@ -194,7 +194,7 @@ test('both themes load local fonts and produce review screenshots', async ({ pag
   expect(failures).toEqual([]);
 });
 test('shared illustration replaces removed labels and section hover leaves appearance unchanged', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/materials.html');
   const picture = page.locator('svg.math-illustration');
   await expect(picture).toHaveCount(1);
   await expect(picture).toBeVisible();

@@ -41,5 +41,6 @@ export default defineConfig({
   preview: { host: '127.0.0.1', port: 5173, strictPort: true },
   build: {
     outDir: resolve(repository, 'frontend/.cache/home-prototype-build'), emptyOutDir: true,
+    rollupOptions: { input: { home: join(root, 'index.html'), materials: join(root, 'materials.html') } },
   },
 });

@@ -1,11 +1,14 @@
-import { StrictMode, useEffect, useRef, useState, type ReactNode } from 'react';
+import { StrictMode, useRef, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalogue from 'virtual:mathstart-catalogue';
 import './theme.css';
 import './style.css';
+import { Brand, SiteFooter, site, useSiteTheme } from './site-shell';
 
-// The existing local instance owns public content and authentication.
-const site = 'http://127.0.0.1:8121';
+const route = new URLSearchParams(location.search);
+const initialGrade = catalogue.grades.find(item => item.slug === route.get('grade'))?.slug ?? '7-klass';
+const initialSubject = catalogue.subjects.find(item => item.grade === initialGrade && item.slug === route.get('subject'))?.slug
+  ?? catalogue.subjects.filter(item => item.grade === initialGrade).sort((a, b) => a.order - b.order)[0]!.slug;
 type Topic = typeof catalogue.topics[number];
 type Section = typeof catalogue.sections[number];
 const subjectNotes: Record<string, string> = {
@@ -30,9 +33,6 @@ function Icon({ name, size = 20 }: { name: 'search' | 'chevron' | 'book' | 'sun'
 }
 function SubjectMark({ subject }: { subject: string }) {
   return <span className="subject-symbol" aria-hidden="true">{subject === 'matematika' ? <Icon name="math"/> : symbol[subject] ?? '∑'}</span>;
-}
-function Brand() {
-  return <a className="brand" href="/" draggable={false} aria-label="MathStart — главная"><span>Math<span className="brand-accent">Start</span></span></a>;
 }
 function GradePicker({ grade, onChange }: { grade: string; onChange: (value: string) => void }) {
   return <div className="grade-picker"><span className="nav-label">КЛАСС</span>
@@ -97,11 +97,11 @@ function isOutsideDialog(dialog: HTMLDialogElement, x: number, y: number) {
   return x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom;
 }
 function App() {
-  const [grade, setGrade] = useState('7-klass');
-  const [subject, setSubject] = useState('algebra');
-  const [expandedSubject, setExpandedSubject] = useState<string | null>('algebra');
+  const [grade, setGrade] = useState(initialGrade);
+  const [subject, setSubject] = useState(initialSubject);
+  const [expandedSubject, setExpandedSubject] = useState<string | null>(initialSubject);
   const [query, setQuery] = useState('');
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useSiteTheme();
   const [activeSection, setActiveSection] = useState<Section | null>(null);
   const [sectionQuery, setSectionQuery] = useState('');
   const topicDialog = useRef<HTMLDialogElement>(null);
@@ -117,7 +117,6 @@ function App() {
   const visibleSections = sections.filter(item => !sectionQuery || item.title.toLocaleLowerCase('ru').includes(sectionQuery.toLocaleLowerCase('ru')));
   const sectionTopics = activeSection ? catalogue.topics.filter(item => item.grade === activeSection.grade && item.subject === activeSection.subject && item.section === activeSection.slug) : [];
 
-  useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; }, [dark]);
   function chooseGrade(next: string) {
     setGrade(next);
     const first = catalogue.subjects.filter(item => item.grade === next).sort((a, b) => a.order - b.order)[0]!.slug;
@@ -152,7 +151,7 @@ function App() {
     <header className="topbar">
       <div className="topbar-brand"><button className="icon-button mobile-menu" aria-label="Открыть меню" onClick={() => menuDialog.current?.showModal()}><Icon name="menu"/></button><Brand/></div>
       <div className="global-search"><Icon name="search"/><label className="sr-only" htmlFor="topic-search">Поиск по всем темам</label><input ref={search} id="topic-search" placeholder="Какую тему хочешь разобрать?" value={query} onChange={e => { setQuery(e.target.value); setSectionQuery(''); }} onKeyDown={e => { if (e.key === 'Escape') setQuery(''); }}/>{query && <button className="icon-button" aria-label="Очистить поиск" onClick={() => { setQuery(''); search.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>
-      <div className="header-actions"><a className="all-topics" href={`${site}/karta-sajta/`}>Все темы</a><button className="icon-button theme-button" aria-label={dark ? 'Включить светлую тему' : 'Включить тёмную тему'} onClick={() => setDark(value => !value)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="login-button" href={`${site}/account/`}>Войти</a></div>
+      <div className="header-actions"><a className="all-topics" href="/">Главная</a><button className="icon-button theme-button" aria-label={dark ? 'Включить светлую тему' : 'Включить тёмную тему'} onClick={() => setDark(value => !value)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="login-button" href={`${site}/account/`}>Войти</a></div>
     </header>
     <aside className="sidebar">{navigation('desktop')}</aside>
     <dialog ref={menuDialog} className="menu-dialog" aria-labelledby="menu-title"><div className="dialog-heading"><h2 id="menu-title">Навигация</h2><button className="icon-button" aria-label="Закрыть меню" onClick={() => menuDialog.current?.close()}><Icon name="close"/></button></div>{navigation('mobile')}</dialog>
@@ -171,6 +170,7 @@ function App() {
         })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
       </section>
     </main>
+    <SiteFooter cataloguePage/>
     <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title" aria-describedby="topics-dialog-help"
       onPointerDown={event => { topicBackdropPress.current = event.button === 0 && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY); }}
       onPointerCancel={() => { topicBackdropPress.current = false; }}

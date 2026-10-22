@@ -9,6 +9,13 @@ comparison pages unless the user explicitly requests another style experiment.
 Changes to spacing, responsive layout and component density may use this
 baseline. Keep the page's existing hero, catalogue, search and dialogs.
 
+The user approved the catalogue on 2026-10-22 and requested a separate homepage.
+`index.html` / `landing.tsx` own that homepage; `materials.html` / `main.tsx`
+retain the approved navigation catalogue. Shared navigation/footer live in
+`site-shell.tsx`. Homepage classes/subjects must link to the real catalogue;
+login stays on the existing local site's account route. Do not invent future
+tutor, progress, mastery, exercise or authentication features.
+
 Section rows show a number, complete section title and topic count. Do not
 restore topic preview descriptions, repeated action labels, or decorative
 arrows. Preserve keyboard focus, accessible controls and content-driven height.

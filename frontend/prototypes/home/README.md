@@ -1,4 +1,4 @@
-# Главная MathStart — локальный React-прототип
+# Главная и каталог MathStart — локальный React-прототип
 
 Выбранный вариант: палитра **Professional Theme**, шрифты **QraftHive**.
 Ветка ui/ux; это отдельный прототип, ещё не внедрение в публичный сайт.
@@ -25,6 +25,10 @@ node node_modules/vite/bin/vite.js --config prototypes/home/vite.config.mjs
 ```
 
 Открыть http://127.0.0.1:5173/. БД и контейнеры не запускаются.
+Главная — index.html / landing.tsx; утверждённый навигационный каталог —
+http://127.0.0.1:5173/materials.html (materials.html / main.tsx).
+Ссылки с главной передают проверенные grade/subject query parameters;
+неизвестные значения возвращают безопасный начальный выбор.
 Остановка: Ctrl+C. Нужен Node из диапазона frontend/package.json.
 
 ## Проверки
@@ -40,6 +44,20 @@ node node_modules/@playwright/test/cli.js test --config prototypes/home/playwrig
 Chrome: 360/768/1440/1920. Сервер запускается автоматически, если порт свободен.
 Build, результаты и снимки — в игнорируемом frontend/.cache/.
 Это проверки прототипа, они не заменяют product target gate.
+
+Главная содержит интерактивный квадрат суммы (a+b)²: a=4, b=1…4,
+площади частей и числовая сумма вычисляются детерминированно.
+Раздвижение частей анимирует только transform; входные и scroll-переходы —
+transform/opacity. Нет бесконечных циклов, parallax или scroll hijacking.
+При prefers-reduced-motion и клавиатурном управлении примером переходы выключены.
+Контент виден без IntersectionObserver. Режим light/dark сохраняется локально
+при переходах между страницами; отсутствие storage не ломает страницу.
+Общий подвал и бренд — site-shell.tsx; небольшой вход главной ведёт на :8121/account/.
+
+Изучены без установки [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+и [Web Animation Design](https://github.com/vercel-labs/open-agents/blob/main/.agents/skills/web-animation-design/SKILL.md).
+Рекомендации по структуре/доступности/движению адаптированы к утверждённой теме;
+их альтернативные палитры, шрифты и зависимости не применялись.
 
 ## Поведение и границы
 
