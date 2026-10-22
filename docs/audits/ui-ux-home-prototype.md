@@ -502,3 +502,17 @@ ExploreMiam с нейтральным фоном и небольшими мят�
 Сборка и diff-check PASS; visual/font сценарий light/dark на 360/768/1440/1920
 прошёл 4/4, exit 0. Файлы main.tsx/theme.css/registry/style.css также совпадают
 с `6f040ad`. Общий runtime gate не запускался.
+
+## Итерация: три точечных мятных акцента
+
+22.10.2026, исходный чистый HEAD `7cd929a`, ветка `ui/ux`. После отмены заливки
+пользователь попросил немного мятного только в точечных местах. Изменены три
+CSS declarations: underline выбранного класса, inset marker выбранного предмета
+и fill точек SVG теперь используют secondary. Имеющиеся мятные доли сохранены.
+Фоны, текстовые цвета, layout, основной фиолетовый, шрифты и export не изменены.
+
+Обновлены style.css, README, theme-baseline.md и этот audit. Build/diff-check PASS,
+CSS/registry diff отсутствует. Затронутые browser-сценарии навигации и light/dark
+на 360/768/1440/1920: **12/12 PASS**, retries/skipped/flaky 0, exit 0.
+Desktop screenshot просмотрен. Полный prototype matrix/target gate не запускался
+повторно для трёх цветовых деклараций; backend/контент/зависимости не затронуты.
