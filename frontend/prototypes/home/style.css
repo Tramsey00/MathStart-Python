@@ -1,24 +1,4 @@
 @font-face{font-family:Outfit;font-style:normal;font-weight:100 900;font-display:swap;src:url('./fonts/outfit-variable.ttf') format('truetype')}
-:root{--content-accent:var(--primary);--detail-accent:var(--secondary);--fraction-accent:var(--secondary);--fraction-opacity:.75}
-:root[data-palette=professional]{--detail-accent:var(--primary);--fraction-accent:var(--primary);--fraction-opacity:.3}
-:root[data-palette=qrafthive]{--detail-accent:var(--sidebar-primary);--fraction-accent:var(--sidebar-primary);--fraction-opacity:.8}
-:root[data-palette=qrafthive][data-theme=dark]{--content-accent:var(--sidebar-primary)}
-@font-face{
-  font-family:Inter;
-  font-style:normal;
-  font-weight:100 900;
-  font-display:swap;
-  src:url('./fonts/inter-latin.woff2') format('woff2');
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD
-}
-@font-face{
-  font-family:Inter;
-  font-style:normal;
-  font-weight:100 900;
-  font-display:swap;
-  src:url('./fonts/inter-cyrillic.woff2') format('woff2');
-  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116
-}
 @font-face{
   font-family:Merriweather;
   font-style:italic;
@@ -129,7 +109,7 @@ input::placeholder{
   font-size:25px
 }
 .brand-accent{
-  color:var(--content-accent)
+  color:var(--primary)
 }
 .brand,.math-illustration{
   -webkit-user-select:none;
@@ -254,11 +234,11 @@ input::placeholder{
   color:var(--muted-foreground)
 }
 .grade-inline button[aria-pressed=true]{
-  color:var(--content-accent);
-  border-bottom-color:var(--detail-accent)
+  color:var(--primary);
+  border-bottom-color:var(--primary)
 }
 .grade-inline button:hover{
-  color:var(--content-accent);
+  color:var(--primary);
   background:var(--accent)
 }
 .mobile-grade-selector{
@@ -297,13 +277,13 @@ input::placeholder{
 }
 .subject-button.is-selected{
   background:transparent;
-  color:var(--content-accent);
+  color:var(--primary);
   border-radius:0;
-  box-shadow:inset 2px 0 0 var(--detail-accent);
+  box-shadow:inset 2px 0 0 var(--primary);
   font-weight:650
 }
 .subject-button.is-selected .subject-symbol{
-  color:var(--content-accent)
+  color:var(--primary)
 }
 .subject-button[aria-expanded=true]>svg{
   transform:rotate(90deg)
@@ -331,7 +311,7 @@ input::placeholder{
   border-radius:var(--radius)
 }
 .section-navigation button:hover{
-  color:var(--content-accent);
+  color:var(--primary);
   background:var(--sidebar-accent)
 }
 main{
@@ -395,8 +375,8 @@ main{
   fill-opacity:.85
 }
 .fraction-second{
-  fill:var(--fraction-accent);
-  fill-opacity:var(--fraction-opacity)
+  fill:var(--primary);
+  fill-opacity:.3
 }
 .fraction-rest{
   stroke:var(--muted-foreground);
@@ -404,17 +384,17 @@ main{
   stroke-width:1
 }
 .illustration-line,.illustration-curve{
-  stroke:var(--content-accent)
+  stroke:var(--primary)
 }
 .illustration-construction{
-  stroke:var(--content-accent);
+  stroke:var(--primary);
   opacity:.4
 }
 .illustration-points{
-  fill:var(--detail-accent)
+  fill:var(--primary)
 }
 .illustration-formula,.illustration-small{
-  fill:var(--content-accent);
+  fill:var(--primary);
   font-family:var(--font-serif);
   font-style:italic
 }
@@ -446,7 +426,7 @@ main{
   display:flex;
   align-items:center;
   gap:9px;
-  color:var(--content-accent);
+  color:var(--primary);
   font-size:15px;
   font-weight:650;
   letter-spacing:.2px
@@ -457,7 +437,7 @@ main{
   height:30px;
   font-weight:600;
   letter-spacing:0;
-  color:var(--content-accent)
+  color:var(--primary)
 }
 .subject-kicker .subject-symbol svg{
   width:26px;
@@ -702,7 +682,7 @@ dialog::backdrop{
   line-height:1.6
 }
 .dialog-topic-list a:hover{
-  color:var(--content-accent)
+  color:var(--primary)
 }
 .dialog-topic-list a>span:nth-child(2){
   flex:1
@@ -765,7 +745,7 @@ dialog::backdrop{
   align-items:center;
   justify-content:center;
   gap:12px;
-  color:var(--content-accent);
+  color:var(--primary);
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:11px 14px;
@@ -791,7 +771,7 @@ dialog::backdrop{
   border-radius:0
 }
 .result-row:hover{
-  border-color:var(--content-accent)
+  border-color:var(--primary)
 }
 .result-grade{
   display:block;

@@ -1,7 +1,7 @@
 import { StrictMode, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalogue from 'virtual:mathstart-catalogue';
-import { initialDark } from './theme-selection';
+import './theme.css';
 import './style.css';
 
 // The existing local instance owns public content and authentication.
@@ -32,7 +32,7 @@ function SubjectMark({ subject }: { subject: string }) {
   return <span className="subject-symbol" aria-hidden="true">{subject === 'matematika' ? <Icon name="math"/> : symbol[subject] ?? '∑'}</span>;
 }
 function Brand() {
-  return <a className="brand" href={location.search || '/'} draggable={false} aria-label="MathStart — главная"><span>Math<span className="brand-accent">Start</span></span></a>;
+  return <a className="brand" href="/" draggable={false} aria-label="MathStart — главная"><span>Math<span className="brand-accent">Start</span></span></a>;
 }
 function GradePicker({ grade, onChange }: { grade: string; onChange: (value: string) => void }) {
   return <div className="grade-picker"><span className="nav-label">КЛАСС</span>
@@ -101,7 +101,7 @@ function App() {
   const [subject, setSubject] = useState('algebra');
   const [expandedSubject, setExpandedSubject] = useState<string | null>('algebra');
   const [query, setQuery] = useState('');
-  const [dark, setDark] = useState(initialDark);
+  const [dark, setDark] = useState(false);
   const [activeSection, setActiveSection] = useState<Section | null>(null);
   const [sectionQuery, setSectionQuery] = useState('');
   const topicDialog = useRef<HTMLDialogElement>(null);

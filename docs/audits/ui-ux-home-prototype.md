@@ -547,3 +547,27 @@ TypeScript и production Vite build после финальной CSS правк
 Проверка всех эффективных CSS tokens трёх тем и побайтовой сохранности
 экспортов первых двух вариантов — PASS. Ни layout dimensions, ни учебные
 данные, ни зависимости, ни workflow-файлы не менялись.
+
+## 2026-10-22 — окончание сравнения: Professional + шрифты QraftHive
+
+Основа: `177c5d1`, ветка ui/ux. Пользователь выбрал первую палитру и шрифты
+третьей темы. В единственный theme.css возвращены исходные tokens Professional,
+с намеренной заменой только font-sans/serif/mono на стеки QraftHive.
+Outfit variable и Merriweather Italic сохранены с OFL; кириллица использует
+системный fallback QraftHive. Синий акцент и прозрачность вторых долей 0.3
+восстановлены, структура страницы не менялась.
+
+Удалены сравнение и его build input, URL-переключатель, альтернативные CSS и
+registry, дублирующий архив Professional и неиспользуемый Inter с его OFL.
+Корневой theme.registry.json теперь хранит точный исходник Professional;
+намеренное отличие шрифтов документировано. Исторический audit/Git сохранены.
+
+Проверки рабочего дерева: TypeScript и Vite production build PASS;
+Chrome **28/28 PASS** (43.3s), 360/768/1440/1920, retries/skipped/flaky 0.
+Поиск, классы/предметы, реальные ссылки диалога, закрытие снаружи/Escape,
+фокус, загрузка Outfit/Merriweather, запрет выделения логотипа/SVG и overflow
+проверены. Светлый desktop и тёмный mobile снимки просмотрены.
+Все эффективные tokens сверены с Professional: 58 light / 57 dark,
+единственные отличия — три выбранных font stacks. Лишние исходные и built
+страницы отсутствуют. git diff --check PASS. Это не полный target/PG/recovery gate.
+Коммит сохраняет ранее запрошенный пользователем [skip ci]; workflows не менялись.
