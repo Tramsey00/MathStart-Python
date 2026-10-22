@@ -84,6 +84,8 @@ test('section dialog has real topic links, keyboard dismissal and restored focus
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole('link')).toHaveCount(5);
   await expect(dialog.getByRole('listitem')).toHaveCount(5);
+  await expect(dialog.locator('.topic-index').first()).toHaveText('1');
+  await expect(dialog.getByRole('link').first()).toContainText('Читать');
   await expect(dialog.getByRole('heading', { name: 'Темы раздела' })).toBeVisible();
   await expect(dialog.getByRole('link').first()).toHaveAttribute('href', /^http:\/\/127\.0\.0\.1:8121\/[a-z0-9-]+\/$/);
   expect(await dialog.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
@@ -148,7 +150,7 @@ test('global search, empty results, clear and section filter work', async ({ pag
   expect(await page.locator('.section-filter').evaluate(element => getComputedStyle(element).borderColor)).not.toBe(idleBorder);
   await filter.fill('многочлен');
   await expect(page.locator('.section-card')).toHaveCount(2);
-  await expect(page.locator('.section-card .card-number').first()).toHaveText('06');
+  await expect(page.locator('.section-card .card-number').first()).toHaveText('6');
   await page.getByRole('button', { name: 'Очистить фильтр разделов' }).click();
   await expect(filter).toHaveValue('');
   await expect(filter).toBeFocused();
@@ -193,6 +195,8 @@ test('shared illustration replaces removed labels and section hover leaves appea
   await expect(page.locator('.breadcrumbs, .nav-home, .count-badge')).toHaveCount(0);
   await expect(page.getByText('ТВОЁ ОБУЧЕНИЕ', { exact: true })).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'О проекте', exact: true })).toHaveCount(0);
+  await expect(page.locator('.brand')).toHaveText('MathStart');
+  await expect(page.locator('.brand-mark, .hero-note, .card-arrow')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 2, name: 'С чего начнём?', exact: true })).toBeVisible();
   await expect(page.locator('.hero')).not.toContainText('разделов');
   await expect(page.getByText('Открыть раздел', { exact: true })).toHaveCount(0);

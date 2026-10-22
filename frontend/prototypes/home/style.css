@@ -111,22 +111,13 @@ input::placeholder{
 }
 .brand{
   display:inline-flex;
-  gap:10px;
   align-items:center;
-  font-weight:750;
-  letter-spacing:-1px;
-  font-size:23px
+  font-weight:650;
+  letter-spacing:-.9px;
+  font-size:25px
 }
-.brand-mark{
-  height:33px;
-  width:33px;
-  border-radius:9px;
-  background:var(--primary);
-  color:var(--primary-foreground);
-  font-size:26px;
-  font-weight:500;
-  text-align:center;
-  line-height:33px
+.brand-accent{
+  color:var(--primary)
 }
 .global-search{
   display:flex;
@@ -358,13 +349,13 @@ main{
   position:relative;
   z-index:1;
   min-width:0;
-  flex:1 1 0
+  flex:1.1 1 0
 }
 .math-illustration{
   display:block;
-  flex:1.1 1 0;
+  flex:1 1 0;
   min-width:0;
-  width:52%;
+  width:48%;
   max-height:none;
   align-self:center;
   overflow:visible
@@ -463,18 +454,11 @@ h1{
   overflow-wrap:anywhere
 }
 .hero-copy>p{
-  font-size:15px;
-  line-height:1.85;
+  font-size:16px;
+  line-height:1.8;
   color:color-mix(in oklch,var(--foreground) 76%,var(--background));
   max-width:none;
   margin:0
-}
-.hero-copy>.hero-note{
-  color:var(--muted-foreground);
-  font-size:12px;
-  line-height:1.7;
-  max-width:350px;
-  margin-top:19px
 }
 .materials{
   background:var(--card);
@@ -546,7 +530,7 @@ h2{
 .section-card{
   position:relative;
   display:grid;
-  grid-template-columns:24px minmax(0,1fr) 18px;
+  grid-template-columns:20px minmax(0,1fr);
   align-items:start;
   gap:12px;
   text-align:left;
@@ -576,7 +560,7 @@ h2{
 .card-number{
   font-size:12px;
   font-weight:650;
-  color:var(--primary);
+  color:var(--muted-foreground);
   line-height:22px;
   font-variant-numeric:tabular-nums
 }
@@ -586,7 +570,6 @@ h2{
   padding:0;
   border-radius:0;
   color:var(--muted-foreground);
-  margin-top:auto;
   line-height:18px
 }
 h3{
@@ -611,10 +594,21 @@ h3{
   text-overflow:ellipsis;
   overflow:hidden
 }
-.card-arrow{
+.card-meta{
   display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  margin-top:auto
+}
+.reading-action{
+  flex-shrink:0;
   color:var(--primary);
-  align-self:center
+  font-size:12px;
+  font-weight:500;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:3px
 }
 dialog{
   background:var(--background);
@@ -635,12 +629,28 @@ dialog::backdrop{
   scrollbar-width:thin
 }
 .topics-dialog-header{
-  background:var(--secondary);
-  border-bottom:1px solid var(--border);
-  padding:28px 32px 23px
+  background:var(--background);
+  padding:20px 32px 16px
+}
+.topics-context{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:8px
+}
+.topics-context .eyebrow{
+  font-size:12px;
+  letter-spacing:0;
+  font-weight:500
+}
+.topics-dialog-header>h2{
+  font-size:23px;
+  line-height:1.4;
+  letter-spacing:-.5px
 }
 .topics-dialog-body{
-  padding:22px 32px 12px
+  padding:8px 32px 12px
 }
 .dialog-heading{
   display:flex;
@@ -654,12 +664,6 @@ dialog::backdrop{
 .dialog-heading h2{
   font-size:24px;
   line-height:1.4
-}
-.dialog-help{
-  color:var(--muted-foreground);
-  font-size:12px;
-  line-height:1.8;
-  margin:12px 0 0
 }
 .topics-list-heading{
   display:flex;
@@ -702,13 +706,11 @@ dialog::backdrop{
 }
 .topic-index{
   font-size:12px;
-  color:var(--primary);
+  color:var(--muted-foreground);
+  min-width:12px;
   align-self:flex-start;
   line-height:24px;
   font-variant-numeric:tabular-nums
-}
-.dialog-topic-list a>svg{
-  color:var(--primary)
 }
 .menu-dialog{
   margin:0;
@@ -788,9 +790,6 @@ dialog::backdrop{
 .result-row:hover{
   border-color:var(--primary)
 }
-.result-row svg{
-  color:var(--primary)
-}
 .result-grade{
   display:block;
   font-size:10px;
@@ -827,9 +826,6 @@ dialog::backdrop{
   }
   .hero{
     padding:14px 0 20px
-  }
-  .hero-copy>.hero-note{
-    margin-top:14px
   }
   .section-grid{
     grid-template-columns:1fr;
@@ -897,9 +893,6 @@ dialog::backdrop{
   .mobile-grade-selector .grade-picker{
     margin:0
   }
-  .hero-copy>.hero-note{
-    max-width:300px
-  }
   .menu-dialog .section-navigation button{
     padding:9px 5px;
     font-size:12px
@@ -917,13 +910,6 @@ dialog::backdrop{
     gap:7px
   }
   .brand{
-    font-size:21px;
-    gap:8px
-  }
-  .brand-mark{
-    width:29px;
-    height:29px;
-    line-height:29px;
     font-size:23px
   }
   .header-actions{
@@ -1022,7 +1008,7 @@ dialog::backdrop{
   .section-card{
     min-height:0;
     padding:16px 0;
-    grid-template-columns:22px minmax(0,1fr) 18px;
+    grid-template-columns:16px minmax(0,1fr);
     gap:9px
   }
   .section-card:nth-child(odd):not(:last-child){
@@ -1045,10 +1031,13 @@ dialog::backdrop{
     max-height:85dvh
   }
   .topics-dialog-header{
-    padding:22px 20px 20px
+    padding:16px 20px 14px
   }
   .topics-dialog-body{
-    padding:20px 20px 8px
+    padding:8px 20px
+  }
+  .topics-dialog-header>h2{
+    font-size:20px
   }
   .dialog-heading h2{
     font-size:20px
