@@ -55,12 +55,14 @@ test('email preview validates fields and never sends or stores credentials', asy
   expect(await page.evaluate(() => [...Object.values(localStorage), ...Object.values(sessionStorage)].every(value => !value.includes('preview@example.test') && !value.includes('SyntheticOnly!123')))).toBe(true);
   await noOverflow(page);
 });
-test('local photographs, theme and reduced motion pass visual review', async ({ page }, testInfo) => {
+test('text layout, theme and reduced motion pass visual review', async ({ page }, testInfo) => {
   const failures: string[] = [];
   page.on('requestfailed', request => failures.push(request.url()));
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
-  expect(await page.locator('.study-images img').evaluateAll(images => images.length === 2 && images.every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
+  await expect(page.locator('main img')).toHaveCount(0);
+  await expect(page.locator('.math-figure,.area-diagram')).toHaveCount(0);
+  await expect(page.locator('.materials-summary')).toHaveCount(0);
   const palette = await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--primary').trim());
   expect(palette).toBe('oklch(0.5460 0.2153 262.8719)');
   expect(await page.locator('body').evaluate(element => getComputedStyle(element).getPropertyValue('--home-support').trim())).not.toBe('');
@@ -72,8 +74,7 @@ test('local photographs, theme and reduced motion pass visual review', async ({ 
     await page.screenshot({ path: resolve(here, `../../.cache/landing-${testInfo.project.name}-${mode}.png`), fullPage: true });
   }
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  expect(await page.locator('.study-photo').first().evaluate(element => getComputedStyle(element, '::after').display)).toBe('none');
-  expect(await page.locator('.study-photo img').first().evaluate(element => getComputedStyle(element).transitionDuration)).toBe('0s');
+  expect(await page.locator('.login-field input').first().evaluate(element => getComputedStyle(element).transitionDuration)).toBe('0s');
   await page.getByRole('link', { name: 'Открыть материалы', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   expect(failures).toEqual([]);

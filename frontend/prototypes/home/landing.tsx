@@ -3,8 +3,6 @@ import { createRoot } from 'react-dom/client';
 import './theme.css';
 import './style.css';
 import { LandingHeader, SiteFooter, site, useSiteTheme } from './site-shell';
-import mathNotes from './images/math-notes.jpg';
-import studyDesk from './images/study-desk.jpg';
 import './landing.css';
 
 function EmailLogin() {
@@ -36,11 +34,9 @@ function Landing() {
   return <><a className="skip-link" href="#home-main">К содержимому</a><LandingHeader dark={dark} onTheme={() => setDark(value => !value)}/>
     <main className="landing-main" id="home-main" tabIndex={-1}>
       <section className="homepage-intro" aria-labelledby="home-title">
-        <div className="home-intro-copy"><h1 id="home-title">Математика<br/>для 5–10 классов</h1><p>Теория, разобранные примеры и рисунки по темам школьного курса. Можно повторить правило или посмотреть, как решается задача.</p></div>
+        <div className="home-intro-copy"><h1 id="home-title">Математика<br/>для 5–10 классов</h1><p>Дроби, уравнения, функции и геометрия. Объяснения правил и разборы задач из школьной программы.</p><div className="materials-entry"><a className="materials-entry-link" href="/materials.html">Открыть материалы</a><span className="open-access-note">Без регистрации</span></div></div>
         <EmailLogin/>
-        <figure className="study-figure"><div className="study-images"><div className="study-photo math-photo"><img src={mathNotes} width="1400" height="1867" alt="Примеры умножения на бумаге и карандаш" fetchPriority="high"/></div><div className="study-photo desk-photo"><img src={studyDesk} width="1400" height="933" alt="Открытая тетрадь с зелёной ручкой и карандашами на столе"/></div></div><figcaption>Фото: <a href="https://unsplash.com/photos/ViEBSoZH6M4" target="_blank" rel="noopener noreferrer">Chris Liverani</a> и <a href="https://unsplash.com/photos/n9AaeihA9HI" target="_blank" rel="noopener noreferrer">Clay Banks</a> / Unsplash</figcaption></figure>
       </section>
-      <section className="materials-entry" aria-labelledby="materials-entry-title"><div><h2 id="materials-entry-title">Учебные материалы</h2><p>Выбери класс и предмет в каталоге. Разделы, темы и поиск собраны на одной странице.</p><span className="open-access-note">Материалы доступны без входа</span></div><a className="materials-entry-link" href="/materials.html">Открыть материалы</a></section>
     </main><SiteFooter/>
   </>;
 }
