@@ -2,7 +2,7 @@
 
 Current runtime: React/TypeScript, immutable public SSG and authenticated
 account/staff forms served through the FastAPI publication gateway. The primary
-checkout is the root on main. Node runs at build/development time; API/edge do
+checkout is the root; each task uses its own branch from current main. Node runs at build/development time; API/edge do
 not run a Node server. No future product domains are implemented by this frontend.
 
 ## Existing locked tooling

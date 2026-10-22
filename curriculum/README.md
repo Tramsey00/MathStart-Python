@@ -90,49 +90,19 @@ section
 
 Название, порядок, SEO, статус публикации и содержимое страницы изменяются через исходники урока.
 
-## Публикация
+## Публикация и проверка
 
-Проверка одной темы без записи:
-
-```powershell
-python manage.py publish_lessons --slug SLUG --dry-run
-```
-
-Публикация:
+Текущий pipeline: Content preparation → immutable inputs → React/SSG build →
+reviewed plan/publish с PostgreSQL authority. Файл не публикуется при startup.
+Точные preview/check/index commands, conflicts и новая тема описаны в
+[руководстве редактирования](../docs/editing-lessons.md#проверка-и-публикация).
 
 ```powershell
-python manage.py publish_lessons --slug SLUG
+python -m backend.cli check-sources --source-root .
 ```
 
-Публикация всего каталога:
-
-```powershell
-python manage.py publish_lessons --all
-```
-
-Если страницы с указанным `slug` ещё нет в базе, публикация может создать новый `ContentPage`, если соответствующие класс, предмет и раздел существуют в каталоге.
-
-Для уже существующего управляемого урока действует контроль конфликтов: изменения базы, не соответствующие последней принятой публикации или текущему исходнику, не перезаписываются автоматически.
-
-## Проверка
-
-Проверить одну тему:
-
-```powershell
-python manage.py check_lesson_sources --slug SLUG
-```
-
-Проверить весь каталог:
-
-```powershell
-python manage.py check_lesson_sources --all
-```
-
-Обновить человекочитаемый указатель:
-
-```powershell
-python manage.py index_lessons
-```
+Installed-source checks и index требуют явно выбранного runtime; запись/публикация
+— отдельного operator решения. Не запускать старые management commands в target.
 
 ## Общие стили
 

@@ -17,7 +17,8 @@ PostgreSQL 16+ и React/TypeScript с immutable SSG. Сохранены исхо
 | var/ | Игнорируемые локальные окружения, private настройки и отчёты |
 
 Подготовленное локальное окружение: [запуск и остановка](docs/local-development.md).
-Рабочая копия — основной Git root на main. История переноса —
+Рабочая копия — основной Git root; разработка каждого задания идёт в отдельной ветке
+от проверенного актуального main (без `codex/`) по [AGENTS.md](AGENTS.md). История переноса —
 [краткая maintenance-запись](docs/maintenance.md).
 
 ## Чистый клон и запуск
@@ -66,7 +67,7 @@ python scripts/check_migration_preservation.py
 python scripts/verify_repo.py
 ```
 
-Полный managed lifecycle, все 16 registry checks, fresh/upgrades и настоящие
+Полный managed lifecycle, все 15 registry checks, fresh/upgrades и настоящие
 Chrome/Edge/Firefox × 360/768/1440: [docs/target-runtime.md](docs/target-runtime.md).
 Ordinary clean-clone installation отдельно проверяет `scripts/verify_installation.py`;
 это disposable QA, он не оставляет сайт для использования. Skipped не равен PASS.
@@ -80,3 +81,7 @@ Legacy comparisons запускаются явно из [отдельного pi
 Миграция принята и слита в PR54, консолидация завершена в PR55:
 [принятый результат и evidence](docs/maintenance.md). Будущие продуктовые gates
 и production rollout требуют отдельных решений.
+
+Архитектура/версии: [ARCHITECTURE](ARCHITECTURE.md). Полное [ТЗ](docs/specifications/technical-spec-v7.2-draft.md),
+[очередь](docs/tasks/INDEX.md), [дизайн-бриф](docs/ux/redesign-brief.md),
+[аудит и вывод Harness](docs/audits/docs-and-workflow-cleanup.md). Новые дизайн/игровые решения ожидают выбора.

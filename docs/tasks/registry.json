@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "updated": "2026-10-20",
+  "status": "DRAFT_HUMAN_PENDING",
+  "base_sha": "1a015f7513933901e8bb252e94c660e4383b6b0e",
+  "execution": "one task, one branch, one implementer; separate review and human acceptance",
+  "tasks": [
+    {
+      "id": "MS-N000",
+      "order": 0,
+      "title": "Аудит документации и вывод собственного Harness",
+      "status": "READY_FOR_REVIEW",
+      "dependencies": [],
+      "skill": null,
+      "acceptance": "Отдельное ревью, проверки нового candidate и решение пользователя; docs/audits/docs-and-workflow-cleanup.md"
+    },
+    {
+      "id": "MS-N001",
+      "order": 1,
+      "title": "Три визуальных направления и выбор пользователя",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N000"
+      ],
+      "skill": "skills/tasks/0001-visual-directions/SKILL.md",
+      "legacy_ids": [],
+      "acceptance": "Три различимых варианта с одной матрицей экранов/состояний; сопоставлены учебное удобство, возрастная уместность, стоимость сопровождения и геймификация; явное решение пользователя либо BLOCKED_DECISION."
+    },
+    {
+      "id": "MS-N002",
+      "order": 2,
+      "title": "Выбор UI-библиотек под принятый дизайн",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N001"
+      ],
+      "skill": "skills/tasks/0002-ui-library-decision/SKILL.md",
+      "legacy_ids": [],
+      "acceptance": "Decision matrix с точными проверенными версиями/источниками и рекомендацией; пользователь выбирает stack; обновление архитектуры отличает выбранное от установленного."
+    },
+    {
+      "id": "MS-N003",
+      "order": 3,
+      "title": "Дизайн-система и доступные базовые компоненты",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N002"
+      ],
+      "skill": "skills/tasks/0003-design-system/SKILL.md",
+      "legacy_ids": [],
+      "acceptance": "Каждый компонент имеет согласованный variant/state contract и accessibility evidence; нет answer leakage или глобального CSS конфликта; stack отражает установленные версии."
+    },
+    {
+      "id": "MS-N004",
+      "order": 4,
+      "title": "Пилот редизайна существующего учебного сценария",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N003"
+      ],
+      "skill": "skills/tasks/0004-redesign-pilot/SKILL.md",
+      "legacy_ids": [],
+      "acceptance": "Все pilot URLs и semantic assertions сохранены; пользователь принял actual visual result; visual baseline меняется только для утверждённых экранов."
+    },
+    {
+      "id": "MS-N005",
+      "order": 5,
+      "title": "Поэтапное внедрение редизайна текущего сайта",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N004"
+      ],
+      "skill": "skills/tasks/0005-redesign-rollout/SKILL.md",
+      "legacy_ids": [
+        "MS7-I04"
+      ],
+      "acceptance": "Полная карта существующих экранов и матрица состояний; согласованный дизайн и semantic preservation; assessed placeholders не имитируют runtime."
+    },
+    {
+      "id": "MS-N006",
+      "order": 6,
+      "title": "Педагогическая спецификация геймификации",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N005"
+      ],
+      "skill": "skills/tasks/0006-gamification-spec/SKILL.md",
+      "legacy_ids": [],
+      "acceptance": "Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной."
+    },
+    {
+      "id": "MS-N007",
+      "order": 7,
+      "title": "Knowledge и Content-owned TopicSkill",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N006"
+      ],
+      "skill": "skills/tasks/0007-knowledge-persistence/SKILL.md",
+      "legacy_ids": [
+        "MS7-V03"
+      ],
+      "acceptance": "Exact pilot inventory и deterministic depth2 ancestor query, сохранность user history, fresh+upgrade PostgreSQL и идемпотентный импорт."
+    },
+    {
+      "id": "MS-N008",
+      "order": 8,
+      "title": "Immutable exercise versions и pilot bank",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N007"
+      ],
+      "skill": "skills/tasks/0008-exercise-bank/SKILL.md",
+      "legacy_ids": [
+        "MS7-V04"
+      ],
+      "acceptance": "Точные coverage quotas и две содержательно разные structured forms; offline deterministic verification и explicit review учебной математики; без конвертации всех263 уроков."
+    },
+    {
+      "id": "MS-N009",
+      "order": 9,
+      "title": "Attempts, immutable revisions и recorded help/reveal",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N008"
+      ],
+      "skill": "skills/tasks/0009-attempt-help-lifecycle/SKILL.md",
+      "legacy_ids": [
+        "MS7-V05",
+        "MS7-V06"
+      ],
+      "acceptance": "Immutable submitted snapshot, duplicate no-op/conflict, reveal только после recorded exposure, permanent uniqueness и owner privacy."
+    },
+    {
+      "id": "MS-N010",
+      "order": 10,
+      "title": "Ограниченный математический parser и normalizer",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N009"
+      ],
+      "skill": "skills/tasks/0010-math-parser/SKILL.md",
+      "legacy_ids": [
+        "MS7-R09"
+      ],
+      "acceptance": "Supported pilot grammar reproducible; timeout/limit/unsupported не становятся wrong/misconception, resource limits проверены."
+    },
+    {
+      "id": "MS-N011",
+      "order": 11,
+      "title": "Детерминированные validators и первый доказанный дефект",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N010"
+      ],
+      "skill": "skills/tasks/0011-deterministic-analysis/SKILL.md",
+      "legacy_ids": [
+        "MS7-R10"
+      ],
+      "acceptance": "Validated AnalysisResult не меняет UserSkillState; known deterministic verdict не переопределяется LLM; false strong negative=0 safety subset."
+    },
+    {
+      "id": "MS-N012",
+      "order": 12,
+      "title": "ProgressEvent, CompletionFact, проекция и replay",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N011"
+      ],
+      "skill": "skills/tasks/0012-progress-replay/SKILL.md",
+      "legacy_ids": [
+        "MS7-V08",
+        "MS7-V09"
+      ],
+      "acceptance": "Online/replay равны по всем state fields, progress-v1 compatibility сохранена; mirror не зависит от Assessment ORM; no evidence overwrite."
+    },
+    {
+      "id": "MS-N013",
+      "order": 13,
+      "title": "Atomic Analysis → Progress и аудит persisted loop",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N012"
+      ],
+      "skill": "skills/tasks/0013-evidence-finalization/SKILL.md",
+      "legacy_ids": [
+        "MS7-V10",
+        "MS7-R13"
+      ],
+      "acceptance": "Реальная PG история объясняет каждый state change; retry не дублирует evidence; leak/owner/transaction boundaries доказаны."
+    },
+    {
+      "id": "MS-N014",
+      "order": 14,
+      "title": "Четыре exercise UI, typed steps и help/reveal recovery",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N013",
+        "MS-N005"
+      ],
+      "skill": "skills/tasks/0014-exercise-ui/SKILL.md",
+      "legacy_ids": [
+        "MS7-I05",
+        "MS7-I06",
+        "MS7-I07",
+        "MS7-I09"
+      ],
+      "acceptance": "Все четыре режима работают с реальным backend, no secret in HTML/JSON/JS/network до reveal, новый attempt не сбрасывает exposure."
+    },
+    {
+      "id": "MS-N015",
+      "order": 15,
+      "title": "Прогресс, история и завершение onboarding",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N014"
+      ],
+      "skill": "skills/tasks/0015-progress-history/SKILL.md",
+      "legacy_ids": [
+        "MS7-I10",
+        "MS7-I11"
+      ],
+      "acceptance": "UI точно отражает server state и explanation; reading/XP не дают mastery; diagnostic placeholder не имитирует готовую N016."
+    },
+    {
+      "id": "MS-N016",
+      "order": 16,
+      "title": "Диагностика и adaptive practice с возвратом",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N015"
+      ],
+      "skill": "skills/tasks/0016-diagnostic-practice/SKILL.md",
+      "legacy_ids": [
+        "MS7-R11",
+        "MS7-V12",
+        "MS7-I13"
+      ],
+      "acceptance": "Exact §10 selection/stop rules и нейтральность skip/unsupported, stable item under refresh, real evidence path и доступный возврат."
+    },
+    {
+      "id": "MS-N017",
+      "order": 17,
+      "title": "Product LLM provider, AIRun и безопасный fallback",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N016"
+      ],
+      "skill": "skills/tasks/0017-product-provider/SKILL.md",
+      "legacy_ids": [
+        "MS7-V11"
+      ],
+      "acceptance": "Обычные tests offline; bad output не создаёт strong negative; actual metadata без PII, provider outage не скрывает working core."
+    },
+    {
+      "id": "MS-N018",
+      "order": 18,
+      "title": "Tutor policy, reviewed hint bank и conversations UI",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N017"
+      ],
+      "skill": "skills/tasks/0018-tutor/SKILL.md",
+      "legacy_ids": [
+        "MS7-R12",
+        "MS7-V13",
+        "MS7-I12"
+      ],
+      "acceptance": "No pre-reveal arbitrary mathematical prose leakage; exact context budgets, user/version scope и correct exposure; frontend не bypass-ит сервер."
+    },
+    {
+      "id": "MS-N019",
+      "order": 19,
+      "title": "Golden evaluation Analyzer/Tutor и safety gates",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N018"
+      ],
+      "skill": "skills/tasks/0019-product-evaluation/SKILL.md",
+      "legacy_ids": [
+        "MS7-R14"
+      ],
+      "acceptance": "Сохранены количественные product thresholds/cohorts; failed/timeouts не исключены; модель/prompt/schema/version и бюджет указаны; результаты одного SHA не присвоены другому."
+    },
+    {
+      "id": "MS-N020",
+      "order": 20,
+      "title": "Реализация только принятых игровых механик",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N006",
+        "MS-N019"
+      ],
+      "skill": "skills/tasks/0020-gamification-implementation/SKILL.md",
+      "legacy_ids": [],
+      "acceptance": "Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят."
+    },
+    {
+      "id": "MS-N021",
+      "order": 21,
+      "title": "Полный учебный цикл на staging",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N020"
+      ],
+      "skill": "skills/tasks/0021-staging-integration/SKILL.md",
+      "legacy_ids": [
+        "MS7-V14",
+        "MS7-I14"
+      ],
+      "acceptance": "Один source SHA/image/public tuple, полный цикл без fixture substitutes и skipped, понятный список remaining human gates."
+    },
+    {
+      "id": "MS-N022",
+      "order": 22,
+      "title": "Security/privacy, производительность и доступность RC",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N021"
+      ],
+      "skill": "skills/tasks/0022-release-quality/SKILL.md",
+      "legacy_ids": [
+        "MS7-R15",
+        "MS7-V15",
+        "MS7-I15"
+      ],
+      "acceptance": "Нет открытых blocking security/accessibility findings; >=200 ordinary/10 concurrent и >=30 AI/2 concurrent с согласованным budget; failures включены в metrics."
+    },
+    {
+      "id": "MS-N023",
+      "order": 23,
+      "title": "Upgrade/restore, публичный RC и browser rehearsal",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N022"
+      ],
+      "skill": "skills/tasks/0023-release-recovery/SKILL.md",
+      "legacy_ids": [
+        "MS7-V16",
+        "MS7-V17",
+        "MS7-R17",
+        "MS7-I17"
+      ],
+      "acceptance": "Exact release tuple и unskipped CI, measured restore, successful external full-loop только после разрешения; локальный loopback не называется публичной готовностью."
+    },
+    {
+      "id": "MS-N024",
+      "order": 24,
+      "title": "Отчёт о реальном AI-процессе, demo и freeze/handover",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-N023"
+      ],
+      "skill": "skills/tasks/0024-report-handover/SKILL.md",
+      "legacy_ids": [
+        "MS7-R16",
+        "MS7-R18",
+        "MS7-V18",
+        "MS7-I16",
+        "MS7-I18"
+      ],
+      "acceptance": "Полный reproducible artifact/evidence index, final SHA, реальные ограничения и actual contributions; C-08 описывает применённые AI tools, не обязательство собственного Harness."
+    }
+  ]
+}

@@ -102,7 +102,7 @@ is_published
 
 ## Редактирование `body.html`
 
-В `body.html` находится фрагмент учебной страницы без общей HTML-оболочки Django.
+В `body.html` находится фрагмент учебной страницы без общей React/SSG HTML-оболочки.
 
 Для формата `themed_html` разделы урока, участвующие в содержании, должны иметь уникальные `id`:
 
@@ -139,118 +139,65 @@ JavaScript конкретной темы хранится в `page.js` без т
 
 Если один и тот же интерактив требуется нескольким страницам, его реализацию следует хранить в `static/mathstart/js/widgets/`, а не копировать в каждый урок.
 
-## Проверка и публикация одной темы
+## Проверка и публикация
 
-Сначала выполните dry-run:
+Target использует FastAPI/SQLAlchemy Content services. `manage.py` в текущем
+checkout отсутствует; исторические команды запускаются только в pinned oracle
+при специальных сравнениях. Авторские файлы сохраняются без нормализации.
 
-```powershell
-python manage.py publish_lessons --slug SLUG --dry-run
-```
-
-Если проверка прошла успешно, опубликуйте тему:
+Проверка всех файлов без БД:
 
 ```powershell
-python manage.py publish_lessons --slug SLUG
+python -m backend.cli check-sources --source-root .
 ```
 
-После публикации проверьте соответствие базы исходнику:
+Дальнейшие команды требуют явно выбранной PostgreSQL/config среды из
+[READ_RUNTIME](../backend/READ_RUNTIME.md), а запись — отдельной операторской
+авторизации. Они не запускаются автоматически при редактировании файла.
+Для одной темы подготовьте read-only preview с точным source SHA:
 
 ```powershell
-python manage.py check_lesson_sources --slug SLUG
+$sourceSha = git rev-parse HEAD
+python -m backend.content.publish prepare-sources --source-root . --source-sha $sourceSha --release-id lesson-preview --slug SLUG --dry-run
 ```
 
-И проверьте страницу в браузере на запущенном сайте.
+Без `--dry-run` подготовка требует новых `--input-root` и `--changes`, создаёт
+immutable inputs/edition handoff. Несколько slugs передаются после `--slug`;
+`--all` выбирает полный набор. Подготовка сама не активирует публикацию.
+Затем actual locked frontend build, `plan` с проверенными digests, review плана,
+`publish` отдельным процессом со stable owner/idempotency key и HTTP probes.
+Точные обязательные arguments/roots — в [READ_RUNTIME](../backend/READ_RUNTIME.md)
+и [release](../deploy/RELEASE.md); не заменяйте их fixture bootstrap.
 
-В стандартной SQLite-конфигурации перед фактической записью изменений создаётся резервная копия базы в `var/backups/`.
+`LessonPublication` сохраняет accepted published/source digests. Изменение
+source-managed строки независимо от источника вызывает конфликт; автоматического
+force overwrite нет. Повтор публикации не должен перезаписывать user history.
+Резервируется согласованный PostgreSQL/media/release tuple по
+[recovery](../deploy/RECOVERY.md), а не старый SQLite-only backup.
 
-## Несколько тем и весь каталог
-
-Несколько тем можно выбрать одной командой:
+Проверка установленных источников и вывод нового индекса (read-only DB):
 
 ```powershell
-python manage.py publish_lessons --slug SLUG_1 SLUG_2 SLUG_3 --dry-run
-python manage.py publish_lessons --slug SLUG_1 SLUG_2 SLUG_3
+python -m backend.cli check-lesson-sources --source-root . --slug SLUG
+python -m backend.cli check-lesson-sources --source-root . --all
+python -m backend.cli index-lessons --source-root . --output-root var/lesson-index-review
 ```
 
-Проверка и публикация всего каталога:
+`index-lessons` пишет `INDEX.md` непосредственно в выбранный output-root. Сначала
+сравните результат с отслеживаемым индексом; не перезаписывайте authored sources
+или индекс автоматически. Для новой темы создайте обязательные lesson.json/body,
+проверьте Grade/Subject/Section в site_content/catalog.json, затем обычный
+reviewed publication path. Перенос существующих identity полей отдельно согласуется.
+
+Полная проверка по [target-runtime](target-runtime.md) включает sources, HTTP
+quality, URL/assets integrity, PostgreSQL/API и реальные frontend/browser checks:
 
 ```powershell
-python manage.py publish_lessons --all --dry-run
-python manage.py publish_lessons --all
-python manage.py check_lesson_sources --all
+python scripts/verify_repo.py
 ```
 
-Если в выбранном наборе обнаружена ошибка или конфликт, запись изменений не выполняется частично.
-
-## Контроль конфликтов
-
-`LessonPublication` связывает опубликованную страницу с `lesson.json` и хранит `published_digest` последней принятой версии.
-
-Если содержимое управляемого урока в базе изменено независимо от файлового исходника и не совпадает ни с последней принятой публикацией, ни с текущим исходником, публикация останавливается.
-
-Автоматического принудительного перезаписывания такого конфликта нет.
-
-Правильное содержимое должно быть зафиксировано в `curriculum/`, после чего публикацию можно повторить:
-
-```powershell
-python manage.py publish_lessons --slug SLUG --dry-run
-python manage.py publish_lessons --slug SLUG
-```
-
-## Добавление новой темы
-
-Для новой темы:
-
-1. Создайте каталог урока в нужном классе, предмете и разделе внутри `curriculum/`.
-2. Добавьте обязательные `lesson.json` и `body.html`.
-3. При необходимости добавьте `page.css` и `page.js`.
-4. Убедитесь, что `grade`, `subject` и `section` уже существуют в `site_content/catalog.json`.
-5. Выполните публикацию новой темы по её `slug`.
-6. Обновите указатель уроков.
-
-Команды:
-
-```powershell
-python manage.py publish_lessons --slug SLUG --dry-run
-python manage.py publish_lessons --slug SLUG
-python manage.py check_lesson_sources --slug SLUG
-python manage.py index_lessons
-```
-
-Если страницы с таким `slug` ещё нет в базе, публикация создаст новый `ContentPage` и `LessonPublication` после успешной проверки исходника и каталога.
-
-## Указатель уроков
-
-`curriculum/INDEX.md` генерируется командой:
-
-```powershell
-python manage.py index_lessons
-```
-
-Файл не следует редактировать вручную как основной каталог тем: после изменений структуры или названий его нужно пересоздать командой.
-
-## Полная проверка после значительных изменений
-
-```powershell
-python manage.py check
-python manage.py makemigrations --check --dry-run
-python manage.py check_lesson_sources --all
-python manage.py check_content_quality
-python manage.py check_site_integrity
-python manage.py test
-```
-
-## Пустая база
-
-Схема и всё содержимое сайта восстанавливаются из файлов проекта:
-
-```powershell
-python manage.py migrate
-python manage.py bootstrap_site
-```
-
-После bootstrap учебные темы должны совпадать с исходниками:
-
-```powershell
-python manage.py check_lesson_sources --all
-```
+Она требует подготовленного disposable runtime; pure subset его не заменяет.
+Для пустой установки — schema preview/apply/check, explicit initial operator,
+prepare-bootstrap/build/plan/publish по release runbook. Startup не делает seed/DDL.
+Нельзя сбрасывать рабочую БД для проверки. Визуальный осмотр урока/формул/widgets
+не заменяется только exit0 автоматической проверки.

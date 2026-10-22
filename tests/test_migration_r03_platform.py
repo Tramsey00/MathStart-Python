@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 
 from scripts import legacy_oracle
-from scripts.check_migration_preservation import ROOT, verify, dispositions, historical_artifact
+from scripts.check_migration_preservation import ROOT, verify, dispositions, historical_artifact, workflow_changes
 from scripts.verify_repo import parse_args, select_checks
 
 
@@ -18,7 +18,7 @@ class PlatformBoundaryTests(unittest.TestCase):
         with patch.object(legacy_oracle, 'oracle_root', side_effect=AssertionError('Implicit oracle')):
             self.assertEqual(parse_args([]).profile, 'target')
             checks = select_checks(parse_args([]))
-        self.assertEqual(len(checks), 16)
+        self.assertEqual(len(checks), 15)
         self.assertFalse(any('manage.py' in part for row in checks for part in row.command))
         self.assertIsNone(importlib.util.find_spec('django'))
         self.assertIsNone(importlib.util.find_spec('rest_framework'))
@@ -78,7 +78,13 @@ class PlatformBoundaryTests(unittest.TestCase):
             if row['action'] in {'removed', 'moved'}:
                 self.assertFalse((ROOT / name).exists(), name)
             if row['action'] == 'moved':
-                self.assertEqual((ROOT / row['destination']).read_bytes(), historical_artifact(name))
+                followup = workflow_changes().get(row['destination'])
+                if followup:
+                    import hashlib
+                    self.assertEqual(followup['before_sha256'], hashlib.sha256(historical_artifact(name)).hexdigest())
+                    self.assertEqual(followup['after_sha256'], hashlib.sha256((ROOT / row['destination']).read_bytes()).hexdigest())
+                else:
+                    self.assertEqual((ROOT / row['destination']).read_bytes(), historical_artifact(name))
         for name in ('manage.py', 'config/settings.py', 'templates/base.html'):
             self.assertIn(name, rows)
 

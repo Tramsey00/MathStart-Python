@@ -4,7 +4,7 @@ MathStart repository verification entry point.
 
 Current target registry, portable pure subset and explicit pinned legacy oracle.
 Target wrappers fail when required owner implementations are absent. The pure
-profile proves only portable contracts/model/Harness behavior, never runtime
+profile proves only portable contracts/model behavior, never runtime
 parity. Historical comparisons require a separate pinned checkout and interpreter.
 
 Exit code:
@@ -24,7 +24,7 @@ from typing import Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-GROUPS = ("backend", "database", "content", "tests", "harness", "frontend")
+GROUPS = ("backend", "database", "content", "tests", "frontend")
 
 
 @dataclass(frozen=True)
@@ -59,11 +59,11 @@ def run_command(command: Sequence[str]) -> int:
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run MathStart Harness verification checks."
+        description="Run MathStart product verification checks."
     )
     parser.add_argument(
         "--profile", choices=("legacy", "target", "pure"), default="target",
-        help="Explicit migration profile; target is required for migration acceptance.",
+        help="Target registry, portable subset, or explicit historical oracle.",
     )
     parser.add_argument(
         "--group",
@@ -78,7 +78,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--exclude-group",
         action="append",
         choices=GROUPS,
-        help="Exclude a group; nested Harness repo-baseline excludes harness to prevent recursion.",
+        help="Exclude a group; a partial selection is scoped evidence only.",
     )
     parser.add_argument(
         "--list",
@@ -88,7 +88,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--skip-tests",
         action="store_true",
-        help="Skip backend, contract and Harness test suites for a faster local pass.",
+        help="Skip backend and contract test suites for a faster local pass.",
     )
     return parser.parse_args(argv)
 
@@ -102,7 +102,7 @@ def select_checks(args: argparse.Namespace) -> list[Check]:
         from scripts.target_verification import target_checks
         selected = [Check(*row) for row in target_checks()]
         if args.profile == "pure":
-            selected = [check for check in selected if check.group in {"tests", "harness"}
+            selected = [check for check in selected if check.group in {"tests"}
                         and "scripts/target_check.py" not in check.command]
 
     if args.group:
@@ -113,7 +113,7 @@ def select_checks(args: argparse.Namespace) -> list[Check]:
         selected = [check for check in selected if check.group not in args.exclude_group]
 
     if args.skip_tests:
-        selected = [check for check in selected if check.group not in {"tests", "harness"}]
+        selected = [check for check in selected if check.group not in {"tests"}]
 
     return selected
 
@@ -137,7 +137,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     results: list[tuple[Check, int]] = []
 
-    print("MathStart Harness verification")
+    print("MathStart product verification")
     print(f"Profile: {args.profile}; selected checks only, not full target acceptance")
     print(f"Repository: {ROOT}")
     print()

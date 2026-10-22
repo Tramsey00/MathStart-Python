@@ -1,0 +1,569 @@
+{
+  "version": 1,
+  "base_sha": "1a015f7513933901e8bb252e94c660e4383b6b0e",
+  "authority": "Поручение пользователя20.10.2026: docs/workflow cleanup, один агент, вывод собственного Engineering Harness после dependency audit; ветка docs-and-workflow-cleanup, без изменения main.",
+  "execution_record": "docs/audits/docs-and-workflow-cleanup.md",
+  "historical_preservation": "specs/migration/post-django-preservation.json unchanged; original approvals/receipts unchanged",
+  "files": [
+    {
+      "path": ".github/ISSUE_TEMPLATE/task.md",
+      "action": "updated",
+      "before_bytes": 1733,
+      "before_sha256": "6067a242eb22215838779cfab5211d4bc45e49e6ccf6e20fdbeaa9f2e1625e82",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "f90d820d3aa616ad97ad07c2e99d1258b63ddaeb1ed9d91ff8e0c4536675cc5d"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "action": "updated",
+      "before_bytes": 2890,
+      "before_sha256": "adf3094b9d757ea3f1be73d76285772282fd8df262bda1a5af2096ff68539cae",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "0393214b6fbd866b8ece7c02aa9cc01e79cafb75dc82a3575154a8ffad502076"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "action": "updated",
+      "before_bytes": 1134,
+      "before_sha256": "37ce46b519ce92ee5b8074da4fa1d865390de0a3eaf542a0ef4c1d639dedc30e",
+      "reason": "Сохранены workflow name/job verify; portable product checks плюс source/queue/preservation; собственного Harness больше нет.",
+      "after_sha256": "ea6ec47aa0916be42ea4674019dbe781ff4ea11f1cbc9b00d5ec1de13e1f1c20"
+    },
+    {
+      "path": ".github/workflows/migration-ci.yml",
+      "action": "updated",
+      "before_bytes": 35071,
+      "before_sha256": "8922766bfc10237acb86abaee492df455aa21183ba77e6c56c756bca03f30798",
+      "reason": "Сохранены все workflow/job IDs и runtime/install/recovery/combined gates; добавлены docs/skills triggers, подпись pure шага актуализирована.",
+      "after_sha256": "b48810bbb9bd825a5554d2403184f0af46c9958d94cc770c6b478fdd5bb88c76"
+    },
+    {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "before_bytes": 3960,
+      "before_sha256": "74cb95005536e53c78b3b519762a73763dc9947f6f91abb7c40da21c22c10010",
+      "reason": "Общие правила: одна ветка без codex/, один исполнитель/одно задание, explicit task-skill чтение, проверки, отдельное ревью, fixes и human acceptance; не automatic next task.",
+      "after_sha256": "2bca76fb4fa6fdb4f905dd00ead4345edb9d77256c1b8cac5e5485d2bf6a579c"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "action": "updated",
+      "before_bytes": 40717,
+      "before_sha256": "50de46439afa6d3134fe25857444f45ee937fa5afb71638836e6f1f3378b51e3",
+      "reason": "Полностью исправлены Django runtime/auth/package/deploy/CI схемы; actual FastAPI/React publication, ownership, stack/version sources, future/open decisions без реализации новых функций.",
+      "after_sha256": "c70e517e1ed535b8d7e937c0198479a63795a9355b82917fae935c350ac073b6"
+    },
+    {
+      "path": "PRODUCT.md",
+      "action": "updated",
+      "before_bytes": 19651,
+      "before_sha256": "a2d9b4a5c70afc0f3e8cb06e60d5d7b2418aa2747bee3d02e52b2c4c1d61c449",
+      "reason": "Актуальный admin/publication baseline, снято обязательство собственного Harness; добавлены направления редизайна/design system/проектирования геймификации без выбора механик.",
+      "after_sha256": "c331ff38a461b0ce4d831b6a5b0623a8ff503867b34e851f143c34f4645024d3"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "before_bytes": 5277,
+      "before_sha256": "26aef9fd9428302317be143868598c201d2b3cc861622c4e1af7678fd7a60293",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "595e382ee9e2c06a3a2c8afc9290ba1dbe0044c5a48a3e4ad1a47a4b7169e518"
+    },
+    {
+      "path": "backend/TESTING.md",
+      "action": "updated",
+      "before_bytes": 8169,
+      "before_sha256": "4d8a421b5c64e692125c3ef13cfe8ff35541e7c0f7246494d1ad352a946b2be0",
+      "reason": "Удалены действующие ссылки на отсутствующие combined Django test lock/load_tests; target и отдельный oracle,15 current checks.",
+      "after_sha256": "f5ca7cad6f114c345fd0d2c417811c16196b7f7acae1d554546c377a2bc1ffb1"
+    },
+    {
+      "path": "curriculum/README.md",
+      "action": "updated",
+      "before_bytes": 6640,
+      "before_sha256": "7abf77f2b126bd7de7c0c26dc40f40b710cc38a27788b6a85c5c899034f62944",
+      "reason": "Только текущие publication/check ссылки и команды; lesson payloads/INDEX не менялись.",
+      "after_sha256": "462b897fd41b59800c3ed3b43e36c5239a159e5acc7802da52b152fc35e3d044"
+    },
+    {
+      "path": "docs/editing-lessons.md",
+      "action": "updated",
+      "before_bytes": 10285,
+      "before_sha256": "d4cf53089b23d12a4b6cdacb383c9fae070d9838847c0992c61b1b9047abaa34",
+      "reason": "Удалённые manage.py команды заменены фактическим check-sources/prepare/build/plan/publish/index; сохранены metadata/authoring/identity/конфликты и user history.",
+      "after_sha256": "4ebc002a2848b8442dcbde803d5dcc85eae9ea76885ce7425098678e958b7e25"
+    },
+    {
+      "path": "docs/lesson-theme.md",
+      "action": "updated",
+      "before_bytes": 9481,
+      "before_sha256": "7815b55157bf3005aea18a54dae18c8b0c23dd0ddaeb88ff0e6a2e1de5076afa",
+      "reason": "Текущие sources/components/LessonHost/immutable assets вместо отсутствующего lesson_theme.py и collectstatic; CSS/HTML правила сохранены.",
+      "after_sha256": "3485bbc370d4ad74984ccc8d969ea419327babbac72fdc4c26175d76012fba3f"
+    },
+    {
+      "path": "docs/local-development.md",
+      "action": "updated",
+      "before_bytes": 1881,
+      "before_sha256": "4850e00ac701b94c5a8dc7e1a1b5580127ba5f136d3f1b53507741e3e7cc5d5c",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "99f05913bf020aa27bbb5673a2f6586d4c9e163ecc863e2562b9756bec7b486b"
+    },
+    {
+      "path": "docs/specifications/technical-spec-v7.2-draft.md",
+      "action": "updated",
+      "before_bytes": 294688,
+      "before_sha256": "1160bcdd0d690e968273aa0de48c50227bd6a87eb2c048fb569cb694654ee7dc",
+      "reason": "Те же32 главы/52 source IDs, §§6–11 сохранены целиком; сняты только Harness obligations, новая sequential queue и redesign/game scope, draft HUMAN_PENDING.",
+      "after_sha256": "e3a2d4167f8565c629c33efd7cf86caae3eeef59f7775cd05ccf1a98245b3fc7"
+    },
+    {
+      "path": "docs/specifications/technical-spec-v7.2-provenance.md",
+      "action": "updated",
+      "before_bytes": 2867,
+      "before_sha256": "f4500dc96a37b1e0735ae4dad6111c107e794b480b9cf0bef7d3b86acdf5de90",
+      "reason": "Actual current Markdown/registry digests и явный scope changelog; прежние source/PDF/G0/approval hashes сохранены.",
+      "after_sha256": "628ed160e7ed3a609c98ec8113f5390e8dfc77fd752608b1d5fe81b3b600fc1a"
+    },
+    {
+      "path": "docs/submission/C-16-draft.md",
+      "action": "updated",
+      "before_bytes": 3682,
+      "before_sha256": "938b77ee749fd1b177cf8a086f9e25d67d813c63846d24c4764acad737c5145e",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "29fd3dca5c7dbb07214a2851153f8f71d452c6a68b79e76b59b060254fb18c9a"
+    },
+    {
+      "path": "docs/target-runtime.md",
+      "action": "updated",
+      "before_bytes": 17504,
+      "before_sha256": "d7a66e98e7a73b250bfa56852a96f32feae985ebb213f994773938c2f1343898",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "187dbcf8977634ffc46c09b06c77a2729fcbb9fddb8bf3455e0c1393210ea68c"
+    },
+    {
+      "path": "frontend/README.md",
+      "action": "updated",
+      "before_bytes": 2307,
+      "before_sha256": "af926136192d1805327edf0c65838c7fb90269762772208e4d1b6f5b315ada88",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "469c244fbdeb91f32ec62c9fd0880cf806ba392ec8a9d7c9baa348346f2b255b"
+    },
+    {
+      "path": "harness/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/__main__.py",
+      "action": "removed",
+      "before_bytes": 92,
+      "before_sha256": "c7f1397514e314ac85190fc8695b0d38949ee80e261cfca2e5587cd647dcdca2",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/adapters/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/adapters/base.py",
+      "action": "removed",
+      "before_bytes": 778,
+      "before_sha256": "20b0d2957b29448600946d9bbef38ef1eb7bde1d5b522bf6e317dc86c26ecb9c",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/adapters/fake.py",
+      "action": "removed",
+      "before_bytes": 7944,
+      "before_sha256": "83d63d5c737b5f5478837cf01bdf0b768ab65f1e54c1d37e10cb3b1594566c50",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/cli/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/cli/main.py",
+      "action": "removed",
+      "before_bytes": 11718,
+      "before_sha256": "4e7c857b847e391aff2b6f9e5ef63219be143429d61b1404e9aab07ad0dd8194",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/cli/status.py",
+      "action": "removed",
+      "before_bytes": 3098,
+      "before_sha256": "60f4ce91b96c15fd0b92a8712a153a9d84053b4c8bf85efa32106395f0cfc18f",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/adapter.py",
+      "action": "removed",
+      "before_bytes": 1535,
+      "before_sha256": "6039156f3ed84ae2890b63a1f32a2493dc87dcd7b090e603f1e6dd3fb27bc54e",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/checks.py",
+      "action": "removed",
+      "before_bytes": 263,
+      "before_sha256": "3ec848f00f698af1c47a5a02f1ceb780d5adc76ee958ddea7e4daa4229e88f66",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/manifest.py",
+      "action": "removed",
+      "before_bytes": 6120,
+      "before_sha256": "f9ea29505c634841105c917e6a577017c8b75c1a1fde189d5226fda94fd2ab14",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/publication.py",
+      "action": "removed",
+      "before_bytes": 2025,
+      "before_sha256": "1fd683b81ffb5fbdb30d5db5a1dd687c6aebd103dc0c8f927ed56e872b3f42a4",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/result.py",
+      "action": "removed",
+      "before_bytes": 3237,
+      "before_sha256": "9c7104f2bdfa48b9ea3e3e87779e9e5dba732972b3115356d83fb3d712264c68",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/contracts/validation.py",
+      "action": "removed",
+      "before_bytes": 281,
+      "before_sha256": "3fb03243e996c05102ef469e649d173885afbdc5d072efc2df04f4973b43ec06",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/runner/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/runner/engine.py",
+      "action": "removed",
+      "before_bytes": 20999,
+      "before_sha256": "d5cb6688c75e76289359480be41176f9629995b1621b8d990de5398f071dd6f5",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/runner/lifecycle.py",
+      "action": "removed",
+      "before_bytes": 2732,
+      "before_sha256": "486e880407669a3506d7b501cc9428721849df52318451380492dbcecff5f779",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/runner/repository.py",
+      "action": "removed",
+      "before_bytes": 2119,
+      "before_sha256": "1c8f6b1ffca5aa2af2908c4688d21f44598c61e51b7b6b54b9221b82aa68d5e9",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/runner/verification.py",
+      "action": "removed",
+      "before_bytes": 4981,
+      "before_sha256": "2a99224579bef6651705ad475e835bb893bacb8a2f0b0f2814701b65d0bfdc9a",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/tasks/MS6-R04.json",
+      "action": "removed",
+      "before_bytes": 1850,
+      "before_sha256": "a49e171913f97e9e56fb7c5ed2e35607a6dd101f59cff389542850722ebbce92",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/tools/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "harness/tools/basic.py",
+      "action": "removed",
+      "before_bytes": 9013,
+      "before_sha256": "555574e972fb55e1d9d79739e89fdfbb76f3819c7462228ac3c969fcf3d52127",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "scripts/check_migration_preservation.py",
+      "action": "updated",
+      "before_bytes": 6576,
+      "before_sha256": "4af1b01848a046aabf7d662837412d85060a87d233c101ed6d4758996e1b6390",
+      "reason": "Добавлена отдельная current-task пофайловая карта с проверкой фиксированного original HEAD и actual after bytes; прежние trusted hashes/receipts не меняются. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "9d34b756793fba8989fb9344dddfc051ac3495b384e651f86f75b0245a91b49b"
+    },
+    {
+      "path": "scripts/check_product_source.py",
+      "action": "updated",
+      "before_bytes": 4918,
+      "before_sha256": "c0a4fb310c2af867465694b2f712bd98bd04d46713e41639424956a8ce96b5a8",
+      "reason": "Историческая сверка52 полных карточек/115 edges сохранена против pinned full source; отдельно проверяются новый scope/queue/current chapters, без переноса approvals. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "c1c4c4a3c59ed9cb2a2f5c0e0f6a3d7aa04f7f57ca1cfb92b54ad7ff94136ddf"
+    },
+    {
+      "path": "scripts/run_unittest.py",
+      "action": "updated",
+      "before_bytes": 1298,
+      "before_sha256": "7e2630bf6bf9070a37e96e2e58871ecd84f35fb5d6d601837c3858602bc94f97",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "28813f202266ce7f9ded26b3671ec790c0e3bdd8440341328aabf278139ee00b"
+    },
+    {
+      "path": "scripts/target_check.py",
+      "action": "updated",
+      "before_bytes": 7404,
+      "before_sha256": "16d874703c498eee555d7a9edb493da6d3c849169dad3041b47e0d62fafbe7a2",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "7a821e0df5c67b48e21ab917e95e18610d431c000888d15caaef929b382d8e01"
+    },
+    {
+      "path": "scripts/target_verification.py",
+      "action": "updated",
+      "before_bytes": 1711,
+      "before_sha256": "ce6e1669cc09b41262a3182ca5bb4933ab51951d0a5e8b7feff8de6986bc602f",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "bfbe9c8aa319878cddf30f1794fd29091d7bf7b0516c1550d1a14faf093d2ed7"
+    },
+    {
+      "path": "scripts/verify_repo.py",
+      "action": "updated",
+      "before_bytes": 5822,
+      "before_sha256": "4fab98506cf529232372cf4a2d0f0b9983db54616f643d874d853b41cd8df4f6",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "442fe2f7c3ff6a632ef85c06f1957d78f8429a895bd67bf58e420927e568d8fb"
+    },
+    {
+      "path": "skills/verification/SKILL.md",
+      "action": "updated",
+      "before_bytes": 679,
+      "before_sha256": "2f42033beedabfc910cdf48d026767169c262b90d97931a801905e7e53429404",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "fc665a4d9296d1718b0362a868529168782540382f7dfeb4ac58343aa2254be5"
+    },
+    {
+      "path": "specs/SPEC-TEMPLATE.md",
+      "action": "updated",
+      "before_bytes": 8307,
+      "before_sha256": "363ffceb34086d29bbe6c3ca0cebc297417baf7a707c182b4b282d941ae09b64",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "cfeaa38a4b5754ed95c19c4b4d23d68256e27529d26b773b9855cb125ad44171"
+    },
+    {
+      "path": "specs/harness/README.md",
+      "action": "removed",
+      "before_bytes": 11588,
+      "before_sha256": "748e69097d4a3ed60d69f7547b5b0f78ad1b69082fe9ab2b0403b24ffb412fe2",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "specs/harness/adapter-protocol-v1.md",
+      "action": "removed",
+      "before_bytes": 13538,
+      "before_sha256": "0bd9b33af425acb135dddd891250be0050e05fa6a150455ca1a16688ca2c66ba",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "specs/harness/hook-v1.draft.schema.json",
+      "action": "removed",
+      "before_bytes": 2025,
+      "before_sha256": "0bafa7e57b87507a4b12472556d21d212e7959e1f7e9dcb0030c9dc91ce196bb",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "specs/harness/profile-v1.draft.schema.json",
+      "action": "removed",
+      "before_bytes": 2300,
+      "before_sha256": "3a0762d9a2b17c530afcf6a397e0f54ded460d3e012e2baa7c1cf9a7eda84dde",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "specs/harness/run-result-v1.schema.json",
+      "action": "removed",
+      "before_bytes": 6108,
+      "before_sha256": "6a03b3d726247e6d6e0538d30d560c31c3ac9986fc21c6b0667caf4842e5dbe7",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "specs/harness/task-manifest-v1.schema.json",
+      "action": "removed",
+      "before_bytes": 3739,
+      "before_sha256": "6a0308f8d2c33061bea1fe17522b553ad03162c48f29ea873bf01506706a3e3f",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "specs/migration/r03-v1/README.md",
+      "action": "updated",
+      "before_bytes": 15856,
+      "before_sha256": "23970d37aa4f8cf4aa3d0f2f176bb2edceb725559a00882797df305a1420bf59",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются.",
+      "after_sha256": "a4ae4fcf0e92493367d6b523f183e4867fe84a8a1faba57ee85ce1e535ffdee5"
+    },
+    {
+      "path": "specs/product/task-dispositions-v7.2.json",
+      "action": "updated",
+      "before_bytes": 198285,
+      "before_sha256": "dc25307bfb1b7f143ff565b1bb474e8a74faef3b2dfaa88f9d889f80ba404c0e",
+      "reason": "Все прежние52 rows/fields/results/source-card hashes/115 edges неизменны; только отдельные workflow_disposition/tasks/reason и workflow_revision.",
+      "after_sha256": "058cfa22bb350cbc4ad0b9848d4fd4d58660af6c594629dc19f7ab55d291ae02"
+    },
+    {
+      "path": "tests/harness/__init__.py",
+      "action": "removed",
+      "before_bytes": 0,
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/adapter_fixtures.py",
+      "action": "removed",
+      "before_bytes": 1083,
+      "before_sha256": "3be4da76bf1385eb4473f652e51657352293e0c80834e1d1482525242f2298a5",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/fixtures/fake-run-output.txt",
+      "action": "removed",
+      "before_bytes": 30,
+      "before_sha256": "774c2101c1cf19906c37e61f7ae614d6c6bffb4657b46fdeab3d736c0ff347cc",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_canonical_verification.py",
+      "action": "removed",
+      "before_bytes": 2623,
+      "before_sha256": "7a409c00b4cc060c841a0c9c8df71c5fb31503fd2e721af4112269e2088216bf",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_cli.py",
+      "action": "removed",
+      "before_bytes": 6941,
+      "before_sha256": "6f4a206ed0a8bd3e9acbf703f080a855a1233ce2d278bc239e46bcfe49424563",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_cli_smoke.py",
+      "action": "removed",
+      "before_bytes": 2562,
+      "before_sha256": "ee1b306b95edef877e44b23a4f87e8071347552433051d8185a1fd8f60e8d581",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_fake_adapter.py",
+      "action": "removed",
+      "before_bytes": 5217,
+      "before_sha256": "68727f28a89a96c2a8a3aeadfad29b26b2689fcc4bd89ccd7533e1f7e357af1b",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_manifest.py",
+      "action": "removed",
+      "before_bytes": 9744,
+      "before_sha256": "7562c260aab4640668ab856a7f6769532aaa0892dd8a3435ba85188a78d8ed57",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_ready_publication.py",
+      "action": "removed",
+      "before_bytes": 13663,
+      "before_sha256": "bec63255e72aa87f253535f40068e123016fae0730bc6b2f8c5f803896a02e89",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_runner_boundaries.py",
+      "action": "removed",
+      "before_bytes": 14303,
+      "before_sha256": "788c41deacb44e3e0dfcc5092d60b0f531573170a8bcfc5a4713a39865d82d2c",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/harness/test_verification.py",
+      "action": "removed",
+      "before_bytes": 15293,
+      "before_sha256": "fb86b45cdd53ea4b929a89226fae1e8a2bcb841d21b0a210adf67f6ce800c336",
+      "reason": "Собственный Engineering Harness выведен после проверки всех продуктовых/операторских потребителей; исключительно его реализация/tests/contracts."
+    },
+    {
+      "path": "tests/test_migration_r03_platform.py",
+      "action": "updated",
+      "before_bytes": 4880,
+      "before_sha256": "624447d9d341fea6af86509ac0e5d63cdf088a46500c88ad5544cbc2eb4a2279",
+      "reason": "Registry15; move source identity по-прежнему exact, для явного нового изменения destination дополнительно проверяются before/after map hashes.",
+      "after_sha256": "868171bdccd72f1ed982081ff07e2ecbbab2bfbffdc6b62c782865a648256986"
+    },
+    {
+      "path": "tests/test_migration_r03_verification.py",
+      "action": "updated",
+      "before_bytes": 14974,
+      "before_sha256": "9c07052625be7e7d4ff555f77ef90ee95614c74ffaaaf2f8e2b93a379d5d2f9d",
+      "reason": "Обновление действующего документа/процесса/проверки по текущему поручению: FastAPI/React, один исполнитель/ветка/review и вывод Harness; original source/approvals сохраняются. Общие product routing/privacy/failure checks сохранены; Harness-only assertions сняты.",
+      "after_sha256": "6d53475ef7271b6a7f5fd2171e7c242d4a7e0b54d43d398148e2b50a384baca3"
+    },
+    {
+      "path": "frontend/scripts/preserved-contracts.mjs",
+      "action": "updated",
+      "before_bytes": 2369,
+      "before_sha256": "cd50ec06413cc69f37c33e69528741c1dc4e60ac6503707553364834ab5bc38e",
+      "reason": "Frontend frozen-contract generation учитывает отдельную user-task карту с fixed original SHA/before hash/size и current HEAD/working after hash; old approvals не переписаны.",
+      "after_sha256": "4578dd27a531a6328b20617be6c194b012d9f6716cb482b9b8ca1baed0fd8c6a"
+    },
+    {
+      "path": "frontend/tests/preserved-contracts.test.ts",
+      "action": "updated",
+      "before_bytes": 4933,
+      "before_sha256": "1b29fb097b626b498bc1ac44bd5ce0816ed863c07e801d503985d7e546685183",
+      "reason": "Три regression tests для subsequent current adapter/moved helper; отказы wrong source/baseline/actual bytes и original approval retention.",
+      "after_sha256": "d0ea5f02d69a0d67842f55c2bae7a5314d01cfe1a2b189634eaff2d8f1ded515"
+    },
+    {
+      "path": "backend/tests/v04/test_build.py",
+      "action": "updated",
+      "before_bytes": 11041,
+      "before_sha256": "a0703f4d1795c99634aeb1341f00ceb65b6b82c313910bbb720b9390e9097718",
+      "reason": "Исправление CI PR56 по поручению21.10.2026: один текущий checkout SHA для build inputs; class cleanups при setup failure; реальные отрицательные source/dirty/untracked регрессии. Historical oracle/pins не меняются.",
+      "after_sha256": "f018de28bcd0ea6db45df21fb8ede2be67617db09d5788b3f4179f2d6f545ab4"
+    },
+    {
+      "path": "backend/verification_suite.py",
+      "action": "updated",
+      "before_bytes": 9204,
+      "before_sha256": "d3cde109347687acc4a96e4ff9b357b65597952d64eb07da9e839c04ce2b92e6",
+      "reason": "Исправление CI PR56: первичный suite failure сохраняется при ошибке owned cleanup; cleanup-only failure остаётся FAIL; безопасные раздельные диагностики без traceback/SQL/DSN; identity guard и обычный DROP без force сохранены.",
+      "after_sha256": "3d16673a0baf5b32322a4159feb5c6c3b6182174430a2feab6f6412b9c93edd1"
+    },
+    {
+      "path": "backend/tests/test_diagnostics.py",
+      "action": "updated",
+      "before_bytes": 1714,
+      "before_sha256": "ce8392598a209a762f2876fe525f26574cfb8e7901cebc9934502e73d9a2a0ba",
+      "reason": "Регрессии CI PR56: первичная ошибка и несколько cleanup failures раздельно, cleanup-only FAIL, отказ DROP при смене OID, восстановление environment и отсутствие приватных значений в receipt/stdout/stderr.",
+      "after_sha256": "28dd53dd85d13b6f448eb513bd65a8b63e71d40dc0774c752bffa24f8ca1b90a"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ def main(argv=None):
     if not start.is_relative_to(ROOT) or not start.is_dir():
         print("FAIL: test directory missing or outside checkout.")
         return 1
-    # Keep the product Harness package ahead of tests/harness during discovery.
+    # Keep repository packages ahead of the test discovery directory.
     if str(start) not in sys.path:
         sys.path.append(str(start))
     suite = unittest.defaultTestLoader.discover(str(start), pattern=args.pattern)

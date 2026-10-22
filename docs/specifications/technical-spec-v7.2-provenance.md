@@ -1,45 +1,65 @@
-# Product v7.2 provenance
+# Provenance полной рабочей редакции v7.2
 
-The complete current [v7.2 specification](technical-spec-v7.2-draft.md) retains
-all32 chapters,52 canonical cards,115 typed dependencies and47 planned future
-product equivalents. Product draft approval remains separate. Migration of the
-existing site was accepted in PR54; main3a290a46d991e22269a17dde41e39f0637576071
-passed mandatory CI. Consolidation PR55 merged as
-12450dfd39b51166aa5a40955ce78e40169a1cb4 with successful post-merge CI.
-The user accepted the platform adaptation of v7.2, not the whole product draft,
-future gates or production rollout. See [maintenance](../maintenance.md).
+20.10.2026, Europe/Moscow. [Полное ТЗ](technical-spec-v7.2-draft.md) остаётся
+единственным current Markdown документом32 глав. **DRAFT_HUMAN_PENDING**:
+принятие платформы/PR54/55 и G0 v7.1 не утверждают эту продуктовую редакцию.
+Текущее поручение разрешает документационную очистку и вывод собственного Harness,
+не реализацию новых features и не production rollout.
 
-| Input | SHA256 |
+| Источник | SHA256 |
 | --- | --- |
-| Current complete v7.2 | `1160bcdd0d690e968273aa0de48c50227bd6a87eb2c048fb569cb694654ee7dc` |
-| [Current52-card source registry](../../specs/product/task-dispositions-v7.2.json) | `dc25307bfb1b7f143ff565b1bb474e8a74faef3b2dfaa88f9d889f80ba404c0e` |
+| Текущий полный Markdown v7.2 | `e3a2d4167f8565c629c33efd7cf86caae3eeef59f7775cd05ccf1a98245b3fc7` |
+| Текущий52-card source registry + отдельные workflow fields | `058cfa22bb350cbc4ad0b9848d4fd4d58660af6c594629dc19f7ab55d291ae02` |
+| Полный предыдущий v7.2 на HEAD 1a015f7513933901e8bb252e94c660e4383b6b0e | `1160bcdd0d690e968273aa0de48c50227bd6a87eb2c048fb569cb694654ee7dc` |
 | Historical114-page v7.1 PDF | `e477bf8c351c6b9453448080ed2e7283ad2b40cca82931906a5650d757d70acd` |
-| Historical v7.2 before status-only introduction update | `c6be84b2932f1e79821c11f18fd5fa1463507793ace30ecbc47804d45478c6f8` |
+| Historical v7.2 до status-only introduction update | `c6be84b2932f1e79821c11f18fd5fa1463507793ace30ecbc47804d45478c6f8` |
+| Consolidated v7.2 на PR55 merge12450dfd39b51166aa5a40955ce78e40169a1cb4 | `aac2ba4f43a3c20b6315d38400263e7f4d1160ebba9866d417465e57d6de3cde` |
 
-Historical inputs are read from literal main3a290a46d991e22269a17dde41e39f0637576071,
-paths docs/specifications/sources/technical-spec-v7.1.pdf and
- docs/acceptance/migration-execution/product-source-audit.json. The explicit
-preservation manifest checks original bytes/size/SHA256; no old digest is refreshed.
-The prior consolidated v7.2 at Git12450dfd39b51166aa5a40955ce78e40169a1cb4
-had SHA256 `aac2ba4f43a3c20b6315d38400263e7f4d1160ebba9866d417465e57d6de3cde`. This guidance-only revision updates completion/status
-paragraphs in chapters1/2/17/20/32 and the current registry/source pointers;
-it removes obsolete execution assignments. All32 chapters, future requirements,
-card bodies, historical approvals, numerical values and dependency edges remain
-preserved. Historical source digests above are unchanged.
+Оригинальный PDF/audit получаются из literal Git
+`3a290a46d991e22269a17dde41e39f0637576071`, пути
+`docs/specifications/sources/technical-spec-v7.1.pdf` и
+`docs/acceptance/migration-execution/product-source-audit.json`.
+Original bytes/size/hash проверяются прежним preservation manifest. Исторические
+hashes, receipts, approvals и полные source_card_text не обновлены.
 
-The233-assertion source reconciliation still checks PDF SHA256,32 chapters,
-52 IDs and complete card-excerpt hashes, all115 typed edges (HARD60/CONTRACT24/
-HANDOFF6/INTEGRATION25), historical result/acceptance/disposition objects against
-953fe979742784a196efab203ab987c0cfefd3b3, and68 glyph-position-only corrections.
-The47 future equivalents remain PLANNED without invented runtime evidence.
-The geometric source audit and old approvals are historical evidence; they do
-not replace actual current specification/registry or runtime verification.
+## История и явное изменение объёма
+
+18.10: полная source reconciliation114 страниц/52 карточек/115 typed edges,
+68 исправлений только геометрии glyphs; не новый runtime результат.
+19.10: status guidance после принятой миграции и завершённой консолидации.
+20.10: текущее поручение пользователя, [аудит](../audits/docs-and-workflow-cleanup.md),
+[новая очередь](../tasks/INDEX.md).
+
+- Сохранено: полный domain/product/API/math/Progress/AI/security/ops scope,
+  product limits/eval denominators и immutable original results. §§6–11 полной
+  текущей редакции сверяются целиком с предыдущим HEAD.
+- Изменено: actual stack/architecture/administration/publication/testing descriptions,
+  процесс одного исполнителя/ветки/отдельного review/приёмки, active dependencies.
+- Добавлено: redesign/design system, три направления и library decision, отдельно
+  проектируемая геймификация,24 task skills с acceptance/checks/stop conditions.
+- Снято с плана: собственный Engineering Harness и8 исключительно его future
+  tasks, G1/D-026/027/OD-12–14/NFR-19/AT-13 и mixed Harness-only obligations.
+  Номера не переиспользуются, снятое не помечается выполненным.
+
+52 source rows сохраняют **все прежние поля** без изменения, включая115 source
+HARD60/CONTRACT24/HANDOFF6/INTEGRATION25 edges. Поля current_status и
+platform_disposition теперь явно historical migration snapshot. Только новые
+workflow_disposition/tasks/reason определяют актуальную судьбу. Карточки не
+теряются при переносе подробностей в canonical task skills.
+
+## Проверка
 
 ```powershell
 python scripts/check_product_source.py
+python scripts/check_workflow_docs.py
+python scripts/check_migration_preservation.py
 ```
 
-Full Git history is required. The checker reads the actual current v7.2 and
-registry, and obtains only explicitly retired PDF/audit inputs from pinned Git.
-See [maintenance](../maintenance.md), [runtime/testing](../target-runtime.md),
-[release](../../deploy/RELEASE.md) and [recovery](../../deploy/RECOVERY.md).
+Source checker проверяет оригинальный PDF, historical complete card hashes/edges/
+approvals против pinned sources, glyph repairs и отсутствие выдуманного future
+evidence. Current checks отдельно проверяют32 главы/52 disposition IDs, неизменность
+полных domain chapters, actual hashes, queue/skills/bidirectional mapping,
+dependencies/no cycles, imports/retirement и local links. Historical и current
+scope разделены, ни один не заменяет runtime/CI/отдельное review/human acceptance.
+Полная Git history обязательна. Actual результаты нового candidate — в аудите,
+старые green runs относятся только к своим SHA.

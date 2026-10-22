@@ -33,7 +33,7 @@ Reference the relevant product behavior, such as:
 - AI Tutor;
 - Adaptive Practice;
 - public deployment;
-- coding-agent harness.
+- development process/task skills (only if this spec concerns them).
 
 Avoid implementation detail in this section.
 
@@ -65,7 +65,7 @@ Examples:
 
 - authenticated student;
 - content administrator;
-- Django management command;
+- explicit backend CLI;
 - internal service;
 - scheduled/internal verification.
 
@@ -140,7 +140,7 @@ For complex flows, include state transitions.
 
 ### Migration expectations
 
-- Django migration required: Yes | No
+- Alembic migration required: Yes | No
 - Data migration required: Yes | No
 - Fresh DB migration smoke required: Yes | No
 
@@ -374,11 +374,10 @@ Future checks below apply only after their tooling exists.
 ### Backend
 
 ```bash
-python manage.py check
-python manage.py test
+python scripts/verify_repo.py --group backend --group tests
 ```
 
-Ruff, mypy, and pytest are not configured in R01. Introduce them through a
+Ruff, mypy, and pytest are not assumed to be configured. Introduce them through a
 dedicated tooling change before making them required or reporting results.
 
 ### Database
@@ -386,7 +385,7 @@ dedicated tooling change before making them required or reporting results.
 For schema changes:
 
 ```bash
-python manage.py makemigrations --check --dry-run
+python scripts/target_check.py migrations
 ```
 
 Also verify migrations on a fresh PostgreSQL database and run migration smoke.
@@ -396,9 +395,7 @@ Also verify migrations on a fresh PostgreSQL database and run migration smoke.
 When content/runtime is affected:
 
 ```bash
-python manage.py check_content_quality
-python manage.py check_site_integrity
-python manage.py check_lesson_sources --all
+python scripts/verify_repo.py --group content
 ```
 
 ### Knowledge graph
@@ -439,7 +436,7 @@ Include relevant project risks when applicable:
 - over-general exercise model;
 - accidental diagnosis from weak evidence;
 - scope expansion;
-- coupling between Django apps;
+- coupling between backend domain packages;
 - migration/data-loss risk.
 
 ---
@@ -468,3 +465,7 @@ This spec is Done only when:
 - Exec plan: <path>
 - Trace: <path>
 - Demo/screenshot: <link/path>
+
+Текущий процесс и стек — AGENTS.md/ARCHITECTURE.md; подготовленный disposable runtime
+обязателен для target commands. Не наследуйте исторические owners/deadlines/Harness
+обязательства. Один исполнитель, отдельное review и human acceptance; PASS не approval.

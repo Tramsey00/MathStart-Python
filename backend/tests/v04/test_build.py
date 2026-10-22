@@ -6,11 +6,12 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import Mock, patch
 from backend.tests.legacy_tools import oracle_root, oracle_environment
 
 import sqlalchemy as sa
 
-from backend.content.build import write_build_inputs, verify_build_inputs
+from backend.content.build import write_build_inputs, verify_build_inputs, verify_source_checkout
 from backend.content.releases import ReleaseStore
 from backend.content.sources import SourceError, file_inside, load_sources, read_json
 from backend.infrastructure.http.transport import APIError
@@ -18,10 +19,40 @@ from backend.infrastructure.uow import UnitOfWork
 from backend.models.baseline import ContentPage, Grade
 
 ROOT = Path(__file__).resolve().parents[3]
-INPUT_SHA = '24d06112bcd6abcd1abad9b052de14a0a7b49e8e'
 
 
 class SourceTests(unittest.TestCase):
+    def test_source_checkout_rejects_wrong_commit_dirty_and_untracked_inputs(self):
+        # Exercise real Git in an owned tiny checkout; never dirty the product tree.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            def git(*args):
+                return subprocess.check_output(['git', '-C', str(root), *args], stderr=subprocess.PIPE).decode().strip()
+            git('init')
+            source = root / 'curriculum' / 'README.md'
+            source.parent.mkdir()
+            source.write_text('first source', encoding='utf-8')
+            git('add', '.')
+            git('-c', 'user.name=Build test', '-c', 'user.email=build-test@example.invalid', 'commit', '-m', 'first')
+            previous = git('rev-parse', 'HEAD')
+            source.write_text('current source', encoding='utf-8')
+            git('add', '.')
+            git('-c', 'user.name=Build test', '-c', 'user.email=build-test@example.invalid', 'commit', '-m', 'current')
+            current = git('rev-parse', 'HEAD')
+            verify_source_checkout(root, current)
+            with self.assertRaises(SourceError):
+                verify_source_checkout(root, previous)
+            source.write_text('dirty source', encoding='utf-8')
+            with self.assertRaises(SourceError):
+                verify_source_checkout(root, current)
+            source.write_text('current source', encoding='utf-8')
+            extra = source.parent / 'untracked.html'
+            extra.write_text('unreviewed', encoding='utf-8')
+            with self.assertRaises(SourceError):
+                verify_source_checkout(root, current)
+            extra.unlink()
+            verify_source_checkout(root, current)
+
     def test_complete_source_set_and_authored_assets(self):
         bundles = load_sources(ROOT)
         self.assertEqual(len(bundles), 279)
@@ -75,18 +106,16 @@ class SourceTests(unittest.TestCase):
 class BuildTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.source_sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
         cls.engine = sa.create_engine(os.environ['MATHSTART_V04_DATABASE_URL'], hide_parameters=True)
+        cls.addClassCleanup(cls.engine.dispose)
         cls.temp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls.temp.cleanup)
         cls.root = Path(cls.temp.name)
         with UnitOfWork(cls.engine) as uow:
             uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
             cls.descriptor, cls.receipt = write_build_inputs(uow, ROOT, cls.root, 'test-inputs',
-                                                            '24d06112bcd6abcd1abad9b052de14a0a7b49e8e')
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.engine.dispose()
-        cls.temp.cleanup()
+                                                            cls.source_sha)
 
     def test_full_manifest_inventory_and_private_exclusion(self):
         release = ReleaseStore(self.root).load(self.descriptor)
@@ -101,7 +130,7 @@ class BuildTests(unittest.TestCase):
 
     def test_immutable_identity_cannot_be_overwritten(self):
         with UnitOfWork(self.engine) as uow, self.assertRaises(SourceError):
-            write_build_inputs(uow, ROOT, self.root, 'test-inputs', INPUT_SHA)
+            write_build_inputs(uow, ROOT, self.root, 'test-inputs', self.source_sha)
 
     def test_trusted_receipt_rejects_metadata_edit_and_unlisted_private_export(self):
         base = self.root / self.descriptor.release_id
@@ -135,7 +164,7 @@ class BuildTests(unittest.TestCase):
             page.body_html = 'PRIVATE-UNREVIEWED-SENTINEL'
             uow.session.flush()
             with self.assertRaises(SourceError):
-                write_build_inputs(uow, ROOT, self.root, 'unreviewed', INPUT_SHA)
+                write_build_inputs(uow, ROOT, self.root, 'unreviewed', self.source_sha)
             self.assertEqual(page.body_html, 'PRIVATE-UNREVIEWED-SENTINEL')
             self.assertFalse((self.root / 'unreviewed').exists())
         with UnitOfWork(self.engine) as uow:
@@ -148,7 +177,7 @@ class BuildTests(unittest.TestCase):
             page.grade_id, page.subject_id, page.section_id = 1, 1, 1
             uow.session.flush()
             with self.assertRaises(SourceError):
-                write_build_inputs(uow, ROOT, self.root, 'relation-conflict', INPUT_SHA)
+                write_build_inputs(uow, ROOT, self.root, 'relation-conflict', self.source_sha)
             self.assertFalse((self.root / 'relation-conflict').exists())
 
     def test_hbuild_01_same_slug_cross_grade_subject_refused(self):
@@ -160,12 +189,12 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(page.subject.slug, 'algebra')
             self.assertNotEqual(page.subject.grade_id, page.grade_id)
             with self.assertRaises(SourceError):
-                write_build_inputs(uow, ROOT, self.root, 'cross-grade-conflict', INPUT_SHA)
+                write_build_inputs(uow, ROOT, self.root, 'cross-grade-conflict', self.source_sha)
             self.assertFalse((self.root / 'cross-grade-conflict').exists())
 
     def test_hbuild_02_read_committed_refused_and_snapshot_pinned(self):
         with UnitOfWork(self.engine) as uow, self.assertRaises(SourceError):
-            write_build_inputs(uow, ROOT, self.root, 'mixed-snapshot', INPUT_SHA)
+            write_build_inputs(uow, ROOT, self.root, 'mixed-snapshot', self.source_sha)
         with UnitOfWork(self.engine) as uow:
             uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
             grade = uow.session.scalar(sa.select(Grade).where(Grade.id == 1))
@@ -173,7 +202,7 @@ class BuildTests(unittest.TestCase):
             try:
                 with self.engine.begin() as connection:
                     connection.execute(sa.update(Grade).where(Grade.id == 1).values(title='Concurrent edition'))
-                descriptor, receipt = write_build_inputs(uow, ROOT, self.root, 'pinned-snapshot', INPUT_SHA)
+                descriptor, receipt = write_build_inputs(uow, ROOT, self.root, 'pinned-snapshot', self.source_sha)
                 release = ReleaseStore(self.root).load(descriptor)
                 self.assertEqual(next(g['title'] for g in release.index['catalogue']['grades'] if g['id'] == 1), original)
             finally:
@@ -195,6 +224,34 @@ class BuildTests(unittest.TestCase):
                     ReleaseStore(self.root).load(self.descriptor)
             finally:
                 path.write_bytes(raw)
+
+
+class BuildSetupCleanupTests(unittest.TestCase):
+    def test_failed_class_preparation_releases_created_resources(self):
+        for phase in ('temporary_directory', 'build_inputs'):
+            with self.subTest(phase=phase):
+                class Probe(BuildTests):
+                    def runTest(self):
+                        self.fail('Failed setup must prevent test execution')
+                engine = Mock()
+                with tempfile.TemporaryDirectory() as parent:
+                    temporary = tempfile.TemporaryDirectory(dir=parent)
+                    path = Path(temporary.name)
+                    self.addCleanup(temporary.cleanup)
+                    with patch.dict(os.environ, {'MATHSTART_V04_DATABASE_URL': 'private probe value'}), \
+                         patch('backend.tests.v04.test_build.sa.create_engine', return_value=engine), \
+                         patch('backend.tests.v04.test_build.tempfile.TemporaryDirectory',
+                               side_effect=OSError('private probe value') if phase == 'temporary_directory' else None,
+                               return_value=temporary), \
+                         patch('backend.tests.v04.test_build.UnitOfWork'), \
+                         patch('backend.tests.v04.test_build.write_build_inputs', side_effect=SourceError('private probe value')):
+                        result = unittest.TestResult()
+                        unittest.TestSuite([Probe('runTest')]).run(result)
+                    self.assertEqual(result.testsRun, 0)
+                    self.assertEqual(len(result.errors), 1)
+                    engine.dispose.assert_called_once_with()
+                    if phase == 'build_inputs':
+                        self.assertFalse(path.exists())
 
 
 if __name__ == '__main__':

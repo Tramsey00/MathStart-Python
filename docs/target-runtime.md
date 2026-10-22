@@ -19,7 +19,7 @@
 
 ## Существующий продукт и будущая программа
 
-Переносятся публичная главная, каталог классов/предметов/разделов, поиск GET,
+Реализованы публичная главная, каталог классов/предметов/разделов, поиск GET,
 страницы уроков и authored HTML/math/SVG/CSS/JS; identity/profile/onboarding,
 все девять зарегистрированных staff resources и существующие content commands.
 Учебные темы и исходные адреса сохраняются, включая существующий10 класс.
@@ -187,7 +187,7 @@ python scripts/verify_target.py --runtime-root var/target-<new-run> --legacy-pyt
 
 `verify_target.py` требует явный MATHSTART_DISPOSABLE=1 и private
 MATHSTART_DATABASE_URL на dedicated loopback PostgreSQL55441. Он создаёт свои
-дочерние DB, immutable fixture/build, ASGI и legacy comparator, выполняет все16
+дочерние DB, immutable fixture/build, ASGI и legacy comparator, выполняет все15
 registry commands и fresh/upgrade A/B/C. Environment secrets не печатать.
 Группы/allow-dirty дают только scoped development evidence. На кандидате1d9e4d3
 normal PR CI39164124957 прошёл все девять jobs, включая target/image/combined:
@@ -206,3 +206,25 @@ scope; финальная проверка должна описывать со�
 проверяется по diff и зависимостям, а обязательный CI — на новом кандидате. Новые
 merge main, production, Issue closure и сообщения людям требуют соответствующего
 поручения; завершённая миграция не является новым заданием.
+
+## Вывод собственного Engineering Harness —20.10.2026
+
+Аудит зависимости и карта файлов — [execution record](audits/docs-and-workflow-cleanup.md).
+Удалены только development runner/adapter/contracts и исключительно его tests.
+Registry теперь15 checks, pure5 suites; product API/auth/PG/content/frontend,
+schema fresh/upgrade/install/recovery/security и combined gate сохранены.
+`scripts/verification_diagnostics.py` сохраняет bounded redaction дочернего вывода.
+Empty/failed/skipped/missing/timeout продолжают fail. Название workflow
+`Harness verification` и job `verify` сохранены как historical check identity;
+они запускают portable product checks, собственного Harness в них нет.
+
+Документы/очередь/source provenance проверяются командами:
+
+```text
+python scripts/check_workflow_docs.py
+python scripts/check_product_source.py
+python scripts/check_migration_preservation.py
+```
+
+Эти read-only проверки не заменяют runtime readiness. После изменения кандидата
+mandatory CI выполняется заново на его exact SHA/PR merge composition.

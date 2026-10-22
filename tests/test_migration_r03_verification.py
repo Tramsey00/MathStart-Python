@@ -12,7 +12,6 @@ from unittest.mock import patch
 
 from scripts import verify_repo, verify_target, target_check, target_database, run_unittest
 from scripts.check_migration_preservation import verify
-from harness.runner.verification import CHECK_COMMANDS, VerificationOutcome
 
 
 class TargetRegistryTests(unittest.TestCase):
@@ -23,17 +22,12 @@ class TargetRegistryTests(unittest.TestCase):
 
     def test_target_selection_contains_named_equivalents_and_pure_suites(self):
         checks = verify_repo.select_checks(verify_repo.parse_args(["--profile", "target"]))
-        self.assertEqual(len(checks), 16)
+        self.assertEqual(len(checks), 15)
         self.assertEqual({c.group for c in checks}, set(verify_repo.GROUPS))
         text = repr([c.command for c in checks])
         self.assertNotIn("manage.py", text)
         for marker in ("test_r03_contract.py", "test_r02a_contract.py", "test_r03a_contract.py", "frontend-e2e"):
             self.assertIn(marker, text)
-
-    def test_nested_target_registry_is_nonrecursive(self):
-        args = verify_repo.parse_args(CHECK_COMMANDS["repo-baseline"][1:])
-        self.assertEqual(args.profile, "target")
-        self.assertNotIn("harness", {c.group for c in verify_repo.select_checks(args)})
 
     def test_group_semantics_and_empty_is_failure(self):
         args = verify_repo.parse_args(["--profile", "target", "--group", "content"])
@@ -43,13 +37,22 @@ class TargetRegistryTests(unittest.TestCase):
 
     def test_pure_is_explicit_subset_not_full_target(self):
         checks = verify_repo.select_checks(verify_repo.parse_args(["--profile", "pure"]))
-        self.assertEqual(len(checks), 6)
+        self.assertEqual(len(checks), 5)
         self.assertFalse(any("scripts/target_check.py" in c.command for c in checks))
+
+    def test_skip_tests_excludes_suites_and_list_does_not_execute(self):
+        checks = verify_repo.select_checks(verify_repo.parse_args(['--skip-tests']))
+        self.assertEqual({c.group for c in checks}, {'backend', 'database', 'content', 'frontend'})
+        output = io.StringIO()
+        with patch.object(verify_repo, 'run_command') as run, redirect_stdout(output):
+            self.assertEqual(verify_repo.main(['--group', 'content', '--list']), 0)
+        self.assertIn('Lesson source validation', output.getvalue())
+        run.assert_not_called()
 
     def test_managed_lifecycle_keeps_exact_registry_and_only_moves_real_build(self):
         expected = verify_repo.select_checks(verify_repo.parse_args(['--profile', 'target']))
         actual = verify_target.selection(set())
-        self.assertEqual(len(actual), 16)
+        self.assertEqual(len(actual), 15)
         self.assertEqual(set(actual), set(expected))
         self.assertEqual(actual[0].command[-1], 'frontend-build')
         self.assertEqual(sum(c.command[-1] == 'frontend-build' for c in actual), 1)
@@ -173,10 +176,6 @@ class TargetRegistryTests(unittest.TestCase):
         with patch.object(target_database.subprocess, "run", side_effect=subprocess.TimeoutExpired([], 15)), redirect_stdout(io.StringIO()):
             self.assertEqual(target_database.main([]), 1)
 
-    def test_not_run_never_ready(self):
-        self.assertEqual(VerificationOutcome([{"status": "NOT_RUN"}], []).status, "FAIL")
-        self.assertEqual(VerificationOutcome([], []).status, "FAIL")
-
     def test_runtime_receipt_requires_nonempty_unskipped_pg_evidence(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "result.json"
@@ -208,9 +207,9 @@ class TargetRegistryTests(unittest.TestCase):
         self.assertEqual(result["parents"], [base, head])
 
     def test_dsn_and_session_headers_are_redacted_before_evidence(self):
-        from harness.runner.verification import _safe_diagnostic
+        from scripts.verification_diagnostics import safe_diagnostic
         for value in ("postgresql://synthetic:private@localhost/test", "Set-Cookie: sessionid=private", "dsn=private"):
-            self.assertNotIn("private", _safe_diagnostic(value))
+            self.assertNotIn("private", safe_diagnostic(value))
 
     def test_six_historical_chains_preserve_original_results_and_references(self):
         from scripts.historical_sources import retired_json, retired_bytes

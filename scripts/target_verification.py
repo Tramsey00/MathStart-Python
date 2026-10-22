@@ -25,8 +25,6 @@ def target_checks():
         rows.append((name, (py, "scripts/run_unittest.py", "--start", "tests",
                             "--pattern", pattern), "tests"))
     rows.extend([
-        ("Harness test suite", (py, "-m", "unittest", "discover", "-s",
-                                "tests/harness", "-t", ".", "-v"), "harness"),
         ("Frontend typecheck", (py, wrapper, "frontend-typecheck"), "frontend"),
         ("Frontend tests", (py, wrapper, "frontend-tests"), "frontend"),
         ("Frontend build", (py, wrapper, "frontend-build"), "frontend"),

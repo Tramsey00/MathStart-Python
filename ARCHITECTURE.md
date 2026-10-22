@@ -1,1676 +1,431 @@
-# MathStart Architecture
+# Архитектура MathStart
 
-## 1. Purpose
+Редакция 20.10.2026, Europe/Moscow. Единственный основной архитектурный документ.
+Состояние реализации проверено на `1a015f7513933901e8bb252e94c660e4383b6b0e`;
+результаты этого изменения — в [аудите](docs/audits/docs-and-workflow-cleanup.md).
+Назначение продукта — [PRODUCT.md](PRODUCT.md), полные требования —
+[ТЗ v7.2](docs/specifications/technical-spec-v7.2-draft.md), порядок разработки —
+[AGENTS.md](AGENTS.md), очередь — [docs/tasks/INDEX.md](docs/tasks/INDEX.md).
 
-This document defines the target architecture of MathStart v3.1 and the rules that preserve its domain boundaries while the existing FastAPI/React project evolves into the intelligent educational system described in `PRODUCT.md`.
+## Реализованная текущая архитектура
 
-This is the architecture-level source of truth.
-
-Use:
-
-- `AGENTS.md` for coding-agent operating rules;
-- `PRODUCT.md` for product scope and user behavior;
-- `ARCHITECTURE.md` for system structure, data ownership, dependencies, and invariants;
-- `docs/adr/` for significant accepted decisions and their rationale;
-- `specs/` for detailed subsystem contracts;
-- the current user task and `docs/maintenance.md` for accepted implementation state.
-
-The existing `docs/architecture.md` remains useful documentation of the current content publication/bootstrap subsystem. It must not be deleted merely because this root architecture document exists.
-
----
-
-## 2. Current platform
-
-The existing modular monolith now runs on FastAPI/Pydantic with SQLAlchemy,
-Alembic, PostgreSQL and React/SSG, following ADR-0006. The old Django runtime
-exists only in a separate pinned historical oracle (docs/legacy-oracle.md).
-No Django imports/dependencies belong in target environments. Domain ownership,
-deterministic mathematical validation and structured evidence contracts below
-remain binding; future intelligent-learning domains are not implemented here.
-
-## 3. Current repository
-
-backend/ owns API, persistence, identity/staff and explicit schema/content CLI;
-frontend/ owns React, build and rendering. curriculum/, site_content/ and static/
-remain authored sources and reviewed media. deploy/ owns canonical images,
-Compose, release and recovery. Startup never runs DDL/bootstrap/operator seeds.
-Use README.md and docs/target-runtime.md for current setup. Source templates and
-Django migrations are restored only from the pinned oracle for real comparisons.
-Historical table names/history remain in the target schema for data continuity.
-
-Authored self-check HTML still embeds its original reveal interactions. It does
-not implement future Assessment attempts or Progress evidence. Preserve its
-existing behavior; this platform removal adds no new product capabilities.
-
-The remaining domain/future design sections retain their original semantics;
-references there to Django implementation describe the original v3.1 design,
-superseded for current runtime technology by the platform above and ADR-0006.
-
----
-
-## 4. Core architectural principle
-
-MathStart contains two fundamentally different classes of data.
-
-### 4.1. Repository-authored/reproducible data
-
-Examples:
-
-- curriculum lessons;
-- site structure;
-- static informational pages;
-- redirects;
-- seed media;
-- pilot skill taxonomy;
-- pilot prerequisite graph;
-- curated pilot exercises;
-- mistake taxonomy;
-- validation specifications where suitable for repository-managed seeding.
-
-These should be reproducible from version-controlled sources where practical.
-
-### 4.2. Runtime/historical user data
-
-Examples:
-
-- users;
-- student profiles;
-- diagnostic sessions;
-- solution attempts;
-- solution steps;
-- hint/reveal events;
-- detected mistakes;
-- `ProgressEvent` records;
-- user skill state;
-- adaptive practice sessions;
-- AI conversations;
-- AI run metadata.
-
-These are authoritative runtime records and **must never be overwritten by content bootstrap**.
-
-This distinction is a critical architecture boundary.
-
-`bootstrap_site` may rebuild repository-authored site content.
-It must not become a global database reset that mutates or destroys user evidence.
-
----
-
-## 5. Target system context
+Перенос существующего сайта на FastAPI/React принят в PR54, консолидация PR55
+завершена. Это модульный монолит с одной основной PostgreSQL БД. Контейнеры
+API, edge и одноразовый builder имеют разные эксплуатационные роли, но не
+превращают домены в микросервисы. Интеллектуальные Knowledge, Assessment,
+Progress, Analyzer, Tutor, Adaptive и продуктовые LLM пока существуют как
+контракты, fixtures и pure reference, без продуктовой persistence/API.
 
 ```mermaid
 flowchart LR
-    Student[Student browser]
-    Admin[Content administrator]
-    Django[MathStart Django application]
+    Browser[Браузер]
+    Edge[Nginx edge]
+    API[FastAPI / authority gateway]
     PG[(PostgreSQL)]
-    Files[Repository-authored content and seed data]
-    LLM[LLM provider]
-
-    Student -->|HTML + JSON API| Django
-    Admin -->|Django Admin / management commands| Django
-    Files -->|bootstrap / seed / publish| Django
-    Django --> PG
-    Django -->|provider adapter| LLM
+    Inputs[curriculum / site_content / static]
+    Prepare[Content preparation CLI]
+    Build[React Router prerender / Node builder]
+    Publish[Content publication CLI]
+    Releases[Immutable inputs + public artifact]
+    Browser --> Edge --> API
+    API --> PG
+    API --> Releases
+    Inputs --> Prepare --> Build --> Releases
+    Prepare --> Publish
+    Build --> Publish
+    Publish --> PG
+    Publish --> Releases
 ```
 
-MathStart remains one deployable application for MVP.
+Каждый публичный запрос pin-ит один authoritative release. Nginx направляет
+запросы в gateway, не обходит его filesystem alias. API проверяет descriptor,
+digests, gate generation и publication authority; неполная установка остаётся
+UNREADY/503. Node генерирует весь HTML body/head заранее и не работает как
+постоянный SSR server. Public HTML читается без JavaScript.
 
-There is one primary relational database.
+### Текущие пакеты и источники
 
-No microservice split is required.
+```text
+backend/
+  content/          источники, подготовка, проверка, build/publication authority
+  users/            identity, profile/onboarding, sessions, cutover, initial operator
+  staff/            authorization, reads/writes, publication presentation
+  models/           SQLAlchemy baseline и protocol tables
+  infrastructure/   database, короткая UnitOfWork, HTTP transport/signing
+  migrations/       Alembic и проверяемые fresh/adoption профили
+  release_migrate.py явные preview/apply/check
+frontend/
+  src/app/          React routes/layouts, account/staff, LessonHost
+  build_public.py   проверенный immutable public build
+  rendering.py      совместимая content/rendering проекция
+curriculum/         lesson.json + authored HTML/CSS/JS/SVG
+site_content/       каталог, public pages, redirects, reviewed seed media
+static/             общие styles/widgets/assets
+deploy/             Dockerfile, Compose, edge, release/recovery runbooks
+scripts/            проверки продукта и локальные инструменты
+specs/              contracts, schemas, fixtures, preservation
+docs/tasks/         единый реестр; skills/tasks/ — подробные задания
+```
 
----
+Пакеты будущих доменов появятся внутри `backend/` по мере реализации, со своими
+service interfaces, persistence и tests. Пустые каталоги ради схемы не создаются.
+`docs/architecture.md` — справочный указатель Content; основной архитектуры там нет.
 
-## 6. Logical domain architecture
+### Content и публикация
 
-The modular monolith is divided into explicit logical domains.
+Content владеет Grade, Subject, Section, ContentPage, LessonPublication,
+redirects, media и будущим TopicSkill. Тема — ContentPage типа TOPIC;
+второй Topic model не создаётся. Файлы `curriculum/` и `site_content/` —
+источник авторского контента; source-managed content view-only в staff UI.
+Учебные материалы 5–10 классов, URL, якоря, формулы, SVG и интерактивы сохраняются.
+
+Фактический путь: `backend.content.publish prepare-sources/prepare-bootstrap`
+→ immutable input + edition handoff → `frontend.build_public` → `plan` →
+review → `publish`. Обычные operator команды отличаются от disposable fixture
+bootstrap. Источники проверяются до SQL patch; публикация conflict-aware и
+idempotent, не сбрасывает пользователей. Staging, PostgreSQL journal/gate,
+lease/owner/fencing, один domain commit, descriptor activation и реальные
+HTTP probes образуют единый протокол. После неизвестного COMMIT или activation
+нет догадки об успехе; recovery читает durable authority и движется вперёд,
+не повторяя committed domain update. Старые releases/архивные строки сохраняются.
+
+Полные команды и mount layout:
+[READ_RUNTIME](backend/READ_RUNTIME.md), [release](deploy/RELEASE.md),
+[редактирование уроков](docs/editing-lessons.md).
+Полный mutable media root резервируется вместе с БД и immutable release tuple.
+
+### Identity, HTTP и staff
+
+Identity реализована в `backend/users/`, HTTP — FastAPI с явными DTO и закрытыми
+schemas. Сохранены существующие user/profile IDs и исторические auth tables.
+Encoded password hashes проверяет независимый совместимый verifier с сохранёнными
+лицензионными notices; Django runtime для этого не устанавливается.
+Sessions — opaque PostgreSQL sessions. Session rotation, logout/expiry/revocation,
+CSRF/Origin/Host, owner-bound idempotency receipts и cutover bridge проверяются
+сервером. Принятый cutover допускает явный повторный login; старые sessions
+не превращаются в target authentication без предусмотренного proof.
+
+Регистрация UI ограничена 30 символами username, backend сохраняет предел 150
+и вход существующих длинных имён. Пароли не передаются в argv, public build,
+browser storage или отчёты. Onboarding хранит START_ZERO/SELF_REPORT/DIAGNOSTIC
+как выбор; текущий сайт не запускает будущую диагностику и не пишет mastery.
+
+Staff UI использует native React account/admin shells и отдельные API;
+каждый API повторяет authorization. Девять staff resources имеют сохранённые
+permissions; семь Content resources view-only. User/Group mutations поддерживают
+revision/permission-bound подтверждения, PROTECT и безопасный password flow.
+Это текущая замена прежнего Django Admin, а не новое право на произвольную SQL.
+Initial operator создаётся отдельной maintenance CLI только в fresh unused DB;
+startup не создаёт операторов и не меняет схему.
+
+`/api/v1/` — versioned namespace. Frozen OAS содержит и будущие операции;
+наличие endpoint в schema не доказывает работающий endpoint.
+[Runtime routes](specs/migration/r02-v1/implemented-routes-v1.json),
+[контракты HTTP](specs/api/MS7-R02A-http-eligibility.md) и
+[staff/content addenda](specs/migration/r02-v1/README.md) задают границы.
+
+### React, SSG и маршрутизация
+
+`frontend/react-router.config.ts` задаёт `ssr: false`,
+`routeDiscovery.mode: initial` и `prerender` из проверенного public manifest.
+`frontend/src/app/routes.ts` регистрирует точные public paths, `/account/`,
+`/admin/*` и development-only gallery. Неизвестный/unpublished URL получает
+предусмотренный 404, а не общий SPA 200. Private shells anonymous, no-store;
+личные данные загружаются через авторизованные API.
+
+LessonHost сохраняет authored HTML и dependencies; lifecycle/full-document
+navigation не должен дублировать scripts или терять widgets. Общие authored
+CSS/JS остаются в static. Существующие self-checks могут содержать прежние
+reveal interactions прямо в HTML; они не создают assessed evidence и не доказывают
+соблюдение будущего server-only exercise API.
+
+## Технологический стек и версии
+
+Таблица описывает файлы репозитория, не latest и не автоматически измеренные
+версии пользовательской среды. Pinned dependency отличается от диапазона и
+от конкретного runtime. Новые UI-библиотеки не выбраны; Next.js не используется.
+
+| Технология | Назначение | Зафиксировано / диапазон | Источник |
+| --- | --- | --- | --- |
+| Python | Backend, CLI, QA | Документированный target 3.12+; CI 3.12 без patch; Docker tag 3.12-slim-bookworm + digest, patch не указан в tag | `deploy/Dockerfile`, workflows, `docs/target-runtime.md` |
+| FastAPI | HTTP приложение | 0.115.12 exact | `backend/infrastructure/http/requirements.lock` |
+| Pydantic / core | DTO/schema validation | 2.11.4 / 2.33.2 exact | Тот же lock |
+| Starlette / Uvicorn | ASGI / server | 0.46.2 / 0.34.2 exact | Тот же lock |
+| SQLAlchemy | Models, repositories, UoW | 2.0.46 exact | `backend/requirements.lock` |
+| Alembic | Reviewed migrations | 1.18.4 exact | Тот же lock, `backend/alembic.ini` |
+| psycopg / binary | PostgreSQL driver | 3.3.6 exact | Backend и verification locks |
+| PostgreSQL | Основная БД | Target 16+; CI `16-bookworm` без patch; Compose image задан digest, tag/patch не заявлен | `deploy/compose.yaml`, `.github/workflows/migration-ci.yml` |
+| Node.js | Build/prerender/QA | Manifest >=24.0.0 <25; Docker 24.21.0 + digest; CI 24.21.0 | `frontend/package.json`, Dockerfile, workflows |
+| npm | Locked frontend install | engines >=11 <12; packageManager и Docker 11.19.0 exact | `frontend/package.json`, Dockerfile |
+| React / React DOM | UI | 19.2.8 exact | `frontend/package.json`, `package-lock.json` |
+| React Router / node / dev | Routes, framework SSG | 7.18.4 exact | Те же manifests и `react-router.config.ts` |
+| TypeScript / Vite | Types / build | 5.9.3 / 7.3.7 exact | Frontend manifests |
+| Vitest / jsdom | Frontend units | 4.1.11 / 27.4.0 exact | Frontend manifests |
+| Testing Library React / DOM | Component tests | 16.3.0 / 10.4.1 exact | Frontend manifests |
+| Playwright | Browser QA | 1.58.2 exact; browser binaries фиксируются фактическим run | Frontend manifests, Playwright config |
+| AJV / ajv-formats | Frontend schema checks | 8.20.0 / 3.0.1 exact | Frontend manifests |
+| openapi-typescript | Generated API types | 7.13.0 exact | Frontend manifests |
+| jsonschema | Backend/contracts QA | 4.26.0 exact | HTTP и verification locks |
+| BeautifulSoup / soupsieve | Content inspection | 4.15.0 / 2.10 exact | `backend/requirements.lock` |
+| argon2-cffi / bcrypt | Retained password algorithms | 25.1.0 / 4.3.0 exact | HTTP lock, `backend/users/THIRD-PARTY-NOTICES.md` |
+| HTTPX / httpcore | HTTP client/probes/tests | 0.28.1 / 1.0.9 exact | HTTP lock |
+| unittest | Backend/pure tests | Python standard library, версия runtime | `scripts/run_unittest.py`, backend suites |
+| Nginx | Edge | `stable-bookworm` + digest; numeric patch в Dockerfile не указан | `deploy/Dockerfile` |
+| Docker / Compose | Images, owned local/disposable lifecycle | Docker exact не закреплён; optional TLS override требует Compose 2.24.4+ | `deploy/RELEASE.md`, Compose files |
+| GitHub Actions | CI | checkout/setup-python/setup-node/upload-artifact и другие actions по фактическим workflow refs; не runtime библиотеки | `.github/workflows/*.yml` |
+
+Root `requirements.lock` включает HTTP lock, тот включает backend lock.
+Backend test locks включают те же exact dependencies. Verification tooling lock
+остаётся нужен jsonschema/psycopg проверкам после вывода Harness. Transitive
+зависимости перечислены в lock-файлах; обновление версий в этом поручении не делалось.
+SymPy и provider SDK не установлены как продуктовые зависимости: вводятся
+отдельной будущей задачей с выбранными совместимыми pins и проверками.
+
+## Принятые доменные границы будущей системы
+
+Это обязательные ограничения будущей реализации, а не перечень работающих
+модулей. ADR-0002/0003, R02, R03 и HTTP/CompletionFact addenda сохраняют точную
+семантику и собственный status. Proposed пункты addenda требуют явного закрытия
+решений перед реализацией; принятие миграции не утверждает весь новый продукт.
 
 ```mermaid
 flowchart TB
-    Users[Users]
-    Content[Content]
-    Knowledge[Knowledge]
-    Assessment[Assessment]
-    Validation[Math Validation]
-    Analyzer[Solution Analyzer]
-    Progress[Progress]
-    Adaptive[Adaptive Practice]
-    Tutor[AI Tutor]
-    LLMInfra[LLM Infrastructure]
-
     Content --> Knowledge
+    Assessment --> Users
+    Assessment --> Content
+    Assessment --> Knowledge
     Assessment --> Validation
     Assessment --> Analyzer
     Assessment --> Progress
     Analyzer --> Validation
-    Analyzer --> LLMInfra
-    Analyzer --> Knowledge
-    Analyzer --> Progress
+    Analyzer --> LLM
     Progress --> Knowledge
     Adaptive --> Progress
     Adaptive --> Knowledge
     Adaptive --> Assessment
     Tutor --> Content
-    Tutor --> Progress
     Tutor --> Knowledge
-    Tutor --> LLMInfra
+    Tutor --> Progress
+    Tutor --> Assessment
+    Tutor --> LLM
 ```
 
-Arrows represent allowed use/dependency direction at the application/service level.
-
-They do not mean every domain may directly import every model from the destination.
-
-Cross-domain operations should prefer explicit service interfaces.
-
----
-
-## 7. Target package/app structure
-
-The architecture is expected to evolve toward a structure similar to:
-
-```text
-MathStart-Python/
-├── config/
-│
-├── content/                  # existing site/content domain
-├── users/                    # student profile/onboarding domain
-├── knowledge/                # skills + prerequisite graph
-├── assessment/               # exercises, attempts, steps, diagnostics
-├── progress/                 # ProgressEvent records + projections
-├── solution_analyzer/        # analysis orchestration
-├── math_validation/          # deterministic math validation
-├── ai_tutor/                 # tutor conversations/context/policy
-├── adaptive_practice/        # targeted remediation sessions
-├── llm/                      # provider adapters + AI run infrastructure
-│
-├── curriculum/               # existing lesson sources
-├── site_content/             # existing site sources
-├── seed_data/                # future repo-managed intelligent-domain seeds
-│   ├── knowledge/
-│   └── assessment/
-│
-├── templates/
-├── static/
-├── specs/
-├── docs/
-├── skills/
-│
-├── AGENTS.md
-├── PRODUCT.md
-└── ARCHITECTURE.md
-```
-
-This is a target modular structure, not an instruction to create all applications immediately.
-
-New packages/apps should be introduced only when their implementation work begins.
-
-Do not create empty architecture theatre merely to match the diagram.
-
----
-
-## 8. Django app boundaries
-
-Logical domains and Django apps should align where persistent ownership or independent application behavior justifies the boundary.
-
-The intended ownership is:
-
-| Domain | Primary responsibility |
-| --- | --- |
-| `content` | grades, subjects, sections, pages/topics, topic-to-skill mappings, lesson publication, redirects, media |
-| `users` | student profile, selected grade, onboarding mode |
-| `knowledge` | skills and prerequisite graph |
-| `assessment` | exercises, validation records, attempts, steps, diagnostics, mistakes |
-| `math_validation` | parser, normalizer, deterministic/domain validation |
-| `solution_analyzer` | analysis orchestration and confidence gating |
-| `progress` | `ProgressEvent` records and `UserSkillState` projection |
-| `adaptive_practice` | practice sessions and item selection |
-| `ai_tutor` | tutor context, conversation, tutor policy |
-| `llm` | provider abstraction, provider adapters, retries/timeouts, AI run metadata |
-
-Domain ownership matters more than Django convenience.
-
-A model must not be placed in an unrelated app merely because that app already exists.
-
----
-
-## 9. Existing Content domain
-
-The existing `content` app remains the owner of the current educational site/content runtime.
-
-### 9.1. Existing source model
-
-The current file-to-runtime flow remains valid:
-
-```text
-curriculum/ + site_content/
-            |
-            v
-publishing / bootstrap services
-            |
-            v
-ContentPage + related content models
-            |
-            v
-Django views/templates
-            |
-            v
-browser
-```
-
-### 9.2. Topic identity
-
-The existing runtime represents an educational topic through `ContentPage` where:
-
-```text
-page_type == TOPIC
-```
-
-R03's `pilot-v1` Knowledge contract references this Content-owned topic
-abstraction and does not create a duplicate `Topic` model. The exact
-intelligent-layer database FK/persistence shape remains for a later scoped
-implementation plan. Any resulting schema transition must include its
-migration plan.
-
-### 9.3. File-managed content
-
-The following existing behavior remains protected:
-
-- `curriculum/` is the source of truth for lessons;
-- `site_content/` is the source of truth for site structure and seed site data;
-- file-managed content is read-only in Django Admin;
-- publishing remains conflict-aware;
-- bootstrap remains idempotent;
-- content quality/integrity checks remain part of verification.
-
-### 9.4. Topic-to-skill mappings
-
-Content owns topic-to-skill mappings (`TopicSkill`) in the v3.1 baseline.
-Content depends on Knowledge to reference stable skills; Knowledge does not
-depend on Content for these mappings.
-
-A mapping may include importance, role, and ordering metadata. Its topic
-reference follows the R02/V02 contract described in section 9.2; R01 does not
-fix a foreign key to either `ContentPage` or a new `Topic` model.
-
----
-
-## 10. Users domain
-
-The MVP uses Django's authentication infrastructure.
-
-Because the existing project already uses Django and has not yet introduced a custom user model, the baseline approach is:
-
-```text
-django.contrib.auth user
-        +
-StudentProfile
-```
-
-`StudentProfile` owns MathStart-specific user information such as:
-
-- selected grade;
-- onboarding mode;
-- display/profile fields needed by the product;
-- product-specific timestamps/state.
-
-Do not introduce a custom `AUTH_USER_MODEL` after dependent migrations begin without an accepted ADR and migration strategy.
-
-### Authentication for MVP
-
-For the same-origin web application:
-
-- Django session authentication is the default;
-- CSRF protection remains enabled;
-- passwords are handled by Django password hashing;
-- secrets never live in browser code.
-
-Token/JWT authentication is not required for the MVP unless a separate client appears.
-
----
-
-## 11. Knowledge domain
-
-The Knowledge domain owns the objective subject model.
-
-Expected core models:
-
-```text
-Skill
-SkillDependency
-```
-
-### `Skill`
-
-Represents an atomic learnable capability.
-
-Important properties:
-
-- stable `code`;
-- human-readable name;
-- description;
-- grade applicability;
-- active/archive state.
-
-Skill `code` is an external/domain identifier and must be treated as stable.
-
-### `SkillDependency`
-
-Represents:
-
-```text
-prerequisite_skill -> dependent_skill
-```
-
-Rules:
-
-- no self-edge;
-- no cycles;
-- relation type is controlled;
-- strength is bounded;
-- graph validation is automated.
-
-Topic-to-skill mappings belong to Content (section 9.4), not Knowledge.
-
-The knowledge graph is **not user progress**.
-
----
-
-## 12. Assessment domain
-
-Assessment owns exercise definitions and immutable/append-oriented facts about student work.
-
-Expected core entities:
-
-```text
-Exercise
-ExerciseValidation
-ExerciseSkill
-DiagnosticSession
-SolutionAttempt
-SolutionStep
-AttemptEvent
-MistakeType
-MistakeSkillMapping
-DetectedMistake
-```
-
-### 12.1. `Exercise`
-
-Public exercise definition and interaction contract.
-
-Expected fields/concepts include:
-
-- topic;
-- stable code;
-- statement;
-- interaction mode;
-- input schema;
-- step schema;
-- parser profile;
-- difficulty;
-- reveal policy;
-- version;
-- active/archive state.
-
-### 12.2. `ExerciseValidation`
-
-Server-only validation data.
-
-Expected concepts include:
-
-- answer key;
-- validation specification;
-- canonical solution;
-- accepted variants;
-- version.
-
-This model must not be serialized by the ordinary public exercise endpoint.
-
-### 12.3. `ExerciseSkill`
-
-Maps an exercise to the skills it actually evaluates.
-
-### 12.4. `SolutionAttempt`
-
-Represents one student's work on one exercise.
-
-It owns attempt-level facts such as:
-
-- user;
-- exercise;
-- exercise version/snapshot identifier;
-- source;
-- status;
-- started/submitted timestamps;
-- final answer payload;
-- hint usage;
-- answer reveal timestamp.
-
-### 12.5. `SolutionStep`
-
-A typed ordered step.
-
-Expected concepts:
-
-- attempt;
-- step number;
-- step type;
-- structured payload;
-- raw text;
-- normalized representation;
-- parse status;
-- timestamp.
-
-Constraint:
-
-```text
-UNIQUE(attempt, step_no)
-```
-
-### 12.6. `AttemptEvent`
-
-Append-oriented UX facts such as:
-
-- hint requested;
-- answer revealed;
-- retry;
-- other events needed for audit/evidence semantics.
-
-### 12.7. Mistake taxonomy
-
-Persistent mistake classification uses controlled codes.
-
-The LLM must not create arbitrary persistent mistake codes.
-
-`DetectedMistake` represents a validated analysis result tied to an attempt/step and skill with confidence.
-
----
-
-## 13. Interaction-mode boundary
-
-Every exercise has one explicit interaction mode:
-
-```text
-SELF_CHECK
-FINAL_ANSWER
-STEP_BY_STEP
-STRUCTURED_SOLUTION
-```
-
-The interaction mode controls:
-
-- browser UX;
-- accepted payload shape;
-- validation path;
-- evidence semantics.
-
-A new interaction mode requires a spec and tests.
-
-Frontend behavior must not silently define new domain modes.
-
----
-
-## 14. Public exercise vs validation secret
-
-The system deliberately separates the public interaction contract from the correct answer/validator internals.
-
-```mermaid
-flowchart LR
-    DB[(Assessment storage)]
-    Public[Public Exercise DTO]
-    Secret[Server Validation Data]
-    Browser[Browser]
-    Validator[Validator]
-
-    DB --> Public
-    DB --> Secret
-    Public --> Browser
-    Secret --> Validator
-```
-
-Ordinary public exercise responses may contain:
-
-- ID/code;
-- statement;
-- interaction mode;
-- difficulty;
-- public input schema;
-- public step schema;
-- reveal policy;
-- public skill metadata when needed.
-
-They must not contain:
-
-- answer key;
-- canonical solution;
-- private validation specification;
-- secret accepted variants.
-
-Reveal is a server action, not a hidden field already present in the page.
-
----
-
-## 15. Math Validation domain
-
-`math_validation` should contain as much deterministic logic as is reliable for the supported MVP mathematics.
-
-Pipeline:
-
-```text
-raw input
-    |
-    v
-normalizer
-    |
-    v
-parser
-    |
-    v
-normalized mathematical representation
-    |
-    v
-answer / transition / domain validator
-    |
-    v
-deterministic validation result
-```
-
-Responsibilities include:
-
-- syntax normalization;
-- decimal separator normalization;
-- multiplication normalization;
-- simple fraction handling;
-- unary minus handling;
-- supported expression parsing;
-- expression/equation equivalence checks;
-- transition validation for supported transformations.
-
-SymPy may be used behind stable domain interfaces.
-
-### Parse outcomes
-
-The parser must support explicit outcomes such as:
-
-```text
-OK
-UNSUPPORTED
-INVALID
-NOT_REQUIRED
-```
-
-Unsupported input is not automatically a misconception.
-
-Raw input is always preserved separately from normalized representation.
-
----
-
-## 16. Solution Analyzer
-
-Solution Analyzer orchestrates error analysis.
-
-It is not the mathematical source of truth and does not own progress state.
-
-For a supported step-by-step flow:
-
-```mermaid
-flowchart TB
-    Step[Submitted step]
-    Validation[Deterministic transition validation]
-    Candidate[Candidate problem]
-    LLMClassify[Optional LLM classification]
-    Schema[Pydantic/schema validation]
-    Gate[Confidence gate]
-    Analysis[Validated analysis result]
-
-    Step --> Validation
-    Validation --> Candidate
-    Candidate --> LLMClassify
-    Candidate --> Gate
-    LLMClassify --> Schema
-    Schema --> Gate
-    Gate --> Analysis
-```
-
-The LLM is optional in the pipeline.
-
-If deterministic rules can classify the case reliably, no LLM call is required.
-
-If LLM output is malformed, unsupported, or below confidence threshold, the analyzer must return a safe non-strong result.
-
-Solution Analyzer may create/return an analysis result suitable for persistence as a `DetectedMistake`, but it must not directly update `UserSkillState`.
-
----
-
-## 17. Progress domain
-
-Progress is the **only owner of long-term student knowledge state**.
-
-Expected core entities:
-
-```text
-ProgressEvent
-UserSkillState
-```
-
-### 17.1. `ProgressEvent`
-
-Append-oriented evidence record.
-
-Expected concepts include:
-
-- user;
-- skill;
-- event type;
-- strength;
-- source type/source ID;
-- difficulty;
-- first-try flag;
-- hint-used flag;
-- reveal-used flag;
-- confidence;
-- metadata;
-- occurrence time;
-- algorithm/spec version when needed for reproducibility.
-
-Every automatic progress change must be explainable through one or more `ProgressEvent` records. ADR-0003 and `specs/progress/R03-progress-contract.md` define the current canonical term and exact contract. Older `KnowledgeEvent` wording in accepted historical documents is superseded terminology, not a second event type.
-
-### 17.2. `UserSkillState`
-
-Current projection for one user and one skill.
-
-Expected concepts:
-
-- mastery;
-- confidence;
-- evidence count;
-- status;
-- last evaluation time.
-
-Constraint:
-
-```text
-UNIQUE(user, skill)
-```
-
-### 17.3. Projection rule
-
-The event log is evidence/history.
-`UserSkillState` is a derived current projection.
-
-The system should be designed so the projection can be recomputed when the algorithm evolves.
-
-Do not let controllers, templates, AI Tutor, or LLM provider adapters directly mutate mastery/confidence.
-
----
-
-## 18. Progress update flow
-
-```mermaid
-sequenceDiagram
-    participant A as Assessment
-    participant V as Validation/Analyzer
-    participant P as Progress Engine
-    participant DB as PostgreSQL
-
-    A->>V: validated attempt/step facts
-    V-->>A: validated result
-    A->>P: evidence command
-    P->>DB: append ProgressEvent
-    P->>DB: update UserSkillState projection
-    P-->>A: resulting progress state
-```
-
-For one user action, persistence that must stay consistent should be wrapped in an appropriate Django transaction.
-
-Progress event creation must be idempotent against request retries/double submission.
-
-The exact idempotency constraints belong in the progress/assessment specs and migrations.
-
----
-
-## 19. Adaptive Practice domain
-
-Adaptive Practice reads from:
-
-- Progress;
-- Knowledge;
-- Assessment exercise catalogue.
-
-It owns:
-
-```text
-PracticeSession
-PracticeItem
-```
-
-Expected `PracticeSession` concepts:
-
-- user;
-- origin topic;
-- target skill;
-- return topic;
-- status;
-- timestamps.
-
-Adaptive Practice selects exercises.
-It does not fabricate mastery.
-
-Practice results still flow through normal Assessment -> Progress evidence paths.
-
----
-
-## 20. AI Tutor domain
-
-AI Tutor owns educational assistance, not knowledge state.
-
-Expected responsibilities:
-
-- context building;
-- conversation lifecycle;
-- tutor policy;
-- hint-first behavior;
-- message persistence.
-
-Expected core entities:
-
-```text
-AIConversation
-AIMessage
-```
-
-Tutor context may use read-only projections from:
-
-- current topic/content;
-- relevant skills;
-- prerequisite graph;
-- `UserSkillState`;
-- recent confirmed mistakes;
-- current exercise/attempt.
-
-AI Tutor must not directly update progress.
-
-A tutor message may influence later evidence only through explicit user actions such as hint usage and validated attempts.
-
----
-
-## 21. LLM Infrastructure
-
-Provider-specific LLM code belongs behind a stable provider interface.
-
-Target shape:
-
-```text
-Domain service
-    |
-    v
-LLMProvider interface
-    |
-    +--> OpenAI adapter
-    +--> fake/test provider
-    +--> future provider adapter
-```
-
-Responsibilities:
-
-- provider/model selection;
-- request execution;
-- timeouts;
-- bounded retries;
-- structured-output handling;
-- error normalization;
-- usage/latency metadata;
-- AI run logging.
-
-Expected infrastructure entity:
-
-```text
-AIRun
-```
-
-Possible fields/concepts:
-
-- purpose;
-- provider;
-- model;
-- prompt version;
-- status;
-- latency;
-- input/output token usage;
-- validated output metadata;
-- error code;
-- timestamp.
-
-Provider-specific SDK imports must not leak into domain modules.
-
-Automated tests must not require a real LLM provider.
-
----
-
-## 22. Structured LLM output
-
-LLM output that affects domain decisions must use controlled schemas.
-
-Pydantic is the baseline validation mechanism for LLM structured output.
-
-Example conceptual flow:
-
-```text
-provider response
-    |
-    v
-parse structured output
-    |
-    v
-Pydantic validation
-    |
-    v
-taxonomy/skill validation
-    |
-    v
-confidence gate
-    |
-    v
-safe domain result
-```
-
-Free-form prose may be shown to the user where appropriate, but free-form text must not directly mutate persisted progress state.
-
----
-
-## 23. API architecture
-
-The application remains server-rendered for primary navigation/content.
-
-Interactive capabilities use a versioned JSON API.
-
-Baseline route family:
-
-```text
-/api/v1/
-```
-
-Likely resources/actions include:
-
-```text
-GET    /api/v1/topics/<...>/
-GET    /api/v1/exercises/<id>/
-POST   /api/v1/attempts/
-POST   /api/v1/attempts/<id>/answer/
-POST   /api/v1/attempts/<id>/steps/
-POST   /api/v1/attempts/<id>/hint/
-POST   /api/v1/attempts/<id>/reveal/
-GET    /api/v1/progress/
-POST   /api/v1/tutor/messages/
-```
-
-These paths are illustrative until formalized in API specs.
-
-Django REST Framework is the baseline API layer.
-
-### API rules
-
-- use explicit serializers/DTOs;
-- do not serialize Django models blindly;
-- public exercise serializers exclude validation secrets;
-- authenticated student resources are user-scoped;
-- write endpoints require CSRF protection under session auth;
-- errors use stable machine-readable codes where useful;
-- validation/business errors are distinct from server failures.
-
----
-
-## 24. Frontend architecture
-
-MVP frontend architecture is:
-
-```text
-Django Templates
-    +
-shared HTML components
-    +
-shared CSS
-    +
-progressive JavaScript
-    +
-fetch() to /api/v1/
-```
-
-Do not introduce Next.js/React simply to build one interactive screen.
-
-Reusable interactive learning widgets should prefer shared static modules under `static/mathstart/` instead of page-specific duplicated JavaScript.
-
-Server-only answers/validation data must never be embedded into page HTML, JavaScript, or data attributes before reveal.
-
-A separate SPA may be considered post-MVP through an ADR if frontend complexity genuinely requires it.
-
----
-
-## 25. Content page integration
-
-The intelligent learning layer must integrate with existing `ContentPage` pages without breaking current lessons.
-
-A pilot topic may render:
-
-```text
-existing theory/content
-        +
-interactive exercise block
-        +
-progress/adaptive UI
-        +
-AI Tutor UI
-```
-
-Existing lessons outside the pilot slice may remain unchanged or operate as `SELF_CHECK`.
-
-This allows a deep intelligent slice without requiring immediate conversion of all 263 lessons.
-
----
-
-## 26. Repository-managed intelligent seed data
-
-Stable pilot-domain catalogue data should be reproducible from the repository.
-
-Target future location:
-
-```text
-seed_data/
-├── content/
-│   └── topic_skills.json
-├── knowledge/
-│   ├── skills.json
-│   └── dependencies.json
-└── assessment/
-    ├── exercises.json
-    ├── exercise_skills.json
-    ├── validation.json
-    └── mistake_types.json
-```
-
-The exact schemas must be specified before implementation.
-
-Seed commands must be idempotent.
-
-Seed operations must not delete or rewrite historical student evidence.
-
-Runtime student records are not exported back into seed files.
-
----
-
-## 27. Data model summary
-
-Conceptual ownership:
-
-```mermaid
-erDiagram
-    TOPIC ||--o{ TOPIC_SKILL : maps
-    SKILL ||--o{ TOPIC_SKILL : maps
-    SKILL ||--o{ SKILL_DEPENDENCY : prerequisite
-    SKILL ||--o{ SKILL_DEPENDENCY : dependent
-
-    TOPIC ||--o{ EXERCISE : contains
-    EXERCISE ||--|| EXERCISE_VALIDATION : validates
-    EXERCISE ||--o{ EXERCISE_SKILL : assesses
-    SKILL ||--o{ EXERCISE_SKILL : assessed_by
-
-    USER ||--o{ SOLUTION_ATTEMPT : submits
-    EXERCISE ||--o{ SOLUTION_ATTEMPT : attempted
-    SOLUTION_ATTEMPT ||--o{ SOLUTION_STEP : contains
-    SOLUTION_ATTEMPT ||--o{ ATTEMPT_EVENT : records
-    SOLUTION_ATTEMPT ||--o{ DETECTED_MISTAKE : analyzed
-
-    USER ||--o{ PROGRESS_EVENT : receives
-    SKILL ||--o{ PROGRESS_EVENT : evidence_for
-    USER ||--o{ USER_SKILL_STATE : owns
-    SKILL ||--o{ USER_SKILL_STATE : projects
-
-    USER ||--o{ PRACTICE_SESSION : runs
-    PRACTICE_SESSION ||--o{ PRACTICE_ITEM : contains
-```
-
-This is conceptual, not a substitute for actual Django migrations.
-`TOPIC` denotes the domain concept, currently represented by `ContentPage`.
-Its final persistence/reference contract is deferred to R02/V02 (section 9.2).
-`TOPIC_SKILL` is owned by Content; `SKILL` and `SKILL_DEPENDENCY` by Knowledge.
-
----
-
-## 28. Database constraints
-
-Important constraints include:
-
-- mastery in `[0, 100]`;
-- confidence in `[0, 100]`;
-- unique solution step number within one attempt;
-- unique user/skill projection;
-- unique prerequisite/dependent edge;
-- self-edge forbidden;
-- graph cycles forbidden by validation;
-- one validation record per exercise unless a later versioning spec changes storage shape;
-- stable timestamps stored with Django timezone support;
-- historical entities are normally archived/deactivated rather than physically deleted.
-
-JSON-like payloads/schemas should use Django `JSONField`.
-
-On PostgreSQL, these are stored using PostgreSQL JSON capabilities.
-
-Do not make core relational relationships opaque JSON merely for convenience.
-
----
-
-## 29. Transaction boundaries
-
-Use `transaction.atomic()` for workflows where partial persistence would violate domain consistency.
-
-Typical examples:
-
-### Exercise submission
-
-Where applicable, one logical submission may need to preserve consistency across:
-
-- attempt state;
-- submitted step/final answer;
-- attempt event;
-- detected mistake;
-- emitted `ProgressEvent`;
-- resulting progress projection.
-
-Do not keep an external LLM network call inside a long database transaction.
-
-Preferred pattern:
-
-1. persist/read required attempt facts;
-2. perform deterministic validation;
-3. perform optional LLM call outside a long transaction;
-4. validate/gate the result;
-5. enter a short atomic persistence section;
-6. persist analysis/evidence/projection idempotently.
-
----
-
-## 30. Idempotency
-
-Student write endpoints may be retried by browsers, proxies, or JavaScript.
-
-The architecture must prevent duplicate evidence.
-
-Operations that create `ProgressEvent` records from an attempt/step should have a deterministic source identity or another idempotency mechanism.
-
-A repeated HTTP request must not accidentally count one answer twice.
-
-Exact keys/constraints must be specified in the relevant feature spec.
-
----
-
-## 31. PostgreSQL transition
-
-MS6-V01 introduces env-driven PostgreSQL configuration and explicit SQLite
-compatibility. See `docs/runbooks/postgres-dev-test.md` and the active task trace
-for implemented commands and verification limitations.
-
-The target is PostgreSQL.
-
-Migration must be incremental and must not block Harness work.
-
-Expected transition:
-
-1. keep current Django models/migrations valid;
-2. add PostgreSQL driver/configuration;
-3. make database configuration environment-driven;
-4. run existing migrations/bootstrap against a clean PostgreSQL database;
-5. run current content verification on PostgreSQL;
-6. add PostgreSQL to CI;
-7. only then treat PostgreSQL as the normal development/production path.
-
-The current content pipeline must work without relying on SQLite-specific behavior.
-
-SQLite-specific backup behavior may remain only where explicitly guarded as SQLite-local functionality.
-
----
-
-## 32. Migration policy
-
-Every schema change uses Django migrations.
-
-Rules:
-
-- do not edit an already-applied migration to repair local state;
-- prefer additive migrations;
-- data migrations must be deterministic and reviewable;
-- destructive migrations require explicit review;
-- historical evidence must be preserved;
-- fresh installation from zero must remain possible;
-- CI should detect missing migrations.
-
-Required check:
-
-```text
-python manage.py makemigrations --check --dry-run
-```
-
----
-
-## 33. Observability
-
-The system needs observability for both normal application behavior and AI operations.
-
-### Application logs
-
-Use structured logs with a request/trace id to correlate operations and errors.
-This is an explicit v3.1 NFR target, not a claim that R01 implements logging.
-
-### AI runs
-
-Log non-secret metadata such as:
-
-- purpose;
-- provider;
-- model;
-- prompt version;
-- status;
-- latency;
-- usage;
-- error code.
-
-Do not log:
-
-- API keys;
-- passwords;
-- access tokens;
-- unnecessary sensitive prompt fragments.
-
-### Agent development traces
-
-Coding-agent execution summaries are stored separately under:
-
-```text
-docs/agent-traces/
-```
-
-They are development artifacts, not application runtime logs.
-
----
-
-## 34. Security boundaries
-
-### Secrets
-
-Secrets live in environment variables.
-
-`.env` is local and ignored by Git.
-
-`.env.example` contains only safe placeholders.
-
-### Authentication
-
-Use Django authentication/session security for MVP.
-
-### CSRF
-
-CSRF protection remains enabled for authenticated browser writes.
-
-### Exercise secrecy
-
-Answer/validation secrets remain server-side.
-
-### Authorization
-
-A user may only read/modify their own attempts, progress, practice sessions, and tutor conversations unless an administrative role explicitly grants otherwise.
-
-### Admin
-
-Django Admin is internal/administrative and must not become a public student interface.
-
-### AI endpoint rate limiting
-
-AI endpoints must have rate limiting before public deployment.
-
----
-
-## 35. Performance targets
-
-The v3.1 baseline NFR targets in the demo environment are:
-
-- normal API p95 < 500 ms;
-- AI p95 < 15 s.
-
-These are acceptance targets to verify during implementation/deployment;
-R01 does not claim that they have been measured or achieved.
-
-AI requests must use:
-
-- explicit timeout;
-- bounded retry behavior;
-- safe failure handling.
-
-Do not introduce Redis, Celery, caching infrastructure, or microservices without a demonstrated need and an ADR.
-
-Database query performance should be handled first with:
-
-- correct relational design;
-- indexes;
-- `select_related`;
-- `prefetch_related`;
-- bounded result sets.
-
----
-
-## 36. Testing architecture
-
-Core domain logic must be testable without a real LLM provider.
-
-Testing layers:
-
-### Unit/domain tests
-
-Examples:
-
-- normalizer/parser;
-- deterministic validators;
-- progress calculation;
-- confidence gates;
-- adaptive selection rules;
-- graph validation.
-
-### Django model/service tests
-
-Examples:
-
-- constraints;
-- attempt persistence;
-- event generation;
-- projection updates;
-- seed/bootstrap idempotency.
-
-### API tests
-
-Examples:
-
-- authentication/authorization;
-- public DTO secrecy;
-- payload validation;
-- reveal semantics;
-- duplicate submission/idempotency.
-
-### Golden cases
-
-Supported mathematical transitions should have curated golden cases.
-
-### Existing content checks
-
-The current verification suite remains mandatory where relevant:
-
-```text
-python manage.py check
-python manage.py test
-python manage.py makemigrations --check --dry-run
-python manage.py check_lesson_sources --all
-python manage.py check_content_quality
-python manage.py check_site_integrity
-```
-
----
-
-## 37. Architecture verification
-
-Important invariants should become executable checks where practical.
-
-Examples:
-
-- knowledge graph contains no cycles;
-- public exercise serializer never includes server validation secrets;
-- LLM provider modules do not mutate progress storage;
-- every projection mutation has a corresponding `ProgressEvent`;
-- no missing Django migrations;
-- seed files match schemas;
-- pilot exercises reference valid skills/topics.
-
-Do not rely only on documentation to enforce critical invariants.
-
----
-
-## 38. Deployment architecture
-
-Target MVP deployment:
-
-```mermaid
-flowchart LR
-    Internet[Browser / Internet]
-    HTTPS[HTTPS reverse proxy or managed ingress]
-    Django[Django application]
-    PG[(PostgreSQL)]
-    Static[Static asset delivery]
-    Media[Persistent media storage]
-    LLM[External LLM provider]
-
-    Internet --> HTTPS
-    HTTPS --> Django
-    Django --> PG
-    Django --> Static
-    Django --> Media
-    Django --> LLM
-```
-
-Production requirements:
-
-- HTTPS;
-- non-debug Django settings;
-- secure secret injection;
-- PostgreSQL;
-- static collection;
-- persistent media strategy where runtime media is required;
-- migrations applied during deployment;
-- health/smoke verification;
-- public demo reachable through a browser.
-
-Docker Compose is the preferred reproducible local/production-oriented path once PostgreSQL migration work begins.
-
-Static assets must be collected and delivered through a deployment-appropriate
-mechanism. R01 does not select WhiteNoise as an architectural dependency;
-deployment work may select it later when justified. Its presence in the current
-runtime does not establish the target deployment decision.
-
----
-
-## 39. CI architecture
-
-GitHub Actions should eventually verify at least:
-
-1. dependency installation;
-2. Django system check;
-3. migration consistency;
-4. automated tests;
-5. content source verification;
-6. content quality;
-7. site integrity;
-8. PostgreSQL fresh install/migration/bootstrap;
-9. additional architecture/domain checks as they are introduced.
-
-CI must not require production secrets or a live LLM provider.
-
----
-
-## 40. Dependency rules
-
-Baseline logical dependency rules:
-
-```text
-users
-    -> Django infrastructure
-    -> content (selected grade reference only where required)
-
-content
-    -> knowledge (Content-owned topic-to-skill mappings)
-    -> no progress/LLM dependency
-
-knowledge
-    -> no content dependency
-
-math_validation
-    -> pure/domain math libraries
-    -> no progress
-    -> no LLM requirement
-
-assessment
-    -> users
-    -> content
-    -> knowledge
-    -> math_validation
-    -> solution_analyzer orchestration where needed
-    -> progress evidence service
-
-solution_analyzer
-    -> math_validation
-    -> knowledge
-    -> llm provider abstraction
-    -> progress service for validated evidence; no direct state mutation
-    -> no direct UserSkillState mutation
-
-progress
-    -> users
-    -> knowledge
-    -> receives validated evidence
-
-adaptive_practice
-    -> progress read services
-    -> knowledge
-    -> assessment catalogue
-
-ai_tutor
-    -> content read services
-    -> knowledge read services
-    -> progress read services
-    -> assessment context where needed
-    -> llm provider abstraction
-    -> no progress mutation
-
-llm
-    -> provider SDK/infrastructure
-    -> no business decision ownership
-```
-
-Circular domain dependencies are architecture defects.
-
----
-
-## 41. Cross-domain communication
-
-Prefer application services over arbitrary direct cross-app ORM manipulation.
-
-Example:
-
-Bad:
-
-```text
-AI Tutor imports UserSkillState and writes mastery = ...
-```
-
-Good:
-
-```text
-AI Tutor reads a progress projection through a read service
-and returns educational text only.
-```
-
-Bad:
-
-```text
-view directly changes mastery after checking an answer
-```
-
-Good:
-
-```text
-view/controller
-    -> Assessment service
-    -> validated evidence
-    -> Progress service
-    -> ProgressEvent + projection update
-```
-
-Controllers/views should orchestrate HTTP concerns, not contain core domain rules.
-
----
-
-## 42. Architecture invariants
-
-The following are non-negotiable unless changed by an accepted ADR.
-
-1. MathStart remains a modular monolith for MVP.
-2. Django remains the backend framework.
-3. PostgreSQL is the target primary database.
-4. Existing curriculum/site source pipelines are preserved.
-5. User evidence is not managed by content bootstrap.
-6. Progress is changed only through Progress domain logic.
-7. Every automatic progress change has a `ProgressEvent`.
-8. AI Tutor never directly updates mastery/confidence.
-9. LLM provider code never owns progress decisions.
-10. LLM structured outputs that affect domain decisions are schema-validated.
-11. Low-confidence LLM output cannot create strong negative evidence.
-12. A wrong final answer alone cannot create a specific misconception.
-13. Public exercise DTOs never expose validation secrets.
-14. Full reveal prevents first-try evidence for the same attempt.
-15. Knowledge graph self-edges/cycles are invalid.
-16. Skill codes are stable identifiers.
-17. Raw user input is preserved separately from normalized representation.
-18. Unsupported parsing is explicit, not fabricated into an error.
-19. Schema changes always have Django migrations.
-20. Existing historical evidence is not silently deleted.
-21. External LLM calls are not executed inside long database transactions.
-22. Automated tests do not require a live LLM.
-23. Full conversion of all existing lessons does not block the pilot vertical slice.
-
----
-
-## 43. Deliberately excluded from MVP architecture
-
-Do not introduce these as baseline dependencies:
-
-- FastAPI;
-- SQLAlchemy;
-- Alembic;
-- Next.js/React as a required frontend;
-- microservices;
-- Neo4j;
-- Redis;
-- Celery;
-- Kafka/message brokers;
-- full-site vector/RAG infrastructure;
-- BKT/IRT/complex ML progress models;
-- OCR;
-- interactive geometry canvas validation.
-
-A future need may justify one of these, but introduction requires evidence and an ADR.
-
----
-
-## 44. Evolution strategy
-
-The architecture evolves in controlled vertical increments.
-
-### Stage A — Harness and architecture baseline
-
-- `AGENTS.md`
-- `PRODUCT.md`
-- `ARCHITECTURE.md`
-- ADRs/spec templates
-- execution-plan workflow
-- trace workflow
-
-No unnecessary application rewrite.
-
-### Stage B — PostgreSQL readiness
-
-- environment-driven DB configuration;
-- PostgreSQL local/CI path;
-- existing bootstrap/tests green on PostgreSQL.
-
-### Stage C — Pilot knowledge + exercise contracts
-
-- skills;
-- prerequisite graph;
-- topic mappings;
-- four interaction modes;
-- server-only validation split;
-- curated pilot exercises.
-
-### Stage D — Attempts + deterministic validation
-
-- attempts;
-- typed steps;
-- normalizer/parser;
-- deterministic answer/transition validation.
-
-### Stage E — Progress
-
-- `ProgressEvent` records;
-- user skill projection;
-- diagnostics;
-- progress UI.
-
-### Stage F — Solution Analyzer
-
-- controlled taxonomy;
-- deterministic candidate analysis;
-- optional LLM classification;
-- confidence gates.
-
-### Stage G — AI Tutor
-
-- context builder;
-- provider abstraction;
-- hint-first behavior;
-- AI run observability.
-
-### Stage H — Adaptive Practice
-
-- weak prerequisite selection;
-- practice sessions;
-- return-to-origin flow.
-
-### Stage I — Deployment/defense readiness
-
-- CI;
-- Docker/production path;
-- public HTTPS deployment;
-- demo data;
-- end-to-end verification;
-- documentation and trace evidence.
-
-Each stage should leave the repository in a working state.
-
----
-
-## 45. Architecture decision policy
-
-Create an ADR for significant changes such as:
-
-- replacing Django;
-- changing the primary database;
-- introducing a separate frontend application;
-- introducing a queue/background-worker platform;
-- changing domain ownership;
-- changing exercise modes;
-- changing knowledge graph semantics;
-- changing progress algorithm semantics;
-- changing the LLM trust boundary;
-- changing primary data-source strategy;
-- introducing a new datastore.
-
-Implementation code is not sufficient documentation for a significant architecture decision.
-
----
-
-## 46. Current accepted direction
-
-As of MathStart v3.1, the intended architecture is:
-
-```text
-existing Django MathStart
-        |
-        +-- preserve content publication/bootstrap
-        |
-        +-- move primary runtime DB to PostgreSQL
-        |
-        +-- add explicit intelligent-learning domains
-        |      |
-        |      +-- Knowledge
-        |      +-- Assessment
-        |      +-- Math Validation
-        |      +-- Progress
-        |      +-- Solution Analyzer
-        |      +-- AI Tutor
-        |      +-- Adaptive Practice
-        |      +-- LLM Infrastructure
-        |
-        +-- expose interactive capabilities through DRF
-        |
-        +-- keep Django Templates + progressive JS for MVP
-        |
-        +-- develop through the coding-agent harness
-```
-
-The architecture is deliberately incremental.
-
-The purpose of MathStart v3.1 is to spend implementation effort on the intelligent educational loop, not on recreating a working website in a different framework.
+Стрелки обозначают service dependencies, не право менять чужие ORM models.
+
+| Домен | Владеет | Граница |
+| --- | --- | --- |
+| Content | Topics, TopicSkill, publication | TopicSkill зависит от стабильного Knowledge.Skill |
+| Users | Identity, Profile, selected grade/onboarding | Не владеет знаниями |
+| Knowledge | Skill, SkillDependency, graph version | Нет зависимости от Content/Progress; code immutable |
+| Assessment | Exercise/Version/Validation/Skill, Attempt/Step/Event, Exposure, AnalysisRecord, Diagnostics, authoritative CompletionFact | Передаёт immutable evidence DTO в Progress |
+| Math Validation | Parser, normalizer, validators | Pure/domain interfaces, без DB/LLM requirement |
+| Analyzer | Evidence classification, taxonomy, confidence gates | Возвращает результат Assessment; не пишет UserSkillState |
+| Progress | ProgressEvent, CompletionFact mirror, UserSkillState, replay | Единственный writer долгосрочного знания; не импортирует Assessment models |
+| Adaptive | Selection policy, PracticeSession/Item | Читает состояние, выбирает practice, не начисляет mastery |
+| Tutor | Context/policy, Conversation/Message | Только read projections и Assessment help API |
+| LLM infrastructure | Provider abstraction, AIRun, prompts, bounded retries | SDK изолирован; не имеет domain ORM write access |
+
+### Репозиторные и пользовательские данные
+
+Восстанавливаемые источники: curriculum, site_content, media seed, будущие
+curated skills/edges/exercises/taxonomy/validation definitions.
+Runtime history: users/profiles/sessions, attempts/steps/events/exposure,
+diagnostics, ProgressEvents/completions, practice, conversations/AIRun.
+Bootstrap/seed валидирует полный пакет и не перезаписывает runtime history.
+Referenced historical versions архивируются, не удаляются каскадом.
+
+### Knowledge
+
+Skill имеет stable unique code, name/description, grade applicability,
+active/archive state и graph version. SkillDependency направлен prerequisite
+→ dependent; unique pair, bounded strength/controlled type, без self-edge/cycle.
+Graph `pilot-v1`: 10 skills / 13 edges, weight 1.0. `basic_arithmetic` —
+внешний prerequisite, не одиннадцатый узел и не dangling FK.
+Ancestor query идёт назад до depth 2 с deterministic ordering.
+TopicSkill принадлежит Content, включает role/importance/order/version.
+
+### Assessment и четыре режима
+
+Exercise — стабильная identity; ExerciseVersion — immutable published statement,
+mode, difficulty, public schemas/parser profile/reveal policy и provenance.
+ExerciseValidation хранит server-only answer key/spec/canonical solution/variants
+отдельно от public DTO. Один PRIMARY skill в pilot coverage; secondary не
+закрывает ту же квоту повторно.
+
+Режимы ровно SELF_CHECK, FINAL_ANSWER, STEP_BY_STEP, STRUCTURED_SOLUTION.
+SELF_CHECK не даёт scored submit/mastery. FINAL_ANSWER доказывает final verdict,
+но неверное число не локализует misconception. STEP_BY_STEP хранит typed ordered
+steps и проверенный prefix. STRUCTURED_SOLUTION использует versioned schema,
+unknown schema возвращает controlled unsupported.
+
+Attempt связан с user/version/snapshot/revision и timestamps. SolutionStep
+хранит stable step_id, step_no, type, raw_text/payload, normalized_repr,
+parse_status; UNIQUE(attempt,step_no). После submit revision immutable.
+Hint/reveal/retry — append-oriented AttemptEvents. Exposure фиксируется
+по user + immutable exercise version между попытками: новый attempt не
+восстанавливает независимость. Полный reveal запрещает CORRECT_FIRST_TRY.
+Существенные hints учитываются даже при следующей попытке.
+Public GET не раскрывает answers/checkers/canonical solutions в HTML/JSON/JS/cache.
+
+### Детерминированная математика и Analyzer
+
+Raw input сохраняется отдельно; нормализация/whitelist lexer/собственный AST
+предшествуют exact rational/transition/domain validation. Никакого eval/exec
+или прямого sympify произвольной строки. Parse outcomes: OK, INVALID,
+UNSUPPORTED, NOT_REQUIRED. Unsupported/invalid/timeout не являются
+доказанной misconception. Ограниченный pilot: числа/рациональные выражения,
+знаки, скобки, подобные члены, линейные уравнения; nonlinear/variable
+denominator/OCR/geometric proofs вне поддержки.
+
+Первый доказанный неверный переход определяется только на проверенном prefix.
+После unsupported gap причинность следующего шага не предполагается.
+Cascading consequences не дают повторный штраф. Taxonomy codes контролируются;
+OTHER означает safe explanation/abstain. LLM не меняет deterministic verdict.
+Schema validation, существующие skill/taxonomy/evidence refs и confidence gate
+обязательны; confidence >=0.8 сам по себе недостаточен. Malformed/low confidence/
+unknown references дают safe non-strong result. Сохраняются parser/validator/
+taxonomy/prompt/model versions. Numeric limits и eval denominators — в ТЗ §§9/15/16.
+
+### Progress и CompletionFact
+
+Только Progress меняет UserSkillState через валидированные ProgressEvent.
+KnowledgeEvent в старых источниках — прежний термин, не второй event log.
+Event содержит user/skill/type, strength, source/evidence identity, difficulty,
+independence/hint/reveal flags, confidence, UTC time и policy version.
+State содержит mastery/confidence, evidence_count/status, last_updated,
+reducer_version; UNIQUE(user,skill), numeric range [0,100].
+
+Точные deltas, Decimal/ROUND_HALF_UP до двух знаков после каждого event,
+difficulty/repeat factors, threshold order, self-report 60/15 один раз,
+recent-ten и отсутствие decay сохраняются из
+[R03](specs/progress/R03-progress-contract.md).
+Online и replay равны по всем полям. Exact source duplicate — no-op;
+тот же ключ с иным payload — conflict. Late events переигрывают user+skill,
+порядок (occurred_at,event_id,policy_version). Один дефект не создаёт пару
+WRONG + MISCONCEPTION. Reveal не становится независимым положительным evidence.
+
+Assessment владеет authoritative CompletionFact; Progress принимает immutable DTO,
+хранит mirror и status-only stream. Neutral completions занимают место в recent
+ten, но не меняют numeric state/evidence_count/last_updated.
+Dual identity completion_id и attempt+skill проверяется глобально, не
+изолируется owner partition. progress-v1 сохраняется для истории; progress-v1.1
+требует принятого addendum и parity без изменения чисел.
+
+### Транзакции, idempotency и API
+
+SQLAlchemy Session принадлежит короткой UnitOfWork, не разделяется между
+threads/tasks. Согласованные изменения используют одну transaction; locks
+берутся в стабильном порядке. Future submit: auth/CSRF/owner/schema/idempotency
+→ lock attempt/exposure и freeze revision → computation/LLM вне долгой
+транзакции → recheck snapshot/policy, atomic analysis/completion/event/projection
+finalization → persisted response. Повтор не создаёт вторую историю.
+Progress не получает прямую зависимость от Assessment ORM.
+
+Новые PK — UUID там, где это определено контрактом; existing Content IDs/slugs
+сохраняются. UTC aware timestamps, exact Decimal и relational FK/constraints;
+JSON/JSONB используется для versioned payloads, не вместо нормальных связей.
+Уникальны version, step number, source identity и user/skill projection.
+Permanent evidence uniqueness переживает >=7-day receipt retention.
+
+DTO не сериализует ORM автоматически. Student resources owner-scoped; foreign
+объект возвращает предусмотренный generic 404. CSRF на browser mutations,
+stable codes/envelopes/400/401/403/404/409/429/503 по контракту; framework
+defaults 422/307/coercion не заменяют frozen HTTP policy.
+UI не пересчитывает authoritative knowledge. Conflicts/retry/unknown outcomes
+восстанавливаются чтением canonical state; unsupported не отображается как wrong.
+
+### Tutor, Product LLM и adaptive practice
+
+Tutor hint-first. До reveal модель выбирает schema-valid intent/hint_id/level
+из reviewed hint bank; сервер проверяет scope/exposure, записывает help и затем
+раскрывает подготовленный текст. Answer/checker/private solution не включается
+в pre-reveal prompt. После reveal — bounded escaped explanation/fallback.
+Context использует минимальные read projections theory/skills/mistakes/history;
+LLM/Tutor не пишут mastery. Provider interface изолирует SDK, таймауты,
+bounded retries, error normalization, structured validation и AIRun.
+Обычный CI offline; live acceptance требует отдельного выбора provider/model,
+budget/privacy решения и redacted evidence.
+
+Diagnostic <=10 items; skip/reveal не дают fake independent evidence.
+Adaptive читает weak prerequisites, depth <=2, deterministic selection/reasons,
+limits и repeat policy из ТЗ. Practice сохраняет origin/target/return context,
+одну active session, immutable выбранные items, counters/status. Refresh/next/
+finish idempotent. No candidate не вызывает бесконечный цикл; архивный origin
+возвращает к published parent/catalogue. Success и max7/streak правила проверяет
+сервер. Practice results проходят обычный Assessment → Progress path.
+
+## Данные, эксплуатация и проверки
+
+PostgreSQL — основной runtime; ошибка соединения не включает SQLite fallback.
+Явный ограниченный SQLite opt-in не доказывает PostgreSQL locks/concurrency.
+Новая схема — reviewed additive Alembic; applied history, retained tables,
+PK/FK/sequence identities и Django migration history сохраняются.
+Fresh install и adoption A/B/C проверяются по [release](deploy/RELEASE.md).
+Startup не выполняет DDL/bootstrap/operator seed. Нельзя править применённую
+migration или stamp ради PASS. Destructive changes требуют отдельного решения.
+
+Compose: два API worker, non-root, read-only roots, cap-drop, внутренние DB/API,
+только loopback edge port. Forwarded headers доверены ровно reserved edge IP,
+не '*'. TLS/ingress/firewall/domain/secrets/operator ownership решаются перед
+реальным deployment. Секреты — private env/store; public output не содержит
+passwords/tokens/DSN/cookies/student PII. Request IDs связывают наблюдаемые
+операции; AIRun metadata не включает чувствительные prompts и ответы.
+
+Recovery tuple: PostgreSQL/data/history/WAL/role identities, весь mutable media
+root, immutable input/frontend, manifests/digests/receipts, verifier keys/cutover
+binding. Physical backup/restore сохраняет DB/role OIDs. После target writes
+старый snapshot не подменяет текущие данные. Совместимый app switch или reviewed
+forward recovery выполняется по [RECOVERY](deploy/RECOVERY.md); pre-admission
+legacy return — отдельная узкая процедура с fencing, не разрешение dual writer.
+
+`python scripts/verify_repo.py` — 15 product checks; `--profile pure` —
+5 portable suites. Математические reference, schema/protocol, auth/security,
+PG/service/content, frontend type/unit/build/browser, install/fresh/upgrades,
+physical recovery и combined CI сохраняются. Empty/skipped/flaky/missing/timeout
+fail. Требования/команды — [target-runtime](docs/target-runtime.md).
+CI никогда не требует live LLM или production credentials.
+
+Layering будущих tests: unit/domain (graph/parser/validator/reducer/selector),
+PG model/service/constraint/concurrency, HTTP owner/CSRF/secrecy/retry,
+golden deterministic/fake provider, real browser/no-JS/responsive/accessibility.
+Семантические content/URL/math checks сохраняются при редизайне; visual baselines
+обновляются только под принятое направление. Самопроверка и отдельное ревью
+различаются; human acceptance не выводится из количества tests.
+
+Performance targets остаются API p95 <500ms, AI p95 <15s, с объявленными cohorts,
+условиями/denominators, failures/timeouts и nearest-rank p95 из ТЗ.
+Локальные исторические measurements не являются production SLO.
+Сначала bounded queries/indexes/SQLAlchemy loading, затем обоснованные
+изменения; Redis/Celery/microservices не вводятся автоматически.
+
+## Предложения, требующие решения
+
+Полный редизайн согласован как направление; конкретные палитра, шрифты,
+компонентная библиотека и персонаж не приняты. [Дизайн-бриф](docs/ux/redesign-brief.md)
+задаёт audit → три направления с одинаковыми экранными сценариями → решение
+пользователя → выбор libraries → дизайн-система → pilot → проверка → rollout.
+Новые UI-технологии отражаются в таблице стека после утверждения и внедрения.
+
+Геймификация — новое направление проектирования. XP, уровни, достижения,
+серии, daily tasks, персонаж/награды — кандидаты. Педагогическая цель, начисления,
+retry/hint/reveal semantics, anti-duplicate, presentation и data owner/storage/events
+требуют спецификации и решения. Игровой прогресс отделён от знания; чтение,
+серия посещений и XP не увеличивают mastery. Реализованного reward domain нет.
+
+Открыты provider/model/budget, public host/region, privacy/retention реальных
+учеников и оформление курса. Они не заполняются догадками.
+Собственный Engineering Harness снят с плана и удалён; Codex runtime,
+task skills и проверки продукта остаются. История — в Git и [аудите](docs/audits/docs-and-workflow-cleanup.md).
+Обычная разработка: одно задание/ветка/исполнитель, PR, отдельное ревью,
+исправления, человеческая приёмка, решение о merge, остановка.
+
+## Политика изменений
+
+Значимое изменение ownership, datastore, trust boundary, exercise/progress
+semantics, provider/security/deployment оформляется ADR/contract addendum и
+проверяется на fresh/upgrade и compatibility по применимости. Принятие
+платформы не является разрешением future Product Gates или production rollout.
+Исключены из автоматического MVP: OCR, arbitrary geometry/proofs, full-site RAG,
+BKT/IRT, teacher/parent dashboards, payments, voice/native apps, Neo4j и
+необоснованные queues/caches. Новое поручение определяет ровно один следующий
+increment из единого реестра.

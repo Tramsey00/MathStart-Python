@@ -1,0 +1,147 @@
+{
+  "head": "13a90fe08efe37b62df6eabcc9ea3e2afbf796d8",
+  "branch": "docs-and-workflow-cleanup",
+  "finished": "2026-10-20T19:36:16.211518+00:00",
+  "environment": "Owned target venv; existing frontend lock; no persistent instance MATHSTART/DJANGO env; Docker engine unavailable",
+  "results": [
+    {
+      "id": "pip-check",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 1.281,
+      "log_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\pip-check.log"
+    },
+    {
+      "id": "workflow-docs",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "scripts/check_workflow_docs.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.485,
+      "log_sha256": "28b038f774a81f834f59924761d5f03e68705c1320e38b5bd33585821d667c7a",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\workflow-docs.log"
+    },
+    {
+      "id": "product-source",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "scripts/check_product_source.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.89,
+      "log_sha256": "93cb5d29db7539e5d6fc7c309cb21767ff3f480860dcaf6def1d841438a806a9",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\product-source.log"
+    },
+    {
+      "id": "preservation",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "scripts/check_migration_preservation.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.063,
+      "log_sha256": "eb1877a67ed4142d20b09a07e40742b103cc74af5aad48171f1ef4675e8ccacc",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\preservation.log"
+    },
+    {
+      "id": "lesson-sources",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "-m",
+        "backend.cli",
+        "check-sources",
+        "--source-root",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 4.859,
+      "log_sha256": "bd536c1dfe94e5d4ddf1509381be1dd6d0de3638ef51b10d9bd7f65605bc147c",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\lesson-sources.log"
+    },
+    {
+      "id": "i02-contract",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "tests.test_i02_ui_contract",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 1.266,
+      "log_sha256": "168333581d0140e159ea532ef8b86b1b307627b9935aee5d4a767475e3389973",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\i02-contract.log"
+    },
+    {
+      "id": "default-registry",
+      "argv": [
+        "C:\\Projects\\MathStart-Python\\var\\docs-cleanup\\venv\\Scripts\\python.exe",
+        "scripts/verify_repo.py"
+      ],
+      "exit_code": 1,
+      "seconds": 86.172,
+      "log_sha256": "ef350761e1a757875ef3da3915d92245165185533830f38533729da516bac6b7",
+      "log": "var\\docs-cleanup\\candidate-13a90fe08efe\\default-registry.log"
+    }
+  ],
+  "formal_acceptance": "HUMAN_PENDING",
+  "git_tree": "f61a918b9dfea97e90ba3dd8416ac5a69dba3dc1",
+  "scope_status": "SCOPED_CHECKS_PASS_FULL_RUNTIME_UNVERIFIED",
+  "runtime_environment_removed": [
+    "MATHSTART_*",
+    "DJANGO_*"
+  ],
+  "measurements": {
+    "portable_suites": 5,
+    "portable_tests": 169,
+    "portable_skipped": 0,
+    "frontend_unit_tests": 189,
+    "frontend_test_files": 21,
+    "frontend_skipped": 0,
+    "frontend_typecheck_assertions": 4,
+    "i02_contract_tests": 7,
+    "workflow_docs_assertions": 639,
+    "product_source_assertions": 931,
+    "lesson_pages": 279,
+    "lesson_topics": 263,
+    "task_skills_validated": 24,
+    "verification_skills_validated": 1,
+    "yaml_workflows_parsed": 3
+  },
+  "default_registry": {
+    "exit_code": 1,
+    "passed": 7,
+    "failed": 8,
+    "failed_checks": {
+      "system": "Disposable PostgreSQL/runtime not configured",
+      "migrations": "Disposable PostgreSQL not configured",
+      "lesson-sources": "Installed disposable PostgreSQL not configured; source-only separate check PASS",
+      "content-quality": "Disposable PostgreSQL/HTTP publication not configured",
+      "site-integrity": "Disposable PostgreSQL/asset runtime not configured",
+      "backend-tests": "Disposable guard refuses unconfigured resources",
+      "frontend-build": "Verified immutable MATHSTART_BUILD_CONFIG absent",
+      "frontend-e2e": "Owned ASGI URL/public view/browser runtime absent"
+    },
+    "full_target": "NOT_RUN",
+    "installation_recovery_combined": "NOT_RUN_LOCALLY_DOCKER_ENGINE_UNAVAILABLE"
+  },
+  "historical_failures": [
+    {
+      "head": "50ba482db231bdacfc4e357f03ca60bd27a83928",
+      "default_exit": 1,
+      "passed": 5,
+      "failed": 10,
+      "corrections": "Frontend provenance map adapter added; owned loopback allowed for preview tests. Raw previous logs retained under var/docs-cleanup."
+    }
+  ],
+  "review": "SEPARATE_REVIEW_PENDING",
+  "human_acceptance": "PENDING",
+  "main_merge": "NOT_PERFORMED"
+}

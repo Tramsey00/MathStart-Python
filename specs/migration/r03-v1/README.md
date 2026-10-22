@@ -18,22 +18,14 @@ Authority: [migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1
 
 ## Profiles and commands
 
-`python scripts/verify_repo.py --profile target` runs16 named checks across
-backend/database/content/tests/harness/frontend. `--group`, repeated groups,
-`--exclude-group`, `--skip-tests` and `--list` preserve their selection semantics.
-An empty execution fails. A partial selection never establishes full target
-acceptance. `--profile pure` runs only6 pure/Harness checks; no runtime claim.
-Default verification now selects target. Explicit `--profile legacy` invokes
-the unchanged historical verifier from the separate pinned checkout/interpreter.
-See [oracle isolation](../../../docs/legacy-oracle.md). Frozen historical CI
-digests are checked against original Git blobs; current adapters are checked
-separately by explicit preservation dispositions. Runtime has no Django dependency.
-
-Harness keeps `repo-baseline`, `harness-unit`, `harness-cli-smoke`; repo-baseline
-now explicitly selects target and excludes harness. Its15 checks cannot recursively
-run Harness; standalone unit/CLI retain original identity/lifecycle/deadlines.
-Fake FINISHED with missing runtime dependencies fails verification, never READY.
-Historical TaskManifest/RunResult schemas, manifests and domain suites stay intact.
+Текущий registry после20.10.2026: `python scripts/verify_repo.py` запускает15
+product checks, `--profile pure` —5 portable suites. Selection flags сохранены;
+группа harness удалена вместе с подсистемой. Empty/failed/skipped/missing/timeout
+fail. Product checks не зависят от development runner; bounded redaction перенесён
+в scripts/verification_diagnostics.py. Общие registry/failure/privacy regressions
+сохранены в tests/test_migration_r03*.py. Legacy profile — только pinned oracle.
+Исторические counts/registry IDs и receipts ниже описывают прежние SHA, не активные
+обязательства. Полная пофайловая карта — docs/audits/docs-and-workflow-cleanup.md.
 
 Use Python3.12+, an isolated venv, `pip install --no-deps -r verification.lock`
 from this directory (or its full root-relative path), then `pip check`.

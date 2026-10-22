@@ -1,4 +1,5 @@
 name: Harness verification
+# Historical required-check identity retained; the development Harness is retired.
 
 on:
   pull_request:
@@ -22,11 +23,13 @@ jobs:
           python -m pip install --no-deps -r specs/migration/r03-v1/verification.lock
           python -m pip check
           python -c "import importlib.util; assert not importlib.util.find_spec('django'); assert not importlib.util.find_spec('rest_framework')"
-      - name: Current default registry and complete portable Harness contracts
+      - name: Current product registry and portable contracts
         run: |
           python scripts/verify_repo.py --list
           python scripts/verify_repo.py --profile pure
           python scripts/check_migration_preservation.py
+          python scripts/check_product_source.py
+          python scripts/check_workflow_docs.py
           python -m unittest tests.test_i02_ui_contract -v
       # PostgreSQL/SSG/browser/installation/recovery execution is mandatory in
-      # Migration verification. This job proves portable Harness behavior only.
+      # Migration verification. This job proves portable product contracts only.
