@@ -490,3 +490,15 @@ TypeScript/build/diff-check PASS, CSS/registry export diff отсутствуе�
 Финальный Chrome matrix **28/28 PASS** на 360/768/1440/1920, retries/skipped/flaky
 0, exit 0. Light/dark desktop и mobile screenshots просмотрены.
 Контент/backend/routes/locks/CI не менялись. Полный target gate не запускался.
+
+## Отмена усиленного мятного
+
+22.10.2026: пользователь отклонил последнюю примерку `a8f5a55` и попросил отмену.
+style.css, README и theme-baseline.md восстановлены из `6f040ad`: предыдущий
+ExploreMiam с нейтральным фоном и небольшими мятными акцентами. Совпадение этих
+трёх файлов с указанным исходником проверено через git diff --exit-code.
+История отклонённой примерки сохранена здесь; прежние изменения интерфейса,
+экспорт ExploreMiam и архив Professional Theme не отменены.
+Сборка и diff-check PASS; visual/font сценарий light/dark на 360/768/1440/1920
+прошёл 4/4, exit 0. Файлы main.tsx/theme.css/registry/style.css также совпадают
+с `6f040ad`. Общий runtime gate не запускался.
