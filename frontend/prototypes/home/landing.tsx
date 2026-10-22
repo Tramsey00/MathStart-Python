@@ -71,7 +71,7 @@ function Landing() {
     <main className="landing-main" id="home-main" ref={root} tabIndex={-1}>
       <section className="landing-hero" aria-labelledby="home-title"><div className="landing-hero-copy">
         <p className="landing-eyebrow hero-entrance">Математика · 5–10 классы</p>
-        <h1 id="home-title" className="hero-entrance">У каждого ответа<br/>есть <span>объяснение.</span></h1>
+        <h1 id="home-title" className="hero-entrance"><span className="headline-line">У каждого ответа</span>{' '}<span className="headline-line">есть <span className="headline-accent">объяснение.</span></span></h1>
         <p className="landing-lead hero-entrance">Почему дроби складывают именно так?<br className="desktop-break"/> Откуда берётся формула и что показывает график?</p>
         <p className="landing-description hero-entrance">Разбирайся в знакомых темах, замечай связи и проходи решение шаг за шагом. Начать можно с того вопроса, который возник сейчас.</p>
         <div className="landing-hero-actions hero-entrance"><a className="landing-primary" href="#classes">Выбрать тему</a><a className="landing-text-link" href="/materials.html">Открыть весь каталог</a></div>
