@@ -70,7 +70,7 @@ def main(argv=None):
                             if not args.origin:
                                 parser.error('content quality requires the running public origin')
                             from backend.content.checks import active_quality_release
-                            release = active_quality_release(uow.session, args.release_root) if args.release_root else None
+                            release = active_quality_release(uow, args.release_root) if args.release_root else None
                             report, errors = inspect_public_quality(uow.session, args.origin, release=release)
                             report_name = 'content_quality_report.json'
                         args.report_root.mkdir(parents=True, exist_ok=True)

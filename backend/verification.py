@@ -81,7 +81,7 @@ def run(check):
                     raise RuntimeError('Full content/asset integrity failed')
                 count = report['summary']['pages_total'] + report['summary']['checked_references']
             else:
-                release = active_quality_release(s, os.environ.get('MATHSTART_RELEASE_ROOT'))
+                release = active_quality_release(uow, os.environ.get('MATHSTART_RELEASE_ROOT'))
                 report, errors = inspect_public_quality(s, os.environ['MATHSTART_PUBLIC_ORIGIN'], release=release)
                 if errors or report['pages_checked'] != 279:
                     raise RuntimeError('Full public HTTP quality failed')

@@ -139,13 +139,12 @@ def inspect_site(session, *, static_roots, media_root):
     return report, errors
 
 
-def active_quality_release(session, release_root):
+def active_quality_release(uow, release_root):
     """Pin canonical paths to the same publication authority as public HTTP."""
-    from types import SimpleNamespace
     from backend.content.releases import active_descriptor, ReleaseStore
     if not release_root:
         raise SourceError('Verified release root required for installed HTTP inspection')
-    return ReleaseStore(release_root).load(active_descriptor(SimpleNamespace(session=session), 'public'))
+    return ReleaseStore(release_root).load(active_descriptor(uow, 'public'))
 
 
 def inspect_public_quality(session, origin, *, timeout=10, release=None):

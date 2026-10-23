@@ -37,6 +37,7 @@ test('linear graph keyboard, answers, reset and responsive themes use shared con
   await expect(lab.locator('.quadratic-properties')).toContainText('убывает');
   const b = lab.getByRole('slider', { name: 'Коэффициент b' }); await b.focus(); await b.press('End'); await expect(b).toHaveValue('6');
   await expect(lab.locator('.quadratic-properties')).toContainText('(2; 0)');
+  await expect(lab.locator('.quadratic-properties')).toContainText('(0; 6)');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await lab.getByRole('button', { name: 'Сбросить значения' }).click(); await expect(k).toHaveValue('1'); await expect(b).toHaveValue('0');
   const answer = page.locator('.self-check').first().getByRole('button', { name: 'Ответ и решение' });

@@ -25,6 +25,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <title>{view.page.seo.title}</title>
           <meta name="description" content={view.page.seo.description}/>
           <meta name="robots" content="index, follow"/>
+          {view.page.renderer_version === 'react-v1' && <link rel="icon" href="data:,"/>}
           <link rel="canonical" href={view.canonical_url}/>
           <meta property="og:site_name" content="MathStart"/>
           <meta property="og:title" content={view.page.seo.title}/>
