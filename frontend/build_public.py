@@ -43,7 +43,10 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     rendered, page_digests, semantic_digests = {}, {}, {}
     for entry in release.index['pages']:
         page = release.pages[entry['id']]
-        raw = inside(client, html_path(entry['url'])).read_bytes()
+        # Router writes extensionless routes as directories with index.html.
+        # The publication gateway's canonical artifact remains an exact URL file.
+        prerender = entry['url'].strip('/')
+        raw = inside(client, (prerender + '/' if prerender else '') + 'index.html').read_bytes()
         text = raw.decode('utf-8')
         # Framework mode generates complete HTML, including its hydration runtime.
         # Public legacy documents use a reviewed full-document lifecycle; remove

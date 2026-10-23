@@ -13,10 +13,10 @@ import uuid
 
 import sqlalchemy as sa
 
-from backend.content.sources import SourceError, file_inside, load_sources, read_json
+from backend.content.sources import SourceError, file_inside, load_sources, read_json, publication_digest
 from backend.content.projection import ReviewedSource, delivery_candidate, build_index_candidate
 from backend.content.releases import Descriptor, ReleaseStore, safe_public_path, inside
-from backend.models.baseline import ContentPage
+from backend.models.baseline import ContentPage, LessonPublication
 from backend.infrastructure.http.contracts import validate
 
 
@@ -186,6 +186,11 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
         if ((page.subject is not None and page.subject.grade_id != page.grade_id)
                 or (page.section is not None and page.section.subject_id != page.subject_id)):
             raise SourceError('Published catalogue parents differ from reviewed source identity')
+        if bundle.renderer_version == 'react-v1':
+            publication = uow.session.scalar(sa.select(LessonPublication).where(LessonPublication.page_id == page.id))
+            if (publication is None or publication.source_path != bundle.path.removeprefix('curriculum/')
+                    or publication.published_digest != publication_digest(bundle, bundle.snapshot)):
+                raise SourceError('React document differs from explicitly published source')
         assets = assets_for(source_root, bundle)
         for asset, raw in assets:
             previous = files.setdefault(asset['storage_key'], raw)

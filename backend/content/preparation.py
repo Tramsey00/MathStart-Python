@@ -177,12 +177,18 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
     if dry_run:
         return {'selected': len(selected), 'changes': len(changes), 'effects': 'NONE', 'activation': 'NOT_PERFORMED'}
     relations, sources, files, deliveries, pages = related(after), {b.snapshot['slug']: b for b in bundles}, {}, {}, []
+    publications = {row['page_id']: row for row in after['content_lessonpublication']}
     for values in after['content_contentpage']:
         if not values['is_published']:
             continue
         bundle = sources.get(values['slug'])
         if bundle is None or source_snapshot(values, relations) != bundle.snapshot:
             raise PublicationConflict('SOURCE_CONFLICT')
+        if bundle.renderer_version == 'react-v1':
+            publication = publications.get(values['id'])
+            if (publication is None or publication['source_path'] != bundle.path.removeprefix('curriculum/')
+                    or publication['published_digest'] != publication_digest(bundle, bundle.snapshot)):
+                raise PublicationConflict('SOURCE_CONFLICT')
         page = SimpleNamespace(**decoded(metadata.tables['content_contentpage'], values))
         for key in ('grade', 'subject', 'section'):
             setattr(page, key, relations[key].get(values[key + '_id']))

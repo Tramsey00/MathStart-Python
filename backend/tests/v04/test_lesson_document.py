@@ -32,6 +32,11 @@ class LessonDocumentTests(unittest.TestCase):
     def test_valid_document_and_strict_negative_cases(self):
         validate_lesson_document(self.document, 'pilot')
         attacks = []
+        from copy import deepcopy
+        for attrs in (None, [], 'invalid', {'onclick': 'run()'}, {'id': {'invalid': True}}):
+            invalid = deepcopy(self.document)
+            invalid['sections'][0]['nodes'] = [{'kind': 'selfCheck', 'attrs': attrs, 'question': [], 'answer': [], 'disclosure': 'answer'}]
+            attacks.append(invalid)
         script_tag = dict(self.document)
         script_tag['sections'] = [{'id': 'x', 'title': 'X', 'nodes': [
             {'kind': 'element', 'tag': 'script', 'attrs': {}, 'children': []}]}]

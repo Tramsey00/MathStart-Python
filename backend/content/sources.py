@@ -166,6 +166,7 @@ def validate_lesson_document(document, slug):
                 if (set(node) != {'kind', 'attrs', 'question', 'answer', 'disclosure'}
                         or node['disclosure'] not in {'answer', 'solution'}):
                     raise SourceError('Invalid self-check node')
+                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth)
                 nodes(node['question'], depth + 1); nodes(node['answer'], depth + 1)
             else:
                 raise SourceError('Unknown React lesson node')
