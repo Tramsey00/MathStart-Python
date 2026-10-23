@@ -68,6 +68,9 @@ def delivery_for_page(page, reviewed_source):
         updated_at=stamp(page.updated_at), source={'path': reviewed_source.path,
         'source_digest': reviewed_source.source_digest, 'render_digest': sha256(page.body_html.encode('utf-8')).hexdigest()},
         assets=list(reviewed_source.assets))
+    if reviewed_source.renderer_version == 'react-v1':
+        from backend.content.sources import compatibility_assets_digest
+        data['source']['compatibility_assets_digest'] = compatibility_assets_digest(page.page_css, page.page_js)
     return validate(data, 'ContentDelivery', True)
 
 

@@ -52,6 +52,10 @@ def digest(snapshot):
                              separators=(',', ':')).encode('utf-8')).hexdigest()
 
 
+def compatibility_assets_digest(page_css, page_js):
+    return digest({'page_css': page_css, 'page_js': page_js})
+
+
 @dataclass(frozen=True)
 class Bundle:
     path: str
@@ -123,8 +127,8 @@ def load_bundle(root, path):
     lesson_document = read_json(content_path) if content_path is not None else None
     if renderer_version == 'react-v1':
         validate_lesson_document(lesson_document, page['slug'])
-        if lesson_document['title'] != page['title']:
-            raise SourceError('React lesson document title differs from its source identity')
+        if any(lesson_document[key] != page[key] for key in ('title', 'grade', 'subject', 'section')):
+            raise SourceError('React lesson document metadata differs from its source identity')
     if lesson and data['format'] != 'html':
         renderer = render_component_lesson if data['format'] == 'component_html' else render_themed_contents
         snapshot['body_html'] = renderer(snapshot['body_html'])

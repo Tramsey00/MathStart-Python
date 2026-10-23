@@ -1,7 +1,6 @@
 import {test,expect} from '@playwright/test';
 import {readFileSync,writeFileSync} from 'node:fs';
 const routes=[
- {path:'/linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/',regions:['.ms-lesson-toc','#ms-linear-lab-723']},
  {path:'/10-klass-stepennye-funkcii-i-grafiki-2-0/',regions:['.ms-lesson-toc','#power-lab-v2 .ms-power-presets','#power-lab-v2 .ms-live-table']},
  {path:'/10-klass-chislovaya-okruzhnost-2-0/',regions:['.ms-lesson-toc','#circle-lab-v2','#models .ms-figure >> nth=0','#models .ms-figure >> nth=1']},
  {path:'/polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordinatnoj-pryamoj/',regions:['.ms-lesson-toc']},

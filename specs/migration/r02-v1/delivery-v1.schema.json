@@ -174,7 +174,8 @@
               "pattern": "^(?!.*(?:\\.\\.|[\\\\]|://))/?[a-zA-Z0-9_./-]+$",
               "minLength": 1
             },
-            "source_digest": {
+            "compatibility_assets_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "source_digest": {
               "type": "string",
               "pattern": "^[a-f0-9]{64}$"
             },
@@ -215,7 +216,7 @@
         "assets"
       ],
       "allOf": [
-        {"if": {"properties": {"renderer_version": {"const": "react-v1"}}, "required": ["renderer_version"]}, "then": {"properties": {"lesson_document": {"$ref": "#/$defs/LessonDocument"}}, "required": ["lesson_document"]}},
+        {"if": {"properties": {"renderer_version": {"const": "react-v1"}}, "required": ["renderer_version"]}, "then": {"properties": {"lesson_document": {"$ref": "#/$defs/LessonDocument"}, "source": {"required": ["compatibility_assets_digest"]}}, "required": ["lesson_document"]}},
         {"if": {"properties": {"lesson_document": {"$ref": "#/$defs/LessonDocument"}}, "required": ["lesson_document"]}, "then": {"properties": {"renderer_version": {"const": "react-v1"}}, "required": ["renderer_version"]}}
       ]
     },

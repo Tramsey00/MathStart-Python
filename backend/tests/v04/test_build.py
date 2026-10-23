@@ -226,6 +226,42 @@ class BuildTests(unittest.TestCase):
                 path.write_bytes(raw)
 
 
+    def test_react_release_rejects_unsupported_attributes_urls_and_metadata(self):
+        from copy import deepcopy
+        release = ReleaseStore(self.root).load(self.descriptor)
+        pilot = next(page for page in release.pages.values() if page.get('renderer_version') == 'react-v1')
+        path = self.root / self.descriptor.release_id / f'pages/{pilot["id"]}.json'
+        original = path.read_bytes()
+        for attack in ('attribute', 'mixed_case_url', 'duplicate_section', 'grade', 'subject', 'section'):
+            value = deepcopy(pilot)
+            document = value['lesson_document']
+            if attack in ('grade', 'subject', 'section'):
+                document[attack] += '-different'
+            elif attack == 'duplicate_section':
+                document['sections'].append(deepcopy(document['sections'][0]))
+            else:
+                attrs = {'style': 'color:red'} if attack == 'attribute' else {'href': 'JaVaScRiPt:alert(1)'}
+                document['sections'][0]['nodes'].append({'kind': 'element', 'tag': 'a', 'attrs': attrs, 'children': []})
+            try:
+                path.write_text(json.dumps(value), encoding='utf-8')
+                with self.subTest(attack=attack), self.assertRaises(APIError):
+                    ReleaseStore(self.root).load(self.descriptor)
+            finally:
+                path.write_bytes(original)
+
+    def test_react_database_comparison_keeps_frozen_compatibility_css_and_js(self):
+        from backend.content.participant import check_database
+        from backend.content.publication import PublicationConflict
+        release = ReleaseStore(self.root).load(self.descriptor)
+        pilot = next(page for page in release.pages.values() if page.get('renderer_version') == 'react-v1')
+        with UnitOfWork(self.engine) as uow:
+            check_database(uow.session, release)
+            row = uow.session.get(ContentPage, pilot['id'])
+            row.page_css += '\n/* unreviewed compatibility edit */'
+            with self.assertRaises(PublicationConflict):
+                check_database(uow.session, release)
+
+
 class BuildSetupCleanupTests(unittest.TestCase):
     def test_failed_class_preparation_releases_created_resources(self):
         for phase in ('temporary_directory', 'build_inputs'):

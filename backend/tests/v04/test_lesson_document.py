@@ -3,11 +3,51 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from backend.content.build import load_material_routes
-from backend.content.sources import SourceError, lesson_document_is_rendered, load_sources, validate_lesson_document
+from backend.content.build import load_material_routes, apply_material_redirects
+from backend.content.sources import SourceError, lesson_document_is_rendered, load_sources, load_bundle, read_json, validate_lesson_document
 
 
 class LessonDocumentTests(unittest.TestCase):
+    def test_material_redirects_exist_only_for_published_canonical_pages(self):
+        route = {'slug': 'pilot', 'path': '/materials/7-algebra-1', 'renderer_version': 'react-v1'}
+        index = {'pages': [], 'redirects': []}
+        apply_material_redirects(index, {'pilot': route})
+        self.assertEqual(index['redirects'], [])
+        index['pages'] = [{'slug': 'pilot', 'canonical_path': route['path']}]
+        apply_material_redirects(index, {'pilot': route})
+        self.assertEqual(index['redirects'], [{'old_path': '/pilot/', 'new_path': route['path'], 'is_permanent': True}])
+
+    def test_http_quality_uses_pinned_canonical_path_and_rejects_mixed_inventory(self):
+        from unittest.mock import MagicMock
+        from backend.content.checks import inspect_public_quality
+        page = SimpleNamespace(id=1, slug='old-slug', page_type='topic')
+        session = MagicMock(); session.scalars.return_value = [page]
+        release = SimpleNamespace(pages={1: {'slug': 'old-slug', 'seo': {'canonical_path': '/materials/7-algebra-1'}}})
+        response = MagicMock(); response.status = 200; response.url = 'https://example.org/materials/7-algebra-1'
+        response.read.return_value = b'<h1>Published lesson</h1>'
+        opener = MagicMock(); opener.open.return_value.__enter__.return_value = response
+        with patch('backend.content.checks.build_opener', return_value=opener):
+            report, errors = inspect_public_quality(session, 'https://example.org', release=release)
+        self.assertEqual(errors, 0); self.assertEqual(report['pages_checked'], 1)
+        self.assertEqual(opener.open.call_args.args[0].full_url, response.url)
+        with self.assertRaisesRegex(SourceError, 'inventory'):
+            inspect_public_quality(session, 'https://example.org', release=SimpleNamespace(pages={}))
+
+    def test_document_metadata_must_match_source_identity(self):
+        from pathlib import Path
+        from copy import deepcopy
+        root = Path(__file__).resolve().parents[3]
+        path = next(root.glob('curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-*/lesson.json'))
+        for key in ('grade', 'subject', 'section', 'title'):
+            def changed_json(source):
+                data = read_json(source)
+                if source.name == 'content.json':
+                    data = deepcopy(data); data[key] += '-different'
+                return data
+            with self.subTest(key=key), patch('backend.content.sources.read_json', side_effect=changed_json):
+                with self.assertRaisesRegex(SourceError, 'metadata'):
+                    load_bundle(root, path)
+
     def test_current_pilot_source_is_validated_and_versioned(self):
         from pathlib import Path
         root = Path(__file__).resolve().parents[3]
@@ -83,7 +123,7 @@ class LessonDocumentTests(unittest.TestCase):
             'body_html': '<p>frozen snapshot</p>', 'is_published': True,
             'seo': {'title': 'Пилот', 'description': '', 'canonical_path': '/materials/7-algebra-1'},
             'created_at': '2026-10-24T00:00:00Z', 'updated_at': '2026-10-24T00:00:00Z',
-            'source': {'path': 'curriculum/pilot/lesson.json', 'source_digest': 'a' * 64, 'render_digest': 'b' * 64},
+            'source': {'path': 'curriculum/pilot/lesson.json', 'source_digest': 'a' * 64, 'render_digest': 'b' * 64, 'compatibility_assets_digest': 'c' * 64},
             'assets': [], 'renderer_version': 'react-v1', 'lesson_document': self.document,
         }
         self.assertTrue(check.is_valid(delivery))

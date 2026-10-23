@@ -98,8 +98,10 @@ class ReleaseStore:
                 canonical = page['seo']['canonical_path']
                 expected_canonical = '/' if page['page_type'] == 'home' else f'/{page["slug"]}/'
                 if renderer == 'react-v1':
+                    from backend.content.sources import validate_lesson_document
+                    validate_lesson_document(document, page['slug'])
                     if (page['page_type'] != 'topic' or not isinstance(document, dict)
-                            or document.get('slug') != page['slug'] or not canonical.startswith('/materials/')):
+                            or document.get('title') != page['title'] or not canonical.startswith('/materials/')):
                         raise unavailable()
                 elif document is not None or renderer not in {'legacy', 'react-v1'} or canonical != expected_canonical:
                     raise unavailable()
@@ -187,6 +189,11 @@ class ReleaseStore:
             for kind, field in [('grades', 'grade_id'), ('subjects', 'subject_id'), ('sections', 'section_id')]:
                 if topic[field] is not None and topic[field] not in relations[kind]:
                     raise unavailable()
+                if page.get('renderer_version') == 'react-v1':
+                    document_field = {'grades': 'grade', 'subjects': 'subject', 'sections': 'section'}[kind]
+                    relation = relations[kind].get(topic[field])
+                    if relation is None or page['lesson_document'][document_field] != relation['slug']:
+                        raise unavailable()
             topic_ids.add(topic['id'])
         if topic_ids != {pk for pk, p in pages.items() if p['page_type'] == 'topic'}:
             raise unavailable()

@@ -263,7 +263,8 @@ def source_file_record(root, relative):
 def apply_material_redirects(index, routes):
     """Point all known legacy aliases at the assigned canonical path directly."""
     moved = {f'/{route["slug"]}/': route['path'] for route in routes.values()
-             if route['renderer_version'] == 'react-v1'}
+             if route['renderer_version'] == 'react-v1'
+             and any(page['slug'] == route['slug'] and page['canonical_path'] == route['path'] for page in index['pages'])}
     if not moved:
         return
     existing = {row['old_path']: row for row in index['redirects']}
