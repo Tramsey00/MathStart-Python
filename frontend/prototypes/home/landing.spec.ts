@@ -1,0 +1,81 @@
+import { test, expect, type Page } from '@playwright/test';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const here = dirname(fileURLToPath(import.meta.url));
+async function noOverflow(page: Page) {
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+}
+test('homepage has a direct materials transition and a visible email form', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Математикадля 5–10 классов');
+  await expect(page.getByRole('heading', { name: 'Войти в MathStart' })).toBeVisible();
+  await expect(page.getByRole('textbox', { name: 'Электронная почта', exact: true })).toBeVisible();
+  await expect(page.locator('.class-explorer,.landing-grades,.square-example,.approach-section')).toHaveCount(0);
+  await expect(page.locator('.materials-entry')).toHaveCount(1);
+  await page.getByRole('banner').getByRole('link', { name: 'Войти', exact: true }).click();
+  await expect(page.getByRole('textbox', { name: 'Электронная почта', exact: true })).toBeFocused();
+  await expect(page.getByRole('link', { name: 'Войти по логину' })).toHaveAttribute('href', 'http://127.0.0.1:8121/account/');
+  await noOverflow(page);
+  await page.getByRole('link', { name: 'Открыть материалы', exact: true }).click();
+  await expect(page).toHaveURL(/materials.html$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Алгебра');
+  await expect(page.locator('.section-card p')).toHaveCount(0);
+  expect(await page.locator('body').evaluate(element => getComputedStyle(element).getPropertyValue('--home-support'))).toBe('');
+  await page.goto('/materials.html?grade=8-klass&subject=geometriya');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Геометрия');
+  await page.goto('/materials.html?grade=unknown&subject=unknown');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Алгебра');
+  expect(errors).toEqual([]);
+});
+test('email preview validates fields and never sends or stores credentials', async ({ page }) => {
+  const writes: string[] = [];
+  page.on('request', request => { if (request.method() !== 'GET') writes.push(request.url()); });
+  await page.goto('/');
+  const email = page.getByRole('textbox', { name: 'Электронная почта', exact: true });
+  const password = page.getByLabel('Пароль', { exact: true });
+  await page.getByRole('button', { name: 'Войти', exact: true }).click();
+  await expect(email).toBeFocused();
+  await email.fill('invalid-email');
+  await password.focus();
+  await expect(email).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.getByText('Проверь адрес:', { exact: false })).toBeVisible();
+  await email.fill('preview@example.test');
+  await password.fill('SyntheticOnly!123');
+  await page.getByRole('button', { name: 'Показать пароль' }).click();
+  await expect(password).toHaveAttribute('type', 'text');
+  await page.getByRole('button', { name: 'Скрыть пароль' }).click();
+  await expect(password).toHaveAttribute('type', 'password');
+  await page.getByRole('button', { name: 'Войти', exact: true }).click();
+  await expect(page.getByRole('status')).toHaveText('Форма проверена. Вход по почте пока не подключён.');
+  await expect(email).toBeEmpty();
+  await expect(password).toBeEmpty();
+  expect(writes).toEqual([]);
+  expect(await page.evaluate(() => [...Object.values(localStorage), ...Object.values(sessionStorage)].every(value => !value.includes('preview@example.test') && !value.includes('SyntheticOnly!123')))).toBe(true);
+  await noOverflow(page);
+});
+test('text layout, theme and reduced motion pass visual review', async ({ page }, testInfo) => {
+  const failures: string[] = [];
+  page.on('requestfailed', request => failures.push(request.url()));
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator('main img')).toHaveCount(0);
+  await expect(page.locator('.math-figure,.area-diagram')).toHaveCount(0);
+  await expect(page.locator('.materials-summary')).toHaveCount(0);
+  const palette = await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--primary').trim());
+  expect(palette).toBe('oklch(0.5460 0.2153 262.8719)');
+  expect(await page.locator('body').evaluate(element => getComputedStyle(element).getPropertyValue('--home-support').trim())).not.toBe('');
+  for (const mode of ['light', 'dark']) {
+    if (mode === 'dark') await page.getByRole('button', { name: 'Включить тёмную тему' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', mode);
+    await page.waitForFunction(() => document.getAnimations().every(animation => animation.playState === 'finished'));
+    await noOverflow(page);
+    await page.screenshot({ path: resolve(here, `../../.cache/landing-${testInfo.project.name}-${mode}.png`), fullPage: true });
+  }
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  expect(await page.locator('.login-field input').first().evaluate(element => getComputedStyle(element).transitionDuration)).toBe('0s');
+  await page.getByRole('link', { name: 'Открыть материалы', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  expect(failures).toEqual([]);
+});

@@ -1,0 +1,9 @@
+import { chromium } from '../../../frontend/node_modules/playwright/index.mjs';
+import { writeFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}});page.setDefaultTimeout(5000);
+const base='http://127.0.0.1:5173',path='/materials/8-algebra-32',out='docs/audits/lesson-fixes-2026-10-23/';const result={started:new Date().toISOString(),checks:[]};
+try {
+  await page.goto(base+'/materials.html');await page.locator('#topic-search').fill('Квадратичная функция');const link=page.locator('.search-results a').filter({hasText:'Квадратичная функция y = ax² + bx + c'});await link.waitFor();assert.equal(await link.getAttribute('href'),path);await link.click();await page.locator('.lesson-section').first().waitFor();assert.equal(page.url(),base+path);result.checks.push({name:'catalogue search link',status:'PASS',href:path});
+  await page.goto(base+'/materials.html?grade=8-klass&subject=algebra');const section=page.locator('.section-card').filter({hasText:'Квадратичная функция y = ax².'});assert.equal(await section.count(),1);await section.click();const topic=page.locator('dialog a').filter({hasText:'Квадратичная функция y = ax² + bx + c'});await topic.waitFor();assert.equal(await topic.getAttribute('href'),path);await page.screenshot({path:out+'screenshots/catalogue-section-route.png'});await topic.click();await page.locator('.lesson-section').first().waitFor();assert.equal(page.url(),base+path);result.checks.push({name:'catalogue authored section list link',status:'PASS',href:path});
+}catch(e){result.checks.push({status:'FAIL',error:e.stack});process.exitCode=1;}finally{await browser.close();result.finished=new Date().toISOString();writeFileSync(out+'catalogue-recheck.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));}
