@@ -17,6 +17,7 @@ from backend.content.sources import SourceError, file_inside, load_sources, read
 from backend.content.projection import ReviewedSource, delivery_candidate, build_index_candidate
 from backend.content.releases import Descriptor, ReleaseStore, safe_public_path, inside
 from backend.models.baseline import ContentPage
+from backend.infrastructure.http.contracts import validate
 
 
 def encoded(value):
