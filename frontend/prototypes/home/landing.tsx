@@ -1,6 +1,6 @@
 import { StrictMode, useState, type FormEvent } from 'react';
 import { createRoot } from 'react-dom/client';
-import './theme.css';
+import '../../src/shared/styles/theme.css';
 import './style.css';
 import { LandingHeader, SiteFooter, site, useSiteTheme } from './site-shell';
 import './landing.css';

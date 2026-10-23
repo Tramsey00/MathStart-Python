@@ -1,21 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Brand } from '../../src/shared/ui/brand';
+export { Brand } from '../../src/shared/ui/brand';
+export { useSiteTheme } from '../../src/shared/ui/use-site-theme';
 import './shell.css';
 
 // The existing local instance owns public content and authentication.
 export const site = 'http://127.0.0.1:8121';
-export function useSiteTheme() {
-  const [dark, setDark] = useState(() => {
-    try { return localStorage.getItem('mathstart-mode') === 'dark'; } catch { return false; }
-  });
-  useEffect(() => {
-    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-    try { localStorage.setItem('mathstart-mode', dark ? 'dark' : 'light'); } catch { /* Storage is optional. */ }
-  }, [dark]);
-  return [dark, setDark] as const;
-}
-export function Brand() {
-  return <a className="brand" href="/" draggable={false} aria-label="MathStart — главная"><span>Math<span className="brand-accent">Start</span></span></a>;
-}
 export function LandingHeader({ dark, onTheme }: { dark: boolean; onTheme: () => void }) {
   return <header className="site-header"><div className="site-header-inner"><Brand/>
     <nav aria-label="Основная навигация"><a href="/materials.html">Материалы</a></nav>

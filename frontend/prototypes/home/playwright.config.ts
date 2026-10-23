@@ -5,7 +5,7 @@ import { dirname, resolve } from 'node:path';
 const here = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   testDir: here,
-  testMatch: ['home.spec.ts', 'landing.spec.ts'],
+  testMatch: ['home.spec.ts', 'landing.spec.ts', 'quadratic.spec.ts', 'lesson-accessibility.spec.ts', 'lesson-regressions.spec.ts'],
   outputDir: resolve(here, '../../.cache/home-prototype-test-results'),
   reporter: [['list'], ['json', { outputFile: resolve(here, '../../.cache/home-prototype-results.json') }]],
   fullyParallel: false,

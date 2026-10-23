@@ -1,7 +1,8 @@
 import { StrictMode, useRef, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalogue from 'virtual:mathstart-catalogue';
-import './theme.css';
+import { materialPathForSlug } from '../../src/shared/routing/material-routes.mjs';
+import '../../src/shared/styles/theme.css';
 import './style.css';
 import { Brand, SiteFooter, site, useSiteTheme } from './site-shell';
 
@@ -134,7 +135,7 @@ function App() {
     topicDialog.current?.showModal();
     if (topicDialog.current) topicDialog.current.scrollTop = 0;
   }
-  function topicLink(topic: Topic) { return `${site}/${topic.slug}/`; }
+  function topicLink(topic: Topic) { return materialPathForSlug(topic.slug) ?? `${site}/${topic.slug}/`; }
   const navigation = (surface: 'desktop' | 'mobile') => <>
     <GradePicker grade={grade} onChange={chooseGrade}/>
     <p className="nav-label subject-label">ПРЕДМЕТЫ</p>

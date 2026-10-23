@@ -1,87 +1,4 @@
-@font-face{font-family:Outfit;font-style:normal;font-weight:100 900;font-display:swap;src:url('./fonts/outfit-variable.ttf') format('truetype')}
-@font-face{
-  font-family:Merriweather;
-  font-style:italic;
-  font-weight:400;
-  font-display:swap;
-  src:url('./fonts/merriweather-italic.ttf') format('truetype')
-}
-*{
-  box-sizing:border-box
-}
-html{
-  color-scheme:light;
-  scroll-padding-top:90px
-}
-html[data-theme=dark]{
-  color-scheme:dark
-}
-body{
-  margin:0;
-  background-color:color-mix(in oklch,var(--muted) 78%,var(--background));
-  color:var(--foreground);
-  font-family:var(--font-sans);
-  font-size:14px;
-  letter-spacing:var(--tracking-normal);
-  -webkit-font-smoothing:antialiased
-}
-button,input,select{
-  font:inherit;
-  color:inherit
-}
-button,a,input,select{
-  -webkit-tap-highlight-color:transparent
-}
-button,a{
-  touch-action:manipulation
-}
-button{
-  cursor:pointer
-}
-a{
-  color:inherit;
-  text-decoration:none
-}
-button{
-  background:none;
-  border:0
-}
-svg{
-  flex-shrink:0
-}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
-  outline:3px solid var(--ring);
-  outline-offset:4px
-}
-input{
-  min-width:0
-}
-input::placeholder{
-  color:var(--muted-foreground)
-}
-.sr-only{
-  position:absolute;
-  width:1px;
-  height:1px;
-  padding:0;
-  overflow:hidden;
-  clip:rect(0,0,0,0);
-  white-space:nowrap
-}
-.skip-link{
-  position:fixed;
-  z-index:20;
-  top:8px;
-  left:12px;
-  transform:translateY(-150%);
-  padding:12px;
-  background:var(--primary);
-  color:var(--primary-foreground);
-  border-radius:var(--radius)
-}
-.skip-link:focus{
-  transform:none
-}
+@import '../../src/shared/styles/base.css';
 .topbar{
   position:sticky;
   top:0;
@@ -101,21 +18,7 @@ input::placeholder{
   gap:12px;
   flex-shrink:0
 }
-.brand{
-  display:inline-flex;
-  align-items:center;
-  font-weight:650;
-  letter-spacing:-.9px;
-  font-size:25px
-}
-.brand-accent{
-  color:var(--primary)
-}
-.brand,.math-illustration{
-  -webkit-user-select:none;
-  user-select:none;
-  -webkit-user-drag:none
-}
+.math-illustration{-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
 .global-search{
   display:flex;
   align-items:center;

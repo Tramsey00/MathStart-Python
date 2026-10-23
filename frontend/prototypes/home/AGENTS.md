@@ -27,3 +27,11 @@ OAuth providers, or change identity/security contracts in this design task.
 Section rows show a number, complete section title and topic count. Do not
 restore topic preview descriptions, repeated action labels, or decorative
 arrows. Preserve keyboard focus, accessible controls and content-driven height.
+
+Lesson pilot revision, 2026-10-23: the user permits a small neutral-palette
+experiment on the lesson only. Use scoped --lesson-* surfaces; preserve shared
+theme.css, QraftHive fonts, homepage and catalogue. The current preview uses a
+flat reading surface without article/example cards, a full-height contents
+panel following the supplied video, inline self-check disclosures and compact
+page controls. Keep the graph and its computed values visible together on
+desktop. These lesson experiments are pending visual acceptance.

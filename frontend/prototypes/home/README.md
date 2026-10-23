@@ -1,98 +1,77 @@
-# Главная и каталог MathStart — локальный React-прототип
+# Главная, каталог и учебный пилот MathStart
 
-Выбранный вариант: палитра **Professional Theme**, шрифты **QraftHive**.
-Ветка ui/ux; это отдельный прототип, ещё не внедрение в публичный сайт.
-Страница сравнения и экспериментальные темы удалены.
-
-- [Professional Theme, Rachel Hong](https://tweakcn.com/themes/cmluajfgz000004l5afke7znm).
-  Исходный экспорт — theme.registry.json; theme.css отличается только
-  font stacks, которые пользователь выбрал из QraftHive.
-- [QraftHive 1.0](https://tweakcn.com/themes/cmjgjiw79000304ji6e76e30k):
-  Outfit variable для интерфейса, Merriweather Italic для формул, локально с OFL.
-  Outfit не содержит кириллицы: русский текст использует системный fallback.
-  Mono объявлен, но не используется и не загружается.
-- Структура: [Math Learning Website UI](https://www.figma.com/community/file/1652599323840288360/math-learning-website-ui),
-  Ayush Kumbhar’s team, CC BY 4.0. Адаптация к русскому каталогу MathStart;
-  исходные иллюстрации/код не копировались.
-- React/Vite используют существующие зависимости; новые UI-библиотеки не установлены.
+Утверждённый Professional Theme + QraftHive. Общий UI-контракт:
+[docs/ux/shared-ui-contract.md](../../../docs/ux/shared-ui-contract.md).
+Это самостоятельный React/Vite-прототип, не основной FastAPI/React SSG runtime.
 
 ## Запуск
 
-Из frontend/ после установки locked dependencies:
+Из frontend с установленными locked dependencies:
 
 ```powershell
 node node_modules/vite/bin/vite.js --config prototypes/home/vite.config.mjs
 ```
 
-Открыть http://127.0.0.1:5173/. БД и контейнеры не запускаются.
-Главная — index.html / landing.tsx; утверждённый навигационный каталог —
-http://127.0.0.1:5173/materials.html (materials.html / main.tsx).
-Главная содержит один прямой переход в каталог. Ссылки каталога с grade/subject
-query parameters по-прежнему поддерживаются; неизвестные значения дают начальный выбор.
-Остановка: Ctrl+C. Нужен Node из диапазона frontend/package.json.
+Не запускать второй сервер на занятом 5173. npm run dev открывает другую оболочку.
 
-## Проверки
+- Главная: http://127.0.0.1:5173/
+- Каталог: http://127.0.0.1:5173/materials.html
+- Пилот: http://127.0.0.1:5173/materials/8-algebra-32
+- Прежние /quadratic.html и длинный slug перенаправляются на новый адрес.
 
-Из frontend/:
+## Общие источники
 
-```powershell
-node node_modules/typescript/bin/tsc -p prototypes/home/tsconfig.json
-node node_modules/vite/bin/vite.js build --config prototypes/home/vite.config.mjs
-node node_modules/@playwright/test/cli.js test --config prototypes/home/playwright.config.ts
-```
+- frontend/src/shared/styles/theme.css — Professional light/dark tokens;
+  base.css и fonts/ — reset, шрифты и OFL.
+- frontend/src/shared/ui/brand.tsx и use-site-theme.ts — логотип и theme state.
+- frontend/src/shared/lesson/ — оболочка, заголовок, содержание, самопроверка,
+  навигация, диаграммы, рендер материала, общие lesson CSS и предметный график.
+- frontend/src/shared/routing/material-routes.mjs — формат и явный реестр URL.
 
-Chrome: 360/768/1440/1920. Сервер запускается автоматически, если порт свободен.
-Build, результаты и снимки — в игнорируемом frontend/.cache/.
-Это проверки прототипа, они не заменяют product target gate.
+Все три страницы используют общую тему/базу/логотип. style.css, landing.css и
+shell.css содержат специфику главной/каталога; их компоновка не заменяется уроком.
+site-shell.tsx остаётся адаптером прежней оболочки этих двух страниц и re-export
+общего Brand/theme hook для совместимости. Новым страницам следует импортировать
+их непосредственно из shared.
 
-По последнему запросу главная переработана: удалены лозунги, дублирующий
-выбор классов/предметов, квадрат суммы и разбор дробей. Остались конкретное
-описание материалов, небольшой
-email/password preview и прямой переход в каталог рядом с вводным текстом.
-Фотографии и отдельная зелёная плашка удалены. Общие header/footer упрощены.
+## Согласованное поведение
 
-Пользователь явно выбрал: сейчас только форма, подключение почты следующим
-шагом. Поля проверяются, пароль можно показать/скрыть. Submit не отправляет
-запросов, очищает форму и честно сообщает о preview. Пароли и почта не
-сохраняются и не логируются. Реальный вход по логину доступен на :8121/account/.
-OAuth, отправка писем, регистрация и изменения identity не добавлены.
+Панель содержания отдельно от белой светлой шапки; активная строка выделена
+только фоном, номера с точками. Самопроверка открывается только кнопкой справа,
+ответ на белой подложке light. Соседние темы показываются компактными кнопками
+без названий под ними. Подвал — логотип, классы и навигация, без кнопки Наверх.
+Анимации и reduced motion определены в общем CSS; плавный reset графика и tap
+без изменения точки от swipe находятся в QuadraticGraph.
 
-Дополнительный приглушённый зелёный применён только в .landing-page;
-общие Professional tokens/шрифты и каталог не перекрашивались.
-Главная обходится без фотографий, математических иллюстраций и анимации
-контента. Дополнительные пояснения к теории и задачам удалены по отзыву пользователя.
-Нет scroll-reveal, петель, parallax и перехвата прокрутки.
-Режим light/dark сохраняется между страницами, отсутствие storage допустимо.
+Весь учебный текст, MathML, таблицы и authored SVG читаются из canonical curriculum.
+Повторный recap и Далее исключены только из проекции урока, не из источника.
+Текущий adapter lesson-source.mjs и quadratic.html необходимы до SSG-интеграции.
+Старые page.css/page.js используются основной публикацией и не удаляются.
 
-Изучены без установки [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
-и [Web Animation Design](https://github.com/vercel-labs/open-agents/blob/main/.agents/skills/web-animation-design/SKILL.md),
-а также [Frontend Design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md).
-Рекомендации по структуре/доступности/движению адаптированы к утверждённой теме;
-их альтернативные палитры, шрифты и зависимости не применялись.
+## Оставшиеся prototype adapters
 
-## Поведение и границы
+| Файл | Назначение |
+| --- | --- |
+| index.html / landing.tsx | Главная |
+| materials.html / main.tsx | Каталог с чтением canonical inventory |
+| quadratic.html / quadratic.tsx | Композиция и подключение пилота |
+| lesson-source.mjs / .d.mts | Build-only чтение исходного HTML |
+| vite.config.mjs / env.d.ts | Virtual catalogue/lesson, dev/preview aliases и build inputs |
+| theme.registry.json | Атрибуция исходной темы, не runtime-зависимость |
 
-Каталог читается из опубликованных curriculum/**/lesson.json и
-site_content/catalog.json; исходный контент не изменяется. После изменения
-контента сервер нужно перезапустить. По умолчанию выбран 7 класс / алгебра.
-Вход, все темы и уроки ведут на существующий локальный сайт :8121.
+## Границы и проверки
 
-Вводный текст, общая SVG-иллюстрация, каталог с поиском и окно тем сохранены.
-Компактные строки показывают только номер, название раздела и число тем,
-без превью первых тем. На desktop счётчик справа, на телефоне под названием.
-Две колонки на широком экране; непарный последний раздел занимает всю ширину.
-Высота зависит от названия, длинные названия не обрезаются.
-Общие разделители, без повторяющихся кнопок и стрелок. Hover разделов не меняет
-оформление; keyboard focus сохранён. Логотип и SVG не выделяются,
-обычный текст доступен для копирования.
+Остальные уроки и настоящий кабинет продолжают вести на локальный runtime 8121.
+Форма email/password главной — только preview: не отправляет и не сохраняет
+данные, не создаёт сессию. Серверная интеграция identity — отдельная задача.
+Чтение не повышает mastery; Tutor/Progress/интеллектуальная практика не имитируются.
 
-Повторный выбор предмета сворачивает его разделы без смены предмета.
-Мобильное меню и окно тем поддерживают Escape и восстановление фокуса.
-Окно закрывается нажатием на фон, но не нажатием внутри или перетаскиванием
-из окна наружу. Поиск имеет очистку, Escape и компактное пустое состояние.
+Тесты: home.spec.ts, landing.spec.ts, quadratic.spec.ts, lesson-accessibility.spec.ts,
+lesson-regressions.spec.ts и frontend/tests/quadratic-*. Обязательны сохранность
+материала, математика, gestures, фокус, оба theme, zoom и reduced motion.
+Финальная проверка до extraction: docs/audits/lesson-fixes-react-2026-10-23.md.
+Новые результаты extraction хранятся отдельно; прежние manifests не переписывать.
 
-Освоение, XP и персональный прогресс не имитируются. Прототип не является
-authoritative publication и не меняет backend/auth/SSG. Перенос в основной
-продукт и подключение авторизации требуют отдельной задачи.
-Тема описана в [theme-baseline](../../../docs/ux/theme-baseline.md),
-история — в [audit](../../../docs/audits/ui-ux-home-prototype.md).
+Источник темы и лицензии: [theme-baseline](../../../docs/ux/theme-baseline.md).
+Шаблон готов к последующей интеграции, но текущий prototype build не является
+production-публикацией. AGENTS/скилы и Git-операции main — следующий этап.
