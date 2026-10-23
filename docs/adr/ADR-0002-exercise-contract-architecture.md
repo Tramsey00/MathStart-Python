@@ -1,161 +1,159 @@
-# ADR-0002: Exercise Contract Architecture
+# ADR-0002: архитектура контрактов exercise
 
 - **Status:** Accepted
 - **Date:** 2026-09-24
-- **Decision owners:** MathStart team
-- **Primary owner:** Ruslan
-- **Related baseline:** MathStart Technical Specification v3.1
-- **Related issue:** https://github.com/Tramsey00/MathStart-Python/issues/4
-- **Related spec:** `specs/exercises/R02-exercise-architecture.md`
-- **Related exec plan:** `docs/exec-plans/completed/R02-exercise-architecture.md`
-- **Related mock contracts:** `specs/exercises/fixtures/`
-- **Supersedes:** none
-- **Scope:** exercise interaction contracts, public/server boundary, solution-step representation, hint/reveal semantics
+- **Владельцы решения:** команда MathStart
+- **Основной владелец:** Руслан
+- **Связанная базовая версия:** техническая спецификация MathStart v3.1
+- **Связанная задача:** https://github.com/Tramsey00/MathStart-Python/issues/4
+- **Связанная спецификация:** `specs/exercises/R02-exercise-architecture.md`
+- **Связанный план выполнения:** `docs/exec-plans/completed/R02-exercise-architecture.md`
+- **Связанные mock-контракты:** `specs/exercises/fixtures/`
+- **Заменяет:** ничто
+- **Область действия:** контракты взаимодействия exercise, граница public/server, представление solution-step, семантика hint/reveal
 
 ---
 
-## 1. Context
+## 1. Контекст
 
-MathStart already contains educational pages and legacy self-check exercises, but the intelligent-learning MVP requires a stable exercise contract shared by backend and frontend before implementation begins.
+В MathStart уже есть учебные страницы и устаревшие упражнения self-check, однако для MVP интеллектуального обучения до начала реализации нужен стабильный контракт exercise, общий для backend и frontend.
 
-The system must support different pedagogical interactions without forcing every task through the same validation path.
+Система должна поддерживать разные педагогические сценарии взаимодействия, не направляя все задания по одному и тому же пути проверки.
 
-The MathStart v3.1 baseline requires:
+Базовая версия MathStart v3.1 требует:
 
-- four explicit interaction modes;
-- a strict separation between client-visible interaction metadata and server-only validation data;
-- typed ordered solution steps;
-- deterministic validation where supported;
-- explicit hint/reveal semantics;
-- evidence-safe behavior that prevents answer reveal or weak evidence from being misinterpreted as demonstrated knowledge.
+- четырёх явно заданных режимов взаимодействия;
+- строгого разделения метаданных взаимодействия, видимых клиенту, и данных проверки, доступных только серверу;
+- типизированных упорядоченных шагов решения;
+- детерминированной проверки там, где она поддерживается;
+- явной семантики hint/reveal;
+- поведения, безопасного для свидетельств, которое не позволяет принять раскрытый ответ или слабое свидетельство за продемонстрированные знания.
 
-Backend and frontend work must be able to proceed contract-first using versioned mocks.
+Работа над backend и frontend должна идти от контрактов с использованием версионируемых mocks.
 
 ---
 
-## 2. Decision
+## 2. Решение
 
-MathStart adopts one versioned exercise architecture with four explicit interaction modes:
+MathStart принимает единую версионируемую архитектуру exercise с четырьмя явно заданными режимами взаимодействия:
 
 - `SELF_CHECK`
 - `FINAL_ANSWER`
 - `STEP_BY_STEP`
 - `STRUCTURED_SOLUTION`
 
-Every exercise declares exactly one interaction mode.
+Каждое упражнение объявляет ровно один режим взаимодействия.
 
-The public exercise contract describes how the client renders and submits the exercise.
+Публичный контракт exercise описывает отображение и отправку упражнения клиентом.
 
-Server-only validation data is stored and exposed separately from the public exercise contract.
+Данные проверки, доступные только серверу, хранятся и предоставляются отдельно от публичного контракта exercise.
 
-`SolutionStep` is a typed ordered domain object rather than a plain text row.
+`SolutionStep` — типизированный упорядоченный объект домена, а не обычная строка текста.
 
-Hint and reveal actions are part of attempt evidence semantics and must be observable.
+Действия hint и reveal входят в семантику свидетельств attempt и должны быть наблюдаемыми.
 
-No implementation-specific Django model shape is finalized by this ADR; persistence is implemented later against these contracts.
+Этот ADR не фиксирует форму Django model для реализации; сохранение данных будет реализовано позднее на основе этих контрактов.
 
 ---
 
-## 3. Interaction modes
+## 3. Режимы взаимодействия
 
 ### `SELF_CHECK`
 
-Use when no submission is required or reliable automatic validation is not yet supported.
+Используется, когда отправка ответа не требуется или надёжная автоматическая проверка пока не поддерживается.
 
-Behavior:
+Поведение:
 
-- client receives task/public interaction metadata;
-- answer/solution may be revealed through an explicit server action;
-- for an attempt-backed intelligent exercise, the server records reveal before
-  returning the answer/solution;
-- no positive mastery evidence is created merely by viewing/revealing the solution;
-- full Solution Analyzer flow is not required.
+- клиент получает метаданные задания/публичного взаимодействия;
+- ответ/решение может быть раскрыто явным действием на сервере;
+- для интеллектуального упражнения с attempt сервер записывает событие reveal до
+  возврата ответа/решения;
+- один лишь просмотр/раскрытие решения не создаёт положительное свидетельство mastery;
+- полный процесс Solution Analyzer не требуется.
 
 ### `FINAL_ANSWER`
 
-Use when the final result is sufficient.
+Используется, когда достаточно итогового результата.
 
-Behavior:
+Поведение:
 
-- student submits one or more fields defined by `input_schema`;
-- server performs deterministic/domain answer validation;
-- correct work may create appropriate positive evidence;
-- wrong result produces weak negative evidence;
-- wrong result alone must not create a specific persistent misconception.
+- учащийся отправляет одно или несколько полей, заданных в `input_schema`;
+- сервер выполняет детерминированную/доменную проверку ответа;
+- правильная работа может создать подходящее положительное свидетельство;
+- неверный результат создаёт слабое отрицательное свидетельство;
+- один лишь неверный результат не должен создавать конкретное устойчивое заблуждение.
 
 ### `STEP_BY_STEP`
 
-Use when intermediate transitions matter pedagogically.
+Используется, когда промежуточные переходы важны с педагогической точки зрения.
 
-Behavior:
+Поведение:
 
-- student submits ordered typed steps;
-- each mathematical step represents a state/transformation;
-- raw input is preserved;
-- supported input is normalized/parsed;
-- transition validation occurs when supported;
-- Solution Analyzer may classify a confirmed problematic transition;
-- a specific misconception is created only from sufficient validated evidence.
+- учащийся отправляет упорядоченные типизированные шаги;
+- каждый математический шаг представляет состояние/преобразование;
+- исходный ввод сохраняется;
+- поддерживаемый ввод нормализуется/разбирается;
+- проверка перехода выполняется, если поддерживается;
+- Solution Analyzer может классифицировать подтверждённый проблемный переход;
+- конкретное заблуждение создаётся только на основании достаточных проверенных свидетельств.
 
 ### `STRUCTURED_SOLUTION`
 
-Use when the natural solution contains heterogeneous fields/actions.
+Используется, когда естественное решение включает поля/действия разных типов.
 
-Examples:
+Примеры:
 
-- claim + reason;
-- known values -> formula -> substitution -> answer;
-- total/favorable outcomes -> probability;
-- sorted dataset -> median.
+- утверждение + обоснование;
+- известные значения -> формула -> подстановка -> ответ;
+- общее число/число благоприятных исходов -> вероятность;
+- отсортированный набор данных -> медиана.
 
-Behavior:
+Поведение:
 
-- dynamic user-facing fields and their submitted payload are defined by
+- динамические поля, отображаемые пользователю, и отправляемый ими payload задаются в
   `input_schema`;
-- the submitted payload passes public schema validation and server-side domain
-  validation;
-- `step_schema` defines the typed-step representation, including allowed step
-  types, ordering, and serialization structure; it does not replace
-  `input_schema` as the UI/form contract;
-- LLM classification is optional and subordinate to validated evidence.
+- отправляемый payload проходит проверку публичной schema и доменную проверку на сервере;
+- `step_schema` задаёт представление типизированных шагов, включая допустимые типы,
+  порядок и структуру сериализации; оно не заменяет `input_schema` как контракт UI/формы;
+- классификация LLM необязательна и подчинена проверенным свидетельствам.
 
 ---
 
-## 4. Public/server boundary
+## 4. Граница public/server
 
-### Public exercise contract
+### Публичный контракт exercise
 
-Client-visible data may include:
+Данные, видимые клиенту, могут включать:
 
-- exercise identifier/code;
-- topic reference;
-- statement;
+- идентификатор/код exercise;
+- ссылку на topic;
+- условие;
 - `interaction_mode`;
 - `input_schema`;
 - `step_schema`;
 - `parser_profile`;
-- difficulty;
+- сложность;
 - `reveal_policy`;
-- contract/exercise version;
-- public presentation metadata.
+- версию контракта/exercise;
+- публичные метаданные представления.
 
-### Server-only validation data
+### Данные проверки только на сервере
 
-The ordinary exercise payload must not contain:
+Обычный payload exercise не должен содержать:
 
 - `answer_key`;
 - `validation_spec`;
 - `canonical_solution`;
-- accepted variants that reveal the answer;
-- equivalent validation secrets.
+- принятые варианты, раскрывающие ответ;
+- равнозначные секреты проверки.
 
-Reveal must be a server action performed after the attempt/reveal state is recorded.
+Reveal должен быть действием сервера, выполняемым после записи состояния attempt/reveal.
 
 ---
 
-## 5. `SolutionStep` contract
+## 5. Контракт `SolutionStep`
 
-Baseline logical representation:
+Базовое логическое представление:
 
 ```text
 SolutionStep {
@@ -168,196 +166,198 @@ SolutionStep {
 }
 ```
 
-Baseline step types:
+Базовые типы шагов:
 
 - `MATH_EXPRESSION`
 - `EQUATION_STATE`
 - `STRUCTURED_FIELDS`
 - `FINAL_STATEMENT`
 
-New domain step types require a spec/ADR when semantics change, a validator/adapter contract, tests, and compatibility with the generic attempt/step model.
+Новые типы шагов домена требуют spec/ADR при изменении семантики, контракта validator/adapter, тестов и совместимости с общей моделью attempt/step.
 
 ---
 
-## 6. Schema responsibilities
+## 6. Ответственность schema
 
 ### `input_schema`
 
-Describes the public user-input/form contract for `FINAL_ANSWER` and
+Описывает публичный контракт пользовательского ввода/формы для `FINAL_ANSWER` и
 `STRUCTURED_SOLUTION`.
 
-It defines:
+Задаёт:
 
-- fields;
-- client input types;
-- required/optional fields;
-- public validation constraints needed for UX;
-- serialization shape.
+- поля;
+- типы ввода клиента;
+- обязательные/необязательные поля;
+- необходимые для UX ограничения публичной проверки;
+- форму сериализации.
 
-It must not encode the correct answer or allow trivial reconstruction of it.
+Schema не должна кодировать правильный ответ или позволять легко его восстановить.
 
 ### `step_schema`
 
-Describes the public step/payload contract for step-based modes.
+Описывает публичный контракт шага/payload для режимов с шагами.
 
-It defines:
+Определяет:
 
-- allowed step types;
-- field structure;
-- required/optional data;
-- public serialization rules.
+- допустимые типы шагов;
+- структуру полей;
+- обязательные/необязательные данные;
+- публичные правила сериализации.
 
-It must not contain server-only correctness rules.
+Она не должна содержать правила правильности, доступные только серверу.
 
 ### `validation_spec`
 
-Server-only.
+Доступна только серверу.
 
-Defines validation behavior/parameters that must not be present in ordinary client payloads.
+Определяет поведение/параметры проверки, которые нельзя включать в обычные payload клиента.
 
 ---
 
-## 7. Hint and reveal policy
+## 7. Правила hint и reveal
 
-Baseline rules:
+Базовые правила:
 
-- attempt records hint usage, either as `hint_level_used = 0..3` and/or an event history;
-- reveal is explicit;
-- server records reveal state before returning canonical answer/solution;
-- after full reveal, the same attempt cannot produce `CORRECT_FIRST_TRY`;
-- correct work after any hint in the attempt uses `CORRECT_AFTER_HINT`, not
+- attempt записывает использование подсказки как `hint_level_used = 0..3` и/или историю событий;
+- reveal выполняется явно;
+- сервер записывает состояние reveal до выдачи канонического ответа/решения;
+- после полного reveal тот же attempt не может дать `CORRECT_FIRST_TRY`;
+- правильная работа после любой подсказки в attempt учитывается как `CORRECT_AFTER_HINT`, а не как
   `CORRECT_FIRST_TRY`;
-- `ANSWER_REVEALED` itself does not prove knowledge;
-- attempt history must explain why a particular knowledge event was chosen.
+- сам по себе `ANSWER_REVEALED` не доказывает знание;
+- история attempt должна объяснять, почему выбрано конкретное событие знаний.
 
-Exact Progress Algorithm values remain owned by `specs/progress/BASELINE-v1.md`.
+Точными значениями Progress Algorithm по-прежнему владеет `specs/progress/BASELINE-v1.md`.
 
 ---
 
-## 8. Parser behavior
+## 8. Поведение Parser
 
-Raw user input must be preserved.
+Исходный пользовательский ввод должен сохраняться.
 
-Supported syntax may be normalized into a canonical representation.
+Поддерживаемый синтаксис можно нормализовать в каноническое представление.
 
-Baseline parse states:
+Базовые состояния разбора:
 
 - `OK`
 - `UNSUPPORTED`
 - `INVALID`
 - `NOT_REQUIRED`
 
-Unsupported input is a valid system outcome and must not be converted into an invented misconception.
+Неподдерживаемый ввод — допустимый результат работы системы; его нельзя превращать в выдуманное заблуждение.
 
 ---
 
-## 9. Versioning
+## 9. Версионирование
 
-Exercise/public interaction contracts are versioned.
+Контракты взаимодействия exercise/public версионируются.
 
-`contract_version` is the logical name used by R02 for the baseline `version`
-concept in MathStart Technical Specification v3.1. It is one version counter,
-not a second independent counter layered on top of `version`.
+`contract_version` — логическое имя, используемое в R02 для базового понятия `version`
+из технической спецификации MathStart v3.1. Это один счётчик версий, а не второй
+независимый счётчик поверх `version`.
 
-The public exercise definition and its corresponding server-only validation
-data must be interpreted within the same contract version.
+Публичное определение exercise и соответствующие ему данные проверки только на
+сервере должны интерпретироваться в рамках одной версии контракта.
 
-Breaking changes to interaction-mode semantics, public schema structure, `SolutionStep` semantics, reveal policy, or server/public boundary require explicit review and, when architectural, an ADR.
+Ломающие изменения семантики режимов взаимодействия, структуры публичной schema,
+семантики `SolutionStep`, правил reveal или границы server/public требуют явного
+ревью и, если затронута архитектура, ADR.
 
-Existing historical attempts must remain interpretable against the exercise/contract version under which they were created.
+Существующие исторические попытки должны оставаться интерпретируемыми согласно
+версии exercise/контракта, в рамках которой они были созданы.
 
-Each attempt is bound to the `contract_version` used when the attempt starts.
-Later edits must not cause an historical submission to be interpreted against a
-different contract. The implementation may use an immutable version reference
-or a snapshot, but the persistence choice is deferred to the backend spec.
+Каждый attempt привязан к `contract_version`, использованной при его начале.
+Последующие правки не должны приводить к интерпретации исторической отправки по
+другому контракту. Реализация может использовать неизменяемую ссылку на версию
+или snapshot; способ сохранения определяется будущей backend spec.
 
-The version stored server-side for the attempt is authoritative. A
-`contract_version` sent by the client in a request is a compatibility/precondition
-value: the server must compare it with the attempt version and reject a
-mismatch, but the client value cannot change the authoritative attempt version.
+Версия, сохранённая для attempt на сервере, является авторитетной. Переданная
+клиентом в запросе `contract_version` служит значением совместимости/предусловия:
+сервер обязан сравнить её с версией attempt и отклонить несовпадение, однако
+клиентское значение не может изменить авторитетную версию attempt.
 
-The versioned R02 mock contracts are specification artifacts under
-`specs/exercises/fixtures/`; they are not runtime seed data or final serializer
-implementations.
-
----
-
-## 10. Consequences
-
-### Positive
-
-- backend and frontend can work in parallel against stable contracts;
-- answer secrecy is explicit;
-- step-by-step analysis has a typed foundation;
-- legacy content can remain `SELF_CHECK` until deeper support exists;
-- interaction mode remains separate from subject-domain skill.
-
-### Trade-offs
-
-- schemas require version discipline;
-- generic step modeling needs domain adapters/validators;
-- frontend cannot derive correctness from public payloads;
-- reveal/hint semantics must be persisted consistently.
+Версионированные mock-контракты R02 — артефакты спецификации в
+`specs/exercises/fixtures/`; это не runtime seed data и не окончательные реализации serializer.
 
 ---
 
-## 11. Alternatives considered
+## 10. Последствия
 
-### One universal free-text mode
+### Положительные
+
+- backend и frontend могут параллельно работать по стабильным контрактам;
+- секретность ответа определена явно;
+- пошаговый анализ получает типизированную основу;
+- устаревший контент может оставаться в `SELF_CHECK`, пока не появится более полная поддержка;
+- режим взаимодействия остаётся отдельным от предметного навыка.
+
+### Компромиссы
+
+- schema требуют дисциплины версионирования;
+- для общей модели шагов нужны доменные adapters/validators;
+- frontend не может вывести правильность из публичных payload;
+- семантика reveal/hint должна сохраняться согласованно.
+
+---
+
+## 11. Рассмотренные альтернативы
+
+### Один универсальный режим свободного текста
 
 **Rejected.**
 
-It cannot reliably represent final answers, structured solutions, reveal-only legacy tasks, and typed transitions without ambiguity.
+Он не позволяет без неоднозначностей надёжно представить итоговые ответы, структурированные решения, устаревшие задания только с reveal и типизированные переходы.
 
-### Separate unrelated model per subject/domain
+### Отдельная независимая модель для каждого предмета/домена
 
 **Rejected for MVP.**
 
-It would fragment attempt/history/progress integration and make frontend/backend contracts harder to reuse.
+Это раздробило бы интеграцию attempt/history/progress и усложнило повторное использование контрактов frontend/backend.
 
-### Embed answer/validator data in the public exercise payload
+### Включить данные ответа/validator в публичный payload exercise
 
 **Rejected.**
 
-It violates the security/integrity boundary and allows trivial answer disclosure.
+Это нарушает границу безопасности/целостности и позволяет без труда раскрыть ответ.
 
 ---
 
-## 12. Verification
+## 12. Проверка
 
 ```bash
 python scripts/verify_repo.py
 git diff --check
 ```
 
-Manual architecture checks:
+Ручные архитектурные проверки:
 
-- no public example includes server validation secrets;
-- mode semantics do not contradict `PRODUCT.md` or `ARCHITECTURE.md`;
-- progress ownership remains in Progress;
-- interaction modes are not modeled as skills;
-- no implementation code or migrations are introduced by R02.
+- ни один публичный пример не включает секреты серверной проверки;
+- семантика режимов не противоречит `PRODUCT.md` или `ARCHITECTURE.md`;
+- владение progress остаётся у Progress;
+- режимы взаимодействия не моделируются как навыки;
+- R02 не добавляет код реализации или миграции.
 
 ---
 
-## 13. Human gate
+## 13. Проверка человеком
 
-Required.
+Обязательна.
 
-Human review must explicitly approve the four-mode contract, public/server boundary, `SolutionStep`, step types, hint/reveal semantics, contract versioning, and mock payloads.
+В ходе ревью человек должен явно утвердить контракт четырёх режимов, границу public/server, `SolutionStep`, типы шагов, семантику hint/reveal, версионирование контракта и mock payloads.
 
-**Reviewer:** Ruslan
+**Рецензент:** Руслан
 
-**Decision:** Accepted
+**Решение:** принято
 
 **Date:** 2026-09-24
 
 ---
 
-## 14. Follow-up
+## 14. Дальнейшие действия
 
-After acceptance:
+После приёмки:
 
-- Vladimir may implement backend persistence/API contracts against this spec.
-- Ilya may implement frontend mode renderers against the mock contracts.
-- R03 may define Knowledge/Progress semantics in greater detail without silently changing the exercise contract.
+- Владимир может реализовать контракты сохранения данных/API в backend согласно этой спецификации.
+- Илья может реализовать renderer режимов frontend по mock-контрактам.
+- В R03 можно подробнее определить семантику Knowledge/Progress, не изменяя незаметно контракт exercise.

@@ -1,7 +1,7 @@
 ---
-name: MathStart task
+name: Задание MathStart
 about: Одно последовательное задание MathStart
-title: "[MS-Nxxx] "
+title: "[MS-...] "
 labels: ""
 assignees: ""
 ---
@@ -10,6 +10,8 @@ assignees: ""
 
 Стабильный ID, строка docs/tasks/INDEX.md и ссылка на canonical SKILL.md.
 Если Issue/ветка/PR этого задания уже существуют, продолжить их.
+Обязательно с MS-T003. MS-T001, MS-T002 и MS-T002A выполняются в ui/ux
+без отдельных Issue/веток; после их приёмки baseline передаётся в main.
 
 ## Проблема и результат
 

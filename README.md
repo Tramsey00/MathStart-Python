@@ -17,8 +17,9 @@ PostgreSQL 16+ и React/TypeScript с immutable SSG. Сохранены исхо
 | var/ | Игнорируемые локальные окружения, private настройки и отчёты |
 
 Подготовленное локальное окружение: [запуск и остановка](docs/local-development.md).
-Рабочая копия — основной Git root; разработка каждого задания идёт в отдельной ветке
-от проверенного актуального main (без `codex/`) по [AGENTS.md](AGENTS.md). История переноса —
+Рабочая копия — основной Git root. MS-T001, MS-T002 и MS-T002A выполняются в ui/ux;
+с MS-T003 каждое задание получает GitHub Issue и отдельную ветку от актуального
+origin/main без `codex/`, затем PR по [AGENTS.md](AGENTS.md). История переноса —
 [краткая maintenance-запись](docs/maintenance.md).
 
 ## Чистый клон и запуск
@@ -82,6 +83,26 @@ Legacy comparisons запускаются явно из [отдельного pi
 [принятый результат и evidence](docs/maintenance.md). Будущие продуктовые gates
 и production rollout требуют отдельных решений.
 
-Архитектура/версии: [ARCHITECTURE](ARCHITECTURE.md). Полное [ТЗ](docs/specifications/technical-spec-v7.2-draft.md),
-[очередь](docs/tasks/INDEX.md), [дизайн-бриф](docs/ux/redesign-brief.md),
-[аудит и вывод Harness](docs/audits/docs-and-workflow-cleanup.md). Новые дизайн/игровые решения ожидают выбора.
+Архитектура/версии: [ARCHITECTURE](ARCHITECTURE.md), продукт: [PRODUCT](PRODUCT.md).
+Текущая работа: [полноценные задачи](docs/tasks/INDEX.md),
+[стандарт переноса](docs/frontend/lesson-migration.md),
+[утверждённый UI](docs/ux/shared-ui-contract.md),
+[проверки по scope](docs/frontend/testing-policy.md).
+Старые ТЗ и аудиты доступны из Git, не входят в текущую очередь.
+
+
+## Посмотреть новый дизайн из clone
+
+Нужны Node 24.21.0 и npm 11.19.0. Из корня репозитория:
+
+```powershell
+npm --prefix frontend ci
+npm --prefix frontend run dev:design
+```
+
+Открой http://127.0.0.1:5173/. Каталог — /materials.html, React-эталон урока —
+/materials/8-algebra-32. Это самостоятельный preview без БД; основной runtime
+FastAPI и его установка описаны в [локальном запуске](docs/local-development.md).
+В MS-T001 переносится другой HTML-урок — линейная функция y = kx + b;
+квадратичная функция сохраняется как принятый образец компонентов и оформления.
+Полный воспроизводимый запуск после интеграции — задача MS-T002A перед MS-T003.

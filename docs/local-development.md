@@ -1,12 +1,39 @@
-# Local target runtime
+# Локальный запуск MathStart
 
-Основной checkout — корень репозитория. Разработка — в отдельной ветке
-от проверенного main без `codex/`, по [AGENTS](../AGENTS.md). Docker uses the canonical
-deploy/compose.yaml and images built from the accepted main commit. Local private
-settings and the instance README live in ignored var/local/. There is no dependency
-on migration-execution, tmp, a historical checkout, or Django.
+Основной checkout — корень репозитория. Порядок веток и исключение ui/ux для
+первых трёх задач — в [AGENTS](../AGENTS.md). После bootstrap каждый участник
+работает в отдельной ветке своей задачи от origin/main, без codex/.
 
-From the root in PowerShell:
+## Новый дизайн после clone
+
+Для просмотра новой главной, каталога и React-эталона урока достаточно tracked
+исходников и Node 24.21.0/npm 11.19.0. Из корня репозитория:
+
+```powershell
+npm --prefix frontend ci
+npm --prefix frontend run dev:design
+```
+
+Главная: http://127.0.0.1:5173/; материалы: http://127.0.0.1:5173/materials.html;
+эталон квадратичной функции: http://127.0.0.1:5173/materials/8-algebra-32.
+Для этого preview Docker, Python, БД и var/local владельца не нужны.
+Команда должна выполняться из ветки/commit, где опубликованы новые исходники.
+Незакоммиченные локальные изменения автора не появляются в чужом clone.
+
+Это временный самостоятельный preview. Команда npm run dev пока использует
+основную оболочку на 5171 и требует подготовленные public inputs. MS-T001 и
+MS-T002 интегрируют шаблон на новом линейном уроке и public pages. Квадратичный
+React preview сохраняется; его runtime-интеграция — MS-T006. MS-T002A подтверждает единый запуск итогового main
+из чистого clone у другого участника. Публичный production deploy не требуется.
+
+## Подготовленный локальный runtime FastAPI
+
+Docker использует canonical deploy/compose.yaml и images из согласованного
+commit. Приватные настройки и README конкретного экземпляра находятся в
+игнорируемом var/local/. Они не должны быть скрытым prerequisite чужого clone.
+Зависимости от migration-execution, tmp, исторического checkout или Django нет.
+
+Из корня в PowerShell:
 
 ```powershell
 ./scripts/local.ps1 start
@@ -15,25 +42,24 @@ From the root in PowerShell:
 ./scripts/local.ps1 stop
 ```
 
-Stop retains data. The script neither removes volumes nor restarts Docker/WSL.
-The existing local instance uses http://127.0.0.1:8121/, /account/ and /admin/.
-Its operator is acceptance_admin; obtain the password locally with
-`notepad ./var/local/private/operator.env`. Do not paste private files or cookies.
-The instance keeps the PostgreSQL/public volumes from manual acceptance; their
-historical names do not select old source code. Use the instance README for exact
-image revisions and storage identities.
+Stop сохраняет данные. Скрипт не удаляет volumes и не перезапускает Docker/WSL.
+Существующий экземпляр доступен по http://127.0.0.1:8121/, /account/ и /admin/.
+Его operator — acceptance_admin; пароль владельца хранится локально в
+var/local/private/operator.env. Не копировать приватные файлы/cookies в Git
+или другим участникам. Точные image revisions и storage identities описаны
+в локальном README экземпляра; historical имена volumes не выбирают старый код.
 
-A clean clone has no private settings or prepared data. Follow
-[release installation](../deploy/RELEASE.md) with new explicitly owned volumes,
-dedicated roles/keys, schema preview/apply/check, initial operator, immutable
-prepare/build and ordinary publication plan/publish. Do not attach another writer
-or reset an existing database to obtain an empty installation. Before replacing
-images, retain a tested database backup and check compatibility; see
-[recovery](../deploy/RECOVERY.md).
+## Новая независимая установка
 
-Optional host tools use Python3.12 and the existing root requirements.lock;
-frontend tooling uses its existing package-lock. На аудите20.10.2026 указанный прежде var/local/venv/Scripts/python.exe не обнаружен; наличие
-подготовленного host venv нужно проверять, а не считать обязательным фактом.
-Новая target среда создаётся из locks без Django/DRF. Comparative QA prepares the separately
-pinned [oracle](legacy-oracle.md) only when required. Full managed QA is described
-in [target testing](target-runtime.md); ordinary local start does not run it.
+Чистый clone не содержит private settings и подготовленной БД. Используй
+[release installation](../deploy/RELEASE.md): новые собственные volumes,
+отдельные roles/keys, schema preview/apply/check, initial operator, immutable
+prepare/build и обычные publication plan/publish. Не подключай второго writer
+и не сбрасывай существующую БД ради новой установки. До замены images сохрани
+проверенный backup БД и проверь совместимость по [recovery](../deploy/RECOVERY.md).
+
+Host tools используют Python 3.12 и root requirements.lock; frontend — свой
+package-lock. Подготовленный venv не считать уже существующим: при необходимости
+создать его явно по locks, без Django/DRF. Отдельный pinned [oracle](legacy-oracle.md)
+готовится только для необходимого historical сравнения. Полный managed QA —
+[target testing](target-runtime.md); обычный локальный запуск его не выполняет.

@@ -1,54 +1,59 @@
-# SPEC MS7-I02: UI foundation and fixtures
+# SPEC MS7-I02: Основа UI и fixtures
 
-- **Status:** PR OPEN / CHANGES_REQUESTED (pre-fix reviews); correction published / CI SUCCESS; Task Approvals PENDING
-- **Owner:** Ilya (Илья)
-- **Reviewer / Task Approver:** Ruslan and Vladimir
-- **Canonical issue:** [#21 - MS7-I02: UI foundation and fixtures](https://github.com/Tramsey00/MathStart-Python/issues/21)
-- **Branch:** `ms7-i02-ui-foundation`
+> Историческая спецификация прежнего UI. Статусы, сроки и решения ниже относятся
+> к указанным Git revisions и не задают текущую работу. Утверждённый дизайн —
+> [общий UI contract](../../docs/ux/shared-ui-contract.md), новая очередь —
+> [tasks/INDEX](../../docs/tasks/INDEX.md). Не использовать I02 как шаблон переноса.
+
+- **Статус:** PR OPEN / CHANGES_REQUESTED (ревью до исправлений); исправление опубликовано / CI SUCCESS; ожидаются Task Approvals
+- **Владелец:** Илья
+- **Reviewer / Task Approver:** Руслан и Владимир
+- **Каноническая Issue:** [#21 - MS7-I02: UI foundation and fixtures](https://github.com/Tramsey00/MathStart-Python/issues/21)
+- **Ветка:** `ms7-i02-ui-foundation`
 - **Baseline SHA:** `428ece726918f635549fc7dd8fdd352f799c3308`
 - **PR:** [#22](https://github.com/Tramsey00/MathStart-Python/pull/22), OPEN
-- **Final correction SHA:** `e471efc0b1a6b4af9baf1401e49311a203f12450`
-- **Correction CI:** [37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060), SUCCESS
-- **Published pre-fix HEAD:** `931f83af01ea44c880ab94c5f7c134a29613a332`
-- **Related ADRs:** ADR-0001/0002/0003 and the accepted MS7-R02A addendum package
+- **Итоговый SHA исправления:** `e471efc0b1a6b4af9baf1401e49311a203f12450`
+- **CI исправления:** [37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060), SUCCESS
+- **Опубликованный HEAD до исправления:** `931f83af01ea44c880ab94c5f7c134a29613a332`
+- **Связанные ADR:** ADR-0001/0002/0003 и принятый пакет дополнения MS7-R02A
 - **Exec plan:** [MS7-I02](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I02-ui-foundation.md)
 - **Trace:** [MS7-I02](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I02.md)
-- **Milestone Gate:** G3; I02 does not independently close G3
-- **Acceptance deadline:** 2026-10-05, from the revised Section 20 calendar
-- **Last updated:** 2026-10-02
+- **Milestone Gate:** G3; задача I02 самостоятельно Gate G3 не закрывает
+- **Срок приёмки:** 2026-10-05, по пересмотренному календарю Section 20
+- **Последнее обновление:** 2026-10-02
 
-## 1. Goal
+## 1. Цель
 
-Provide a reusable Django UI foundation for later student screens: shared
-templates/components, design tokens, safe versioned fixtures, loading/error/empty
-states, schema dispatch and baseline keyboard/mobile accessibility.
+Создать переиспользуемую основу Django UI для будущих экранов ученика: общие templates/components,
+design tokens, безопасные версионированные fixtures, состояния loading/error/empty,
+dispatch по schema и базовую доступность keyboard/mobile.
 
-Preparation and three implementation/docs commits were published through PR #22;
-`931f83af01ea44c880ab94c5f7c134a29613a332` is the historical pre-fix head.
-The correction is committed and published as `e471efc0b1a6b4af9baf1401e49311a203f12450`.
-GitHub API confirms [run 37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060)
-completed SUCCESS for this correction head / PR merge-ref against main
-`fa0d87033113a30abc6e9de2acc174b01e98d9db`. Pre-fix run 37027103585 remains historical.
-PR #22 is OPEN and MERGEABLE at the synchronization snapshot. Both existing reviews
-are CHANGES_REQUESTED on the pre-fix SHA; Ruslan/Vladimir Task Approvals are PENDING.
-The user authorized records/PR description synchronization and repeat review.
-This documentation-only follow-up preserves all tested product/test/fixture/image
-bytes; its subsequent head/CI must be distinguished from the correction run.
-No human approval, merge or task/G3 closure is claimed.
+Подготовка и три commits реализации/документации опубликованы через PR #22;
+`931f83af01ea44c880ab94c5f7c134a29613a332` — исторический HEAD до исправления.
+Исправление закоммичено и опубликовано как `e471efc0b1a6b4af9baf1401e49311a203f12450`.
+GitHub API подтверждает, что [run 37060459060](https://github.com/Tramsey00/MathStart-Python/actions/runs/37060459060)
+завершился SUCCESS для HEAD исправления / PR merge-ref относительно main
+`fa0d87033113a30abc6e9de2acc174b01e98d9db`. Запуск до исправления 37027103585 остаётся историческим.
+PR #22 имеет статус OPEN и MERGEABLE на момент синхронизации. Оба существующих review имеют
+CHANGES_REQUESTED на SHA до исправления; Task Approvals Руслана/Владимира — PENDING.
+Пользователь разрешил синхронизировать записи/описание PR и повторить ревью.
+Это дополнение только к документации, сохраняет побайтно все проверенные product/test/fixture/image;
+последующие HEAD/CI нужно отличать от прогона исправления. Человеческое одобрение, merge
+или закрытие задачи/G3 не заявляется.
 
-## 2. Why this belongs in MathStart
+## 2. Почему это относится к MathStart
 
-The v7.1 MS7-I02 card (Section 24, page 68) covers NFR-13 (browser/mobile),
-NFR-16 (keyboard/accessibility) and FR-04 (PublicExerciseDTO). It prepares shared
-UI assets for MS7-I03, MS7-I04 and MS7-I08 without replacing the Django site.
+Карточка v7.1 MS7-I02 (Section 24, стр. 68) охватывает NFR-13 (browser/mobile),
+NFR-16 (keyboard/accessibility) и FR-04 (PublicExerciseDTO). Она подготавливает общие
+UI assets для MS7-I03, MS7-I04 и MS7-I08, не заменяя сайт Django.
 
-### Normative source and accepted inputs
+### Нормативный источник и принятые входы
 
-The sole normative source of new MS7-I02 requirements is the full
+Единственный нормативный источник новых требований MS7-I02 — полный документ
 `.local-docs/MathStart_Technical_Specification_v7_1_SECTION20_PARALLEL_DEADLINES.pdf`.
-Its filename does not limit its contents to Section 20. The path is local;
-availability through GitHub is not claimed. Do not copy or publish the PDF as part
-of this task. Specification v6 is not an implementation requirements source.
+Имя файла не ограничивает содержимое Section 20. Путь локальный; доступность через GitHub
+не заявляется. Не копировать и не публиковать PDF в рамках этой задачи. Specification v6
+не является источником требований к реализации.
 
 ```text
 Canonical PDF SHA-256
@@ -61,241 +66,239 @@ MS7-R02A package manifest SHA-256
 1b4a4b43df6052db5d91840cb2e748745cafb0529a766272d5a29b2b88e6dbac
 ```
 
-Applicable v7.1 sections: 5-7, 11, 15-17, 20-21, 24-25; broader acceptance routes
-in Section 27 apply only within this foundation's scope. Section 20.6 states that
-the calendar layer was revised; older card NORMAL/EARLY dates do not override
-the 2026-10-05 I02 deadline.
+Применимые разделы v7.1: 5-7, 11, 15-17, 20-21, 24-25; более широкие маршруты приёмки
+из Section 27 применяются только в scope этой основы. Section 20.6 указывает, что календарный
+слой пересматривался; прежние даты NORMAL/EARLY карточки не заменяют срок I02 2026-10-05.
 
-| Dependency | Accepted input and use |
+| Зависимость | Принятый вход и использование |
 | --- | --- |
-| HARD: MS6-I01 | Accepted/frozen UX handoff: [UX spec](../../docs/ux/MS6-I01-ux-spec.md), [states matrix](../../docs/ux/MS6-I01-states-matrix.md), [screen map](../../docs/ux/MS6-I01-screen-map.md), [wireframes](../../docs/ux/MS6-I01-wireframes.md), [API needs](../../docs/ux/MS6-I01-api-needs.md). v7.1 Section 2 records PR #11 / merge `861433a6`. No reimplementation or status housekeeping. |
-| CONTRACT: MS7-R02A | Accepted by Ruslan, explicitly confirmed by the user; [HTTP contract](../api/MS7-R02A-http-eligibility.md), [OpenAPI](../api/openapi-v1.json), [DTO schemas](../api/schemas/dto-v1.schema.json), [policy](../api/http-policy-v1.json), [package manifest](../api/candidate-manifest-v1.json) and offline fixtures. |
-| HANDOFF | None. |
-| INTEGRATION | None; no upstream runtime API is needed for I02 task-specific acceptance. |
+| HARD: MS6-I01 | Принятая/замороженная UX-передача: [UX spec](../../docs/ux/MS6-I01-ux-spec.md), [матрица состояний](../../docs/ux/MS6-I01-states-matrix.md), [карта экранов](../../docs/ux/MS6-I01-screen-map.md), [wireframes](../../docs/ux/MS6-I01-wireframes.md), [требования API](../../docs/ux/MS6-I01-api-needs.md). В §2 v7.1 записан PR #11 / merge `861433a6`. Повторная реализация и обновление статусов не выполняются. |
+| CONTRACT: MS7-R02A | Принято Русланом и явно подтверждено пользователем; [HTTP contract](../api/MS7-R02A-http-eligibility.md), [OpenAPI](../api/openapi-v1.json), [DTO schemas](../api/schemas/dto-v1.schema.json), [policy](../api/http-policy-v1.json), [package manifest](../api/candidate-manifest-v1.json) и offline fixtures. |
+| HANDOFF | Нет. |
+| INTEGRATION | Нет; для специальных критериев приёмки I02 upstream runtime API не нужен. |
 
-Acceptance of upstream comes from v7.1/user confirmation, not stale document
-labels or mere hash equality. All 17 R02A manifest pins match current bytes at
-preparation. Its frozen package remains unchanged. R02 and ADR-0001/0002/0003
-remain accepted compatibility inputs, not permission to expand this task.
+Принятие upstream определяется v7.1/подтверждением пользователя, а не устаревшими ярлыками
+документа или одним совпадением hash. При подготовке все 17 pins manifest R02A совпали
+с текущими bytes. Замороженный пакет R02A не меняется. R02 и ADR-0001/0002/0003 остаются
+принятыми входами совместимости, а не разрешением расширять задачу.
 
 ## 3. Scope
 
-### In scope
+### Входит в scope
 
-- A shared extensible Django shell preserving existing Content pages,
-  SEO/canonical metadata, authored content, catalogue and lesson resources.
-- Minimal reusable button, labelled field/error, card and state components.
-- CSS design tokens and isolated foundation styles.
-- Loading, recoverable error with a demonstration retry, successfully received
-  empty data and ordinary content. Error is never interpreted as empty success.
-- Foundation dispatch for the four accepted modes using public mode/schema;
-  controlled unsupported-shape presentation, without a complete renderer.
-- Versioned synthetic UI fixtures with provenance and R02A compatibility.
-- A minimal GET-only fixture gallery in the existing `content` app, available
-  only under `DEBUG=True`, with permanent fixture-only marking.
-- Keyboard/accessibility baseline, mobile smoke at 360/768/1440 px,
-  Python/Django tests and available manual browser evidence.
+- Общая расширяемая Django shell с сохранением существующих Content pages,
+  SEO/canonical metadata, авторского content, каталога и ресурсов уроков.
+- Минимальные переиспользуемые button, labelled field/error, card и state components.
+- CSS design tokens и изолированные стили foundation.
+- Loading, восстанавливаемая ошибка с демонстрационным retry, успешно полученные пустые
+  данные и обычный content. Ошибка не трактуется как пустой успешный ответ.
+- Foundation dispatch для четырёх принятых режимов по public mode/schema;
+  контролируемое отображение неподдерживаемой формы, без полного renderer.
+- Версионированные synthetic UI fixtures с provenance и совместимостью R02A.
+- Минимальная GET-only галерея fixtures в существующем приложении `content`, доступная
+  только при `DEBUG=True` и с постоянной пометкой, что это только fixtures.
+- Базовая доступность keyboard, mobile smoke при 360/768/1440 px,
+  Python/Django tests и доступные ручные browser evidence.
 
-### Out of scope
+### Не входит в scope
 
-- Complete four-mode rendering (MS7-I04), solution editors or student workflows.
-- Browser mathematical assessment, parser/checker, verdicts, normalization or
-  authoritative mastery/confidence/eligibility calculations.
-- Backend APIs, models, migrations, seeds/bootstrap or historical-data changes.
-- Real auth/onboarding, Attempt lifecycle, submission, hints/reveal, Tutor,
-  progress, diagnostics or practice flows.
-- Business behavior for pending/degraded/conflict/unauthorized and other future
-  flows; extension points do not implement these behaviors.
-- Node/Playwright/frontend toolchain, new CI, dependency changes, a separate
-  preview server or full cross-browser/accessibility audit.
-- Bulk lesson conversion, SPA/stack replacement, deployment, live providers,
-  Harness changes or housekeeping of frozen upstream status records.
+- Полная отрисовка четырёх режимов (MS7-I04), редакторы решений или workflow ученика.
+- Математическая browser-оценка, parser/checker, verdicts, normalization или авторитетные
+  расчёты mastery/confidence/eligibility.
+- Backend APIs, models, migrations, seeds/bootstrap или изменения исторических данных.
+- Реальные auth/onboarding, lifecycle Attempt, submission, hints/reveal, Tutor,
+  progress, diagnostics или practice flows.
+- Бизнес-поведение pending/degraded/conflict/unauthorized и других будущих flows;
+  точки расширения это поведение не реализуют.
+- Node/Playwright/frontend toolchain, новые CI, изменение dependencies, отдельный
+  preview server или полный cross-browser/accessibility audit.
+- Массовая конверсия уроков, замена SPA/stack, deployment, live providers,
+  изменение Harness или housekeeping замороженных upstream status records.
 
-## 4. Actors / entry points
+## 4. Роли и точки входа
 
-The local developer/reviewer uses `GET /__ui__/foundation/` through the
-existing Django server. It is a demonstration surface, not a student endpoint.
-It reads only allowlisted repository-authored synthetic fixtures. It neither
-loads private user data nor accepts arbitrary fixture-file paths.
+Локальный разработчик/reviewer открывает галерею через существующий Django server:
+`GET /__ui__/foundation/`. Это демонстрационный экран, не endpoint ученика.
+Он читает только разрешённые авторские synthetic fixtures из repository.
+Private user data и произвольные пути к fixture files не загружаются.
 
-Gallery/fixture scripts are not attached to ordinary Content pages. The development
-route is implemented; legacy rendering is covered by no-database Django tests.
-Published home/catalogue/lesson browser comparison now passes after the user's
-runtime migrate/bootstrap; the gallery remains isolated from these pages.
+Gallery/fixture scripts не подключаются к обычным Content pages. Development route реализован;
+рендеринг legacy проверяется Django tests без базы данных. Сравнение browser для опубликованных
+главной/каталога/урока после пользовательского runtime migrate/bootstrap прошло;
+галерея изолирована от этих страниц.
 
-## 5. Domain rules and invariants
+## 5. Правила домена и инварианты
 
-1. Preserve Django Templates and existing Content ownership and publication.
-2. Only Progress can change long-term knowledge state; this task writes none.
-3. Dispatch is based on declared public mode/schema, never statement guessing.
-4. Schema validation checks shape, never mathematical truth.
-5. Preserve raw demonstration input in memory across loading/error presentation;
-   do not normalize it or label it as saved on the server.
-6. Fixture-only marking remains visible, including empty/error presentations.
-7. Public artifacts contain no checker or hidden answer/reveal content.
-8. No new mode, step type, HTTP status, DTO field or eligibility policy is added.
-9. Do not infer independence from a new Attempt or reset cross-attempt exposure.
-10. Existing legacy authored SELF_CHECK answers remain the compatibility baseline
-    explicitly preserved by v7.1 Section 11; new components do not inherit it.
+1. Сохранять Django Templates и существующее владение/публикацию Content.
+2. Долгосрочное состояние знания меняет только Progress; эта задача ничего не записывает.
+3. Dispatch определяется объявленным публичным mode/schema, не догадкой по тексту задания.
+4. Schema validation проверяет форму, не математическую истинность.
+5. Сохранять raw demonstration input в памяти во время loading/error; не нормализовать его
+   и не называть сохранённым на сервере.
+6. Fixture-only маркировка остаётся видимой, в том числе в empty/error состояниях.
+7. Публичные artifacts не содержат checker или скрытого ответа/reveal content.
+8. Не добавлять mode, step type, HTTP status, DTO field или policy eligibility.
+9. Не выводить independence из новой Attempt и не сбрасывать межпопыточный exposure.
+10. Существующие авторские legacy ответы SELF_CHECK остаются baseline совместимости,
+    явно сохранённым в v7.1 Section 11; новые components их не наследуют.
 
-## 6. Interaction / workflow
+## 6. Взаимодействие / workflow
 
-1. A local GET renders the gallery using reusable templates and safe fixtures.
-2. Component examples show ordinary content, loading, error and confirmed empty.
-3. Demonstration retry changes presentation only; it sends no student mutation.
-4. A public exercise descriptor selects a foundation slot after shape checks.
-5. Unsupported descriptors receive an explanation and no guessed form/verdict.
-6. The reviewer exercises keyboard navigation and the three mobile widths.
+1. Локальный GET выводит галерею с переиспользуемыми templates и безопасными fixtures.
+2. Примеры компонентов показывают обычный content, loading, error и подтверждённый empty.
+3. Демонстрационный retry меняет только представление; student mutation не отправляется.
+4. Public exercise descriptor выбирает foundation slot после проверки формы.
+5. Неподдерживаемый descriptor получает пояснение, но не выдуманную форму/verdict.
+6. Reviewer проверяет keyboard navigation и три mobile ширины.
 
-No submitted result, server save, reveal or progress gain is simulated as real.
+Не имитируются как реальные отправленный результат, server save, reveal или прирост progress.
 
-## 7. Data model changes
+## 7. Изменения модели данных
 
-No schema change. No new/changed models, constraints, indexes, data migration or
-backfill. Task-specific fresh/upgrade/locking migration tests are N/A.
-The canonical migration consistency check remains part of baseline verification.
+Schema не меняется. Новых/изменённых models, constraints, indexes, data migrations или
+backfill нет. Специальные migration tests для fresh/upgrade/locking — N/A.
+Каноническая проверка согласованности migrations остаётся частью baseline verification.
 
-## 8. Public vs server-only data
+## 8. Публичные и только серверные данные
 
-Allowed data consists of reviewed public exercise metadata, non-secret field
-shape descriptors, presentation state/copy and synthetic demonstration strings.
-UI state projections are identified as projections, not fabricated wire DTOs.
+Допустимы проверенные public exercise metadata, несекретные описания формы полей,
+состояние/текст представления и synthetic demonstration strings.
+Проекции UI state обозначаются как проекции, а не как выдуманные wire DTO.
 
-Exclude `answer_key`, `validation_spec`, `canonical_solution`, checker/reference
-solution, secret accepted variants, correctness-bearing metadata and equivalent
-prose/data. Do not deliver the complete R02A `http-exchanges-v1.json`: it contains
-explicit reveal responses and solutions from completed attempts. Do not include
-reveal content, completed solution drafts or answer-equivalent hints in I02 assets.
+Исключить `answer_key`, `validation_spec`, `canonical_solution`, checker/reference solution,
+секретные принятые варианты, metadata с данными о правильности и эквивалентные prose/data.
+Не доставлять полный R02A `http-exchanges-v1.json`: он содержит явные reveal responses и решения
+завершённых attempts. I02 assets не должны включать reveal content, завершённые черновики решений
+или подсказки, эквивалентные ответу.
 
-## 9. API / input contract
+## 9. Контракт API / ввода
 
-No `/api/v1/` endpoint or serializer is implemented or changed. The
-DEBUG-only gallery is GET-only; non-GET requests must not invoke a mutation.
-It is absent from routing under `DEBUG=False`.
+Endpoint `/api/v1/` или serializer не реализуется и не меняется. Галерея доступна только при
+DEBUG и только через GET; не-GET requests не должны вызывать mutation. При `DEBUG=False`
+маршрут отсутствует.
 
-Wire DTO examples conform to accepted R02A schemas. UI state fixture version and
-HTTP artifact version are separate from immutable exercise version. Do not add a
-made-up `schema_version` wire field. Preserve `version`/`contract_version` aliases
-and bound exercise identity. A new numeric exercise version alone is not a reason
-to reject an otherwise supported shape.
+Примеры wire DTO соответствуют принятым schemas R02A. Версия fixture UI state и версия
+HTTP artifact отличаются от неизменяемой версии упражнения. Не добавлять выдуманное wire field
+`schema_version`. Сохранять alias `version`/`contract_version` и связанную identity exercise.
+Один только новый номер версии exercise не является причиной отклонять иначе поддерживаемую форму.
 
-## 10. Interaction mode contract
+## 10. Контракт режимов взаимодействия
 
-| Accepted mode | I02 foundation responsibility |
+| Принятый режим | Обязанность foundation I02 |
 | --- | --- |
-| SELF_CHECK | Select an unassessed foundation slot; no scored submit. |
-| FINAL_ANSWER | Recognize the required public input schema and select its slot. |
-| STEP_BY_STEP | Recognize public ordered-step metadata and select its slot. |
-| STRUCTURED_SOLUTION | Recognize distinct input/step metadata and select its slot. |
+| SELF_CHECK | Выбрать foundation slot без оценки; scored submit отсутствует. |
+| FINAL_ANSWER | Распознать обязательную public input schema и выбрать slot. |
+| STEP_BY_STEP | Распознать metadata public ordered-step и выбрать slot. |
+| STRUCTURED_SOLUTION | Распознать отдельные input/step metadata и выбрать slot. |
 
-Full forms, ordered-step editing/serialization, autosave, submission, hints and
-reveal are downstream. Parser profile and reveal/help policy are public metadata
-only; I02 does not execute them. Missing metadata needed by a future form is not
-invented. Generic `enum`/`object` metadata does not authorize guessing choices or
-nested fields. No new modes or step types.
+Полные формы, редактирование/сериализация ordered steps, autosave, submission,
+hints и reveal относятся к downstream. Parser profile и reveal/help policy — только public metadata;
+I02 их не исполняет. Metadata, отсутствующая для будущей формы, не выдумывается.
+Общие metadata `enum`/`object` не разрешают угадывать choices или вложенные поля.
+Новые modes/step types запрещены.
 
-## 11. Validation behavior
+## 11. Поведение validation
 
-Use the existing Python/jsonschema stack for wire fixture shape/provenance checks
-and Django tests for template/routing behavior. Dispatch performs only explicit
-supported-shape checks. A controlled unsupported-shape view is distinct from an
-Assessment `UNSUPPORTED` outcome and never indicates wrong mathematics.
+Для проверки формы/provenance wire fixtures используется существующий Python/jsonschema stack,
+для templates/routing — Django tests. Dispatch проверяет только явно поддержанные формы.
+Контролируемый экран неподдерживаемой формы отличается от результата Assessment `UNSUPPORTED`
+и никогда не означает, что математика неверна.
 
-The JS dispatcher rejects non-string modes before `slots` lookup. SELF_CHECK
-requires both schema fields present and null; FINAL_ANSWER requires input_schema,
-STEP_BY_STEP step_schema, STRUCTURED_SOLUTION both. These existing R02A requirements
-are regression-tested without changing the accepted contract or adding renderers.
+JS dispatcher отклоняет mode, не являющийся строкой, до поиска в `slots`.
+SELF_CHECK требует наличия обоих schema fields со значением null; FINAL_ANSWER требует
+input_schema, STEP_BY_STEP — step_schema, STRUCTURED_SOLUTION — оба. Эти требования R02A
+защищены regression tests без изменения принятого контракта или добавления renderers.
 
-No mathematical validator, LLM, provider call or prompt change is required.
+Математический validator, LLM, вызов provider или изменение prompt не нужны.
 
-## 12. Progress / evidence semantics
+## 12. Семантика Progress / evidence
 
-This feature does not create or mutate knowledge evidence. There are no student
-mutations, ProgressEvents, CompletionFacts, eligibility decisions or persisted
-attempts. Gallery state transitions are presentation demonstrations only.
+Функция не создаёт и не меняет evidence знаний. Student mutations, ProgressEvents,
+CompletionFacts, решения eligibility или сохранённые attempts отсутствуют.
+Переходы состояния галереи — только демонстрация представления.
 
-## 13. Security / ownership
+## 13. Безопасность / владение
 
-- Gallery is development-only, GET-only and synthetic; no auth policy changes.
-- No private owner data, credentials, cookies, real student records or production
-  database contents are read for gallery fixtures or browser evidence.
-- No browser storage for credentials/private results/answers; temporary raw
-  demonstration input remains in memory only.
-- Escape untrusted statement/feedback/raw strings; do not trust arbitrary HTML.
-  Preserve the existing trusted authored Content HTML boundary separately.
-- Use an explicit fixture allowlist; no path traversal/arbitrary file reads.
-- Check delivered HTML/JSON/JS/data attributes/network for secret equivalents.
-- Do not alter Session/CSRF, reveal or rate-limit contracts. No AI endpoint exists
-  in this increment, so provider/rate-limiter implementation is N/A.
+- Галерея доступна только в development, только GET и содержит synthetic data; policy auth не меняется.
+- Для fixture или browser evidence галереи не читаются private owner data, credentials, cookies,
+  реальные записи учеников или содержимое production database.
+- В browser storage нет credentials/private results/answers; временный raw demonstration input
+  существует только в памяти.
+- Экранировать недоверенные statement/feedback/raw strings; не доверять произвольному HTML.
+  Доверенную границу авторского Content HTML сохранять отдельно.
+- Использовать явный allowlist fixtures; traversal/произвольное чтение файлов запрещены.
+- Проверять переданные HTML/JSON/JS/data attributes/network на эквиваленты secrets.
+- Не менять Session/CSRF, контракты reveal или rate limit. В этом изменении нет AI endpoint,
+  поэтому реализация provider/rate limiter — N/A.
 
-## 14. Observability
+## 14. Наблюдаемость
 
-Record fixture/state/mode provenance and dispatch decisions without secret data.
-Browser evidence contains the actual browser version, DOM assertions, network and
-console observations, keyboard actions and screenshots at recorded widths.
-Screenshots supplement assertions. Record scope limitations; do not claim full
-cross-browser/a11y audit or runtime student integration.
+Записывать provenance fixtures/state/mode и решения dispatch без secret data.
+Browser evidence содержит фактическую версию browser, DOM assertions, observations network/console,
+действия keyboard и screenshots с зафиксированными размерами. Screenshots дополняют assertions.
+Фиксировать ограничения scope; не заявлять полный cross-browser/a11y audit или интеграцию
+runtime ученика.
 
-## 15. Acceptance criteria
+## 15. Критерии приёмки
 
-- [x] Gallery demonstrates reused templates/components and tokens.
-- [x] Loading/error/empty are distinguishable; failed load is not empty success.
-- [x] Four modes dispatch by declared metadata; unknown/unsupported shapes fail
-  safely without a guessed renderer or mathematical verdict.
-- [x] Fixtures are versioned/provenanced and wire examples conform to R02A.
-- [x] Fixture-only marking is always visible; no checker/answers/reveal secrets
-  appear in delivered artifacts or network responses.
-- [x] Gallery rejects mutations, performs no database writes and is absent when
-  DEBUG=False; ordinary Content pages do not load gallery fixtures.
-- [x] Untrusted strings are escaped; raw demonstration input is not silently
-  changed or falsely described as server-saved.
-- [x] Keyboard baseline has reachable controls, visible focus and associated
-  labels/errors; mobile smoke covers 360/768/1440 px.
-- [x] Existing Content metadata/content/resources retained in Django rendering;
-  published home/catalogue/lesson browser comparison passes after runtime setup.
-- [x] Canonical and task checks have actual results with limitations and evidence
-  ownership recorded; historical user confirmation and current agent reruns are separate.
-- [ ] Ruslan and Vladimir independently approve the concrete final result;
-  applicable final-SHA CI and authorized merge satisfy Section 17.
+- [x] Gallery демонстрирует переиспользуемые templates/components и tokens.
+- [x] Loading/error/empty различимы; неудачная загрузка не считается пустым успешным ответом.
+- [x] Четыре режима выбираются по объявленным metadata; неизвестные/неподдерживаемые формы
+  безопасно отклоняются без угадываемого renderer или математического verdict.
+- [x] Fixtures версионированы, имеют provenance, wire examples соответствуют R02A.
+- [x] Fixture-only маркировка всегда видна; checker/ответы/reveal secrets отсутствуют
+  в переданных artifacts и network responses.
+- [x] Gallery отклоняет mutations, не записывает в базу и отсутствует при DEBUG=False;
+  обычные Content pages не загружают fixtures галереи.
+- [x] Недоверенные strings экранируются; raw demonstration input молча не меняется
+  и ложно не называется сохранённым на сервере.
+- [x] В keyboard baseline доступны достижимые controls, видимый focus и связанные labels/errors;
+  mobile smoke охватывает 360/768/1440 px.
+- [x] В Django rendering сохраняются существующие Content metadata/content/resources;
+  browser comparison главной/каталога/урока после runtime setup прошёл.
+- [x] Канонические/task checks имеют фактические результаты с ограничениями и записанным
+  владельцем evidence; историческое подтверждение пользователя отделено от новых прогонов агента.
+- [ ] Руслан и Владимир независимо одобряют конкретный итог; применимый CI на финальном SHA
+  и разрешённый merge выполняются согласно Section 17.
 
 ## 16. Tests
 
-### Python contract / Django tests (implemented)
+### Python contract / Django tests (реализованы)
 
-- Four-mode dispatch descriptors; unknown mode, missing required schema,
-  unsupported shapes, inconsistent version aliases/identity.
-- Fixture versions/provenance and R02A schemas; deliberate invalid inputs remain
-  negative test inputs, not accepted public fixtures.
-- Loading/error/empty markup, marking, labels/errors and script asset isolation.
-- XSS escaping and secret-equivalent rejection in delivered artifacts.
-- DEBUG routing, non-GET rejection and no database writes.
-- Existing Content shell metadata, authored content and resource regressions.
+- Descriptor dispatch для четырёх режимов; неизвестный mode, обязательная schema отсутствует,
+  неподдерживаемые формы, несовпадение alias version/identity.
+- Версии/provenance fixtures и schemas R02A; намеренно неверные inputs остаются отрицательными
+  тестовыми данными, а не принятыми публичными fixtures.
+- Разметка loading/error/empty, маркировка, labels/errors и изоляция script assets.
+- XSS escaping и отклонение эквивалентов secrets в доставляемых artifacts.
+- DEBUG routing, отклонение не-GET и отсутствие записей в базу данных.
+- Regression существующих Content shell metadata, авторского content и ресурсов.
 
-### JS regression / browser smoke (implemented, using available tools)
+### JS regression / browser smoke (реализованы с доступными средствами)
 
-- `tests/test_i02_schema_dispatch.js` executes the production JS using an already
-  available runtime, no npm/dependency/CI changes: 5 tests, 138 dispatch calls.
-- Unknown strings, non-string types, required schemas and SELF_CHECK null-schema
-  invariants fail safely; valid fixtures keep their four slots.
-- Post-fix browser matrix calls `window.MathStartUI.dispatchExercise` directly:
-  40/40 cases, no exceptions/forms/generated inputs. Matrix and gallery are separate
-  observations; no full malformed-DTO audit is claimed.
+- `tests/test_i02_schema_dispatch.js` запускает production JS через уже доступный runtime,
+  без изменений npm/dependencies/CI: 5 tests, 138 вызовов dispatch.
+- Неизвестные strings, нестроковые types, обязательные schemas и инварианты SELF_CHECK
+  с null-schema безопасно отклоняются; корректные fixtures сохраняют свои четыре slots.
+- Browser matrix после исправления вызывает напрямую `window.MathStartUI.dispatchExercise`:
+  40/40 cases, без exceptions/forms/generated inputs. Matrix и gallery — отдельные наблюдения;
+  полного аудита malformed DTO не заявляется.
 
-- Runtime dispatch and loading/error/empty/retry observations.
-- Raw input preservation without normalization or false saved state.
-- Keyboard walkthrough, focus/labels/errors/live-region baseline.
-- 360/768/1440 layouts; DOM/network/console and screenshots without PII.
+- Наблюдения runtime dispatch и loading/error/empty/retry.
+- Сохранение raw input без normalization или ложного статуса сохранения.
+- Keyboard walkthrough, базовые focus/labels/errors/live-region.
+- Layouts 360/768/1440; DOM/network/console и screenshots без PII.
 
-Full Chrome/Edge/Firefox matrix is not blocking I02 acceptance. No Playwright or
-new frontend tooling is assumed. If existing tools cannot demonstrate a mandatory
-requirement, document the gap and stop dependent work for separate confirmation.
+Полная матрица Chrome/Edge/Firefox не блокирует приёмку I02. Playwright или новый frontend
+tooling не предполагаются. Если доступные средства не позволяют показать обязательное требование,
+зафиксировать пробел и приостановить зависимую работу до отдельного подтверждения.
 
-## 17. Verification matrix
+## 17. Матрица проверки
 
-Follow [the verification skill](../../skills/verification/SKILL.md). After separate
-implementation authorization, use configured Python 3.12+, the existing complete
-`requirements.lock`, `python -m pip check` and actual version reporting. Do not
-switch a failing PostgreSQL configuration to SQLite merely to obtain a pass.
+Следовать [verification skill](../../skills/verification/SKILL.md). После отдельного разрешения
+реализации использовать настроенный Python 3.12+, существующий полный `requirements.lock`,
+`python -m pip check` и фактический отчёт версий. Не переключать неисправную PostgreSQL
+configuration на SQLite только ради успешного результата.
 
 ```text
 python scripts/verify_repo.py
@@ -304,97 +307,95 @@ python -m unittest discover -s tests -p "test_i02_*.py" -v
 git diff --check
 ```
 
-The I02 command becomes meaningful only once its tests exist; also explicitly
-run `python manage.py test content.test_ui_foundation` when added. Preserve the
-existing eight canonical checks, including Django/content/migration/R03/Harness
-verification. Runtime content checks require a migrated/bootstrapped environment
-and generate reports; do not migrate/bootstrap user data during this preparation.
+Команда I02 имеет смысл только после появления её tests; дополнительно явно запускать
+`python manage.py test content.test_ui_foundation` после добавления. Сохранять восемь
+существующих канонических checks, включая Django/content/migration/R03/Harness verification.
+Runtime проверки Content требуют мигрированного/bootstrap окружения и создают отчёты;
+на этом подготовительном этапе не выполнять migrate/bootstrap над пользовательскими данными.
 
-### Historical / pre-publication environment and Content evidence
+### Историческая среда до публикации / свидетельства Content
 
-The user's manual PowerShell checks confirm the host `.venv` works: both
-`.\.venv\Scripts\python.exe --version` and `python --version` report Python
-3.14.7 with exit 0; `python -m pip check` reports `No broken requirements found`,
-and Django imports as version 5.2.16. The earlier version-command failure occurred
-on the Codex execution surface and did not establish a broken host `.venv`.
-The user's latest manual checks confirm Docker Desktop is installed, Compose is
-available and the PostgreSQL 16 container is healthy. Dependencies were synchronized
-from `requirements.lock`; psycopg 3.3.6 imports successfully and pip check passes.
-`python scripts/check_database.py` passes with `PostgreSQL connection OK;
-server_version_num=160015`; `python manage.py check` passes with
-`System check identified no issues (0 silenced)`. The basic local Python -> Django
--> PostgreSQL connection through Docker is confirmed; PostgreSQL/Docker setup is
-no longer a current blocker. These are user-reported host results, not Codex reruns.
+Ручные проверки пользователя подтвердили работу host `.venv`: команды
+`.\.venv\Scripts\python.exe --version` и `python --version` возвращают Python 3.14.7
+с exit 0; `python -m pip check` сообщает `No broken requirements found`, Django импортируется
+как версия 5.2.16. Ранняя ошибка команды version возникла в execution surface Codex
+и не доказывала неисправность host `.venv`. Последние ручные проверки пользователя подтверждают,
+что Docker Desktop установлен, Compose доступен, а контейнер PostgreSQL 16 healthy.
+Dependencies синхронизированы из `requirements.lock`; psycopg 3.3.6 импортируется успешно,
+pip check проходит. `python scripts/check_database.py` проходит с ответом
+`PostgreSQL connection OK; server_version_num=160015`; `python manage.py check` проходит с
+`System check identified no issues (0 silenced)`. Локальное соединение Python -> Django -> PostgreSQL
+через Docker подтверждено; настройка PostgreSQL/Docker больше не является текущим blocker.
+Это результаты host, сообщённые пользователем, а не повторные прогоны Codex.
 
-Implementation checks are recorded in the trace: 7 I02 Python tests, 5 no-DB Django
-tests, 30 R02A tests, system/database checks and available browser smoke pass.
-The user initialized the local runtime database with `python manage.py migrate`
-and `python manage.py bootstrap_site`, then confirmed database/system checks and
-`python scripts/verify_repo.py` -> PASS (8 checks passed). The prior empty-database
-failure is resolved; it was a runtime prerequisite, not an I02 defect. The agent
-did not migrate/bootstrap or rerun the already passing canonical/task suites in
-this follow-up; the user's shell exit code was not separately supplied.
-The agent repeated only the previously blocked Content checks: published
-home/catalogue/lesson browser smoke and read-only rendering comparison against
-the `cd10705` template pass; `/favicon.ico` returns normal HTTP 404, not 500.
-No product code changed in the follow-up. See trace Section 17 for actual results.
-Exact browser engine version is unavailable through permitted browser controls;
-full cross-browser/a11y and browser malformed-DTO matrix are not claimed.
-Tooling/CI changes are outside
-this plan and require a dedicated reviewed change before becoming project tooling.
+Проверки реализации записаны в trace: 7 I02 Python tests, 5 Django tests без DB,
+30 tests R02A, system/database checks и доступный browser smoke прошли.
+Пользователь инициализировал локальную runtime DB командами `python manage.py migrate` и
+`python manage.py bootstrap_site`, затем подтвердил database/system checks и
+`python scripts/verify_repo.py` -> PASS (пройдено 8 checks). Предыдущая ошибка из-за пустой
+базы устранена; это было runtime prerequisite, а не дефект I02. В этом follow-up агент
+не запускал migrate/bootstrap и не повторял уже успешные canonical/task suites;
+exit code shell пользователя отдельно не предоставлен.
+Агент повторил только ранее заблокированные проверки Content: browser smoke опубликованных
+главной/каталога/урока и read-only сравнение rendering с template `cd10705` прошли;
+`/favicon.ico` возвращает обычный HTTP 404, не 500. В follow-up product code не менялся.
+Фактические результаты см. в trace Section 17. Версия browser engine недоступна через
+разрешённые browser controls; полный cross-browser/a11y и browser matrix malformed DTO
+не заявляются. Изменения tooling/CI находятся вне этого плана и требуют отдельного
+проверенного изменения до включения в проектный tooling.
 
-### Current published correction evidence
+### Текущие свидетельства опубликованного исправления
 
-Trace Section 20 and `smoke.json.current` record fresh agent verification of the
-corrected working content, including production JS/browser matrix, gallery states,
-keyboard and 360/768/1440 smoke. Canonical PASS 8/8 is an actual agent rerun (exit 0),
-distinct from the historical user-confirmed run. Browser context reports Chromium/Google Chrome
-`154.0.8037.93`; full userAgent, userAgentData and high entropy values are retained.
-Earlier unavailable-version, missing-table and pre-publication evidence remains
-historical. Existing Content comparison/favicon evidence is retained with its
-original ownership; it is not relabelled as a new browser rerun.
-Correction CI run 37060459060 is SUCCESS on `e471efc0b1a6b4af9baf1401e49311a203f12450`.
-The browser rerun occurred before the correction commit on identical product bytes;
-its digest binding is verified against that commit, not represented as a new
-post-publication rerun. Document-only synchronization adds no new browser results.
-Independent approvals remain PENDING; CI/local PASS is not Task Approval.
+Trace Section 20 и `smoke.json.current` фиксируют свежую проверку агентом исправленного
+рабочего Content, включая production JS/browser matrix, состояния gallery, keyboard и smoke
+для 360/768/1440. Canonical PASS 8/8 — фактический повтор агента (exit 0), отделённый от
+исторического прогона, подтверждённого пользователем. Browser context указывает Chromium/Google
+Chrome `154.0.8037.93`; полный userAgent, userAgentData и high entropy values сохранены.
+Ранние наблюдения о недоступной версии, отсутствующих таблицах и состоянии до публикации
+остаются историческими. Сравнение существующего Content/favicon evidence сохраняет исходную
+атрибуцию и не переименовано в новый browser rerun.
+CI исправления run 37060459060 завершился SUCCESS на
+`e471efc0b1a6b4af9baf1401e49311a203f12450`. Browser rerun произошёл до commit исправления
+на тех же product bytes; его digest привязан к этому commit и не выдаётся за новый post-publication
+rerun. Синхронизация только документации не добавляет результатов browser checks.
+Независимые approvals остаются PENDING; CI/local PASS не является Task Approval.
 
-## 18. Risks
+## 18. Риски
 
-| Risk | Impact | Mitigation |
+| Риск | Влияние | Снижение риска |
 | --- | --- | --- |
-| Runtime initialization (resolved) | Empty DB previously prevented Content checks | User applied migrate/bootstrap and confirmed canonical PASS 8/8; repeated Content smoke passes; no agent DB repair. |
-| Browser evidence limitations | Single browser and focused dispatcher matrix only | Exact version/UA recorded; full cross-browser/a11y audit remains NOT RUN; independent review remains required. |
-| PDF is local, not a public GitHub asset | Another checkout needs the source | Pin exact filename/digest; source distribution is a human follow-up, not PDF publication in I02. |
-| Full upstream exchanges contain solutions | Fixture bundle could leak answers | Curate safe examples/projections; review delivered data, not just forbidden keys. |
-| Shell extraction affects legacy resources | Existing site regression | Narrow Content tests and browser smoke; scoped revert preserves authored sources. |
-| DEBUG-dependent URL configuration is cached | Disabled-gallery test could be misleading | Verify routing under separately loaded DEBUG=True/False configurations. |
-| Dispatch grows into a renderer | I04 scope would be implemented early | Keep foundation slots explicit; missing form metadata is not guessed. |
-| Browser evidence is insufficient | Mandatory baseline could remain unproven | Record actual gap; seek separate tooling confirmation before dependent work. |
+| Инициализация runtime (устранено) | Раньше пустая DB блокировала проверки Content | Пользователь выполнил migrate/bootstrap и подтвердил canonical PASS 8/8; повторный Content smoke проходит; агент не исправлял DB. |
+| Ограничения browser evidence | Только один browser и сфокусированная dispatcher matrix | Записаны точная версия/UA; полный cross-browser/a11y audit остаётся NOT RUN; требуется независимое ревью. |
+| PDF локальный, не public GitHub asset | Другому checkout нужен исходник | Закрепить точное имя/digest; распространение источника — follow-up пользователя, не публикация PDF в I02. |
+| В полных upstream exchanges есть решения | Пакет fixtures может раскрыть ответы | Отбирать безопасные примеры/проекции; проверять доставленные данные, а не только отсутствие запрещённых keys. |
+| Извлечение shell затрагивает legacy resources | Регрессия существующего сайта | Узкие Content tests и browser smoke; scoped revert сохраняет авторские sources. |
+| URL configuration с DEBUG кэшируется | Проверка выключенной gallery может быть обманчивой | Отдельно проверять routing при загруженных конфигурациях DEBUG=True/False. |
+| Dispatch разрастается до renderer | Реализация I04 начнётся раньше срока | Сохранять явные foundation slots; не угадывать недостающую metadata формы. |
+| Browser evidence недостаточно | Обязательный baseline может остаться неподтверждённым | Зафиксировать пробел; до зависимой работы отдельно подтвердить доступность tooling. |
 
 ## 19. Definition of Done
 
-Deliverables: reusable shell/components, tokens, dispatcher, safe versioned state
-fixtures, DEBUG-only gallery, tests, browser smoke and handoff documentation.
-Done requires Section 15, the verification skill and v7.1 Section 17: meaningful
-positive/negative evidence, no leaks/unrelated changes, closed blockers, independent
-Ruslan/Vladimir acceptance, applicable green final-SHA CI and authorized merge.
-No task acceptance, final SHA or G3 closure is asserted at preparation.
+Deliverables: общие shell/components, tokens, dispatcher, безопасные версионированные state
+fixtures, DEBUG-only gallery, tests, browser smoke и документация handoff.
+Готовность требует Section 15, verification skill и Section 17 v7.1: содержательных положительных/
+отрицательных свидетельств, отсутствия утечек/несвязанных изменений, закрытых blockers,
+независимого принятия Русланом/Владимиром, применимого успешного CI на финальном SHA и
+разрешённого merge. На этапе подготовки приёмка задачи, финальный SHA или закрытие G3 не заявляются.
 
-## 20. Trace / implementation links and downstream handoff
+## 20. Ссылки на trace/реализацию и downstream handoff
 
 - Issue: [#21](https://github.com/Tramsey00/MathStart-Python/issues/21).
-- Plan/trace: linked in the header; PR #22 OPEN; correction SHA/green CI pinned
-  above, documentation-only follow-up separate; Task Approvals remain PENDING.
+- Plan/trace указаны в заголовке; PR #22 OPEN; SHA исправления/успешный CI закреплены выше,
+  дополнение только к документации учитывается отдельно; Task Approvals остаются PENDING.
 - Browser evidence: [smoke record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I02-evidence/smoke.json)
-  and 360/768/1440 plus keyboard screenshots beside it. Existing app browser control
-  was used; no Node/Playwright toolchain was added to the project.
-- MS7-I03 receives accepted shell/tokens/labelled components/state conventions;
-  real auth/profile/onboarding and V02 integration remain its responsibility.
-- MS7-I04 receives accepted public descriptors/dispatcher/fixture provenance;
-  full catalogue/renderer and V04 integration remain its responsibility.
-- MS7-I08 receives gallery instructions, assets and browser evidence/limitations;
-  its frontend profile, real Harness run and independent review are separate.
+  и screenshots размеров 360/768/1440 и keyboard рядом. Использовался browser control приложения;
+  Node/Playwright toolchain в проект не добавлялся.
+- MS7-I03 получает принятые shell/tokens/labelled components/state conventions;
+  настоящие auth/profile/onboarding и интеграция V02 остаются его задачей.
+- MS7-I04 получает принятые public descriptors/dispatcher/provenance fixtures;
+  полный catalogue/renderer и интеграция V04 остаются его задачей.
+- MS7-I08 получает инструкции gallery, assets и browser evidence/ограничения;
+  его frontend profile, настоящий Harness run и независимое ревью выполняются отдельно.
 
-Handoff pins the eventual accepted artifact SHA/version and actual test evidence.
-This draft does not constitute an accepted downstream implementation handoff.
+Handoff закрепляет будущий принятый artifact SHA/version и фактические test evidence.
+Этот draft не считается принятым downstream handoff реализации.

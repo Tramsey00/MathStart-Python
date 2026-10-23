@@ -16,8 +16,7 @@ description: Выполнить MS-N019 — Golden evaluation Analyzer/Tutor и 
 ## Зависимости и обязательные источники
 
 Зависимости: MS-N018. Путь skill каждой — в едином реестре.
-Исторические IDs: MS7-R14.
-Открой от Git root: `AGENTS.md`, `ARCHITECTURE.md`, `PRODUCT.md`, `docs/specifications/technical-spec-v7.2-draft.md`, `docs/tasks/INDEX.md`, `skills/verification/SKILL.md`, `docs/target-runtime.md`.
+Открой от Git root: `AGENTS.md`, `ARCHITECTURE.md`, `PRODUCT.md`, `specs/product/learning-requirements.md`, `docs/tasks/INDEX.md`, `skills/verification/SKILL.md`, `docs/target-runtime.md`.
 Связанные domain/API/UI contracts выбирай по перечисленным ниже модулям;
 статус proposed не превращай в accepted по наличию tests.
 
@@ -56,10 +55,14 @@ disposable ресурсы по runbook; operating DB/acceptance stack не тр�
 ## Артефакты, ревью и остановка
 
 Versioned corpus/holdout digests, expected/actual metrics, review findings/corrections.
-Одна ветка от проверенного main без `codex/`; существующие ветка/PR задания
+Отдельные Issue и ветка от проверенного origin/main без `codex/`; существующие ветка/PR задания
 продолжаются. Самопроверка → PR → отдельное ревью → fixes/affected rerun →
 человеческая приёмка → решение пользователя о merge. PASS не означает ACCEPTED.
 
 Недостижение thresholds — finding/human decision, не снижение denominator. Harness12 cases/three-owner runs не восстанавливать.
 При недостающем решении записать BLOCKED_DECISION с конкретным вопросом и
 сохранить независимые подготовленные артефакты. После передачи остановиться.
+
+## GitHub и ветка
+
+Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.

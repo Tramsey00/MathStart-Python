@@ -1,212 +1,212 @@
-# ADR-XXXX: <Decision title>
+# ADR-XXXX: <Название решения>
 
-- **Status:** Proposed | Accepted | Superseded | Rejected
-- **Date:** YYYY-MM-DD
-- **Decision owners:** <names / team>
-- **Primary owner:** <owner>
-- **Related baseline:** MathStart Technical Specification v3.1
-- **Related issue/spec/plan:** <links or paths>
-- **Supersedes:** <ADR ID or none>
-- **Scope:** <affected architecture/product areas>
-
----
-
-## 1. Context
-
-Describe the concrete situation that requires an architectural decision.
-
-Include only context necessary to understand the decision.
-
-Cover, where relevant:
-
-- current implementation;
-- constraints from `PRODUCT.md`;
-- constraints from `ARCHITECTURE.md`;
-- relevant requirements from the MathStart v3.1 baseline;
-- existing technical debt;
-- operational constraints;
-- migration/data concerns;
-- agent/harness implications.
-
-Do not turn this section into a general design document.
+- **Статус:** предложено | принято | заменено | отклонено
+- **Дата:** YYYY-MM-DD
+- **Владельцы решения:** <имена / команда>
+- **Основной владелец:** <владелец>
+- **Связанная базовая версия:** техническая спецификация MathStart v3.1
+- **Связанная задача/spec/план:** <ссылки или пути>
+- **Заменяет:** <ID ADR или ничего>
+- **Область действия:** <затронутые области архитектуры/продукта>
 
 ---
 
-## 2. Decision
+## 1. Контекст
 
-State the accepted/proposed decision precisely.
+Опишите конкретную ситуацию, требующую архитектурного решения.
 
-The decision must be specific enough that a coding agent can distinguish compliant and non-compliant implementations.
+Включайте только контекст, необходимый для понимания решения.
 
-Example structure:
+При необходимости опишите:
 
-- **We will:** ...
-- **We will not:** ...
-- **Applies to:** ...
-- **Effective from:** ...
+- текущую реализацию;
+- ограничения из `PRODUCT.md`;
+- ограничения из `ARCHITECTURE.md`;
+- относящиеся к задаче требования базовой версии MathStart v3.1;
+- имеющийся технический долг;
+- эксплуатационные ограничения;
+- вопросы миграции/данных;
+- последствия для agent/harness.
 
----
-
-## 3. Rationale
-
-Explain why this option is preferred.
-
-Use concrete engineering reasons such as:
-
-- architectural consistency;
-- data ownership;
-- migration risk;
-- testability;
-- explainability;
-- security;
-- operational complexity;
-- delivery scope;
-- compatibility with the current Django codebase;
-- compatibility with the vertical-slice MVP.
-
-Do not justify a decision only with "simpler", "modern", or "best practice".
+Не превращайте этот раздел в общий документ по дизайну.
 
 ---
 
-## 4. Consequences
+## 2. Решение
 
-### 4.1. Positive consequences
+Точно сформулируйте принятое/предлагаемое решение.
 
-- ...
-- ...
-- ...
+Решение должно быть достаточно конкретным, чтобы coding agent мог отличить соответствующие требованиям реализации от несоответствующих.
 
-### 4.2. Negative consequences / trade-offs
+Пример структуры:
 
-- ...
-- ...
-- ...
-
-### 4.3. New obligations
-
-List concrete follow-up constraints introduced by the decision.
-
-Examples:
-
-- new migration rule;
-- new verification check;
-- new API boundary;
-- new test;
-- new documentation;
-- new trace requirement.
+- **Будем:** ...
+- **Не будем:** ...
+- **Применяется к:** ...
+- **Действует с:** ...
 
 ---
 
-## 5. Architecture invariants affected
+## 3. Обоснование
 
-List invariants from `ARCHITECTURE.md` that are:
+Объясните, почему выбран именно этот вариант.
 
-- preserved;
-- strengthened;
-- changed;
-- newly introduced.
+Используйте конкретные инженерные причины, например:
 
-If the ADR changes an existing invariant, explicitly name the old and new behavior.
+- согласованность архитектуры;
+- владение данными;
+- риск миграции;
+- тестируемость;
+- объяснимость;
+- безопасность;
+- эксплуатационная сложность;
+- объём поставки;
+- совместимость с текущей кодовой базой Django;
+- совместимость с MVP, реализуемым вертикальными срезами.
 
----
-
-## 6. Data / migration impact
-
-If the decision affects persistence, describe:
-
-- affected models/tables;
-- migration sequence;
-- compatibility requirements;
-- data backfill;
-- rollback/forward-fix strategy;
-- historical-evidence preservation;
-- fresh-install impact.
-
-If there is no data impact, write:
-
-`No schema or persisted-data impact.`
+Не обосновывайте решение только словами «проще», «современнее» или «лучшая практика».
 
 ---
 
-## 7. API / contract impact
+## 4. Последствия
 
-Describe any changes to:
+### 4.1. Положительные последствия
 
-- public DTOs;
-- server-only fields;
-- endpoint behavior;
-- interaction modes;
-- input schemas;
-- step schemas;
-- reveal policy;
-- error codes;
-- prompt structured output.
+- ...
+- ...
+- ...
 
-If none, write:
+### 4.2. Отрицательные последствия и компромиссы
 
-`No public or internal contract change.`
+- ...
+- ...
+- ...
+
+### 4.3. Новые обязательства
+
+Перечислите конкретные дополнительные ограничения, введённые решением.
+
+Примеры:
+
+- новое правило миграции;
+- новая проверка;
+- новая граница API;
+- новый тест;
+- новая документация;
+- новое требование к trace.
 
 ---
 
-## 8. Security / privacy impact
+## 5. Затронутые архитектурные инварианты
 
-Consider:
+Перечислите инварианты из `ARCHITECTURE.md`, которые:
 
-- auth/ownership;
-- answer-key leakage;
-- secret handling;
-- LLM data exposure;
-- logging;
-- rate limiting;
-- permissions.
+- сохраняются;
+- усиливаются;
+- изменяются;
+- вводятся впервые.
 
-If none, write:
-
-`No material security/privacy impact.`
+Если ADR меняет существующий инвариант, явно укажите старое и новое поведение.
 
 ---
 
-## 9. Alternatives considered
+## 6. Влияние на данные и миграции
 
-### Alternative A — <name>
+Если решение влияет на сохранение данных, опишите:
 
-**Decision:** Rejected | Deferred
+- затронутые модели/таблицы;
+- последовательность миграции;
+- требования совместимости;
+- заполнение данных;
+- стратегию отката/исправления вперёд;
+- сохранение исторических свидетельств;
+- влияние на чистую установку.
 
-Advantages:
+Если влияния на данные нет, напишите:
+
+`Нет влияния на schema или сохранённые данные.`
+
+---
+
+## 7. Влияние на API и контракты
+
+Опишите изменения в:
+
+- публичных DTO;
+- полях, доступных только серверу;
+- поведении endpoint;
+- режимах взаимодействия;
+- input schema;
+- step schema;
+- правилах reveal;
+- кодах ошибок;
+- структурированном выводе prompt.
+
+Если изменений нет, напишите:
+
+`Публичные или внутренние контракты не меняются.`
+
+---
+
+## 8. Влияние на безопасность и приватность
+
+Рассмотрите:
+
+- auth/владение данными;
+- утечку answer key;
+- обработку секретов;
+- раскрытие данных LLM;
+- логирование;
+- ограничение частоты запросов;
+- права доступа.
+
+Если влияния нет, напишите:
+
+`Существенного влияния на безопасность/приватность нет.`
+
+---
+
+## 9. Рассмотренные альтернативы
+
+### Альтернатива A — <название>
+
+**Решение:** отклонена | отложена
+
+Преимущества:
 
 - ...
 - ...
 
-Reasons not selected:
+Причины отказа:
 
 - ...
 - ...
 
-### Alternative B — <name>
+### Альтернатива B — <название>
 
-**Decision:** Rejected | Deferred
+**Решение:** отклонена | отложена
 
-Advantages:
+Преимущества:
 
 - ...
 - ...
 
-Reasons not selected:
+Причины отказа:
 
 - ...
 - ...
 
 ---
 
-## 10. Verification
+## 10. Проверка
 
-Describe how the repository proves that the ADR is implemented correctly.
+Опишите, как репозиторий подтверждает корректность реализации ADR.
 
-Include relevant checks from `skills/verification/SKILL.md`, the current
-MathStart verification matrix. Future checks below require configured tooling;
-do not report them as passing before implementation.
+Включите относящиеся к задаче проверки из `skills/verification/SKILL.md` и
+текущей матрицы проверок MathStart. Перечисленные ниже будущие проверки требуют
+настроенных инструментов; не отмечайте их как пройденные до реализации.
 
-Examples:
+Примеры:
 
 ```bash
 python manage.py check
@@ -214,64 +214,64 @@ python manage.py test
 python manage.py makemigrations --check --dry-run
 ```
 
-Where applicable also include:
+Если применимо, включите также:
 
 ```bash
 python manage.py check_content_quality
 python manage.py check_site_integrity
 ```
 
-And domain-specific checks such as:
+И доменные проверки, например:
 
-- knowledge graph cycle validation;
-- exercise secret-leak regression tests;
-- prompt/analyzer golden evals;
-- API contract tests;
-- architecture dependency checks;
-- fresh PostgreSQL migration/bootstrap smoke.
-
----
-
-## 11. Human gate
-
-This ADR requires explicit human review if it changes any of the following:
-
-- architecture boundary;
-- breaking DB migration;
-- interaction mode semantics;
-- public/server exercise boundary;
-- reveal policy;
-- mastery/confidence formula or thresholds;
-- taxonomy with historical meaning;
-- prompt policy affecting learning strategy;
-- security/auth/deployment;
-- external provider/dependency.
-
-**Reviewer:** <name>
-
-**Decision:** Accepted | Changes requested | Rejected | Pending
-
-**Review date:** YYYY-MM-DD
-
-**Notes:** <optional>
+- проверку графа знаний на циклы;
+- regression-тесты утечки секретов exercise;
+- golden eval prompt/analyzer;
+- тесты контракта API;
+- проверки архитектурных зависимостей;
+- smoke-проверку миграции/bootstrap на новой PostgreSQL.
 
 ---
 
-## 12. Follow-up actions
+## 11. Проверка человеком
 
-- [ ] Update `ARCHITECTURE.md` if required.
-- [ ] Update `PRODUCT.md` if product behavior changed.
-- [ ] Update affected specs.
-- [ ] Create/update execution plan if implementation is substantial.
-- [ ] Add required migrations.
-- [ ] Add/update verification checks.
-- [ ] Add/update trace summary.
-- [ ] Link issue/PR.
-- [ ] Update baseline TЗ only if the change is significant enough to require a new baseline version.
+Этот ADR требует явного ревью человеком, если он меняет что-либо из следующего:
+
+- архитектурную границу;
+- несовместимую миграцию БД;
+- семантику режимов взаимодействия;
+- границу public/server для exercise;
+- правила reveal;
+- формулу или пороги mastery/confidence;
+- taxonomy с историческим значением;
+- политику prompt, влияющую на стратегию обучения;
+- безопасность/auth/deployment;
+- внешнего провайдера/зависимость.
+
+**Рецензент:** <имя>
+
+**Решение:** принято | запрошены изменения | отклонено | ожидается
+
+**Дата ревью:** YYYY-MM-DD
+
+**Примечания:** <необязательно>
 
 ---
 
-## 13. Status history
+## 12. Дальнейшие действия
 
-- **YYYY-MM-DD — Proposed.** <summary>
-- **YYYY-MM-DD — Accepted.** <summary>
+- [ ] Обновить `ARCHITECTURE.md`, если требуется.
+- [ ] Обновить `PRODUCT.md`, если изменилось поведение продукта.
+- [ ] Обновить затронутые specs.
+- [ ] Создать/обновить план выполнения, если реализация существенна.
+- [ ] Добавить требуемые миграции.
+- [ ] Добавить/обновить проверки.
+- [ ] Добавить/обновить сводку trace.
+- [ ] Добавить ссылку на issue/PR.
+- [ ] Обновить базовое ТЗ только если изменение достаточно существенно и требует новой базовой версии.
+
+---
+
+## 13. История статусов
+
+- **YYYY-MM-DD — Предложено.** <краткое описание>
+- **YYYY-MM-DD — Принято.** <краткое описание>

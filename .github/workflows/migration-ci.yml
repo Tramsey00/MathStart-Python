@@ -71,7 +71,7 @@ jobs:
           --health-interval=2s --health-timeout=3s --health-retries=30
     env:
       MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/verify-legacy-env/bin/python
-      DJANGO_SECRET_KEY: ci-only-key-for-harness-verification
+      DJANGO_SECRET_KEY: ci-only-key-for-product-verification
       DJANGO_DEBUG: 'False'
       DJANGO_DB_BACKEND: postgresql
       DJANGO_DB_HOST: 127.0.0.1

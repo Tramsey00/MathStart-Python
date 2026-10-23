@@ -7,14 +7,16 @@ description: Выполнить staged проверки MathStart с честн�
 
 Используй текущее поручение, contracts и docs/target-runtime.md. Работай в основном
 checkout в ветке задания; актуальность main проверяется перед созданием ветки.
-Сначала affected checks, затем mandatory coherent-candidate CI gate.
+Выбери scope по [политике](../../docs/frontend/testing-policy.md): сначала affected
+checks; mandatory coherent-candidate CI gate — при интеграции/runtime/release,
+а не после каждой строки документации. Значение существующих full команд не сужать.
 
 Default: `python scripts/verify_repo.py` —15 product checks.
 Portable: `--profile pure` —5 suites; pure/--list не доказывают runtime readiness.
 Empty/skipped/flaky/missing/timeout fail. Собственный Engineering Harness удалён;
 общие routing/privacy regressions и bounded diagnostic redaction сохранены.
 
-Документы/очередь: scripts/check_workflow_docs.py; source reconciliation:
+Документы/очередь: scripts/check_workflow_docs.py; current source reconciliation:
 scripts/check_product_source.py; сохранность: scripts/check_migration_preservation.py.
 Не обновляй массово trusted hashes. Только явные пофайловые scope dispositions,
 неизменные historical receipts/approvals и source bytes в Git.

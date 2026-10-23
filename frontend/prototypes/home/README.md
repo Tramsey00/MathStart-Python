@@ -3,20 +3,23 @@
 Утверждённый Professional Theme + QraftHive. Общий UI-контракт:
 [docs/ux/shared-ui-contract.md](../../../docs/ux/shared-ui-contract.md).
 Это самостоятельный React/Vite-прототип, не основной FastAPI/React SSG runtime.
+Квадратичная страница уже собрана в React и служит эталоном. Новый перенос
+MS-T001 выполняется на HTML-уроке о линейной функции y = kx + b; подключение
+квадратичной функции к основному runtime предусмотрено в MS-T006.
 
 ## Запуск
 
 Из frontend с установленными locked dependencies:
 
 ```powershell
-node node_modules/vite/bin/vite.js --config prototypes/home/vite.config.mjs
+npm run dev:design
 ```
 
 Не запускать второй сервер на занятом 5173. npm run dev открывает другую оболочку.
 
 - Главная: http://127.0.0.1:5173/
 - Каталог: http://127.0.0.1:5173/materials.html
-- Пилот: http://127.0.0.1:5173/materials/8-algebra-32
+- React-эталон: http://127.0.0.1:5173/materials/8-algebra-32
 - Прежние /quadratic.html и длинный slug перенаправляются на новый адрес.
 
 ## Общие источники
@@ -69,9 +72,9 @@ site-shell.tsx остаётся адаптером прежней оболочк
 Тесты: home.spec.ts, landing.spec.ts, quadratic.spec.ts, lesson-accessibility.spec.ts,
 lesson-regressions.spec.ts и frontend/tests/quadratic-*. Обязательны сохранность
 материала, математика, gestures, фокус, оба theme, zoom и reduced motion.
-Финальная проверка до extraction: docs/audits/lesson-fixes-react-2026-10-23.md.
-Новые результаты extraction хранятся отдельно; прежние manifests не переписывать.
+Результаты локальных прогонов и снимки создаются в игнорируемом frontend/.cache/.
+Они временные и могут удаляться после проверки; в исходники их не добавляют.
 
 Источник темы и лицензии: [theme-baseline](../../../docs/ux/theme-baseline.md).
 Шаблон готов к последующей интеграции, но текущий prototype build не является
-production-публикацией. AGENTS/скилы и Git-операции main — следующий этап.
+production-публикацией.

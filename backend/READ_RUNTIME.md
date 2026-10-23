@@ -1,104 +1,104 @@
-# Current public and identity runtime
+# Текущий runtime публичных страниц и идентификации
 
-The normal ASGI factory composes public releases, `frontend.rendering.PublicRenderer`,
-PostgreSQL identity/session services and React account/staff forms. The explicit
-`create_public_app` test factory retains its read-only default unless an identity
-service is supplied. The ordinary publication/recovery and fresh installation paths have scoped
-real evidence on their respective SHAs. Current candidate QA uses its own CI;
-human acceptance remains a separate decision. Django probes run only from the
-[pinned oracle](../docs/legacy-oracle.md). Current setup/architecture and historical
-document mapping are in [docs/target-runtime.md](../docs/target-runtime.md).
-The synthetic commands below are QA fixtures; ordinary installation uses
+Обычная ASGI factory объединяет публичные releases, `frontend.rendering.PublicRenderer`,
+сервисы identity/session на PostgreSQL и React-формы аккаунта/staff. Явная
+тестовая factory `create_public_app` сохраняет режим только для чтения по умолчанию, если не передан сервис identity.
+Для обычных путей публикации/восстановления и свежей установки имеются ограниченные
+фактические свидетельства для соответствующих SHA. Текущий candidate проходит QA в собственной CI;
+приёмка человеком остаётся отдельным решением. Проверки Django запускаются только из
+[pinned oracle](../docs/legacy-oracle.md). Текущая конфигурация/архитектура и соответствие исторических
+документов описаны в [docs/target-runtime.md](../docs/target-runtime.md).
+Приведённые ниже синтетические команды — QA fixtures; для обычной установки используется
 [deploy/RELEASE.md](../deploy/RELEASE.md).
 
-Install `backend/infrastructure/http/requirements.lock` in the target environment.
-For tests also install `backend/tests/v04/requirements.lock`. Neither requires
-Django. The legacy golden oracle remains a separate environment.
+Установите `backend/infrastructure/http/requirements.lock` в target environment.
+Для тестов также установите `backend/tests/v04/requirements.lock`. Ни один из файлов не требует
+Django. Legacy golden oracle остаётся в отдельном окружении.
 
-Run from the primary repository root. Set these environment variables without
-printing their values:
+Запускайте из корня основного репозитория. Задайте следующие переменные окружения, не
+выводя их значения:
 
-- `MATHSTART_DATABASE_URL`: PostgreSQL/psycopg connection to a newly created empty
-  synthetic DB named `test_ms7_mig_v01_<unique suffix>`.
+- `MATHSTART_DATABASE_URL`: подключение PostgreSQL/psycopg к новой пустой
+  синтетической DB с именем `test_ms7_mig_v01_<unique suffix>`.
 - `MATHSTART_DISPOSABLE=1`.
-- `MATHSTART_HTTP_SIGNING_KEY`: disposable private signing key, retained for the
-  synthetic session lifetime; optional JSON-array `MATHSTART_HTTP_SIGNING_FALLBACK_KEYS`.
-- `MATHSTART_PUBLIC_ORIGIN`: exact HTTP origin, e.g. local port8121.
+- `MATHSTART_HTTP_SIGNING_KEY`: временный приватный signing key, сохраняемый на
+  время синтетической сессии; необязательный JSON-массив `MATHSTART_HTTP_SIGNING_FALLBACK_KEYS`.
+- `MATHSTART_PUBLIC_ORIGIN`: точный HTTP origin, например локальный port8121.
 
 ```text
 python -m backend.content.synthetic_setup prepare --disposable --runtime-root var/i02-runtime --release-id i02-public-<unique suffix> --source-sha <reviewed commit>
 ```
 
-The command checks the DB name and emptiness before reserving the accepted V01
-marker, applies unchanged Alembic fresh migrations, bootstraps twice and compares
-the preserved source edition, creates only synthetic staff/group/media/session
-fixtures, then builds immutable public inputs under `var/i02-runtime/releases/`.
-Its `prepare-result.json` contains release/input/receipt digests and paths.
-`private-staff-cookie.json` contains a synthetic opaque cookie: keep it ignored,
-do not print or attach its contents. This is a test fixture, not a login endpoint.
+Команда проверяет имя и пустоту DB до резервирования принятого маркера V01
+применяет неизменённые свежие Alembic migrations, дважды выполняет bootstrap и сравнивает
+сохранённую source edition, создаёт только синтетические fixtures staff/group/media/session
+а затем собирает неизменяемые public inputs в `var/i02-runtime/releases/`.
+Файл `prepare-result.json` содержит digests и пути release/input/receipt.
+`private-staff-cookie.json` содержит синтетическую непрозрачную cookie: оставьте файл в ignored-каталоге,
+не выводите содержимое и не прикладывайте его. Это тестовый fixture, а не endpoint входа.
 
-Build React output from those exact fresh inputs using `frontend.build_public`.
-Use the exact `MATHSTART_PUBLIC_ORIGIN`; capture the trusted output manifest digest.
-Then:
+Соберите React output из тех же свежих inputs с помощью `frontend.build_public`.
+Используйте точное значение `MATHSTART_PUBLIC_ORIGIN`; сохраните digest доверенного output manifest.
+Затем выполните:
 
 ```text
 python -m backend.content.synthetic_setup activate-initial --disposable --runtime-root var/i02-runtime --release-id <release> --receipt-digest <trusted input receipt digest> --artifact-root <new frontend output> --artifact-digest <trusted output manifest digest>
 ```
 
-This one-time synthetic setup verifies the complete input/output inventory and
-DB edition before installing the initial descriptor in one SQL transaction.
-It refuses existing publication authority. It is not publish/retry/takeover,
-does not replace an active release and is not production cutover evidence.
+Эта разовая синтетическая настройка проверяет полный перечень input/output и
+DB edition перед установкой начального descriptor в одной SQL-транзакции.
+Она отклоняет уже существующий authority публикации. Это не publish/retry/takeover,
+не заменяет активную release и не является свидетельством production cutover.
 
-For the read server set:
+Для read server задайте:
 
-- `MATHSTART_RELEASE_ROOT` to `var/i02-runtime/releases`.
-- `MATHSTART_PUBLIC_ARTIFACT_ROOT` to the frontend output root, or a parent with
+- `MATHSTART_RELEASE_ROOT` равным `var/i02-runtime/releases`.
+- `MATHSTART_PUBLIC_ARTIFACT_ROOT` равным корню frontend output или родительскому каталогу
   per-release subdirectories.
-- `MATHSTART_PUBLIC_ARTIFACT_DIGESTS` to the trusted JSON mapping from release ID
-  to output manifest SHA256.
+- `MATHSTART_PUBLIC_ARTIFACT_DIGESTS` равным доверенной JSON-карте соответствия release ID
+  и SHA256 output manifest.
 
 ```text
 python -m uvicorn backend.content.public_runtime:application --factory --host 127.0.0.1 --port 8121 --no-access-log --no-proxy-headers
 ```
 
-Public documents/API/assets pin the authoritative DB release. Explicit native
-account/staff URLs serve only the verified anonymous shell with private/no-store;
-their API reads and mutations authenticate the opaque session, expiry/revocation/
-auth-hash and current DB permissions. Mutations enforce CSRF and validators.
-Compiled UI files check the pinned committed descriptor, trusted output manifest
-and requested file hash; public content still checks the full source release.
-Direct ASGI commands disable proxy headers. The target Compose configuration
-uses two workers and trusts only its explicitly reserved edge IP; the edge
-overwrites forwarded client/protocol headers and clears alternative headers.
-Never trust arbitrary proxy peers or expose that API port directly.
-Private staff documents receive a boolean-only presentation snapshot from the
-current DB permissions. It hides unavailable actions, preserves combined User
-creation permissions and Content read-only controls; each API still authorizes
-independently. The snapshot contains no user IDs, PII or credentials and is never
-written to the public artifact. Unknown
-staff URLs remain404. Generated frontend assets must be in the trusted output
-manifest. Corrupt/missing files fail closed. There is no constant Node server.
+Публичные документы/API/assets закреплены за авторитетной DB release. Явные native
+account/staff URLs предоставляют только проверенную анонимную shell с private/no-store;
+их API-чтения и мутации проверяют opaque session, срок действия/отзыв/
+auth-hash и текущие разрешения DB. Мутации проверяют CSRF и validators.
+Скомпилированные UI-файлы проверяют закреплённый committed descriptor, доверенный output manifest
+и hash запрошенного файла; публичный контент дополнительно проверяет полный source release.
+Прямые команды ASGI отключают proxy headers. Конфигурация target Compose
+использует два worker и доверяет только зарезервированному IP edge; edge
+перезаписывает forwarded client/protocol headers и удаляет альтернативные заголовки.
+Не доверяйте произвольным proxy peers и не открывайте этот API port напрямую.
+Приватные staff-документы получают snapshot представления только с логическими значениями из
+текущих разрешений DB. Он скрывает недоступные действия, сохраняет объединённые разрешения на создание User
+и элементы управления Content только для чтения; каждый API всё равно проводит
+собственную авторизацию. Snapshot не содержит user IDs, PII или credentials и никогда не
+записывается в public artifact. Неизвестные
+staff URLs по-прежнему возвращают404. Сгенерированные assets frontend должны находиться в доверенном output
+manifest. Повреждённые/отсутствующие файлы приводят к отказу. Постоянного Node server нет.
 
-The staff publication-state observer reports the immutable active release, the
-committed DB edition and the durable pending operation, including takeover
-eligibility and recovery. Authority is sampled around the representation;
-conflicting data or corrupt artifacts fail closed. Reads never claim/renew a
-publisher lease. Unpublished pages retain their DB identities and report a
-null public page digest/path.
+Наблюдатель состояния публикации для staff сообщает о неизменяемой активной release,
+зафиксированной DB edition и долговечной ожидающей операции, включая возможность takeover
+и recovery. Authority проверяется до и после формирования представления;
+конфликтующие данные или повреждённые артефакты приводят к отказу. Чтение не захватывает и не продлевает
+lease publisher. Неопубликованные страницы сохраняют свои DB identity и возвращают
+null для digest/path публичной страницы.
 
-For browser tests set `MATHSTART_STAFF_COOKIE_FILE` to the ignored private cookie
-file. For the focused PG session tests use the same DB/signing/cookie environment:
+Для браузерных тестов укажите `MATHSTART_STAFF_COOKIE_FILE` как путь к приватному cookie
+файлу в ignored-каталоге. Для целевых PG-тестов session используйте ту же среду DB/signing/cookie:
 
 ```text
 python -m unittest backend.tests.v04.test_read_runtime -v
 ```
 
-Stop the owned Uvicorn process after checks. Retain or drop only the newly named
-reserved synthetic DB and its own var subtree according to the run ledger.
-Root portable verification/CI owns combined lifecycle and final exact-SHA runs.
+После проверок остановите принадлежащий вам процесс Uvicorn. Согласно журналу запуска сохраняйте или удаляйте только
+новую зарезервированную синтетическую DB с указанным именем и соответствующее поддерево var.
+Корневая portable verification/CI отвечает за общий lifecycle и итоговые запуски с точным SHA.
 
-Existing content inspection commands now have target adapters:
+Для существующих команд проверки контента теперь есть target adapters:
 
 ```text
 python -m backend.cli check-lesson-sources --source-root . --all
@@ -107,97 +107,96 @@ python -m backend.cli check-site-integrity --static-root static --media-root sit
 python -m backend.cli check-content-quality --origin http://127.0.0.1:8121 --report-root var/inspection-reports
 ```
 
-They use the explicitly configured target DB. Lesson verification compares all
-lesson metadata, HTML, CSS, JS and catalogue identities with the DB; `check-sources`
-alone only validates source files. Integrity checks current DB pages, redirects,
-references and registered media against the supplied storage roots. Quality
-checks actual HTTP responses and uses the preserved authoring/SVG/anchor checker;
-it refuses redirects and empty published inventories. It requires the running
-target origin; the fixture HTTP tests are command wiring evidence, not public
-rendering acceptance. Storage roots must match the actual deployment; the media
-path above is for the synthetic seed.
+Они используют явно настроенную target DB. Проверка урока сравнивает все
+метаданные урока, HTML, CSS, JS и identity каталога с DB; одна команда `check-sources`
+проверяет только исходные файлы. Integrity проверяет страницы текущей DB, redirects,
+ссылки и зарегистрированные media относительно указанных storage roots. Quality
+проверяет реальные HTTP-ответы и использует сохранённую проверку авторских материалов/SVG/anchors;
+она отклоняет redirects и пустой опубликованный перечень. Требуется запущенный
+target origin; fixture HTTP tests подтверждают связь команды, а не публичное
+принятие отрисовки. Storage roots должны соответствовать реальному deployment; путь media
+выше указан для синтетического seed.
 
-PostgreSQL inspections use a repeatable read-only transaction. Quality/integrity
-also create or replace their JSON report in the explicit report root, including
-when issues produce a nonzero exit. They do not offer a misleading dry-run flag.
-Missing tools, storage, source mismatch, non-200 HTTP and invalid HTML fail;
-unused registered media is reported without becoming a critical error, preserving
-the existing command policy. Files are confined to the configured storage roots.
-These inspection adapters do not perform publication or cutover. The separate
-`index-lessons` command writes only the explicitly selected INDEX.md output.
+Проверки PostgreSQL используют повторяемую транзакцию только для чтения. Quality/integrity
+также создают или заменяют JSON-отчёт в явном report root, в том числе
+когда найденные проблемы приводят к ненулевому коду выхода. Они не предлагают вводящий в заблуждение флаг dry-run.
+Отсутствие tools или storage, несовпадение исходников, HTTP-ответ не 200 и ошибочный HTML приводят к сбою;
+о незадействованных зарегистрированных media сообщается без критической ошибки, сохраняя
+существующую политику команд. Файлы ограничены настроенными storage roots.
+Эти адаптеры проверки не выполняют publication или cutover. Отдельная
+`index-lessons` команда записывает только явно выбранный INDEX.md output.
 
-Identity cleanup records natural session expiry as `DETACHED`, and replay-window
-expiry as `EXPIRED`, without deleting receipt identity or response. Revocation is
-terminal, including auth-hash invalidation of independent sessions. Registration
-replay accepts the existing bound owner session or the original bootstrap proof;
-after an explicit same-owner login, that original proof may rebind a detached
-receipt without issuing another session. A receipt key or owner login alone
-cannot select an anonymous scope. Old-epoch concurrent rebinds fail closed.
-Private legacy cutover import is implemented in `backend.users.cutover_cli`.
-It verifies the configured sole legacy writer's actual PostgreSQL NOLOGIN,
-absence of sessions and role members; it never changes roles or deletes old
-sessions/receipts. The operator must first drain the old runtime, revoke its
-writer's login and role memberships, and retain the original signing keyring.
-This is an explicit maintenance operation; no production cutover was performed.
+Очистка identity записывает естественное истечение session как `DETACHED`, а истечение окна replay — как
+`EXPIRED`, не удаляя identity receipt или response. Отзыв является
+окончательным, в том числе при инвалидации независимых sessions по auth-hash. Повтор регистрации
+принимается с уже привязанной session владельца или исходным доказательством bootstrap;
+после явного входа того же владельца это исходное доказательство может повторно привязать отсоединённый
+receipt без создания другой session. Одного ключа receipt или входа владельца
+недостаточно, чтобы выбрать анонимную область. Конкурентные повторные привязки старой эпохи завершаются отказом.
+Импорт приватных данных legacy при cutover реализован в `backend.users.cutover_cli`.
+Команда проверяет фактический PostgreSQL NOLOGIN единственной настроенной legacy writer role,
+отсутствие sessions и участников role; он никогда не меняет роли и не удаляет старые
+sessions/receipts. Сначала оператор должен остановить старый runtime, отозвать
+login и членство writer в ролях, а также сохраняет исходный signing keyring.
+Это явная операция обслуживания; production cutover не выполнялся.
 
-With the target database/signing/origin environment configured, set
-`MATHSTART_LEGACY_WRITER_ROLE` to that legacy role and use a new UUID:
+После настройки окружения target database/signing/origin задайте
+`MATHSTART_LEGACY_WRITER_ROLE` как эту legacy role и используйте новый UUID:
 
 ```text
 python -m backend.users.cutover_cli preview --checkpoint-id <uuid> --plan var/cutover-plan.json
 python -m backend.users.cutover_cli apply --plan var/cutover-plan.json
 ```
 
-Preview takes the exclusive identity barrier and produces private HMAC digests,
-without DB changes. Apply rechecks role provenance and the entire identity
-snapshot, preserves receipt bytes/scope/digests/results, imports owner-bound
-verified legacy session facts, detaches eligible bridges, revokes target sessions
-and stores one checkpoint atomically. Ambiguous mappings or source drift refuse
-the import. Keep the plan private. Repeating its completed apply is read-only,
-including after a target rebind; a different checkpoint refuses writes.
+Preview устанавливает эксклюзивный identity barrier и создаёт приватные HMAC digests
+без изменений DB. Apply повторно проверяет происхождение role и весь снимок
+identity, сохраняет bytes/scope/digests/results receipt, импортирует привязанные к владельцу
+проверенные факты legacy session, отсоединяет подходящие bridges, отзывает target sessions
+и атомарно сохраняет один checkpoint. При неоднозначных сопоставлениях или изменении исходных данных
+импорт отклоняется. Храните plan приватно. Повторное применение уже завершённой операции выполняется только для чтения,
+даже после повторной привязки target; другой checkpoint запрещает запись.
 
-Configure the returned checkpoint digest as `MATHSTART_IDENTITY_CUTOVER_DIGEST`
-for every target runtime, retaining `MATHSTART_LEGACY_WRITER_ROLE`. Identity,
-staff and lifecycle writes share the import barrier and check durable provenance;
-unknown checkpoints, a re-enabled writer or new role memberships return503.
-Fresh targets without legacy sessions/orphan receipts need no checkpoint.
+Настройте возвращённый checkpoint digest как `MATHSTART_IDENTITY_CUTOVER_DIGEST`
+для каждого target runtime, сохранив `MATHSTART_LEGACY_WRITER_ROLE`. Identity,
+записи staff и lifecycle используют общий import barrier и проверяют долговечное происхождение данных;
+неизвестные checkpoints, повторно включённый writer или новые членства role возвращают503.
+Для новых target без legacy sessions/осиротевших receipts checkpoint не нужен.
 
-An old `sessionid` never authenticates the target. One explicit password login
-by its exact owner may use the imported private F binding to establish a fresh
-opaque target session. Registration then replays only the original receipt
-under current S authority. Login/key alone cannot select an old bootstrap
-scope. Terminal bridges stay terminal; competing F logins from one observed
-epoch cannot establish two sessions. Original B proof recovery remains available
-under its existing password/owner/digest/retention checks. Imported detached
-bridges without a target lineage are also revoked on target password changes.
-Staff deactivation revokes the same complete owner bridge/session set before
-reactivation can occur; reactivation cannot restore a revoked capability.
-These scoped checks do not establish the full migration/cutover rehearsal.
+Старый `sessionid` никогда не аутентифицирует target. Один явный вход по паролю
+его точного владельца может использовать импортированную приватную привязку F для создания новой
+opaque target session. Затем повтор регистрации воспроизводит только исходный receipt
+под текущим authority S. Одни только login/key не могут выбрать старую область
+bootstrap. Terminal bridges остаются terminal; конкурирующие входы F из одной наблюдаемой
+эпохи не могут создать две sessions. Восстановление по исходному доказательству B остаётся доступно
+с действующими проверками password/owner/digest/retention. Импортированные отсоединённые
+bridges без линии target также отзываются при смене пароля target.
+При деактивации staff отзывается тот же полный набор owner bridge/session до того, как
+может быть выполнена повторная активация; она не восстанавливает отозванные права.
+Эти ограниченные проверки не являются полной репетицией migration/cutover.
 
-The internal `backend.content.publication.PublisherAuthority` now implements the
-PostgreSQL P1 pending slot, owner/generation lease, takeover, domain-commit fact,
-descriptor activation, reconciliation and acknowledgement. Its participant must
-provide reviewed content/artifact staging, short DB edition checks/updates and
-public probes; a fixture participant is not a production content publisher.
-Staging/probes run outside row locks. Their receipts bind operation, owner, fence,
-plan and release identity, and are accepted only under the same current lease.
-Final conditional SQL guards use DB time and roll back flushed domain changes
-on expiry. Only COMPLETE or proven FAILED_PRECOMMIT releases pending. There is
-no filesystem active pointer and no cleanup of unowned paths.
+Внутренняя `backend.content.publication.PublisherAuthority` теперь реализует
+слот PostgreSQL P1 для pending, lease владельца/поколения, takeover, факт фиксации домена,
+активацию descriptor, reconciliation и acknowledgement. Её участник должен
+предоставлять проверенную подготовку content/artifact, краткие проверки/обновления DB edition и
+public probes; fixture participant не является production content publisher.
+Staging/probes выполняются вне row locks. Их receipts связывают operation, owner, fence,
+plan и release identity и принимаются только при той же действующей lease.
+Итоговые условные SQL-проверки используют время DB и откатывают сброшенные изменения домена
+при истечении срока. Pending освобождается только в состоянии COMPLETE или после доказанного FAILED_PRECOMMIT. Нет
+активного указателя в файловой системе и очистки путей, которыми операция не владеет.
 
-`backend.content.editions` supplies exact fingerprints of the seven content
-tables and guarded prepared before/after updates, preserving IDs and timestamps.
-It rejects auth tables, primary-key changes, duplicate patches and stale rows;
-it accepts explicit proposed IDs for new content and never deletes content.
-Preparation does not consume sequences; committed inserts advance sequences
-monotonically. Aborted PostgreSQL transactions may leave ordinary sequence gaps. These internal layers are covered
-by real PostgreSQL crash/race/rollback tests. The concrete prepared content/SSG
-participant and operator CLI are now integrated. Initial synthetic activation
-remains a separate fixture. Source registration, proposed new IDs and full-site
-bootstrap use the same fenced participant. Production cutover and final
-publication acceptance remain unperformed.
+`backend.content.editions` предоставляет точные fingerprints семи таблиц контента и защищённые подготовленные обновления до/после, сохраняя IDs и timestamps.
+Он отклоняет таблицы auth, изменения primary key, повторные patches и устаревшие строки;
+принимает явно заданные предложенные IDs для нового контента и никогда не удаляет контент.
+Подготовка не расходует sequences; зафиксированные inserts монотонно продвигают sequences.
+Прерванные транзакции PostgreSQL могут оставлять обычные пропуски sequence. Эти внутренние уровни покрыты
+реальными PostgreSQL-тестами crash/race/rollback. Конкретный participant подготовки content/SSG
+и операторский CLI теперь интегрированы. Начальная синтетическая активация
+остаётся отдельным fixture. Регистрация source, новые предложенные IDs и bootstrap всего сайта
+используют того же fenced participant. Production cutover и итоговая
+приёмка публикации ещё не выполнялись.
 
-Prepare and publish sources from a reviewed Git commit:
+Подготовьте и опубликуйте исходные данные из проверенного Git commit:
 
 ```text
 python -m backend.content.publish prepare-sources --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --all --input-root var/publication-inputs --changes var/prepared-edition.json
@@ -207,49 +206,48 @@ python -m backend.content.publish publish --plan var/publication-plan.json --key
 python -m backend.content.publish status
 ```
 
-The target DB must already contain its checked schema. `prepare-sources` needs
-existing catalogue parents; it may register a matching existing topic or propose
-a new topic and publication row. Full-site catalogue/media/redirect initialization
-uses `prepare-bootstrap` below.
-Source preparation reads one repeatable snapshot and preserves PK/FK/created_at.
-Only changed rows get the captured updated_at; source ownership/digests refuse
-runtime edits. All published sources/assets must agree with the candidate.
-PostgreSQL orders a VALUES projection of the captured catalogue, retaining its
-real collation without writing rows or allocating sequences. The command creates
-immutable input files and an exclusive prepared-edition file; it does not claim
-or activate a publication. `--dry-run` performs source/selection/conflict checks
-without creating those files, claiming the gate, inserting rows or advancing
-sequences. Proposed IDs become real only during the guarded domain transaction.
-Source/path identity collisions, missing catalogue parents and runtime edits fail
-closed. Existing PKs, FKs and created_at values are retained.
+Target DB уже должна содержать проверенную schema. `prepare-sources` требует
+существующих родительских объектов каталога; команда может зарегистрировать соответствующую существующую тему или предложить
+новую тему и строку публикации. Инициализация каталога/media/redirect всего сайта
+выполняется через `prepare-bootstrap` ниже.
+Подготовка source читает единый повторяемый snapshot и сохраняет PK/FK/created_at.
+Зафиксированный updated_at получают только изменённые строки; принадлежность source и digests не позволяют
+изменять runtime-данные. Все публикуемые sources/assets должны соответствовать candidate.
+PostgreSQL упорядочивает VALUES-проекцию сохранённого каталога, сохраняя
+фактическую collation, без записи строк или выделения sequences. Команда создаёт
+неизменяемые input-файлы и эксклюзивный файл подготовленной edition; она не захватывает
+и не активирует публикацию. `--dry-run` проверяет source/selection/conflict,
+не создавая файлы, не захватывая gate, не вставляя строки и не продвигая
+sequences. Предложенные IDs становятся фактическими только в защищённой транзакции домена.
+Коллизии identity source/path, отсутствующие родительские записи каталога и изменения runtime приводят к закрытому отказу.
+Существующие PKs, FKs и значения created_at сохраняются.
 
-Build output is independently verified before `plan` writes its exclusive plan
-file. The bound edition file rejects drift between preparation and planning.
-`publish` claims the durable gate, stages in operation/owner/generation paths,
-installs only absent or byte-identical files, commits domain updates once, and
-switches the descriptor only after complete installed-byte verification. A lease
-worker uses its own sessions while staging/probing. Actual HTTP verifies current
-release identity, every public document/alias and reviewed asset, asset ETags,
-sitemap/robots, redirects and removed URLs. Failed probes retain pending recovery
-and return nonzero. No filesystem active pointer or Node serving process exists.
+Output сборки независимо проверяется до того, как `plan` запишет эксклюзивный файл plan.
+Связанный файл edition отклоняет расхождения между подготовкой и планированием.
+`publish` захватывает durable gate, выполняет staging в каталогах operation/owner/generation,
+устанавливает только отсутствующие или побайтно совпадающие файлы, один раз фиксирует обновления домена и
+переключает descriptor только после полной проверки установленных байтов. Worker lease
+использует собственные sessions при staging/probing. Фактический HTTP проверяет текущую
+release identity, каждый публичный документ/alias и проверенный asset, asset ETags,
+sitemap/robots, redirects и удалённые URL. Неудачные probes сохраняют pending recovery
+и возвращают ненулевой код. Активного указателя в файловой системе или serving process Node нет.
 
-Use per-release subdirectories in the serving frontend root. Retain the initial
-artifact under its release ID there as well; do not mix an old single-output
-manifest with the parent directory of future releases. New output pins are read
-from the matching committed/applied journal plan, including its plan digest;
-rendering a previously selected release never resolves latest again. The env pin
-map is retained for explicitly trusted older initial artifacts and may be `{}`
-when all releases use the prepared publisher.
+В каталоге serving frontend используйте отдельные подкаталоги для каждой release. Сохраняйте там же начальный
+artifact под его release ID; не помещайте старый manifest для единственного output в родительский каталог будущих releases. Новые output pins читаются
+из соответствующего зафиксированного/применённого journal plan вместе с его digest;
+отрисовка ранее выбранной release никогда не выбирает latest повторно. Env pin
+map сохраняется для явно доверенных старых начальных artifacts и может иметь значение `{}`
+если все releases используют подготовленный publisher.
 
-To unpublish an existing page, replace `--all` with `--slug <slug>` and add
-`--kind unpublish` to both `prepare-sources` and `plan`; invoke `unpublish` instead
-of `publish`. The next build excludes its HTML/catalogue/sitemap entry and leaves
-the DB row and historical releases intact. Explicit redirects keep their usual
-precedence. No cache purge success is invented; public documents revalidate at
-the Python gateway and public assets use content ETags.
+Чтобы снять с публикации существующую страницу, замените `--all` на `--slug <slug>` и добавьте
+`--kind unpublish` в команды `prepare-sources` и `plan`; вместо `publish` выполните `unpublish`.
+Следующая сборка исключит её HTML/запись каталога/sitemap и сохранит
+строку DB и исторические releases. Явные redirects сохраняют обычный
+приоритет. Успешная очистка cache не предполагается; публичные документы повторно проверяются в
+Python gateway, публичные assets используют content ETags.
 
-Recovery/control commands use the operation UUID and observed/current generation
-from `status`; all errors are sanitized and nonzero:
+Команды восстановления/управления используют operation UUID и наблюдаемое/текущее поколение
+из `status`; все ошибки очищаются, возвращается ненулевой код:
 
 ```text
 python -m backend.content.publish resume --operation-id <operation> --owner <current owner> --generation <current generation> --input-root var/publication-inputs --output-root var/publication-output/<release> --release-root var/serving/releases --artifact-root var/serving/frontend
@@ -259,16 +257,16 @@ python -m backend.content.publish surrender --operation-id <operation> --owner <
 python -m backend.content.publish abort --operation-id <operation> --owner <current owner> --generation <generation> --release-root var/serving/releases
 ```
 
-Takeover requires an expired/surrendered lease and the exact observed generation.
-After commit, recovery always moves forward and reconciles the actual descriptor;
-it never reapplies the domain patch. Before commit, abort proves the unchanged DB
-and previous release even if the candidate files are lost. Lease controls and
-terminal resume do not require candidate files. For recovery before successful
-staging, supply the original reviewed input/output handoffs instead of the
-installed roots shown above. Keep operation-owned staging paths for diagnosis;
-automatic garbage collection is not implemented and no other paths are deleted.
+Для takeover нужны истёкшая/добровольно освобождённая lease и точное наблюдавшееся поколение.
+После commit восстановление всегда продвигается вперёд и согласует фактический descriptor;
+исправление домена повторно не применяется. До commit команда abort подтверждает неизменность DB
+и предыдущей release, даже если файлы candidate потеряны. Для управления lease и
+терминального resume файлы candidate не нужны. Для восстановления до успешного
+staging передайте исходные проверенные input/output handoffs вместо показанных выше
+установленных корней. Сохраняйте staging paths, принадлежащие operation, для диагностики;
+автоматическая сборка мусора не реализована, никакие другие пути не удаляются.
 
-Full-site bootstrap and the lesson index:
+Bootstrap всего сайта и индекс уроков:
 
 ```text
 python -m backend.content.publish prepare-bootstrap --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --input-root var/publication-inputs --changes var/bootstrap-edition.json --dry-run
@@ -277,66 +275,65 @@ python -m backend.cli index-lessons --source-root . --output-root var/lesson-ind
 python -m backend.cli index-lessons --source-root . --output-root var/lesson-index
 ```
 
-Continue bootstrap with the same build, plan and publish commands, supplying
-`bootstrap-edition.json`. It prepares all public/lesson sources, catalogue, seed
-media metadata and redirects in one edition. Media bytes must match the reviewed
-manifest. Existing matches retain their IDs and timestamps; runtime edits and
-ambiguous identities refuse preparation. Only the two explicitly retired baseline
-static pages `materialy` and `pamyatki` are unpublished; their rows, content, dates
-and references remain. Auth, permission membership, profiles, receipts, login
-windows and sessions are outside the content patch. Repeat bootstrap is a pure
-zero-change proposal when sources and runtime match. The `backend.cli bootstrap
---disposable` helper is restricted to synthetic fixture setup.
+Продолжите bootstrap теми же командами build, plan и publish, передав
+`bootstrap-edition.json`. Они подготавливают все public/lesson sources, каталог, метаданные seed
+media и redirects в одной edition. Байты media должны совпадать с проверенным
+manifest. Совпадающие существующие записи сохраняют IDs и timestamps; изменения runtime и
+неоднозначные identity приводят к отказу подготовки. С публикации снимаются только две явно выведенные из эксплуатации исходные
+static pages `materialy` и `pamyatki`; их строки, контент, даты
+и ссылки сохраняются. Auth, членство в permission-группах, профили, receipts, login
+windows и sessions не входят в патч контента. Повторный bootstrap предлагает ровно
+ноль изменений, если sources и runtime совпадают. Помощник `backend.cli bootstrap
+--disposable` предназначен только для создания синтетических fixtures.
 
-The index uses PostgreSQL ordering and produces bytes matching the retained
-Django index oracle. It reads the DB and reviewed source tree, writes only
-`<output-root>/INDEX.md` atomically, and leaves an unchanged file's mtime intact.
-Dry-run creates no output directory. It performs no publication or SQL writes.
+Индекс использует порядок PostgreSQL и создаёт байты, совпадающие с сохранённым
+Django index oracle. Он читает DB и проверенное дерево source, атомарно записывает только
+`<output-root>/INDEX.md` и не меняет mtime неизменённого файла.
+Dry-run не создаёт каталог output. Публикация и SQL-записи не выполняются.
 
-The cutover writer barrier applies to publication as well as identity/staff.
-Any retained Django migration history requires the durable reviewed cutover
-checkpoint even when no legacy session or bootstrap receipt remains. The HMAC
-source snapshot includes login windows, permissions, profiles, receipts, sessions,
-admin history, content types and migration history. Unsupported or malformed
-retained password encodings block preview/apply; no reset or hash rewrite occurs.
+Writer barrier cutover применяется как к публикации, так и к identity/staff.
+При наличии истории миграций Django необходим долговечный проверенный checkpoint cutover, даже если не осталось ни одной legacy session или bootstrap receipt. В снимок источника HMAC
+входят login windows, permissions, profiles, receipts, sessions,
+история admin, content types и история миграций. Неподдерживаемые или ошибочные
+сохранённые кодировки паролей блокируют preview/apply; сброс и перезапись hash не выполняются.
 
 
-## Scoped update of installed public pages
+## Ограниченное обновление установленных публичных страниц
 
-The legacy `update_public_pages` operation maps to the ordinary publisher's
-`prepare-public-update` action. It requires the existing power-properties lesson;
-it does not install a fresh curriculum or rewrite unrelated catalogue/media rows.
-With the same target DB environment and reviewed source checkout:
+Операция legacy `update_public_pages` соответствует действию обычного publisher
+`prepare-public-update`. Она требует существующего урока о свойствах степеней;
+новая программа не устанавливается, несвязанные строки каталога/media не переписываются.
+Используя то же окружение target DB и проверенную копию исходников, выполните:
 
 ```text
 python -m backend.content.publish prepare-public-update --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --dry-run
 python -m backend.content.publish prepare-public-update --source-root . --source-sha <full reviewed SHA> --release-id <unique release> --input-root var/public-update-inputs --changes var/public-update-edition.json --backup var/public-update-before.json
 ```
 
-The selection is the four information pages (`glavnaya`, `karta-sajta`, `o-proekte`,
-`kontakty`), the installed `bazovye-svojstva-stepenej-s-naturalnym-pokazatelem`
-lesson, publication metadata, two retained retirement flags, four reviewed retired
-redirects and `uploads/2026/07/pamyatka-stepeni.pdf` metadata. Existing PKs and
-creation timestamps remain; retiring pages retain their bodies and both timestamps.
-Unrelated content rows, users, roles, profiles, receipts and sessions are not patched.
+Выборка состоит из четырёх информационных страниц (`glavnaya`, `karta-sajta`, `o-proekte`,
+`kontakty`), установленного урока `bazovye-svojstva-stepenej-s-naturalnym-pokazatelem`,
+метаданных публикации, двух сохранённых флагов вывода из эксплуатации, четырёх проверенных retired
+redirects и метаданных `uploads/2026/07/pamyatka-stepeni.pdf`. Существующие PK и
+временные метки создания сохраняются; у снятых с публикации страниц остаются их тела и обе временные метки.
+Несвязанные строки контента, users, roles, profiles, receipts и sessions не обновляются.
 
-Dry-run validates the proposed changes and PDF hash without writing files, rows
-or sequences. Normal preparation validates lesson conflicts and the complete
-published-source edition before writing an exclusive selected public-record backup
-(`public-records-before-update-v1`, no private tables), then immutable build inputs
-and the edition handoff. An occupied backup is refused; an omitted `--backup`
-defaults to `<changes stem>-before.json` beside the edition file. Destination parents
-must already exist. A later preparation/build failure can leave that public backup
-for inspection; it does not claim publication or roll SQL forward.
+Dry-run проверяет предлагаемые изменения и hash PDF без записи файлов, строк
+или sequences. Обычная подготовка проверяет конфликты уроков и полную
+опубликованную source edition перед созданием эксклюзивной резервной копии выбранных публичных записей
+(`public-records-before-update-v1`, без приватных таблиц), затем неизменяемых inputs сборки
+и передачи edition. Если backup уже занят, операция отклоняется; если `--backup` не задан,
+по умолчанию рядом с файлом edition создаётся `<changes stem>-before.json`. Родительские каталоги назначения
+уже должны существовать. Последующая ошибка подготовки/сборки может оставить эту публичную копию
+для проверки; публикация не захватывается и SQL не применяется.
 
-Build these inputs and use the same ordinary `plan` and `publish` steps above.
-Only the fenced publication participant commits the selected SQL patches and
-activates the complete matching HTML/assets/catalogue/sitemap edition. The PDF
-comes from reviewed immutable source assets. The home delivery also anchors all29
-public uploads in the reviewed media manifest, including25 no longer directly
-linked by current authored HTML/CSS. Their original URLs and exact hashes remain
-addressable, including unbound media. Only these public seed files are exported;
-mutable retained uploads are not
-silently replaced. An unrelated published page edited outside reviewed sources
-fails the complete build handoff with `SOURCE_CONFLICT`; reconcile that source
-before publication. Repeat matching dry-run proposes zero changes.
+Соберите эти inputs и выполните те же обычные шаги `plan` и `publish`, что описаны выше.
+Только fenced participant публикации фиксирует выбранные SQL patches и
+активирует полную соответствующую edition HTML/assets/catalogue/sitemap. PDF
+берётся из проверенных неизменяемых исходных assets. Поставка главной страницы также закрепляет все29
+public uploads в проверенном media manifest, включая25 файлов, на которые больше нет прямых
+ссылок в текущем авторском HTML/CSS. Их исходные URL и точные hashes остаются
+доступны, в том числе у media без привязки. Экспортируются только эти публичные seed-файлы;
+сохранённые изменяемые uploads не заменяются
+без явного указания. Если опубликованная страница, не входящая в проверенные sources, была отредактирована,
+полная передача сборки завершается с `SOURCE_CONFLICT`; перед публикацией согласуйте этот source.
+Повторный dry-run при совпадающих данных предлагает ноль изменений.

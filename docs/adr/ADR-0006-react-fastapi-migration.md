@@ -1,210 +1,233 @@
-# ADR-0006: React / FastAPI platform migration decision
+# ADR-0006: решение о миграции платформы на React / FastAPI
 
-- Status: **Accepted for merged snapshot (08.10.2026); post-merge record amendment review pending**
-- Date: 2026-10-07, Europe/Moscow
-- Owner: Руслан / Tramsey00
-- Independent R01 reviewers / approvers: Владимир / VladimirFrolov777 and Илья / 13baybars
-- Gate: three own baseline/ADR records and two independent Task Approvals verified at daf4e603; e510744 amendment confirmation reported explicitly by owner; actual merge verified
+- Статус: **принято для слитого снимка (08.10.2026); ожидается ревью поправки к записи после слияния**
+- Дата: 2026-10-07, Europe/Moscow
+- Владелец: Руслан / Tramsey00
+- Независимые рецензенты / утверждающие R01: Владимир / VladimirFrolov777 и Илья / 13baybars
+- Gate: три собственные записи baseline/ADR и два независимых утверждения задачи проверены на daf4e603; владелец явно сообщил о подтверждении поправки e510744; фактическое слияние проверено
 - Issue: [MS7-MIG-R01 #28](https://github.com/Tramsey00/MathStart-Python/issues/28)
-- Specification: [exact migration addendum v1.1](../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
-- Plan: [active R01](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-MIG-R01.md)
-- Inventory / decisions: [baseline inventory](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/inventory.md), [human acceptance](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/acceptance.md)
-- Supersession: accepted target decision replaces only ADR-0001's backend/frontend/ORM/migration platform selection for migration scope at reviewed daf4e603; snapshot branch prerequisite fulfilled; target runtime activation still requires later task/cutover gates. Preserve its history and domain/evidence invariants, ADR-0002/0003 and frozen contracts.
+- Спецификация: [точный addendum миграции v1.1](../../specs/migration/MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
+- План: [активный R01](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-MIG-R01.md)
+- Инвентаризация / решения: [инвентаризация базовой версии](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/inventory.md), [приёмка человеком](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/acceptance.md)
+- Замещение: принятое целевое решение заменяет только выбор платформы backend/frontend/ORM/migration из ADR-0001 в рамках области миграции на рассмотренном daf4e603; предварительное условие о ветке снимка выполнено; активация целевого runtime всё ещё требует последующих задач/gates cutover. Сохраните историю ADR-0001, инварианты домена/свидетельств, ADR-0002/0003 и зафиксированные контракты.
 
-## Context and authority
+## Контекст и источник полномочий
 
-The running version is Django 5.2.16 / DRF 3.18.1 with Django Templates,
-PostgreSQL and explicit SQLite compatibility. The migration addendum is a
-proposed platform replacement program, not evidence of a working target runtime.
-R01 is limited to snapshot, inventory, decisions, records and Issue registration.
-No React/FastAPI scaffold, target dependency, Alembic migration or new CI is
-introduced. ADR-0006 was unused in both local and live remote ADR listings
-(0001–0005) on 2026-10-07; merged/proposed 0004/0005 approvals are separately
-reconciled in the evidence index.
+Рабочая версия использует Django 5.2.16 / DRF 3.18.1, Django Templates,
+PostgreSQL и явно поддерживаемую совместимость с SQLite. Addendum миграции —
+предложенная программа замены платформы, а не свидетельство работающего целевого
+runtime. R01 ограничен снимком, инвентаризацией, решениями, записями и
+регистрацией Issue. Каркас React/FastAPI, целевые зависимости, миграция Alembic
+или новый CI не добавляются. На 2026-10-07 ADR-0006 отсутствовал в локальных и
+актуальных удалённых перечнях ADR (0001–0005); утверждения для слитых/предложенных
+0004/0005 отдельно согласованы в индексе свидетельств.
 
-Fresh remote main and local main equal
-`8c11edadc8debc81432d1db1145feac504f09061`. PR27 already contains the earlier
-lesson/catalogue fixes. Preserve that input rather than replay its branch.
-Source and sanitized runtime manifests show 263 topics, 97 lesson CSS and seven
-lesson JS files; source/runtime digests are distinct. Working DB has 281 pages,
-279 published and two retained retired pages; fresh source installation has
-279 pages. Thirteen structural body payloads differ only in CRLF/LF, with exact
-hashes and scope decisions recorded. Runtime is never overwritten to hide drift.
+Свежая удалённая main и локальная main совпадают и имеют SHA
+`8c11edadc8debc81432d1db1145feac504f09061`. PR27 уже включает прежние исправления
+уроков/каталога. Сохраните эти входные данные, не воспроизводя её ветку.
+Исходный и санитизированный runtime manifest показывают 263 темы, 97 CSS-файлов
+уроков и семь JS-файлов уроков; digest исходников и runtime различаются. В рабочей
+БД 281 страница, 279 опубликованных и две сохранённые снятые с публикации страницы;
+чистая установка из исходников содержит 279 страниц. У 13 структурных payload тела
+различались только окончания строк CRLF/LF; точные хеши и решения об области работ
+записаны. Runtime никогда не перезаписывается, чтобы скрыть расхождения.
 
-## Accepted decision at reviewed revision
+## Принятое решение для рассмотренной ревизии
 
-Current R01 evidence clarification (2026-10-08): the working DB counts and
-13 LF/CRLF-only variants above belong to Ruslan's original audit. Ilya's
-working DB has substantive drift in five specifically checked payloads;
-his separate disposable 8c11edad baseline has exact source/published parity.
-See the [three-source index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/ilya-20261007/README.md).
-The earlier partial D02/D03 decision is historical. Later own final baseline/ADR
-records and independent Task Approvals accept the reviewed daf4e603 revision;
-[final receipt](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
-preserves pre-merge scope/confirmation requirement; [post-merge provenance](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json) records owner-reported e510744 confirmation and actual merge. F01–F04 assigned
-to13baybars for I03/I05; no runtime/source repair occurs.
+Уточнение свидетельств R01 на текущий момент (2026-10-08): числа для рабочей БД и
+13 вариантов, различающихся только LF/CRLF, приведённые выше, взяты из исходного
+аудита Руслана. В рабочей БД Ильи есть существенные расхождения в пяти отдельно
+проверенных payload; его отдельная временная базовая версия 8c11edad точно
+соответствует опубликованным исходникам. См. [индекс трёх источников](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/ilya-20261007/README.md).
+Прежнее частичное решение D02/D03 имеет исторический характер. Более поздние
+собственные итоговые записи baseline/ADR и независимые утверждения задачи
+принимают рассмотренную ревизию daf4e603;
+[итоговая запись приёмки](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/final-human-acceptance-20261008.json)
+сохраняет требования к области работ/подтверждению до слияния; [происхождение после слияния](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R01/post-merge-provenance-20261008.json) фиксирует сообщение владельца о подтверждении e510744 и фактическое слияние. F01–F04 назначены
+13baybars для I03/I05; исправления runtime/исходников не выполняются.
 
-Retain one modular Python monolith and one primary PostgreSQL 16+ database.
-React + TypeScript provides existing UI with existing CSS/tokens, using Vite
-and React Router framework mode. FastAPI + Pydantic is the single serving
-backend after cutover, using SQLAlchemy 2, psycopg, Alembic and Uvicorn. Use
-short synchronous transactions and a Session per unit of work; do not share
-Sessions between threads/tasks. Compatible pinned locks are future V01/I01
-deliverables. No Redis, Celery, microservices, global CSS reset, new UI library,
-permanent Node SSR server or new educational domain is required by this change.
+Сохраните один модульный монолит на Python и одну основную базу PostgreSQL 16+.
+React + TypeScript обеспечивает существующий UI с существующими CSS/tokens,
+используя режим framework Vite и React Router. После cutover единственным
+обслуживающим backend будет FastAPI + Pydantic с SQLAlchemy 2, psycopg, Alembic
+и Uvicorn. Используйте короткие синхронные транзакции и отдельный Session на
+каждую единицу работы; не делите Sessions между потоками/задачами. Совместимые
+зафиксированные lock-файлы — будущий результат V01/I01. Это изменение не требует
+Redis, Celery, микросервисов, глобального CSS reset, новой UI-библиотеки,
+постоянного Node SSR-сервера или нового учебного домена.
 
-Domain boundaries remain Content (including topic mappings) → Knowledge;
-Knowledge does not depend on Content. Only Progress owns long-term projection
-changes through validated evidence. Assessment owns attempts/completion facts;
-Progress owns its mirror/replay. Four modes, typed ordered steps, stable skill
-codes, DAG edge direction, raw/normalized separation, deterministic validation,
-answer secrecy, recorded hint/reveal and full-reveal independence restrictions
-remain. Wrong final answers do not identify a misconception; unsupported input
-is not an error diagnosis. LLM schema/confidence gates and isolated provider SDKs
-remain. Content bootstrap never overwrites runtime evidence. Existing references
-do not establish Knowledge/Assessment/Progress persistence or live AI runtime.
+Границы доменов сохраняются: Content (включая отображения тем) → Knowledge;
+Knowledge не зависит от Content. Только Progress владеет изменением долгосрочной
+проекции на основании проверенных свидетельств. Assessment владеет attempts и
+фактами завершения; Progress — их зеркалом/повторным воспроизведением. Сохраняются
+четыре режима, типизированные упорядоченные шаги, стабильные коды skill,
+направление рёбер DAG, раздельное хранение исходных/нормализованных данных,
+детерминированная проверка, секретность ответа, регистрация hint/reveal и
+ограничения независимости после полного reveal. Неверный итоговый ответ не
+указывает на заблуждение; неподдерживаемый ввод не является диагностикой ошибки.
+Сохраняются schema/confidence gates LLM и изолированные SDK провайдеров.
+Bootstrap Content никогда не перезаписывает runtime-свидетельства. Существующие
+ссылки не подтверждают наличие сохранения Knowledge/Assessment/Progress или
+рабочего runtime AI.
 
-### Public HTML and publication freshness
+### Публичный HTML и актуальность публикации
 
-Generate public HTML from the complete published URL manifest, including
-metadata, canonical links, reviewed authored HTML/math/SVG and asset hashes.
-Preserve source paths, slugs, redirects, sitemap, robots and unknown/unpublished
-404 behavior; no wildcard SPA 200. Account/staff are private, with no-store and
-no personal SSG export. Node is a build/publish tool, not a required serving
-process. Lesson scripts need named mount/dispose or tested full-document
-navigation; this ADR does not implement those adapters.
+Создавайте публичный HTML по полному manifest опубликованных URL, включая
+метаданные, canonical links, проверенный авторский HTML/math/SVG и хеши assets.
+Сохраните пути исходников, slugs, redirects, sitemap, robots и поведение 404 для
+неизвестных/неопубликованных страниц; общий SPA-ответ 200 запрещён. Account/staff
+являются приватными, с no-store и без экспорта персональных данных через SSG.
+Node — инструмент сборки/публикации, а не обязательный процесс обслуживания
+запросов. Для скриптов уроков нужен именованный mount/dispose или проверенная
+навигация с полной загрузкой документа; этот ADR не реализует такие adapters.
 
-Publish/unpublish stages assets/render in an operation-specific root, records
-an operation journal, commits the DB operation and explicitly activates a
-matching release manifest. DB and files/SSG are separate resources. Failure
-must have a nonzero/safe outcome and resumable recovery; catalogue/sitemap and
-HTML must reflect the active release. V04/I02/I03 own the implementation and
-failure tests after accepted R02 contracts. If freshness cannot be proven,
-change the ADR explicitly before accepting deployment.
+Публикация/снятие с публикации подготавливает assets/render в корневом каталоге
+конкретной операции, записывает журнал операции, фиксирует операцию БД и явно
+активирует соответствующий release manifest. БД и файлы/SSG — отдельные ресурсы.
+При сбое должен быть безопасный ненулевой результат и возможность возобновить
+восстановление; каталог/sitemap и HTML должны отражать активный release.
+Реализация и тесты сбоев после принятия контрактов R02 принадлежат V04/I02/I03.
+Если актуальность доказать нельзя, явно измените ADR до приёмки развёртывания.
 
-### Authentication, security and staff scope
+### Аутентификация, безопасность и область staff
 
-Keep one HTTPS origin, opaque PostgreSQL-backed sessions, HttpOnly/Secure/
-SameSite cookies, login rotation, logout/expiry/revocation, CSRF bootstrap/header
-and Origin/Host checks. No browser JWT/localStorage credentials. Preserve
-encoded passwords and validators through a compatible independent adapter and
-synthetic vectors; the working DB has zero users, which does not waive compatibility
-tests for deployed upgrade profiles. Unsupported algorithms block cutover.
-One explicit re-login at session transition without resetting passwords is
-accepted by the three gate participants; implementation compatibility remains mandatory. Retain receipts/identities,
-uniqueness, ≥7-day replay retention and secure anonymous-scope bridge, including
-lost acknowledgement. Do not clear receipts to avoid compatibility work.
-Preserve shared worker-safe login rate and a reviewed proxy IP trust policy.
+Сохраните один origin HTTPS, непрозрачные sessions на PostgreSQL, cookies
+HttpOnly/Secure/SameSite, ротацию при login, logout/expiry/revocation,
+bootstrap/header CSRF и проверки Origin/Host. Не храните JWT/credentials в
+localStorage браузера. Сохраните совместимость хешированных passwords и
+валидаторов через независимый совместимый adapter и синтетические векторы; в
+рабочей БД нет пользователей, но это не отменяет проверки совместимости для
+deployed-профилей обновления. Неподдерживаемые алгоритмы блокируют cutover. Три
+участника gate приняли однократный явный повторный вход при смене session без
+сброса passwords; совместимость реализации всё равно обязательна. Сохраните
+receipts/identities, уникальность, хранение для повторов не менее 7 дней и
+безопасный мост анонимной области, включая потерянное подтверждение. Не удаляйте
+receipts ради уклонения от работ по совместимости. Сохраните общий безопасный для
+worker лимит входа и проверенную политику доверия к IP прокси.
 
-Keep **every operation in the admin inventory**: seven Content models remain
-view-only list/detail/search/filter; User and Group administration includes
-creation, edits, active/staff/superuser flags, password change, groups/direct
-permission assignments, group permission editing, history and guarded deletion
-including delete-selected. Existing PROTECT restrictions apply. Permission has
-no standalone registered admin CRUD; permissions are operated through User/
-Group selectors. StudentProfile/IdentityReceipt/LoginWindow are not registered.
-No operation is silently replaced by CLI or excluded because the working DB is
-empty. A deletion or privilege operation may be excluded only by an explicit
-MIG-G0 scope decision. V02/V03 own staff APIs/authorization/audit; I02/I04 own
-minimal equivalent UI. Content stays source-managed; this is not a new CMS.
+Сохраните **все операции в инвентаризации admin**: семь моделей Content остаются
+только для чтения в списке/просмотре/поиске/фильтрации; администрирование User и
+Group включает создание, изменение, флаги active/staff/superuser, смену password,
+назначение groups/прямых permission, редактирование разрешений группы, историю и
+защищённое удаление, включая delete-selected. Действуют существующие ограничения
+PROTECT. Для Permission отдельно не регистрируется CRUD в admin; разрешения
+назначаются через selectors User/Group. StudentProfile/IdentityReceipt/LoginWindow
+не регистрируются. Операции нельзя молча заменять CLI или исключать из-за пустой
+рабочей БД. Операцию удаления или изменения прав можно исключить только явным
+решением об области MIG-G0. API/authorization/audit staff принадлежат V02/V03;
+эквивалентный минимальный UI — I02/I04. Content остаётся source-managed; новая CMS
+не создаётся.
 
-Владимир owns backend security/schema/hash/session/receipt/staff authorization;
-Илья owns safe UI/forms/password cleanup and private export boundaries; Руслан
-owns contract/security audit, CI and evidence integration. A button is not
-authorization; preserve server-side role/permission checks and prevent secret
-disclosure. Production writer/credential/deployment decisions remain separate.
+Владимир отвечает за безопасность/schema/hash/session/receipt backend и
+авторизацию staff; Илья — за безопасный UI/формы, очистку password и границы
+приватного экспорта; Руслан — за аудит contract/security, CI и интеграцию
+свидетельств. Наличие кнопки не означает наличие права; сохраните проверки
+role/permission на сервере и не допускайте раскрытия секретов. Решения о
+production writer/credentials/deployment принимаются отдельно.
 
-### DDL, write ownership and SQLite
+### DDL, владение записью и SQLite
 
-Before cutover, Django migrations exclusively own current auth/content/users/
-Django tables and Django services/CLI/admin exclusively own their live writes.
-Future FastAPI shadow reads production only; all test writes use disposable data.
-Владимир alone owns the writable Alembic chain, schema mapping and reviewed
-fresh/upgrade profiles. Preserve IDs, UUIDs, PK/FK/UNIQUE/CHECK/index/sequence,
-defaults/timezones, Grade epoch and historical migrations; Django on_delete
-must not be assumed equal to SQL FK behavior. Alembic stamp is forbidden until
-schema equivalence/rehearsal and human review. Never run Django and Alembic DDL
-against the same owned tables. At domain cutover, drain writers and revoke
-legacy writes before activating target routes/CLI/admin. Archive unused history
-tables; dropping them is not required. R01 changes no schema or DDL owner in
-the running application.
+До cutover только миграции Django владеют текущими таблицами auth/content/users/
+Django, а только Django services/CLI/admin выполняют для них текущие записи.
+Будущий shadow FastAPI только читает production; все записи для тестов выполняются
+на временных данных. Только Владимир владеет изменяемой цепочкой Alembic,
+сопоставлением schema и рассмотренными профилями установки/обновления. Сохраните
+IDs, UUIDs, PK/FK/UNIQUE/CHECK/index/sequence, defaults/timezones, эпоху Grade и
+исторические миграции; нельзя считать, что Django on_delete равен поведению SQL FK.
+Alembic stamp запрещён до проверки эквивалентности schema/репетиции и ревью
+человеком. Никогда не запускайте DDL Django и Alembic для одних и тех же
+принадлежащих им таблиц. При cutover домена остановите пишущие процессы и отзовите
+право записи у legacy до активации целевых routes/CLI/admin. Неиспользуемые
+таблицы истории архивируйте; удалять их не требуется. R01 не меняет schema и не
+передаёт владение DDL в работающем приложении.
 
-**Accepted compatibility decision:** PostgreSQL is mandatory for target
-acceptance and operational use; retain opt-in SQLite compatibility for local
-non-concurrency development as §15 V01 requires, with no fallback on PG errors.
-SQLite cannot prove PostgreSQL locking/migration/auth races. This decision is accepted for the snapshot; current SQLite support remains unchanged in R01.
+**Принятое решение о совместимости:** PostgreSQL обязателен для приёмки целевой
+системы и эксплуатации; сохраните необязательную совместимость с SQLite для
+локальной разработки без конкурентных операций, как требует §15 V01, без перехода
+на SQLite при ошибках PG. SQLite не доказывает корректность блокировок PostgreSQL,
+миграций или гонок auth. Это решение принято для снимка; текущая поддержка SQLite
+не меняется в R01.
 
-### Snapshot, integration and rollback
+### Снимок, интеграция и откат
 
-Create `ms7-mig-baseline` from fresh remote main in an isolated worktree. Its
-only local intake is the unchanged recovery trace; R01 adds exact input,
-manifests, inventory, proposed ADR/plan and review records. Snapshot draft PR
-targets main. Source preservation in Git is distinct from visual/content
-approval. Independent reviews, current-head checks and accepted snapshot merge
-are required before `MIG_BASE_SHA` is assigned. Candidate SHA is tracked in PR/
-head records; **MIG_BASE_SHA = 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7** for actual resulting PR46 commit; input source remains 8c11edadc8debc81432d1db1145feac504f09061.
+Создайте `ms7-mig-baseline` от свежей удалённой main в изолированном worktree.
+Единственный локальный вход — неизменённый recovery trace; R01 добавляет точные
+входные данные, manifests, инвентаризацию, предлагаемый ADR/план и записи ревью.
+Черновой PR со снимком направляется в main. Сохранение исходников в Git не равно
+визуальной/контентной приёмке. До присвоения значения `MIG_BASE_SHA` необходимы
+независимые ревью, проверки актуального head и принятое слияние снимка. SHA
+кандидата отслеживается в записях PR/head; **MIG_BASE_SHA = 60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7** — фактический итоговый коммит PR46; исходный вход остаётся 8c11edadc8debc81432d1db1145feac504f09061.
 
-After human-accepted snapshot merge, Руслан creates `ms7-mig-react-fastapi`
-from the resulting MIG_BASE_SHA, then `ms7-mig-r01-baseline` from the accepted
-integration input. R01 documents may be prepared on the snapshot beforehand;
-that branch is not an accepted integration baseline. Feature branches, runtime
-roots, ports and DB names are reserved in the ownership map, not created by
-registration. Root docs/verify/CI owner Руслан; backend/DDL owner Владимир;
-frontend/routes/lock owner Илья. Reviewed main intake requires repeated checks.
-Task PR → integration uses Refs #Issue; Issues remain open until the accepted
-final integration → main workflow. Never self-merge or force-push.
+После принятого человеком слияния снимка Руслан создаёт `ms7-mig-react-fastapi`
+от результирующего MIG_BASE_SHA, затем `ms7-mig-r01-baseline` от принятого входа
+интеграции. Документы R01 можно подготовить в ветке снимка заранее; эта ветка не
+является принятой базой интеграции. Ветки функций, runtime roots, порты и имена
+БД резервируются в карте владения, а не при регистрации. Владелец корневых
+документов/verify/CI — Руслан; backend/DDL — Владимир; frontend/routes/lock — Илья.
+Проверенный intake из main требует повторных проверок. PR задачи → интеграция
+ссылается на Issue через Refs; Issues остаются открытыми до принятого процесса
+итоговая интеграция → main. Не выполняйте self-merge или force-push.
 
-R01 rollback closes/abandons the proposed docs/snapshot without changing the
-original checkout or DB. Future cutover rollback needs compatible app/assets,
-DB/media backup, writer switch, receipt/session reconciliation and measured
-restore. After target writes, prefer forward repair when legacy cannot safely
-read them; do not promise a destructive DB restore without reconciliation and
-human decision. Public deployment requires a separate explicit approval and
-accepted runbook; host is unresolved, proposed staging-only delivery boundary
-must be accepted separately.
+Откат R01 закрывает/оставляет предложенными документы/снимок без изменения
+исходного checkout или БД. Для отката будущего cutover нужны совместимые
+приложение/assets, резервная копия БД/media, переключение writer, согласование
+receipt/session и проверенное восстановление. После записей целевой системы
+предпочитайте исправление вперёд, если legacy не может безопасно их прочитать;
+не обещайте разрушительное восстановление БД без согласования и решения человека.
+Публичное развёртывание требует отдельного явного утверждения и принятого
+runbook; host не определён, предложенную границу поставки только на staging нужно
+утвердить отдельно.
 
-## Alternatives and consequences
+## Альтернативы и последствия
 
-Keeping the accepted Django platform avoids this migration effort but does
-not implement the requested migration addendum. A dual live writer platform
-risks duplicate evidence and competing DDL and is rejected. A compulsory SSR
-service or CMS broadens operational/UI scope and is rejected by the addendum.
-The proposed port preserves current behavior and modular ownership at the cost
-of verified content/admin/auth/publication adapters, cutover rehearsal and new
-target evidence. A successful build alone will not establish parity.
+Сохранение принятой платформы Django позволяет избежать этой работы по миграции,
+но не реализует запрошенный addendum миграции. Две одновременно пишущие платформы
+создают риск дублирования свидетельств и конкурирующего DDL, поэтому такой подход
+отклонён. Обязательный SSR-сервис или CMS расширили бы эксплуатационную/UI-область
+и отклонены addendum. Предлагаемый перенос сохраняет текущее поведение и модульное
+владение ценой проверенных adapters для content/admin/auth/publication, репетиции
+cutover и новых свидетельств для целевой системы. Один лишь успешный build не
+подтверждает эквивалентность.
 
-## Verification, human gate and status history
+## Проверка, этап участия человека и история статусов
 
-R01 runs the unchanged Django baseline on disposable PostgreSQL, fresh migrate/
-bootstrap/static smoke, pure/Harness/UI suites, source/frozen hashes, route/admin/
-schema inventory, links, delta/secrets review and current snapshot PR CI. See
-the [trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R01.md) for commands and results. Future
-target tests belong to their registered tasks. No historical proof is rewritten.
+R01 запускает неизменённую базовую версию Django на временной PostgreSQL,
+smoke-проверки свежей миграции/bootstrap/static, наборы pure/Harness/UI, проверку
+хешей исходников/зафиксированных файлов, инвентаризацию route/admin/schema,
+ссылок, diff/секретов и текущий CI PR со снимком. Команды и результаты см. в
+[отчёте о ходе работ](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R01.md).
+Будущие тесты целевой системы относятся к зарегистрированным задачам. Исторические
+подтверждения не переписываются.
 
-MIG-G0 requires separate records by Руслан, Владимир and Илья for exact
-baseline and this ADR. R01 needs independent Владимир and Илья Task Approval.
-R02A/R03A independent contract acceptance reconciliation verified on 07.10.2026; D08 CLOSED with live URLs in current R01 evidence. Original snapshots stay intact. Grades historical approvals also have live URLs. The request to execute R01 is not approval by others.
+Для MIG-G0 нужны отдельные записи Руслана, Владимира и Ильи по точной базовой
+версии и этому ADR. Для R01 требуются независимые утверждения задачи Владимиром и
+Ильёй. Согласование независимой приёмки контрактов R02A/R03A проверено
+07.10.2026; D08 CLOSED с действующими URL в текущих свидетельствах R01.
+Исходные снимки сохранены. Для исторических утверждений по классам также имеются
+действующие URL. Запрос выполнить R01 не является утверждением от других участников.
 
-- 2026-10-07: Proposed. No platform supersession, migration implementation,
-  accepted MIG_BASE_SHA, production cutover or completed gate is claimed.
+- 2026-10-07: Предложено. Замещение платформы, реализация миграции,
+  принятый MIG_BASE_SHA, production cutover или завершение gate не заявляются.
 
 
-- 2026-10-08: three live own baseline/ADR records and independent Ilya/Vladimir
-  Task Approvals verified at daf4e6038761f8d1bf1c60f0976473d987cce230.
-  Decision Accepted in participant scopes. Owner reports Vladimir D09 agreement;
-  no separate D09 comment invented. This documentation reconciliation commit
-  requires reviewers' confirmation at its new exact HEAD. No accepted resulting
-  MIG_BASE_SHA, target runtime, authorized merge or production deployment claimed.
+- 2026-10-08: три актуальные собственные записи baseline/ADR и независимые
+  утверждения задачи Ильёй/Владимиром проверены на daf4e6038761f8d1bf1c60f0976473d987cce230.
+  Решение принято в пределах полномочий участников. Владелец сообщил о согласии
+  Владимира по D09; отдельный комментарий D09 не выдумывается. Этот коммит
+  согласования документации требует подтверждения рецензентов на новом точном HEAD.
+  Принятый результирующий MIG_BASE_SHA, целевой runtime, разрешённое слияние или
+  production-развёртывание не заявляются.
 
-## Post-merge status — 08.10.2026 Europe/Moscow
+## Статус после слияния — 08.10.2026 Europe/Moscow
 
-PR46 actual resulting commit `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` is MIG_BASE_SHA.
-Original own approvals remain daf4e603; owner directly reports Ilya/Vladimir
-e510744 amendment confirmation in their chat, not a public review fabrication.
-Both PR-head and resulting-main CI SUCCESS; trees equal. MIG-G0 accepted for
-the snapshot. Integration created exactly from resulting SHA. New R01 records
-task PR requires review/intake; no approval transfer to its containing HEAD.
-One re-login, SQLite compatibility, complete staff scope and staging/disposable
-boundary are accepted decisions; their target implementation remains future.
-Production deployment and optional Vladimir independent F04 review require
-separate agreements. Historical status entries above remain chronology.
+Фактический итоговый коммит PR46 `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7` — это MIG_BASE_SHA.
+Изначальные собственные утверждения по-прежнему относятся к daf4e603; владелец
+напрямую сообщил в чате о подтверждении поправки e510744 Ильёй/Владимиром; публичное
+ревью задним числом не выдумывается. CI для head PR и результирующей main завершились
+SUCCESS; деревья совпадают. MIG-G0 принят для снимка. Интеграция создана точно от
+итогового SHA. Для новых записей R01 требуется ревью/intake PR задачи; утверждения
+не переносятся на содержащий их HEAD. Повторный login, совместимость SQLite,
+полная область staff и граница staging/disposable являются принятыми решениями;
+их реализация в целевой системе относится к будущим задачам. Production deployment
+и необязательное независимое ревью F04 Владимиром требуют отдельных соглашений.
+Вышеприведённые записи статусов остаются хронологией.

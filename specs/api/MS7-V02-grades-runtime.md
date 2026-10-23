@@ -1,74 +1,74 @@
-# MS7-V02 follow-up: Grade catalogue runtime mapping (Issue 23)
+# Дополнение MS7-V02: mapping runtime каталога Grade (Issue 23)
 
-- **Status:** Implemented; review and acceptance pending
-- **Owner:** Владимир
+- **Статус:** Реализовано; ожидается ревью и приёмка
+- **Владелец:** Владимир
 - **Reviewer / Task Approver:** Руслан
-- **Consumer:** Илья, MS7-I03
-- **Date:** 2026-10-04
+- **Потребитель:** Илья, MS7-I03
+- **Дата:** 2026-10-04
 - **Issue:** https://github.com/Tramsey00/MathStart-Python/issues/23
-- **Plan:** [grades API plan](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-V02-grades-api.md)
+- **План:** [план API grades](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-V02-grades-api.md)
 
-## Authority and scope
+## Полномочия и область действия
 
-This document records a legacy-model adapter for the already accepted R02A
-`GET /api/v1/grades/`; it does not replace OpenAPI, DTO schemas or HTTP policy.
-Those frozen files and their manifest digests remain unchanged. Content owns
-the catalogue and DTO adapter. Shared HTTP helpers live in infrastructure;
-Content has no Users business dependency. Existing V02 imports and identity
-response bytes are preserved through compatibility exports.
+Документ описывает adapter legacy model для уже принятого R02A
+`GET /api/v1/grades/`; он не заменяет OpenAPI, схемы DTO или HTTP policy.
+Эти замороженные файлы и их manifest digests не меняются. Каталог и DTO adapter
+принадлежат Content. Общие HTTP helpers находятся в infrastructure;
+у Content нет business-зависимости от Users. Существующие V02 imports и байты
+identity responses сохраняются через compatibility exports.
 
-## Persistence and DTO mapping
+## Persistence и mapping DTO
 
-| Wire field | Existing model source | Rule |
+| Поле wire-протокола | Источник в существующей model | Правило |
 | --- | --- | --- |
-| `id` | `Grade.pk` | Real database ID; do not substitute the class number. |
-| `number` | `Grade.slug` | Canonical `<number>-klass`, integer 1..12. Repository catalogue uses this convention. |
-| `title` | `Grade.title` | Existing nonempty title, serialized as UTF-8. |
+| `id` | `Grade.pk` | Настоящий database ID; не подменять номером класса. |
+| `number` | `Grade.slug` | Канонический `<number>-klass`, целое 1..12. Каталог repository использует это соглашение. |
+| `title` | `Grade.title` | Существующий непустой title, сериализованный как UTF-8. |
 
-Display `order` and PK allocation do not define the semantic school year. Slug,
-description, display order and timestamp are not public DTO fields. A row with
-an unsupported slug or empty title fails safely with the contract 503 envelope;
-the service does not skip it or fabricate a number. Administrators must keep
-catalogue slugs canonical. This task does not rewrite catalogue data or bootstrap.
+Display `order` и выделение PK не определяют смысловой номер учебного года. Slug,
+description, display order и timestamp не являются полями публичного DTO. Строка
+с неподдерживаемым slug или пустым title безопасно завершает запрос ответом 503 по контракту;
+service не пропускает её и не выдумывает номер. Администраторы должны сохранять канонические
+catalogue slugs. Эта задача не меняет данные каталога и не выполняет bootstrap.
 
-The user explicitly agreed on 2026-10-04 to add `Grade.created_at` after discovery
-that R02A ordering cannot be implemented faithfully from the old schema. The
-additive `0002_grade_created_at` migration preserves all existing IDs, fields and
-references. Legacy rows receive the same UTC tracking epoch `2026-10-04T00:00:00Z`:
-their original creation timestamps were not recorded. Their relative order uses
-the existing ID tie-breaker. New rows use Django `auto_now_add`; normal edits and
-repeated bootstrap retain this timestamp. Do not interpret the legacy epoch as
-a recovered historical creation time. Review the migration before merge;
-prefer forward fixes over reversing a populated timestamp column.
+Пользователь явно согласился 2026-10-04 добавить `Grade.created_at` после обнаружения,
+что порядок R02A нельзя точно реализовать на старой schema. Additive migration
+`0002_grade_created_at` сохраняет все существующие IDs, поля и ссылки. Старые строки
+получают общий UTC tracking epoch `2026-10-04T00:00:00Z`: исходное время создания не записывалось.
+Для их относительного порядка используется существующая развязка по ID. Новые строки используют
+Django `auto_now_add`; обычное редактирование и повторный bootstrap сохраняют timestamp.
+Не интерпретировать legacy epoch как восстановленное историческое время создания.
+Перед merge проверить migration; для заполненного timestamp column предпочтительны исправления вперёд,
+а не откат.
 
-## Pagination and errors
+## Pagination и ошибки
 
-Ascending `(created_at,id)` keyset pagination, default `page_size=20`, maximum
-100, one bounded query fetching at most `page_size+1` rows. No offset pagination.
-The signed opaque cursor binds the public route, protocol salt, position and
-page size. This anonymous catalogue has no private owner or filters. Supply the
-same `page_size` when continuing a page. Mutable title/order do not move rows;
-deletion of a delivered row does not shift the next page. New later rows can
-appear on later pages; this is not a snapshot of the catalogue.
+Keyset pagination по возрастанию `(created_at,id)`, default `page_size=20`, максимум 100;
+один ограниченный запрос получает не более `page_size+1` строк. Offset pagination нет.
+Подписанный непрозрачный cursor связывает public route, protocol salt, позицию и page size.
+У анонимного каталога нет private owner или filters. При переходе к следующей странице передавать
+тот же `page_size`. Изменение title/order не перемещает строки; удаление уже показанной строки
+не сдвигает следующую страницу. Новые более поздние строки могут появиться на последующих страницах;
+это не snapshot каталога.
 
-Only `cursor` and `page_size` are supported. Repeated/unknown parameters, invalid
-sizes, malformed/oversized/tampered/cross-route cursors and page-size changes
-return safe R02A `400 INVALID_REQUEST`. Database failure or an unmappable row
-returns `503 SERVICE_UNAVAILABLE` with `retryable=true`, without raw row/SQL
-details. Anonymous and signed-in readers share the public catalogue cursor scope.
+Поддерживаются только `cursor` и `page_size`. Повторные/неизвестные parameters, неверный размер,
+некорректный/слишком большой/подделанный/cross-route cursor и смена page-size возвращают
+безопасный R02A `400 INVALID_REQUEST`. Ошибка базы или строка без mapping возвращает
+`503 SERVICE_UNAVAILABLE` с `retryable=true`, без сведений о строке/SQL. Анонимные и вошедшие
+пользователи используют общий public catalogue cursor scope.
 
-The endpoint supports GET only. It creates no authentication session, profile,
-onboarding state, receipt, attempt or evidence. `GradeListResponse` contains
-`data`, `meta.request_id`, `meta.version=http-v1` and mandatory pagination with
-`next_cursor`, `page_size`, `has_more`.
+Endpoint поддерживает только GET. Он не создаёт authentication session, profile,
+onboarding state, receipt, attempt или evidence. `GradeListResponse` содержит `data`,
+`meta.request_id`, `meta.version=http-v1` и обязательную pagination с `next_cursor`,
+`page_size`, `has_more`.
 
-## I03 handoff
+## Передача I03
 
-Fetch `/api/v1/grades/`, show `title`, retain each returned `id` as the option's
-value and pass it as `selected_grade_id` to the existing profile/onboarding API.
-Continue pages using `meta.pagination.next_cursor` until `has_more=false`.
+Загрузить `/api/v1/grades/`, показывать `title`, сохранять каждый полученный `id` как value
+варианта и передавать его как `selected_grade_id` существующему profile/onboarding API.
+Продолжать загрузку страниц через `meta.pagination.next_cursor`, пока `has_more=false`.
 
-Synthetic example (IDs vary per database):
+Синтетический пример (IDs зависят от базы данных):
 
 ```json
 {
@@ -81,15 +81,15 @@ Synthetic example (IDs vary per database):
 }
 ```
 
-The integration test deliberately uses `id=70` for class 5, retrieves it through
-the API and submits it successfully with START_ZERO, DIAGNOSTIC and SELF_REPORT
-through V02 with real CSRF checks. Numeric knowledge initialization is unchanged.
+Интеграционный тест намеренно использует `id=70` для 5-го класса, получает его через API
+и успешно отправляет с START_ZERO, DIAGNOSTIC и SELF_REPORT через V02, включая настоящие CSRF checks.
+Числовая инициализация знания не меняется.
 
-## Verification and acceptance
+## Проверка и приёмка
 
-Tests cover DTOs, anonymous/empty reads, bounded pagination, equal timestamps,
-edits/deletion/new rows, signed query binding, safe errors, no writes and V02
-integration. Upgrade verification preserves Grade/Subject/User/StudentProfile
-values and references. Bootstrap regression checks timestamp stability. Actual
-commands/results and interpreter/database versions belong in the task trace.
-Руслан review, merge and I03 handoff remain required before Issue closure.
+Тесты охватывают DTOs, анонимное/пустое чтение, ограниченную pagination, одинаковые timestamps,
+редактирование/удаление/новые строки, подпись query, безопасные ошибки, отсутствие writes и
+интеграцию V02. Проверка upgrade сохраняет значения и ссылки Grade/Subject/User/StudentProfile.
+Bootstrap regression проверяет стабильность timestamp. Фактические команды/результаты и версии
+интерпретатора/базы указываются в task trace. До закрытия Issue необходимы ревью Руслана, merge
+и передача результата I03.

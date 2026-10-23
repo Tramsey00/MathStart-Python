@@ -1,14 +1,14 @@
-# Password compatibility dependencies and data
+# Зависимости и данные для совместимости паролей
 
-The common-passwords.txt.gz data is copied byte-for-byte from Django5.2.16's
-django/contrib/auth/common-passwords.txt.gz to preserve the accepted validation
-list. Django is copyright Django Software Foundation and individual contributors,
-licensed under the BSD3-clause license. The list is the lowercased/deduplicated
-Royce Williams20,000-common-password dataset, as attributed by Django.
-The exact upstream Django license is retained in DJANGO-LICENSE.txt.
-No Django runtime code is imported by the target password service.
+Данные common-passwords.txt.gz скопированы побайтно из Django5.2.16's
+django/contrib/auth/common-passwords.txt.gz, чтобы сохранить принятый список проверки.
+Авторские права на Django принадлежат Django Software Foundation и отдельным участникам;
+лицензия — BSD3-clause. Список представляет собой приведённый к нижнему регистру список без дубликатов
+из набора Royce Williams20,000-common-password, как указано Django.
+Точный текст исходной лицензии Django сохранён в DJANGO-LICENSE.txt.
+Сервис проверки паролей target не импортирует runtime-код Django.
 
-argon2-cffi25.1.0 and argon2-cffi-bindings25.1.0 are MIT licensed; bcrypt4.3.0 is
-Apache2.0 licensed. They are pinned only to verify existing accepted hash formats,
-with cffi2.0.0(MIT) and pycparser2.23(BSD3-clause) as required dependencies.
-New passwords retain the accepted PBKDF2-SHA256 format and1,000,000 iterations.
+argon2-cffi25.1.0 и argon2-cffi-bindings25.1.0 распространяются по MIT; bcrypt4.3.0 —
+по Apache2.0. Они закреплены только для проверки уже существующих принятых форматов hash;
+обязательные зависимости: cffi2.0.0(MIT) и pycparser2.23(BSD3-clause).
+Для новых паролей сохраняется принятый формат PBKDF2-SHA256 и1,000,000 итераций.

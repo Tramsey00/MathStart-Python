@@ -1,100 +1,100 @@
-# V02 read adapters
+# V02 адаптеры чтения
 
-This is a shadow-read application, with no domain mutations or DDL at startup.
-Historical frozen OpenAPI/DTOs are authoritative. Generated FastAPI docs are disabled.
-Factory `create_app(engine, signer, ...)` creates one V01 UoW per operation.
-PG transactions explicitly READ ONLY; no autoflush/commit/row locks for reads.
+Это приложение теневого чтения: при запуске оно не изменяет доменные данные и не выполняет DDL.
+Авторитетны замороженные исторические OpenAPI/DTO. Сгенерированная документация FastAPI отключена.
+Factory `create_app(engine, signer, ...)` создаёт один V01 UoW для каждой операции.
+Транзакции PG явно READ ONLY; чтение не выполняет autoflush/commit/row locks.
 
-Install in an isolated Python3.12+ venv:
+Установите в изолированное окружение venv на Python3.12+:
 
 ```text
 python -m pip install --no-deps -r backend/infrastructure/http/requirements.lock
 python -m pip check
 ```
 
-`python -m backend.infrastructure.http.runtime` requires explicit
+`python -m backend.infrastructure.http.runtime` требует явных
 MATHSTART_DATABASE_URL (postgresql+psycopg), MATHSTART_HTTP_SIGNING_KEY,
 MATHSTART_PUBLIC_ORIGIN; optional MATHSTART_HTTP_SIGNING_FALLBACK_KEYS JSON list,
-MATHSTART_RELEASE_ROOT. Do not inherit a working .env or use production data for
-tests. Bind localhost8202; access logging disabled. SQLite is only the V01 explicit
-compatibility choice, with no fallback from PostgreSQL failures.
-No secrets have defaults. Use the retained legacy signing verifier keyring at cutover.
-Anonymous grades preserve Django JSONSerializer/TimestampSigner (including compressed
-old tokens), salt, route/size/position scope and lack of max_age. Never expire an old
-cursor by inventing a new policy. Staff cursors reuse this verified cryptographic
-implementation with a separate domain salt and bind DB-derived actor permission revision.
+MATHSTART_RELEASE_ROOT. Не наследуйте рабочий .env и не используйте production-данные для
+тестов. Привяжите сервис к localhost8202; журналирование запросов отключено. SQLite — только явный V01
+вариант совместимости; при ошибках PostgreSQL переключения на него нет.
+Для secrets нет значений по умолчанию. При cutover используйте сохранённый keyring legacy-проверки подписи.
+Анонимные grades сохраняют Django JSONSerializer/TimestampSigner (в том числе сжатые
+старые токены), salt, область route/size/position и отсутствие max_age. Не назначайте старому
+cursor срок действия в рамках новой политики. Staff cursors повторно используют эту проверенную криптографическую
+реализацию с отдельным domain salt и связывают revision разрешений actor, полученную из DB.
 
-V03 `authenticate(request)` returns AuthenticatedIdentity only after server session
-verification; default None denies. V02 rereads flags and direct/group permissions.
-Client role headers, cookies or user IDs are never converted into identity here.
-`csrf_check` is a trusted V03/gateway proof port; absent proof denies unsafe resolved
-public views. Normal startup supplies neither identity nor CSRF proof. Session/hash/
-rotation/revocation/Origin/Host acceptance remains V03/V05.
+V03 `authenticate(request)` возвращает AuthenticatedIdentity только после проверки server session
+; значение по умолчанию None означает отказ. V02 повторно считывает flags и прямые/групповые разрешения.
+Заголовки client role, cookies и user IDs здесь никогда не преобразуются в identity.
+`csrf_check` — доверенный порт подтверждения от V03/gateway; при отсутствии подтверждения небезопасные разрешённые
+public views отклоняются. Обычный запуск не передаёт ни identity, ни подтверждение CSRF. Проверки Session/hash/
+rotation/revocation/Origin/Host остаются в ведении V03/V05.
 
-V04 writes immutable <release-root>/<release_id>/index.json, pages/<id>.json and
-allowlisted assets plus PostgreSQL descriptor/journal. V02 validates the closed
-index/page schemas, cross-references, exact index/body/assets hashes and root bounds.
-Reviewed immutable publisher storage is trusted; V02 does not promote arbitrary
-filesystem files to reviewed artifacts. Public source_digest provenance is preserved,
-not falsely compared to a different checkout edition. Integrity of all page metadata
-and original source artifacts must be established by V04's full staged hash inventory.
-Missing/inconsistent active snapshot returns503; no latest-DB fallback. Retained
-immutable routes require a committed APPLIED journal, never directory enumeration.
+V04 записывает неизменяемые <release-root>/<release_id>/index.json, pages/<id>.json и
+разрешённые assets, а также descriptor/journal PostgreSQL. V02 проверяет закрытые
+схемы index/page, перекрёстные ссылки, точные hashes index/body/assets и границы root.
+Проверенное неизменяемое хранилище publisher считается доверенным; V02 не превращает произвольные
+файлы файловой системы в проверенные артефакты. Происхождение public source_digest сохраняется,
+и не сравнивается ошибочно с другой редакцией checkout. Целостность всех метаданных страниц
+и исходных source artifacts должна быть подтверждена полной инвентаризацией staged hashes в V04.
+При отсутствии/несогласованности активного snapshot возвращается503; fallback к latest DB отсутствует. Сохраняемые
+неизменяемые routes требуют зафиксированный журнал APPLIED; перечисление каталогов не используется.
 
-I02/V05 `render_page(page, context, canonical_url)` supplies reviewed HTML;
-default absent returns503. V02 does not create React/SSG output. Catalogue consumes
-already PostgreSQL-ordered topics, last query values and Python strip/casefold.
-The internal context contains `pinned_release: {release_id, manifest_digest}` for
-every public HTML page. Only karta-sajta also receives `catalogue_full`, the complete
-PublicCatalogue `{grades, subjects, sections, topics}`, alongside all seven existing
-filtered catalogue fields. Grade/subject choices retain their existing semantics;
-the full reference arrays do not replace them or the filtered topics/count.
-`Release.renderer_context(page, params)` uses the already selected Release; it
-performs no database lookup or second active-descriptor resolution. The complete
-context is deep-copied, including nested filtered rows. The page passed to the
-renderer is also deep-copied, including nested dictionaries and lists, so renderer
-mutations or failures cannot change validated Release pages or index. Both copies
-come from the same selected release. It is an internal Python handoff, not a new JSON DTO,
-endpoint, public schema field or renderer implementation. Canonical calculation
-remains trusted origin plus page canonical_path, without query parameters.
-IDs in page/context remain exact Python `int` values under the existing positive
-int64 R02 contract; no string/float conversion is performed. An I02 bridge to Node
-or browser JavaScript must agree a lossless consumer-boundary representation or
-parser before consuming IDs above `2**53 - 1`. Ordinary JSON.parse/Number cannot
-preserve all such integers. This handoff does not authorize changing public R02
-DTOs or introducing a JavaScript conversion; consumer-boundary agreement remains
-with Ilya/Ruslan. Runtime release identity is separate from the source Git SHA.
-Direct public routes pin one active release; redirects only after actual404.
-HEAD is empty, arbitrary public verbs retain CSRF precedence, and Grades is GET only.
-If HOME exists, its exact `/<actual-home-slug>/` alias200 with matching page_id and
-canonical `/` is mandatory. Missing or invalid alias makes the release unavailable503;
-there is no redirect or previous/latest-edition fallback. A release without HOME
-does not require that alias. Additional HOME aliases remain disallowed; retained
-redirect entries keep their separate fallback semantics.
-Only the existing slashless Grades path has explicit301. Other unsupported API paths
-return404, method errors400, Content writes403 after staff authorization.
+I02/V05 `render_page(page, context, canonical_url)` предоставляет проверенный HTML;
+при отсутствии реализации по умолчанию возвращается503. V02 не создаёт вывод React/SSG. Каталог использует
+темы, уже упорядоченные PostgreSQL, последние значения query и Python strip/casefold.
+Внутренний context содержит `pinned_release: {release_id, manifest_digest}` для
+каждой public HTML-страницы. Только karta-sajta также получает `catalogue_full` — полный
+PublicCatalogue `{grades, subjects, sections, topics}`, вместе со всеми семью существующими
+отфильтрованные поля каталога. Выбор класса/предмета сохраняет прежнюю семантику;
+полные справочные массивы не заменяют этот выбор, отфильтрованные темы или count.
+`Release.renderer_context(page, params)` использует уже выбранный Release и
+не обращается к database и не разрешает активный descriptor повторно. Полный
+context копируется глубоко, включая вложенные отфильтрованные строки. Страница, передаваемая
+renderer, также копируется глубоко вместе со вложенными dictionaries и lists, чтобы изменения renderer
+или его сбои не могли изменить проверенные страницы Release или index. Обе копии
+взяты из одной выбранной release. Это внутренняя передача Python, а не новый JSON DTO,
+endpoint, поле public schema или реализация renderer. Canonical вычисляется
+как trusted origin плюс page canonical_path, без query parameters.
+IDs в page/context остаются точными значениями Python `int` согласно существующему положительному
+контракту int64 R02; преобразования в string/float не выполняются. Для моста I02 к Node
+или browser JavaScript до обработки IDs выше `2**53 - 1` нужно согласовать без потерь представление на границе потребителя либо
+parser. Обычные JSON.parse/Number не могут
+сохранить все такие целые числа. Эта передача не разрешает менять public R02
+DTO или вводить преобразование JavaScript; согласование границы потребителя остаётся
+за Ильёй/Русланом. Идентификатор release runtime отличается от исходного Git SHA.
+Прямые public routes закреплены за одной активной release; redirect выполняется только после фактического404.
+HEAD возвращает пустое тело, для произвольных public verbs сохраняется приоритет CSRF, а Grades поддерживает только GET.
+Если существует HOME, его точный alias `/<actual-home-slug>/` с кодом200, совпадающим page_id и
+canonical `/` является обязательным. При отсутствии или ошибке alias release недоступна и возвращается503;
+redirect или fallback к предыдущей/latest edition не выполняется. Для release без HOME
+этот alias не требуется. Дополнительные HOME aliases запрещены; сохранённые
+записи redirect сохраняют отдельную семантику fallback.
+Только существующий путь Grades без завершающего slash явно возвращает301. Другие неподдерживаемые API paths
+возвращают404, ошибки метода —400, записи Content —403 после staff authorization.
 
-V04 `observe_publication(uow, page_id)` supplies the immutable active/DB edition facts.
-V02 samples DB authority before/after, retries at most3, validates schema, owner/fence/
-lease-derived scope and state relations; absent provider503. This is a boundary,
-not proof of a working V04 activation or edition pipeline.
+V04 `observe_publication(uow, page_id)` предоставляет неизменяемые факты активной edition/DB.
+V02 считывает authority DB до и после (не более3 попыток), проверяет schema, owner/fence/
+область действия на основе lease и отношения состояний; если provider отсутствует, возвращается503. Это граница,
+а не доказательство работоспособности активации V04 или конвейера edition.
 
-API responses use JSON UTF8 and private,no-store. Staff/delivery meta.version is
-migration-r02-v1, historical grades http-v1. Internal exceptions are mapped to a
-fixed safe503. History preserves IDs/actors/timestamps/actions in action_time/id
-order; raw historical messages are not echoed, avoiding password/request leakage.
-No permission to write, delete, publish or activate is conferred by a GET.
+Ответы API используют JSON UTF8 и private,no-store. meta.version для Staff/delivery —
+migration-r02-v1, для historical grades — http-v1. Внутренние исключения преобразуются в
+фиксированный безопасный503. History сохраняет IDs/actors/timestamps/actions в порядке action_time/id;
+исходные исторические сообщения не возвращаются, что предотвращает утечку паролей/запросов.
+GET не предоставляет разрешение на запись, удаление, публикацию или активацию.
 
-Explicit tests:
+Явные проверки:
 
 ```text
 python -m pip install --no-deps -r backend/tests/v02/requirements.lock
 python -m unittest backend.tests.v02.test_unit backend.tests.v02.test_http backend.tests.v02.test_postgres -v
 ```
 
-MATHSTART_V02_TEST_ADMIN_URL must identify dedicated localhost15441/postgres;
-fixture DBs use the V01 rehearsal prefix/marker to preserve fresh()'s guard.
-Tests create new UUID databases and never attach to pre-existing data. Linux test
-containers can run unchanged V01 tests on localhost55441 in the PG network namespace
-when Windows excludes that host port. Root verification/workflows are unchanged;
-Ruslan owns wiring these explicit target commands into shared CI.
+MATHSTART_V02_TEST_ADMIN_URL должен указывать на выделенный localhost15441/postgres;
+для защиты проверки fresh() fixture DB используют префикс/маркер репетиции V01.
+Проверки создают новые UUID databases и никогда не подключаются к существующим данным. Linux test
+containers могут запускать неизменённые проверки V01 на localhost55441 в network namespace PostgreSQL
+если Windows исключает этот порт хоста. Корневые проверки/workflows не меняются;
+Руслан отвечает за подключение этих явных target-команд к общей CI.

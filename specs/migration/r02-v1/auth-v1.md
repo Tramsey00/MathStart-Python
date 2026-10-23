@@ -1,269 +1,249 @@
-# Authentication/security adapter addendum v1.0.2
+# Дополнение к adapter аутентификации/безопасности v1.0.2
 
-PROPOSED. Frozen R02A DTO/OAS/policy remain byte-identical. Baseline source:
-users/http.py, users/views.py, users/services.py, users/models.py and
-config/api_http.py/settings.py; independent tests users/tests and content/test_grades_api.py.
+PROPOSED. DTO/OAS/policy замороженного R02A остаются побайтно неизменными. Исходный baseline:
+users/http.py, users/views.py, users/services.py, users/models.py и
+config/api_http.py/settings.py; независимые тесты users/tests и content/test_grades_api.py.
 
-## Wire boundary
+## Граница wire-протокола
 
-Eight implemented operations and exact request/response schema names/statuses
-are in [route map](implemented-routes-v1.json). Strict UTF-8 JSON object;
-application/json with encoding absent or UTF-8; raw body <=65536 bytes. Reject
-malformed UTF-8/JSON, duplicate keys at any depth, NaN/Infinity, recursion failure,
-unknown fields, wrong types/boolean-as-ID without coercion. Oversize400
-LIMIT_EXCEEDED; other malformed400 INVALID_REQUEST, safe fixed message. Empty
-logout body must be {}. Endpoint method mismatch400 INVALID_REQUEST, no default
-FastAPI422/405 or slash307. GET/HEAD distinctions are in the route map.
-Middleware auth/CSRF precedes body validation: private anonymous401, then CSRF403
-on writes, then shape. Anonymous register/login still require verified CSRF.
-Foreign/missing internal owner lookup404 NOT_FOUND; schema-invalid selected
-grade400, unsupported stored grade slug503, not a fabricated number.
+В [карте routes](implemented-routes-v1.json) указаны восемь реализованных операций и точные
+имена схем request/response и statuses. Строгий UTF-8 JSON object;
+application/json с отсутствующим encoding или UTF-8; raw body <=65536 bytes. Отклонять
+некорректный UTF-8/JSON, повторяющиеся ключи на любой глубине, NaN/Infinity, ошибку recursion,
+неизвестные поля, неверные типы/boolean-as-ID без coercion. Превышение размера — 400
+LIMIT_EXCEEDED; прочие некорректные данные — 400 INVALID_REQUEST с безопасным фиксированным сообщением.
+Пустое тело logout должно быть `{}`. Несовпадение HTTP method endpoint — 400 INVALID_REQUEST;
+не использовать default FastAPI 422/405 или slash 307. Различия GET/HEAD описаны в карте routes.
+Middleware auth/CSRF выполняется до валидации body: для private — anonymous 401, затем CSRF 403
+для write, затем проверка формы. Anonymous register/login тоже требуют проверенный CSRF.
+Поиск отсутствующего/чужого internal owner — 404 NOT_FOUND; выбранный grade с неверной схемой — 400,
+неподдерживаемый сохранённый grade slug — 503, не выдуманный номер.
 
-Success {data,meta:{request_id,version:'http-v1'}}; lists add pagination.
-Error {error:{code,message,field_errors,retryable,request_id}}; fixed safe
-field_errors {}, retryable only429/503. No SQL/DSN/password/body/digest/foreign
-revision in errors. JSON UTF-8, sort_keys=True, ensure_ascii=False serialization
-preserves replay bytes even jsonb reorders keys. All existing API responses,
-including public grades, have Cache-Control: private, no-store. New request IDs
-are UUIDs; replay returns persisted original request_id/status/body unchanged.
-429 RATE_LIMITED has integer Retry-After seconds >=1. Database errors503
-SERVICE_UNAVAILABLE. CSRF403 CSRF_FAILED; role403 FORBIDDEN; owner404;
-digest409 IDEMPOTENCY_CONFLICT; state409 STATE_CONFLICT.
+Успех `{data,meta:{request_id,version:'http-v1'}}`; списки дополняются pagination.
+Ошибка `{error:{code,message,field_errors,retryable,request_id}}`; безопасный фиксированный
+`field_errors {}`, retryable только для 429/503. В ошибках не должно быть SQL/DSN/password/body/digest/
+чужой revision. Сериализация JSON UTF-8, `sort_keys=True`, `ensure_ascii=False` сохраняет байты replay,
+даже если jsonb переставляет ключи. Все существующие API responses, включая публичные grades,
+имеют Cache-Control: private, no-store. Новые request IDs — UUID; replay возвращает исходные
+сохранённые request_id/status/body без изменений. 429 RATE_LIMITED содержит целое Retry-After
+seconds >=1. Ошибки базы данных — 503 SERVICE_UNAVAILABLE. CSRF 403 CSRF_FAILED; роль 403 FORBIDDEN;
+owner 404; digest 409 IDEMPOTENCY_CONFLICT; state 409 STATE_CONFLICT.
 
-Policy limits40 steps,512 expression chars,128 tokens,16 nesting,12 numeric
-digits,abs_power10,250ms expression/2000ms batch belong to future assessed
-operations; do not claim current identity parser enforces these domain limits.
-UNSUPPORTED/INDETERMINATE assessed200 and Tutor200 DEGRADED remain future
-business outcomes. Preserve canonical202 persisted SUBMITTED/polling contract,
-never invent it for registration or publication.
+Лимиты policy: 40 steps, 512 expression chars, 128 tokens, nesting 16, 12 numeric digits,
+`abs_power10`, 250ms на expression/2000ms на batch относятся к будущим assessed operations;
+нельзя утверждать, что текущий identity parser обеспечивает эти domain limits.
+UNSUPPORTED/INDETERMINATE assessed 200 и Tutor 200 DEGRADED остаются будущими бизнес-результатами.
+Сохранять канонический контракт persisted SUBMITTED с кодом 202 и polling; не придумывать его
+для регистрации или публикации.
 
-Slashless existing API paths return301 to the trailing slash in DEBUG=False,
-including POST (the browser may discard its body); the baseline probe records
-this rather than calling it404. Target explicitly preserves301 for these known
-slashless paths, never FastAPI's default307. Clients always use canonical slash
-paths and never follow a mutation redirect as a retry. Unknown API paths return
-safe404. DEBUG unsafe slash errors are development diagnostics, not deployment
-semantics. If reviewers prefer safer400/404 for unsafe slashless requests, that
-is a separately approved behavior change, not baseline equivalence.
+Существующие API paths без slash возвращают 301 на путь с конечным slash при DEBUG=False,
+включая POST (браузер может потерять body); baseline probe фиксирует это поведение, а не 404.
+Target явно сохраняет 301 для этих известных paths, но не default FastAPI 307. Клиенты всегда
+используют канонические paths со slash и никогда не повторяют mutation вслед за redirect.
+Неизвестные API paths возвращают безопасный 404. Небезопасные slash errors в DEBUG — диагностика
+разработки, а не семантика deployment. Если ревьюеры предпочтут безопасный 400/404 для небезопасных
+запросов без slash, это отдельное одобренное изменение поведения, а не baseline equivalence.
 
-Grades GET ignores request body (including malformed JSON), as verified by the
-disposable probe; only query parameters are parsed. Preserve this distinction
-from mutation JSON parsing. GET CSRF/me likewise do not parse JSON bodies.
-Cursor: <=1024 characters; only singleton cursor/page_size, ASCII size[0-9]{1,3}
-and1..100. Payload exactly scope/page_size/created_at/id; strict int not bool,
-0<id<2**63, aware zero-offset timestamp, route scope public:/api/v1/grades/;
-salt content.grades.http-v1.cursor. Preserve Django signing JSONSerializer
-(compact separators/ensure_ascii ASCII), optional zlib compression marker,
-URL-safe Base64 without padding, TimestampSigner base62 time and salted HMAC
-signature; no max_age is applied by baseline loads. V02 must verify independent
-old/new signer vectors with retained verifier key ring. A different new signer
-must read outstanding legacy cursors before it can replace emission.
+GET grades игнорирует request body (включая некорректный JSON), как подтвердил disposable probe;
+разбираются только query parameters. Это различие с разбором JSON mutations сохраняется.
+GET CSRF/me также не разбирают JSON body.
+Cursor: <=1024 символа; только singleton cursor/page_size, ASCII `size[0-9]{1,3}` и 1..100.
+Payload строго `scope/page_size/created_at/id`; int, но не bool, `0<id<2**63`, timestamp с timezone
+и нулевым offset, route scope `public:/api/v1/grades/`; salt
+`content.grades.http-v1.cursor`. Сохранять Django signing JSONSerializer (compact separators/
+ensure_ascii ASCII), необязательную метку zlib compression, URL-safe Base64 без padding,
+base62 времени TimestampSigner и salted HMAC signature; baseline loads не применяет max_age.
+V02 должен проверить независимые signer vectors old/new с сохранённым verifier key ring.
+Новый signer другого формата должен читать неистёкшие legacy cursors до замены их выпуска.
 
-## Credentials and validators
+## Credentials и validators
 
-Registration backend username1..150 chars, UnicodeUsernameValidator
-^[\w.@+-]+\Z; optional valid email; unique username, no email uniqueness.
-Frontend registration max30 with30/31 tests; legacy login username up to150
-must work. Match Django UserAttributeSimilarityValidator default0.7 against
-username/first_name/last_name/email, MinimumLengthValidator8,
-CommonPasswordValidator matching the versioned baseline list, and numeric-only
-validator. Do not trim/normalize passwords. Invalid/duplicate registration400
-generic message; missing username/wrong password/inactive login identical401,
-including equivalent dummy expensive hash for absent users.
+Backend регистрации: username 1..150 символов, UnicodeUsernameValidator
+`^[\w.@+-]+\Z`; необязательный корректный email; username уникален, email — нет.
+Frontend ограничивает username 30 символами, есть тесты на 30/31; legacy login username
+длиной до 150 должен работать. Совпадают Django UserAttributeSimilarityValidator default 0.7
+по username/first_name/last_name/email, MinimumLengthValidator 8,
+CommonPasswordValidator по списку baseline соответствующей версии и numeric-only validator.
+Пароли нельзя обрезать/нормализовать. Некорректная/повторная регистрация — общий ответ 400;
+отсутствующий username/неверный password/неактивный login дают одинаковый 401, включая
+эквивалентный dummy дорогой hash для отсутствующих пользователей.
 
-Preserve encoded password and algorithm/iterations verbatim on migration;
-baseline default hasher pbkdf2_sha256 (configured Django defaults also include
-pbkdf2_sha1, argon2, bcrypt_sha256, scrypt). Verify hashes independently using
-synthetic deterministic salts/vectors and old iteration counts, Unicode and
-wrong-password cases. Inventory only algorithm/count, never actual hashes/PII.
-R01 zero users is not proof of compatible deployed algorithms. V03 chooses a
-license-reviewed Django-independent verifier; unsupported algorithm blocks
-cutover. Opportunistic successful-login rehash may follow reviewed baseline
-policy, never bulk reset. Unusable-password marker stays unusable. Staff usable/
-unusable creation and password change must preserve baseline validator behavior.
+Сохранённый password и algorithm/iterations при migration переносятся без изменений;
+default hasher baseline — pbkdf2_sha256 (настроенные Django defaults также включают
+pbkdf2_sha1, argon2, bcrypt_sha256, scrypt). Hashes независимо проверяются синтетическими
+детерминированными salts/vectors и старыми iteration counts, Unicode и неверными паролями.
+Инвентаризировать только algorithm/count, никогда реальные hashes/PII. Нулевое число users
+в R01 не доказывает совместимость алгоритмов production. V03 выбирает проверенный лицензией
+Django-independent verifier; неподдерживаемый algorithm блокирует cutover. Opportunistic rehash
+после успешного login допустим по проверенной baseline policy, но массовый reset запрещён.
+Маркер unusable-password остаётся непригодным. Создание staff с usable/unusable паролем и их смена
+должны сохранять baseline поведение validators.
 
 ## Session/CSRF/rate
 
-One HTTPS origin, opaque PostgreSQL-backed sessions, HttpOnly session cookie,
-Secure in deployment, SameSite=Lax (CSRF cookie readable by bootstrap flow).
-Rotate on every successful login, including same-user login; register establishes
-session only if unauthenticated; exact authenticated register replay does not
-rotate. Logout flushes/revokes; expiry/revocation and password auth-hash changes
-invalidate other sessions. For staff changing their own password, preserve
-Django update_session_auth_hash: rotate and update the current authenticated
-session after success, while other sessions become invalid. One explicit
-re-login at cutover is accepted; no password
-reset. Session TTL baseline defaults1209600 seconds and CSRF cookie31449600
-unless deployment settings differ and are explicitly recorded by V03.
-Host allowlist/Origin+Referer checks, no permissive CORS or browser JWT/storage.
-CSRF bootstrap returns masked token and may set cookie, creates no profile or
-domain write. Validate tokens before parse; refresh CSRF on retry. Clear all
-private client caches on logout/session loss. Staff and account never SSG export.
+Один HTTPS origin, непрозрачные sessions в PostgreSQL, session cookie с HttpOnly,
+Secure при deployment, SameSite=Lax (CSRF cookie доступна bootstrap flow).
+При каждом успешном login выполнять rotation, включая вход того же user; register создаёт
+session только для неаутентифицированного пользователя; точный authenticated register replay
+session не ротирует. Logout выполняет flush/revoke; expiry/revocation и изменения password
+auth-hash аннулируют остальные sessions. При смене staff собственного пароля сохранять
+Django update_session_auth_hash: после успеха обновить текущую аутентифицированную session с rotation,
+остальные sessions становятся недействительными. При cutover допускается один явный повторный login;
+сброс пароля не нужен. Базовые TTL по умолчанию: 1209600 секунд для session и 31449600 для CSRF cookie,
+если настройки deployment отличаются и это явно записывает V03. Host allowlist/проверки Origin+Referer,
+без permissive CORS или browser JWT/storage. CSRF bootstrap возвращает masked token и может поставить
+cookie, не создавая profile/domain write. Проверять tokens до parse; при retry обновлять CSRF.
+Очищать все private client caches при logout/loss session. Staff и account не экспортируются через SSG.
 
-Login budget10 attempts/300 seconds per HMAC of server REMOTE_ADDR, shared DB
-counter lock between workers. Count before authentication, including failed
-credentials; reset after300s evaluated AFTER lock acquisition; attempt11 gets429
-and remaining-window ceil Retry-After. Ignore arbitrary X-Forwarded-For. V05
-may establish a trusted proxy list that strips forwarded headers at one origin;
-otherwise REMOTE_ADDR remains the authority. No local-memory-only rate limiter.
+Бюджет login: 10 попыток за 300 секунд на HMAC серверного REMOTE_ADDR, общий DB counter lock
+между workers. Счётчик увеличивается до аутентификации, в том числе при неверных credentials;
+сбрасывается после 300 секунд, вычисленных ПОСЛЕ захвата lock; попытка 11 получает 429 и ceil
+оставшегося окна в Retry-After. Произвольный X-Forwarded-For игнорируется. V05 может задать
+доверенный список proxy, который удаляет forwarded headers на одном origin; иначе авторитетен
+REMOTE_ADDR. Rate limiter только в памяти процесса запрещён.
 
-## Receipt and anonymous scope bridge
+## Receipt и мост анонимного scope
 
-Preserve IdentityReceipt UUID/scope/operation/key_digest/request_digest/user/
-response/status/created_at/expires_at and unique(scope,operation,key_digest),
-consistent response/status/user CHECK. key_digest SHA256 UTF-8 header.
-request_digest SHA256 UTF-8 sorted compact JSON, ensure_ascii=False/allow_nan=False
-of {owner,operation,canonical_route,body,expected_revision:body.get(...)}.
-Array/raw string order is exact, no Unicode/math normalization. Registration
-owner is bootstrap scope; onboarding digest owner is str(user.pk), scope user:<pk>.
-Identity replay retained at least604800s and source uniqueness permanently;
-current service does not delete expired receipts. Same key/changed digest409.
-No raw password/body in receipt; request digest and safe result only, private.
+Сохраняются IdentityReceipt UUID/scope/operation/key_digest/request_digest/user/response/status/
+created_at/expires_at и unique(scope,operation,key_digest), согласованные CHECK response/status/user.
+key_digest — SHA256 UTF-8 header. request_digest — SHA256 UTF-8 sorted compact JSON,
+ensure_ascii=False/allow_nan=False для `{owner,operation,canonical_route,body,expected_revision:body.get(...)}`.
+Порядок массива/raw string точен, Unicode/math не нормализуются. Owner регистрации — bootstrap scope;
+digest onboarding owner — str(user.pk), scope — `user:<pk>`. Identity replay хранится как минимум
+604800 секунд, а уникальность source постоянно; текущий service не удаляет просроченные receipts.
+Один key с изменённым digest — 409. Raw password/body в receipt не сохраняются; только request digest
+и безопасный результат в private storage.
 
-Registration scope = session identity_registration_scope if present, otherwise
-'bootstrap:' + legacy salted_hmac('users.register.bootstrap', csrf_secret,
-algorithm='sha256') using baseline Django-compatible key derivation/signing
-key. Transfer that scope before login rotates cookies. Do not recompute it from
-the new CSRF value. Target bridge is a private server record binding old verified
-CSRF bootstrap fingerprint/scope to the new opaque session; optional signed
-HttpOnly Secure SameSite=Lax bootstrap ticket carries an opaque random reference,
-never user/receipt/digest. Validate ticket signature, expiry and matching original
-bootstrap proof server-side; retain bridge facts >=7days; validity/revocation and ticket expiry follow the P2 lifecycle below. Key ring retains required
-legacy HMAC verifier keys for the replay window, secrets stored out of Git.
-The receipt original scope/digest never changes when the bridge is introduced.
+Registration scope — session `identity_registration_scope`, если он задан, иначе
+`'bootstrap:' + legacy salted_hmac('users.register.bootstrap', csrf_secret, algorithm='sha256')`
+с Django-совместимым baseline key derivation/signing key. Перед ротацией cookies при login этот scope
+переносится. Его нельзя вычислять заново из нового CSRF. Target bridge — private server record,
+связывающий старый проверенный fingerprint/ scope CSRF bootstrap с новой непрозрачной session;
+необязательный подписанный HttpOnly Secure SameSite=Lax bootstrap ticket содержит непрозрачную случайную
+ссылку, никогда user/receipt/digest. Ticket проверяется по подписи, expiry и исходному bootstrap proof
+на сервере; факты bridge хранятся >=7 дней; validity/revocation и истечение ticket следуют lifecycle P2 ниже.
+Key ring сохраняет необходимые legacy HMAC verifier keys на срок replay window; secrets остаются вне Git.
+Исходный scope/digest receipt после появления bridge не меняется.
 
-Lost-response cases must all work on disposable data: (a) DB commit then no body,
-but login cookies received -> same owner/key/body replays; (b) body+Set-Cookie
-both lost -> client still has pre-login CSRF cookie and immutable key/body;
-verify original bootstrap proof, recover original scope, verify submitted
-password against receipt.user if anonymous, and establish rotated session;
-(c) page reload loses in-memory credentials -> GET restore only, then explicit
-user re-login; never auto-create another account; (d) scope/session proof absent
-or expired -> fail closed/re-login, never lookup receipt by key alone; (e) an
-authenticated different user, inactive receipt owner or mismatched password
-gets generic409 STATE_CONFLICT. A same-owner authenticated replay may return
-the safe persisted result without retaining password. Changing scope must never
-replay a different bootstrap's receipt even if key/body are equal.
-V03 validates imported populated profile C and races; this design is proposed
-and not claimed as a currently available bridge. If keys/proof cannot be
-retained, a concrete human cutover decision is required before activation.
+Все случаи потерянного ответа должны работать на disposable data: (a) DB commit произошёл, body не дошло,
+но login cookies получены — тот же owner/key/body воспроизводит результат; (b) потеряны и body, и Set-Cookie —
+у клиента осталась исходная CSRF cookie и неизменяемые key/body; проверить исходный bootstrap proof,
+восстановить первоначальный scope, проверить пароль из receipt.user, если запрос анонимный, и установить
+rotated session; (c) перезагрузка страницы потеряла credentials в памяти — только GET restore, затем явный
+повторный login пользователя; никогда не создавать второй аккаунт автоматически; (d) proof/session scope
+отсутствует или истёк — безопасный отказ/re-login, никогда lookup receipt только по key; (e) аутентифицированный
+другой user, неактивный владелец receipt или несоответствующий password дают общий 409 STATE_CONFLICT.
+Same-owner authenticated replay может вернуть безопасный сохранённый результат без хранения password.
+Смена scope не должна воспроизводить receipt другого bootstrap, даже если key/body равны.
+V03 проверяет импортированный заполненный profile C и гонки; этот дизайн предложен и не объявляется
+доступным текущим bridge. Если keys/proof нельзя сохранить, до activation требуется конкретное решение человека
+о cutover.
 
-## Frontend contract
+## Контракт frontend
 
-Preserve default login/switcher, quiet anonymous initial401, contextual GET-only
-restore/retry, register30/backend150 and real grades PK. Pending action holds
-immutable serialized body/key in memory only; fresh CSRF on retry without body
-mutation. Clear DOM passwords after serialization and terminal outcome, clear
-pending memory on terminal400/401/form switch/disposal; no logs/storage/screenshots
-of credentials. Ignore stale responses using generation/request identity so
-newer input/session state wins; preserve exact raw student input and step order
-in future fixtures, never trim to hide stale conflict. GET does not increment
-mastery or start diagnostics. Three onboarding modes only store profile choice.
+Сохранять исходные login/switcher, тихий initial anonymous 401, contextual GET-only restore/retry,
+register 30/backend 150 и реальный grades PK. Pending action хранит неизменяемые сериализованные body/key
+только в памяти; при retry обновлять CSRF, не меняя body. Очищать DOM passwords после serialization
+и terminal outcome; очищать pending memory при terminal 400/401/form switch/disposal; credentials нельзя
+писать в logs/storage/screenshots. Отбрасывать устаревшие ответы по generation/request identity,
+чтобы более новое состояние ввода/session имело приоритет; сохранять точный raw student input и порядок
+steps в будущих fixtures, не обрезать для маскировки stale conflict. GET не увеличивает mastery и не запускает
+diagnostics. Только три onboarding modes сохраняют выбор profile.
 
+## Разъяснение приоритета B07 по ревью
 
-## Review B07 precedence clarification
+Method 400 для identity endpoints действует только после предыдущих middleware outcomes.
+Private identity routes возвращают anonymous 401 до CSRF или проверки method;
+authenticated unsafe requests требуют CSRF до endpoint 400/body parsing. Для public identity
+resolved routes сначала проверяется unsafe CSRF (отсутствующий/неверный Origin — 403), затем method 400.
+GradeListView имеет DRF csrf_exempt и не требует authentication: GET 200, остальные methods 400
+независимо от token/Origin. Для account require_GET выполняется после CSRF: безопасные HEAD/OPTIONS/TRACE
+дают 405, unsafe без CSRF — 403, unsafe с корректным CSRF — 405. Public pages/sitemap/robots и
+unresolved 404 fallback различаются, как указано в content-v1.md; нельзя применять один глобальный
+middleware precedence ко всем семействам.
 
-Method400 for identity endpoints applies only after earlier middleware outcomes.
-Private identity routes return anonymous401 before CSRF or method handling;
-authenticated unsafe requests require CSRF before endpoint400/body parsing.
-Public identity resolved routes require unsafe CSRF first (missing/bad Origin403),
-then method400. GradeListView is DRF csrf_exempt with no authentication: GET200,
-other methods400 independent of token/Origin. Account require_GET follows CSRF:
-safe HEAD/OPTIONS/TRACE405, unsafe missing CSRF403, unsafe valid CSRF405.
-Public pages/sitemap/robots and unresolved404 fallback differ as documented in
-content-v1.md; never impose one global middleware precedence on every family.
+## P2 Lifecycle receipt bridge (предложен, не реализован)
 
-## P2 receipt bridge lifecycle (proposed, not implemented)
+Retention не является разрешением. Private PostgreSQL bridge facts содержат opaque bridge ID,
+неизменяемые исходные scope/bootstrap fingerprint, nullable receipt owner (привязывается один раз при commit
+регистрации), durable session_lineage_id, текущее session binding и epoch revocation, состояние
+ACTIVE/DETACHED/REVOKED/EXPIRED, replay_until >= исходный commit + 604800 секунд, а также версию/expiry/revocation
+ticket. Scope/digests/result/uniqueness receipt остаются в IdentityReceipt навсегда согласно текущей policy;
+переходы не удаляют и не переписывают их. Менять полномочия bridge может только identity/session service;
+cutover import выполняется исключительным target writer после остановки/отзыва старых writers.
+Cleanup принадлежит service, не frontend event и не задаче удаления receipts.
+[Storage mapping](protocol-storage-mapping-v1.json) описывает логические факты и будущее проверенное
+additive DDL, а не migration или дополнительный browser DTO.
 
-Retention is not authorization. Private PostgreSQL bridge facts contain opaque
-bridge ID, immutable original scope/bootstrap fingerprint, nullable receipt
-owner (bound once at registration commit), durable session_lineage_id, current session binding and revocation epoch,
-ACTIVE/DETACHED/REVOKED/EXPIRED state, replay_until >= original commit+604800s,
-and ticket version/expiry/revocation. Receipt scope/digests/result/uniqueness stay
-in IdentityReceipt forever under the existing policy; no transition deletes or
-rewrites them. Only the identity/session service may mutate bridge authority;
-cutover import uses the exclusive target writer after old writers drain/revoke.
-Cleanup is service-owned, not a frontend event or a receipt deletion job.
-[Storage mapping](protocol-storage-mapping-v1.json) describes logical facts and
-future reviewed additive DDL, not a migration or additional browser DTO.
+Классы proof в таблице переходов:
+S = текущая authenticated active owner session с совпадающим bridge session binding и epoch.
+B = проверенный ИСХОДНЫЙ bootstrap CSRF proof, точно разрешающий старый scope; свежий request CSRF
+обязателен отдельно и не заменяет B.
+T = подписанная непросроченная и неотозванная ссылка ticket reference ПЛЮС B; одного ticket недостаточно.
+F = свежий login того же владельца ПЛЮС server-authenticated transfer binding от исходной проверенной
+Django session/bridge. Одна лишь аутентификация owner не выбирает anonymous receipt scope по key.
+Для anonymous replay через B/T также проверяется password для активного receipt.user; для authenticated
+replay B/T/F требуется именно этот owner, а не пароль другого user. Ни один proof не разрешает несовпадающие
+body/digest/key/operation или неактивного владельца.
 
-Proof classes used in the transition table:
-S = current authenticated active owner session, matching bridge session binding
-and epoch. B = verified ORIGINAL bootstrap CSRF proof resolving exactly the old
-scope; fresh request CSRF is separately mandatory and never substitutes for B.
-T = signed unexpired nonrevoked HttpOnly ticket reference PLUS B; ticket alone
-is insufficient. F = fresh same-owner login PLUS a server-authenticated transfer
-binding from the original verified Django session/bridge. Owner authentication
-alone does not select an anonymous receipt scope by key. For anonymous B/T replay,
-also verify submitted password against active receipt.user; for authenticated
-B/T/F replay require that exact owner, not a password for some other user.
-No proof authorizes a mismatched body/digest/key/operation or inactive owner.
+Создание bridge сохраняет проверенный исходный scope до ротации cookie и связывает receipt owner
+при commit регистрации; затем может устанавливаться session/ticket. DB receipt commit с потерей body
+и обеих cookies восстанавливается через B+password, даже если ticket не доставлен. После создания session
+точный replay того же authenticated owner не выполняет rotation. Успешное anonymous recovery ротирует
+session один раз, аннулирует предыдущее binding/ticket, затем выдаёт новую версию ticket, если они применяются.
+Ticket не потребляется разрушительно при первом использовании: пока proof/key/body актуальны, тот же запрос
+безопасно воспроизводится; версии и epoch отзывают заменённые tickets. В bridge facts не хранятся raw
+password/CSRF/session token.
 
-Bridge creation stores verified original scope before cookie rotation, binds
-receipt owner with registration commit, then session/ticket establishment may
-follow. DB receipt commit with both body/cookies lost can recover with B+password
-even if no ticket was delivered. Once session is established, authenticated
-same-owner exact replay does not rotate. Anonymous successful recovery rotates
-session once, invalidates any previous binding/ticket, then issues a fresh ticket
-version if tickets are used. Ticket use is not destructive single-use consumption:
-same valid proof/key/body replays safely while current; versions and epoch revoke
-superseded tickets. No raw password/CSRF/session token is stored in bridge facts.
-
-| Transition | Bridge / ticket / owner-session effect | Proof, retry/replay, refusal and uncertain result |
+| Переход | Эффект для bridge / ticket / owner-session | Proof, retry/replay, отказ и неопределённый результат |
 | --- | --- | --- |
-| Explicit logout (authenticated + CSRF, empty body) | Revoke current session, all bridges bound to THAT session lineage, and their tickets; increment their epoch, clear binding. Retain REVOKED facts and receipts. Other independent sessions are unchanged. | Return accepted200 completed:true only after durable revoke. Repeat with old session401; no logout receipt replay. Lost response: clear private client state, GET me only; anonymous401 reconciles session loss, still-authenticated result requires explicit user action, no blind POST retry. B/T/F cannot resurrect revoked bridge, even with same owner/password. |
-| Account switch A -> B by successful login | Authenticate B first; atomically revoke A session lineage/bridges/tickets, clear old private binding, establish rotated B session. Never rebind A bridge to B. Failed login leaves A authority intact. | B cannot use A S/B/T/F or receipt; generic409 STATE_CONFLICT when authenticated mismatch. Repeated same-user login rotates but securely transfers its own ACTIVE bridge to new binding/epoch and revokes old ticket (no new receipt). Unknown login outcome: GET me; never repeat login automatically or reuse A pending body under B. |
-| Session cleanup / natural expiry | Expired session is unusable; ACTIVE -> DETACHED, clear session binding and invalidate old S/epoch. Preserve original bootstrap and valid ticket facts through replay_until. Tickets can expire earlier; expiry never revokes receipt identity. | Before replay_until, B+password, authenticated same-owner B/T, or F may recover/rebind; expired/revoked ticket fails but independent B can still prove scope. Session/key alone fails closed409 on registration (private auth routes401); authenticated foreign owner409. Cleanup repeats are idempotent, never revive REVOKED; unknown cleanup/rebind commit must reread authoritative facts, no guessed success. |
-| Django -> FastAPI cutover | Drain/revoke legacy writers and sessions; preserve receipts/digests/uniqueness and verified bridge transfer facts. Nonrevoked bridge -> DETACHED; no legacy session is authenticated by target. Retain valid T verifier keys/reference and B proof through replay window. Imported F mapping is private and owner-bound; no bridge can be minted from receipt key alone. | Accepted ONE explicit re-login, no password reset. After same-owner login, F or valid B/T rebinds. Pending onboarding replays by authenticated user:<pk> identity independently of bridge. Different owner/proof/key/body409; missing proof fails closed/re-login, never new registration. Unknown cutover checkpoint: stop target writes until exclusive writer/import provenance reconciles; no dual writer or automatic reverse cutover. |
-| replay_until reached / ticket expiry | Ticket expiry revokes only T; bridge replay_until sets EXPIRED (facts retained >=7days), clears bindings/tickets. REVOKED stays revoked. | Expired bridge cannot select registration scope; GET restore and explicit login, no auto-create/key-only lookup. Existing onboarding receipt replay still owner-bound and retained, even beyond minimum window. Cleanup/repeated transitions return same durable terminal authority state. |
+| Явный logout (authenticated + CSRF, пустое body) | Отозвать текущую session, все bridges и tickets, привязанные к ЕЁ session lineage; увеличить их epoch, очистить binding. Сохранить факты REVOKED и receipts. Другие независимые sessions не меняются. | Возвращать принятый 200 `completed:true` только после durable revoke. Повтор со старой session — 401; replay logout receipt отсутствует. Потеря ответа: очистить private client state, только GET me; anonymous 401 согласует потерю session, результат с активной session требует явного действия пользователя, слепой POST retry запрещён. B/T/F не могут восстановить revoked bridge, даже с тем же owner/password. |
+| Переключение account A -> B успешным login | Сначала аутентифицировать B; атомарно отозвать session lineage/bridges/tickets A, очистить прежнее private binding, создать rotated session B. Bridge A нельзя перепривязать к B. Неудачный login оставляет полномочия A. | B не может использовать S/B/T/F или receipt пользователя A; при authenticated mismatch общий 409 STATE_CONFLICT. Повторный login того же user ротирует session, но безопасно переносит его собственный ACTIVE bridge на новое binding/epoch и отзывает старый ticket (нового receipt нет). Неизвестный результат login: GET me; автоматически не повторять login и не использовать pending body A под B. |
+| Очистка session / естественное истечение | Истёкшая session непригодна; ACTIVE -> DETACHED, очистить session binding и сделать старый S/epoch недействительными. Исходные bootstrap и актуальный ticket сохраняются до replay_until. Ticket может истечь раньше; это не отзывает identity receipt. | До replay_until восстановление возможно через B+password, authenticated same-owner B/T или F; истёкший/revoked ticket не проходит, но независимый B всё ещё доказывает scope. Одна session/key не проходит проверку: безопасный 409 для регистрации (private auth routes дают 401); чужой authenticated owner — 409. Повторный cleanup идемпотентен и не оживляет REVOKED; неизвестный результат commit cleanup/rebind требует перечитать authoritative facts, успех нельзя угадывать. |
+| Cutover Django -> FastAPI | Остановить/отозвать legacy writers и sessions; сохранить receipts/digests/uniqueness и проверенные transfer facts bridge. Неотозванный bridge становится DETACHED; legacy session не аутентифицирует target. Verifier/reference tickets T и proof B сохраняются на replay window. Импортированный F mapping приватен и привязан к owner; bridge нельзя создать только по receipt key. | Допускается ОДИН явный re-login, сброс password не нужен. После входа того же owner перепривязка возможна через F или актуальные B/T. Pending onboarding replay основан независимо на authenticated identity `user:<pk>`. Чужой owner/proof/key/body — 409; отсутствие proof ведёт к fail-closed/re-login, не к новой регистрации. Неизвестная точка cutover: остановить target writes до согласования exclusive writer/import provenance; dual writer и автоматический обратный cutover запрещены. |
+| Наступил replay_until / истёк ticket | Истечение ticket отзывает только T; по replay_until bridge становится EXPIRED (факты сохраняются >=7 дней), binding/tickets очищаются. REVOKED остаётся revoked. | Истёкший bridge не выбирает registration scope; GET restore и явный login, без автоматического создания аккаунта/lookup только по key. Существующий onboarding receipt остаётся связанным с owner и replay возможен даже после минимального окна. Повторные переходы/cleanup возвращают то же durable terminal authority state. |
 
-Internal lifecycle transitions are atomic under namespace -> sorted User ->
-receipt then bridge/session locks in stable ID order at platform rank4. Revocation/rebind CAS rechecks
-epoch, state, owner and session after locks; revocation wins against later use,
-an earlier completed replay remains historical receipt truth. A second concurrent
-rebind from an old epoch fails; it cannot mint another session or ticket. Revoked
-bridges have no reverse transition. Natural expiry/cutover detach only, and cannot
-undo earlier logout/account-switch revocation. Auth-hash invalidation/security
-revocation follows logout revocation, not recoverable natural expiry.
+Внутренние lifecycle transitions атомарны в порядке namespace -> отсортированные User ->
+receipt, затем bridge/session locks по стабильному ID на rank4 платформы. Revocation/rebind CAS
+повторно проверяет epoch, state, owner и session после locks; revocation имеет приоритет над последующим
+использованием, ранее завершённый replay остаётся исторической истиной receipt. Одновременный второй rebind
+со старым epoch завершается отказом и не создаёт другую session/ticket. Revoked bridges нельзя восстановить.
+Естественное истечение/cutover только отсоединяет bridge и не отменяет более ранние logout/account-switch
+revocation. Инвалидация auth-hash/security revocation следует logout revocation, а не восстанавливаемому
+естественному истечению.
 
-Response precedence stays B07: private anonymous401 before CSRF, unsafe CSRF403
-before body/proof; then safe409 STATE_CONFLICT for invalid/absent/revoked foreign
-bridge proof,409 IDEMPOTENCY_CONFLICT for proven scope with changed body. No
-foreign receipt existence, revision or proof detail leaks. Storage/unknown commit
-is503 SERVICE_UNAVAILABLE, not success. Automatic retry is GET-only. Explicit
-registration retry is allowed solely while the immutable pending key/body and
-valid proof survive, using fresh request CSRF; terminal failure, logout, account
-switch, disposal or form switch clears pending credentials. Unknown logout/login
-uses GET me; unknown registration/rebind uses GET restore first and only an
-explicit proof-valid replay of the SAME operation. A lost response after bridge
-revocation never permits resurrection. No generic lifecycle HTTP endpoint or
-blind receipt-based logout retry is introduced. V03 must prove real transaction,
-ticket/signature/keyring, cutover and session races; the R02 model is synthetic.
+Приоритет ответов остаётся B07: private anonymous 401 до CSRF, unsafe CSRF 403 до body/proof;
+затем безопасный 409 STATE_CONFLICT для отсутствующего/недопустимого/revoked/чужого proof bridge,
+409 IDEMPOTENCY_CONFLICT для изменённого body при доказанном scope. Нельзя раскрывать наличие чужого
+receipt, revision или деталей proof. Storage/неизвестный commit — 503 SERVICE_UNAVAILABLE, не успех.
+Автоматический retry только GET. Явный retry регистрации разрешён только пока неизменяемые pending key/body
+и действительный proof доступны, с новым request CSRF; terminal failure, logout, account switch, disposal
+или form switch очищает pending credentials. При неизвестном результате logout/login выполнить GET me;
+при неизвестном результате registration/rebind сначала GET restore и только затем явный replay ТОЙ ЖЕ операции
+при валидном proof. Потерянный ответ после отзыва bridge никогда не разрешает его оживление. Generic lifecycle
+HTTP endpoint и слепой receipt-based повтор logout не вводятся. V03 должен доказать реальные транзакции,
+ticket/signature/keyring, cutover и session races; модель R02 синтетическая.
 
-The epoch in the model is an internal CAS observation, not a browser capability.
-An original B proof is resolved to current facts server-side; a competing rebind
-using an obsolete observed epoch fails without effects. A later explicit replay
-may reread facts and prove B+password again after cookies were lost, producing
-a rotated session but the same receipt/result and no additional account.
+Epoch в модели — внутренняя CAS observation, а не возможность браузера. Исходный proof B разрешается
+сервером в текущие facts; конкурирующий rebind с устаревшим epoch не создаёт эффектов. Позже явный replay
+может перечитать facts и повторно доказать B+password, даже после потери cookies, создав rotated session,
+но сохранив тот же receipt/result и не создавая новый account.
 
-Cutover checkpoint identity and verified import provenance are durable private
-identity-service facts. Repeating the same completed checkpoint is read-only,
-including after a bridge was rebound to a target session; it must not detach
-that target session again. A different/unknown checkpoint or unproven exclusive
-writer halts writes and requires reconciliation. Authentication before account
-switch occurs outside locks; then acquire namespace/session-lineage locks in
-stable order and both old/new User rows in ascending PK. All bridge/session
-binding changes share the lineage namespace and recheck current epoch after
-the rank4 locks; cleanup cannot attach authority. Failed new-user authentication
-does not revoke the old session or its bridge. ACTIVE committed bridges require
-non-null owner and session binding; DETACHED never authenticates an old session.
-Fresh deliberate registration uses its own newly verified bootstrap scope/key;
-a pending replay with lost proof cannot be silently reinterpreted as that new
-registration. Explicit onboarding replay after logout/re-login remains available
-by authenticated same-owner user scope, independent of revoked anonymous bridge.
+Identity точки cutover и проверенная provenance import — долговечные private facts identity-service.
+Повтор того же завершённого checkpoint — read-only, в том числе после перепривязки bridge к target session;
+он не должен снова отсоединить target session. Другой/неизвестный checkpoint или недоказанный exclusive
+writer останавливает записи и требует согласования. Аутентификация перед переключением account выполняется
+вне locks; затем захватываются namespace/session-lineage locks в стабильном порядке и обе User rows
+(старой и новой) по возрастанию PK. Все изменения bridge/session binding используют lineage namespace
+и заново проверяют текущий epoch после rank4 locks; cleanup не может присоединить полномочия.
+Неудачная аутентификация нового пользователя не отзывает старую session или bridge. ACTIVE committed bridges
+обязаны иметь owner и session binding; DETACHED никогда не аутентифицирует старую session.
+Новая осознанная регистрация использует собственный заново подтверждённый bootstrap scope/key;
+pending replay с потерянным proof нельзя незаметно истолковать как новую регистрацию. Явный onboarding replay
+после logout/re-login остаётся доступен через authenticated same-owner user scope независимо от отозванного
+анонимного bridge.
 
-The durable session_lineage_id remains for revocation lookup when a session
-binding is detached/expired. Same-user rotation keeps lineage; explicit rebind
-associates the bridge to the newly authenticated/recovered owner session lineage
-under epoch CAS. Logout/switch revoke bridges of the departing lineage only,
-including detached records, without revoking another independent owner session.
+Durable `session_lineage_id` сохраняется для поиска отзывов после отсоединения/истечения session binding.
+Rotation того же пользователя сохраняет lineage; явный rebind связывает bridge с новой authenticated/recovered
+session lineage по epoch CAS. Logout/switch отзывает bridges только уходящего lineage, включая отсоединённые
+records, и не отзывает другую независимую session того же владельца.

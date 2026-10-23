@@ -1,46 +1,71 @@
 # React frontend
 
-Current runtime: React/TypeScript, immutable public SSG and authenticated
-account/staff forms served through the FastAPI publication gateway. The primary
-checkout is the root; each task uses its own branch from current main. Node runs at build/development time; API/edge do
-not run a Node server. No future product domains are implemented by this frontend.
+Текущий runtime: React/TypeScript, immutable public SSG и авторизованные формы
+account/staff через FastAPI publication gateway. Основной checkout — корень
+репозитория. Правила задач и исключение bootstrap — [AGENTS](../AGENTS.md).
+Node работает при сборке и разработке; API/edge не запускают Node server.
+Будущие учебные домены этим frontend пока не реализованы.
 
-## Existing locked tooling
+## Посмотреть утверждённый новый дизайн
 
-Use the existing Node24.21.0/npm11.19.0 configuration and package-lock.json.
-Do not regenerate locks to complete maintenance.
+Из корня clone с установленными Node 24.21.0 и npm 11.19.0:
 
 ```powershell
 npm --prefix frontend ci
+npm --prefix frontend run dev:design
+```
+
+Открой http://127.0.0.1:5173/ — главная,
+http://127.0.0.1:5173/materials.html — каталог,
+http://127.0.0.1:5173/materials/8-algebra-32 — принятый React-эталон квадратичной функции.
+Этот preview читает tracked curriculum и не требует БД или чужого var/.
+Порт 5173 должен быть свободен; второй сервер на занятом порту не запускать.
+После остановки команды сервер прекращает работу.
+
+`npm run dev` пока запускает основную React Router оболочку на 5171, а не
+этот preview. Для реальных public страниц ей нужны verified public build inputs.
+MS-T001 проверит перенос на новом линейном уроке, MS-T002 подключит public pages;
+runtime-интеграция квадратичной функции включена в MS-T006. MS-T002A должна подтвердить
+единый документированный запуск результата из чистого clone опубликованного main.
+Preview сам по себе не доказывает работу FastAPI, входа или публикации.
+
+## Зафиксированные инструменты
+
+Используй существующие Node 24.21.0/npm 11.19.0 и package-lock.json.
+Не пересоздавай lock для документационной правки.
+
+```powershell
 npm --prefix frontend run typecheck
 npm --prefix frontend test
 npm --prefix frontend run build
 ```
 
-API generation keeps canonical OpenAPI/DTO and old expected manifest digests.
-Only explicitly retired historical pins are read from their exact Git commits;
-retained contracts and reviewed current adapters still check actual current
-HEAD/working bytes. Full Git history is required for verification.
+Генерация API сохраняет canonical OpenAPI/DTO и исходные manifest digests.
+Только явно выведенные historical pins читаются из точных Git commits;
+сохранённые контракты и проверенные текущие adapters используют фактические
+HEAD/working bytes. Для проверки истории нужен полный Git history.
 
-The normal published site is built using `python -m frontend.build_public`
-with exact immutable input/receipt digests, release ID, output directory and
-public origin from the [release runbook](../deploy/RELEASE.md). A generic Vite
-build or development server is not an installed public release.
+Обычный опубликованный сайт собирается командой `python -m frontend.build_public`
+с точными immutable input/receipt digests, release ID, output directory и
+public origin из [release runbook](../deploy/RELEASE.md). Обычная Vite build
+или dev server не являются установленным public release.
 
-For the prepared persistent local site use [local start](../docs/local-development.md).
-Account/staff APIs enforce session, CSRF, permissions and mutation contracts;
-React visibility is not authorization. Only anonymous shells are public artifacts.
+Для существующего локального runtime см. [локальный запуск](../docs/local-development.md).
+Account/staff APIs проверяют session, CSRF, permissions и mutation contracts;
+видимость React не заменяет authorization. Public artifacts содержат только
+анонимные оболочки, а не приватные данные пользователя.
 
-## Verification
+## Проверки
 
-Type/unit checks are scoped evidence. The complete managed target runs actual
-Chrome/Edge/Firefox at360/768/1440 and retains functional, mathematical,
-accessibility, authorization and security assertions. It rejects missing,
-skipped, flaky or incomplete-project receipts. See [target verification](../docs/target-runtime.md).
-No new pixel-perfect/spacing criteria are introduced in maintenance.
+Type/unit проверки дают evidence только своего scope. Полный managed target
+запускает настоящий Chrome/Edge/Firefox на 360/768/1440 и проверяет функции,
+математику, доступность, authorization и security. Missing/skipped/flaky либо
+неполные project receipts не засчитываются. См. [target verification](../docs/target-runtime.md)
+и [политику выбора проверок](../docs/frontend/testing-policy.md).
+Точечная поддержка не вводит новые pixel-perfect/spacing критерии.
 
-`verify:foundation` creates a new ignored verification-run receipt, preserving
-source/checkout provenance and refusing overwritten or historical evidence paths.
-Old checkpoint recorders require their original pinned task checkout/branch and
-are historical audit tools, not current verification entry points. Their original
-sources and captured approvals are recoverable at Git3a290a46d991e22269a17dde41e39f0637576071.
+`verify:foundation` создаёт новый игнорируемый verification-run receipt,
+сохраняет source/checkout provenance и отказывается перезаписывать существующие
+или historical evidence paths. Старые checkpoint recorders требуют исходный
+pinned task checkout/branch и не являются текущими entry points. Их исходники
+и approvals доступны в Git 3a290a46d991e22269a17dde41e39f0637576071.

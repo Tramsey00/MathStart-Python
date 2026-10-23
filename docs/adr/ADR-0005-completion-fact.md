@@ -1,81 +1,87 @@
-# ADR-0005 (D-021): Immutable CompletionFact beside frozen ProgressEvent
+# ADR-0005 (D-021): неизменяемый CompletionFact рядом с зафиксированным ProgressEvent
 
-- **Status:** Proposed
-- **Date:** 2026-10-02
-- **Owner:** Руслан
-- **Reviewer / Task Approver:** Владимир
-- **Related task:** [MS7-R03A / Issue #18](https://github.com/Tramsey00/MathStart-Python/issues/18)
-- **Relation / direct CONTRACT dependency:** FOLLOW-UP / ADDENDUM TO FROZEN R03
-- **Target reducer / CompletionFact policy_version:** progress-v1.1
-- **ProgressEvent policy_version:** progress-v1 (frozen; unchanged)
-- **Deadline:** 05.10.2026, corrected canonical v7.1 §20
-- **Inputs:** [ADR-0003](ADR-0003-knowledge-progress-semantics.md),
+- **Статус:** предложено
+- **Дата:** 2026-10-02
+- **Владелец:** Руслан
+- **Рецензент / утверждающий задачу:** Владимир
+- **Связанная задача:** [MS7-R03A / Issue #18](https://github.com/Tramsey00/MathStart-Python/issues/18)
+- **Связь / прямая зависимость CONTRACT:** FOLLOW-UP / ADDENDUM К ЗАФИКСИРОВАННОМУ R03
+- **Целевой reducer / policy_version CompletionFact:** progress-v1.1
+- **policy_version ProgressEvent:** progress-v1 (зафиксирован; без изменений)
+- **Срок:** 05.10.2026, исправленный канонический §20 v7.1
+- **Входные данные:** [ADR-0003](ADR-0003-knowledge-progress-semantics.md),
   [R03](../../specs/progress/R03-progress-contract.md),
   [baseline](../../specs/progress/BASELINE-v1.md),
   [R02A integration terminology](../../specs/api/MS7-R02A-http-eligibility.md)
-- **Plan / audit:** [MS7-R03A](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-R03A-completion-fact.md)
-- **Human approval:** PENDING; no runtime implementation authorized in this pass
+- **План / аудит:** [MS7-R03A](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-R03A-completion-fact.md)
+- **Утверждение человеком:** PENDING; реализация runtime в рамках этого прохода не разрешалась
 
-## 1. Context and canonical authority
+## 1. Контекст и канонический источник полномочий
 
-The accepted R03 contract identifies event-free Assessment completion as an
-integration gap. Its reference creates attempt history only while visiting
-ProgressEvents. Independent correct events both mark history and clear repeat
-counters. The plan contains the exact source/test map. Neutral assessed
-completions need history without fabricated numerical evidence.
+Принятый контракт R03 указывает на пробел интеграции: Assessment может
+завершиться без события. Его reference создаёт историю попыток только при
+обработке ProgressEvents. Независимые правильные события одновременно отмечают
+историю и сбрасывают счётчики повторов. В плане приведена точная карта
+исходников/тестов. Для нейтральных оценённых завершений нужна история без
+выдуманных числовых свидетельств.
 
-The 2026-10-02 canonical v7.1 correction supplied by the task owner governs this
-design: Assessment owns authoritative CompletionFact; Progress owns mirror and
-replay. Status-only replay is already permitted. Direct CONTRACT dependency is
-frozen R03. R02A terminology describes producer integration; its stale
-Proposed/PENDING markers are housekeeping, not an R03A blocker or evidence of
-newly completed human acceptance.
+В основе этого дизайна лежит каноническое исправление v7.1 от 2026-10-02,
+переданное владельцем задачи: авторитетным CompletionFact владеет Assessment;
+зеркалом и повторным воспроизведением владеет Progress. Повторное вычисление
+только статуса уже разрешено. Прямая зависимость CONTRACT — зафиксированный R03.
+Терминология R02A описывает интеграцию producer; устаревшие метки
+Proposed/PENDING относятся к обслуживанию записей, а не блокируют R03A и не
+свидетельствуют о новой состоявшейся приёмке человеком.
 
-Document-calendar discrepancy: corrected §20 sets MS7-R03A deadline 05.10.2026.
-Older task-card Target deadline lines saying 02.10 are superseded and must not
-serve as current calendar authority. The historical PDF path was unavailable
-in the original audit; no PDF inspection is claimed. The user-supplied canonical
-correction supplies the requirements for this pass.
+Расхождение календарных дат в документах: исправленный §20 устанавливает срок
+MS7-R03A 05.10.2026. Старые строки Target deadline в карточке со сроком 02.10
+замещены и не должны считаться текущим источником календарных данных. Путь к
+историческому PDF в первоначальном аудите был недоступен; проверка PDF не
+заявляется. Требования для этого прохода предоставлены пользователем в виде
+канонического исправления.
 
-## 2. Ownership and flow
+## 2. Владение и поток данных
 
-Assessment owns the authoritative immutable CompletionFact, terminal Attempt,
-bound exercise version, submitted snapshot, outcome, help/exposure and finalized
-eligibility. It produces one fact per attempt/skill. Progress validates the
-immutable cross-domain DTO and owns its completion mirror/replay and derived
-UserSkillState. Progress does not import Assessment ORM models. Trusted immutable
-producer context verifies owner/version/mapping through the service boundary.
-Tutor, Analyzer, frontend and providers cannot author completion eligibility.
+Assessment владеет авторитетным неизменяемым CompletionFact, завершённым Attempt,
+связанной версией exercise, снимком отправленных данных, outcome, help/exposure и
+итоговым правом на зачёт. Для каждой пары attempt/skill создаётся один факт.
+Progress проверяет неизменяемый междоменный DTO и владеет зеркалом/повторным
+воспроизведением завершений и производным UserSkillState. Progress не импортирует
+ORM-модели Assessment. Доверенный неизменяемый контекст producer проверяет
+владельца/версию/сопоставление на границе сервиса. Tutor, Analyzer, frontend и
+провайдеры не могут определять право на зачёт завершения.
 
     Assessment CompletionFact -> immutable DTO -> Progress completion mirror
 
-Recent-ten is built from the Progress mirror. The ProgressEvent log remains the
-sole numerical evidence stream. Mirror records provide completed-attempt
-membership and independent-correct count, hence derived status; they have no
-numerical projection authority. This pass edits only ADR, plan and trace, without
-executable DTO/schema, reference, fixture, runtime, endpoint or migration changes.
+Список последних десяти строится по зеркалу Progress. Журнал ProgressEvent
+остаётся единственным потоком числовых свидетельств. Записи зеркала задают
+состав завершённых попыток и число независимо решённых заданий, а значит,
+производный статус; они не имеют полномочий менять числовую проекцию. В этом
+проходе изменяются только ADR, план и trace; исполняемые DTO/schema, reference,
+fixture, runtime, endpoint и migration не меняются.
 
-## 3. Canonical fields, dual identity and exact policy
+## 3. Канонические поля, двойная идентичность и точные правила
 
-Assessment's target fields are immutable completion_id, attempt, skill, outcome,
-independent flag, completed_at and policy_version, with UNIQUE(attempt, skill).
-Across the boundary, relation references become attempt_id and skill_id; the
-flag is named independent_correct.
+Целевые поля Assessment: неизменяемые completion_id, attempt, skill, outcome,
+признак independent, completed_at и policy_version, с UNIQUE(attempt, skill).
+На междоменной границе ссылки на связи становятся attempt_id и skill_id; флаг
+называется independent_correct.
 
-Two permanent identity constraints apply together:
+Одновременно действуют два постоянных ограничения идентичности:
 
-1. completion_id is a globally unique immutable identity generated by Assessment,
-   preserved across retries and copied into the Progress mirror.
-2. (attempt_id, skill_id) is permanent source uniqueness: one fact per skill for
-   an attempt, even if another completion_id is presented.
+1. completion_id — глобально уникальная неизменяемая идентичность, созданная
+   Assessment, сохраняемая при повторах и копируемая в зеркало Progress.
+2. (attempt_id, skill_id) задаёт постоянную уникальность источника: один факт на
+   навык для attempt, даже если передан другой completion_id.
 
-user_id may additionally bind the owner for Progress projection. This proposed
-DTO requires it, but it replaces neither constraint and is not a source key
-component. Native validation verifies attempt ownership and bound-version skill
-mapping. All skills of an attempt share its completion instant. A correction
-uses a new attempt_id; previous_attempt_id never merges attempts.
+Дополнительно user_id может привязывать владельца для проекции Progress. Этот
+предлагаемый DTO требует его, но user_id не заменяет ни одно ограничение и не
+входит в состав ключа источника. Нативная проверка подтверждает владельца attempt
+и сопоставление навыка в привязанной версии. Все навыки одной попытки имеют одно
+время завершения. Для исправления используется новый attempt_id;
+previous_attempt_id никогда не объединяет попытки.
 
-The proposed closed immutable DTO has eight required fields:
+Предлагаемый закрытый неизменяемый DTO содержит восемь обязательных полей:
 
     {
       "completion_id": "00000000-0000-4000-8000-000000000001",
@@ -88,236 +94,263 @@ The proposed closed immutable DTO has eight required fields:
       "policy_version": "progress-v1.1"
     }
 
-| Field | Validation and purpose |
+| Поле | Проверка и назначение |
 | --- | --- |
-| completion_id | Globally unique immutable canonical lowercase UUID; retries and mirror ingestion never allocate replacement IDs |
-| attempt_id | Stable Attempt reference; native server UUID, explicit legacy synthetic references supported |
-| skill_id | Stable known Skill reference using R03 code convention, mapped by the bound version |
-| user_id | Supplemental owner binding equal to authoritative Attempt owner; not an identity namespace |
-| outcome | Required finalized Assessment outcome: CORRECT, WRONG, UNSUPPORTED or INDETERMINATE |
-| independent_correct | Required strict boolean from frozen correctness/eligibility; true requires CORRECT |
-| completed_at | Required aware RFC3339, 0–6 fractional digits, normalized UTC six digits and Z using R03 utc_instant |
-| policy_version | Exactly progress-v1.1 for this CompletionFact revision; immutable completion policy without numerical authority |
+| completion_id | Глобально уникальный неизменяемый канонический UUID в нижнем регистре; при повторах и загрузке в зеркало замещающие ID не выделяются |
+| attempt_id | Стабильная ссылка на Attempt; нативный UUID сервера, явно поддерживаются синтетические ссылки legacy |
+| skill_id | Стабильная ссылка на известный Skill по соглашению о кодах R03, сопоставленная в привязанной версии |
+| user_id | Дополнительная привязка владельца, равная авторитетному владельцу Attempt; не пространство имён идентичности |
+| outcome | Обязательный итоговый outcome Assessment: CORRECT, WRONG, UNSUPPORTED или INDETERMINATE |
+| independent_correct | Обязательное строгое boolean-значение на основе зафиксированных правильности/права на зачёт; true требует CORRECT |
+| completed_at | Обязательный RFC3339 с часовым поясом, 0–6 дробных цифр; нормализуется в UTC с шестью цифрами и Z посредством R03 utc_instant |
+| policy_version | Ровно progress-v1.1 для этой редакции CompletionFact; неизменяемые правила завершения без полномочий на числовые изменения |
 
-CompletionFact policy_version is explicitly progress-v1.1. ProgressEvent
-policy_version remains progress-v1. Native reducer_version is progress-v1.1;
-these fields have distinct purposes. A future completion-v1.schema.json filename
-identifies a schema artifact, not a completion_version envelope field.
+Для CompletionFact policy_version явно установлено progress-v1.1. Для ProgressEvent
+policy_version остаётся progress-v1. Нативный reducer_version равен progress-v1.1;
+эти поля имеют разные назначения. Будущее имя файла completion-v1.schema.json
+обозначает артефакт schema, а не поле completion_version в envelope.
 
-Outcome is mandatory even for neutral facts. Neutrality means no numerical
-projection authority, regardless of outcome. Already credited CORRECT work can
-have independent_correct=false. WRONG alone creates neither a numerical penalty
-nor misconception evidence. No answer, difficulty, numerical delta or
-caller-written authority marker is needed. Missing/unknown fields, unsupported
-policy, malformed time, wrong ownership/mapping or authority fail closed before
-any accepted mirror/projection change.
+Outcome обязателен даже для нейтральных фактов. Нейтральность означает отсутствие
+полномочий менять числовую проекцию независимо от outcome. Уже зачтённая
+правильная работа может иметь independent_correct=false. Один лишь WRONG не
+создаёт ни числового штрафа, ни свидетельства заблуждения. Ответ, сложность,
+числовая дельта и установленный вызывающей стороной признак полномочий не
+требуются. При отсутствии/неизвестных полях, неподдерживаемой policy,
+некорректном времени, неправильном владельце/сопоставлении или полномочиях
+операция полностью отклоняется до изменения принятого зеркала/проекции.
 
-## 4. Native authority and lifecycle
+## 4. Нативные полномочия и жизненный цикл
 
-Native facts are produced only for assessed COMPLETED Attempts with finalized
-outcome/eligibility/time. SUBMITTED, HTTP 202, STARTED, ABANDONED and SELF_CHECK
-REVIEWED do not produce native facts. Legacy reveal-only history is preserved
-through section 8, without renaming REVIEWED to COMPLETED.
+Нативные факты создаются только для оценённых Attempts в состоянии COMPLETED с
+итоговыми outcome/правом на зачёт/временем. Состояния SUBMITTED, HTTP 202,
+STARTED, ABANDONED и SELF_CHECK REVIEWED не создают нативных фактов. История
+legacy только с reveal сохраняется согласно разделу 8; REVIEWED не переименовывается в COMPLETED.
 
-For each skill, true independence requires supported validated CORRECT work
-with frozen independent eligibility. R02A integration describes exposure,
-earlier help/reveal and prior positive credit under finalization serialization.
-Unassisted supported diagnostics can qualify; helped diagnostics cannot.
-Repeated credited CORRECT, revealed work, UNSUPPORTED and INDETERMINATE use
-false. False is not an outcome.
+Для каждого навыка независимость true требует поддерживаемой проверенной
+правильной работы с зафиксированным правом на независимый зачёт. Интеграция R02A
+описывает exposure, предшествующие help/reveal и предыдущий положительный зачёт
+при сериализации финализации. Неподсказанная поддерживаемая диагностика может
+подойти; диагностике с подсказкой это недоступно. Повторно зачтённая правильная
+работа, работа с раскрытым ответом, UNSUPPORTED и INDETERMINATE используют false.
+False не является outcome.
 
-Help during SUBMITTED participates in finalization; later help cannot rewrite
-the fact. Mutable Exposure on retry cannot replace stored eligibility.
-CompletionFact neither awards nor reserves positive credit or bypasses its guard.
+Help во время SUBMITTED учитывается при финализации; более поздняя подсказка не
+может переписать факт. Изменившийся Exposure при повторе не заменяет сохранённое
+право на зачёт. CompletionFact не выдаёт и не резервирует положительный зачёт и
+не обходит его проверку.
 
-Internal ingestion compares every DTO field with trusted immutable Assessment
-context: identity, owner, version/mapping, state, outcome, time, policy and
-per-skill eligibility. Client authority/source flags prove nothing. Synthetic
-server records in future pure tests prove validation, not authentication or
-PostgreSQL transactions. No public CompletionFact write API is proposed.
+Внутренняя загрузка сверяет каждое поле DTO с доверенным неизменяемым контекстом
+Assessment: identity, владелец, версия/сопоставление, состояние, outcome, время,
+policy и право зачёта для каждого навыка. Флаги полномочий/источника на клиенте
+ничего не доказывают. Синтетические записи сервера в будущих pure-тестах
+подтверждают проверку данных, но не аутентификацию или транзакции PostgreSQL.
+Публичный API для записи CompletionFact не предлагается.
 
-## 5. Recent-ten and settled status-only replay
+## 5. Последние десять и установленное повторное вычисление только статуса
 
-Select the user's skill-specific Progress mirror records, deduplicate under both
-constraints, sort by (UTC completed_at, attempt_id), take the last ten and return
-IDs ascending. Equal-time identifiers use case-sensitive lexical order as in
-R03; native UUIDs are lowercase. Count each retained true independent_correct
-once. Include neutral attempts; do not count events as attempts, filter to
-positive-only history or introduce time decay.
+Выберите записи зеркала Progress для навыка пользователя, устраните дубликаты по
+обоим ограничениям, отсортируйте по (UTC completed_at, attempt_id), возьмите
+последние десять и верните IDs по возрастанию. Для совпадающего времени
+идентификаторы сравниваются лексикографически с учётом регистра, как в R03;
+нативные UUID представлены строчными буквами. Каждый оставшийся
+independent_correct=true учитывается один раз. Включайте нейтральные попытки; не
+считайте события попытками, не фильтруйте историю только до положительных
+результатов и не вводите затухание со временем.
 
-Only Progress recomputes status with unchanged frozen precedence:
+Только Progress повторно вычисляет статус, сохраняя зафиксированный порядок приоритетов:
 
 1. evidence_count == 0 -> NOT_STARTED;
-2. mastery >= 80.00, confidence >= 60.00 and recent independent count >= 3
+2. mastery >= 80.00, confidence >= 60.00 и число независимых попыток в истории >= 3
    -> MASTERED;
-3. mastery < 50.00 and confidence >= 30.00 -> WEAK;
-4. otherwise -> LEARNING.
+3. mastery < 50.00 и confidence >= 30.00 -> WEAK;
+4. иначе -> LEARNING.
 
-Canonical v7.1 already permits a neutral completion to evict an independent
-attempt and change MASTERED -> LEARNING without changing mastery, confidence,
-evidence_count or last_updated. This is settled scope, not an unresolved
-architecture question. Neutral-only history retains zero numerical values/count,
-null last_updated and NOT_STARTED. A fact arriving before its qualifying event
-can affect history but cannot initialize numerical evidence.
+Каноническая v7.1 уже разрешает нейтральному завершению вытеснить независимую
+попытку и изменить MASTERED -> LEARNING без изменения mastery, confidence,
+evidence_count или last_updated. Это согласованная область работ, а не открытый
+архитектурный вопрос. История только нейтральных попыток сохраняет нулевые
+числовые значения/счётчик, null last_updated и NOT_STARTED. Факт, поступивший
+раньше события, дающего право на зачёт, может повлиять на историю, но не может
+инициализировать числовые свидетельства.
 
-## 6. Replay and numerical isolation
+## 6. Повторное воспроизведение и числовая изоляция
 
-Native progress-v1.1 replay takes the accepted ProgressEvent log and the Progress
-completion mirror. Assessment ORM is not a replay input. DTO authority is
-validated before mirror acceptance; delivery order is not reducer order.
+Нативное воспроизведение progress-v1.1 использует принятый журнал ProgressEvent
+и зеркало завершений Progress. ORM Assessment не является входом replay.
+Полномочия DTO проверяются до принятия в зеркало; порядок доставки не является
+порядком reducer.
 
-1. Validate/canonicalize both keys, payload, authority and coexistence atomically.
-   Coalesce exact completion retries; reject conflicts without mutating state.
-2. Run unchanged R03 numerical replay ordered by
-   (occurred_at, event_id, policy_version), using each recorded progress-v1 policy.
-   Retain numerical values, repeat/reset behavior, event identities,
-   deltas/snapshots and last_updated.
-3. Derive recent-ten solely from the Progress completion mirror. Inline event
-   completed_at is a consistency attestation, not another native history source.
-4. Combine numbers and recent count through unchanged status_for, retaining the
-   six state fields with native reducer_version=progress-v1.1.
+1. Атомарно проверьте/канонизируйте оба ключа, payload, полномочия и совместимость.
+   Объедините точные повторы завершения; отклоните конфликты без изменения состояния.
+2. Выполните неизменённое числовое воспроизведение R03 с сортировкой по
+   (occurred_at, event_id, policy_version) и применением записанной для каждого события policy progress-v1.
+   Сохраните числовые значения, поведение повторов/сбросов, идентификаторы событий,
+   дельты/snapshots и last_updated.
+3. Выведите список последних десяти только из зеркала завершений Progress. Встроенный
+   completed_at события подтверждает согласованность, но не является другим источником нативной истории.
+4. Объедините числовые значения и число недавних попыток через неизменённый status_for,
+   сохранив шесть полей состояния и нативный reducer_version=progress-v1.1.
 
-For a fixed valid event log, fact delivery cannot change mastery, confidence,
-evidence_count, last_updated, numerical event deltas/snapshots, misconception
-counters/reset points or event history. Facts never clear repeats; the existing
-qualifying event clears them in occurrence order, even if its fact is delayed.
-No synthetic event or fact-specific numerical timestamp is introduced.
+Для неизменного корректного журнала событий доставка факта не может изменить
+mastery, confidence, evidence_count, last_updated, числовые дельты/snapshots
+событий, счётчики заблуждений/точки сброса или историю событий. Факты никогда не
+сбрасывают счётчики повторов; существующее соответствующее условиям событие
+сбрасывает их по порядку возникновения, даже если факт к нему задержан.
+Синтетические события и специальные для фактов числовые временные метки не вводятся.
 
-A late fact re-derives history/count/status from the full mirror. Its time may
-precede or follow occurred_at; old facts outside recent-ten remain retained.
-Complete identical inputs produce identical results across delivery permutations.
-A genuine late event can change numbers through frozen R03 replay.
+Поздний факт повторно выводит историю/счётчик/статус из полного зеркала. Его
+время может быть до или после occurred_at; старые факты за пределами последних
+десяти сохраняются. Одинаковые полные входные данные дают одинаковые результаты
+при любом порядке доставки. Реально опоздавшее событие может изменить числа через
+зафиксированный replay R03.
 
-Future outputs are state, recent_window, existing ordered/applied/nonprojecting
-event-ID diagnostics, and completion_gaps (sorted attempt IDs with inline
-attestation but no mirror record). Gaps grant no history or numerical authority.
-Legacy snapshots remain compatibility diagnostics, not native history snapshots.
+Будущие выходные данные — state, recent_window, существующая диагностика
+упорядоченных/применённых/не влияющих на проекцию event-ID и completion_gaps
+(отсортированные attempt IDs со встроенным подтверждением, но без записи в
+зеркале). Такие пробелы не дают полномочий на историю или числовые изменения.
+Снимки legacy остаются диагностикой совместимости, а не нативными снимками истории.
 
-## 7. Idempotency, conflicts and event coexistence
+## 7. Идемпотентность, конфликты и совместное существование событий
 
-Compare the complete immutable canonical payload after timestamp normalization.
-Exact same completion_id, source pair and every payload field -> idempotent
-no-op, one mirror record and unchanged result. Offset/Z spellings of the same
-instant canonicalize equally. Reuse of either completion_id or
-(attempt_id, skill_id) with a different immutable payload -> conflict, including:
+Сравнивайте полный неизменяемый канонический payload после нормализации временной
+метки. Совпадающие completion_id, пара источника и все поля payload означают
+идемпотентную операцию без изменений, одну запись зеркала и неизменный результат.
+Одинаковый момент времени, записанный с разными offset или через Z, приводится к
+одному каноническому виду. Повторное использование completion_id или
+(attempt_id, skill_id) с другим неизменяемым payload приводит к конфликту, включая:
 
-- same completion_id with a different source pair;
-- different completion_id for the same source pair;
-- changed owner, outcome, independence, time or policy under either reused key.
+- тот же completion_id с другой парой источника;
+- другой completion_id для той же пары источника;
+- изменённые owner, outcome, independence, time или policy при повторном использовании любого ключа.
 
-Owner/policy never creates a new identity namespace. Check both keys before
-owner/skill projection partitioning. Unsupported policy fails validation; a
-different supported policy under a reused key still conflicts. Never overwrite,
-replace IDs on retry or silently reconcile source collisions. Progress preserves
-the authoritative identity, both constraints and immutable DTO payload.
+Владелец/policy не создают новое пространство идентификаторов. Проверяйте оба
+ключа до разделения проекций по владельцу/навыку. Неподдерживаемая policy не
+проходит валидацию; другая поддерживаемая policy при повторном ключе всё равно
+создаёт конфликт. Не перезаписывайте данные, не заменяйте IDs при повторе и не
+согласовывайте коллизии источника молча. Progress сохраняет авторитетную identity,
+оба ограничения и неизменяемый payload DTO.
 
-Frozen event_id/source/evidence/negative-penalty identities remain unchanged.
-R03 log replay rejects duplicate events; event ingestion deduplicates exact
-retries. Completion rules do not weaken either behavior.
+Зафиксированные идентификаторы event_id/source/evidence/negative-penalty не меняются.
+Replay журнала R03 отклоняет повторные события; загрузка событий устраняет только
+точные повторы. Правила Completion не ослабляют ни одно из этих требований.
 
-Shared user/skill/attempt inline nonnull completed_at must equal the fact time.
-Missing inline time on permitted negative/reveal events is not disagreement.
-Correct/diagnostic events retain frozen attestation/eligibility validation.
-Reject final-result contradictions using trusted context; intermediate wrong
-steps do not determine final outcome. Later reveal does not revoke finalized
-independence. Events may project while their fact is delayed, but cannot populate
-native recent-ten. No automatic inline fallback is allowed.
+Ненулевой встроенный completed_at, общий для user/skill/attempt, должен совпадать
+со временем факта. Отсутствие встроенного времени в разрешённых отрицательных
+событиях/reveal не является расхождением. Для правильных/диагностических событий
+сохраняется зафиксированная проверка подтверждения/права на зачёт. Отклоняйте
+противоречия с итоговым результатом, используя доверенный контекст; промежуточные
+неверные шаги не определяют итоговый outcome. Последующий reveal не отменяет
+зафиксированную независимость. События могут попасть в проекцию, пока их факт
+задержан, но не могут заполнить нативный список последних десяти. Автоматический
+переход на встроенные данные как fallback запрещён.
 
-## 8. Explicit progress-v1 compatibility
+## 8. Явная совместимость с progress-v1
 
-Preserve all frozen files, constants, envelopes, identities and legacy replay/
-ingest entry points. Their literal progress-v1 outputs, windows, snapshots and
-reveal-only history remain the fixture oracle.
+Сохраните все зафиксированные файлы, константы, envelopes, identities и точки
+входа legacy replay/ingest. Их буквальные результаты progress-v1, временные окна,
+snapshots и история только с reveal остаются эталоном fixture.
 
-An explicit compatibility adapter validates the entire legacy log. Inline
-metadata can check legacy time and event-derived independence; it cannot supply
-authoritative completion_id or necessarily final outcome. Canonical mirror
-materialization requires trusted completion source context/DTO with stable ID,
-required finalized outcome, owner and policy, checked against available legacy
-attestations. Future synthetic parity contexts supply these fields, including
-for reveal-only cases. Never infer outcome from wrong steps, false independence
-or reveal-only events.
+Явный adapter совместимости проверяет весь журнал legacy. Встроенные метаданные
+могут проверить время legacy и независимость, выведенную из события; они не могут
+предоставить авторитетный completion_id и не всегда содержат итоговый outcome.
+Для канонического формирования зеркала нужен доверенный контекст/DTO источника
+завершения со стабильным ID, обязательным итоговым outcome, владельцем и policy,
+сверенными с доступными подтверждениями legacy. Будущие синтетические контексты
+parity предоставляют эти поля, в том числе для случаев только с reveal. Никогда
+не выводите outcome из неверных шагов, отсутствия независимости или одних лишь
+событий reveal.
 
-Without authoritative context, preserve legacy replay/history through the
-explicit v1 entry point; do not fabricate Assessment CompletionFacts. Keep
-legacy synthetic Attempt references and do not retrofit R02A UUID/credit rules
-onto frozen evidence. Import provenance belongs to trusted context. Progress
-validates and mirrors supplied facts; it does not author the authoritative source.
+Без авторитетного контекста сохраняйте replay/history legacy через явную точку
+входа v1; не создавайте фиктивные CompletionFacts Assessment. Сохраняйте
+синтетические ссылки Attempt legacy и не переносите правила UUID/зачёта R02A на
+зафиксированные свидетельства. Происхождение импорта определяется доверенным
+контекстом. Progress проверяет и помещает в зеркало переданные факты; он не
+создаёт авторитетный источник.
 
-With explicit context matching legacy membership/independence and no extra
-neutral facts, native replay must preserve numerical results, status,
-last_updated, recent IDs/count, event ordering/application and numerical
-snapshots. Only native reducer_version differs. Never rewrite event
-policy_version or payload. Exact imported/native agreement coalesces; either
-reused key with disagreement conflicts. Native mode never invokes import
-implicitly to hide missing delivery.
+При явном контексте, совпадающем с составом/независимостью legacy и не содержащем
+дополнительных нейтральных фактов, нативный replay должен сохранять числовые
+результаты, status, last_updated, последние IDs/счётчик, порядок/применение
+событий и числовые snapshots. Отличается только нативный reducer_version. Никогда
+не переписывайте policy_version или payload события. Полное совпадение импортных
+и нативных данных объединяется; расхождение при повторном использовании любого
+ключа вызывает конфликт. Нативный режим никогда не запускает импорт неявно, чтобы
+скрыть недоставленные данные.
 
-## 9. Architectural invariants and housekeeping
+## 9. Архитектурные инварианты и обслуживание записей
 
-All event kinds, deltas, coefficients, evidence counts, status thresholds,
-Decimal clamp/ROUND_HALF_UP, no-decay, reveal/misconception/independence rules
-and event identities remain frozen. Only Progress owns long-term projections.
+Все типы событий, дельты, коэффициенты, счётчики свидетельств, пороги статусов,
+ограничение Decimal/ROUND_HALF_UP, отсутствие затухания со временем, правила
+reveal/заблуждений/независимости и идентификаторы событий остаются зафиксированными.
+Только Progress владеет долгосрочными проекциями.
 
-ARCHITECTURE 17.1/42.7's broad every-progress-change-has-event wording needs a
-later scoped explanatory alignment note: numerical changes require ProgressEvent;
-recent-ten and status can change through validated mirror records. Canonical
-v7.1 already resolves this distinction. It is not a proposed exception or pending
-architecture decision. Root/frozen documents are outside this correction's scope.
-R02A stale PENDING markers are also housekeeping, not a direct CONTRACT blocker.
+Широкая формулировка ARCHITECTURE 17.1/42.7 о том, что каждому изменению
+progress соответствует событие, требует позднее добавить ограниченную
+пояснительную заметку для согласования: числовые изменения требуют ProgressEvent;
+список последних десяти и статус могут измениться через проверенные записи
+зеркала. Каноническая v7.1 уже разрешает это различие. Это не предлагаемое
+исключение и не ожидающее решения по архитектуре. Корневые/зафиксированные
+документы не входят в область этого исправления. Устаревшие метки PENDING в R02A
+также относятся к обслуживанию записей, а не блокируют прямую зависимость CONTRACT.
 
-## 10. Alternatives and consequences
+## 10. Альтернативы и последствия
 
-Reject synthetic neutral/negative/reveal events, positive-only windows,
-completion-driven repeat resets, caller-authored eligibility, automatic inline
-fallback, mutable identities and receipt-only deduplication. Also reject the
-user/skill/attempt triple as a replacement for canonical dual constraints,
-an ID without source uniqueness, and facts without outcome/policy.
+Отклоняются синтетические нейтральные/отрицательные/reveal-события, окна только
+из положительных результатов, сброс счётчиков повтора при завершении, право на
+зачёт, заданное вызывающей стороной, автоматический fallback на встроенные
+данные, изменяемые identity и дедупликация только по receipt. Также отклоняются
+тройка user/skill/attempt как замена каноническим двойным ограничениям, ID без
+уникальности источника и факты без outcome/policy.
 
-Public writes, removal of frozen inline attestations, queues and physical ORM
-details remain future work. completion_id is required in the design, not
-deferred. Benefits are auditable history and independently reproducible numeric
-replay; costs are source/mirror reconciliation and status changes with unchanged
-last_updated, which records numerical projection time. No R03A executable
-implementation/parity claim is made.
+Публичная запись, удаление зафиксированных встроенных подтверждений, очереди и
+детали физической ORM относятся к будущей работе. completion_id обязателен в
+дизайне и не отложен. Преимущества — проверяемая история и независимо
+воспроизводимый числовой replay; издержки — согласование источника/зеркала и
+изменение статуса при неизменном last_updated, который отражает время числовой
+проекции. Утверждений о работающей реализации/parity R03A не делается.
 
-## 11. Future V08 persistence and rollback
+## 11. Будущая модель хранения V08 и откат
 
-No schema/data change occurs here. Assessment's future authoritative persistence
-retains all seven target fields, globally unique immutable completion_id and
-UNIQUE(attempt, skill). Progress's mirror preserves both constraints and DTO
-payload/owner binding without Assessment ORM imports. Physical storage requires
-reviewed additive Django migrations; ownership and constraints are already fixed.
+Здесь schema и данные не меняются. Будущее авторитетное хранение Assessment
+сохраняет все семь целевых полей, глобально уникальный неизменяемый completion_id
+и UNIQUE(attempt, skill). Зеркало Progress сохраняет оба ограничения и привязку
+payload DTO к владельцу без импорта ORM Assessment. Для физического хранения
+нужны рассмотренные добавочные миграции Django; владение и ограничения уже определены.
 
-Future work needs conflict-reporting backfill with authoritative outcome/ID
-sources, PostgreSQL migration/fresh-install evidence and concurrency/delivery
-tests. Receipt expiry cannot erase identities or credit guards. Bootstrap cannot
-overwrite historical facts, mirror or events. Preserve raw work in Assessment,
-protect owner scopes/secrets and create no negative evidence for malformed facts.
+Для будущей работы нужны backfill с отчётом о конфликтах и авторитетными
+источниками outcome/ID, свидетельства миграции/чистой установки PostgreSQL и
+тесты конкуренции/доставки. Истечение срока receipt не может стереть identity
+или защиты от повторного зачёта. Bootstrap не может перезаписывать исторические
+факты, зеркало или события. Сохраняйте исходную работу в Assessment, защищайте
+границы владельца/секреты и не создавайте отрицательные свидетельства для
+некорректных фактов.
 
-Current rollback reverts only the three documents. Future rollback retains
-authoritative facts, mirror/provenance and event log. Explicit v1 projection can
-be rebuilt with disclosure that event-free neutral history is absent. Never
-delete historical facts or mutate numerical evidence to imitate v1.1 status.
+Текущий откат отменяет только три документа. При будущем откате сохраняются
+авторитетные факты, зеркало/происхождение и журнал событий. Явную проекцию v1
+можно пересоздать, указав, что нейтральная история без событий отсутствует.
+Никогда не удаляйте исторические факты и не меняйте числовые свидетельства,
+пытаясь имитировать статус v1.1.
 
-## 12. Verification and human gate
+## 12. Проверка и участие человека
 
-The plan defines future files/cases for neutral eviction, dual keys, mandatory
-outcome/policy, late facts, numerical isolation, authority and compatibility.
-This correction runs git diff --check, canonical verify_repo.py, unchanged R03
-tests and git diff --stat. Actual results/versions are in
-[the trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-R03A.md). Checks verify the unchanged executable
-baseline, not R03A implementation.
+План определяет будущие файлы/сценарии для вытеснения нейтральной попыткой,
+двойных ключей, обязательных outcome/policy, поздних фактов, числовой изоляции,
+полномочий и совместимости. В рамках этого исправления выполняются git diff
+--check, канонический verify_repo.py, неизменённые тесты R03 и git diff --stat.
+Фактические результаты/версии приведены в [отчёте о ходе работ](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-R03A.md).
+Проверки подтверждают неизменённую исполняемую базовую версию, а не реализацию R03A.
 
-**Reviewer / Task Approver:** Владимир. **Decision:** PENDING.
-**Review date:** not recorded. The package's human gate remains; canonical
-ownership, keys, fields and status-only permission are fixed review inputs,
-not unresolved questions. Draft readiness is not acceptance. Keep the plan
-active and Issue #18 open; no PR, push, merge or implementation in this pass.
-Future implementation and downstream V08/R11 retain their separate gates.
+**Рецензент / утверждающий задачу:** Владимир. **Решение:** PENDING.
+**Дата ревью:** не зафиксирована. Этап приёмки человеком для этого пакета
+остаётся обязательным; каноническое владение, ключи, поля и разрешение менять
+только статус являются фиксированными входными данными ревью, а не открытыми
+вопросами. Готовность черновика не является приёмкой. Оставьте план активным и
+Issue #18 открытой; в рамках этого прохода PR, push, merge или реализация не
+выполняются. Для будущей реализации и последующих V08/R11 действуют отдельные gates.
 
-## Status history
+## История статусов
 
-- 2026-10-02 — Initial audit/design proposal; implementation/review PENDING.
-- 2026-10-02 — Corrected audit/design commit 1ec5bb507444c442b585720787335c8a17fe09e1:
-  canonical v7.1 ownership, dual identity, outcome/policy, mirror replay, settled
-  status-only semantics and corrected §20 deadline aligned; still Proposed.
+- 2026-10-02 — Первичное предложение по аудиту/дизайну; реализация/ревью PENDING.
+- 2026-10-02 — Исправленный коммит аудита/дизайна 1ec5bb507444c442b585720787335c8a17fe09e1:
+  согласованы каноническое владение v7.1, двойная идентичность, outcome/policy,
+  replay зеркала, установленная семантика изменения только статуса и исправленный
+  срок §20; статус всё ещё Proposed.

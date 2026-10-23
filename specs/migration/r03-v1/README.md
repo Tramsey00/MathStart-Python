@@ -1,210 +1,204 @@
-# R03 verification adapter contract v1
+# Контракт verification adapter R03 v1
 
-Status: command contract REVIEWED after actual independent technical review.
-Normal mandatory CI with the reviewed map passed on the candidates below.
-The user subsequently accepted the migration and authorized PR54's merge as
-3a290a46d991e22269a17dde41e39f0637576071; main CI also passed.
-[Review and limits](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/review/final-review-20261018.md).
-Historical owner attribution: Tramsey00 / VladimirFrolov777 /13baybars.
-[Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) records its original scope;
-the completed migration result and current maintenance entry points are in
-[maintenance](../../../docs/maintenance.md). This document does not start another task.
-Current accepted input `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
-previous input `0c03197e23f69a233c0fcf8bdffa336feca20b92` and its receipts preserved in Git;
-historical input `8d958aeeb17da46839722441425ccbb5889e2ab7` is preserved,
+Статус: контракт команд REVIEWED после фактического независимого технического ревью.
+Обычный обязательный CI с проверенной картой прошёл для указанных ниже candidates.
+Затем пользователь принял миграцию и разрешил merge PR54 с SHA
+3a290a46d991e22269a17dde41e39f0637576071; CI main также прошёл.
+[Ревью и ограничения](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/review/final-review-20261018.md).
+Историческая атрибуция владельцев: Tramsey00 / VladimirFrolov777 /13baybars.
+[Issue30](https://github.com/Tramsey00/MathStart-Python/issues/30) фиксирует исходный scope;
+результат завершённой миграции и текущие точки входа сопровождения указаны в
+[maintenance](../../../docs/maintenance.md). Этот документ не запускает новую задачу.
+Текущий принятый вход `a359b0bf270560d5b45d0a89e1ca1e9cfddffdb6`;
+предыдущий вход `0c03197e23f69a233c0fcf8bdffa336feca20b92` и его receipts сохранены в Git;
+исторический вход `8d958aeeb17da46839722441425ccbb5889e2ab7` сохранён,
 MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`.
-Authority: [migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)§§9/17,
-[R02 matrix](../r02-v1/parity-matrix-v1.json) and accepted ADR0006.
+Основания: [migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md) §§9/17,
+[матрица R02](../r02-v1/parity-matrix-v1.json) и принятый ADR0006.
 
-## Profiles and commands
+## Профили и команды
 
-Текущий registry после20.10.2026: `python scripts/verify_repo.py` запускает15
-product checks, `--profile pure` —5 portable suites. Selection flags сохранены;
-группа harness удалена вместе с подсистемой. Empty/failed/skipped/missing/timeout
-fail. Product checks не зависят от development runner; bounded redaction перенесён
-в scripts/verification_diagnostics.py. Общие registry/failure/privacy regressions
-сохранены в tests/test_migration_r03*.py. Legacy profile — только pinned oracle.
-Исторические counts/registry IDs и receipts ниже описывают прежние SHA, не активные
-обязательства. Полная пофайловая карта — docs/audits/docs-and-workflow-cleanup.md.
+Текущий registry после 20.10.2026: `python scripts/verify_repo.py` запускает 15
+product checks, `--profile pure` — 5 переносимых наборов. Selection flags сохранены;
+группа harness удалена вместе с подсистемой. Empty/failed/skipped/missing/timeout означают
+fail. Product checks не зависят от development runner; ограниченная redaction перенесена
+в scripts/verification_diagnostics.py. Общие регрессии registry/failure/privacy сохранены
+в tests/test_migration_r03*.py. Legacy profile — только закреплённый oracle.
+Исторические counts/registry IDs и receipts ниже описывают прежние SHA, а не действующие
+обязательства. Полная пофайловая карта: docs/audits/docs-and-workflow-cleanup.md.
 
-Use Python3.12+, an isolated venv, `pip install --no-deps -r verification.lock`
-from this directory (or its full root-relative path), then `pip check`.
-Product dependencies use the checked-in backend/frontend locks; verification.lock
-is the tooling lock. No latest dependency install.
+Использовать Python 3.12+, отдельный venv, `pip install --no-deps -r verification.lock`
+из этой директории (либо полный путь относительно root), затем `pip check`.
+Зависимости product устанавливаются из зафиксированных backend/frontend locks;
+verification.lock — lock инструментов. Установка latest зависимостей запрещена.
 
-## Required semantic equivalents and owner handoff
+## Обязательные семантические эквиваленты и передача владельцам
 
-The [command handoff](runtime-commands.json) now has real target
-entry points for all ten backend checks: system/routes/security, exact schema/head,
-all263 lesson sources, full279-page filesystem integrity, live HTTP quality,
-the complete backend suites in isolated databases, fresh twice with real React
-artifacts and repeated bootstrap, and populated upgrade A/B/C via actual schema
-CLI with retained data/history/sequence assertions. Managed combined orchestration
-passed on42f6249:320 backend,181 frontend unit,1269 browser cases across all9
-projects, zero skips, fresh/upgrade profiles, recovery455 and combined gate.
-The independent reviewer inspected all10 backend and4 frontend handoffs and
-approved their technical REVIEWED status. Normal mandatory CI now exercises this
-state. `IMPLEMENTED_PARTIAL` remains an available intermediate state with missing
-entries failing closed; neither state alone establishes human task acceptance.
-Backend entry: `{ "script": "backend/<existing-script>.py", "args": ["..."] }`.
-Only Python scripts resolving inside backend are accepted; no arbitrary shell.
-Each entry emits nonempty unskipped target receipts. Public scoped CI executes
-the five read-only checks; the backend-install CI job executes backend/fresh/
-upgrades against its own PostgreSQL16 service on55441. Neither job claims full
-target acceptance. Actual local entry-point checks are recorded under
-`docs/acceptance/migration-execution/i02-verification/` at the accepted main SHA
-above; historical failures and successful receipts remain recoverable from Git.
+[Передача команд](runtime-commands.json) теперь указывает реальные target entry points
+для всех десяти backend checks: system/routes/security, точная schema/head, все 263 lesson sources,
+целостность файлов для всех 279 pages, live HTTP quality, полный набор backend suites
+в изолированных базах, fresh дважды с реальными React artifacts и повторным bootstrap,
+а также upgrade заполненных профилей A/B/C через реальный schema CLI с проверками сохранения
+данных/history/sequence. Управляемая combined orchestration прошла на
+42f6249:320 backend, 181 frontend unit, 1269 browser cases по всем 9 projects, без skip,
+с fresh/upgrade profiles, recovery455 и combined gate. Независимый reviewer изучил все
+10 backend и 4 frontend handoffs и одобрил их технический статус REVIEWED. Обычный обязательный
+CI теперь проверяет это состояние. `IMPLEMENTED_PARTIAL` остаётся доступным промежуточным
+состоянием с fail-closed для отсутствующих записей; ни один статус сам по себе не означает
+человеческую приёмку задачи. Backend entry: `{ "script": "backend/<existing-script>.py", "args": ["..."] }`.
+Допускаются только Python scripts, разрешающиеся внутри backend; произвольный shell запрещён.
+Каждый entry создаёт непустые target receipts без skip. Public scoped CI исполняет пять read-only
+checks; backend-install CI job исполняет backend/fresh/upgrades против собственной службы PostgreSQL16
+на 55441. Ни одна задача не заявляет полную приёмку target. Фактические локальные проверки
+entry points зафиксированы под `docs/acceptance/migration-execution/i02-verification/`
+на указанном выше принятом main SHA; исторические сбои и успешные receipts восстанавливаются из Git.
 
-| Key / old assertion | Required target assertion / owner |
+| Ключ / прежнее утверждение | Обязательная target-проверка / владелец |
 | --- | --- |
-| system / Django check | FastAPI config/startup/registered routes/security, V02 |
-| migrations / makemigrations | Metadata/Alembic drift, one head, reviewed SQL/PG equivalence, V01 |
-| lesson-sources | All263 sources with publication/source digest parity, V04 |
-| content-quality | Unweakened HTML/SVG/math/assets checks, V02/V04 |
-| site-integrity | All URL/media/catalog/redirect/SSG completeness, V02/V04/I02 |
-| backend-tests / Django tests | Nonempty unskipped real PG API/services/migration/content/staff tests, V01/V02/V03/V04 |
-| fresh-install | Alembic from zero, bootstrap twice without evidence overwrite, assets/build, V01/V04/I02 |
-| upgrade-A/B/C | Exact schema/data/ID/FK/default/timestamp/sequence preservation for the3 specified disposable profiles, V01 |
-| frontend-typecheck/tests/build/e2e | Locked `npm run typecheck/test/build/test:e2e`, I01/I02 |
+| system / Django check | FastAPI config/startup/зарегистрированные routes/security, V02 |
+| migrations / makemigrations | Metadata/Alembic drift, одна head, проверенный SQL/эквивалентность PG, V01 |
+| lesson-sources | Все 263 sources с parity publication/source digest, V04 |
+| content-quality | Неослабленные проверки HTML/SVG/math/assets, V02/V04 |
+| site-integrity | Полнота всех URL/media/catalog/redirect/SSG, V02/V04/I02 |
+| backend-tests / Django tests | Непустые, не пропущенные реальные PG API/services/migration/content/staff tests, V01/V02/V03/V04 |
+| fresh-install | Alembic с нуля, bootstrap дважды без перезаписи evidence, assets/build, V01/V04/I02 |
+| upgrade-A/B/C | Точное сохранение schema/data/ID/FK/default/timestamp/sequence для трёх заданных disposable profiles, V01 |
+| frontend-typecheck/tests/build/e2e | Зафиксированные `npm run typecheck/test/build/test:e2e`, I01/I02 |
 
-All fourteen command interfaces receive `MATHSTART_CHECK_RESULT` naming a unique output
-under var/target-checks. Exit0 additionally requires a JSON receipt containing
-`check_id` (exact key), `status:PASS`, `evidence_class:TARGET_RUNTIME`, integer
-`assertions>0`, integer `skipped:0`. lesson-sources requires at least263 assertions.
-Migration/backend-tests/fresh/upgrade receipts additionally require
-`database_vendor:postgresql`, integer `postgresql_major>=16`.
-Counts and receipts prevent empty/skip success; independent assertion review
-and real implementation evidence are still required. They do not prove parity
-by themselves and model/synthetic results cannot use this evidence class.
-Each command also receives `MATHSTART_CHECK_ID` with its exact interface key.
-Frontend commands must write the same nonempty structured result from actual
-tool/test/build observations; exit0 with no receipt is failure. Typecheck/build
-assertions describe checked source/build invariants, not browser acceptance.
-Frontend package, lock, each script and npm must exist; missing tool is fail.
-Scripts must use deterministic test execution and fail on no tests, not watch mode.
+Все 14 command interfaces получают `MATHSTART_CHECK_RESULT` с уникальным output
+в `var/target-checks`. Для кода выхода 0 дополнительно требуется JSON receipt с
+`check_id` (точный ключ), `status:PASS`, `evidence_class:TARGET_RUNTIME`, целым
+`assertions>0` и `skipped:0`. Для lesson-sources требуется не менее 263 assertions.
+Receipts migration/backend-tests/fresh/upgrade дополнительно требуют
+`database_vendor:postgresql` и целый `postgresql_major>=16`.
+Counts и receipts предотвращают успех без проверок/при skip, но всё равно нужны
+независимое ревью assertions и свидетельства реальной реализации. Сами по себе они
+не доказывают parity; model/synthetic результаты не могут иметь этот evidence class.
+Каждая команда также получает `MATHSTART_CHECK_ID` с точным ключом интерфейса.
+Frontend commands должны записывать такой же непустой структурированный результат
+по фактическим наблюдениям tool/test/build; код 0 без receipt — ошибка. Assertions typecheck/build
+описывают проверяемые инварианты исходника/build, но не browser acceptance. Должны существовать
+frontend package, lock, каждый script и npm; отсутствующий tool — fail. Scripts должны
+выполнять тесты детерминированно и завершаться ошибкой при отсутствии тестов, без watch mode.
 
-`python scripts/fresh_install_smoke.py --profile target --disposable` and
-`python scripts/migration_smoke.py --disposable --source-profile A|B|C` dispatch
-the owner-reviewed rehearsals, requiring `MATHSTART_DISPOSABLE=1` as a second
-explicit guard. The owner implementation must also enforce DB/runtime isolation,
-empty fresh DB and populated profile identity; a flag is no production authorization.
-These wrappers dispatch implemented commands from the REVIEWED map. Fresh and
-populated A/B/C rehearsals have passed with actual schema/data assertions on the
-recorded candidates. API startup itself still performs no schema installation.
+`python scripts/fresh_install_smoke.py --profile target --disposable` и
+`python scripts/migration_smoke.py --disposable --source-profile A|B|C` запускают
+репетиции, проверенные владельцами, и требуют вторую явную защиту
+`MATHSTART_DISPOSABLE=1`. Реализация владельца также обязана изолировать DB/runtime,
+проверять пустую fresh DB и identity заполненного profile; flag не даёт права на production.
+Эти wrappers запускают реализованные команды из карты со статусом REVIEWED. Репетиции fresh
+и заполненных A/B/C прошли на записанных candidates с фактическими проверками schema/data.
+Сам API startup по-прежнему не устанавливает schema.
 
-`python scripts/check_database.py --profile target` uses psycopg directly with
-MATHSTART_DB_HOST/PORT/NAME/USER/PASSWORD, a read-only SELECT1/version query,
-5s connection/statement bounds and15s outer bound. No credential/DSN/driver error
-is printed; no SQLite fallback. These env names are the R03 diagnostic interface,
-not a replacement for future backend configuration. `version_report.py --profile
-target` requires backend/requirements.lock, exact installed versions and real PG.
+`python scripts/check_database.py --profile target` использует psycopg напрямую через
+MATHSTART_DB_HOST/PORT/NAME/USER/PASSWORD, read-only SELECT1/version query, ограничения
+соединения/statement по 5 секунд и общий предел 15 секунд. Ошибки credentials/DSN/driver
+не печатаются; fallback на SQLite отсутствует. Эти env names относятся к интерфейсу диагностики
+R03, это не замена будущим backend configuration. `version_report.py --profile target`
+требует backend/requirements.lock, точных версий установленного ПО и реального PG.
 
-## CI and evidence boundaries
+## Границы CI и evidence
 
-Separate migration-ci runs task pushes, integration/main PRs and pushes. Frozen
-ci.yml and its whole-file pin remain unchanged. The pure job uses only the R03
-tooling lock with an explicit no-Django/DRF import-availability assertion. The
-historical baseline job runs unchanged standalone R02 suite63 at accepted input
-in its own detached worktree; its all-input HEAD assertion remains meaningful.
-Its Django observations are historical, not target portability. Current target
-pure R02 protocol32 are included separately. Runtime equivalents are exercised
-by the complete target registry; the standalone historical suite is not relabelled
-as current runtime evidence. Required current tests are not removed or skipped.
+Отдельный migration-ci запускает task pushes, integration/main PRs и pushes.
+Замороженный ci.yml и его pin полного файла остаются неизменными. Pure job использует только
+lock инструментов R03 с явной проверкой доступности imports без Django/DRF. Historical baseline
+job запускает неизменённый standalone R02 suite63 на принятом input в собственном detached worktree;
+его проверка HEAD всех входов сохраняет смысл. Наблюдения Django исторические и не доказывают
+переносимость target. Текущие pure R02 protocol32 запускаются отдельно. Эквиваленты runtime
+проверяются полным target registry; standalone historical suite нельзя переименовать в свидетельство
+текущего runtime. Обязательные текущие tests не удаляются и не пропускаются.
 
-The target job has PG16, owner locks, fresh and upgrades A/B/C, the full target
-registry and real Chrome/Edge/Firefox projects at360/768/1440. Implementations and
-inputs are present; the map is REVIEWED. Missing inputs still fail closed, with
-no job-level skip/continue-on-error. Provenance records actual checkout SHA,
-tree, event, run/attempt, PR head/base and tested merge parents/ref. Evidence is
-uploaded even on failure. Green pure/historical jobs do not override failed target.
-`ci_provenance.py` detects stale checkout and wrong merge parents; local invocation
-does not count as CI. No live Product LLM or production credentials are required.
+Target job включает PG16, owner locks, fresh и upgrades A/B/C, полный target registry и реальные
+Chrome/Edge/Firefox projects при размерах 360/768/1440. Реализации и входы доступны; map имеет
+статус REVIEWED. Отсутствующие inputs всё равно fail-closed, без job-level skip/continue-on-error.
+Provenance фиксирует фактические checkout SHA/tree, event, run/attempt, PR head/base и проверенные
+merge parents/ref. Evidence загружается даже при ошибке. Успешные pure/historical jobs не перекрывают
+провал target. `ci_provenance.py` обнаруживает stale checkout и неверных merge parents;
+локальный запуск не считается CI. Live Product LLM и production credentials не требуются.
 
-The migration was accepted and merged in PR54; consolidation PR55 and scope-checked
-closure of migration Issues28–45 are complete (see maintenance above). Full target/recovery/combined passed on runtime42f6249, then on
-candidate1d9e4d39aa103ccc049dd9569c2354893af30a75 in
-[CI39164124957](https://github.com/Tramsey00/MathStart-Python/actions/runs/39164124957),
-and on cleanup467866e7038071dce35883e1d20fa5be2d7d5fd3 in
+Миграция принята и слита в PR54; консолидация PR55 и закрытие migration Issues28–45
+с проверкой scope завершены (см. maintenance выше). Полные target/recovery/combined checks
+прошли на runtime 42f6249, затем на candidate `1d9e4d39aa103ccc049dd9569c2354893af30a75`
+в [CI39164124957](https://github.com/Tramsey00/MathStart-Python/actions/runs/39164124957),
+а также на cleanup `467866e7038071dce35883e1d20fa5be2d7d5fd3` в
 [CI39181017096](https://github.com/Tramsey00/MathStart-Python/actions/runs/39181017096):
-all nine jobs SUCCESS, including actual target/image-recovery/combined, no skipped
-jobs. Each result belongs only to its own SHA. New HEAD checks remain required.
-The [runtime guide](../../../docs/target-runtime.md) is current operational
-guidance. Historical [handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/handoff.md)
-and [trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R03.md) retain their original limits.
+все 9 jobs SUCCESS, включая реальные target/image-recovery/combined; пропущенных jobs нет.
+Каждый результат относится только к своему SHA. Для нового HEAD обязательны новые проверки.
+[Руководство runtime](../../../docs/target-runtime.md) содержит текущие инструкции эксплуатации.
+Исторические [handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/handoff.md)
+и [trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R03.md)
+сохраняют исходные ограничения.
 
-## Historical stages (2026-10-12 through 2026-10-15)
+## Исторические этапы (2026-10-12 — 2026-10-15)
 
-The dated sections below are historical snapshots, not current execution
-instructions. Their INCOMPLETE/NOT_READY/pending statements describe those old
-stages; they do not override the completed result above. Approvals, results,
-digests and reviewed input identities are not reassigned. Old fixed-candidate
-workflows/controllers are retired. Raw artifacts and removed tools can be
-recovered using the per-entry source SHA in the existing
-[restoration index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
+Датированные далее разделы — исторические снимки, а не текущие инструкции выполнения.
+Их INCOMPLETE/NOT_READY/pending описывают прежние этапы и не отменяют приведённый выше
+завершённый результат. Одобрения, результаты, digests и identities проверенных inputs
+не переназначаются. Старые workflows/controllers для фиксированных candidates удалены.
+Сырые artifacts и удалённые tools можно восстановить по SHA исходника каждой записи в
+существующем [restoration index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/migration-execution/cleanup-20261019/restoration-index.json).
 
-## Accepted I01/V01 joint-input CI — 2026-10-12
+## Принятый совместный CI inputs I01/V01 — 2026-10-12
 
-Historical joint-input runs below remain pinned to0c03197. Current V02 squash
-acceptance and guards now use [accepted-integration-20261015.json](accepted-integration-20261015.json)
-at a359b0b, with approval8256cbf/review5538854677 retained separately:
-[merge receipt and next steps](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
-Post-merge baseline38796031561 is separate from candidate V02 suites; consumer
-review8256cbf/47baaa9 is source-only. R03 INCOMPLETE, full I02 not accepted.
+Исторические совместные прогоны ниже остаются закреплены за `0c03197`. Текущие squash acceptance
+V02 и guards используют [accepted-integration-20261015.json](accepted-integration-20261015.json)
+на `a359b0b`; approval `8256cbf`/review `5538854677` сохранены отдельно:
+[квитанция merge и последующие шаги](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-integration-a359b0b/README.md).
+Post-merge baseline `38796031561` отдельна от suites candidate V02; consumer review `8256cbf/47baaa9`
+проверял только source. R03 INCOMPLETE, полный I02 не принят.
 
-Human receipts and merges now establish both tasks as ACCEPTED_INTEGRATION.
-Separate frontend and V01 PostgreSQL jobs test the pinned combined input0c03197,
-using approved source heads only as provenance references. Strict receipt/tree/
-source/merge-chain/live-ref validation complements unchanged event-SHA and PR
-merge-parent checks. Historical runs, captures, workflow pins and previous8d958
-input remain separate. Current acceptance, retained follow-ups and actual joint
-runs: [handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
+Человеческие receipts и merges теперь подтверждают ACCEPTED_INTEGRATION для обеих задач.
+Раздельные frontend и V01 PostgreSQL jobs тестируют закреплённый совместный input `0c03197`,
+используя одобренные source heads только как ссылки provenance. Строгая проверка receipt/tree/
+source/merge-chain/live-ref дополняет неизменённые проверки event-SHA и PR merge-parent.
+Исторические runs, captures, workflow pins и предыдущий input `8d958` остаются отдельными.
+Текущее принятие, сохранённые follow-ups и реальные совместные runs описаны в
+[handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/accepted-integration-ci-20261012.md).
 
-## CLI/receipt handoff preparation — 2026-10-12
+## Подготовка передачи CLI/receipt — 2026-10-12
 
-[Concrete owner/review checklist](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md) maps all10 backend checks,4 frontend
-checks and7 baseline content commands to V02/I02/V04 deliverables and R02 parity
-assertions. Accepted V01 schema/foundation evidence remains separate. The new
-machine checklist is PREPARED_FOR_OWNER_REVIEW. That historical intake predated
-the five concrete target entries now recorded above; remaining gaps are explicit.
-Full target execution awaits accepted exact-SHA inputs and reviewed command
-contracts; R03 stays INCOMPLETE until full checks and independent approvals.
+[Конкретный checklist владельца/review](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/cli-receipt-handoff-checklist.md)
+сопоставляет все 10 backend checks, 4 frontend checks и 7 baseline content commands с deliverables V02/I02/V04
+и assertions parity R02. Принятые свидетельства schema/foundation V01 остаются отдельными.
+Новый machine checklist имеет статус PREPARED_FOR_OWNER_REVIEW. Этот исторический intake предшествовал
+пяти конкретным target entries, теперь записанным выше; оставшиеся пробелы указаны явно.
+Полное выполнение target ожидает принятые inputs точного SHA и проверенные command contracts;
+статус R03 остаётся INCOMPLETE до полных checks и независимых approvals.
 
-## V02 published-candidate technical checks — 2026-10-15
+## Технические проверки опубликованного candidate V02 — 2026-10-15
 
-PR53 exact implementation76d8eac / parent0c03197 / tree dbad1e8 is pinned in
-v02-published-candidate.json. Published run38637910883 executes unchanged
-confirmed controls1b75c6e on fresh Linux commit checkout; final task
-run38642117604 verifies unchanged owner86/all40 PG cases plus separate V01
-34/all23 PG,0 skips, historical contracts, full Content projection279/263 and
-real isolated runtime without Django/DRF. Complete downloaded raw artifacts,
-separate workflow/control/implementation/checkout revisions and digests are in
-[technical packet](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-review-20261015/review-packet.md).
-Human V02 Task Approval is pending; no accepted input is fabricated. First task
-run's incomplete hidden-cache upload is retained separately from the complete
-rerun. Global R03 target still requires its reviewed command map, accepted
-V02/I02 inputs and applicable V04 CLI/full combined pipeline/independent reviews;
-this global prerequisite is not a new V02 card condition. R03 INCOMPLETE.
+Точный PR53 implementation `76d8eac` / parent `0c03197` / tree `dbad1e8` закреплён
+в v02-published-candidate.json. Published run `38637910883` исполняет неизменённые подтверждённые
+controls `1b75c6e` на свежем Linux commit checkout; финальный task run `38642117604` проверяет
+неизменённые owner86/all40 PG cases плюс отдельно V01 34/all23 PG, 0 skips, исторические contracts,
+полный Content projection 279/263 и настоящий изолированный runtime без Django/DRF.
+Полные загруженные raw artifacts, отдельные workflow/control/implementation/checkout revisions
+и digests находятся в [technical packet](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-review-20261015/review-packet.md).
+Человеческий Task Approval V02 ожидается; принятый input не выдуман. Неполная загрузка скрытого cache
+первого task run сохранена отдельно от полного повторного запуска. Глобальный target R03 всё ещё требует
+проверенной карты команд, принятых inputs V02/I02 и соответствующих V04 CLI/full combined pipeline/
+independent reviews; эта общая предпосылка не является новым условием карточки V02. R03 INCOMPLETE.
 
-## Authorized V02 narrow successor — 2026-10-15
+## Узкий successor V02, имеющий разрешение — 2026-10-15
 
-New v02-successor-intake.json remains NOT_READY/null for unpublished new SHA/tree.
-Separate v02_successor_gate verifies direct parent76d8eac and unchanged original
-BASE lineage, owner-reviewed exact diff/blobs/metadata/attributes plus preserved
-controls40/73. Original publication-v3/control/input is unchanged; no blanket
-descendant acceptance or automatic tree/pin replacement. Human approval5525315946
-is received at predecessor76d8eac only. [Current handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
-records required exact renderer contract/owner diff/current case inventory and
-new-SHA suite sequence. Guard preparation CI is not successor task evidence.
+Новый v02-successor-intake.json остаётся NOT_READY/null для неопубликованных нового SHA/tree.
+Отдельный v02_successor_gate проверяет прямого родителя `76d8eac` и неизменённую исходную
+BASE lineage, проверенный владельцем точный diff/blobs/metadata/attributes и сохранённые controls40/73.
+Исходные publication-v3/control/input не меняются; blanket acceptance потомков и автоматическая
+замена tree/pin запрещены. Human approval `5525315946` получено только для predecessor `76d8eac`.
+[Текущий handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-successor-20261015/handoff.md)
+фиксирует точный renderer contract, diff владельца, актуальный case inventory и последовательность suite
+на новом SHA. Guard preparation CI не является свидетельством задачи successor.
 
-## Published V02 successor8256cbf — 2026-10-15
+## Опубликованный successor V02 `8256cbf` — 2026-10-15
 
-New reviewed scope v02-successor-reviewed-8256cbf.json is independently pinned
-SHA25604a47175 (5 modified +63 new files, exact metadata/patch/case IDs), separate
-from unchanged original candidate/anchor/control inputs. Root workflow/control
-0effadc run38784183591 SUCCESS: original v3 replay at76d8eac, successor chain/
-delta at8256cbf/tree74c3014, V02118/all50 PG with original86 retained and0 skips,
-separate V0134/all23 PG, contracts/Content/runtime without Django. Full clean
-checkout includes helper verifier/evidence dependencies. [Current review](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-successor-review-8256cbf/review-packet.md)
-retains raw hashes/reconciliation and baseline/stale/global-target classifications.
-Current intake is technical PASS, renewed human review pending; no approval
-transfer, merge or Issue closure. Global R03 remains INCOMPLETE.
+Новый проверенный scope `v02-successor-reviewed-8256cbf.json` закреплён отдельно:
+SHA256 `04a47175` (5 изменённых + 63 новых files, точные metadata/patch/case IDs),
+отдельно от неизменённых original candidate/anchor/control inputs. Root workflow/control
+`0effadc`, run `38784183591` завершился SUCCESS: replay original v3 на `76d8eac`, цепочка/delta
+successor на `8256cbf`/tree `74c3014`, V02 118/all50 PG с сохранёнными original86 и 0 skips,
+отдельно V01 34/all23 PG, contracts/Content/runtime без Django. Полный чистый checkout включает
+вспомогательные verifier/evidence dependencies. [Текущее ревью](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R03/v02-successor-review-8256cbf/review-packet.md)
+содержит raw hashes/reconciliation и классификацию baseline/stale/global-target.
+Текущий intake имеет технический PASS, ожидается новое человеческое ревью; перенос approvals,
+merge и закрытие Issue не произошли. Общий R03 остаётся INCOMPLETE.

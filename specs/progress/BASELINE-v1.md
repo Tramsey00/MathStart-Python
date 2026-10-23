@@ -1,45 +1,44 @@
-# Progress Algorithm v1 — MathStart v3.1 baseline
+# Алгоритм Progress v1 — baseline MathStart v3.1
 
-- **Status:** Baseline transcribed
-- **Source:** MathStart Technical Specification v3.1, section 12 — Progress Engine
-- **Owner domain:** Progress
-- **Follow-up task:** R03 — formalize, implement, and test this existing baseline
-- **Related documents:** `PRODUCT.md` sections 11-14 and `ARCHITECTURE.md`
-  sections 17-18
+- **Статус:** Baseline перенесена в документ
+- **Источник:** MathStart Technical Specification v3.1, раздел 12 — Progress Engine
+- **Домен-владелец:** Progress
+- **Последующая задача:** R03 — формализовать, реализовать и протестировать существующий baseline
+- **Связанные документы:** разделы 11-14 в `PRODUCT.md` и разделы 17-18 в `ARCHITECTURE.md`
 
-## Scope and authority
+## Область действия и полномочия
 
-This file records the already approved MathStart v3.1 algorithm. It does not
-propose a new algorithm or modify its values. R03 formalizes, implements, and
-tests this baseline; R03 does not invent a replacement algorithm.
+В этом файле записан уже принятый алгоритм MathStart v3.1. Он не предлагает новый
+алгоритм и не меняет его значения. R03 формализует, реализует и тестирует этот baseline;
+R03 не изобретает алгоритм на замену.
 
-Changing the formula, event values, difficulty coefficients, repeat coefficient,
-or status thresholds requires an ADR and unit tests.
+Изменение формулы, значений событий, коэффициентов сложности, коэффициента повторения
+или порогов статуса требует ADR и unit tests.
 
 ## UserSkillState
 
-| Field | Baseline |
+| Поле | Baseline |
 | --- | --- |
 | `mastery` | 0..100 |
 | `confidence` | 0..100 |
-| `evidence_count` | Count of evidence |
+| `evidence_count` | Количество свидетельств |
 | `status` | `NOT_STARTED` \| `LEARNING` \| `WEAK` \| `MASTERED` |
-| `last_evaluated_at` | Last evaluation timestamp (UTC) |
+| `last_evaluated_at` | Время последней оценки (UTC) |
 
-## Knowledge events v1
+## События знания v1
 
-| Event | Mastery effect | Confidence effect | Baseline semantics |
+| Событие | Влияние на mastery | Влияние на confidence | Семантика baseline |
 | --- | --- | --- | --- |
-| `SELF_REPORTED_KNOWN` | initialization mastery = 60 | confidence = 15 | Self-report, not demonstrated knowledge |
-| `CORRECT_FIRST_TRY` | mastery delta = +6 | confidence evidence = +5 | Independent solution without hint/reveal |
-| `CORRECT_AFTER_HINT` | mastery delta = +3 | confidence evidence = +4 | Correct solution after hint |
-| `WRONG_ATTEMPT` | mastery delta = -2 | confidence evidence = +3 | Weak negative evidence; typical event for an incorrect `FINAL_ANSWER` |
-| `MISCONCEPTION_DETECTED` | mastery delta = -5 | confidence evidence = +5 | Strong signal of a specific confirmed error |
-| `ANSWER_REVEALED` | mastery delta = 0 | confidence delta/evidence = 0 | Reveal is not evidence of knowledge |
-| `DIAGNOSTIC_CORRECT` | mastery delta = +8 | confidence evidence = +8 | Correct diagnostic result |
-| `DIAGNOSTIC_WRONG` | mastery delta = -6 | confidence evidence = +8 | Incorrect diagnostic result |
+| `SELF_REPORTED_KNOWN` | инициализация mastery = 60 | confidence = 15 | Самоотчёт, не продемонстрированное знание |
+| `CORRECT_FIRST_TRY` | delta mastery = +6 | свидетельство confidence = +5 | Самостоятельное решение без hint/reveal |
+| `CORRECT_AFTER_HINT` | delta mastery = +3 | свидетельство confidence = +4 | Верное решение после подсказки |
+| `WRONG_ATTEMPT` | delta mastery = -2 | свидетельство confidence = +3 | Слабое отрицательное свидетельство; типично для неверного `FINAL_ANSWER` |
+| `MISCONCEPTION_DETECTED` | delta mastery = -5 | свидетельство confidence = +5 | Сильный сигнал конкретной подтверждённой ошибки |
+| `ANSWER_REVEALED` | delta mastery = 0 | delta/свидетельство confidence = 0 | Раскрытие ответа не свидетельствует о знании |
+| `DIAGNOSTIC_CORRECT` | delta mastery = +8 | свидетельство confidence = +8 | Верный результат диагностики |
+| `DIAGNOSTIC_WRONG` | delta mastery = -6 | свидетельство confidence = +8 | Неверный результат диагностики |
 
-## Mastery calculation
+## Расчёт mastery
 
 ```text
 new_mastery =
@@ -51,32 +50,29 @@ clamp(
 )
 ```
 
-| Difficulty | `difficulty_coeff` |
+| Сложность | `difficulty_coeff` |
 | --- | --- |
 | `easy` | 0.8 |
 | `medium` | 1.0 |
 | `hard` | 1.2 |
 
-For a repeated confirmed misconception, negative `repeat_coeff` may increase
-up to 1.5.
+При повторном подтверждённом misconception отрицательный `repeat_coeff` может
+увеличиваться, но не более чем до 1.5.
 
-## Evidence, statuses, and topic aggregation
+## Свидетельства, статусы и агрегация темы
 
-- Confidence grows from the quantity and quality of evidence.
-- There is no time decay in the MVP.
+- Confidence растёт в зависимости от количества и качества свидетельств.
+- В MVP временного decay нет.
 - `NOT_STARTED`: `evidence_count = 0`.
-- `WEAK`: `mastery < 50` and `confidence >= 30`.
-- `MASTERED`: `mastery >= 80`, `confidence >= 60`, and at least 3 recent
-  independent correct attempts.
-- `LEARNING`: all other states with evidence.
-- `TopicMastery` is the weighted average of `SkillMastery` using
-  `topic_skills.importance`.
+- `WEAK`: `mastery < 50` и `confidence >= 30`.
+- `MASTERED`: `mastery >= 80`, `confidence >= 60` и не менее 3 недавних независимых верных попыток.
+- `LEARNING`: любое другое состояние при наличии свидетельств.
+- `TopicMastery` — взвешенное среднее `SkillMastery` с весами `topic_skills.importance`.
 
-## Additional rules
+## Дополнительные правила
 
-- After answer reveal, the current attempt cannot satisfy the independent-correct
-  condition.
-- A wrong `FINAL_ANSWER` without step/domain evidence MUST NOT create
-  `MISCONCEPTION_DETECTED` from an assumed cause.
-- Only Progress updates long-term knowledge state through validated knowledge
-  events. Event creation must remain explainable and idempotent.
+- После раскрытия ответа текущая попытка не может выполнить условие независимого верного ответа.
+- Неверный `FINAL_ANSWER` без свидетельств по шагам/домену НЕ ДОЛЖЕН приводить к
+  `MISCONCEPTION_DETECTED` на основании предполагаемой причины.
+- Только Progress обновляет долгосрочное состояние знания через проверенные события знания.
+  Создание событий должно оставаться объяснимым и идемпотентным.
