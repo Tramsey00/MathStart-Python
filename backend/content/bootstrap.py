@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import sqlalchemy as sa
 
 from backend.models.baseline import Grade, Subject, Section, ContentPage, LessonPublication, Redirect, GRADE_EPOCH
-from backend.content.sources import SourceError, digest, load_sources, read_json
+from backend.content.sources import SourceError, digest, publication_digest, load_sources, read_json
 
 
 def bootstrap_sources(session, root):
@@ -60,8 +60,8 @@ def bootstrap_sources(session, root):
             source = bundle.path.removeprefix('curriculum/')
             publication = session.scalar(sa.select(LessonPublication).where(LessonPublication.page_id == row.id))
             if publication is None:
-                session.add(LessonPublication(page_id=row.id, source_path=source, published_digest=digest(data), published_at=datetime.now(timezone.utc)))
-            elif publication.source_path != source or publication.published_digest != digest(data):
+                session.add(LessonPublication(page_id=row.id, source_path=source, published_digest=publication_digest(bundle, data), published_at=datetime.now(timezone.utc)))
+            elif publication.source_path != source or publication.published_digest not in {digest(data), publication_digest(bundle, data)}:
                 raise SourceError('Publication conflict')
     redirects = read_json(root / 'site_content/redirects.json')
     for values in redirects['redirects']:

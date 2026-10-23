@@ -3,6 +3,7 @@ import { LessonDisclosure, LessonNote, SelfCheck, WorkedExample } from './lesson
 import { QuadraticGraph } from './quadratic-graph';
 import { LessonDiagram } from './lesson-diagram';
 import type { LessonNode } from './lesson-types';
+import { LinearGraph } from '../../features/lesson-interactives/linear-graph';
 
 function inlineStyle(value: string): CSSProperties {
   return Object.fromEntries(value.split(';').filter(part => part.includes(':')).map(part => {
@@ -17,6 +18,13 @@ export function LessonSource({ nodes }: { nodes: readonly LessonNode[] }) {
 function renderNode(node: LessonNode, key: number): ReactNode {
   if (node.kind === 'text') return node.text;
   if (node.kind === 'graph') return <QuadraticGraph key={key}/>;
+  if (node.kind === 'interactive') {
+    const interactives = { linear: LinearGraph };
+    const Interactive = interactives[node.name];
+    if (!Interactive) throw Error('Unsupported lesson interactive');
+    return <Interactive key={key} id={node.id}/>;
+  }
+  if (node.kind === 'selfCheck') return <div key={key} id={node.attrs.id}><SelfCheck kind={node.disclosure} question={<LessonSource nodes={node.question}/>}><LessonSource nodes={node.answer}/></SelfCheck></div>;
   const classes = (node.attrs.class ?? '').split(/\s+/);
   // React rejects indentation text inside table structure; it is not academic content.
   const childNodes = ['table', 'thead', 'tbody', 'tfoot', 'tr', 'colgroup'].includes(node.tag)
@@ -49,8 +57,8 @@ function renderNode(node: LessonNode, key: number): ReactNode {
       return <LessonNote key={key}><span className="ms-quadratic-formula-main lesson-vertex-formula">{formula.text}</span><LessonSource nodes={node.children.slice(start)}/></LessonNote>;
     }
   }
-  if (classes.includes('ms-note') || classes.includes('ms-rule-box')) return <LessonNote key={key}>{body}</LessonNote>;
-  if (classes.includes('ms-math-box') || classes.includes('ms-example')) return <WorkedExample key={key}>{body}</WorkedExample>;
+  if (node.kind === 'note' || classes.includes('ms-note') || classes.includes('ms-rule-box')) return <div key={key} id={node.attrs.id}><LessonNote>{body}</LessonNote></div>;
+  if (node.kind === 'example' || classes.includes('ms-math-box') || classes.includes('ms-example')) return <div key={key} id={node.attrs.id}><WorkedExample>{body}</WorkedExample></div>;
   const props: Record<string, unknown> = { key };
   for (const [name, value] of Object.entries(node.attrs)) {
     if (name === 'style') { props.style = inlineStyle(value); continue; }
@@ -60,6 +68,6 @@ function renderNode(node: LessonNode, key: number): ReactNode {
   const tag = classes.includes('ms-quadratic-steps') ? 'ol' : classes.includes('ms-quadratic-step') ? 'li' : node.tag;
   if (['br', 'hr', 'img', 'input', 'wbr'].includes(tag)) return createElement(tag, props);
   if (tag === 'table') return <div className="lesson-table-scroll" key={key}>{createElement(tag, props, body)}</div>;
-  if (classes.includes('ms-quadratic-svg')) return <LessonDiagram key={key} label={node.attrs['aria-label'] ?? 'Учебная схема'}>{createElement(tag, props, body)}</LessonDiagram>;
+  if (node.kind === 'figure' || classes.includes('ms-quadratic-svg')) return <LessonDiagram key={key} label={node.attrs['aria-label'] ?? 'Учебная схема'}>{createElement(tag, props, body)}</LessonDiagram>;
   return createElement(tag, props, body);
 }

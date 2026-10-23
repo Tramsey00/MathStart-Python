@@ -1,0 +1,20 @@
+@import '../styles/theme.css';
+@import '../styles/base.css';
+@import '../ui/brand.css';
+@import './lesson-shell.css';
+@import './lesson.css';
+
+.linear-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lesson-section .ms-svg-wrap { max-width: 100%; min-width: 0; }
+.lesson-section .ms-svg { display: block; width: 100%; height: auto; }
+.lesson-section .ms-figure-title { font-weight: 600; }
+.lesson-heading h1 { overflow-wrap: anywhere; }
+.lesson-static-contents { margin: 20px max(22px, calc((100vw - 1100px) / 2)); }
+.lesson-reveal[data-enhanced=false] .lesson-reveal-expander { grid-template-rows: 1fr; visibility: visible; opacity: 1; }
+.lesson-reveal[data-enhanced=false] .lesson-answer-toggle { display: none; }
+.lesson-diagram[data-enlarged=true] .ms-svg { min-width: 720px; }
+@media (scripting: none) {
+  .lesson-reveal-expander { grid-template-rows: 1fr; visibility: visible; }
+  .lesson-reveal-clip { overflow: visible; }
+  .lesson-answer-toggle, .lesson-rail, .lesson-diagram-tools { display: none; }
+}

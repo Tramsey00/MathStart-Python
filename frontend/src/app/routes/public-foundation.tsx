@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router";
 import { loadPublicPage } from "../../server/public-input.server";
 import type { PublicPageView } from "../../server/public-types";
+import { LessonPage } from '../../shared/lesson/lesson-page';
 
 export const handle = { publicDocument: true };
 export async function loader({request}:{request:Request}) {
@@ -13,6 +14,10 @@ export async function loader({request}:{request:Request}) {
 // Reviewed HTML is publication output. Complete document navigation disposes
 // authored scripts, observers, timers and styles. Public pages never hydrate.
 export function LessonHost({view}:{view:PublicPageView}) {
+  if (view.page.renderer_version === 'react-v1') {
+    if (!view.page.lesson_document || !view.context.lesson_navigation || !view.context.grade_links) throw Error('Incomplete React lesson publication');
+    return <LessonPage document={view.page.lesson_document} navigation={view.context.lesson_navigation} gradeLinks={view.context.grade_links}/>;
+  }
   const authored=<div data-lesson-host="" data-public-slug={view.page.slug} style={{display:"contents"}} dangerouslySetInnerHTML={{__html:view.page.body_html}}/>;
   if(view.catalogue_html === null)return authored;
   return <main className="ms-catalogue" id="topics-catalogue">

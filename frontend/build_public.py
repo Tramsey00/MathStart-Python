@@ -48,12 +48,16 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
         # Framework mode generates complete HTML, including its hydration runtime.
         # Public legacy documents use a reviewed full-document lifecycle; remove
         # only Router-owned scripts/preloads after prerender, preserving authored JS.
-        text = re.sub(r'<script\b[^>]*>.*?</script>', lambda m: '' if ('type="module"' in m[0] or '__reactRouter' in m[0] or 'sessionStorage' in m[0] and 'scroll' in m[0]) else m[0], text, flags=re.S)
-        text = re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
+        if page.get('renderer_version', 'legacy') != 'react-v1':
+            text = re.sub(r'<script\b[^>]*>.*?</script>', lambda m: '' if ('type="module"' in m[0] or '__reactRouter' in m[0] or 'sessionStorage' in m[0] and 'scroll' in m[0]) else m[0], text, flags=re.S)
+            text = re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
         raw = text.encode('utf-8')
-        if page['body_html'] not in text or '<link rel="canonical" href="' + esc(origin + entry['canonical_path']) + '"' not in text:
+        if not _public_page_content_present(page, text) or '<link rel="canonical" href="' + esc(origin + entry['canonical_path']) + '"' not in text:
             raise ValueError('Incomplete React public prerender')
-        if '<script type="module"' in text or 'window.__reactRouterContext' in text:
+        if page.get('renderer_version', 'legacy') == 'react-v1':
+            if '<script type="module"' not in text or 'window.__reactRouterContext' not in text:
+                raise ValueError('React lesson is missing its selective hydration runtime')
+        elif '<script type="module"' in text or 'window.__reactRouterContext' in text:
             raise ValueError('Public document must use full navigation')
         rendered[entry['url']] = raw
         page_digests[entry['url']] = sha256(release.page_raw[entry['id']]).hexdigest()
@@ -61,7 +65,7 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     for alias in release.index['aliases']:
         page = release.pages[alias['page_id']]
         alias_text=inside(client, html_path(alias['url'])).read_text(encoding='utf-8')
-        if page['body_html'] not in alias_text or 'href="'+esc(origin+'/')+'"' not in alias_text:
+        if not _public_page_content_present(page, alias_text) or 'href="'+esc(origin+'/')+'"' not in alias_text:
             raise ValueError('Incomplete React home alias prerender')
         raw = rendered[page['seo']['canonical_path']]
         rendered[alias['url']] = raw
@@ -110,6 +114,16 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     # A manifest cannot contain its own hash; its digest is the external receipt.
     inside(output,'output-manifest.json').write_bytes(json.dumps(receipt, ensure_ascii=False, indent=2).encode('utf-8'))
     return receipt
+
+
+def _public_page_content_present(page, text):
+    if page.get('renderer_version', 'legacy') != 'react-v1':
+        return page['body_html'] in text
+    from backend.content.sources import lesson_document_is_rendered
+    document = page.get('lesson_document')
+    if not isinstance(document, dict) or not isinstance(document.get('sections'), list):
+        return False
+    return lesson_document_is_rendered(document, text)
 
 
 def main():

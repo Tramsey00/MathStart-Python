@@ -28,9 +28,25 @@ test('complete public URL/body/head manifest, alias and private exclusion',async
  const started=Date.now();
  for(const [url,view] of entries){
   const r=await request.get(url,{timeout:5_000});expect(r.status(),url).toBe(200);
-  const html=await r.text();expect(html,url).toContain(view.page.body_html);
+  const html=await r.text();
+  if(view.page.renderer_version==='react-v1'){
+   const sections=await page.evaluate(html=>{
+    const article=new DOMParser().parseFromString(html,'text/html').querySelector('.lesson-article');
+    return article?[...article.querySelectorAll('.lesson-section')].map(s=>({id:s.id,text:(s.textContent||'').replace(/\s/g,'')})):[];
+   },html);
+   expect(sections.map(s=>s.id),url).toEqual(view.page.lesson_document.sections.map((s:any)=>s.id));
+   const texts=(n:any):string[]=>n.kind==='text'?[n.text]:['question','answer','children'].flatMap(k=>(n[k]||[]).flatMap(texts));
+   for(const section of view.page.lesson_document.sections){
+    const actual=sections.find(s=>s.id===section.id)!.text;
+    for(const text of section.nodes.flatMap(texts))expect(actual,url+'#'+section.id).toContain(text.replace(/\s/g,''));
+   }
+   expect(html,url).toContain('window.__reactRouterContext');
+  }else{
+   expect(html,url).toContain(view.page.body_html);
+   expect(html,url).not.toContain('window.__reactRouterContext');
+  }
   expect(html,url).toContain('lang="ru"');expect(html,url).toContain('<link rel="canonical" href="'+view.canonical_url+'"');
-  expect(html,url).not.toContain('window.__reactRouterContext');expect(html,url).not.toContain('fixture_only_');
+  expect(html,url).not.toContain('fixture_only_');
   const head=await page.evaluate(html=>{const d=new DOMParser().parseFromString(html,'text/html');return {title:d.title,description:d.querySelector('meta[name="description"]')?.getAttribute('content'),ogTitle:d.querySelector('meta[property="og:title"]')?.getAttribute('content'),ogDescription:d.querySelector('meta[property="og:description"]')?.getAttribute('content'),ogUrl:d.querySelector('meta[property="og:url"]')?.getAttribute('content')};},html);
   expect(head,url).toEqual({title:view.page.seo.title,description:view.page.seo.description,ogTitle:view.page.seo.title,ogDescription:view.page.seo.description,ogUrl:view.canonical_url});
  }

@@ -70,7 +70,9 @@ def historical_artifact(name, root=ROOT):
     Only explicit dispositions use historical bytes. All retained contracts and
     content are always read from the actual current tree.
     """
-    from scripts.repository_history import repository_changes, retired_document
+    from scripts.repository_history import repository_changes, retired_document, task_changes, TASK_SOURCE
+    if name in task_changes(root):
+        return _historical_blob(str(root), TASK_SOURCE, name)
     current_retirement = repository_changes(root).get(name)
     if current_retirement and current_retirement['action'] == 'removed':
         return retired_document(name, root)
@@ -97,6 +99,8 @@ def workflow_changes(root=ROOT):
     """
     from scripts.repository_history import repository_changes
     followup = repository_changes(root)
+    from scripts.repository_history import task_changes
+    followup = {**task_changes(root), **followup}
     data = json.loads((root / WORKFLOW_DISPOSITIONS).read_text(encoding='utf-8'))
     if data['base_sha'] != WORKFLOW_SOURCE or not data.get('authority'):
         raise ValueError('Unexpected workflow preservation authority')

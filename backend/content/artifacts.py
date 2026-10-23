@@ -9,6 +9,7 @@ import re
 
 from backend.content.build import encoded, verify_build_inputs
 from backend.content.releases import inside
+from backend.content.sources import lesson_document_is_rendered
 from backend.content.sources import SourceError, read_json
 
 OUTPUT_FIELDS = {'version', 'release_id', 'input_manifest_digest', 'input_receipt_digest', 'origin',
@@ -91,6 +92,10 @@ def verify_public_artifacts(release_root, release_id, receipt_digest, artifact_r
     renderer = PublicRenderer(root, {release_id: artifact_digest})
     for page in release.pages.values():
         html = renderer(page, release.renderer_context(page, {}), origin + page['seo']['canonical_path'])
-        if page['body_html'] not in html:
+        if page.get('renderer_version', 'legacy') == 'react-v1':
+            document = page.get('lesson_document')
+            if not isinstance(document, dict) or not lesson_document_is_rendered(document, html):
+                raise SourceError('Incomplete rendered React lesson document')
+        elif page['body_html'] not in html:
             raise SourceError('Incomplete frontend authored HTML')
     return release, root, manifest

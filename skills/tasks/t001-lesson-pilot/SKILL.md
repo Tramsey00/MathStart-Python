@@ -60,3 +60,31 @@ production и provider/security решения требуют отдельног
 ## GitHub и ветка
 
 Работать в ui/ux без отдельного Issue и без новой ветки на каждую задачу. Исключение действует только для MS-T001, MS-T002, MS-T002A. Готовность локального запуска проходит review в MS-T002A, затем пользователь решает merge ui/ux в main. Проверка clone опубликованного main завершает MS-T002A и открывает MS-T003.
+
+## Выполнение 24.10.2026 — кандидат для проверки
+
+Исходный HEAD подготовки: b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea.
+Согласованный пакет MS-T000: 406995b4005d9b78525f3e985e9345a5437a5e67;
+ui/ux перенесена fast-forward, main не изменялся. Приёмка MS-T000 явно дана
+пользователем 24.10.2026 и записана в реестре.
+
+Реализация пилота: content.json lesson-document-v1, 13 секций/13 самопроверок/
+4 таблицы/3 SVG/1 linear interactive; общий LessonPage, header/footer,
+содержание, disclosure и controls. Учебный текст, клетки таблиц и SVG сверены
+с source. Назначен `/materials/7-algebra-1` через Content registry, legacy slug
+и aliases переводятся непосредственно на canonical. Квадратичный preview
+сохранён; новый renderer не включён для других уроков.
+
+Самопроверка до managed runtime: npm test — 214 PASS; проверки новой линейной
+математики, жестов, полного текста/таблиц/SVG и hydration — 6 PASS в составе
+набора. backend test_lesson_document — 6 PASS; repository_history — 5 PASS.
+Первый запуск Vitest/TemporaryDirectory в sandbox завершился EPERM;
+повтор вне sandbox прошёл. Typecheck и docs/provenance gates завершаются
+отдельно. Runtime, отдельное review и визуальная приёмка пока PENDING.
+
+Полный managed target выполняется только на собственных disposable ресурсах:
+PostgreSQL 16 127.0.0.1:55441, target и отдельный pinned legacy oracle в
+var/t001-qa; рабочий стек не используется. Результаты и failures сохраняются
+в игнорируемом var/t001-qa. Host Node 24.19/npm 11.17 удовлетворяют engines;
+CI builder использует pinned Node 24.21/npm 11.19. Полный CI не подменяется
+локальным быстрым профилем. Статус визуальной приёмки — HUMAN_PENDING.

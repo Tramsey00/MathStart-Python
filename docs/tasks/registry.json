@@ -1,24 +1,29 @@
 {
   "version": 2,
   "updated": "2026-10-24",
-  "status": "PREPARED_FOR_REVIEW_NOT_IMPLEMENTED",
+  "status": "ACTIVE",
   "execution": "Одно явно порученное задание за раз; карточка task задаёт scope; автоматического продолжения нет",
   "tasks": [
     {
       "id": "MS-T000",
       "order": 0,
       "title": "Подготовить очередь, стандарт переноса и очистить документацию",
-      "status": "READY_FOR_REVIEW",
+      "status": "ACCEPTED",
       "dependencies": [],
       "skill": "skills/tasks/t000-workflow-preparation/SKILL.md",
       "acceptance": "Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены.",
-      "workflow": "preparation"
+      "workflow": "preparation",
+      "human_acceptance": {
+        "status": "ACCEPTED",
+        "date": "2026-10-24",
+        "authority": "Явная приёмка пользователя: очередь, стандарт переноса, общий skill, правила GitHub и политика проверок."
+      }
     },
     {
       "id": "MS-T001",
       "order": 1,
       "title": "Перенести новый HTML-урок по стандарту в основной React/SSG runtime",
-      "status": "PLANNED",
+      "status": "IN_PROGRESS",
       "dependencies": [
         "MS-T000"
       ],
@@ -26,7 +31,11 @@
       "acceptance": "Новый урок «Линейная функция y = kx + b. График линейной функции» перенесён из HTML через общий skill; явно назначенный canonical URL обслуживается основным Content/FastAPI release; SSG содержит материал без JS; React-интерактивность работает без hydration mismatch; все секции, самопроверки, формулы, таблицы, SVG и старые адреса/якоря сохранены; стандарт подтверждён на новом уроке и принят пользователем.",
       "workflow": "bootstrap",
       "pilot_slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
-      "pilot_source": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii"
+      "pilot_source": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
+      "implementation": "IN_PROGRESS",
+      "checks": "PENDING",
+      "review": "PENDING",
+      "human_acceptance": "PENDING"
     },
     {
       "id": "MS-T002",

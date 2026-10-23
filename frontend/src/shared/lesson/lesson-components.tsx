@@ -20,6 +20,8 @@ export function LessonHeading({ breadcrumbs, title, subtitle }: {
 }
 
 export function LessonContents({ sections, title, catalogueHref }: { sections: readonly LessonSectionData[]; title: string; catalogueHref: string }) {
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => setEnhanced(true), []);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(sections[0]?.id);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -60,6 +62,7 @@ export function LessonContents({ sections, title, catalogueHref }: { sections: r
   }, [open]);
 
   return <>
+    <nav className="lesson-static-contents" aria-label="Разделы урока" hidden={enhanced}><details><summary>Содержание урока</summary><ol>{sections.map(section => <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>)}</ol></details></nav>
     <aside className="lesson-rail" aria-label="Навигация по уроку">
       <button className="lesson-contents-trigger" type="button" aria-label="Содержание урока" title="Содержание урока" aria-haspopup="dialog" aria-expanded={open} aria-controls={identity} onClick={() => setOpen(true)}>
         <ContentsIcon/><span>Содержание</span>
@@ -95,11 +98,13 @@ export function SelfCheck({ question, kind, children }: { question: ReactNode; k
 }
 export function LessonDisclosure({ kind, question, children }: { kind: 'answer' | 'solution'; question?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => setEnhanced(true), []);
   const identity = useId();
-  return <div className="lesson-reveal" data-kind={kind} data-open={open}>
+  return <div className="lesson-reveal" data-kind={kind} data-open={open} data-enhanced={enhanced}>
     {question && <div className="lesson-question-copy">{question}</div>}
     <button className="lesson-answer-toggle" type="button" aria-controls={identity} aria-expanded={open} onClick={() => setOpen(current => !current)}>Ответ и решение</button>
-    <div className="lesson-reveal-expander" id={identity} aria-hidden={!open} inert={!open}>
+    <div className="lesson-reveal-expander" id={identity} aria-hidden={enhanced && !open} inert={enhanced && !open}>
       <div className="lesson-reveal-clip"><div className="lesson-reveal-content">{children}</div></div>
     </div>
   </div>;

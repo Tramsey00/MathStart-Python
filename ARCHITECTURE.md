@@ -405,7 +405,9 @@ Performance targets остаются API p95 <500ms, AI p95 <15s, с объяв�
 частично prototype; основной runtime не получил новый renderer автоматически.
 [Стандарт переноса](docs/frontend/lesson-migration.md) описывает целевую структуру,
 versioned content document, общий chrome, интерактивы и selective hydration.
-Это план MS-T001, не уже реализованные Content поля. Полноценные карточки
+MS-T001 вводит renderer_version/lesson_document в validated immutable delivery,
+единый Content route registry и React LessonPage для линейного пилота. Проверки,
+review и человеческая приёмка учитываются отдельно. Полноценные карточки
 MS-T001–MS-T011 задают pilot, public pages, классы, auth/staff и очистку.
 Новых UI kits/Next.js не вводить. Server Identity сохраняется; старые account
 UI/fixtures не являются образцом и заменяются в MS-T009 после email/username решения.

@@ -1,6 +1,6 @@
 # Стандарт переноса учебных страниц
 
-24.10.2026. План реализации для MS-T001–MS-T008, не утверждение готовности runtime.
+24.10.2026. Стандарт MS-T001–MS-T008. Реализация пилота проверяется отдельно от приёмки.
 Внешний вид главной, каталога и квадратичной функции принят пользователем.
 Эталон компонентов — [UI contract](../ux/shared-ui-contract.md), тема/шрифты —
 [theme baseline](../ux/theme-baseline.md). Не выбирать новые направления и UI kits.
@@ -23,8 +23,10 @@ gateway с immutable release. Отдельный Vite preview и обёртка 
 MS-T001 подтверждает формат и гидратацию на новом уроке. Пока другие темы не
 перенесены, явный renderer_version выбирает legacy или React. Отсутствие нового
 документа у помеченного React урока — ошибка сборки, не скрытый HTML fallback.
-До внедрения renderer_version это проектируемое изменение контракта, не поле
-существующей схемы. Добавление сопровождается schema validation и тестами.
+В MS-T001 renderer_version добавлен в lesson.json и immutable ContentDelivery.
+Значения — legacy и react-v1; отсутствие поля у прежних источников означает legacy.
+React-документ lesson-document-v1 передаётся в lesson_document, валидируется при
+подготовке и чтении verified release. Поля БД и applied Alembic history не меняются.
 
 ## 2. Целевая организация
 
@@ -134,8 +136,10 @@ Lesson CSS scoped; subject-specific CSS не переопределяет global
 Subject — утверждённый Latin code, number назначается один раз в пределах
 класс+предмет. Никогда не вычислять постоянный номер из текущего display order.
 Реестр Content — единственный источник назначения для backend, build и UI.
-Текущее единственное назначение находится в shared/routing/material-routes.mjs;
-перенос в validated Content contract выполняется в MS-T001, без второго реестра.
+Назначения находятся в site_content/material-routes.json; Content валидирует
+уникальность и соответствие identity/renderer, frontend routing импортирует тот же
+реестр. В receipt фиксируются его исходные bytes/digest. Runtime использует только
+canonical path и redirects из pinned release, не читает рабочий реестр.
 
 В [inventory](../tasks/lesson-inventory.json) перечислены все опубликованные темы.
 null assigned_path означает, что адрес ещё не назначен; не публиковать его как
@@ -203,3 +207,41 @@ interactive имеет математические unit tests и реальны
 Issue/ветках/PR по AGENTS. Первые три задачи не требуют отдельных Issue/веток.
 Публичный deploy не входит в эту передачу; локальные FastAPI/Content зависимости
 должны готовиться безопасно, без приватного var/ и ручных файлов владельца.
+
+## 11. Реальный пилот MS-T001
+
+Линейному уроку явно назначен `/materials/7-algebra-1`. Номер 1 назначен как
+постоянный идентификатор, не вычисляется из display order. Старый slug и известные
+redirects ведут непосредственно к canonical с сохранением query; fragment
+сохраняется браузером. Назначение квадратичного preview 8-algebra-32 сохранено,
+его renderer остаётся legacy до MS-T006.
+
+`frontend/scripts/convert-lesson.mjs` преобразует HTML в черновик content.json,
+отказывается от неизвестной активной разметки и сохраняет semantic nodes:
+paragraph, note, example, selfCheck, table, figure, interactive, inline/structure
+nodes. Пилот содержит 13 секций, 13 самопроверок, 4 таблицы, 3 авторских SVG и
+один linear interactive. Предварительные знания и экспресс-анализ сохранены.
+Полная проверка сравнивает текст каждого раздела, клетки таблиц, SVG и anchors
+с замороженным источником. Учебное пояснение под графиком осталось документом.
+
+В переходный период body.html/page.css/page.js пилота сохранены как замороженный
+источник сравнения и совместимости publication snapshots; не редактировать их
+независимо от content.json. Удаление возможно после human acceptance и проверки
+всех потребителей. Для новой React редакции учебный canonical — content.json.
+
+LessonPage собирает общий chrome, содержание и секции. LinearGraph использует
+отдельную чистую математику, а CoefficientControl разделяется с QuadraticGraph.
+Исходные диапазоны сохранены: k от −3 до 3, b от −6 до 6, шаг 0,5; окно x от −8
+до 8, y от −16 до 16. Reset возвращает k=1, b=0, учитывает reduced motion и
+отменяется новым вводом. Swipe/pointercancel не выбирают точку.
+
+SSG оставляет Router hydration только для react-v1. Legacy документы сохраняют
+прежний renderer и полный document lifecycle. Ссылки урока обычные; переходы
+утилизируют listeners/RAF вместе с документом. В initial render нет чтения storage
+и времени; сохранённая тема применяется после hydration. Без JS содержание
+использует native details, а решения доступны без inert/aria-hidden. CSS нового
+урока подключается отдельно от legacy site.css. Сервер проверяет реальную статью,
+а не вхождение документа в сериализованный hydration payload.
+
+Статусы реализации, проверок, отдельного review и визуальной приёмки находятся
+в карточке MS-T001 и реестре. Этот раздел сам по себе не означает PASS или приёмку.

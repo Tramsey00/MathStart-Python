@@ -9,6 +9,18 @@ const maintenanceSource = "3a290a46d991e22269a17dde41e39f0637576071";
 const workflowSource = "1a015f7513933901e8bb252e94c660e4383b6b0e";
 const hash = raw => createHash("sha256").update(raw).digest("hex");
 const documentationSource = "b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea";
+const taskSource = '406995b4005d9b78525f3e985e9345a5437a5e67';
+function reviewedTaskChange(root, path) {
+  const file = resolve(root, 'specs/maintenance/t001-dispositions.json');
+  if (!existsSync(file)) return null;
+  const map = JSON.parse(readFileSync(file, 'utf8'));
+  if (map.source_commit !== taskSource || map.task !== 'MS-T001' || !map.authority || new Set(map.files.map(r => r.path)).size !== map.files.length) throw Error('Unexpected task provenance');
+  const row = map.files.find(r => r.path === path);
+  if (!row) return null;
+  const original = execFileSync('git', ['show', taskSource + ':' + path], {cwd:root});
+  if (row.action !== 'updated' || !row.reason || original.length !== row.before_bytes || hash(original) !== row.before_sha256 || hash(readFileSync(resolve(root,path))) !== row.after_sha256) throw Error('Unreviewed task change: ' + path);
+  return {row, original};
+}
 function reviewedRepositoryChange(root, path) {
   const mapPath = resolve(root, "specs/maintenance/repository-cleanup.json");
   if (!existsSync(mapPath)) return null;
@@ -19,8 +31,9 @@ function reviewedRepositoryChange(root, path) {
   const row = map.files.find(row => row.path === path);
   if (!row || row.action !== "updated") return null;
   const original = execFileSync("git", ["show", documentationSource + ":" + path], {cwd: root});
+  const task = reviewedTaskChange(root, path);
   if (!row.reason || original.length !== row.before_bytes || hash(original) !== row.before_sha256 ||
-      hash(readFileSync(resolve(root, path))) !== row.after_sha256)
+      (task ? task.row.before_sha256 !== row.after_sha256 : hash(readFileSync(resolve(root, path))) !== row.after_sha256))
     throw new Error("Unreviewed repository change: " + path);
   return {row, original};
 }
@@ -41,6 +54,7 @@ function currentAdapterHash(root, path, previousHash) {
   return followup.after_sha256;
 }
 export function preservedContract(root, path) {
+  const task = reviewedTaskChange(root, path);
   const change = reviewedRepositoryChange(root, path);
   const documentation = path.endsWith(".md") ? change?.original : null;
   const manifest = JSON.parse(readFileSync(resolve(root, "specs/migration/post-django-preservation.json"), "utf8"));
@@ -52,6 +66,7 @@ export function preservedContract(root, path) {
   const blob = execFileSync("git", ["show", (row ? pin : "HEAD") + ":" + path], {cwd: root});
   if (row) {
     if (hash(blob) !== row.sha256 || blob.length !== row.bytes) throw new Error("Historical source mismatch: " + path);
+    if (task) return blob;
     if (documentation) return blob;
     if (row.action === "updated") {
       const current = currentAdapterHash(root, path, row.current_sha256);
@@ -73,6 +88,8 @@ export function preservedContract(root, path) {
       if (row.action === "moved_updated" && hash(readFileSync(resolve(root, row.destination))) !== currentAdapterHash(root, row.destination, row.current_sha256))
         throw new Error("Unreviewed moved adapter: " + path);
     } else throw new Error("Unknown preservation disposition");
+  } else if (task) {
+    return task.original;
   } else if (documentation) {
     return documentation;
   } else if (readFileSync(resolve(root, path), "utf8").replace(/\r\n/g, "\n") !== blob.toString("utf8").replace(/\r\n/g, "\n")) {

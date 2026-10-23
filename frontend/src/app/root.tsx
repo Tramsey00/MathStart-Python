@@ -8,6 +8,7 @@ import type { PublicPageView } from "../server/public-types";
 import migrationCss from "../public-migration.css?url";
 // Compile-time repository CSS only; never request, author or account strings.
 import migrationInlineCss from "../public-migration.css?inline";
+import lessonRuntimeCss from '../shared/lesson/runtime.css?url';
 
 export const links: Route.LinksFunction = () => [{ rel: "stylesheet", href: siteCss }];
 export const meta: Route.MetaFunction = () => [{ title: "MathStart" }];
@@ -33,10 +34,10 @@ export function Layout({ children }: { children: ReactNode }) {
           <meta property="og:type" content={view.page.page_type === "topic" ? "article" : "website"}/>
           <meta name="twitter:card" content="summary"/>
           {view.page.assets.filter(a=>a.kind === "style").map(a=><link key={a.url} rel="stylesheet" href={a.url}/>)}
-          {view.page.page_type === "topic" ? <link rel="stylesheet" href={migrationCss}/> : <style data-public-migration="" dangerouslySetInnerHTML={{__html:migrationInlineCss}}/>}
+          {view.page.renderer_version === 'react-v1' ? <link rel="stylesheet" href={lessonRuntimeCss}/> : view.page.page_type === "topic" ? <link rel="stylesheet" href={migrationCss}/> : <style data-public-migration="" dangerouslySetInnerHTML={{__html:migrationInlineCss}}/>}
         </> : <><Meta/><Links/></>}
       </head>
-      <body>
+      <body className={view?.page.renderer_version === 'react-v1' ? 'lesson-page' : undefined}>
         {children}
         {view?.page.assets.filter(a=>a.kind === "script").map(a=><script key={a.url} src={a.url}/>)}
         <ScrollRestoration/><Scripts/>
@@ -46,6 +47,7 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 export default function App() {
+  const view = useMatches().map(match => match.data).find((data): data is PublicPageView => !!data && typeof data === 'object' && 'canonical_url' in data && 'page' in data);
   const skip = useMatches().flatMap(match => {
     const handle = match.handle;
     if (!handle || typeof handle !== "object" || !("skipLink" in handle)) return [];
@@ -54,6 +56,7 @@ export default function App() {
       && typeof value.target === "string" && typeof value.label === "string"
       ? [{target: value.target, label: value.label}] : [];
   }).at(-1);
+  if (view?.page.renderer_version === 'react-v1') return <Outlet/>;
   return <SiteShell skipLink={skip ? <SkipLink target={skip.target}>{skip.label}</SkipLink> : undefined}><Outlet /></SiteShell>;
 }
 

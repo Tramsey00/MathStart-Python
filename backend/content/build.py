@@ -66,33 +66,34 @@ def verify_build_inputs(root, release_id, receipt_digest):
 
 def assets_for(root, bundle):
     page = bundle.snapshot
-    css = ['site.css', 'lesson.css', 'lesson-math.css', 'lesson-components.css', 'lesson-diagrams.css', 'lesson-contents.css']
-    scripts = ['lesson-diagrams.js']
-    if page['page_type'] != 'topic':
+    react = bundle.renderer_version == 'react-v1'
+    css = [] if react else ['site.css', 'lesson.css', 'lesson-math.css', 'lesson-components.css', 'lesson-diagrams.css', 'lesson-contents.css']
+    scripts = [] if react else ['lesson-diagrams.js']
+    if not react and page['page_type'] != 'topic':
         css.append('site-pages.css')
-    if page['slug'] == 'karta-sajta':
+    if not react and page['slug'] == 'karta-sajta':
         css += ['ui/tokens.css', 'catalogue.css']
-    if page['slug'] in {'glavnaya', 'o-proekte', 'kontakty'}:
+    if not react and page['slug'] in {'glavnaya', 'o-proekte', 'kontakty'}:
         css.append('ui/tokens.css')
-    if 'data-lesson-widget="power-functions"' in page['body_html']:
+    if not react and 'data-lesson-widget="power-functions"' in page['body_html']:
         css.append('widgets/power-functions.css')
-    elif 'ms-graph-layout' in page['body_html']:
+    elif not react and 'ms-graph-layout' in page['body_html']:
         css.append('widgets/function-graphs.css')
     rows = []
     for item in css:
         path = 'static/mathstart/css/' + item
         rows.append((path, '/' + path, 'style', file_inside(root, path).read_bytes()))
-    if page['page_css']:
+    if page['page_css'] and not react:
         path = f'static/mathstart/pages/{page["slug"]}/page.css'
         rows.append((path, '/' + path, 'style', page['page_css'].encode('utf-8')))
     for item in scripts:
         path = 'static/mathstart/js/' + item
         rows.append((path, '/' + path, 'script', file_inside(root, path).read_bytes()))
-    if page['page_js']:
+    if page['page_js'] and not react:
         path = f'static/mathstart/pages/{page["slug"]}/page.js'
         rows.append((path, '/' + path, 'script', page['page_js'].encode('utf-8')))
-    scripts = ['lesson-navigation.js']
-    if 'data-lesson-widget="power-functions"' in page['body_html']:
+    scripts = [] if react else ['lesson-navigation.js']
+    if not react and 'data-lesson-widget="power-functions"' in page['body_html']:
         scripts += ['math.js', 'widgets/power-functions.js']
     for item in scripts:
         path = 'static/mathstart/js/' + item
@@ -100,6 +101,8 @@ def assets_for(root, bundle):
     # Authored direct asset references are reviewed source bytes, never client input.
     urls = set(re.findall(r'''(?:src|href)\s*=\s*["']((?:/static/|/media/)[^"'?#]+)''', page['body_html']))
     urls.update(re.findall(r'''url\(\s*["']?((?:/static/|/media/)[^\s)"'?#]+)''', page['page_css']))
+    if react:
+        urls.update(_lesson_document_asset_urls(bundle.lesson_document))
     # Reviewed public uploads remain addressable even when no current document
     # links them. The home delivery anchors this retained public-media inventory;
     # no runtime upload directory, private row or arbitrary file is exported.
@@ -133,8 +136,27 @@ def assets_for(root, bundle):
             raw = file_inside(root, key).read_bytes()
         rows.append((key, url, kind, raw))
     return [({'storage_key': key, 'url': url, 'kind': kind, 'sha256': sha256(raw).hexdigest(),
-              'order': order, 'lifecycle': 'full_document' if kind == 'script' else 'none'}, raw)
+              'order': order, 'lifecycle': 'full_document' if kind == 'script' and not react else 'none'}, raw)
             for order, (key, url, kind, raw) in enumerate(rows)]
+
+
+def _lesson_document_asset_urls(document):
+    urls = set()
+    def visit(value):
+        if isinstance(value, dict):
+            attrs = value.get('attrs')
+            if isinstance(attrs, dict):
+                for key in ('src', 'href', 'xlink:href'):
+                    target = attrs.get(key)
+                    if isinstance(target, str) and target.startswith(('/static/', '/media/')):
+                        urls.add(target.split('?', 1)[0].split('#', 1)[0])
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+    visit(document)
+    return urls
 
 
 def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
@@ -149,6 +171,7 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
             and uow.session.scalar(sa.text('SHOW transaction_isolation')) not in {'repeatable read', 'serializable'}):
         raise SourceError('Build requires one repeatable PostgreSQL snapshot')
     bundles = {b.snapshot['slug']: b for b in load_sources(source_root)}
+    routes = load_material_routes(source_root, bundles)
     pages = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
     deliveries, files = {}, {}
     for page in pages:
@@ -167,20 +190,90 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
             previous = files.setdefault(asset['storage_key'], raw)
             if previous != raw:
                 raise SourceError('Asset identity conflict')
-        reviewed = ReviewedSource(bundle.path, bundle.source_digest, tuple(a for a, _ in assets))
+        route = routes.get(page.slug)
+        reviewed = ReviewedSource(bundle.path, bundle.source_digest, tuple(a for a, _ in assets),
+            bundle.renderer_version, bundle.lesson_document,
+            route['path'] if route and route['renderer_version'] == 'react-v1' else None)
         deliveries[page.id] = delivery_candidate(uow, page.slug, reviewed)
         files[f'pages/{page.id}.json'] = encoded(deliveries[page.id])
     index = build_index_candidate(uow, release_id, deliveries)
+    apply_material_redirects(index, routes)
+    index = validate(index, 'PublicBuildIndex', True)
     files['index.json'] = encoded(index)
     descriptor = Descriptor(uuid.uuid4(), release_id, sha256(files['index.json']).hexdigest(), 1)
     inventory = [{'path': path, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)} for path, raw in sorted(files.items())]
     receipt = {'version': 'build-input-receipt-v1', 'source_sha': source_sha, 'release_id': release_id,
                'manifest_digest': descriptor.manifest_digest, 'pages': len(pages),
                'topics': len(index['catalogue']['topics']), 'assets': len(files) - len(pages) - 1,
-               'files': inventory, 'source_files': [f for b in bundles.values() for f in b.files],
+               'files': inventory, 'source_files': [f for b in bundles.values() for f in b.files] + [source_file_record(source_root, 'site_content/material-routes.json')],
                'activation': 'NOT_PERFORMED'}
     install_build_inputs(output_root, release_id, descriptor, receipt, files)
     return descriptor, receipt
+
+
+def load_material_routes(source_root, bundles):
+    """Read the source-controlled stable route registry and bind each entry to a lesson."""
+    data = read_json(Path(source_root) / 'site_content/material-routes.json')
+    if type(data) is not dict or set(data) != {'version', 'assignments'} or data['version'] != 1 or type(data['assignments']) is not list:
+        raise SourceError('Invalid material route registry')
+    result, paths = {}, set()
+    for item in data['assignments']:
+        if type(item) is not dict or set(item) != {'slug', 'grade', 'subject', 'number', 'renderer_version'}:
+            raise SourceError('Invalid material route assignment')
+        slug, grade, subject, number, renderer = (item[k] for k in ('slug', 'grade', 'subject', 'number', 'renderer_version'))
+        if (not isinstance(slug, str) or not isinstance(grade, int) or isinstance(grade, bool) or grade < 1
+                or not isinstance(subject, str) or not re.fullmatch(r'[a-z]+(?:-[a-z]+)*', subject)
+                or not isinstance(number, int) or isinstance(number, bool) or number < 1
+                or not isinstance(renderer, str) or renderer not in {'legacy', 'react-v1'} or slug in result):
+            raise SourceError('Invalid/duplicate material route identity')
+        path = f'/materials/{grade}-{subject}-{number}'
+        if path in paths or not safe_public_path(path):
+            raise SourceError('Duplicate/unsafe material route')
+        paths.add(path)
+        if slug not in bundles:
+            raise SourceError('Material route references an unknown lesson')
+        bundle = bundles[slug]
+        page = bundle.snapshot
+        try:
+            page_grade = int(page['grade'].split('-', 1)[0])
+        except (AttributeError, ValueError):
+            raise SourceError('Material route lesson grade mismatch') from None
+        if page_grade != grade or page['subject'] != subject or bundle.renderer_version != renderer:
+            raise SourceError('Material route differs from lesson identity/renderer')
+        result[slug] = {'slug': slug, 'grade': grade, 'subject': subject, 'number': number,
+                        'renderer_version': renderer, 'path': path}
+    if not result:
+        raise SourceError('Empty material route registry')
+    if {slug for slug, bundle in bundles.items() if bundle.renderer_version == 'react-v1'} - set(result):
+        raise SourceError('React lesson has no authoritative material route')
+    return result
+
+
+def source_file_record(root, relative):
+    raw = file_inside(root, relative).read_bytes()
+    return {'path': relative, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)}
+
+
+def apply_material_redirects(index, routes):
+    """Point all known legacy aliases at the assigned canonical path directly."""
+    moved = {f'/{route["slug"]}/': route['path'] for route in routes.values()
+             if route['renderer_version'] == 'react-v1'}
+    if not moved:
+        return
+    existing = {row['old_path']: row for row in index['redirects']}
+    for row in index['redirects']:
+        target = moved.get(row['new_path'])
+        if target is not None:
+            row['new_path'] = target
+    for old_path, target in moved.items():
+        row = existing.get(old_path)
+        if row is not None:
+            row['new_path'] = target
+            row['is_permanent'] = True
+        else:
+            index['redirects'].append({'old_path': old_path, 'new_path': target, 'is_permanent': True})
+    if len({row['old_path'] for row in index['redirects']}) != len(index['redirects']):
+        raise SourceError('Material route conflicts with an existing redirect')
 
 
 def install_build_inputs(output_root, release_id, descriptor, receipt, files):

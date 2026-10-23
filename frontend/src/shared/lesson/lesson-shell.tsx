@@ -50,7 +50,7 @@ export function LessonFooter({ brand, catalogueHref, accountHref, homeHref, grad
         <a href={homeHref}>Главная</a><a href={catalogueHref}>Учебные материалы</a><a href={accountHref}>Личный кабинет</a>
       </nav>
     </div>
-    <div className="lesson-footer-bottom"><span className="lesson-copyright">© {new Date().getFullYear()} MathStart</span></div>
+    <div className="lesson-footer-bottom"><span className="lesson-copyright">© 2026 MathStart</span></div>
   </div></footer>;
 }
 

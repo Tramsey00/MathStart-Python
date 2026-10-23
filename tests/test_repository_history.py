@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from scripts.repository_history import MANIFEST, SOURCE, repository_changes, retired_document, verify_document_translations
+from scripts.repository_history import MANIFEST, SOURCE, TASK_MANIFEST, TASK_SOURCE, repository_changes, retired_document, verify_document_translations, task_changes
 
 
 class RepositoryHistoryTests(unittest.TestCase):
@@ -89,6 +89,39 @@ class RepositoryHistoryTests(unittest.TestCase):
         self.manifest.write_text(json.dumps(data), encoding='utf-8')
         with self.assertRaisesRegex(ValueError, 'translation source'):
             verify_document_translations(self.root)
+
+
+class TaskHistoryTests(unittest.TestCase):
+    def test_followup_requires_named_source_before_after_and_no_escape(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / 'guide.md'
+            before, after = b'accepted preparation', b'assigned task revision'
+            target.write_bytes(after)
+            row = dict(path='guide.md', action='updated', reason='explicit task scope', before_bytes=len(before),
+                       before_sha256=hashlib.sha256(before).hexdigest(), after_sha256=hashlib.sha256(after).hexdigest())
+            manifest = root / TASK_MANIFEST
+            manifest.parent.mkdir(parents=True)
+            data = dict(source_commit=TASK_SOURCE, task='MS-T001', authority='user assignment', files=[row])
+            def save():
+                manifest.write_text(json.dumps(data), encoding='utf-8')
+            save()
+            with patch('scripts.repository_history._task_original', return_value=before):
+                self.assertIn('guide.md', task_changes(root))
+                target.write_bytes(b'unknown change')
+                with self.assertRaisesRegex(ValueError, 'Unreviewed task'):
+                    task_changes(root)
+                target.write_bytes(after)
+                row['before_sha256'] = '0' * 64; save()
+                with self.assertRaisesRegex(ValueError, 'Unreviewed task'):
+                    task_changes(root)
+                row['before_sha256'] = hashlib.sha256(before).hexdigest()
+                data['source_commit'] = 'main'; save()
+                with self.assertRaisesRegex(ValueError, 'authority'):
+                    task_changes(root)
+                data['source_commit'] = TASK_SOURCE; row['path'] = '../outside.md'; save()
+                with self.assertRaisesRegex(ValueError, 'Invalid task'):
+                    task_changes(root)
 
 
 if __name__ == '__main__':

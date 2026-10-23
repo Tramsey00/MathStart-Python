@@ -121,6 +121,15 @@
         "body_html": {
           "type": "string"
         },
+        "renderer_version": {
+          "enum": ["legacy", "react-v1"]
+        },
+        "lesson_document": {
+          "anyOf": [
+            {"$ref": "#/$defs/LessonDocument"},
+            {"type": "null"}
+          ]
+        },
         "is_published": {
           "const": true
         },
@@ -204,8 +213,45 @@
         "updated_at",
         "source",
         "assets"
+      ],
+      "allOf": [
+        {"if": {"properties": {"renderer_version": {"const": "react-v1"}}, "required": ["renderer_version"]}, "then": {"properties": {"lesson_document": {"$ref": "#/$defs/LessonDocument"}}, "required": ["lesson_document"]}},
+        {"if": {"properties": {"lesson_document": {"$ref": "#/$defs/LessonDocument"}}, "required": ["lesson_document"]}, "then": {"properties": {"renderer_version": {"const": "react-v1"}}, "required": ["renderer_version"]}}
       ]
     },
+    "LessonDocument": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "version": {"const": "lesson-document-v1"},
+        "slug": {"type": "string", "pattern": "^[-a-zA-Z0-9_]+$"},
+        "title": {"type": "string", "minLength": 1},
+        "subtitle": {"type": "string"},
+        "grade": {"type": "string", "minLength": 1},
+        "subject": {"type": "string", "minLength": 1},
+        "section": {"type": "string", "minLength": 1},
+        "sections": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/LessonSection"}}
+      },
+      "required": ["version", "slug", "title", "subtitle", "grade", "subject", "section", "sections"]
+    },
+    "LessonSection": {
+      "type": "object", "additionalProperties": false,
+      "properties": {"id": {"type": "string", "minLength": 1}, "title": {"type": "string", "minLength": 1}, "nodes": {"type": "array", "items": {"$ref": "#/$defs/LessonNode"}}},
+      "required": ["id", "title", "nodes"]
+    },
+    "LessonNode": {
+      "oneOf": [
+        {"$ref": "#/$defs/LessonTextNode"}, {"$ref": "#/$defs/LessonElementNode"},
+        {"$ref": "#/$defs/LessonSemanticNode"}, {"$ref": "#/$defs/LessonSelfCheckNode"},
+        {"$ref": "#/$defs/LessonInteractiveNode"}
+      ]
+    },
+    "LessonTextNode": {"type": "object", "additionalProperties": false, "properties": {"kind": {"const": "text"}, "text": {"type": "string"}}, "required": ["kind", "text"]},
+    "LessonElementNode": {"type": "object", "additionalProperties": false, "properties": {"kind": {"const": "element"}, "tag": {"$ref": "#/$defs/LessonTag"}, "attrs": {"$ref": "#/$defs/LessonAttrs"}, "children": {"type": "array", "items": {"$ref": "#/$defs/LessonNode"}}}, "required": ["kind", "tag", "attrs", "children"]},
+    "LessonSemanticNode": {"type": "object", "additionalProperties": false, "properties": {"kind": {"enum": ["paragraph", "note", "example", "table", "figure"]}, "tag": {"$ref": "#/$defs/LessonTag"}, "attrs": {"$ref": "#/$defs/LessonAttrs"}, "children": {"type": "array", "items": {"$ref": "#/$defs/LessonNode"}}}, "required": ["kind", "tag", "attrs", "children"]},
+    "LessonSelfCheckNode": {"type": "object", "additionalProperties": false, "properties": {"kind": {"const": "selfCheck"}, "attrs": {"$ref": "#/$defs/LessonAttrs"}, "question": {"type": "array", "items": {"$ref": "#/$defs/LessonNode"}}, "answer": {"type": "array", "items": {"$ref": "#/$defs/LessonNode"}}, "disclosure": {"enum": ["answer", "solution"]}}, "required": ["kind", "attrs", "question", "answer", "disclosure"]},
+    "LessonInteractiveNode": {"type": "object", "additionalProperties": false, "properties": {"kind": {"const": "interactive"}, "name": {"const": "linear"}, "id": {"type": "string", "minLength": 1}}, "required": ["kind", "name", "id"]},
+    "LessonAttrs": {"type": "object", "propertyNames": {"not": {"pattern": "^[oO][nN]"}}, "properties": {"href": {"type": "string", "pattern": "^(?!\\s*(?:javascript:|data:|vbscript:|//))"}, "src": {"type": "string", "pattern": "^(?!\\s*(?:javascript:|data:|vbscript:|//))"}, "xlink:href": {"type": "string", "pattern": "^(?!\\s*(?:javascript:|data:|vbscript:|//))"}}, "additionalProperties": {"type": ["string", "number"]}},
+    "LessonTag": {"enum": ["p", "span", "strong", "em", "b", "i", "u", "s", "sub", "sup", "br", "a", "h2", "h3", "h4", "ul", "ol", "li", "blockquote", "div", "table", "caption", "thead", "tbody", "tr", "th", "td", "figure", "figcaption", "img", "math", "mi", "mn", "mo", "mrow", "msup", "msub", "mfrac", "msqrt", "mroot", "mtext", "semantics", "annotation", "svg", "g", "path", "circle", "line", "polyline", "polygon", "rect", "ellipse", "text", "tspan", "defs", "marker"]},
     "StaffUserDTO": {
       "type": "object",
       "additionalProperties": false,

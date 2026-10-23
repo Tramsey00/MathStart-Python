@@ -190,3 +190,17 @@ docs/audits/{lesson-*,quadratic-lesson-*,shared-ui-finalization*,ui-ux-*},
 прогонов из frontend/.cache/. Их история доступна в Git. Этот контракт и
 theme-baseline.md остаются актуальными источниками решений. Исходники,
 тесты, учебный контент, шрифты/лицензии и активный кеш Vite сохранены.
+
+
+## Подключение линейного пилота MS-T001
+
+Общая композиция `frontend/src/shared/lesson/lesson-page.tsx` подключается к
+основному SSG для react-v1. Текст и блоки приходят из verified lesson_document;
+файлы `body.html/page.css/page.js` пилота сохраняются как замороженный источник
+сравнения до человеческой приёмки. Остальные уроки остаются legacy, квадратичная
+страница остаётся preview до MS-T006. Главная и каталог ожидают MS-T002.
+
+Единственный registry адресов теперь `site_content/material-routes.json`;
+`shared/routing/material-routes.mjs` импортирует его, Content публикует canonical
+и permanent redirects. `runtime.css` подключает существующие theme/base/lesson
+стили для новой страницы без legacy site.css. Внешний вид компонентов сохранён.

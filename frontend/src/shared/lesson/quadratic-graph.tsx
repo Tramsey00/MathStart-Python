@@ -1,4 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from 'react';
+import { CoefficientControl } from './graph-controls';
 import { analyzeFunction, formatNumber, INITIAL_COEFFICIENTS, polynomial, valueAt, type Coefficients } from './quadratic-math';
 
 const plot = { left: 48, top: 20, width: 504, height: 320 };
@@ -139,7 +140,7 @@ export function QuadraticGraph() {
           onPointerDown={stopReset} onChange={event => { stopReset(); setSelectedX(Number(event.target.value)); }}/>
         <p id={`${identity}-probe-help`}>Выберите x ползунком или нажмите на график.{!visible(inspectedX, inspectedY) && <span className="quadratic-probe-outside"> Точка вне окна графика.</span>}</p>
       </figcaption></figure>
-      <div className="quadratic-data"><div className="quadratic-controls">{(['a', 'b', 'c'] as const).map(key => <div className="coefficient-control" key={key}><label htmlFor={`${identity}-${key}`}><span><span className="coefficient-word">Коэффициент </span>{key}</span><output htmlFor={`${identity}-${key}`}>{formatNumber(coefficients[key], 1)}</output></label><input id={`${identity}-${key}`} aria-label={`Коэффициент ${key}`} type="range" min={key === 'a' ? -4 : -10} max={key === 'a' ? 4 : 10} step="0.1" value={coefficients[key]} onPointerDown={stopReset} onChange={event => { stopReset(); setCoefficients(current => ({ ...current, [key]: Number(event.target.value) })); }}/><div className="coefficient-scale" aria-hidden="true"><span>{key === 'a' ? '−4' : '−10'}</span><span>0</span><span>{key === 'a' ? '4' : '10'}</span></div></div>)}</div>
+      <div className="quadratic-data"><div className="quadratic-controls">{(['a', 'b', 'c'] as const).map(key => <CoefficientControl key={key} name={key} value={coefficients[key]} min={key === 'a' ? -4 : -10} max={key === 'a' ? 4 : 10} step={0.1} format={value => formatNumber(value, 1)} onInputStart={stopReset} onChange={value => { stopReset(); setCoefficients(current => ({ ...current, [key]: value })); }}/>)}</div>
     <dl className="quadratic-properties">{properties.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     <div className="lesson-table-scroll"><table className="quadratic-values"><caption>Значения функции</caption><thead><tr><th scope="col">x</th>{[-2, 0, 1, 2, 3, 4].map(x => <th scope="col" key={x}>{x}</th>)}</tr></thead><tbody><tr><th scope="row">y</th>{[-2, 0, 1, 2, 3, 4].map(x => <td data-x={x} key={x}>{formatNumber(valueAt(x, coefficients))}</td>)}</tr></tbody></table></div>
     <p className="graph-explanation">При a = 0 квадратный член исчезает. Для сравнения здесь можно построить и прямую.</p></div>

@@ -93,7 +93,16 @@ class ReleaseStore:
                     raise unavailable()
                 raw = inside(root, entry['delivery_path']).read_bytes()
                 page = validate(decode_json(raw), 'ContentDelivery', True)
-                canonical = '/' if page['page_type'] == 'home' else f'/{page["slug"]}/'
+                renderer = page.get('renderer_version', 'legacy')
+                document = page.get('lesson_document')
+                canonical = page['seo']['canonical_path']
+                expected_canonical = '/' if page['page_type'] == 'home' else f'/{page["slug"]}/'
+                if renderer == 'react-v1':
+                    if (page['page_type'] != 'topic' or not isinstance(document, dict)
+                            or document.get('slug') != page['slug'] or not canonical.startswith('/materials/')):
+                        raise unavailable()
+                elif document is not None or renderer not in {'legacy', 'react-v1'} or canonical != expected_canonical:
+                    raise unavailable()
                 if (any(page[f] != entry[f] for f in ['id', 'slug', 'page_type', 'updated_at'])
                         or page['seo']['canonical_path'] != canonical
                         or entry['url'] != canonical or entry['canonical_path'] != canonical
@@ -243,6 +252,28 @@ class Release:
         if page['slug'] == 'karta-sajta':
             context.update(self.catalogue(params))
             context['catalogue_full'] = self.index['catalogue']
+        if page.get('renderer_version') == 'react-v1':
+            catalogue = self.index['catalogue']
+            siblings = [topic for topic in catalogue['topics']
+                        if topic['grade_id'] == page['grade_id']
+                        and topic['subject_id'] == page['subject_id']
+                        and topic['section_id'] == page['section_id']]
+            position = next((i for i, topic in enumerate(siblings) if topic['id'] == page['id']), None)
+            if position is None:
+                raise unavailable()
+            def item(topic):
+                return {'slug': topic['slug'], 'title': topic['title'], 'order': topic['order'], 'url': topic['url']}
+            grade_links = []
+            for grade in catalogue['grades']:
+                grade_page = next((candidate for candidate in self.pages.values()
+                                   if candidate['page_type'] == 'grade' and candidate['grade_id'] == grade['id']), None)
+                if grade_page is not None:
+                    grade_links.append({'title': grade['title'], 'href': grade_page['seo']['canonical_path']})
+            context['lesson_navigation'] = {
+                'previous': item(siblings[position - 1]) if position > 0 else None,
+                'next': item(siblings[position + 1]) if position + 1 < len(siblings) else None,
+            }
+            context['grade_links'] = grade_links
         return deepcopy(context)
 
 

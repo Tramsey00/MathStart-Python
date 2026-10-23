@@ -108,8 +108,21 @@ class PublicRenderer:
             before, rest = result.split(start, 1)
             _, after = rest.split(end, 1)
             result = before + start + catalogue_html(context) + end + after
+        elif page.get('renderer_version', 'legacy') == 'react-v1':
+            if set(context) != {'pinned_release', 'lesson_navigation', 'grade_links'}:
+                raise ValueError('Unexpected React lesson context')
         elif set(context) != {'pinned_release'}:
             raise ValueError('Unexpected public context')
+        if page.get('renderer_version', 'legacy') == 'react-v1':
+            from backend.content.sources import lesson_document_is_rendered
+            document = page.get('lesson_document')
+            if (not isinstance(document, dict) or document.get('slug') != page['slug']
+                    or not isinstance(document.get('sections'), list)
+                    or not lesson_document_is_rendered(document, result)
+                    or '<script type="module"' not in result):
+                raise ValueError('Verified React lesson artifact is incomplete')
+        elif page.get('renderer_version', 'legacy') != 'legacy':
+            raise ValueError('Unsupported public renderer version')
         return result
 
 
