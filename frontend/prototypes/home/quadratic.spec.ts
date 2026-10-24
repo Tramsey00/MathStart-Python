@@ -290,34 +290,16 @@ test('refined lesson stays usable in both themes with adjacent titles available 
   expect(errors).toEqual([]);
 });
 
-test('authored diagrams enlarge without changing SVG and the point probe supports keyboard and pointer', async ({ page }, info) => {
+test('authored diagrams stay static and the point probe uses its keyboard slider', async ({ page }, info) => {
   await page.goto('/quadratic.html');
   for (const theme of ['light', 'dark']) {
     if (theme === 'dark') await page.getByRole('button', { name: 'Включить тёмную тему' }).click();
     for (const diagram of await page.locator('.lesson-diagram').all()) {
       const svg = diagram.locator('svg');
       const original = await svg.evaluate(node => node.outerHTML);
-      const enlarge = diagram.getByRole('button');
-      if (await enlarge.isVisible()) {
-        await enlarge.focus();
-        await page.keyboard.press('Enter');
-        await expect(enlarge).toHaveAttribute('aria-pressed', 'true');
-        const viewport = diagram.getByRole('region');
-        await page.keyboard.press('Tab');
-        await expect(viewport).toBeFocused();
-        const before = await viewport.evaluate(node => node.scrollLeft);
-        await page.keyboard.press('ArrowRight');
-        await expect.poll(() => viewport.evaluate(node => node.scrollLeft)).toBeGreaterThan(before);
-        await expect(viewport).toHaveCSS('outline-style', 'solid');
-        await page.screenshot({ path: info.outputPath(`diagram-enlarged-${theme}-${await diagram.getAttribute('data-enlarged')}.png`) });
-      }
-      const displayedLabelSize = await svg.evaluate(node => {
-        const text = node.querySelector('text[font-size="11"]')!;
-        return parseFloat(getComputedStyle(text).fontSize) * node.getBoundingClientRect().width / 560;
-      });
-      expect(displayedLabelSize).toBeGreaterThanOrEqual(13);
+      await expect(diagram.getByRole('button')).toHaveCount(0);
       expect(await svg.evaluate(node => node.outerHTML)).toBe(original);
-      if (await enlarge.isVisible()) await enlarge.click();
+      expect(await svg.evaluate(node => node.getBoundingClientRect().width <= node.parentElement!.clientWidth + 1)).toBe(true);
     }
     const formula = page.locator('.lesson-vertex-formula');
     await expect(formula).toHaveText('y = a(x − x₀)² + y₀');
@@ -343,16 +325,16 @@ test('authored diagrams enlarge without changing SVG and the point probe support
     await expect(probe).toHaveValue('0');
     await page.mouse.down();
     await page.mouse.up();
-    await expect.poll(async () => Number(await probe.inputValue())).toBeCloseTo(3, 1);
+    await expect(probe).toHaveValue('0');
     await page.mouse.move(0, 0);
-    await expect.poll(async () => Number(await probe.inputValue())).toBeCloseTo(3, 1);
+    await expect(probe).toHaveValue('0');
     await page.getByRole('button', { name: 'Сбросить коэффициенты' }).click();
     await expect(page.locator('.quadratic-probe')).not.toContainText('Наведите');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
 });
 
-test('touch selects a point on the plot and on its native slider', async ({ browser, page }, info) => {
+test('touch only selects a point on the native slider', async ({ browser, page }, info) => {
   const context = await browser.newContext({ viewport: page.viewportSize()!, hasTouch: true });
   const touch = await context.newPage();
   try {
@@ -365,7 +347,7 @@ test('touch selects a point on the plot and on its native slider', async ({ brow
       await svg.scrollIntoViewIfNeeded();
       const box = await svg.boundingBox();
       await touch.touchscreen.tap(box!.x + box!.width * (48 + 12 / 20 * 504) / 580, box!.y + box!.height / 2);
-      await expect.poll(async () => Number(await probe.inputValue())).toBeCloseTo(2, 1);
+      await expect(probe).toHaveValue('0');
       await expect(touch.locator('.plot-probe')).toBeVisible();
       await probe.scrollIntoViewIfNeeded();
       const sliderBox = await probe.boundingBox();
@@ -373,25 +355,7 @@ test('touch selects a point on the plot and on its native slider', async ({ brow
       await expect(probe).toHaveValue('0');
       await expect(probe).toHaveAttribute('aria-valuetext', 'x = 0; y = 3');
       const diagram = touch.locator('.lesson-diagram').first();
-      const enlarge = diagram.getByRole('button');
-      if (await enlarge.isVisible()) {
-        await enlarge.tap();
-        await expect(enlarge).toHaveAttribute('aria-pressed', 'true');
-        const viewport = diagram.getByRole('region');
-        await viewport.scrollIntoViewIfNeeded();
-        const scrollBox = await viewport.boundingBox();
-        const left = await viewport.evaluate(node => node.scrollLeft);
-        const cdp = await context.newCDPSession(touch);
-        const point = { x: scrollBox!.x + scrollBox!.width / 2, y: scrollBox!.y + Math.min(100, scrollBox!.height / 2) };
-        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
-        for (let step = 1; step <= 6; step++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: point.x - step * 15, y: point.y }] });
-        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-        await expect.poll(() => viewport.evaluate(node => node.scrollLeft)).toBeGreaterThan(left);
-        await cdp.detach();
-      }
-      await touch.locator('.quadratic-lab').evaluate(node => node.scrollIntoView({ block: 'start' }));
-      await touch.screenshot({ path: info.outputPath(`touch-lab-${theme}.png`) });
-      expect(await touch.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      await expect(diagram.getByRole('button')).toHaveCount(0);
     }
   } finally { await context.close(); }
 });

@@ -1,8 +1,40 @@
 {
   "source_commit": "406995b4005d9b78525f3e985e9345a5437a5e67",
   "task": "MS-T001",
-  "authority": "User assignment 2026-10-24; MS-T000 accepted; complete MS-T001 in ui/ux without main merge.",
+  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены.",
   "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 1215,
+      "before_sha256": "45a3d643712e8b7c911e71fd1a136f65fbbbd3f9b21796fa4ef0795777f017e8",
+      "after_sha256": "cceef1b62552f665f6284d96669f0c1e17668d0c4e3994d4a2ebcc9580bf917a"
+    },
+    {
+      "path": ".github/workflows/migration-ci.yml",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 35246,
+      "before_sha256": "b218c529c0bcdc3bb097aa205fb8ff11bc59853962218c4cd3c9c1f38ae41460",
+      "after_sha256": "cf7c2267599db7b5f3933029d0bf4d244107e6cc7d42373a94b444c83c365b9d"
+    },
+    {
+      "path": ".github/workflows/public-migration-ci.yml",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 6974,
+      "before_sha256": "9a10300d95ed1205e359b0dcd4aa76a8a99580f41864d7367fe31a39ad42d8cc",
+      "after_sha256": "8424000ecdbe806b34de8884aebbd6b4e456a4b6938262c117ac7d1faa2c7467"
+    },
+    {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 11815,
+      "before_sha256": "0bc9faa44a90b90ba4f75a1d096db72b3e95219ef6791aff118c146a37e37470",
+      "after_sha256": "369b0caa5859a025471bb6eadb7fc73c01c8213d3eefbe3d0b2fdae79c68080c"
+    },
     {
       "path": "ARCHITECTURE.md",
       "action": "updated",
@@ -10,6 +42,14 @@
       "before_bytes": 33057,
       "before_sha256": "b5ebc36561bb1c840db73c8486af8ba3311ab4f190d03b6d8abcbd26665c816b",
       "after_sha256": "bbf84babeda3e95c94fc6db7840cdd910560f8d1ff5f6ca5164e2fc0d3607946"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "before_bytes": 6994,
+      "before_sha256": "d32d91fe30b7046308410a5ecf55d8812fd06a1c67a0cb51398079977da738bf",
+      "after_sha256": "7de4972e40ca3b328b30e6127f5dc96003bd7886b666114edf05fc03ff14bc48"
     },
     {
       "path": "backend/cli.py",
@@ -41,7 +81,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 11825,
       "before_sha256": "06a8fe839af4b57c65fcaef6bd743903d27bc0647fcc8aef6291f49f9a9e1733",
-      "after_sha256": "4576b5b908cf48d6ab0e8e312abf6903b614fd45a064da3075d1a581ebc39e94"
+      "after_sha256": "27256c18fbc5473bba0a28443f96e6b3b0d8e8dd1a1e4a6940cca9f6c126761e"
     },
     {
       "path": "backend/content/checks.py",
@@ -81,7 +121,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 13489,
       "before_sha256": "0390a9fd7f5fcaa72b0b3b31f5531f265fdc7026b1e77a5747f043169bd545a3",
-      "after_sha256": "fe986228d287bd51cc70787b677afbaeb156456fa2de990fd4b1d3e832807001"
+      "after_sha256": "467354baa3978bc8849baa9658edf81e864d3241765cc5e6ed12b42da48b880c"
     },
     {
       "path": "backend/content/sources.py",
@@ -124,6 +164,14 @@
       "after_sha256": "a5be575f2246fca9ba0eec915ccb5c331600febab3ec7732394c7ab240f0e106"
     },
     {
+      "path": "backend/verification_suite.py",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 10784,
+      "before_sha256": "3d16673a0baf5b32322a4159feb5c6c3b6182174430a2feab6f6412b9c93edd1",
+      "after_sha256": "daffaa31cb43a225c430327942de588cafc1e64b36059539d7714f7838851c20"
+    },
+    {
       "path": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/lesson.json",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
@@ -137,7 +185,31 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 18687,
       "before_sha256": "03bd7a0c84153f0f1110fd01f9dd129a81b60cd8d04ba99a88845fd3282399c1",
-      "after_sha256": "03ae489cf18b6be57380cc8ebd673c2012e0b521f827daabcf7b0527cabff134"
+      "after_sha256": "4dfe840a306e7908e90458b03970b3a48b9481d3d5c72dafc727a3f41bfc2e44"
+    },
+    {
+      "path": "docs/frontend/testing-policy.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 8829,
+      "before_sha256": "b91e7939f7871cd05779b4a7ade866dbffd80ef3977f627bf9d79094898d40eb",
+      "after_sha256": "2409adb40e61e0f35a11612757260c446e9cb2c6a38dd8d8b38330cbede31f7d"
+    },
+    {
+      "path": "docs/local-development.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 4630,
+      "before_sha256": "8b90ea655f1e8ea4b9029d9da92b4d9efecf5336863b9265d0f3176b1328e9f7",
+      "after_sha256": "b3b4466be2024a14942104ae731790a90e9a303a08793f55cf4399e2b58cc963"
+    },
+    {
+      "path": "docs/target-runtime.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 18908,
+      "before_sha256": "b4cd455962971f05ed5ec1f91abf13a434d75e09cbcb422ae106db5fd0b36e9b",
+      "after_sha256": "e7d59e0a55be594ed340fd306d996e6e467718982ad703d18e72ee7235275645"
     },
     {
       "path": "docs/tasks/INDEX.md",
@@ -145,7 +217,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 18935,
       "before_sha256": "90ed05395de5893377842c36651e33cede48f0b52107fa2e256f9bfacb5c4ff1",
-      "after_sha256": "2f92ac7d77b8dad2b24ea5d8fe9d595d3aa7b807ff1127c5b64cc61aed122d7c"
+      "after_sha256": "7298aa15a85ff71a2fd721cc97d25ceb48e10d23410bbc5a19517a58be80702c"
     },
     {
       "path": "docs/tasks/lesson-inventory.json",
@@ -153,7 +225,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 122050,
       "before_sha256": "8509180c2b93fb13d7d21c200cdfed36f5b9185d5a4f917e2e9646b2d47fd566",
-      "after_sha256": "97151521a0d394883a4ce18d049af81add5cdac9b7744a5089980c78e0023486"
+      "after_sha256": "a9d3960c7b467d5a12c09ab8a8c3551e24b71f784d032a3baab227076275b709"
     },
     {
       "path": "docs/tasks/registry.json",
@@ -161,7 +233,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 22138,
       "before_sha256": "2e8e11f8e7abcea55d9db34b46711745718fac65b5a0e559a7b254a07fa6b406",
-      "after_sha256": "3e9af2599f39100ebdbf43da7cea4903ee492aa8cfb8fc7748795d936c7189e5"
+      "after_sha256": "2be5bdd22dada6252c8ddae7363bda6cbfd82e40773eb1961bfd5303ac5494ca"
     },
     {
       "path": "docs/ux/shared-ui-contract.md",
@@ -169,7 +241,15 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 18335,
       "before_sha256": "072737523fc001b8539bf92e6be90cfb97625eae83a9bd6f8ebc77b84d97acb4",
-      "after_sha256": "2276ba55fa886b93bebf72f2163445f5ec020bd71a3eeda80da3e2be4beb7f62"
+      "after_sha256": "08f744d29ddcc0f8d22b5c0442ee813cf124ad8b9231c14fe224ab49c6f22c69"
+    },
+    {
+      "path": "frontend/README.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "before_bytes": 4889,
+      "before_sha256": "1b5ce9f7de9b517d4ee79886d3527277bd10bc1e8cf23521d7de23dd744450f5",
+      "after_sha256": "95335156cfc1543873ad45d4a4494bb9fb48bb41d9763ab70cfd5343aaf3f5fc"
     },
     {
       "path": "frontend/build_public.py",
@@ -204,6 +284,30 @@
       "after_sha256": "cc352428a7129ada3fff36e0286f26928fde77d58816dcbf3edd9a43e911051f"
     },
     {
+      "path": "frontend/package.json",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "before_bytes": 1601,
+      "before_sha256": "d30e2cd51f0e6cdd505292cd33055c6cfb03ebd13c8e5efb1fc2c08c03969076",
+      "after_sha256": "d5af0a57c09cb90f65b146200ea4f010efde7cef64417d0f5e550a579fd8cc02"
+    },
+    {
+      "path": "frontend/prototypes/home/lesson-regressions.spec.ts",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 4440,
+      "before_sha256": "1c3d90e6e7042f6ac1d3548caa3c2c38019d2f2e78cc048044c941edc07d5ed5",
+      "after_sha256": "7aa7dad92bf3392999e7f0c24ed1a92a0f80e16a2f0417935f4cf3fc83f0aa81"
+    },
+    {
+      "path": "frontend/prototypes/home/quadratic.spec.ts",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 29495,
+      "before_sha256": "90ac4fb6c23a9b6788c7a1e3a71c1a032b066ca51dbe11bf1a130a73e42adcd7",
+      "after_sha256": "ba16f637fa32329917605b8af00a096bee206a29cf455bb46996072515075794"
+    },
+    {
       "path": "frontend/rendering.py",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
@@ -220,6 +324,14 @@
       "after_sha256": "12213f5c60536d4407a714e6e0692b6fbd4234900d47bca177be6276cafa39c0"
     },
     {
+      "path": "frontend/scripts/run-check.mjs",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "before_bytes": 5060,
+      "before_sha256": "cb295a5868a86f3a57c3d6d1a3d342520f2fd4ca4f4ef7cf353686650d421c0f",
+      "after_sha256": "8a3c70be8bbb1afd124983c4c1e89bfe9a1897a5f82c07428b04e2bed131a45c"
+    },
+    {
       "path": "frontend/src/app/root.tsx",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
@@ -233,7 +345,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 1371,
       "before_sha256": "9e47804b659bfbd011fdbe5faafbe07590585c3c1f2e74a4b0f47db3565a80fd",
-      "after_sha256": "3f78e58b27ed5f467326ca945f34deceedc500140f9358ad6c76534ee0f3fe39"
+      "after_sha256": "a55a1d2d2e500128fcfc3f71f29d44d15d0a45f2ff4a257376c615100cc751c9"
     },
     {
       "path": "frontend/src/server/public-types.ts",
@@ -241,7 +353,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 406,
       "before_sha256": "fdf9311fbb600c6e368e3ec9a3b07a32b989c6dd7277f27c27937f5e2ae7c4f3",
-      "after_sha256": "3da47f989f57b67718005c62d7a93454102368552c680325568e683a9eb04f27"
+      "after_sha256": "1b1ae1b995aac20a5cc3121dfabdc66a55459dc62738c00d64cd995948a30eaf"
     },
     {
       "path": "frontend/src/shared/api/generated/staff-contracts.json",
@@ -257,7 +369,15 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 7723,
       "before_sha256": "befee52ace4b66485065aac46c58f220add60682ae1c207c834862ff486e10c9",
-      "after_sha256": "0466c62521214bcf6b1f57ff3bd84849c945a1a08a1eeaeccccb5635b6c5c224"
+      "after_sha256": "91c040577da4d5e12fed33e5551b9f996ac4861413354e58903f75e23eff1a5e"
+    },
+    {
+      "path": "frontend/src/shared/lesson/lesson-diagram.tsx",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 1435,
+      "before_sha256": "f41b89adeab98e94a8131f0431748324f5e2ee05c62afd6bce155f8fd5828e55",
+      "after_sha256": "5d580e639987aa68a5c3ff65bfaec66c3999b357b318546d2a4e026faf012941"
     },
     {
       "path": "frontend/src/shared/lesson/lesson-shell.tsx",
@@ -276,12 +396,20 @@
       "after_sha256": "25569fdb603818013639260c349592e9b72f2ed85ed566cbe11424f663743255"
     },
     {
+      "path": "frontend/src/shared/lesson/lesson.css",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 27306,
+      "before_sha256": "a27ecc522121cd3f4ada0a1d91d6c07fed8bb237bd130d24c5b5dacb21180753",
+      "after_sha256": "f2803ae9bb87eec27de8ebb6a96ba89fc747c680982f549e3b22f85a139d1a32"
+    },
+    {
       "path": "frontend/src/shared/lesson/quadratic-graph.tsx",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 12477,
       "before_sha256": "88fac36b0b68a207651e146e1b6538dc6db253ceacb335aed1c1d28612b58265",
-      "after_sha256": "d45195a07389b86f31d8f120d9c7a2cb4080f720ae118fbe3ce4493481027611"
+      "after_sha256": "7b8c01fc587f75f108dfae0b78717a3bb19d5f0da2514a1a83a43f21451978f3"
     },
     {
       "path": "frontend/src/shared/lesson/source-renderer.tsx",
@@ -289,7 +417,7 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 4865,
       "before_sha256": "5844823c9ee78ca8b207f88b9493ccda3e62d36789db839a88eb2f948b7711f2",
-      "after_sha256": "63d4fcc82637255a1ad23fedc9335b13a0113133b7c6d51108a5b85661d23ed1"
+      "after_sha256": "2decaaa0253d6121b1e7659af6a9a00fe931ec485fa36f23d7559a6492283d04"
     },
     {
       "path": "frontend/src/shared/routing/material-routes.mjs",
@@ -308,12 +436,20 @@
       "after_sha256": "acc2331af81a26f69097d823c7548f463d34ba0b6367a534fcbbb2d57c2a8e4c"
     },
     {
+      "path": "frontend/tests/quadratic-interaction.test.tsx",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 4294,
+      "before_sha256": "4d6c5374eac8417424bd2750f2f3517c072c325c2c19ed733020d17a1fc56de2",
+      "after_sha256": "ea45e1aa2d97c2f4e881cda3ca3255c1709bb25cb7ff2d201f9fec4a19a0c540"
+    },
+    {
       "path": "scripts/check_migration_preservation.py",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 11176,
       "before_sha256": "2d932bc8bb7c51d486269eae191e2310e963008054c6ec08e08f8ace2d3ae45d",
-      "after_sha256": "56d1a58f1eee0c071bb0a8067853fb94e1eb583bb82a53467514b314f1911c93"
+      "after_sha256": "677f54eb46d0a8ed3cdadec4e698f43fbc534871a2c34ece67025be8cad6c16f"
     },
     {
       "path": "scripts/repository_history.py",
@@ -322,6 +458,14 @@
       "before_bytes": 4036,
       "before_sha256": "4dc65bda243d6b70f047c2888be2b3966827fd4e1d63a7185c0485224897e079",
       "after_sha256": "dd889b6643296b8241de457f934a9857232d5a1ac5fd7df0406d5537fcdd2cdd"
+    },
+    {
+      "path": "skills/lesson-migration/SKILL.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 3322,
+      "before_sha256": "f8a6cf36852070e2524bf93cef1968f391ef8c1a1af3c37dd6edd4c26c560ba9",
+      "after_sha256": "fe575a784014e5054c59ecbad5d1927fe31a4d0ec9b3f984c986c1f4ccc451ac"
     },
     {
       "path": "skills/tasks/t000-workflow-preparation/SKILL.md",
@@ -337,7 +481,31 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 6652,
       "before_sha256": "eedf2cc89f3fde66f2bd3bdd3f53135a1c37d1d85070dd0be23de5b228aae639",
-      "after_sha256": "232c2d04ee0596b54c5c2cdc61ab6ea335af6696400a3e88c30950a7a8701f4c"
+      "after_sha256": "04c8dbe36e56484bb9d947fcc068b0ffaed3423ed86a0020386ee454703a722b"
+    },
+    {
+      "path": "skills/tasks/t005-grade-7/SKILL.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 4802,
+      "before_sha256": "30e3b0b65340b5d4f44df8fd4816c9e9046fed6b6be9f4fcf84f11a566138c35",
+      "after_sha256": "4e0cc4a7e5fb023dec08d2b7053728959b438336af5228ef3facda2a04adcd71"
+    },
+    {
+      "path": "skills/tasks/t006-grade-8/SKILL.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 5213,
+      "before_sha256": "05877d69cde2da11ee01402487cad186147b994719fe4aa60c89a6d2d53165a9",
+      "after_sha256": "8c10df8928f7f3942da08493ca695911d32d5318e2586abbeae961e5e4c60e9f"
+    },
+    {
+      "path": "skills/verification/SKILL.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 2609,
+      "before_sha256": "fa158941cada54ce05224544b283a1756b3c49274695d890db605260e3402e1f",
+      "after_sha256": "79479347173029918fb5df676835086ebbdffb7de660e2063bcb13b98020e8f9"
     },
     {
       "path": "specs/migration/r02-v1/delivery-v1.schema.json",
@@ -353,7 +521,25 @@
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
       "before_bytes": 4668,
       "before_sha256": "bd652ba3ec014194bcbdd73a10edb40313e9729c9f7b6bdfe5b153477de7c2a2",
-      "after_sha256": "725b9132265abd59c4b5cbf3688b59f9552820c3a4b9a4edb32aa2c2d0a62098"
+      "after_sha256": "a5955036ce84f5faebe8faa8a97223d06ad7b06e5fc285ecacf382da4f868e55"
     }
-  ]
+  ],
+  "content_curation": {
+    "slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
+    "authority": "Явное указание пользователя 24.10.2026",
+    "source_html_sha256": "ab50d467686dd1667b167042c4bec137f8b8527740fe0953b77a1cc88c4397e6",
+    "omitted_section_ids": [
+      "lesson-section-1",
+      "lesson-section-13"
+    ],
+    "retired_ui_classes": [
+      "ms-nav",
+      "ms-lesson-nav"
+    ],
+    "remaining_sections": 11,
+    "self_checks": 13,
+    "tables": 4,
+    "authored_svg": 3,
+    "document_sha256": "998783e29807a53e06f1c2da5a9405697cf8e13f1979b0f42d17aceb33fec0a2"
+  }
 }

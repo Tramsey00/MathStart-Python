@@ -14,7 +14,9 @@ it('keeps cancelled and scrolling gestures from selecting a point', () => {
   const probe = screen.getByLabelText('Абсцисса исследуемой точки x') as HTMLInputElement;
   pointer(graph, 'pointerDown'); pointer(graph, 'pointerCancel'); pointer(graph, 'pointerUp'); expect(probe.value).toBe('0');
   pointer(graph, 'pointerDown'); pointer(graph, 'pointerMove', { clientY: 210 }); pointer(graph, 'pointerMove'); pointer(graph, 'pointerUp'); expect(probe.value).toBe('0');
-  pointer(graph, 'pointerDown'); pointer(graph, 'pointerUp'); expect(Number(probe.value)).toBeCloseTo(3.2);
+  pointer(graph, 'pointerDown'); pointer(graph, 'pointerUp'); expect(probe.value).toBe('0');
+  fireEvent.change(probe, { target: { value: '2.4' } }); expect(probe.value).toBe('2.4');
+  expect(graph.querySelector('.plot-symmetry')).toBeNull();
 });
 it('resets with reduced motion and cancels animated reset on new coefficient input', () => {
   let frame: FrameRequestCallback | undefined;

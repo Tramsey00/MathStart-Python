@@ -3,7 +3,7 @@ import {spawnSync} from 'node:child_process';
 import {mkdirSync,readFileSync,writeFileSync,mkdtempSync} from 'node:fs';
 import {join,resolve} from 'node:path';
 const mode=process.argv[2];
-const checkId={typecheck:'frontend-typecheck',tests:'frontend-tests',build:'frontend-build',e2e:'frontend-e2e',i02:'frontend-i02',identity:'frontend-identity'}[mode];
+const checkId={typecheck:'frontend-typecheck',tests:'frontend-tests','lesson-tests':'frontend-lesson-tests',build:'frontend-build',e2e:'frontend-e2e',i02:'frontend-i02',identity:'frontend-identity'}[mode];
 if(!checkId || (process.env.MATHSTART_CHECK_ID && process.env.MATHSTART_CHECK_ID!==checkId))throw Error('Check identity mismatch');
 mkdirSync('.cache/checks',{recursive:true});
 const run=mkdtempSync('.cache/checks/run-');
@@ -21,9 +21,10 @@ if(mode==='typecheck'){
     ['typescript-no-emit',[cli('typescript/bin/tsc'),'--noEmit']]]){
     execute(process.execPath,args);cases.push(id);
   }
-}else if(mode==='tests'){
+}else if(mode==='tests'||mode==='lesson-tests'){
   const report=join(run,'vitest.json');
-  execute(process.execPath,[cli('vitest/vitest.mjs'),'run','--reporter=default','--reporter=json','--outputFile='+report]);
+  const selection=mode==='lesson-tests'?['--exclude','tests/verification-evidence.test.ts','--exclude','tests/preview.test.ts']:[];
+  execute(process.execPath,[cli('vitest/vitest.mjs'),'run',...selection,'--reporter=dot','--reporter=json','--outputFile='+report]);
   const data=JSON.parse(readFileSync(report,'utf8'));
   if(data.numFailedTests!==0 || data.numPendingTests!==0 || data.numTodoTests!==0 || data.numPassedTests<1)throw Error('Failed/empty/skipped tests');
   for(const file of data.testResults)for(const test of file.assertionResults){if(test.status!=='passed')throw Error('Non-passing case');cases.push(test.fullName);}

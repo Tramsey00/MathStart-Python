@@ -9,13 +9,15 @@ from backend.content.sources import SourceError, lesson_document_is_rendered, lo
 
 class LessonDocumentTests(unittest.TestCase):
     def test_material_redirects_exist_only_for_published_canonical_pages(self):
-        route = {'slug': 'pilot', 'path': '/materials/7-algebra-1', 'renderer_version': 'react-v1'}
+        route = {'slug': 'pilot', 'path': '/materials/7-algebra-8', 'aliases': ['/materials/7-algebra-1'], 'renderer_version': 'react-v1'}
         index = {'pages': [], 'redirects': []}
         apply_material_redirects(index, {'pilot': route})
         self.assertEqual(index['redirects'], [])
         index['pages'] = [{'slug': 'pilot', 'canonical_path': route['path']}]
         apply_material_redirects(index, {'pilot': route})
-        self.assertEqual(index['redirects'], [{'old_path': '/pilot/', 'new_path': route['path'], 'is_permanent': True}])
+        self.assertEqual(index['redirects'], [
+            {'old_path': '/pilot/', 'new_path': route['path'], 'is_permanent': True},
+            {'old_path': '/materials/7-algebra-1', 'new_path': route['path'], 'is_permanent': True}])
 
     def test_http_quality_uses_pinned_canonical_path_and_rejects_mixed_inventory(self):
         from unittest.mock import MagicMock
@@ -54,7 +56,7 @@ class LessonDocumentTests(unittest.TestCase):
         bundles = load_sources(root)
         pilot = next(bundle for bundle in bundles if bundle.snapshot['slug'] == 'linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii')
         self.assertEqual(pilot.renderer_version, 'react-v1')
-        self.assertEqual(len(pilot.lesson_document['sections']), 13)
+        self.assertEqual(len(pilot.lesson_document['sections']), 11)
         self.assertTrue(any(entry['path'].endswith('/content.json') for entry in pilot.files))
         from backend.infrastructure.http.contracts import validator
         self.assertTrue(validator('LessonDocument', True).is_valid(pilot.lesson_document))
@@ -140,6 +142,10 @@ class LessonDocumentTests(unittest.TestCase):
             {'slug': 'pilot', 'grade': 7, 'subject': 'algebra', 'number': 1, 'renderer_version': 'react-v1'}]}
         with patch('backend.content.build.read_json', return_value=good):
             self.assertEqual(load_material_routes('.', bundles)['pilot']['path'], '/materials/7-algebra-1')
+        for aliases in ([{}], ['/materials/7-algebra-1'], ['/materials/7-algebra-2'] * 2, ['https://elsewhere.test']):
+            invalid_alias = {'version': 1, 'assignments': [dict(good['assignments'][0], aliases=aliases)]}
+            with self.subTest(aliases=aliases), patch('backend.content.build.read_json', return_value=invalid_alias), self.assertRaises(SourceError):
+                load_material_routes('.', bundles)
         duplicate = {'version': 1, 'assignments': good['assignments'] * 2}
         with patch('backend.content.build.read_json', return_value=duplicate), self.assertRaises(SourceError):
             load_material_routes('.', bundles)

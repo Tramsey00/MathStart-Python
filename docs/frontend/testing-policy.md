@@ -1,9 +1,12 @@
 # Проверки по области изменения и карта тестов
 
 24.10.2026. Политика выбора проверок для новой очереди. Не считать старый PASS
-результатом нового candidate. Эта редакция не удаляет runtime/security tests
-и не сужает обязательный CI: изменения набора выполняются в MS-T011 либо при
-доказанной замене конкретного consumer внутри пилота/cohort/auth задачи.
+результатом нового candidate. Обычный lesson/UI CI запускает frontend unit и
+typecheck, чистую проверку LessonDocument, source/docs gates. Он не запускает
+PostgreSQL, legacy oracle, полную browser matrix, clean-install/recovery или
+managed target. Полные проверки остаются доступны вручную в migration workflows
+и обязательны для явно назначенной интеграции/MS-T009. Это изменение расписания,
+а не удаление проверок.
 
 ## Профили работы
 
@@ -13,14 +16,21 @@
 | Данные одной темы | schema/content preservation, ссылки, затронутая сборка | Representative UI, если изменился тип блока |
 | Общий компонент/интерактив | typecheck, affected unit/component tests | Affected browser light/dark, mobile/desktop, keyboard; жесты для графика |
 | Полный класс | все source/documents/URLs/anchors/media cohort, build | каждый уникальный interactive + representative pages, не одинаковый suite на каждый урок |
-| Content publication/SSG/runtime boundary | targeted tests и реальная build/serve проверка | Mandatory managed target/combined gate по target-runtime |
+| Content publication/SSG/runtime boundary | назначенные targeted tests и build/serve проверки | Полный managed target вручную на явно назначенной интеграции/MS-T009; до этого не часть обычного lesson/UI CI |
 | Identity/staff/schema | соответствующие API/PG/permission tests | auth/staff/browser/fresh-upgrade по scope |
 
 Действующие команды npm test, npm run typecheck и verify_repo сохраняют своё
-текущее значение. Избирательные команды не называть full PASS. При введении
-новых fast/UI/tooling profiles обновить wrappers/CI и проверку полноты явно.
-При прямом запуске Vitest verification-evidence.test.ts требует npm context;
-его не включать случайно в targeted UI command. Полный typecheck включает API
+текущее значение. Обычный CI вызывает frontend `npm run test:lesson` и typecheck, а также отдельные
+`backend.tests.v04.test_lesson_document` и `backend.tests.v04.test_lesson_navigation`.
+Быстрый локальный вход: `python scripts/verify_lesson.py`. Полная backend
+registry suite также включает оба модуля; её
+полный PASS требует managed disposable PostgreSQL и не заменяет чистый прогон.
+Избирательные команды не называть full PASS.
+Обычный `test:lesson` исключает ровно `frontend/tests/verification-evidence.test.ts`
+и `frontend/tests/preview.test.ts`. Первый остаётся в полном `npm test` и
+запускается в tooling review при изменении runners; второй остаётся в полном
+`npm test` и запускается при изменении preview/static-server tooling. Эти
+исключения не удаляют тесты и не меняют смысл `npm test`. Полный typecheck включает API
 generation и React Router typegen, а не только компиляцию одного файла.
 
 ## Решения по текущим тестам

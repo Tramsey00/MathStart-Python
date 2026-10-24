@@ -17,7 +17,7 @@ const normalize = (s: string | null) => (s ?? '').replace(/\s+/g, ' ').trim();
 describe('linear lesson document preservation and SSG', () => {
   it('is the complete reviewed conversion, including all source sections and academic blocks', () => {
     expect(document).toEqual(convertLesson(directory));
-    expect(document.sections).toHaveLength(13);
+    expect(document.sections).toHaveLength(11);
     const rendered = new DOMParser().parseFromString(renderToString(page), 'text/html');
     expect(rendered.querySelectorAll('.self-check')).toHaveLength(13);
     expect(rendered.querySelectorAll('.lesson-section table')).toHaveLength(4);
@@ -27,7 +27,8 @@ describe('linear lesson document preservation and SSG', () => {
       // Replaced UI is not academic prose. Keep the authored observation below it.
       const lab = before.querySelector('#ms-linear-lab-723');
       if (lab) lab.replaceWith(...Array.from(lab.querySelectorAll(':scope > p')));
-      before.querySelectorAll('summary').forEach(node => node.remove());
+      before.querySelectorAll('summary,.ms-nav').forEach(node => node.remove());
+      before.querySelector('h2')!.textContent = section.title;
       const after = rendered.getElementById(section.id)!.cloneNode(true) as HTMLElement;
       after.querySelectorAll('.linear-lab,.lesson-answer-toggle,.lesson-diagram-tools,.lesson-diagram-help').forEach(node => node.remove());
       expect(normalize(after.textContent).replace(/\s/g, ''), section.id).toBe(normalize(before.textContent).replace(/\s/g, ''));
@@ -36,7 +37,14 @@ describe('linear lesson document preservation and SSG', () => {
     const svgBefore = [...source.querySelectorAll('section .ms-svg')];
     const svgAfter = [...rendered.querySelectorAll('.lesson-diagram svg')];
     svgBefore.forEach((svg, i) => expect(svgAfter[i]!.outerHTML).toBe(svg.outerHTML));
-    for (const node of source.querySelectorAll('[id]')) expect(rendered.getElementById(node.id), node.id).not.toBeNull();
+    for (const node of source.querySelectorAll('[id]')) {
+      if (node.closest('#lesson-section-1,#lesson-section-13')) continue;
+      expect(rendered.getElementById(node.id), node.id).not.toBeNull();
+    }
+    expect(document.sections.at(-1)?.title).toBe('Самопроверка');
+    expect(rendered.querySelector('.ms-nav')).toBeNull();
+    expect(rendered.querySelectorAll('.lesson-navigation')).toHaveLength(1);
+    expect(rendered.querySelector('.lesson-diagram button')).toBeNull();
   });
   it('hydrates the existing article even with a saved dark theme, without replacing content', async () => {
     vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true);

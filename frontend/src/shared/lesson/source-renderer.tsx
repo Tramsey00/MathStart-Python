@@ -24,7 +24,7 @@ function renderNode(node: LessonNode, key: number): ReactNode {
     if (!Interactive) throw Error('Unsupported lesson interactive');
     return <Interactive key={key} id={node.id}/>;
   }
-  if (node.kind === 'selfCheck') return <div key={key} id={node.attrs.id}><SelfCheck kind={node.disclosure} question={<LessonSource nodes={node.question}/>}><LessonSource nodes={node.answer}/></SelfCheck></div>;
+  if (node.kind === 'selfCheck') return <SelfCheck key={key} id={node.attrs.id} kind={node.disclosure} question={<LessonSource nodes={node.question}/>}><LessonSource nodes={node.answer}/></SelfCheck>;
   const classes = (node.attrs.class ?? '').split(/\s+/);
   // React rejects indentation text inside table structure; it is not academic content.
   const childNodes = ['table', 'thead', 'tbody', 'tfoot', 'tr', 'colgroup'].includes(node.tag)

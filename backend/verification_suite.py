@@ -172,6 +172,8 @@ def run():
             with owned_database(admin, url, 'content') as engine:
                 prepare_content_runtime(engine, Path(os.environ['MATHSTART_CHECK_RESULT']).parent)
                 count += execute(['backend.tests.v04.test_build', 'backend.tests.v04.test_read_runtime',
+                    'backend.tests.v04.test_lesson_document',
+                    'backend.tests.v04.test_lesson_navigation',
                     'backend.tests.v04.test_content_checks', 'backend.tests.v04.test_indexing', 'backend.tests.v04.test_publication',
                     'backend.tests.v04.test_editions', 'backend.tests.v04.test_preparation', 'backend.tests.v04.test_registration',
                     'backend.tests.v04.test_bootstrap_plan', 'backend.tests.v04.test_public_update',

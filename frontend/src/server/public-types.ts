@@ -8,5 +8,6 @@ export interface PublicPageView {
   catalogue_html:string|null;
   context:{pinned_release:{release_id:string;manifest_digest:string};
     lesson_navigation?: import('../shared/lesson/lesson-page').LessonPageNavigation;
+    lesson_section?: {title:string;href:string};
     grade_links?: {title:string;href:string}[]};
 }

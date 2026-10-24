@@ -245,9 +245,11 @@ class Release:
         subject = params.get('subject', '')
         if subject not in subjects:
             subject = ''
+        section_slug = params.get('section', '')
+        section_ids = {row['id'] for row in self.index['catalogue']['sections'] if row['slug'] == section_slug}
         q = params.get('q', '').strip()
         matches = [t for t in available if (not subject or (t['subject_id'] is not None
-                  and subjects_by_id[t['subject_id']]['slug'] == subject)) and q.casefold() in t['title'].casefold()]
+                  and subjects_by_id[t['subject_id']]['slug'] == subject)) and (not section_slug or t['section_id'] in section_ids) and q.casefold() in t['title'].casefold()]
         return {'catalogue_topics': matches, 'catalogue_grades': list(grades.values()),
                 'catalogue_subjects': list(subjects.values()), 'catalogue_grade': grade,
                 'catalogue_subject': subject, 'catalogue_query': q, 'catalogue_count': len(matches)}
@@ -260,27 +262,11 @@ class Release:
             context.update(self.catalogue(params))
             context['catalogue_full'] = self.index['catalogue']
         if page.get('renderer_version') == 'react-v1':
-            catalogue = self.index['catalogue']
-            siblings = [topic for topic in catalogue['topics']
-                        if topic['grade_id'] == page['grade_id']
-                        and topic['subject_id'] == page['subject_id']
-                        and topic['section_id'] == page['section_id']]
-            position = next((i for i, topic in enumerate(siblings) if topic['id'] == page['id']), None)
-            if position is None:
+            from backend.content.lesson_context import lesson_context
+            try:
+                context.update(lesson_context(self.index['catalogue'], page))
+            except (KeyError, StopIteration, ValueError):
                 raise unavailable()
-            def item(topic):
-                return {'slug': topic['slug'], 'title': topic['title'], 'order': topic['order'], 'url': topic['url']}
-            grade_links = []
-            for grade in catalogue['grades']:
-                grade_page = next((candidate for candidate in self.pages.values()
-                                   if candidate['page_type'] == 'grade' and candidate['grade_id'] == grade['id']), None)
-                if grade_page is not None:
-                    grade_links.append({'title': grade['title'], 'href': grade_page['seo']['canonical_path']})
-            context['lesson_navigation'] = {
-                'previous': item(siblings[position - 1]) if position > 0 else None,
-                'next': item(siblings[position + 1]) if position + 1 < len(siblings) else None,
-            }
-            context['grade_links'] = grade_links
         return deepcopy(context)
 
 

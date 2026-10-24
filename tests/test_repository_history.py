@@ -92,6 +92,17 @@ class RepositoryHistoryTests(unittest.TestCase):
 
 
 class TaskHistoryTests(unittest.TestCase):
+    def test_followup_does_not_shadow_an_older_manifest_origin(self):
+        from scripts.check_migration_preservation import historical_artifact, SOURCE as original_source
+        original = b'first accepted workflow'
+        row = dict(bytes=len(original), sha256=hashlib.sha256(original).hexdigest())
+        with patch('scripts.repository_history.task_changes', return_value={'workflow.yml': {}}), \
+                patch('scripts.repository_history.repository_changes', return_value={}), \
+                patch('scripts.check_migration_preservation.dispositions', return_value={'workflow.yml': row}), \
+                patch('scripts.check_migration_preservation._historical_blob', return_value=original) as read:
+            self.assertEqual(historical_artifact('workflow.yml'), original)
+            self.assertEqual(read.call_args.args[1], original_source)
+
     def test_followup_requires_named_source_before_after_and_no_escape(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

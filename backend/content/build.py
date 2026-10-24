@@ -224,7 +224,7 @@ def load_material_routes(source_root, bundles):
         raise SourceError('Invalid material route registry')
     result, paths = {}, set()
     for item in data['assignments']:
-        if type(item) is not dict or set(item) != {'slug', 'grade', 'subject', 'number', 'renderer_version'}:
+        if type(item) is not dict or set(item) - {'aliases'} != {'slug', 'grade', 'subject', 'number', 'renderer_version'}:
             raise SourceError('Invalid material route assignment')
         slug, grade, subject, number, renderer = (item[k] for k in ('slug', 'grade', 'subject', 'number', 'renderer_version'))
         if (not isinstance(slug, str) or not isinstance(grade, int) or isinstance(grade, bool) or grade < 1
@@ -246,8 +246,14 @@ def load_material_routes(source_root, bundles):
             raise SourceError('Material route lesson grade mismatch') from None
         if page_grade != grade or page['subject'] != subject or bundle.renderer_version != renderer:
             raise SourceError('Material route differs from lesson identity/renderer')
+        aliases = item.get('aliases', [])
+        if (type(aliases) is not list
+                or any(not isinstance(alias, str) or not safe_public_path(alias) or alias in paths for alias in aliases)
+                or len(set(aliases)) != len(aliases)):
+            raise SourceError('Invalid/duplicate material route alias')
+        paths.update(aliases)
         result[slug] = {'slug': slug, 'grade': grade, 'subject': subject, 'number': number,
-                        'renderer_version': renderer, 'path': path}
+                        'renderer_version': renderer, 'path': path, 'aliases': aliases}
     if not result:
         raise SourceError('Empty material route registry')
     if {slug for slug, bundle in bundles.items() if bundle.renderer_version == 'react-v1'} - set(result):
@@ -262,9 +268,10 @@ def source_file_record(root, relative):
 
 def apply_material_redirects(index, routes):
     """Point all known legacy aliases at the assigned canonical path directly."""
-    moved = {f'/{route["slug"]}/': route['path'] for route in routes.values()
+    moved = {old: route['path'] for route in routes.values()
              if route['renderer_version'] == 'react-v1'
-             and any(page['slug'] == route['slug'] and page['canonical_path'] == route['path'] for page in index['pages'])}
+             and any(page['slug'] == route['slug'] and page['canonical_path'] == route['path'] for page in index['pages'])
+             for old in [f'/{route["slug"]}/', *route.get('aliases', [])]}
     if not moved:
         return
     existing = {row['old_path']: row for row in index['redirects']}

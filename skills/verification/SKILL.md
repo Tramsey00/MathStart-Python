@@ -13,6 +13,11 @@ checks; mandatory coherent-candidate CI gate — при интеграции/run
 
 Default: `python scripts/verify_repo.py` —15 product checks.
 Portable: `--profile pure` —5 suites; pure/--list не доказывают runtime readiness.
+Обычный автоматический lesson/UI CI ограничен frontend unit/typecheck, pure
+LessonDocument test и source/docs gates. Он не запускает PostgreSQL, Django,
+browser matrix, installation, recovery или полный target. Полные workflows
+`Migration verification` и `Public and identity migration verification`
+запускаются вручную; использовать их при явно назначенной интеграции/MS-T009.
 Empty/skipped/flaky/missing/timeout fail. Собственный Engineering Harness удалён;
 общие routing/privacy regressions и bounded diagnostic redaction сохранены.
 

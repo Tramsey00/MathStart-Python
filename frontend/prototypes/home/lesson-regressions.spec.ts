@@ -22,7 +22,7 @@ test('fresh catalogue navigation has no missing favicon or browser errors', asyn
   expect(errors).toEqual([]);
 });
 
-test('touch scrolling and explicit cancellation preserve x, then a confirmed tap selects', async ({ browser, page }, info) => {
+test('touch scrolling and explicit cancellation preserve x, and graph taps never select x', async ({ browser, page }, info) => {
   const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173', viewport: page.viewportSize()!, hasTouch: true });
   const touch = await context.newPage();
   const cdp = await context.newCDPSession(touch);
@@ -60,7 +60,8 @@ test('touch scrolling and explicit cancellation preserve x, then a confirmed tap
       await expect(svg).toHaveAttribute('data-cancel-count', '2');
       await expect(probe).toHaveValue('0');
       await touch.touchscreen.tap(point.x, point.y);
-      await expect.poll(async () => Number(await probe.inputValue())).toBeGreaterThan(1);
+      await expect(probe).toHaveValue('0');
+      await probe.focus(); await probe.press('End');
       const selected = await probe.inputValue();
       await touch.mouse.move(afterBox.x + afterBox.width * .8, point.y);
       await expect(probe).toHaveValue(selected);

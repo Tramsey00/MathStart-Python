@@ -93,8 +93,8 @@ export function LessonContents({ sections, title, catalogueHref }: { sections: r
 }
 export function LessonNote({ children }: { children: ReactNode }) { return <aside className="lesson-note">{children}</aside>; }
 export function WorkedExample({ children }: { children: ReactNode }) { return <div className="worked-example">{children}</div>; }
-export function SelfCheck({ question, kind, children }: { question: ReactNode; kind: 'answer' | 'solution'; children: ReactNode }) {
-  return <div className="self-check"><LessonDisclosure kind={kind} question={question}>{children}</LessonDisclosure></div>;
+export function SelfCheck({ question, kind, children, id }: { question: ReactNode; kind: 'answer' | 'solution'; children: ReactNode; id?: string | undefined }) {
+  return <div className="self-check" id={id}><LessonDisclosure kind={kind} question={question}>{children}</LessonDisclosure></div>;
 }
 export function LessonDisclosure({ kind, question, children }: { kind: 'answer' | 'solution'; question?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -110,10 +110,12 @@ export function LessonDisclosure({ kind, question, children }: { kind: 'answer' 
   </div>;
 }
 export function LessonNavigation({ previous, next, href, catalogueHref }: {
-  previous: LessonTopic | null; next: LessonTopic | null; href: (topic: LessonTopic) => string; catalogueHref: string;
+  previous: (LessonTopic & { boundary?: 'section' }) | null; next: (LessonTopic & { boundary?: 'section' }) | null; href: (topic: LessonTopic) => string; catalogueHref: string;
 }) {
+  const previousLabel = next && previous?.boundary === 'section' ? 'Предыдущий раздел' : 'Предыдущая тема';
+  const nextLabel = previous && next?.boundary === 'section' ? 'Следующий раздел' : 'Следующая тема';
   return <nav className="lesson-navigation" aria-label="Переход между темами"><div className="lesson-page-controls">
-    {previous && <a className="lesson-previous" href={href(previous)} rel="prev" aria-label={`Предыдущая тема: ${previous.title}`}><span className="lesson-direction"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5"/></svg>Предыдущая тема</span></a>}
-    {next && <a className="lesson-next" href={href(next)} rel="next" aria-label={`Следующая тема: ${next.title}`}><span className="lesson-direction">Следующая тема<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></span></a>}
+    {previous && <a className="lesson-previous" href={href(previous)} rel="prev" aria-label={`${previousLabel}: ${previous.title}`}><span className="lesson-direction"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5"/></svg>{previousLabel}</span></a>}
+    {next && <a className="lesson-next" href={href(next)} rel="next" aria-label={`${nextLabel}: ${next.title}`}><span className="lesson-direction">{nextLabel}<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></span></a>}
     </div><a className="lesson-back" href={catalogueHref}>Все темы раздела</a></nav>;
 }

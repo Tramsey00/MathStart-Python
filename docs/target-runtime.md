@@ -197,8 +197,11 @@ exact IDs/negative cases. Этот результат не присваивае�
 assets inventory, no-JS/SEO, math/widget/lifecycle/private/keyboard/responsive
 и matched visual review. Скриншоты без просмотра не означают visual PASS.
 
-Existing workflow_dispatch `full_target=true` запускает полный managed target
-без поддельного REVIEWED. Успешный CI с target SKIPPED не закрывает migration.
+Обычный lesson/UI CI выполняет только frontend unit/typecheck, pure
+LessonDocument и source/docs gates. Он не доказывает target readiness.
+Migration workflows запускаются вручную; `workflow_dispatch` с
+`full_target=true` запускает полный managed target без поддельного REVIEWED.
+Успешный CI с target SKIPPED не закрывает migration.
 Остальные image/install/recovery/document checks сохраняют свои recorded SHA и
 scope; финальная проверка должна описывать согласованный combined candidate.
 Общий QA, independent review, человеческая приёмка миграции и merge PR54 завершены;

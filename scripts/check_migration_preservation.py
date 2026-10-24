@@ -71,12 +71,15 @@ def historical_artifact(name, root=ROOT):
     content are always read from the actual current tree.
     """
     from scripts.repository_history import repository_changes, retired_document, task_changes, TASK_SOURCE
-    if name in task_changes(root):
+    # Validate the follow-up's current bytes, but keep any earlier manifest's
+    # historical source. A later edit must not shadow an accepted original pin.
+    task_changed = name in task_changes(root)
+    row = dispositions(root).get(name)
+    if task_changed and row is None:
         return _historical_blob(str(root), TASK_SOURCE, name)
     current_retirement = repository_changes(root).get(name)
     if current_retirement and current_retirement['action'] == 'removed':
         return retired_document(name, root)
-    row = dispositions(root).get(name)
     if row is None:
         if current_retirement and current_retirement['action'] == 'updated' and name.endswith('.md'):
             # Historical digest consumers retain original documentation bytes.
