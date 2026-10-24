@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import time
 import uuid
 
 import sqlalchemy as sa
@@ -315,7 +316,19 @@ def install_build_inputs(output_root, release_id, descriptor, receipt, files):
     temporary.mkdir()
     for child in list(stage.iterdir()):
         if child != temporary:
-            child.rename(temporary / child.name)
+            rename_build_path(child, temporary / child.name)
     ReleaseStore(stage).load(descriptor)
-    temporary.rename(target)
+    rename_build_path(temporary, target)
     stage.rmdir()
+
+
+def rename_build_path(source, target):
+    """Windows scanners can briefly hold a freshly written build directory."""
+    for attempt in range(4):
+        try:
+            source.rename(target)
+            return
+        except PermissionError:
+            if os.name != 'nt' or attempt == 3:
+                raise
+            time.sleep(0.2 * (attempt + 1))

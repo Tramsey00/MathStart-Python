@@ -39,7 +39,7 @@ class LessonNavigationTests(unittest.TestCase):
         self.assertEqual(context['lesson_section']['title'], 'Первый раздел')
         self.assertIn('section=first', context['lesson_section']['href'])
         self.assertEqual([g['title'] for g in context['grade_links']], [f'{i} класс' for i in range(5, 11)])
-        self.assertTrue(all(g['href'].startswith('/karta-sajta/?grade=') for g in context['grade_links']))
+        self.assertTrue(all(g['href'].startswith('/materials?grade=') for g in context['grade_links']))
 
     def test_renderer_accepts_shared_context_but_refuses_missing_or_extra_fields(self):
         from frontend.rendering import PublicRenderer

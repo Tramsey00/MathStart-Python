@@ -33,7 +33,7 @@ test('linear pilot uses Content canonical, reload, Back and preserved anchors', 
   await page.getByRole('dialog').getByRole('link', { name: /Самопроверка/ }).click();
   await expect(page).toHaveURL(/#lesson-section-12$/);
   await page.goBack(); await expect(page).toHaveURL(/#theory$/);
-  await page.locator('.lesson-back').click(); await expect(page).toHaveURL(/karta-sajta\/\?grade=7-klass&subject=algebra&section=/);
+  await page.locator('.lesson-back').click(); await expect(page).toHaveURL(/materials\?grade=7-klass&subject=algebra&section=/);
   await page.goBack(); await expect(page.locator('[data-react-linear]')).toHaveCount(1);
   expect(errors).toEqual([]);
 });
