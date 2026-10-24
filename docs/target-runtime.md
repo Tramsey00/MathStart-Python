@@ -1,3 +1,7 @@
+> Политика пользователя 25.10.2026: этот документ описывает ручной полный QA.
+> Команды ниже не запускаются при обычной UI-миграции без отдельного поручения.
+> Автоматический CI выключен. Текущий default — NOT_RUN, не PASS.
+
 # MathStart: текущий FastAPI/React runtime
 
 Это versioned руководство текущего runtime. Корневые инструкции описывают текущую платформу; исходные версии и
@@ -60,7 +64,7 @@ python -c "import importlib.util; assert not importlib.util.find_spec('django');
 Django golden comparator использует [отдельный pinned checkout и venv](legacy-oracle.md),
 requirements.lock берётся только из него; interpreter передаётся явно. Не устанавливать Django в target ради comparator.
 Frontend: Node24/npm11 с package-lock.json, принятый Docker builder Node24.21.0 /
-npm11.19.0. Из frontend выполнить `npm ci`, `npm run typecheck`, `npm test`.
+npm11.19.0. Из frontend выполнить `npm ci`, `npm run typecheck`, `npm run test:full`.
 Public build требует проверенного immutable input и явного build config;
 `npm run dev` не является установленным сайтом или production evidence.
 
@@ -197,8 +201,8 @@ exact IDs/negative cases. Этот результат не присваивае�
 assets inventory, no-JS/SEO, math/widget/lifecycle/private/keyboard/responsive
 и matched visual review. Скриншоты без просмотра не означают visual PASS.
 
-Обычный lesson/UI CI выполняет только frontend unit/typecheck, pure
-LessonDocument и source/docs gates. Он не доказывает target readiness.
+Автоматический lesson/UI CI приостановлен решением пользователя 25.10.2026.
+Все workflows запускаются только вручную по отдельно назначенному scope.
 Migration workflows запускаются вручную; `workflow_dispatch` с
 `full_target=true` запускает полный managed target без поддельного REVIEWED.
 Успешный CI с target SKIPPED не закрывает migration.

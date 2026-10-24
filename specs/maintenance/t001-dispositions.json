@@ -1,15 +1,15 @@
 {
   "source_commit": "406995b4005d9b78525f3e985e9345a5437a5e67",
   "task": "MS-T001",
-  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite.",
+  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite. Явное поручение пользователя 25.10.2026: убрать массовые проверки из текущей UI-миграции, выключить автоматические прогоны; никаких тестов при этой правке.",
   "files": [
     {
       "path": ".github/workflows/ci.yml",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 1215,
       "before_sha256": "45a3d643712e8b7c911e71fd1a136f65fbbbd3f9b21796fa4ef0795777f017e8",
-      "after_sha256": "cceef1b62552f665f6284d96669f0c1e17668d0c4e3994d4a2ebcc9580bf917a"
+      "after_sha256": "066e74aa98a1e63f2b34d0a9638e70e6a4403e3046bc61f14a2cc7bc723f9276"
     },
     {
       "path": ".github/workflows/migration-ci.yml",
@@ -30,10 +30,10 @@
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 11815,
       "before_sha256": "0bc9faa44a90b90ba4f75a1d096db72b3e95219ef6791aff118c146a37e37470",
-      "after_sha256": "42b0be62872fd964258a276a0c12d61082235de8f4f294d4f35d01f2f9db8188"
+      "after_sha256": "297eddc3253c083d70bd005d9f7c794e43943bc2405ef28463109b2b857bd4a1"
     },
     {
       "path": "ARCHITECTURE.md",
@@ -46,10 +46,10 @@
     {
       "path": "README.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 6994,
       "before_sha256": "d32d91fe30b7046308410a5ecf55d8812fd06a1c67a0cb51398079977da738bf",
-      "after_sha256": "1f6e751ab676eb8f12c30707dfc50655deed694ad5e18bd9faab0273460881e3"
+      "after_sha256": "7ba014a40101eb5297929267a4512baf87e5f744c85f97ad188806093b09dd8b"
     },
     {
       "path": "backend/cli.py",
@@ -190,42 +190,42 @@
     {
       "path": "docs/frontend/lesson-migration.md",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 18687,
       "before_sha256": "03bd7a0c84153f0f1110fd01f9dd129a81b60cd8d04ba99a88845fd3282399c1",
-      "after_sha256": "e591565bd00346e35d97cd0da920631301e513f2ce8bf83424c6123b4c4fad4b"
+      "after_sha256": "42be56497b3ea15cf047b48bdaccab43d4b9752f383bee0be21c2f22f95a668d"
     },
     {
       "path": "docs/frontend/testing-policy.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 8829,
       "before_sha256": "b91e7939f7871cd05779b4a7ade866dbffd80ef3977f627bf9d79094898d40eb",
-      "after_sha256": "2409adb40e61e0f35a11612757260c446e9cb2c6a38dd8d8b38330cbede31f7d"
+      "after_sha256": "ec1c092d8c08654b2907f3f8cc41948532272f4da9821bfd3f714e67bbbdca13"
     },
     {
       "path": "docs/local-development.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 4630,
       "before_sha256": "8b90ea655f1e8ea4b9029d9da92b4d9efecf5336863b9265d0f3176b1328e9f7",
-      "after_sha256": "9be05c249742143bf9baedbc3e98133e57fa49094c075f2d8c3bdb2d3e2eda6c"
+      "after_sha256": "b00544255f38c1382a606e594a242dc1346de214587b89fec567f961591a72eb"
     },
     {
       "path": "docs/target-runtime.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 18908,
       "before_sha256": "b4cd455962971f05ed5ec1f91abf13a434d75e09cbcb422ae106db5fd0b36e9b",
-      "after_sha256": "e7d59e0a55be594ed340fd306d996e6e467718982ad703d18e72ee7235275645"
+      "after_sha256": "a465bee37609c1dc018179551af52d851e303ec148e080dd7d5eb84037db96fa"
     },
     {
       "path": "docs/tasks/INDEX.md",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 18935,
       "before_sha256": "90ed05395de5893377842c36651e33cede48f0b52107fa2e256f9bfacb5c4ff1",
-      "after_sha256": "d2c7d8634ffacccfae08d3b902cc5c7fbff33a0882be6aa352cee47f0b42a989"
+      "after_sha256": "676ba25b6889820407b20dbff5a481d3eebfc4c2b1d8d521a921d7fa25a364c8"
     },
     {
       "path": "docs/tasks/lesson-inventory.json",
@@ -238,10 +238,10 @@
     {
       "path": "docs/tasks/registry.json",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 22138,
       "before_sha256": "2e8e11f8e7abcea55d9db34b46711745718fac65b5a0e559a7b254a07fa6b406",
-      "after_sha256": "9c54eb9986f2ce022fdf244bae461665310e8c645ccc332b6b5ebd726a89046b"
+      "after_sha256": "4adf196c46868734eafcec70dcc59cef08bd195885a37eed3ea76dc7ae5d2f32"
     },
     {
       "path": "docs/ux/shared-ui-contract.md",
@@ -254,10 +254,10 @@
     {
       "path": "frontend/README.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 4889,
       "before_sha256": "1b5ce9f7de9b517d4ee79886d3527277bd10bc1e8cf23521d7de23dd744450f5",
-      "after_sha256": "c9bde9512a8cbbbeb62663a81d41a594766501caf46440aaa0ecd2c4f4de39b3"
+      "after_sha256": "ab2b3d45e3f7c2abb3555cde534857f19efc4dbffde88073e7c36a02aefd8a22"
     },
     {
       "path": "frontend/build_public.py",
@@ -294,10 +294,10 @@
     {
       "path": "frontend/package.json",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 1601,
       "before_sha256": "d30e2cd51f0e6cdd505292cd33055c6cfb03ebd13c8e5efb1fc2c08c03969076",
-      "after_sha256": "a89b92d20f9f3856eee5e1c8e949a3e6650650916d45c84dc7712653c7871ccb"
+      "after_sha256": "b12c7ea97b6d1cc2de383b84c854f018e5bcc1f7408d1ac133e847b8c6dca14c"
     },
     {
       "path": "frontend/prepare_public.py",
@@ -358,10 +358,18 @@
     {
       "path": "frontend/scripts/run-check.mjs",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 24.10.2026: общий шаблон, стабильные URL, единый FastAPI preview и короткий профиль проверок.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 5060,
       "before_sha256": "cb295a5868a86f3a57c3d6d1a3d342520f2fd4ca4f4ef7cf353686650d421c0f",
-      "after_sha256": "8a3c70be8bbb1afd124983c4c1e89bfe9a1897a5f82c07428b04e2bed131a45c"
+      "after_sha256": "37d4f28c4b52a26a8696fc7266340b156053fe5f6643bd3628fa3c470022279c"
+    },
+    {
+      "path": "frontend/scripts/verify-foundation.mjs",
+      "action": "updated",
+      "before_bytes": 7380,
+      "before_sha256": "8c7c031f1f639a48210642b36d906d4299ef3565371863ea77bf9fdbbf5dc55b",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "848242fbf54036f23b9d6f23c2deb3b9937d2f98baaed214f96e3625bdd8db2a"
     },
     {
       "path": "frontend/src/app/root.tsx",
@@ -484,6 +492,14 @@
       "after_sha256": "ea45e1aa2d97c2f4e881cda3ca3255c1709bb25cb7ff2d201f9fec4a19a0c540"
     },
     {
+      "path": "frontend/tests/verification-evidence.test.ts",
+      "action": "updated",
+      "before_bytes": 7181,
+      "before_sha256": "51195547cd96c76dbe0d2785145facf44544162caecc348e5572a004fd483514",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "d547c612b7e657b2b5f65bd36642a12dcf0be65d94fbf46cce571c48d74801b6"
+    },
+    {
       "path": "frontend/vite.config.ts",
       "action": "updated",
       "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
@@ -500,6 +516,14 @@
       "after_sha256": "677f54eb46d0a8ed3cdadec4e698f43fbc534871a2c34ece67025be8cad6c16f"
     },
     {
+      "path": "scripts/check_workflow_docs.py",
+      "action": "updated",
+      "before_bytes": 10041,
+      "before_sha256": "e2d0f1ca7731285d1aba9a32d6405893b20a3ae9c1b17af17c6dcb49cf11e63f",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "f304c196b778c3fa76e2a82e3b8b6219001e9fcda3d6d833f1cfb8522777c0b3"
+    },
+    {
       "path": "scripts/repository_history.py",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
@@ -508,12 +532,28 @@
       "after_sha256": "dd889b6643296b8241de457f934a9857232d5a1ac5fd7df0406d5537fcdd2cdd"
     },
     {
+      "path": "scripts/target_check.py",
+      "action": "updated",
+      "before_bytes": 7407,
+      "before_sha256": "7a821e0df5c67b48e21ab917e95e18610d431c000888d15caaef929b382d8e01",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "cc44190197fdb98d1ff544bc3df8fed676ce2ae6403242c02b40c21014379c01"
+    },
+    {
+      "path": "scripts/verify_public_block.py",
+      "action": "updated",
+      "before_bytes": 13843,
+      "before_sha256": "76afb2f295107c1ada739ee42afce682dcda14b3e29e7f9e7f6aebdbf21c0440",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "60898141440bdc41939a389afab2ea21fca5c4aa7b4832def64f8971ffbaa96a"
+    },
+    {
       "path": "skills/lesson-migration/SKILL.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 3322,
       "before_sha256": "f8a6cf36852070e2524bf93cef1968f391ef8c1a1af3c37dd6edd4c26c560ba9",
-      "after_sha256": "57e4ec1bde6ad22d67ba7e1fa93f366238c5ae30ef9f6d5bccc668baed7720d1"
+      "after_sha256": "b757633f66b17590d86768b0b81a1fba0b47191fdecdd1015736ef839262e1ca"
     },
     {
       "path": "skills/tasks/t000-workflow-preparation/SKILL.md",
@@ -526,50 +566,82 @@
     {
       "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 6652,
       "before_sha256": "eedf2cc89f3fde66f2bd3bdd3f53135a1c37d1d85070dd0be23de5b228aae639",
-      "after_sha256": "41125fd4a9e7576226802eabd7bdb689d67b13e9eca907aa79e54b887087ece2"
+      "after_sha256": "49a246af8fec5e2bb8d891baa69d5fc5772a5de8e5284a5d3add50eff5e6e0e5"
     },
     {
       "path": "skills/tasks/t002-public-pages/SKILL.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 4145,
       "before_sha256": "00c57148a93f508b8d8d4b9a342a1e377e5f24f44f8d2b5db9270138782c86b8",
-      "after_sha256": "cbba5da9ce0f9a06d6ad397ff2fff8f676d9f3ab3038365da20882bff5b8d987"
+      "after_sha256": "6dd0eaa44265faa5e876fabe2b267923da17968c4d2dd4086f6245d3c11a3a83"
     },
     {
       "path": "skills/tasks/t002a-team-local-start/SKILL.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 5304,
       "before_sha256": "6924aaf7f6f7a32c843b8137e6a476d5022f0891a3f86818cdd87e4ce9a113c2",
-      "after_sha256": "781867b89433a643b30243f5613c90def69f67e9811b4e0c226b974d1f712aca"
+      "after_sha256": "2da8c9536c601fac8daaa24c573abe512a37dfdc36f4efcd5b68775620a5dc87"
+    },
+    {
+      "path": "skills/tasks/t003-grade-5/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4541,
+      "before_sha256": "925d9a6645afaf8956d23e5b06af135d5d2af0f32b80bd46f87d1218edca9276",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "1271f4f88333a9b9cb02f61bc328c891cb02fb47fbe9fd16e4873fecb4cdfeaa"
+    },
+    {
+      "path": "skills/tasks/t004-grade-6/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4540,
+      "before_sha256": "a41778d83120076c847acc5a91e1df9066a56c80d9256e677c70bc030f4ec2aa",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "dad86bf3a3c41e8cf9803c2290f2e56e7a164eba8333afd23b190b3577d8697c"
     },
     {
       "path": "skills/tasks/t005-grade-7/SKILL.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 4802,
       "before_sha256": "30e3b0b65340b5d4f44df8fd4816c9e9046fed6b6be9f4fcf84f11a566138c35",
-      "after_sha256": "4e0cc4a7e5fb023dec08d2b7053728959b438336af5228ef3facda2a04adcd71"
+      "after_sha256": "12fe005fa179d424ba2e6c1281e3666adc9226d694928feb751363b1f6e97b8b"
     },
     {
       "path": "skills/tasks/t006-grade-8/SKILL.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 5213,
       "before_sha256": "05877d69cde2da11ee01402487cad186147b994719fe4aa60c89a6d2d53165a9",
-      "after_sha256": "4bf472cbd17082766a889d865c5353d3f066103cf80f1a28c7cac56a27d11aed"
+      "after_sha256": "9fbc968684d7339260cb1b34830f9660c49790b816ff6d9013513d18e993a433"
+    },
+    {
+      "path": "skills/tasks/t007-grade-9/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4540,
+      "before_sha256": "08dab5c417e71f7ac88f512407b3d8b281bbe74dcbdb591202ea838df7486b6a",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "bdebe37f4a394c3d712e97ede305cf301992f772b5de9a22b4a0132f24738a67"
+    },
+    {
+      "path": "skills/tasks/t008-grade-10/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4545,
+      "before_sha256": "77c87ebb0d9c3bb483eb98e4185e128fd643d9e7fffb7da16738ccff66cd7f9c",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "03f1c85da529891320d54e7d35e82b3e5b39d72719e241bc232fdfc17487c0a5"
     },
     {
       "path": "skills/verification/SKILL.md",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
       "before_bytes": 2609,
       "before_sha256": "fa158941cada54ce05224544b283a1756b3c49274695d890db605260e3402e1f",
-      "after_sha256": "79479347173029918fb5df676835086ebbdffb7de660e2063bcb13b98020e8f9"
+      "after_sha256": "60ea817be5ec70e1fd85c068d8a29aea5e69a368e6784b8e5ba1b32f48425190"
     },
     {
       "path": "specs/migration/r02-v1/delivery-v1.schema.json",
@@ -650,5 +722,28 @@
       "TypeScript noEmit",
       "Owned start/stop lifecycle"
     ]
+  },
+  "verification_deferment": {
+    "date": "2026-10-25",
+    "authority": "Прямое поручение пользователя в текущем чате",
+    "default": "NOT_RUN",
+    "automatic_ci": "DISABLED_MANUAL_ONLY",
+    "retired_commands": [
+      "npm run test:lesson",
+      "python scripts/verify_lesson.py"
+    ],
+    "manual_frontend_command": "npm run test:full",
+    "test_files": "Сохранены для отдельно порученных проверок; в текущем workflow не запускаются",
+    "retired_files": [
+      {
+        "path": "scripts/verify_lesson.py",
+        "before_commit": "87ba556417e54f0b32ed9d4b8c88bac5fea76961",
+        "before_bytes": 2015,
+        "before_sha256": "78ed2b37aece609ded52152c1da6029cda4569668267234df74ebc6b45a4e062",
+        "reason": "Удалён псевдокороткий каскад 201 frontend + typecheck + backend/schema/source/browser-related gates; обычная UI-правка не должна запускать этот набор."
+      }
+    ],
+    "input_head": "87ba556417e54f0b32ed9d4b8c88bac5fea76961",
+    "implementation_checks": "NOT_RUN_BY_USER_REQUEST"
   }
 }

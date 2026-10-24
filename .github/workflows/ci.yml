@@ -1,12 +1,7 @@
-name: Product verification
+name: Manual product verification
 
 on:
-  pull_request:
-    branches: [main]
-    paths: ['AGENTS.md', 'ARCHITECTURE.md', 'PRODUCT.md', 'README.md', 'docs/**', 'skills/**', 'backend/**', 'frontend/**', 'scripts/**', 'curriculum/**', 'site_content/**', 'specs/**', 'tests/**', 'requirements*', 'alembic.ini', '.github/workflows/**']
-  push:
-    branches: [main, ui/ux, 'ms-t*']
-    paths: ['AGENTS.md', 'ARCHITECTURE.md', 'PRODUCT.md', 'README.md', 'docs/**', 'skills/**', 'backend/**', 'frontend/**', 'scripts/**', 'curriculum/**', 'site_content/**', 'specs/**', 'tests/**', 'requirements*', 'alembic.ini', '.github/workflows/**']
+  workflow_dispatch:
 
 jobs:
   verify:
@@ -35,7 +30,7 @@ jobs:
       - name: Frontend unit tests and typecheck
         working-directory: frontend
         run: |
-          npm run test:lesson
+          npm run test:full
           npm run typecheck
       - name: Pure lesson document contract
         run: python -m unittest backend.tests.v04.test_lesson_document backend.tests.v04.test_lesson_navigation -v
@@ -45,5 +40,5 @@ jobs:
           python scripts/check_workflow_docs.py
           python scripts/check_migration_preservation.py
           python -m unittest tests.test_i02_ui_contract -v
-      # PostgreSQL, legacy, browser matrix, clean installation and recovery stay
-      # available in the explicit migration workflows, not ordinary lesson work.
+      # All verification is manual during the current UI migration phase.
+      # Push/PR, dev startup and UI edits must not invoke this job.

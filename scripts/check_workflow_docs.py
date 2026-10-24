@@ -155,7 +155,8 @@ def verify(root=ROOT):
             raise ValueError('Retired Harness directory reintroduced')
     checks.append('no retired Harness files/imports')
     ci = (root / '.github/workflows/ci.yml').read_text(encoding='utf-8')
-    if not ci.startswith('name: Product verification\n') or '\n  verify:\n' not in ci:
+    if (not ci.startswith('name: Manual product verification\n') or '\n  verify:\n' not in ci
+            or '\n  workflow_dispatch:\n' not in ci or '\n  push:\n' in ci or '\n  pull_request:\n' in ci):
         raise ValueError('Product workflow or verify job changed')
     from scripts.target_verification import target_checks
     registry = target_checks()

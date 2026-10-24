@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "status": "ACTIVE",
   "execution": "Одно явно порученное задание за раз; карточка task задаёт scope; автоматического продолжения нет",
   "tasks": [
@@ -33,7 +33,7 @@
       "pilot_slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
       "pilot_source": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
       "implementation": "CORRECTIONS_COMPLETE",
-      "checks": "PASS_SCOPED",
+      "checks": "DEFERRED_BY_USER",
       "review": "PASS_SCOPED",
       "human_acceptance": "PENDING",
       "merge": "NOT_PERFORMED",
@@ -52,7 +52,11 @@
         "migration_authorized": false
       },
       "correction_note": "Все текущие пользовательские корректировки применены. Human acceptance PENDING; следующий пилот только planned и не мигрируется без отдельного разрешения. Исторический receipt сохранён в карточке.",
-      "verified_tree": "f478dea0c82d6f25b50bc3d0a1ef65fa84f878aa"
+      "verified_tree": "f478dea0c82d6f25b50bc3d0a1ef65fa84f878aa",
+      "last_recorded_checks": {
+        "status": "PASS_SCOPED",
+        "code_sha": "cc95d1fc43352cf30ade37cb4eb566a2edb9a658"
+      }
     },
     {
       "id": "MS-T002",
@@ -71,7 +75,11 @@
       "human_acceptance": "PENDING",
       "scope_extension": "Явное поручение 24.10.2026: подключить также квадратичную функцию раньше MS-T006; все четыре страницы на FastAPI 8131; проверки не запускать.",
       "implementation_sha": "7aa5e81",
-      "runtime_origin": "http://127.0.0.1:8131"
+      "runtime_origin": "http://127.0.0.1:8131",
+      "last_recorded_checks": {
+        "status": "DEFERRED_BY_USER",
+        "code_sha": "7aa5e81"
+      }
     },
     {
       "id": "MS-T002A",
@@ -86,7 +94,7 @@
       "workflow": "bootstrap",
       "implementation": "DEV_HMR_PARTIAL",
       "scope_authority": "Явное поручение пользователя: настроить dev-режим с HMR и одним origin с учётом задач; остальная MS-T002A не принята.",
-      "checks": "PASS_SCOPED_DEV",
+      "checks": "DEFERRED_BY_USER",
       "review": "PENDING",
       "human_acceptance": "PENDING",
       "remaining": [
@@ -97,7 +105,11 @@
       ],
       "verified_code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c",
       "verified_tree": "f58bb199fd117cd1918e907d3ed3eb680bd9423e",
-      "verification_limit": "Проверены только текущий prepared checkout, HMR/proxy/lifecycle и TypeScript. Full suites/release build/clean clone/cross-browser QA NOT_RUN; отдельное review и human acceptance PENDING."
+      "verification_limit": "Проверены только текущий prepared checkout, HMR/proxy/lifecycle и TypeScript. Full suites/release build/clean clone/cross-browser QA NOT_RUN; отдельное review и human acceptance PENDING.",
+      "last_recorded_checks": {
+        "status": "PASS_SCOPED_DEV",
+        "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
+      }
     },
     {
       "id": "MS-T003",
@@ -493,5 +505,12 @@
       "pull_request": true,
       "merge": "решение пользователя после review, checks и human acceptance"
     }
+  },
+  "verification_policy": {
+    "effective": "2026-10-25",
+    "automatic_runs": "DISABLED",
+    "default_result": "NOT_RUN_BY_USER_REQUEST",
+    "explicit_user_request_required": true,
+    "restoration": "Отдельное решение пользователя; пересмотреть scope в MS-T009/MS-T011, не включать автоматически."
   }
 }

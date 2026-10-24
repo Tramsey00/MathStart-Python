@@ -53,3 +53,8 @@ renderer. Код prototype quadratic не является универсаль�
 едином 8131. Не запускай release build после каждой CSS/React правки. Dev preview
 content.json не публикует Content; новые URLs/темы требуют явного prepare.
 Готовый release проверяется отдельно. Команды — docs/local-development.md.
+
+Решение 25.10.2026: перенос и UI-правки выполняются без автоматических тестовых
+прогонов. Не запускать полный/«короткий» frontend, typecheck, browser smoke или
+source gates без отдельного поручения. Старые acceptance checklists не являются
+разрешением на запуск. HMR используется для пользовательского просмотра.

@@ -12,7 +12,7 @@
     "dev": "node scripts/dev.mjs",
     "dev:frontend": "react-router dev --host 127.0.0.1",
     "typecheck": "node scripts/run-check.mjs typecheck",
-    "test": "node scripts/run-check.mjs tests",
+    "test": "node scripts/checks-deferred.mjs",
     "build": "node scripts/run-check.mjs build",
     "preview": "node scripts/preview.mjs",
     "generate:api": "node scripts/generate-api.mjs",
@@ -23,8 +23,8 @@
     "test:identity": "node scripts/run-check.mjs identity",
     "generate:staff": "node scripts/generate-staff.mjs",
     "dev:design": "vite --config prototypes/home/vite.config.mjs",
-    "test:lesson": "node scripts/run-check.mjs lesson-tests",
-    "check:dev": "node scripts/check-dev-hmr.mjs"
+    "check:dev": "node scripts/check-dev-hmr.mjs",
+    "test:full": "node scripts/run-check.mjs tests"
   },
   "dependencies": {
     "@react-router/node": "7.18.4",

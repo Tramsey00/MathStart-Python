@@ -123,15 +123,22 @@ Legacy Django/DRF — только [отдельный pinned oracle](docs/legac
 
 ## Проверки, ревью и завершение
 
-Используй [verification skill](skills/verification/SKILL.md).
-Выбор scope — [политика проверок](docs/frontend/testing-policy.md). Не запускать
-весь runtime ради правки Markdown или одной кнопки. Существующий full entry:
-`python scripts/verify_repo.py`; portable subset:
-`python scripts/verify_repo.py --profile pure`. Pure не доказывает runtime readiness.
-Полный managed lifecycle и disposable PostgreSQL/browser prerequisites — в
-[target-runtime](docs/target-runtime.md). Empty, missing, skipped, timed-out и
-flaky checks не равны PASS. Install/recovery и combined CI gate сохраняются;
-старые результаты не подтверждают новый candidate.
+**Режим от 25.10.2026: автоматические проверки текущей UI-миграции выключены.**
+Для обычных CSS/React/docs/lesson правок не запускать npm tests, typecheck,
+Playwright, check:dev, verify_repo, source/docs/preservation gates или backend
+suite по собственной инициативе. Не подменять запрет «коротким smoke» и не
+создавать новый каскад. HMR не требует прогона тестов. Если пользователь
+запретил проверки, ограничиться реализацией и указать NOT_RUN_BY_USER_REQUEST.
+Не запрашивать подтверждение на ненужный QA после каждой правки.
+
+[Verification skill](skills/verification/SKILL.md) применяется только к отдельно
+порученному scope проверок; [политика](docs/frontend/testing-policy.md) приоритетнее
+старых checklists. GitHub workflows — только ручные. Полный frontend suite
+сохранён как npm run test:full; npm test возвращает NOT_RUN, не PASS. Команды
+полного runtime существуют для отдельного поручения, а не являются default.
+Не менять доменные guards/валидаторы приложения под видом отключения test runs.
+Старые результаты не подтверждают новый candidate. Восстановление автоматизации —
+отдельное решение пользователя; MS-T009/MS-T011 должны сначала пересмотреть scope.
 
 Для существенной работы оставь краткий результат в карточке или PR: исходный и проверенный SHA/tree, изменения, команды/результаты, ограничения,
 findings и исправления. Неизвестные preservation edits/deletions запрещены;
@@ -140,7 +147,7 @@ dispositions в карточке; они не переписывают исто�
 явно выведенные файлы требуют пофайловой карты, historical receipts/approvals
 не переписываются.
 
-Порядок: реализация → самопроверка → PR → отдельное ревью → исправления и
+Порядок: реализация → самопроверка кода (автопрогоны только по поручению) → PR → отдельное ревью → исправления и
 необходимая перепроверка → человеческая приёмка → решение пользователя о merge.
 Самопроверка не заменяет отдельное ревью. PASS, создание PR и merge не означают
 человеческую приёмку; статусы отражаются раздельно в реестре. Архитектурные и

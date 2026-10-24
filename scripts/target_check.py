@@ -19,7 +19,7 @@ HANDOFF = ROOT / "specs/migration/r03-v1/runtime-commands.json"
 BACKEND_CHECKS = frozenset({"system", "migrations", "lesson-sources", "content-quality",
                             "site-integrity", "backend-tests", "fresh-install",
                             "upgrade-A", "upgrade-B", "upgrade-C"})
-FRONTEND_SCRIPTS = {"frontend-typecheck": "typecheck", "frontend-tests": "test",
+FRONTEND_SCRIPTS = {"frontend-typecheck": "typecheck", "frontend-tests": "test:full",
                     "frontend-build": "build", "frontend-e2e": "test:e2e"}
 CHECK_TIMEOUTS = {'backend-tests': 1800, 'frontend-e2e': 7200}
 
