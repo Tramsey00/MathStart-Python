@@ -90,7 +90,7 @@ export function QuadraticGraph() {
           <line x1={sx(n)} x2={sx(n)} y1={plot.top} y2={plot.top + plot.height}/><line x1={plot.left} x2={plot.left + plot.width} y1={sy(n)} y2={sy(n)}/>
         </g>)}
         <g className="plot-axes"><line x1={plot.left} x2={plot.left + plot.width} y1={sy(0)} y2={sy(0)}/><line x1={sx(0)} x2={sx(0)} y1={plot.top} y2={plot.top + plot.height}/></g>
-        <g className="plot-ticks">{[-10, -8, -6, -4, -2, 2, 4, 6, 8, 10].map(n => <g key={n}><text x={sx(n)} y={sy(0) + 18} textAnchor={n === -10 ? "start" : n === 10 ? "end" : "middle"}>{n}</text><text x={sx(0) - 10} y={sy(n) + (n === 10 ? 14 : n === -10 ? -5 : 4)} textAnchor="end">{n}</text></g>)}<text x={sx(0) - 9} y={sy(0) + 18}>0</text><text x="546" y={sy(0) - 8} textAnchor="end">x</text><text x={sx(0) + 9} y="34">y</text></g>
+        <g className="plot-ticks">{[-10, -8, -6, -4, -2, 2, 4, 6, 8, 10].map(n => <g key={n}><text x={sx(n) + (n === -10 ? 4 : n === 10 ? -4 : 0)} y={sy(0) + 18} textAnchor={n === -10 ? "start" : n === 10 ? "end" : "middle"}>{n}</text><text x={sx(0) - 10} y={sy(n) + (n === 10 ? 24 : n === -10 ? -8 : 4)} textAnchor="end">{n}</text></g>)}<text x={sx(0) - 9} y={sy(0) + 18}>0</text><text x="546" y={sy(0) - 8} textAnchor="end">x</text><text x={sx(0) + 9} y="44">y</text></g>
         <g clipPath={`url(#${identity}-clip)`}>
           {analysis.kind === 'quadratic' && <line className="plot-symmetry" x1={sx(analysis.vertex[0])} x2={sx(analysis.vertex[0])} y1={plot.top} y2={plot.top + plot.height}/>}
           <path className="plot-curve" d={curve} fill="none"/>

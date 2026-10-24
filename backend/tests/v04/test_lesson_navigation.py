@@ -1,5 +1,9 @@
 """Pinned catalogue presentation: section edges and the common grade footer."""
 import unittest
+import json
+from hashlib import sha256
+from pathlib import Path
+import tempfile
 from backend.content.lesson_context import lesson_context
 
 
@@ -36,3 +40,26 @@ class LessonNavigationTests(unittest.TestCase):
         self.assertIn('section=first', context['lesson_section']['href'])
         self.assertEqual([g['title'] for g in context['grade_links']], [f'{i} класс' for i in range(5, 11)])
         self.assertTrue(all(g['href'].startswith('/karta-sajta/?grade=') for g in context['grade_links']))
+
+    def test_renderer_accepts_shared_context_but_refuses_missing_or_extra_fields(self):
+        from frontend.rendering import PublicRenderer
+        document = dict(slug='pilot', title='Пилот', subtitle='', sections=[dict(id='intro', title='Введение', nodes=[dict(kind='text', text='Текст')])])
+        page = dict(slug='pilot', renderer_version='react-v1', lesson_document=document,
+                    seo=dict(canonical_path='/materials/7-algebra-8'))
+        raw = '<main class="lesson-article"><h1>Пилот</h1><section id="intro"><h2>Введение</h2>Текст</section></main><script type="module"></script>'.encode()
+        path = page['seo']['canonical_path']
+        manifest = dict(release_id='release', input_manifest_digest='a' * 64, origin='http://127.0.0.1:8131',
+            page_semantic_digests={path: sha256(json.dumps(page, ensure_ascii=False, separators=(',', ':'), sort_keys=True).encode()).hexdigest()},
+            files=[dict(url=path, path='lesson.html', sha256=sha256(raw).hexdigest())])
+        manifest_raw = json.dumps(manifest).encode()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'output-manifest.json').write_bytes(manifest_raw)
+            (root / 'lesson.html').write_bytes(raw)
+            renderer = PublicRenderer(root, {'release': sha256(manifest_raw).hexdigest()})
+            context = dict(self.context(0), pinned_release=dict(release_id='release', manifest_digest='a' * 64))
+            self.assertIn('Текст', renderer(page, context, manifest['origin'] + path))
+            missing = dict(context); del missing['lesson_section']
+            for changed in (missing, dict(context, unexpected=True)):
+                with self.assertRaisesRegex(ValueError, 'Unexpected React lesson context'):
+                    renderer(page, changed, manifest['origin'] + path)

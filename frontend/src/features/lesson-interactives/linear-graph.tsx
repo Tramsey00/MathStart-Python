@@ -32,7 +32,7 @@ export function LinearGraph({ id }: { id: string }) {
     ['Поведение', analysis.direction], ['Пересечение Oy', `(0; ${linearNumber(coefficients.b)})`],
     ['Пересечение Ox', analysis.xIntercept === 'all' ? 'Вся ось Ox' : analysis.xIntercept === 'none' ? 'Нет пересечения' : `(${linearNumber(analysis.xIntercept)}; 0)`],
   ];
-  return <div className="quadratic-lab linear-lab" id={id} data-react-linear="true">
+  return <div className="quadratic-lab linear-lab" id={id} data-react-linear="true" onCopy={event => event.preventDefault()} onCut={event => event.preventDefault()} onDragStart={event => event.preventDefault()}>
     <div className="quadratic-toolbar"><p className="quadratic-current" aria-live="polite">{linearFormula(coefficients)}</p><button className="quadratic-reset" type="button" onClick={reset}>Сбросить значения</button></div>
     <div className="quadratic-workspace"><figure className="quadratic-plot"><svg viewBox="0 0 580 378" role="img" aria-labelledby={`${identity}-title ${identity}-desc`}>
       <title id={`${identity}-title`}>{`График ${linearFormula(coefficients)}`}</title><desc id={`${identity}-desc`}>Координатная плоскость: x от −8 до 8, y от −16 до 16. Коэффициенты и координаты точки доступны ползунками и текстом.</desc>
@@ -40,7 +40,7 @@ export function LinearGraph({ id }: { id: string }) {
       <rect className="plot-background" x={plot.left} y={plot.top} width={plot.width} height={plot.height}/>
       <g className="plot-grid">{Array.from({ length: 17 }, (_, i) => i - 8).map(n => <g key={n}><line x1={sx(n)} x2={sx(n)} y1={plot.top} y2={plot.top + plot.height}/><line x1={plot.left} x2={plot.left + plot.width} y1={sy(n * 2)} y2={sy(n * 2)}/></g>)}</g>
       <g className="plot-axes"><line x1={plot.left} x2={plot.left + plot.width} y1={sy(0)} y2={sy(0)}/><line x1={sx(0)} x2={sx(0)} y1={plot.top} y2={plot.top + plot.height}/></g>
-      <g className="plot-ticks">{[-8, -4, 4, 8].map(n => <g key={n}><text x={sx(n)} y={sy(0) + 18} textAnchor={n === -8 ? 'start' : n === 8 ? 'end' : 'middle'}>{n}</text><text x={sx(0) - 10} y={sy(n * 2) + (n === 8 ? 14 : n === -8 ? -6 : 0)} textAnchor="end">{n * 2}</text></g>)}<text x="546" y={sy(0) - 8} textAnchor="end">x</text><text x={sx(0) + 9} y="34">y</text><text x={sx(0) - 12} y={sy(0) + 18}>0</text></g>
+      <g className="plot-ticks">{[-8, -4, 4, 8].map(n => <g key={n}><text x={sx(n) + (n === -8 ? 4 : n === 8 ? -4 : 0)} y={sy(0) + 18} textAnchor={n === -8 ? 'start' : n === 8 ? 'end' : 'middle'}>{n}</text><text x={sx(0) - 10} y={sy(n * 2) + (n === 8 ? 24 : n === -8 ? -8 : 0)} textAnchor="end">{n * 2}</text></g>)}<text x="546" y={sy(0) - 8} textAnchor="end">x</text><text x={sx(0) + 9} y="44">y</text><text x={sx(0) - 12} y={sy(0) + 18}>0</text></g>
       <g clipPath={`url(#${identity}-clip)`}>
         <path className="plot-curve" d={`M${sx(-8)},${sy(linearValue(-8, coefficients))} L${sx(8)},${sy(linearValue(8, coefficients))}`} fill="none"/>
         <circle className="plot-intercept" cx={sx(0)} cy={sy(coefficients.b)} r="4.5"/>

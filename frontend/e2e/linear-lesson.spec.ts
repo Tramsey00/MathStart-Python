@@ -41,6 +41,14 @@ test('linear pilot uses Content canonical, reload, Back and preserved anchors', 
 test('linear graph keyboard, answers, reset and responsive themes use shared controls', async ({ page }) => {
   await page.goto(canonical);
   const lab = page.locator('[data-react-linear]');
+  await page.evaluate(() => document.fonts.ready);
+  expect(await lab.locator('svg').evaluate(svg => {
+    const grid = svg.querySelector<SVGGraphicsElement>('.plot-background')!.getBBox();
+    return [...svg.querySelectorAll<SVGGraphicsElement>('.plot-ticks text')].every(el => {
+      const box = el.getBBox();
+      return box.x >= grid.x && box.y >= grid.y && box.x + box.width <= grid.x + grid.width && box.y + box.height <= grid.y + grid.height;
+    });
+  })).toBe(true);
   const k = lab.getByRole('slider', { name: 'Коэффициент k' });
   await k.focus(); await k.press('Home'); await expect(k).toHaveValue('-3');
   await expect(lab.locator('.quadratic-current')).toHaveText('y = −3x');
