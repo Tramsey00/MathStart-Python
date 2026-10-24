@@ -9,7 +9,7 @@ export { useSiteTheme } from '../../shared/ui/use-site-theme';
 export const site = '';
 
 
-export function LandingHeader({ dark, onTheme, leading, children, actions, panel, showCatalogueLink }: {
+export function LandingHeader({ dark, onTheme, leading, children, actions, panel, showCatalogueLink = true }: {
   dark: boolean; onTheme: () => void; leading?: ReactNode; children?: ReactNode;
   actions?: ReactNode; panel?: ReactNode; showCatalogueLink?: boolean;
 }) {

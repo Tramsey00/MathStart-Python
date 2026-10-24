@@ -77,13 +77,24 @@
       "id": "MS-T002A",
       "order": 3,
       "title": "Подготовить воспроизводимый запуск после clone и передать baseline команде",
-      "status": "PLANNED",
+      "status": "IN_PROGRESS",
       "dependencies": [
         "MS-T002"
       ],
       "skill": "skills/tasks/t002a-team-local-start/SKILL.md",
       "acceptance": "Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила.",
-      "workflow": "bootstrap"
+      "workflow": "bootstrap",
+      "implementation": "DEV_HMR_PARTIAL",
+      "scope_authority": "Явное поручение пользователя: настроить dev-режим с HMR и одним origin с учётом задач; остальная MS-T002A не принята.",
+      "checks": "SCOPED_DEV_SMOKE",
+      "review": "PENDING",
+      "human_acceptance": "PENDING",
+      "remaining": [
+        "Подготовка своего окружения/БД/env из чистого clone без var автора",
+        "Отдельное review и приёмка bootstrap",
+        "Решение пользователя о merge ui/ux → main",
+        "Повтор запуска clone опубликованного main до MS-T003"
+      ]
     },
     {
       "id": "MS-T003",

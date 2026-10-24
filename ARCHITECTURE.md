@@ -139,6 +139,18 @@ CSS/JS остаются в static. Существующие self-checks могу
 reveal interactions прямо в HTML; они не создают assessed evidence и не доказывают
 соблюдение будущего server-only exercise API.
 
+### Локальная разработка с HMR
+
+Разработка и готовая публикация имеют один browser origin, но разные serving paths.
+`scripts/dev_server.py` запускает Vite 8131 и внутренний loopback FastAPI 8132;
+API/private/legacy routes проходят через proxy без изменения Host/Origin/cookies.
+React/CSS используют HMR. Существующие content.json читаются через строго dev-only
+projection со schema/identity validation; это не Content publication и не запись БД.
+Production build не использует working-tree projection; готовая версия сохраняет
+immutable Content/SSG/FastAPI протокол и не требует Node runtime. Новые lesson URLs
+и каталог вводятся через подготовку Content, а не скрытый dev fallback.
+Команды и ограничения — [local development](docs/local-development.md).
+
 ## Технологический стек и версии
 
 Таблица описывает файлы репозитория, не latest и не автоматически измеренные

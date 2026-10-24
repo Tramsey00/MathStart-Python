@@ -1,3 +1,9 @@
+> Для ежедневной разработки: `npm --prefix frontend run dev` из корня,
+> один адрес http://127.0.0.1:8131 с HMR. CSS/React не требуют пересборки.
+> Остановка: `npm --prefix frontend run dev -- --stop`.
+> Собранный FastAPI preview запускается отдельно; режимы занимают один порт.
+> Подготовленное окружение и границы clone-запуска — [инструкция](docs/local-development.md).
+
 > Текущий просмотр: один FastAPI server http://127.0.0.1:8131 — главная `/`,
 > каталог `/materials`, уроки `/materials/8-algebra-32` и `/materials/7-algebra-8`.
 > Vite preview ниже — историческая разработка, для просмотра он не требуется.

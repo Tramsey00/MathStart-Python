@@ -9,7 +9,8 @@
   },
   "packageManager": "npm@11.19.0",
   "scripts": {
-    "dev": "react-router dev --host 127.0.0.1 --port 5171",
+    "dev": "node scripts/dev.mjs",
+    "dev:frontend": "react-router dev --host 127.0.0.1",
     "typecheck": "node scripts/run-check.mjs typecheck",
     "test": "node scripts/run-check.mjs tests",
     "build": "node scripts/run-check.mjs build",
@@ -22,7 +23,8 @@
     "test:identity": "node scripts/run-check.mjs identity",
     "generate:staff": "node scripts/generate-staff.mjs",
     "dev:design": "vite --config prototypes/home/vite.config.mjs",
-    "test:lesson": "node scripts/run-check.mjs lesson-tests"
+    "test:lesson": "node scripts/run-check.mjs lesson-tests",
+    "check:dev": "node scripts/check-dev-hmr.mjs"
   },
   "dependencies": {
     "@react-router/node": "7.18.4",

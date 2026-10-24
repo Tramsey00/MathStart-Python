@@ -19,7 +19,7 @@ export function LessonPage({ document: lesson, navigation, gradeLinks, section }
     catalogueHref="/materials" materialsHref="/materials" loginHref="/account/" accountHref="/account/" gradeLinks={gradeLinks}
     dark={dark} onTheme={() => setDark(value => !value)}>
     <LessonHeading breadcrumbs={[{ label: lesson.grade.replace('-klass', ' класс'), href: `/materials?grade=${lesson.grade}` },
-      { label: lesson.subject === 'algebra' ? 'Алгебра' : lesson.subject, href: catalogueHref }, section ? { label: section.title, href: section.href } : { label: lesson.section }]} title={lesson.title} subtitle={lesson.subtitle}/>
+      { label: lesson.subject === 'algebra' ? 'Алгебра' : lesson.subject, href: catalogueHref }, { label: section?.title ?? lesson.section }]} title={lesson.title} subtitle={lesson.subtitle}/>
     <noscript><p>Для изменения графика и управления содержанием включите JavaScript. Все объяснения и решения доступны ниже.</p></noscript>
     {lesson.sections.map(section => <section className="lesson-section" id={section.id} key={section.id} tabIndex={-1}>
       <h2>{section.title}</h2><LessonSource nodes={section.nodes}/>

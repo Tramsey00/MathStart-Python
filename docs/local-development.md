@@ -4,25 +4,75 @@
 первых трёх задач — в [AGENTS](../AGENTS.md). После bootstrap каждый участник
 работает в отдельной ветке своей задачи от origin/main, без codex/.
 
-## Один сервер для текущей версии
+## Разработка: один адрес и автоматическое обновление
 
-Все утверждённые страницы подключаются к FastAPI на http://127.0.0.1:8131:
+Для ежедневных правок используйте http://127.0.0.1:8131. Главная `/`, каталог
+`/materials`, уроки `/materials/8-algebra-32` и `/materials/7-algebra-8` работают
+на одном browser origin. В dev-режиме Vite обслуживает React/HMR на 8131,
+а внутренний FastAPI — на loopback 8132. Этот внутренний адрес открывать не нужно.
+API, private и legacy страницы проксируются с исходными Host/Origin и cookies.
 
-- Главная: `/`.
-- Материалы: `/materials`.
-- Квадратичная функция: `/materials/8-algebra-32`.
-- Линейная функция: `/materials/7-algebra-8`.
+В уже подготовленном checkout из корня:
 
-Из корня текущего подготовленного checkout:
+```powershell
+npm --prefix frontend run dev
+```
+
+Команда сама запускает оба процесса. Нужны Node 24, `frontend/node_modules` из
+package-lock, target Python venv и приватная конфигурация опубликованного
+локального экземпляра. Python выбирается из MATHSTART_PYTHON, корневой .venv,
+активного VIRTUAL_ENV либо сохранённого локального runner. Чистый clone ещё
+требует подготовки окружения и своей БД в MS-T002A; чужой var/ копировать нельзя.
+
+Явный запуск через подготовленный venv этого checkout:
+
+```powershell
+& var/t001-qa/target-env/Scripts/python.exe scripts/dev_server.py
+```
+
+Для другого собственного экземпляра: `scripts/dev_server.py --env-file <path>`.
+Приватный env-file по умолчанию — `var/local/lesson-preview/private-env.json`.
+Обычный startup ничего не создаёт в БД и не запускает build/seed/тесты.
+Сохранённые настройки runner — удобство этого checkout, не prerequisite команды.
+
+После сохранения `.tsx`/`.css` страница обновляется автоматически. Существующие
+React `content.json` также обновляют dev-просмотр; схема и identity проверяются
+при чтении. Эти правки не публикуются в Content и не изменяют ответ API/БД.
+Новый урок, URL, состав каталога или renderer_version требуют явной подготовки
+Content release и перезапуска dev. Private/legacy UI пока остаются собранными;
+их перенос/HMR входит в MS-T009/MS-T010 и задачи классов соответственно.
+
+Остановка обоих собственных процессов — Ctrl+C в терминале запуска или:
+
+```powershell
+npm --prefix frontend run dev -- --stop
+```
+
+Занятые порты не освобождаются убийством неизвестных процессов. Сначала остановите
+известный собственный режим. Для dev пишутся только ignored `var/local/dev/`
+и frontend cache; Node не получает секретные значения из private env-file.
+HMR доступен только на loopback, не предназначен для публичного deploy.
+
+## Собранная версия: просмотр перед приёмкой
+
+Тот же адрес 8131 обслуживает FastAPI без Vite/Node runtime:
 
 ```powershell
 & var/t001-qa/target-env/Scripts/python.exe scripts/lesson_server.py
 ```
 
-Настройки экземпляра: ignored `var/local/lesson-preview/private-env.json`.
-Не запускать Vite для обычного просмотра этих страниц. FastAPI отдаёт собранный
-React и API с одного origin; Node нужен только для сборки. Запуск из чистого
-clone без приватных файлов автора остаётся отдельной задачей MS-T002A.
+Dev и собранный режим не запускаются одновременно на одном порту. Готовые файлы
+обновляются обычным prepare/build/publication; для каждой CSS-правки это не нужно.
+`scripts/lesson_server.py --port` используется dev-supervisor только для
+внутреннего bind; логический public origin остаётся прежним.
+
+## Узкая проверка dev-режима
+
+`npm --prefix frontend run check:dev` проверяет четыре текущие страницы, API proxy,
+WebSocket на 8131, реальное обновление CSS/React/content.json и изоляцию опубликованного
+Content API. Временные маркеры удаляются с восстановлением исходных bytes;
+при конкурентной правке script отказывается её перезаписывать. Это явный smoke
+при изменении dev tooling/MS-T002A, не действие после каждой кнопки и не полный QA.
 
 ## Исторический preview утверждённого дизайна
 
@@ -83,3 +133,5 @@ package-lock. Подготовленный venv не считать уже су�
 создать его явно по locks, без Django/DRF. Отдельный pinned [oracle](legacy-oracle.md)
 готовится только для необходимого historical сравнения. Полный managed QA —
 [target testing](target-runtime.md); обычный локальный запуск его не выполняет.
+
+Техническая основа proxy/HMR соответствует [документации закреплённого Vite 7.3.7](https://github.com/vitejs/vite/blob/v7.3.7/docs/config/server-options.md).

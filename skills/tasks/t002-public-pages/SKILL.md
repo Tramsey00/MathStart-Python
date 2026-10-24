@@ -75,7 +75,8 @@ production и provider/security решения требуют отдельног
 Каталог имеет canonical `/materials`; старые `/karta-sajta/`, `/materials.html`
 и `/materials/` получают 301. Главное меню, footer, breadcrumbs, поиск и ссылки
 разделов используют относительные адреса текущего FastAPI origin. Node нужен
-только при сборке. Email-форма главной остаётся preview и не отправляет данные;
+при сборке и в локальном HMR-режиме; собранный FastAPI runtime его не требует.
+Email-форма главной остаётся preview и не отправляет данные;
 без hydration её поля/submit disabled. Вход в настоящий runtime — `/account/`.
 
 При сборке исправлены Windows rename-lock и файловое пересечение каталога

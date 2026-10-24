@@ -61,7 +61,7 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .lesson-contents-panel {
   position: fixed;
   inset: 0 auto 0 0;
-  width: min(520px, calc(100vw - 32px));
+  width: min(650px, calc(100vw - 32px));
   min-width: 0;
   max-width: 100vw;
   height: 100dvh;
@@ -84,19 +84,19 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
   .lesson-contents-panel[open] { transform: translateX(-100%); }
   .lesson-contents-panel[open]::backdrop { background: transparent; }
 }
-.lesson-panel-rail { display: flex; align-items: center; flex-direction: column; padding: calc(var(--lesson-header-height) + 18px) 8px 24px; }
+.lesson-panel-rail { display: flex; align-items: center; flex-direction: column; padding: calc(var(--lesson-header-height) + 48px) 8px 24px; }
 .lesson-panel-close { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--radius); background: transparent; color: var(--lesson-ink); cursor: pointer; }
 .lesson-panel-close:hover { background: var(--lesson-active); }
 .lesson-panel-close svg { width: 20px; height: 20px; }
-.lesson-panel-body { min-width: 0; min-height: 0; overflow: visible; padding: 24px 24px 24px 8px; }
-.lesson-contents-context { display: flex; align-items: center; gap: 16px; margin: 6px 0 24px; font-size: 14px; color: var(--lesson-muted); }
+.lesson-panel-body { min-width: 0; min-height: 0; overflow: visible; padding: 48px 30px 40px; }
+.lesson-contents-context { display: flex; align-items: center; gap: 16px; margin: 0 0 30px; font-size: 16px; color: var(--lesson-muted); }
 .lesson-contents-context a { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; color: inherit; }
 .lesson-contents-context a svg { flex: none; }
 .lesson-contents-context a:hover { color: var(--lesson-ink); text-decoration: none; }
-.lesson-panel-body > h2 { font-size: 18px; line-height: 1.45; font-weight: 600; letter-spacing: -.3px; margin: 0 0 18px; white-space: normal; overflow-wrap: anywhere; }
+.lesson-panel-body > h2 { font-size: 22px; line-height: 1.45; font-weight: 600; letter-spacing: -.3px; margin: 0 0 24px; white-space: normal; overflow-wrap: anywhere; }
 .lesson-contents-panel nav { display: flex; flex-direction: column; gap: 0; }
-.lesson-contents-panel nav a { display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: baseline; gap: 4px; padding: 7px 10px; min-height: 36px; border-radius: var(--radius); color: var(--lesson-ink); font-size: 14px; line-height: 1.4; }
-.lesson-contents-index { font-size: 13px; font-variant-numeric: tabular-nums; color: var(--lesson-muted); }
+.lesson-contents-panel nav a { display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: baseline; gap: 10px; padding: clamp(4px, calc((100dvh - 620px) / 20), 12px) 12px; min-height: clamp(36px, calc((100dvh - 250px) / var(--lesson-contents-count, 11)), 56px); border-radius: var(--radius); color: var(--lesson-ink); font-size: 17px; line-height: 1.4; }
+.lesson-contents-index { font-size: .9375em; font-variant-numeric: tabular-nums; color: var(--lesson-muted); }
 .lesson-contents-panel nav a:hover { background: var(--lesson-active); }
 .lesson-contents-panel nav a[aria-current=location] { background: var(--lesson-active); color: var(--lesson-ink); }
 .lesson-page-shell { display: flex; flex-direction: column; min-height: 100dvh; }
@@ -247,9 +247,7 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
   .lesson-heading h1 { font-size: 34px; }
 }
 @media (max-width: 850px) {
-  .lesson-contents-panel { width: min(520px, calc(100vw - 32px)); min-width: 0; }
-  .lesson-panel-body { padding: 25px 22px 36px 10px; }
-  .lesson-panel-body > h2 { font-size: 18px; }
+  .lesson-contents-panel { width: min(650px, calc(100vw - 32px)); min-width: 0; }
   .lesson-section .ms-quadratic-figures { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
@@ -265,7 +263,7 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
   .lesson-panel-body { padding: 22px 18px 28px 8px; }
   .lesson-contents-context { gap: 10px; font-size: 12px; margin-bottom: 26px; }
   .lesson-panel-body > h2 { font-size: 17px; margin-bottom: 18px; white-space: normal; }
-  .lesson-contents-panel nav a { padding: 8px; font-size: 14px; grid-template-columns: 18px minmax(0, 1fr); gap: 4px; }
+  .lesson-contents-panel nav a { padding: 8px; font-size: 16px; grid-template-columns: 18px minmax(0, 1fr); gap: 4px; }
   .lesson-frame { margin-left: 0; padding: 20px 22px 36px; }
   .lesson-heading { margin-bottom: 40px; }
   .lesson-heading h1 { font-size: 28px; letter-spacing: -.7px; }
@@ -332,8 +330,8 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .lesson-contents-panel nav a > span:last-child { min-width: 0; overflow-wrap: anywhere; }
 .lesson-question-copy > :last-child { margin-bottom: 0; }
 @media (max-height: 740px) {
-  .lesson-panel-body { padding-block: 12px; }
+  .lesson-panel-body { padding: 12px 12px 12px 4px; }
   .lesson-contents-context { margin-block: 0 12px; }
   .lesson-panel-body > h2 { font-size: 16px; margin-bottom: 10px; }
-  .lesson-contents-panel nav a { font-size: 13px; min-height: 28px; padding-block: 5px; line-height: 1.35; }
+  .lesson-contents-panel nav a { font-size: 17px; min-height: 26px; padding: 3px 6px; line-height: 1.25; }
 }

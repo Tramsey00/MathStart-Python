@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import type { LessonSectionData, LessonTopic } from './lesson-types';
 
 function ContentsIcon() {
@@ -68,7 +68,7 @@ export function LessonContents({ sections, title, catalogueHref }: { sections: r
         <ContentsIcon/><span>Содержание</span>
       </button>
     </aside>
-    <dialog ref={dialog} id={identity} className="lesson-contents-panel" aria-label="Содержание урока" aria-describedby={`${identity}-title`} onCancel={event => { event.preventDefault(); setOpen(false); }} onClose={() => setOpen(false)} onKeyDown={event => {
+    <dialog ref={dialog} id={identity} className="lesson-contents-panel" style={{ '--lesson-contents-count': sections.length } as CSSProperties} aria-label="Содержание урока" aria-describedby={`${identity}-title`} onCancel={event => { event.preventDefault(); setOpen(false); }} onClose={() => setOpen(false)} onKeyDown={event => {
       if (event.key !== 'Tab') return;
       const controls = event.currentTarget.querySelectorAll<HTMLElement>('button,a[href]');
       const first = controls[0], last = controls[controls.length - 1];

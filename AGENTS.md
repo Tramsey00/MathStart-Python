@@ -64,6 +64,12 @@ force push или автоматический merge. Старые миграц�
 | `deploy/` | Канонические images/Compose, [release](deploy/RELEASE.md), [recovery](deploy/RECOVERY.md) |
 | `var/` | Игнорируемые окружения, приватные настройки и локальные отчёты |
 
+Локальная разработка — `npm --prefix frontend run dev`: один browser origin
+8131, Vite HMR и внутренний FastAPI. Не выполнять release build после каждой
+правки React/CSS и не запускать отдельные prototype servers. Готовую сборку
+проверяют отдельным режимом FastAPI на том же адресе. Dev content projection
+не публикует контент и не изменяет БД. Запуск из чистого clone и полная приёмка
+этого workflow остаются в MS-T002A.
 Локальный сайт: [local-development](docs/local-development.md).
 Проверки: [target-runtime](docs/target-runtime.md).
 Принятая история: [maintenance](docs/maintenance.md).
