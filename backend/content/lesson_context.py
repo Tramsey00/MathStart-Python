@@ -17,7 +17,7 @@ def lesson_context(catalogue, page):
             value['boundary'] = 'section'
         return value
 
-    section_url = '/karta-sajta/?' + urlencode({'grade': grade['slug'], 'subject': subject['slug'], 'section': section['slug']})
+    section_url = '/materials?' + urlencode({'grade': grade['slug'], 'subject': subject['slug'], 'section': section['slug']})
     return {
         'lesson_navigation': {
             'previous': item(siblings[position - 1]) if position else None,
@@ -25,5 +25,5 @@ def lesson_context(catalogue, page):
         },
         'lesson_section': {'title': section['title'], 'href': section_url},
         # Titles of imported historical grade pages are not display labels.
-        'grade_links': [{'title': f'{number} класс', 'href': f'/karta-sajta/?grade={number}-klass'} for number in range(5, 11)],
+        'grade_links': [{'title': f'{number} класс', 'href': f'/materials?grade={number}-klass'} for number in range(5, 11)],
     }

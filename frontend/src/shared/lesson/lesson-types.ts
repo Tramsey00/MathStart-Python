@@ -1,5 +1,5 @@
 export type LessonNode = { kind: 'text'; text: string } | { kind: 'graph' } |
-  { kind: 'interactive'; name: 'linear'; id: string } |
+  { kind: 'interactive'; name: 'linear' | 'quadratic'; id: string } |
   { kind: 'selfCheck'; attrs: Record<string, string>; question: LessonNode[]; answer: LessonNode[]; disclosure: 'answer' | 'solution' } |
   { kind: 'element' | 'paragraph' | 'note' | 'example' | 'table' | 'figure'; tag: string; attrs: Record<string, string>; children: LessonNode[] };
 export interface LessonSectionData { id: string; title: string; nodes: LessonNode[] }

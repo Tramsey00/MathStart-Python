@@ -1,3 +1,8 @@
+> Текущий просмотр: один FastAPI server http://127.0.0.1:8131 — главная `/`,
+> каталог `/materials`, уроки `/materials/8-algebra-32` и `/materials/7-algebra-8`.
+> Vite preview ниже — историческая разработка, для просмотра он не требуется.
+> Инструкция: [локальный запуск](docs/local-development.md).
+
 # MathStart
 
 Образовательный сайт по математике: FastAPI/Pydantic, SQLAlchemy/Alembic,

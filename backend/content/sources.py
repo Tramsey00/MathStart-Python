@@ -156,7 +156,7 @@ def validate_lesson_document(document, slug):
                 if set(node) != {'kind', 'text'} or not isinstance(node['text'], str):
                     raise SourceError('Invalid text node')
             elif kind == 'interactive':
-                if set(node) != {'kind', 'name', 'id'} or node['name'] != 'linear' or not isinstance(node['id'], str) or not node['id']:
+                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic'} or not isinstance(node['id'], str) or not node['id']:
                     raise SourceError('Unsupported React interactive')
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
@@ -178,6 +178,14 @@ def validate_lesson_document(document, slug):
         tag, attrs = node['tag'], node['attrs']
         allowed = {'p','span','strong','em','b','i','u','s','sub','sup','br','a','h2','h3','h4','ul','ol','li','blockquote','div','table','caption','thead','tbody','tr','th','td','figure','figcaption','img','math','mi','mn','mo','mrow','msup','msub','mfrac','msqrt','mroot','mtext','semantics','annotation','svg','g','path','circle','line','polyline','polygon','rect','ellipse','text','tspan','defs','marker'}
         attr_names = {'id','class','title','role','aria-label','aria-labelledby','aria-describedby','href','src','alt','width','height','loading','decoding','colspan','rowspan','scope','start','type','datetime','cite','mathvariant','display','xmlns','viewBox','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','stroke-dasharray','opacity','d','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','points','transform','marker-end','marker-start','markerWidth','markerHeight','refX','refY','orient','font-size','font-weight','text-anchor','preserveAspectRatio'}
+        if type(attrs) is not dict:
+            raise SourceError('Unsupported authored attributes')
+        attr_names.update({'font-family', 'style', 'markerUnits', 'dominant-baseline', 'encoding', 'clip-path'})
+        if 'clip-path' in attrs and (not isinstance(attrs['clip-path'], str) or not re.fullmatch(r'url\(#[A-Za-z0-9_-]+\)', attrs['clip-path'])):
+            raise SourceError('Unsupported authored clipping reference')
+        allowed.update({'title', 'desc', 'small', 'clipPath'})
+        if 'style' in attrs and (not isinstance(attrs['style'], str) or not re.fullmatch(r'\s*margin-top:\s*\d+(?:px|rem);?\s*', attrs['style'])):
+            raise SourceError('Unsupported authored layout style')
         if (not isinstance(tag, str) or tag not in allowed or type(attrs) is not dict
                 or any(not isinstance(k, str) or not isinstance(v, (str, int, float)) or isinstance(v, bool)
                        for k, v in attrs.items()) or any(k not in attr_names and not k.startswith(('aria-', 'data-')) for k in attrs)

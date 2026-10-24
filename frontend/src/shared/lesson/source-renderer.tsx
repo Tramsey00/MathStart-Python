@@ -19,7 +19,7 @@ function renderNode(node: LessonNode, key: number): ReactNode {
   if (node.kind === 'text') return node.text;
   if (node.kind === 'graph') return <QuadraticGraph key={key}/>;
   if (node.kind === 'interactive') {
-    const interactives = { linear: LinearGraph };
+    const interactives = { linear: LinearGraph, quadratic: QuadraticGraph };
     const Interactive = interactives[node.name];
     if (!Interactive) throw Error('Unsupported lesson interactive');
     return <Interactive key={key} id={node.id}/>;

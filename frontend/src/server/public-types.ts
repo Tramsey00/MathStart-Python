@@ -1,4 +1,6 @@
 export interface PublicPageView {
+  public_design?: 'home' | 'catalogue';
+  public_catalogue?: import('../features/public-pages/catalogue-context').PublicCatalogue;
   page:{id:string;slug:string;page_type:string;title:string;body_html:string;
     renderer_version?: 'legacy' | 'react-v1';
     lesson_document?: import('../shared/lesson/lesson-types').LessonDocument;

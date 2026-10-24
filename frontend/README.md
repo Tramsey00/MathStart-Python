@@ -1,3 +1,8 @@
+> Текущий просмотр: один FastAPI server http://127.0.0.1:8131 — главная `/`,
+> каталог `/materials`, уроки `/materials/8-algebra-32` и `/materials/7-algebra-8`.
+> Vite preview ниже — историческая разработка, для просмотра он не требуется.
+> Инструкция: [локальный запуск](../docs/local-development.md).
+
 # React frontend
 
 Текущий runtime: React/TypeScript, immutable public SSG и авторизованные формы

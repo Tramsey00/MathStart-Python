@@ -18,6 +18,7 @@ from backend.content.releases import inside
 from frontend.build_input import verified_release
 from frontend.prepare_public import prepare
 from frontend.rendering import esc
+from frontend.public_design import VERSION as PUBLIC_DESIGN_VERSION, uses_react_public, public_design_kind, public_design_is_rendered
 
 
 def html_path(url):
@@ -51,13 +52,13 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
         # Framework mode generates complete HTML, including its hydration runtime.
         # Public legacy documents use a reviewed full-document lifecycle; remove
         # only Router-owned scripts/preloads after prerender, preserving authored JS.
-        if page.get('renderer_version', 'legacy') != 'react-v1':
+        if not uses_react_public(page):
             text = re.sub(r'<script\b[^>]*>.*?</script>', lambda m: '' if ('type="module"' in m[0] or '__reactRouter' in m[0] or 'sessionStorage' in m[0] and 'scroll' in m[0]) else m[0], text, flags=re.S)
             text = re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
         raw = text.encode('utf-8')
         if not _public_page_content_present(page, text) or '<link rel="canonical" href="' + esc(origin + entry['canonical_path']) + '"' not in text:
             raise ValueError('Incomplete React public prerender')
-        if page.get('renderer_version', 'legacy') == 'react-v1':
+        if uses_react_public(page):
             if '<script type="module"' not in text or 'window.__reactRouterContext' not in text:
                 raise ValueError('React lesson is missing its selective hydration runtime')
         elif '<script type="module"' in text or 'window.__reactRouterContext' in text:
@@ -113,13 +114,16 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
         'page_digests':page_digests, 'page_semantic_digests':semantic_digests,
         'catalogue_full_digest':sha256(json.dumps(release.index['catalogue'],ensure_ascii=False,separators=(',', ':'),sort_keys=True).encode()).hexdigest(),
         'navigation':'full_document', 'private_exports':[], 'anonymous_private_shell':'_private/shell.html',
-        'build_engine':'react-router-framework', 'page_ids':[str(pk) for pk in release.pages]}
+        'build_engine':'react-router-framework', 'public_design_version': PUBLIC_DESIGN_VERSION,
+        'page_ids':[str(pk) for pk in release.pages]}
     # A manifest cannot contain its own hash; its digest is the external receipt.
     inside(output,'output-manifest.json').write_bytes(json.dumps(receipt, ensure_ascii=False, indent=2).encode('utf-8'))
     return receipt
 
 
 def _public_page_content_present(page, text):
+    if public_design_kind(page):
+        return public_design_is_rendered(page, text)
     if page.get('renderer_version', 'legacy') != 'react-v1':
         return page['body_html'] in text
     from backend.content.sources import lesson_document_is_rendered

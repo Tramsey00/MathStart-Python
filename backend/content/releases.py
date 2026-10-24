@@ -97,6 +97,8 @@ class ReleaseStore:
                 document = page.get('lesson_document')
                 canonical = page['seo']['canonical_path']
                 expected_canonical = '/' if page['page_type'] == 'home' else f'/{page["slug"]}/'
+                if page['slug'] == 'karta-sajta' and canonical == '/materials':
+                    expected_canonical = '/materials'
                 if renderer == 'react-v1':
                     from backend.content.sources import validate_lesson_document
                     validate_lesson_document(document, page['slug'])

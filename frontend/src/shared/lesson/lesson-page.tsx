@@ -14,11 +14,11 @@ export function LessonPage({ document: lesson, navigation, gradeLinks, section }
   document: LessonDocument; navigation: LessonPageNavigation; gradeLinks: readonly { title: string; href: string }[]; section?: { title: string; href: string };
 }) {
   const [dark, setDark] = useSiteTheme();
-  const catalogueHref = `/${lesson.grade}-${lesson.subject}/`;
+  const catalogueHref = `/materials?grade=${lesson.grade}&subject=${lesson.subject}`;
   return <LessonPageShell brand={<Brand/>} contents={<LessonContents sections={lesson.sections} title={lesson.title} catalogueHref={section?.href ?? catalogueHref}/>}
-    catalogueHref="/karta-sajta/" materialsHref="/karta-sajta/" loginHref="/account/" accountHref="/account/" gradeLinks={gradeLinks}
+    catalogueHref="/materials" materialsHref="/materials" loginHref="/account/" accountHref="/account/" gradeLinks={gradeLinks}
     dark={dark} onTheme={() => setDark(value => !value)}>
-    <LessonHeading breadcrumbs={[{ label: lesson.grade.replace('-klass', ' класс'), href: `/${lesson.grade}/` },
+    <LessonHeading breadcrumbs={[{ label: lesson.grade.replace('-klass', ' класс'), href: `/materials?grade=${lesson.grade}` },
       { label: lesson.subject === 'algebra' ? 'Алгебра' : lesson.subject, href: catalogueHref }, section ? { label: section.title, href: section.href } : { label: lesson.section }]} title={lesson.title} subtitle={lesson.subtitle}/>
     <noscript><p>Для изменения графика и управления содержанием включите JavaScript. Все объяснения и решения доступны ниже.</p></noscript>
     {lesson.sections.map(section => <section className="lesson-section" id={section.id} key={section.id} tabIndex={-1}>

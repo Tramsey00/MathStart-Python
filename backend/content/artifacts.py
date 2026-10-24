@@ -32,7 +32,8 @@ def verify_public_artifacts(release_root, release_id, receipt_digest, artifact_r
     if sha256(manifest_path.read_bytes()).hexdigest() != artifact_digest:
         raise SourceError('Output manifest integrity mismatch')
     manifest = read_json(manifest_path)
-    if (type(manifest) is not dict or set(manifest) != OUTPUT_FIELDS
+    if (type(manifest) is not dict or set(manifest) - {'public_design_version'} != OUTPUT_FIELDS
+            or ('public_design_version' in manifest and manifest['public_design_version'] != 'approved-public-v1')
             or manifest['version'] != 'frontend-public-output-v1' or manifest['release_id'] != release_id
             or manifest['input_manifest_digest'] != release.descriptor.manifest_digest
             or manifest['input_receipt_digest'] != receipt_digest or manifest['origin'] != origin
@@ -96,6 +97,10 @@ def verify_public_artifacts(release_root, release_id, receipt_digest, artifact_r
             document = page.get('lesson_document')
             if not isinstance(document, dict) or not lesson_document_is_rendered(document, html):
                 raise SourceError('Incomplete rendered React lesson document')
+        elif manifest.get('public_design_version') == 'approved-public-v1' and page['slug'] in {'glavnaya', 'karta-sajta'}:
+            from frontend.public_design import public_design_is_rendered
+            if not public_design_is_rendered(page, html):
+                raise SourceError('Incomplete approved public design')
         elif page['body_html'] not in html:
             raise SourceError('Incomplete frontend authored HTML')
     return release, root, manifest

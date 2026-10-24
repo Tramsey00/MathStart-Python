@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router";
 import { loadPublicPage } from "../../server/public-input.server";
 import type { PublicPageView } from "../../server/public-types";
 import { LessonPage } from '../../shared/lesson/lesson-page';
+import { PublicDesignHost } from '../../features/public-pages/public-design-host';
 
 export const handle = { publicDocument: true };
 export async function loader({request}:{request:Request}) {
@@ -14,6 +15,10 @@ export async function loader({request}:{request:Request}) {
 // Reviewed HTML is publication output. Complete document navigation disposes
 // authored scripts, observers, timers and styles. Public pages never hydrate.
 export function LessonHost({view}:{view:PublicPageView}) {
+  if (view.public_design) {
+    if (!view.public_catalogue) throw Error('Published catalogue required');
+    return <PublicDesignHost kind={view.public_design} catalogue={view.public_catalogue} fallback={view.catalogue_html}/>;
+  }
   if (view.page.renderer_version === 'react-v1') {
     if (!view.page.lesson_document || !view.context.lesson_navigation || !view.context.grade_links || !view.context.lesson_section) throw Error('Incomplete React lesson publication');
     return <LessonPage document={view.page.lesson_document} navigation={view.context.lesson_navigation} gradeLinks={view.context.grade_links} section={view.context.lesson_section}/>;

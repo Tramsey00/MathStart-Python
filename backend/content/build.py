@@ -199,7 +199,7 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
         route = routes.get(page.slug)
         reviewed = ReviewedSource(bundle.path, bundle.source_digest, tuple(a for a, _ in assets),
             bundle.renderer_version, bundle.lesson_document,
-            route['path'] if route and route['renderer_version'] == 'react-v1' else None)
+            '/materials' if page.slug == 'karta-sajta' else route['path'] if route and route['renderer_version'] == 'react-v1' else None)
         deliveries[page.id] = delivery_candidate(uow, page.slug, reviewed)
         files[f'pages/{page.id}.json'] = encoded(deliveries[page.id])
     index = build_index_candidate(uow, release_id, deliveries)
@@ -272,6 +272,8 @@ def apply_material_redirects(index, routes):
              if route['renderer_version'] == 'react-v1'
              and any(page['slug'] == route['slug'] and page['canonical_path'] == route['path'] for page in index['pages'])
              for old in [f'/{route["slug"]}/', *route.get('aliases', [])]}
+    if any(page['slug'] == 'karta-sajta' and page['canonical_path'] == '/materials' for page in index['pages']):
+        moved.update({path: '/materials' for path in ('/karta-sajta/', '/materials.html', '/materials/')})
     if not moved:
         return
     existing = {row['old_path']: row for row in index['redirects']}

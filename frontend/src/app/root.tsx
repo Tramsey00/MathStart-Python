@@ -9,6 +9,7 @@ import migrationCss from "../public-migration.css?url";
 // Compile-time repository CSS only; never request, author or account strings.
 import migrationInlineCss from "../public-migration.css?inline";
 import lessonRuntimeCss from '../shared/lesson/runtime.css?url';
+import publicDesignCss from '../features/public-pages/public-design.css?url';
 
 export const links: Route.LinksFunction = () => [{ rel: "stylesheet", href: siteCss }];
 export const meta: Route.MetaFunction = () => [{ title: "MathStart" }];
@@ -25,7 +26,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <title>{view.page.seo.title}</title>
           <meta name="description" content={view.page.seo.description}/>
           <meta name="robots" content="index, follow"/>
-          {view.page.renderer_version === 'react-v1' && <link rel="icon" href="data:,"/>}
+          {(view.public_design || view.page.renderer_version === 'react-v1') && <link rel="icon" href="data:,"/>}
           <link rel="canonical" href={view.canonical_url}/>
           <meta property="og:site_name" content="MathStart"/>
           <meta property="og:title" content={view.page.seo.title}/>
@@ -34,13 +35,13 @@ export function Layout({ children }: { children: ReactNode }) {
           <meta property="og:locale" content="ru_RU"/>
           <meta property="og:type" content={view.page.page_type === "topic" ? "article" : "website"}/>
           <meta name="twitter:card" content="summary"/>
-          {view.page.assets.filter(a=>a.kind === "style").map(a=><link key={a.url} rel="stylesheet" href={a.url}/>)}
-          {view.page.renderer_version === 'react-v1' ? <link rel="stylesheet" href={lessonRuntimeCss}/> : view.page.page_type === "topic" ? <link rel="stylesheet" href={migrationCss}/> : <style data-public-migration="" dangerouslySetInnerHTML={{__html:migrationInlineCss}}/>}
+          {!view.public_design && view.page.assets.filter(a=>a.kind === "style").map(a=><link key={a.url} rel="stylesheet" href={a.url}/>)}
+          {view.public_design ? <link rel="stylesheet" href={publicDesignCss}/> : view.page.renderer_version === 'react-v1' ? <link rel="stylesheet" href={lessonRuntimeCss}/> : view.page.page_type === "topic" ? <link rel="stylesheet" href={migrationCss}/> : <style data-public-migration="" dangerouslySetInnerHTML={{__html:migrationInlineCss}}/>}
         </> : <><Meta/><Links/></>}
       </head>
-      <body className={view?.page.renderer_version === 'react-v1' ? 'lesson-page' : undefined}>
+      <body className={view?.public_design === 'home' ? 'landing-page' : view?.public_design === 'catalogue' ? 'catalogue-page' : view?.page.renderer_version === 'react-v1' ? 'lesson-page' : undefined}>
         {children}
-        {view?.page.assets.filter(a=>a.kind === "script").map(a=><script key={a.url} src={a.url}/>)}
+        {!view?.public_design && view?.page.assets.filter(a=>a.kind === "script").map(a=><script key={a.url} src={a.url}/>)}
         <ScrollRestoration/><Scripts/>
       </body>
     </html>
@@ -57,7 +58,7 @@ export default function App() {
       && typeof value.target === "string" && typeof value.label === "string"
       ? [{target: value.target, label: value.label}] : [];
   }).at(-1);
-  if (view?.page.renderer_version === 'react-v1') return <Outlet/>;
+  if (view?.public_design || view?.page.renderer_version === 'react-v1') return <Outlet/>;
   return <SiteShell skipLink={skip ? <SkipLink target={skip.target}>{skip.label}</SkipLink> : undefined}><Outlet /></SiteShell>;
 }
 
