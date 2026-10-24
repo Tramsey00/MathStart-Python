@@ -22,6 +22,8 @@ from frontend.public_design import VERSION as PUBLIC_DESIGN_VERSION, uses_react_
 
 
 def html_path(url):
+    if url == '/materials':
+        return 'materials/index.html'
     return (url.lstrip('/') + 'index.html') if url.endswith('/') else url.lstrip('/')
 
 

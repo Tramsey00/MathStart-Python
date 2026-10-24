@@ -18,6 +18,8 @@ OUTPUT_FIELDS = {'version', 'release_id', 'input_manifest_digest', 'input_receip
 
 
 def html_path(url):
+    if url == '/materials':
+        return 'materials/index.html'
     return url.lstrip('/') + 'index.html' if url.endswith('/') else url.lstrip('/')
 
 

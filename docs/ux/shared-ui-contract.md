@@ -228,8 +228,10 @@ origin/port; отдельные Vite/static lesson servers не использу
 Общая композиция `frontend/src/shared/lesson/lesson-page.tsx` подключается к
 основному SSG для react-v1. Текст и блоки приходят из verified lesson_document;
 файлы `body.html/page.css/page.js` пилота сохраняются как замороженный источник
-сравнения до человеческой приёмки. Остальные уроки остаются legacy, квадратичная
-страница остаётся preview до MS-T006. Главная и каталог ожидают MS-T002.
+сравнения до человеческой приёмки. Остальные уроки остаются legacy. По дополнительному поручению
+24.10.2026 главная, каталог и квадратичная страница подключены к одному
+FastAPI origin с линейной в MS-T002, без отдельных Vite servers.
+Проверки этого подключения отложены пользователем; приёмка учитывается отдельно.
 
 Единственный registry адресов теперь `site_content/material-routes.json`;
 `shared/routing/material-routes.mjs` импортирует его, Content публикует canonical
