@@ -2,7 +2,7 @@
 
 24.10.2026. Полноценные карточки ниже — единственная очередь новой работы.
 JSON и Markdown представляют одну последовательность. MS-T000 принят пользователем
-24.10.2026; MS-T001 повторно открыт по пользовательским корректировкам; следующая
+24.10.2026; MS-T001 скорректирован и ожидает пользовательской приёмки; следующая
 пробная страница ожидает отдельного разрешения. Task 1 — MS-T001,
 Task 2 — MS-T002; третья bootstrap задача — MS-T002A (запуск из clone). Не начинать их без отдельного поручения.
 
@@ -26,7 +26,7 @@ N006 имеет отдельное педагогическое решение, 
 | Порядок | ID / название | Статус | Зависимости | Карточка | Приёмка |
 | --- | --- | --- | --- | --- | --- |
 | 00 | MS-T000 — Подготовить очередь, стандарт переноса и очистить документацию | ACCEPTED | — | [SKILL.md](../../skills/tasks/t000-workflow-preparation/SKILL.md) | Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены. |
-| 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | CHANGES_REQUESTED | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Линейный урок обновлён по действующим решениям пользователя; canonical /materials/7-algebra-8, старый /materials/7-algebra-1 — 301 alias; отдельные checks, review и human acceptance. Второй пробный урок в MS-T001 имеет статус WAITING_USER_APPROVAL и не мигрируется без отдельного разрешения. |
+| 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | HUMAN_ACCEPTANCE_PENDING | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Линейный урок обновлён по действующим решениям пользователя; canonical /materials/7-algebra-8, старый /materials/7-algebra-1 — 301 alias; отдельные checks, review и human acceptance. Второй пробный урок в MS-T001 имеет статус WAITING_USER_APPROVAL и не мигрируется без отдельного разрешения. |
 | 02 | MS-T002 — Подключить утверждённые главную и каталог к основному приложению | PLANNED | MS-T001 | [SKILL.md](../../skills/tasks/t002-public-pages/SKILL.md) | Главная и /materials используют общий header/footer, реальные catalogue данные, поиск и grade navigation; нет localhost8121/5173 links или prototype-only virtual modules в runtime; старые catalogue URLs имеют явную совместимость. |
 | 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | PLANNED | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила. |
 | 04 | MS-T003 — Полностью перенести 5 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t003-grade-5/SKILL.md) | Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |

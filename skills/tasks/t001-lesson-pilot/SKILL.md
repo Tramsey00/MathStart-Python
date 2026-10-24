@@ -11,9 +11,9 @@ description: Выполнить MS-T001 — Перенести новый HTML-�
 ## Результат и входы
 
 Основной пилот: **Линейная функция y = kx + b. График линейной функции**, 7 класс,
-algebra. Реализация ранее выполнена, но после пользовательских корректировок
-имеет статус CHANGES_REQUESTED / IN_PROGRESS; применить требования ниже и в
-действующей редакции общего стандарта. Старый receipt в конце карточки — только
+algebra. Корректировки текущего этапа выполнены; статус HUMAN_ACCEPTANCE_PENDING.
+Действующие требования приведены ниже и в общем стандарте.
+Старый receipt в конце карточки — только
 историческая запись исходного candidate, не свидетельство выполнения коррекций.
 
 Вторая пробная страница включена в scope подготовки, но её миграция ожидает
@@ -164,3 +164,63 @@ docker start mathstart-ms-t001-qa-pg
 Ctrl+C. Удалять frozen body.html/page.css/page.js до human acceptance нельзя;
 они сохранены для сравнения и compatibility snapshots, React их не исполняет.
 MS-T002 не начата; main merge и production deploy не выполнялись.
+
+## Результат корректировок 24.10.2026 — текущий candidate
+
+Исходный HEAD: `b595548405dad082cc89bc06ab3bbe675435c4d0`.
+Проверенный код: `cc95d1fc43352cf30ade37cb4eb566a2edb9a658`, tree
+`f478dea0c82d6f25b50bc3d0a1ef65fa84f878aa`. Последующее изменение этой карточки,
+реестра и критерия компактного содержания — документация, без изменения runtime.
+Реализация корректировок COMPLETE; scoped review выполнен двумя GPT-6 Luna
+medium без оставшихся замечаний после уточнения критерия высоты содержания.
+Human acceptance PENDING; merge NOT_PERFORMED.
+
+Canonical — `/materials/7-algebra-8`, ordinal назначен по полному порядку
+алгебры 7 класса, а не очереди миграции. `/materials/7-algebra-1` и старый slug
+перенаправляются прямым 301 с query. Общие breadcrumbs показывают класс,
+предмет и раздел; содержание помещается без внутреннего scroll и обрезки;
+заголовки секций без чисел. Самопроверка использует общий компактный disclosure
+справа, отступы и разделители. Увеличение схем удалено вместе с функцией,
+иллюстрации заданий получили рамку. Footer показывает шесть классов через общий
+компонент. Навигация учитывает границы разделов и крайние уроки предмета.
+
+В новой редакции 11 секций, 13 самопроверок, 4 таблицы, 3 authored SVG и один
+linear interactive. Явно исключены prerequisite `lesson-section-1`, финальный
+recap `lesson-section-13` и legacy navigation; пофайловая карта —
+`specs/maintenance/t001-dispositions.json`. Остальной учебный текст/ответы/таблицы/
+SVG сверены с frozen HTML. Сам HTML, page.css/page.js и вторая пробная страница
+не изменены. x изменяется только ползунком, указатель на самом графике не влияет
+на точку; крайние SVG подписи внутри сетки, reset остаётся анимированным.
+
+Фактические проверки текущего кода:
+
+- `python scripts/verify_lesson.py` в locked target venv — PASS: 201 frontend
+  tests/27 files, полный typecheck, 12 pure lesson/navigation/renderer tests,
+  7 schema/UI contract tests, source gate 629, workflow docs 619 и preservation.
+  Frontend tests заняли 9 секунд; это scoped результат, не full managed gate.
+- `python -m unittest tests.test_repository_history -v` — 6 PASS; исходные
+  исторические pins сохранены при валидации новых explicit изменений.
+- Verified prepare/build/activation нового собственного disposable PostgreSQL
+  snapshot — PASS. `scripts/lesson_server.py` обслуживает его на одном origin
+  `http://127.0.0.1:8131`; рабочий/protected stack не использован.
+- `playwright test e2e/linear-lesson.spec.ts --project=chrome-360
+  --project=chrome-1440 --reporter=line --max-failures=1` — 8/8 PASS, 23,5 секунды.
+  Проверены redirects/query/anchors/reload/Back, no-JS, ответы, темы, keyboard,
+  reset, touch и фактические SVG границы. Геометрия содержания дополнительно
+  проверена на 320×568, 360×640, 720×500, 1366×768. Снимки только в ignored cache.
+
+Ранние неуспешные проверки не названы PASS: sandbox запрещал test temp/typegen;
+первый snapshot выявил недостающий lesson_section в строгом renderer context;
+замер графика выявил выход крайних подписей. Контракт и отступы исправлены,
+финальный browser прогон выполнен после подтверждённого перезапуска preview.
+
+Автоматический CI теперь использует короткий профиль. Полные backend/legacy,
+browser matrix, clean install/recovery и combined gate сохранены в ручных
+workflows; в этом этапе НЕ запускались. Два дорогих tooling test-файла сохранены
+в полном npm test и исключены только из test:lesson. Будущая назначенная
+интеграция/MS-T009 обязана выполнить соответствующий полный gate.
+
+Второй пилот «Деление с остатком. Понятие обыкновенной дроби» остаётся
+WAITING_USER_APPROVAL, migration_authorized=false. Его перенос, MS-T002,
+MS-T002A и последующие классы не начаты. Обычный запуск после чистого clone
+остаётся задачей MS-T002A; этот preview использует приватную ignored конфигурацию.
