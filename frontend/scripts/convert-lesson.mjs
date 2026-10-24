@@ -11,7 +11,7 @@ const text = n => n.nodeName === '#text' ? n.value : children(n).map(text).join(
 export const cleanSectionTitle = title => title.replace(/^\s*\d+[.)]\s*/, '').trim();
 export const isPrerequisiteSection = title => /^Что нужно знать перед темой$/iu.test(cleanSectionTitle(title));
 export const isSelfCheckSection = title => /^(?:Задания для самопроверки|Самопроверка)$/iu.test(cleanSectionTitle(title));
-export const isFinalRecapSection = title => /^(?:Экспресс-анализ|Итоги?|Выводы?|Кратко о главном|Что мы узнали|Что мы изучили)(?:\s|$)/iu.test(cleanSectionTitle(title));
+export const isFinalRecapSection = title => /^(?:Экспресс-анализ|Итоги?|Выводы?|Кратко о главном|Паспорт параболы|Что мы узнали|Что мы изучили)(?:\s|$)/iu.test(cleanSectionTitle(title));
 const tags = new Set('div p span strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mtext semantics annotation small clipPath'.split(' '));
 const attributes = new Set('class id role style href title scope colspan rowspan xmlns viewBox viewbox width height x y x1 y1 x2 y2 cx cy r rx ry d points fill stroke stroke-width stroke-linecap stroke-linejoin stroke-dasharray font-size font-weight font-family text-anchor dominant-baseline transform opacity marker-end refX refY markerWidth markerHeight markerUnits orient mathvariant display encoding clip-path'.toLowerCase().split(' '));
 function convert(n) {
