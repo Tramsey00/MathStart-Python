@@ -84,3 +84,27 @@ content.json имеют dev-only read projection и browser auto-reload; это 
 Пока используется уже подготовленный собственный локальный экземпляр. Создание
 окружения/БД/env из чистого clone, отдельное review, человеческая приёмка,
 решение о merge и повтор clone опубликованного main остаются НЕ завершены.
+
+## Результат dev-части 24.10.2026
+
+Исходный HEAD `eb9d6e3216c9ef5c1acc773ab45815359ddae97d`; шесть уже имевшихся
+незакоммиченных файлов предыдущих UI-правок сохранены. Проверенный код —
+`282a1e6b98b7d12754f57755fed74837fc06da2c`, tree
+`f58bb199fd117cd1918e907d3ed3eb680bd9423e`. Последующая запись результата — docs.
+
+- `npm --prefix frontend run check:dev` — scoped PASS: четыре текущие страницы
+  200, API через 8131, private shell no-store, legacy без Vite hydration,
+  canonical alias с query; CSS/React обновляются без ручного reload, content.json
+  вызывает auto-reload, опубликованный Content API остаётся без временных правок.
+  WebSocket подключён к 8131; probe edits восстановлены byte-for-byte.
+- `node node_modules/typescript/bin/tsc --noEmit` из frontend — PASS. Исправлен
+  ранее существовавший undefined optional prop у LandingHeader явным default.
+- `npm --prefix frontend run dev -- --stop` завершил оба собственных процесса
+  и освободил 8131/8132; повторный запуск через npm run dev выполнен. Текущий
+  dev оставлен запущенным. БД, active release и готовая сборка не изменены.
+
+Первый smoke запросил будущий Topics API; финальный использует реализованный
+ContentDelivery API. Неуспешный подготовительный запрос не называется PASS.
+Полные npm/backend/managed suites, release build и cross-browser QA NOT_RUN.
+Чистый clone, отдельное review, human acceptance, merge и clone main — PENDING.
+Коммиты этого этапа используют [skip ci]; self-check не заменяет полную приёмку.

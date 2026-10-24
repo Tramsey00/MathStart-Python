@@ -86,7 +86,7 @@
       "workflow": "bootstrap",
       "implementation": "DEV_HMR_PARTIAL",
       "scope_authority": "Явное поручение пользователя: настроить dev-режим с HMR и одним origin с учётом задач; остальная MS-T002A не принята.",
-      "checks": "SCOPED_DEV_SMOKE",
+      "checks": "PASS_SCOPED_DEV",
       "review": "PENDING",
       "human_acceptance": "PENDING",
       "remaining": [
@@ -94,7 +94,10 @@
         "Отдельное review и приёмка bootstrap",
         "Решение пользователя о merge ui/ux → main",
         "Повтор запуска clone опубликованного main до MS-T003"
-      ]
+      ],
+      "verified_code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c",
+      "verified_tree": "f58bb199fd117cd1918e907d3ed3eb680bd9423e",
+      "verification_limit": "Проверены только текущий prepared checkout, HMR/proxy/lifecycle и TypeScript. Full suites/release build/clean clone/cross-browser QA NOT_RUN; отдельное review и human acceptance PENDING."
     },
     {
       "id": "MS-T003",
