@@ -61,3 +61,28 @@ production и provider/security решения требуют отдельног
 данные каталога приходят из pinned Content release; prototype virtual modules и
 порт 8121 в runtime не используются. Авторизация не перерабатывается: настоящие
 ссылки ведут на `/account/`, email-форма остаётся явно обозначенным preview.
+
+## Подключение общего runtime — 24.10.2026
+
+Код подключения: `7aa5e81` в общей ui/ux. Главная и каталог вынесены в
+`frontend/src/features/public-pages/`; их approved JSX/CSS использованы без
+повторного redesign. Shared LessonHeader/LessonFooter и theme hook общие с
+уроками. Данные каталога строятся из pinned Content catalogue; ссылки тем берутся
+из опубликованного url. Квадратичная функция переведена в lesson-document-v1
+с существующим React-графиком и восемью секциями принятого эталона. Старый HTML
+не изменялся. Линейная остаётся на `/materials/7-algebra-8`.
+
+Каталог имеет canonical `/materials`; старые `/karta-sajta/`, `/materials.html`
+и `/materials/` получают 301. Главное меню, footer, breadcrumbs, поиск и ссылки
+разделов используют относительные адреса текущего FastAPI origin. Node нужен
+только при сборке. Email-форма главной остаётся preview и не отправляет данные;
+без hydration её поля/submit disabled. Вход в настоящий runtime — `/account/`.
+
+При сборке исправлены Windows rename-lock и файловое пересечение каталога
+`/materials` с namespace уроков; артефакт каталога хранится в materials/index.html.
+Это изменения build adapters, не отдельная проверка установки/CI.
+
+Тесты, typecheck, browser QA и отдельное review НЕ запускались по прямому
+указанию пользователя. Не присваивать этой работе результаты MS-T001.
+Реализация подключения не означает полную техническую приёмку MS-T002 или
+готовность clone-запуска: последнее остаётся MS-T002A. Merge не выполнен.
