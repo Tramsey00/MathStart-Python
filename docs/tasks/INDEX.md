@@ -25,7 +25,7 @@ N006 имеет отдельное педагогическое решение, 
 | Порядок | ID / название | Статус | Зависимости | Карточка | Приёмка |
 | --- | --- | --- | --- | --- | --- |
 | 00 | MS-T000 — Подготовить очередь, стандарт переноса и очистить документацию | ACCEPTED | — | [SKILL.md](../../skills/tasks/t000-workflow-preparation/SKILL.md) | Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены. |
-| 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | IN_PROGRESS | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Новый урок «Линейная функция y = kx + b. График линейной функции» перенесён из HTML через общий skill; явно назначенный canonical URL обслуживается основным Content/FastAPI release; SSG содержит материал без JS; React-интерактивность работает без hydration mismatch; все секции, самопроверки, формулы, таблицы, SVG и старые адреса/якоря сохранены; стандарт подтверждён на новом уроке и принят пользователем. |
+| 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | HUMAN_ACCEPTANCE_PENDING | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Новый урок «Линейная функция y = kx + b. График линейной функции» перенесён из HTML через общий skill; явно назначенный canonical URL обслуживается основным Content/FastAPI release; SSG содержит материал без JS; React-интерактивность работает без hydration mismatch; все секции, самопроверки, формулы, таблицы, SVG и старые адреса/якоря сохранены; стандарт подтверждён на новом уроке и принят пользователем. |
 | 02 | MS-T002 — Подключить утверждённые главную и каталог к основному приложению | PLANNED | MS-T001 | [SKILL.md](../../skills/tasks/t002-public-pages/SKILL.md) | Главная и /materials используют общий header/footer, реальные catalogue данные, поиск и grade navigation; нет localhost8121/5173 links или prototype-only virtual modules в runtime; старые catalogue URLs имеют явную совместимость. |
 | 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | PLANNED | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила. |
 | 04 | MS-T003 — Полностью перенести 5 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t003-grade-5/SKILL.md) | Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
@@ -78,9 +78,14 @@ MS-T002A — локальная воспроизводимость из clone, �
 Начиная с MS-T003: GitHub Issue → отдельная ветка от актуального origin/main
 после fetch → реализация и проверки → PR со ссылкой на Issue → review/fixes →
 human acceptance → решение о merge. Пример ветки: ms-t003-grade-5, без codex/.
-Существующие Issue/ветки/PR продолжаются, дубли не создаются. MS-T000 остаётся
-текущей подготовкой в agent-workflow, не входит в исключение трёх runtime задач.
+Существующие Issue/ветки/PR продолжаются, дубли не создаются. MS-T000 зафиксирован в agent-workflow
+и перенесён fast-forward в ui/ux; подготовка принята пользователем.
 
 Приёмка MS-T000: 24.10.2026 пользователь явно принял очередь, архитектурный
 стандарт переноса, общий skill, правила GitHub и политику проверок. Merge в main
 не выполнялся. Реализация MS-T001 и её визуальная приёмка учитываются отдельно.
+
+MS-T001: реализация COMPLETE, отдельное review PASS, visual/human acceptance
+PENDING, merge NOT_PERFORMED. Проверки PARTIAL_USER_DEFERRED: GitHub gate
+отложен, локальный backend suite остановлен по указанию пользователя; общий
+managed/combined PASS не заявлен. Точные SHA, команды и NOT_RUN — в карточке.

@@ -6,18 +6,17 @@ description: Выполнить MS-T001 — Перенести новый HTML-�
 # MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime
 
 Зависимости: MS-T000. Статус — в [реестре](../../../docs/tasks/INDEX.md).
-Карточка описывает будущий результат, не выдаёт наличие прототипа за готовность.
+Результаты реализации и ограничения проверок приведены в конце карточки; человеческая приёмка учитывается отдельно.
 
 ## Результат и входы
 
 Новый пилот: **Линейная функция y = kx + b. График линейной функции**, 7 класс,
-algebra. Этот урок ещё не перенесён на новый React-шаблон.
+algebra. Реализация пилота подключена к основному React/SSG runtime; приёмка ожидается.
 
 Точный источник — [папка урока](../../../curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/),
 slug — `linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii`. Запись уже есть в
-[inventory](../../../docs/tasks/lesson-inventory.json); assigned_path пока null.
-Назначить устойчивый URL при реализации через Content, не выводить его номер
-из текущего порядка тем.
+[inventory](../../../docs/tasks/lesson-inventory.json); assigned_path — `/materials/7-algebra-1`.
+Устойчивый URL назначен явно через Content и не выводится из текущего порядка тем.
 
 Квадратичная функция y = ax² + bx + c уже собрана в React preview и служит
 визуальным эталоном и источником общих компонентов. Не повторять её визуальный
@@ -61,30 +60,89 @@ production и provider/security решения требуют отдельног
 
 Работать в ui/ux без отдельного Issue и без новой ветки на каждую задачу. Исключение действует только для MS-T001, MS-T002, MS-T002A. Готовность локального запуска проходит review в MS-T002A, затем пользователь решает merge ui/ux в main. Проверка clone опубликованного main завершает MS-T002A и открывает MS-T003.
 
-## Выполнение 24.10.2026 — кандидат для проверки
+## Результат 24.10.2026 — визуальная приёмка ожидается
 
-Исходный HEAD подготовки: b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea.
-Согласованный пакет MS-T000: 406995b4005d9b78525f3e985e9345a5437a5e67;
-ui/ux перенесена fast-forward, main не изменялся. Приёмка MS-T000 явно дана
-пользователем 24.10.2026 и записана в реестре.
+MS-T000 принят пользователем 24.10.2026. Исходный HEAD подготовки:
+`b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea`; согласованный пакет зафиксирован
+в `406995b4005d9b78525f3e985e9345a5437a5e67` и перенесён fast-forward в ui/ux.
+Main остался на `49b1240c495cb7c657cbb5ba9ea592bd9cb6c1d0`.
 
-Реализация пилота: content.json lesson-document-v1, 13 секций/13 самопроверок/
-4 таблицы/3 SVG/1 linear interactive; общий LessonPage, header/footer,
-содержание, disclosure и controls. Учебный текст, клетки таблиц и SVG сверены
-с source. Назначен `/materials/7-algebra-1` через Content registry, legacy slug
-и aliases переводятся непосредственно на canonical. Квадратичный preview
-сохранён; новый renderer не включён для других уроков.
+Реализация COMPLETE; отдельное review PASS; human/visual acceptance PENDING;
+merge NOT_PERFORMED. Проверки PARTIAL_USER_DEFERRED: по прямому указанию
+пользователя GitHub gate пока не ожидается, длительный backend suite остановлен.
+Это не общий runtime/combined PASS и не техническая приёмка полного gate.
 
-Самопроверка до managed runtime: npm test — 214 PASS; проверки новой линейной
-математики, жестов, полного текста/таблиц/SVG и hydration — 6 PASS в составе
-набора. backend test_lesson_document — 6 PASS; repository_history — 5 PASS.
-Первый запуск Vitest/TemporaryDirectory в sandbox завершился EPERM;
-повтор вне sandbox прошёл. Typecheck и docs/provenance gates завершаются
-отдельно. Runtime, отдельное review и визуальная приёмка пока PENDING.
+Проверенный код: `e6c16a69c03fcc9031793caf405c5fae06243eb6`, чистый tree
+`a0c21d5b5f9c1cad05852c09fc71854bdae8f76c`. Последующая правка этой карточки,
+реестра и стандарта содержит документацию и явную карту provenance; её docs
+checks учитываются отдельно от проверок этого кода.
 
-Полный managed target выполняется только на собственных disposable ресурсах:
-PostgreSQL 16 127.0.0.1:55441, target и отдельный pinned legacy oracle в
-var/t001-qa; рабочий стек не используется. Результаты и failures сохраняются
-в игнорируемом var/t001-qa. Host Node 24.19/npm 11.17 удовлетворяют engines;
-CI builder использует pinned Node 24.21/npm 11.19. Полный CI не подменяется
-локальным быстрым профилем. Статус визуальной приёмки — HUMAN_PENDING.
+Реализованы content.json lesson-document-v1, общий LessonPage/header/footer,
+содержание, самопроверки, навигация и стили. Полностью сверены 13 секций,
+13 самопроверок, 4 таблицы, 3 авторских SVG и один linear interactive,
+включая предварительные знания и экспресс-анализ. График сохраняет диапазоны,
+пересечения, координаты, keyboard/touch/cancel/reset и reduced motion.
+`/materials/7-algebra-1` назначен Content registry; прежний slug/aliases ведут
+к canonical с query и сохранением fragment браузером. Остальные уроки остаются
+legacy; квадратичный preview сохраняется без runtime-переноса.
+
+Проверки и фактические результаты:
+
+- `npm --prefix frontend test`: полный unit/component набор, 214 PASS/28 files;
+  включает полноту текста/таблиц/SVG, линейную математику, жесты, reset и hydration
+  с сохранённой тёмной темой. `npm --prefix frontend run typecheck`: PASS,
+  включая API/staff generation, Router typegen и TypeScript.
+- Targeted backend `test_lesson_document`: 9 PASS; repository_history: 5 PASS.
+  Регрессии publication selection, строгого immutable document и compatibility
+  snapshots добавлены; полный backend suite не имеет итогового результата.
+- `python scripts/verify_target.py --runtime-root var/t001-qa/target-candidate-06
+  --legacy-python var/t001-qa/legacy-env/Scripts/python.exe`: preparation,
+  build, activation, system/routes/security, migrations — PASS; lesson sources
+  263 PASS, content quality 279 PASS, site integrity 1917 PASS, skipped=0.
+  Backend suite остановлен пользователем после 1572 секунд; исходный receipt
+  остался FAIL с ненулевым exit, а не переписан в PASS. Последующие registry
+  stages, полный browser matrix и fresh/upgrade A/B/C этого запуска NOT_RUN.
+- На реальном published FastAPI gateway: `npx playwright test
+  e2e/linear-lesson.spec.ts --project=chrome-360 --project=chrome-1440
+  --reporter=line` — 8 PASS. Проверены canonical/301/query/anchors, direct/reload/
+  Back, no-JS статья и решения, keyboard, touch/cancel, reset, light/dark.
+  Дополнительно reflow при 200% CSS zoom в обеих темах — без overflow и pageerror.
+- `python scripts/check_workflow_docs.py`, `python scripts/check_product_source.py`,
+  `python scripts/check_migration_preservation.py` — завершающие docs/provenance
+  проверки; исторические pins/approvals не переписывались.
+
+Полный CI [40041756161](https://github.com/Tramsey00/MathStart-Python/actions/runs/40041756161)
+привязан к e6c16a6. На последнем наблюдении прошли pure, target-readiness, verify,
+deployment-images и release-operations (включая ordinary independent installation).
+Backend-install, target и итоговый combined gate не подтверждены: дальнейшее
+ожидание/проверка GitHub отложены пользователем. Результат не присваивается
+следующему документационному commit.
+
+Отдельное read-only review проведено GPT-6 Luna medium после самопроверки и
+исправлений. Закрыты findings: публикация неизбранного content.json, обход
+проверки selfCheck.attrs, отсутствие строгой проверки immutable release и
+метаданных. Исправлены также extensionless Router input, compatibility assets,
+redirects частичной публикации, pinned quality authority adapter и favicon 404.
+Финальный re-review e6c16a6 не нашёл оставшихся scoped code findings.
+Ранние неуспешные прогоны сохранены в var/t001-qa; один подготовительный запуск
+также прервался Windows PermissionError при stage rename. Они не названы PASS.
+
+Все QA выполнялись на собственном PostgreSQL 16 127.0.0.1:55441, с отдельными
+locked target/legacy окружениями и pinned oracle; рабочий/protected stack не
+использовался. Managed combined DB и две БД остановленного backend suite удалены;
+собственный preview snapshot оставлен для визуальной приёмки. Host Node 24.19/
+npm 11.17 удовлетворяют engines, но отличаются от pinned CI 24.21/11.19.
+
+Просмотр в этом checkout: http://127.0.0.1:8131/materials/7-algebra-1.
+После остановки preview из корня можно запустить:
+
+```powershell
+docker start mathstart-ms-t001-qa-pg
+& var/t001-qa/target-env/Scripts/python.exe var/t001/serve-preview.py
+```
+
+Это сохранённый disposable QA экземпляр с приватными ignored настройками,
+не инструкция запуска из чистого clone (MS-T002A). Остановка foreground preview:
+Ctrl+C. Удалять frozen body.html/page.css/page.js до human acceptance нельзя;
+они сохранены для сравнения и compatibility snapshots, React их не исполняет.
+MS-T002 не начата; main merge и production deploy не выполнялись.

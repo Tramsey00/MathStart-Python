@@ -245,3 +245,11 @@ SSG оставляет Router hydration только для react-v1. Legacy д�
 
 Статусы реализации, проверок, отдельного review и визуальной приёмки находятся
 в карточке MS-T001 и реестре. Этот раздел сам по себе не означает PASS или приёмку.
+
+Дополнение по review пилота: prepare/build проверяет source_path и published
+source digest каждого react-v1 документа; неизбранный source нельзя публиковать
+только за счёт изменения content.json. Строгая проверка всех nodes/attrs/URLs и
+соответствия title/grade/subject/section повторяется при чтении immutable release.
+Frozen CSS/JS учитываются compatibility_assets_digest без исполнения в React.
+Canonical redirects выводятся только для опубликованных страниц, а quality check
+читает pinned release через настоящий UnitOfWork, не текущий live registry.
