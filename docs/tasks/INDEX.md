@@ -8,11 +8,12 @@
 24.10.2026. Полноценные карточки ниже — единственная очередь новой работы.
 JSON и Markdown представляют одну последовательность. MS-T000 принят пользователем
 24.10.2026; MS-T001 скорректирован и ожидает пользовательской приёмки; следующая
-пробная страница ожидает отдельного разрешения. Task 1 — MS-T001,
+пробная страница поручена отдельно 25.10.2026 и реализована в этапе B. Task 1 — MS-T001,
 Task 2 — MS-T002; третья bootstrap задача — MS-T002A (запуск из clone). Не начинать их без отдельного поручения.
 
 25.10.2026: для второго пилота «Деление с остатком. Понятие обыкновенной дроби»
-утверждён `/materials/5-math-12`. Его перенос и публикация ещё не начаты.
+утверждён `/materials/5-math-12`. По отдельному поручению этап B реализован
+и подключён к локальному Content/FastAPI snapshot; review и приёмка PENDING.
 URL и предмет в breadcrumbs используют `algebra`, `geometry`, `statistics`,
 `math`; внутренняя Content identity сохраняется через общее сопоставление.
 Самопроверка завершает учебный материал: все последующие учебные блоки
@@ -39,7 +40,7 @@ N006 имеет отдельное педагогическое решение, 
 | Порядок | ID / название | Статус | Зависимости | Карточка | Приёмка |
 | --- | --- | --- | --- | --- | --- |
 | 00 | MS-T000 — Подготовить очередь, стандарт переноса и очистить документацию | ACCEPTED | — | [SKILL.md](../../skills/tasks/t000-workflow-preparation/SKILL.md) | Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены. |
-| 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | HUMAN_ACCEPTANCE_PENDING | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Линейный урок обновлён по действующим решениям пользователя; canonical /materials/7-algebra-8, старый /materials/7-algebra-1 — 301 alias; отдельные checks, review и human acceptance. Второй пробный урок в MS-T001 имеет статус WAITING_USER_APPROVAL и не мигрируется без отдельного разрешения. |
+| 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | HUMAN_ACCEPTANCE_PENDING | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Линейный урок обновлён по действующим решениям пользователя; canonical /materials/7-algebra-8, старый /materials/7-algebra-1 — 301 alias; отдельные checks, review и human acceptance. Второй пилот отдельно поручен 25.10.2026 и реализован: /materials/5-math-12; READY_FOR_REVIEW, проверки NOT_RUN_BY_USER_REQUEST, human acceptance PENDING. |
 | 02 | MS-T002 — Подключить утверждённые главную и каталог к основному приложению | IN_PROGRESS | MS-T001 | [SKILL.md](../../skills/tasks/t002-public-pages/SKILL.md) | Главная и /materials используют общий header/footer, реальные catalogue данные, поиск и grade navigation; нет localhost8121/5173 links или prototype-only virtual modules в runtime; старые catalogue URLs имеют явную совместимость. |
 | 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | IN_PROGRESS | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила. |
 | 04 | MS-T003 — Полностью перенести 5 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t003-grade-5/SKILL.md) | Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
@@ -107,3 +108,10 @@ managed/combined PASS не заявлен. Точные SHA, команды и N
 24.10.2026: по отдельному поручению начата часть MS-T002A — HMR с одним origin.
 Это не приёмка всей MS-T002A: чистый clone, review/merge и проверка main остаются
 в карточке. MS-T003 по-прежнему заблокирована до завершения её acceptance.
+
+25.10.2026: этап B MS-T001 реализован отдельно по поручению пользователя.
+Семь секций, 12 самопроверок с решениями, таблица и 4 учебных SVG; prerequisite
+и Мини-итог исключены с anchors в существующей карте переноса. Content prepare,
+сборка и локальный snapshot подключены на общем 8131. Проверки
+NOT_RUN_BY_USER_REQUEST, отдельное review и human acceptance PENDING.
+Приёмка первого пилота и всей MS-T001 не изменена; весь 5 класс не начат.

@@ -21,21 +21,20 @@ algebra. Корректировки текущего этапа выполнен
 Старый receipt в конце карточки — только
 историческая запись исходного candidate, не свидетельство выполнения коррекций.
 
-Вторая пробная страница включена в scope подготовки. Её перенос начинается
-только по отдельному явному поручению пользователя. Разрешение на второй пилот
-и приёмка линейного фиксируются раздельно; одно не означает другое. Сейчас
-конвертацию и UI-реализацию второго пилота не начинать.
+Второй пилот поручен отдельно 25.10.2026 и реализован в этапе B. Разрешение
+на него и приёмка линейного фиксируются раздельно; одно не означает другое.
+Приёмка первого пилота и всей MS-T001 остаётся PENDING.
 
-| Поле | Ожидающая страница |
+| Поле | Второй пилот — этап B |
 | --- | --- |
-| Статус | WAITING_USER_APPROVAL |
+| Статус | READY_FOR_REVIEW; human acceptance PENDING |
 | Заголовок | Деление с остатком. Понятие обыкновенной дроби |
 | Источник | `curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi` |
 | Утверждённый canonical | `/materials/5-math-12`, номер по полному curriculum класса и предмета |
 | Предмет | Content identity `matematika`, публичный код и breadcrumbs `math` |
-| Материалы источника | 5 SVG, 1 таблица, 12 самопроверок |
+| Материалы источника | 4 учебных SVG + 1 UI-иконка содержания, 1 таблица, 12 самопроверок |
 
-### Этап B — подготовленный второй пилот
+### Этап B — порученный второй пилот
 
 При отдельном поручении перенести только указанную страницу через общий
 LessonPage, существующие блоки и Content/FastAPI; использовать текущие HMR и
@@ -285,3 +284,56 @@ WAITING_USER_APPROVAL, её перенос не начат.
 второго пилота не создавался, адрес ещё не опубликован; начало переноса ждёт
 отдельного поручения. Тесты, typecheck, browser/smoke, source/docs gates и сборка
 не запускались: NOT_RUN_BY_USER_REQUEST. Текущий review/human acceptance PENDING.
+
+## Результат этапа B — второй пилот, 25.10.2026
+
+Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.
+
+Исходный HEAD: `8a76f9a12a1139d3de611f21361d88a166ba8a05`, чистая `ui/ux`, после fetch
+на 22 commit впереди `origin/main`, совпадала с `origin/ui/ux`.
+Код реализации: `f8f404689e24ed3ae8c31d6efa1a19cd767d5e33`, tree `698c9af4e40f07a01e5473181b26087ecea17631`.
+Это исходники сборки, а не проверенный QA candidate; проверенный SHA отсутствует.
+Последующая запись результата меняет документацию, не runtime-код.
+
+Реализация COMPLETE; Content prepare/build/initial disposable activation COMPLETE;
+отдельное review PENDING; human/visual acceptance PENDING; merge NOT_PERFORMED.
+Проверки: NOT_RUN_BY_USER_REQUEST. Приёмка первого пилота и всей MS-T001
+не изменена. Другие темы 5 класса и следующие карточки не начаты.
+
+Добавлены `curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json`, renderer_version react-v1,
+registry `/materials/5-math-12` и assigned_path в inventory. Content identity
+`matematika`, breadcrumbs `math` — через существующее общее сопоставление.
+Общие LessonPage, header/footer, содержание, раскрытие решений и навигация
+используются без новой оболочки. Добавлены общие стили дробной записи и подписей
+схем. Главная, каталог, линейный и квадратичный уроки включены в новый snapshot;
+их исходники и документы не переписывались, регрессионные прогоны не выполнялись.
+
+Сохранены 7 секций (`theory`, `lesson-section-3`–`lesson-section-8`),
+все 12 заданий с ответами/решениями, таблица, формулы и 4 учебных SVG.
+Число 5 в подготовительной карточке включало SVG-иконку старого содержания.
+Исключены prerequisite «Что нужно знать перед темой» (`lesson-section-1`),
+весь материал после самопроверки — «Мини-итог» (`lesson-section-9`), старое
+содержание, hero actions и legacy navigation. Новый header/heading/contents/
+navigation заменяет прежний UI; исходный body.html сохранён без изменения.
+Пофайловая карта и исключённые anchors — `specs/maintenance/t001-dispositions.json`.
+
+Команды: `node frontend/scripts/convert-lesson.mjs <source>`;
+`var/t001-qa/target-env/Scripts/python.exe var/t001/prepare-fraction-preview.py`
+(явные Content prepare → React Router build → initial activation нового
+собственного disposable PostgreSQL snapshot); `npm --prefix frontend run dev -- --stop`,
+затем скрытый запуск `var/t001-qa/target-env/Scripts/python.exe scripts/dev_server.py`
+(тот же общий dev runner, который вызывает npm run dev).
+Первый prepare остановлен штатным source-commit guard из-за изменения HEAD
+во время подготовки; повтор выполнен на зафиксированном коде. Логи в ignored
+`var/t001/fraction-preview-build*.log`; immutable releases не переписывались.
+Доменные integrity guards штатной сборки сохранены; отдельные QA-команды,
+typecheck, Playwright, smoke, source/docs/preservation gates, CI и backend suite
+не запускались — NOT_RUN_BY_USER_REQUEST.
+
+Snapshot: `a13e3366-287c-4cda-a922-544fcff206e0`; manifest digest
+`6c30407811f8967a074655d7d0e640f4e2b31b9358572acbc6199251fd3a7f20`.
+Просмотр: http://127.0.0.1:8131/materials/5-math-12, общий dev origin с HMR.
+Подготовленный экземпляр использует ignored private конфигурацию этого checkout;
+воспроизводимый запуск из чистого clone остаётся MS-T002A. Production deploy
+не выполнялся. Визуальная приёмка, отдельное review и назначенные пользователем
+проверки остаются открытыми; сборка не объявляется технической приёмкой.
