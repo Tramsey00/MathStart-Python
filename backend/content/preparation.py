@@ -235,7 +235,8 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
                'assets': len(files) - len(deliveries) - 1, 'activation': 'NOT_PERFORMED',
                'files': [{'path': key, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)} for key, raw in sorted(files.items())],
                'source_files': [entry for bundle in bundles for entry in bundle.files]
-                               + [source_file_record(source_root, 'site_content/material-routes.json')]}
+                               + [source_file_record(source_root, path) for path in
+                                  ('site_content/material-routes.json', 'site_content/material-subjects.json')]}
     descriptor = Descriptor(uuid.UUID(int=0), release_id, manifest_digest, 1)
     if public_update:
         from backend.content.public_update import backup_public_records

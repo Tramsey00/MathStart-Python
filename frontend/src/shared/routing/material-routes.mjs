@@ -1,11 +1,12 @@
 import registry from '../../../../site_content/material-routes.json' with { type: 'json' };
+import { isMaterialSubjectCode } from './material-subjects.mjs';
 // A number is assigned once within (grade, subject), never from display order.
 export function buildMaterialPath({ grade, subject, number }) {
   if (!Number.isSafeInteger(grade) || grade < 1 || !Number.isSafeInteger(number) || number < 1) {
     throw new TypeError('Material grade and number must be positive safe integers');
   }
-  if (typeof subject !== 'string' || !/^[a-z]+(?:-[a-z]+)*$/.test(subject)) {
-    throw new TypeError('Material subject must be a lowercase Latin code');
+  if (!isMaterialSubjectCode(subject)) {
+    throw new TypeError('Material subject must be algebra, geometry, statistics or math');
   }
   return `/materials/${grade}-${subject}-${number}`;
 }

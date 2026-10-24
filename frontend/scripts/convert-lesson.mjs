@@ -11,7 +11,6 @@ const text = n => n.nodeName === '#text' ? n.value : children(n).map(text).join(
 export const cleanSectionTitle = title => title.replace(/^\s*\d+[.)]\s*/, '').trim();
 export const isPrerequisiteSection = title => /^Что нужно знать перед темой$/iu.test(cleanSectionTitle(title));
 export const isSelfCheckSection = title => /^(?:Задания для самопроверки|Самопроверка)$/iu.test(cleanSectionTitle(title));
-export const isFinalRecapSection = title => /^(?:Экспресс-анализ|Итоги?|Выводы?|Кратко о главном|Паспорт параболы|Что мы узнали|Что мы изучили)(?:\s|$)/iu.test(cleanSectionTitle(title));
 const tags = new Set('div p span strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mtext semantics annotation small clipPath'.split(' '));
 const attributes = new Set('class id role style href title scope colspan rowspan xmlns viewBox viewbox width height x y x1 y1 x2 y2 cx cy r rx ry d points fill stroke stroke-width stroke-linecap stroke-linejoin stroke-dasharray font-size font-weight font-family text-anchor dominant-baseline transform opacity marker-end refX refY markerWidth markerHeight markerUnits orient mathvariant display encoding clip-path'.toLowerCase().split(' '));
 function convert(n) {
@@ -52,17 +51,20 @@ export function convertLesson(directory) {
   if (!root) throw Error('Missing authored lesson root');
   const hero = children(root).find(n => has(n, 'ms-hero'));
   let afterSelfCheck = false;
-  const sections = children(root).filter(n => n.tagName === 'section' && n !== hero).flatMap(n => {
+  const sections = [];
+  for (const n of children(root)) {
+    // Самопроверка целиком завершает материал, независимо от названий следующих блоков.
+    if (afterSelfCheck) break;
+    if (!n.tagName || n === hero || has(n, 'ms-lesson-toc')) continue;
+    if (n.tagName !== 'section') throw Error(`Unreviewed lesson root block: ${n.tagName}`);
     const heading = children(n).find(c => c.tagName === 'h2');
     if (!heading || !attrs(n).id) throw Error('Missing section heading or anchor');
     const title = cleanSectionTitle(text(heading));
-    if (isPrerequisiteSection(title) || afterSelfCheck && isFinalRecapSection(title)) return [];
+    if (isPrerequisiteSection(title)) continue;
     const selfCheck = isSelfCheckSection(title);
+    sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title, nodes: children(n).filter(c => c !== heading).map(convert).filter(Boolean) });
     if (selfCheck) afterSelfCheck = true;
-    return [{ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title, nodes: children(n).filter(c => c !== heading).map(convert).filter(Boolean) }];
-  });
-  const unexpected = children(root).filter(n => n.tagName && n !== hero && n.tagName !== 'section' && !has(n, 'ms-lesson-toc'));
-  if (unexpected.length) throw Error(`Unreviewed lesson root blocks: ${unexpected.map(n => n.tagName)}`);
+  }
   return { version: 'lesson-document-v1', slug: meta.slug, title: meta.title,
     subtitle: text(children(hero).find(n => has(n, 'ms-subtitle'))).replace(/\s+/g, ' ').trim(),
     grade: meta.grade, subject: meta.subject, section: meta.section, sections };

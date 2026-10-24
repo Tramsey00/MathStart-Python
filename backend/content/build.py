@@ -212,10 +212,27 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
     receipt = {'version': 'build-input-receipt-v1', 'source_sha': source_sha, 'release_id': release_id,
                'manifest_digest': descriptor.manifest_digest, 'pages': len(pages),
                'topics': len(index['catalogue']['topics']), 'assets': len(files) - len(pages) - 1,
-               'files': inventory, 'source_files': [f for b in bundles.values() for f in b.files] + [source_file_record(source_root, 'site_content/material-routes.json')],
+               'files': inventory, 'source_files': [f for b in bundles.values() for f in b.files]
+                   + [source_file_record(source_root, path) for path in
+                      ('site_content/material-routes.json', 'site_content/material-subjects.json')],
                'activation': 'NOT_PERFORMED'}
     install_build_inputs(output_root, release_id, descriptor, receipt, files)
     return descriptor, receipt
+
+
+def load_material_subject_codes(source_root):
+    data = read_json(file_inside(source_root, 'site_content/material-subjects.json'))
+    if (type(data) is not dict or set(data) != {'version', 'codes'}
+            or type(data['version']) is not int or data['version'] != 1 or type(data['codes']) is not dict):
+        raise SourceError('Invalid material subject registry')
+    codes = data['codes']
+    public_codes = {'algebra', 'geometry', 'statistics', 'math'}
+    if (len(codes) != len(public_codes)
+            or any(not isinstance(identity, str) or not re.fullmatch(r'[a-z]+(?:-[a-z]+)*', identity)
+                   or not isinstance(code, str) or code not in public_codes for identity, code in codes.items())
+            or set(codes.values()) != public_codes):
+        raise SourceError('Invalid material subject codes')
+    return codes
 
 
 def load_material_routes(source_root, bundles):
@@ -223,13 +240,14 @@ def load_material_routes(source_root, bundles):
     data = read_json(Path(source_root) / 'site_content/material-routes.json')
     if type(data) is not dict or set(data) != {'version', 'assignments'} or data['version'] != 1 or type(data['assignments']) is not list:
         raise SourceError('Invalid material route registry')
+    subject_codes = load_material_subject_codes(source_root)
     result, paths = {}, set()
     for item in data['assignments']:
         if type(item) is not dict or set(item) - {'aliases'} != {'slug', 'grade', 'subject', 'number', 'renderer_version'}:
             raise SourceError('Invalid material route assignment')
         slug, grade, subject, number, renderer = (item[k] for k in ('slug', 'grade', 'subject', 'number', 'renderer_version'))
         if (not isinstance(slug, str) or not isinstance(grade, int) or isinstance(grade, bool) or grade < 1
-                or not isinstance(subject, str) or not re.fullmatch(r'[a-z]+(?:-[a-z]+)*', subject)
+                or not isinstance(subject, str) or subject not in subject_codes.values()
                 or not isinstance(number, int) or isinstance(number, bool) or number < 1
                 or not isinstance(renderer, str) or renderer not in {'legacy', 'react-v1'} or slug in result):
             raise SourceError('Invalid/duplicate material route identity')
@@ -245,7 +263,7 @@ def load_material_routes(source_root, bundles):
             page_grade = int(page['grade'].split('-', 1)[0])
         except (AttributeError, ValueError):
             raise SourceError('Material route lesson grade mismatch') from None
-        if page_grade != grade or page['subject'] != subject or bundle.renderer_version != renderer:
+        if page_grade != grade or subject_codes.get(page['subject']) != subject or bundle.renderer_version != renderer:
             raise SourceError('Material route differs from lesson identity/renderer')
         aliases = item.get('aliases', [])
         if (type(aliases) is not list
