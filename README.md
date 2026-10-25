@@ -1,126 +1,80 @@
-> 25.10.2026: автоматические проверки временно выключены. Обычный UI workflow —
-> реализация и HMR-просмотр. npm test не запускает suite; полный npm run test:full
-> и прочие проверки — только по отдельному поручению пользователя.
-
-> Для ежедневной разработки: `npm --prefix frontend run dev` из корня,
-> один адрес http://127.0.0.1:8131 с HMR. CSS/React не требуют пересборки.
-> Остановка: `npm --prefix frontend run dev -- --stop`.
-> Собранный FastAPI preview запускается отдельно; режимы занимают один порт.
-> Подготовленное окружение и границы clone-запуска — [инструкция](docs/local-development.md).
-
-> Текущий просмотр: один адрес http://127.0.0.1:8131 — главная `/`,
-> каталог `/materials`, уроки `/materials/8-algebra-32`, `/materials/7-algebra-8`,
-> `/materials/5-math-12` и `/materials/8-geometry-6`.
-> Vite preview ниже — историческая разработка, для просмотра он не требуется.
-> Инструкция: [локальный запуск](docs/local-development.md).
-
 # MathStart
 
-Образовательный сайт по математике: FastAPI/Pydantic, SQLAlchemy/Alembic,
-PostgreSQL 16+ и React/TypeScript с immutable SSG. Сохранены исходные уроки,
-математика, URL, медиа, учётные записи и административные операции.
-Будущие Knowledge/Assessment/Progress/Analyzer/Tutor/AI функции не реализованы.
+Образовательный сайт: FastAPI/Pydantic, SQLAlchemy/Alembic, PostgreSQL и
+React/TypeScript с immutable Content/SSG release. Главная, каталог и четыре
+React-урока приняты в bootstrap scope. Остальные материалы сохраняют legacy
+renderer. Будущий интеллектуальный учебный цикл не реализован.
+
+До отдельного merge клонируйте **ui/ux**, чтобы получить новую версию:
+
+```powershell
+git -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+Set-Location MathStart-team
+git config core.longpaths true
+git config core.autocrlf false
+python -m venv .venv
+& .\.venv\Scripts\python.exe -m pip install --no-deps -r requirements.lock
+& .\.venv\Scripts\python.exe -m pip check
+npm --prefix frontend ci --no-audit --no-fund
+& .\.venv\Scripts\python.exe scripts/team_local.py init
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview
+# Просмотреть plan; подставить напечатанный digest (в течение 30 минут):
+& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --reviewed-plan-sha256 <SCHEMA_SHA256>
+& .\.venv\Scripts\python.exe scripts/team_local.py content
+# Просмотреть publication plan; подставить его напечатанный digest:
+& .\.venv\Scripts\python.exe scripts/team_local.py publish --reviewed-plan-sha256 <PUBLICATION_SHA256>
+npm --prefix frontend run dev
+```
+
+Нужны Windows/PowerShell, Git, Python 3.12, Node 24.x/npm 11.x, Docker Desktop
+Linux engine и доступ к registries. Пакеты закреплены locks. Своя PostgreSQL
+создаётся явно на loopback; private настройки генерируются в ignored var/.
+Чужие БД/cookies/.env/runner/файлы автора не нужны. Пользователи автоматически
+не создаются. Подробности prerequisites, plan review и ошибок —
+[полная инструкция](docs/local-development.md).
+
+Один адрес **http://127.0.0.1:8131**: /, /materials, /materials/7-algebra-8,
+/materials/8-algebra-32, /materials/5-math-12, /materials/8-geometry-6.
+Vite HMR и внутренний FastAPI используют same-origin proxy. CSS/React не требуют
+release build. Существующий content.json обновляет dev-просмотр без публикации в БД.
+
+Остановка Ctrl+C или из второго PowerShell в том же checkout:
+
+```powershell
+npm --prefix frontend run dev -- --stop
+& .\.venv\Scripts\python.exe scripts/team_local.py db-stop
+# Следующий запуск, без повторной подготовки:
+& .\.venv\Scripts\python.exe scripts/team_local.py db-start
+npm --prefix frontend run dev
+```
+
+Собранный FastAPI-просмотр: остановите dev, выполните
+`& .\.venv\Scripts\python.exe scripts/lesson_server.py`; адрес тот же,
+остановка Ctrl+C. Startup не делает DDL, seed, build или publication.
 
 | Путь | Назначение |
 | --- | --- |
-| backend/ | API, доменные сервисы, SQLAlchemy и Alembic, публикация и CLI |
-| frontend/ | React, TypeScript, build, rendering и browser tests |
-| curriculum/ | Исходные учебные HTML/JSON/CSS/JS/SVG, 263 темы |
-| site_content/ | Структура сайта, редиректы, страницы и reviewed media |
-| static/ | Общие authored CSS/JS/assets |
-| deploy/ | Единственные канонические Dockerfile/Compose и runbooks |
-| specs/ | Сохранённые доменные контракты и manifests |
-| var/ | Игнорируемые локальные окружения, private настройки и отчёты |
+| backend/ | Content/Users/Staff, API, persistence, schema/publication CLI |
+| frontend/ | React/TypeScript, HMR и immutable build |
+| curriculum/, site_content/, static/ | Учебный контент, структура, tracked assets |
+| deploy/ | Канонические images/Compose, release/recovery |
+| specs/ | Доменные контракты и manifests |
+| docs/tasks/, skills/tasks/ | Единая очередь и карточки |
+| var/ | Игнорируемые собственные config/build/log resources |
 
-Подготовленное локальное окружение: [запуск и остановка](docs/local-development.md).
-Рабочая копия — основной Git root. MS-T001, MS-T002 и MS-T002A выполняются в ui/ux;
-с MS-T003 каждое задание получает GitHub Issue и отдельную ветку от актуального
-origin/main без `codex/`, затем PR по [AGENTS.md](AGENTS.md). История переноса —
-[краткая maintenance-запись](docs/maintenance.md).
+Автоматические прогоны выключены решением пользователя 25.10.2026. Npm test
+сообщает NOT_RUN; test:full/typecheck и остальные gates — по отдельному поручению.
+Dev/setup их не вызывают. Доменные валидаторы и publication guards сохранены.
+[Политика проверок](docs/frontend/testing-policy.md).
 
-## Чистый клон и запуск
+MS-T002A передаёт clone-запуск ui/ux на review. Вся задача завершится после
+человеческого решения о merge и контроля clone опубликованного main. Merge и
+production deploy не выполняются автоматически; MS-T003 не начата. С MS-T003:
+Issue, ветка от origin/main без codex/ и PR по [AGENTS](AGENTS.md).
+Другие ОС этим Windows-контролем не подтверждены.
 
-Нужны Python 3.12+, Git, PostgreSQL 16+, Node 24 и npm 11.19.0; для контейнерного
-пути Docker/Compose. Версии пакетов закреплены существующими lock-файлами.
-
-```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --no-deps -r requirements.lock
-python -m pip check
-npm --prefix frontend ci
-Copy-Item .env.example .env
-```
-
-Замените placeholders, храните ключи/DSN вне Git. Host CLI получает значения
-через process environment (не печатайте `.env`). Контейнерный путь использует
-отдельные private env files и явно выбранные volumes/subnet/loopback port.
-Следуйте [deploy/RELEASE.md](deploy/RELEASE.md): schema `preview/apply/check`,
-явный initial operator, `prepare-bootstrap`, locked frontend build,
-publication `plan/publish`. До публикации readiness остаётся 503.
-В [backend/READ_RUNTIME.md](backend/READ_RUNTIME.md) описаны env и content CLI.
-
-```powershell
-docker build -f deploy/Dockerfile --target api -t mathstart-api:local .
-docker build -f deploy/Dockerfile --target edge -t mathstart-edge:local .
-docker build -f deploy/Dockerfile --target frontend-builder -t mathstart-builder:local .
-docker compose --env-file <private-compose-env> -f deploy/compose.yaml up -d db
-# После schema/operator/build и перед HTTP publication probes:
-docker compose --env-file <private-compose-env> -f deploy/compose.yaml up -d api edge
-```
-
-Корневой compose.yaml включает этот же deploy/compose.yaml; отдельного старого
-Dockerfile/сервера нет. API запускается без Django, oracle и автоматического DDL.
-Recovery/rollback после target writes описан в [deploy/RECOVERY.md](deploy/RECOVERY.md).
-Не подключайте исходную Django-БД и чужие volumes к disposable-проверкам.
-
-## Разработка и проверки
-
-```powershell
-python scripts/verify_repo.py --list
-python scripts/verify_repo.py --profile pure
-python scripts/check_migration_preservation.py
-# Полный registry; нужны подготовленные DB/SSG/HTTP/browser inputs по runbook:
-python scripts/verify_repo.py
-```
-
-Полный managed lifecycle, все 15 registry checks, fresh/upgrades и настоящие
-Chrome/Edge/Firefox × 360/768/1440: [docs/target-runtime.md](docs/target-runtime.md).
-Ordinary clean-clone installation отдельно проверяет `scripts/verify_installation.py`;
-это disposable QA, он не оставляет сайт для использования. Skipped не равен PASS.
-Локальные frontend команды: `npm --prefix frontend run dev`,
-`npm --prefix frontend run typecheck`, `npm --prefix frontend test` и
-`npm --prefix frontend run build`; build/preview требуют подготовленный публичный release.
-
-Legacy comparisons запускаются явно из [отдельного pinned oracle](docs/legacy-oracle.md).
-Обычный запуск сайта не требует этого checkout или его зависимостей.
-Старые инструкции/исходники доступны по Git SHA; они не описывают текущий runtime.
-Миграция принята и слита в PR54, консолидация завершена в PR55:
-[принятый результат и evidence](docs/maintenance.md). Будущие продуктовые gates
-и production rollout требуют отдельных решений.
-
-Архитектура/версии: [ARCHITECTURE](ARCHITECTURE.md), продукт: [PRODUCT](PRODUCT.md).
-Текущая работа: [полноценные задачи](docs/tasks/INDEX.md),
-[стандарт переноса](docs/frontend/lesson-migration.md),
-[утверждённый UI](docs/ux/shared-ui-contract.md),
-[проверки по scope](docs/frontend/testing-policy.md).
-Старые ТЗ и аудиты доступны из Git, не входят в текущую очередь.
-
-
-## Открыть учебные страницы
-
-Основной просмотр — один FastAPI gateway: http://127.0.0.1:8131.
-Линейная функция: http://127.0.0.1:8131/materials/7-algebra-8.
-Все переносимые уроки используют этот же origin; отдельные порты не нужны.
-
-Для уже подготовленного локального экземпляра из корня PowerShell:
-
-```powershell
-& var/t001-qa/target-env/Scripts/python.exe scripts/lesson_server.py
-```
-
-Запуск читает приватные ignored настройки и не создаёт БД/контент автоматически.
-Подробности и подготовка — [локальный запуск](docs/local-development.md).
-Полная воспроизводимость из чистого clone остаётся MS-T002A.
-Vite-прототип квадратичной функции сохранён как разработческий эталон;
-он не используется для запуска новых учебных страниц.
+[Архитектура/версии](ARCHITECTURE.md), [продукт](PRODUCT.md),
+[очередь](docs/tasks/INDEX.md), [MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md),
+[стандарт уроков](docs/frontend/lesson-migration.md), [история](docs/maintenance.md),
+[release](deploy/RELEASE.md), [recovery](deploy/RECOVERY.md).
+Legacy oracle — только отдельно по [инструкции](docs/legacy-oracle.md).

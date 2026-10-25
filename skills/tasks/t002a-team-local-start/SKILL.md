@@ -125,3 +125,25 @@ ContentDelivery API. Неуспешный подготовительный за�
 Полные npm/backend/managed suites, release build и cross-browser QA NOT_RUN.
 Чистый clone, отдельное review, human acceptance, merge и clone main — PENDING.
 Коммиты этого этапа используют [skip ci]; self-check не заменяет полную приёмку.
+
+## Продолжение 25.10.2026 — независимая установка ui/ux
+
+Исходный HEAD `868a6cdec0929935d2a218bbbc858e12e270cfb6`, clean tree,
+ветка ui/ux; после fetch origin/ui/ux совпадал с HEAD, origin/main
+`49b1240c495cb7c657cbb5ba9ea592bd9cb6c1d0`, отставание/опережение main: 0/29.
+Чужих незакоммиченных изменений на старте не было.
+
+Поручение разрешает только целевой контроль clone/install, шести текущих страниц,
+assets/API/WebSocket, CSS/React/content refresh, остановки и повторного запуска.
+Остальные suites/typecheck/check:dev/gates — NOT_RUN_BY_USER_REQUEST.
+
+Добавлен scripts/team_local.py: собственные labelled PostgreSQL container/volume,
+раздельные nonsuperuser schema/runtime roles, приватная генерация конфигурации,
+явные schema preview/apply/check, обычные Content prepare-bootstrap/build/plan/
+publish. Review digests обязательны; domain/publication guards не ослаблены.
+Обычный startup не выполняет DDL/seed/publication и не создаёт пользователей.
+README/frontend README/local-development согласованы. Дизайн/уроки не изменены.
+
+Candidate и результаты фактического GitHub clone-контроля будут записаны после
+выполнения. На этом промежуточном этапе: IN_PROGRESS; review/human acceptance/
+merge/clone main — PENDING. Полная MS-T002A не ACCEPTED.

@@ -1,78 +1,49 @@
-> 25.10.2026: автоматические проверки временно выключены. Обычный UI workflow —
-> реализация и HMR-просмотр. npm test не запускает suite; полный npm run test:full
-> и прочие проверки — только по отдельному поручению пользователя.
-
-> Для ежедневной разработки: `npm --prefix frontend run dev` из корня,
-> один адрес http://127.0.0.1:8131 с HMR. CSS/React не требуют пересборки.
-> Остановка: `npm --prefix frontend run dev -- --stop`.
-> Собранный FastAPI preview запускается отдельно; режимы занимают один порт.
-> Подготовленное окружение и границы clone-запуска — [инструкция](../docs/local-development.md).
-
-> Текущий просмотр: один FastAPI server http://127.0.0.1:8131 — главная `/`,
-> каталог `/materials`, уроки `/materials/8-algebra-32` и `/materials/7-algebra-8`.
-> Vite preview ниже — историческая разработка, для просмотра он не требуется.
-> Инструкция: [локальный запуск](../docs/local-development.md).
-
 # React frontend
 
-Текущий runtime: React/TypeScript, immutable public SSG и авторизованные формы
-account/staff через FastAPI publication gateway. Основной checkout — корень
-репозитория. Правила задач и исключение bootstrap — [AGENTS](../AGENTS.md).
-Node работает при сборке и разработке; API/edge не запускают Node server.
-Будущие учебные домены этим frontend пока не реализованы.
+React/TypeScript, React Router framework, immutable public SSG и формы
+account/staff через FastAPI. Node работает при сборке и dev; собранный runtime
+использует FastAPI и PostgreSQL.
 
-## Открыть учебную страницу
+Первый запуск clone требует своей БД, schema и Content publication:
+[Windows-инструкция](../docs/local-development.md). До merge клонируйте ui/ux.
+Один Vite без Content не является установленным основным приложением.
 
-Основной runtime — FastAPI/SSG на одном origin: http://127.0.0.1:8131.
-Линейная функция: http://127.0.0.1:8131/materials/7-algebra-8.
-Все последующие переносимые уроки обслуживаются тем же сервером.
-
-Для подготовленного локального экземпляра используй scripts/lesson_server.py
-из [инструкции запуска](../docs/local-development.md). Новый урок не требует
-Vite, отдельного порта или python http.server. Основной текст уже входит в SSG,
-а React добавляет интерактивность. Автоматического seed при API startup нет.
-
-Квадратичный Vite preview остаётся разработческим эталоном до MS-T006;
-обычный просмотр новых страниц выполняется через FastAPI.
-Чистый clone и единая установка команды — результат будущей MS-T002A.
-
-## Зафиксированные инструменты
-
-Используй существующие Node 24.21.0/npm 11.19.0 и package-lock.json.
-Не пересоздавай lock для документационной правки.
+После установки из корня:
 
 ```powershell
-npm --prefix frontend run typecheck
-npm --prefix frontend test
-npm --prefix frontend run build
+& .\.venv\Scripts\python.exe scripts/team_local.py db-start
+npm --prefix frontend run dev
+# Из другого терминала того же checkout:
+npm --prefix frontend run dev -- --stop
+& .\.venv\Scripts\python.exe scripts/team_local.py db-stop
 ```
 
-Генерация API сохраняет canonical OpenAPI/DTO и исходные manifest digests.
-Только явно выведенные historical pins читаются из точных Git commits;
-сохранённые контракты и проверенные текущие adapters используют фактические
-HEAD/working bytes. Для проверки истории нужен полный Git history.
+Browser origin **http://127.0.0.1:8131**: /, /materials,
+/materials/7-algebra-8, /materials/8-algebra-32, /materials/5-math-12,
+/materials/8-geometry-6. API и HMR WebSocket остаются на 8131; FastAPI 8132 —
+внутренний loopback. CSS/React обновляются через HMR. Существующий content.json
+вызывает dev reload с валидацией, без изменения Content API/БД. Новые identity/URL
+требуют отдельной публикации.
 
-Обычный опубликованный сайт собирается командой `python -m frontend.build_public`
-с точными immutable input/receipt digests, release ID, output directory и
-public origin из [release runbook](../deploy/RELEASE.md). Обычная Vite build
-или dev server не являются установленным public release.
+Собранная версия: остановите dev, выполните
+`& .\.venv\Scripts\python.exe scripts/lesson_server.py`, остановка Ctrl+C.
+Тот же адрес 8131, Node runtime не нужен. Startup не делает DDL/seed/publication.
 
-Для существующего локального runtime см. [локальный запуск](../docs/local-development.md).
-Account/staff APIs проверяют session, CSRF, permissions и mutation contracts;
-видимость React не заменяет authorization. Public artifacts содержат только
-анонимные оболочки, а не приватные данные пользователя.
+Manifest допускает Node >=24 <25/npm >=11 <12. PackageManager и Docker/CI
+закреплены на npm 11.19.0/Node 24.21.0. Пакеты exact в package-lock.json.
+Установка: npm --prefix frontend ci --no-audit --no-fund. Фактически проверенные
+локальные версии записаны в карточке MS-T002A. Lock не пересоздавать.
 
-## Проверки
+Python -m frontend.build_public потребляет verified immutable inputs/receipt
+digests; team_local.py content вызывает именно этот build. Обычная Vite build
+не устанавливает release. Dev/build не запускают suites. Account/staff APIs
+сохраняют session/CSRF/permission guards; public artifacts не содержат PII.
 
-Type/unit проверки дают evidence только своего scope. Полный managed target
-запускает настоящий Chrome/Edge/Firefox на 360/768/1440 и проверяет функции,
-математику, доступность, authorization и security. Missing/skipped/flaky либо
-неполные project receipts не засчитываются. См. [target verification](../docs/target-runtime.md)
-и [политику выбора проверок](../docs/frontend/testing-policy.md).
-Точечная поддержка не вводит новые pixel-perfect/spacing критерии.
+Tests/typecheck/Playwright/check:dev выключены по
+[политике](../docs/frontend/testing-policy.md). Отдельное поручение разрешает
+конкретный scope. Npm test сообщает NOT_RUN с кодом 2; полный suite сохранён
+как npm run test:full. Clone-контроль не является полным QA/production acceptance.
 
-`verify:foundation` создаёт новый игнорируемый verification-run receipt,
-сохраняет source/checkout provenance и отказывается перезаписывать существующие
-или historical evidence paths. Старые checkpoint recorders требуют исходный
-pinned task checkout/branch и не являются текущими entry points. Их исходники
-и approvals доступны в Git 3a290a46d991e22269a17dde41e39f0637576071.
+Dev:design — исторический prototype preview, не команда запуска сайта.
+Квадратичная функция уже подключена к runtime; MS-T006 переиспользует её.
+[AGENTS](../AGENTS.md), [архитектура и версии](../ARCHITECTURE.md).
