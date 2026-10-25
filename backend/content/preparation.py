@@ -199,7 +199,7 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
         route = routes.get(values['slug'])
         reviewed = ReviewedSource(bundle.path, bundle.source_digest, tuple(a for a, _ in assets),
             bundle.renderer_version, bundle.lesson_document,
-            route['path'] if route and route['renderer_version'] == 'react-v1' else None)
+            '/materials' if page.slug == 'karta-sajta' else route['path'] if route and route['renderer_version'] == 'react-v1' else None)
         deliveries[page.id] = delivery_for_page(page, reviewed)
         pages.append(page)
     # The VALUES projections query only captured rows using the database's real
