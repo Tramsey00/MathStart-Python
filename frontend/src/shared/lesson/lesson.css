@@ -1,4 +1,5 @@
 /* A flat reading surface; local neutrals are the user's permitted theme experiment. */
+@font-face { font-family: 'STIX Two Math'; font-style: normal; font-weight: 400; font-display: swap; src: url('../styles/fonts/stix-two-math.woff2') format('woff2'); }
 html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 :is(.lesson-page, .lesson-preview-page) {
   --lesson-rail-width: 80px;
@@ -138,19 +139,21 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .lesson-note { margin: 16px 0 24px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--lesson-muted); font-size: 15px; }
 .lesson-note p:last-child { margin-bottom: 0; }
 .lesson-vertex-formula { margin-bottom: 12px; }
-.worked-example { min-width: 0; margin: 24px 0 28px; padding: 20px 24px; border: 1px solid var(--lesson-divider); border-radius: 10px; background: var(--lesson-plot); }
+.worked-example { min-width: 0; margin: 24px 0 28px; padding: 20px 24px; border: 1px solid color-mix(in oklch, var(--lesson-divider) 82%, var(--lesson-accent)); border-radius: 12px; background: color-mix(in oklch, var(--lesson-plot) 98%, var(--lesson-accent)); box-shadow: 0 2px 8px color-mix(in oklch, var(--lesson-ink) 3%, transparent); }
 .worked-example > :first-child { margin-top: 0; }
 .worked-example > :last-child { margin-bottom: 0; }
-.worked-example > h3, .worked-example > h4 { margin: 0 0 14px; }
+.worked-example > h3, .worked-example > h4 { margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid color-mix(in oklch, var(--lesson-divider) 85%, var(--lesson-accent)); }
 .worked-example .ms-example + .ms-math-box { margin-top: 14px; }
 .worked-example .ms-math-row:first-child { margin-top: 0; }
 .worked-example .ms-math-row:last-child { margin-bottom: 0; }
 .ms-example-title { display: block; font-weight: 600; margin-bottom: 6px; }
 .ms-math-row { margin: 4px 0; line-height: 1.7; overflow-wrap: break-word; }
 .ms-good { font-weight: 600; }
-.lesson-section .ms-frac { display: inline-flex; flex-direction: column; align-items: stretch; justify-content: center; vertical-align: middle; line-height: 1; margin: 0 3px; text-align: center; }
-.lesson-section .ms-frac .ms-num { display: block; padding: 0 5px 4px; border-bottom: 2px solid currentColor; font-size: .92em; white-space: nowrap; }
-.lesson-section .ms-frac .ms-den { display: block; padding: 4px 5px 0; font-size: .92em; white-space: nowrap; }
+.lesson-math { font-family: 'STIX Two Math', math; font-size: max(1.1em, 18px); font-style: normal; font-weight: 400; letter-spacing: normal; line-height: normal; math-style: compact; color: inherit; }
+.lesson-math[display=inline] { white-space: nowrap; }
+.lesson-math[display=block] { margin-block: 12px; font-size: 1.25em; math-style: normal; text-align: left; }
+.lesson-math msup > mfrac, .lesson-math msup > :last-child mfrac { math-style: normal; }
+.lesson-math--mixed { white-space: nowrap; }
 .lesson-section .ms-figure { min-width: 0; margin: 24px 0; }
 .lesson-figure-source { min-width: 0; margin: 24px 0; }
 .lesson-section .ms-figure-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
@@ -159,8 +162,9 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .ms-quadratic-figure { min-width: 0; margin: 0; }
 .ms-quadratic-figure-title { display: block; font-size: 15px; font-weight: 500; margin-bottom: 10px; }
 .ms-quadratic-svg { display: block; width: 100%; height: auto; }
-.lesson-diagram { min-width: 0; padding: 20px; border: 1px solid var(--lesson-divider); border-radius: 10px; background: var(--lesson-plot); container-type: inline-size; }
-.lesson-diagram[data-frame=existing] { padding: 0; border: 0; border-radius: 0; background: transparent; }
+.lesson-diagram { min-width: 0; padding: 20px; border: 1px solid var(--lesson-divider); border-radius: 14px; background: var(--lesson-plot); box-shadow: 0 1px 3px color-mix(in oklch, var(--lesson-ink) 4%, transparent); container-type: inline-size; }
+.lesson-diagram[data-frame=shared] :is(.ms-figure-title, .ms-quadratic-figure-title) { padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--lesson-divider); color: var(--lesson-muted); }
+.lesson-diagram[data-frame=existing] { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
 .lesson-diagram-viewport { max-width: 100%; min-width: 0; }
 .lesson-diagram-viewport > svg, .lesson-diagram-viewport > .ms-svg-wrap > svg { display: block; width: 100%; height: auto; }
 .lesson-diagram-viewport > :first-child { margin-top: 0; }

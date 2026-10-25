@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parseFragment } from 'parse5';
+import { normalizeMathNotation } from '../src/shared/lesson/math-notation.mjs';
 
 const children = n => n.childNodes ?? [];
 const attrs = n => Object.fromEntries((n.attrs ?? []).map(a => [a.name, a.value]));
@@ -11,7 +12,7 @@ const text = n => n.nodeName === '#text' ? n.value : children(n).map(text).join(
 export const cleanSectionTitle = title => title.replace(/^\s*\d+[.)]\s*/, '').trim();
 export const isPrerequisiteSection = title => /^Что нужно знать перед темой$/iu.test(cleanSectionTitle(title));
 export const isSelfCheckSection = title => /^(?:Задания для самопроверки|Самопроверка)$/iu.test(cleanSectionTitle(title));
-const tags = new Set('div p span strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mtext semantics annotation small clipPath'.split(' '));
+const tags = new Set('div p span strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mspace mtext semantics annotation small clipPath'.split(' '));
 const attributes = new Set('class id role style href title scope colspan rowspan xmlns viewBox viewbox width height x y x1 y1 x2 y2 cx cy r rx ry d points fill stroke stroke-width stroke-linecap stroke-linejoin stroke-dasharray font-size font-weight font-family text-anchor dominant-baseline transform opacity marker-end refX refY markerWidth markerHeight markerUnits orient mathvariant display encoding clip-path'.toLowerCase().split(' '));
 function convert(n) {
   if (n.nodeName === '#text') return { kind: 'text', text: n.value };
@@ -62,7 +63,8 @@ export function convertLesson(directory) {
     const title = cleanSectionTitle(text(heading));
     if (isPrerequisiteSection(title)) continue;
     const selfCheck = isSelfCheckSection(title);
-    sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title, nodes: children(n).filter(c => c !== heading).map(convert).filter(Boolean) });
+    sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title,
+      nodes: normalizeMathNotation(children(n).filter(c => c !== heading).map(convert).filter(Boolean)) });
     if (selfCheck) afterSelfCheck = true;
   }
   return { version: 'lesson-document-v1', slug: meta.slug, title: meta.title,

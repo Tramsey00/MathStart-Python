@@ -1,7 +1,7 @@
 {
   "source_commit": "406995b4005d9b78525f3e985e9345a5437a5e67",
   "task": "MS-T001",
-  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite. Явное поручение пользователя 25.10.2026: убрать массовые проверки из текущей UI-миграции, выключить автоматические прогоны; никаких тестов при этой правке. Поручение 25.10.2026: содержание обоих уроков по повторному образцу и сверка действующих правил с чатом; без тестов и сборки. Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки. Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite. Явное поручение пользователя 25.10.2026: убрать массовые проверки из текущей UI-миграции, выключить автоматические прогоны; никаких тестов при этой правке. Поручение 25.10.2026: содержание обоих уроков по повторному образцу и сверка действующих правил с чатом; без тестов и сборки. Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки. Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки. Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
   "files": [
     {
       "path": ".github/workflows/ci.yml",
@@ -126,10 +126,10 @@
     {
       "path": "backend/content/sources.py",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 4957,
       "before_sha256": "b28d42328d3555ed21843aa1b1d303e9f7d1919b9dd65009071ef10c15b3616a",
-      "after_sha256": "ca779bab2ff84a072adf3bf60268ec1153f9555d44133b35f350ec3a9b5d5307"
+      "after_sha256": "a64bc78b049fcdee55ac64cc5c330339ceebd4357e36b7e1bb46856baf529ff5"
     },
     {
       "path": "backend/infrastructure/http/app.py",
@@ -199,10 +199,10 @@
     {
       "path": "docs/frontend/lesson-migration.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 18687,
       "before_sha256": "03bd7a0c84153f0f1110fd01f9dd129a81b60cd8d04ba99a88845fd3282399c1",
-      "after_sha256": "4e4daa02d846f9e6e42fe77a347ad3bfbdd3d1774816539a9e2102f31d0d390b"
+      "after_sha256": "a4349dffab2c38f49011f034d7bd152eeb58c2831527f91f894be0e075a88ccd"
     },
     {
       "path": "docs/frontend/testing-policy.md",
@@ -231,10 +231,10 @@
     {
       "path": "docs/tasks/INDEX.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 18935,
       "before_sha256": "90ed05395de5893377842c36651e33cede48f0b52107fa2e256f9bfacb5c4ff1",
-      "after_sha256": "018343645df9cd91125181c7b7d7876c38c571d0bd8bf482a2afd6d80e487d95"
+      "after_sha256": "4dc835248bd3ee6d2310b0f8f95976d97e83791e012af8fced164f96e1f4d658"
     },
     {
       "path": "docs/tasks/lesson-inventory.json",
@@ -247,18 +247,26 @@
     {
       "path": "docs/tasks/registry.json",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 22138,
       "before_sha256": "2e8e11f8e7abcea55d9db34b46711745718fac65b5a0e559a7b254a07fa6b406",
-      "after_sha256": "437cf0bd652d6cf3f316d75c453888e6c84a0015d6a70f84c40cba0845e59ec6"
+      "after_sha256": "4d15c907a39fcd4180e07f66698f9b2716cbdf36a1b6305a0a94c2dba206bf41"
     },
     {
       "path": "docs/ux/shared-ui-contract.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 18335,
       "before_sha256": "072737523fc001b8539bf92e6be90cfb97625eae83a9bd6f8ebc77b84d97acb4",
-      "after_sha256": "81f8ea4dc2f40131862b8fe90535d4701ddf298adf6606190de967e46137311f"
+      "after_sha256": "92448ce3b107741b167694369e6a03b6279e76a754dede5fec978d077b4fed7a"
+    },
+    {
+      "path": "docs/ux/theme-baseline.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 5064,
+      "before_sha256": "3786b86cc28599143d2575cd7d57e54994785a382cd2ba3966ac7e6710e1c643",
+      "after_sha256": "a20cdafb1aceaece332644d0da670e0bf74160d8ccdb31dae64fbf9e0b03ae84"
     },
     {
       "path": "frontend/README.md",
@@ -421,6 +429,14 @@
       "after_sha256": "f8cf47d1c4d506d3a92167644283b7d00b52d9b6066cc8d99c3f66518aa614a8"
     },
     {
+      "path": "frontend/src/shared/lesson/index.ts",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 528,
+      "before_sha256": "b6d4417c5a8057ccf870b193012c4666da973dffe50b4da27f36b679d1b57d22",
+      "after_sha256": "880fdcc7114c665b25024271f23e0d7f821f9253df9207bf18fab629f3f88c65"
+    },
+    {
       "path": "frontend/src/shared/lesson/lesson-components.tsx",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
@@ -455,10 +471,10 @@
     {
       "path": "frontend/src/shared/lesson/lesson.css",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 27306,
       "before_sha256": "a27ecc522121cd3f4ada0a1d91d6c07fed8bb237bd130d24c5b5dacb21180753",
-      "after_sha256": "bb7c45e24ac63199ee42f1f9007dacd77a4caaa8e23c843fec7a70e24691c98a"
+      "after_sha256": "cbc56b81d9027b8da7455a2dcf9c47d856db6bbf2ebd9fcaf7b1d06ca4adffda"
     },
     {
       "path": "frontend/src/shared/lesson/quadratic-graph.tsx",
@@ -471,10 +487,10 @@
     {
       "path": "frontend/src/shared/lesson/source-renderer.tsx",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 4865,
       "before_sha256": "5844823c9ee78ca8b207f88b9493ccda3e62d36789db839a88eb2f948b7711f2",
-      "after_sha256": "3b479d25e6325f3de9b000e0d0905018285289e918168866322e257d82628651"
+      "after_sha256": "ae8b6d6466ecded66800e91872574193ba151266c8e1f6781f7a20909faa2625"
     },
     {
       "path": "frontend/src/shared/routing/material-routes.mjs",
@@ -568,10 +584,10 @@
     {
       "path": "skills/lesson-migration/SKILL.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 3322,
       "before_sha256": "f8a6cf36852070e2524bf93cef1968f391ef8c1a1af3c37dd6edd4c26c560ba9",
-      "after_sha256": "58193476e09811b9e41c723c538fba2afd0b4cbfcc93a1e7f240c626ae809f09"
+      "after_sha256": "fdd5744c89327cc0c78b9cfc721fc5bf5d36113216f8ab169281c6b25aea2195"
     },
     {
       "path": "skills/tasks/t000-workflow-preparation/SKILL.md",
@@ -584,10 +600,10 @@
     {
       "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 6652,
       "before_sha256": "eedf2cc89f3fde66f2bd3bdd3f53135a1c37d1d85070dd0be23de5b228aae639",
-      "after_sha256": "22f01986fa2f01baae12e0b0fa4b9b6466c03b89983cf695d7cb00b284f74ef7"
+      "after_sha256": "f695a5f2b760b7a4caf0d09c016333008aa4d546d25dd2e7462a5b2b20b7211b"
     },
     {
       "path": "skills/tasks/t002-public-pages/SKILL.md",
@@ -632,10 +648,10 @@
     {
       "path": "skills/tasks/t006-grade-8/SKILL.md",
       "action": "updated",
-      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 5213,
       "before_sha256": "05877d69cde2da11ee01402487cad186147b994719fe4aa60c89a6d2d53165a9",
-      "after_sha256": "9fbc968684d7339260cb1b34830f9660c49790b816ff6d9013513d18e993a433"
+      "after_sha256": "3a9a7360111a0377aa231a8de947518c805c60dc37e113e66d5f5a06982b3ea2"
     },
     {
       "path": "skills/tasks/t007-grade-9/SKILL.md",
@@ -664,10 +680,10 @@
     {
       "path": "specs/migration/r02-v1/delivery-v1.schema.json",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
       "before_bytes": 84058,
       "before_sha256": "8bd10e71c7a45a2cf5378452fcbbb67345c2f4c5765f67210bbb5bf2867893e2",
-      "after_sha256": "ecb4b91047126fa6c8af28720e675826d909f8dd700638e5b2b6aee7fb494354"
+      "after_sha256": "49b8fdf6c4467ef72c5ccf850aa53f4e0c0bdaf785d7067413a31b5705c97a5b"
     },
     {
       "path": "tests/test_repository_history.py",
@@ -950,6 +966,136 @@
       {
         "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
         "sha256": "22f01986fa2f01baae12e0b0fa4b9b6466c03b89983cf695d7cb00b284f74ef7"
+      }
+    ],
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING"
+  },
+  "math_notation_implementation": {
+    "authority": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+    "source_head": "5828ebbe769ff4c7e9e86edfc8bac5e6e6f888b4",
+    "design_status": "ACCEPTED_BY_USER",
+    "notation": [
+      "fraction",
+      "square/indexed root",
+      "mixed number",
+      "fractional exponent"
+    ],
+    "font": {
+      "family": "STIX Two Math",
+      "version": "2.13b171",
+      "origin": "https://github.com/stipub/stixfonts/releases/tag/v2.13b171",
+      "file": "frontend/src/shared/styles/fonts/stix-two-math.woff2",
+      "sha256": "094191335def3f0452c81ec0713cfc2f29bb6af8cecbf79b60881fbf2db97562",
+      "license": "frontend/src/shared/styles/fonts/STIX-OFL.txt"
+    },
+    "document_revisions": [
+      {
+        "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json",
+        "source_head": "5828ebbe769ff4c7e9e86edfc8bac5e6e6f888b4",
+        "before_sha256": "e039af2a590166b399ab48d993106081d240ccc8a17b37eed85724351e2ce31a",
+        "after_sha256": "9c0dc77483c0058194ebf028607dfc33b89140247114ea7f5596aed6a6010525",
+        "authority": "Только разметка: CSS-дроби в MathML; три авторские записи x₀ с дробью через slash в mfrac. Числа, операторы, группировка и ответы не вычислялись и не менялись."
+      },
+      {
+        "path": "curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/content.json",
+        "source_head": "5828ebbe769ff4c7e9e86edfc8bac5e6e6f888b4",
+        "before_sha256": "f54a2ca93af7d10cba348452b5edf4e1799594edced3ae64e759348168b9c8fb",
+        "after_sha256": "b404db81a9c893f12c609dd81bed19b0ca7250720c56511124db7c5256c7649a",
+        "authority": "Только разметка: CSS-дроби в MathML; три авторские записи x₀ с дробью через slash в mfrac. Числа, операторы, группировка и ответы не вычислялись и не менялись."
+      }
+    ],
+    "schema_extension": "Добавлен безопасный MathML mspace в разрешённые теги документа для расстояния между целой и дробной частью; прочие guards сохранены.",
+    "frame_variants": "Пример: мягкий primary tint, радиус 12 px, разделитель заголовка. Схема: нейтральная поверхность, радиус 14 px, разделитель подписи. Авторская готовая рамка не заменяется.",
+    "next_pilot": {
+      "title": "Теорема Пифагора и обратная теорема. Применение",
+      "proposed_path": "/materials/8-geometry-6",
+      "migration_authorized": false,
+      "implementation": "NOT_STARTED"
+    },
+    "changed_files": [
+      {
+        "path": "backend/content/sources.py",
+        "sha256": "a64bc78b049fcdee55ac64cc5c330339ceebd4357e36b7e1bb46856baf529ff5"
+      },
+      {
+        "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json",
+        "sha256": "9c0dc77483c0058194ebf028607dfc33b89140247114ea7f5596aed6a6010525"
+      },
+      {
+        "path": "curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/content.json",
+        "sha256": "b404db81a9c893f12c609dd81bed19b0ca7250720c56511124db7c5256c7649a"
+      },
+      {
+        "path": "docs/frontend/lesson-migration.md",
+        "sha256": "a4349dffab2c38f49011f034d7bd152eeb58c2831527f91f894be0e075a88ccd"
+      },
+      {
+        "path": "docs/tasks/INDEX.md",
+        "sha256": "4dc835248bd3ee6d2310b0f8f95976d97e83791e012af8fced164f96e1f4d658"
+      },
+      {
+        "path": "docs/tasks/registry.json",
+        "sha256": "4d15c907a39fcd4180e07f66698f9b2716cbdf36a1b6305a0a94c2dba206bf41"
+      },
+      {
+        "path": "docs/ux/shared-ui-contract.md",
+        "sha256": "92448ce3b107741b167694369e6a03b6279e76a754dede5fec978d077b4fed7a"
+      },
+      {
+        "path": "docs/ux/theme-baseline.md",
+        "sha256": "a20cdafb1aceaece332644d0da670e0bf74160d8ccdb31dae64fbf9e0b03ae84"
+      },
+      {
+        "path": "frontend/scripts/convert-lesson.mjs",
+        "sha256": "c62ab56cd3eea8ab89e4a44c81ae9a9e41b577c5c24ca309e72e62c9fb98cfb7"
+      },
+      {
+        "path": "frontend/src/shared/lesson/index.ts",
+        "sha256": "880fdcc7114c665b25024271f23e0d7f821f9253df9207bf18fab629f3f88c65"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson.css",
+        "sha256": "cbc56b81d9027b8da7455a2dcf9c47d856db6bbf2ebd9fcaf7b1d06ca4adffda"
+      },
+      {
+        "path": "frontend/src/shared/lesson/source-renderer.tsx",
+        "sha256": "ae8b6d6466ecded66800e91872574193ba151266c8e1f6781f7a20909faa2625"
+      },
+      {
+        "path": "skills/lesson-migration/SKILL.md",
+        "sha256": "fdd5744c89327cc0c78b9cfc721fc5bf5d36113216f8ab169281c6b25aea2195"
+      },
+      {
+        "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
+        "sha256": "f695a5f2b760b7a4caf0d09c016333008aa4d546d25dd2e7462a5b2b20b7211b"
+      },
+      {
+        "path": "skills/tasks/t006-grade-8/SKILL.md",
+        "sha256": "3a9a7360111a0377aa231a8de947518c805c60dc37e113e66d5f5a06982b3ea2"
+      },
+      {
+        "path": "specs/migration/r02-v1/delivery-v1.schema.json",
+        "sha256": "49b8fdf6c4467ef72c5ccf850aa53f4e0c0bdaf785d7067413a31b5705c97a5b"
+      }
+    ],
+    "new_files": [
+      {
+        "path": "frontend/src/shared/lesson/math-notation.mjs",
+        "sha256": "8e3d156a834395068728c1bded744a3c38a5c16c1b8b3588b2983ac158217c62"
+      },
+      {
+        "path": "frontend/src/shared/lesson/math-notation.d.mts",
+        "sha256": "a0d2db84334f47743a673c05808026c04fbfce67237a7f4522cca3e8db911d6e"
+      },
+      {
+        "path": "frontend/src/shared/styles/fonts/stix-two-math.woff2",
+        "sha256": "094191335def3f0452c81ec0713cfc2f29bb6af8cecbf79b60881fbf2db97562"
+      },
+      {
+        "path": "frontend/src/shared/styles/fonts/STIX-OFL.txt",
+        "sha256": "0c8825913b60d858aacdb33c4ca6660a7d64b0d6464702efbb19313f5765861a"
       }
     ],
     "checks": "NOT_RUN_BY_USER_REQUEST",

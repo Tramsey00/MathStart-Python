@@ -85,7 +85,7 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   // React rejects indentation text inside table structure; it is not academic content.
   const childNodes = ['table', 'thead', 'tbody', 'tfoot', 'tr', 'colgroup'].includes(node.tag)
     ? node.children.filter(child => child.kind !== 'text' || child.text.trim()) : node.children;
-  const childContext = { ...context, preserveMarkup: context.preserveMarkup || ['svg', 'math'].includes(node.tag) || classes.includes('ms-frac') };
+  const childContext = { ...context, preserveMarkup: context.preserveMarkup || ['svg', 'math'].includes(node.tag) };
   const body = <LessonSource nodes={childNodes} context={childContext}/>;
   if (classes.includes('ms-task')) {
     const answer = node.children.find(child => child.kind === 'element' && (child.attrs.class ?? '').split(/\s+/).includes('ms-answer'));
@@ -124,6 +124,10 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
     props[property] = ['open', 'hidden', 'disabled'].includes(name) ? true : value;
   }
   const tag = classes.includes('ms-quadratic-steps') ? 'ol' : classes.includes('ms-quadratic-step') ? 'li' : node.tag;
+  if (tag === 'math') {
+    props.className = [...new Set([...classes.filter(Boolean), 'lesson-math'])].join(' ');
+    props.xmlns = 'http://www.w3.org/1998/Math/MathML';
+  }
   if (['br', 'hr', 'img', 'input', 'wbr'].includes(tag)) return createElement(tag, props);
   if (tag === 'table') return <div className="lesson-table-scroll" key={key}>{createElement(tag, props, body)}</div>;
   if (!context.inDiagram && isDiagramContainer(node)) {
