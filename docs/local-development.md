@@ -27,10 +27,11 @@ package-lock.json. Django/DRF и oracle не нужны. Assets/шрифты/cur
 В PowerShell из родительского каталога (выберите своё новое имя папки):
 
 ```powershell
-git -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --filter=blob:none --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
 Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false
+git config http.version HTTP/1.1
 git rev-parse HEAD
 python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install --no-deps -r requirements.lock
@@ -39,7 +40,9 @@ npm --prefix frontend ci --no-audit --no-fund
 ```
 
 Активация venv не требуется, execution policy PowerShell не мешает запуску.
-Не пересоздавайте locks. npm ci не запускает tests. Не используйте shallow clone:
+Не пересоздавайте locks. npm ci не запускает tests. HTTP/1.1 и lazy blobs использованы после зависания обычного clone.
+Filter=blob:none сохраняет историю; historical blobs догружаются с GitHub.
+Не используйте shallow clone:
 некоторые build inputs имеют точные historical Git pins.
 
 ## 2. Своя БД и явная schema

@@ -8,10 +8,11 @@ renderer. Будущий интеллектуальный учебный цик�
 До отдельного merge клонируйте **ui/ux**, чтобы получить новую версию:
 
 ```powershell
-git -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --filter=blob:none --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
 Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false
+git config http.version HTTP/1.1
 python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install --no-deps -r requirements.lock
 & .\.venv\Scripts\python.exe -m pip check
