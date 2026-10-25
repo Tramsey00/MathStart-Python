@@ -101,6 +101,17 @@ backend.content.publish publish с обязательными HTTP probes, жд�
 отключения guards, hosts override или чужой БД. До публикации runtime UNREADY.
 Только этот явный шаг публикует Content в БД.
 
+На Windows холодная полная валидация release может превысить HTTP timeout первого
+publication probe. Setup допускает одно ограниченное продолжение: читает durable
+status, требует свой operation/owner/generation, db_committed=true, activation=APPLIED,
+RECOVERY_REQUIRED/PUBLIC_VERIFICATION_FAILED и ожидаемый active release. Затем
+продлевает свою lease, прогревает read cache запросом с timeout 60 секунд и точным
+сравнением immutable index, снова продлевает lease и выполняет обычный CLI resume.
+Все HTTP guards publisher остаются с timeout 5 секунд; domain commit не повторяется.
+Warmup сам по себе не является acknowledgement. Успех — только phase COMPLETE
+после всех обычных probes. Первый отказ и resume сохраняются отдельными logs.
+Другое/неизвестное состояние, mismatch или повторный отказ останавливают установку.
+
 Init/schema/content — первая установка: существующие файлы не перезаписываются.
 Не повторяйте apply/publish вслепую после ошибки/неопределённого COMMIT: состояние
 и private logs сохранены; status/recovery — по [RELEASE](../deploy/RELEASE.md)

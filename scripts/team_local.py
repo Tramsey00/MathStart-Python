@@ -197,6 +197,40 @@ def content(values, state):
     print('Publication plan SHA256 ' + planned['plan_digest'])
 
 
+def finish_cold_publication(values, state):
+    """One bounded recovery, only after a proven committed/activated own plan.
+
+    Windows cold DTO validation can outlast the publisher's unchanged 5s HTTP
+    guard. Warm the read cache, then repeat the real fenced acknowledgement;
+    never repeat a domain update or infer completion from warmup alone.
+    """
+    observed = json.loads(cli('backend.content.publish', ['status'], 'publication-status', values))
+    operation, active = observed['operation'], observed['active']
+    if (not operation or not active or operation['phase'] != 'RECOVERY_REQUIRED'
+            or operation['db_committed'] is not True or operation['activation_status'] != 'APPLIED'
+            or operation['error_code'] != 'PUBLIC_VERIFICATION_FAILED'
+            or operation['owner_id'] != state['publisher'] or active['release_id'] != state['release']
+            or active['operation_id'] != operation['operation_id']
+            or active['fence_generation'] != operation['generation']):
+        raise RuntimeError('Publication state needs operator review; automatic recovery refused')
+    owner = ['--operation-id', operation['operation_id'], '--owner', state['publisher'],
+             '--generation', str(operation['generation'])]
+    cli('backend.content.publish', ['renew', *owner], 'renew-before-warmup', values)
+    import httpx
+    expected = (LOCAL / 'inputs' / state['release'] / 'index.json').read_bytes()
+    tick = time.monotonic()
+    with httpx.Client(trust_env=False, timeout=60, follow_redirects=False) as client:
+        response = client.get(values['MATHSTART_PUBLIC_ORIGIN'] + '/_content/index.json')
+    if (response.status_code != 200 or response.content != expected
+            or response.headers.get('cache-control') != 'no-store'):
+        raise RuntimeError('Read-only publication warmup did not match exact immutable index')
+    write_json(LOCAL / 'logs/cold-warmup.json', {'seconds': round(time.monotonic() - tick, 3),
+        'index_bytes': len(expected), 'result': 'EXACT_INDEX_ONLY_NOT_PUBLICATION_ACK'})
+    cli('backend.content.publish', ['renew', *owner], 'renew-after-warmup', values)
+    print('Own committed/activated journal verified; read cache warmed. Resuming ordinary fenced HTTP acknowledgement.', flush=True)
+    return cli('backend.content.publish', ['resume', *owner, *roots()], 'resume-content', values, 900)
+
+
 def publish(values, state, reviewed):
     plan_path = LOCAL / 'publication.json'
     # Same canonical digest used by the domain publisher; do not re-encode differently.
@@ -220,10 +254,15 @@ def publish(values, state, reviewed):
                 time.sleep(.2)
             else:
                 raise RuntimeError('Temporary publication gateway did not start')
-            print(cli('backend.content.publish', ['publish', '--plan', str(plan_path),
-                '--key', state['release'], '--owner', state['publisher'], *roots()],
-                'publish-content', {**values, **{k: v for k, v in read_json(PRIVATE).items()
-                if k != 'MATHSTART_DATABASE_URL'}}, 900))
+            publisher_values = {**values, **{k: v for k, v in read_json(PRIVATE).items()
+                                          if k != 'MATHSTART_DATABASE_URL'}}
+            try:
+                result = cli('backend.content.publish', ['publish', '--plan', str(plan_path),
+                    '--key', state['release'], '--owner', state['publisher'], *roots()],
+                    'publish-content', publisher_values, 900)
+            except RuntimeError:
+                result = finish_cold_publication(publisher_values, state)
+            print(result)
         finally:
             server.terminate()
             try:
