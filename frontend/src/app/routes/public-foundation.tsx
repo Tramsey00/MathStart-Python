@@ -12,8 +12,8 @@ export async function loader({request}:{request:Request}) {
   return loadPublicPage(new URL(request.url).pathname);
 }
 
-// Reviewed HTML is publication output. Complete document navigation disposes
-// authored scripts, observers, timers and styles. Public pages never hydrate.
+// Legacy HTML keeps its full-document lifecycle. Approved public pages and
+// react-v1 lessons hydrate their shared React components from publication data.
 export function LessonHost({view}:{view:PublicPageView}) {
   if (view.public_design) {
     if (!view.public_catalogue) throw Error('Published catalogue required');

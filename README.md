@@ -8,8 +8,9 @@
 > Собранный FastAPI preview запускается отдельно; режимы занимают один порт.
 > Подготовленное окружение и границы clone-запуска — [инструкция](docs/local-development.md).
 
-> Текущий просмотр: один FastAPI server http://127.0.0.1:8131 — главная `/`,
-> каталог `/materials`, уроки `/materials/8-algebra-32` и `/materials/7-algebra-8`.
+> Текущий просмотр: один адрес http://127.0.0.1:8131 — главная `/`,
+> каталог `/materials`, уроки `/materials/8-algebra-32`, `/materials/7-algebra-8`,
+> `/materials/5-math-12` и `/materials/8-geometry-6`.
 > Vite preview ниже — историческая разработка, для просмотра он не требуется.
 > Инструкция: [локальный запуск](docs/local-development.md).
 

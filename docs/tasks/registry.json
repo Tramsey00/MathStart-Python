@@ -23,7 +23,7 @@
       "id": "MS-T001",
       "order": 1,
       "title": "Перенести новый HTML-урок по стандарту в основной React/SSG runtime",
-      "status": "HUMAN_ACCEPTANCE_PENDING",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T000"
       ],
@@ -32,16 +32,16 @@
       "workflow": "bootstrap",
       "pilot_slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
       "pilot_source": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
-      "implementation": "CORRECTIONS_COMPLETE",
-      "checks": "DEFERRED_BY_USER",
-      "review": "PASS_SCOPED",
-      "human_acceptance": "PENDING",
+      "implementation": "COMPLETE",
+      "checks": "NOT_RUN_BY_USER_REQUEST",
+      "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+      "human_acceptance": "ACCEPTED",
       "merge": "NOT_PERFORMED",
       "canonical_path": "/materials/7-algebra-8",
       "verified_code_sha": "cc95d1fc43352cf30ade37cb4eb566a2edb9a658",
-      "verification_limit": "Короткий профиль и 8 targeted Chrome scenarios прошли. Full managed backend/legacy/browser matrix/install/recovery/combined gate в этом этапе NOT_RUN; доступны вручную для назначенной интеграции/MS-T009. Физический телефон и другие браузеры не проверялись.",
+      "verification_limit": "Текущие автоматические проверки NOT_RUN_BY_USER_REQUEST. last_recorded_checks и verified_code_sha/tree ниже относятся к историческому candidate cc95d1f; они не подтверждают нынешний fd83af3.",
       "secondary_pilot": {
-        "status": "READY_FOR_REVIEW",
+        "status": "ACCEPTED",
         "title": "Деление с остатком. Понятие обыкновенной дроби",
         "source": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi",
         "canonical_path": "/materials/5-math-12",
@@ -60,17 +60,22 @@
         "authorization": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
         "implementation": "COMPLETE",
         "checks": "NOT_RUN_BY_USER_REQUEST",
-        "review": "PENDING",
-        "human_acceptance": "PENDING",
+        "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "human_acceptance": "ACCEPTED",
         "merge": "NOT_PERFORMED",
         "source_head": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
         "implementation_sha": "f8f404689e24ed3ae8c31d6efa1a19cd767d5e33",
         "implementation_tree": "698c9af4e40f07a01e5473181b26087ecea17631",
         "runtime_url": "http://127.0.0.1:8131/materials/5-math-12",
-        "sections": 7
+        "sections": 7,
+        "acceptance_record": {
+          "date": "2026-10-25",
+          "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+          "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5"
+        }
       },
       "tertiary_pilot": {
-        "status": "READY_FOR_REVIEW",
+        "status": "ACCEPTED",
         "title": "Теорема Пифагора и обратная теорема. Применение",
         "source": "curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie",
         "source_subject": "geometriya",
@@ -81,8 +86,8 @@
         "implementation": "COMPLETE",
         "canonical_path": "/materials/8-geometry-6",
         "checks": "NOT_RUN_BY_USER_REQUEST",
-        "review": "PENDING",
-        "human_acceptance": "PENDING",
+        "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "human_acceptance": "ACCEPTED",
         "merge": "NOT_PERFORMED",
         "authorization": "Явное отдельное поручение пользователя 25.10.2026: этап C, только теорема Пифагора; Content prepare/build и локальный snapshot разрешены; проверки запрещены, приёмка предыдущих пилотов не изменяется.",
         "url_status": "CONNECTED_LOCAL_SNAPSHOT",
@@ -104,7 +109,12 @@
           "worked_examples": 7,
           "proofs": 2
         },
-        "sections": 8
+        "sections": 8,
+        "acceptance_record": {
+          "date": "2026-10-25",
+          "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+          "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5"
+        }
       },
       "math_notation": {
         "design_status": "ACCEPTED_BY_USER",
@@ -113,34 +123,88 @@
         "checks": "NOT_RUN_BY_USER_REQUEST",
         "implementation_review": "PENDING"
       },
-      "correction_note": "Первый пилот: human acceptance PENDING. Второй пилот отдельно поручен 25.10.2026 и реализован в этапе B; review и human acceptance PENDING, проверки NOT_RUN_BY_USER_REQUEST. Приёмка всей MS-T001 не выполнена. Исторические receipts сохранены в карточке.",
+      "correction_note": "Bootstrap MS-T001 принят 25.10.2026: четыре React-урока и общий стандарт; отдельное статическое review завершено. Автопрогоны NOT_RUN_BY_USER_REQUEST. Исторические receipts/результаты других SHA не переносятся на текущий candidate.",
       "verified_tree": "f478dea0c82d6f25b50bc3d0a1ef65fa84f878aa",
       "last_recorded_checks": {
         "status": "PASS_SCOPED",
         "code_sha": "cc95d1fc43352cf30ade37cb4eb566a2edb9a658"
+      },
+      "acceptance_record": {
+        "date": "2026-10-25",
+        "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "scope": "Согласованный bootstrap в существующем локальном runtime; автопрогоны отложены пользователем, clone и production не входят."
+      },
+      "review_record": {
+        "status": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "date": "2026-10-25",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "candidate_tree": "00cff571191be20cc4574fcd9f063fc0a6ded01e",
+        "method": "Отдельное порученное статическое review по исходникам после реализации; без запуска приложения и автоматических прогонов. Независимое ревью другим исполнителем не заявляется.",
+        "scope": [
+          "Композиция четырёх React-уроков и общие компоненты/MathML",
+          "Главная/каталог, общая оболочка и адаптер pinned catalogue",
+          "Маршруты/redirects/навигация и Content release boundary",
+          "Изоляция dev projection и отсутствие legacy scripts у react-v1",
+          "Согласованность текущих карточек и инструкций запуска"
+        ],
+        "findings_fixed": [
+          "Устаревший комментарий: public pages never hydrate",
+          "Инструкции перечисляли четыре страницы вместо шести и содержали устаревшие сведения о 5171/MS-T006",
+          "Текущие статусы приёмки не отражали подтверждение пользователя"
+        ],
+        "blocking_findings_in_scope": [],
+        "limits": "Не выполнялись runtime/browser/typecheck/test/source gates, новый полный аудит каждой формулы/SVG, установка из чистого clone или production-приёмка."
       }
     },
     {
       "id": "MS-T002",
       "order": 2,
       "title": "Подключить утверждённые главную и каталог к основному приложению",
-      "status": "IN_PROGRESS",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T001"
       ],
       "skill": "skills/tasks/t002-public-pages/SKILL.md",
       "acceptance": "Главная и /materials используют общий header/footer, реальные catalogue данные, поиск и grade navigation; нет localhost8121/5173 links или prototype-only virtual modules в runtime; старые catalogue URLs имеют явную совместимость.",
       "workflow": "bootstrap",
-      "implementation": "CONNECTED_UNVERIFIED",
-      "checks": "DEFERRED_BY_USER",
-      "review": "NOT_RUN",
-      "human_acceptance": "PENDING",
+      "implementation": "COMPLETE",
+      "checks": "NOT_RUN_BY_USER_REQUEST",
+      "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+      "human_acceptance": "ACCEPTED",
       "scope_extension": "Явное поручение 24.10.2026: подключить также квадратичную функцию раньше MS-T006; все четыре страницы на FastAPI 8131; проверки не запускать.",
       "implementation_sha": "7aa5e81",
       "runtime_origin": "http://127.0.0.1:8131",
       "last_recorded_checks": {
         "status": "DEFERRED_BY_USER",
         "code_sha": "7aa5e81"
+      },
+      "acceptance_record": {
+        "date": "2026-10-25",
+        "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "scope": "Согласованный bootstrap в существующем локальном runtime; автопрогоны отложены пользователем, clone и production не входят."
+      },
+      "review_record": {
+        "status": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "date": "2026-10-25",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "candidate_tree": "00cff571191be20cc4574fcd9f063fc0a6ded01e",
+        "method": "Отдельное порученное статическое review по исходникам после реализации; без запуска приложения и автоматических прогонов. Независимое ревью другим исполнителем не заявляется.",
+        "scope": [
+          "Композиция четырёх React-уроков и общие компоненты/MathML",
+          "Главная/каталог, общая оболочка и адаптер pinned catalogue",
+          "Маршруты/redirects/навигация и Content release boundary",
+          "Изоляция dev projection и отсутствие legacy scripts у react-v1",
+          "Согласованность текущих карточек и инструкций запуска"
+        ],
+        "findings_fixed": [
+          "Устаревший комментарий: public pages never hydrate",
+          "Инструкции перечисляли четыре страницы вместо шести и содержали устаревшие сведения о 5171/MS-T006",
+          "Текущие статусы приёмки не отражали подтверждение пользователя"
+        ],
+        "blocking_findings_in_scope": [],
+        "limits": "Не выполнялись runtime/browser/typecheck/test/source gates, новый полный аудит каждой формулы/SVG, установка из чистого clone или production-приёмка."
       }
     },
     {
@@ -160,18 +224,21 @@
       "review": "PENDING",
       "human_acceptance": "PENDING",
       "remaining": [
-        "Подготовка своего окружения/БД/env из чистого clone без var автора",
-        "Отдельное review и приёмка bootstrap",
-        "Решение пользователя о merge ui/ux → main",
-        "Повтор запуска clone опубликованного main до MS-T003"
+        "Подготовка собственного окружения/БД/env из чистого clone без var автора",
+        "Целевой контроль запуска шести страниц, same-origin API и HMR по отдельному поручению",
+        "Review и приёмка готовности локального запуска MS-T002A",
+        "Отдельное решение пользователя о merge ui/ux → main",
+        "Повтор запуска из clone опубликованного main до MS-T003"
       ],
       "verified_code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c",
       "verified_tree": "f58bb199fd117cd1918e907d3ed3eb680bd9423e",
-      "verification_limit": "Проверены только текущий prepared checkout, HMR/proxy/lifecycle и TypeScript. Full suites/release build/clean clone/cross-browser QA NOT_RUN; отдельное review и human acceptance PENDING.",
+      "verification_limit": "HMR receipt 282a1e6 относится к прежним четырём страницам prepared checkout. Нынешние шесть страниц, clean clone, review/acceptance MS-T002A и опубликованный main ещё не подтверждены.",
       "last_recorded_checks": {
         "status": "PASS_SCOPED_DEV",
         "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
-      }
+      },
+      "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
+      "next_scope": "Продолжить чистый clone и независимую локальную установку. Не переделывать HMR/уроки. Merge требует отдельного решения пользователя."
     },
     {
       "id": "MS-T003",
