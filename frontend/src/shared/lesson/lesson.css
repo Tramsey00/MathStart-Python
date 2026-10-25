@@ -142,13 +142,18 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .worked-example { min-width: 0; margin: 24px 0 28px; padding: 20px 24px; border: 1px solid color-mix(in oklch, var(--lesson-divider) 82%, var(--lesson-accent)); border-radius: 12px; background: color-mix(in oklch, var(--lesson-plot) 98%, var(--lesson-accent)); box-shadow: 0 2px 8px color-mix(in oklch, var(--lesson-ink) 3%, transparent); }
 .worked-example > :first-child { margin-top: 0; }
 .worked-example > :last-child { margin-bottom: 0; }
-.worked-example > h3, .worked-example > h4 { margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid color-mix(in oklch, var(--lesson-divider) 85%, var(--lesson-accent)); }
+.worked-example > h3, .worked-example > h4, .worked-example > .ms-example-title { margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid color-mix(in oklch, var(--lesson-divider) 85%, var(--lesson-accent)); }
 .worked-example .ms-example + .ms-math-box { margin-top: 14px; }
 .worked-example .ms-math-row:first-child { margin-top: 0; }
 .worked-example .ms-math-row:last-child { margin-bottom: 0; }
 .ms-example-title { display: block; font-weight: 600; margin-bottom: 6px; }
 .ms-math-row { margin: 4px 0; line-height: 1.7; overflow-wrap: break-word; }
 .ms-good { font-weight: 600; }
+.lesson-section .ms-proof { min-width: 0; margin-block: 20px 24px; }
+.lesson-section .ms-proof-title { display: block; font-weight: 600; margin-bottom: 12px; }
+.lesson-section .ms-proof-step { display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: baseline; gap: 10px; margin-block: 8px; }
+.lesson-section .ms-step-number { color: var(--lesson-muted); font-variant-numeric: tabular-nums; }
+.lesson-section .ms-step-number::after { content: '.'; }
 .lesson-math { font-family: 'STIX Two Math', math; font-size: max(1.1em, 18px); font-style: normal; font-weight: 400; letter-spacing: normal; line-height: normal; math-style: compact; color: inherit; }
 .lesson-math[display=inline] { white-space: nowrap; }
 .lesson-math[display=block] { margin-block: 12px; font-size: 1.25em; math-style: normal; text-align: left; }

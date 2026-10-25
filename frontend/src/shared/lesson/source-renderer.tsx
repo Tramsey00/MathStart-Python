@@ -50,6 +50,10 @@ function compactFlow(nodes: readonly LessonNode[]): readonly LessonNode[] {
 function isExampleHeading(node: LessonNode): boolean {
   return isElement(node) && ['h3', 'h4'].includes(node.tag) && /^Пример(?:\s+\d+)?[.\s:]/u.test(nodeText(node).trim());
 }
+function hasAuthoredFrame(node: ElementNode): boolean {
+  const style = inlineStyle(node.attrs.style ?? '');
+  return [style.border, style.borderWidth].some(value => value !== undefined && !/^(?:0(?:px)?|none)(?:\s|$)/.test(String(value).trim()));
+}
 function endsExample(node: LessonNode): boolean {
   return isDiagramContainer(node) || node.kind === 'figure' || node.kind === 'graph' || node.kind === 'interactive' || node.kind === 'selfCheck' ||
     (isElement(node) && ['h2', 'h3', 'h4', 'svg'].includes(node.tag)) || node.kind === 'note' || hasClass(node, 'ms-rule-box');
@@ -115,6 +119,11 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
     }
   }
   if (node.kind === 'note' || classes.includes('ms-note') || classes.includes('ms-rule-box')) return <div key={key} id={node.attrs.id}><LessonNote>{body}</LessonNote></div>;
+  // Some authored examples carry their own title, condition and solution in one block.
+  const exampleTitle = childNodes.find(child => hasClass(child, 'ms-example-title'));
+  if (!context.inExample && classes.includes('ms-example') && exampleTitle && /^Пример(?:\s+\d+)?[.\s:]/u.test(nodeText(exampleTitle).trim()) && !hasAuthoredFrame(node)) {
+    return <div key={key} id={node.attrs.id}><WorkedExample><LessonSource nodes={childNodes} context={{ ...childContext, inExample: true }}/></WorkedExample></div>;
+  }
   // Legacy ms-math-box can be ordinary theory; only actual examples receive a frame.
   if (node.kind === 'example' && !context.inExample && !classes.includes('ms-math-box') && !classes.includes('ms-example')) return <div key={key} id={node.attrs.id}><WorkedExample>{body}</WorkedExample></div>;
   const props: Record<string, unknown> = { key };
@@ -133,8 +142,7 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   if (!context.inDiagram && isDiagramContainer(node)) {
     const caption = node.children.find(child => hasClass(child, 'ms-figure-title') || hasClass(child, 'ms-quadratic-figure-title') || (isElement(child) && child.tag === 'figcaption'));
     const label = node.attrs['aria-label'] ?? ((caption && nodeText(caption).trim()) || 'Учебная схема');
-    const style = inlineStyle(node.attrs.style ?? '');
-    const existingFrame = [style.border, style.borderWidth].some(value => value !== undefined && !/^(?:0(?:px)?|none)(?:\s|$)/.test(String(value).trim()));
+    const existingFrame = hasAuthoredFrame(node);
     props.className = `${String(props.className ?? '')} lesson-figure-source`.trim();
     return createElement(tag, props, <LessonDiagram label={label} frame={!existingFrame}>
       <LessonSource nodes={childNodes} context={{ ...childContext, inDiagram: true }}/>
