@@ -120,7 +120,7 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .lesson-section:focus { outline: none; }
 .lesson-section h2 { font-size: 25px; line-height: 1.4; font-weight: 600; letter-spacing: -.45px; margin: 0 0 22px; }
 .lesson-section h3 { font-size: 19px; line-height: 1.5; font-weight: 600; margin: 32px 0 16px; }
-.lesson-section p { margin: 0 0 18px; }
+.lesson-section p { margin: 0 0 12px; }
 .lesson-section li { margin: 7px 0; }
 .lesson-section .ms-text, .lesson-section .ms-card-text { font-size: 17px; line-height: 1.85; }
 .lesson-section .ms-quadratic-formula { margin: 28px 0; padding: 0; background: transparent; border: 0; border-radius: 0; }
@@ -135,28 +135,41 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .ms-coefficient-card .ms-card-title, .ms-coefficient-card .ms-card-text { grid-column: 2; }
 .lesson-section .ms-vertex-formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 .lesson-section .ms-vertex-formula-card .ms-card-text { font-size: 21px; line-height: 2; }
-.lesson-note { margin: 22px 0 28px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--lesson-muted); font-size: 15px; }
+.lesson-note { margin: 16px 0 24px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--lesson-muted); font-size: 15px; }
 .lesson-note p:last-child { margin-bottom: 0; }
 .lesson-vertex-formula { margin-bottom: 12px; }
-.worked-example { margin: 16px 0 34px; padding: 0; border: 0; border-radius: 0; background: transparent; }
-.worked-example:has(.ms-example-title) { margin-bottom: 12px; }
+.worked-example { min-width: 0; margin: 24px 0 28px; padding: 20px 24px; border: 1px solid var(--lesson-divider); border-radius: 10px; background: var(--lesson-plot); }
+.worked-example > :first-child { margin-top: 0; }
+.worked-example > :last-child { margin-bottom: 0; }
+.worked-example > h3, .worked-example > h4 { margin: 0 0 14px; }
+.worked-example .ms-example + .ms-math-box { margin-top: 14px; }
+.worked-example .ms-math-row:first-child { margin-top: 0; }
+.worked-example .ms-math-row:last-child { margin-bottom: 0; }
 .ms-example-title { display: block; font-weight: 600; margin-bottom: 6px; }
-.ms-math-row { margin: 10px 0; line-height: 1.9; overflow-wrap: break-word; }
+.ms-math-row { margin: 4px 0; line-height: 1.7; overflow-wrap: break-word; }
 .ms-good { font-weight: 600; }
 .lesson-section .ms-frac { display: inline-flex; flex-direction: column; align-items: stretch; justify-content: center; vertical-align: middle; line-height: 1; margin: 0 3px; text-align: center; }
 .lesson-section .ms-frac .ms-num { display: block; padding: 0 5px 4px; border-bottom: 2px solid currentColor; font-size: .92em; white-space: nowrap; }
 .lesson-section .ms-frac .ms-den { display: block; padding: 4px 5px 0; font-size: .92em; white-space: nowrap; }
-.lesson-section .ms-figure { min-width: 0; margin: 28px 0; }
+.lesson-section .ms-figure { min-width: 0; margin: 24px 0; }
+.lesson-figure-source { min-width: 0; margin: 24px 0; }
 .lesson-section .ms-figure-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
 .lesson-section .ms-svg-wrap, .lesson-section .ms-table-wrap { min-width: 0; max-width: 100%; }
 .lesson-section .ms-quadratic-figures { display: grid; grid-template-columns: 1fr; gap: 32px; margin: 28px 0; }
 .ms-quadratic-figure { min-width: 0; margin: 0; }
 .ms-quadratic-figure-title { display: block; font-size: 15px; font-weight: 500; margin-bottom: 10px; }
 .ms-quadratic-svg { display: block; width: 100%; height: auto; }
-.lesson-diagram { min-width: 0; container-type: inline-size; }
+.lesson-diagram { min-width: 0; padding: 20px; border: 1px solid var(--lesson-divider); border-radius: 10px; background: var(--lesson-plot); container-type: inline-size; }
+.lesson-diagram[data-frame=existing] { padding: 0; border: 0; border-radius: 0; background: transparent; }
 .lesson-diagram-viewport { max-width: 100%; min-width: 0; }
-.lesson-diagram-viewport > svg { display: block; width: 100%; height: auto; }
-.self-check .lesson-diagram { margin: 16px 0; padding: 12px; border: 1px solid var(--lesson-divider); border-radius: 10px; background: var(--lesson-plot); }
+.lesson-diagram-viewport > svg, .lesson-diagram-viewport > .ms-svg-wrap > svg { display: block; width: 100%; height: auto; }
+.lesson-diagram-viewport > :first-child { margin-top: 0; }
+.lesson-diagram-viewport > :last-child { margin-bottom: 0; }
+.lesson-section > .lesson-diagram { margin-block: 24px; }
+.self-check .lesson-diagram { margin: 16px 0; padding: 12px; }
+.self-check .lesson-diagram[data-frame=existing] { padding: 0; }
+.self-check .lesson-figure-source { margin-block: 16px; }
+.self-check .lesson-figure-source .lesson-diagram { margin-block: 0; }
 .self-check img { max-width: 100%; height: auto; border: 1px solid var(--lesson-divider); border-radius: 10px; padding: 8px; }
 .ms-quadratic-caption { color: var(--lesson-muted); font-size: 13px; line-height: 1.6; margin-top: 10px; }
 .lesson-section .ms-discriminant-card { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 0 18px; margin: 0; padding: 12px 0; border-bottom: 0; }
@@ -169,6 +182,10 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .lesson-section th, .lesson-section td { border-bottom: 1px solid var(--lesson-divider); padding: 9px 12px; text-align: center; }
 .lesson-section th { font-weight: 500; background: transparent; }
 .lesson-table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+@media (min-width: 1100px) {
+  .lesson-section > .lesson-figure-source, .lesson-section > .lesson-diagram,
+  .lesson-section > .ms-quadratic-figures { margin-inline: -48px; }
+}
 .self-check { padding: 22px 0; border-bottom: 1px solid var(--lesson-divider); margin: 0; }
 .self-check:first-of-type { margin-top: 12px; }
 .self-check:last-of-type { border-bottom: 0; }
@@ -257,6 +274,8 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
   .lesson-section .ms-quadratic-figures { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
+  .worked-example { padding: 16px; margin-block: 20px 24px; }
+  .lesson-diagram { padding: 14px; }
   .lesson-rail { position: sticky; top: var(--lesson-header-height); inset-inline: 0; bottom: auto; width: auto; padding: 6px 12px; background: var(--lesson-paper); }
   .self-check .lesson-reveal { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .self-check .lesson-answer-toggle { margin-top: 14px; }

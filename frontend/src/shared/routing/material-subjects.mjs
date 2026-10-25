@@ -11,6 +11,7 @@ if (entries.length !== publicCodes.size || new Set(entries.map(([, code]) => cod
   throw new Error('Invalid material subject codes');
 }
 const codes = Object.freeze({ ...subjects.codes });
+const labels = Object.freeze({ algebra: 'Алгебра', geometry: 'Геометрия', statistics: 'Вероятность и статистика', math: 'Математика' });
 
 export function materialSubjectCode(identity) {
   if (typeof identity !== 'string' || !Object.hasOwn(codes, identity)) {
@@ -21,4 +22,8 @@ export function materialSubjectCode(identity) {
 
 export function isMaterialSubjectCode(code) {
   return publicCodes.has(code);
+}
+
+export function materialSubjectLabel(identity) {
+  return labels[materialSubjectCode(identity)];
 }

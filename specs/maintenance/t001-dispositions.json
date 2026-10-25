@@ -1,7 +1,7 @@
 {
   "source_commit": "406995b4005d9b78525f3e985e9345a5437a5e67",
   "task": "MS-T001",
-  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite. Явное поручение пользователя 25.10.2026: убрать массовые проверки из текущей UI-миграции, выключить автоматические прогоны; никаких тестов при этой правке. Поручение 25.10.2026: содержание обоих уроков по повторному образцу и сверка действующих правил с чатом; без тестов и сборки. Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite. Явное поручение пользователя 25.10.2026: убрать массовые проверки из текущей UI-миграции, выключить автоматические прогоны; никаких тестов при этой правке. Поручение 25.10.2026: содержание обоих уроков по повторному образцу и сверка действующих правил с чатом; без тестов и сборки. Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки. Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
   "files": [
     {
       "path": ".github/workflows/ci.yml",
@@ -30,10 +30,10 @@
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 11815,
       "before_sha256": "0bc9faa44a90b90ba4f75a1d096db72b3e95219ef6791aff118c146a37e37470",
-      "after_sha256": "297eddc3253c083d70bd005d9f7c794e43943bc2405ef28463109b2b857bd4a1"
+      "after_sha256": "1e8025a93cd67e68dbb63d010d8ebed9c8944746fc9ef87ebb329bd383050a4b"
     },
     {
       "path": "ARCHITECTURE.md",
@@ -172,6 +172,15 @@
       "after_sha256": "daffaa31cb43a225c430327942de588cafc1e64b36059539d7714f7838851c20"
     },
     {
+      "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/lesson.json",
+      "action": "updated",
+      "before_commit": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
+      "before_bytes": 429,
+      "before_sha256": "7f3ba74a4b6150d1daaf2e34fda0fbdfd2238791a3b5e20149b77b4cd6b1acc9",
+      "after_sha256": "48c408a62215ce5f63ff19cd2a1000c5b73fc0c26edcaf686e69ad3c855655b5",
+      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной."
+    },
+    {
       "path": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/lesson.json",
       "action": "updated",
       "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
@@ -190,10 +199,10 @@
     {
       "path": "docs/frontend/lesson-migration.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 18687,
       "before_sha256": "03bd7a0c84153f0f1110fd01f9dd129a81b60cd8d04ba99a88845fd3282399c1",
-      "after_sha256": "2e468072e26d1ff482e45118482598faa05382b2cde8c849b8188fcce29fa1fc"
+      "after_sha256": "4e4daa02d846f9e6e42fe77a347ad3bfbdd3d1774816539a9e2102f31d0d390b"
     },
     {
       "path": "docs/frontend/testing-policy.md",
@@ -222,10 +231,10 @@
     {
       "path": "docs/tasks/INDEX.md",
       "action": "updated",
-      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 18935,
       "before_sha256": "90ed05395de5893377842c36651e33cede48f0b52107fa2e256f9bfacb5c4ff1",
-      "after_sha256": "eeadbb15cffc3a241012bfffafe23e5dfb45c0ed1b3165d5bdf859ee8f7804a7"
+      "after_sha256": "018343645df9cd91125181c7b7d7876c38c571d0bd8bf482a2afd6d80e487d95"
     },
     {
       "path": "docs/tasks/lesson-inventory.json",
@@ -238,18 +247,18 @@
     {
       "path": "docs/tasks/registry.json",
       "action": "updated",
-      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 22138,
       "before_sha256": "2e8e11f8e7abcea55d9db34b46711745718fac65b5a0e559a7b254a07fa6b406",
-      "after_sha256": "f7d49f3d4c52e706a318be65febc0a093e1d5f411b61290d663f329d821d32ac"
+      "after_sha256": "437cf0bd652d6cf3f316d75c453888e6c84a0015d6a70f84c40cba0845e59ec6"
     },
     {
       "path": "docs/ux/shared-ui-contract.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 18335,
       "before_sha256": "072737523fc001b8539bf92e6be90cfb97625eae83a9bd6f8ebc77b84d97acb4",
-      "after_sha256": "c31c56df0adf6e16bc6e5c9c10fd03c644d115e7330991f59a99b72043943ded"
+      "after_sha256": "81f8ea4dc2f40131862b8fe90535d4701ddf298adf6606190de967e46137311f"
     },
     {
       "path": "frontend/README.md",
@@ -422,10 +431,10 @@
     {
       "path": "frontend/src/shared/lesson/lesson-diagram.tsx",
       "action": "updated",
-      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 1435,
       "before_sha256": "f41b89adeab98e94a8131f0431748324f5e2ee05c62afd6bce155f8fd5828e55",
-      "after_sha256": "5d580e639987aa68a5c3ff65bfaec66c3999b357b318546d2a4e026faf012941"
+      "after_sha256": "0e33969b7a8950694924e17d120bc4594683fe29533657bad7ba9d254f93691d"
     },
     {
       "path": "frontend/src/shared/lesson/lesson-shell.tsx",
@@ -446,10 +455,10 @@
     {
       "path": "frontend/src/shared/lesson/lesson.css",
       "action": "updated",
-      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 27306,
       "before_sha256": "a27ecc522121cd3f4ada0a1d91d6c07fed8bb237bd130d24c5b5dacb21180753",
-      "after_sha256": "d7efeb4d9b76e7cfab17a205ad279f7ad98a9fffc5086e5249b3574222f92551"
+      "after_sha256": "bb7c45e24ac63199ee42f1f9007dacd77a4caaa8e23c843fec7a70e24691c98a"
     },
     {
       "path": "frontend/src/shared/lesson/quadratic-graph.tsx",
@@ -462,10 +471,10 @@
     {
       "path": "frontend/src/shared/lesson/source-renderer.tsx",
       "action": "updated",
-      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 4865,
       "before_sha256": "5844823c9ee78ca8b207f88b9493ccda3e62d36789db839a88eb2f948b7711f2",
-      "after_sha256": "a1408f130a643b35922605cb0ea1d71561465b9356f3b9840b78bcc75aed65ec"
+      "after_sha256": "3b479d25e6325f3de9b000e0d0905018285289e918168866322e257d82628651"
     },
     {
       "path": "frontend/src/shared/routing/material-routes.mjs",
@@ -548,12 +557,21 @@
       "after_sha256": "60898141440bdc41939a389afab2ea21fca5c4aa7b4832def64f8971ffbaa96a"
     },
     {
+      "path": "site_content/material-routes.json",
+      "action": "updated",
+      "before_commit": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
+      "before_bytes": 456,
+      "before_sha256": "6d17b88729e9a4aae71a168df690f2aa99e3bf96aa68a3df946343ba260113ba",
+      "after_sha256": "e50a842231dcc05c76d677b923f1d69211f9ebeba6d8d955c3e8cf90fdcf2669",
+      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной."
+    },
+    {
       "path": "skills/lesson-migration/SKILL.md",
       "action": "updated",
-      "reason": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 3322,
       "before_sha256": "f8a6cf36852070e2524bf93cef1968f391ef8c1a1af3c37dd6edd4c26c560ba9",
-      "after_sha256": "117ebfa0631e37269030e6d68a87a5939deb1407c2fc5a7e954d79a4f1aaca5a"
+      "after_sha256": "58193476e09811b9e41c723c538fba2afd0b4cbfcc93a1e7f240c626ae809f09"
     },
     {
       "path": "skills/tasks/t000-workflow-preparation/SKILL.md",
@@ -566,10 +584,10 @@
     {
       "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
       "action": "updated",
-      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
       "before_bytes": 6652,
       "before_sha256": "eedf2cc89f3fde66f2bd3bdd3f53135a1c37d1d85070dd0be23de5b228aae639",
-      "after_sha256": "96c45a645746d6ddce6aaba03205d3789cf6f1538ec9ee0421224e1b48bb59a7"
+      "after_sha256": "22f01986fa2f01baae12e0b0fa4b9b6466c03b89983cf695d7cb00b284f74ef7"
     },
     {
       "path": "skills/tasks/t002-public-pages/SKILL.md",
@@ -658,24 +676,6 @@
       "before_bytes": 4668,
       "before_sha256": "bd652ba3ec014194bcbdd73a10edb40313e9729c9f7b6bdfe5b153477de7c2a2",
       "after_sha256": "a5955036ce84f5faebe8faa8a97223d06ad7b06e5fc285ecacf382da4f868e55"
-    },
-    {
-      "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/lesson.json",
-      "action": "updated",
-      "before_commit": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
-      "before_bytes": 429,
-      "before_sha256": "7f3ba74a4b6150d1daaf2e34fda0fbdfd2238791a3b5e20149b77b4cd6b1acc9",
-      "after_sha256": "48c408a62215ce5f63ff19cd2a1000c5b73fc0c26edcaf686e69ad3c855655b5",
-      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной."
-    },
-    {
-      "path": "site_content/material-routes.json",
-      "action": "updated",
-      "before_commit": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
-      "before_bytes": 456,
-      "before_sha256": "6d17b88729e9a4aae71a168df690f2aa99e3bf96aa68a3df946343ba260113ba",
-      "after_sha256": "e50a842231dcc05c76d677b923f1d69211f9ebeba6d8d955c3e8cf90fdcf2669",
-      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной."
     }
   ],
   "content_curation": {
@@ -879,5 +879,81 @@
       "manifest_digest": "6c30407811f8967a074655d7d0e640f4e2b31b9358572acbc6199251fd3a7f20",
       "receipt_digest": "8f695fc2a8d20aed2bae27aa9bc443d8b8a7ba5bf7c68aa75b73dce84482b325"
     }
+  },
+  "lesson_presentation_refinement": {
+    "authority": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+    "source_head": "9be5886a293897382863a0663fca0a475f4199b7",
+    "lesson_urls": [
+      "/materials/5-math-12",
+      "/materials/7-algebra-8",
+      "/materials/8-algebra-32"
+    ],
+    "subject_display": "Русские подписи в breadcrumbs через materialSubjectLabel; английские URL-коды сохраняются.",
+    "examples": "Одна рамка объединяет заголовок, условие, решение и ответ. Одиночный legacy ms-math-box в теории не становится примером.",
+    "figures": "Одна рамка на SVG с названием/подписью. Существующие рамки сохраняются без дублирования. Самостоятельные схемы на desktop выступают на 48 px с каждой стороны.",
+    "spacing": "Пустые абзацы и лишние br между блоками исключаются при рендере. Смысловые интервалы, anchors, MathML и authored SVG сохраняются.",
+    "theme": "Professional Theme / QraftHive сохранены; theme.css, шрифты и curriculum content.json не изменены.",
+    "formula_proposal": {
+      "status": "PROPOSED_WAITING_USER_APPROVAL",
+      "implementation": "NOT_STARTED",
+      "candidate": "Семантический MathML mfrac/msqrt/mroot и единый STIX Two Math; текущие формулы не менялись."
+    },
+    "changed_files": [
+      {
+        "path": "AGENTS.md",
+        "sha256": "1e8025a93cd67e68dbb63d010d8ebed9c8944746fc9ef87ebb329bd383050a4b"
+      },
+      {
+        "path": "docs/frontend/lesson-migration.md",
+        "sha256": "4e4daa02d846f9e6e42fe77a347ad3bfbdd3d1774816539a9e2102f31d0d390b"
+      },
+      {
+        "path": "docs/tasks/INDEX.md",
+        "sha256": "018343645df9cd91125181c7b7d7876c38c571d0bd8bf482a2afd6d80e487d95"
+      },
+      {
+        "path": "docs/tasks/registry.json",
+        "sha256": "437cf0bd652d6cf3f316d75c453888e6c84a0015d6a70f84c40cba0845e59ec6"
+      },
+      {
+        "path": "docs/ux/shared-ui-contract.md",
+        "sha256": "81f8ea4dc2f40131862b8fe90535d4701ddf298adf6606190de967e46137311f"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson-diagram.tsx",
+        "sha256": "0e33969b7a8950694924e17d120bc4594683fe29533657bad7ba9d254f93691d"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson-page.tsx",
+        "sha256": "2a27b548d7b64bf6520364e714a73d48a52bd0d232f437987b16365384b5c377"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson.css",
+        "sha256": "bb7c45e24ac63199ee42f1f9007dacd77a4caaa8e23c843fec7a70e24691c98a"
+      },
+      {
+        "path": "frontend/src/shared/lesson/source-renderer.tsx",
+        "sha256": "3b479d25e6325f3de9b000e0d0905018285289e918168866322e257d82628651"
+      },
+      {
+        "path": "frontend/src/shared/routing/material-subjects.d.mts",
+        "sha256": "1aefd8260e9aba5721f4063828b9f75dbc61902b441781e2f899575b012434b8"
+      },
+      {
+        "path": "frontend/src/shared/routing/material-subjects.mjs",
+        "sha256": "a5c22207e9eb7a71be38ece06d8f0bf1a39f566853fbcc2db5725d2f323a289e"
+      },
+      {
+        "path": "skills/lesson-migration/SKILL.md",
+        "sha256": "58193476e09811b9e41c723c538fba2afd0b4cbfcc93a1e7f240c626ae809f09"
+      },
+      {
+        "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
+        "sha256": "22f01986fa2f01baae12e0b0fa4b9b6466c03b89983cf695d7cb00b284f74ef7"
+      }
+    ],
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING"
   }
 }
