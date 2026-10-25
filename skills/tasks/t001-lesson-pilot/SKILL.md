@@ -56,7 +56,7 @@ snapshot; повторять перенос не нужно. Новые прав
 
 | Поле | Следующий пробный урок |
 | --- | --- |
-| Статус | IN_PROGRESS; migration_authorized=true (явное поручение 25.10.2026) |
+| Статус | READY_FOR_REVIEW; migration_authorized=true; human acceptance PENDING |
 | Заголовок | Теорема Пифагора и обратная теорема. Применение |
 | Класс / предмет | 8 класс / Геометрия; Content identity `geometriya`, URL-код `geometry` |
 | Источник | `curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie` |
@@ -402,3 +402,66 @@ MathML в math-notation.mjs применяются конвертером; до�
 Выполнена только миграция данных математической разметки и правка исходников.
 Тесты/typecheck/browser/smoke/source/docs/preservation gates и сборка не запускались:
 NOT_RUN_BY_USER_REQUEST. Отдельное review и приёмка реализации PENDING.
+
+## Результат этапа C — теорема Пифагора, 25.10.2026
+
+Отдельное разрешение пользователя на один урок, canonical `/materials/8-geometry-6`.
+Исходный HEAD `ab2881bb4f6bdcb7744df588a4bc5e32428753bf`, чистая `ui/ux`;
+после fetch совпадал с origin/ui/ux, на 26 commit впереди origin/main.
+Код сборки `8b52b118618f5e280fbf98eefb3029d6cbcbe67c`, tree `9ded3ce90a95739dbc15aaedd76ab41db068eaee`.
+Проверенного QA SHA нет: проверки NOT_RUN_BY_USER_REQUEST.
+
+Реализация COMPLETE; Content prepare/build/local snapshot connection COMPLETE.
+Отдельное review PENDING; visual/human acceptance PENDING; merge NOT_PERFORMED.
+Приёмка предыдущих пилотов и всей MS-T001 не изменена. Полный класс и следующая
+задача не начаты; production deploy не выполнялся.
+
+Типизированный content.json передаётся общему LessonPage/Content/FastAPI.
+Сохранены 8 секций, 2 доказательства по 4 шага, алгоритм из 3 шагов,
+7 примеров, 5 учебных SVG, таблица и все 8 самопроверок с полными решениями.
+Урок использует Content identity geometriya, публичный код geometry и подпись
+«Геометрия» через общее сопоставление. В registry/inventory закреплён canonical;
+общий Content adapter направляет старый slug и `/mathstart/` alias прямо на него.
+Общая навигация: предыдущая тема в текущем разделе, следующий раздел геометрии
+8 класса; ссылки формируются из полного каталога, без частного списка.
+
+В исходнике отсутствуют «Что нужно знать перед темой», page.css, page.js
+и внешние lesson resources. Схемы встроены в HTML; собственной интерактивности нет.
+Исключены весь блок после самопроверки «Итог: сравните квадраты сторон»
+с anchor `lesson-section-9`, старые hero actions/TOC (включая одну UI SVG-иконку)
+и ms-nav. Сохраняемые anchors: `theory`, `lesson-section-2`–`lesson-section-8`.
+Frozen body.html не редактировался. Карта: specs/maintenance/t001-dispositions.json.
+
+Корни и степени явно размечены через mathExpression/mathToken/rootNode/powerNode
+из math-notation.mjs, класс lesson-math и локальный STIX Two Math. Все исходные
+числа, переменные, знаки и порядок вычислений сохранены, без пересчёта.
+Длинные равенства разделены на MathML-фрагменты по знакам равенства для переноса.
+Дробей, смешанных чисел и дробных степеней в этом источнике нет; формулы в SVG
+сохранены как авторская геометрия. Примеры с внутренним заголовком получили
+одну общую рамку WorkedExample; схемы — существующий LessonDiagram. Общий CSS
+оформляет шаги доказательств/алгоритма с точками. Правила дополнены в стандарте
+и общем skill; палитра, основные шрифты и UI kit не менялись.
+
+Команды: `node frontend/scripts/convert-lesson.mjs <source>` и одноразовая явная
+разметка формул `node var/t001/author-pythagorean-math.mjs`;
+`var/t001-qa/target-env/Scripts/python.exe var/t001/prepare-pythagorean-preview.py`
+(prepare → React Router build → initial activation в новом собственном disposable
+PostgreSQL snapshot). Лог: ignored var/t001/pythagorean-preview-build.log.
+Штатные integrity guards сборки сохранены; тесты, typecheck, Playwright,
+check:dev, smoke, source/docs/preservation gates, CI и backend suite не запускались.
+Результат проверок NOT_RUN_BY_USER_REQUEST, не PASS.
+
+Snapshot `87656bdd-6238-455f-ba48-1c572362c1af`; manifest
+`6cdb7164254bc31ec592ffbe6e443bc3fc52f18e480b302929ead1cb9d028faa`.
+Прежние releases/БД сохранены. Новый snapshot включает главную, каталог и три
+действующих урока; их документы не переписывались, регрессионные проверки не
+проводились. Общий dev runner перезапущен (`npm --prefix frontend run dev -- --stop`,
+затем скрытый запуск `var/t001-qa/target-env/Scripts/python.exe scripts/dev_server.py`);
+штатная остановка не получила подтверждения от отсутствующего supervisor.
+После сверки полных команд и parent PID адресно завершены только его оставшиеся
+Vite/FastAPI процессы этого checkout; устаревшая локальная manifest/request удалена.
+дальнейшие React/CSS правки используют HMR, без повторных release-сборок.
+Просмотр: http://127.0.0.1:8131/materials/8-geometry-6.
+Локальный runtime зависит от ignored private настроек этого checkout;
+воспроизводимость из чистого clone остаётся MS-T002A. Визуальная приёмка,
+независимое review и технические проверки остаются отдельными открытыми этапами.
