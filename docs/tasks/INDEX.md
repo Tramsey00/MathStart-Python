@@ -50,7 +50,7 @@ N006 имеет отдельное педагогическое решение, 
 | 00 | MS-T000 — Подготовить очередь, стандарт переноса и очистить документацию | ACCEPTED | — | [SKILL.md](../../skills/tasks/t000-workflow-preparation/SKILL.md) | Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены. |
 | 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | ACCEPTED | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Четыре React-урока и общий стандарт приняты 25.10.2026; COMPLETE_STATIC_SOURCE_REVIEW, human acceptance ACCEPTED; автопрогоны NOT_RUN_BY_USER_REQUEST. Clone/production остаются за пределами этой приёмки. |
 | 02 | MS-T002 — Подключить утверждённые главную и каталог к основному приложению | ACCEPTED | MS-T001 | [SKILL.md](../../skills/tasks/t002-public-pages/SKILL.md) | Главная и каталог подключены и приняты 25.10.2026; статическое review завершено, автопрогоны отложены. Самостоятельный запуск из clone — MS-T002A. |
-| 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | IN_PROGRESS | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила. |
+| 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | READY_FOR_REVIEW | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила. |
 | 04 | MS-T003 — Полностью перенести 5 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t003-grade-5/SKILL.md) | Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
 | 05 | MS-T004 — Полностью перенести 6 класс | PLANNED | MS-T003 | [SKILL.md](../../skills/tasks/t004-grade-6/SKILL.md) | Все 28 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
 | 06 | MS-T005 — Полностью перенести 7 класс | PLANNED | MS-T004 | [SKILL.md](../../skills/tasks/t005-grade-7/SKILL.md) | Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
@@ -139,3 +139,14 @@ MS-T001 и MS-T002 — ACCEPTED по подтверждению пользова
 автопрогоны NOT_RUN_BY_USER_REQUEST, не PASS. Записи PENDING и прежние результаты
 выше описывают исторические этапы. MS-T002A продолжается с чистого clone и
 самостоятельного локального окружения. Merge не поручен, MS-T003 ещё не открыта.
+
+
+25.10.2026: часть MS-T002A до merge — READY_FOR_REVIEW. Независимый GitHub clone
+ui/ux `9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec`, новая собственная PostgreSQL,
+schema/Content/SSG publication COMPLETE, шесть наполненных страниц, same-origin
+API/WebSocket, CSS/React/content refresh, stop/restart подтверждены в разрешённом
+scope. Probes восстановлены, БД startup/HMR не изменена, исходный dev восстановлен.
+История найденных install/publication проблем и исправлений — в карточке.
+Общие suites NOT_RUN_BY_USER_REQUEST. Отдельное review, human acceptance и merge
+ещё впереди. Вся MS-T002A не ACCEPTED до запуска clone опубликованного main;
+MS-T003 не начата. Production вне scope.

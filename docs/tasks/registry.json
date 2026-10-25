@@ -211,34 +211,48 @@
       "id": "MS-T002A",
       "order": 3,
       "title": "Подготовить воспроизводимый запуск после clone и передать baseline команде",
-      "status": "IN_PROGRESS",
+      "status": "READY_FOR_REVIEW",
       "dependencies": [
         "MS-T002"
       ],
       "skill": "skills/tasks/t002a-team-local-start/SKILL.md",
       "acceptance": "Другой участник запускает новую версию из чистого clone с documented locked prerequisites без чужих var/данных/локальных путей; ui/ux принят и слит в main, команда проверила опубликованный baseline; с MS-T003 работают Issue/branch/PR правила.",
       "workflow": "bootstrap",
-      "implementation": "DEV_HMR_PARTIAL",
-      "scope_authority": "Явное поручение пользователя: настроить dev-режим с HMR и одним origin с учётом задач; остальная MS-T002A не принята.",
-      "checks": "DEFERRED_BY_USER",
-      "review": "PENDING",
+      "implementation": "PRE_MERGE_LOCAL_START_COMPLETE",
+      "scope_authority": "Явное поручение 25.10.2026: независимый GitHub clone ui/ux, свои DB/schema/env/Content, только целевой install/startup/HMR/restart контроль; commit/push, без merge/production/MS-T003.",
+      "checks": "COMPLETE_SCOPED_LOCAL_START; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
+      "review": "PENDING_SEPARATE_REVIEW",
       "human_acceptance": "PENDING",
       "remaining": [
-        "Подготовка собственного окружения/БД/env из чистого clone без var автора",
-        "Целевой контроль запуска шести страниц, same-origin API и HMR по отдельному поручению",
-        "Review и приёмка готовности локального запуска MS-T002A",
+        "Отдельное review и fixes части до merge",
+        "Человеческая приёмка готовности локального запуска",
         "Отдельное решение пользователя о merge ui/ux → main",
-        "Повтор запуска из clone опубликованного main до MS-T003"
+        "Повтор запуска из clone опубликованного main до приёмки всей MS-T002A и MS-T003"
       ],
-      "verified_code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c",
-      "verified_tree": "f58bb199fd117cd1918e907d3ed3eb680bd9423e",
-      "verification_limit": "HMR receipt 282a1e6 относится к прежним четырём страницам prepared checkout. Нынешние шесть страниц, clean clone, review/acceptance MS-T002A и опубликованный main ещё не подтверждены.",
+      "verified_code_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
+      "verified_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
+      "verification_limit": "Только разрешённый Windows clean-clone install/startup контроль шести страниц, resources/API/WebSocket, HMR/content isolation, stop/restart. Не полный frontend/backend QA, не production. Historical HMR receipt 282a1e6 не используется как evidence нового candidate.",
       "last_recorded_checks": {
         "status": "PASS_SCOPED_DEV",
         "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
       },
       "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
-      "next_scope": "Продолжить чистый clone и независимую локальную установку. Не переделывать HMR/уроки. Merge требует отдельного решения пользователя."
+      "next_scope": "Review части до merge и человеческое решение. Не начинать MS-T003; всю MS-T002A не отмечать ACCEPTED до clone опубликованного main.",
+      "merge": "NOT_PERFORMED",
+      "targeted_control": {
+        "date": "2026-10-25",
+        "status": "COMPLETE_SCOPED_LOCAL_START",
+        "clone_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
+        "clone_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
+        "publication": "COMPLETE_AFTER_EXACT_INDEX_WARMUP_AND_FENCED_RESUME",
+        "pages": 6,
+        "origin": "http://127.0.0.1:8131",
+        "hmr": "CSS_REACT_CONTENT_CONFIRMED_PROBES_RESTORED",
+        "database": "UNCHANGED_BY_STARTUP_HMR_RESTART; users=0; tables=28; publication_journals=1",
+        "original_dev": "RESTORED",
+        "full_task_acceptance": "PENDING_MAIN_MERGE_AND_PUBLISHED_MAIN_CLONE",
+        "general_suites": "NOT_RUN_BY_USER_REQUEST"
+      }
     },
     {
       "id": "MS-T003",

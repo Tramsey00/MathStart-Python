@@ -144,6 +144,119 @@ publish. Review digests обязательны; domain/publication guards не �
 Обычный startup не выполняет DDL/seed/publication и не создаёт пользователей.
 README/frontend README/local-development согласованы. Дизайн/уроки не изменены.
 
-Candidate и результаты фактического GitHub clone-контроля будут записаны после
-выполнения. На этом промежуточном этапе: IN_PROGRESS; review/human acceptance/
-merge/clone main — PENDING. Полная MS-T002A не ACCEPTED.
+### Findings первых репетиций
+
+- Обычный GitHub clone завис на pack download. Собственный зависший процесс
+  остановлен; HTTP/1.1 + --filter=blob:none завершились. История не shallow,
+  недостающие historical blobs загружались с GitHub; локальный .git не копировался.
+- `ec26d36181a2833a09a240ea366c61b0ded32acc`: install/schema/build завершились,
+  publish отказал EDITION_CONFLICT, STAGED, db_committed=false, active=null.
+  Alias `/materials/7-algebra-1` отсутствовал в DB edition; порядок derived
+  redirects зависел от порядка registry/deliveries. В d805e15 alias добавлен
+  в bootstrap plan, derived order стабилизирован. Guard точного равенства
+  DB и immutable release не менялся.
+- `6fcc3df50e45bd3fdd762bd3dafdee23fb3cc5b0`: новая установка/schema/build,
+  затем PUBLIC_VERIFICATION_FAILED, db_committed=true, activation APPLIED,
+  RECOVERY_REQUIRED. Реальный `/materials` возвращал 404: ordinary preparation
+  в отличие от существующего build path сохраняла `/karta-sajta/` как canonical.
+  В b379885 ordinary preparation получила уже принятый canonical `/materials`.
+  Journal не сбрасывался, committed update не переигрывался. Две собственные БД
+  неуспешных попыток остановлены, state/logs сохранены в ignored var/ их clone.
+- Pip первой попытки: TLS EOF retries, затем locked install и pip check успешны
+  без отключения TLS. Npm ci предупреждает об allow-scripts esbuild; первая
+  реальная сборка прошла без approve-scripts и без изменения lock/глобальных settings.
+
+- `b379885ae4af68976b59a3c878be7ab04a9e0620`: canonical исправлен, но cold
+  HTTP guard снова отказал после активации. Наблюдаемое fenced recovery локализовало
+  ReadTimeout на первом `/_content/index.json` (participant.py:254), без повторного
+  domain commit. На том же прогретом gateway index отвечал 200 за 0,359 с,
+  `/materials` — 200 за 0,735 с. Это измерение причины, не PASS установки b379885.
+  В 9f4fce4 явная установка получила ограниченный exact-index warmup и обычный
+  fenced resume только после проверки собственного durable committed/activated
+  state. HTTP guards остаются 5 секунд. Третья репетиция также остановлена с
+  сохранением состояния. Автоматического повторного domain update нет.
+
+Дизайн, authored контент, media, принятые URL и доменные validators не изменены.
+
+### Передача части до merge — READY_FOR_REVIEW, 25.10.2026
+
+Проверенный GitHub clone: `9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec`, tree
+`fa98a52d327d8c4993d246dc617d985cb009f2fd`. Новый независимый каталог
+`C:/Projects/ms-t002a-handoff-20261025` — только provenance этой репетиции,
+не prerequisite запуска. GitHub origin, clean tracked tree до установки и после
+восстановления probes. Нет local clone/hardlinks, копии var/, БД, private env,
+cookies, venv, build или runner автора. Все локальные ресурсы созданы заново.
+Последующая запись handoff меняет только docs/реестр/example, runtime code тот же.
+
+Среда: Windows/PowerShell, Python 3.12.10, Node 24.19.0, npm 11.17.0,
+Docker engine 29.8.1, PostgreSQL 16.15 (фактический server_version).
+Node/npm входят в manifest engines; Docker/CI pins 24.21.0/11.19.0 отдельно
+этим host-контролем не проверены. Locks не менялись. Использованы обычные
+package/image caches; полностью холодная загрузка registries отдельно не проверялась.
+
+Выполнены команды из docs/local-development.md:
+
+- GitHub clone с HTTP/1.1, longpaths, LF, --filter=blob:none, ветка ui/ux;
+  собственный .venv, pip install --no-deps -r requirements.lock, pip check
+  (No broken requirements found), npm ci --no-audit --no-fund.
+- team_local.py init → schema-preview → просмотр FRESH/0 tables/своей роли/DB
+  → schema-apply по точному digest → physical schema check. Отдельные schema/
+  runtime roles без superuser. Initial operator не создавался: для публичных
+  страниц он не нужен; auth scope не проверялся.
+- team_local.py content → prepare-bootstrap/immutable build/plan:
+  279 страниц, 282 public URLs, 451 файл; просмотрены origin/previous=null/
+  canonical и alias. team_local.py publish завершился **COMPLETE** с generation=1,
+  после exact-index cold warmup 0,687 с и обычного resume. Domain commit один,
+  все стандартные publication probes/guards включены. Первый cold отказ и
+  успешный resume сохранены раздельно; warmup не засчитан как acknowledgement.
+- npm --prefix frontend run dev: оба процесса этого clone, origin 8131,
+  внутренний FastAPI 8132, .venv найден без сохранённого runner автора.
+
+Целевой runtime-контроль — COMPLETE_SCOPED_LOCAL_START, не общий QA:
+
+| Страница | Фактический результат |
+| --- | --- |
+| / | 200, заголовок «Математика для 5–10 классов», основной текст и общий chrome |
+| /materials | 200, наполненный каталог 7 класса/алгебры, разделы и навигация |
+| /materials/7-algebra-8 | 200, линейная функция: текст, таблица, график; 11 h2 в browser DOM |
+| /materials/8-algebra-32 | 200, квадратичная функция: текст, график, формулы; 8 h2 |
+| /materials/5-math-12 | 200, дроби: текст, схемы, MathML; 7 h2 |
+| /materials/8-geometry-6 | 200, теорема Пифагора: текст, доказательства, SVG/MathML; 8 h2 |
+
+Все шесть открыты в реальном in-app browser через dev 8131; проверены DOM,
+заголовки и содержание, а не только пустая HTML shell. Наблюдались CSS/JS,
+локальные Outfit/STIX, Vite connected, нет browser error logs. Явные запросы
+к API grades и ContentDelivery, CSS module, Vite client и обоим fonts — 200.
+WebSocket handshake ws://127.0.0.1:8131 — 101 Switching Protocols.
+
+CSS custom property и React attribute изменились в открытой вкладке без ручного
+reload. Существующий content.json subtitle вызвал auto-refresh; одновременно
+опубликованный ContentDelivery.data остался равен исходному, marker в API
+отсутствовал. Все три файла восстановлены byte-for-byte; marker исчез из DOM.
+
+Штатный dev --stop освободил 8131/8132; своя БД остановлена/запущена, dev повторно
+запущен без schema/build/publication. Шесть документов снова 200 с содержимым,
+Vite подключился. Content fingerprint до/после одинаковый, users=0, tables=28,
+publication journals=1. Проверочный dev/БД в конце остановлены, volumes сохранены.
+Исходный dev основного C:/Projects/MathStart-Python восстановлен на 8131/8132
+с прежней private config; acceptance stack не затронут.
+
+Логи и JSON результата находятся только в ignored var/ соответствующих clone:
+var/local/team/logs и var/t002a-control/targeted-results.json. Новых tracked
+audit folders нет. Первый вывод ad-hoc summary столкнулся с cp1251; файл был
+записан в UTF-8, вывод исправлен через Python -X utf8 без повторного runtime прогона.
+
+Ограничения: in-app screenshot capture недоступен; DOM/resources/JS/HMR проверены,
+но pixel/cross-browser/mobile/accessibility и функциональная приёмка всех
+интерактивов не выполнялись. Сохранённый FastAPI режим использовался реальным
+gateway в publication/probes; отдельного повторного полного browser прогона
+собранного режима нет. Linux/macOS/WSL не проверены. Полные npm/test:full,
+typecheck, Playwright suites, check:dev, verify_repo, source/docs/preservation
+gates и backend suite — **NOT_RUN_BY_USER_REQUEST**. Production не проверен.
+
+Самопроверка кода и целевой контроль завершены; отдельное review — PENDING,
+human acceptance готовности локального запуска — PENDING, merge — NOT_PERFORMED.
+Остаются отдельное review/fixes, человеческая приёмка части до merge, решение
+пользователя о merge ui/ux → main, затем clone опубликованного main и его запуск.
+Только после этого возможна приёмка всей MS-T002A и MS-T003. Сейчас вся MS-T002A
+**не ACCEPTED**, MS-T003 не начата; production deploy не входит в поручение.
