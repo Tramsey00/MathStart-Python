@@ -10,6 +10,7 @@ x-app: &app
     PYTHONDONTWRITEBYTECODE: '1'
     CHOKIDAR_USEPOLLING: 'true'
     MATHSTART_CONTAINER_DEV: '1'
+    MATHSTART_ROUTER_BUILD: /runtime/router-build
     GIT_CONFIG_COUNT: '1'
     GIT_CONFIG_KEY_0: safe.directory
     GIT_CONFIG_VALUE_0: /workspace
@@ -20,7 +21,6 @@ x-app: &app
     - dependencies:/workspace/frontend/node_modules
     - frontend-cache:/workspace/frontend/.cache
     - router-cache:/workspace/frontend/.react-router
-    - frontend-build:/workspace/frontend/build
     - runtime:/runtime
 services:
   db:
@@ -54,5 +54,4 @@ volumes:
   dependencies: {}
   frontend-cache: {}
   router-cache: {}
-  frontend-build: {}
   runtime: {}

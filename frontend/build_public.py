@@ -42,7 +42,7 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     environment = dict(os.environ, MATHSTART_PUBLIC_VIEW=str(view))
     command = [shutil.which('npm.cmd') or shutil.which('npm'), 'exec', '--', 'react-router', 'build']
     subprocess.run(command, cwd=root, env=environment, check=True)
-    client = root / 'build/client'
+    client = Path(environment.get('MATHSTART_ROUTER_BUILD', str(root / 'build'))) / 'client'
     rendered, page_digests, semantic_digests = {}, {}, {}
     for entry in release.index['pages']:
         page = release.pages[entry['id']]
