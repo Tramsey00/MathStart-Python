@@ -211,40 +211,39 @@
       "id": "MS-T002A",
       "order": 3,
       "title": "Подготовить воспроизводимый запуск после clone и передать baseline команде",
-      "status": "IN_PROGRESS",
+      "status": "READY_FOR_REVIEW",
       "dependencies": [
         "MS-T002"
       ],
       "skill": "skills/tasks/t002a-team-local-start/SKILL.md",
       "acceptance": "Контейнерный dev frontend/FastAPI/PostgreSQL из clone с Git и Docker, без обязательных host Python/Node; простые операции подготовки/запуска/обновления после pull/остановки, HMR, сохранение своей БД. Отдельные review/приёмка, merge по решению пользователя и clone опубликованного main до MS-T003.",
       "workflow": "bootstrap",
-      "implementation": "CONTAINER_DEV_IMPLEMENTED_CONTROL_PENDING",
+      "implementation": "CONTAINER_DEV_COMPLETE_PRE_MERGE",
       "scope_authority": "Явное поручение 26.10.2026: реализовать контейнерный dev, четыре операции и провести только целевой независимый clone/pull/update/HMR контроль; продолжить ui/ux и PR #58 без merge/production/MS-T003.",
-      "checks": "CONTAINER_CONTROL_PENDING_DOCKER_ENGINE; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
+      "checks": "COMPLETE_SCOPED_CONTAINER_WORKFLOW; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
       "review": "PENDING_SEPARATE_REVIEW",
       "human_acceptance": "PENDING",
       "remaining": [
-        "Завершить целевой контейнерный clone prepare/start/pull-update контроль после доступности Docker engine",
-        "Получить человеческое утверждение конкретных schema и Content планов перед применением",
-        "Подтвердить шесть страниц/resources/API/WebSocket/HMR/stop-start и no-op update с сохранением DB/credentials",
         "Отдельное review/fixes и человеческая приёмка контейнерного пути",
         "Отдельное решение пользователя о merge ui/ux → main",
         "Повтор запуска из clone опубликованного main до приёмки всей MS-T002A и MS-T003"
       ],
-      "verified_code_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
-      "verified_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
-      "verification_limit": "verified_code_sha/tree и targeted_control относятся к host-dev candidate 9f4fce4 от 25.10.2026: Windows clean-clone install/startup, шесть страниц, resources/API/WebSocket, HMR/content isolation, stop/restart. Они не подтверждают контейнерный dev, обновление после pull или нынешний candidate. Полные suites и production не проверены.",
-      "last_recorded_checks": {
+      "historical_host_verified_code_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
+      "historical_host_verified_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
+      "verified_code_sha": "dc6c991d9daba1c05e86b94a417f955da4029c54",
+      "verified_tree": "2432cc9eced1294688e039b536097aa746883465",
+      "verification_limit": "Исторический host-dev evidence сохранён отдельно и не переносится. Контейнерные этапы и точные SHA приведены в container_dev_revision и карточке. Финальный код dc6c991 проверен в сохранённом независимом clone после pull, а не новой FRESH БД на этом SHA. Общие suites, изменения locks/schema/контента после pull и production не проверены.",
+      "historical_host_last_recorded_checks": {
         "status": "PASS_SCOPED_DEV",
         "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
       },
       "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
-      "next_scope": "Завершить фактический контейнерный clone/pull/update/HMR контроль после доступности Docker engine и человеческого утверждения конкретных schema/Content планов; затем READY_FOR_REVIEW части до merge.",
+      "next_scope": "Отдельное review/fixes и человеческая приёмка части до merge; решение пользователя о merge и запуск clone опубликованного main до завершения всей MS-T002A.",
       "pull_request": "https://github.com/Tramsey00/MathStart-Python/pull/58",
       "container_dev_revision": {
         "date": "2026-10-26",
-        "status": "IN_PROGRESS",
-        "implementation": "IMPLEMENTED_CONTROL_PENDING",
+        "status": "READY_FOR_REVIEW_PRE_MERGE",
+        "implementation": "COMPLETE",
         "host_prerequisites": [
           "Git",
           "Docker Desktop с Linux engine и Compose",
@@ -263,11 +262,32 @@
         ],
         "origin": "http://127.0.0.1:8131",
         "constraints": "Исходники в checkout; БД/credentials вне Git. Явные schema/Content протоколы и guards сохранены, startup без DDL/seed/publish. Update не делает Git pull/reset и не удаляет данные. Прежние receipts неизменны.",
-        "checks": "PENDING_DOCKER_ENGINE_AND_CONCRETE_PLAN_REVIEW",
+        "checks": "COMPLETE_SCOPED_CONTAINER_WORKFLOW",
         "entry_point": "dev.cmd prepare/start/update/stop -> dev.ps1",
         "initial_sha": "88f9d2cd5c0193d8bca5a238d3a623dcde16864f",
-        "candidate_sha": "5594217baff087f5bdea42b981b3689fb4128278",
-        "control_attempt": {
+        "candidate_sha": "dc6c991d9daba1c05e86b94a417f955da4029c54",
+        "candidate_tree": "2432cc9eced1294688e039b536097aa746883465",
+        "targeted_control": {
+          "status": "COMPLETE_SCOPED_CONTAINER_WORKFLOW",
+          "clone": "Independent full GitHub clone, own persistent Compose resources; continued by ordinary pull",
+          "host_python_node_on_control_path": false,
+          "schema_apply_sha": "46fc366f6b98e62186e12328c21866fce0783159",
+          "schema_reviewed_digest": "1f3b5592af1111e317a2dc29eed055beb47d6915cdca51ea52a77c22c4c7b369",
+          "content_prepare_publish_sha": "e9157fd3be13700922241fa70f76e8375a6ebb2a",
+          "content_reviewed_digest": "b4578a6945337c1f200849612763042a3ae9b07d7b4bd7ecf4b825724bac39cb",
+          "publication": "COMPLETE_AFTER_EXACT_INDEX_WARMUP_AND_FENCED_RESUME; one domain commit, generation=1",
+          "final_runtime_sha": "dc6c991d9daba1c05e86b94a417f955da4029c54",
+          "pages": "Six HTTP 200 and populated browser DOM",
+          "resources": "Same-origin CSS/JS/Outfit/STIX/API 200; WebSocket 101",
+          "hmr": "CSS/React without reload; existing content.json auto-refresh; published API unchanged; originals restored exactly",
+          "workflow": "Real pull/update, repeated no-op update, stop/reprepare/start, final no-op update/stop successful",
+          "database": "Same Content fingerprint/active release/journal, tables=28/users=0/journals=1 COMPLETE; credentials/config bytes identical",
+          "final_state": "Own app and DB stopped normally, volumes retained, 8131 free; original host dev was not stopped",
+          "limits": "Cold Windows SSR 134.125 s measured; no package-lock/new-schema/content/URL deltas invented after pull; no nonempty user history/cross-platform/general suites/production checks",
+          "general_suites": "NOT_RUN_BY_USER_REQUEST",
+          "full_task_acceptance": "PENDING_SEPARATE_REVIEW_HUMAN_ACCEPTANCE_MERGE_AND_PUBLISHED_MAIN_CLONE"
+        },
+        "historical_engine_blocked_attempt": {
           "concrete_plans_review": "NOT_CREATED_ENGINE_UNAVAILABLE",
           "update_exit": 1,
           "prepare_exit": 1,
@@ -281,7 +301,7 @@
         }
       },
       "merge": "NOT_PERFORMED",
-      "targeted_control": {
+      "historical_host_targeted_control": {
         "date": "2026-10-25",
         "status": "COMPLETE_SCOPED_LOCAL_START",
         "clone_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",

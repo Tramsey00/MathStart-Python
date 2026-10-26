@@ -13,7 +13,7 @@ description: Выполнить MS-T002A — единое контейнерно
 Зависимости: MS-T002. Это третья задача bootstrap после MS-T001 и MS-T002,
 а не публичный deploy. Реализация выполняется только по отдельному поручению.
 
-## Текущее решение 26.10.2026 — IN_PROGRESS после уточнения CHANGES_REQUESTED
+## Текущее решение 26.10.2026 — READY_FOR_REVIEW части до merge
 
 Пользователь уточнил ожидаемый командный workflow: clone → подготовка → запуск;
 далее commit/push → PR/merge → pull → обновление окружения → запуск новой версии.
@@ -23,12 +23,12 @@ description: Выполнить MS-T002A — единое контейнерно
 
 Предыдущий host-dev результат READY_FOR_REVIEW на `9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec`
 сохранён ниже как история. Он не подтверждает готовность контейнерного dev.
-Карточка снова требует реализации; существующий [PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58)
+Уточнение потребовало контейнерной реализации; существующий [PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58)
 продолжается в ui/ux, новый PR/Issue/ветка не нужны. Коммит 88f9d2c менял только
 описание задачи. Затем получено отдельное явное поручение реализации и целевого
 контроля; его исполнение отражено ниже, прежний host-dev result остаётся историей.
 
-### Исполнение поручения 26.10.2026 — IN_PROGRESS
+### История первой контейнерной попытки 26.10.2026
 
 Отдельное поручение на реализацию и ограниченный контроль получено. Исходный
 HEAD `88f9d2cd5c0193d8bca5a238d3a623dcde16864f`, ветка ui/ux, clean tree;
@@ -87,6 +87,111 @@ host-dev PASS не переносится. Общие suites — NOT_RUN_BY_USER
 конкретных планов и разрешённый runtime/pull-update контроль. Реализация сохранена
 в ui/ux и PR #58, без merge/production/MS-T003. Возобновление не требует новой
 ветки/PR или повторного clone: собственная подготовленная конфигурация уже сохранена.
+
+### Продолжение после запуска Docker engine 26.10.2026
+
+Текущий контейнерный контроль продолжается в том же независимом полном GitHub
+clone C:/Projects/ms-t002a-compose-full-20261026. Путь — provenance, не prerequisite.
+Собственный Compose project msdev-44a2b52de6f0; конфигурация, DB и volumes созданы
+заново, без var/, БД, secrets, cookies или runner автора. Основной checkout ui/ux
+на старте продолжения был чистым; чужие правки не затронуты. Обе операции Git
+pull и подготовка исполнялись без reset/checkout/смены ветки.
+
+Этапы относятся к разным точным SHA, результаты не переносятся автоматически:
+
+- `46fc366f6b98e62186e12328c21866fce0783159`: исправлен Compose context/env path
+  при --project-directory, собран dev image, npm ci внутри контейнера. Штатные
+  guards применили FRESH schema к mathstart_dev/OID 16384, local_schema/OID 16385,
+  0 таблиц → v01_0002 по отдельно утверждённому SHA256
+  `1f3b5592af1111e317a2dc29eed055beb47d6915cdca51ea52a77c22c4c7b369`.
+  Старый план `456f00ee686be6d36dc2ecdfdc2c7cf29fba5d721d33d41ee83040bd8036d8c5`
+  истёк и НЕ применялся. Новый действовал до 20:05:07 МСК; apply начат 19:39,
+  журнал APPLIED и последующий physical schema check успешны.
+- `e9157fd3be13700922241fa70f76e8375a6ebb2a`: Content prepare/build/plan и отдельно
+  утверждённая публикация `b4578a6945337c1f200849612763042a3ae9b07d7b4bd7ecf4b825724bac39cb`.
+  Release dev-84700054510a4889, previous=null, origin 127.0.0.1:8131; 935 изменений
+  только Content (6 grades, 12 subjects, 63 sections, 279 pages, 263 publications,
+  29 media, 283 redirects), 282 public URLs, 451 файл. Input manifest
+  `274ee8efba1886a0849953b2e95308f110d26fa3b52611d48d87ace7031f69ec`, output
+  `5aeadc895de970c2ad5b7d6d0b761239b6196744b301f8bb808badba213d2dcf`.
+  Первый cold HTTP guard отказал после commit/activation; собственные owner/fence/
+  journal проверены, exact-index warmup 0,222 с, обычный resume → COMPLETE,
+  generation=1. Один domain commit, без ослабления 5-секундных guards.
+- `893d86b0f2802ec6ed089f2512d6ee7deaf62b36`: шесть наполненных HTTP/browser
+  страниц, CSS/JS/fonts, API и WS 101; CSS/React HMR, existing content refresh
+  с неизменным опубликованным API/БД. Реальные pull/update получили fixes;
+  неизменившиеся шаги пропущены, snapshot DB/config до/после одинаковый.
+- Финальный код clone `dc6c991d9daba1c05e86b94a417f955da4029c54`, tree
+  `2432cc9eced1294688e039b536097aa746883465`: получен обычным pull. Исправленная
+  immutable сборка в frontend/.cache/router-build — 279 страниц/282 URL/451 файл;
+  не публиковалась и не заменяла утверждённый release. Выходная папка вложена
+  в cache volume; default production build path/targets сохранены.
+
+Найденные ошибки и исправления: Router удалял корень mounted build volume
+(EBUSY); inherited build path отфильтровывался очищенным окружением; путь вне
+frontend ломал Node package resolution при prerender. Финальный путь передаётся
+явно в обычный builder и сохраняет npm resolution. Start теперь ждёт HTTP
+готовности главной и same-origin API до 300 с. Ошибочный grades health URL
+исправлен на /api/v1/grades/; неуспешный start не называется PASS.
+
+Фактическая среда: Windows/системный PowerShell entry point, Docker engine 29.8.1,
+Compose 5.5.1, внутри image Python 3.12.15/Node 24.21.0/npm 11.19.0. Все операции
+dev.cmd выполнялись с PATH без host Python/Node; host pip/npm не использовались.
+Использованы обычные Docker/package caches, полностью холодные registries не проверены.
+
+Финальный candidate `dc6c991` повторно проверен после stop/reprepare/start:
+
+| Страница | HTTP и фактический browser DOM |
+| --- | --- |
+| / | 200, «Математика для 5–10 классов», описание и общий chrome |
+| /materials | 200, наполненный каталог/разделы, 277 ссылок при первом browser просмотре |
+| /materials/7-algebra-8 | 200, линейная функция, более 10 тыс. символов main, график/14 SVG |
+| /materials/8-algebra-32 | 200, квадратичная функция, парабола, 5 MathML/13 SVG |
+| /materials/5-math-12 | 200, дроби, примеры, 34 MathML/14 SVG |
+| /materials/8-geometry-6 | 200, теорема Пифагора, доказательства, 55 MathML/15 SVG |
+
+Ресурсы runtime.css, Vite client, Outfit/STIX, /api/v1/grades/ и ContentDelivery —
+200 через один origin 8131. WebSocket handshake — 101 Switching Protocols,
+browser Vite connected. CSS custom property и React attribute появились через
+HMR без ручного reload; существующий content.json автоматически обновил subtitle.
+Опубликованный ContentDelivery.data не изменился, временная метка в API отсутствует.
+Все probe files восстановлены byte-for-byte, tracked tree clone чистый; в финальном
+browser DOM нет меток. В ранней репетиции одновременное восстановление React и
+content-refresh дало hydration warning именно о probe attribute; reload очистил DOM.
+Финальное раздельное восстановление на dc6c991 новых browser errors не дало.
+
+Реальные GitHub pull/update получили исправления от e9157fd до dc6c991 без
+переустановки. Повторные prepare/update без новых inputs пропускают image/npm/
+schema/Content build/publication. Stop освобождает 8131; повторный start ожидает
+Healthy и не делает DDL/seed/publication. Snapshot Content/active release/journal,
+число таблиц/users и байты private config до/после pull, HMR и stop/start совпадают:
+Content fingerprint `f0bc58764c751e221412742fa242ddd3437e2069cdf50e7e041ca0662d35aaa6`,
+tables=28, users=0, один journal COMPLETE/generation=1. Данные Content и credentials
+реально непустые; сохранность существующей пользовательской истории не моделировалась
+искусственными записями. Финальный no-op update завершился exit=0 без публикации,
+snapshot остался тем же. Проверочный app/DB штатно остановлены (Exited 0),
+volumes сохранены, 8131 свободен. Исходный host dev не останавливался: на старте
+контейнерного контроля 8131/8132 не слушались; protected stack не затронут.
+
+Ограничения: холодный SSR на Windows bind mount в одном измерении занял 134,125 с,
+последующие ответы 0,5–4 с; start ждёт до пяти минут и честно отказывает при timeout.
+Скриншот урока в финальном браузерном сеансе доступен, но pixel/cross-browser/mobile/
+accessibility и все интерактивы не принимались. Отдельный полный browser-прогон
+собранного FastAPI режима не выполнялся; настоящий gateway использован publication
+probes. Linux/macOS/WSL не проверены. После pull реально изменялись dev orchestration/
+Compose и docs; дельты package locks, новой schema revision, уроков/каталога/URL
+не создавались ради проверки. Для неизвестной будущей revision graph update
+останавливается, не заменяет reviewed migration protocol и не переписывает history.
+
+Статус части до merge — READY_FOR_REVIEW: реализация, самопроверка кода и разрешённый
+целевой контроль завершены. Отдельное review/fixes и человеческая приёмка — PENDING.
+Вся MS-T002A не ACCEPTED: нужны отдельное решение пользователя о merge ui/ux → main
+и проверка clone опубликованного main. Merge/production/MS-T003 не выполнялись.
+
+Логи/планы/временные observations только в ignored var/compose и var/compose-control
+собственного clone. Общие npm/backend suites, typecheck, Playwright suites,
+check:dev, verify_repo и source/docs/preservation gates — NOT_RUN_BY_USER_REQUEST.
+Исторические host-dev результаты ниже остаются отдельной историей.
 
 ## Результат
 

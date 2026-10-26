@@ -48,6 +48,9 @@ schema/Content digests; start не устанавливает зависимос
 publish. Update не выполняет Git pull/reset/checkout. Прежний host-dev — альтернатива
 и история, не evidence контейнерного candidate. Продолжать ui/ux и PR #58;
 статусы реализации/целевого контроля/review раздельно отражены в карточке MS-T002A.
+Start ожидает HTTP-готовности главной и /api/v1/grades/ через 8131; холодный SSR
+на Windows bind mount может занимать минуты. Router build очищает только вложенную
+frontend/.cache/router-build в cache volume; не монтировать volume на сам build root.
 
 Начиная с MS-T003, каждое явно порученное задание имеет GitHub Issue, отдельную
 ветку от актуального origin/main после fetch и PR со ссылкой на Issue. Например,

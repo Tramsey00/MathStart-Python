@@ -1,11 +1,14 @@
 # Задачи MathStart
 
-26.10.2026: MS-T002A — **IN_PROGRESS** по отдельному поручению реализации. Пользователь уточнил результат:
+26.10.2026: MS-T002A — **READY_FOR_REVIEW части до merge**. Пользователь уточнил результат:
 контейнерный dev frontend/FastAPI/PostgreSQL, Git и Docker на хосте; простые
 операции подготовки/запуска/обновления после pull/остановки, HMR и сохранение
 локальной БД. Прежний host-dev READY_FOR_REVIEW сохранён как исторический результат,
-контейнерный путь реализуется через dev.cmd prepare/start/update/stop. Фактический
-контроль ожидает доступности Docker engine и утверждения конкретных планов.
+контейнерный путь реализован через dev.cmd prepare/start/update/stop. Целевой
+контроль независимого GitHub clone завершён на dc6c991d9daba1c05e86b94a417f955da4029c54:
+reviewed schema/Content, шесть страниц, API/assets/WS/HMR, pull/update, сохранность
+DB/credentials, stop/start и no-op update. Точные этапы/SHA и ограничения — в карточке.
+Отдельные review/приёмка, решение о merge и clone опубликованного main ещё впереди.
 Продолжать ui/ux и PR #58; MS-T003 не открыта.
 
 25.10.2026: автоматические тестовые прогоны временно выключены. Старые checklists
@@ -58,7 +61,7 @@ N006 имеет отдельное педагогическое решение, 
 | 00 | MS-T000 — Подготовить очередь, стандарт переноса и очистить документацию | ACCEPTED | — | [SKILL.md](../../skills/tasks/t000-workflow-preparation/SKILL.md) | Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены. |
 | 01 | MS-T001 — Перенести новый HTML-урок по стандарту в основной React/SSG runtime | ACCEPTED | MS-T000 | [SKILL.md](../../skills/tasks/t001-lesson-pilot/SKILL.md) | Четыре React-урока и общий стандарт приняты 25.10.2026; COMPLETE_STATIC_SOURCE_REVIEW, human acceptance ACCEPTED; автопрогоны NOT_RUN_BY_USER_REQUEST. Clone/production остаются за пределами этой приёмки. |
 | 02 | MS-T002 — Подключить утверждённые главную и каталог к основному приложению | ACCEPTED | MS-T001 | [SKILL.md](../../skills/tasks/t002-public-pages/SKILL.md) | Главная и каталог подключены и приняты 25.10.2026; статическое review завершено, автопрогоны отложены. Самостоятельный запуск из clone — MS-T002A. |
-| 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | CHANGES_REQUESTED | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Контейнерный dev из clone с Git и Docker, четыре простые операции подготовки/запуска/обновления после pull/остановки; HMR, свои сохранные данные и отсутствие host Python/Node; отдельная приёмка, merge по решению пользователя и проверка clone опубликованного main до MS-T003. |
+| 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | READY_FOR_REVIEW | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Контейнерный dev из clone с Git и Docker, четыре простые операции подготовки/запуска/обновления после pull/остановки; HMR, свои сохранные данные и отсутствие host Python/Node; отдельная приёмка, merge по решению пользователя и проверка clone опубликованного main до MS-T003. |
 | 04 | MS-T003 — Полностью перенести 5 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t003-grade-5/SKILL.md) | Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
 | 05 | MS-T004 — Полностью перенести 6 класс | PLANNED | MS-T003 | [SKILL.md](../../skills/tasks/t004-grade-6/SKILL.md) | Все 28 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
 | 06 | MS-T005 — Полностью перенести 7 класс | PLANNED | MS-T004 | [SKILL.md](../../skills/tasks/t005-grade-7/SKILL.md) | Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
