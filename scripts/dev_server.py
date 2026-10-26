@@ -114,6 +114,7 @@ def main():
     parser.add_argument('--api-port', type=int, default=8132)
     parser.add_argument('--prepare-only', action='store_true')
     parser.add_argument('--stop', action='store_true')
+    parser.add_argument('--container', action='store_true', help='Bind Vite to the container interface; public origin stays loopback')
     args = parser.parse_args()
     dev = ROOT / 'var/local/dev'
     if args.stop:
@@ -143,8 +144,14 @@ def main():
     node_env = {k: v for k, v in os.environ.items() if not k.startswith('MATHSTART_')}
     node_env.update(NODE_ENV='development', MATHSTART_PUBLIC_VIEW=str(view), MATHSTART_DEV_MODE='1',
         MATHSTART_DEV_ORIGIN=settings['MATHSTART_PUBLIC_ORIGIN'], MATHSTART_DEV_API_ORIGIN=f'http://127.0.0.1:{args.api_port}')
+    if args.container:
+        node_env['MATHSTART_DEV_CONTAINER'] = '1'
     options = {'creationflags': subprocess.CREATE_NO_WINDOW | subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}
     children = []
+    if os.name != 'nt':
+        def terminate(_signum, _frame):
+            raise KeyboardInterrupt
+        signal.signal(signal.SIGTERM, terminate)
     instance = str(uuid.uuid4())
     stop_request = dev / ('stop-' + instance + '.request')
     try:
@@ -155,7 +162,7 @@ def main():
             if backend.poll() is not None or time.monotonic() >= deadline:
                 raise RuntimeError('Internal FastAPI did not start')
             time.sleep(.2)
-        frontend = subprocess.Popen([node, str(ROOT / 'frontend/node_modules/@react-router/dev/bin.js'), 'dev', '--host', '127.0.0.1', '--port', str(origin.port)], cwd=ROOT / 'frontend', env=node_env, stdout=sys.stdout, stderr=sys.stderr, **options)
+        frontend = subprocess.Popen([node, str(ROOT / 'frontend/node_modules/@react-router/dev/bin.js'), 'dev', '--host', '0.0.0.0' if args.container else '127.0.0.1', '--port', str(origin.port)], cwd=ROOT / 'frontend', env=node_env, stdout=sys.stdout, stderr=sys.stderr, **options)
         children.append(frontend)
         (dev / 'processes.json').write_text(json.dumps({'owner': str(ROOT), 'instance': instance, 'supervisor': os.getpid(),
             'backend': backend.pid, 'frontend': frontend.pid, 'origin': settings['MATHSTART_PUBLIC_ORIGIN']}), encoding='utf-8')

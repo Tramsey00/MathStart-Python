@@ -1,11 +1,12 @@
 # MathStart
 
 Образовательный сайт: FastAPI/Pydantic, SQLAlchemy/Alembic, PostgreSQL и
-React/TypeScript с immutable Content/SSG release. Главная, каталог и четыре
-React-урока приняты в bootstrap scope. Остальные материалы сохраняют legacy
-renderer. Будущий интеллектуальный учебный цикл не реализован.
+React/TypeScript с immutable Content/SSG. Главная, каталог и четыре React-урока
+приняты в bootstrap scope; будущий интеллектуальный учебный цикл не реализован.
 
-До отдельного merge клонируйте **ui/ux**, чтобы получить новую версию:
+Основной командный dev — **Docker Compose**. На Windows нужны Git, Docker Desktop
+с Linux engine/Compose и PowerShell. Host Python/Node/npm/PostgreSQL не требуются.
+До отдельного merge используйте опубликованную ui/ux:
 
 ```powershell
 git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --filter=blob:none --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
@@ -13,69 +14,61 @@ Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false
 git config http.version HTTP/1.1
-python -m venv .venv
-& .\.venv\Scripts\python.exe -m pip install --no-deps -r requirements.lock
-& .\.venv\Scripts\python.exe -m pip check
-npm --prefix frontend ci --no-audit --no-fund
-& .\.venv\Scripts\python.exe scripts/team_local.py init
-& .\.venv\Scripts\python.exe scripts/team_local.py schema-preview
-# Просмотреть plan; подставить напечатанный digest (в течение 30 минут):
-& .\.venv\Scripts\python.exe scripts/team_local.py schema-apply --reviewed-plan-sha256 <SCHEMA_SHA256>
-& .\.venv\Scripts\python.exe scripts/team_local.py content
-# Просмотреть publication plan; подставить его напечатанный digest:
-& .\.venv\Scripts\python.exe scripts/team_local.py publish --reviewed-plan-sha256 <PUBLICATION_SHA256>
-npm --prefix frontend run dev
+.\dev.cmd prepare
+.\dev.cmd start
 ```
 
-Нужны Windows/PowerShell, Git, Python 3.12, Node 24.x/npm 11.x, Docker Desktop
-Linux engine и доступ к registries. Пакеты закреплены locks. Своя PostgreSQL
-создаётся явно на loopback; private настройки генерируются в ignored var/.
-Чужие БД/cookies/.env/runner/файлы автора не нужны. Пользователи автоматически
-не создаются. Подробности prerequisites, plan review и ошибок —
-[полная инструкция](docs/local-development.md).
+Prepare показывает конкретные schema и Content планы: просмотрите каждый файл и
+подтвердите его полным SHA256. Автоматического утверждения нет. Повторная
+подготовка сохраняет DB/credentials; неизменившиеся шаги пропускаются.
 
-Один адрес **http://127.0.0.1:8131**: /, /materials, /materials/7-algebra-8,
-/materials/8-algebra-32, /materials/5-math-12, /materials/8-geometry-6.
-Vite HMR и внутренний FastAPI используют same-origin proxy. CSS/React не требуют
-release build. Существующий content.json обновляет dev-просмотр без публикации в БД.
+Один адрес **http://127.0.0.1:8131**: главная /, каталог /materials и уроки
+/materials/7-algebra-8, /materials/8-algebra-32, /materials/5-math-12,
+/materials/8-geometry-6. Vite/FastAPI работают в app-контейнере, PostgreSQL —
+в отдельном контейнере с persistent volume. API и HMR/WebSocket same-origin.
 
-Остановка Ctrl+C или из второго PowerShell в том же checkout:
+Повторный запуск, получение изменений и остановка:
 
 ```powershell
-npm --prefix frontend run dev -- --stop
-& .\.venv\Scripts\python.exe scripts/team_local.py db-stop
-# Следующий запуск, без повторной подготовки:
-& .\.venv\Scripts\python.exe scripts/team_local.py db-start
-npm --prefix frontend run dev
+.\dev.cmd start
+# После сохранения своих изменений и отдельного Git pull:
+git pull --ff-only origin ui/ux
+.\dev.cmd update
+.\dev.cmd start
+# Остановить свой экземпляр, сохранив данные:
+.\dev.cmd stop
 ```
 
-Собранный FastAPI-просмотр: остановите dev, выполните
-`& .\.venv\Scripts\python.exe scripts/lesson_server.py`; адрес тот же,
-остановка Ctrl+C. Startup не делает DDL, seed, build или publication.
+Исходники остаются в обычном checkout и bind-mounted в контейнеры. React/CSS
+обновляются через HMR. Существующий content.json обновляет dev-only проекцию,
+не опубликованную БД/API. Startup не выполняет DDL, install, seed или publication.
+Update не делает Git pull/reset/checkout и не удаляет локальную БД.
+
+[Полная инструкция, review/digests и ограничения](docs/local-development.md).
+[Альтернативный host-dev](docs/local-development-host.md) сохранён отдельно;
+его исторические результаты не подтверждают контейнерную приёмку.
 
 | Путь | Назначение |
 | --- | --- |
 | backend/ | Content/Users/Staff, API, persistence, schema/publication CLI |
 | frontend/ | React/TypeScript, HMR и immutable build |
 | curriculum/, site_content/, static/ | Учебный контент, структура, tracked assets |
-| deploy/ | Канонические images/Compose, release/recovery |
+| deploy/ | Production images/Compose/runbooks и отдельный Compose dev |
+| dev.ps1, scripts/container_dev.py | Четыре операции командного local workflow |
 | specs/ | Доменные контракты и manifests |
 | docs/tasks/, skills/tasks/ | Единая очередь и карточки |
-| var/ | Игнорируемые собственные config/build/log resources |
+| var/ | Игнорируемые private config/plans/logs; БД/dependencies/builds в volumes |
 
-Автоматические прогоны выключены решением пользователя 25.10.2026. Npm test
-сообщает NOT_RUN; test:full/typecheck и остальные gates — по отдельному поручению.
-Dev/setup их не вызывают. Доменные валидаторы и publication guards сохранены.
+Автоматические suites выключены решением пользователя 25.10.2026. Npm test
+сообщает NOT_RUN; полные suites/typecheck/gates — только по отдельному поручению.
+Dev/setup их не вызывают; доменные validators и publication guards сохранены.
 [Политика проверок](docs/frontend/testing-policy.md).
 
-MS-T002A передаёт clone-запуск ui/ux на review. Вся задача завершится после
-человеческого решения о merge и контроля clone опубликованного main. Merge и
-production deploy не выполняются автоматически; MS-T003 не начата. С MS-T003:
-Issue, ветка от origin/main без codex/ и PR по [AGENTS](AGENTS.md).
-Другие ОС этим Windows-контролем не подтверждены.
+Статус конкретного контейнерного candidate и целевого контроля —
+[карточка MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md), [PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58).
+Отдельные review/приёмка, решение о merge и запуск clone опубликованного main
+ещё необходимы. Вся MS-T002A не ACCEPTED, MS-T003 и production deploy не начаты.
 
-[Архитектура/версии](ARCHITECTURE.md), [продукт](PRODUCT.md),
-[очередь](docs/tasks/INDEX.md), [MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md),
-[стандарт уроков](docs/frontend/lesson-migration.md), [история](docs/maintenance.md),
+[AGENTS](AGENTS.md), [архитектура/версии](ARCHITECTURE.md), [продукт](PRODUCT.md),
+[очередь](docs/tasks/INDEX.md), [история](docs/maintenance.md),
 [release](deploy/RELEASE.md), [recovery](deploy/RECOVERY.md).
-Legacy oracle — только отдельно по [инструкции](docs/legacy-oracle.md).

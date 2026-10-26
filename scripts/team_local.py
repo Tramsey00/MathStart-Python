@@ -7,6 +7,7 @@ existing database, operator account or saved runner is needed.
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
@@ -23,6 +24,19 @@ LOCAL = ROOT / 'var/local/team'
 STATE = LOCAL / 'installation.json'
 PRIVATE = ROOT / 'var/local/lesson-preview/private-env.json'
 POSTGRES = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
+SERVING = None
+
+
+@contextmanager
+def installation_paths(local, private, state, serving):
+    """Reuse the host operator orchestration in one locked container operation."""
+    global LOCAL, PRIVATE, STATE, SERVING
+    previous = LOCAL, PRIVATE, STATE, SERVING
+    LOCAL, PRIVATE, STATE, SERVING = local, private, state, serving
+    try:
+        yield
+    finally:
+        LOCAL, PRIVATE, STATE, SERVING = previous
 
 
 def write_json(path, value):
@@ -159,9 +173,10 @@ def init(port):
 
 
 def roots():
+    serving = SERVING or LOCAL / 'serving'
     return ['--input-root', str(LOCAL / 'inputs'), '--output-root', str(LOCAL / 'output'),
-            '--release-root', str(LOCAL / 'serving/releases'),
-            '--artifact-root', str(LOCAL / 'serving/frontend')]
+            '--release-root', str(serving / 'releases'),
+            '--artifact-root', str(serving / 'frontend')]
 
 
 def schema_apply(values, reviewed):
@@ -190,7 +205,7 @@ def content(values, state):
         '--plan', str(LOCAL / 'publication.json'), '--origin', values['MATHSTART_PUBLIC_ORIGIN'],
         '--output-digest', built['output_manifest_digest'], *roots()], 'plan-content', values, 300))
     runtime = read_json(PRIVATE)
-    runtime['MATHSTART_PUBLIC_ARTIFACT_DIGESTS'] = json.dumps({state['release']: built['output_manifest_digest']})
+    runtime['MATHSTART_PUBLIC_ARTIFACT_DIGESTS'] = json.dumps({**json.loads(runtime['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']), state['release']: built['output_manifest_digest']})
     PRIVATE.write_text(json.dumps(runtime, indent=2) + '\n', encoding='utf-8')
     print('Prepared source SHA ' + source_sha + '; ' + str(built['pages']) + ' pages.')
     print('Review local publication plan var/local/team/publication.json (initial install, previous=null).')
@@ -242,7 +257,7 @@ def publish(values, state, reviewed):
     log_path = LOCAL / 'logs/publication-server.log'
     with log_path.open('w', encoding='utf-8') as log:
         options = {'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}
-        server = subprocess.Popen([sys.executable, str(ROOT / 'scripts/lesson_server.py')],
+        server = subprocess.Popen([sys.executable, str(ROOT / 'scripts/lesson_server.py'), '--env-file', str(PRIVATE)],
             cwd=ROOT, env=environment(), stdout=log, stderr=log, **options)
         try:
             for _ in range(100):

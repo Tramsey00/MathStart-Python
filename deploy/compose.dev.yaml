@@ -1,0 +1,58 @@
+# Local dev only; does not include or override the production Compose stack.
+name: ${MATHSTART_DEV_PROJECT:?Use dev.ps1}
+x-app: &app
+  image: ${MATHSTART_DEV_IMAGE:?Use dev.ps1}
+  working_dir: /workspace
+  init: true
+  security_opt: [no-new-privileges:true]
+  environment:
+    PYTHONUTF8: '1'
+    PYTHONDONTWRITEBYTECODE: '1'
+    CHOKIDAR_USEPOLLING: 'true'
+    MATHSTART_CONTAINER_DEV: '1'
+    GIT_CONFIG_COUNT: '1'
+    GIT_CONFIG_KEY_0: safe.directory
+    GIT_CONFIG_VALUE_0: /workspace
+  volumes:
+    - type: bind
+      source: ${MATHSTART_DEV_CHECKOUT:?Use dev.ps1}
+      target: /workspace
+    - dependencies:/workspace/frontend/node_modules
+    - frontend-cache:/workspace/frontend/.cache
+    - router-cache:/workspace/frontend/.react-router
+    - frontend-build:/workspace/frontend/build
+    - runtime:/runtime
+services:
+  db:
+    image: postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+    env_file: [../var/compose/postgres.env]
+    volumes: [database:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U local_admin -d mathstart_dev']
+      interval: 2s
+      timeout: 3s
+      retries: 45
+    security_opt: [no-new-privileges:true]
+  app:
+    <<: *app
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: development
+    command: [serve]
+    ports: ['127.0.0.1:8131:8131']
+    depends_on:
+      db: {condition: service_healthy}
+    stop_grace_period: 20s
+  tools:
+    <<: *app
+    profiles: [tools]
+    env_file: [../var/compose/postgres.env]
+    command: [prepare]
+volumes:
+  database: {}
+  dependencies: {}
+  frontend-cache: {}
+  router-cache: {}
+  frontend-build: {}
+  runtime: {}

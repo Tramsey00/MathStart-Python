@@ -17,6 +17,7 @@ export function developmentServerOptions(environment) {
   if (paths.length) proxy['^(?:' + paths.map(escape).join('|') + ')(?:\\?|$)'] = { target: backend.origin, changeOrigin: false };
   return {
     port: Number(origin.port), strictPort: true,
+    ...(environment.MATHSTART_DEV_CONTAINER === '1' ? { watch: { usePolling: true, interval: 250 } } : {}),
     hmr: { host: origin.hostname, clientPort: Number(origin.port), protocol: 'ws' },
     cors: { origin: origin.origin },
     headers: { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow' },

@@ -41,9 +41,13 @@ MS-T002A подготавливает запуск из чистого clone. П
 Уточнение 26.10.2026: целевой командный dev — Docker Compose для frontend,
 FastAPI и PostgreSQL, без обязательных host Python/Node. Нужны простые операции
 подготовки/запуска/обновления после pull/остановки с сохранением локальных данных.
-Контейнерная часть ещё не реализована; прежний host-dev результат — история.
-Продолжать ui/ux и PR #58 по карточке MS-T002A; сам факт этого уточнения не
-разрешает начать реализацию или проверки без отдельного поручения.
+Основной entry point — dev.cmd prepare/start/update/stop и отдельный
+deploy/compose.dev.yaml. Vite/FastAPI используют существующий supervisor в app,
+PostgreSQL — отдельный persistent volume. Prepare/update требуют review точных
+schema/Content digests; start не устанавливает зависимости и не делает DDL/seed/
+publish. Update не выполняет Git pull/reset/checkout. Прежний host-dev — альтернатива
+и история, не evidence контейнерного candidate. Продолжать ui/ux и PR #58;
+статусы реализации/целевого контроля/review раздельно отражены в карточке MS-T002A.
 
 Начиная с MS-T003, каждое явно порученное задание имеет GitHub Issue, отдельную
 ветку от актуального origin/main после fetch и PR со ссылкой на Issue. Например,
@@ -70,8 +74,11 @@ force push или автоматический merge. Старые миграц�
 | `deploy/` | Канонические images/Compose, [release](deploy/RELEASE.md), [recovery](deploy/RECOVERY.md) |
 | `var/` | Игнорируемые окружения, приватные настройки и локальные отчёты |
 
-Текущая реализованная локальная разработка — `npm --prefix frontend run dev`: один browser origin
-8131, Vite HMR и внутренний FastAPI. Не выполнять release build после каждой
+Основная локальная разработка — `./dev.cmd prepare`, затем `./dev.cmd start`:
+Git/Docker Desktop/PowerShell на хосте, frontend/FastAPI/PostgreSQL в контейнерах.
+После самостоятельного pull — `./dev.cmd update`, затем start; stop сохраняет
+volumes и credentials. Host `npm --prefix frontend run dev` остаётся альтернативой.
+Один browser origin 8131, Vite HMR и внутренний FastAPI. Не выполнять release build после каждой
 правки React/CSS и не запускать отдельные prototype servers. Готовую сборку
 проверяют отдельным режимом FastAPI на том же адресе. Dev content projection
 не публикует контент и не изменяет БД. Запуск из чистого clone и полная приёмка

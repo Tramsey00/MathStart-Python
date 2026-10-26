@@ -141,6 +141,16 @@ reveal interactions прямо в HTML; они не создают assessed evid
 
 ### Локальная разработка с HMR
 
+Основной командный entry point — `dev.cmd prepare/start/update/stop` с отдельным
+`deploy/compose.dev.yaml`. Development image содержит pinned Python/Node/npm;
+на Windows хосте требуются Git/Docker Desktop/PowerShell. Существующий supervisor
+Vite/FastAPI работает в app-контейнере, PostgreSQL — отдельно в persistent volume.
+Исходники bind-mounted, dependencies/cache/build/release — в named volumes;
+private settings/review plans/logs — в ignored var/compose. Обычный start только
+читает подготовленную установку; prepare/update сохраняют normal schema/Content
+protocol и обязательное утверждение конкретных digests. Update не меняет Git.
+Существующий host-dev — альтернативный путь, его результаты — отдельная история.
+
 Разработка и готовая публикация имеют один browser origin, но разные serving paths.
 `scripts/dev_server.py` запускает Vite 8131 и внутренний loopback FastAPI 8132;
 API/private/legacy routes проходят через proxy без изменения Host/Origin/cookies.

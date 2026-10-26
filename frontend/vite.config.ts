@@ -12,6 +12,9 @@ export default defineConfig({
     port: 5171,
     strictPort: true,
     ...developmentServerOptions(process.env),
-    fs: { allow: [fileURLToPath(new URL("..", import.meta.url))] },
+    fs: {
+      allow: [fileURLToPath(new URL("..", import.meta.url))],
+      deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/var/**'],
+    },
   },
 });

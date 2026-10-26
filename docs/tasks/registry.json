@@ -211,16 +211,16 @@
       "id": "MS-T002A",
       "order": 3,
       "title": "Подготовить воспроизводимый запуск после clone и передать baseline команде",
-      "status": "CHANGES_REQUESTED",
+      "status": "IN_PROGRESS",
       "dependencies": [
         "MS-T002"
       ],
       "skill": "skills/tasks/t002a-team-local-start/SKILL.md",
       "acceptance": "Контейнерный dev frontend/FastAPI/PostgreSQL из clone с Git и Docker, без обязательных host Python/Node; простые операции подготовки/запуска/обновления после pull/остановки, HMR, сохранение своей БД. Отдельные review/приёмка, merge по решению пользователя и clone опубликованного main до MS-T003.",
       "workflow": "bootstrap",
-      "implementation": "HOST_DEV_COMPLETE_CONTAINER_DEV_PENDING",
-      "scope_authority": "Уточнение пользователя 26.10.2026: обновить MS-T002A и подготовить промт для контейнерного dev и простого Git/pull/update workflow. Сейчас только документация, без реализации и проверок. Прежнее поручение 25.10.2026 и его host-dev результат сохранены в истории.",
-      "checks": "CONTAINER_DEV_NOT_RUN; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
+      "implementation": "CONTAINER_DEV_IMPLEMENTED_CONTROL_PENDING",
+      "scope_authority": "Явное поручение 26.10.2026: реализовать контейнерный dev, четыре операции и провести только целевой независимый clone/pull/update/HMR контроль; продолжить ui/ux и PR #58 без merge/production/MS-T003.",
+      "checks": "CONTAINER_CONTROL_PENDING_DOCKER_ENGINE; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
       "review": "PENDING_SEPARATE_REVIEW",
       "human_acceptance": "PENDING",
       "remaining": [
@@ -239,18 +239,33 @@
         "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
       },
       "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
-      "next_scope": "После отдельного поручения реализовать контейнерное окружение и простой цикл clone/start/commit/push/pull/update; продолжить PR #58 в ui/ux. Не начинать MS-T003; всю MS-T002A не отмечать ACCEPTED до приёмки контейнерного пути и clone опубликованного main.",
+      "next_scope": "Завершить фактический контейнерный clone/pull/update/HMR контроль после доступности Docker engine и человеческого утверждения конкретных schema/Content планов; затем READY_FOR_REVIEW части до merge.",
       "pull_request": "https://github.com/Tramsey00/MathStart-Python/pull/58",
       "container_dev_revision": {
         "date": "2026-10-26",
-        "status": "CHANGES_REQUESTED",
-        "implementation": "PENDING_SEPARATE_ASSIGNMENT",
-        "host_prerequisites": ["Git", "Docker Desktop с Linux engine и Compose", "PowerShell для Windows entry point"],
-        "services": ["frontend/HMR", "FastAPI", "PostgreSQL"],
-        "operations": ["Первоначальная подготовка", "Запуск", "Обновление после pull", "Остановка без удаления данных"],
+        "status": "IN_PROGRESS",
+        "implementation": "IMPLEMENTED_CONTROL_PENDING",
+        "host_prerequisites": [
+          "Git",
+          "Docker Desktop с Linux engine и Compose",
+          "PowerShell для Windows entry point"
+        ],
+        "services": [
+          "frontend/HMR",
+          "FastAPI",
+          "PostgreSQL"
+        ],
+        "operations": [
+          "Первоначальная подготовка",
+          "Запуск",
+          "Обновление после pull",
+          "Остановка без удаления данных"
+        ],
         "origin": "http://127.0.0.1:8131",
         "constraints": "Исходники в checkout; БД/credentials вне Git. Явные schema/Content протоколы и guards сохранены, startup без DDL/seed/publish. Update не делает Git pull/reset и не удаляет данные. Прежние receipts неизменны.",
-        "checks": "NOT_RUN_BY_USER_REQUEST"
+        "checks": "PENDING_DOCKER_ENGINE_AND_CONCRETE_PLAN_REVIEW",
+        "entry_point": "dev.cmd prepare/start/update/stop -> dev.ps1",
+        "initial_sha": "88f9d2cd5c0193d8bca5a238d3a623dcde16864f"
       },
       "merge": "NOT_PERFORMED",
       "targeted_control": {
