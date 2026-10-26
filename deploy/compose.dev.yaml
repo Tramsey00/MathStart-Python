@@ -25,7 +25,7 @@ x-app: &app
 services:
   db:
     image: postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
-    env_file: [../var/compose/postgres.env]
+    env_file: ['${MATHSTART_DEV_CHECKOUT:?Use dev.ps1}/var/compose/postgres.env']
     volumes: [database:/var/lib/postgresql/data]
     healthcheck:
       test: [CMD-SHELL, 'pg_isready -U local_admin -d mathstart_dev']
@@ -36,7 +36,7 @@ services:
   app:
     <<: *app
     build:
-      context: ..
+      context: ${MATHSTART_DEV_CHECKOUT:?Use dev.ps1}
       dockerfile: deploy/Dockerfile
       target: development
     command: [serve]
@@ -47,7 +47,7 @@ services:
   tools:
     <<: *app
     profiles: [tools]
-    env_file: [../var/compose/postgres.env]
+    env_file: ['${MATHSTART_DEV_CHECKOUT:?Use dev.ps1}/var/compose/postgres.env']
     command: [prepare]
 volumes:
   database: {}
