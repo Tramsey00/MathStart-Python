@@ -106,7 +106,7 @@ try {
         if ($taskImage.fingerprint -ne $taskFingerprint) { throw 'Image inputs changed. Run .\dev.cmd update; start never rebuilds or migrates.' }
         Invoke-Compose @('up','-d','--wait','--wait-timeout','90','db')
         Invoke-Compose @('run','--rm','--no-deps','tools','ready')
-        Invoke-Compose @('up','-d','--no-build','app')
+        Invoke-Compose @('up','-d','--no-build','--wait','--wait-timeout','300','app')
         Write-Output 'Dev: http://127.0.0.1:8131 ; logs: docker compose via this checkout configuration. Stop: .\dev.cmd stop'
     }
 } catch {
