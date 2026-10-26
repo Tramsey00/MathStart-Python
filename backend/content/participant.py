@@ -16,7 +16,7 @@ import httpx
 import sqlalchemy as sa
 
 from backend.content.artifacts import verify_public_artifacts
-from backend.content.build import encoded
+from backend.content.build import encoded, apply_material_redirects
 from backend.content.editions import snapshot, fingerprint, project_updates, apply_updates
 from backend.content.projection import build_index_candidate
 from backend.content.publication import PublicationConflict, WorkReceipt, frozen
@@ -40,12 +40,19 @@ def check_database(session, release):
                 'grade_id', 'subject_id', 'section_id', 'order', 'is_published'))
                 or any(timestamp(getattr(row, key)) != page[key] for key in ('created_at', 'updated_at'))):
             raise PublicationConflict('EDITION_CONFLICT')
-        for key, suffix in [('page_css', 'css'), ('page_js', 'js')]:
+        if page.get('renderer_version') == 'react-v1':
+            from backend.content.sources import compatibility_assets_digest
+            if page['source'].get('compatibility_assets_digest') != compatibility_assets_digest(row.page_css, row.page_js):
+                raise PublicationConflict('EDITION_CONFLICT')
+        for key, suffix in ([] if page.get('renderer_version') == 'react-v1' else [('page_css', 'css'), ('page_js', 'js')]):
             asset = release.assets.get(f'/static/mathstart/pages/{row.slug}/page.{suffix}')
             if getattr(row, key).encode('utf-8') != (asset[1] if asset else b''):
                 raise PublicationConflict('EDITION_CONFLICT')
     # Includes DB collation/order, catalogue parents, SEO, aliases and redirects.
     index = build_index_candidate(SimpleNamespace(session=session), release.descriptor.release_id, release.pages)
+    routes = {page['slug']: {'slug': page['slug'], 'path': page['seo']['canonical_path'], 'renderer_version': 'react-v1'}
+              for page in release.pages.values() if page.get('renderer_version') == 'react-v1'}
+    apply_material_redirects(index, routes)
     if encoded(index) != release.index_raw:
         raise PublicationConflict('EDITION_CONFLICT')
 

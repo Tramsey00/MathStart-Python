@@ -14,7 +14,7 @@ import sqlalchemy as sa
 from backend.infrastructure.database import DatabaseConfig, create_engine
 from backend.infrastructure.uow import UnitOfWork
 from backend.migrations.schema import assert_baseline
-from backend.content.checks import verify_lesson_sources, inspect_site, inspect_public_quality
+from backend.content.checks import verify_lesson_sources, inspect_site, inspect_public_quality, active_quality_release
 
 CHECKS = ('system', 'migrations', 'lesson-sources', 'site-integrity', 'content-quality')
 
@@ -81,7 +81,8 @@ def run(check):
                     raise RuntimeError('Full content/asset integrity failed')
                 count = report['summary']['pages_total'] + report['summary']['checked_references']
             else:
-                report, errors = inspect_public_quality(s, os.environ['MATHSTART_PUBLIC_ORIGIN'])
+                release = active_quality_release(uow, os.environ.get('MATHSTART_RELEASE_ROOT'))
+                report, errors = inspect_public_quality(s, os.environ['MATHSTART_PUBLIC_ORIGIN'], release=release)
                 if errors or report['pages_checked'] != 279:
                     raise RuntimeError('Full public HTTP quality failed')
                 count = report['pages_checked']

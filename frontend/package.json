@@ -9,9 +9,10 @@
   },
   "packageManager": "npm@11.19.0",
   "scripts": {
-    "dev": "react-router dev --host 127.0.0.1 --port 5171",
+    "dev": "node scripts/dev.mjs",
+    "dev:frontend": "react-router dev --host 127.0.0.1",
     "typecheck": "node scripts/run-check.mjs typecheck",
-    "test": "node scripts/run-check.mjs tests",
+    "test": "node scripts/checks-deferred.mjs",
     "build": "node scripts/run-check.mjs build",
     "preview": "node scripts/preview.mjs",
     "generate:api": "node scripts/generate-api.mjs",
@@ -20,7 +21,10 @@
     "test:e2e": "node scripts/run-check.mjs e2e",
     "test:i02": "node scripts/run-check.mjs i02",
     "test:identity": "node scripts/run-check.mjs identity",
-    "generate:staff": "node scripts/generate-staff.mjs"
+    "generate:staff": "node scripts/generate-staff.mjs",
+    "dev:design": "vite --config prototypes/home/vite.config.mjs",
+    "check:dev": "node scripts/check-dev-hmr.mjs",
+    "test:full": "node scripts/run-check.mjs tests"
   },
   "dependencies": {
     "@react-router/node": "7.18.4",

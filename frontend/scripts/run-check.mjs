@@ -23,7 +23,7 @@ if(mode==='typecheck'){
   }
 }else if(mode==='tests'){
   const report=join(run,'vitest.json');
-  execute(process.execPath,[cli('vitest/vitest.mjs'),'run','--reporter=default','--reporter=json','--outputFile='+report]);
+  execute(process.execPath,[cli('vitest/vitest.mjs'),'run','--reporter=dot','--reporter=json','--outputFile='+report]);
   const data=JSON.parse(readFileSync(report,'utf8'));
   if(data.numFailedTests!==0 || data.numPendingTests!==0 || data.numTodoTests!==0 || data.numPassedTests<1)throw Error('Failed/empty/skipped tests');
   for(const file of data.testResults)for(const test of file.assertionResults){if(test.status!=='passed')throw Error('Non-passing case');cases.push(test.fullName);}

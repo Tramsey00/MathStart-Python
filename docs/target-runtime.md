@@ -1,3 +1,7 @@
+> Политика пользователя 25.10.2026: этот документ описывает ручной полный QA.
+> Команды ниже не запускаются при обычной UI-миграции без отдельного поручения.
+> Автоматический CI выключен. Текущий default — NOT_RUN, не PASS.
+
 # MathStart: текущий FastAPI/React runtime
 
 Это versioned руководство текущего runtime. Корневые инструкции описывают текущую платформу; исходные версии и
@@ -13,7 +17,7 @@
 | --- | --- |
 | AGENTS.md, старые active plans/role queues | Действующие инструкции — AGENTS.md и текущее поручение пользователя; принятый результат — [maintenance](maintenance.md). Исторические очереди завершены. |
 | README.md | Окружения и команды ниже, [release](../deploy/RELEASE.md), [recovery](../deploy/RECOVERY.md). Корневой Compose включает deploy/compose.yaml; старый Dockerfile удалён. |
-| PRODUCT.md | Перенос существующего сайта и границы продукта ниже; [полный v7.2](specifications/technical-spec-v7.2-draft.md) сохраняет будущие требования. |
+| PRODUCT.md | Перенос существующего сайта и границы продукта ниже; [learning requirements](../specs/product/learning-requirements.md) сохраняет будущие требования. |
 | ARCHITECTURE.md, docs/architecture.md | ADR-0006 и текущие границы runtime/content ниже; старые domain contracts остаются обязательными. |
 | verification skill | [skills/verification/SKILL.md](../skills/verification/SKILL.md), реальные registry commands; skip/empty/missing не равны PASS. |
 
@@ -60,7 +64,7 @@ python -c "import importlib.util; assert not importlib.util.find_spec('django');
 Django golden comparator использует [отдельный pinned checkout и venv](legacy-oracle.md),
 requirements.lock берётся только из него; interpreter передаётся явно. Не устанавливать Django в target ради comparator.
 Frontend: Node24/npm11 с package-lock.json, принятый Docker builder Node24.21.0 /
-npm11.19.0. Из frontend выполнить `npm ci`, `npm run typecheck`, `npm test`.
+npm11.19.0. Из frontend выполнить `npm ci`, `npm run typecheck`, `npm run test:full`.
 Public build требует проверенного immutable input и явного build config;
 `npm run dev` не является установленным сайтом или production evidence.
 
@@ -197,8 +201,11 @@ exact IDs/negative cases. Этот результат не присваивае�
 assets inventory, no-JS/SEO, math/widget/lifecycle/private/keyboard/responsive
 и matched visual review. Скриншоты без просмотра не означают visual PASS.
 
-Existing workflow_dispatch `full_target=true` запускает полный managed target
-без поддельного REVIEWED. Успешный CI с target SKIPPED не закрывает migration.
+Автоматический lesson/UI CI приостановлен решением пользователя 25.10.2026.
+Все workflows запускаются только вручную по отдельно назначенному scope.
+Migration workflows запускаются вручную; `workflow_dispatch` с
+`full_target=true` запускает полный managed target без поддельного REVIEWED.
+Успешный CI с target SKIPPED не закрывает migration.
 Остальные image/install/recovery/document checks сохраняют свои recorded SHA и
 scope; финальная проверка должна описывать согласованный combined candidate.
 Общий QA, independent review, человеческая приёмка миграции и merge PR54 завершены;
@@ -209,14 +216,16 @@ merge main, production, Issue closure и сообщения людям треб�
 
 ## Вывод собственного Engineering Harness —20.10.2026
 
-Аудит зависимости и карта файлов — [execution record](audits/docs-and-workflow-cleanup.md).
+Принятая история — [maintenance](maintenance.md); актуальная карта изменений —
+specs/maintenance/repository-cleanup.json. Профили локальных проверок —
+[testing policy](frontend/testing-policy.md).
 Удалены только development runner/adapter/contracts и исключительно его tests.
 Registry теперь15 checks, pure5 suites; product API/auth/PG/content/frontend,
 schema fresh/upgrade/install/recovery/security и combined gate сохранены.
 `scripts/verification_diagnostics.py` сохраняет bounded redaction дочернего вывода.
-Empty/failed/skipped/missing/timeout продолжают fail. Название workflow
-`Harness verification` и job `verify` сохранены как historical check identity;
-они запускают portable product checks, собственного Harness в них нет.
+Empty/failed/skipped/missing/timeout продолжают fail. Workflow называется
+`Product verification`; идентификатор job `verify` сохранён.
+Он запускает portable product checks.
 
 Документы/очередь/source provenance проверяются командами:
 

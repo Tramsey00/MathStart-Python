@@ -1,0 +1,1267 @@
+{
+  "source_commit": "406995b4005d9b78525f3e985e9345a5437a5e67",
+  "task": "MS-T001",
+  "authority": "MS-T001 и явная корректировка пользователя 24.10.2026: исправить текущий урок, URL и тесты; общие компоненты/правила, один FastAPI server; следующий пилот только планируется. Main merge и production не разрешены. Дополнительное явное поручение 24.10.2026: MS-T002 и раннее подключение квадратичного урока к одному FastAPI серверу, без проверок; bootstrap выполняется в ui/ux. Явное поручение пользователя: настроить HMR с одним origin с учётом MS-T002A; ограниченные dev smoke/type checks, без full managed suite. Явное поручение пользователя 25.10.2026: убрать массовые проверки из текущей UI-миграции, выключить автоматические прогоны; никаких тестов при этой правке. Поручение 25.10.2026: содержание обоих уроков по повторному образцу и сверка действующих правил с чатом; без тестов и сборки. Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки. Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки. Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались. Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 1215,
+      "before_sha256": "45a3d643712e8b7c911e71fd1a136f65fbbbd3f9b21796fa4ef0795777f017e8",
+      "after_sha256": "066e74aa98a1e63f2b34d0a9638e70e6a4403e3046bc61f14a2cc7bc723f9276"
+    },
+    {
+      "path": ".github/workflows/migration-ci.yml",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 35246,
+      "before_sha256": "b218c529c0bcdc3bb097aa205fb8ff11bc59853962218c4cd3c9c1f38ae41460",
+      "after_sha256": "cf7c2267599db7b5f3933029d0bf4d244107e6cc7d42373a94b444c83c365b9d"
+    },
+    {
+      "path": ".github/workflows/public-migration-ci.yml",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 6974,
+      "before_sha256": "9a10300d95ed1205e359b0dcd4aa76a8a99580f41864d7367fe31a39ad42d8cc",
+      "after_sha256": "8424000ecdbe806b34de8884aebbd6b4e456a4b6938262c117ac7d1faa2c7467"
+    },
+    {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "before_bytes": 11815,
+      "before_sha256": "0bc9faa44a90b90ba4f75a1d096db72b3e95219ef6791aff118c146a37e37470",
+      "after_sha256": "a44e6578edad0c2230d6b5fdb97b2ad49c4dcbe0800ca5798c4aa41f49c211aa"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 33057,
+      "before_sha256": "b5ebc36561bb1c840db73c8486af8ba3311ab4f190d03b6d8abcbd26665c816b",
+      "after_sha256": "1368b1b59046d1410398cb2d67ca2220a8f3fb36fe79e94d2b4c30c80f9d9273"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 6994,
+      "before_sha256": "d32d91fe30b7046308410a5ecf55d8812fd06a1c67a0cb51398079977da738bf",
+      "after_sha256": "5b0e3600f76efc873dc9fba1c6797e28193d2868a5e5463c830f35bb2a16c516"
+    },
+    {
+      "path": "backend/cli.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 7147,
+      "before_sha256": "f1ca42433440838f4f61ee3a4b956a875ccdf67447ccb353c3f0b61f783c0da2",
+      "after_sha256": "93cff27b1d8255e3fa1241e42afaa152d55ed9a53e64aa1c70c92bf78a8ad34f"
+    },
+    {
+      "path": "backend/content/artifacts.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 6176,
+      "before_sha256": "e078beb9f4bababf25b54b7c141635381243d748e1700bd441980047f07c1c1d",
+      "after_sha256": "ca3d657a7a1e0f1f6a66efcde743a9f400513953b31ae8d70bca2973e5d110c5"
+    },
+    {
+      "path": "backend/content/bootstrap.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 4076,
+      "before_sha256": "fe93300f75a64267c66a36833ce038520bf80c127c438b73f8dbe2cb5c9c2a5f",
+      "after_sha256": "8dee8f3c1770178d412fe6fe7201eb20c9e742e9968dcd6c8ad56ae7be983efb"
+    },
+    {
+      "path": "backend/content/build.py",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+      "before_bytes": 11825,
+      "before_sha256": "06a8fe839af4b57c65fcaef6bd743903d27bc0647fcc8aef6291f49f9a9e1733",
+      "after_sha256": "695c998a68e73dc157dfe2d469e8a504827058b2e973359c071aad0a12cbef4c"
+    },
+    {
+      "path": "backend/content/checks.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 9248,
+      "before_sha256": "8793317d1ce6bd7aff1c1a895d0c05c4d9b40239bb6163fdf921ac6b4478f803",
+      "after_sha256": "628a7c7cbaf67781109fcb2c7e920a796303db1994a15b97cf3f0ba7245210b9"
+    },
+    {
+      "path": "backend/content/participant.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 16285,
+      "before_sha256": "193cfa5ec290f5951a9326fd5bc7bbd07e535c8fc1c5033748b3e5b0820c1ee9",
+      "after_sha256": "c26d3a322f779c624457243c2aed4864c917e68c24f301630e33ca82ef668532"
+    },
+    {
+      "path": "backend/content/preparation.py",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+      "before_bytes": 13934,
+      "before_sha256": "016bd40be79d8d13070aeee74171815338eafeab1a4ec7bbf0f4419137818ad1",
+      "after_sha256": "f45032fe77e47bd369343d58b1962f49bfaad11dd08348667d7d2d52eeeef005"
+    },
+    {
+      "path": "backend/content/projection.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 8838,
+      "before_sha256": "ac9663ceec217e794e04c7bad4ddc0b6f2d40930478594798d0beec8c45239fc",
+      "after_sha256": "fe4f85bf59a4785ae8dc807d5ba66fd4d7397dff7b15dac59a7f87fe2d9b2277"
+    },
+    {
+      "path": "backend/content/releases.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 13489,
+      "before_sha256": "0390a9fd7f5fcaa72b0b3b31f5531f265fdc7026b1e77a5747f043169bd545a3",
+      "after_sha256": "410070f8372385d79b27477e85a95d2bac199d4247cdfbf4df515cfe68bac00f"
+    },
+    {
+      "path": "backend/content/sources.py",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 4957,
+      "before_sha256": "b28d42328d3555ed21843aa1b1d303e9f7d1919b9dd65009071ef10c15b3616a",
+      "after_sha256": "a64bc78b049fcdee55ac64cc5c330339ceebd4357e36b7e1bb46856baf529ff5"
+    },
+    {
+      "path": "backend/infrastructure/http/app.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 15838,
+      "before_sha256": "4f667df9acc4e01c96a5859ed3d258f93cfa3e0dc7635a2ec1323cd9f8b7e6ac",
+      "after_sha256": "a527764a9a5dc6ac3e8931db06ab8d8abd2b455fd1a6c848bb7d87e81873ff0a"
+    },
+    {
+      "path": "backend/tests/v04/test_build.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 14634,
+      "before_sha256": "f018de28bcd0ea6db45df21fb8ede2be67617db09d5788b3f4179f2d6f545ab4",
+      "after_sha256": "316e6013b0c4952d95778cbdf60e85f969a6940d8181d3b44229a9621c6fe70d"
+    },
+    {
+      "path": "backend/tests/v04/test_preparation.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 7421,
+      "before_sha256": "46717c07872977d55d3d8b96c78bd86003c100c6cce63aa4071c5db1940aa59c",
+      "after_sha256": "75d711c76a0cfedc543c4f2b6e70a76484516dce9e6673c461f7929a683d2062"
+    },
+    {
+      "path": "backend/verification.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 5946,
+      "before_sha256": "8d0baac28b7613df5c787c092103e90932276a741f4054aac038432cffaee1a6",
+      "after_sha256": "a5be575f2246fca9ba0eec915ccb5c331600febab3ec7732394c7ab240f0e106"
+    },
+    {
+      "path": "backend/verification_suite.py",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 10784,
+      "before_sha256": "3d16673a0baf5b32322a4159feb5c6c3b6182174430a2feab6f6412b9c93edd1",
+      "after_sha256": "daffaa31cb43a225c430327942de588cafc1e64b36059539d7714f7838851c20"
+    },
+    {
+      "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/lesson.json",
+      "action": "updated",
+      "before_commit": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
+      "before_bytes": 429,
+      "before_sha256": "7f3ba74a4b6150d1daaf2e34fda0fbdfd2238791a3b5e20149b77b4cd6b1acc9",
+      "after_sha256": "48c408a62215ce5f63ff19cd2a1000c5b73fc0c26edcaf686e69ad3c855655b5",
+      "reason": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной."
+    },
+    {
+      "path": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/lesson.json",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 451,
+      "before_sha256": "069000f5201bae106ba84853a5371a1866310d863e44af5156f63385d12352f1",
+      "after_sha256": "b21f7b14d69a316ab6c818fc983aabd49b2823c419b2631453bd796bd93af91e"
+    },
+    {
+      "path": "curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/lesson.json",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 423,
+      "before_sha256": "3f7027e93b25f8546c78a7f870849ef803dd7aea80e139574cf648e504706525",
+      "after_sha256": "0e6411a082268b15eaf3c4b73e94a4605ade7ad1444294b3e9f8b2f73fb9bbdc"
+    },
+    {
+      "path": "curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie/lesson.json",
+      "action": "updated",
+      "before_commit": "ab2881bb4f6bdcb7744df588a4bc5e32428753bf",
+      "before_bytes": 453,
+      "before_sha256": "7615dc0de1d0e6989477116e5addd00365c2c0f3ba0a88d745f234f99ff108e8",
+      "after_sha256": "0054a77ad24dcc601657680d639666673dde358c31e45ef7616efc08119d7a88",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные."
+    },
+    {
+      "path": "docs/frontend/lesson-migration.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные.",
+      "before_bytes": 18687,
+      "before_sha256": "03bd7a0c84153f0f1110fd01f9dd129a81b60cd8d04ba99a88845fd3282399c1",
+      "after_sha256": "3f0b1198e3f7b5edd90a41c7ffa1ddc552208c3e4453fa9997d42a039ac000d1"
+    },
+    {
+      "path": "docs/frontend/testing-policy.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 8829,
+      "before_sha256": "b91e7939f7871cd05779b4a7ade866dbffd80ef3977f627bf9d79094898d40eb",
+      "after_sha256": "ec1c092d8c08654b2907f3f8cc41948532272f4da9821bfd3f714e67bbbdca13"
+    },
+    {
+      "path": "docs/local-development.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 4630,
+      "before_sha256": "8b90ea655f1e8ea4b9029d9da92b4d9efecf5336863b9265d0f3176b1328e9f7",
+      "after_sha256": "cb868e83c24ed90e08d021981519da84855429b7dcd4fce79da7dcab10675875"
+    },
+    {
+      "path": "docs/target-runtime.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 18908,
+      "before_sha256": "b4cd455962971f05ed5ec1f91abf13a434d75e09cbcb422ae106db5fd0b36e9b",
+      "after_sha256": "a465bee37609c1dc018179551af52d851e303ec148e080dd7d5eb84037db96fa"
+    },
+    {
+      "path": "docs/tasks/INDEX.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 18935,
+      "before_sha256": "90ed05395de5893377842c36651e33cede48f0b52107fa2e256f9bfacb5c4ff1",
+      "after_sha256": "b7d03e1e5a1db20405ce67798f5dac4a22ad1db4b08b285c61f02ce8d1c42bf7"
+    },
+    {
+      "path": "docs/tasks/lesson-inventory.json",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные.",
+      "before_bytes": 122050,
+      "before_sha256": "8509180c2b93fb13d7d21c200cdfed36f5b9185d5a4f917e2e9646b2d47fd566",
+      "after_sha256": "d6581f89ccf3c6334344749a251c151b83e672bee1df079daf2855fff6312335"
+    },
+    {
+      "path": "docs/tasks/registry.json",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 22138,
+      "before_sha256": "2e8e11f8e7abcea55d9db34b46711745718fac65b5a0e559a7b254a07fa6b406",
+      "after_sha256": "135fa33917674232dcd067b020f1d3192fe8e5e819e03461b8e7a7a9570c9e07"
+    },
+    {
+      "path": "docs/ux/shared-ui-contract.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 18335,
+      "before_sha256": "072737523fc001b8539bf92e6be90cfb97625eae83a9bd6f8ebc77b84d97acb4",
+      "after_sha256": "92448ce3b107741b167694369e6a03b6279e76a754dede5fec978d077b4fed7a"
+    },
+    {
+      "path": "docs/ux/theme-baseline.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 5064,
+      "before_sha256": "3786b86cc28599143d2575cd7d57e54994785a382cd2ba3966ac7e6710e1c643",
+      "after_sha256": "a20cdafb1aceaece332644d0da670e0bf74160d8ccdb31dae64fbf9e0b03ae84"
+    },
+    {
+      "path": "frontend/README.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 4889,
+      "before_sha256": "1b5ce9f7de9b517d4ee79886d3527277bd10bc1e8cf23521d7de23dd744450f5",
+      "after_sha256": "ab2b3d45e3f7c2abb3555cde534857f19efc4dbffde88073e7c36a02aefd8a22"
+    },
+    {
+      "path": "frontend/build_public.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 7778,
+      "before_sha256": "8b5f131df6f31d5a2776460ff325777e4d0c37a50ce8165c0712e79a4a061ec3",
+      "after_sha256": "ac2edc0eb348b9577b5572b12299413fa418e43647ff68886484006ecd8f90de"
+    },
+    {
+      "path": "frontend/e2e/parity.spec.ts",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 5186,
+      "before_sha256": "f07370e421ad83cfab11135d2f249ccd8753cc78ff32cfdd640880f8e441799d",
+      "after_sha256": "d7f56e1cb9caabce2507dbb45a3a9a9cb8331a87320c047fa4685ea63e189f7b"
+    },
+    {
+      "path": "frontend/e2e/public.spec.ts",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 6991,
+      "before_sha256": "2b2b6521e2e6cf18a1adcaeee5efe39297807bafb9a1f4abac8544b5485fcbbf",
+      "after_sha256": "ace1cee53e4e2875ed9d831aee98985f65f89cf6a010c52afb3369c97ae04ceb"
+    },
+    {
+      "path": "frontend/e2e/widgets.spec.ts",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 7491,
+      "before_sha256": "228b2b8804d2eded76ba8a581cab7f19e2d7501e34327563bff6a92f2bf30140",
+      "after_sha256": "cc352428a7129ada3fff36e0286f26928fde77d58816dcbf3edd9a43e911051f"
+    },
+    {
+      "path": "frontend/package.json",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 1601,
+      "before_sha256": "d30e2cd51f0e6cdd505292cd33055c6cfb03ebd13c8e5efb1fc2c08c03969076",
+      "after_sha256": "b12c7ea97b6d1cc2de383b84c854f018e5bcc1f7408d1ac133e847b8c6dca14c"
+    },
+    {
+      "path": "frontend/prepare_public.py",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 2012,
+      "before_sha256": "0c1e86885ac295190f46800df9a6992608c0becfc56c48a506bda13465fe3f1c",
+      "after_sha256": "18cea345fb7b1ade227350da1d78d33d7177cec76b9b9f0904458bbff1e9504a"
+    },
+    {
+      "path": "frontend/prototypes/home/README.md",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 5788,
+      "before_sha256": "40e286363c2b93641f8c6e6b90cd3eea1ae820d5aa7a71cdd7f93b4a97c443e2",
+      "after_sha256": "0809b361488ddd3d57b4135231194a4215e184fec11f6da7491be3fdfee1eb96"
+    },
+    {
+      "path": "frontend/prototypes/home/lesson-regressions.spec.ts",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 4440,
+      "before_sha256": "1c3d90e6e7042f6ac1d3548caa3c2c38019d2f2e78cc048044c941edc07d5ed5",
+      "after_sha256": "7aa7dad92bf3392999e7f0c24ed1a92a0f80e16a2f0417935f4cf3fc83f0aa81"
+    },
+    {
+      "path": "frontend/prototypes/home/quadratic.spec.ts",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 29495,
+      "before_sha256": "90ac4fb6c23a9b6788c7a1e3a71c1a032b066ca51dbe11bf1a130a73e42adcd7",
+      "after_sha256": "ba16f637fa32329917605b8af00a096bee206a29cf455bb46996072515075794"
+    },
+    {
+      "path": "frontend/rendering.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 7850,
+      "before_sha256": "c5fb1f22761ca9e79c42158724496018a9946518cd558e7478940559c904d550",
+      "after_sha256": "056185306d314ea2254ec1c1bd99cc873b52e90aa1b290d0c4f8b1d369234021"
+    },
+    {
+      "path": "frontend/scripts/preserved-contracts.mjs",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 5196,
+      "before_sha256": "f39c34a6704025e56d650120355d749b8250a3f01cce0860a7dad7918a8e6a84",
+      "after_sha256": "12213f5c60536d4407a714e6e0692b6fbd4234900d47bca177be6276cafa39c0"
+    },
+    {
+      "path": "frontend/scripts/production-boundary.mjs",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 1004,
+      "before_sha256": "ebeae693677cef5019446b38075c696a2791127eee648cbca8edcfe05f7bab29",
+      "after_sha256": "ac3d80f148f345bfd4e5732a48e239cb66649c55abbf7987b9541dc8bf030d95"
+    },
+    {
+      "path": "frontend/scripts/run-check.mjs",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 5060,
+      "before_sha256": "cb295a5868a86f3a57c3d6d1a3d342520f2fd4ca4f4ef7cf353686650d421c0f",
+      "after_sha256": "37d4f28c4b52a26a8696fc7266340b156053fe5f6643bd3628fa3c470022279c"
+    },
+    {
+      "path": "frontend/scripts/verify-foundation.mjs",
+      "action": "updated",
+      "before_bytes": 7380,
+      "before_sha256": "8c7c031f1f639a48210642b36d906d4299ef3565371863ea77bf9fdbbf5dc55b",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "848242fbf54036f23b9d6f23c2deb3b9937d2f98baaed214f96e3625bdd8db2a"
+    },
+    {
+      "path": "frontend/src/app/root.tsx",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 3637,
+      "before_sha256": "780c94f76a4934bd2e80f506d26077517affa04922d2aca30af0b517128a4451",
+      "after_sha256": "019e779e7e469fcb2e6eedfc1904837d9bbd38020d475c7f19e8df4c032a230b"
+    },
+    {
+      "path": "frontend/src/app/routes/public-foundation.tsx",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 1371,
+      "before_sha256": "9e47804b659bfbd011fdbe5faafbe07590585c3c1f2e74a4b0f47db3565a80fd",
+      "after_sha256": "d659087a8a345c31f99af86fe0ddb7843ea5c67d32b0bcf04ccb227d3365890e"
+    },
+    {
+      "path": "frontend/src/server/public-input.server.ts",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 626,
+      "before_sha256": "636563fd4d0c7688af0843a95a0066339949b66f970e8e1aed0cc50f30494baa",
+      "after_sha256": "f5db59dd58418fc0fc92ce505247485bcf46d550030f4c99b9148ae7d9390520"
+    },
+    {
+      "path": "frontend/src/server/public-types.ts",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 406,
+      "before_sha256": "fdf9311fbb600c6e368e3ec9a3b07a32b989c6dd7277f27c27937f5e2ae7c4f3",
+      "after_sha256": "528e4b3789156712643b27d926bea5089c6cd568b5733d9718ab92144d84365a"
+    },
+    {
+      "path": "frontend/src/shared/api/generated/staff-contracts.json",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 179355,
+      "before_sha256": "f9df08950ceee33df668b2dfe19759b46404ebecd4f2f4d283d8b176b11f0d1f",
+      "after_sha256": "f8cf47d1c4d506d3a92167644283b7d00b52d9b6066cc8d99c3f66518aa614a8"
+    },
+    {
+      "path": "frontend/src/shared/lesson/index.ts",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 528,
+      "before_sha256": "b6d4417c5a8057ccf870b193012c4666da973dffe50b4da27f36b679d1b57d22",
+      "after_sha256": "880fdcc7114c665b25024271f23e0d7f821f9253df9207bf18fab629f3f88c65"
+    },
+    {
+      "path": "frontend/src/shared/lesson/lesson-components.tsx",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 7723,
+      "before_sha256": "befee52ace4b66485065aac46c58f220add60682ae1c207c834862ff486e10c9",
+      "after_sha256": "b404eb6a4124b82778cbf1fdab77bf00a7e76a69784106f3224452667563137c"
+    },
+    {
+      "path": "frontend/src/shared/lesson/lesson-diagram.tsx",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+      "before_bytes": 1435,
+      "before_sha256": "f41b89adeab98e94a8131f0431748324f5e2ee05c62afd6bce155f8fd5828e55",
+      "after_sha256": "0e33969b7a8950694924e17d120bc4594683fe29533657bad7ba9d254f93691d"
+    },
+    {
+      "path": "frontend/src/shared/lesson/lesson-shell.tsx",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 4213,
+      "before_sha256": "c8173b0440b9df0245178473ec0fdc1ca2e907e4eec7e37da132cdd674aafd92",
+      "after_sha256": "b18e19a0cdeb08301ffe8f485039380420c483b389655fb8fd84882512b7520a"
+    },
+    {
+      "path": "frontend/src/shared/lesson/lesson-types.ts",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 550,
+      "before_sha256": "0390ab32b9d0565575b37f809f3641bd8d5230ee63436fdad53c1410b9dec52c",
+      "after_sha256": "f26475ad5eb430c36c5da562cccc2fa595fa8c3e63e8321de160137536e2f0bd"
+    },
+    {
+      "path": "frontend/src/shared/lesson/lesson.css",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные.",
+      "before_bytes": 27306,
+      "before_sha256": "a27ecc522121cd3f4ada0a1d91d6c07fed8bb237bd130d24c5b5dacb21180753",
+      "after_sha256": "184dba7523699cfd154a4a2c1938913609f5fccfe344b6cbf5f1a1364c4c644b"
+    },
+    {
+      "path": "frontend/src/shared/lesson/quadratic-graph.tsx",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 12477,
+      "before_sha256": "88fac36b0b68a207651e146e1b6538dc6db253ceacb335aed1c1d28612b58265",
+      "after_sha256": "1d97f292512a41e3aa3e98d50010d4510cffb9e296f3ea5f1c91897a4caa8c07"
+    },
+    {
+      "path": "frontend/src/shared/lesson/source-renderer.tsx",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные.",
+      "before_bytes": 4865,
+      "before_sha256": "5844823c9ee78ca8b207f88b9493ccda3e62d36789db839a88eb2f948b7711f2",
+      "after_sha256": "283a2e2a817b6c42796270f4340eaa0e99ac1cf2b5687a889bf8b44bdbb26661"
+    },
+    {
+      "path": "frontend/src/shared/routing/material-routes.mjs",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+      "before_bytes": 1364,
+      "before_sha256": "558295bb646fed1fb1aec39fe46e2143675c6b2bec2ee281390d5054d5b864c9",
+      "after_sha256": "03d496ca7ed209216457669c8e50844abaf470f4a6ed4ac5b20f3b7358b0073f"
+    },
+    {
+      "path": "frontend/src/shared/ui/use-site-theme.ts",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 477,
+      "before_sha256": "aec35b049204783abdc02ac81a6afb50d890f8da757b3a28e7dd40c81ee77ce2",
+      "after_sha256": "acc2331af81a26f69097d823c7548f463d34ba0b6367a534fcbbb2d57c2a8e4c"
+    },
+    {
+      "path": "frontend/tests/quadratic-interaction.test.tsx",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 4294,
+      "before_sha256": "4d6c5374eac8417424bd2750f2f3517c072c325c2c19ed733020d17a1fc56de2",
+      "after_sha256": "ea45e1aa2d97c2f4e881cda3ca3255c1709bb25cb7ff2d201f9fec4a19a0c540"
+    },
+    {
+      "path": "frontend/tests/verification-evidence.test.ts",
+      "action": "updated",
+      "before_bytes": 7181,
+      "before_sha256": "51195547cd96c76dbe0d2785145facf44544162caecc348e5572a004fd483514",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "d547c612b7e657b2b5f65bd36642a12dcf0be65d94fbf46cce571c48d74801b6"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "action": "updated",
+      "reason": "Явные корректировки MS-T001 пользователем 24.10.2026: общий шаблон, разрешённые исключения учебных блоков, номер URL, один FastAPI origin и короткие проверки; historical sources сохраняются.",
+      "before_bytes": 542,
+      "before_sha256": "df87e757362bfd889e22824d2a50a39943a55b4d1b8eb8a67d3f42ca2c0bda2c",
+      "after_sha256": "9bef818e5666b17e7867420146cfe607c042da3ec4a243003ffbb4ede35598f9"
+    },
+    {
+      "path": "scripts/check_migration_preservation.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 11176,
+      "before_sha256": "2d932bc8bb7c51d486269eae191e2310e963008054c6ec08e08f8ace2d3ae45d",
+      "after_sha256": "677f54eb46d0a8ed3cdadec4e698f43fbc534871a2c34ece67025be8cad6c16f"
+    },
+    {
+      "path": "scripts/check_workflow_docs.py",
+      "action": "updated",
+      "before_bytes": 10041,
+      "before_sha256": "e2d0f1ca7731285d1aba9a32d6405893b20a3ae9c1b17af17c6dcb49cf11e63f",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "f304c196b778c3fa76e2a82e3b8b6219001e9fcda3d6d833f1cfb8522777c0b3"
+    },
+    {
+      "path": "scripts/repository_history.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 4036,
+      "before_sha256": "4dc65bda243d6b70f047c2888be2b3966827fd4e1d63a7185c0485224897e079",
+      "after_sha256": "dd889b6643296b8241de457f934a9857232d5a1ac5fd7df0406d5537fcdd2cdd"
+    },
+    {
+      "path": "scripts/target_check.py",
+      "action": "updated",
+      "before_bytes": 7407,
+      "before_sha256": "7a821e0df5c67b48e21ab917e95e18610d431c000888d15caaef929b382d8e01",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "cc44190197fdb98d1ff544bc3df8fed676ce2ae6403242c02b40c21014379c01"
+    },
+    {
+      "path": "scripts/verify_public_block.py",
+      "action": "updated",
+      "before_bytes": 13843,
+      "before_sha256": "76afb2f295107c1ada739ee42afce682dcda14b3e29e7f9e7f6aebdbf21c0440",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "60898141440bdc41939a389afab2ea21fca5c4aa7b4832def64f8971ffbaa96a"
+    },
+    {
+      "path": "site_content/material-routes.json",
+      "action": "updated",
+      "before_commit": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
+      "before_bytes": 456,
+      "before_sha256": "6d17b88729e9a4aae71a168df690f2aa99e3bf96aa68a3df946343ba260113ba",
+      "after_sha256": "8d23a787e54092405fda8bd07ec8f9cb3f551fff5f7858d92346a73da445ab6b",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные."
+    },
+    {
+      "path": "skills/lesson-migration/SKILL.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные.",
+      "before_bytes": 3322,
+      "before_sha256": "f8a6cf36852070e2524bf93cef1968f391ef8c1a1af3c37dd6edd4c26c560ba9",
+      "after_sha256": "e0bfc55e05441b2b7474eef1aedec552a41399667dfc5f9769f93cffe6cc3b78"
+    },
+    {
+      "path": "skills/tasks/t000-workflow-preparation/SKILL.md",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 4017,
+      "before_sha256": "1f5c077c30cf438f2e44ca1c3d1a429c8cfe1c07b17f4e8ed5c46d6a3bba40b8",
+      "after_sha256": "d1c2c468b6435cc078968fa311eb8022ca428c186154a79167b862aef2f8b30d"
+    },
+    {
+      "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 6652,
+      "before_sha256": "eedf2cc89f3fde66f2bd3bdd3f53135a1c37d1d85070dd0be23de5b228aae639",
+      "after_sha256": "c52f08f32aea8459f6c34ca76ea6085b6c00b00a3830d7050cc6221f5984fb2e"
+    },
+    {
+      "path": "skills/tasks/t002-public-pages/SKILL.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 4145,
+      "before_sha256": "00c57148a93f508b8d8d4b9a342a1e377e5f24f44f8d2b5db9270138782c86b8",
+      "after_sha256": "3039d2f043451f2d15e4c1e208387bc86b6c9b2680142a683bd4cf94e056a377"
+    },
+    {
+      "path": "skills/tasks/t002a-team-local-start/SKILL.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+      "before_bytes": 5304,
+      "before_sha256": "6924aaf7f6f7a32c843b8137e6a476d5022f0891a3f86818cdd87e4ce9a113c2",
+      "after_sha256": "1cf08af04203aac42d21070c422c9621d070542cb95ec689a886c987ec473d9c"
+    },
+    {
+      "path": "skills/tasks/t003-grade-5/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4541,
+      "before_sha256": "925d9a6645afaf8956d23e5b06af135d5d2af0f32b80bd46f87d1218edca9276",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "1271f4f88333a9b9cb02f61bc328c891cb02fb47fbe9fd16e4873fecb4cdfeaa"
+    },
+    {
+      "path": "skills/tasks/t004-grade-6/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4540,
+      "before_sha256": "a41778d83120076c847acc5a91e1df9066a56c80d9256e677c70bc030f4ec2aa",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "dad86bf3a3c41e8cf9803c2290f2e56e7a164eba8333afd23b190b3577d8697c"
+    },
+    {
+      "path": "skills/tasks/t005-grade-7/SKILL.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 4802,
+      "before_sha256": "30e3b0b65340b5d4f44df8fd4816c9e9046fed6b6be9f4fcf84f11a566138c35",
+      "after_sha256": "12fe005fa179d424ba2e6c1281e3666adc9226d694928feb751363b1f6e97b8b"
+    },
+    {
+      "path": "skills/tasks/t006-grade-8/SKILL.md",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 5213,
+      "before_sha256": "05877d69cde2da11ee01402487cad186147b994719fe4aa60c89a6d2d53165a9",
+      "after_sha256": "3a9a7360111a0377aa231a8de947518c805c60dc37e113e66d5f5a06982b3ea2"
+    },
+    {
+      "path": "skills/tasks/t007-grade-9/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4540,
+      "before_sha256": "08dab5c417e71f7ac88f512407b3d8b281bbe74dcbdb591202ea838df7486b6a",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "bdebe37f4a394c3d712e97ede305cf301992f772b5de9a22b4a0132f24738a67"
+    },
+    {
+      "path": "skills/tasks/t008-grade-10/SKILL.md",
+      "action": "updated",
+      "before_bytes": 4545,
+      "before_sha256": "77c87ebb0d9c3bb483eb98e4185e128fd643d9e7fffb7da16738ccff66cd7f9c",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "after_sha256": "03f1c85da529891320d54e7d35e82b3e5b39d72719e241bc232fdfc17487c0a5"
+    },
+    {
+      "path": "skills/verification/SKILL.md",
+      "action": "updated",
+      "reason": "Явное поручение пользователя 25.10.2026: временно выключить автоматические тестовые прогоны UI-миграции, удалить псевдокороткий каскад, сохранить full assertions только для отдельно порученного ручного запуска; historical receipts неизменны.",
+      "before_bytes": 2609,
+      "before_sha256": "fa158941cada54ce05224544b283a1756b3c49274695d890db605260e3402e1f",
+      "after_sha256": "60ea817be5ec70e1fd85c068d8a29aea5e69a368e6784b8e5ba1b32f48425190"
+    },
+    {
+      "path": "specs/migration/r02-v1/delivery-v1.schema.json",
+      "action": "updated",
+      "reason": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+      "before_bytes": 84058,
+      "before_sha256": "8bd10e71c7a45a2cf5378452fcbbb67345c2f4c5765f67210bbb5bf2867893e2",
+      "after_sha256": "49b8fdf6c4467ef72c5ccf850aa53f4e0c0bdaf785d7067413a31b5705c97a5b"
+    },
+    {
+      "path": "tests/test_repository_history.py",
+      "action": "updated",
+      "reason": "MS-T001: assigned React lesson and verified Content/SSG integration; accepted preparation and historical source/pins retained.",
+      "before_bytes": 4668,
+      "before_sha256": "bd652ba3ec014194bcbdd73a10edb40313e9729c9f7b6bdfe5b153477de7c2a2",
+      "after_sha256": "a5955036ce84f5faebe8faa8a97223d06ad7b06e5fc285ecacf382da4f868e55"
+    }
+  ],
+  "content_curation": {
+    "slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
+    "authority": "Явное указание пользователя 24.10.2026",
+    "source_html_sha256": "ab50d467686dd1667b167042c4bec137f8b8527740fe0953b77a1cc88c4397e6",
+    "omitted_section_ids": [
+      "lesson-section-1",
+      "lesson-section-13"
+    ],
+    "retired_ui_classes": [
+      "ms-nav",
+      "ms-lesson-nav"
+    ],
+    "remaining_sections": 11,
+    "self_checks": 13,
+    "tables": 4,
+    "authored_svg": 3,
+    "document_sha256": "998783e29807a53e06f1c2da5a9405697cf8e13f1979b0f42d17aceb33fec0a2"
+  },
+  "public_runtime_connection": {
+    "authority": "Явное поручение пользователя 24.10.2026",
+    "urls": [
+      "/",
+      "/materials",
+      "/materials/8-algebra-32",
+      "/materials/7-algebra-8"
+    ],
+    "checks": "DEFERRED_BY_USER",
+    "prototype_sources": "frontend/prototypes/home",
+    "runtime_sources": "frontend/src/features/public-pages",
+    "code_commit": "7aa5e81",
+    "quadratic_document": "curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/content.json",
+    "quadratic_document_sha256": "f54a2ca93af7d10cba348452b5edf4e1799594edced3ae64e759348168b9c8fb",
+    "quadratic_frozen_html_sha256": "351dd41333c0eeacf495ebdd66dfa168aeb7fed4fa990121c556f7b4a27e4084",
+    "omitted_quadratic_section_ids": [
+      "lesson-section-9"
+    ]
+  },
+  "lesson_display_refinement": {
+    "authority": "Повторное поручение пользователя 25.10.2026: содержание двух перенесённых уроков по просторному квадратичному образцу, закрепление в правилах и сверка решений из чата.",
+    "breadcrumbs_last_item": "plain_text",
+    "contents_font_px": 17,
+    "contents_short_viewport_font_px": 17,
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "contents_mobile_font_px": 16,
+    "contents_panel_max_width_px": 650,
+    "contents_title_font_px": 22,
+    "contents_row_max_height_px": 56,
+    "compact_contents_note": "Дополнительное указание пользователя: увеличить также компактное содержание линейной функции; 17 px, уплотнение отступами. Проверки и сборка не выполняются.",
+    "contents_mobile_title_font_px": 20,
+    "contents_compact_max_height_px": 620,
+    "contents_row_gap_px": 2,
+    "contents_density": "Общий flex layout: список получает место после полной ссылки и заголовка, число строк из документа; сначала сокращаются отступы. Убран безусловный плотный режим при высоте 740 px.",
+    "visual_acceptance": "PENDING"
+  },
+  "development_runtime": {
+    "authority": "Прямое согласие пользователя на dev HMR вместо повторной сборки после UI-правок",
+    "browser_origin": "http://127.0.0.1:8131",
+    "internal_api_origin": "http://127.0.0.1:8132",
+    "task": "MS-T002A",
+    "scope": "Только часть dev workflow; чистый clone/main/review acceptance не завершены",
+    "backend_writes": "NONE",
+    "production_mode": "Immutable build/FastAPI remains separate",
+    "checks": [
+      "Scoped HMR smoke",
+      "TypeScript noEmit",
+      "Owned start/stop lifecycle"
+    ]
+  },
+  "verification_deferment": {
+    "date": "2026-10-25",
+    "authority": "Прямое поручение пользователя в текущем чате",
+    "default": "NOT_RUN",
+    "automatic_ci": "DISABLED_MANUAL_ONLY",
+    "retired_commands": [
+      "npm run test:lesson",
+      "python scripts/verify_lesson.py"
+    ],
+    "manual_frontend_command": "npm run test:full",
+    "test_files": "Сохранены для отдельно порученных проверок; в текущем workflow не запускаются",
+    "retired_files": [
+      {
+        "path": "scripts/verify_lesson.py",
+        "before_commit": "87ba556417e54f0b32ed9d4b8c88bac5fea76961",
+        "before_bytes": 2015,
+        "before_sha256": "78ed2b37aece609ded52152c1da6029cda4569668267234df74ebc6b45a4e062",
+        "reason": "Удалён псевдокороткий каскад 201 frontend + typecheck + backend/schema/source/browser-related gates; обычная UI-правка не должна запускать этот набор."
+      }
+    ],
+    "input_head": "87ba556417e54f0b32ed9d4b8c88bac5fea76961",
+    "implementation_checks": "NOT_RUN_BY_USER_REQUEST"
+  },
+  "secondary_pilot_preparation": {
+    "authority": "Поручение пользователя 25.10.2026: утвердить /materials/5-math-12, английские публичные коды предметов и breadcrumbs, исключать все учебные блоки после самопроверки. Подготовка этапа B без переноса страницы, тестов и сборки.",
+    "source_head": "e3c4a0b731470bd68bcaa2583d294156ea681747",
+    "canonical_path": "/materials/5-math-12",
+    "route_status": "APPROVED_NOT_PUBLISHED",
+    "migration_authorized": false,
+    "subject_codes_source": "site_content/material-subjects.json",
+    "subject_codes": {
+      "algebra": "algebra",
+      "geometriya": "geometry",
+      "veroyatnost-i-statistika": "statistics",
+      "matematika": "math"
+    },
+    "breadcrumbs_subject": "public_english_code",
+    "content_boundary": "Самопроверка целиком сохраняется; весь последующий учебный материал исключается независимо от названия/разметки. Общие навигация и footer сохраняются.",
+    "new_files": [
+      {
+        "path": "site_content/material-subjects.json",
+        "sha256": "71691a009c2bdc740130ea1d359c1086777f7a92b9f30c9972a9e82e161e57ea"
+      },
+      {
+        "path": "frontend/src/shared/routing/material-subjects.mjs",
+        "sha256": "9b9b9c6ccecf84e7cd8729e5a58a006e7f19561dacf395ef88d451a2589f8631"
+      },
+      {
+        "path": "frontend/src/shared/routing/material-subjects.d.mts",
+        "sha256": "9a66686ef4fed134a32d86185c88598db5c5c78cd9ff357ce3d40fe763cb9d27"
+      }
+    ],
+    "updated_post_source_files": [
+      "frontend/scripts/convert-lesson.d.mts",
+      "frontend/scripts/convert-lesson.mjs",
+      "frontend/src/shared/lesson/lesson-page.tsx"
+    ],
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING"
+  },
+  "secondary_pilot_implementation": {
+    "authority": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
+    "source_head": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
+    "code_sha": "f8f404689e24ed3ae8c31d6efa1a19cd767d5e33",
+    "code_tree": "698c9af4e40f07a01e5473181b26087ecea17631",
+    "canonical_path": "/materials/5-math-12",
+    "migration_authorized": true,
+    "renderer_version": "react-v1",
+    "source_html": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/body.html",
+    "source_html_sha256": "cf300bdec311d4d1063f5a93dc429aa0c057517657fc9c64d7ef2b90dabce240",
+    "source_html_disposition": "FROZEN_UNCHANGED; no source files deleted",
+    "document": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json",
+    "document_sha256": "e039af2a590166b399ab48d993106081d240ccc8a17b37eed85724351e2ce31a",
+    "omitted_blocks": [
+      {
+        "title": "Что нужно знать перед темой",
+        "anchors": [
+          "lesson-section-1"
+        ],
+        "reason": "User-directed prerequisite exclusion"
+      },
+      {
+        "title": "Мини-итог",
+        "anchors": [
+          "lesson-section-9"
+        ],
+        "reason": "Entire instructional material after self-check removed"
+      },
+      {
+        "title": "Legacy hero/actions, contents and navigation",
+        "anchors": [],
+        "classes": [
+          "ms-badge",
+          "ms-title",
+          "ms-subtitle",
+          "ms-hero-actions",
+          "ms-lesson-toc",
+          "ms-nav"
+        ],
+        "reason": "Replaced with shared LessonPage UI; TOC icon is one UI SVG, not an instructional diagram"
+      }
+    ],
+    "kept_section_ids": [
+      "theory",
+      "lesson-section-3",
+      "lesson-section-4",
+      "lesson-section-5",
+      "lesson-section-6",
+      "lesson-section-7",
+      "lesson-section-8"
+    ],
+    "remaining_sections": 7,
+    "self_checks": 12,
+    "tables": 1,
+    "authored_svg": 4,
+    "retired_ui_svg": 1,
+    "runtime_connection": "CONNECTED_LOCAL_SNAPSHOT",
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING",
+    "merge": "NOT_PERFORMED",
+    "new_files": [
+      {
+        "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json",
+        "sha256": "e039af2a590166b399ab48d993106081d240ccc8a17b37eed85724351e2ce31a"
+      }
+    ],
+    "local_snapshot": {
+      "release_id": "a13e3366-287c-4cda-a922-544fcff206e0",
+      "manifest_digest": "6c30407811f8967a074655d7d0e640f4e2b31b9358572acbc6199251fd3a7f20",
+      "receipt_digest": "8f695fc2a8d20aed2bae27aa9bc443d8b8a7ba5bf7c68aa75b73dce84482b325"
+    }
+  },
+  "lesson_presentation_refinement": {
+    "authority": "Поручение пользователя 25.10.2026: русские подписи предметов при английских URL, компактные смысловые интервалы, единая рамка целого примера и SVG с подписью, умеренно широкие схемы. Типографика дробей/корней только предложена, без внедрения. Без тестов и сборки.",
+    "source_head": "9be5886a293897382863a0663fca0a475f4199b7",
+    "lesson_urls": [
+      "/materials/5-math-12",
+      "/materials/7-algebra-8",
+      "/materials/8-algebra-32"
+    ],
+    "subject_display": "Русские подписи в breadcrumbs через materialSubjectLabel; английские URL-коды сохраняются.",
+    "examples": "Одна рамка объединяет заголовок, условие, решение и ответ. Одиночный legacy ms-math-box в теории не становится примером.",
+    "figures": "Одна рамка на SVG с названием/подписью. Существующие рамки сохраняются без дублирования. Самостоятельные схемы на desktop выступают на 48 px с каждой стороны.",
+    "spacing": "Пустые абзацы и лишние br между блоками исключаются при рендере. Смысловые интервалы, anchors, MathML и authored SVG сохраняются.",
+    "theme": "Professional Theme / QraftHive сохранены; theme.css, шрифты и curriculum content.json не изменены.",
+    "formula_proposal": {
+      "status": "PROPOSED_WAITING_USER_APPROVAL",
+      "implementation": "NOT_STARTED",
+      "candidate": "Семантический MathML mfrac/msqrt/mroot и единый STIX Two Math; текущие формулы не менялись."
+    },
+    "changed_files": [
+      {
+        "path": "AGENTS.md",
+        "sha256": "1e8025a93cd67e68dbb63d010d8ebed9c8944746fc9ef87ebb329bd383050a4b"
+      },
+      {
+        "path": "docs/frontend/lesson-migration.md",
+        "sha256": "4e4daa02d846f9e6e42fe77a347ad3bfbdd3d1774816539a9e2102f31d0d390b"
+      },
+      {
+        "path": "docs/tasks/INDEX.md",
+        "sha256": "018343645df9cd91125181c7b7d7876c38c571d0bd8bf482a2afd6d80e487d95"
+      },
+      {
+        "path": "docs/tasks/registry.json",
+        "sha256": "437cf0bd652d6cf3f316d75c453888e6c84a0015d6a70f84c40cba0845e59ec6"
+      },
+      {
+        "path": "docs/ux/shared-ui-contract.md",
+        "sha256": "81f8ea4dc2f40131862b8fe90535d4701ddf298adf6606190de967e46137311f"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson-diagram.tsx",
+        "sha256": "0e33969b7a8950694924e17d120bc4594683fe29533657bad7ba9d254f93691d"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson-page.tsx",
+        "sha256": "2a27b548d7b64bf6520364e714a73d48a52bd0d232f437987b16365384b5c377"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson.css",
+        "sha256": "bb7c45e24ac63199ee42f1f9007dacd77a4caaa8e23c843fec7a70e24691c98a"
+      },
+      {
+        "path": "frontend/src/shared/lesson/source-renderer.tsx",
+        "sha256": "3b479d25e6325f3de9b000e0d0905018285289e918168866322e257d82628651"
+      },
+      {
+        "path": "frontend/src/shared/routing/material-subjects.d.mts",
+        "sha256": "1aefd8260e9aba5721f4063828b9f75dbc61902b441781e2f899575b012434b8"
+      },
+      {
+        "path": "frontend/src/shared/routing/material-subjects.mjs",
+        "sha256": "a5c22207e9eb7a71be38ece06d8f0bf1a39f566853fbcc2db5725d2f323a289e"
+      },
+      {
+        "path": "skills/lesson-migration/SKILL.md",
+        "sha256": "58193476e09811b9e41c723c538fba2afd0b4cbfcc93a1e7f240c626ae809f09"
+      },
+      {
+        "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
+        "sha256": "22f01986fa2f01baae12e0b0fa4b9b6466c03b89983cf695d7cb00b284f74ef7"
+      }
+    ],
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING"
+  },
+  "math_notation_implementation": {
+    "authority": "Поручение пользователя 25.10.2026: внедрить утверждённые дроби/корни, смешанные числа и дробные степени через общий MathML и STIX Two Math; различить рамки примеров/схем; выбрать следующий пилот без его переноса. Автопрогоны и сборка не запускались.",
+    "source_head": "5828ebbe769ff4c7e9e86edfc8bac5e6e6f888b4",
+    "design_status": "ACCEPTED_BY_USER",
+    "notation": [
+      "fraction",
+      "square/indexed root",
+      "mixed number",
+      "fractional exponent"
+    ],
+    "font": {
+      "family": "STIX Two Math",
+      "version": "2.13b171",
+      "origin": "https://github.com/stipub/stixfonts/releases/tag/v2.13b171",
+      "file": "frontend/src/shared/styles/fonts/stix-two-math.woff2",
+      "sha256": "094191335def3f0452c81ec0713cfc2f29bb6af8cecbf79b60881fbf2db97562",
+      "license": "frontend/src/shared/styles/fonts/STIX-OFL.txt"
+    },
+    "document_revisions": [
+      {
+        "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json",
+        "source_head": "5828ebbe769ff4c7e9e86edfc8bac5e6e6f888b4",
+        "before_sha256": "e039af2a590166b399ab48d993106081d240ccc8a17b37eed85724351e2ce31a",
+        "after_sha256": "9c0dc77483c0058194ebf028607dfc33b89140247114ea7f5596aed6a6010525",
+        "authority": "Только разметка: CSS-дроби в MathML; три авторские записи x₀ с дробью через slash в mfrac. Числа, операторы, группировка и ответы не вычислялись и не менялись."
+      },
+      {
+        "path": "curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/content.json",
+        "source_head": "5828ebbe769ff4c7e9e86edfc8bac5e6e6f888b4",
+        "before_sha256": "f54a2ca93af7d10cba348452b5edf4e1799594edced3ae64e759348168b9c8fb",
+        "after_sha256": "b404db81a9c893f12c609dd81bed19b0ca7250720c56511124db7c5256c7649a",
+        "authority": "Только разметка: CSS-дроби в MathML; три авторские записи x₀ с дробью через slash в mfrac. Числа, операторы, группировка и ответы не вычислялись и не менялись."
+      }
+    ],
+    "schema_extension": "Добавлен безопасный MathML mspace в разрешённые теги документа для расстояния между целой и дробной частью; прочие guards сохранены.",
+    "frame_variants": "Пример: мягкий primary tint, радиус 12 px, разделитель заголовка. Схема: нейтральная поверхность, радиус 14 px, разделитель подписи. Авторская готовая рамка не заменяется.",
+    "next_pilot": {
+      "title": "Теорема Пифагора и обратная теорема. Применение",
+      "proposed_path": "/materials/8-geometry-6",
+      "migration_authorized": false,
+      "implementation": "NOT_STARTED"
+    },
+    "changed_files": [
+      {
+        "path": "backend/content/sources.py",
+        "sha256": "a64bc78b049fcdee55ac64cc5c330339ceebd4357e36b7e1bb46856baf529ff5"
+      },
+      {
+        "path": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi/content.json",
+        "sha256": "9c0dc77483c0058194ebf028607dfc33b89140247114ea7f5596aed6a6010525"
+      },
+      {
+        "path": "curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c/content.json",
+        "sha256": "b404db81a9c893f12c609dd81bed19b0ca7250720c56511124db7c5256c7649a"
+      },
+      {
+        "path": "docs/frontend/lesson-migration.md",
+        "sha256": "a4349dffab2c38f49011f034d7bd152eeb58c2831527f91f894be0e075a88ccd"
+      },
+      {
+        "path": "docs/tasks/INDEX.md",
+        "sha256": "4dc835248bd3ee6d2310b0f8f95976d97e83791e012af8fced164f96e1f4d658"
+      },
+      {
+        "path": "docs/tasks/registry.json",
+        "sha256": "4d15c907a39fcd4180e07f66698f9b2716cbdf36a1b6305a0a94c2dba206bf41"
+      },
+      {
+        "path": "docs/ux/shared-ui-contract.md",
+        "sha256": "92448ce3b107741b167694369e6a03b6279e76a754dede5fec978d077b4fed7a"
+      },
+      {
+        "path": "docs/ux/theme-baseline.md",
+        "sha256": "a20cdafb1aceaece332644d0da670e0bf74160d8ccdb31dae64fbf9e0b03ae84"
+      },
+      {
+        "path": "frontend/scripts/convert-lesson.mjs",
+        "sha256": "c62ab56cd3eea8ab89e4a44c81ae9a9e41b577c5c24ca309e72e62c9fb98cfb7"
+      },
+      {
+        "path": "frontend/src/shared/lesson/index.ts",
+        "sha256": "880fdcc7114c665b25024271f23e0d7f821f9253df9207bf18fab629f3f88c65"
+      },
+      {
+        "path": "frontend/src/shared/lesson/lesson.css",
+        "sha256": "cbc56b81d9027b8da7455a2dcf9c47d856db6bbf2ebd9fcaf7b1d06ca4adffda"
+      },
+      {
+        "path": "frontend/src/shared/lesson/source-renderer.tsx",
+        "sha256": "ae8b6d6466ecded66800e91872574193ba151266c8e1f6781f7a20909faa2625"
+      },
+      {
+        "path": "skills/lesson-migration/SKILL.md",
+        "sha256": "fdd5744c89327cc0c78b9cfc721fc5bf5d36113216f8ab169281c6b25aea2195"
+      },
+      {
+        "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
+        "sha256": "f695a5f2b760b7a4caf0d09c016333008aa4d546d25dd2e7462a5b2b20b7211b"
+      },
+      {
+        "path": "skills/tasks/t006-grade-8/SKILL.md",
+        "sha256": "3a9a7360111a0377aa231a8de947518c805c60dc37e113e66d5f5a06982b3ea2"
+      },
+      {
+        "path": "specs/migration/r02-v1/delivery-v1.schema.json",
+        "sha256": "49b8fdf6c4467ef72c5ccf850aa53f4e0c0bdaf785d7067413a31b5705c97a5b"
+      }
+    ],
+    "new_files": [
+      {
+        "path": "frontend/src/shared/lesson/math-notation.mjs",
+        "sha256": "8e3d156a834395068728c1bded744a3c38a5c16c1b8b3588b2983ac158217c62"
+      },
+      {
+        "path": "frontend/src/shared/lesson/math-notation.d.mts",
+        "sha256": "a0d2db84334f47743a673c05808026c04fbfce67237a7f4522cca3e8db911d6e"
+      },
+      {
+        "path": "frontend/src/shared/styles/fonts/stix-two-math.woff2",
+        "sha256": "094191335def3f0452c81ec0713cfc2f29bb6af8cecbf79b60881fbf2db97562"
+      },
+      {
+        "path": "frontend/src/shared/styles/fonts/STIX-OFL.txt",
+        "sha256": "0c8825913b60d858aacdb33c4ca6660a7d64b0d6464702efbb19313f5765861a"
+      }
+    ],
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING"
+  },
+  "tertiary_pilot_implementation": {
+    "authority": "Явное поручение пользователя 25.10.2026: этап C MS-T001, только теорема Пифагора; /materials/8-geometry-6; React/Content/FastAPI, MathML/STIX, Content prepare/build и собственный локальный snapshot. Проверки запрещены; review и human acceptance отдельные.",
+    "source_head": "ab2881bb4f6bdcb7744df588a4bc5e32428753bf",
+    "status": "READY_FOR_REVIEW",
+    "migration_authorized": true,
+    "canonical_path": "/materials/8-geometry-6",
+    "source_subject": "geometriya",
+    "subject_label": "Геометрия",
+    "public_subject": "geometry",
+    "source_html": "curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie/body.html",
+    "source_html_sha256": "9522c1f984bb327460e38385ff32cc679cd26a5135696c093f1fcd2a05c47cf3",
+    "source_disposition": "FROZEN_UNCHANGED; page.css/page.js and external lesson assets absent",
+    "document": "curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie/content.json",
+    "document_sha256": "359ae5caf8d69e140b3a4f1563e42f71ff8bf4fe089ce2dd502c21c68a1baa9c",
+    "omitted_blocks": [
+      {
+        "title": "Итог: сравните квадраты сторон",
+        "anchors": [
+          "lesson-section-9"
+        ],
+        "reason": "Entire instructional material after self-check excluded by user"
+      },
+      {
+        "title": "Legacy hero actions, TOC and navigation",
+        "anchors": [],
+        "classes": [
+          "ms-hero-actions",
+          "ms-lesson-toc",
+          "ms-nav"
+        ],
+        "reason": "Replaced by shared LessonPage UI; one TOC SVG icon retired"
+      }
+    ],
+    "prerequisite": "ABSENT_IN_SOURCE",
+    "kept_section_ids": [
+      "theory",
+      "lesson-section-2",
+      "lesson-section-3",
+      "lesson-section-4",
+      "lesson-section-5",
+      "lesson-section-6",
+      "lesson-section-7",
+      "lesson-section-8"
+    ],
+    "remaining_sections": 8,
+    "self_checks": 8,
+    "authored_svg": 5,
+    "retired_ui_svg": 1,
+    "tables": 1,
+    "worked_examples": 7,
+    "proofs": 2,
+    "algorithm_steps": 3,
+    "math_disposition": "Explicit authored MathML using math-notation.mjs; radicals and powers preserve all terms and operators. Equality chains split at equality for wrapping. SVG formula geometry unchanged. No fractions/mixed numbers/fractional powers in this lesson.",
+    "new_files": [
+      {
+        "path": "curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie/content.json",
+        "sha256": "359ae5caf8d69e140b3a4f1563e42f71ff8bf4fe089ce2dd502c21c68a1baa9c"
+      }
+    ],
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "review": "PENDING",
+    "human_acceptance": "PENDING",
+    "merge": "NOT_PERFORMED",
+    "implementation": "COMPLETE",
+    "code_sha": "8b52b118618f5e280fbf98eefb3029d6cbcbe67c",
+    "code_tree": "9ded3ce90a95739dbc15aaedd76ab41db068eaee",
+    "local_snapshot": {
+      "release_id": "87656bdd-6238-455f-ba48-1c572362c1af",
+      "manifest_digest": "6cdb7164254bc31ec592ffbe6e443bc3fc52f18e480b302929ead1cb9d028faa",
+      "receipt_digest": "d153fcc0a3d80b2c2529301a85bbea9ba4ffd6cc7407868372356cf623ba9c69",
+      "artifact_digest": "b68e34a654d21ed38660fc92ce168bcf64a081531987ed4f2ab35d71c5a42c87"
+    },
+    "runtime_connection": "CONNECTED_LOCAL_SNAPSHOT",
+    "dev_restart_note": "Normal stop lacked acknowledgement from absent supervisor; only verified orphan processes of this checkout were stopped, stale local manifest/request removed, same shared runner restarted."
+  },
+  "bootstrap_closure": {
+    "authority": "Поручение пользователя 25.10.2026: закрыть оформление/статическое review bootstrap, зафиксировать визуальную приёмку MS-T001/MS-T002, подготовить передачу MS-T002A. Без автопрогонов, clone, запуска и merge.",
+    "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+    "candidate_tree": "00cff571191be20cc4574fcd9f063fc0a6ded01e",
+    "accepted_tasks": [
+      "MS-T001",
+      "MS-T002"
+    ],
+    "human_acceptance": "ACCEPTED",
+    "acceptance_scope": "Принятый стандарт, четыре React-урока, главная/каталог в существующем локальном runtime. Пользовательское подтверждение не превращается в QA/production PASS.",
+    "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+    "review_method": "Отдельное порученное чтение исходников после реализации; независимый второй исполнитель не заявляется.",
+    "findings_fixed": [
+      "Устаревший комментарий о hydration public pages",
+      "Неполный список текущих страниц и устаревшие сведения о 5171/отложенной интеграции квадратичной функции",
+      "Текущие статусы приёмки PENDING при явном подтверждении пользователя"
+    ],
+    "runtime_logic_changed": false,
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "clean_clone": "NOT_RUN",
+    "merge": "NOT_PERFORMED",
+    "next_task": "MS-T002A",
+    "ms_t002a_acceptance": "PENDING",
+    "ms_t003_authorized": false,
+    "changed_files": [
+      {
+        "path": "README.md",
+        "sha256": "5b0e3600f76efc873dc9fba1c6797e28193d2868a5e5463c830f35bb2a16c516"
+      },
+      {
+        "path": "docs/local-development.md",
+        "sha256": "cb868e83c24ed90e08d021981519da84855429b7dcd4fce79da7dcab10675875"
+      },
+      {
+        "path": "docs/tasks/INDEX.md",
+        "sha256": "77ede7a1e68e52e9b4e9d0806bcec1458694baf6b70b6f3dfcbb4fa71022db9d"
+      },
+      {
+        "path": "docs/tasks/registry.json",
+        "sha256": "49a2a74030a1b8196d0b2d16b5260bdb6ff97056b88caff0f328c3ea22733952"
+      },
+      {
+        "path": "frontend/src/app/routes/public-foundation.tsx",
+        "sha256": "d659087a8a345c31f99af86fe0ddb7843ea5c67d32b0bcf04ccb227d3365890e"
+      },
+      {
+        "path": "skills/tasks/t001-lesson-pilot/SKILL.md",
+        "sha256": "c52f08f32aea8459f6c34ca76ea6085b6c00b00a3830d7050cc6221f5984fb2e"
+      },
+      {
+        "path": "skills/tasks/t002-public-pages/SKILL.md",
+        "sha256": "3039d2f043451f2d15e4c1e208387bc86b6c9b2680142a683bd4cf94e056a377"
+      },
+      {
+        "path": "skills/tasks/t002a-team-local-start/SKILL.md",
+        "sha256": "953032c0281052938586b89f0430755b479b6385d502abc38349700490754694"
+      }
+    ]
+  },
+  "team_container_dev_specification": {
+    "date": "2026-10-26",
+    "task": "MS-T002A",
+    "authority": "Пользователь поручил уточнить карточку и дать промт для другого чата: контейнерный dev и простой обмен изменениями через GitHub.",
+    "source_candidate": "fb71eacfbdea75e91e4083d24c6a20763fa1395c",
+    "status": "CHANGES_REQUESTED",
+    "scope": "Только task/очередь/инструкции. Git и Docker на хосте; frontend/FastAPI/PostgreSQL в Compose; подготовка/запуск/pull-update/остановка с HMR и сохранением своих данных.",
+    "implementation": "PENDING_SEPARATE_ASSIGNMENT",
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "historical_receipts": "Прежняя host-dev проверка 9f4fce4 и dated receipts сохранены, контейнерный путь ими не подтверждён.",
+    "pull_request": "https://github.com/Tramsey00/MathStart-Python/pull/58",
+    "merge": "NOT_PERFORMED",
+    "changed_files": [
+      "AGENTS.md",
+      "docs/tasks/INDEX.md",
+      "docs/tasks/registry.json",
+      "skills/tasks/t002a-team-local-start/SKILL.md"
+    ]
+  }
+}

@@ -6,23 +6,61 @@ MathStart — образовательный сайт по математике.
 
 ## Начало задания
 
-Читай по порядку: этот файл → [ARCHITECTURE.md](ARCHITECTURE.md) → необходимые
-части [PRODUCT.md](PRODUCT.md) и [полного ТЗ](docs/specifications/technical-spec-v7.2-draft.md)
-→ [единый реестр](docs/tasks/INDEX.md) → указанный там `skills/tasks/.../SKILL.md`
-→ связанные контракты и runbooks. README — пользовательский вход, не обязательный
-промежуточный шаг. Исторические MD перечитываются только по зависимости задания.
-Task skills читаются явно по ссылке; произвольный каталог `skills/` не обещает
-автообнаружение Codex. Task skill агента и учебный `Skill` — разные понятия.
-Применение frozen source к текущей платформе — [карта контрактов](specs/current-contracts.md);
-старые Django/Harness/персональные указания в них не заменяют эти правила.
+Открой [единую очередь](docs/tasks/INDEX.md) и конкретную порученную карточку
+`skills/tasks/.../SKILL.md`, затем нужные разделы [ARCHITECTURE.md](ARCHITECTURE.md)
+и перечисленные в карточке источники. Для уроков используй
+[стандарт переноса](docs/frontend/lesson-migration.md) и
+[общий skill](skills/lesson-migration/SKILL.md). PRODUCT и domain contracts
+читай по зависимости задания, не весь архив подряд. Текущие task skills
+открываются явно по ссылке; каталог skills не обещает автообнаружение Codex.
+
+Дизайн главной, каталога и учебной страницы утверждён. Не выбирать заново
+палитру/шрифты/UI kits и не восстанавливать I02/I03 как образец нового UI.
+MS-T001 проверяет стандарт на новом HTML-уроке о линейной функции y = kx + b.
+Квадратичная функция — принятый эталон. По отдельному поручению пользователя
+24.10.2026 её runtime-интеграция перенесена из MS-T006 в текущую работу MS-T002
+вместе с главной и каталогом: все четыре страницы работают через один FastAPI
+origin. MS-T006 переиспользует уже подключённый урок без повторного переноса.
+Проверки этого подключения отложены прямым указанием пользователя.
+Старые ТЗ, 52 source cards, аудиты и персональные очереди доступны в Git и не
+являются текущими заданиями. Карта действующих контрактов —
+[specs/current-contracts.md](specs/current-contracts.md).
 
 Проверь Git root, ветку, HEAD, dirty tree, remote и отношение к `origin/main`.
-Сохрани чужие незакоммиченные изменения. Одно задание — одна рабочая ветка
-от актуального проверенного `main`, без префикса `codex/`. Если ветка или PR
-этого задания уже существуют, продолжай в них. Выполни fetch перед созданием
-ветки; если актуальность main проверить нельзя, запиши ограничение. Реализация,
-исправления и проверки выполняются в этой ветке в основном checkout.
-Не редактируй и не коммить в main, не используй `reset --hard`, force checkout,
+Сохрани чужие незакоммиченные изменения. Для MS-T001, MS-T002 и MS-T002A
+действует исключение: работаем последовательно в общей ветке ui/ux, без
+отдельного Issue и без новой ветки на каждую из этих трёх задач. Текущее
+поручение подготовки MS-T000 продолжается в существующей agent-workflow.
+Не переключать dirty checkout принудительно ради этого правила.
+
+MS-T002A подготавливает запуск из чистого clone. После приёмки MS-T001/MS-T002
+и проверки готовности локального запуска в MS-T002A пользователь отдельно
+принимает этот результат и решает merge ui/ux → main. Затем проверяется clone
+опубликованного main; только после него завершается приёмка всей MS-T002A и
+открывается MS-T003. Публикация production сюда не входит.
+Уточнение 26.10.2026: целевой командный dev — Docker Compose для frontend,
+FastAPI и PostgreSQL, без обязательных host Python/Node. Нужны простые операции
+подготовки/запуска/обновления после pull/остановки с сохранением локальных данных.
+Основной entry point — dev.cmd prepare/start/update/stop и отдельный
+deploy/compose.dev.yaml. Vite/FastAPI используют существующий supervisor в app,
+PostgreSQL — отдельный persistent volume. Prepare/update требуют review точных
+schema/Content digests; start не устанавливает зависимости и не делает DDL/seed/
+publish. Update не выполняет Git pull/reset/checkout. Прежний host-dev — альтернатива
+и история, не evidence контейнерного candidate. Продолжать ui/ux и PR #58;
+статусы реализации/целевого контроля/review раздельно отражены в карточке MS-T002A.
+Start ожидает HTTP-готовности главной и /api/v1/grades/ через 8131; холодный SSR
+на Windows bind mount может занимать минуты. Router build очищает только вложенную
+frontend/.cache/router-build в cache volume; не монтировать volume на сам build root.
+
+Начиная с MS-T003, каждое явно порученное задание имеет GitHub Issue, отдельную
+ветку от актуального origin/main после fetch и PR со ссылкой на Issue. Например,
+ms-t003-grade-5. Префиксы codex/ и /codex не использовать. Если Issue/ветка/PR
+задания уже существуют — продолжать их, не создавать дубли. В Issue указать scope
+карточки, acceptance и ссылки на результат; assigned task включает создание
+нужных Issue/ветки/PR, но не автоматический merge/закрытие Issue. Не создавать
+всю очередь Issue заранее. Если GitHub недоступен, явно сообщить ограничение.
+Реализация, проверки и fixes — в ветке задания основного checkout.
+Не редактируй и не коммить в main, не используй reset --hard, force checkout,
 force push или автоматический merge. Старые миграционные worktree и персональные
 очереди завершены; не восстанавливай их для обычной работы.
 
@@ -39,6 +77,15 @@ force push или автоматический merge. Старые миграц�
 | `deploy/` | Канонические images/Compose, [release](deploy/RELEASE.md), [recovery](deploy/RECOVERY.md) |
 | `var/` | Игнорируемые окружения, приватные настройки и локальные отчёты |
 
+Основная локальная разработка — `./dev.cmd prepare`, затем `./dev.cmd start`:
+Git/Docker Desktop/PowerShell на хосте, frontend/FastAPI/PostgreSQL в контейнерах.
+После самостоятельного pull — `./dev.cmd update`, затем start; stop сохраняет
+volumes и credentials. Host `npm --prefix frontend run dev` остаётся альтернативой.
+Один browser origin 8131, Vite HMR и внутренний FastAPI. Не выполнять release build после каждой
+правки React/CSS и не запускать отдельные prototype servers. Готовую сборку
+проверяют отдельным режимом FastAPI на том же адресе. Dev content projection
+не публикует контент и не изменяет БД. Запуск из чистого clone и полная приёмка
+этого workflow и основной контейнерный dev-путь остаются в MS-T002A.
 Локальный сайт: [local-development](docs/local-development.md).
 Проверки: [target-runtime](docs/target-runtime.md).
 Принятая история: [maintenance](docs/maintenance.md).
@@ -54,6 +101,14 @@ frontend/backend/review-агентов, персональных владель�
 Перед правками проверь реальные imports и build inputs. Сохраняй данные,
 авторский контент/медиа/формулы, URL/якоря, контракты и dirty fixes.
 Работай связными scoped изменениями, не ослабляй проверки ради PASS.
+
+Для переноса уроков действуют пользовательские решения в начале
+docs/frontend/lesson-migration.md: исключать «Что нужно знать перед темой» и
+все учебные блоки после самопроверки; соблюдать согласованные breadcrumbs,
+содержание, самопроверку, график, навигацию и общий footer; не добавлять
+увеличение изображений или legacy UI navigation. Эти явно принятые изменения
+оформляй как scoped dispositions; не трактуй старые preservation notes как запрет
+на их реализацию. Все уроки работают через общий FastAPI origin/port.
 
 - Модульный монолит и владение данными обязательны. Content владеет TopicSkill
   и зависит от Knowledge; обратной зависимости для этих связей нет.
@@ -84,21 +139,31 @@ Legacy Django/DRF — только [отдельный pinned oracle](docs/legac
 
 ## Проверки, ревью и завершение
 
-Используй [verification skill](skills/verification/SKILL.md).
-Default: `python scripts/verify_repo.py`; portable subset:
-`python scripts/verify_repo.py --profile pure`. Pure не доказывает runtime readiness.
-Полный managed lifecycle и disposable PostgreSQL/browser prerequisites — в
-[target-runtime](docs/target-runtime.md). Empty, missing, skipped, timed-out и
-flaky checks не равны PASS. Install/recovery и combined CI gate сохраняются;
-старые результаты не подтверждают новый candidate.
+**Режим от 25.10.2026: автоматические проверки текущей UI-миграции выключены.**
+Для обычных CSS/React/docs/lesson правок не запускать npm tests, typecheck,
+Playwright, check:dev, verify_repo, source/docs/preservation gates или backend
+suite по собственной инициативе. Не подменять запрет «коротким smoke» и не
+создавать новый каскад. HMR не требует прогона тестов. Если пользователь
+запретил проверки, ограничиться реализацией и указать NOT_RUN_BY_USER_REQUEST.
+Не запрашивать подтверждение на ненужный QA после каждой правки.
 
-Для существенной работы оставь scoped execution record в `docs/audits/` либо
-в PR: исходный и проверенный SHA/tree, изменения, команды/результаты, ограничения,
-findings и исправления. Unknown preservation edits/deletions запрещены;
+[Verification skill](skills/verification/SKILL.md) применяется только к отдельно
+порученному scope проверок; [политика](docs/frontend/testing-policy.md) приоритетнее
+старых checklists. GitHub workflows — только ручные. Полный frontend suite
+сохранён как npm run test:full; npm test возвращает NOT_RUN, не PASS. Команды
+полного runtime существуют для отдельного поручения, а не являются default.
+Не менять доменные guards/валидаторы приложения под видом отключения test runs.
+Старые результаты не подтверждают новый candidate. Восстановление автоматизации —
+отдельное решение пользователя; MS-T009/MS-T011 должны сначала пересмотреть scope.
+
+Для существенной работы оставь краткий результат в карточке или PR: исходный и проверенный SHA/tree, изменения, команды/результаты, ограничения,
+findings и исправления. Неизвестные preservation edits/deletions запрещены;
+пользовательские изменения стандарта UX и состава урока документируй как scoped
+dispositions в карточке; они не переписывают исторические receipts/approvals.
 явно выведенные файлы требуют пофайловой карты, historical receipts/approvals
 не переписываются.
 
-Порядок: реализация → самопроверка → PR → отдельное ревью → исправления и
+Порядок: реализация → самопроверка кода (автопрогоны только по поручению) → PR → отдельное ревью → исправления и
 необходимая перепроверка → человеческая приёмка → решение пользователя о merge.
 Самопроверка не заменяет отдельное ревью. PASS, создание PR и merge не означают
 человеческую приёмку; статусы отражаются раздельно в реестре. Архитектурные и

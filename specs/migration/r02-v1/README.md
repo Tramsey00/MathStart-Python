@@ -1,64 +1,62 @@
-# MS7-MIG-R02 contract package v1.0.2
+# Пакет контрактов MS7-MIG-R02 v1.0.2
 
-**Historical stage snapshot.** Pending review and absent-runtime statements below
-describe this package at its recorded input SHA, not the current platform.
-The migration was accepted in PR54 and consolidation completed in PR55; see
-[maintenance](../../../docs/maintenance.md), [current checks](../../../docs/target-runtime.md),
-and [local start](../../../docs/local-development.md). Historical approvals,
-contracts and digests below retain their original scope.
+**Снимок исторического этапа.** Приведённые ниже формулировки об ожидающем ревью
+и отсутствующем runtime описывают этот пакет на зафиксированном SHA входа, а не текущую платформу.
+Миграция принята в PR54, консолидация завершена в PR55; см. [сопровождение](../../../docs/maintenance.md), [текущие проверки](../../../docs/target-runtime.md)
+и [локальный запуск](../../../docs/local-development.md). Исторические одобрения,
+контракты и digest ниже сохраняют исходную область применения.
 
-Status: PROPOSED / independent review pending. Owner Руслан / Tramsey00;
-reviewers and Task Approvers Владимир / VladimirFrolov777 and Илья / 13baybars.
+Статус: PROPOSED / ожидается независимое ревью. Владелец — Руслан / Tramsey00;
+ревьюеры и Task Approvers — Владимир / VladimirFrolov777 и Илья / 13baybars.
 [Issue #29](https://github.com/Tramsey00/MathStart-Python/issues/29).
 
-Accepted integration input `c133f920fc14ab18a463e039f8e480e064ced81c`;
+Принятый вход integration: `c133f920fc14ab18a463e039f8e480e064ced81c`;
 MIG_BASE_SHA `60b341fbd00f4c8dadd54ae9a3e5811869a9b0f7`;
-canonical application `8c11edadc8debc81432d1db1145feac504f09061`.
-These are three distinct facts. R01 ACCEPTED_INTEGRATION after PR46/47; its
-historical pending snapshots remain unchanged. The task is docs/contracts and
-verification only; target FastAPI/React/SQLAlchemy/Alembic runtime does not exist.
+каноническое приложение `8c11edadc8debc81432d1db1145feac504f09061`.
+Это три различных факта. R01 получил ACCEPTED_INTEGRATION после PR46/47; его
+исторические снимки pending остаются без изменений. Задача ограничена документацией/контрактами и
+верификацией; target runtime FastAPI/React/SQLAlchemy/Alembic отсутствует.
 
-Normative inputs: [exact migration v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
-§§2–11, R02 card and §17; [ADR0006](../../../docs/adr/ADR-0006-react-fastapi-migration.md)
-with preserved ADR0002/0003 and frozen R02/R03/R02A/R03A. The user confirmed the
-64-character SHA256 `c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae`;
-the 63-character prompt spelling omitted `f`. No source bytes were repaired.
+Нормативные входы: [точная версия миграции v1.1](../MathStart_Migration_React_FastAPI_2026-10-07_v1.1.md)
+§§2–11, карточка R02 и §17; [ADR0006](../../../docs/adr/ADR-0006-react-fastapi-migration.md)
+с сохранёнными ADR0002/0003 и замороженными R02/R03/R02A/R03A. Пользователь подтвердил
+64-символьный SHA256 `c5a554e3911bdb43db28d67fd02d26e38d50b2820e1154a272d89ecb44b1faae`;
+в варианте из prompt на 63 символа пропущена `f`. Байты источника не исправлялись.
 
-Read [platform](platform-v1.md), [authentication](auth-v1.md),
-[content/publication](content-v1.md), [staff authorization](staff-v1.md),
-[adapter contracts](adapters-v1.md), [route map](implemented-routes-v1.json),
-[complete schema mapping](schema-mapping-v1.json),
-[acceptance matrix](parity-matrix-v1.json) and [matrix guide](parity-v1.md).
-[Delivery JSON Schema](delivery-v1.schema.json) and
-[separate delivery/staff OAS](delivery-staff-v1.openapi.json) describe proposed
-additional adapters; they neither replace nor expand the implemented count of
-the frozen 37-operation OAS. [Synthetic candidate responses](synthetic-exchanges-v1.json)
-are specification examples checked against independent historical expectations.
+Читайте [platform](platform-v1.md), [аутентификацию](auth-v1.md),
+[content/publication](content-v1.md), [авторизацию staff](staff-v1.md),
+[контракты adapters](adapters-v1.md), [карту routes](implemented-routes-v1.json),
+[полное отображение схемы](schema-mapping-v1.json),
+[матрицу приёмки](parity-matrix-v1.json) и [руководство к матрице](parity-v1.md).
+[JSON Schema delivery](delivery-v1.schema.json) и
+[отдельный OAS delivery/staff](delivery-staff-v1.openapi.json) описывают предлагаемые
+дополнительные adapters; они не заменяют и не увеличивают реализованное число операций — 37
+в замороженном OAS. [Примеры синтетических ответов кандидата](synthetic-exchanges-v1.json)
+сверены с независимыми историческими ожиданиями.
 
-[New evidence index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
-preserves original_result literally and adds current framework references.
+[Новый индекс свидетельств](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
+буквально сохраняет original_result и добавляет ссылки на текущий framework.
 [Verification/handoff](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/handoff.md),
-[plan](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-MIG-R02.md) and
-[trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R02.md) record observable results.
+[план](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-MIG-R02.md) и
+[trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-MIG-R02.md) фиксируют наблюдаемые результаты.
 
-Approval binds an exact commit and contract digest manifest. Until both reviewers
-approve and the integration owner accepts the merge, these addenda remain
-proposed. Preparation/read-only work is allowed; dependent implementation waits
-for the accepted CONTRACT. No production authorization is implied.
+Одобрение привязано к точному commit и manifest digest контракта. Пока оба ревьюера
+не одобрят изменения, а владелец integration не примет merge, эти дополнения остаются
+предложенными. Подготовка и работа только на чтение разрешены; зависимая реализация ждёт
+принятого CONTRACT. Разрешение на production не подразумевается.
 
 
-Review revision1.0.1 addresses proposed B01–B07/N01 from
-[Ilya review5461343942](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942).
-Read [public build handoff](public-build-contract-v1.json) and
-[staff list wire policy](staff-list-policy-v1.json); see the
-[review change matrix](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/review-response.md).
-The CHANGES_REQUESTED decision remains historical/current until independent
-re-review; this amendment does not create approval or change accepted inputs.
+Ревизия ревью 1.0.1 отвечает на предложенные B01–B07/N01 из
+[ревью Ильи 5461343942](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5461343942).
+Читайте [handoff сборки public](public-build-contract-v1.json) и
+[wire policy списка staff](staff-list-policy-v1.json); см. [матрицу изменений по ревью](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/review-response.md).
+Решение CHANGES_REQUESTED остаётся историческим/текущим до независимого
+повторного ревью; это дополнение не создаёт одобрения и не меняет принятые входы.
 
-Protocol revision1.0.2 addresses [Vladimir review5462501369](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5462501369)
-at6c1603b3ac55f3f0e8ef3b2bfb09298a42de5974. Read platform/content P1 and auth P2,
-[publication transitions](publication-protocol-v1.json),
-[bridge lifecycle](receipt-bridge-lifecycle-v1.json), and
-[durable storage mapping](protocol-storage-mapping-v1.json).
-These are proposed contract decisions for independent re-review, not accepted
-runtime or race evidence. B01–B07/N01 fixes and historical reviews are retained.
+Версия протокола 1.0.2 отвечает на [ревью Владимира 5462501369](https://github.com/Tramsey00/MathStart-Python/pull/48#pullrequestreview-5462501369)
+на commit `6c1603b3ac55f3f0e8ef3b2bfb09298a42de5974`. Читайте P1 в platform/content и P2 в auth,
+[переходы публикации](publication-protocol-v1.json),
+[lifecycle bridge](receipt-bridge-lifecycle-v1.json) и
+[отображение durable storage](protocol-storage-mapping-v1.json).
+Это предложенные решения контракта для независимого повторного ревью, а не принятый
+runtime и не свидетельства проверок гонок. Исправления B01–B07/N01 и исторические ревью сохранены.

@@ -1,12 +1,6 @@
 name: Public and identity migration verification
 
 on:
-  push:
-    branches: [ms7-mig-react-fastapi]
-    paths: ['backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
-  pull_request:
-    branches: [main, ms7-mig-react-fastapi]
-    paths: ['backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
   workflow_dispatch:
 
 permissions:

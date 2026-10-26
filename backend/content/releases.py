@@ -93,7 +93,20 @@ class ReleaseStore:
                     raise unavailable()
                 raw = inside(root, entry['delivery_path']).read_bytes()
                 page = validate(decode_json(raw), 'ContentDelivery', True)
-                canonical = '/' if page['page_type'] == 'home' else f'/{page["slug"]}/'
+                renderer = page.get('renderer_version', 'legacy')
+                document = page.get('lesson_document')
+                canonical = page['seo']['canonical_path']
+                expected_canonical = '/' if page['page_type'] == 'home' else f'/{page["slug"]}/'
+                if page['slug'] == 'karta-sajta' and canonical == '/materials':
+                    expected_canonical = '/materials'
+                if renderer == 'react-v1':
+                    from backend.content.sources import validate_lesson_document
+                    validate_lesson_document(document, page['slug'])
+                    if (page['page_type'] != 'topic' or not isinstance(document, dict)
+                            or document.get('title') != page['title'] or not canonical.startswith('/materials/')):
+                        raise unavailable()
+                elif document is not None or renderer not in {'legacy', 'react-v1'} or canonical != expected_canonical:
+                    raise unavailable()
                 if (any(page[f] != entry[f] for f in ['id', 'slug', 'page_type', 'updated_at'])
                         or page['seo']['canonical_path'] != canonical
                         or entry['url'] != canonical or entry['canonical_path'] != canonical
@@ -178,6 +191,11 @@ class ReleaseStore:
             for kind, field in [('grades', 'grade_id'), ('subjects', 'subject_id'), ('sections', 'section_id')]:
                 if topic[field] is not None and topic[field] not in relations[kind]:
                     raise unavailable()
+                if page.get('renderer_version') == 'react-v1':
+                    document_field = {'grades': 'grade', 'subjects': 'subject', 'sections': 'section'}[kind]
+                    relation = relations[kind].get(topic[field])
+                    if relation is None or page['lesson_document'][document_field] != relation['slug']:
+                        raise unavailable()
             topic_ids.add(topic['id'])
         if topic_ids != {pk for pk, p in pages.items() if p['page_type'] == 'topic'}:
             raise unavailable()
@@ -229,9 +247,11 @@ class Release:
         subject = params.get('subject', '')
         if subject not in subjects:
             subject = ''
+        section_slug = params.get('section', '')
+        section_ids = {row['id'] for row in self.index['catalogue']['sections'] if row['slug'] == section_slug}
         q = params.get('q', '').strip()
         matches = [t for t in available if (not subject or (t['subject_id'] is not None
-                  and subjects_by_id[t['subject_id']]['slug'] == subject)) and q.casefold() in t['title'].casefold()]
+                  and subjects_by_id[t['subject_id']]['slug'] == subject)) and (not section_slug or t['section_id'] in section_ids) and q.casefold() in t['title'].casefold()]
         return {'catalogue_topics': matches, 'catalogue_grades': list(grades.values()),
                 'catalogue_subjects': list(subjects.values()), 'catalogue_grade': grade,
                 'catalogue_subject': subject, 'catalogue_query': q, 'catalogue_count': len(matches)}
@@ -243,6 +263,12 @@ class Release:
         if page['slug'] == 'karta-sajta':
             context.update(self.catalogue(params))
             context['catalogue_full'] = self.index['catalogue']
+        if page.get('renderer_version') == 'react-v1':
+            from backend.content.lesson_context import lesson_context
+            try:
+                context.update(lesson_context(self.index['catalogue'], page))
+            except (KeyError, StopIteration, ValueError):
+                raise unavailable()
         return deepcopy(context)
 
 

@@ -2,9 +2,9 @@
 
 Редакция 20.10.2026, Europe/Moscow. Единственный основной архитектурный документ.
 Состояние реализации проверено на `1a015f7513933901e8bb252e94c660e4383b6b0e`;
-результаты этого изменения — в [аудите](docs/audits/docs-and-workflow-cleanup.md).
+принятая история — в [maintenance](docs/maintenance.md).
 Назначение продукта — [PRODUCT.md](PRODUCT.md), полные требования —
-[ТЗ v7.2](docs/specifications/technical-spec-v7.2-draft.md), порядок разработки —
+[сохранённые требования учебного цикла](specs/product/learning-requirements.md), порядок разработки —
 [AGENTS.md](AGENTS.md), очередь — [docs/tasks/INDEX.md](docs/tasks/INDEX.md).
 
 ## Реализованная текущая архитектура
@@ -138,6 +138,28 @@ navigation не должен дублировать scripts или терять 
 CSS/JS остаются в static. Существующие self-checks могут содержать прежние
 reveal interactions прямо в HTML; они не создают assessed evidence и не доказывают
 соблюдение будущего server-only exercise API.
+
+### Локальная разработка с HMR
+
+Основной командный entry point — `dev.cmd prepare/start/update/stop` с отдельным
+`deploy/compose.dev.yaml`. Development image содержит pinned Python/Node/npm;
+на Windows хосте требуются Git/Docker Desktop/PowerShell. Существующий supervisor
+Vite/FastAPI работает в app-контейнере, PostgreSQL — отдельно в persistent volume.
+Исходники bind-mounted, dependencies/cache/build/release — в named volumes;
+private settings/review plans/logs — в ignored var/compose. Обычный start только
+читает подготовленную установку; prepare/update сохраняют normal schema/Content
+protocol и обязательное утверждение конкретных digests. Update не меняет Git.
+Существующий host-dev — альтернативный путь, его результаты — отдельная история.
+
+Разработка и готовая публикация имеют один browser origin, но разные serving paths.
+`scripts/dev_server.py` запускает Vite 8131 и внутренний loopback FastAPI 8132;
+API/private/legacy routes проходят через proxy без изменения Host/Origin/cookies.
+React/CSS используют HMR. Существующие content.json читаются через строго dev-only
+projection со schema/identity validation; это не Content publication и не запись БД.
+Production build не использует working-tree projection; готовая версия сохраняет
+immutable Content/SSG/FastAPI протокол и не требует Node runtime. Новые lesson URLs
+и каталог вводятся через подготовку Content, а не скрытый dev fallback.
+Команды и ограничения — [local development](docs/local-development.md).
 
 ## Технологический стек и версии
 
@@ -400,11 +422,17 @@ Performance targets остаются API p95 <500ms, AI p95 <15s, с объяв�
 
 ## Предложения, требующие решения
 
-Полный редизайн согласован как направление; конкретные палитра, шрифты,
-компонентная библиотека и персонаж не приняты. [Дизайн-бриф](docs/ux/redesign-brief.md)
-задаёт audit → три направления с одинаковыми экранными сценариями → решение
-пользователя → выбор libraries → дизайн-система → pilot → проверка → rollout.
-Новые UI-технологии отражаются в таблице стека после утверждения и внедрения.
+Внешний вид главной, каталога и учебной страницы утверждён 23.10.2026.
+[UI contract](docs/ux/shared-ui-contract.md) фиксирует систему. Реализация пока
+частично prototype; основной runtime не получил новый renderer автоматически.
+[Стандарт переноса](docs/frontend/lesson-migration.md) описывает целевую структуру,
+versioned content document, общий chrome, интерактивы и selective hydration.
+MS-T001 вводит renderer_version/lesson_document в validated immutable delivery,
+единый Content route registry и React LessonPage для линейного пилота. Проверки,
+review и человеческая приёмка учитываются отдельно. Полноценные карточки
+MS-T001–MS-T011 задают pilot, public pages, классы, auth/staff и очистку.
+Новых UI kits/Next.js не вводить. Server Identity сохраняется; старые account
+UI/fixtures не являются образцом и заменяются в MS-T009 после email/username решения.
 
 Геймификация — новое направление проектирования. XP, уровни, достижения,
 серии, daily tasks, персонаж/награды — кандидаты. Педагогическая цель, начисления,
@@ -415,7 +443,7 @@ retry/hint/reveal semantics, anti-duplicate, presentation и data owner/storage/
 Открыты provider/model/budget, public host/region, privacy/retention реальных
 учеников и оформление курса. Они не заполняются догадками.
 Собственный Engineering Harness снят с плана и удалён; Codex runtime,
-task skills и проверки продукта остаются. История — в Git и [аудите](docs/audits/docs-and-workflow-cleanup.md).
+task skills и проверки продукта остаются. История — в Git; текущая очередь — docs/tasks/INDEX.md.
 Обычная разработка: одно задание/ветка/исполнитель, PR, отдельное ревью,
 исправления, человеческая приёмка, решение о merge, остановка.
 

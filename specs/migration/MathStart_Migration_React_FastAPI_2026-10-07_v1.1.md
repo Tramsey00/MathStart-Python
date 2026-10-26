@@ -75,7 +75,7 @@ Runtime схема: browser -> один HTTPS origin/reverse proxy -> React publ
 
 Grades: real PK != class number; number выводится из canonical slug, sorting по (created_at,id), keyset cursor bound to route/page_size, default20 max100, tampering/repeated/unknown query rejected. Legacy Grade epoch 2026-10-04T00:00:00Z сохраняется как tracking baseline, не «восстановленная дата создания». Cursor protocol совместимость на переходе проверяется отдельно.
 
-Текущий onboarding только сохраняет выбранный путь/профиль; START_ZERO/SELF_REPORT/DIAGNOSTIC не запускают новые домены и не увеличивают mastery при GET. Preserve UI registration maximum30, backend maximum150, login старых длинных username, quiet anonymous initial state, contextual GET-only recovery, password cleanup после serialization/terminal outcome/form switch, frozen in-memory pending retry и CSRF refresh.
+Текущий onboarding только сохраняет выбранный путь/профиль; START_ZERO/SELF_REPORT/DIAGNOSTIC не запускают новые домены и не увеличивают mastery при GET. Сохранять максимальную длину регистрации UI 30, backend 150, поддержку старых длин username при login, тихое исходное анонимное состояние, контекстное восстановление только через GET, очистку password после serialization/terminal outcome/form switch, замороженный pending retry только в памяти и обновление CSRF.
 
 ## 6 PostgreSQL и передача схемы
 
@@ -1455,7 +1455,7 @@ MIG-G0: три записи Руслана/Владимира/Ильи о baseli
 
 **API/schema impact:** Сохранять accepted wire contract; изменения только addendum R02 и owner-approved mapping.
 
-**Switching and rollback:** Use tested full-document navigation per named lesson; no silent removal of interaction.
+**Переключение и откат:** Использовать проверенную навигацию полной загрузкой документа для каждого указанного урока; не удалять интерактивность молча.
 
 **Task-specific DoD additions:** Unified DoD§9-11; accepted dependencies, positive/negative evidence, closed blockers и независимое approval. До main merge - ACCEPTED_INTEGRATION, не исторический DONE.
 
@@ -1617,7 +1617,7 @@ MIG-G0: три записи Руслана/Владимира/Ильи о baseli
 
 **API/schema impact:** Сохранять accepted wire contract; изменения только addendum R02 и owner-approved mapping.
 
-**Switching and rollback:** Keep previous frontend artifact; reopen specific task finding before final freeze.
+**Переключение и откат:** Сохранить предыдущий frontend artifact; до финального freeze вновь открыть конкретное замечание по задаче.
 
 **Task-specific DoD additions:** Unified DoD§9-11; accepted dependencies, positive/negative evidence, closed blockers и независимое approval. До main merge - ACCEPTED_INTEGRATION, не исторический DONE.
 
@@ -1755,7 +1755,7 @@ R05 обязан выпустить полноценную новую редак
 | AT-M11 | Clean build/staging/restore/performance and target no Django dependency | V05/V06/R04 |
 | AT-M12 | Main spec v7.2,18 tasks accepted, final SHA/CI/PR/Issue closure/rollback | R05/R06 |
 
-AT-M01..12 обязательны для MIG-G4. Каждый case содержит positive и named negative cases из карточек. Любой blocking gap оставляет Gate pending. Historical count тестов/страниц не hardcoded substitute acceptance. Обычный public HTML содержит только published reviewed sources; JS/HTML exports не содержат assessed secrets. Current visual baseline и private-state behavior сохраняются даже при успешной компиляции.
+AT-M01..12 обязательны для MIG-G4. Каждый case содержит положительные и именованные отрицательные сценарии из карточек. Любой блокирующий пробел оставляет Gate в pending. Историческое число тестов/страниц не является жёстко заданной заменой приёмки. Обычный public HTML содержит только опубликованные reviewed sources; JS/HTML exports не содержат секреты assessed-контента. Текущая визуальная baseline и поведение private state сохраняются даже при успешной компиляции.
 
 ## 19 Риски и решения при отклонении
 

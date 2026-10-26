@@ -24,11 +24,11 @@ def catalogue_html(context):
             f'<option value="{esc(row["slug"])}"' + (' selected' if row['slug'] == selected else '') + f'>{esc(row["title"])}</option>'
             for row in context['catalogue_' + kind])
     query = context['catalogue_query']
-    parts = [f'''<form class="ms-catalogue-form" method="get" action="/karta-sajta/" role="search" aria-label="Поиск учебных тем">
+    parts = [f'''<form class="ms-catalogue-form" method="get" action="/materials" role="search" aria-label="Поиск учебных тем">
 <div class="ms-catalogue-search"><label for="catalogue-q">Название темы</label><input type="search" id="catalogue-q" name="q" value="{esc(query)}" placeholder="Например, дроби или уравнения"></div>
 <div class="ms-catalogue-filters"><div><label for="catalogue-grade">Класс</label><select id="catalogue-grade" name="grade">{options('grades', context['catalogue_grade'], 'Все классы')}</select></div>
 <div><label for="catalogue-subject">Предмет</label><select id="catalogue-subject" name="subject" aria-describedby="catalogue-filter-help">{options('subjects', context['catalogue_subject'], 'Все предметы')}</select></div>
-<button type="submit">Показать темы</button><a class="ms-catalogue-reset" href="/karta-sajta/">Сбросить всё</a></div>
+<button type="submit">Показать темы</button><a class="ms-catalogue-reset" href="/materials">Сбросить всё</a></div>
 <p id="catalogue-filter-help" class="ms-catalogue-help">Выберите класс и нажмите «Показать темы», чтобы уточнить список предметов.</p></form>
 <p class="ms-catalogue-count" role="status">Найдено тем: <strong>{context['catalogue_count']}</strong></p>''']
     topics = context['catalogue_topics']
@@ -108,8 +108,25 @@ class PublicRenderer:
             before, rest = result.split(start, 1)
             _, after = rest.split(end, 1)
             result = before + start + catalogue_html(context) + end + after
+        elif page.get('renderer_version', 'legacy') == 'react-v1':
+            if set(context) != {'pinned_release', 'lesson_navigation', 'lesson_section', 'grade_links'}:
+                raise ValueError('Unexpected React lesson context')
         elif set(context) != {'pinned_release'}:
             raise ValueError('Unexpected public context')
+        from frontend.public_design import VERSION, public_design_kind, public_design_is_rendered
+        if receipt.get('public_design_version') == VERSION and public_design_kind(page):
+            if not public_design_is_rendered(page, result) or '<script type="module"' not in result:
+                raise ValueError('Verified approved public design artifact is incomplete')
+        elif page.get('renderer_version', 'legacy') == 'react-v1':
+            from backend.content.sources import lesson_document_is_rendered
+            document = page.get('lesson_document')
+            if (not isinstance(document, dict) or document.get('slug') != page['slug']
+                    or not isinstance(document.get('sections'), list)
+                    or not lesson_document_is_rendered(document, result)
+                    or '<script type="module"' not in result):
+                raise ValueError('Verified React lesson artifact is incomplete')
+        elif page.get('renderer_version', 'legacy') != 'legacy':
+            raise ValueError('Unsupported public renderer version')
         return result
 
 

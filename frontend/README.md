@@ -1,46 +1,44 @@
 # React frontend
 
-Current runtime: React/TypeScript, immutable public SSG and authenticated
-account/staff forms served through the FastAPI publication gateway. The primary
-checkout is the root; each task uses its own branch from current main. Node runs at build/development time; API/edge do
-not run a Node server. No future product domains are implemented by this frontend.
-
-## Existing locked tooling
-
-Use the existing Node24.21.0/npm11.19.0 configuration and package-lock.json.
-Do not regenerate locks to complete maintenance.
+Основной dev — [Compose workflow](../docs/local-development.md), из корня
+Windows checkout с Git/Docker Desktop/PowerShell. Host Node/Python не нужны:
 
 ```powershell
-npm --prefix frontend ci
-npm --prefix frontend run typecheck
-npm --prefix frontend test
-npm --prefix frontend run build
+.\dev.cmd prepare
+.\dev.cmd start
+# После обычного Git pull:
+.\dev.cmd update
+.\dev.cmd start
+.\dev.cmd stop
 ```
 
-API generation keeps canonical OpenAPI/DTO and old expected manifest digests.
-Only explicitly retired historical pins are read from their exact Git commits;
-retained contracts and reviewed current adapters still check actual current
-HEAD/working bytes. Full Git history is required for verification.
+Prepare/update объединяют locked dependencies и Content release preparation,
+с обязательным человеческим review конкретных schema/publication планов.
+Start читает подготовленный release; DDL/seed/build/publication не запускаются.
+Stop сохраняет данные и credentials. Update не выполняет Git mutations.
 
-The normal published site is built using `python -m frontend.build_public`
-with exact immutable input/receipt digests, release ID, output directory and
-public origin from the [release runbook](../deploy/RELEASE.md). A generic Vite
-build or development server is not an installed public release.
+Browser origin http://127.0.0.1:8131: /, /materials, /materials/7-algebra-8,
+/materials/8-algebra-32, /materials/5-math-12, /materials/8-geometry-6.
+Существующий supervisor запускает Vite/HMR и внутренний FastAPI в app-контейнере;
+API и WebSocket остаются на 8131, PostgreSQL использует отдельный persistent volume.
+Исходники bind-mounted из checkout, dependencies/.cache/.react-router —
+в named volumes; временная сборка — в frontend/.cache/router-build внутри cache volume.
+Windows polling поддерживает CSS/React/content.json refresh.
+Dev content projection не публикует данные в БД; новая identity/URL требует update.
 
-For the prepared persistent local site use [local start](../docs/local-development.md).
-Account/staff APIs enforce session, CSRF, permissions and mutation contracts;
-React visibility is not authorization. Only anonymous shells are public artifacts.
+Node/npm/Python берутся из pinned development target deploy/Dockerfile.
+Frontend packages exact в package-lock.json; root/runtime Python locks сохранены.
+Python -m frontend.build_public потребляет verified immutable input/receipt
+handoff; простой Vite build не устанавливает Content release.
+Production API/edge targets и deploy/compose.yaml остаются отдельными.
 
-## Verification
+[Host-dev](../docs/local-development-host.md) — альтернатива с host Python/Node,
+не prerequisite Compose. Собранный FastAPI режим через lesson_server.py сохранён.
+Dev:design — исторический prototype, не основной сайт. Квадратичная функция
+уже подключена к runtime; MS-T006 переиспользует её.
 
-Type/unit checks are scoped evidence. The complete managed target runs actual
-Chrome/Edge/Firefox at360/768/1440 and retains functional, mathematical,
-accessibility, authorization and security assertions. It rejects missing,
-skipped, flaky or incomplete-project receipts. See [target verification](../docs/target-runtime.md).
-No new pixel-perfect/spacing criteria are introduced in maintenance.
-
-`verify:foundation` creates a new ignored verification-run receipt, preserving
-source/checkout provenance and refusing overwritten or historical evidence paths.
-Old checkpoint recorders require their original pinned task checkout/branch and
-are historical audit tools, not current verification entry points. Their original
-sources and captured approvals are recoverable at Git3a290a46d991e22269a17dde41e39f0637576071.
+Tests/typecheck/Playwright/check:dev/gates не запускаются этими операциями.
+Npm test сообщает NOT_RUN; полный test:full только по поручению, по
+[политике](../docs/frontend/testing-policy.md). Точный container evidence и
+ограничения — в [MS-T002A](../skills/tasks/t002a-team-local-start/SKILL.md).
+[AGENTS](../AGENTS.md), [архитектура](../ARCHITECTURE.md).

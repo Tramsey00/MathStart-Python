@@ -1,290 +1,619 @@
 {
-  "version": 1,
-  "updated": "2026-10-20",
-  "status": "DRAFT_HUMAN_PENDING",
-  "base_sha": "1a015f7513933901e8bb252e94c660e4383b6b0e",
-  "execution": "one task, one branch, one implementer; separate review and human acceptance",
+  "version": 2,
+  "updated": "2026-10-26",
+  "status": "ACTIVE",
+  "execution": "Одно явно порученное задание за раз; карточка task задаёт scope; автоматического продолжения нет",
   "tasks": [
     {
-      "id": "MS-N000",
+      "id": "MS-T000",
       "order": 0,
-      "title": "Аудит документации и вывод собственного Harness",
-      "status": "READY_FOR_REVIEW",
+      "title": "Подготовить очередь, стандарт переноса и очистить документацию",
+      "status": "ACCEPTED",
       "dependencies": [],
-      "skill": null,
-      "acceptance": "Отдельное ревью, проверки нового candidate и решение пользователя; docs/audits/docs-and-workflow-cleanup.md"
+      "skill": "skills/tasks/t000-workflow-preparation/SKILL.md",
+      "acceptance": "Очередь/карточки согласованы друг с другом, inventory содержит все 263 темы; нет конфликтующих текущих ТЗ и битых действующих ссылок; удалённое восстанавливается из точного Git SHA; scope проверок и ограничения честно отражены.",
+      "workflow": "preparation",
+      "human_acceptance": {
+        "status": "ACCEPTED",
+        "date": "2026-10-24",
+        "authority": "Явная приёмка пользователя: очередь, стандарт переноса, общий skill, правила GitHub и политика проверок."
+      }
     },
     {
-      "id": "MS-N001",
+      "id": "MS-T001",
       "order": 1,
-      "title": "Три визуальных направления и выбор пользователя",
-      "status": "PLANNED",
+      "title": "Перенести новый HTML-урок по стандарту в основной React/SSG runtime",
+      "status": "ACCEPTED",
       "dependencies": [
-        "MS-N000"
+        "MS-T000"
       ],
-      "skill": "skills/tasks/0001-visual-directions/SKILL.md",
-      "legacy_ids": [],
-      "acceptance": "Три различимых варианта с одной матрицей экранов/состояний; сопоставлены учебное удобство, возрастная уместность, стоимость сопровождения и геймификация; явное решение пользователя либо BLOCKED_DECISION."
+      "skill": "skills/tasks/t001-lesson-pilot/SKILL.md",
+      "acceptance": "Линейный урок обновлён согласно действующим решениям пользователя; canonical /materials/7-algebra-8 обслуживается основным Content/FastAPI release, /materials/7-algebra-1 перенаправляется 301; проверки, review и human acceptance фиксируются раздельно.",
+      "workflow": "bootstrap",
+      "pilot_slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
+      "pilot_source": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
+      "implementation": "COMPLETE",
+      "checks": "NOT_RUN_BY_USER_REQUEST",
+      "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+      "human_acceptance": "ACCEPTED",
+      "merge": "NOT_PERFORMED",
+      "canonical_path": "/materials/7-algebra-8",
+      "verified_code_sha": "cc95d1fc43352cf30ade37cb4eb566a2edb9a658",
+      "verification_limit": "Текущие автоматические проверки NOT_RUN_BY_USER_REQUEST. last_recorded_checks и verified_code_sha/tree ниже относятся к историческому candidate cc95d1f; они не подтверждают нынешний fd83af3.",
+      "secondary_pilot": {
+        "status": "ACCEPTED",
+        "title": "Деление с остатком. Понятие обыкновенной дроби",
+        "source": "curriculum/5-klass/matematika/03-obyknovennye-drobi/01-5-klass-ponyatie-obyknovennoy-drobi",
+        "canonical_path": "/materials/5-math-12",
+        "url_status": "CONNECTED_LOCAL_SNAPSHOT",
+        "source_subject": "matematika",
+        "public_subject": "math",
+        "subject_label": "Математика",
+        "content_scope": "Самопроверка сохраняется целиком и завершает материал; все учебные блоки после неё исключаются независимо от названия. Общая навигация и footer остаются частями оболочки.",
+        "assets": {
+          "svg": 4,
+          "legacy_ui_svg": 1,
+          "tables": 1,
+          "self_checks": 12
+        },
+        "migration_authorized": true,
+        "authorization": "Явное поручение пользователя 25.10.2026: реализовать этап B MS-T001, перенести только второй пилот, выполнить Content prepare/build и подключить локальный snapshot; без тестов, новой ветки/Issue и merge. Приёмка первого пилота и всей MS-T001 остаётся отдельной.",
+        "implementation": "COMPLETE",
+        "checks": "NOT_RUN_BY_USER_REQUEST",
+        "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "human_acceptance": "ACCEPTED",
+        "merge": "NOT_PERFORMED",
+        "source_head": "8a76f9a12a1139d3de611f21361d88a166ba8a05",
+        "implementation_sha": "f8f404689e24ed3ae8c31d6efa1a19cd767d5e33",
+        "implementation_tree": "698c9af4e40f07a01e5473181b26087ecea17631",
+        "runtime_url": "http://127.0.0.1:8131/materials/5-math-12",
+        "sections": 7,
+        "acceptance_record": {
+          "date": "2026-10-25",
+          "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+          "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5"
+        }
+      },
+      "tertiary_pilot": {
+        "status": "ACCEPTED",
+        "title": "Теорема Пифагора и обратная теорема. Применение",
+        "source": "curriculum/8-klass/geometriya/02-ploshhadi-i-teorema-pifagora/03-teorema-pifagora-i-obratnaya-teorema-primenenie",
+        "source_subject": "geometriya",
+        "public_subject": "geometry",
+        "subject_label": "Геометрия",
+        "selection_reason": "Проверить общий шаблон на геометрии, корнях и степенях, доказательствах и авторских схемах.",
+        "migration_authorized": true,
+        "implementation": "COMPLETE",
+        "canonical_path": "/materials/8-geometry-6",
+        "checks": "NOT_RUN_BY_USER_REQUEST",
+        "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "human_acceptance": "ACCEPTED",
+        "merge": "NOT_PERFORMED",
+        "authorization": "Явное отдельное поручение пользователя 25.10.2026: этап C, только теорема Пифагора; Content prepare/build и локальный snapshot разрешены; проверки запрещены, приёмка предыдущих пилотов не изменяется.",
+        "url_status": "CONNECTED_LOCAL_SNAPSHOT",
+        "source_head": "ab2881bb4f6bdcb7744df588a4bc5e32428753bf",
+        "implementation_sha": "8b52b118618f5e280fbf98eefb3029d6cbcbe67c",
+        "implementation_tree": "9ded3ce90a95739dbc15aaedd76ab41db068eaee",
+        "runtime_url": "http://127.0.0.1:8131/materials/8-geometry-6",
+        "local_snapshot": {
+          "release_id": "87656bdd-6238-455f-ba48-1c572362c1af",
+          "manifest_digest": "6cdb7164254bc31ec592ffbe6e443bc3fc52f18e480b302929ead1cb9d028faa",
+          "receipt_digest": "d153fcc0a3d80b2c2529301a85bbea9ba4ffd6cc7407868372356cf623ba9c69",
+          "artifact_digest": "b68e34a654d21ed38660fc92ce168bcf64a081531987ed4f2ab35d71c5a42c87"
+        },
+        "assets": {
+          "authored_svg": 5,
+          "retired_ui_svg": 1,
+          "tables": 1,
+          "self_checks": 8,
+          "worked_examples": 7,
+          "proofs": 2
+        },
+        "sections": 8,
+        "acceptance_record": {
+          "date": "2026-10-25",
+          "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+          "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5"
+        }
+      },
+      "math_notation": {
+        "design_status": "ACCEPTED_BY_USER",
+        "date": "2026-10-25",
+        "scope": "Дроби, корни, смешанные числа и дробные степени: MathML и единый локальный STIX Two Math.",
+        "checks": "NOT_RUN_BY_USER_REQUEST",
+        "implementation_review": "PENDING"
+      },
+      "correction_note": "Bootstrap MS-T001 принят 25.10.2026: четыре React-урока и общий стандарт; отдельное статическое review завершено. Автопрогоны NOT_RUN_BY_USER_REQUEST. Исторические receipts/результаты других SHA не переносятся на текущий candidate.",
+      "verified_tree": "f478dea0c82d6f25b50bc3d0a1ef65fa84f878aa",
+      "last_recorded_checks": {
+        "status": "PASS_SCOPED",
+        "code_sha": "cc95d1fc43352cf30ade37cb4eb566a2edb9a658"
+      },
+      "acceptance_record": {
+        "date": "2026-10-25",
+        "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "scope": "Согласованный bootstrap в существующем локальном runtime; автопрогоны отложены пользователем, clone и production не входят."
+      },
+      "review_record": {
+        "status": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "date": "2026-10-25",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "candidate_tree": "00cff571191be20cc4574fcd9f063fc0a6ded01e",
+        "method": "Отдельное порученное статическое review по исходникам после реализации; без запуска приложения и автоматических прогонов. Независимое ревью другим исполнителем не заявляется.",
+        "scope": [
+          "Композиция четырёх React-уроков и общие компоненты/MathML",
+          "Главная/каталог, общая оболочка и адаптер pinned catalogue",
+          "Маршруты/redirects/навигация и Content release boundary",
+          "Изоляция dev projection и отсутствие legacy scripts у react-v1",
+          "Согласованность текущих карточек и инструкций запуска"
+        ],
+        "findings_fixed": [
+          "Устаревший комментарий: public pages never hydrate",
+          "Инструкции перечисляли четыре страницы вместо шести и содержали устаревшие сведения о 5171/MS-T006",
+          "Текущие статусы приёмки не отражали подтверждение пользователя"
+        ],
+        "blocking_findings_in_scope": [],
+        "limits": "Не выполнялись runtime/browser/typecheck/test/source gates, новый полный аудит каждой формулы/SVG, установка из чистого clone или production-приёмка."
+      }
     },
     {
-      "id": "MS-N002",
+      "id": "MS-T002",
       "order": 2,
-      "title": "Выбор UI-библиотек под принятый дизайн",
-      "status": "PLANNED",
+      "title": "Подключить утверждённые главную и каталог к основному приложению",
+      "status": "ACCEPTED",
       "dependencies": [
-        "MS-N001"
+        "MS-T001"
       ],
-      "skill": "skills/tasks/0002-ui-library-decision/SKILL.md",
-      "legacy_ids": [],
-      "acceptance": "Decision matrix с точными проверенными версиями/источниками и рекомендацией; пользователь выбирает stack; обновление архитектуры отличает выбранное от установленного."
+      "skill": "skills/tasks/t002-public-pages/SKILL.md",
+      "acceptance": "Главная и /materials используют общий header/footer, реальные catalogue данные, поиск и grade navigation; нет localhost8121/5173 links или prototype-only virtual modules в runtime; старые catalogue URLs имеют явную совместимость.",
+      "workflow": "bootstrap",
+      "implementation": "COMPLETE",
+      "checks": "NOT_RUN_BY_USER_REQUEST",
+      "review": "COMPLETE_STATIC_SOURCE_REVIEW",
+      "human_acceptance": "ACCEPTED",
+      "scope_extension": "Явное поручение 24.10.2026: подключить также квадратичную функцию раньше MS-T006; все четыре страницы на FastAPI 8131; проверки не запускать.",
+      "implementation_sha": "7aa5e81",
+      "runtime_origin": "http://127.0.0.1:8131",
+      "last_recorded_checks": {
+        "status": "DEFERRED_BY_USER",
+        "code_sha": "7aa5e81"
+      },
+      "acceptance_record": {
+        "date": "2026-10-25",
+        "authority": "Явное подтверждение пользователя 25.10.2026: «Мне всё понравилось. Скил настроен», затем поручение закрыть оформление и ревью bootstrap-результата. Включает принятые ранее главную/каталог и стандарт урока; merge и production не разрешены.",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "scope": "Согласованный bootstrap в существующем локальном runtime; автопрогоны отложены пользователем, clone и production не входят."
+      },
+      "review_record": {
+        "status": "COMPLETE_STATIC_SOURCE_REVIEW",
+        "date": "2026-10-25",
+        "candidate_sha": "fd83af31318247291db732ef27ec715eec5c67a5",
+        "candidate_tree": "00cff571191be20cc4574fcd9f063fc0a6ded01e",
+        "method": "Отдельное порученное статическое review по исходникам после реализации; без запуска приложения и автоматических прогонов. Независимое ревью другим исполнителем не заявляется.",
+        "scope": [
+          "Композиция четырёх React-уроков и общие компоненты/MathML",
+          "Главная/каталог, общая оболочка и адаптер pinned catalogue",
+          "Маршруты/redirects/навигация и Content release boundary",
+          "Изоляция dev projection и отсутствие legacy scripts у react-v1",
+          "Согласованность текущих карточек и инструкций запуска"
+        ],
+        "findings_fixed": [
+          "Устаревший комментарий: public pages never hydrate",
+          "Инструкции перечисляли четыре страницы вместо шести и содержали устаревшие сведения о 5171/MS-T006",
+          "Текущие статусы приёмки не отражали подтверждение пользователя"
+        ],
+        "blocking_findings_in_scope": [],
+        "limits": "Не выполнялись runtime/browser/typecheck/test/source gates, новый полный аудит каждой формулы/SVG, установка из чистого clone или production-приёмка."
+      }
     },
     {
-      "id": "MS-N003",
+      "id": "MS-T002A",
       "order": 3,
-      "title": "Дизайн-система и доступные базовые компоненты",
-      "status": "PLANNED",
+      "title": "Подготовить воспроизводимый запуск после clone и передать baseline команде",
+      "status": "READY_FOR_REVIEW",
       "dependencies": [
-        "MS-N002"
+        "MS-T002"
       ],
-      "skill": "skills/tasks/0003-design-system/SKILL.md",
-      "legacy_ids": [],
-      "acceptance": "Каждый компонент имеет согласованный variant/state contract и accessibility evidence; нет answer leakage или глобального CSS конфликта; stack отражает установленные версии."
+      "skill": "skills/tasks/t002a-team-local-start/SKILL.md",
+      "acceptance": "Контейнерный dev frontend/FastAPI/PostgreSQL из clone с Git и Docker, без обязательных host Python/Node; простые операции подготовки/запуска/обновления после pull/остановки, HMR, сохранение своей БД. Отдельные review/приёмка, merge по решению пользователя и clone опубликованного main до MS-T003.",
+      "workflow": "bootstrap",
+      "implementation": "CONTAINER_DEV_COMPLETE_PRE_MERGE",
+      "scope_authority": "Явное поручение 26.10.2026: реализовать контейнерный dev, четыре операции и провести только целевой независимый clone/pull/update/HMR контроль; продолжить ui/ux и PR #58 без merge/production/MS-T003.",
+      "checks": "COMPLETE_SCOPED_CONTAINER_WORKFLOW; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
+      "review": "PENDING_SEPARATE_REVIEW",
+      "human_acceptance": "PENDING",
+      "remaining": [
+        "Отдельное review/fixes и человеческая приёмка контейнерного пути",
+        "Отдельное решение пользователя о merge ui/ux → main",
+        "Повтор запуска из clone опубликованного main до приёмки всей MS-T002A и MS-T003"
+      ],
+      "historical_host_verified_code_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
+      "historical_host_verified_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
+      "verified_code_sha": "dc6c991d9daba1c05e86b94a417f955da4029c54",
+      "verified_tree": "2432cc9eced1294688e039b536097aa746883465",
+      "verification_limit": "Исторический host-dev evidence сохранён отдельно и не переносится. Контейнерные этапы и точные SHA приведены в container_dev_revision и карточке. Финальный код dc6c991 проверен в сохранённом независимом clone после pull, а не новой FRESH БД на этом SHA. Общие suites, изменения locks/schema/контента после pull и production не проверены.",
+      "historical_host_last_recorded_checks": {
+        "status": "PASS_SCOPED_DEV",
+        "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
+      },
+      "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
+      "next_scope": "Отдельное review/fixes и человеческая приёмка части до merge; решение пользователя о merge и запуск clone опубликованного main до завершения всей MS-T002A.",
+      "pull_request": "https://github.com/Tramsey00/MathStart-Python/pull/58",
+      "container_dev_revision": {
+        "date": "2026-10-26",
+        "status": "READY_FOR_REVIEW_PRE_MERGE",
+        "implementation": "COMPLETE",
+        "host_prerequisites": [
+          "Git",
+          "Docker Desktop с Linux engine и Compose",
+          "PowerShell для Windows entry point"
+        ],
+        "services": [
+          "frontend/HMR",
+          "FastAPI",
+          "PostgreSQL"
+        ],
+        "operations": [
+          "Первоначальная подготовка",
+          "Запуск",
+          "Обновление после pull",
+          "Остановка без удаления данных"
+        ],
+        "origin": "http://127.0.0.1:8131",
+        "constraints": "Исходники в checkout; БД/credentials вне Git. Явные schema/Content протоколы и guards сохранены, startup без DDL/seed/publish. Update не делает Git pull/reset и не удаляет данные. Прежние receipts неизменны.",
+        "checks": "COMPLETE_SCOPED_CONTAINER_WORKFLOW",
+        "entry_point": "dev.cmd prepare/start/update/stop -> dev.ps1",
+        "initial_sha": "88f9d2cd5c0193d8bca5a238d3a623dcde16864f",
+        "candidate_sha": "dc6c991d9daba1c05e86b94a417f955da4029c54",
+        "candidate_tree": "2432cc9eced1294688e039b536097aa746883465",
+        "targeted_control": {
+          "status": "COMPLETE_SCOPED_CONTAINER_WORKFLOW",
+          "clone": "Independent full GitHub clone, own persistent Compose resources; continued by ordinary pull",
+          "host_python_node_on_control_path": false,
+          "schema_apply_sha": "46fc366f6b98e62186e12328c21866fce0783159",
+          "schema_reviewed_digest": "1f3b5592af1111e317a2dc29eed055beb47d6915cdca51ea52a77c22c4c7b369",
+          "content_prepare_publish_sha": "e9157fd3be13700922241fa70f76e8375a6ebb2a",
+          "content_reviewed_digest": "b4578a6945337c1f200849612763042a3ae9b07d7b4bd7ecf4b825724bac39cb",
+          "publication": "COMPLETE_AFTER_EXACT_INDEX_WARMUP_AND_FENCED_RESUME; one domain commit, generation=1",
+          "final_runtime_sha": "dc6c991d9daba1c05e86b94a417f955da4029c54",
+          "pages": "Six HTTP 200 and populated browser DOM",
+          "resources": "Same-origin CSS/JS/Outfit/STIX/API 200; WebSocket 101",
+          "hmr": "CSS/React without reload; existing content.json auto-refresh; published API unchanged; originals restored exactly",
+          "workflow": "Real pull/update, repeated no-op update, stop/reprepare/start, final no-op update/stop successful",
+          "database": "Same Content fingerprint/active release/journal, tables=28/users=0/journals=1 COMPLETE; credentials/config bytes identical",
+          "final_state": "Own app and DB stopped normally, volumes retained, 8131 free; original host dev was not stopped",
+          "limits": "Cold Windows SSR 134.125 s measured; no package-lock/new-schema/content/URL deltas invented after pull; no nonempty user history/cross-platform/general suites/production checks",
+          "general_suites": "NOT_RUN_BY_USER_REQUEST",
+          "full_task_acceptance": "PENDING_SEPARATE_REVIEW_HUMAN_ACCEPTANCE_MERGE_AND_PUBLISHED_MAIN_CLONE"
+        },
+        "historical_engine_blocked_attempt": {
+          "concrete_plans_review": "NOT_CREATED_ENGINE_UNAVAILABLE",
+          "update_exit": 1,
+          "prepare_exit": 1,
+          "host_python_node_on_control_path": false,
+          "runtime_checks": "PENDING",
+          "private_config_preserved": true,
+          "initial_clone_tree": "bc99dbff042fa596a184340354b139e2610c1fca",
+          "pulled_sha": "5594217baff087f5bdea42b981b3689fb4128278",
+          "result": "BLOCKED_DOCKER_ENGINE_NOT_A_PASS",
+          "initial_clone_sha": "965df7c37285df46a7505acd7cd99c06fa65e255"
+        }
+      },
+      "merge": "NOT_PERFORMED",
+      "historical_host_targeted_control": {
+        "date": "2026-10-25",
+        "status": "COMPLETE_SCOPED_LOCAL_START",
+        "clone_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
+        "clone_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
+        "publication": "COMPLETE_AFTER_EXACT_INDEX_WARMUP_AND_FENCED_RESUME",
+        "pages": 6,
+        "origin": "http://127.0.0.1:8131",
+        "hmr": "CSS_REACT_CONTENT_CONFIRMED_PROBES_RESTORED",
+        "database": "UNCHANGED_BY_STARTUP_HMR_RESTART; users=0; tables=28; publication_journals=1",
+        "original_dev": "RESTORED",
+        "full_task_acceptance": "PENDING_MAIN_MERGE_AND_PUBLISHED_MAIN_CLONE",
+        "general_suites": "NOT_RUN_BY_USER_REQUEST"
+      }
     },
     {
-      "id": "MS-N004",
+      "id": "MS-T003",
       "order": 4,
-      "title": "Пилот редизайна существующего учебного сценария",
+      "title": "Полностью перенести 5 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-N003"
+        "MS-T002A"
       ],
-      "skill": "skills/tasks/0004-redesign-pilot/SKILL.md",
-      "legacy_ids": [],
-      "acceptance": "Все pilot URLs и semantic assertions сохранены; пользователь принял actual visual result; visual baseline меняется только для утверждённых экранов."
+      "skill": "skills/tasks/t003-grade-5/SKILL.md",
+      "acceptance": "Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "grade": "5-klass",
+      "expected_topics": 35,
+      "inventory": "docs/tasks/lesson-inventory.json",
+      "workflow": "regular"
     },
     {
-      "id": "MS-N005",
+      "id": "MS-T004",
       "order": 5,
-      "title": "Поэтапное внедрение редизайна текущего сайта",
+      "title": "Полностью перенести 6 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-N004"
+        "MS-T003"
       ],
-      "skill": "skills/tasks/0005-redesign-rollout/SKILL.md",
-      "legacy_ids": [
-        "MS7-I04"
+      "skill": "skills/tasks/t004-grade-6/SKILL.md",
+      "acceptance": "Все 28 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "grade": "6-klass",
+      "expected_topics": 28,
+      "inventory": "docs/tasks/lesson-inventory.json",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T005",
+      "order": 6,
+      "title": "Полностью перенести 7 класс",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T004"
       ],
-      "acceptance": "Полная карта существующих экранов и матрица состояний; согласованный дизайн и semantic preservation; assessed placeholders не имитируют runtime."
+      "skill": "skills/tasks/t005-grade-7/SKILL.md",
+      "acceptance": "Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "grade": "7-klass",
+      "expected_topics": 75,
+      "inventory": "docs/tasks/lesson-inventory.json",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T006",
+      "order": 7,
+      "title": "Полностью перенести 8 класс",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T005"
+      ],
+      "skill": "skills/tasks/t006-grade-8/SKILL.md",
+      "acceptance": "Все 66 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "grade": "8-klass",
+      "expected_topics": 66,
+      "inventory": "docs/tasks/lesson-inventory.json",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T007",
+      "order": 8,
+      "title": "Полностью перенести 9 класс",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T006"
+      ],
+      "skill": "skills/tasks/t007-grade-9/SKILL.md",
+      "acceptance": "Все 46 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "grade": "9-klass",
+      "expected_topics": 46,
+      "inventory": "docs/tasks/lesson-inventory.json",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T008",
+      "order": 9,
+      "title": "Полностью перенести 10 класс",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T007"
+      ],
+      "skill": "skills/tasks/t008-grade-10/SKILL.md",
+      "acceptance": "Все 13 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "grade": "10-klass",
+      "expected_topics": 13,
+      "inventory": "docs/tasks/lesson-inventory.json",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T009",
+      "order": 10,
+      "title": "Заменить старый интерфейс авторизации и профиля",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T008"
+      ],
+      "skill": "skills/tasks/t009-identity-ui/SKILL.md",
+      "acceptance": "Человек выбрал email/username и маршруты до API изменений; новый UI работает с реальной Identity; заменённые old forms/controllers/styles/tests удалены без потери auth/CSRF/session/owner/privacy поведения; нет двух независимых реализаций входа.",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T010",
+      "order": 11,
+      "title": "Применить общую систему к staff без изменения прав",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T009"
+      ],
+      "skill": "skills/tasks/t010-staff-ui/SKILL.md",
+      "acceptance": "Все действующие staff resources сохраняют server permissions, read/write ограничения, revision conflicts и подтверждения; новый UI использует общий chrome без утечки данных в public artifact.",
+      "workflow": "regular"
+    },
+    {
+      "id": "MS-T011",
+      "order": 12,
+      "title": "Завершить перенос и сократить переходные проверки",
+      "status": "PLANNED",
+      "dependencies": [
+        "MS-T010"
+      ],
+      "skill": "skills/tasks/t011-rollout-finalization/SKILL.md",
+      "acceptance": "Все 263 темы и public links/redirects разрешаются; нет prototype runtime/старого UI; тесты распределены по policy, meaningful assertions сохранены, обязательный combined candidate не подменён быстрым профилем.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N006",
-      "order": 6,
+      "order": 13,
       "title": "Педагогическая спецификация геймификации",
       "status": "PLANNED",
       "dependencies": [
-        "MS-N005"
+        "MS-T011"
       ],
       "skill": "skills/tasks/0006-gamification-spec/SKILL.md",
-      "legacy_ids": [],
-      "acceptance": "Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной."
+      "acceptance": "Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N007",
-      "order": 7,
+      "order": 14,
       "title": "Knowledge и Content-owned TopicSkill",
       "status": "PLANNED",
       "dependencies": [
-        "MS-N006"
+        "MS-T011"
       ],
       "skill": "skills/tasks/0007-knowledge-persistence/SKILL.md",
-      "legacy_ids": [
-        "MS7-V03"
-      ],
-      "acceptance": "Exact pilot inventory и deterministic depth2 ancestor query, сохранность user history, fresh+upgrade PostgreSQL и идемпотентный импорт."
+      "acceptance": "Exact pilot inventory и deterministic depth2 ancestor query, сохранность user history, fresh+upgrade PostgreSQL и идемпотентный импорт.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N008",
-      "order": 8,
+      "order": 15,
       "title": "Immutable exercise versions и pilot bank",
       "status": "PLANNED",
       "dependencies": [
         "MS-N007"
       ],
       "skill": "skills/tasks/0008-exercise-bank/SKILL.md",
-      "legacy_ids": [
-        "MS7-V04"
-      ],
-      "acceptance": "Точные coverage quotas и две содержательно разные structured forms; offline deterministic verification и explicit review учебной математики; без конвертации всех263 уроков."
+      "acceptance": "Точные coverage quotas и две содержательно разные structured forms; offline deterministic verification и explicit review учебной математики; без конвертации всех263 уроков.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N009",
-      "order": 9,
+      "order": 16,
       "title": "Attempts, immutable revisions и recorded help/reveal",
       "status": "PLANNED",
       "dependencies": [
         "MS-N008"
       ],
       "skill": "skills/tasks/0009-attempt-help-lifecycle/SKILL.md",
-      "legacy_ids": [
-        "MS7-V05",
-        "MS7-V06"
-      ],
-      "acceptance": "Immutable submitted snapshot, duplicate no-op/conflict, reveal только после recorded exposure, permanent uniqueness и owner privacy."
+      "acceptance": "Immutable submitted snapshot, duplicate no-op/conflict, reveal только после recorded exposure, permanent uniqueness и owner privacy.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N010",
-      "order": 10,
+      "order": 17,
       "title": "Ограниченный математический parser и normalizer",
       "status": "PLANNED",
       "dependencies": [
         "MS-N009"
       ],
       "skill": "skills/tasks/0010-math-parser/SKILL.md",
-      "legacy_ids": [
-        "MS7-R09"
-      ],
-      "acceptance": "Supported pilot grammar reproducible; timeout/limit/unsupported не становятся wrong/misconception, resource limits проверены."
+      "acceptance": "Supported pilot grammar reproducible; timeout/limit/unsupported не становятся wrong/misconception, resource limits проверены.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N011",
-      "order": 11,
+      "order": 18,
       "title": "Детерминированные validators и первый доказанный дефект",
       "status": "PLANNED",
       "dependencies": [
         "MS-N010"
       ],
       "skill": "skills/tasks/0011-deterministic-analysis/SKILL.md",
-      "legacy_ids": [
-        "MS7-R10"
-      ],
-      "acceptance": "Validated AnalysisResult не меняет UserSkillState; known deterministic verdict не переопределяется LLM; false strong negative=0 safety subset."
+      "acceptance": "Validated AnalysisResult не меняет UserSkillState; known deterministic verdict не переопределяется LLM; false strong negative=0 safety subset.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N012",
-      "order": 12,
+      "order": 19,
       "title": "ProgressEvent, CompletionFact, проекция и replay",
       "status": "PLANNED",
       "dependencies": [
         "MS-N011"
       ],
       "skill": "skills/tasks/0012-progress-replay/SKILL.md",
-      "legacy_ids": [
-        "MS7-V08",
-        "MS7-V09"
-      ],
-      "acceptance": "Online/replay равны по всем state fields, progress-v1 compatibility сохранена; mirror не зависит от Assessment ORM; no evidence overwrite."
+      "acceptance": "Online/replay равны по всем state fields, progress-v1 compatibility сохранена; mirror не зависит от Assessment ORM; no evidence overwrite.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N013",
-      "order": 13,
+      "order": 20,
       "title": "Atomic Analysis → Progress и аудит persisted loop",
       "status": "PLANNED",
       "dependencies": [
         "MS-N012"
       ],
       "skill": "skills/tasks/0013-evidence-finalization/SKILL.md",
-      "legacy_ids": [
-        "MS7-V10",
-        "MS7-R13"
-      ],
-      "acceptance": "Реальная PG история объясняет каждый state change; retry не дублирует evidence; leak/owner/transaction boundaries доказаны."
+      "acceptance": "Реальная PG история объясняет каждый state change; retry не дублирует evidence; leak/owner/transaction boundaries доказаны.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N014",
-      "order": 14,
+      "order": 21,
       "title": "Четыре exercise UI, typed steps и help/reveal recovery",
       "status": "PLANNED",
       "dependencies": [
         "MS-N013",
-        "MS-N005"
+        "MS-T009"
       ],
       "skill": "skills/tasks/0014-exercise-ui/SKILL.md",
-      "legacy_ids": [
-        "MS7-I05",
-        "MS7-I06",
-        "MS7-I07",
-        "MS7-I09"
-      ],
-      "acceptance": "Все четыре режима работают с реальным backend, no secret in HTML/JSON/JS/network до reveal, новый attempt не сбрасывает exposure."
+      "acceptance": "Все четыре режима работают с реальным backend, no secret in HTML/JSON/JS/network до reveal, новый attempt не сбрасывает exposure.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N015",
-      "order": 15,
+      "order": 22,
       "title": "Прогресс, история и завершение onboarding",
       "status": "PLANNED",
       "dependencies": [
         "MS-N014"
       ],
       "skill": "skills/tasks/0015-progress-history/SKILL.md",
-      "legacy_ids": [
-        "MS7-I10",
-        "MS7-I11"
-      ],
-      "acceptance": "UI точно отражает server state и explanation; reading/XP не дают mastery; diagnostic placeholder не имитирует готовую N016."
+      "acceptance": "UI точно отражает server state и explanation; reading/XP не дают mastery; diagnostic placeholder не имитирует готовую N016.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N016",
-      "order": 16,
+      "order": 23,
       "title": "Диагностика и adaptive practice с возвратом",
       "status": "PLANNED",
       "dependencies": [
         "MS-N015"
       ],
       "skill": "skills/tasks/0016-diagnostic-practice/SKILL.md",
-      "legacy_ids": [
-        "MS7-R11",
-        "MS7-V12",
-        "MS7-I13"
-      ],
-      "acceptance": "Exact §10 selection/stop rules и нейтральность skip/unsupported, stable item under refresh, real evidence path и доступный возврат."
+      "acceptance": "Exact §10 selection/stop rules и нейтральность skip/unsupported, stable item under refresh, real evidence path и доступный возврат.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N017",
-      "order": 17,
+      "order": 24,
       "title": "Product LLM provider, AIRun и безопасный fallback",
       "status": "PLANNED",
       "dependencies": [
         "MS-N016"
       ],
       "skill": "skills/tasks/0017-product-provider/SKILL.md",
-      "legacy_ids": [
-        "MS7-V11"
-      ],
-      "acceptance": "Обычные tests offline; bad output не создаёт strong negative; actual metadata без PII, provider outage не скрывает working core."
+      "acceptance": "Обычные tests offline; bad output не создаёт strong negative; actual metadata без PII, provider outage не скрывает working core.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N018",
-      "order": 18,
+      "order": 25,
       "title": "Tutor policy, reviewed hint bank и conversations UI",
       "status": "PLANNED",
       "dependencies": [
         "MS-N017"
       ],
       "skill": "skills/tasks/0018-tutor/SKILL.md",
-      "legacy_ids": [
-        "MS7-R12",
-        "MS7-V13",
-        "MS7-I12"
-      ],
-      "acceptance": "No pre-reveal arbitrary mathematical prose leakage; exact context budgets, user/version scope и correct exposure; frontend не bypass-ит сервер."
+      "acceptance": "No pre-reveal arbitrary mathematical prose leakage; exact context budgets, user/version scope и correct exposure; frontend не bypass-ит сервер.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N019",
-      "order": 19,
+      "order": 26,
       "title": "Golden evaluation Analyzer/Tutor и safety gates",
       "status": "PLANNED",
       "dependencies": [
         "MS-N018"
       ],
       "skill": "skills/tasks/0019-product-evaluation/SKILL.md",
-      "legacy_ids": [
-        "MS7-R14"
-      ],
-      "acceptance": "Сохранены количественные product thresholds/cohorts; failed/timeouts не исключены; модель/prompt/schema/version и бюджет указаны; результаты одного SHA не присвоены другому."
+      "acceptance": "Сохранены количественные product thresholds/cohorts; failed/timeouts не исключены; модель/prompt/schema/version и бюджет указаны; результаты одного SHA не присвоены другому.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N020",
-      "order": 20,
+      "order": 27,
       "title": "Реализация только принятых игровых механик",
       "status": "PLANNED",
       "dependencies": [
@@ -292,74 +621,101 @@
         "MS-N019"
       ],
       "skill": "skills/tasks/0020-gamification-implementation/SKILL.md",
-      "legacy_ids": [],
-      "acceptance": "Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят."
+      "acceptance": "Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N021",
-      "order": 21,
+      "order": 28,
       "title": "Полный учебный цикл на staging",
       "status": "PLANNED",
       "dependencies": [
         "MS-N020"
       ],
       "skill": "skills/tasks/0021-staging-integration/SKILL.md",
-      "legacy_ids": [
-        "MS7-V14",
-        "MS7-I14"
-      ],
-      "acceptance": "Один source SHA/image/public tuple, полный цикл без fixture substitutes и skipped, понятный список remaining human gates."
+      "acceptance": "Один source SHA/image/public tuple, полный цикл без fixture substitutes и skipped, понятный список remaining human gates.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N022",
-      "order": 22,
+      "order": 29,
       "title": "Security/privacy, производительность и доступность RC",
       "status": "PLANNED",
       "dependencies": [
         "MS-N021"
       ],
       "skill": "skills/tasks/0022-release-quality/SKILL.md",
-      "legacy_ids": [
-        "MS7-R15",
-        "MS7-V15",
-        "MS7-I15"
-      ],
-      "acceptance": "Нет открытых blocking security/accessibility findings; >=200 ordinary/10 concurrent и >=30 AI/2 concurrent с согласованным budget; failures включены в metrics."
+      "acceptance": "Нет открытых blocking security/accessibility findings; >=200 ordinary/10 concurrent и >=30 AI/2 concurrent с согласованным budget; failures включены в metrics.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N023",
-      "order": 23,
+      "order": 30,
       "title": "Upgrade/restore, публичный RC и browser rehearsal",
       "status": "PLANNED",
       "dependencies": [
         "MS-N022"
       ],
       "skill": "skills/tasks/0023-release-recovery/SKILL.md",
-      "legacy_ids": [
-        "MS7-V16",
-        "MS7-V17",
-        "MS7-R17",
-        "MS7-I17"
-      ],
-      "acceptance": "Exact release tuple и unskipped CI, measured restore, successful external full-loop только после разрешения; локальный loopback не называется публичной готовностью."
+      "acceptance": "Exact release tuple и unskipped CI, measured restore, successful external full-loop только после разрешения; локальный loopback не называется публичной готовностью.",
+      "workflow": "regular"
     },
     {
       "id": "MS-N024",
-      "order": 24,
+      "order": 31,
       "title": "Отчёт о реальном AI-процессе, demo и freeze/handover",
       "status": "PLANNED",
       "dependencies": [
         "MS-N023"
       ],
       "skill": "skills/tasks/0024-report-handover/SKILL.md",
-      "legacy_ids": [
-        "MS7-R16",
-        "MS7-R18",
-        "MS7-V18",
-        "MS7-I16",
-        "MS7-I18"
-      ],
-      "acceptance": "Полный reproducible artifact/evidence index, final SHA, реальные ограничения и actual contributions; C-08 описывает применённые AI tools, не обязательство собственного Harness."
+      "acceptance": "Полный reproducible artifact/evidence index, final SHA, реальные ограничения и actual contributions; C-08 описывает применённые AI tools, не обязательство собственного Harness.",
+      "workflow": "regular"
     }
-  ]
+  ],
+  "superseded": {
+    "source_commit": "b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea",
+    "source_registry": "docs/tasks/registry.json",
+    "decisions": {
+      "MS-N000": "retired preparation history; current cleanup MS-T000",
+      "MS-N001": "visual direction accepted for home/catalogue/lesson; do not repeat",
+      "MS-N002": "existing React/CSS stack fixed; no separate library selection",
+      "MS-N003": "remaining technical scope merged into MS-T001",
+      "MS-N004": "replaced by actual runtime pilot MS-T001",
+      "MS-N005": "split into MS-T002–MS-T011"
+    }
+  },
+  "workflow": {
+    "bootstrap": {
+      "tasks": [
+        "MS-T001",
+        "MS-T002",
+        "MS-T002A"
+      ],
+      "branch": "ui/ux",
+      "issue_required": false,
+      "separate_branch_required": false,
+      "handoff": "После приёмки MS-T001/MS-T002 и готовности локального запуска MS-T002A пользователь решает merge ui/ux в main; проверка clone опубликованного main завершает MS-T002A и открывает MS-T003"
+    },
+    "regular": {
+      "starts_at": "MS-T003",
+      "issue_required": true,
+      "branch_required": true,
+      "base": "актуальный origin/main после fetch",
+      "branch_format": "<task-id-lowercase>-<short-slug>",
+      "forbidden_prefixes": [
+        "codex/",
+        "/codex"
+      ],
+      "pull_request": true,
+      "merge": "решение пользователя после review, checks и human acceptance"
+    }
+  },
+  "verification_policy": {
+    "effective": "2026-10-25",
+    "automatic_runs": "DISABLED",
+    "default_result": "NOT_RUN_BY_USER_REQUEST",
+    "explicit_user_request_required": true,
+    "restoration": "Отдельное решение пользователя; пересмотреть scope в MS-T009/MS-T011, не включать автоматически."
+  }
 }

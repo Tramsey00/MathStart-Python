@@ -1,32 +1,32 @@
 ---
 name: mathstart-verification
-description: Выполнить staged проверки MathStart с честным portable/runtime evidence на actual candidate.
+description: Выполнять только явно порученные проверки MathStart с честным scope и результатами; обычные UI-правки не запускают QA.
 ---
 
 # Проверки MathStart
 
-Используй текущее поручение, contracts и docs/target-runtime.md. Работай в основном
-checkout в ветке задания; актуальность main проверяется перед созданием ветки.
-Сначала affected checks, затем mandatory coherent-candidate CI gate.
+Текущий режим пользователя от 25.10.2026 — **автоматические проверки выключены**.
+Источник: [политика](../../docs/frontend/testing-policy.md). Она приоритетнее
+прежних требований «быстрого профиля» и checklists в карточках.
 
-Default: `python scripts/verify_repo.py` —15 product checks.
-Portable: `--profile pure` —5 suites; pure/--list не доказывают runtime readiness.
-Empty/skipped/flaky/missing/timeout fail. Собственный Engineering Harness удалён;
-общие routing/privacy regressions и bounded diagnostic redaction сохранены.
+Не запускать тесты, typecheck, browser/smoke, check:dev, source/docs/preservation
+scripts или verify_repo по собственной инициативе. Не заменять запрет новым
+«коротким» набором. Если пользователь поручил только реализацию — выполнить её,
+оставить результат NOT_RUN_BY_USER_REQUEST и передать для просмотра через HMR.
+Не спрашивать разрешение на ненужные проверки после каждой правки.
 
-Документы/очередь: scripts/check_workflow_docs.py; source reconciliation:
-scripts/check_product_source.py; сохранность: scripts/check_migration_preservation.py.
-Не обновляй массово trusted hashes. Только явные пофайловые scope dispositions,
-неизменные historical receipts/approvals и source bytes в Git.
+Только по отдельному поручению пользователя:
 
-Используй только owned disposable PostgreSQL/resources. Legacy comparisons —
-только явно необходимый отдельный pinned oracle из docs/legacy-oracle.md,
-никогда Django/DRF в target. Operating DB и protected acceptance stack не tests.
-Не выводи secrets/cookies/PII.
+- выбрать конкретный scope по задаче; слово «проверить» не означает весь repo;
+- полный frontend suite доступен как npm run test:full, остальные ручные команды
+  остаются в docs/target-runtime.md;
+- не менять assertions ради PASS; empty/skipped/flaky/timeout не равны PASS;
+- не запускать полный backend/browser/install/recovery набор для UI;
+- использовать только явно собственные disposable resources, без protected DB;
+- не выводить credentials/cookies/PII; результаты привязывать к actual candidate;
+- не повторять уже завершённый неизменённый прогон без нового поручения/причины.
 
-Связывай результаты с actual SHA/tree/input digests/commands/exit/results;
-старый CI не подтверждает новый candidate. Запиши failed/NOT_RUN/environment
-limitations. Самопроверка не отдельное ревью и не человеческая приёмка.
-После review findings исправь причину и повтори affected checks без дублирования
-успешного неизменённого QA. Отдельное review выполняется в следующем шаге
-процесса; не создавай обязательных субагентов или автоматической оркестрации.
+Обычный npm test сообщает NOT_RUN с ненулевым exit. GitHub workflows — ручные.
+Файлы старых тестов сохранены, но не являются повседневным планом работы.
+Восстановление автоматического CI — отдельное решение пользователя. Исторические
+receipts/approvals не переписываются; новые проверки без запуска не подтверждены.

@@ -1,4 +1,4 @@
-"""Read-only checks for the current sequential queue, source mappings and local links."""
+"""Read-only checks for the current tasks, complete lesson inventory and local links."""
 from pathlib import Path
 import ast
 import json
@@ -15,17 +15,15 @@ STATUSES = {'PLANNED', 'IN_PROGRESS', 'READY_FOR_REVIEW', 'CHANGES_REQUESTED',
             'BLOCKED_DECISION', 'REMOVED_FROM_PLAN'}
 
 
-def validate_queue(data, source):
+def validate_queue(data, source=None):
     rows = data['tasks']
     ids = [r['id'] for r in rows]
-    if len(set(ids)) != len(ids) or [r['order'] for r in rows] != list(range(len(rows))):
+    if not rows or len(set(ids)) != len(ids) or [r['order'] for r in rows] != list(range(len(rows))):
         raise ValueError('Queue IDs/order must be unique and consecutive')
-    if not rows or rows[0]['id'] != 'MS-N000':
-        raise ValueError('Current task must be first')
     position = {value: i for i, value in enumerate(ids)}
     for row in rows:
-        if row['status'] not in STATUSES or not row.get('acceptance'):
-            raise ValueError('Missing task status/acceptance: ' + row['id'])
+        if row['status'] not in STATUSES or not row.get('acceptance') or not row.get('title'):
+            raise ValueError('Missing task status/title/acceptance: ' + row['id'])
         if len(row['dependencies']) != len(set(row['dependencies'])):
             raise ValueError('Duplicate dependency: ' + row['id'])
         for dependency in row['dependencies']:
@@ -33,33 +31,37 @@ def validate_queue(data, source):
                 raise ValueError('Missing, cyclic or forward dependency: ' + row['id'])
             if rows[position[dependency]]['status'] == 'REMOVED_FROM_PLAN':
                 raise ValueError('Dependency on retired task: ' + row['id'])
-    source_ids = {r['id'] for r in source['rows']}
-    for row in source['rows']:
-        status = row['workflow_disposition']
-        mapped = row['workflow_tasks']
-        if row['id'] in RETIRED:
-            if status != 'REMOVED_FROM_PLAN' or mapped:
-                raise ValueError('Harness-only task must be retired, not completed')
-        elif status in {'ADAPTED', 'MERGED'}:
-            if not mapped or any(value not in position for value in mapped):
-                raise ValueError('Missing current equivalent: ' + row['id'])
-        elif status != 'COMPLETED_BASELINE' or mapped:
-            raise ValueError('Unknown source disposition: ' + row['id'])
-        if not row.get('workflow_reason'):
-            raise ValueError('Missing disposition reason')
-        expected = [r['id'] for r in rows if row['id'] in r.get('legacy_ids', [])]
-        if mapped != expected:
-            raise ValueError('Bidirectional source mapping differs: ' + row['id'])
-    for row in rows:
-        if any(value not in source_ids for value in row.get('legacy_ids', [])):
-            raise ValueError('Unknown historical task ID')
     return rows
+
+
+def validate_workflow(data):
+    expected = {'MS-T001', 'MS-T002', 'MS-T002A'}
+    policy = data['workflow']
+    bootstrap = policy['bootstrap']
+    regular = policy['regular']
+    if set(bootstrap['tasks']) != expected or len(bootstrap['tasks']) != 3:
+        raise ValueError('Bootstrap exception must cover exactly three tasks')
+    if bootstrap['branch'] != 'ui/ux' or bootstrap['issue_required'] or bootstrap['separate_branch_required']:
+        raise ValueError('Bootstrap must reuse ui/ux without per-task Issue/branch')
+    if regular['starts_at'] != 'MS-T003' or not all(regular[k] for k in ['issue_required', 'branch_required', 'pull_request']):
+        raise ValueError('Regular tasks require Issue, branch and PR')
+    if not {'codex/', '/codex'}.issubset(regular['forbidden_prefixes']):
+        raise ValueError('Forbidden branch prefixes missing')
+    rows = {r['id']: r for r in data['tasks']}
+    if rows['MS-T002A']['dependencies'] != ['MS-T002'] or rows['MS-T003']['dependencies'] != ['MS-T002A']:
+        raise ValueError('Team clone/start handoff must precede grade migration')
+    for row in rows.values():
+        expected_mode = 'bootstrap' if row['id'] in expected else 'preparation' if row['id'] == 'MS-T000' else 'regular'
+        if row.get('workflow') != expected_mode:
+            raise ValueError('Task workflow differs: ' + row['id'])
 
 
 def local_links(root, documents):
     """Validate actual links; frozen source links may resolve to explicitly retired Git blobs."""
     from scripts.check_migration_preservation import dispositions, historical_artifact
     historical = dispositions(root)
+    from scripts.repository_history import repository_changes
+    retired = repository_changes(root)
     checks = []
     for name in documents:
         text = (root / name).read_text(encoding='utf-8-sig')
@@ -78,7 +80,7 @@ def local_links(root, documents):
             if not path.exists():
                 key = path.relative_to(root).as_posix()
                 # Old source/ADR references are history, not runtime prerequisites.
-                if name.startswith(('specs/', 'docs/adr/')) and key in historical:
+                if name.startswith(('specs/', 'docs/adr/')) and (key in historical or key in retired):
                     historical_artifact(key, root)
                 else:
                     raise ValueError('Broken local link: ' + name + ' -> ' + target)
@@ -88,73 +90,80 @@ def local_links(root, documents):
 
 def verify(root=ROOT):
     queue = json.loads((root / 'docs/tasks/registry.json').read_text(encoding='utf-8'))
-    source = json.loads((root / 'specs/product/task-dispositions-v7.2.json').read_text(encoding='utf-8'))
-    rows = validate_queue(queue, source)
+    rows = validate_queue(queue)
+    if queue.get('version') != 2:
+        raise ValueError('Expected current task registry v2')
+    validate_workflow(queue)
     index = (root / 'docs/tasks/INDEX.md').read_text(encoding='utf-8')
-    checks = ['queue unique/order/dependencies/no cycles', 'all52 source dispositions and bidirectional mapping']
+    checks = ['queue unique/order/dependencies/no cycles']
+    skills = set()
     for row in rows:
         if f"| {row['order']:02} | {row['id']} — {row['title']} | {row['status']} |" not in index:
             raise ValueError('Markdown/JSON registry differs: ' + row['id'])
-        if row['id'] == 'MS-N000':
-            continue
         path = root / row['skill']
-        if not path.resolve().is_relative_to((root / 'skills/tasks').resolve()):
-            raise ValueError('Task skill path escaped')
+        if not path.resolve().is_relative_to((root / 'skills/tasks').resolve()) or path in skills:
+            raise ValueError('Task skill escaped or duplicated')
+        skills.add(path)
         text = path.read_text(encoding='utf-8')
-        m = re.match(r'---\nname: ([a-z0-9-]{1,64})\ndescription: (.+)\n---\n', text)
-        if not m or row['id'] not in text or row['title'] not in text or len(text) < 1800:
-            raise ValueError('Incomplete task skill/frontmatter: ' + row['id'])
-        for dependency in row['dependencies']:
-            if dependency not in text:
-                raise ValueError('Task skill dependency differs: ' + row['id'])
+        if not re.match(r'---\nname: [a-z0-9-]{1,64}\ndescription: .+\n---\n', text):
+            raise ValueError('Invalid task skill frontmatter: ' + row['id'])
+        if row['id'] not in text or row['title'] not in text:
+            raise ValueError('Task skill identity differs: ' + row['id'])
+        if any(dependency not in text for dependency in row['dependencies']):
+            raise ValueError('Task skill dependency differs: ' + row['id'])
         if any(value in text for value in ['Owner:', 'Reviewer:', 'Task Approver:']):
-            raise ValueError('Permanent personal assignment in new task')
+            raise ValueError('Permanent personal assignment in task')
         if f"[SKILL.md](../../{row['skill']})" not in index:
-            raise ValueError('Task skill not discoverable from index')
-        checks.append('complete linked task skill: ' + row['id'])
-
-    retirement = json.loads((root / 'specs/maintenance/docs-workflow-dispositions.json').read_text(encoding='utf-8'))
-    removed = [r['path'] for r in retirement['files'] if r['action'] == 'removed']
-    expected_removed = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', retirement['base_sha'],
-                                               '--', 'harness', 'specs/harness', 'tests/harness'], cwd=root).decode().splitlines()
-    if set(removed) != set(expected_removed):
-        raise ValueError('Retirement must cover exactly the audited40 files')
-    for name in removed:
-        if (root / name).exists() or (root / name).is_symlink():
-            raise ValueError('Retired development Harness file exists: ' + name)
-    # Git inputs exclude node_modules, venvs and generated runtime directories
-    # before traversal; do not scan third-party Python files inside dependencies.
-    python_inputs = subprocess.check_output(
-        ['git', 'ls-files', '--cached', '--others', '--exclude-standard', '--', '*.py'], cwd=root
-    ).decode().splitlines()
+            raise ValueError('Task skill not discoverable')
+        checks.append('linked task skill: ' + row['id'])
+    if set((root / 'skills/tasks').glob('*/SKILL.md')) != skills:
+        raise ValueError('Unregistered active task skill')
+    inventory = json.loads((root / 'docs/tasks/lesson-inventory.json').read_text(encoding='utf-8'))['topics']
+    by_slug = {r['slug']: r for r in inventory}
+    if len(by_slug) != len(inventory):
+        raise ValueError('Duplicate inventory slug')
+    actual = {}
+    for metadata in (root / 'curriculum').rglob('lesson.json'):
+        page = json.loads(metadata.read_text(encoding='utf-8'))['page']
+        if page.get('is_published') and page.get('page_type') == 'topic':
+            actual[page['slug']] = dict(page, source=metadata.parent.relative_to(root).as_posix())
+    if set(actual) != set(by_slug):
+        raise ValueError('Published lesson inventory incomplete')
+    urls = [r['assigned_path'] for r in inventory if r['assigned_path'] is not None]
+    if len(urls) != len(set(urls)):
+        raise ValueError('Duplicate assigned lesson URL')
+    for slug, row in by_slug.items():
+        if any(row[k] != actual[slug][k] for k in ['grade', 'subject', 'section', 'title', 'order', 'source']):
+            raise ValueError('Lesson inventory metadata differs: ' + slug)
+    for row in rows:
+        if row.get('grade'):
+            count = sum(r['grade'] == row['grade'] for r in inventory)
+            if count != row['expected_topics'] or row['inventory'] != 'docs/tasks/lesson-inventory.json':
+                raise ValueError('Class task inventory differs: ' + row['id'])
+    checks.append('complete lesson inventory and class scopes')
+    python_inputs = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '--', '*.py'], cwd=root).decode().splitlines()
     for name in python_inputs:
         path = root / name
         if not name.startswith(('backend/', 'frontend/', 'scripts/', 'tests/')) or not path.is_file():
             continue
-        tree = ast.parse(path.read_text(encoding='utf-8-sig'))
-        for node in ast.walk(tree):
+        for node in ast.walk(ast.parse(path.read_text(encoding='utf-8-sig'))):
             imports = [x.name for x in node.names] if isinstance(node, ast.Import) else [node.module or ''] if isinstance(node, ast.ImportFrom) else []
             if any(value == 'harness' or value.startswith('harness.') for value in imports):
-                raise ValueError('Runtime import of retired Harness: ' + str(path))
-    checks.append('exact Harness retirement and no product/tooling imports')
+                raise ValueError('Runtime import of retired Harness: ' + name)
+    for directory in ['harness', 'specs/harness', 'tests/harness']:
+        if (root / directory).exists():
+            raise ValueError('Retired Harness directory reintroduced')
+    checks.append('no retired Harness files/imports')
+    ci = (root / '.github/workflows/ci.yml').read_text(encoding='utf-8')
+    if (not ci.startswith('name: Manual product verification\n') or '\n  verify:\n' not in ci
+            or '\n  workflow_dispatch:\n' not in ci or '\n  push:\n' in ci or '\n  pull_request:\n' in ci):
+        raise ValueError('Product workflow or verify job changed')
     from scripts.target_verification import target_checks
     registry = target_checks()
-    if len(registry) != 15 or any(row[2] == 'harness' for row in registry):
-        raise ValueError('Product registry must retain15 checks without Harness')
-    if not any('frontend-e2e' in row[1] for row in registry) or not any('backend-tests' in row[1] for row in registry):
-        raise ValueError('Runtime checks missing')
-    ci = (root / '.github/workflows/ci.yml').read_text(encoding='utf-8')
-    if not ci.startswith('name: Harness verification\n') or '\n  verify:\n' not in ci:
-        raise ValueError('Existing status-check identity changed')
-    migration = (root / '.github/workflows/migration-ci.yml').read_text(encoding='utf-8')
-    old = subprocess.check_output(['git', 'show', retirement['base_sha'] + ':.github/workflows/migration-ci.yml'], cwd=root).decode()
-    if re.findall(r'^  ([a-z][a-z-]+):$', migration, re.M) != re.findall(r'^  ([a-z][a-z-]+):$', old, re.M):
-        raise ValueError('Migration CI job IDs changed')
-    checks.append('product registry and existing CI workflow/job identities retained')
-    names = subprocess.check_output(['git', 'ls-files', '*.md'], cwd=root).decode().splitlines()
-    names += [p.relative_to(root).as_posix() for p in (root / 'docs').rglob('*.md')]
-    names += [p.relative_to(root).as_posix() for p in (root / 'skills/tasks').rglob('SKILL.md')]
-    names += ['specs/current-contracts.md']
+    if len(registry) != 15 or not any('frontend-e2e' in r[1] for r in registry) or not any('backend-tests' in r[1] for r in registry):
+        raise ValueError('Product runtime check registry changed')
+    checks.append('existing product checks retained')
+    names = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '--', '*.md'], cwd=root).decode().splitlines()
     checks.extend(local_links(root, sorted({n for n in names if (root / n).is_file()})))
     return checks
 

@@ -38,6 +38,16 @@ EXPOSE 8080
 ENTRYPOINT ["nginx"]
 CMD ["-g", "daemon off;"]
 
+# Local Compose tooling only. Production targets above retain their entry points.
+FROM python-runtime AS development
+COPY --from=node-toolchain /usr/local/bin/node /usr/local/bin/node
+COPY --from=node-toolchain /usr/local/lib/node_modules /usr/local/lib/node_modules
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+ENV PYTHONUTF8=1 PYTHONPATH=/workspace
+WORKDIR /workspace
+ENTRYPOINT ["python", "/workspace/scripts/container_dev.py"]
+
 FROM python-runtime AS api
 COPY frontend/__init__.py frontend/rendering.py /app/frontend/
 USER mathstart

@@ -34,7 +34,7 @@ def legacy_executable(path):
 
 
 def npm_command(script):
-    if script not in {'typecheck', 'test', 'build', 'test:e2e', 'test:i02', 'test:identity', '--version'}:
+    if script not in {'typecheck', 'test', 'test:full', 'build', 'test:e2e', 'test:i02', 'test:identity', '--version'}:
         raise ValueError('Unknown frontend check')
     npm = shutil.which('npm.cmd' if os.name == 'nt' else 'npm')
     if not npm:
@@ -159,7 +159,7 @@ def main(argv=None):
         env['MATHSTART_BUILD_CONFIG'] = str(config_path)
         env['MATHSTART_STAFF_COOKIE_FILE'] = str(setup_root / 'private-staff-cookie.json')
         stage('frontend-typecheck', npm_command('typecheck'), frontend)
-        stage('frontend-unit', npm_command('test'), frontend)
+        stage('frontend-unit', npm_command('test:full'), frontend)
         stage('frontend-build', npm_command('build'), frontend)
         artifact_digest = sha256((root / 'artifact/output-manifest.json').read_bytes()).hexdigest()
         stage('initial-synthetic-activation', [sys.executable,'-m','backend.content.synthetic_setup','activate-initial',
