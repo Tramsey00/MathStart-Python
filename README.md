@@ -9,7 +9,7 @@ React/TypeScript с immutable Content/SSG. Главная, каталог и ч�
 До отдельного merge используйте опубликованную ui/ux:
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --filter=blob:none --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
 Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false

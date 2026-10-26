@@ -69,8 +69,8 @@ try {
         Write-Output 'Stopped this checkout only. Database, credentials and volumes retained.'
         exit 0
     }
-    & docker info --format '{{.OSType}}' | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw 'Start Docker Desktop Linux engine, then repeat the command.' }
+    $taskEngineType = & docker info --format '{{.OSType}}'
+    if ($LASTEXITCODE -ne 0 -or $taskEngineType -ne 'linux') { throw 'Start Docker Desktop Linux engine, then repeat the command.' }
     if ($Action -in @('prepare','update')) {
         Invoke-Compose @('stop','app')
         $taskImageExists = $false

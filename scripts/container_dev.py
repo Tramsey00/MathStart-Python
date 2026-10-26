@@ -73,6 +73,11 @@ def dependency_digest():
     return fingerprint(['frontend/package.json', 'frontend/package-lock.json'])
 
 
+def migration_files():
+    return {name: sha256((ROOT / name).read_bytes()).hexdigest()
+            for name in git('ls-files', '-z', '--', 'backend/migrations/versions').split('\0') if name}
+
+
 def content_digest():
     return fingerprint(['curriculum', 'site_content', 'static', 'frontend/src',
         'frontend/public_design.py', 'frontend/rendering.py', 'frontend/build_public.py',
@@ -170,6 +175,15 @@ def prepare(args):
     else:
         print('Dependency locks unchanged; npm ci skipped.', flush=True)
     current_schema = schema_code()
+    current_migrations = migration_files()
+    applied = state.get('applied_migrations')
+    if applied is not None and any(current_migrations.get(name) != digest for name, digest in applied.items()):
+        raise RuntimeError('Applied migration file changed or disappeared; history is never rewritten by update')
+    if state['schema_code'] == current_schema and applied is None:
+        # Adoption of this metadata-only safeguard is safe only when the exact
+        # previously checked schema code digest is still identical.
+        state['applied_migrations'] = current_migrations
+        save(STATE, state)
     content = content_digest()
     work = work_directory(state, current_schema + ':' + content)
     values = read(SCHEMA)
@@ -193,6 +207,7 @@ def prepare(args):
                     ('profile', 'target_head', 'database', 'table_count', 'expires_at')})
             team.schema_apply(values, digest)
             state['schema_code'] = current_schema
+            state['applied_migrations'] = current_migrations
             save(STATE, state)
         elif state['schema_code'] != current_schema:
             # The current canonical chain has only v01_0001/v01_0002 and its
@@ -241,6 +256,8 @@ def ready():
     if not all(path.exists() for path in (STATE, PRIVATE, SCHEMA)):
         raise RuntimeError('Run dev.cmd prepare first')
     state = read(STATE)
+    if REVIEW.exists():
+        raise RuntimeError('A concrete plan still awaits review; complete prepare/update before start')
     marker = ROOT / 'frontend/node_modules/.mathstart-lock'
     if not state.get('release') or not marker.exists() or marker.read_text() != dependency_digest():
         raise RuntimeError('Preparation/dependency update required; startup never installs dependencies or Content')

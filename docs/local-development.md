@@ -13,7 +13,7 @@ Windows не меняются. Все четыре операции реализ
 Из родительской папки PowerShell, в собственный новый каталог:
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --filter=blob:none --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
 Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false
@@ -30,8 +30,10 @@ git config http.version HTTP/1.1
 
 Docker Desktop должен быть уже в состоянии Engine running. Нужен доступ к
 GitHub и package/image registries при первой загрузке. Не используйте shallow
-clone: build читает некоторые точные historical Git pins. HTTP/1.1 и lazy blobs
-сохраняют историю и обходят наблюдавшееся зависание обычного GitHub clone.
+clone: build читает некоторые точные historical Git pins. Используйте полный
+clone этой ветки с HTTP/1.1: в текущей репетиции deferred blob fetch partial clone
+зависал, тогда как полный GitHub transfer начался нормально. Локальные Git objects
+автора для установки не используются.
 Windows/PowerShell — целевой хост; другие ОС не объявляются проверенными.
 
 ## Четыре операции
@@ -123,6 +125,7 @@ Update не делает Git pull/reset/checkout и не переключает 
   сначала нужен поддерживающий её reviewed release migration protocol. Текущая
   canonical chain содержит v01_0001/v01_0002; произвольный будущий upgrade не
   угадывается и applied history не переписывается.
+  Изменение/удаление уже применённого migration-файла также останавливает update.
 - Изменения lesson/source/assets, frontend build inputs, каталога и route registry
   вызывают обычную полную Content preparation/build и новый review plan.
   Existing runtime/source conflicts сохраняют отказ Content protocol. Добавление

@@ -52,6 +52,24 @@ containers/volumes. На старте 8131/8132 не слушались, исх�
 Исторические результаты ниже не переносятся на эту реализацию. Статус не
 READY_FOR_REVIEW до фактического разрешённого clone/pull/update/HMR контроля.
 
+Независимый полный GitHub clone получен в C:/Projects/ms-t002a-compose-full-20261026:
+HEAD `965df7c37285df46a7505acd7cd99c06fa65e255`, tree
+`bc99dbff042fa596a184340354b139e2610c1fca`, tracked tree чистый. Partial clone
+зависал на deferred blob fetch; остановлены только собственные Git clone процессы,
+полный transfer с HTTP/1.1 завершился. Основная инструкция использует полный clone.
+Первый реальный dev.cmd prepare -NonInteractive выполнен с PATH без python.exe
+и node.exe. Windows launcher дошёл до Docker и остановился с exit=1 из-за
+отсутствующего Linux engine pipe; создана только новая собственная private
+конфигурация checkout, без containers/volumes/schema/Content. Лог — ignored
+var/compose-control/prepare-attempt.log независимого clone. Это НЕ PASS контейнерного
+workflow. Default Docker context также не имеет engine pipe. Пользователь
+подтвердил готовность отдельно рассматривать конкретные планы; сами планы ещё
+не созданы и не утверждены из-за недоступного engine.
+
+Самопроверка кода добавила контроль неизменности applied migration files и отказ
+start при pending review; это защитные исправления orchestration, не изменения
+продукта ради проверки. Они будут получены тем же clone через обычный pull.
+
 ## Результат
 
 Участник клонирует GitHub-репозиторий и запускает frontend, FastAPI и собственную
