@@ -224,9 +224,9 @@
       "review": "PENDING_SEPARATE_REVIEW",
       "human_acceptance": "PENDING",
       "remaining": [
-        "Реализовать основной Compose dev без обязательных host Python/Node/PostgreSQL",
-        "Дать единый entry point подготовки, запуска, обновления после pull и остановки с сохранением данных",
-        "По отдельному поручению подтвердить независимый clone, HMR и цикл pull/update без общих suites",
+        "Завершить целевой контейнерный clone prepare/start/pull-update контроль после доступности Docker engine",
+        "Получить человеческое утверждение конкретных schema и Content планов перед применением",
+        "Подтвердить шесть страниц/resources/API/WebSocket/HMR/stop-start и no-op update с сохранением DB/credentials",
         "Отдельное review/fixes и человеческая приёмка контейнерного пути",
         "Отдельное решение пользователя о merge ui/ux → main",
         "Повтор запуска из clone опубликованного main до приёмки всей MS-T002A и MS-T003"
@@ -265,7 +265,20 @@
         "constraints": "Исходники в checkout; БД/credentials вне Git. Явные schema/Content протоколы и guards сохранены, startup без DDL/seed/publish. Update не делает Git pull/reset и не удаляет данные. Прежние receipts неизменны.",
         "checks": "PENDING_DOCKER_ENGINE_AND_CONCRETE_PLAN_REVIEW",
         "entry_point": "dev.cmd prepare/start/update/stop -> dev.ps1",
-        "initial_sha": "88f9d2cd5c0193d8bca5a238d3a623dcde16864f"
+        "initial_sha": "88f9d2cd5c0193d8bca5a238d3a623dcde16864f",
+        "candidate_sha": "5594217baff087f5bdea42b981b3689fb4128278",
+        "control_attempt": {
+          "concrete_plans_review": "NOT_CREATED_ENGINE_UNAVAILABLE",
+          "update_exit": 1,
+          "prepare_exit": 1,
+          "host_python_node_on_control_path": false,
+          "runtime_checks": "PENDING",
+          "private_config_preserved": true,
+          "initial_clone_tree": "bc99dbff042fa596a184340354b139e2610c1fca",
+          "pulled_sha": "5594217baff087f5bdea42b981b3689fb4128278",
+          "result": "BLOCKED_DOCKER_ENGINE_NOT_A_PASS",
+          "initial_clone_sha": "965df7c37285df46a7505acd7cd99c06fa65e255"
+        }
       },
       "merge": "NOT_PERFORMED",
       "targeted_control": {

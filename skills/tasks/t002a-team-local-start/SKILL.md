@@ -70,6 +70,24 @@ workflow. Default Docker context также не имеет engine pipe. Пол�
 start при pending review; это защитные исправления orchestration, не изменения
 продукта ради проверки. Они будут получены тем же clone через обычный pull.
 
+Эти реальные исправления опубликованы в `5594217baff087f5bdea42b981b3689fb4128278`
+и получены независимым clone через git pull --ff-only origin ui/ux. Повторная
+реальная dev.cmd update -NonInteractive с PATH без Python/Node завершилась exit=1
+на недоступном Docker engine. Private postgres.env и checkout identity остались
+byte-for-byte прежними; tracked tree clone чистый. Отчёт только в ignored
+var/compose-control/blocked-result.json; schema/Content планы не создавались,
+база и новые Compose ресурсы не создавались. Это частичное evidence доставки
+исходников и host launcher, НЕ проверка сохранности работающей БД или no-op
+publication. Полный контейнерный контроль и все шесть страниц/HMR/stop-start/
+повторный no-op update остаются PENDING_DOCKER_ENGINE. Ни один из прежних
+host-dev PASS не переносится. Общие suites — NOT_RUN_BY_USER_REQUEST.
+
+Текущее продолжение не передаётся как READY_FOR_REVIEW: для этого нужны engine,
+реальные image/dependency/schema/Content preparation, отдельное утверждение
+конкретных планов и разрешённый runtime/pull-update контроль. Реализация сохранена
+в ui/ux и PR #58, без merge/production/MS-T003. Возобновление не требует новой
+ветки/PR или повторного clone: собственная подготовленная конфигурация уже сохранена.
+
 ## Результат
 
 Участник клонирует GitHub-репозиторий и запускает frontend, FastAPI и собственную
