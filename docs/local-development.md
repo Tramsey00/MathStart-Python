@@ -46,6 +46,10 @@ Windows/PowerShell — целевой хост; другие ОС не объя�
 | `.\dev.cmd stop` | Остановка своего app/DB с сохранением volumes, credentials и Content |
 
 Prepare/update оставляют app остановленным: после завершения выполните start.
+Start ждёт HTTP-готовности главной и API через 8131 (до пяти минут), затем
+печатает адрес. На проверенном Windows bind mount холодный SSR занимал около
+двух минут; не открывайте сайт до завершения команды. Если readiness не наступил,
+команда сообщает ошибку и сохраняет данные; это не успешный запуск.
 Stop не выполняет down -v, не удаляет volumes, не перезапускает Docker/WSL и не
 завершает неизвестных владельцев 8131. Если порт занят, остановите известный
 собственный режим его штатной командой. Конфигурацию production/acceptance не трогать.
@@ -137,7 +141,8 @@ Update не делает Git pull/reset/checkout и не переключает 
   в ignored var/compose. Подготовка/обновление/остановка их не ротируют.
   Отдельные schema/runtime roles не superuser; startup не создаёт пользователей.
 - Dependencies, frontend caches/build и immutable release находятся в named
-  volumes. Private plans и временные logs — только в ignored var/compose.
+  volumes. Router build использует вложенную frontend/.cache/router-build: корень volume
+  нельзя удалять при очистке сборщиком. Private plans и временные logs — только в ignored var/compose.
   Secrets и .git/var не доступны через Vite filesystem serving.
 
 Не копируйте var/ или volumes автора. Checkout identity и уникальное имя Compose

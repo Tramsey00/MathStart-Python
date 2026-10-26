@@ -238,7 +238,7 @@ def prepare(args):
             # team.environment deliberately strips inherited MATHSTART_*.
             # Pass this build-only path explicitly; Router deletes its output
             # directory, so it must be below (never the root of) a volume.
-            team.content({**values, 'MATHSTART_ROUTER_BUILD': '/runtime/router-build'}, operation)
+            team.content({**values, 'MATHSTART_ROUTER_BUILD': str(ROOT / 'frontend/.cache/router-build')}, operation)
         plan = read(plan_path)
         digest = plan_hash(plan)
         if args.content_digest != digest:

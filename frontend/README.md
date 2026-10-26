@@ -22,7 +22,7 @@ Browser origin http://127.0.0.1:8131: /, /materials, /materials/7-algebra-8,
 Существующий supervisor запускает Vite/HMR и внутренний FastAPI в app-контейнере;
 API и WebSocket остаются на 8131, PostgreSQL использует отдельный persistent volume.
 Исходники bind-mounted из checkout, dependencies/.cache/.react-router —
-в named volumes; временная сборка — в /runtime/router-build внутри runtime volume.
+в named volumes; временная сборка — в frontend/.cache/router-build внутри cache volume.
 Windows polling поддерживает CSS/React/content.json refresh.
 Dev content projection не публикует данные в БД; новая identity/URL требует update.
 
