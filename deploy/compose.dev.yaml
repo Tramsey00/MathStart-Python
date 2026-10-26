@@ -49,7 +49,7 @@ services:
         - CMD
         - python
         - -c
-        - "import urllib.request; [urllib.request.urlopen('http://127.0.0.1:8131' + path, timeout=20).read() for path in ('/', '/api/v1/content/grades/') ]"
+        - "import urllib.request; [urllib.request.urlopen('http://127.0.0.1:8131' + path, timeout=20).read() for path in ('/', '/api/v1/grades/') ]"
       interval: 30s
       timeout: 45s
       start_period: 180s
