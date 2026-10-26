@@ -38,6 +38,12 @@ MS-T002A подготавливает запуск из чистого clone. П
 принимает этот результат и решает merge ui/ux → main. Затем проверяется clone
 опубликованного main; только после него завершается приёмка всей MS-T002A и
 открывается MS-T003. Публикация production сюда не входит.
+Уточнение 26.10.2026: целевой командный dev — Docker Compose для frontend,
+FastAPI и PostgreSQL, без обязательных host Python/Node. Нужны простые операции
+подготовки/запуска/обновления после pull/остановки с сохранением локальных данных.
+Контейнерная часть ещё не реализована; прежний host-dev результат — история.
+Продолжать ui/ux и PR #58 по карточке MS-T002A; сам факт этого уточнения не
+разрешает начать реализацию или проверки без отдельного поручения.
 
 Начиная с MS-T003, каждое явно порученное задание имеет GitHub Issue, отдельную
 ветку от актуального origin/main после fetch и PR со ссылкой на Issue. Например,
@@ -64,12 +70,12 @@ force push или автоматический merge. Старые миграц�
 | `deploy/` | Канонические images/Compose, [release](deploy/RELEASE.md), [recovery](deploy/RECOVERY.md) |
 | `var/` | Игнорируемые окружения, приватные настройки и локальные отчёты |
 
-Локальная разработка — `npm --prefix frontend run dev`: один browser origin
+Текущая реализованная локальная разработка — `npm --prefix frontend run dev`: один browser origin
 8131, Vite HMR и внутренний FastAPI. Не выполнять release build после каждой
 правки React/CSS и не запускать отдельные prototype servers. Готовую сборку
 проверяют отдельным режимом FastAPI на том же адресе. Dev content projection
 не публикует контент и не изменяет БД. Запуск из чистого clone и полная приёмка
-этого workflow остаются в MS-T002A.
+этого workflow и основной контейнерный dev-путь остаются в MS-T002A.
 Локальный сайт: [local-development](docs/local-development.md).
 Проверки: [target-runtime](docs/target-runtime.md).
 Принятая история: [maintenance](docs/maintenance.md).
