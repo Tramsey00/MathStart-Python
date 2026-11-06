@@ -132,7 +132,9 @@ def main():
     if not args.prepare_only and (port_open(origin.port) or port_open(args.api_port)):
         parser.error(f'Порт {origin.port} или {args.api_port} занят. Свой dev-режим остановите через npm --prefix frontend run dev -- --stop; чужой процесс не завершается автоматически.')
     view = dev / 'public-view.json'
+    stage_started = time.monotonic()
     prepare_view(settings, view)
+    print(f'TIMING dev projection: {time.monotonic() - stage_started:.3f}s', flush=True)
     (dev / 'runner.json').write_text(json.dumps({'python': sys.executable}), encoding='utf-8')
     if args.prepare_only:
         print('Development view prepared; no build, publication or database writes', flush=True)
@@ -155,6 +157,7 @@ def main():
     instance = str(uuid.uuid4())
     stop_request = dev / ('stop-' + instance + '.request')
     try:
+        stage_started = time.monotonic()
         backend = subprocess.Popen([sys.executable, str(ROOT / 'scripts/lesson_server.py'), '--env-file', str(settings_path), '--port', str(args.api_port)], cwd=ROOT, stdout=sys.stdout, stderr=sys.stderr, **options)
         children.append(backend)
         deadline = time.monotonic() + 25
@@ -162,6 +165,7 @@ def main():
             if backend.poll() is not None or time.monotonic() >= deadline:
                 raise RuntimeError('Internal FastAPI did not start')
             time.sleep(.2)
+        print(f'TIMING internal API socket: {time.monotonic() - stage_started:.3f}s', flush=True)
         frontend = subprocess.Popen([node, str(ROOT / 'frontend/node_modules/@react-router/dev/bin.js'), 'dev', '--host', '0.0.0.0' if args.container else '127.0.0.1', '--port', str(origin.port)], cwd=ROOT / 'frontend', env=node_env, stdout=sys.stdout, stderr=sys.stderr, **options)
         children.append(frontend)
         (dev / 'processes.json').write_text(json.dumps({'owner': str(ROOT), 'instance': instance, 'supervisor': os.getpid(),

@@ -16,8 +16,10 @@ function Write-LocalJson($Path, $Value) {
     [IO.File]::WriteAllText($Path, $json + "`n", [Text.UTF8Encoding]::new($false))
 }
 function Invoke-Compose([string[]]$Arguments) {
+    $stageTimer = [Diagnostics.Stopwatch]::StartNew()
     & docker compose --project-name $script:taskProfile.project --project-directory $taskRoot -f $taskCompose @Arguments
     if ($LASTEXITCODE -ne 0) { throw "Docker Compose failed (exit $LASTEXITCODE). State and data retained." }
+    Write-Output ('TIMING compose {0}: {1:N3}s' -f ($Arguments -join ' '), $stageTimer.Elapsed.TotalSeconds)
 }
 function Get-ImageFingerprint {
     $paths = @('deploy/Dockerfile', '.dockerignore')

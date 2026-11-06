@@ -473,3 +473,43 @@ human acceptance готовности локального запуска — PE
 пользователя о merge ui/ux → main, затем clone опубликованного main и его запуск.
 Только после этого возможна приёмка всей MS-T002A и MS-T003. Сейчас вся MS-T002A
 **не ACCEPTED**, MS-T003 не начата; production deploy не входит в поручение.
+
+## Продолжение 04.11.2026 — быстрый ежедневный dev (IN_PROGRESS)
+
+Поручены отдельные замеры старта, WSL2 filesystem, исключение полной Content
+подготовки для UI-only изменений, короткий командный workflow. Контроль только
+start/update/HMR/data. Основной исходный HEAD 7697cf2a171288d127703d943fab473c66fe12ac,
+ui/ux, clean tree; после fetch HEAD впереди origin/main на 46, позади на 0.
+
+Candidate добавляет timings Compose/supervisor и отдельный dev Content fingerprint:
+UI читается Vite, routing/server/Content inputs сохраняют публикационный путь.
+Старый полный digest сохраняется, dev baseline принимается лишь при его совпадении
+или после reviewed publication; pending review не обходится. Документация дополнена.
+Изменения пока незакоммичены; отдельное review и acceptance PENDING.
+
+Контроль выполняется в прежнем собственном clone dc6c991d9daba1c05e86b94a417f955da4029c54,
+project msdev-44a2b52de6f0. До переноса трёх candidate scripts tree был clean.
+Базовый start: exit 0, 289.8758182 с; HTTP healthchecks сначала timeout, затем healthy.
+Штатный stop завершён, volumes сохранены. Это замер старой версии, не нового HEAD.
+После переноса dev.ps1/container_dev.py/dev_server.py no-op update exit 0:
+image/npm/schema/Content build/publication skipped. Candidate start: DB 1.199 с,
+ready 2.137 с, dev projection 11.241 с, внутренний API socket 3.207 с.
+Полный app readiness и HMR/data delta контроль ещё PENDING; старые receipts
+не подтверждают новый candidate. Никаких общих suites/gates не запускалось.
+
+WSL Ubuntu version 2 установлена; Docker из Ubuntu сообщает отключённую WSL
+integration, pwsh отсутствует. Запрошено включение integration пользователем.
+Linux checkout/launcher и сравнение скорости ещё НЕ проверены. Перенос/удаление
+старых данных не выполнялись. Merge/production/MS-T003 не выполнялись.
+
+Дополнение контроля: candidate app HTTP readiness завершён exit 0 за 284.633 с
+(вложенные projection/API включены). Ускорение старта НЕ заявляется.
+UI-only delta проверена временным CSS-комментарием в public-migration.css:
+update exit 0, image/npm/schema/Content prepare/build/publication skipped.
+Сравнение data-only pg_dump до/после (без случайных restrict markers) — равенство;
+postgres.env SHA256 до/после — равенство. Значения данных/credentials не выводились.
+CSS восстановлен из исходных bytes в finally, app/DB штатно остановлены,
+volumes сохранены. Это контроль update/data, НЕ browser HMR.
+Остаются WSL2 Linux checkout/launcher, сравнение timings, browser HMR и отдельное
+review. Три candidate scripts оставлены в проверочном clone как явные dirty edits;
+основной checkout содержит пять изменённых файлов. PR #58 пока не обновлялся.

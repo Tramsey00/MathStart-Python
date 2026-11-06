@@ -130,7 +130,7 @@ Update не делает Git pull/reset/checkout и не переключает 
   canonical chain содержит v01_0001/v01_0002; произвольный будущий upgrade не
   угадывается и applied history не переписывается.
   Изменение/удаление уже применённого migration-файла также останавливает update.
-- Изменения lesson/source/assets, frontend build inputs, каталога и route registry
+- Изменения lesson/source/assets, non-UI frontend build inputs, каталога и route registry
   вызывают обычную полную Content preparation/build и новый review plan.
   Existing runtime/source conflicts сохраняют отказ Content protocol. Добавление
   тем/relations/URL идёт через существующий bootstrap/source planner; конфликтующее
@@ -166,3 +166,37 @@ source/docs/preservation gates не являются частью этих оп�
 startup/HMR контроль и его точные SHA фиксируются отдельно в карточке MS-T002A.
 До отдельного review/приёмки, решения о merge и запуска clone опубликованного
 main вся MS-T002A не ACCEPTED; MS-T003 и production deploy не начинаются.
+
+## Ежедневный цикл (candidate 04.11.2026)
+
+После первоначальных clone → `dev.cmd prepare` (review точных schema/Content
+планов) → `dev.cmd start` обычный рабочий день: `dev.cmd start`, правки через
+HMR, `dev.cmd stop`. Данные и credentials остаются в прежних volumes/var.
+Не выполняйте prepare после каждой правки React/CSS.
+
+После merge, который выполняет человек: сохраните свои изменения, выполните
+`git pull --ff-only origin ui/ux`, затем `dev.cmd update` → `dev.cmd start`.
+До принятия bootstrap используется ui/ux и PR #58. После принятия main:
+`git fetch origin` → новая task branch от origin/main → commit/push → PR →
+отдельное review → человеческое решение merge → pull main → update → start.
+Update не выполняет Git-команды изменения checkout.
+
+Candidate разделяет fingerprint опубликованной сборки и dev Content inputs.
+React/CSS читаются Vite без новой публикации; routing registry, server projection,
+уроки, каталог и остальные build inputs сохраняют полный prepare/review путь.
+Новый dev fingerprint существующего окружения записывается при совпадении старого
+полного fingerprint либо после reviewed публикации. Неизвестный старый baseline
+не принимается автоматически. Pending review не обходится. Опубликованный SSG
+при UI-only update остаётся прежним; это режим dev, не обновление release.
+
+Compose выводит TIMING для DB readiness, проверки ready и app HTTP readiness;
+в логах app отдельно TIMING dev projection и internal API socket. Последний
+измеряет доступность сокета, а не HTTP. Интервал healthcheck входит в app timing.
+Не складывайте вложенные этапы как независимые измерения.
+
+WSL2 candidate: исходники должны находиться в Linux filesystem (`~/projects`),
+а не `/mnt/c`. Сначала требуется Docker Desktop WSL Integration для Ubuntu.
+На 04.11.2026 Ubuntu WSL2 установлена, integration отключена, pwsh отсутствует;
+запуск через Linux filesystem ещё не проверен. Windows dev.cmd нельзя объявлять
+проверенным Linux launcher. Не копируйте var/credentials между checkout и не
+удаляйте старые volumes при эксперименте. Ускорение WSL пока не измерено.

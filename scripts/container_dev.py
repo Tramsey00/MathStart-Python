@@ -78,8 +78,12 @@ def migration_files():
             for name in git('ls-files', '-z', '--', 'backend/migrations/versions').split('\0') if name}
 
 
-def content_digest():
-    return fingerprint(['curriculum', 'site_content', 'static', 'frontend/src',
+def content_digest(*, dev=False):
+    # UI modules are read by Vite. Routing remains a publication input.
+    return fingerprint(['curriculum', 'site_content', 'static',
+        *(['frontend/src/shared/routing', 'frontend/src/server',
+           'frontend/src/app/routes.ts', 'frontend/src/app/route-foundation.ts']
+          if dev else ['frontend/src']),
         'frontend/public_design.py', 'frontend/rendering.py', 'frontend/build_public.py',
         'frontend/build_input.py', 'frontend/prepare_public.py', 'frontend/vite.config.ts',
         'frontend/react-router.config.ts', 'frontend/package.json', 'frontend/package-lock.json',
@@ -219,11 +223,16 @@ def prepare(args):
             print('Schema code changed; existing physical schema checked compatible. No DDL required.', flush=True)
         else:
             print('Schema inputs unchanged; schema preparation skipped.', flush=True)
-        if state['content_digest'] == content:
+        dev_content = content_digest(dev=True)
+        if state['content_digest'] == content or (
+            not REVIEW.exists() and state.get('dev_content_digest') == dev_content
+        ):
             status = json.loads(team.cli('backend.content.publish', ['status'], 'unchanged-status', values))
             if status['operation'] or not status['active'] or status['active']['release_id'] != state['release']:
                 raise RuntimeError('Publication authority differs from saved completed installation; operator recovery required')
             print('Content/build inputs unchanged; prepare/build/publication skipped.', flush=True)
+            state['dev_content_digest'] = dev_content
+            save(STATE, state)
             REVIEW.unlink(missing_ok=True)
             return 0
         status = json.loads(team.cli('backend.content.publish', ['status'], 'before-content-status', values))
@@ -248,7 +257,7 @@ def prepare(args):
                 'input_manifest_digest': plan['manifest_digest'], 'output_manifest_digest': plan['output_manifest_digest']}
             return require_review('content', plan_path, digest, summary)
         team.publish(values, operation, digest)
-        state.update(content_digest=content, release=operation['release'])
+        state.update(content_digest=content, dev_content_digest=dev_content, release=operation['release'])
         save(STATE, state)
         REVIEW.unlink(missing_ok=True)
         print('Local environment prepared; credentials and existing DB rows retained.', flush=True)
