@@ -109,6 +109,14 @@ def owned_container(state):
     return data
 
 
+def set_database_running(state, running):
+    if owned_container(state)['State']['Running'] == running:
+        return False
+    action = 'start' if running else 'stop'
+    run(['docker', action, state['container_id']], 'db-' + action, timeout=30)
+    return True
+
+
 def init(port):
     if sys.version_info[:2] != (3, 12):
         raise RuntimeError('Use Python 3.12 for the documented locked environment')
@@ -285,7 +293,7 @@ def publish(values, state, reviewed):
             except subprocess.TimeoutExpired:
                 server.kill()
                 server.wait(timeout=5)
-    print('Publication complete; temporary gateway stopped. Start npm --prefix frontend run dev.')
+    print('Publication complete; temporary gateway stopped. Start npm.cmd --prefix frontend run dev:host.')
 
 
 def main():
@@ -300,10 +308,11 @@ def main():
             init(args.pg_port)
             return 0
         state = installation()
-        owned_container(state)
         if args.action in ('db-start', 'db-stop'):
-            print(run(['docker', 'start' if args.action == 'db-start' else 'stop', state['container_id']], args.action))
+            set_database_running(state, args.action == 'db-start')
+            print('Local PostgreSQL is ' + ('running' if args.action == 'db-start' else 'stopped'))
             return 0
+        owned_container(state)
         values = read_json(LOCAL / 'schema-env.json')
         if args.action == 'schema-preview':
             print(cli('backend.release_migrate', ['preview', '--profile', 'FRESH', '--plan-file', str(LOCAL / 'schema.json')], 'schema-preview', values))

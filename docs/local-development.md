@@ -151,9 +151,11 @@ project предотвращают неявное присоединение к 
 
 ## Альтернативный host-dev и собранный режим
 
-[Host-dev инструкция](local-development-host.md) сохранена как альтернатива:
-она требует собственные host Python/Node и отдельную private конфигурацию.
-Его прежние результаты — история, не доказательство container-ready.
+Для пилота на Windows можно явно выбрать [host-dev](local-development-host.md).
+Vite и FastAPI работают на хосте, PostgreSQL — в Docker. После отдельной первой
+подготовки используйте `npm.cmd --prefix frontend run dev:host` и
+`npm.cmd --prefix frontend run dev:host:stop`. Результат пилота на компьютере
+коллеги нужен для решения о смене основного режима.
 `scripts/lesson_server.py` сохраняет отдельный FastAPI/SSG просмотр без Vite.
 В контейнерном prepare этот же настоящий gateway используется для обязательных
 publication probes; production targets/Compose не заменены dev-конфигурацией.

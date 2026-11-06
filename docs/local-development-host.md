@@ -1,10 +1,17 @@
-# Альтернативный host-dev
+# Host-dev на Windows
 
-Исторический путь от 25.10.2026, требующий host Python/Node и своей PostgreSQL.
-Основной командный путь — [Docker Compose](local-development.md). Результаты
-host-dev не подтверждают контейнерный candidate. Приватные конфигурации двух
-путей независимы; var/ между checkout не копировать.
-# Локальный запуск MathStart после clone
+Vite и FastAPI работают на Windows, PostgreSQL — в Docker Desktop. Этот режим
+выбирается явно для пилота. Основной командный путь — [Docker Compose](local-development.md).
+Режимы используют отдельные данные и настройки. Перед переключением остановите
+активный режим, чтобы освободить общий порт 8131.
+
+После первой подготовки (шаги 1–3) на каждый день достаточно двух команд.
+
+```powershell
+npm.cmd --prefix frontend run dev:host
+# Из второго терминала того же checkout:
+npm.cmd --prefix frontend run dev:host:stop
+```
 
 До отдельного merge bootstrap клонируйте опубликованную **ui/ux**. Main пока
 не содержит новые страницы. Основной сайт — React + Content + FastAPI + PostgreSQL,
@@ -33,7 +40,7 @@ package-lock.json. Django/DRF и oracle не нужны. Assets/шрифты/cur
 В PowerShell из родительского каталога (выберите своё новое имя папки):
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --filter=blob:none --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
 Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false
@@ -42,14 +49,12 @@ git rev-parse HEAD
 python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install --no-deps -r requirements.lock
 & .\.venv\Scripts\python.exe -m pip check
-npm --prefix frontend ci --no-audit --no-fund
+npm.cmd --prefix frontend ci --no-audit --no-fund
 ```
 
 Активация venv не требуется, execution policy PowerShell не мешает запуску.
-Не пересоздавайте locks. npm ci не запускает tests. HTTP/1.1 и lazy blobs использованы после зависания обычного clone.
-Filter=blob:none сохраняет историю; historical blobs догружаются с GitHub.
-Не используйте shallow clone:
-некоторые build inputs имеют точные historical Git pins.
+Используйте полный clone с HTTP/1.1: некоторые build inputs читают точные
+historical Git pins.
 
 ## 2. Своя БД и явная schema
 
@@ -124,27 +129,25 @@ Init/schema/content — первая установка: существующи�
 и [RECOVERY](../deploy/RECOVERY.md). Повтор bootstrap поверх данных не нужен.
 При изменении schema/состава/URL контента нужна отдельная подготовка release.
 
-## 4. Ежедневный dev с HMR
+## 4. Ежедневный старт и остановка
 
 ```powershell
-& .\.venv\Scripts\python.exe scripts/team_local.py db-start
-npm --prefix frontend run dev
+npm.cmd --prefix frontend run dev:host
 ```
 
-Откройте:
+Дождитесь сообщения «Host-dev готов». Команда запускает свою PostgreSQL,
+Vite и FastAPI, затем ждёт HTTP 200 от главной и API классов через 8131.
+Терминал остаётся занят и показывает логи. Откройте:
 
 - http://127.0.0.1:8131/
-- http://127.0.0.1:8131/materials
+- http://127.0.0.1:8131/api/v1/grades/
 - http://127.0.0.1:8131/materials/7-algebra-8
-- http://127.0.0.1:8131/materials/8-algebra-32
-- http://127.0.0.1:8131/materials/5-math-12
-- http://127.0.0.1:8131/materials/8-geometry-6
 
 Vite обслуживает React/HMR WebSocket на 8131, внутренний FastAPI — loopback 8132.
 API/assets/private/legacy идут через same-origin proxy с исходными Host/Origin/
-cookies. Внутренний адрес открывать не нужно. Npm run dev находит свой .venv;
-активация и сохранённый runner не нужны. Явный Python: MATHSTART_PYTHON;
-private JSON: аргумент --env-file. Не копируйте private config другого checkout.
+cookies. FastAPI автоматически перезапускает рабочий процесс при изменении
+`backend/**/*.py`. Vite и адрес 8131 остаются доступны. Запрос к API в момент
+перезапуска может потребовать повторения.
 
 Обычный startup читает release, готовит read-only dev view и запускает процессы.
 Он не делает DDL, seed, создание пользователей, build, publication или tests.
@@ -156,21 +159,34 @@ React/CSS обновляются через HMR без build. Существую
 renderer_version требуют явной подготовки Content. Private/legacy UI пока
 используют собранную версию; их HMR не входит в этот этап.
 
-## Остановка и повторный запуск
-
-Ctrl+C в терминале dev останавливает оба процесса. Из второго PowerShell того
-же checkout:
+Остановите режим через Ctrl+C или из второго PowerShell того же checkout:
 
 ```powershell
-npm --prefix frontend run dev -- --stop
-& .\.venv\Scripts\python.exe scripts/team_local.py db-stop
+npm.cmd --prefix frontend run dev:host:stop
 ```
 
-Db-stop сохраняет volume/schema/Content. Для продолжения повторите db-start и
-npm run dev из шага 4, без новой установки/публикации. Команды проверяют владельца
-ресурсов, не останавливают Docker/WSL, не удаляют volumes и не завершают неизвестные
-процессы. Scripts/local.ps1 обслуживает отдельный прежний экземпляр и здесь не
-используется. Защищённый acceptance stack не трогать.
+Supervisor завершает Vite и FastAPI и останавливает свою PostgreSQL. Volume,
+схема, Content и настройки сохраняются для следующего запуска. Если терминал
+был принудительно закрыт и своя БД осталась работать, используйте
+`& .\.venv\Scripts\python.exe scripts/team_local.py db-stop`.
+Логи операций Docker — в `var/local/team/logs/`. Если 8131 или 8132 занят,
+остановите известный вам режим его штатной командой.
+
+## После git pull
+
+Сохраните свои правки и выполните `git pull --ff-only origin ui/ux`.
+
+- Обычные изменения React/CSS и Python в `backend/` подхватываются в работающем
+  режиме. Если окружение остановлено, выполните `dev:host`. Для изменений
+  launcher, Vite config или настроек запуска перезапустите режим.
+- Если изменились Python locks или frontend package/lock, остановите режим и
+  повторите соответствующую locked установку из шага 1.
+- Если изменилась схема или опубликованный состав Content (каталог, URL,
+  связи, renderer или release inputs), нужна явная подготовка совместимой схемы
+  или Content по [регламенту](../deploy/RELEASE.md) с review точного SHA256.
+  Шаги 2–3 описывают первую установку. Для существующих данных используйте
+  предусмотренный upgrade/publication workflow и новый план. Обычный start
+  читает подготовленную установку.
 
 ## Собранная FastAPI-версия без Vite
 
@@ -181,20 +197,12 @@ npm run dev из шага 4, без новой установки/публика
 ```
 
 Адрес тот же 8131, установленный immutable Content/SSG release; Node runtime
-не нужен. Остановка Ctrl+C. Возврат к HMR — npm --prefix frontend run dev.
+не нужен. Остановка Ctrl+C. Возврат к HMR — `npm.cmd --prefix frontend run dev:host`.
 Режимы не работают одновременно.
 
-## Границы контроля
+## Приёмка пилота
 
-MS-T002A проверяет установку GitHub clone, шесть фактических страниц, CSS/JS/fonts,
-API/WebSocket, CSS/React/content refresh, остановку/перезапуск. Точные SHA/версии/
-ограничения — в [карточке](../skills/tasks/t002a-team-local-start/SKILL.md).
-Остальные suites — NOT_RUN_BY_USER_REQUEST по [политике](frontend/testing-policy.md).
-Check:dev не является шагом установки. Clone опубликованного main проверяется
-после отдельного merge; до него вся MS-T002A не ACCEPTED и MS-T003 не начинается.
-
-Windows — платформа этого поручения. Tooling имеет POSIX paths, но macOS/Linux/
-WSL этим контролем не подтверждены: замените .venv/Scripts/python.exe на
-.venv/bin/python, обеспечьте Docker и права. Production TLS/ingress/backups и
-provider/security решения — отдельный scope.
+Ежедневный цикл проверен на подготовленном checkout Windows. Чистый clone
+на компьютере коллеги и его первая подготовка — отдельный шаг приёмки.
+Замеры и точный проверенный код указаны в [карточке MS-T002A](../skills/tasks/t002a-team-local-start/SKILL.md).
 
