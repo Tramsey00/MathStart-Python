@@ -102,10 +102,11 @@ def stop_child(process):
 
 def request_stop(dev):
     manifest = dev / 'processes.json'
-    if not manifest.exists():
+    try:
+        current = json.loads(manifest.read_text(encoding='utf-8'))
+    except FileNotFoundError:
         print('Dev-режим не запущен через этот checkout', flush=True)
         return 0
-    current = json.loads(manifest.read_text(encoding='utf-8'))
     if current.get('owner') != str(ROOT):
         raise ValueError('Development instance belongs to another checkout')
     instance = str(uuid.UUID(current['instance']))
@@ -242,7 +243,7 @@ def supervise(args, dev, settings_path, settings, origin):
     pending.write_text(json.dumps({'owner': str(ROOT), 'instance': instance, 'supervisor': os.getpid(),
         'origin': settings['MATHSTART_PUBLIC_ORIGIN']}), encoding='utf-8')
     pending.replace(manifest)
-    database = None
+    database_to_stop = None
     stage = 'PostgreSQL'
 
     def check_running(processes=children):
@@ -253,16 +254,18 @@ def supervise(args, dev, settings_path, settings, origin):
 
     try:
         if args.host_dev:
-            from team_local import installation, set_database_running
+            from team_local import installation, local_database_url, set_database_running
 
             stage_started = time.monotonic()
             state = installation()
             try:
-                set_database_running(state, True)
+                if settings['MATHSTART_DATABASE_URL'] != local_database_url(state, 'runtime'):
+                    raise RuntimeError('Runtime DB settings do not match this checkout installation')
+                if set_database_running(state, True):
+                    database_to_stop = state
             except RuntimeError as error:
                 print(str(error), file=sys.stderr)
                 raise
-            database = state
             wait_for_database(settings, check_running)
             print(f'TIMING host PostgreSQL: {time.monotonic() - stage_started:.3f}s', flush=True)
         stage = 'read-only dev projection'
@@ -290,6 +293,7 @@ def supervise(args, dev, settings_path, settings, origin):
                 for path, media_type in (('/', 'text/html'), ('/api/v1/grades/', 'application/json')):
                     stage = f'HTTP readiness {path}'
                     wait_for_http(client, settings['MATHSTART_PUBLIC_ORIGIN'].rstrip('/'), path, media_type, check_running)
+            database_to_stop = state  # A ready session owns the database lifecycle until stop.
         stage = 'running development processes'
         label = 'Host-dev готов: ' if args.host_dev else 'Разработка с HMR: '
         print(label + settings['MATHSTART_PUBLIC_ORIGIN'] + ' (Ctrl+C — остановить)', flush=True)
@@ -317,13 +321,19 @@ def supervise(args, dev, settings_path, settings, origin):
         print(f'Development failed at {stage}: {type(error).__name__}. See docs/local-development.md and local stage logs.', file=sys.stderr)
         return 1
     finally:
+        failed_cleanup = []
         for child in reversed(children):
-            stop_child(child)
-        if database is not None:
             try:
-                set_database_running(database, False)
+                stop_child(child)
             except Exception:
-                raise RuntimeError('PostgreSQL shutdown failed; see var/local/team/logs') from None
+                failed_cleanup.append(f'dev process {child.pid}')
+        if database_to_stop is not None:
+            try:
+                set_database_running(database_to_stop, False)
+            except Exception:
+                failed_cleanup.append('PostgreSQL')
+        if failed_cleanup:
+            raise RuntimeError('Shutdown failed for ' + ', '.join(failed_cleanup) + '; see var/local/team/logs')
         manifest.unlink()
         stop_request.unlink(missing_ok=True)
 

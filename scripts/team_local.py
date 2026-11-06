@@ -117,6 +117,11 @@ def set_database_running(state, running):
     return True
 
 
+def local_database_url(state, role):
+    password = state['passwords'][role]
+    return f"postgresql+psycopg://local_{role}:{password}@127.0.0.1:{state['pg_port']}/mathstart_dev"
+
+
 def init(port):
     if sys.version_info[:2] != (3, 12):
         raise RuntimeError('Use Python 3.12 for the documented locked environment')
@@ -164,10 +169,8 @@ def init(port):
         connection.execute('GRANT USAGE, CREATE ON SCHEMA public TO local_schema')
         connection.execute('GRANT CONNECT ON DATABASE mathstart_dev TO local_runtime')
         connection.execute('GRANT USAGE ON SCHEMA public TO local_runtime')
-    def dsn(role, key):
-        return f'postgresql+psycopg://{role}:{passwords[key]}@127.0.0.1:{port}/mathstart_dev'
     values = {'MATHSTART_DB_BACKEND': 'postgresql',
-        'MATHSTART_DATABASE_URL': dsn('local_runtime', 'runtime'),
+        'MATHSTART_DATABASE_URL': local_database_url(state, 'runtime'),
         'MATHSTART_HTTP_SIGNING_KEY': secrets.token_urlsafe(48),
         'MATHSTART_PUBLIC_ORIGIN': 'http://127.0.0.1:8131',
         'MATHSTART_RELEASE_ROOT': 'var/local/team/serving/releases',
@@ -175,7 +178,7 @@ def init(port):
         'MATHSTART_PUBLIC_ARTIFACT_DIGESTS': '{}'}
     write_json(PRIVATE, values)
     write_json(LOCAL / 'schema-env.json', {**values,
-        'MATHSTART_DATABASE_URL': dsn('local_schema', 'schema'),
+        'MATHSTART_DATABASE_URL': local_database_url(state, 'schema'),
         'MATHSTART_SCHEMA_SIGNING_KEY': secrets.token_urlsafe(48)})
     print('Created checkout-owned PostgreSQL, separate schema/runtime roles and private config. No app schema or users yet.')
 
@@ -293,7 +296,7 @@ def publish(values, state, reviewed):
             except subprocess.TimeoutExpired:
                 server.kill()
                 server.wait(timeout=5)
-    print('Publication complete; temporary gateway stopped. Start npm.cmd --prefix frontend run dev:host.')
+    print('Publication complete; temporary gateway stopped.')
 
 
 def main():
@@ -324,6 +327,7 @@ def main():
                 schema_apply(values, args.reviewed_plan_sha256)
             else:
                 publish(values, state, args.reviewed_plan_sha256)
+                print('Start npm.cmd --prefix frontend run dev:host.')
         else:
             content(values, state)
         return 0
