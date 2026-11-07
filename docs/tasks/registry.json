@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "status": "ACTIVE",
-  "execution": "Одно явно порученное задание за раз; карточка task задаёт scope; автоматического продолжения нет",
+  "execution": "Одно явно порученное задание на исполнителя; MS-T003–MS-T008 допускают параллельную работу разных исполнителей; автоматического продолжения нет",
   "tasks": [
     {
       "id": "MS-T000",
@@ -214,7 +214,7 @@
       "id": "MS-T002A",
       "order": 3,
       "title": "Подготовить воспроизводимый запуск после clone и передать baseline команде",
-      "status": "HUMAN_ACCEPTANCE_PENDING",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T002"
       ],
@@ -236,22 +236,21 @@
       "scope_authority": "Явное поручение 07.11.2026: итоговый candidate в ui/ux, отдельное read-only review/fixes, обычный merge PR #58, независимый GitHub clone опубликованного main и только узкий контроль; schema/Content планы утверждает человек.",
       "checks": "COMPLETE_SCOPED_PUBLISHED_MAIN_CLONE; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
       "review": "COMPLETE_SEPARATE_STATIC_REVIEW_WITH_FIX_REVIEW",
-      "human_acceptance": "PENDING_NEW_RESULTS",
+      "human_acceptance": "ACCEPTED",
       "remaining": [
-        "Человеческая приёмка новых результатов MS-T002A",
-        "Отдельное поручение перед MS-T003"
+        "Распределение и отдельное поручение задач переноса исполнителям"
       ],
       "historical_host_verified_code_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
       "historical_host_verified_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
       "verified_code_sha": "45e6e6532572f64780e21610d9f319c7e7fc4c42",
       "verified_tree": "6e537ba888525774a7cc8922f6412e7c1a50511d",
-      "verification_limit": "Exact published main clone reviewed schema/Content preparation, 3 HTTP/browser addresses including populated lesson/graph, stop/restart and DB/config preservation. General suites, new HMR/reload/negative controls, all interactives, cross-platform and production NOT_RUN. New human acceptance pending.",
+      "verification_limit": "Exact published main clone reviewed schema/Content preparation, 3 HTTP/browser addresses including populated lesson/graph, stop/restart and DB/config preservation. General suites, new HMR/reload/negative controls, all interactives, cross-platform and production NOT_RUN. Human acceptance recorded 2026-11-08; no additional runs implied.",
       "historical_host_last_recorded_checks": {
         "status": "PASS_SCOPED_DEV",
         "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
       },
       "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
-      "next_scope": "Передать результат и остановиться; MS-T003 не начинать.",
+      "next_scope": "MS-T003–MS-T008 доступны для параллельного назначения разным исполнителям; реализация только по отдельному поручению.",
       "pull_request": "https://github.com/Tramsey00/MathStart-Python/pull/58",
       "container_dev_revision": {
         "date": "2026-10-26",
@@ -372,6 +371,18 @@
         "preservation": "Same nonempty normalized data-only dump, active release, four private config hashes before/after restart; no artificial user history",
         "final_state": "Own clone host-dev/DB stopped, data retained; original main checkout host-dev restored",
         "general_suites": "NOT_RUN_BY_USER_REQUEST"
+      },
+      "acceptance_record": {
+        "date": "2026-11-08",
+        "authority": "Явное решение пользователя в чате: «MS-T002A — принимаю».",
+        "scope": "Результат Windows host-dev и контроль независимого clone опубликованного main, переданный 07.11.2026; ограничения проверок сохранены.",
+        "candidate_sha": "45e6e6532572f64780e21610d9f319c7e7fc4c42"
+      },
+      "documentation_publication": {
+        "pull_request": 59,
+        "merge_authority_date": "2026-11-08",
+        "authority": "Явное поручение пользователя: отправить подготовленные изменения на GitHub и сразу в main.",
+        "review_limit": "Новая редакция прошла самопроверку документационного diff; отдельное review этой редакции не заявляется."
       }
     },
     {
@@ -383,11 +394,12 @@
         "MS-T002A"
       ],
       "skill": "skills/tasks/t003-grade-5/SKILL.md",
-      "acceptance": "Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "acceptance": "Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort.",
       "grade": "5-klass",
       "expected_topics": 35,
       "inventory": "docs/tasks/lesson-inventory.json",
-      "workflow": "regular"
+      "workflow": "regular",
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
     },
     {
       "id": "MS-T004",
@@ -395,14 +407,15 @@
       "title": "Полностью перенести 6 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-T003"
+        "MS-T002A"
       ],
       "skill": "skills/tasks/t004-grade-6/SKILL.md",
-      "acceptance": "Все 28 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "acceptance": "Все 28 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort.",
       "grade": "6-klass",
       "expected_topics": 28,
       "inventory": "docs/tasks/lesson-inventory.json",
-      "workflow": "regular"
+      "workflow": "regular",
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
     },
     {
       "id": "MS-T005",
@@ -410,14 +423,15 @@
       "title": "Полностью перенести 7 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-T004"
+        "MS-T002A"
       ],
       "skill": "skills/tasks/t005-grade-7/SKILL.md",
-      "acceptance": "Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "acceptance": "Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort.",
       "grade": "7-klass",
       "expected_topics": 75,
       "inventory": "docs/tasks/lesson-inventory.json",
-      "workflow": "regular"
+      "workflow": "regular",
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
     },
     {
       "id": "MS-T006",
@@ -425,14 +439,15 @@
       "title": "Полностью перенести 8 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-T005"
+        "MS-T002A"
       ],
       "skill": "skills/tasks/t006-grade-8/SKILL.md",
-      "acceptance": "Все 66 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "acceptance": "Все 66 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort.",
       "grade": "8-klass",
       "expected_topics": 66,
       "inventory": "docs/tasks/lesson-inventory.json",
-      "workflow": "regular"
+      "workflow": "regular",
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
     },
     {
       "id": "MS-T007",
@@ -440,14 +455,15 @@
       "title": "Полностью перенести 9 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-T006"
+        "MS-T002A"
       ],
       "skill": "skills/tasks/t007-grade-9/SKILL.md",
-      "acceptance": "Все 46 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "acceptance": "Все 46 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort.",
       "grade": "9-klass",
       "expected_topics": 46,
       "inventory": "docs/tasks/lesson-inventory.json",
-      "workflow": "regular"
+      "workflow": "regular",
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
     },
     {
       "id": "MS-T008",
@@ -455,14 +471,15 @@
       "title": "Полностью перенести 10 класс",
       "status": "PLANNED",
       "dependencies": [
-        "MS-T007"
+        "MS-T002A"
       ],
       "skill": "skills/tasks/t008-grade-10/SKILL.md",
-      "acceptance": "Все 13 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort.",
+      "acceptance": "Все 13 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort.",
       "grade": "10-klass",
       "expected_topics": 13,
       "inventory": "docs/tasks/lesson-inventory.json",
-      "workflow": "regular"
+      "workflow": "regular",
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
     },
     {
       "id": "MS-T009",
@@ -470,6 +487,11 @@
       "title": "Заменить старый интерфейс авторизации и профиля",
       "status": "PLANNED",
       "dependencies": [
+        "MS-T003",
+        "MS-T004",
+        "MS-T005",
+        "MS-T006",
+        "MS-T007",
         "MS-T008"
       ],
       "skill": "skills/tasks/t009-identity-ui/SKILL.md",
@@ -753,7 +775,7 @@
       "branch": "ui/ux",
       "issue_required": false,
       "separate_branch_required": false,
-      "handoff": "PR #58 merged 07.11.2026 after explicit user decision and separate review; scoped published-main clone control complete. New MS-T002A human acceptance pending; MS-T003 only by separate assignment."
+      "handoff": "PR #58 merged 07.11.2026; published-main clone control complete. MS-T002A accepted by user 08.11.2026. MS-T003–MS-T008 may be assigned in parallel; PR #59 publication/merge explicitly authorized 08.11.2026."
     },
     "regular": {
       "starts_at": "MS-T003",
@@ -767,6 +789,22 @@
       ],
       "pull_request": true,
       "merge": "решение пользователя после review, checks и human acceptance"
+    },
+    "parallel_lesson_migration": {
+      "effective": "2026-11-08",
+      "tasks": [
+        "MS-T003",
+        "MS-T004",
+        "MS-T005",
+        "MS-T006",
+        "MS-T007",
+        "MS-T008"
+      ],
+      "common_dependency": "MS-T002A",
+      "assignment": "Отдельное поручение, Issue, ветка и PR для каждого исполнителя/класса; задачи остаются PLANNED до назначения.",
+      "coordination": "Материалы своего класса; добавления URL только для своих тем; изменения renderer/конвертера/общих компонентов согласовать и интегрировать отдельно. PR объединять последовательно по решению пользователя.",
+      "downstream_join": "MS-T009 зависит от всех MS-T003–MS-T008",
+      "checks": "MANUAL_ONLY; automatic runs NOT_RUN_BY_USER_REQUEST"
     }
   },
   "verification_policy": {
@@ -774,6 +812,7 @@
     "automatic_runs": "DISABLED",
     "default_result": "NOT_RUN_BY_USER_REQUEST",
     "explicit_user_request_required": true,
-    "restoration": "Отдельное решение пользователя; пересмотреть scope в MS-T009/MS-T011, не включать автоматически."
+    "restoration": "Отдельное решение пользователя; пересмотреть scope в MS-T009/MS-T011, не включать автоматически.",
+    "lesson_migration": "08.11.2026: MS-T003–MS-T008 — перенос по принятому стандарту и ручная приёмка; без автоматических прогонов; не отключать штатные guards."
   }
 }
