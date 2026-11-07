@@ -1,39 +1,35 @@
 # React frontend
 
-Основной dev — [Compose workflow](../docs/local-development.md), из корня
-Windows checkout с Git/Docker Desktop/PowerShell. Host Node/Python не нужны:
+Основной dev — [Windows host-dev](../docs/local-development-host.md), из корня
+обычного рабочего checkout с Git/Python 3.12/Node 24/npm 11/Docker Desktop.
+После первой подготовки достаточно команд:
 
 ```powershell
-.\dev.cmd prepare
-.\dev.cmd start
-# После обычного Git pull:
-.\dev.cmd update
-.\dev.cmd start
-.\dev.cmd stop
+npm.cmd --prefix frontend run dev:host
+# Из второго терминала той же папки:
+npm.cmd --prefix frontend run dev:host:stop
 ```
 
-Prepare/update объединяют locked dependencies и Content release preparation,
-с обязательным человеческим review конкретных schema/publication планов.
-Start читает подготовленный release; DDL/seed/build/publication не запускаются.
-Stop сохраняет данные и credentials. Update не выполняет Git mutations.
+Первая подготовка устанавливает locked dependencies и создаёт свою БД и Content
+release с review конкретных schema/publication планов. Start читает готовый
+release, stop сохраняет данные. Действия после pull перечислены в инструкции.
 
 Browser origin http://127.0.0.1:8131: /, /materials, /materials/7-algebra-8,
 /materials/8-algebra-32, /materials/5-math-12, /materials/8-geometry-6.
-Существующий supervisor запускает Vite/HMR и внутренний FastAPI в app-контейнере;
+Существующий supervisor запускает Vite/HMR и внутренний FastAPI на Windows;
 API и WebSocket остаются на 8131, PostgreSQL использует отдельный persistent volume.
-Исходники bind-mounted из checkout, dependencies/.cache/.react-router —
-в named volumes; временная сборка — в frontend/.cache/router-build внутри cache volume.
-Windows polling поддерживает CSS/React/content.json refresh.
-Dev content projection не публикует данные в БД; новая identity/URL требует update.
+Исходники, node_modules и caches находятся в обычной папке проекта.
+React/CSS используют HMR; изменения backend Python перезапускают FastAPI.
+Dev content projection не публикует данные в БД; новая identity/URL требует подготовки Content.
 
-Node/npm/Python берутся из pinned development target deploy/Dockerfile.
+Версии Node/npm/Python для Windows указаны в инструкции, pins контейнеров — в deploy/Dockerfile.
 Frontend packages exact в package-lock.json; root/runtime Python locks сохранены.
 Python -m frontend.build_public потребляет verified immutable input/receipt
 handoff; простой Vite build не устанавливает Content release.
 Production API/edge targets и deploy/compose.yaml остаются отдельными.
 
-[Host-dev](../docs/local-development-host.md) — альтернатива с host Python/Node,
-не prerequisite Compose. Собранный FastAPI режим через lesson_server.py сохранён.
+[Полный Compose](../docs/local-development.md#альтернативный-полный-docker-compose) —
+альтернативный dev. Собранный FastAPI режим через lesson_server.py сохранён.
 Dev:design — исторический prototype, не основной сайт. Квадратичная функция
 уже подключена к runtime; MS-T006 переиспользует её.
 

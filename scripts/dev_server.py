@@ -186,7 +186,12 @@ def main():
     if args.host_dev and (args.container or args.prepare_only
                           or args.env_file.resolve() != ROOT / 'var/local/lesson-preview/private-env.json'):
         parser.error('--host-dev requires the default checkout installation')
-    settings_path = args.env_file.resolve()
+    if args.host_dev:
+        from team_local import PRIVATE, require_windows_long_paths
+        require_windows_long_paths()
+        settings_path = PRIVATE.resolve()
+    else:
+        settings_path = args.env_file.resolve()
     if args.host_dev and not settings_path.is_file():
         parser.error('Host-dev is not prepared. See docs/local-development-host.md.')
     settings = json.loads(settings_path.read_text(encoding='utf-8'))

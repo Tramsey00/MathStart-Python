@@ -1,11 +1,19 @@
 # Host-dev на Windows
 
-Vite и FastAPI работают на Windows, PostgreSQL — в Docker Desktop. Этот режим
-выбирается явно для пилота. Основной командный путь — [Docker Compose](local-development.md).
+Основной командный режим с 07.11.2026. Vite и FastAPI работают на Windows,
+PostgreSQL — в Docker Desktop. [Полный Docker Compose](local-development.md#альтернативный-полный-docker-compose)
+доступен как альтернативный режим.
 Режимы используют отдельные данные и настройки. Перед переключением остановите
 активный режим, чтобы освободить общий порт 8131.
 
 После первой подготовки (шаги 1–3) на каждый день достаточно двух команд.
+
+Используйте одну обычную папку проекта, например `C:\Projects\MathStart-Python`.
+Название папки произвольное. `MathStart-host-check` использовалась для контроля;
+создавать дополнительную копию для работы не нужно. Если коллега уже подготовил
+проект в своей папке, он может продолжать там. Не перемещайте настроенный checkout
+и не копируйте `var/`, venv или volumes между папками. Для другой папки выполните
+первую подготовку заново с собственной БД. Старая установка останется сохранена.
 
 ```powershell
 npm.cmd --prefix frontend run dev:host
@@ -20,6 +28,13 @@ npm.cmd --prefix frontend run dev:host:stop
 ## Требования
 
 - Windows, PowerShell, Git с long paths; короткий путь checkout.
+- Windows `LongPathsEnabled=1`. Python копирует файлы в длинные staging-пути.
+  `git config core.longpaths true` действует только на Git. До подготовки проверьте
+  `Get-ItemPropertyValue -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled`.
+  Если значение отличается от `1`, в PowerShell администратора выполните
+  `New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1 -PropertyType DWord -Force`
+  и перезагрузите Windows. Host-dev проверяет настройку до запуска БД;
+  init/content/publish — до соответствующих изменений. Скрипты не меняют реестр.
 - Python **3.12** с venv/pip (`python --version`). Если работает launcher,
   первую команду venv можно заменить на `py -3.12 -m venv .venv`.
 - Node **24.x**, npm **11.x** по engines frontend/package.json. Docker/CI
@@ -40,8 +55,8 @@ package-lock.json. Django/DRF и oracle не нужны. Assets/шрифты/cur
 В PowerShell из родительского каталога (выберите своё новое имя папки):
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
-Set-Location MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-Python
+Set-Location MathStart-Python
 git config core.longpaths true
 git config core.autocrlf false
 git config http.version HTTP/1.1
@@ -55,6 +70,15 @@ npm.cmd --prefix frontend ci --no-audit --no-fund
 Активация venv не требуется, execution policy PowerShell не мешает запуску.
 Используйте полный clone с HTTP/1.1: некоторые build inputs читают точные
 historical Git pins.
+
+Если у вас уже есть рабочий clone, начните с перехода в него и проверки ветки/SHA.
+Clone и повторная установка готовых зависимостей не нужны. Создайте `.venv`, если
+его ещё нет. Новому host-dev в существующей папке нужны шаги 2–3.
+Остановите прежний dev перед первой публикацией и запуском, освободив 8131/8132.
+Новая установка хранит runtime settings в `var/local/team/private-env.json`,
+сохраняя старые настройки preview в `var/local/lesson-preview/private-env.json`.
+Установки коллег, созданные до этого изменения, продолжают читать прежний файл
+по своей installation.json; вручную переносить настройки не нужно.
 
 ## 2. Своя БД и явная schema
 
@@ -82,6 +106,13 @@ code/DB identity и expiry guards. Явный шаг устанавливает 
 metadata. Пользователь/operator для публичных страниц не требуется и автоматически
 не создаётся. Если позже нужен staff, initial operator создаётся отдельно по
 [release runbook](../deploy/RELEASE.md), до появления других пользователей.
+
+Повторный `schema-preview` не перезаписывает существующий `schema.json` и может
+отказать с `FileExistsError`. Для применения используйте исходный просмотренный
+план, пока он действителен. Если план истёк, сохраните его и согласуйте новый.
+После успешного `APPLIED` и `CHECKED` переходите к контенту. Не повторяйте FRESH
+установку поверх уже установленной схемы. Фраза `does not reconcile an uncertain
+prior apply` — постоянная часть вывода check; сама по себе она не означает сбой.
 
 ## 3. Content prepare → build → plan → publication
 
@@ -203,9 +234,13 @@ Supervisor завершает Vite и FastAPI и останавливает св
 не нужен. Остановка Ctrl+C. Возврат к HMR — `npm.cmd --prefix frontend run dev:host`.
 Режимы не работают одновременно.
 
-## Приёмка пилота
+## Статус командного режима
 
-Ежедневный цикл проверен на подготовленном checkout Windows. Чистый clone
-на компьютере коллеги и его первая подготовка — отдельный шаг приёмки.
+Ежедневный цикл проверен на подготовленном checkout Windows. Пользователь сообщил
+об успешном запуске у Владимира (точный SHA a44c5f7, с включением длинных путей и
+штатным восстановлением публикации) и Ильи (SHA не сообщён). Эти сообщения
+подтверждают запуск, но не дополнительные HMR/авторелоад или полные suites.
+Новые изменения проверки предпосылок и размещения настроек требуют своего review.
+Merge и запуск clone опубликованного main остаются отдельными шагами приёмки.
 Замеры и точный проверенный код указаны в [карточке MS-T002A](../skills/tasks/t002a-team-local-start/SKILL.md).
 

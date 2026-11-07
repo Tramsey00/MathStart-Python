@@ -141,7 +141,14 @@ reveal interactions прямо в HTML; они не создают assessed evid
 
 ### Локальная разработка с HMR
 
-Основной командный entry point — `dev.cmd prepare/start/update/stop` с отдельным
+С 07.11.2026 основной командный режим Windows — host-dev в обычном рабочем
+checkout. `npm.cmd --prefix frontend run dev:host` запускает Vite/FastAPI на
+Windows и свою PostgreSQL в Docker; `dev:host:stop` сохраняет локальные данные.
+Нужны Python 3.12, Node 24/npm 11 и Windows LongPathsEnabled=1. Новые установки
+хранят runtime settings в var/local/team, существующие сохраняют прежнюю привязку.
+Подготовка schema/Content остаётся явной с review точных digests.
+
+Альтернативный контейнерный entry point — `dev.cmd prepare/start/update/stop` с отдельным
 `deploy/compose.dev.yaml`. Development image содержит pinned Python/Node/npm;
 на Windows хосте требуются Git/Docker Desktop/PowerShell. Существующий supervisor
 Vite/FastAPI работает в app-контейнере, PostgreSQL — отдельно в persistent volume.
@@ -149,7 +156,7 @@ Vite/FastAPI работает в app-контейнере, PostgreSQL — отд
 private settings/review plans/logs — в ignored var/compose. Обычный start только
 читает подготовленную установку; prepare/update сохраняют normal schema/Content
 protocol и обязательное утверждение конкретных digests. Update не меняет Git.
-Существующий host-dev — альтернативный путь, его результаты — отдельная история.
+Исторические результаты режимов относятся к своим точным SHA и окружениям.
 
 Разработка и готовая публикация имеют один browser origin, но разные serving paths.
 `scripts/dev_server.py` запускает Vite 8131 и внутренний loopback FastAPI 8132;

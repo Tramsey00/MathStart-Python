@@ -11,8 +11,9 @@ sys.path.insert(0, str(ROOT))
 
 
 def main():
+    from scripts.team_local import PRIVATE, STATE
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--env-file', type=Path, default=ROOT / 'var/local/lesson-preview/private-env.json')
+    parser.add_argument('--env-file', type=Path, default=PRIVATE if STATE.is_file() else ROOT / 'var/local/lesson-preview/private-env.json')
     parser.add_argument('--port', type=int, help='Internal loopback port; public origin stays unchanged')
     args = parser.parse_args()
     values = json.loads(args.env_file.read_text(encoding='utf-8'))

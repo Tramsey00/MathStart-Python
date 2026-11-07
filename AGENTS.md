@@ -27,7 +27,9 @@
   источника в карточке. Старые preservation notes не отменяют этих решений.
 - Для локального запуска, HMR и обновления открой
   [руководство по разработке](docs/local-development.md): основной путь —
-  Docker Compose, host-dev — альтернатива. Используй общий origin и штатный HMR.
+  Windows host-dev (Vite/FastAPI на хосте, PostgreSQL в Docker). Работай в обычной
+  папке проекта; отдельный clone для ежедневной работы не требуется.
+  Полный Docker Compose — альтернативный режим. Используй общий origin и штатный HMR.
   Не запускай отдельные prototype servers и release build после каждой UI-правки.
   Для статуса и контроля запуска из clone смотри [MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md).
 - Для release или восстановления открой соответственно

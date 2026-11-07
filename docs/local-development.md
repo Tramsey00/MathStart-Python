@@ -1,11 +1,22 @@
-# Командная разработка MathStart через Docker Compose
+# Разработка MathStart
+
+С 07.11.2026 основной командный режим на Windows —
+[host-dev](local-development-host.md). Работайте в своей обычной папке проекта,
+например `C:\Projects\MathStart-Python`. После первой подготовки запускайте
+`npm.cmd --prefix frontend run dev:host`, останавливайте через
+`npm.cmd --prefix frontend run dev:host:stop` из второго терминала этой папки.
+Vite/FastAPI работают на Windows, PostgreSQL — в Docker. Каждый checkout имеет
+собственные настройки и данные. Уже подготовленным коллегам достаточно сохранить
+свою папку и получить изменения через Git; повторять установку не требуется.
+
+## Альтернативный полный Docker Compose
 
 Нужны **Git, Docker Desktop с Linux engine/Compose и PowerShell**. Python,
 Node/npm и PostgreSQL на хосте не нужны. До отдельного merge клонируйте `ui/ux`.
 Windows entry point `dev.cmd` вызывает локальный dev.ps1 через системный
 PowerShell; execution policy задаётся только этому процессу, глобальные настройки
 Windows не меняются. Все четыре операции реализованы в одном PowerShell workflow.
-Это основной локальный dev-путь; production Compose и его данные отдельны.
+Это альтернативный локальный dev-путь; production Compose и его данные отдельны.
 Статус проверки конкретного candidate — в [MS-T002A](../skills/tasks/t002a-team-local-start/SKILL.md).
 
 ## Первый запуск
@@ -151,11 +162,11 @@ project предотвращают неявное присоединение к 
 
 ## Альтернативный host-dev и собранный режим
 
-Для пилота на Windows можно явно выбрать [host-dev](local-development-host.md).
+Основной режим на Windows — [host-dev](local-development-host.md).
 Vite и FastAPI работают на хосте, PostgreSQL — в Docker. После отдельной первой
 подготовки используйте `npm.cmd --prefix frontend run dev:host` и
-`npm.cmd --prefix frontend run dev:host:stop`. Результат пилота на компьютере
-коллеги нужен для решения о смене основного режима.
+`npm.cmd --prefix frontend run dev:host:stop`. Решение принято пользователем
+07.11.2026 после сообщений об успешном запуске у двух коллег.
 `scripts/lesson_server.py` сохраняет отдельный FastAPI/SSG просмотр без Vite.
 В контейнерном prepare этот же настоящий gateway используется для обязательных
 publication probes; production targets/Compose не заменены dev-конфигурацией.

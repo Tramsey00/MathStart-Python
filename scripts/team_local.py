@@ -22,7 +22,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL = ROOT / 'var/local/team'
 STATE = LOCAL / 'installation.json'
-PRIVATE = ROOT / 'var/local/lesson-preview/private-env.json'
+LEGACY_PRIVATE = ROOT / 'var/local/lesson-preview/private-env.json'
 POSTGRES = 'postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67'
 SERVING = None
 
@@ -48,6 +48,32 @@ def write_json(path, value):
 
 def read_json(path):
     return json.loads(path.read_text(encoding='utf-8'))
+
+
+def private_configuration():
+    if not STATE.is_file():
+        return LOCAL / 'private-env.json'
+    layout = read_json(STATE).get('runtime_config', 'legacy')
+    if layout not in {'legacy', 'team'}:
+        raise RuntimeError('Unsupported local runtime configuration layout')
+    return LOCAL / 'private-env.json' if layout == 'team' else LEGACY_PRIVATE
+
+
+PRIVATE = private_configuration()
+
+
+def require_windows_long_paths():
+    if os.name != 'nt':
+        return
+    import winreg
+    try:
+        with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+                            r'SYSTEM\CurrentControlSet\Control\FileSystem') as key:
+            enabled = winreg.QueryValueEx(key, 'LongPathsEnabled')[0]
+    except OSError:
+        enabled = 0
+    if enabled != 1:
+        raise RuntimeError('Enable Windows LongPathsEnabled=1 and restart Windows before host-dev preparation/start. See docs/local-development-host.md')
 
 
 def environment(values=None):
@@ -123,6 +149,7 @@ def local_database_url(state, role):
 
 
 def init(port):
+    require_windows_long_paths()
     if sys.version_info[:2] != (3, 12):
         raise RuntimeError('Use Python 3.12 for the documented locked environment')
     if LOCAL.exists() or PRIVATE.exists():
@@ -136,7 +163,8 @@ def init(port):
     passwords = {k: secrets.token_urlsafe(36) for k in ('admin', 'schema', 'runtime')}
     state = {'version': 1, 'checkout': str(ROOT), 'owner': owner, 'name': name,
              'volume': name + '-data', 'pg_port': port, 'passwords': passwords,
-             'release': 'local-' + owner[:12], 'publisher': str(uuid.uuid4())}
+             'release': 'local-' + owner[:12], 'publisher': str(uuid.uuid4()),
+             'runtime_config': 'team'}
     write_json(STATE, state)
     pg_env = LOCAL / 'postgres.env'
     pg_env.write_text('POSTGRES_USER=local_admin\nPOSTGRES_DB=mathstart_dev\nPOSTGRES_PASSWORD='
@@ -203,6 +231,7 @@ def schema_apply(values, reviewed):
 
 
 def content(values, state):
+    require_windows_long_paths()
     source_sha = run(['git', 'rev-parse', 'HEAD'], 'source-sha')
     # The ordinary preparation verifies committed source bytes itself.
     prepared = json.loads(cli('backend.content.publish', ['prepare-bootstrap', '--source-root', '.',
@@ -258,6 +287,7 @@ def finish_cold_publication(values, state):
 
 
 def publish(values, state, reviewed):
+    require_windows_long_paths()
     plan_path = LOCAL / 'publication.json'
     # Same canonical digest used by the domain publisher; do not re-encode differently.
     sys.path.insert(0, str(ROOT))
