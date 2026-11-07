@@ -24,3 +24,14 @@ search/permissions требования сохраняются, а новый р
 Для нового задания: [единая очередь](../docs/tasks/INDEX.md), указанный task skill,
 затем необходимые contracts и текущие runtime commands. Старые owners/deadlines,
 pending migration snapshots и Harness dependencies не создают новую очередь.
+
+
+## Текущая программа 24.10.2026
+
+Полное старое ТЗ, старый source registry, I01 wireframes и дизайн-аудиты удалены
+из checkout и доступны по Git b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea/path.
+[Новые задачи](../docs/tasks/INDEX.md) — единственный порядок;
+[стандарт](../docs/frontend/lesson-migration.md) — инструкция переноса.
+Текущие API/domain fixtures в specs сохранены, поскольку их читают код/тесты.
+Старые UI MD не задают внешний вид: применяй [принятый UI](../docs/ux/shared-ui-contract.md).
+Будущая семантика/численные требования сохранены в [learning requirements](product/learning-requirements.md).

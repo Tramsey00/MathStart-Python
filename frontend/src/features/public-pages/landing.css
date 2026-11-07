@@ -1,0 +1,32 @@
+.landing-page{background:var(--background);--home-support:#176f56;--home-support-soft:color-mix(in srgb,var(--home-support) 6%,var(--background))}
+html[data-theme=dark] .landing-page{--home-support:#79c7ab;--home-support-soft:color-mix(in srgb,var(--home-support) 7%,var(--background))}
+.landing-page .landing-main{max-width:1320px;margin:0 auto;padding:0 40px;outline:none}
+.homepage-intro{display:grid;grid-template-columns:minmax(0,1fr) 350px;grid-template-areas:'intro login';column-gap:84px;row-gap:28px;padding:56px 0 40px;align-items:start}
+.home-intro-copy{grid-area:intro;max-width:690px}
+.home-intro-copy h1{font-size:clamp(40px,4.1vw,57px);line-height:1.14;letter-spacing:-1.8px;font-weight:600;margin:0 0 22px;color:var(--foreground)}
+.home-intro-copy>p{max-width:620px;font-size:17px;line-height:1.75;color:var(--muted-foreground);margin:0}
+
+
+
+.email-login{grid-area:login;border:1px solid var(--border);border-radius:calc(var(--radius) + 5px);padding:27px 26px 22px;background:var(--card);box-shadow:0 8px 28px color-mix(in srgb,var(--foreground) 4%,transparent);scroll-margin-top:24px;outline:none}
+.email-login h2{font-size:25px;line-height:1.3;letter-spacing:-.6px;font-weight:600;margin:0 0 9px}
+.login-description{font-size:13px;color:var(--muted-foreground);line-height:1.6;margin:0 0 28px}
+.login-field{margin-bottom:20px}.login-field>label{display:block;font-size:13px;font-weight:500;margin-bottom:8px;line-height:1.5}
+.login-field input{width:100%;min-height:46px;border:1px solid var(--border);background:var(--background);border-radius:var(--radius);padding:10px 12px;font-size:14px;transition:border-color 150ms ease}
+.login-field input:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+.login-field input[aria-invalid=true]{border-color:var(--destructive)}
+.field-error{font-size:12px;line-height:1.5;color:color-mix(in srgb,var(--destructive) 65%,var(--foreground));margin:7px 0 0}
+.password-input{position:relative}.password-input input{padding-right:46px}.password-toggle{position:absolute;right:1px;top:1px;bottom:1px;width:43px;background:transparent;border:0;color:var(--muted-foreground);display:flex;align-items:center;justify-content:center;border-radius:var(--radius)}
+.email-submit{display:block;width:100%;min-height:46px;background:var(--primary);color:var(--primary-foreground);border:0;border-radius:var(--radius);font-size:14px;font-weight:600;margin-top:5px}
+.email-submit:active{transform:translateY(1px)}
+.login-preview-note{font-size:11px;line-height:1.55;color:var(--muted-foreground);margin:12px 0 0}
+.login-feedback{font-size:12px;line-height:1.6;color:var(--home-support);margin:10px 0 0}.login-feedback:empty{display:none}
+.existing-login{display:block;color:var(--muted-foreground);font-size:12px;text-align:center;text-underline-offset:4px;margin-top:18px;padding:8px 0;border-top:1px solid var(--border)}
+.materials-entry{display:flex;align-items:center;gap:20px;margin-top:25px}
+.open-access-note{color:var(--muted-foreground);font-size:12px;line-height:1.5}
+.materials-entry-link{display:inline-flex;justify-content:center;align-items:center;min-height:48px;border-radius:var(--radius);background:var(--primary);color:var(--primary-foreground);text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap;padding:12px 22px;flex-shrink:0}
+@media(prefers-reduced-motion:reduce){.login-field input{transition:none}.email-submit:active{transform:none}}
+
+@media(max-width:1050px){.homepage-intro{column-gap:40px;grid-template-columns:minmax(0,1fr) 330px;padding-top:44px}.home-intro-copy h1{font-size:44px}.home-intro-copy>p{font-size:16px}.email-login{padding:24px 22px}}
+@media(max-width:800px){.landing-page .landing-main{padding:0 24px}.homepage-intro{column-gap:28px;grid-template-columns:minmax(0,1fr) 310px;row-gap:30px}.home-intro-copy h1{font-size:39px;letter-spacing:-1.2px}.materials-entry{align-items:flex-start;flex-direction:column;gap:9px}}
+@media(max-width:620px){.landing-page .landing-main{padding:0 20px}.homepage-intro{grid-template-columns:1fr;grid-template-areas:'intro' 'login';padding-top:32px;row-gap:28px}.home-intro-copy h1{font-size:38px;line-height:1.17;margin-bottom:18px}.home-intro-copy>p{font-size:16px;line-height:1.75}.email-login{width:100%;max-width:410px;justify-self:center;padding:25px}.email-login h2{font-size:25px}.login-description{font-size:14px;margin-bottom:24px}.login-field>label{font-size:14px}.login-field input{font-size:16px}.login-preview-note{font-size:12px}.existing-login{font-size:13px}.materials-entry{flex-direction:row;align-items:center;gap:16px}.materials-entry-link{font-size:13px;padding:12px 17px}}

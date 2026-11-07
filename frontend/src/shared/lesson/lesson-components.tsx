@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import type { LessonSectionData, LessonTopic } from './lesson-types';
 
 function ContentsIcon() {
@@ -20,6 +20,8 @@ export function LessonHeading({ breadcrumbs, title, subtitle }: {
 }
 
 export function LessonContents({ sections, title, catalogueHref }: { sections: readonly LessonSectionData[]; title: string; catalogueHref: string }) {
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => setEnhanced(true), []);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(sections[0]?.id);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -60,12 +62,13 @@ export function LessonContents({ sections, title, catalogueHref }: { sections: r
   }, [open]);
 
   return <>
+    <nav className="lesson-static-contents" aria-label="Разделы урока" hidden={enhanced}><details><summary>Содержание урока</summary><ol>{sections.map(section => <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>)}</ol></details></nav>
     <aside className="lesson-rail" aria-label="Навигация по уроку">
       <button className="lesson-contents-trigger" type="button" aria-label="Содержание урока" title="Содержание урока" aria-haspopup="dialog" aria-expanded={open} aria-controls={identity} onClick={() => setOpen(true)}>
         <ContentsIcon/><span>Содержание</span>
       </button>
     </aside>
-    <dialog ref={dialog} id={identity} className="lesson-contents-panel" aria-label="Содержание урока" aria-describedby={`${identity}-title`} onCancel={event => { event.preventDefault(); setOpen(false); }} onClose={() => setOpen(false)} onKeyDown={event => {
+    <dialog ref={dialog} id={identity} className="lesson-contents-panel" style={{ '--lesson-contents-count': sections.length } as CSSProperties} aria-label="Содержание урока" aria-describedby={`${identity}-title`} onCancel={event => { event.preventDefault(); setOpen(false); }} onClose={() => setOpen(false)} onKeyDown={event => {
       if (event.key !== 'Tab') return;
       const controls = event.currentTarget.querySelectorAll<HTMLElement>('button,a[href]');
       const first = controls[0], last = controls[controls.length - 1];
@@ -90,25 +93,29 @@ export function LessonContents({ sections, title, catalogueHref }: { sections: r
 }
 export function LessonNote({ children }: { children: ReactNode }) { return <aside className="lesson-note">{children}</aside>; }
 export function WorkedExample({ children }: { children: ReactNode }) { return <div className="worked-example">{children}</div>; }
-export function SelfCheck({ question, kind, children }: { question: ReactNode; kind: 'answer' | 'solution'; children: ReactNode }) {
-  return <div className="self-check"><LessonDisclosure kind={kind} question={question}>{children}</LessonDisclosure></div>;
+export function SelfCheck({ question, kind, children, id }: { question: ReactNode; kind: 'answer' | 'solution'; children: ReactNode; id?: string | undefined }) {
+  return <div className="self-check" id={id}><LessonDisclosure kind={kind} question={question}>{children}</LessonDisclosure></div>;
 }
 export function LessonDisclosure({ kind, question, children }: { kind: 'answer' | 'solution'; question?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => setEnhanced(true), []);
   const identity = useId();
-  return <div className="lesson-reveal" data-kind={kind} data-open={open}>
+  return <div className="lesson-reveal" data-kind={kind} data-open={open} data-enhanced={enhanced}>
     {question && <div className="lesson-question-copy">{question}</div>}
     <button className="lesson-answer-toggle" type="button" aria-controls={identity} aria-expanded={open} onClick={() => setOpen(current => !current)}>Ответ и решение</button>
-    <div className="lesson-reveal-expander" id={identity} aria-hidden={!open} inert={!open}>
+    <div className="lesson-reveal-expander" id={identity} aria-hidden={enhanced && !open} inert={enhanced && !open}>
       <div className="lesson-reveal-clip"><div className="lesson-reveal-content">{children}</div></div>
     </div>
   </div>;
 }
 export function LessonNavigation({ previous, next, href, catalogueHref }: {
-  previous: LessonTopic | null; next: LessonTopic | null; href: (topic: LessonTopic) => string; catalogueHref: string;
+  previous: (LessonTopic & { boundary?: 'section' }) | null; next: (LessonTopic & { boundary?: 'section' }) | null; href: (topic: LessonTopic) => string; catalogueHref: string;
 }) {
+  const previousLabel = next && previous?.boundary === 'section' ? 'Предыдущий раздел' : 'Предыдущая тема';
+  const nextLabel = previous && next?.boundary === 'section' ? 'Следующий раздел' : 'Следующая тема';
   return <nav className="lesson-navigation" aria-label="Переход между темами"><div className="lesson-page-controls">
-    {previous && <a className="lesson-previous" href={href(previous)} rel="prev" aria-label={`Предыдущая тема: ${previous.title}`}><span className="lesson-direction"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5"/></svg>Предыдущая тема</span></a>}
-    {next && <a className="lesson-next" href={href(next)} rel="next" aria-label={`Следующая тема: ${next.title}`}><span className="lesson-direction">Следующая тема<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></span></a>}
+    {previous && <a className="lesson-previous" href={href(previous)} rel="prev" aria-label={`${previousLabel}: ${previous.title}`}><span className="lesson-direction"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5"/></svg>{previousLabel}</span></a>}
+    {next && <a className="lesson-next" href={href(next)} rel="next" aria-label={`${nextLabel}: ${next.title}`}><span className="lesson-direction">{nextLabel}<svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg></span></a>}
     </div><a className="lesson-back" href={catalogueHref}>Все темы раздела</a></nav>;
 }

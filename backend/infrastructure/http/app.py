@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from copy import deepcopy
 import mimetypes
 import re
-from urllib.parse import quote, unquote_to_bytes
+from urllib.parse import quote, quote_from_bytes, unquote_to_bytes
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 from fastapi import FastAPI, Request
@@ -39,7 +39,7 @@ class AllMethodRoute(APIRoute):
         await self.app(scope, receive, send)
 
 
-def public_redirect_or_missing(release, path):
+def public_redirect_or_missing(release, path, query=b''):
     """Fallback only for eligible public404, from this request's pinned registry."""
     if not safe_public_path(path):
         raise wire.missing()
@@ -50,8 +50,11 @@ def public_redirect_or_missing(release, path):
     if target == path or not safe_public_path(target):
         raise wire.unavailable()
     # Same URI serialization as Django iri_to_uri; existing escapes stay intact.
+    location = quote(target, safe="/#%[]=:;$&()+,!?*@'~")
+    if query:
+        location += '?' + quote_from_bytes(query, safe="=&;,+/?%:@!$'()*-._~[]")
     return Response(status_code=301 if redirect['is_permanent'] else 302,
-                    headers={'Location': quote(target, safe="/#%[]=:;$&()+,!?*@'~"), 'Cache-Control': 'no-cache'})
+                    headers={'Location': location, 'Cache-Control': 'no-cache'})
 
 
 def create_app(engine, signer, *, release_store=None, namespace='public', authenticate=None,
@@ -248,7 +251,7 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         if path.startswith(('/static/', '/media/')):
             asset = release.assets.get(path)
             if asset is None:
-                return public_redirect_or_missing(release, path)
+                return public_redirect_or_missing(release, path, request.scope.get('query_string', b''))
             if request.method not in {'GET', 'HEAD'}:
                 return Response(status_code=405, headers={'Allow': 'GET, HEAD'})
             desc, raw = asset
@@ -274,7 +277,7 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         except wire.APIError as error:
             if error.status != 404:
                 raise
-            return public_redirect_or_missing(release, path)
+            return public_redirect_or_missing(release, path, request.scope.get('query_string', b''))
         if render_page is None:
             raise wire.unavailable()
         context = release.renderer_context(page, request.query_params)

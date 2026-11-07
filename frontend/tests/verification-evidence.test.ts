@@ -9,14 +9,14 @@ const source=fileURLToPath(new URL("../scripts/verify-foundation.mjs",import.met
 const parent=join(frontend,".cache","verification-test-fixtures");
 mkdirSync(parent,{recursive:true});
 const npm=process.env.npm_execpath;
-if(!npm)throw new Error("Run regression tests through npm test");
+if(!npm)throw new Error("Run regression tests through npm run test:full");
 function fixture() {
   const root=mkdtempSync(join(parent,"run-"));
   const put=(p:string,s:string)=>{const path=join(root,p);mkdirSync(resolve(path,".."),{recursive:true});writeFileSync(path,s);};
   put(".gitignore",".cache/\n");
   put("package.json",JSON.stringify({private:true,type:"commonjs"}));
   put("frontend/scripts/verify-foundation.mjs",readFileSync(source,"utf8"));
-  const scripts=Object.fromEntries(["generate:api","typecheck","test","build"].map(k=>[k,"node scripts/noop.mjs"]));
+  const scripts=Object.fromEntries(["generate:api","typecheck","test:full","build"].map(k=>[k,"node scripts/noop.mjs"]));
   put("frontend/package.json",JSON.stringify({name:"synthetic-verification-fixture",version:"1.0.0",private:true,type:"module",scripts:{...scripts,"verify:foundation":"node scripts/verify-foundation.mjs"}}));
   put("frontend/package-lock.json",JSON.stringify({name:"synthetic-verification-fixture",version:"1.0.0",lockfileVersion:3,requires:true,packages:{"":{name:"synthetic-verification-fixture",version:"1.0.0"}}}));
   put("frontend/scripts/noop.mjs",'import fs from "node:fs";fs.mkdirSync(".cache",{recursive:true});fs.appendFileSync(".cache/commands.log","synthetic command\\n");console.log("synthetic runner fixture only");\n');

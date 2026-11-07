@@ -1,4 +1,4 @@
-# ADR-0004: HTTP, immutable revisions and cross-attempt eligibility
+# ADR-0004: HTTP, неизменяемые редакции и право на независимый ответ между попытками
 
 - **Status:** Proposed
 - **Date:** 2026-09-30
@@ -10,87 +10,86 @@
 - **Plan:** `../exec-plans/active/MS7-R02A-http-eligibility.md`
 - **Supersedes:** none; ADR-0002 and R02 remain accepted/frozen
 
-## Context
+## Контекст
 
-R02 establishes four exercise modes, public/server separation, typed ordered
-steps and version binding. It deliberately defers concrete HTTP/revision and
-persistence protocols. v7.1 assigns D-022/023 to an independently accepted
-addendum before clients. Accepted I01 describes the needed UX distinctions but
-does not define endpoint semantics. No runtime implementation is part of R02A.
+R02 устанавливает четыре режима упражнений, разделение public/server,
+типизированные упорядоченные шаги и привязку версии. Он намеренно откладывает конкретные HTTP/revision и
+persistence-протоколы. В v7.1 решения D-022/023 вынесены в отдельно принимаемое
+дополнение до создания клиентов. Принятый I01 описывает необходимые различия UX, но
+не задаёт семантику endpoint. R02A не включает реализацию runtime.
 
-## Proposed decision
+## Предлагаемое решение
 
-Use one OAS 3.1 JSON artifact for every §11 route, a reusable JSON Schema
-2020-12 bundle, machine-readable operation policy and valid/invalid fixtures.
-Retain R02 names, modes/types and single version counter; add equal `version`
-alias, UUID immutable ExerciseVersion identity, numeric difficulty and safe skill
-and help metadata. Keep dynamic student payload untrusted and shape-validated.
-New resource UUIDs do not replace existing ContentPage IDs/slugs.
+Использовать один артефакт OAS 3.1 JSON для каждого маршрута §11, повторно используемый набор JSON Schema
+2020-12, машиночитаемую политику операций и корректные/некорректные fixtures.
+Сохранить имена, режимы/типы R02 и единый счётчик версий; добавить равный alias `version`,
+неизменяемую идентичность ExerciseVersion в виде UUID, числовую сложность и безопасные метаданные skill
+и help. Считать динамическую полезную нагрузку ученика недоверенной и проверять её структуру.
+Новые UUID ресурсов не заменяют существующие IDs/slugs ContentPage.
 
-D-022 adds full-draft expected_revision replacement, immutable SUBMITTED
-snapshots and new previous_attempt_id-linked corrections. Exposure is shared by
-user+version and serializes help/submit/finalization. Help committed before
-eligibility finalization disqualifies independence; completed decisions are not
-revoked by later help. Hint/reveal history survives new attempts. A permanent
-user/version guard permits at most one positive event; neutral completions remain
-history without inventing negative evidence. No new Progress formula or event.
+D-022 добавляет замену всего draft с expected_revision, неизменяемые
+снимки SUBMITTED и новые исправления, связанные через previous_attempt_id. Exposure является общей для
+user+version и сериализует help/submit/finalization. Help, зафиксированный до
+определения права на независимый ответ, исключает независимость; завершённые решения не
+отзываются из-за более поздней помощи. История hint/reveal сохраняется при создании новых попыток. Постоянное
+ограничение user/version допускает не более одного положительного события; нейтральные завершения остаются
+в истории без создания отрицательных свидетельств. Новые формула Progress и событие не вводятся.
 
-D-023 adds Session+CSRF, typed success/error envelopes, safe owner 404,
-stable cursor pagination, mutation receipts/digests and explicit conflict/retry
-behavior. Exact retries replay prior operation/result before state/revision
-checks; changed digest conflicts. Receipt retention >=7 days is independent of
-permanent domain uniqueness. 202 is restricted to an identifiable persisted
-SUBMITTED attempt with canonical GET status route. Unsupported/fallback remain
-successful business states as §11 requires.
+D-023 добавляет Session+CSRF, типизированные success/error envelopes, безопасный 404 для владельца,
+стабильную cursor pagination, receipts/digests мутаций и явное поведение при конфликтах/повторных запросах.
+Точный повтор воспроизводит прежнюю операцию/результат до проверки состояния/revision;
+изменившийся digest вызывает конфликт. Срок хранения receipt >=7 дней не зависит от
+постоянной доменной уникальности. Код 202 разрешён только для идентифицируемой сохранённой
+попытки SUBMITTED с каноническим GET-маршрутом статуса. Unsupported/fallback остаются
+успешными бизнес-состояниями, как требует §11.
 
-## Rationale and alternatives
+## Обоснование и альтернативы
 
-This boundary permits backend/frontend implementation from one artifact rather
-than inferred fixtures. JSON avoids a new YAML dependency; existing locked
-jsonschema validates official OAS structure and public schemas offline. A single
-bundle with named definitions avoids competing schema ownership. Generated wire
-fixtures plus manually specified scenario expectations test the actual artifacts.
+Эта граница позволяет реализовать backend/frontend по одному артефакту,
+а не по выведенным из предположений fixtures. JSON позволяет избежать новой зависимости YAML; существующий закреплённый
+jsonschema проверяет официальную структуру OAS и public schemas без сети. Единый
+набор с именованными определениями исключает конкурирующее владение схемами. Сгенерированные wire
+fixtures вместе с заданными вручную ожиданиями сценариев проверяют сами артефакты.
 
-Reopening frozen R02 is rejected because its accepted scope is correct. A
-receipt-only dedupe scheme is rejected because expiry would allow repeated
-credit. Per-attempt exposure is rejected because new attempts would evade help.
-Freezing independence irrevocably at pending submit is rejected because reveal
-before finalization could otherwise evade eligibility. A new service/queue/DRF
-stack is deferred to scoped downstream work.
+Повторное открытие замороженного R02 отклонено: его принятый объём корректен. Схема дедупликации только по
+receipt отклонена, так как истечение срока позволило бы начислить баллы повторно. Exposure на каждую попытку отклонён: новые попытки позволяли бы обойти учёт помощи.
+Необратимая фиксация независимости при ожидающей отправке отклонена: иначе раскрытие ответа
+до финализации позволяло бы обойти проверку права на независимый ответ. Новый stack service/queue/DRF
+отложен до последующих задач с ограниченным объёмом.
 
-## Consequences and preserved invariants
+## Последствия и сохранённые инварианты
 
-Published version, submitted order, completion eligibility and positive-credit
-facts need durable constraints/transactions in V04–V06/V08. Schema validates
-shape, not mathematical truth or secrecy of free prose. Only Progress owns
-long-term projections; all R03 numerical rules remain unchanged. Help is recorded
-before disclosure; full reveal content exists only in the explicit reveal shape.
-LLM/provider output cannot promote independence or author progress.
+Для опубликованной версии, порядка отправки, права на независимый ответ и фактов положительного начисления
+нужны durable constraints/transactions в V04–V06/V08. Schema проверяет
+структуру, но не математическую истинность или секретность свободного текста. Только Progress владеет
+долгосрочными проекциями; все численные правила R03 остаются без изменений. Help записывается
+до раскрытия; полный текст ответа существует только в явной reveal-форме.
+Вывод LLM/provider не может повышать независимость или записывать прогресс.
 
-No schema or persisted-data impact in this task. Runtime implementation requires
-additive reviewed Django migrations and PostgreSQL concurrency/fresh-install
-evidence; the reference oracle establishes legal serial outcomes only. Existing
-content and historical evidence are untouched. Rollback reverts task-owned
-contract/check files without touching content or evidence.
+В этой задаче нет изменений схемы или сохранённых данных. Для реализации
+runtime потребуются проверенные добавочные миграции Django и свидетельства concurrency/fresh-install
+для PostgreSQL; reference oracle устанавливает только допустимые последовательные результаты. Существующий
+контент и исторические свидетельства не меняются. Rollback отменяет принадлежащие задаче
+файлы контракта/проверок, не затрагивая контент или свидетельства.
 
-## Verification and security
+## Проверка и безопасность
 
-Task suite validates OpenAPI structure, refs, all routes, public field allowlists,
-auth/CSRF/owner constraints, version/revision/digest preconditions, receipt expiry,
-race outcomes and one-positive. Run unchanged canonical verify_repo.py, existing
-R03 tests and scoped diff review. Separate CI step adds the contract suite without
-changing the eight established checks. Health has explicit non-sensitive fields;
-foreign 404 reveals no revision; fixtures use synthetic identities. Publication
-and reviewed hint-bank gates remain necessary for answer-equivalent text.
+Набор проверок задачи проверяет структуру OpenAPI, refs, все маршруты, allowlists public-полей,
+ограничения auth/CSRF/owner, предусловия version/revision/digest, истечение receipt,
+результаты гонок и единственное положительное начисление. Запустите без изменений канонический verify_repo.py, существующие
+проверки R03 и scoped diff review. Отдельный шаг CI добавляет проверку контракта, не
+меняя восемь установленных проверок. Health содержит явно заданные несекретные поля;
+чужой 404 не раскрывает revision; fixtures используют синтетические identity. Для текста, эквивалентного ответу, по-прежнему нужны проверки публикации
+и проверенного hint-bank.
 
-## Human gate and follow-up
+## Решение человека и дальнейшие шаги
 
 **Reviewer / Task Approver:** Владимир. **Decision:** PENDING.
-**Review date:** not recorded. No approval, CI or merge is inferred.
-Accept the proposed D-022/023 contract and exact OpenAPI digest before V02/I02.
-Downstream: MS7-V02/V03/V04/V05/V06, MS7-I02, MS7-R09/R10/R11/R12.
-R03A owns CompletionFact/replay addendum; this ADR does not implement it.
+**Дата ревью:** не записана. Одобрение, CI или merge не предполагаются.
+Примите предложенный контракт D-022/023 и точный OpenAPI digest до V02/I02.
+Дальнейшие задачи: MS7-V02/V03/V04/V05/V06, MS7-I02, MS7-R09/R10/R11/R12.
+CompletionFact/replay addendum принадлежит R03A; этот ADR его не реализует.
 
-## Status history
+## История статуса
 
-- 2026-09-30 — Proposed for MS7-R02A review against canonical v7.1.
+- 2026-09-30 — Предложен для ревью MS7-R02A по канонической версии v7.1.

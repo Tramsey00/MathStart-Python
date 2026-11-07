@@ -6,7 +6,7 @@ const paths = input ? Object.keys(JSON.parse(readFileSync(input, "utf8")).routes
 // I02 adds validated published URLs only; never prerender account/admin.
 export default {
   appDirectory: "src/app",
-  buildDirectory: "build",
+  buildDirectory: process.env.MATHSTART_ROUTER_BUILD || "build",
   ssr: false,
   routeDiscovery: { mode: 'initial' },
   prerender: paths,

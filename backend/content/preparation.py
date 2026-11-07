@@ -13,12 +13,13 @@ import uuid
 
 import sqlalchemy as sa
 
-from backend.content.build import encoded, assets_for, verify_source_checkout, install_build_inputs
+from backend.content.build import (encoded, assets_for, verify_source_checkout, install_build_inputs,
+                                   load_material_routes, source_file_record, apply_material_redirects)
 from backend.content.editions import decoded, snapshot, normalized, project_updates
 from backend.content.projection import (ReviewedSource, delivery_for_page, catalogue_from_snapshot, index_for_pages)
 from backend.content.publication import PublicationConflict
 from backend.content.releases import Descriptor
-from backend.content.sources import load_sources, digest, SourceError
+from backend.content.sources import load_sources, digest, publication_digest, SourceError
 from backend.infrastructure.uow import UnitOfWork
 from backend.models.baseline import metadata
 
@@ -99,7 +100,7 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
                 raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
             if publication is None and unpublish:
                 raise PublicationConflict('SOURCE_REGISTRATION_REQUIRED')
-            accepted = (publication['published_digest'], digest(desired)) if publication else (digest(desired),)
+            accepted = (publication['published_digest'], digest(desired), publication_digest(bundle, desired)) if publication else (digest(desired), publication_digest(bundle, desired))
             if digest(current) not in accepted:
                 raise PublicationConflict('SOURCE_CONFLICT')
         after = {**row, **({key: desired[key] for key in EDITABLE} if not unpublish else {'is_published': False})}
@@ -116,11 +117,11 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False):
         if row['page_type'] == 'topic' and publication is None:
             new = {'id': identifier('content_lessonpublication'), 'page_id': after['id'],
                    'source_path': bundle.path.removeprefix('curriculum/'),
-                   'published_digest': digest(source_snapshot(after, relations)), 'published_at': instant}
+                   'published_digest': publication_digest(bundle, source_snapshot(after, relations)), 'published_at': instant}
             changes.append({'table': 'content_lessonpublication', 'before': None, 'after': new})
             source_owners[new['source_path']] = new['page_id']
         elif publication is not None:
-            desired_digest = digest(source_snapshot(after, relations))
+            desired_digest = publication_digest(bundle, source_snapshot(after, relations))
             if publication['published_digest'] != desired_digest:
                 changes.append({'table': 'content_lessonpublication', 'before': publication,
                     'after': {**publication, 'published_digest': desired_digest, 'published_at': instant}})
@@ -155,6 +156,8 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
     source_root = Path(source_root).resolve()
     verify_source_checkout(source_root, source_sha)
     bundles = load_sources(source_root)
+    bundle_by_slug = {b.snapshot['slug']: b for b in bundles}
+    routes = load_material_routes(source_root, bundle_by_slug)
     from backend.content.public_update import SELECTED
     selected = (list(SELECTED) if public_update else [b.snapshot['slug'] for b in bundles] if bootstrap else
                 [b.snapshot['slug'] for b in bundles if b.snapshot['page_type'] == 'topic'] if all_lessons else slugs)
@@ -174,12 +177,18 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
     if dry_run:
         return {'selected': len(selected), 'changes': len(changes), 'effects': 'NONE', 'activation': 'NOT_PERFORMED'}
     relations, sources, files, deliveries, pages = related(after), {b.snapshot['slug']: b for b in bundles}, {}, {}, []
+    publications = {row['page_id']: row for row in after['content_lessonpublication']}
     for values in after['content_contentpage']:
         if not values['is_published']:
             continue
         bundle = sources.get(values['slug'])
         if bundle is None or source_snapshot(values, relations) != bundle.snapshot:
             raise PublicationConflict('SOURCE_CONFLICT')
+        if bundle.renderer_version == 'react-v1':
+            publication = publications.get(values['id'])
+            if (publication is None or publication['source_path'] != bundle.path.removeprefix('curriculum/')
+                    or publication['published_digest'] != publication_digest(bundle, bundle.snapshot)):
+                raise PublicationConflict('SOURCE_CONFLICT')
         page = SimpleNamespace(**decoded(metadata.tables['content_contentpage'], values))
         for key in ('grade', 'subject', 'section'):
             setattr(page, key, relations[key].get(values[key + '_id']))
@@ -187,7 +196,10 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
         for asset, raw in assets:
             if files.setdefault(asset['storage_key'], raw) != raw:
                 raise PublicationConflict('ARTIFACT_CONFLICT')
-        reviewed = ReviewedSource(bundle.path, bundle.source_digest, tuple(a for a, _ in assets))
+        route = routes.get(values['slug'])
+        reviewed = ReviewedSource(bundle.path, bundle.source_digest, tuple(a for a, _ in assets),
+            bundle.renderer_version, bundle.lesson_document,
+            '/materials' if page.slug == 'karta-sajta' else route['path'] if route and route['renderer_version'] == 'react-v1' else None)
         deliveries[page.id] = delivery_for_page(page, reviewed)
         pages.append(page)
     # The VALUES projections query only captured rows using the database's real
@@ -195,6 +207,12 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
     with UnitOfWork(engine) as uow:
         uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
         catalogue = catalogue_from_snapshot(uow.session, after)
+        page_by_slug = {item['slug']: item for item in deliveries.values()}
+        for topic in catalogue['topics']:
+            delivery = page_by_slug.get(topic['slug'])
+            if delivery is None:
+                raise PublicationConflict('SOURCE_CONFLICT')
+            topic['url'] = delivery['seo']['canonical_path']
         redirects = after['content_redirect']
         if redirects:
             columns = [sa.column(key, metadata.tables['content_redirect'].c[key].type) for key in
@@ -203,6 +221,12 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
             redirects = [SimpleNamespace(**row) for row in uow.session.execute(
                 sa.select(values).where(values.c.is_active.is_(True)).order_by(values.c.old_path)).mappings()]
     index = index_for_pages(sorted(pages, key=lambda p: p.id), release_id, deliveries, catalogue, redirects)
+    try:
+        apply_material_redirects(index, routes)
+    except SourceError as exc:
+        raise PublicationConflict('ARTIFACT_CONFLICT') from exc
+    from backend.infrastructure.http.contracts import validate
+    index = validate(index, 'PublicBuildIndex', True)
     files.update({f'pages/{pk}.json': encoded(page) for pk, page in deliveries.items()})
     files['index.json'] = encoded(index)
     manifest_digest = sha256(files['index.json']).hexdigest()
@@ -210,7 +234,9 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
                'manifest_digest': manifest_digest, 'pages': len(deliveries), 'topics': len(catalogue['topics']),
                'assets': len(files) - len(deliveries) - 1, 'activation': 'NOT_PERFORMED',
                'files': [{'path': key, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)} for key, raw in sorted(files.items())],
-               'source_files': [entry for bundle in bundles for entry in bundle.files]}
+               'source_files': [entry for bundle in bundles for entry in bundle.files]
+                               + [source_file_record(source_root, path) for path in
+                                  ('site_content/material-routes.json', 'site_content/material-subjects.json')]}
     descriptor = Descriptor(uuid.UUID(int=0), release_id, manifest_digest, 1)
     if public_update:
         from backend.content.public_update import backup_public_records

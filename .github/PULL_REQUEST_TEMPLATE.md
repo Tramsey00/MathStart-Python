@@ -5,7 +5,7 @@
 
 ## Задание и scope
 
-- Task ID / canonical skill / Issue (если есть):
+- Task ID / canonical skill / Issue (обязательно с MS-T003; bootstrap — исключение):
 - Исходный SHA, ветка и проверенный candidate:
 - Изменения и границы:
 - Связанные contracts/ADR и scoped execution record:

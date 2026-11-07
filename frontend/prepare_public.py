@@ -9,6 +9,7 @@ from pathlib import Path
 from uuid import UUID
 from frontend.build_input import verified_release
 from frontend.rendering import catalogue_html
+from frontend.public_design import public_design_kind, public_catalogue
 
 
 def view_model(value, key=''):
@@ -27,9 +28,13 @@ def prepare(input_root, release_id, manifest_digest, origin, output, receipt_dig
     for entry in release.index['pages']:
         page = release.pages[entry['id']]
         context = release.renderer_context(page, {})
-        data[entry['url']] = view_model({'page':page, 'context':context,
+        view = {'page':page, 'context':context,
             'catalogue_html':catalogue_html(context) if page['slug'] == 'karta-sajta' else None,
-            'canonical_url':origin.rstrip('/') + page['seo']['canonical_path']})
+            'canonical_url':origin.rstrip('/') + page['seo']['canonical_path']}
+        kind = public_design_kind(page)
+        if kind:
+            view.update(public_design=kind, public_catalogue=public_catalogue(release.index['catalogue']))
+        data[entry['url']] = view_model(view)
     for alias in release.index['aliases']:
         data[alias['url']] = data[release.pages[alias['page_id']]['seo']['canonical_path']]
     path = Path(output)

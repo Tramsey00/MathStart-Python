@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import sqlalchemy as sa
 
@@ -69,6 +70,33 @@ class SourcePreparationTests(unittest.TestCase):
             uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
             state = snapshot(uow.session)
             self.assertEqual(catalogue_from_snapshot(uow.session, state), catalogue_candidate(uow))
+
+    def test_changed_react_document_requires_explicit_selection_and_publication_binding(self):
+        pilot = next(bundle for bundle in self.bundles if bundle.renderer_version == 'react-v1')
+        document = deepcopy(pilot.lesson_document)
+        document['subtitle'] += ' Синтетическая проверка публикации.'
+        files = deepcopy(pilot.files)
+        record = next(row for row in files if row['path'].endswith('/content.json'))
+        record['sha256'] = sha256(document['subtitle'].encode()).hexdigest()
+        changed = replace(pilot, lesson_document=document, files=files)
+        bundles = [changed if bundle is pilot else bundle for bundle in self.bundles]
+        other = next(bundle for bundle in bundles if bundle.snapshot['slug'] != pilot.snapshot['slug'])
+        before = self.state()
+        with tempfile.TemporaryDirectory() as temporary:
+            with patch('backend.content.preparation.load_sources', return_value=bundles):
+                with self.assertRaises(PublicationConflict) as error:
+                    prepare_sources(self.engine, ROOT, Path(temporary) / 'unselected', 'unselected-doc', self.sha,
+                                    slugs=[other.snapshot['slug']])
+                self.assertEqual(error.exception.code, 'SOURCE_CONFLICT')
+                # The selected document updates its publication binding explicitly.
+                result = prepare_sources(self.engine, ROOT, Path(temporary) / 'selected', 'selected-doc', self.sha,
+                                         slugs=[pilot.snapshot['slug']])
+                self.assertEqual([row['table'] for row in result['changes']], ['content_lessonpublication'])
+            with patch('backend.content.build.load_sources', return_value=bundles), UnitOfWork(self.engine) as uow:
+                uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
+                with self.assertRaisesRegex(SourceError, 'explicitly published'):
+                    write_build_inputs(uow, ROOT, Path(temporary) / 'baseline', 'stale-document', self.sha)
+        self.assertEqual(self.state(), before)
 
     def test_source_update_preserves_identity_and_refuses_unreviewed_runtime_edits(self):
         before = self.state()

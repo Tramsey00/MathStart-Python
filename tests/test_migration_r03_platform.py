@@ -82,7 +82,10 @@ class PlatformBoundaryTests(unittest.TestCase):
                 if followup:
                     import hashlib
                     self.assertEqual(followup['before_sha256'], hashlib.sha256(historical_artifact(name)).hexdigest())
-                    self.assertEqual(followup['after_sha256'], hashlib.sha256((ROOT / row['destination']).read_bytes()).hexdigest())
+                    if followup['action'] == 'removed':
+                        self.assertFalse((ROOT / row['destination']).exists())
+                    else:
+                        self.assertEqual(followup['after_sha256'], hashlib.sha256((ROOT / row['destination']).read_bytes()).hexdigest())
                 else:
                     self.assertEqual((ROOT / row['destination']).read_bytes(), historical_artifact(name))
         for name in ('manage.py', 'config/settings.py', 'templates/base.html'):

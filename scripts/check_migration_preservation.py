@@ -6,8 +6,10 @@ from functools import lru_cache
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 INPUT = "8d958aeeb17da46839722441425ccbb5889e2ab7"
 SOURCE = "1a87b044e8c5a7519b0ab57e22d2a35d57b4a986"
 MAINTENANCE_SOURCE = "3a290a46d991e22269a17dde41e39f0637576071"
@@ -68,8 +70,22 @@ def historical_artifact(name, root=ROOT):
     Only explicit dispositions use historical bytes. All retained contracts and
     content are always read from the actual current tree.
     """
+    from scripts.repository_history import repository_changes, retired_document, task_changes, TASK_SOURCE
+    # Validate the follow-up's current bytes, but keep any earlier manifest's
+    # historical source. A later edit must not shadow an accepted original pin.
+    task_changed = name in task_changes(root)
     row = dispositions(root).get(name)
+    if task_changed and row is None:
+        return _historical_blob(str(root), TASK_SOURCE, name)
+    current_retirement = repository_changes(root).get(name)
+    if current_retirement and current_retirement['action'] == 'removed':
+        return retired_document(name, root)
     if row is None:
+        if current_retirement and current_retirement['action'] == 'updated' and name.endswith('.md'):
+            # Historical digest consumers retain original documentation bytes.
+            # The translated working document is independently pinned/checked above.
+            from scripts.repository_history import SOURCE as documentation_source
+            return _historical_blob(str(root), documentation_source, name)
         return (root / name).read_bytes()
     raw = _historical_blob(str(root), row.get('source_sha', SOURCE), name)
     if len(raw) != row['bytes'] or hashlib.sha256(raw).hexdigest() != row['sha256']:
@@ -84,6 +100,10 @@ def workflow_changes(root=ROOT):
     Git and every current file must match its reviewed after hash. No prefix or
     wildcard exemption can permit an unknown deletion/change.
     """
+    from scripts.repository_history import repository_changes
+    followup = repository_changes(root)
+    from scripts.repository_history import task_changes
+    followup = {**task_changes(root), **followup}
     data = json.loads((root / WORKFLOW_DISPOSITIONS).read_text(encoding='utf-8'))
     if data['base_sha'] != WORKFLOW_SOURCE or not data.get('authority'):
         raise ValueError('Unexpected workflow preservation authority')
@@ -101,6 +121,11 @@ def workflow_changes(root=ROOT):
             raise ValueError('Workflow original bytes changed: ' + name)
         if not row.get('reason'):
             raise ValueError('Workflow disposition has no reason')
+        if name in followup:
+            # Both historical before bytes and the explicit new candidate are checked.
+            if row['action'] == 'updated' and followup[name]['before_sha256'] != row['after_sha256']:
+                raise ValueError('Repository cleanup chain differs: ' + name)
+            continue
         if row['action'] == 'removed':
             if not name.startswith(('harness/', 'specs/harness/', 'tests/harness/')):
                 raise ValueError('Removal outside explicitly retired subsystem: ' + name)
@@ -111,7 +136,14 @@ def workflow_changes(root=ROOT):
                 raise ValueError('Unreviewed workflow change: ' + name)
         else:
             raise ValueError('Unknown workflow disposition action')
-    return {r['path']: r for r in rows}
+    result = {r['path']: r for r in rows}
+    for name, row in followup.items():
+        if name in result and result[name]['action'] == 'updated':
+            # Retain the first before pin for moved-source provenance checks.
+            result[name] = dict(result[name], action=row['action'], after_sha256=row.get('after_sha256'))
+        else:
+            result[name] = row
+    return result
 
 
 def verify(root=ROOT, input_sha=INPUT):
@@ -140,7 +172,7 @@ def verify(root=ROOT, input_sha=INPUT):
                     raise ValueError('Move escaped repository')
                 expected = row['sha256'] if action == 'moved' else row['current_sha256']
                 followup = workflow.get(row['destination'])
-                if followup is not None and followup['action'] == 'updated':
+                if followup is not None and followup['action'] in {'updated', 'removed'}:
                     # The move itself remains immutable. A later explicit task
                     # may change its destination only from the exact moved bytes.
                     if followup['before_sha256'] != expected:

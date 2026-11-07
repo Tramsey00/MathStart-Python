@@ -18,9 +18,12 @@ from backend.content.releases import inside
 from frontend.build_input import verified_release
 from frontend.prepare_public import prepare
 from frontend.rendering import esc
+from frontend.public_design import VERSION as PUBLIC_DESIGN_VERSION, uses_react_public, public_design_kind, public_design_is_rendered
 
 
 def html_path(url):
+    if url == '/materials':
+        return 'materials/index.html'
     return (url.lstrip('/') + 'index.html') if url.endswith('/') else url.lstrip('/')
 
 
@@ -39,21 +42,28 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     environment = dict(os.environ, MATHSTART_PUBLIC_VIEW=str(view))
     command = [shutil.which('npm.cmd') or shutil.which('npm'), 'exec', '--', 'react-router', 'build']
     subprocess.run(command, cwd=root, env=environment, check=True)
-    client = root / 'build/client'
+    client = Path(environment.get('MATHSTART_ROUTER_BUILD', str(root / 'build'))) / 'client'
     rendered, page_digests, semantic_digests = {}, {}, {}
     for entry in release.index['pages']:
         page = release.pages[entry['id']]
-        raw = inside(client, html_path(entry['url'])).read_bytes()
+        # Router writes extensionless routes as directories with index.html.
+        # The publication gateway's canonical artifact remains an exact URL file.
+        prerender = entry['url'].strip('/')
+        raw = inside(client, (prerender + '/' if prerender else '') + 'index.html').read_bytes()
         text = raw.decode('utf-8')
         # Framework mode generates complete HTML, including its hydration runtime.
         # Public legacy documents use a reviewed full-document lifecycle; remove
         # only Router-owned scripts/preloads after prerender, preserving authored JS.
-        text = re.sub(r'<script\b[^>]*>.*?</script>', lambda m: '' if ('type="module"' in m[0] or '__reactRouter' in m[0] or 'sessionStorage' in m[0] and 'scroll' in m[0]) else m[0], text, flags=re.S)
-        text = re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
+        if not uses_react_public(page):
+            text = re.sub(r'<script\b[^>]*>.*?</script>', lambda m: '' if ('type="module"' in m[0] or '__reactRouter' in m[0] or 'sessionStorage' in m[0] and 'scroll' in m[0]) else m[0], text, flags=re.S)
+            text = re.sub(r'<link\b[^>]*rel="modulepreload"[^>]*>', '', text)
         raw = text.encode('utf-8')
-        if page['body_html'] not in text or '<link rel="canonical" href="' + esc(origin + entry['canonical_path']) + '"' not in text:
+        if not _public_page_content_present(page, text) or '<link rel="canonical" href="' + esc(origin + entry['canonical_path']) + '"' not in text:
             raise ValueError('Incomplete React public prerender')
-        if '<script type="module"' in text or 'window.__reactRouterContext' in text:
+        if uses_react_public(page):
+            if '<script type="module"' not in text or 'window.__reactRouterContext' not in text:
+                raise ValueError('React lesson is missing its selective hydration runtime')
+        elif '<script type="module"' in text or 'window.__reactRouterContext' in text:
             raise ValueError('Public document must use full navigation')
         rendered[entry['url']] = raw
         page_digests[entry['url']] = sha256(release.page_raw[entry['id']]).hexdigest()
@@ -61,7 +71,7 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     for alias in release.index['aliases']:
         page = release.pages[alias['page_id']]
         alias_text=inside(client, html_path(alias['url'])).read_text(encoding='utf-8')
-        if page['body_html'] not in alias_text or 'href="'+esc(origin+'/')+'"' not in alias_text:
+        if not _public_page_content_present(page, alias_text) or 'href="'+esc(origin+'/')+'"' not in alias_text:
             raise ValueError('Incomplete React home alias prerender')
         raw = rendered[page['seo']['canonical_path']]
         rendered[alias['url']] = raw
@@ -106,10 +116,23 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
         'page_digests':page_digests, 'page_semantic_digests':semantic_digests,
         'catalogue_full_digest':sha256(json.dumps(release.index['catalogue'],ensure_ascii=False,separators=(',', ':'),sort_keys=True).encode()).hexdigest(),
         'navigation':'full_document', 'private_exports':[], 'anonymous_private_shell':'_private/shell.html',
-        'build_engine':'react-router-framework', 'page_ids':[str(pk) for pk in release.pages]}
+        'build_engine':'react-router-framework', 'public_design_version': PUBLIC_DESIGN_VERSION,
+        'page_ids':[str(pk) for pk in release.pages]}
     # A manifest cannot contain its own hash; its digest is the external receipt.
     inside(output,'output-manifest.json').write_bytes(json.dumps(receipt, ensure_ascii=False, indent=2).encode('utf-8'))
     return receipt
+
+
+def _public_page_content_present(page, text):
+    if public_design_kind(page):
+        return public_design_is_rendered(page, text)
+    if page.get('renderer_version', 'legacy') != 'react-v1':
+        return page['body_html'] in text
+    from backend.content.sources import lesson_document_is_rendered
+    document = page.get('lesson_document')
+    if not isinstance(document, dict) or not isinstance(document.get('sections'), list):
+        return False
+    return lesson_document_is_rendered(document, text)
 
 
 def main():

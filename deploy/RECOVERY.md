@@ -1,180 +1,180 @@
-# Recovery rehearsal and supported rollback boundary
+# Репетиция восстановления и поддерживаемые границы отката
 
-The repeatable test below uses only newly owned synthetic containers, databases
-and volumes. It neither attaches to production nor authorizes restoring it.
-Keep real backups encrypted, access controlled and outside Git; define their
-retention, off-host storage, key recovery and operator ownership before release.
+Повторяемая проверка ниже использует только новые синтетические containers, databases
+и volumes, созданные для этого запуска. Она не подключается к production и не разрешает его восстановление.
+Храните реальные резервные копии в зашифрованном виде, с ограниченным доступом и вне Git; определите
+срок хранения, внешнее хранилище, восстановление ключей и ответственного оператора до release.
 
-An installed release is a tuple: PostgreSQL schema/data/history/protocol state,
-the complete mutable source media root, immutable input releases, compiled
-frontend, their receipts/manifests/digests, signing verifier keys and the cutover
-writer binding. A copy of compiled public files alone is insufficient. The
-earlier public release included only4 directly referenced media files. The
-current reviewed home delivery retains all29 public seed media URLs and hashes,
-including unreferenced files. Still back up the entire mutable media root,
-including retained uploads outside that reviewed seed; do not infer the complete
-backup set from current HTML or the immutable asset manifest.
+Установленная release представляет собой набор: состояние schema/data/history/protocol PostgreSQL,
+полный корень изменяемых исходных media, неизменяемые input releases, скомпилированный
+frontend, их receipts/manifests/digests, ключи проверки signing и привязка writer при cutover
+Одной копии скомпилированных публичных файлов недостаточно. В
+предыдущей публичной release были только4 непосредственно подключённых media-файла.
+Текущая проверенная поставка главной страницы сохраняет все29 URL и hashes public seed media,
+включая файлы без ссылок. Всё равно сохраняйте резервную копию всего изменяемого media root,
+включая сохранённые uploads за пределами проверенного seed; нельзя выводить полный
+набор резервирования по текущему HTML или неизменяемому asset manifest.
 
-The physical method is intentional. Cutover provenance binds database and role
-OIDs as well as the drained writer fact. A logical restore into another DB/role
-does not preserve that identity and must not silently become READY. Do not
-invent a new digest, change the verifier key or automatically rebind a checkpoint
-to make the imported DB serve. Such a recovery needs a separately reviewed
-provenance procedure. The current tested procedure preserves cluster identities.
+Используется именно физический метод. Происхождение cutover связывает OIDs базы данных и role
+и факт остановки writer. Логическое восстановление в другую DB/role
+не сохраняет эту identity и не должно незаметно переводить систему в READY. Не
+создавайте новый digest, не меняйте ключ verifier и не перепривязывайте checkpoint автоматически
+для запуска импортированной DB. Такое восстановление требует отдельно проверенной
+процедуры подтверждения происхождения. Текущая проверенная процедура сохраняет identity кластера.
 
-For the tested maintenance backup:
+Порядок создания проверенной резервной копии для обслуживания:
 
-1. Fence ingress and stop API workers, publishers and legacy writers. Disable
+1. Ограничьте входящий трафик и остановите API workers, publishers и legacy writers. Отключите
    and drain the sole legacy role; keep role memberships and the actual role
    snapshot. Retain the current signing/verifier keys separately in the private
    operator secret store. Never log their values or put them into public volumes.
-2. In the owned PostgreSQL16 container run `pg_basebackup` as its postgres OS
+2. В принадлежащем запуску container PostgreSQL16 выполните `pg_basebackup` от пользователя ОС postgres
    user with the selected replication-capable database role, `-X stream`,
    `--checkpoint=fast` and `--manifest-checksums=SHA256`, into a new private backup
    directory/volume. The rehearsal uses its own cluster's local socket and does
    not relax network replication authentication.
-3. Run `pg_verifybackup` on that completed backup. Copy the entire immutable
+3. Выполните `pg_verifybackup` для готовой резервной копии. Скопируйте весь неизменяемый
    input/frontend tuple and the entire source media root. Bind full file hashes,
    retained DB input HMAC, DB/role identity and cutover digest in the private
    tuple manifest. No raw private rows/password/session values enter that
    manifest. Flush it before considering the backup complete.
-4. Stop the source cluster before enabling the restored writer. Restore only
+4. Остановите исходный cluster до включения writer восстановленной копии. Выполняйте restore только
    into newly created, explicitly owned empty data/public/media volumes, using
    the same pinned PostgreSQL image. Preserve ownership and private file modes.
    Keep the backup mount read-only during restoration; never boot PostgreSQL
    directly on the only retained backup copy.
-5. After WAL recovery, prove physical schema/head, every row and sequence HMAC,
+5. После восстановления WAL подтвердите физические schema/head, HMAC каждой строки и sequence,
    DB/role OIDs, writer/checkpoint facts, every public file hash and every media
    hash. Only then start the API against the restored volume tuple and retained
    keys. Prove exact HTML/catalogue, revoked sessions staying revoked, password
    re-login, profile/opaque session, and read-only repeated checkpoint import.
    Readiness must use the ordinary authority gateway.
 
-The automated implementation is `scripts/image_recovery.py`, invoked only by
-`scripts/verify_images.py --recovery`. It makes an actual successful registration
-receipt, a pending receipt, group membership, role permissions and a cutover
-checkpoint before backup. It verifies all SQL rows/sequences after recovery;
-the API check then exercises the retained opaque-session and re-login boundary.
-All copy roots and cleanup identities belong to this test. No operator restore
-command that overwrites an arbitrary existing volume is provided.
+Автоматическая реализация находится в `scripts/image_recovery.py` и запускается только через
+`scripts/verify_images.py --recovery`. До резервирования команда создаёт фактический успешный registration
+receipt, pending receipt, членство в группе, permissions role и checkpoint cutover
+перед резервированием. После восстановления проверяются все SQL rows/sequences;
+затем проверка API испытывает границу сохранённой opaque session и повторного входа.
+Все корни копирования и identity очистки принадлежат этой проверке. Операторская команда restore,
+перезаписывающая произвольный существующий volume, не предоставляется.
 
-Use a verified synthetic source runtime and frontend build with the selected
-loopback origin, plus local candidate API/edge images. For HTTPS supply a private
-test certificate/key with the actual loopback IP in SAN; its public certificate
-is the explicitly trusted CA for this test. Both the host client and an
-independent TCP client verify CA and hostname. The independent container routes
-the public origin to its edge peer without changing URL/Host/SNI. It never uses
-`verify=False`. A default untrusted client must reject the certificate.
+Используйте проверенный синтетический source runtime и сборку frontend с выбранным
+loopback origin и локальные candidate images API/edge. Для HTTPS предоставьте приватный
+тестовый certificate/key с фактическим loopback IP в SAN; его публичный сертификат
+явно считается доверенным CA для этой проверки. И клиент хоста, и
+отдельный TCP client проверяют CA и имя хоста. Отдельный container направляет
+public origin к своему edge peer, не изменяя URL/Host/SNI. Он никогда не использует
+`verify=False`. Обычный недоверенный client должен отклонить сертификат.
 
 ```text
 python scripts/verify_images.py --disposable --recovery --rollback-image mathstart-api:<prior-compatible> --runtime-root var/recovery-<run> --source-runtime var/<managed-run>/runtime --artifact-root var/<https-build>/site --api-image mathstart-api:<candidate> --edge-image mathstart-edge:<candidate> --tls-cert <private-test-cert> --tls-key <private-test-key>
 ```
 
-Omit TLS flags only for an artifact whose actual origin is HTTP. The command
-derives the edge port from that artifact, reserves loopback PG55442 (or explicit
-`--pg-port`), creates unique labelled resources and removes only those resources.
-Signing keys/passwords exist in ignored private env files for the run and are
-removed in `finally`. Reports contain exact image IDs, source bindings, actual
-assertion IDs, public hashes/HMACs and measurements. Never hard-kill the owner;
-if interrupted, reconcile only its recorded IDs/labels before another run.
+Опускайте TLS flags, только если фактический origin artifact использует HTTP. Команда
+получает edge port из этого artifact, резервирует loopback PG55442 (или явно указанный
+`--pg-port`), создаёт уникальные помеченные ресурсы и удаляет только их.
+Signing keys/passwords находятся в приватных env-файлах ignored-каталога и
+удаляются в `finally`. Отчёты содержат точные image IDs, привязки source, реальные
+assertion IDs, public hashes/HMACs и измерения. Не завершайте процесс-владелец принудительно;
+при прерывании перед следующим запуском сверяйте только его записанные IDs/labels.
 
-Application rollback is separate from restoring a DB snapshot. With a distinct
-`--rollback-image`, the rehearsal starts that prior actual API binary on the
-restored target head before new target writes. It then switches to the candidate,
-logs in and proves target writes occurred, switches back to the prior API, and
-checks the complete persisted account/profile DTO, session and unchanged DB
-HMAC. It returns to the candidate before measuring the workload. HTTP envelopes
-must preserve their exact shape/version while each request gets a fresh UUID;
-the test does not compare volatile request IDs as persisted data.
+Откат приложения выполняется отдельно от восстановления DB snapshot. Если задан отдельный
+`--rollback-image`, репетиция сначала запускает этот предыдущий реальный бинарный API на
+восстановленном target head до новых записей target. Затем она переключается на candidate,
+выполняет вход и подтверждает запись данных target, переключается обратно на предыдущий API и
+проверяет полный сохранённый account/profile DTO, session и неизменившийся DB
+HMAC. Перед измерением нагрузки выполняется возврат на candidate. HTTP envelopes
+должны сохранять точную структуру/version, а каждый запрос получать новый UUID;
+тест не сравнивает изменчивые request IDs как сохранённые данные.
 
-This proves compatibility only for the two tested image IDs on their common
-schema head. A future incompatible image/schema combination is not a safe
-rollback. Before any target writes, a retained pre-cutover whole-cluster snapshot
-can be considered only with both writer clusters fenced and a reviewed return
-to the old application/roles. Re-enabling an old writer in a target cluster and
-later reusing the old cutover checkpoint is unsupported. After target writes,
-do not replace current data with an older snapshot. Keep current data/WAL and
-use a proved compatible application switch or forward recovery. Applied
-migrations/history, receipts and sequences must not be rewritten to appear safe.
-The separate legacy-cluster return rehearsal below now covers the pre-admission
-whole-cluster boundary; the image test above covers compatible target API switches.
+Это подтверждает совместимость только двух проверенных image IDs с общей
+schema head. Будущая несовместимая комбинация image/schema не допускает безопасный
+откат. До любых записей target можно рассматривать сохранённый до cutover snapshot всего кластера
+только при блокировке обоих writer clusters и проверенном возврате
+к старому приложению/ролям. Включение старого writer в target cluster с
+последующее повторное использование старого checkpoint cutover не поддерживается. После записей target,
+не заменяйте текущие данные старым snapshot. Сохраните текущие data/WAL и
+используйте подтверждённое переключение совместимой версии приложения или восстановление вперёд. Применённые
+migrations/history, receipts и sequences нельзя переписывать ради видимости безопасности.
+Отдельная репетиция возврата legacy cluster ниже теперь охватывает границу до допуска
+всего кластера; проверка images выше охватывает переключения совместимых target API.
 
-Latest scoped local evidence is `image-recovery-result-20261018.json` under
-`docs/acceptance/migration-execution/i02-verification`:449 real assertions,
-828 public files and29 source media hashes, physical verification and cleanup
-PASS. Backup took8.797s; restoration through authenticated readiness including
-application switches took36.656s. On the local Windows/Docker Desktop setup,
+Последние локальные свидетельства для ограниченной проверки сохранены в `image-recovery-result-20261018.json` в
+`docs/acceptance/migration-execution/i02-verification`:449 фактических assertions,
+828 public files и29 hashes исходных media, физическая проверка и очистка
+PASS. Резервирование заняло8.797s; восстановление до authenticated readiness, включая
+переключения приложений, заняло36.656s. В локальной конфигурации Windows/Docker Desktop
 80 sequential HTTPS requests,20 cycles of `/`, `/_content/index.json`,
 `/api/v1/grades/`, `/api/v1/users/me/`, one authenticated keep-alive client and
-two API workers measured p50=70.5ms, p95=110ms and max=1157ms after restore.
-These are measured synthetic local results, not production capacity or SLO.
-Previous failures and partial immutable-public-only recovery remain in evidence.
-Final combined QA and human operational acceptance remain pending.
+два API workers после восстановления показали p50=70.5ms, p95=110ms и max=1157ms.
+Это измерения синтетического локального запуска, а не показатели capacity или SLO production.
+Предыдущие сбои и частичное восстановление только immutable-public остаются в материалах.
+Итоговая общая QA и операционная приёмка человеком ещё не завершены.
 
-## Legacy-cluster return before target admission
+## Возврат legacy cluster до допуска target
 
 ```text
 python scripts/verify_legacy_return.py --disposable --runtime-root var/legacy-return-<new-run> --legacy-python <separate installed Django interpreter>
 ```
 
-The target interpreter must remain Django-free; Docker and unused loopback ports
-55444/18135/18136 are required. This creates new labelled volumes/containers only.
-It runs the actual retained Django migrations, bootstrap and collectstatic; a
-real HTTP registration/onboarding creates native session/profile/success receipts.
-Private group/permission/admin-history/pending fixtures are retained as well.
-It stops the legacy process, disables the sole legacy LOGIN role, proves sessions
-are drained, and records full schema/row/sequence HMAC plus DB/role OIDs. Physical
-pg_basebackup with streamed WAL and pg_verifybackup retains the pre-cutover cluster;
-all29 media and the immutable legacy static build are retained separately.
+Target interpreter должен оставаться без Django; нужны Docker и свободные loopback ports
+55444/18135/18136 55444/18135/18136. Создаются только новые помеченные volumes/containers.
+Запускаются фактические сохранённые Django migrations, bootstrap и collectstatic; реальный
+HTTP registration/onboarding создаёт native session/profile/success receipts.
+Также сохраняются приватные fixtures group/permission/admin-history/pending.
+Скрипт останавливает legacy process, отключает единственную legacy LOGIN role, подтверждает, что sessions
+отозваны, и записывает полный schema/row/sequence HMAC и DB/role OIDs. Физическая
+pg_basebackup с потоковой передачей WAL и pg_verifybackup сохраняют кластер до cutover;
+все29 media и неизменяемая legacy static build хранятся отдельно.
 
-The ordinary reviewed target schema and cutover CLI then execute. Target user
-traffic has not been admitted: only controlled migration/import changes exist.
-The target cluster is stopped and verified fenced before copying that physical
-pre-snapshot to a new owned volume. Before re-enabling any legacy LOGIN role,
-the restored full private HMAC/schema/history/sequences/OIDs must equal the
-recorded pre-snapshot facts. The old target cluster stays stopped. The returned
-Django process must serve the same public HTML and complete profile/session and
-pass an actual password login. This is the narrow point at which a pre-cutover
-whole-cluster return can be considered; it is not a rollback after live writes.
+Затем выполняются обычная проверенная target schema и cutover CLI. Пользовательский
+трафик target ещё не допущен: выполнены только контролируемые изменения миграции/импорта.
+Target cluster останавливается и проверяется на изоляцию до копирования физического
+snapshot до миграции в новый принадлежащий запуску volume. До повторного включения любой legacy LOGIN role
+полные private HMAC/schema/history/sequences/OIDs восстановленной копии должны совпадать с
+записанными фактами snapshot. Старый target cluster остаётся остановленным. Возвращённый
+процесс Django должен отдавать тот же public HTML и полный profile/session, а также
+успешно выполнять реальный вход по паролю. Это единственная ограниченная точка, где возврат всего кластера
+до cutover можно рассматривать; это не откат после рабочих записей.
 
-If migration resumes after returning to legacy, stop/drain legacy again and
-create new reviewed schema and cutover plans from its current state. The old
-checkpoint must not be reused. This rehearsal performs that new adoption,
-requires one F-login with the retained password/native proof, preserves the
-complete profile, then makes a real target profile write. Its owned procedure
-refuses the old physical snapshot after target admission and proves current
-private facts remain unchanged. This guard tracks its own controlled lifecycle;
-it is not a production oracle for writes made by external operators. In an
-operated stack, independent ingress/writer fencing and audited admission history
-remain operator responsibilities. After target writes use the compatible API
-switch/forward recovery procedure, preserving current data/WAL.
+При возобновлении миграции после возврата к legacy снова остановите/освободите legacy и
+создайте новые проверенные планы schema и cutover по текущему состоянию. Старый
+checkpoint повторно использовать нельзя. Эта репетиция выполняет новое принятие данных,
+требует одного F-login с сохранённым паролем/native proof, сохраняет
+полный profile, а затем выполняет настоящую запись profile в target. Процедура, принадлежащая запуску,
+отклоняет старый физический snapshot после допуска target и подтверждает, что текущие
+приватные факты не менялись. Эта защита отслеживает собственный контролируемый lifecycle;
+это не production oracle записей внешних операторов. В
+эксплуатируемом stack независимая блокировка ingress/writer и аудит истории допуска
+остаются ответственностью оператора. После записей target используйте переключение совместимого API
+или forward recovery, сохраняя текущие data/WAL.
 
-Scoped result18 October2026:34 measured assertion events, backup1.313s,
-physical return through authenticated Django login7.860s; source unchanged and
-cleanup PASS. Receipts `i02-verification/legacy-return-02-20261018.json`; the prior
-CookieConflict harness failure/cleanup PASS is retained in legacy-return-01.
-Cookie jars now preserve domain/path instead of flattening duplicate scoped
-names. This proves the synthetic procedure, not production configuration,
-operator approval, public-domain acceptance or final combined QA.
+Результат ограниченной проверки18 October2026:34 измеренных assertion events, резервирование1.313s,
+физический возврат до authenticated Django login7.860s; исходные данные не менялись, очистка
+PASS. Receipts `i02-verification/legacy-return-02-20261018.json`; the prior
+ошибка CookieConflict harness/cleanup PASS сохранена в legacy-return-01.
+Cookie jars теперь сохраняют domain/path, не объединяя дублирующиеся записи
+имён с разными областями действия. Это подтверждает синтетическую процедуру, а не конфигурацию production,
+одобрение оператора, приёмку публичного домена или итоговую общую QA.
 
-### Ordinary API concurrent workload, 2026-10-18
+### Обычная конкурентная нагрузка API, 2026-10-18
 
-The later `var/image-performance-01` rehearsal retained the complete physical
-recovery and distinct compatible-image rollback checks and passed455 assertions.
-It additionally measured400 real HTTPS requests at10 concurrent clients against
-existing `/api/v1/grades/` and authenticated `/api/v1/users/me/` (200 each), after
-20 separate warmup requests. All400 succeeded with valid DTOs/no-store;400 request
-correlations were unique and observed peak concurrency was10. Overall nearest-rank
-p95 was203ms; Grade32ms and profile219ms, each below the existing500ms criterion.
-Failures remain in the denominator and latency distribution; no automatic retries.
-The complete database, sequences and private-fact HMAC were unchanged by the load.
+Последующая репетиция `var/image-performance-01` сохранила полную физическую
+проверку восстановления и отдельные проверки отката на совместимый image; пройдены455 assertions.
+Дополнительно измерено400 фактических HTTPS-запросов от10 одновременных клиентов к
+существующим `/api/v1/grades/` и аутентифицированному `/api/v1/users/me/` (по200 к каждому) после
+20 отдельных прогревочных запросов. Все400 успешно завершились с корректными DTO/no-store;400 корреляций
+запросов были уникальны, наблюдаемый пик concurrency составил10. Общий nearest-rank
+p95 составил203ms; Grade —32ms, profile —219ms; каждый результат ниже существующего критерия500ms.
+Сбои учитываются в знаменателе и распределении задержек; автоматических повторов нет.
+Нагрузка не изменила database целиком, sequences и HMAC приватных фактов.
 
-Scope: Windows/WSL2 Docker Desktop,12 logical CPUs,7,978,807,296 bytes memory,
-PostgreSQL16.15, Python3.12.15 and two API workers through the owned HTTPS edge.
-Windows clock resolution quantized individual samples; these are local disposable
-measurements, not a production capacity or future AI claim. The exact runtime
-images were built from3116fda, with the new host recovery controller; raw timings,
-cohort sizes, package versions and source hashes are retained in
+Область применимости: Windows/WSL2 Docker Desktop,12 логических CPUs,7,978,807,296 bytes memory,
+PostgreSQL16.15, Python3.12.15 и два API workers через принадлежащий запуску HTTPS edge.
+Разрешение часов Windows квантует отдельные измерения; это локальные временные
+результаты, а не прогноз production capacity или будущих возможностей AI. Точные runtime
+images собраны из3116fda с новым host recovery controller; исходные тайминги,
+размеры групп, версии пакетов и hashes исходников сохранены в
 `i02-verification/ordinary-api-workload-20261018.json` and the455-check result.
-The full-candidate workflow now runs this ordinary workload with physical recovery
-as a required seventh technical job; syntax checking alone does not prove that job.
+Workflow для полного candidate теперь запускает эту обычную нагрузку вместе с физическим восстановлением
+как обязательную седьмую техническую job; одна проверка синтаксиса не подтверждает выполнение этой job.

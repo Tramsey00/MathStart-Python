@@ -1,47 +1,45 @@
-# SPEC: All topics catalogue
+# SPEC: Каталог всех тем
 
-- Status: Implemented and verified; final human acceptance pending
-- Date: 2026-10-04
-- Scope owner/reviewer: repository owner
-- Compatibility: ADR-0001, existing Content publication, MS7-I02 UI isolation
-- Plan: `docs/exec-plans/active/topics-catalogue.md`
+- Статус: Реализовано и проверено; ожидается финальная человеческая приёмка
+- Дата: 2026-10-04
+- Владелец/reviewer scope: владелец репозитория
+- Совместимость: ADR-0001, существующая публикация Content, изоляция UI MS7-I02
+- План: `docs/exec-plans/active/topics-catalogue.md`
 
-## Contract
+## Контракт
 
-`/karta-sajta/` is «Все темы» in navigation, heading and SEO title.
-Only published topic ContentPages appear, grouped by Grade → Subject → Section.
-Empty groups and non-teaching pages are absent. A GET form accepts `q`, `grade`
-(grade slug), and `subject` (subject slug, shared across grades). Unknown filter
-values are treated as all; incompatible subjects reset to all on grade changes.
-Subject options come from published topics of the selected grade, independently
-of the query. Search trims surrounding whitespace and uses Unicode casefold
-substring matching on titles in Python for identical PostgreSQL/SQLite behavior.
-At the current 263-topic scale, loading lightweight title/relationship records
-is acceptable; lesson bodies are deferred. No API, search dependency or JS is needed.
+`/karta-sajta/` отображается как «Все темы» в навигации, заголовке и SEO title.
+Показываются только опубликованные topic ContentPages, сгруппированные Grade → Subject → Section.
+Пустые группы и страницы не для обучения отсутствуют. GET form принимает `q`, `grade`
+(slug класса) и `subject` (slug предмета, общий для разных классов). Неизвестные значения
+filter трактуются как «все»; несовместимый subject сбрасывается в «все» при смене grade.
+Варианты subject берутся из опубликованных topics выбранного grade независимо от query.
+Поиск обрезает окружающие пробелы и применяет Unicode casefold substring к заголовкам в Python,
+чтобы PostgreSQL/SQLite вели себя одинаково. При текущем масштабе 263 topics допустима загрузка
+лёгких записей заголовков/связей; тела уроков загружаются позже. API, dependency поиска и JS не нужны.
 
-Search results are immediately visible with grade/subject/section context.
-Ordinary browsing retains nested groups and native details/summary. The URL
-retains submitted state across refresh and browser Back from an unchanged lesson
-URL. Reset links to the bare catalogue URL. Labels, visible focus, wrapping and
-360/768/1440 layouts are required. CSS is scoped to `.ms-catalogue` and reuses UI
-tokens; existing lesson/home styles and the XML sitemap remain intact.
+Результаты поиска сразу отображаются с контекстом grade/subject/section.
+Обычный просмотр сохраняет вложенные группы и нативные details/summary. URL сохраняет состояние
+отправленной формы после refresh и browser Back при неизменённом lesson URL. Reset ведёт на чистый
+URL каталога. Обязательны labels, видимый focus, перенос текста и layouts для 360/768/1440.
+CSS ограничен `.ms-catalogue` и повторно использует UI tokens; существующие стили уроков/главной
+и XML sitemap остаются без изменений.
 
-## Retirement and publication
+## Удаление и публикация
 
-Delete only sources for `materialy` and `pamyatki`. During bootstrap explicitly
-unpublish these two static ContentPages, retaining identities/content and all
-other records. No missing-source sweep and no migration/schema change.
-Update redirects from both root and `/mathstart/` addresses directly to
-`/karta-sajta/` and `/bazovye-svojstva-stepenej-s-naturalnym-pokazatelem/`.
-Preserve the bytes and URL `/media/uploads/2026/07/pamyatka-stepeni.pdf`, add its
-link to that lesson and update MediaAsset ownership. Update Contacts/About copy.
-Existing publication conflict detection remains effective.
+Удалять только sources для `materialy` и `pamyatki`. Во время bootstrap явно снимать публикацию
+этих двух static ContentPages, сохраняя identity/content и все остальные records.
+Без sweep по отсутствующим sources и без изменения migration/schema.
+Обновить redirects с обоих адресов корня и `/mathstart/` напрямую на `/karta-sajta/` и
+`/bazovye-svojstva-stepenej-s-naturalnym-pokazatelem/`. Сохранить байты и URL
+`/media/uploads/2026/07/pamyatka-stepeni.pdf`, добавить ссылку на него в этот урок и обновить
+владение MediaAsset. Обновить тексты Contacts/About. Существующее обнаружение publication conflict
+остаётся активным.
 
-## Acceptance
+## Приёмка
 
-Tests cover Unicode search, filter combinations, invalid/empty input, unpublished
-topics, hierarchy, links, navigation, four 301s, upgrade/repeat/bootstrap,
-content/media/user preservation and source integrity. Run verify_repo plus
-available visual/browser checks; explicitly record missing evidence.
-Only isolated databases may be initialized by the agent. Changes remain
-uncommitted. Human review of the final UI and update procedure is pending.
+Tests проверяют Unicode search, комбинации filters, пустой/неверный ввод, unpublished topics,
+иерархию, links, navigation, четыре 301, upgrade/repeat/bootstrap, сохранение content/media/user
+и целостность sources. Запустить verify_repo и доступные visual/browser checks; явно записать
+отсутствующие свидетельства. Инициализировать можно только изолированные базы.
+Изменения оставить без commit. Ожидается человеческое ревью итогового UI и процедуры обновления.

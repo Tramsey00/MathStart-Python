@@ -7,15 +7,15 @@
 - **Related plan:** `docs/exec-plans/active/R03-knowledge-progress-contract.md`
 - **Fixtures:** `fixtures/pilot-skills-v1.json`, `fixtures/pilot-dependencies-v1.json`
 
-## Scope and ownership
+## Область действия и владение
 
-Knowledge owns stable atomic Skills and directed prerequisite relations. Content owns Topics and eventual Topic-to-Skill mappings. An exercise `interaction_mode` selects UX/validation behavior and is not a Skill. This contract defines repository-managed pilot catalogue facts and pure validation; it creates no Django model, FK, migration, management command, or runtime seed.
+Knowledge владеет стабильными атомарными Skills и направленными отношениями предварительных условий. Content владеет Topics и будущими связями Topic-to-Skill. `interaction_mode` упражнения определяет поведение UX/validation и не является Skill. Контракт задаёт факты каталога пилота под управлением repository и чистую валидацию; он не создаёт Django model, FK, migration, management command или runtime seed.
 
-The current Content-owned topic abstraction is `ContentPage` with `page_type=topic`. A future `TopicSkill` reference must point to that Content-owned abstraction and a stable Skill code/reference, without creating a duplicate Topic source. The exact FK and migration design belongs to a later implementation task.
+Текущая абстракция темы под владением Content — `ContentPage` с `page_type=topic`. Будущая ссылка `TopicSkill` должна указывать на эту абстракцию Content и стабильный код/reference Skill, не создавая дублирующий источник Topic. Конкретная схема FK/migration относится к последующей задаче реализации.
 
-## Canonical inventory
+## Канонический перечень
 
-Graph version `pilot-v1` contains exactly these ten Skill codes:
+Версия графа `pilot-v1` содержит ровно следующие десять кодов Skill:
 
 1. `integer_number_line`
 2. `negative_numbers`
@@ -28,15 +28,15 @@ Graph version `pilot-v1` contains exactly these ten Skill codes:
 9. `linear_one_step`
 10. `linear_parentheses`
 
-The code is the stable subject-domain identifier; a display name may change without changing graph identity. The fixture enumerates each code exactly once. A duplicate or unknown code is invalid. No interaction-mode code can be included as a Skill.
+Код — стабильный идентификатор предметной области; отображаемое имя может меняться без изменения идентичности графа. Fixture перечисляет каждый код ровно один раз. Повторный или неизвестный код недопустим. Код режима взаимодействия нельзя включать как Skill.
 
-`basic_arithmetic` is a prerequisite for **entering** the pilot, not a `pilot-v1` node. It is represented in the skills fixture as `external_prerequisite` metadata with `scope = pilot_entry` and `representation = outside_skill_dependency`. It must not occur in the `skills` array or either endpoint of an edge. A later onboarding/diagnostic component may determine entrance eligibility through an explicit contract; this graph does not fabricate a Skill reference or student state for it.
+`basic_arithmetic` — предварительное условие **для входа** в пилот, а не узел `pilot-v1`. В fixture навыков он представлен метаданными `external_prerequisite` со значениями `scope = pilot_entry` и `representation = outside_skill_dependency`. Он не должен присутствовать в массиве `skills` или на любом конце ребра. Будущий компонент onboarding/diagnostic может определять право входа по явному контракту; этот граф не создаёт для него фиктивную ссылку Skill или состояние учащегося.
 
-## Approved edges
+## Утверждённые рёбра
 
-Each row is `prerequisite -> dependent`, with weight `1.0`:
+Каждая строка задаёт `prerequisite -> dependent` с весом `1.0`:
 
-| Prerequisite | Dependent |
+| Предварительное условие | Зависимый навык |
 | --- | --- |
 | `integer_number_line` | `negative_numbers` |
 | `negative_numbers` | `sign_rules_add_sub` |
@@ -52,27 +52,27 @@ Each row is `prerequisite -> dependent`, with weight `1.0`:
 | `expand_parentheses` | `linear_parentheses` |
 | `combine_like_terms` | `linear_parentheses` |
 
-`pilot-v1` has exactly 13 unique edges. Its topological order need not be unique, but every valid order places each prerequisite before its dependent. There is no self-edge or cycle.
+В `pilot-v1` ровно 13 уникальных рёбер. Топологический порядок может быть неоднозначным, но в каждом допустимом порядке предварительное условие стоит раньше зависимого навыка. Саморёбер и циклов нет.
 
-## Deterministic ancestor query
+## Детерминированный запрос предков
 
-`ancestors(skill_id, max_depth=2)` queries the validated `pilot-v1` graph without reversing its stored edges. Lookup traverses from the dependent Skill toward its prerequisites. Depth 1 contains direct prerequisites; depth 2 contains prerequisites of those direct prerequisites. Return each Skill code once at its **minimum** depth as `(skill_code, depth)`, ordered first by ascending depth and then lexicographically by code. A Skill not in `pilot-v1` is rejected. For this pilot, `max_depth` may be 0, 1, or 2; 0 returns an empty result, and invalid or greater values are rejected. `basic_arithmetic` is external entrance metadata, so it is never returned as a Skill ancestor.
+Запрос `ancestors(skill_id, max_depth=2)` выполняется по проверенному графу `pilot-v1`, не меняя направления сохранённых рёбер. Поиск идёт от зависимого Skill к его предварительным условиям. На глубине 1 находятся непосредственные предварительные условия; на глубине 2 — предварительные условия этих непосредственных предшественников. Возвращайте каждый код Skill один раз на его **минимальной** глубине в виде `(skill_code, depth)`: сначала по возрастанию глубины, затем лексикографически по коду. Skill, отсутствующий в `pilot-v1`, отклоняется. Для этого пилота `max_depth` может быть равен 0, 1 или 2; значение 0 возвращает пустой результат, а недопустимые и большие значения отклоняются. `basic_arithmetic` — внешние метаданные входа, поэтому он никогда не возвращается как предок Skill.
 
-For `linear_parentheses`, depth 1 is `combine_like_terms`, `expand_parentheses`, `linear_one_step`; depth 2 is `distributive_property`, `equation_balance`, `sign_rules_add_sub` in the specified deterministic order. If a Skill is reachable by more than one path, the minimum depth wins.
+Для `linear_parentheses` глубина 1 содержит `combine_like_terms`, `expand_parentheses`, `linear_one_step`; глубина 2 содержит `distributive_property`, `equation_balance`, `sign_rules_add_sub` в указанном детерминированном порядке. Если Skill достижим несколькими путями, выбирается минимальная глубина.
 
-## Validation contract
+## Контракт проверки
 
-Validate the complete candidate graph before accepting it or using it for a future seed:
+Перед принятием графа-кандидата или его использованием для будущего seed полностью проверьте его:
 
-1. require matching `graph_version = pilot-v1` in both fixtures;
-2. require exactly the ten approved unique Skill codes, with no `basic_arithmetic` or mode code;
-3. require external prerequisite metadata exactly as above;
-4. require all 13 approved edge pairs, each appearing once, each endpoint present in the Skill inventory, each weight numerically 1.0;
-5. reject a duplicate edge, unknown/missing skill reference, self-edge, or cycle independently, with a clear failure reason;
-6. return a deterministic topological traversal (sort ready nodes by code) for verification and future read use.
+1. требовать совпадения `graph_version = pilot-v1` в обоих fixtures;
+2. требовать ровно десять одобренных уникальных кодов Skill; `basic_arithmetic` и код режима не допускаются;
+3. требовать внешние метаданные предварительного условия в точности как описано выше;
+4. требовать все 13 одобренных пар рёбер, каждая встречается один раз, обе вершины есть в перечне Skill, числовой вес каждой равен 1.0;
+5. отдельно отклонять повтор ребра, неизвестную/отсутствующую ссылку skill, self-edge или cycle с ясным описанием причины отказа;
+6. возвращайте детерминированный топологический обход (сортируйте готовые узлы по коду) для проверки и будущего чтения.
 
-The generic DAG validator also handles intentionally invalid test graphs so duplicate/unknown/self-edge/cycle failures can be tested separately from the strict `pilot-v1` inventory check. An archived or inactive Skill must not be deleted when referenced by historical evidence; lifecycle and DB constraints are deferred to the implementation contract.
+Универсальный валидатор DAG также обрабатывает намеренно недопустимые тестовые графы, чтобы ошибки повтора/неизвестного кода/саморебра/цикла проверялись отдельно от строгой проверки перечня `pilot-v1`. Архивный или неактивный Skill нельзя удалять, если на него ссылаются исторические свидетельства; жизненный цикл и ограничения БД определяются будущим контрактом реализации.
 
-## Acceptance and verification
+## Приёмка и проверка
 
-`scripts/r03_contract_reference.py` and `tests/test_r03_contract.py` must load the JSON fixtures and verify the exact inventory, edges, direction, weights, external prerequisite, invalid-graph cases, and depth-2 ancestor query. These files are specification fixtures, not runtime `seed_data/knowledge/` input yet. No R01/R02 source or historical evidence is rewritten.
+`scripts/r03_contract_reference.py` и `tests/test_r03_contract.py` должны загружать JSON fixtures и проверять точный перечень, рёбра, их направление и веса, внешнее предварительное условие, случаи недопустимых графов и запрос предков глубины 2. Пока эти файлы являются fixtures спецификации, а не входом runtime `seed_data/knowledge/`. Исходники R01/R02 и исторические свидетельства не переписываются.

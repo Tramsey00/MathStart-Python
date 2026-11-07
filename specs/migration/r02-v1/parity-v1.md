@@ -1,37 +1,37 @@
-# Old-to-new acceptance matrix guide v1.0.0
+# Руководство по матрице приёмки R02—R03 v1.0.0
 
-[Machine-readable matrix](parity-matrix-v1.json) binds every assertion to an
-independent old source/test and target owner/negative cases. A row is not PASS
-merely because it is documented. R02 evidence covers contract/source integrity,
-schemas, synthetic comparisons and existing baseline execution. Target runtime
-evidence fields remain NOT_RUN until V/I tasks implement and verify them.
+[Машиночитаемая матрица](parity-matrix-v1.json) связывает каждое утверждение с
+независимым старым источником/тестом и владельцем в target-системе/негативными
+случаями. Строка не получает PASS только потому, что она задокументирована. Свидетельства R02 охватывают целостность контрактов/исходников,
+схемы, синтетические сравнения и существующее выполнение baseline. Поля свидетельств
+target runtime остаются NOT_RUN до реализации и проверки задач V/I.
 
-V01 consumes schema/default/FK/sequence/upgrade/locks; V02 consumes delivery,
-grades/cursor/routes/staff reads; V03 consumes auth/session/receipt/staff writes;
-V04 consumes publisher/CLI/journal. I01 consumes shell/DTO/dispatcher/state;
-I02 SEO/public/staff read pages and SSG; I03 all LessonHost/scripts/assets/F01–F04;
-I04 account and permission-authorized staff forms. Each later task records full
-input/output SHA, command/exit/version, positive+negative evidence and independent
-Task Approval. None is started or accepted by R02.
+V01 использует схему/default/FK/sequence/upgrade/locks; V02 — delivery,
+grades/cursor/routes/staff reads; V03 — auth/session/receipt/staff writes;
+V04 — publisher/CLI/journal. I01 использует shell/DTO/dispatcher/state;
+I02 — SEO/public/staff read pages и SSG; I03 — все LessonHost/scripts/assets/F01–F04;
+I04 — account и формы staff, доступные по permission. Каждая последующая задача фиксирует
+полные SHA входа/выхода, command/exit/version, положительные и отрицательные свидетельства,
+а также независимый Task Approval. Ни одна из них не начата и не принята в рамках R02.
 
-The unchanged Django eight checks map to target config/routes/security,
-Alembic metadata/one head/reviewed SQL, all263 source validation, HTML/SVG/asset
-quality, URL/redirect/media/SSG integrity, PG API/services/staff/migration tests,
-pure R03/R02A/R03A and Harness nonrecursive check IDs. R03 owns implementing
-that verification registry/CI, not this task. Future npm/build/browser commands
-remain NOT_CONFIGURED until I01/R03. Test counts are not semantic parity proof.
+Неизменённые восемь Django-проверок сопоставлены с target config/routes/security,
+Alembic metadata/one head/reviewed SQL, всеми 263 source validation, качеством HTML/SVG/asset,
+целостностью URL/redirect/media/SSG, PG-тестами API/services/staff/migration,
+чистыми проверками R03/R02A/R03A и нерекурсивными Harness check IDs. Реализация
+этого verification registry/CI относится к R03, а не к этой задаче. Будущие npm/build/browser-команды
+остаются NOT_CONFIGURED до I01/R03. Число тестов не доказывает семантический паритет.
 
-F01–F04 are source baseline exceptions, not target waivers. Preserve accepted
-routes/repro/screenshots and exact positive criteria copied in the matrix:
-F01 long TOC labels inside cards; F02 all12 formulas; F03 p=2/x=0.25 ->0.0625
-fully inside its cell; F04 circle lab and8/12-part labels readable at ordinary
-scale without clipping/overlap (zoom alone fails), preserve angles/coordinates/
-text readout/controls/math.13baybars fixes no later than I03, verifies I05 before
-freeze. All360/768/1440 mandatory; no invented font/pixel threshold or Vladimir
-F04 independent-review consent. Historical independent comments remain separate.
+F01–F04 — исключения базовой линии источников, а не послабления для target. Сохраняйте принятые
+routes/repro/screenshots и точные положительные критерии, скопированные в матрицу:
+F01 длинные подписи TOC внутри карточек; F02 все 12 формул; F03 `p=2/x=0.25 ->0.0625`
+целиком внутри своей ячейки; F04 круговая лаборатория и подписи частей 8/12 читаемы при обычном
+масштабе без обрезания/перекрытия (одного увеличения масштаба недостаточно), сохраняются углы/координаты/
+текстовое чтение/элементы управления/математика. Исправления 13baybars должны быть готовы не позднее I03;
+I05 проверяет их до freeze. Обязательны размеры 360/768/1440; не вводите неоговорённый порог шрифта/пикселей
+и не приписывайте Владимиру согласие на независимое ревью F04. Исторические независимые комментарии остаются отдельными.
 
-Protocol round1.0.2 adds PROTOCOL-P1/P2 to the matrix, machine publication/bridge
-transition tables and private durable storage schemas. The32 protocol tests
-are MODEL_SYNTHETIC only; existing31 baseline/schema tests remain. Runtime
-PG competing recovery, fencing/cutover/bridge races and gateway/browser behavior
-remain assigned V03/V04/V05/I02/I04 evidence, not established by this package.
+Протокол версии 1.0.2 добавляет в матрицу PROTOCOL-P1/P2, машиночитаемые таблицы
+переходов публикации/bridge и схемы закрытого постоянного хранилища. 32 теста протокола имеют
+класс MODEL_SYNTHETIC; существующие 31 тест baseline/schema сохраняются. Проверки runtime на PG
+для конкурирующего recovery, гонок fencing/cutover/bridge и поведения gateway/browser относятся к свидетельствам
+V03/V04/V05/I02/I04, а не считаются выполненными этим пакетом.

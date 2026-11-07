@@ -80,7 +80,7 @@ export function runFoundation(args=process.argv.slice(2)) {
       ["generate-api",process.execPath,[npm,"run","generate:api"]],
       ["typecheck",process.execPath,[npm,"run","typecheck"]],
       ["native-validator-esm",process.execPath,["scripts/check-validators.mjs"]],
-      ["unit-component-security",process.execPath,[npm,"test"]],
+      ["unit-component-security",process.execPath,[npm,"run","test:full"]],
       ["historical-dispatcher",process.execPath,["--test","../tests/test_i02_schema_dispatch.js"]],
       ["production-build",process.execPath,[npm,"run","build"]],
       ["dependency-tree",process.execPath,[npm,"ls","--depth=0"]],

@@ -1,6 +1,8 @@
 import { useLoaderData } from "react-router";
 import { loadPublicPage } from "../../server/public-input.server";
 import type { PublicPageView } from "../../server/public-types";
+import { LessonPage } from '../../shared/lesson/lesson-page';
+import { PublicDesignHost } from '../../features/public-pages/public-design-host';
 
 export const handle = { publicDocument: true };
 export async function loader({request}:{request:Request}) {
@@ -10,9 +12,17 @@ export async function loader({request}:{request:Request}) {
   return loadPublicPage(new URL(request.url).pathname);
 }
 
-// Reviewed HTML is publication output. Complete document navigation disposes
-// authored scripts, observers, timers and styles. Public pages never hydrate.
+// Legacy HTML keeps its full-document lifecycle. Approved public pages and
+// react-v1 lessons hydrate their shared React components from publication data.
 export function LessonHost({view}:{view:PublicPageView}) {
+  if (view.public_design) {
+    if (!view.public_catalogue) throw Error('Published catalogue required');
+    return <PublicDesignHost kind={view.public_design} catalogue={view.public_catalogue} fallback={view.catalogue_html}/>;
+  }
+  if (view.page.renderer_version === 'react-v1') {
+    if (!view.page.lesson_document || !view.context.lesson_navigation || !view.context.grade_links || !view.context.lesson_section) throw Error('Incomplete React lesson publication');
+    return <LessonPage document={view.page.lesson_document} navigation={view.context.lesson_navigation} gradeLinks={view.context.grade_links} section={view.context.lesson_section}/>;
+  }
   const authored=<div data-lesson-host="" data-public-slug={view.page.slug} style={{display:"contents"}} dangerouslySetInnerHTML={{__html:view.page.body_html}}/>;
   if(view.catalogue_html === null)return authored;
   return <main className="ms-catalogue" id="topics-catalogue">

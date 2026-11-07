@@ -1,7 +1,7 @@
 import {test,expect,type Page} from '@playwright/test';
 import {writeFileSync} from 'node:fs';
 const power='/10-klass-stepennye-funkcii-i-grafiki-2-0/',circle='/10-klass-chislovaya-okruzhnost-2-0/';
-const legacy=['/linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii/','/funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/','/funkcziya-y-k-x-i-eyo-svojstva-giperbola/','/kvadratichnaya-funkcziya-y-ax2-bx-c/','/stepennaya-funkcziya-s-naturalnym-pokazatelem/','/stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/'];
+const legacy=['/funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik/','/funkcziya-y-k-x-i-eyo-svojstva-giperbola/','/kvadratichnaya-funkcziya-y-ax2-bx-c/','/stepennaya-funkcziya-s-naturalnym-pokazatelem/','/stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/'];
 async function capture(page:Page,name:string){const path=test.info().outputPath(name+'.png');await page.screenshot({path});await test.info().attach(name+'.png',{path,contentType:'image/png'});}
 async function region(page:Page,selector:string,name:string){const path=test.info().outputPath(name+'.png');await page.locator(selector).screenshot({path});await test.info().attach(name+'.png',{path,contentType:'image/png'});}
 async function fits(page:Page,selector:string){return page.locator(selector).evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {text:n.textContent,client:n.clientWidth,scroll:n.scrollWidth,rect:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};}).filter(n=>n.scroll>n.client+1));}
@@ -10,15 +10,7 @@ for(const route of legacy)test('real graph keyboard/pointer/reset and mathematic
  await control.focus();await page.keyboard.press('End');expect(await control.inputValue()).not.toBe(start);
  const values=await page.locator('input[type=range]').evaluateAll(nodes=>Object.fromEntries(nodes.map(n=>[n.getAttribute('data-role'),Number((n as HTMLInputElement).value)])));
  const cells=await page.locator('[data-role=table-value]').evaluateAll(nodes=>nodes.map(n=>({x:Number(n.getAttribute('data-x')),text:n.textContent??''})));
- if(route===legacy[0]){
-  // Linear lab has readouts rather than a value table; an empty table loop
-  // must not silently stand in for its mathematical assertions.
-  const k=values['k-range']!,b=values['b-range']!;expect(k).toBe(3);expect(b).toBe(0);
-  await expect(page.locator('[data-role=formula]')).toHaveText('y = 3x');
-  await expect(page.locator('[data-role=direction]')).toHaveText('возрастает');
-  await expect(page.locator('[data-role=intercept]')).toHaveText('(0; 0)');
-  await expect(page.locator('[data-role=x-intercept]')).toHaveText('(0; 0)');
- }else expect(cells.length,'Each other lab must expose real mathematical table values').toBeGreaterThan(0);
+ expect(cells.length,'Each remaining legacy lab must expose real mathematical table values').toBeGreaterThan(0);
  for(const cell of cells){let expected:number;
   if(route.includes('naturalnym')||route.includes('otriczatelnym'))expected=Math.pow(cell.x,values['n-range']!);
   else if(route.includes('kvadratnogo-kornya'))expected=values['k-range']!*Math.sqrt(cell.x)+values['a-range']!;

@@ -1,10 +1,10 @@
-# PostgreSQL development and verification
+# PostgreSQL: разработка и проверки
 
-Use the current [README](../../README.md), [release runbook](../../deploy/RELEASE.md)
-and [target verification](../target-runtime.md). The runtime is FastAPI/SQLAlchemy;
-the canonical Compose is deploy/compose.yaml. Select new owned resources for QA,
-never an existing acceptance/legacy database or volume.
+Используй текущие [README](../../README.md), [release runbook](../../deploy/RELEASE.md)
+и [target verification](../target-runtime.md). Runtime — FastAPI/SQLAlchemy,
+канонический Compose — deploy/compose.yaml. Для QA выбирай новые собственные
+ресурсы, а не существующие acceptance/legacy БД или volumes.
 
-The former MS6-V01 Django runbook is historical:
+Прежний Django runbook MS6-V01 является историческим:
 1a87b044e8c5a7519b0ab57e22d2a35d57b4a986:docs/runbooks/postgres-dev-test.md.
-Its commands run only through the [pinned oracle](../legacy-oracle.md).
+Его команды выполняются только через [pinned oracle](../legacy-oracle.md).

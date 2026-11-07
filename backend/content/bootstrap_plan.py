@@ -93,8 +93,17 @@ def bootstrap_changes(before, bundles, root, instant):
     redirects = read_json(root / 'site_content/redirects.json')
     if set(redirects) != {'schema_version', 'redirects'} or redirects['schema_version'] != 1:
         raise SourceError('Invalid bootstrap redirects')
+    # Explicit material aliases belong to the prepared DB edition too. An alias
+    # existing only in the input index cannot pass the publisher's independent
+    # reconstruction from DB rows and immutable page deliveries.
+    from backend.content.build import load_material_routes
+    routes = load_material_routes(root, sources)
+    material_aliases = [{'old_path': alias, 'new_path': route['path'],
+                         'is_permanent': True, 'is_active': True}
+                        for route in routes.values() if route['renderer_version'] == 'react-v1'
+                        for alias in route.get('aliases', [])]
     paths = set()
-    for values in redirects['redirects']:
+    for values in [*redirects['redirects'], *material_aliases]:
         if set(values) != {'old_path', 'new_path', 'is_permanent', 'is_active'} or values['old_path'] in paths:
             raise SourceError('Invalid/duplicate bootstrap redirect identity')
         paths.add(values['old_path'])

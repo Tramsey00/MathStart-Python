@@ -1,121 +1,121 @@
-# MathStart Product Specification
+# Спецификация продукта MathStart
 
-## 1. Product identity
+## 1. Идентичность продукта
 
-**MathStart** is an intelligent educational web system for school mathematics.
+**MathStart** — интеллектуальная образовательная веб-система для школьной математики.
 
-Its core purpose is not only to show theory and exercises, but to understand how a student solves supported problems, identify a confirmed problematic step, connect the error to an underlying skill, update the student's knowledge state, and select an appropriate next practice activity.
+Её основная цель — не только показывать теорию и упражнения, но и понимать, как ученик решает поддерживаемые системой задачи, находить подтверждённый проблемный шаг, связывать ошибку с соответствующим навыком, обновлять состояние знаний ученика и выбирать подходящее следующее упражнение.
 
-The product preserves the educational content of the original MathStart Django project. The current site runs on FastAPI/PostgreSQL and React/SSG; the intelligent learning layer below remains future scope. See docs/target-runtime.md.
+Продукт сохраняет учебный контент исходного проекта MathStart на Django. Текущий сайт работает на FastAPI/PostgreSQL и React/SSG; описанный ниже интеллектуальный учебный слой пока относится к будущему объёму работ. См. docs/target-runtime.md.
 
-Этот документ сохраняет продуктовые инварианты MathStart. Полная текущая рабочая
-редакция требований — [ТЗ v7.2](docs/specifications/technical-spec-v7.2-draft.md)
-от20.10.2026, DRAFT_HUMAN_PENDING; новая очередь — [docs/tasks/INDEX.md](docs/tasks/INDEX.md).
-Платформенная миграция PR54 и консолидация PR55 завершены и приняты. Это не
-означает приёмку нового полного draft или реализацию будущих функций.
+Этот документ сохраняет продуктовые инварианты MathStart. Количественные и
+домен/API требования будущего цикла — [learning requirements](specs/product/learning-requirements.md).
+Текущая очередь — [docs/tasks/INDEX.md](docs/tasks/INDEX.md). Старое полное ТЗ
+выведено из рабочего дерева; история остаётся в Git. Это не новое одобрение
+прежнего draft и не утверждение реализации будущих функций.
 
-Detailed architecture belongs in `ARCHITECTURE.md`.
-Detailed feature/domain contracts belong in `specs/`.
-Significant engineering decisions belong in `docs/adr/`.
-
----
-
-## 2. Product vision
-
-MathStart should support the following learning loop:
-
-1. a student studies a topic;
-2. the student receives an exercise in an interaction mode appropriate to the task;
-3. MathStart validates the answer or solution steps;
-4. when supported, MathStart identifies the first confirmed problematic step;
-5. the system links confirmed evidence to one or more skills;
-6. Progress Engine updates the student's knowledge state using validated `ProgressEvent` evidence;
-7. if a prerequisite is weak, Adaptive Practice temporarily switches the student to targeted practice;
-8. AI Tutor provides hint-first help using relevant topic and progress context;
-9. after successful practice, the student returns to the original topic.
-
-The system must remain explainable: progress changes must be traceable to concrete evidence, not opaque LLM judgments.
+Подробная архитектура описана в `ARCHITECTURE.md`.
+Подробные контракты функций и предметной области находятся в `specs/`.
+Значимые инженерные решения фиксируются в `docs/adr/`.
 
 ---
 
-## 3. Existing product baseline
+## 2. Видение продукта
 
-The repository already contains a working MathStart educational website.
+MathStart должен поддерживать следующий учебный цикл:
 
-Existing product assets include:
+1. ученик изучает тему;
+2. получает упражнение в подходящем для задачи режиме взаимодействия;
+3. MathStart проверяет ответ или шаги решения;
+4. если это поддерживается, MathStart определяет первый подтверждённый проблемный шаг;
+5. система связывает подтверждённое свидетельство с одним или несколькими навыками;
+6. Progress Engine обновляет состояние знаний ученика на основании проверенных свидетельств `ProgressEvent`;
+7. если предварительный навык слаб, Adaptive Practice временно переключает ученика на целевую практику;
+8. AI Tutor сначала предлагает подсказку, используя подходящий контекст темы и прогресса;
+9. после успешной практики ученик возвращается к исходной теме.
 
-- curriculum content for grades 5-9 and retained grade-10 algebra;
-- topic/theory pages;
-- existing exercise/self-check content;
-- FastAPI/React publication/runtime infrastructure (historical Django is a separate oracle);
-- current content quality and integrity checks;
-- current tests and explicit schema/content/operator CLI.
-
-The existing educational content is an asset of the project and must be preserved.
-
-MathStart v3.1 extends this baseline instead of replacing it with a full rewrite.
+Система должна оставаться объяснимой: изменения прогресса должны прослеживаться до конкретных свидетельств, а не до непрозрачных выводов LLM.
 
 ---
 
-## 4. What is new in the course project
+## 3. Текущая основа продукта
 
-The new course-project scope is the intelligent learning layer around the existing MathStart content.
+В репозитории уже есть работающий образовательный сайт MathStart.
 
-The major new product capabilities are:
+К существующим активам продукта относятся:
 
-- student accounts and profiles;
-- selected grade and onboarding mode;
-- a unified exercise model;
-- four exercise interaction modes;
-- attempts and typed solution steps;
-- server-side answer/solution validation;
-- knowledge graph of atomic skills;
-- diagnostics;
-- event-based progress tracking;
+- учебный контент для 5–9 классов и сохранённый материал алгебры 10 класса;
+- страницы тем и теории;
+- существующие упражнения и материалы для самопроверки;
+- инфраструктура публикации/runtime на FastAPI/React (исторический Django — отдельный oracle);
+- текущие проверки качества и целостности контента;
+- текущие тесты и явный CLI для схемы, контента и операторских операций.
+
+Существующий учебный контент — актив проекта, который необходимо сохранить.
+
+MathStart v3.1 расширяет эту основу, а не заменяет её полной переработкой.
+
+---
+
+## 4. Новое в проекте курса
+
+Новый объём проекта курса — интеллектуальный учебный слой вокруг существующего контента MathStart.
+
+К основным новым возможностям продукта относятся:
+
+- учётные записи и профили учеников;
+- выбранный класс и режим первоначальной настройки;
+- единая модель упражнения;
+- четыре режима взаимодействия с упражнениями;
+- попытки и типизированные шаги решения;
+- серверная проверка ответов и решений;
+- граф знаний атомарных навыков;
+- диагностика;
+- отслеживание прогресса на основе событий;
 - `UserSkillState`;
-- misconception taxonomy;
+- таксономия ошибочных представлений;
 - Solution Analyzer;
 - AI Tutor;
 - Adaptive Practice;
-- progress visualization;
-- LLM observability;
-- public web deployment;
-- reproducible development using Codex, task skills, checks and separate review;
-- full redesign and a design system, with visual/library decisions still open;
-- separately specified gamification, with mechanics still open.
+- визуализация прогресса;
+- наблюдаемость LLM;
+- публичное развёртывание сайта;
+- воспроизводимая разработка с использованием Codex, task skills, проверок и отдельного ревью;
+- полная переработка дизайна и дизайн-система (визуальные решения и выбор библиотек на тот момент ещё не утверждены);
+- отдельно специфицируемая геймификация, механики которой ещё не утверждены.
 
 ---
 
-## 5. Primary user
+## 5. Основной пользователь
 
-### Student
+### Ученик
 
-The student is the main MVP user.
+Ученик — основной пользователь MVP.
 
-The student can:
+Ученик может:
 
-- register and sign in;
-- select a grade;
-- choose an onboarding path;
-- read theory;
-- solve exercises;
-- submit final answers;
-- submit step-by-step solutions where supported;
-- use hints;
-- reveal an answer/solution when allowed;
-- see recent attempts;
-- see confirmed mistakes;
-- view progress by skills/topics;
-- receive adaptive practice;
-- interact with AI Tutor.
+- зарегистрироваться и войти;
+- выбрать класс;
+- выбрать путь первоначальной настройки;
+- читать теорию;
+- решать упражнения;
+- отправлять итоговые ответы;
+- отправлять пошаговые решения там, где это поддерживается;
+- пользоваться подсказками;
+- раскрывать ответ/решение, если это разрешено;
+- просматривать последние попытки;
+- видеть подтверждённые ошибки;
+- просматривать прогресс по навыкам/темам;
+- получать адаптивную практику;
+- взаимодействовать с AI Tutor.
 
 ---
 
-## 6. Secondary roles
+## 6. Дополнительные роли
 
-### Content administrator
+### Администратор контента
 
-A minimal content administration capability is required.
+Необходим минимальный функционал администрирования контента.
 
 Текущие операции реализованы через React staff UI, permission-checked FastAPI
 API и явные Content/schema/operator CLI. Source-managed Content view-only;
@@ -123,142 +123,142 @@ API и явные Content/schema/operator CLI. Source-managed Content view-only;
 exercises и taxonomy получают отдельные versioned import/admin services по
 их заданиям. Исторический Django Admin не является текущим runtime.
 
-A polished standalone content-management frontend is not required.
+Полноценный отдельный frontend для управления контентом не требуется.
 
-The administrator must be able to manage or bootstrap, where applicable:
+Администратор должен иметь возможность управлять или выполнять bootstrap следующих объектов, если применимо:
 
-- grades;
-- topics;
-- skills;
-- skill dependencies;
-- exercises;
-- interaction contracts;
-- validation specifications;
-- skill mappings;
-- mistake taxonomy.
+- классы;
+- темы;
+- навыки;
+- зависимости навыков;
+- упражнения;
+- контракты взаимодействия;
+- спецификации проверки;
+- связи навыков;
+- таксономия ошибок.
 
-### Teacher / parent
+### Учитель / родитель
 
-Teacher and parent dashboards are **POST-MVP**.
+Панели учителя и родителя относятся к этапу **ПОСЛЕ MVP**.
 
-They must not block delivery of the student vertical slice.
-
----
-
-## 7. MVP subject scope
-
-The MVP deliberately uses a deep vertical slice instead of attempting to make every school-mathematics topic intelligent at once.
-
-The pilot learning chain is:
-
-1. **negative numbers**;
-2. **distributive property / expanding parentheses**;
-3. **linear equations**.
-
-Supporting atomic skills may include:
-
-- integer number line;
-- understanding negative numbers;
-- addition/subtraction sign rules;
-- multiplication/division sign rules;
-- distributive property;
-- expanding parentheses;
-- combining like terms;
-- equation balance;
-- one-step linear equations;
-- linear equations with parentheses.
-
-The infrastructure should be extensible to additional domains later, but complete support for geometry, probability, statistics, and every task type is not required for MVP.
+Они не должны задерживать поставку сквозного сценария ученика.
 
 ---
 
-## 8. Interaction modes
+## 7. Предметный объём MVP
 
-Every exercise explicitly declares its interaction mode.
+В MVP намеренно выбран глубокий сквозной сценарий вместо попытки сразу сделать интеллектуальными все темы школьной математики.
 
-The baseline modes are:
+Пилотная последовательность обучения:
+
+1. **отрицательные числа**;
+2. **распределительное свойство / раскрытие скобок**;
+3. **линейные уравнения**.
+
+К вспомогательным атомарным навыкам могут относиться:
+
+- координатная прямая целых чисел;
+- понимание отрицательных чисел;
+- правила знаков при сложении/вычитании;
+- правила знаков при умножении/делении;
+- распределительное свойство;
+- раскрытие скобок;
+- приведение подобных слагаемых;
+- сохранение равенства уравнения;
+- линейные уравнения в одно действие;
+- линейные уравнения со скобками.
+
+Позже инфраструктура должна расширяться на другие области, но для MVP не требуется полная поддержка геометрии, теории вероятностей, статистики и всех типов задач.
+
+---
+
+## 8. Режимы взаимодействия
+
+В каждом упражнении явно указывается режим взаимодействия.
+
+Основные режимы:
 
 ### `SELF_CHECK`
 
-Use when MathStart presents an exercise but does not require a submitted answer or does not yet have a reliable validator.
+Используется, когда MathStart предлагает упражнение, но не требует отправить ответ или пока не располагает надёжной системой проверки.
 
-Typical behavior:
+Обычное поведение:
 
-- show task;
-- optionally allow answer/solution reveal;
-- record activity/reveal when needed;
-- do not create positive mastery evidence merely because the student viewed or revealed the answer.
+- показать задачу;
+- при необходимости разрешить раскрытие ответа/решения;
+- при необходимости записать факт активности/раскрытия;
+- не создавать положительное свидетельство mastery только потому, что ученик просмотрел или раскрыл ответ.
 
-This mode is suitable for much of the existing content until deeper validation is available.
+Этот режим подходит для значительной части существующего контента, пока нет более полной проверки.
 
 ### `FINAL_ANSWER`
 
-Use when the final result is enough for the task.
+Используется, когда для задачи достаточно проверить итоговый результат.
 
-Examples:
+Примеры:
 
-- numeric answer;
-- fraction;
-- algebraic expression;
-- small structured final result.
+- числовой ответ;
+- дробь;
+- алгебраическое выражение;
+- небольшой структурированный итоговый результат.
 
-The final answer is checked server-side.
+Итоговый ответ проверяется на стороне сервера.
 
-A wrong final answer may create weak negative evidence, but it must not automatically create a specific misconception without additional evidence.
+Неверный итоговый ответ может стать слабым отрицательным свидетельством, но без дополнительных данных он не должен автоматически приводить к конкретному ошибочному представлению.
 
 ### `STEP_BY_STEP`
 
-Use when the transition between mathematical states is pedagogically informative.
+Используется, когда переход между математическими состояниями полезен для обучения.
 
-Examples:
+Примеры:
 
-- expanding parentheses;
-- combining like terms;
-- solving linear equations.
+- раскрытие скобок;
+- приведение подобных слагаемых;
+- решение линейных уравнений.
 
-The student submits ordered solution steps.
+Ученик отправляет упорядоченные шаги решения.
 
-This mode allows MathStart to locate a first problematic transition and, when sufficiently supported, connect it to a misconception/skill.
+Этот режим позволяет MathStart находить первый проблемный переход и при наличии достаточных свидетельств связывать его с ошибочным представлением/навыком.
 
 ### `STRUCTURED_SOLUTION`
 
-Use when a solution naturally consists of heterogeneous fields/actions rather than only equation strings.
+Используется, когда решение естественным образом состоит из разнотипных полей/действий, а не только из строк с уравнениями.
 
-Examples may later include:
+В будущем примерами могут стать:
 
-- claim + reason;
-- known values -> formula -> substitution -> answer;
-- total outcomes + favorable outcomes + probability;
-- sorted dataset + median.
+- утверждение + обоснование;
+- известные значения -> формула -> подстановка -> ответ;
+- общее число исходов + число благоприятных исходов + вероятность;
+- отсортированный набор данных + медиана.
 
-MVP must provide the infrastructure/contract for this mode, but complete domain coverage is not required.
+В MVP должна быть предусмотрена инфраструктура/контракт этого режима, но полное покрытие предметной области не требуется.
 
 ---
 
-## 9. Exercise integrity
+## 9. Целостность упражнений
 
-The frontend may know how an exercise should be displayed and what kind of input is expected.
+Frontend может знать, как показывать упражнение и какой тип ввода ожидается.
 
-The ordinary public exercise payload must not expose server-side validation secrets.
+Обычная публичная полезная нагрузка упражнения не должна раскрывать секретные данные проверки, хранящиеся на сервере.
 
-Server-only data includes, where applicable:
+К данным только для сервера относятся, если применимо:
 
 - `answer_key`;
 - `validation_spec`;
 - `canonical_solution`;
-- accepted variants that effectively reveal the correct answer.
+- принятые варианты, фактически раскрывающие правильный ответ.
 
-A reveal action must be explicit and recorded.
+Действие раскрытия должно быть явным и записываться.
 
-After a full reveal, the same attempt must not be treated as an independent first-try success.
+После полного раскрытия ту же попытку нельзя считать независимым успехом с первой попытки.
 
 ---
 
-## 10. Mathematical input
+## 10. Математический ввод
 
-Students are not required to type LaTeX.
+Ученикам не требуется вводить LaTeX.
 
-The baseline mathematical input is ordinary text, for example:
+Основной формат математического ввода — обычный текст, например:
 
 - `2(x+3)=10`
 - `3/4`
@@ -268,94 +268,94 @@ The baseline mathematical input is ordinary text, for example:
 - `2.5`
 - `2,5`
 
-The system should normalize supported syntax into a canonical representation.
+Система должна нормализовать поддерживаемый синтаксис до канонического представления.
 
-Raw user input must also be preserved for audit/debug.
+Исходный пользовательский ввод также должен сохраняться для аудита/отладки.
 
-If input cannot be parsed reliably, MathStart must represent that state explicitly instead of inventing a mathematical mistake.
-
----
-
-## 11. Onboarding
-
-After registration, the student chooses a grade.
-
-The product supports three knowledge-initialization paths:
-
-### Start from the beginning
-
-No prior knowledge is assumed.
-
-Unverified skills remain `NOT_STARTED` with zero confidence.
-
-### Short diagnostic
-
-The student completes diagnostic exercises.
-
-Diagnostic results create stronger knowledge evidence than self-reporting.
-
-### Mark familiar topics
-
-The student may indicate topics/skills they believe they know.
-
-Self-report is weak evidence only.
-
-It must not be treated as demonstrated mastery.
-
-Opening a page or reading theory must not increase mastery.
+Если ввод нельзя надёжно разобрать, MathStart должен явно представить это состояние, а не выдумывать математическую ошибку.
 
 ---
 
-## 12. Knowledge model
+## 11. Первоначальная настройка
 
-MathStart models knowledge at the level of atomic skills.
+После регистрации ученик выбирает класс.
 
-A **topic** and a **skill** are different concepts.
+Продукт поддерживает три способа инициализации знаний:
 
-For example, the topic "Linear equations" may depend on several skills:
+### Начать с начала
 
-- expanding parentheses;
-- combining like terms;
-- preserving equation balance.
+Предполагается отсутствие ранее полученных знаний.
 
-The knowledge graph stores objective prerequisite relations between skills.
+Непроверенные навыки остаются в состоянии `NOT_STARTED` с нулевой уверенностью.
 
-It does not store a particular student's progress.
+### Короткая диагностика
 
-The pilot graph must be a directed acyclic graph.
+Ученик выполняет диагностические упражнения.
 
-Cycles and self-dependencies are invalid.
+Результаты диагностики дают более сильные свидетельства знаний, чем самоотчёт.
+
+### Отметить знакомые темы
+
+Ученик может отметить темы/навыки, которые, по его мнению, ему известны.
+
+Самоотчёт является только слабым свидетельством.
+
+Его нельзя считать доказанным mastery.
+
+Открытие страницы или чтение теории не должно повышать mastery.
 
 ---
 
-## 13. Student knowledge state
+## 12. Модель знаний
 
-For each relevant student/skill pair, MathStart maintains a knowledge state containing at least:
+MathStart моделирует знания на уровне атомарных навыков.
+
+**Тема** и **навык** — разные понятия.
+
+Например, тема «Линейные уравнения» может зависеть от нескольких навыков:
+
+- раскрытие скобок;
+- приведение подобных слагаемых;
+- сохранение равенства уравнения.
+
+Граф знаний хранит объективные отношения предварительных условий между навыками.
+
+Он не хранит прогресс отдельного ученика.
+
+Пилотный граф должен быть направленным ациклическим графом.
+
+Циклы и зависимости навыка от самого себя недопустимы.
+
+---
+
+## 13. Состояние знаний ученика
+
+Для каждой значимой пары ученик/навык MathStart хранит состояние знаний, содержащее как минимум:
 
 - `mastery` from 0 to 100;
 - `confidence` from 0 to 100;
 - `evidence_count`;
-- status;
-- last evaluation time.
+- статус;
+- время последней оценки.
 
-Baseline statuses:
+Основные статусы:
 
 - `NOT_STARTED`;
 - `LEARNING`;
 - `WEAK`;
 - `MASTERED`.
 
-The state is a projection of validated evidence.
+Состояние является проекцией проверенных свидетельств.
 
-It is not updated directly by AI Tutor or an LLM provider.
+AI Tutor или LLM provider не обновляют его напрямую.
 
 ---
 
-## 14. Progress events
+## 14. События прогресса
 
-Long-term progress changes are driven by explicit `ProgressEvent` records.
+Долгосрочные изменения прогресса основаны на явных записях `ProgressEvent`.
 
-Baseline event types include:
+Основные типы событий:
 
 - `SELF_REPORTED_KNOWN`;
 - `CORRECT_FIRST_TRY`;
@@ -367,367 +367,366 @@ Baseline event types include:
 - `DIAGNOSTIC_WRONG`.
 
 `ARCHITECTURE.md` defines progress ownership and the event/projection boundary.
-MathStart v3.1 already defines Progress Algorithm v1, including event semantics,
-weights, the update formula, and status thresholds. Its repository record is
+В MathStart v3.1 уже определён Progress Algorithm v1, включая семантику событий,
+веса, формулу обновления и пороги статусов. Его запись в репозитории находится в
 [`specs/progress/BASELINE-v1.md`](specs/progress/BASELINE-v1.md).
 R03 will formalize, implement, and test this existing baseline, not invent a
-replacement. Changes to the formula require an ADR and unit tests.
+замену. Изменение формулы требует ADR и unit tests.
 
-Product-level expectations:
+Ожидания на уровне продукта:
 
-- correct independent work should produce stronger positive evidence than work completed after hints;
-- reveal does not prove knowledge;
-- a wrong final answer is weak negative evidence;
-- a confirmed misconception is stronger negative evidence;
-- every progress change must remain explainable from stored evidence.
+- правильная самостоятельная работа должна давать более сильное положительное свидетельство, чем работа после подсказок;
+- раскрытие ответа не доказывает знания;
+- неверный итоговый ответ — слабое отрицательное свидетельство;
+- подтверждённое ошибочное представление — более сильное отрицательное свидетельство;
+- каждое изменение прогресса должно оставаться объяснимым на основании сохранённых свидетельств.
 
 ---
 
 ## 15. Solution Analyzer
 
-Solution Analyzer is a critical subsystem, but it is not used identically for every interaction mode.
+Solution Analyzer — критическая подсистема, однако она используется по-разному в разных режимах взаимодействия.
 
 ### `SELF_CHECK`
 
-No detailed solution analysis is required.
+Подробный анализ решения не требуется.
 
 ### `FINAL_ANSWER`
 
-Normally uses deterministic answer validation.
+Обычно использует детерминированную проверку ответа.
 
-A wrong answer alone does not reveal the exact cause.
+Одного неверного ответа недостаточно, чтобы определить точную причину.
 
 ### `STEP_BY_STEP`
 
-Uses parser/normalizer plus transition validation.
+Использует parser/normalizer и проверку переходов.
 
-When deterministic/domain logic finds a problematic step, Solution Analyzer may classify the error into the controlled mistake taxonomy.
+Когда детерминированная логика/логика предметной области находит проблемный шаг, Solution Analyzer может отнести ошибку к контролируемой таксономии ошибок.
 
-LLM assistance may be used when semantic classification is useful, but it must pass structured validation and confidence gates.
+Если полезна семантическая классификация, можно использовать помощь LLM, но результат должен пройти структурную проверку и пороги уверенности.
 
 ### `STRUCTURED_SOLUTION`
 
-Uses field/domain validation and may optionally use controlled LLM classification where appropriate.
+Использует проверку полей/предметной области и при необходимости может применять контролируемую классификацию LLM.
 
-The analyzer returns analysis.
+Analyzer возвращает результат анализа.
 
-It does not directly mutate long-term progress state.
+Он не изменяет напрямую долгосрочное состояние прогресса.
 
 ---
 
-## 16. Misconceptions
+## 16. Ошибочные представления
 
-MathStart uses a controlled misconception taxonomy.
+MathStart использует контролируемую таксономию ошибочных представлений.
 
-The LLM must not invent arbitrary persistent mistake codes.
+LLM не должен придумывать произвольные постоянные коды ошибок.
 
-A strong confirmed mistake should include:
+Сильная подтверждённая ошибка должна включать:
 
-- controlled mistake type;
-- related skill;
-- relevant attempt;
-- relevant step when available;
-- confidence;
-- explanation/hint metadata as appropriate.
+- контролируемый тип ошибки;
+- связанный навык;
+- соответствующую попытку;
+- соответствующий шаг, если он доступен;
+- уверенность;
+- метаданные объяснения/подсказки, если уместно.
 
-When evidence is insufficient, the system should return an unknown/unsupported/low-confidence outcome instead of fabricating certainty.
+При недостаточности свидетельств система должна вернуть результат unknown/unsupported/low-confidence, а не изображать уверенность.
 
 ---
 
 ## 17. AI Tutor
 
-AI Tutor provides contextual educational help.
+AI Tutor предоставляет учебную помощь с учётом контекста.
 
-Its context may include:
+Контекст может включать:
 
-- current topic;
-- relevant theory;
-- relevant skills;
-- prerequisite state;
-- recent confirmed mistakes;
-- current exercise/attempt context.
+- текущую тему;
+- подходящую теорию;
+- подходящие навыки;
+- состояние предварительных навыков;
+- недавние подтверждённые ошибки;
+- контекст текущего упражнения/попытки.
 
-Tutor behavior is **hint-first**.
+Поведение Tutor следует принципу **сначала подсказка**.
 
-The first response should not automatically reveal the full solution when a smaller hint is pedagogically appropriate.
+В первом ответе не следует автоматически раскрывать полное решение, если для обучения уместнее дать небольшую подсказку.
 
-AI Tutor must not directly modify mastery/confidence.
+AI Tutor не должен напрямую изменять mastery/confidence.
 
-It may explain, ask guiding questions, and generate help, but progress remains controlled by validated domain logic.
+Он может объяснять, задавать наводящие вопросы и оказывать помощь, однако прогресс остаётся под контролем проверенной логики предметной области.
 
 ---
 
 ## 18. Adaptive Practice
 
-When MathStart identifies a weak skill or prerequisite with sufficient evidence, it may start an adaptive practice session.
+Если MathStart находит достаточно подтверждений слабого навыка или предварительного условия, система может начать сеанс адаптивной практики.
 
-A practice session stores enough context to return the student to the original learning flow.
+Сеанс практики хранит достаточно контекста, чтобы вернуть ученика к исходному учебному процессу.
 
-At minimum it should preserve:
+Как минимум он должен сохранять:
 
-- origin topic;
-- target skill;
-- return topic;
-- session status;
-- selected practice items/results.
+- исходную тему;
+- целевой навык;
+- тему возврата;
+- статус сеанса;
+- выбранные упражнения/результаты.
 
-The adaptive loop should:
+Цикл адаптивного обучения должен:
 
-1. identify a weak target skill/prerequisite;
-2. choose suitable practice;
-3. collect validated evidence;
-4. finish the short targeted session after sufficient success;
-5. return the student to the original topic.
+1. определить слабый целевой навык/предварительное условие;
+2. выбрать подходящую практику;
+3. собрать проверенные свидетельства;
+4. завершить короткий целевой сеанс после достаточного успеха;
+5. вернуть ученика к исходной теме.
 
-The MVP must demonstrate this complete loop on the pilot domain.
+MVP должен демонстрировать полный цикл в пилотной предметной области.
 
 ---
 
-## 19. Progress UI
+## 19. Интерфейс прогресса
 
-The student should be able to inspect progress.
+Ученик должен иметь возможность просматривать свой прогресс.
 
-The MVP progress view should expose, in understandable form:
+Представление прогресса в MVP должно в понятном виде показывать:
 
-- skill status;
+- статус навыка;
 - mastery;
 - confidence;
-- topic-level aggregation;
-- recent attempts;
-- confirmed mistakes where appropriate.
+- сводные данные на уровне темы;
+- недавние попытки;
+- подтверждённые ошибки, если уместно.
 
-The UI is a projection of backend state.
+Интерфейс является проекцией состояния backend.
 
-Frontend code must not become the authoritative source for mastery/confidence calculations.
+Код frontend не должен становиться авторитетным источником расчётов mastery/confidence.
 
 ---
 
-## 20. Core MVP end-to-end scenario
+## 20. Основной сквозной сценарий MVP
 
-The main demonstration scenario is a step-by-step linear-equation task.
+Основной демонстрационный сценарий — пошаговое решение задачи на линейное уравнение.
 
-Example:
+Пример:
 
 `2(x+3)=10`
 
-Possible student step:
+Возможный шаг ученика:
 
 `2x+3=10`
 
-Expected system flow:
+Ожидаемый порядок работы системы:
 
-1. the exercise is delivered as `STEP_BY_STEP`;
-2. the original problem state is stored independently from student steps;
-3. the student submits the next step;
-4. raw input is preserved;
-5. parser/normalizer creates a normalized representation;
-6. deterministic transition validation detects a non-equivalent transformation;
-7. Solution Analyzer classifies the confirmed problem into a controlled mistake type, when evidence is sufficient;
-8. the mistake is linked to the relevant skill;
-9. structured analysis passes validation/confidence gates;
-10. a validated `ProgressEvent` is created;
-11. Progress Engine updates the affected skill state;
-12. prerequisite state is inspected;
-13. if a prerequisite is weak, Adaptive Practice starts targeted practice;
-14. AI Tutor may provide hint-first support;
-15. after sufficient successful practice, the student returns to the original topic.
+1. упражнение предоставляется в режиме `STEP_BY_STEP`;
+2. исходное состояние задачи хранится отдельно от шагов ученика;
+3. ученик отправляет следующий шаг;
+4. исходный ввод сохраняется;
+5. parser/normalizer создаёт нормализованное представление;
+6. детерминированная проверка перехода обнаруживает неэквивалентное преобразование;
+7. при достаточных свидетельствах Solution Analyzer относит подтверждённую проблему к контролируемому типу ошибки;
+8. ошибка связывается с соответствующим навыком;
+9. структурированный анализ проходит проверки и пороги уверенности;
+10. создаётся проверенный `ProgressEvent`;
+11. Progress Engine обновляет состояние затронутого навыка;
+12. проверяется состояние предварительных навыков;
+13. если предварительный навык слаб, Adaptive Practice запускает целевую практику;
+14. AI Tutor может оказать помощь по принципу «сначала подсказка»;
+15. после достаточной успешной практики ученик возвращается к исходной теме.
 
-This scenario must be demonstrable end-to-end in the final MVP.
+Этот сценарий должен быть полностью продемонстрирован в итоговом MVP.
 
 ---
 
-## 21. Final-answer scenario
+## 21. Сценарий с итоговым ответом
 
-Example:
+Пример:
 
 `-8 * (-4)`
 
-Student submits:
+Ученик отправляет:
 
 `32`
 
-Expected product behavior:
+Ожидаемое поведение продукта:
 
-1. backend validates the result using server-side validation data;
-2. a correct independent answer may create positive evidence;
-3. an incorrect answer creates weak negative evidence;
-4. the system does not infer a concrete misconception from the wrong number alone;
-5. hint/reveal usage affects evidence semantics.
-
----
-
-## 22. Product principles
-
-### 22.1. Deterministic truth before LLM opinion
-
-For supported mathematics, deterministic/domain validation is the primary source of correctness.
-
-The LLM is used for semantic analysis, explanation, and tutoring where useful.
-
-### 22.2. Evidence before progress
-
-Long-term knowledge state changes only from explicit, validated evidence.
-
-### 22.3. Explainability
-
-The project must be able to explain why a student's progress changed.
-
-### 22.4. Depth before breadth
-
-A complete working vertical slice is more important than partial intelligent support across all grades and topics.
-
-### 22.5. Existing content is preserved
-
-The course project extends existing MathStart rather than discarding the content platform.
-
-### 22.6. Human-controlled architecture
-
-Coding agents may implement tasks, but architectural/product changes require repository documentation and human review.
+1. backend проверяет результат с использованием данных проверки, хранящихся на сервере;
+2. правильный самостоятельный ответ может стать положительным свидетельством;
+3. неверный ответ становится слабым отрицательным свидетельством;
+4. система не делает вывод о конкретном ошибочном представлении только на основании неверного числа;
+5. использование подсказки/раскрытия влияет на семантику свидетельств.
 
 ---
 
-## 23. MVP functional requirements
+## 22. Принципы продукта
 
-The MVP includes:
+### 22.1. Сначала детерминированная истина, затем мнение LLM
 
-- registration/sign-in/sign-out;
-- student profile and grade;
-- three onboarding modes;
-- browsing grades/topics/theory;
-- skill mappings for pilot topics;
-- four exercise interaction-mode contracts;
+Для поддерживаемой математики детерминированная проверка/проверка предметной области является главным источником истины.
+
+LLM используется для семантического анализа, объяснений и обучения там, где это полезно.
+
+### 22.2. Сначала свидетельства, затем прогресс
+
+Долгосрочное состояние знаний изменяется только на основании явных проверенных свидетельств.
+
+### 22.3. Объяснимость
+
+Проект должен уметь объяснить, почему изменился прогресс ученика.
+
+### 22.4. Глубина важнее широты
+
+Полностью работающий сквозной сценарий важнее частичной интеллектуальной поддержки всех классов и тем.
+
+### 22.5. Существующий контент сохраняется
+
+Проект курса расширяет существующий MathStart, а не отказывается от платформы контента.
+
+### 22.6. Архитектура под контролем человека
+
+Coding agents могут выполнять задачи, однако изменения архитектуры/продукта требуют документации в репозитории и ревью человеком.
+
+---
+
+## 23. Функциональные требования MVP
+
+MVP включает:
+
+- регистрацию/вход/выход;
+- профиль ученика и класс;
+- три режима первоначальной настройки;
+- просмотр классов/тем/теории;
+- связи навыков с пилотными темами;
+- контракты четырёх режимов взаимодействия с упражнениями;
 - `SELF_CHECK`;
 - `FINAL_ANSWER`;
 - `STEP_BY_STEP`;
 - `STRUCTURED_SOLUTION` infrastructure;
-- server-only answer/validation data;
-- deterministic validation for supported pilot mathematics;
-- first-problematic-step detection where supported;
-- controlled mistake taxonomy;
-- confirmed mistake -> skill mapping;
-- `ProgressEvent` evidence;
-- user skill state;
-- prerequisite graph;
+- данные ответов/проверки, доступные только серверу;
+- детерминированную проверку поддерживаемой математики пилота;
+- определение первого проблемного шага, если поддерживается;
+- контролируемую таксономию ошибок;
+- связь подтверждённой ошибки с навыком;
+- свидетельства `ProgressEvent`;
+- состояние навыков пользователя;
+- граф предварительных условий;
 - AI Tutor;
-- hint-first behavior;
-- adaptive practice;
-- return to origin topic;
-- attempt/error/hint/reveal history;
-- progress map/view;
-- LLM run metadata;
-- public web deployment.
+- режим «сначала подсказка»;
+- адаптивную практику;
+- возврат к исходной теме;
+- историю попыток/ошибок/подсказок/раскрытий;
+- карту/представление прогресса;
+- метаданные запусков LLM;
+- публичное развёртывание сайта.
 
 ---
 
-## 24. Non-goals for MVP
+## 24. Что не входит в MVP
 
-The following do not block MVP:
+Следующие возможности не являются условием готовности MVP:
 
 - OCR;
-- handwritten-solution recognition;
-- interactive geometry construction canvas;
-- automatic validation of arbitrary geometric proofs;
-- complete support for every school-mathematics task type;
-- full structured migration of every existing grade 5-9 page before the pilot slice works;
-- Neo4j or another dedicated graph database;
-- microservices;
+- распознавание решений, написанных от руки;
+- интерактивный холст для построения геометрических фигур;
+- автоматическая проверка произвольных геометрических доказательств;
+- полная поддержка всех типов школьных математических задач;
+- полный структурированный перенос всех существующих страниц 5–9 классов до готовности пилотного сценария;
+- Neo4j или другая выделенная база графов;
+- микросервисы;
 - Bayesian Knowledge Tracing;
 - Item Response Theory;
-- a complex ML progress model;
-- unlimited LLM exercise generation in the main learning flow;
-- teacher dashboards;
-- parent dashboards;
-- payments;
-- voice mode;
-- native mobile application;
-- full-site RAG while relevant topic context can be supplied directly;
-- a complete frontend rewrite solely for technology preference.
+- сложная ML-модель прогресса;
+- неограниченная генерация упражнений с LLM в основном учебном процессе;
+- панели учителя;
+- панели родителя;
+- платежи;
+- голосовой режим;
+- нативное мобильное приложение;
+- RAG по всему сайту, пока релевантный контекст темы можно передавать напрямую;
+- полная переработка frontend только ради предпочтения технологии.
 
-These items require separate post-MVP prioritization and, where architectural, an ADR.
-
----
-
-## 25. Product success criteria
-
-The MVP is successful when a reviewer can use the web application and observe a complete intelligent learning loop on the pilot topics.
-
-At minimum, the demonstration should prove that:
-
-1. the student can authenticate and open a pilot topic;
-2. exercises use explicit interaction contracts;
-3. validation data is not exposed through ordinary public exercise payloads;
-4. a supported step-by-step solution can be analyzed;
-5. the system can locate a problematic step or explicitly state that it cannot;
-6. a confirmed error can be connected to a skill;
-7. progress changes through `ProgressEvent` records;
-8. weak prerequisites can trigger adaptive practice;
-9. AI Tutor uses relevant context without directly modifying progress;
-10. the student can return to the original topic after targeted practice;
-11. progress is visible;
-12. the system is publicly deployable and demonstrable through a browser;
-13. core behavior is covered by automated verification.
+Эти пункты требуют отдельной приоритизации после MVP и, если затрагивают архитектуру, отдельного ADR.
 
 ---
 
-## 26. Product scope change policy
+## 25. Критерии успешности продукта
 
-A change requires explicit review when it affects:
+MVP считается успешным, когда проверяющий может воспользоваться веб-приложением и увидеть полный интеллектуальный учебный цикл на пилотных темах.
 
-- MVP boundaries;
-- primary user flows;
-- interaction modes;
-- progress semantics;
-- knowledge-event semantics;
-- onboarding behavior;
-- AI Tutor trust boundaries;
-- adaptive-practice behavior;
-- exercise-answer secrecy;
-- pilot subject scope.
+Как минимум демонстрация должна подтвердить, что:
 
-Significant product decisions should be documented in a spec or ADR before or alongside implementation.
-
-The coding agent must not silently expand product scope.
+1. ученик может пройти аутентификацию и открыть пилотную тему;
+2. упражнения используют явные контракты взаимодействия;
+3. данные проверки не раскрываются в обычной публичной полезной нагрузке упражнения;
+4. поддерживаемое пошаговое решение можно проанализировать;
+5. система может найти проблемный шаг или явно сообщить, что не может;
+6. подтверждённую ошибку можно связать с навыком;
+7. прогресс изменяется через записи `ProgressEvent`;
+8. слабые предварительные навыки могут запускать адаптивную практику;
+9. AI Tutor использует релевантный контекст и не изменяет прогресс напрямую;
+10. после целевой практики ученик может вернуться к исходной теме;
+11. прогресс отображается;
+12. систему можно публично развернуть и показать через браузер;
+13. основное поведение покрыто автоматизированной проверкой.
 
 ---
 
-## 27. Relationship to other repository documents
+## 26. Правила изменения объёма продукта
 
-Use this document to answer:
+Изменение требует явного ревью, если оно затрагивает:
 
-**What are we building and why?**
+- границы MVP;
+- основные сценарии пользователя;
+- режимы взаимодействия;
+- семантику прогресса;
+- семантику событий знаний;
+- поведение первоначальной настройки;
+- границы доверия AI Tutor;
+- поведение адаптивной практики;
+- секретность ответов упражнений;
+- предметный объём пилота.
 
-Use `ARCHITECTURE.md` to answer:
+Значимые решения по продукту должны быть зафиксированы в спецификации или ADR до реализации либо одновременно с ней.
 
-**How is the system structurally organized and which component owns what?**
+Coding agent не должен незаметно расширять объём продукта.
 
-Use `AGENTS.md` to answer:
+---
 
-**How should a coding agent work safely in this repository?**
+## 27. Связь с другими документами репозитория
 
-Use `specs/` to answer:
+Используйте этот документ, чтобы ответить на вопрос:
 
-**What exactly is the contract/behavior for a particular subsystem or feature?**
+**Что мы создаём и зачем?**
 
-Use `docs/adr/` to answer:
+Используйте `ARCHITECTURE.md`, чтобы ответить на вопрос:
 
-**Why was a significant engineering decision accepted?**
+**Как структурно устроена система и за что отвечает каждый компонент?**
+
+Используйте `AGENTS.md`, чтобы ответить на вопрос:
+
+**Как coding agent должен безопасно работать в этом репозитории?**
+
+Используйте `specs/`, чтобы ответить на вопрос:
+
+**Каков точный контракт/поведение конкретной подсистемы или функции?**
+
+Используйте `docs/adr/`, чтобы ответить на вопрос:
+
+**Почему было принято значимое инженерное решение?**
 
 ## 28. Редизайн и дизайн-система
 
-Полный редизайн согласован как направление, конкретный внешний вид и libraries
-не утверждены. [Бриф](docs/ux/redesign-brief.md) и MS-N001–005 задают audit,
-три различимых направления на одинаковых теме/упражнении/прогрессе, выбор
-пользователя, отдельный library decision, design system, pilot и rollout.
-Сохранить контент, формулы/графики, URL/anchors/widgets и semantic проверки;
-visual references обновляются только под явно принятый дизайн. Mobile,
-keyboard/focus/contrast/reduced motion и failure/empty/AI unavailable — требования.
+Главная, каталог и учебный шаблон визуально утверждены. Текущие правила:
+[UI contract](docs/ux/shared-ui-contract.md), [стандарт переноса](docs/frontend/lesson-migration.md).
+Повторный выбор направлений/библиотек не требуется. MS-T001–MS-T011 выполняют
+технический pilot, public pages, перенос по классам и замену auth/staff UI.
+Дизайн будущих Assessment/Progress/Tutor экранов этим не утверждён.
+Контент, математика, доступность, URL/anchors и security сохраняются.
 
 ## 29. Геймификация и граница знания
 
 Геймификация — направление проектирования MS-N006, не реализованный набор.
 XP, уровни, достижения, streaks, daily tasks, персонаж/награды — кандидаты.
 Спецификация определяет педагогическую цель, действия/начисления/лимиты,
-retries/hints/reveals, duplicate guards и UI. Data owner/storage/events требуют
+retries/hints/reveals, duplicate guards и UI. Владение данными, storage и events требуют
 решения; реализация MS-N020 зависит от принятой спецификации и evidence runtime.
 Игровой прогресс отделён от знаний. Чтение/посещение/XP не повышают mastery;
 только валидированные ProgressEvent меняют долгосрочное состояние знаний.
@@ -739,5 +738,5 @@ retries/hints/reveals, duplicate guards и UI. Data owner/storage/events тре�
 Обязательных субагентов и собственного Engineering Harness нет; его
 реализация/исключительные будущие обязательства выведены после dependency audit.
 Проверки продукта, install/recovery/security/CI сохранены. Следующее задание
-автоматически не начинается. Приёмка нового draft, дизайна, игровых механик,
-provider/security/public deployment — отдельные решения, не следствие PASS.
+автоматически не начинается. Принятие новых требований, игровых механик,
+provider/security/public deployment требуют отдельных решений, не следствие PASS.

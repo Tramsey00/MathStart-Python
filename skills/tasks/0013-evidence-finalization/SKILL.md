@@ -16,8 +16,7 @@ description: Выполнить MS-N013 — Atomic Analysis → Progress и ау
 ## Зависимости и обязательные источники
 
 Зависимости: MS-N012. Путь skill каждой — в едином реестре.
-Исторические IDs: MS7-V10, MS7-R13.
-Открой от Git root: `AGENTS.md`, `ARCHITECTURE.md`, `PRODUCT.md`, `docs/specifications/technical-spec-v7.2-draft.md`, `docs/tasks/INDEX.md`, `skills/verification/SKILL.md`, `docs/target-runtime.md`.
+Открой от Git root: `AGENTS.md`, `ARCHITECTURE.md`, `PRODUCT.md`, `specs/product/learning-requirements.md`, `docs/tasks/INDEX.md`, `skills/verification/SKILL.md`, `docs/target-runtime.md`.
 Связанные domain/API/UI contracts выбирай по перечисленным ниже модулям;
 статус proposed не превращай в accepted по наличию tests.
 
@@ -56,10 +55,14 @@ disposable ресурсы по runbook; operating DB/acceptance stack не тр�
 ## Артефакты, ревью и остановка
 
 Finalization implementation, evidence-chain diagram и scoped audit findings/corrections.
-Одна ветка от проверенного main без `codex/`; существующие ветка/PR задания
+Отдельные Issue и ветка от проверенного origin/main без `codex/`; существующие ветка/PR задания
 продолжаются. Самопроверка → PR → отдельное ревью → fixes/affected rerun →
 человеческая приёмка → решение пользователя о merge. PASS не означает ACCEPTED.
 
 Mismatch online/replay или unvalidated negative блокирует acceptance; не скрывать его synthetic response.
 При недостающем решении записать BLOCKED_DECISION с конкретным вопросом и
 сохранить независимые подготовленные артефакты. После передачи остановиться.
+
+## GitHub и ветка
+
+Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.

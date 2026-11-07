@@ -1,29 +1,29 @@
-# Explicit release and maintenance commands
+# Явные команды release и обслуживания
 
-These commands are operator tools for the target runtime. They do not grant
-production approval. Rehearse on owned disposable data first. API startup never
-performs DDL, seeds users/content, or adopts legacy history.
+Эти команды являются операторскими инструментами для target runtime. Они не дают
+разрешения на production. Сначала проведите репетицию на принадлежащих запуску временных данных. API при запуске никогда не
+выполняет DDL, не создаёт начальные записи users/content и не принимает legacy history.
 
-Use a candidate API/edge image built from the same checkout and locked builder
-output. Historical Django Docker/Compose files exist only in the pinned oracle.
-Use `deploy/compose.yaml` for the current stack (root Compose includes it). It requires an explicit unique
-project name, existing named PostgreSQL/public volumes, a dedicated unused IPv4
-subnet and exact edge IP, and private env/plan paths. It never exposes PostgreSQL
-or API to the host. Only the edge binds a specified loopback port. Do not attach
-legacy and target writers to the same tables.
+Используйте candidate images API/edge, собранные из той же копии кода и вывода builder по lock-файлу
+output. Исторические Docker/Compose-файлы Django существуют только в закреплённом oracle.
+Для текущего stack используйте `deploy/compose.yaml` (корневой Compose включает его). Необходимо явно задать уникальное
+имя проекта, существующие именованные volumes PostgreSQL/public, отдельную свободную IPv4
+subnet и точный IP edge, а также пути к приватным env/plan. PostgreSQL никогда не публикуется
+на host, как и API. Только edge привязывается к заданному loopback port. Не подключайте
+legacy и target writers к одним таблицам.
 
-The PostgreSQL bootstrap env contains `POSTGRES_USER`, `POSTGRES_PASSWORD` and
-`POSTGRES_DB`. The runtime env contains the configuration from
-`backend/READ_RUNTIME.md`, using host `db` for its database URL. Configure a
-separate target runtime role; do not use an application superuser in an operated
-stack. The schema env supplies a separate `MATHSTART_SCHEMA_SIGNING_KEY` of at
-least32 random characters and a migration-role `MATHSTART_DATABASE_URL`,
-overriding the runtime URL only in the release service. Keys/DSNs stay outside
-Git, command-line argv and logs. Keep both existing verifier keys and cutover
-binding when restoring identity state.
+Bootstrap env PostgreSQL содержит `POSTGRES_USER`, `POSTGRES_PASSWORD` и
+`POSTGRES_DB`. Runtime env содержит конфигурацию из
+`backend/READ_RUNTIME.md`, используя host `db` в URL базы данных. Настройте
+отдельную runtime role target; в рабочем
+stack не используйте application superuser. Schema env задаёт отдельный `MATHSTART_SCHEMA_SIGNING_KEY` длиной не менее
+32 случайных символа, а также `MATHSTART_DATABASE_URL` роли миграции,
+переопределяющей runtime URL только в release service. Keys/DSNs остаются вне
+Git, аргументов командной строки и логов. Сохраняйте оба существующих ключа verifier и привязку cutover
+при восстановлении состояния identity.
 
-Set these Compose interpolation variables in your local shell or a private
-Compose env file; they are paths/image/volume/network identifiers, not passwords:
+Задайте эти переменные подстановки Compose в локальной shell или приватном
+Compose env-файле; это пути и идентификаторы image/volume/network, а не пароли:
 
 ```text
 MATHSTART_STACK
@@ -40,142 +40,142 @@ MATHSTART_EDGE_IP
 MATHSTART_HTTP_PORT
 ```
 
-The plan directory must be writable by UID10001. Serving volume paths are
-`releases/<release>` and `frontend/<release>`, readable by UID10001; the API
-mounts them read-only. The publisher writes through a separate explicit mount,
-never through API startup. Preserve the input receipt, input/output manifests,
-digest map and DB authority as one release tuple. The edge forwards all public
-static/media and private requests through that authority, with no static alias
-that bypasses publication fences.
+Каталог plan должен быть доступен для записи UID10001. Serving volume paths:
+`releases/<release>` and `frontend/<release>`, доступны для чтения UID10001; API
+подключает их только для чтения. Publisher выполняет запись через отдельное явное подключение,
+никогда не при запуске API. Сохраняйте input receipt, input/output manifests,
+digest map и DB authority как единый набор release. Edge перенаправляет все public
+static/media и private-запросы через этот authority; статические aliases, обходящие
+ограничения publication, не допускаются.
 
-Start only PostgreSQL before schema installation. Stop API, edge, all publishers
-and every other database client for maintenance. For legacy adoption, disable
-and drain the sole legacy writer role and remove incoming role memberships;
-`NOLOGIN` alone does not drain existing sessions. Retain the pre-cutover schema,
-data and role snapshot. The CLI checks the role fact, all physical baseline
-objects, applied history and input data/sequence HMAC. It does not alter roles.
+До установки schema запустите только PostgreSQL. Остановите API, edge, всех publishers
+и всех остальных клиентов базы на время обслуживания. Для принятия legacy отключите
+and draв sole legacy writer role and remove incoming role memberships;
+`NOLOGIN` alone does not drain existing sessions. Retaв pre-cutover schema,
+снимок данных и role. CLI проверяет состояние role, все физические объекты baseline,
+историю миграций и входные HMAC данных/sequences. Роли не изменяются.
 
 ```text
 docker compose -f deploy/compose.yaml up -d db
 docker compose -f deploy/compose.yaml run --rm --no-deps release preview --profile FRESH --plan-file /plans/schema.json
 ```
 
-For an existing supported legacy schema use `--profile A`, `B` or `C` plus
-`--legacy-role <drained sole legacy writer>`. Preview is a read-only repeatable
-snapshot. It creates a private signed plan, refuses to overwrite an existing
-file, and prints its SHA256. Review the actual candidate code, baseline/profile,
-database/role identity, backup/drain and plan before applying its exact digest:
+Для существующей поддерживаемой legacy schema используйте `--profile A`, `B` or `C` и
+`--legacy-role <drained sole legacy writer>`. Preview выполняет повторяемое чтение
+snapshot. Команда создаёт приватный подписанный plan и отказывается перезаписывать существующий
+файл, выводит его SHA256. Проверьте код candidate, baseline/profile,
+identity database/role, backup/drain и plan до применения по точному digest:
 
 ```text
 docker compose -f deploy/compose.yaml run --rm --no-deps release apply --plan-file /plans/schema.json --maintenance --reviewed-plan-sha256 <reviewed digest>
 docker compose -f deploy/compose.yaml run --rm --no-deps release check
 ```
 
-Plans expire after30 minutes and bind the code/revision bytes, DB/role OIDs,
-drained legacy writer and full schema/data/sequence input. A wrong key, changed
-input, unknown history, different DB/role, expired plan or other connected
-database client refuses before DDL. Fresh creates the checked target chain and
-auth permission metadata. A/B/C adoption preserves original Django history,
-IDs, existing data and Grade epoch; it adds the target protocol chain and fills
-missing profiles. Existing public disposable schema wrappers keep their guards.
+Срок действия Plans —30 минут; они связаны с байтами кода/revision, DB/role OIDs,
+остановленным legacy writer и полными входными schema/data/sequence. Неверный ключ, изменённые
+данные, неизвестная история, другая DB/role, истёкший plan или подключённый другой
+клиент database приводят к отказу до DDL. Fresh создаёт проверенную цепочку target и
+метаданные разрешений auth. Adoption A/B/C сохраняет исходную историю Django,
+IDs, существующие данные и Grade epoch; добавляет цепочку протокола target и заполняет
+отсутствующие профили. Существующие публичные disposable schema wrappers сохраняют свои проверки.
 
-An uncertain COMMIT is `SCHEMA_REFUSED_OR_UNCERTAIN`, never success. Do not retry
-blindly, stamp, downgrade, rewind sequences or restore an older DB over target
-writes. Keep maintenance and reconcile schema/head, retained rows, sequences,
-role/cutover provenance and the before snapshot. The read-only `check` proves
-physical schema compatibility only; it does not prove the result of a lost
-prior COMMIT. Sequence gaps after a failed transaction are allowed.
+Неопределённый COMMIT имеет статус `SCHEMA_REFUSED_OR_UNCERTAIN`, а не успех. Не повторяйте
+операцию вслепую, не проставляйте отметки, не выполняйте downgrade, не откатывайте sequences и не восстанавливайте старую DB поверх записей
+writes. Оставьте систему в режиме обслуживания и сверяйте schema/head, сохранённые строки, sequences,
+role/cutover provenance и исходный snapshot. Команда `check` в режиме чтения подтверждает
+только совместимость физической schema; она не подтверждает результат потерянного
+предыдущего COMMIT. Пропуски sequence после неудачной транзакции допустимы.
 
-For a fresh unused target identity database, create its first operator explicitly
-before starting API/publishers. This is the retained staff/superuser capability,
-not an automatic seed account. Supply credentials with non-echoing prompts:
+Для новой неиспользованной target identity database явно создайте первого оператора
+до запуска API/publishers. Это возможность работы staff/superuser,
+а не автоматически созданная начальная учётная запись. Введите credentials в prompts без отображения введённого текста:
 
 ```text
 python -m backend.users.operator --maintenance
 ```
 
-For automation, set private `MATHSTART_OPERATOR_USERNAME`,
-`MATHSTART_OPERATOR_PASSWORD` and optional `MATHSTART_OPERATOR_EMAIL` in the
-process environment and add `--from-environment`. They are not accepted as argv
-values and are never printed. The command uses the retained password validators
-and hasher, creates the profile, and refuses any existing user, legacy history,
-session, pending receipt, cutover state or other connected client. It cannot
-reset or adopt an imported user. After uncertain COMMIT, reconcile privately;
-existing identity blocks replay instead of overwriting it.
+Для автоматизации задайте приватные `MATHSTART_OPERATOR_USERNAME`,
+`MATHSTART_OPERATOR_PASSWORD` и необязательный `MATHSTART_OPERATOR_EMAIL` в
+окружении процесса и добавьте `--from-environment`. Их нельзя передавать как argv
+и они никогда не выводятся. Команда использует сохранённые validators паролей
+и hasher, создаёт профиль и отказывается работать при наличии user или legacy history,
+session, pending receipt, состояния cutover или другого подключённого клиента. Она не может
+сбрасывать пароль или принимать импортированного user. После неопределённого COMMIT выполните приватную сверку;
+существующая identity блокирует повторное выполнение вместо перезаписи.
 
-After installation/adoption, complete identity import and the fenced content
-publication using the documented `backend.users.cutover_cli` / `backend.content.publish`
-commands and reviewed immutable inputs. The isolated pre-admission legacy-cluster return procedure now has scoped
-real evidence in deploy/RECOVERY.md; operated return still requires independent
-fencing/admission review. Do not mistake a compatible empty
-schema for an installed site. Readiness must remain UNREADY until matching content/frontend
-publication is installed and reconciled.
+После установки/adoption завершите импорт identity и fenced публикацию контента
+с помощью задокументированных `backend.users.cutover_cli` / `backend.content.publish`
+команд и проверенных неизменяемых inputs. Для изолированной процедуры возврата legacy cluster до допуска имеются ограниченные
+фактические свидетельства в deploy/RECOVERY.md; для возврата в рабочем окружении по-прежнему нужна отдельная
+проверка блокировок/допуска. Не считайте совместимую пустую
+schema установленным сайтом. Readiness должна оставаться UNREADY, пока не установлена соответствующая публикация content/frontend
+и не выполнена reconciliation.
 
 ```text
 docker compose -f deploy/compose.yaml up -d api edge
 ```
 
-The edge starts when API is running and may serve503 until a matching release
+Edge запускается после старта API и может отдавать503, пока не установлена соответствующая release
 is installed. It must be reachable for initial publication's actual HTTP probes;
-waiting for API readiness before starting the edge would create an initial
-publication dependency cycle. The ordinary authority gateway and readiness
-continue to refuse an incomplete publication.
+ожидание API readiness до запуска edge создало бы цикл зависимости первой
+публикации. Обычный authority gateway и readiness
+продолжают отклонять неполную публикацию.
 
-For isolated HTTPS rehearsal, Compose2.24.4+ can apply
-`-f deploy/compose.tls.yaml`. Set `MATHSTART_HTTPS_PORT` and a private
-`MATHSTART_TLS_DIRECTORY` containing `tls.crt` and `tls.key`, readable by UID101.
-Set the actual HTTPS public origin before building the release and configuring
-the API. The override replaces the HTTP port with a loopback TLS8443 listener,
-supports TLS1.2/1.3, disables session tickets and mounts certificates read-only.
-It trusts no forwarded header from the external client. Certificate renewal,
-external ingress/firewall and production exposure require operator review.
-Actual isolated HTTPS/cookie rehearsal has passed with an explicitly trusted
-loopback test certificate, default-client rejection and full CA/hostname checks.
-This is not evidence of public-domain deployment or certificate ownership.
-See `deploy/RECOVERY.md` for the real physical backup/restore/application-switch
-rehearsal and its remaining legacy-cluster return boundary.
+Для изолированной HTTPS-репетиции в Compose2.24.4+ можно применить
+`-f deploy/compose.tls.yaml`. Задайте `MATHSTART_HTTPS_PORT` и приватный
+`MATHSTART_TLS_DIRECTORY` с файлами `tls.crt` и `tls.key`, доступными для чтения UID101.
+Задайте фактический public origin HTTPS до сборки release и настройки
+API. Override заменяет HTTP port на loopback TLS8443 listener,
+поддерживает TLS1.2/1.3, отключает session tickets и монтирует сертификаты только для чтения.
+Внешние forwarded headers не считаются доверенными. Продление сертификата,
+внешние ingress/firewall и доступность production требуют ревью оператора.
+Реальная изолированная HTTPS/cookie-репетиция прошла с явно доверенным
+тестовым loopback-сертификатом, отказом обычного клиента и полной проверкой CA/hostname.
+Это не подтверждает deployment на публичном домене или владение сертификатом.
+Реальная физическая репетиция backup/restore/application-switch и оставшаяся граница
+возврата legacy cluster описаны в `deploy/RECOVERY.md`.
 
-The reproducible empty-stack check creates a unique project and labelled
-volumes, runs actual container preview/apply/check, verifies no startup data
-writes and UNREADY without publication, checks Nginx config, then removes its
-own resources. It uses no legacy DB, existing volumes or host PostgreSQL port:
+Воспроизводимая проверка пустого stack создаёт уникальный проект и помеченные
+volumes, выполняет preview/apply/check в реальном контейнере, подтверждает отсутствие записи данных при запуске
+и статус UNREADY без публикации, проверяет конфигурацию Nginx и удаляет
+собственные ресурсы. Она не использует legacy DB, существующие volumes или port PostgreSQL хоста:
 
 ```text
 python scripts/verify_deployment.py --disposable --runtime-root var/deployment-<run> --api-image mathstart-api:<candidate> --edge-image mathstart-edge:<candidate>
 ```
 
-`scripts/verify_images.py` separately checks a fully installed synthetic release
-and real auth through the edge. Both receipts are scoped evidence, not final
-QA or human acceptance.
+`scripts/verify_images.py` отдельно проверяет полностью установленную синтетическую release
+и реальную аутентификацию через edge. Оба receipts являются ограниченными свидетельствами, а не итоговой
+QA или приёмкой человеком.
 
-## Independent clean-clone rehearsal
+## Независимая репетиция из чистого clone
 
-From a target Python3.12+ environment, run this disposable check with Docker
-available and unused loopback ports55443/18125 (or explicit `--pg-port`/`--port`):
+Из target environment на Python3.12+ выполните эту временную проверку; Docker должен
+быть доступен, как и свободные loopback ports55443/18125 (либо явно заданные `--pg-port`/`--port`):
 
 ```text
 python scripts/verify_installation.py --disposable --runtime-root var/install-<new-run>
 ```
 
-The verifier clones the committed HEAD without hardlinks, creates a new locked
-Python environment, and builds API/edge/Node-builder images from that exact clean
-clone. It uses the ordinary reviewed schema CLI, initial operator CLI,
-`prepare-bootstrap`, real locked Node build, publication plan/publish, readiness,
-network login/private admin shell and lesson-source checks. It requires initial503,
-COMPLETE publication with every public HTTP assertion, zero-change repeat bootstrap,
-clean clone source and cleanup. It never installs a synthetic fixture in place of
-the ordinary installation path. Only new owned labelled Docker resources are used.
+Verifier клонирует зафиксированный HEAD без hardlinks, создаёт новое окружение Python по lock-файлу
+и собирает API/edge/Node-builder images из этой чистой
+копии. Он использует обычные проверенные schema CLI, CLI начального оператора,
+`prepare-bootstrap`, фактическую сборку Node по lock-файлу, plan/publish публикации, readiness,
+сетевой вход/private admin shell и проверки source уроков. Требуются исходный ответ503,
+публикация COMPLETE со всеми public HTTP assertions, повторный bootstrap без изменений,
+чистый clone source и очистка. Синтетические fixtures никогда не подменяют
+обычный путь установки. Используются только новые принадлежащие запуску помеченные Docker resources.
 
-API and publisher share a named public volume; API mounts it read-only, publisher
-read-write. The builder writes a separate immutable output. For this disposable
-loopback origin only, the publisher process resolves its exact public-origin socket
-to the actual edge container; URL/Host, response bytes, cache assertions and the5s
-HTTP timeout remain unchanged. Real deployments use their reachable public DNS.
+API и publisher используют общий именованный public volume; API монтирует его только для чтения, publisher —
+для чтения и записи. Builder записывает отдельный неизменяемый output. Только для этой временной
+loopback origin процесс publisher направляет socket точного public-origin
+в фактический edge container; URL/Host, байты ответа, проверки cache и timeout5s
+HTTP остаются без изменений. В рабочих deployment используется доступный public DNS.
 
-The c205ef1 rehearsal on18 October2026 passed:279 pages/282 public URLs/424 files,
-813 real HTTP probes (maximum1.165s), normal initial operator login,263 lesson
-sources, repeat preview with no changes, source guard and cleanup PASS. Receipts:
+Репетиция c205ef1 от18 October2026 прошла:279 страниц/282 public URLs/424 файлов,
+813 фактических HTTP probes (максимум1.165s), обычный вход начального оператора,263 source
+уроков, повторный preview без изменений, source guard и очистка PASS. Receipts:
 `docs/acceptance/migration-execution/i02-verification/clean-install-03-20261018.json`
-and the adjacent public-probes log. This is scoped c205ef1 installation evidence,
-not final combined migration QA. The preceding install-02 failure is retained;
-the original bind-mount explanation remains a hypothesis rather than a proven cause.
+и соседний журнал public-probes. Это ограниченные свидетельства установки c205ef1,
+не итоговая общая QA миграции. Предыдущий сбой install-02 сохранён;
+исходное объяснение через bind-mount остаётся гипотезой, а не подтверждённой причиной.

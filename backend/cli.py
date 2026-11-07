@@ -20,6 +20,7 @@ def main(argv=None):
     parser.add_argument('--source-root', type=Path, default=Path('.'))
     parser.add_argument('--output-root', type=Path)
     parser.add_argument('--release-id')
+    parser.add_argument('--release-root', type=Path)
     parser.add_argument('--source-sha')
     parser.add_argument('--disposable', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
@@ -68,7 +69,9 @@ def main(argv=None):
                         else:
                             if not args.origin:
                                 parser.error('content quality requires the running public origin')
-                            report, errors = inspect_public_quality(uow.session, args.origin)
+                            from backend.content.checks import active_quality_release
+                            release = active_quality_release(uow, args.release_root) if args.release_root else None
+                            report, errors = inspect_public_quality(uow.session, args.origin, release=release)
                             report_name = 'content_quality_report.json'
                         args.report_root.mkdir(parents=True, exist_ok=True)
                         (args.report_root / report_name).write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

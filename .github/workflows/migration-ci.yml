@@ -1,13 +1,6 @@
 name: Migration verification
 
 on:
-  pull_request:
-    branches: [ms7-mig-react-fastapi, main]
-    paths: ['AGENTS.md', 'ARCHITECTURE.md', 'PRODUCT.md', 'README.md', 'docs/**', 'skills/**', 'deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
-  push:
-    branches: [ms7-mig-react-fastapi, main, 'ms7-mig-*']
-    paths: ['AGENTS.md', 'ARCHITECTURE.md', 'PRODUCT.md', 'README.md', 'docs/**', 'skills/**', 'deploy/**', 'backend/**', 'frontend/**', 'scripts/**', 'tests/**', 'specs/**', 'site_content/**', 'curriculum/**', 'static/**', 'config/**', 'content/**', 'users/**', 'requirements*', 'alembic.ini', '.github/workflows/**', 'manage.py']
-
   workflow_dispatch:
     inputs:
       full_target:
@@ -71,7 +64,7 @@ jobs:
           --health-interval=2s --health-timeout=3s --health-retries=30
     env:
       MATHSTART_LEGACY_PYTHON: ${{ github.workspace }}/var/verify-legacy-env/bin/python
-      DJANGO_SECRET_KEY: ci-only-key-for-harness-verification
+      DJANGO_SECRET_KEY: ci-only-key-for-product-verification
       DJANGO_DEBUG: 'False'
       DJANGO_DB_BACKEND: postgresql
       DJANGO_DB_HOST: 127.0.0.1

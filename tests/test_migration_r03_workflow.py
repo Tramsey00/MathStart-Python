@@ -8,29 +8,29 @@ import unittest
 from unittest.mock import patch
 
 from scripts.check_migration_preservation import WORKFLOW_SOURCE, workflow_changes
-from scripts.check_workflow_docs import validate_queue
+from scripts.check_workflow_docs import validate_queue, validate_workflow
 
 
 class WorkflowTests(unittest.TestCase):
     def setUp(self):
         self.queue = {'tasks': [
-            {'id': 'MS-N000', 'order': 0, 'status': 'READY_FOR_REVIEW', 'dependencies': [], 'acceptance': 'review'},
-            {'id': 'MS-N001', 'order': 1, 'status': 'PLANNED', 'dependencies': ['MS-N000'], 'acceptance': 'decision', 'legacy_ids': ['MS7-V03']},
+            {'id': 'MS-T000', 'title': 'Preparation', 'order': 0, 'status': 'READY_FOR_REVIEW', 'dependencies': [], 'acceptance': 'review'},
+            {'id': 'MS-T001', 'title': 'Pilot', 'order': 1, 'status': 'PLANNED', 'dependencies': ['MS-T000'], 'acceptance': 'decision', 'legacy_ids': ['MS7-V03']},
         ]}
         self.source = {'rows': [{'id': 'MS7-V03', 'workflow_disposition': 'ADAPTED',
-                                 'workflow_tasks': ['MS-N001'], 'workflow_reason': 'preserve scope'}]}
+                                 'workflow_tasks': ['MS-T001'], 'workflow_reason': 'preserve scope'}]}
 
-    def test_valid_graph_and_bidirectional_source_mapping(self):
+    def test_valid_current_task_graph(self):
         self.assertEqual(len(validate_queue(self.queue, self.source)), 2)
 
     def test_missing_self_forward_cycle_and_retired_dependency_rejected(self):
-        for dependency in ['unknown', 'MS-N001']:
+        for dependency in ['unknown', 'MS-T001']:
             queue = copy.deepcopy(self.queue)
             queue['tasks'][1]['dependencies'] = [dependency]
             with self.assertRaises(ValueError):
                 validate_queue(queue, self.source)
         queue = copy.deepcopy(self.queue)
-        queue['tasks'][0]['dependencies'] = ['MS-N001']
+        queue['tasks'][0]['dependencies'] = ['MS-T001']
         with self.assertRaises(ValueError):
             validate_queue(queue, self.source)
         queue = copy.deepcopy(self.queue)
@@ -38,19 +38,35 @@ class WorkflowTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_queue(queue, self.source)
 
-    def test_removed_harness_task_cannot_be_completed_or_required(self):
-        source = copy.deepcopy(self.source)
-        source['rows'][0]['id'] = 'MS7-R05'
-        source['rows'][0]['workflow_disposition'] = 'COMPLETED_BASELINE'
-        source['rows'][0]['workflow_tasks'] = []
-        with self.assertRaises(ValueError):
-            validate_queue(self.queue, source)
+    def test_duplicate_id_order_dependency_and_missing_acceptance_rejected(self):
+        for mutate in [
+            lambda q: q['tasks'][1].update(id='MS-T000'),
+            lambda q: q['tasks'][1].update(order=9),
+            lambda q: q['tasks'][1].update(dependencies=['MS-T000', 'MS-T000']),
+            lambda q: q['tasks'][1].pop('acceptance'),
+        ]:
+            q = copy.deepcopy(self.queue)
+            mutate(q)
+            with self.assertRaises((ValueError, KeyError)):
+                validate_queue(q)
 
-    def test_missing_reverse_mapping_rejected(self):
-        queue = copy.deepcopy(self.queue)
-        queue['tasks'][1]['legacy_ids'] = []
-        with self.assertRaises(ValueError):
-            validate_queue(queue, self.source)
+    def test_previous_prep_and_visual_cards_not_required_as_first_id(self):
+        self.assertEqual(validate_queue(self.queue)[0]['id'], 'MS-T000')
+
+    def test_bootstrap_exception_and_team_handoff_are_bounded(self):
+        root = Path(__file__).resolve().parents[1]
+        queue = json.loads((root / 'docs/tasks/registry.json').read_text(encoding='utf-8'))
+        validate_workflow(queue)
+        for mutate in [
+            lambda q: q['workflow']['bootstrap']['tasks'].append('MS-T003'),
+            lambda q: q['workflow']['bootstrap'].update(branch='main'),
+            lambda q: q['workflow']['regular'].update(issue_required=False),
+            lambda q: next(r for r in q['tasks'] if r['id'] == 'MS-T003').update(dependencies=['MS-T002']),
+        ]:
+            changed = copy.deepcopy(queue)
+            mutate(changed)
+            with self.assertRaises(ValueError):
+                validate_workflow(changed)
 
     def test_preservation_checks_before_after_and_exact_retirement_path(self):
         before = b'original\n'

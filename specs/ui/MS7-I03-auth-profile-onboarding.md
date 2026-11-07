@@ -1,20 +1,25 @@
-# SPEC MS7-I03: Auth/profile/onboarding UI
+# SPEC MS7-I03: интерфейс Auth/profile/onboarding
 
-- **Status:** Implementation published; browser acceptance and final local verification PASS; independent human acceptance pending
-- **Owner:** Илья
-- **Reviewer / Task Approver:** Руслан и Владимир
-- **Canonical Issue:** [#25](https://github.com/Tramsey00/MathStart-Python/issues/25)
-- **Branch:** `ms7-i03-auth-profile-onboarding`
-- **Pull request:** [#26](https://github.com/Tramsey00/MathStart-Python/pull/26), OPEN; independent reviews requested
-- **Implementation commit:** `635e8ecaff65f2fdc7069656a7e5b47e863aa853`
-- **Baseline SHA:** `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`
-- **Milestone Gate:** G3
-- **Acceptance deadline:** 09.10.2026, revised v7.1 §20.4
-- **Direct FR coverage:** FR-01, FR-02
-- **Exec plan:** [MS7-I03](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
-- **Trace:** [MS7-I03](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03.md)
-- **Last updated:** 2026-10-05
-- **Latest review feedback:** Registration UI limit 30; single-form auth switcher; local/browser verification PASS (see §18)
+> Историческая спецификация прежней авторизации. Статусы и приёмка ниже относятся
+> к указанным Git revisions; это не утверждённый образец нового интерфейса.
+> Замена UI предусмотрена в [MS-T009](../../skills/tasks/t009-identity-ui/SKILL.md).
+> Действующие серверные контракты перечислены в [current-contracts](../current-contracts.md).
+
+- **Статус:** реализация опубликована; приёмка в браузере и итоговая локальная проверка пройдены; независимая приёмка человеком ожидается
+- **Владелец:** Илья
+- **Рецензенты / утверждающие задачу:** Руслан и Владимир
+- **Каноническая задача:** [#25](https://github.com/Tramsey00/MathStart-Python/issues/25)
+- **Ветка:** `ms7-i03-auth-profile-onboarding`
+- **Pull request:** [#26](https://github.com/Tramsey00/MathStart-Python/pull/26), OPEN; запрошены независимые рецензии
+- **Коммит реализации:** `635e8ecaff65f2fdc7069656a7e5b47e863aa853`
+- **Базовый SHA:** `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`
+- **Этапный Gate:** G3
+- **Срок приёмки:** 09.10.2026, пересмотренный §20.4 v7.1
+- **Непосредственное покрытие FR:** FR-01, FR-02
+- **План выполнения:** [MS7-I03](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
+- **Отчёт о ходе работ:** [MS7-I03](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03.md)
+- **Последнее обновление:** 2026-10-05
+- **Последний отзыв ревью:** лимит UI регистрации — 30 символов; переключатель Auth вместо двух форм; локальная/браузерная проверка пройдена (см. §18)
 
 ```text
 Implementation: COMPLETE; overall task INCOMPLETE pending human gates
@@ -27,18 +32,19 @@ Task Approval: PENDING
 G3: PENDING
 ```
 
-## 1. Goal and authority
+## 1. Цель и источник полномочий
 
-Deliver **Auth/profile/onboarding screens on real API**. Students can register,
-sign in/out, select a grade, choose an onboarding mode, and restore saved server
-state through accessible forms. Preparation defines the consumer boundary; no
-UI or runtime is executed by these documents. The core snapshot and targeted
-results are recorded in §13 and the trace; overall acceptance remains pending.
+Создать **экраны Auth/profile/onboarding, работающие с реальным API**. Учащиеся
+могут зарегистрироваться, войти и выйти, выбрать класс, выбрать режим
+onboarding и восстановить сохранённое состояние сервера с помощью доступных
+форм. Подготовка определяет границу потребителя; эти документы не запускают UI
+или runtime. Основной снимок и целевые результаты зафиксированы в §13 и отчёте
+о ходе работ; общая приёмка ожидается.
 
-The canonical requirements source is MathStart Technical Specification **v7.1,
+Канонический источник требований — техническая спецификация MathStart **v7.1,
 G0 ACCEPTED**:
 `.local-docs/MathStart_Technical_Specification_v7_1_SECTION20_PARALLEL_DEADLINES.pdf`.
-The local PDF is not published by this task. v6 is not a requirements source.
+Эта задача не публикует локальный PDF. v6 не является источником требований.
 
 ```text
 PDF SHA-256
@@ -51,112 +57,114 @@ Accepted R02A manifest SHA-256
 35da935f191f34103023e53ac4855313232ef95e6e4eb312bdfc9f9b55065b03
 ```
 
-Task card: §24, pages 68–69. Applicable requirements: §11, §16, §17, revised
-§20, §21 and §25. Revised §20 takes precedence over the old NORMAL/EARLY dates
-inside the card; the acceptance deadline is **09.10.2026**. Downstream consumers
-are **MS7-I11 and MS7-I14**. I03 acceptance does not independently close G3.
+Карточка задачи: §24, страницы 68–69. Применимые требования: §11, §16, §17,
+пересмотренный §20, §21 и §25. Пересмотренный §20 имеет приоритет над старыми
+сроками NORMAL/EARLY внутри карточки; срок приёмки — **09.10.2026**. Следующие
+потребители — **MS7-I11 и MS7-I14**. Приёмка I03 сама по себе не закрывает G3.
 
-## 2. Accepted inputs and dependencies
+## 2. Принятые входные данные и зависимости
 
-Read `AGENTS.md`, `PRODUCT.md`, `ARCHITECTURE.md` and the existing verification
-skill. Preserve ADR-0001 (Django), ADR-0002 (exercise/public boundary), ADR-0003
-(Progress ownership) and the accepted R02A HTTP/eligibility addendum associated
-with ADR-0004. This task does not reopen their frozen decisions.
+Прочитайте `AGENTS.md`, `PRODUCT.md`, `ARCHITECTURE.md` и действующий skill
+проверки. Сохраните ADR-0001 (Django), ADR-0002 (граница exercise/public),
+ADR-0003 (владение Progress) и принятый addendum R02A по HTTP/eligibility,
+связанный с ADR-0004. Эта задача не пересматривает зафиксированные в них решения.
 
-| Type | Canonical edge | Available baseline input |
+| Тип | Каноническая связь | Доступные базовые входные данные |
 | --- | --- | --- |
-| HARD | MS7-I02 | PR #22 merged as `46c1b3ddbb9611482d288262249152be839ddae6`; required Руслан/Владимир approvals recorded. |
-| CONTRACT | — | Accepted R02A remains a named API input, not a new dependency edge. |
-| HANDOFF | — | No additional canonical edge. |
-| INTEGRATION | MS7-V02 | PR #19 merged as `150e569b51a2ef84d2d17a25c675e364c808d2fc`; required Руслан approval recorded. |
-| V02 runtime correction | PR #24 / Issue #23 | Merged as baseline `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`; Issue #23 CLOSED; grades route available. |
+| HARD | MS7-I02 | PR #22 слит с коммитом `46c1b3ddbb9611482d288262249152be839ddae6`; необходимые утверждения Руслана/Владимира зафиксированы. |
+| CONTRACT | — | Принятый R02A остаётся указанным входом API, а не новой зависимостью. |
+| HANDOFF | — | Дополнительных канонических связей нет. |
+| INTEGRATION | MS7-V02 | PR #19 слит с коммитом `150e569b51a2ef84d2d17a25c675e364c808d2fc`; необходимое утверждение Руслана зафиксировано. |
+| Исправление runtime V02 | PR #24 / Issue #23 | Слито в базовый коммит `c945ef6f768564fbd876b8d95f61a83a6d8cbda2`; Issue #23 CLOSED; маршрут классов доступен. |
 
-The former grade-source blocker is removed. I03 consumer acceptance is recorded
-in [review 5406384114](https://github.com/Tramsey00/MathStart-Python/pull/24#pullrequestreview-5406384114).
-That review covers consumer handoff only. It does not constitute Руслан's
-backend/migration Task Approval; see the evidence note in §11.
+Прежняя блокировка из-за источника классов снята. Приёмка потребителя I03
+зафиксирована в [review 5406384114](https://github.com/Tramsey00/MathStart-Python/pull/24#pullrequestreview-5406384114).
+Эта рецензия охватывает только передачу потребителю. Она не является утверждением
+задачи Русланом по backend/migration; см. примечание о свидетельствах в §11.
 
-Specific inputs:
+Конкретные входные данные:
 
-- `specs/ui/MS7-I02-ui-foundation.md`, `docs/agent-traces/MS7-I02.md` and its plan.
+- `specs/ui/MS7-I02-ui-foundation.md`, `docs/agent-traces/MS7-I02.md` и план к нему.
 - `templates/base.html`, `templates/ui/components/{button,card,field,state}.html`.
-- `static/mathstart/css/ui/{tokens,foundation}.css` and I02 foundation/schema JS.
-- `specs/ui/ui-state-fixtures-v1.schema.json` and `specs/ui/fixtures/ui-states-v1.json`.
+- `static/mathstart/css/ui/{tokens,foundation}.css` и JS основы/schema I02.
+- `specs/ui/ui-state-fixtures-v1.schema.json` и `specs/ui/fixtures/ui-states-v1.json`.
 - `specs/api/MS7-R02A-http-eligibility.md`, `openapi-v1.json`,
   `schemas/dto-v1.schema.json`, `http-policy-v1.json`, `candidate-manifest-v1.json`.
 - `docs/exec-plans/active/MS7-V02-accounts-rights.md`, `docs/agent-traces/MS7-V02.md`.
-- `specs/api/MS7-V02-grades-runtime.md`, V02 grades plan/trace and current runtime.
+- `specs/api/MS7-V02-grades-runtime.md`, план/отчёт о ходе работ V02 grades и текущий runtime.
 
-Historical upstream OPEN/PENDING headers do not override merged GitHub/main
-state. They are preserved; I03 does not edit accepted upstream records.
+Исторические заголовки OPEN/PENDING в upstream не заменяют актуальное состояние
+GitHub/main после слияния. Они сохранены; I03 не редактирует принятые записи
+upstream.
 
-## 3. Scope and exclusions
+## 3. Область работ и исключения
 
-In scope: registration; login/logout; profile; onboarding with **START_ZERO,
-SELF_REPORT, DIAGNOSTIC**; CSRF; safe errors; keyboard-accessible forms;
-saved/restored server state; real V02 integration and the public grade catalogue.
-Use existing Django Templates, HTML/CSS and progressive JavaScript with I02
-components/tokens. Canonical file areas: `templates/`, `static/`, UI fixtures and
-browser tests. Concrete screen URLs and file names are implementation choices
-to record in the later implementation phase, not additional API requirements.
+В область работ входят: регистрация; login/logout; профиль; onboarding с режимами
+**START_ZERO, SELF_REPORT, DIAGNOSTIC**; CSRF; безопасные ошибки; формы,
+доступные с клавиатуры; сохранение/восстановление состояния сервера; интеграция
+с реальным V02 и публичный каталог классов. Используйте существующие Django
+Templates, HTML/CSS и progressive JavaScript с компонентами/tokens I02.
+Канонические области файлов: `templates/`, `static/`, UI fixtures и browser
+tests. Конкретные URL экранов и имена файлов выбираются при реализации и
+фиксируются позднее; это не дополнительные требования к API.
 
-Out of scope:
+Вне области работ:
 
-- Mathematical assessment, Attempt/exercise renderer, checker or validator secrets.
-- Actual diagnostic session implementation; DIAGNOSTIC only selects the mode.
-- Numerical skill initialization/progress for SELF_REPORT.
-- Progress calculations, client-authoritative verdict/progress, Tutor, adaptive practice/history.
-- Backend API/model/migration changes without a separate demonstrated requirement.
-- Seed/bootstrap changes, unrelated refactoring and frozen R02A modifications.
-- A new frontend stack/toolchain without necessity and human approval.
+- Математическая оценка, renderer Attempt/exercise, checker или секреты validator.
+- Реализация самой diagnostic session; DIAGNOSTIC только выбирает режим.
+- Числовая инициализация skill/progress для SELF_REPORT.
+- Вычисления Progress, вердикт/progress с авторитетностью клиента, Tutor, адаптивная практика/история.
+- Изменения backend API/model/migration без отдельного обоснования требования.
+- Изменения seed/bootstrap, посторонний рефакторинг и правки зафиксированного R02A.
+- Новый frontend stack/toolchain без необходимости и одобрения человека.
 
-## 4. Actors and workflow
+## 4. Участники и рабочий процесс
 
-Anonymous students access registration/login and the public catalogue.
-Authenticated students access their own profile, onboarding and logout.
+Неаутентифицированные учащиеся открывают регистрацию/login и публичный каталог.
+Аутентифицированные учащиеся открывают собственный профиль, onboarding и logout.
 
-1. Obtain CSRF through the real bootstrap API; read `users/me` to establish the
-   current session/profile state. Its anonymous 401 is an authentication state.
-2. Register or log in with real credentials; refresh CSRF after success/rotation.
-3. Fetch all catalogue pages needed for grade selection. Display `title`, retain
-   returned `id`, and send that same identity to profile/onboarding mutations.
-4. Choose one of the three modes. POST the closed onboarding payload and reflect
-   confirmed backend state. Do not report a diagnostic session or mastery change.
-5. Restore saved state using GET `users/me` after reload/login and reconciliation.
-6. Logout using the private mutation; reconcile a lost acknowledgement through
-   session state rather than assuming repeat logout returns success.
+1. Получите CSRF через реальный bootstrap API; прочитайте `users/me`, чтобы установить
+   текущее состояние session/profile. Ответ 401 для анонимного запроса означает состояние аутентификации.
+2. Зарегистрируйтесь или войдите с реальными учётными данными; после успеха/ротации обновите CSRF.
+3. Загрузите все страницы каталога, необходимые для выбора класса. Показывайте `title`, сохраните
+   полученный `id` и передавайте ту же идентичность в мутации profile/onboarding.
+4. Выберите один из трёх режимов. Отправьте закрытый payload onboarding методом POST и отразите
+   подтверждённое состояние backend. Не сообщайте о diagnostic session или изменении mastery.
+5. Восстановите сохранённое состояние через GET `users/me` после перезагрузки/login и согласования состояния.
+6. Выйдите с помощью приватной мутации; при потере подтверждения выясните результат по состоянию
+   session, не предполагая, что повторный logout будет успешен.
 
-## 5. Invariants and persistence
+## 5. Инварианты и сохранение данных
 
-The backend is authoritative for identity, selected grade and onboarding state.
-Only Progress changes long-term knowledge state through validated evidence.
-This feature does not create or mutate knowledge evidence.
+Backend является источником истины для identity, выбранного класса и состояния onboarding.
+Только Progress изменяет долгосрочное состояние знаний на основании проверенных свидетельств.
+Эта функция не создаёт и не изменяет свидетельства о знаниях.
 
-I03 introduces no models, migrations, seed or bootstrap changes. Existing V02
-persists User, StudentProfile, session and identity receipts. Frontend pending
-input is not proof of a save. Saved state is restored through the API, not an
-authoritative local profile cache.
+I03 не добавляет изменений моделей, миграций, seed или bootstrap. Существующий V02
+сохраняет User, StudentProfile, session и identity receipts. Ожидающий ввод на frontend
+не доказывает, что данные сохранены. Сохранённое состояние восстанавливается через API,
+а не из локального кэша профиля, которому приписана авторитетность.
 
-`onboarding_complete=true` confirms the V02 onboarding choice is saved; for
-DIAGNOSTIC it does not prove diagnostic exercises were performed. SELF_REPORT
-here saves the mode only: no topic/skill list or numerical initialization exists
-in the accepted `OnboardingRequest`.
+`onboarding_complete=true` подтверждает сохранение выбора onboarding в V02; для
+DIAGNOSTIC оно не доказывает, что диагностические упражнения были выполнены. Здесь
+SELF_REPORT сохраняет только режим: в принятом `OnboardingRequest` нет списка
+тем/навыков или числовой инициализации.
 
-## 6. Exact baseline API contract
+## 6. Точный базовый контракт API
 
-Source of truth: accepted OpenAPI/DTO/policy plus `users/urls.py`, `views.py`,
-`http.py`, `services.py`, `config/api_http.py` and Content grades runtime at the
-baseline. All paths have trailing slashes. Transport uses UTF-8 JSON and
-same-origin Django session cookies. No JWT/Basic authentication is introduced.
+Источник истины: принятые OpenAPI/DTO/policy, а также `users/urls.py`, `views.py`,
+`http.py`, `services.py`, `config/api_http.py` и runtime Content для каталога классов
+на базовом SHA. Все пути оканчиваются косой чертой. Транспорт использует UTF-8 JSON и
+session cookies Django с тем же origin. Аутентификация JWT/Basic не добавляется.
 
-All request objects below are closed (`additionalProperties=false`). Mutations
-send `Content-Type: application/json` and `X-CSRFToken`, including anonymous
-registration/login. A hidden form token alone does not satisfy these JSON APIs.
-Private anonymous requests return 401 before CSRF/schema processing.
+Все приведённые ниже объекты запросов закрыты (`additionalProperties=false`). Мутации
+отправляют `Content-Type: application/json` и `X-CSRFToken`, в том числе для
+анонимной регистрации/login. Одного скрытого токена формы недостаточно для этих JSON API.
+Анонимные запросы к приватным ресурсам возвращают 401 до обработки CSRF/schema.
 
-### Shared response shapes
+### Общие формы ответов
 
-`UserResponse` returned by register/login/me/PATCH/onboarding:
+`UserResponse`, возвращаемый операциями register/login/me/PATCH/onboarding:
 
 ```text
 {
@@ -171,11 +179,11 @@ Private anonymous requests return 401 before CSRF/schema processing.
 }
 ```
 
-These are type descriptions, not literal JSON payloads. Current runtime emits
-integer User/Grade PKs. `meta.version` is optional in the accepted schema and
-present in runtime. No email, profile UUID, role, password or progress is returned.
+Это описания типов, а не буквальные JSON payloads. Текущий runtime возвращает
+целочисленные PK User/Grade. `meta.version` необязателен в принятой schema и
+присутствует в runtime. Email, UUID профиля, role, password и progress не возвращаются.
 
-Common safe `ErrorEnvelope`:
+Общий безопасный `ErrorEnvelope`:
 
 ```text
 {
@@ -189,69 +197,73 @@ Common safe `ErrorEnvelope`:
 }
 ```
 
-Current identity/catalogue errors use empty `field_errors={}`; the UI must support
-form-level errors without inventing field-specific server messages. Responses
-use `Cache-Control: private, no-store`. Unknown fields are rejected.
+Текущие ошибки identity/catalogue содержат пустой `field_errors={}`; UI должен
+поддерживать ошибки уровня формы, не придумывая серверные сообщения для отдельных
+полей. Ответы используют `Cache-Control: private, no-store`. Неизвестные поля отклоняются.
 
-### Endpoint matrix
+### Таблица endpoint
 
-| Method / path | Auth | CSRF | Idempotency-Key | Exact request | Success |
+| Метод / путь | Auth | CSRF | Idempotency-Key | Точный запрос | Успешный ответ |
 | --- | --- | --- | --- | --- | --- |
-| GET `/api/v1/auth/csrf/` | Anonymous allowed | No | No | No body | 200 `{data:{csrf_token:nonempty string},meta}`; sets CSRF cookie. |
-| POST `/api/v1/auth/register/` | Anonymous bootstrap; an existing authenticated session is not a new registration | Required | Required | `{username:string,password:string,email?:string}` | 201 `UserResponse`; establishes session. |
-| POST `/api/v1/auth/login/` | Anonymous allowed | Required | No | `{username:string,password:string}` | 200 `UserResponse`; establishes/rotates session. |
-| POST `/api/v1/auth/logout/` | Session required | Required | No | `{}` (`EmptyRequest`) | 200 `{data:{completed:true},meta}`. |
-| GET `/api/v1/users/me/` | Session required | No | No | No body | 200 `UserResponse`. |
-| PATCH `/api/v1/users/me/` | Session required | Required | No | `{selected_grade_id:integer\|string}` only | 200 `UserResponse`. |
-| POST `/api/v1/onboarding/complete/` | Session required | Required | Required | `{selected_grade_id:integer\|string,mode:"START_ZERO"\|"DIAGNOSTIC"\|"SELF_REPORT"}` | 200 `UserResponse`. |
-| GET `/api/v1/grades/` | Public; anonymous allowed | No | No | No body; optional `cursor`, `page_size` only | 200 `GradeListResponse`. |
+| GET `/api/v1/auth/csrf/` | Анонимный доступ разрешён | Нет | Нет | Без тела | 200 `{data:{csrf_token:nonempty string},meta}`; устанавливает CSRF cookie. |
+| POST `/api/v1/auth/register/` | Анонимный bootstrap; существующая аутентифицированная session не является новой регистрацией | Обязателен | Обязателен | `{username:string,password:string,email?:string}` | 201 `UserResponse`; создаёт session. |
+| POST `/api/v1/auth/login/` | Анонимный доступ разрешён | Обязателен | Нет | `{username:string,password:string}` | 200 `UserResponse`; создаёт/ротирует session. |
+| POST `/api/v1/auth/logout/` | Требуется session | Обязателен | Нет | `{}` (`EmptyRequest`) | 200 `{data:{completed:true},meta}`. |
+| GET `/api/v1/users/me/` | Требуется session | Нет | Нет | Без тела | 200 `UserResponse`. |
+| PATCH `/api/v1/users/me/` | Требуется session | Обязателен | Нет | Только `{selected_grade_id:integer\|string}` | 200 `UserResponse`. |
+| POST `/api/v1/onboarding/complete/` | Требуется session | Обязателен | Обязателен | `{selected_grade_id:integer\|string,mode:"START_ZERO"\|"DIAGNOSTIC"\|"SELF_REPORT"}` | 200 `UserResponse`. |
+| GET `/api/v1/grades/` | Публичный; анонимный доступ разрешён | Нет | Нет | Без тела; только необязательные `cursor`, `page_size` | 200 `GradeListResponse`. |
 
-Register requires username length 1..150 and nonempty password in the wire
-schema; Django username/email/password validators additionally apply. Optional
-email must be a valid email string; omit an absent email. Login requires nonempty
-username/password. Do not invent password length rules or new profile fields.
+Register требует username длиной 1..150 символов и непустой password согласно wire
+schema; дополнительно применяются валидаторы username/email/password Django. Необязательный
+email должен быть допустимой строкой адреса электронной почты; отсутствующий email
+опускайте. Login требует непустые username/password. Не придумывайте ограничения длины
+password или новые поля профиля.
 
-The user-authorized review correction narrows **I03 registration UI** to 30
-characters (`maxlength=30` plus an explicit submit guard before action/key or API
-creation). Help text and safe associated error use the same limit. The frozen
-RegisterRequest/backend remain 1..150; no model, migration, V02/DTO change.
-Login and restored existing usernames retain their backend-compatible behavior.
-PATCH has `minProperties=1` and only the grade field, making that field necessary.
-Profile/onboarding grade IDs must resolve to existing positive Grade PKs below
-`2**63`; runtime also accepts ASCII decimal strings of at most 19 characters.
-Null is allowed in a response, not as a grade mutation input.
+Разрешённая пользователем правка после ревью ограничивает username в **UI
+регистрации I03** 30 символами (`maxlength=30` и явная проверка отправки до
+создания action/key или API-запроса). В тексте-подсказке и безопасной привязанной
+ошибке используется тот же предел. Зафиксированные RegisterRequest/backend
+остаются в диапазоне 1..150; model, migration, V02/DTO не меняются. Login и
+восстановленные существующие username сохраняют поведение, совместимое с backend.
+PATCH имеет `minProperties=1` и принимает только поле класса, поэтому это поле обязательно.
+ID класса в profile/onboarding должны соответствовать существующим положительным
+Grade PK меньше `2**63`; runtime также принимает десятичные строки ASCII длиной не
+более 19 символов. Null допустим в ответе, но не во входных данных мутации класса.
 
-### State, errors and retry per operation
+### Состояние, ошибки и повторы для каждой операции
 
-| Operation | Backend state / read behavior | Important errors and retry semantics |
+| Операция | Состояние backend и поведение чтения | Важные ошибки и семантика повтора |
 | --- | --- | --- |
-| CSRF GET | Creates no auth session, profile, receipt or domain state; obtains CSRF cookie/token. | Safe to repeat. Refresh after successful register/login because CSRF rotates. |
-| Register | Creates hashed-password nonstaff User, initial null-grade/null-mode/incomplete profile, session and receipt. | 400 invalid/duplicate registration details; 403 CSRF; 409 `IDEMPOTENCY_CONFLICT` or `STATE_CONFLICT`; 503 DB failure. Same key + unchanged canonical body + original bootstrap/session identity replays original 201/body without another User/Profile/receipt. |
-| Login | Establishes session, creates a missing profile if needed; each successful login rotates session and CSRF. | Missing/wrong/inactive credentials share 401 `AUTHENTICATION_REQUIRED`, `Invalid username or password.` Budget 10 attempts/300s/IP, including success; 429 has `Retry-After`. No receipt replay; a repeated success rotates again. |
-| Logout | Invalidates auth session; profile/onboarding state remains. | 401 anonymous, 403 CSRF, 503 DB failure. Repetition after logout returns 401; reconcile uncertain outcome with GET me. |
-| GET me | Reads current owner's saved profile; does not create a missing profile. | 401 anonymous, 503 DB failure. Authoritative recovery read, including after historical receipt replay. |
-| PATCH me | Sets only current owner's selected grade; creates profile if missing. | 400 invalid/nonexistent grade or forbidden extra fields; 401/403/503. Same value does not create another profile. No receipt; reconcile via GET me before deciding to repeat. |
-| Onboarding | Saves selected grade, mode and completion flag with an owner-scoped receipt. No Assessment/Progress/diagnostic-session mutation. | 400 invalid grade/mode/extra fields or missing key; 401/403/503. Same key/body replays original 200/body without duplicate SELF_REPORT mutation. Changed body with same key is 409 `IDEMPOTENCY_CONFLICT`. New explicit choice uses a new key. |
-| Grades | Read-only public catalogue; no session, profile, onboarding, receipt, evidence or attempt writes. | 400 invalid query/cursor/size; 503 DB or unmappable row. Safe repeat with unchanged query; see pagination below. |
+| CSRF GET | Не создаёт auth session, профиль, receipt или состояние домена; получает CSRF cookie/token. | Повторять безопасно. После успешного register/login обновите токен, так как CSRF ротируется. |
+| Register | Создаёт User без staff-прав с хешированным password, начальный профиль с null-классом/null-режимом/незавершённым onboarding, session и receipt. | 400 — неверные данные/дубликат регистрации; 403 — CSRF; 409 — `IDEMPOTENCY_CONFLICT` или `STATE_CONFLICT`; 503 — сбой DB. Та же key + неизменённое каноническое тело + исходная bootstrap/session identity повторно возвращают исходные 201/body без создания другого User/Profile/receipt. |
+| Login | Создаёт session, при необходимости создаёт отсутствующий профиль; каждый успешный login ротирует session и CSRF. | Отсутствующие/неверные/неактивные учётные данные приводят к общим 401 `AUTHENTICATION_REQUIRED`, `Invalid username or password.` Лимит — 10 попыток/300s/IP, включая успешные; 429 содержит `Retry-After`. Повтора receipt нет; повторный успешный вход вызывает новую ротацию. |
+| Logout | Аннулирует auth session; состояние profile/onboarding сохраняется. | 401 — анонимный запрос, 403 — CSRF, 503 — сбой DB. Повтор после выхода возвращает 401; неопределённый результат выясняйте через GET me. |
+| GET me | Читает сохранённый профиль текущего владельца; отсутствующий профиль не создаёт. | 401 — анонимный запрос, 503 — сбой DB. Авторитетное чтение для восстановления, в том числе после повтора старого receipt. |
+| PATCH me | Устанавливает выбранный класс только текущему владельцу; создаёт профиль, если он отсутствует. | 400 — неверный/несуществующий класс или запрещённые дополнительные поля; 401/403/503. То же значение не создаёт второй профиль. Receipt нет; прежде чем повторять, согласуйте состояние через GET me. |
+| Onboarding | Сохраняет выбранный класс, режим и признак завершения с receipt, ограниченным владельцем. Мутаций Assessment/Progress/diagnostic-session нет. | 400 — неверный класс/режим/дополнительные поля или отсутствующая key; 401/403/503. Та же key/body повторно возвращают исходные 200/body без дублирования мутации SELF_REPORT. Изменённое тело с той же key даёт 409 `IDEMPOTENCY_CONFLICT`. Для нового явного выбора используйте новую key. |
+| Grades | Только чтение публичного каталога; записей session, profile, onboarding, receipt, evidence или attempt нет. | 400 — неверный query/cursor/size; 503 — DB или строка с неотображаемыми данными. Повтор с неизменённым запросом безопасен; см. пагинацию ниже. |
 
-Registration/onboarding receipts are retained for at least seven days; current
-runtime retains them beyond that minimum. Preserve one key for retries of one
-unchanged logical action. Receipt identity is scoped to the verified bootstrap
-identity for registration and authenticated owner for onboarding. Losing those
-cookies/session is not a cross-browser registration recovery contract. Never
-rotate the key simply to retry an uncertain save. A receipt replays historical
-bytes, even if the profile later changed: use GET me to recover current state.
+Receipts регистрации/onboarding хранятся не менее семи дней; текущий runtime
+хранит их дольше этого минимума. При повторах одного неизменённого логического
+действия сохраняйте одну key. Идентичность receipt ограничена проверенной
+bootstrap identity для регистрации и аутентифицированным владельцем для
+onboarding. Утрата этих cookies/session не задаёт контракт восстановления
+регистрации между браузерами. Не меняйте key только ради повтора сохранения с
+неопределённым результатом. Receipt повторно выдаёт исторические байты даже при
+последующем изменении профиля: для восстановления текущего состояния используйте GET me.
 
-General errors: 400 `INVALID_REQUEST` / `LIMIT_EXCEEDED`, 401
+Общие ошибки: 400 `INVALID_REQUEST` / `LIMIT_EXCEEDED`, 401
 `AUTHENTICATION_REQUIRED`, 403 `CSRF_FAILED` / `FORBIDDEN`, 404 `NOT_FOUND`
-for unavailable/foreign resources, 409 conflict codes, 429 `RATE_LIMITED`,
-503 `SERVICE_UNAVAILABLE`. Runtime sets `retryable=true` only for 429/503.
-On CSRF failure obtain a fresh token; this is not permission to change an
-idempotent action's key/body. On 429 respect `Retry-After`; on network/503 retain
-the unresolved action and safe user input, without claiming a save. Do not
-blindly retry login/logout as receipt-backed operations.
+для недоступных ресурсов или ресурсов другого владельца, 409 — коды конфликта,
+429 `RATE_LIMITED`, 503 `SERVICE_UNAVAILABLE`. Runtime устанавливает
+`retryable=true` только для 429/503. При ошибке CSRF получите новый токен; это
+не разрешает менять key/body идемпотентного действия. При 429 соблюдайте
+`Retry-After`; при сетевой ошибке/503 сохраните неразрешённое действие и безопасный
+ввод пользователя, не утверждая, что данные сохранены. Не повторяйте login/logout
+вслепую, как если бы это были операции с receipt.
 
-### Grade catalogue and identity
+### Каталог классов и идентичность
 
 ```text
 {
@@ -268,355 +280,393 @@ blindly retry login/logout as receipt-backed operations.
 }
 ```
 
-Each closed item contains exactly `id`, `number`, `title`. Runtime `id=Grade.pk`,
-`title=Grade.title`; `number` is derived by Content from its canonical grade slug.
-Slug, timestamp, description and display order are not public fields. The UI
-does not parse slugs or inspect database internals.
+Каждый закрытый элемент содержит ровно `id`, `number`, `title`. В runtime
+`id=Grade.pk`, `title=Grade.title`; `number` вычисляется Content по каноническому
+slug класса. Slug, timestamp, description и порядок отображения не являются
+публичными полями. UI не разбирает slug и не изучает внутреннюю структуру БД.
 
-Display **title** and use returned **id** as option value and `selected_grade_id`.
-For example a returned `{id:70,number:5,title:"5 класс"}` requires sending 70,
-not 5. The example is synthetic; no identity is hardcoded.
+Показывайте **title**, а возвращённый **id** используйте как значение option и
+`selected_grade_id`. Например, для полученного `{id:70,number:5,title:"5 класс"}`
+нужно отправить 70, а не 5. Пример условный; никакое значение identity не зашито.
 
-Pagination is ascending `(created_at,id)`, default page size 20, maximum 100.
-Treat cursors as opaque and URL-encode them; continue `next_cursor` with the same
-page size until `has_more=false`. No offset or numeric-school-year ordering is
-promised. Later new rows may appear; pagination is not a catalogue snapshot.
-Empty `data=[]` is successful empty state; 400/503 is not empty success. Repeated
-or unknown query parameters, changed page size, and invalid/tampered/cross-route
-cursors receive safe 400. Unmappable rows receive safe 503, not fabricated data.
+Пагинация выполняется по возрастанию `(created_at,id)`, размер страницы по
+умолчанию — 20, максимум — 100. Считайте cursors непрозрачными и кодируйте их
+для URL; передавайте `next_cursor` с тем же размером страницы, пока
+`has_more=false`. Порядок по offset или числовому обозначению класса не
+гарантируется. Позднее могут появиться новые строки; пагинация не является
+снимком каталога. Пустой `data=[]` — успешное пустое состояние; 400/503 не
+означают успешный пустой результат. Повторные или неизвестные параметры query,
+изменённый размер страницы и неверные/подменённые/cross-route cursors получают
+безопасный 400. Для строк, которые нельзя отобразить, возвращается безопасный 503,
+а не выдуманные данные.
 
-## 7. Security and public/server boundary
+## 7. Безопасность и граница публичных/серверных данных
 
-Use the existing owner-scoped `/users/me/`; send no owner, user ID, role or private
-profile UUID to select an account. No arbitrary account lookup is added. Missing,
-wrong and inactive login credentials must remain indistinguishable to the UI.
-Do not transform safe backend errors into account-existence hints.
+Используйте существующий `/users/me/`, ограниченный владельцем; не передавайте
+owner, user ID, role или закрытый UUID профиля для выбора аккаунта. Произвольный
+поиск аккаунтов не добавляется. UI не должен различать отсутствующие, неверные и
+неактивные учётные данные для login. Не превращайте безопасные ошибки backend в
+подсказки о существовании аккаунта.
 
-Escape usernames/catalogue titles and error text; associate errors with controls.
-Do not expose secrets, passwords, CSRF/session tokens or real personal results
-in logs, trace screenshots, fixtures or local/session storage. Credentials remain
-transient form input. Existing HttpOnly session authentication stays server-owned.
-No validator secrets, answer keys, canonical solutions or public checker enter
-the frontend. I02 fixture gallery remains a marked demonstration, not a real save.
+Экранируйте username/названия каталога и текст ошибок; связывайте ошибки с
+элементами управления. Не раскрывайте secrets, passwords, CSRF/session tokens или
+реальные персональные результаты в логах, снимках экрана trace, fixtures либо
+local/session storage. Учётные данные остаются временным вводом формы. Существующая
+аутентификация через HttpOnly session остаётся под управлением сервера. Secrets
+validator, ключи ответов, канонические решения и публичный checker не попадают на
+frontend. Галерея fixtures I02 остаётся помеченной демонстрацией, а не реальным сохранением.
 
-## 8. UI behavior and accessibility
+## 8. Поведение UI и доступность
 
-Reuse I02 shell, components, design tokens, loading/error/empty states. Distinguish
-pending submission, confirmed saved state, unauthenticated state and recoverable
-failure. Preserve entered safe form data after a recoverable error; do not retain
-passwords as persistent saved state. Show only the profile fields the API supports.
+Повторно используйте shell, components, design tokens и состояния loading/error/empty
+из I02. Различайте ожидающую отправку, подтверждённое сохранение, состояние без
+аутентификации и ошибку, допускающую восстановление. После такой ошибки сохраняйте
+безопасные данные, введённые в форму; не сохраняйте passwords как постоянное состояние.
+Показывайте только те поля профиля, которые поддерживает API.
 
-Provide associated labels, native keyboard-operable controls, visible focus,
-reachable submission/retry actions and error/status announcements. Verify Tab,
-Shift+Tab, Enter and applicable native selection keys. Mobile checks reuse the
-I02 360/768/1440 widths and preserve existing Content/navigation behavior.
-Browser evidence includes DOM/network/console assertions and sanitized screenshots;
-record actual browser versions. Fixture-only tests cannot establish API integration.
+Предоставьте связанные с элементами управления labels, нативные элементы,
+доступные с клавиатуры, видимый фокус, доступные действия отправки/повтора и
+объявления ошибок/статусов. Проверьте Tab, Shift+Tab, Enter и подходящие нативные
+клавиши выбора. Для мобильной проверки используйте ширины 360/768/1440 из I02 и
+сохраните существующее поведение Content/navigation. Свидетельства браузерной
+проверки включают проверки DOM/network/console и санитизированные снимки экрана;
+зафиксируйте версии браузера. Одни только тесты на fixtures не доказывают интеграцию с API.
 
-## 9. Acceptance and negative acceptance
+## 9. Критерии приёмки и отрицательные критерии приёмки
 
-Local implementation checks and browser/final verification are recorded in
-§14–15 and the trace. The task-level acceptance checklist below remains subject
-to independent human review; local PASS does not record Task Approval:
+Локальные проверки реализации и браузера/итоговые проверки зафиксированы в
+§14–15 и отчёте о ходе работ. Приведённый ниже контрольный список приёмки задачи
+ожидает независимого ревью человеком; локальный PASS не считается утверждением задачи:
 
-- [ ] Registration and login/logout work through the real API with CSRF rotation.
-- [ ] Profile selection uses all required grade pages and returned IDs, including `id != number`.
-- [ ] START_ZERO, SELF_REPORT and DIAGNOSTIC choices are saved and restored via real V02.
-- [ ] Saved profile/onboarding state survives reload and later login via GET me.
-- [ ] Retry/lost acknowledgement preserves logical-action identity and does not duplicate SELF_REPORT mutation or registration.
-- [ ] Invalid credentials and foreign-account cases remain safe and nondisclosing.
-- [ ] Backend-required CSRF is enforced for every mutation, including anonymous auth.
-- [ ] Keyboard forms, errors, focus, loading/empty/failure and mobile behavior are demonstrated.
-- [ ] No false saved state, fabricated progress/verdict, diagnostic completion or skill initialization is presented.
-- [ ] Existing Content behavior and frozen R02A bytes remain intact.
-- [ ] Task-specific automated tests, browser acceptance and applicable canonical verification pass.
-- [ ] Final-head CI, scoped diff/trace and Руслан/Владимир independent Task Approvals are recorded before task completion.
+- [ ] Регистрация и login/logout работают через реальный API с ротацией CSRF.
+- [ ] Выбор профиля использует все необходимые страницы классов и возвращённые IDs, включая `id != number`.
+- [ ] Выборы START_ZERO, SELF_REPORT и DIAGNOSTIC сохраняются и восстанавливаются через реальный V02.
+- [ ] Сохранённое состояние profile/onboarding переживает перезагрузку и последующий вход через GET me.
+- [ ] При повторе/утрате подтверждения сохраняется identity логического действия; мутация SELF_REPORT или регистрация не дублируется.
+- [ ] Неверные учётные данные и случаи с чужим аккаунтом обрабатываются безопасно, без раскрытия сведений.
+- [ ] Требуемый backend CSRF проверяется для каждой мутации, включая анонимную аутентификацию.
+- [ ] Продемонстрированы формы с клавиатурным управлением, ошибки, фокус, состояния загрузки/пустого результата/сбоя и мобильное поведение.
+- [ ] Не показываются ложное сохранение, выдуманные progress/verdict, завершение диагностики или инициализация skill.
+- [ ] Существующее поведение Content и зафиксированные байты R02A сохранены.
+- [ ] Специальные автоматические тесты задачи, браузерная приёмка и применимые канонические проверки пройдены.
+- [ ] До завершения задачи зафиксированы CI для финального head, scoped diff/trace и независимые утверждения задачи Русланом/Владимиром.
 
-## 10. Required tests and future verification
+## 10. Обязательные тесты и будущая проверка
 
-Required task tests: **three onboarding paths, saved state, retry, invalid
-credentials, keyboard**. Cover registration/login/logout, CSRF/session rotation,
-grade identity/pagination, profile persistence and safe errors as part of these
-flows. Test the UI's actual request/response handling; do not merely re-test DTO
-constants or substitute synthetic success fixtures for real API acceptance.
+Обязательные тесты задачи: **три сценария onboarding, сохранённое состояние,
+повтор, неверные учётные данные, клавиатура**. В рамках этих сценариев охватите
+регистрацию/login/logout, ротацию CSRF/session, identity/пагинацию классов,
+сохранение профиля и безопасные ошибки. Проверяйте фактическую обработку запросов
+и ответов в UI; не ограничивайтесь повторной проверкой констант DTO и не заменяйте
+приёмку реального API фиктивными успешными fixtures.
 
-Existing upstream evidence to preserve:
+Сохраняемые имеющиеся upstream-свидетельства:
 
 - `content/test_grades_api.py`: `test_catalogue_id_is_accepted_by_all_three_onboarding_modes`
-  gets grade ID 70 for number 5 and submits returned ID through real-CSRF V02 for all modes.
-- `content/test_grade_migrations.py`, `content/test_bootstrap.py`: upstream ID/relation/timestamp preservation.
-- `users/tests/test_identity.py`: retry, saved state, all modes, invalid credentials, CSRF, rotation, nondisclosure.
-- `users/tests/test_postgres.py`: upstream concurrent identity/receipt/rate-limit behavior.
-- I02 template/JS/escaping/keyboard foundation tests and browser evidence.
+  получает ID класса 70 для номера 5 и отправляет возвращённый ID через V02 с реальным CSRF для всех режимов.
+- `content/test_grade_migrations.py`, `content/test_bootstrap.py`: сохранение upstream ID/связей/timestamp.
+- `users/tests/test_identity.py`: повторы, сохранённое состояние, все режимы, неверные учётные данные, CSRF, ротация, неразглашение.
+- `users/tests/test_postgres.py`: конкурентное поведение identity/receipt/rate-limit в upstream.
+- Тесты шаблонов/JS/экранирования/клавиатурной основы I02 и свидетельства браузерной проверки.
 
-After implementation is separately authorized, select meaningful UI tests using
-the configured Django/Python/JS tools; run relevant Users/Content regressions and
-R02A contract tests. Complete real browser acceptance with DOM, network, console,
-sanitized screenshots and keyboard walkthrough. Then run
-`python scripts/verify_repo.py` and applicable contract/frontend checks according
-to `skills/verification/SKILL.md`. Record actual commands, versions, exit codes,
-skips and environment limitations. Do not invent a Ruff/mypy/pytest/Playwright
-pass or add a toolchain merely to obtain evidence. After G1, apply the engineering
-run requirement in §17 when that accepted Harness is available; do not claim it
-was performed in preparation.
+После отдельного разрешения реализации выберите содержательные UI-тесты с помощью
+настроенных инструментов Django/Python/JS; запустите относящиеся к задаче
+регрессионные проверки Users/Content и тесты контракта R02A. Завершите реальную
+браузерную приёмку с проверками DOM, network, console, санитизированными снимками
+экрана и прохождением сценария с клавиатуры. Затем запустите
+`python scripts/verify_repo.py` и применимые проверки contract/frontend согласно
+`skills/verification/SKILL.md`. Зафиксируйте фактические команды, версии, коды
+выхода, пропуски и ограничения окружения. Не выдумывайте успешный прогон
+Ruff/mypy/pytest/Playwright и не добавляйте набор инструментов лишь ради получения
+свидетельств. После G1 применяйте требование инженерного запуска из §17, когда
+этот принятый Harness будет доступен; не утверждайте, что он применялся на этапе подготовки.
 
-Initial preparation verification was limited to document status/diff review.
-Stage 2 subsequently ran task-owned and targeted regression tests. Stage 3 real
-PostgreSQL/browser acceptance and the post-correction targeted rerun passed.
-Stage 4 then passed the complete canonical verifier and relevant extra suites;
-exact commands and coverage are recorded in §15 and the trace.
+Первоначальная проверка подготовки ограничивалась статусом документов и просмотром
+diff. Позже на этапе 2 были запущены принадлежащие задаче тесты и целевые
+регрессионные проверки. На этапе 3 прошли приёмка на реальном PostgreSQL/в браузере
+и целевой повторный запуск после исправлений. Затем на этапе 4 прошли полный
+канонический verifier и относящиеся к задаче дополнительные наборы; точные команды
+и покрытие записаны в §15 и отчёте о ходе работ.
 
-## 11. Risks, human gates and completion
+## 11. Риски, этапы проверки человеком и завершение
 
-| Risk / evidence limit | Handling |
+| Риск / ограничение свидетельств | Действия |
 | --- | --- |
-| Historical upstream OPEN/PENDING labels | Use accepted GitHub/main/user state; preserve frozen documents. |
-| PR #24 separate backend/migration approval not located in prior pre-flight evidence | Record the missing approval evidence for Руслан/Владимир clarification before final acceptance. Consumer approval and merge are verified; the grade-source blocker is removed. I03 does not perform backend-owner approval. |
-| Local runtime DB upgrade/browser setup not executed in preparation | Resolved in authorized stage 3: existing migration applied, unchanged bootstrap, collected static and real PostgreSQL/browser walkthrough. |
-| Replayed receipt differs from subsequently changed profile | Recover current state with GET me. |
-| Catalogue pages/order/identity assumed from small seed | Follow accepted pagination and use returned IDs; no number-to-PK mapping. |
-| Product-wide SELF_REPORT/DIAGNOSTIC semantics exceed current consumer DTO | Persist mode only; defer actual progress/session behavior to owning tasks. |
-| Existing generic I02 field component lacks specific password/select behavior | Core adds optional native input semantics with preserved defaults; browser label/password/select/focus checks passed. |
+| Исторические метки upstream OPEN/PENDING | Используйте принятое состояние GitHub/main/user; сохраняйте зафиксированные документы. |
+| В доступных до запуска проверках не найдено отдельное утверждение backend/migration для PR #24 | До итоговой приёмки зафиксируйте отсутствие свидетельства и попросите Руслана/Владимира прояснить его. Утверждение потребителя и слияние проверены; блокировка источника классов снята. I03 не выполняет утверждение от владельца backend. |
+| На этапе подготовки не выполнялись обновление локальной runtime DB и настройка браузера | Устранено на разрешённом этапе 3: применена существующая миграция, выполнен неизменённый bootstrap, собрана статика и пройден сценарий с реальным PostgreSQL/браузером. |
+| Повторно выданный receipt не совпадает с профилем, изменённым позднее | Восстановите текущее состояние через GET me. |
+| Страницы/порядок/identity каталога предположены на основе небольшого seed | Используйте принятую пагинацию и возвращённые IDs; не устанавливайте соответствие номеру и PK. |
+| Семантика SELF_REPORT/DIAGNOSTIC на уровне продукта шире текущего DTO потребителя | Сохраняйте только режим; фактическое поведение progress/session оставьте соответствующим задачам-владельцам. |
+| В универсальном компоненте поля I02 нет отдельных правил для password/select | В ядро добавлена необязательная нативная семантика input с сохранёнными значениями по умолчанию; проверки браузера для label/password/select/focus пройдены. |
 
-Preparation completion means one canonical Issue and three reviewed documents
-exist. Overall I03 remains incomplete until runtime acceptance, required tests,
-verification, final-head CI, independent Руслан/Владимир Task Approvals and the
-authorized PR/merge workflow are complete. No approval or G3 closure is inferred.
+Завершение подготовки означает, что созданы одна каноническая Issue и три
+проверенных документа. I03 в целом остаётся незавершённой, пока не пройдены
+приёмка runtime, обязательные тесты и проверки, CI для итогового head,
+независимые утверждения задачи Русланом/Владимиром и разрешённый процесс PR/merge.
+Утверждение или закрытие G3 не предполагается.
 
-## 12. Links
+## 12. Ссылки
 
-- [Canonical Issue #25](https://github.com/Tramsey00/MathStart-Python/issues/25)
-- [Exec plan](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
-- [Trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03.md)
-- [Accepted grades handoff](../api/MS7-V02-grades-runtime.md)
-- [I02 spec](MS7-I02-ui-foundation.md)
-- [V02 trace](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-V02.md)
-- PR/demo/browser artifacts: not created in preparation.
+- [Каноническая Issue #25](https://github.com/Tramsey00/MathStart-Python/issues/25)
+- [План выполнения](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/exec-plans/active/MS7-I03-auth-profile-onboarding.md)
+- [Отчёт о ходе работ](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03.md)
+- [Принятая передача каталога классов](../api/MS7-V02-grades-runtime.md)
+- [Спецификация I02](MS7-I02-ui-foundation.md)
+- [Отчёт о ходе работ V02](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-V02.md)
+- Артефакты PR/demo/browser: на этапе подготовки не создавались.
 
-## 13. Stage 2 core snapshot (2026-10-04)
+## 13. Снимок основной реализации на этапе 2 (2026-10-04)
 
-Starting HEAD: `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`, clean branch
-`ms7-i03-auth-profile-onboarding`. Core changes are uncommitted.
+Начальный HEAD: `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`, чистая ветка
+`ms7-i03-auth-profile-onboarding`. Основные изменения не закоммичены.
 
-Entry point: GET `/account/`, a task-owned presentation route with no business
-mutation. Forms are powered by existing API operations only. Thin routing/view
-glue is separate from `users/urls.py`, `views.py` and `services.py`.
+Точка входа: GET `/account/`, маршрут отображения, принадлежащий задаче и не
+выполняющий бизнес-мутаций. Формы используют только существующие операции API.
+Тонкий слой routing/view отделён от `users/urls.py`, `views.py` и `services.py`.
 
-The controller restores current server state through GET me, displays safe
-catalogue titles and sends original returned IDs. One pending action freezes
-serialized payload/key in page memory; conflicting submissions are blocked until
-an uncertain result is resolved. An explicit new action creates a new key.
-Passwords and pending action data are not stored in browser storage. Reload
-restores confirmed server state; it does not persist credential-bearing drafts.
+Controller восстанавливает текущее состояние сервера через GET me, показывает
+безопасные названия из каталога и отправляет исходные возвращённые IDs. Для одного
+ожидающего действия сериализованные payload/key фиксируются в памяти страницы;
+конфликтующие отправки блокируются до выяснения неопределённого результата. Для
+явно нового действия создаётся новая key. Passwords и данные ожидающего действия
+не сохраняются в browser storage. После перезагрузки восстанавливается
+подтверждённое состояние сервера; черновики с учётными данными не сохраняются.
 
-Each mutation obtains fresh CSRF. Successful registration/login refreshes CSRF
-and reads GET me. A known auth acknowledgement followed by a failed recovery read
-blocks forms and offers restoration instead of another registration. Non-receipt
-login/logout/profile retries first reconcile current server state. Private retries
-check the session owner before another mutation. Login failures remain generic.
+Каждая мутация получает свежий CSRF. После успешных регистрации/login CSRF
+обновляется и выполняется GET me. Если подтверждённая аутентификация не
+сопровождается успешным чтением состояния, формы блокируются и предлагается
+восстановление вместо новой регистрации. Перед повтором login/logout/profile без
+receipt сначала согласуется текущее состояние сервера. Перед новой приватной
+мутацией при повторе проверяется владелец session. Ошибки login остаются общими.
 
-Native POST forms, labels, password/autocomplete semantics, legends/radio groups,
-required select controls, error associations, live status/alerts and focus handling
-are implemented using I02 components/tokens. No diagnostic session or numerical
-skill/progress behavior is added.
+Нативные POST-формы, labels, семантика password/autocomplete, legends/radio groups,
+обязательные select controls, связи ошибок с полями, live status/alerts и управление
+фокусом реализованы с компонентами/tokens I02. Diagnostic session и числовое
+поведение skill/progress не добавлены.
 
-Targeted tests PASS (details in trace). Actual keyboard/mobile/browser DOM/network/
-console/screenshots and final repository verification remain **NOT STARTED**.
-This paragraph records the stage 2 stopping state; stage 3 results follow below.
-No stage 2 commit, push, PR, Issue change or merge was performed.
+Целевые тесты ПРОЙДЕНЫ (подробности в отчёте о ходе работ). Фактические проверки
+клавиатуры/mobile/browser DOM/network/console/screenshot и итоговая проверка
+репозитория пока **НЕ НАЧАТЫ**. Этот абзац фиксирует состояние остановки на этапе 2;
+ниже приведены результаты этапа 3. На этапе 2 не выполнялись commit, push, создание
+PR, изменение Issue или merge.
 
-## 14. Stage 3 browser acceptance (2026-10-04)
+## 14. Приёмка в браузере на этапе 3 (2026-10-04)
 
-User-authorized scope: real `/account/` browser acceptance, documented local
-runtime preparation, I03-owned fixes and sanitized evidence. HEAD remains
-`c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`; core remains uncommitted.
+Разрешённая пользователем область: приёмка реального `/account/` в браузере,
+документированная подготовка локального runtime, исправления в области I03 и
+санитизированные свидетельства. HEAD остаётся `c0bfecfa53795c6b4fb07bb5ffb8ed0ff04dac66`;
+основные изменения не закоммичены.
 
-PASS on Chromium **154.0.8037.98**, Django **5.2.16**, Python **3.14.7** and
-PostgreSQL **16.15**. Applied the existing `content.0002_grade_created_at`, ran
-unchanged `bootstrap_site`, collected static and used documented `runserver`.
-No model/migration/API/contract/business-semantic change was authored.
+ПРОЙДЕНО на Chromium **154.0.8037.98**, Django **5.2.16**, Python **3.14.7** и
+PostgreSQL **16.15**. Применена существующая `content.0002_grade_created_at`,
+запущен неизменённый `bootstrap_site`, собрана статика и использован
+документированный `runserver`. Изменения model/migration/API/contract/семантики
+бизнес-логики не вносились.
 
-Real flows passed: registration, logout/login, catalogue/profile save, all three
-mode selections, reload/later-login restoration, safe invalid credentials and
-other-tab logout recovery. Catalogue `5 класс` returns PK **1**, number **5**;
-PATCH/onboarding send returned **1**. All mutations used current CSRF; receipt
-headers appeared only on registration/onboarding. Actual auth rotation was
-observed without storing token values. Production consumer pagination was also
-exercised with three real pages at `page_size=2` in a read-only probe; normal
-account UI used the actual six-row catalogue at its default `page_size=20`.
+Реальные сценарии пройдены: регистрация, logout/login, сохранение каталога/профиля,
+выбор всех трёх режимов, восстановление после перезагрузки/последующего входа,
+безопасная обработка неверных учётных данных и восстановление после logout в другой
+вкладке. Каталог возвращает для `5 класс` PK **1**, номер **5**; PATCH/onboarding
+отправляют возвращённое значение **1**. Во всех мутациях использовался актуальный
+CSRF; заголовки receipt присутствовали только при регистрации/onboarding. Реальная
+ротация auth наблюдалась без сохранения значений токенов. Пагинация потребителя
+production также проверена в режиме чтения на трёх реальных страницах с
+`page_size=2`; обычный UI аккаунта использовал реальный каталог из шести строк с
+размером страницы по умолчанию `page_size=20`.
 
-A loopback transparent observer forwarded the UI's requests to the unchanged
-Django/PostgreSQL API. Two controlled lost acknowledgements after real
-SELF_REPORT writes demonstrated transport replay and explicit keyboard retry;
-unchanged keys/bodies resulted in four onboarding receipts for four logical
-operations despite six POST attempts. No mocked API success or profile state.
-DIAGNOSTIC remains mode selection, SELF_REPORT remains mode persistence only.
+Прозрачный loopback-наблюдатель пересылал запросы UI в неизменённый API
+Django/PostgreSQL. Два контролируемых случая потери подтверждения после реальных
+записей SELF_REPORT показали повтор на уровне транспорта и явный повтор с
+клавиатуры; при неизменных keys/bodies для четырёх логических операций созданы
+четыре onboarding receipts, несмотря на шесть попыток POST. Успех API и состояние
+профиля не подменялись имитациями. DIAGNOSTIC остаётся только выбором режима,
+SELF_REPORT — только сохранением режима.
 
-Keyboard Tab/Shift+Tab/Enter/Space/native grade arrows/radio arrows passed, with
-associated labels/errors, visible focus, disabled/loading/pending states and no
-trap. Found and fixed logout focus attempted before its fieldset was enabled.
-The regression adapter now models disabled-fieldset focus rejection. Red test
-reproduced the defect; post-fix **19/19 Node** and **5/5 Django** tests passed.
-Actual browser logout now focuses the enabled login username field.
+Проверены Tab/Shift+Tab/Enter/Space/нативные клавиши выбора класса/радиокнопок,
+связанные labels/errors, видимый фокус, состояния disabled/loading/pending и
+отсутствие клавиатурной ловушки. Обнаружена и исправлена попытка установить фокус
+при logout до включения fieldset. Regression adapter теперь моделирует отказ
+фокуса на disabled fieldset. Тест, завершающийся ошибкой, воспроизвёл дефект;
+после исправления прошли **19/19 тестов Node** и **5/5 тестов Django**. При logout
+в реальном браузере фокус теперь устанавливается на включённое поле username формы login.
 
-Registration/login, profile/onboarding, saved and safe error layouts passed at
-actual **360/768/1440px** widths, including a real 150-character synthetic
-username on mobile. DOM had no duplicate IDs; browser warn/error capture was
-empty and no JS stack trace was observed. Legacy `/favicon.ico` server 404 is a
-pre-existing shell request, not an I03 failure. One-browser walkthrough does not
-claim a cross-browser or auditory screen-reader audit.
+Макеты регистрации/login, profile/onboarding, сохранённого состояния и безопасной
+ошибки прошли проверку на фактических ширинах **360/768/1440px**, включая реальный
+синтетический username длиной 150 символов на мобильном экране. В DOM не было
+повторяющихся IDs; браузер не зарегистрировал warn/error и JS stack trace.
+Серверный 404 для старого запроса `/favicon.ico` существовал ранее и не является
+сбоем I03. Проверка в одном браузере не подтверждает межбраузерный аудит или
+проверку экранным диктором на слух.
 
-Evidence: [index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/README.md),
-[acceptance record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/acceptance.json),
-[sanitized network](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/network.json).
-No passwords/cookies/CSRF/key values are retained. Tested source hashes and
-served/source equality are recorded. Final verifier, CI, commit/push/PR, human
-Task Approvals and G3 closure remain pending; Issue #25 is unchanged.
+Свидетельства: [индекс](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/README.md),
+[запись приёмки](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/acceptance.json),
+[санитизированные сетевые данные](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/network.json).
+Passwords/cookies/значения CSRF/key не сохраняются. Зафиксированы хеши
+проверенных исходников и соответствие раздаваемых файлов исходникам. Итоговая
+проверка, CI, commit/push/PR, утверждения задачи человеком и закрытие G3 ещё
+ожидаются; Issue #25 не менялась.
 
-## 15. Stage 4 final local verification (2026-10-04)
+## 15. Итоговая локальная проверка на этапе 4 (2026-10-04)
 
-The full verification-skill entry point passed all eight checks, including the
-complete PostgreSQL Django suite (95 tests), R03 contracts (18) and Harness unit
-suite (73), without skips. Additional Node checks passed 24 tests (19 I03 and
-5 I02); accepted R02A contracts passed 30 tests. Exact commands, upstream coverage
-and tooling versions are recorded in the trace and active plan.
+Полная точка входа verification skill прошла все восемь проверок, включая полный
+набор Django для PostgreSQL (95 тестов), контракты R03 (18) и модульный набор
+Harness (73), без пропусков. Дополнительные проверки Node прошли 24 теста
+(19 I03 и 5 I02); принятые контракты R02A прошли 30 тестов. Точные команды,
+покрытие upstream и версии инструментов записаны в отчёте о ходе работ и активном плане.
 
-All 27 screenshots were re-inspected; JPEG dimensions/digests, 12 tested-source
-bindings, three served-asset hashes and local evidence links matched. Sanitized
-network evidence retains 99 events with 21 current-CSRF mutations and no secret
-values. The stage 3 evidence remains a historical snapshot. Keyboard/responsive
-acceptance still applies to the unchanged implementation bytes.
+Все 27 снимков экрана проверены повторно; размеры/digests JPEG, 12 привязок к
+проверенным исходникам, три хеша раздаваемых assets и локальные ссылки на
+свидетельства совпали. Санитизированные сетевые свидетельства содержат 99 событий,
+в том числе 21 мутацию с актуальным CSRF, и не содержат секретных значений.
+Свидетельства этапа 3 остаются историческим снимком. Приёмка клавиатуры и
+адаптивного поведения по-прежнему относится к неизменённым байтам реализации.
 
-Scope audit found no API/business-semantic, model/migration, frozen R02A, seed,
-Progress or diagnostic-runtime changes. All 17 frozen manifest pins and the
-manifest itself match HEAD. Corrected the I03 documents' previously miscopied
-manifest digest above; no frozen artifact was edited. No implementation fix was
-needed in stage 4. Legacy favicon 404 remains non-blocking.
+Проверка области работ не выявила изменений API/семантики бизнеса,
+model/migration, зафиксированного R02A, seed, Progress или diagnostic-runtime.
+Все 17 зафиксированных значений manifest и сам manifest соответствуют HEAD.
+Исправлен ранее ошибочно скопированный выше digest manifest в документах I03;
+зафиксированные артефакты не редактировались. На этапе 4 исправления реализации
+не потребовались. Старый favicon 404 не блокирует работу.
 
-Local verification is complete; commit/push/PR, exact-head CI, independent
-Руслан/Владимир Task Approvals, merge and G3 acceptance remain pending.
+Локальная проверка завершена; commit/push/PR, CI для точного head, независимые
+утверждения задачи Русланом/Владимиром, merge и приёмка G3 ещё ожидаются.
 
-## 16. Contextual state-loading retry UX (2026-10-05)
+## 16. Контекстный UX повтора загрузки состояния (2026-10-05)
 
-User-authorized UX cleanup: normal anonymous/authenticated states have no manual
-state-reload button. Automatic GET me on opening the page and after successful
-registration/login remains unchanged. Failed restoration or session reconciliation
-offers **Повторить загрузку**; it reads the existing GET users/me only and does
-not replay a mutation. A successful read hides the button. Failed/repeated reads
-show an error status rather than an obsolete loading message.
+Разрешённая пользователем UX-правка: в обычном анонимном/аутентифицированном
+состоянии нет ручной кнопки перезагрузки состояния. Автоматический GET me при
+открытии страницы и после успешной регистрации/login остаётся без изменений. При
+неудачном восстановлении или согласовании session предлагается **Повторить
+загрузку**; кнопка вызывает только существующий GET users/me и не повторяет
+мутацию. После успешного чтения кнопка скрывается. Неудачные/повторные чтения
+показывают статус ошибки вместо устаревшего сообщения о загрузке.
 
-Recovery moves keyboard focus after controls are enabled: anonymous state to
-login username, authenticated state to profile title, or to the pending mutation
-retry when applicable. CSRF/receipt transport, backend auth/API semantics and
-authoritative server state are unchanged. No extra normal-state action is needed.
+При восстановлении фокус перемещается после включения controls: в анонимном
+состоянии — на username login, в аутентифицированном — на заголовок профиля, а
+если применимо — на повтор ожидающей мутации. Транспорт CSRF/receipt, семантика
+backend auth/API и авторитетность состояния сервера не менялись. Дополнительное
+действие в обычном состоянии не требуется.
 
-Regression tests, real API/browser keyboard re-check and full verifier passed;
-see [UX evidence](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/ux-recheck.json) and trace.
-Stage 3/4 snapshots remain historical; the new record binds the final UX source
-bytes. The above sections describe their local-stage snapshots; current
-publication facts follow. Human Task Approvals and G3 remain pending.
+Регрессионные тесты, повторная проверка клавиатуры в реальном API/браузере и
+полный verifier прошли; см. [свидетельства UX](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/ux-recheck.json)
+и отчёт о ходе работ. Снимки этапов 3/4 остаются историческими; новая запись
+привязана к итоговым байтам исходников UX. Разделы выше описывают локальные снимки
+этапов; ниже приведены текущие сведения о публикации. Утверждения задачи человеком
+и G3 по-прежнему ожидаются.
 
-## 17. Publication / independent review (2026-10-05)
+## 17. Публикация и независимое ревью (2026-10-05)
 
-Published implementation commit `635e8ecaff65f2fdc7069656a7e5b47e863aa853`
-(55 task-owned files) in [PR #26](https://github.com/Tramsey00/MathStart-Python/pull/26),
-base `main`, head `ms7-i03-auth-profile-onboarding`. Preparation commit is
-preserved. Review requests confirmed for Руслан (`Tramsey00`) and Владимир
-(`VladimirFrolov777`), whose accounts were verified in accepted I02 reviews.
+Коммит реализации `635e8ecaff65f2fdc7069656a7e5b47e863aa853` (55 файлов задачи)
+опубликован в [PR #26](https://github.com/Tramsey00/MathStart-Python/pull/26),
+base `main`, head `ms7-i03-auth-profile-onboarding`. Коммит подготовки сохранён.
+Подтверждены запросы на ревью Руслану (`Tramsey00`) и Владимиру
+(`VladimirFrolov777`); их учётные записи проверены в принятых ревью I02.
 
-[CI run 37241717597](https://github.com/Tramsey00/MathStart-Python/actions/runs/37241717597)
-completed **SUCCESS** on that exact implementation SHA, including fresh PostgreSQL
-smoke, full verifier and R02A/R03A checks. A normal documentation-only follow-up
-records publication; its SHA/new exact-head CI evidence is kept in PR #26's body
-and live checks after push. No source or acceptance-evidence changes in the
-publication record; see trace §19 for exact actions and provenance.
+[Запуск CI 37241717597](https://github.com/Tramsey00/MathStart-Python/actions/runs/37241717597)
+завершился **УСПЕШНО** на этом точном SHA реализации; он включает smoke-проверку
+на новой PostgreSQL, полный verifier и проверки R02A/R03A. Публикация зафиксирована
+обычным последующим изменением только документации; его SHA/свидетельства CI для
+нового точного head приведены в описании PR #26 и текущих проверках после push.
+Запись о публикации не меняет исходники или свидетельства приёмки; точные действия
+и происхождение данных см. в §19 отчёта о ходе работ.
 
-Independent Task Approvals **PENDING**; request is not approval. Issue #25 remains
-OPEN; no manual closure, self-approval or merge. G3 **PENDING**. Single-browser
-limits and legacy favicon 404 remain non-blocking. Keep the Exec Plan active
-until the required independent human acceptance.
+Независимые утверждения задачи **ОЖИДАЮТСЯ**; запрос не является утверждением.
+Issue #25 остаётся OPEN; вручную не закрывалась, самоподтверждения или merge не
+было. G3 **ОЖИДАЕТСЯ**. Ограничение проверки в одном браузере и старый favicon 404
+не блокируют работу. Оставьте Exec Plan активным до необходимой независимой
+приёмки человеком.
 
-## 18. Ruslan auth UI review corrections (2026-10-05)
+## 18. Исправления auth UI по ревью Руслана (2026-10-05)
 
-The Owner explicitly authorized two scoped corrections in existing PR #26:
-registration username UI maximum 30 and a Login/Registration switcher in place
-of two simultaneously visible forms. This instruction changes the consumer UX,
-not the accepted backend registration contract described in §6.
+Владелец явно разрешил два ограниченных исправления в существующем PR #26:
+максимум username в UI регистрации — 30 символов и переключатель Login/Registration
+вместо двух одновременно отображаемых форм. Это указание меняет UX потребителя,
+но не принятый контракт регистрации backend, описанный в §6.
 
-Default anonymous mode is **Вход**. Two native `type=button` controls in a named
-group use `aria-pressed` and `aria-controls`; the active button is filled and the
-inactive button outlined using existing I02 tokens. The inactive section is
-`hidden` and its fieldset disabled, excluding it from the normal tab order.
-Enter/Space activation focuses the enabled first username field. Errors keep
-the submitted auth mode; switching clears obsolete errors. Busy or pending
-mutation/retry locks the switcher so immutable operation body/key cannot change.
-Successful auth retains CSRF refresh/current GET me; logout returns to Login.
+Начальный анонимный режим — **Вход**. Два нативных элемента `type=button` в
+именованной группе используют `aria-pressed` и `aria-controls`; активная кнопка
+залита, неактивная имеет контур согласно существующим tokens I02. Неактивный
+раздел скрыт атрибутом `hidden`, а его fieldset отключён, поэтому он исключён из
+обычного порядка Tab. Активация Enter/Space переводит фокус на первое включённое
+поле username. Ошибки сохраняют выбранный режим auth; при переключении устаревшие
+ошибки очищаются. Во время выполнения или ожидания мутации/повтора переключатель
+заблокирован, чтобы неизменяемые body/key операции нельзя было изменить. После
+успешной auth сохраняются обновление CSRF и текущий GET me; logout возвращает к Login.
 
-Registration username 30 is accepted. A 31-character prefilled/programmatic
-value is rejected before action/key/CSRF/API creation with a static safe error,
-`aria-invalid`, associated field error and focused alert. Native maxlength also
-constrains ordinary typing. Existing long backend usernames can still log in and
-restore; no truncation or backend-limit workaround is introduced.
+Username регистрации длиной 30 символов принимается. Предзаполненное или заданное
+программно значение длиной 31 символ отклоняется до создания action/key/CSRF/API
+с постоянной безопасной ошибкой, `aria-invalid`, связанной с полем ошибкой и
+переводом фокуса на alert. Нативный maxlength также ограничивает обычный ввод.
+Вход с уже существующим длинным username, допустимым backend, и его восстановление
+сохраняются; обрезка и обход ограничения backend не вводятся.
 
-Automated results: **33 Node** (28 I03 + 5 I02), **64 targeted Django** (I03 6,
-V02 43, grades 10, I02 5), full eight-check verifier (**96 Django / 18 R03 /
-73 Harness**), **30 R02A** and dependency consistency PASS, no skips.
-Real Django/PostgreSQL browser checks passed both switch directions/focus,
-30/31 boundary, errors, auth/rotation, saved state, three modes and SELF_REPORT
-same-operation retry. Login/Registration layouts have no horizontal overflow at
-360/768/1440. Console warn/error capture empty; legacy favicon 404 non-blocking.
+Результаты автоматических проверок: **33 теста Node** (28 I03 + 5 I02),
+**64 целевых теста Django** (I03 6, V02 43, grades 10, I02 5), полный verifier из
+восьми проверок (**96 Django / 18 R03 / 73 Harness**), **30 проверок R02A** и
+согласованность зависимостей пройдены, пропусков нет. Проверки браузера на реальном
+Django/PostgreSQL прошли для обоих направлений переключения/фокуса, границы 30/31,
+ошибок, auth/ротации, сохранённого состояния, трёх режимов и повтора той же
+операции SELF_REPORT. В макетах Login/Registration нет горизонтальной прокрутки
+при ширинах 360/768/1440. Захват console warn/error пуст; старый favicon 404 не блокирует работу.
 
-Current evidence: [review record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/review-auth-ui.json)
-and its 11 new sanitized screenshots, 56 real network events and 13 source hashes.
-Older captures remain historical snapshots. No backend/API/model/migration,
-transport, frozen contract, Progress or diagnostic-engine changes. Publication
-uses the same branch and PR #26; new exact-head CI is verified there after push.
-Both independent approvals remain required. Руслан's existing GitHub event is
-CHANGES_REQUESTED despite APPROVED prose; request alone/text alone does not
-resolve that GitHub gate. No self-approval, manual Issue closure, merge or G3 closure.
+Текущие свидетельства: [запись ревью](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/review-auth-ui.json)
+и 11 новых санитизированных снимков экрана, 56 реальных сетевых событий и 13
+хешей исходников. Старые снимки остаются историческими. Backend/API/model/migration,
+transport, зафиксированный contract, Progress и diagnostic engine не менялись.
+Публикация использует ту же ветку и PR #26; после push там проверен CI для нового
+точного head. Необходимы оба независимых утверждения. Существующее событие
+Руслана на GitHub имеет статус CHANGES_REQUESTED, несмотря на текст APPROVED;
+один запрос или текст отзыва не закрывает этот gate GitHub. Самоподтверждения,
+ручного закрытия Issue, merge или закрытия G3 не было.
 
-## 19. Vladimir auth/security P2 correction (2026-10-05)
+## 19. Исправление P2 по auth/security от Владимира (2026-10-05)
 
-The Owner authorized a scoped fix for password retention after terminal auth
-failure in PR #26. Both password inputs are cleared immediately after a valid
-Login/Registration payload is serialized into its pending operation. Successful
-acknowledgements and terminal auth outcomes clear them again; non-retryable 401
-login / 400 registration therefore retain no credential in form inputs. Local
-registration-limit/action-construction failures also clear credentials. Native
-required-field validation before an operation exists remains unchanged.
+Владелец разрешил ограниченное исправление удержания password после окончательной
+ошибки auth в PR #26. Оба поля password очищаются сразу после сериализации
+допустимого payload Login/Registration в ожидающую операцию. При успешном
+подтверждении и окончательном результате auth поля очищаются ещё раз; поэтому
+невосстанавливаемые 401 login / 400 регистрации не оставляют учётные данные в
+полях формы. Локальные ошибки ограничения регистрации/создания action также
+очищают учётные данные. Нативная проверка обязательных полей до создания операции
+остаётся без изменений.
 
-Switching auth mode clears the outgoing password before hiding its form. Active
-mode, safe errors, focus, fieldsets and pending switch locks remain unchanged.
-While retry is pending, only the existing in-memory serialized operation carries
-its original body/key; retry never rebuilds it from form values. On terminal
-completion `pending` is discarded. No credential storage, DOM attributes, hidden
-inputs, transport/backend/API/CSRF/session/idempotency changes are introduced.
+При переключении режима auth исходный password очищается до скрытия формы.
+Активный режим, безопасные ошибки, focus, fieldsets и блокировки переключения при
+ожидающей операции остаются без изменений. Пока ожидается повтор, только уже
+сериализованная операция в памяти хранит исходные body/key; повтор никогда не
+собирает их заново из значений формы. При окончательном завершении `pending`
+удаляется. Хранение учётных данных, DOM-атрибуты, скрытые поля, transport/backend/API/
+CSRF/session/idempotency не меняются.
 
-Regression Node suite **34/34** (29 I03 + 5 I02), targeted Django **64/64**, full
-verifier **8/8** (96 Django / 18 R03 / 73 Harness), R02A **30/30**, no skips.
-Real Django/PostgreSQL browser checks PASS: both switch directions, 401/400 empty
-passwords without manual clearing, direct registration/login, frozen registration
-retry after lost response, rotation and saved-state restoration. See the new
-[security record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/security-auth-credentials.json)
-and trace §21. Earlier evidence remains historical; independent re-review and
-Task Approvals/G3 remain pending. Publication uses the same branch/PR #26.
+Набор regression для Node прошёл **34/34** (29 I03 + 5 I02), целевые тесты Django
+**64/64**, полный verifier **8/8** (96 Django / 18 R03 / 73 Harness), R02A
+**30/30**, пропусков нет. Браузерные проверки на реальном Django/PostgreSQL
+ПРОЙДЕНЫ: оба направления переключения; после 401/400 поля password пусты без
+ручной очистки; пройдены регистрация/login, повтор замороженной регистрации после
+потери ответа, ротация и восстановление сохранённого состояния. См. новую
+[запись безопасности](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/security-auth-credentials.json)
+и §21 отчёта о ходе работ. Предыдущие свидетельства остаются историческими;
+независимое повторное ревью, утверждения задачи и G3 ожидаются. Публикация ведётся
+в той же ветке/PR #26.
 
-## 20. Quiet anonymous initial state (2026-10-06)
+## 20. Спокойное начальное состояние для анонимного пользователя (2026-10-06)
 
-The Owner requested removal of the duplicate "Войдите или создайте аккаунт"
-prompt below the existing introduction. After automatic anonymous GET me succeeds,
-the account status text is empty and its whole card is hidden, without an empty
-bordered placeholder. Loading, meaningful operation results, errors and retry
-remain available. Errors explicitly reveal the card before focus; clearing a
-pre-action error with no status hides it again. Auth/session/CSRF/receipt/credential
-cleanup and server-state authority are unchanged.
+Владелец запросил удаление повторной подсказки «Войдите или создайте аккаунт»
+под существующим вступлением. После успешного автоматического анонимного GET me
+текст статуса аккаунта пуст, а вся его карточка скрыта, без пустой карточки с
+рамкой. Загрузка, значимые результаты операций, ошибки и повтор остаются доступны.
+Перед переводом фокуса карточка явно показывается при ошибке; если ошибка до
+операции очищена и статуса нет, карточка снова скрывается. Auth/session/CSRF/receipt/
+очистка учётных данных и авторитетность состояния сервера не меняются.
 
-Node 34/34, I03 Django 6/6 and real API/browser initial/error/retry/keyboard checks
-PASS. All eight mandatory checks covered (first seven in default verifier, last
-Harness check completed via documented group after interruption). See trace §22
-and [quiet-state record](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/quiet-state.json).
-The acceptance snapshot was captured locally before publication. The Owner then
-authorized an ordinary commit/push in the same branch and existing PR #26. Trace
-§23 records the scoped publication procedure; the resulting commit SHA and
-exact-head CI proof are recorded in the PR body/live checks after push. This does
-not grant independent Task Approval or G3 acceptance.
+Node 34/34, I03 Django 6/6 и проверки начального состояния/ошибки/повтора/клавиатуры
+с реальными API и браузером ПРОЙДЕНЫ. Охвачены все восемь обязательных проверок
+(первые семь — стандартным verifier, последняя проверка Harness выполнена через
+документированную группу после прерывания). См. §22 отчёта о ходе работ и
+[запись спокойного состояния](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/agent-traces/MS7-I03-evidence/quiet-state.json).
+Снимок приёмки сделан локально до публикации. Затем владелец разрешил обычный
+commit/push в той же ветке и существующем PR #26. В §23 отчёта о ходе работ
+описана процедура публикации в заданной области; итоговый SHA коммита и
+свидетельство CI для точного head зафиксированы в описании PR/текущих проверках
+после push. Это не даёт независимого утверждения задачи или приёмки G3.

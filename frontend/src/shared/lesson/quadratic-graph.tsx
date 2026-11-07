@@ -1,17 +1,16 @@
-import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { CoefficientControl } from './graph-controls';
 import { analyzeFunction, formatNumber, INITIAL_COEFFICIENTS, polynomial, valueAt, type Coefficients } from './quadratic-math';
 
 const plot = { left: 48, top: 20, width: 504, height: 320 };
 const sx = (x: number) => plot.left + (x + 10) / 20 * plot.width;
 const sy = (y: number) => plot.top + (10 - y) / 20 * plot.height;
 const visible = (x: number, y: number) => x >= -10 && x <= 10 && y >= -10 && y <= 10;
-const graphTapSlop = 8;
 
 export function QuadraticGraph() {
   const [coefficients, setCoefficients] = useState<Coefficients>(INITIAL_COEFFICIENTS);
   const [selectedX, setSelectedX] = useState(0);
   const resetFrame = useRef<number | null>(null);
-  const graphPointer = useRef<{ id: number; clientX: number; clientY: number } | null>(null);
   function stopReset() {
     if (resetFrame.current !== null) cancelAnimationFrame(resetFrame.current);
     resetFrame.current = null;
@@ -54,11 +53,6 @@ export function QuadraticGraph() {
   const analysis = analyzeFunction(coefficients);
   const inspectedY = valueAt(inspectedX, coefficients);
   const coordinates = `x = ${formatNumber(inspectedX)}; y = ${formatNumber(inspectedY)}`;
-  function pointerX(event: PointerEvent<SVGSVGElement>) {
-    const box = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - box.left) * 580 / box.width - plot.left) / plot.width * 20 - 10;
-    return x < -10 || x > 10 ? null : x;
-  }
   const curve = useMemo(() => {
     let pen = false;
     const commands: string[] = [];
@@ -87,34 +81,7 @@ export function QuadraticGraph() {
   return <div className="quadratic-lab" id="ms-quadratic-lab-660" data-react-quadratic="true" onCopy={event => event.preventDefault()} onCut={event => event.preventDefault()} onDragStart={event => event.preventDefault()}>
     <div className="quadratic-toolbar"><p className="quadratic-current" aria-live="polite">y = {polynomial(coefficients)}</p><button className="quadratic-reset" type="button" onClick={resetCoefficients}>Сбросить коэффициенты</button></div>
     <div className="quadratic-workspace">
-      <figure className="quadratic-plot"><svg viewBox="0 0 580 378" role="img" aria-labelledby={`${identity}-title ${identity}-desc`}
-        onPointerDown={event => {
-          if (event.button !== 0 || event.isPrimary === false || (graphPointer.current !== null && graphPointer.current.id !== event.pointerId)) return;
-          graphPointer.current = { id: event.pointerId, clientX: event.clientX, clientY: event.clientY };
-        }}
-        onPointerMove={event => {
-          const start = graphPointer.current;
-          if (start?.id === event.pointerId && Math.hypot(event.clientX - start.clientX, event.clientY - start.clientY) > graphTapSlop) {
-            graphPointer.current = null;
-          }
-        }}
-        onPointerUp={event => {
-          const start = graphPointer.current;
-          if (!start || start.id !== event.pointerId) return;
-          graphPointer.current = null;
-          if (event.button !== 0 || Math.hypot(event.clientX - start.clientX, event.clientY - start.clientY) > graphTapSlop) return;
-          const x = pointerX(event);
-          if (x === null) return;
-          stopReset();
-          setSelectedX(Math.round(x * 10) / 10);
-        }}
-        onPointerCancel={event => { if (graphPointer.current?.id === event.pointerId) graphPointer.current = null; }}
-        onPointerLeave={() => { graphPointer.current = null; }}
-        onPointerOut={event => {
-          if (event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget)) return;
-          graphPointer.current = null;
-        }}
-        onLostPointerCapture={event => { if (graphPointer.current?.id === event.pointerId) graphPointer.current = null; }}>
+      <figure className="quadratic-plot"><svg viewBox="0 0 580 378" role="img" aria-labelledby={`${identity}-title ${identity}-desc`}>
         <title id={`${identity}-title`}>{`График y = ${polynomial(coefficients)}`}</title>
         <desc id={`${identity}-desc`}>Координатная плоскость от −10 до 10 по обеим осям. Свойства функции и таблица значений доступны текстом рядом с графиком. Коэффициенты изменяются ползунками.</desc>
         <defs><clipPath id={`${identity}-clip`}><rect x={plot.left} y={plot.top} width={plot.width} height={plot.height}/></clipPath></defs>
@@ -123,7 +90,7 @@ export function QuadraticGraph() {
           <line x1={sx(n)} x2={sx(n)} y1={plot.top} y2={plot.top + plot.height}/><line x1={plot.left} x2={plot.left + plot.width} y1={sy(n)} y2={sy(n)}/>
         </g>)}
         <g className="plot-axes"><line x1={plot.left} x2={plot.left + plot.width} y1={sy(0)} y2={sy(0)}/><line x1={sx(0)} x2={sx(0)} y1={plot.top} y2={plot.top + plot.height}/></g>
-        <g className="plot-ticks">{[-10, -8, -6, -4, -2, 2, 4, 6, 8, 10].map(n => <g key={n}><text x={sx(n)} y={sy(0) + 18} textAnchor={n === -10 ? "start" : n === 10 ? "end" : "middle"}>{n}</text><text x={sx(0) - 10} y={sy(n) + (n === 10 ? 14 : n === -10 ? -5 : 4)} textAnchor="end">{n}</text></g>)}<text x={sx(0) - 9} y={sy(0) + 18}>0</text><text x="565" y={sy(0) - 6}>x</text><text x={sx(0) + 9} y="17">y</text></g>
+        <g className="plot-ticks">{[-10, -8, -6, -4, -2, 2, 4, 6, 8, 10].map(n => <g key={n}><text x={sx(n) + (n === -10 ? 4 : n === 10 ? -4 : 0)} y={sy(0) + 18} textAnchor={n === -10 ? "start" : n === 10 ? "end" : "middle"}>{n}</text><text x={sx(0) - 10} y={sy(n) + (n === 10 ? 24 : n === -10 ? -8 : 4)} textAnchor="end">{n}</text></g>)}<text x={sx(0) - 9} y={sy(0) + 18}>0</text><text x="546" y={sy(0) - 8} textAnchor="end">x</text><text x={sx(0) + 9} y="44">y</text></g>
         <g clipPath={`url(#${identity}-clip)`}>
           {analysis.kind === 'quadratic' && <line className="plot-symmetry" x1={sx(analysis.vertex[0])} x2={sx(analysis.vertex[0])} y1={plot.top} y2={plot.top + plot.height}/>}
           <path className="plot-curve" d={curve} fill="none"/>
@@ -137,9 +104,9 @@ export function QuadraticGraph() {
         <input id={`${identity}-probe`} type="range" min="-10" max="10" step="0.1" value={inspectedX}
           aria-label="Абсцисса исследуемой точки x" aria-valuetext={coordinates} aria-describedby={`${identity}-probe-help`}
           onPointerDown={stopReset} onChange={event => { stopReset(); setSelectedX(Number(event.target.value)); }}/>
-        <p id={`${identity}-probe-help`}>Выберите x ползунком или нажмите на график.{!visible(inspectedX, inspectedY) && <span className="quadratic-probe-outside"> Точка вне окна графика.</span>}</p>
+        <p id={`${identity}-probe-help`}>Изменяйте x ползунком под графиком.{!visible(inspectedX, inspectedY) && <span className="quadratic-probe-outside"> Точка вне окна графика.</span>}</p>
       </figcaption></figure>
-      <div className="quadratic-data"><div className="quadratic-controls">{(['a', 'b', 'c'] as const).map(key => <div className="coefficient-control" key={key}><label htmlFor={`${identity}-${key}`}><span><span className="coefficient-word">Коэффициент </span>{key}</span><output htmlFor={`${identity}-${key}`}>{formatNumber(coefficients[key], 1)}</output></label><input id={`${identity}-${key}`} aria-label={`Коэффициент ${key}`} type="range" min={key === 'a' ? -4 : -10} max={key === 'a' ? 4 : 10} step="0.1" value={coefficients[key]} onPointerDown={stopReset} onChange={event => { stopReset(); setCoefficients(current => ({ ...current, [key]: Number(event.target.value) })); }}/><div className="coefficient-scale" aria-hidden="true"><span>{key === 'a' ? '−4' : '−10'}</span><span>0</span><span>{key === 'a' ? '4' : '10'}</span></div></div>)}</div>
+      <div className="quadratic-data"><div className="quadratic-controls">{(['a', 'b', 'c'] as const).map(key => <CoefficientControl key={key} name={key} value={coefficients[key]} min={key === 'a' ? -4 : -10} max={key === 'a' ? 4 : 10} step={0.1} format={value => formatNumber(value, 1)} onInputStart={stopReset} onChange={value => { stopReset(); setCoefficients(current => ({ ...current, [key]: value })); }}/>)}</div>
     <dl className="quadratic-properties">{properties.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     <div className="lesson-table-scroll"><table className="quadratic-values"><caption>Значения функции</caption><thead><tr><th scope="col">x</th>{[-2, 0, 1, 2, 3, 4].map(x => <th scope="col" key={x}>{x}</th>)}</tr></thead><tbody><tr><th scope="row">y</th>{[-2, 0, 1, 2, 3, 4].map(x => <td data-x={x} key={x}>{formatNumber(valueAt(x, coefficients))}</td>)}</tr></tbody></table></div>
     <p className="graph-explanation">При a = 0 квадратный член исчезает. Для сравнения здесь можно построить и прямую.</p></div>

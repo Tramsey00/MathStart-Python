@@ -1,49 +1,71 @@
-# SPEC R03: ProgressEvent and UserSkillState Contract v1
+# SPEC R03: Контракт ProgressEvent и UserSkillState v1
 
-- **Status:** Accepted
-- **Owner:** Ruslan; backup Vladimir
-- **Related issue:** https://github.com/Tramsey00/MathStart-Python/issues/6
-- **Numerical authority:** `specs/progress/BASELINE-v1.md` (unchanged)
-- **Related ADR:** `docs/adr/ADR-0003-knowledge-progress-semantics.md`
-- **Related exercise contract:** `specs/exercises/R02-exercise-architecture.md`
+- **Статус:** Принято
+- **Владелец:** Руслан; резервный владелец — Владимир
+- **Связанная Issue:** https://github.com/Tramsey00/MathStart-Python/issues/6
+- **Числовой норматив:** `specs/progress/BASELINE-v1.md` (без изменений)
+- **Связанный ADR:** `docs/adr/ADR-0003-knowledge-progress-semantics.md`
+- **Связанный контракт exercises:** `specs/exercises/R02-exercise-architecture.md`
 - **Fixture:** `fixtures/progress-v1-cases.json`
 - **Reference/checks:** `scripts/r03_contract_reference.py`, `tests/test_r03_contract.py`
 
-## Boundary and terminology
+## Границы и термины
 
-`ProgressEvent` is the sole current progress-evidence event name. Earlier `KnowledgeEvent` wording in historical artifacts is superseded terminology, not a second persisted type. Only Progress accepts validated evidence and changes long-term `UserSkillState`. Assessment supplies attempt/hint/reveal and validation facts; Analyzer supplies only confidence-gated, controlled misconception evidence. A wrong final result alone cannot identify a misconception. Unsupported parsing is not an assessed wrong attempt or misconception. Tutor, frontend and LLM provider code cannot write the projection.
+`ProgressEvent` — единственное текущее имя события progress evidence. Более ранняя
+терминология `KnowledgeEvent` в исторических artifacts заменена и не обозначает
+второй сохраняемый тип. Только Progress принимает проверенные свидетельства и меняет
+долгосрочный `UserSkillState`. Assessment предоставляет факты attempt/hint/reveal и validation;
+Analyzer предоставляет только controlled evidence misconception, прошедшее confidence gate.
+По одному неверному итоговому ответу нельзя определить misconception. Неподдерживаемый parsing
+не является assessed wrong attempt или misconception. Код Tutor, frontend и LLM provider
+не может записывать проекцию.
 
-This contract and its reference code are pure, versioned domain examples. They do not create Django models, migrations, services, database rows, endpoints, or runtime seed data. Later persistence must enforce the same invariants transactionally and protect historical events from bootstrap.
+Этот контракт и его reference code — чистые версионированные примеры домена. Они не создают
+Django models, migrations, services, database rows, endpoints или runtime seed data.
+Будущая persistence должна транзакционно обеспечивать те же инварианты и защищать
+исторические события от bootstrap.
 
-## Event envelope and validation
+## Envelope события и validation
 
-An accepted `ProgressEvent` has these immutable fields:
+Принятый `ProgressEvent` имеет следующие неизменяемые поля:
 
-| Field | Meaning |
+| Поле | Значение |
 | --- | --- |
-| `event_id` | Globally unique, stable string identity; also a deterministic order component |
-| `user_id`, `skill_id` | Student and stable Skill reference; the reference fixture uses Skill code as `skill_id` |
-| `event_kind` | One of the eight baseline kinds below |
-| `occurred_at` | Timezone-aware UTC instant, serialized as RFC 3339 with `Z` |
-| `policy_version` | Recorded projection policy, `progress-v1` in this phase |
-| `attempt_id` | Required for attempt-derived assessed/reveal events; absent for self-report |
-| `evidence_ref` | Stable validated source evidence identity; required for attempt-derived events |
-| `difficulty` | Required for assessed events; numeric 1-4 or R02 string easy/medium/hard |
-| `misconception_code`, `confirmed` | Controlled code and true confirmation required only for `MISCONCEPTION_DETECTED` |
-| `source_kind` | Supporting source class; a misconception needs a validated step, domain, or structured-field source, not a wrong final answer alone |
-| `independent_evidence_rule` | If two different negative evidence units in one attempt both project, both records must carry `distinct_validated_steps` from Assessment |
-| `hint_used`, `reveal_used` | Server-validated attempt facts, never trusted from a client assertion |
-| `completed_at` | Optional immutable Assessment completion fact for that attempt/skill; timezone-aware RFC 3339 and normalized to UTC, see recent-window rule |
+| `event_id` | Глобально уникальная стабильная строковая identity; также часть детерминированного порядка |
+| `user_id`, `skill_id` | Ученик и стабильная ссылка Skill; reference fixture использует код Skill как `skill_id` |
+| `event_kind` | Один из восьми базовых видов ниже |
+| `occurred_at` | Timestamp с timezone в UTC, сериализованный RFC 3339 с `Z` |
+| `policy_version` | Записанная policy проекции; на этом этапе `progress-v1` |
+| `attempt_id` | Обязателен для assessed/reveal событий, происходящих из attempt; отсутствует для self-report |
+| `evidence_ref` | Стабильная identity проверенного исходного evidence; обязательна для событий из attempt |
+| `difficulty` | Обязательна для assessed events; число 1–4 или строка R02 easy/medium/hard |
+| `misconception_code`, `confirmed` | Controlled code и подтверждение true нужны только для `MISCONCEPTION_DETECTED` |
+| `source_kind` | Класс подтверждающего источника; misconception требует validated step, domain или structured-field source, а не один неверный итоговый ответ |
+| `independent_evidence_rule` | Если проецируются две разные единицы отрицательного evidence одной attempt, обе записи должны иметь правило Assessment `distinct_validated_steps` |
+| `hint_used`, `reveal_used` | Проверенные сервером факты attempt; утверждение client не считается достоверным |
+| `completed_at` | Необязательный неизменяемый факт завершения Assessment для этой attempt/skill; RFC 3339 с timezone, нормализованный в UTC; см. правило recent-window |
 
-The eight kinds are `SELF_REPORTED_KNOWN`, `CORRECT_FIRST_TRY`, `CORRECT_AFTER_HINT`, `WRONG_ATTEMPT`, `MISCONCEPTION_DETECTED`, `ANSWER_REVEALED`, `DIAGNOSTIC_CORRECT`, and `DIAGNOSTIC_WRONG`. No additional R03 event kind is introduced. All accepted events require a supported recorded policy version. A missing field, invalid enum, malformed time, nonfinite number, unsupported policy, or inconsistent hint/reveal/first-try fact is rejected before changing the immutable log or projection.
+Восемь видов: `SELF_REPORTED_KNOWN`, `CORRECT_FIRST_TRY`, `CORRECT_AFTER_HINT`,
+`WRONG_ATTEMPT`, `MISCONCEPTION_DETECTED`, `ANSWER_REVEALED`, `DIAGNOSTIC_CORRECT`
+и `DIAGNOSTIC_WRONG`. В R03 новые виды событий не вводятся. Для каждого принятого события
+требуется поддерживаемая записанная версия policy. Отсутствующее поле, недопустимый enum,
+неверное время, неfinite число, неподдерживаемая policy или противоречивый факт hint/reveal/
+first-try отклоняются до изменения immutable log или проекции.
 
-For an attempt-derived event, Progress verifies source facts produced by Assessment/validation; the reference fixture supplies those facts directly. Correct and diagnostic result events require a completed attempt fact. `CORRECT_FIRST_TRY` requires no hint/reveal. `CORRECT_AFTER_HINT` requires a hint and no reveal. A full reveal before later purported independent correct work on the same attempt makes that work ineligible. Positive evidence copied after full reveal is rejected. `MISCONCEPTION_DETECTED` requires a controlled, confirmed code and a separate supporting evidence reference; an isolated wrong `FINAL_ANSWER` cannot supply it.
+Для события из attempt Progress проверяет исходные факты Assessment/validation;
+reference fixture передаёт эти факты напрямую. События правильного ответа и результата диагностики
+требуют факта завершённой attempt. Для `CORRECT_FIRST_TRY` не должно быть hint/reveal.
+`CORRECT_AFTER_HINT` требует hint и отсутствие reveal. Полный reveal до более поздней якобы
+самостоятельной правильной работы в той же attempt лишает эту работу eligibility. Положительное
+evidence, скопированное после полного reveal, отклоняется. `MISCONCEPTION_DETECTED` требует
+controlled подтверждённый code и отдельную ссылку на supporting evidence; отдельный неверный
+`FINAL_ANSWER` не может служить таким evidence.
 
-## Numerical baseline, unchanged
+## Числовой baseline без изменений
 
-| Event | Mastery | Confidence |
+| Событие | Mastery | Confidence |
 | --- | ---: | ---: |
-| `SELF_REPORTED_KNOWN` | initialize to 60 | initialize to 15 |
+| `SELF_REPORTED_KNOWN` | инициализация на 60 | инициализация на 15 |
 | `CORRECT_FIRST_TRY` | +6 | +5 |
 | `CORRECT_AFTER_HINT` | +3 | +4 |
 | `WRONG_ATTEMPT` | -2 | +3 |
@@ -52,50 +74,126 @@ For an attempt-derived event, Progress verifies source facts produced by Assessm
 | `DIAGNOSTIC_CORRECT` | +8 | +8 |
 | `DIAGNOSTIC_WRONG` | -6 | +8 |
 
-For assessed events:
+Для assessed events:
 
 ```text
 new_mastery = clamp(old_mastery + base_delta * difficulty_coeff * repeat_coeff, 0, 100)
 new_confidence = clamp(old_confidence + confidence_delta, 0, 100)
 ```
 
-Normalize numeric 1 or 2 -> `EASY`/0.8; 3 -> `MEDIUM`/1.0; 4 -> `HARD`/1.2. Normalize R02 strings `easy`, `medium`, `hard` to the same bands. There is no missing/invalid assessed-difficulty default. Confidence uses no difficulty or repeat multiplier. `repeat_coeff` is 1.0 for every event except confirmed misconception. The baseline has no time decay. Topic mastery remains the Content-owned topic-skill importance-weighted average and is outside this per-skill projection reference.
+Числа 1 или 2 нормализуются как `EASY`/0.8; 3 — `MEDIUM`/1.0; 4 — `HARD`/1.2.
+Строки R02 `easy`, `medium`, `hard` нормализуются к тем же уровням. Для assessed difficulty
+нет значения по умолчанию при пропуске/ошибке. Confidence не использует множители difficulty
+или repeat. `repeat_coeff` равен 1.0 для всех событий, кроме подтверждённого misconception.
+В baseline временного decay нет. Mastery темы остаётся средним с весами importance связей
+topic-skill под владением Content и находится за пределами этой ссылки на проекцию отдельного skill.
 
-Use exact Decimal arithmetic. **After each accepted projecting event**, calculate both values, clamp each to `[0, 100]`, then `ROUND_HALF_UP` each to two decimal places before updating `UserSkillState`. Binary float is not normative. Self-report initializes 60.00/15.00; reveal leaves the state unchanged. Per-event rounding is part of replay, not only final display formatting.
+Используется точная арифметика Decimal. **После каждого принятого проецируемого события**
+рассчитать оба значения, ограничить каждое диапазоном `[0, 100]`, затем округлить каждое
+до двух десятичных знаков через `ROUND_HALF_UP` перед обновлением `UserSkillState`.
+Binary float не является нормативным. Self-report инициализирует 60.00/15.00; reveal
+не меняет состояние. Округление после каждого события — часть replay, а не только финальное
+форматирование отображения.
 
-## Evidence count, status and time
+## Evidence count, status и время
 
-`UserSkillState` is unique by `(user, skill)`. Its canonical fields are `mastery`, `confidence`, `evidence_count`, `status`, `last_updated`, and `reducer_version`. Its initial values are `0.00`, `0.00`, `0`, `NOT_STARTED`, `null`, and `progress-v1`, respectively. The older `last_evaluated_at` label in the baseline transcription is not a second R03 field; the Technical Specification's canonical name is `last_updated`. `reducer_version` identifies the projection reducer used to build the state and is `progress-v1` for R03. Count each accepted projecting `SELF_REPORTED_KNOWN`, `CORRECT_FIRST_TRY`, `CORRECT_AFTER_HINT`, `WRONG_ATTEMPT`, `MISCONCEPTION_DETECTED`, `DIAGNOSTIC_CORRECT`, and `DIAGNOSTIC_WRONG` once. `ANSWER_REVEALED` is accepted as a zero-effect attempt fact but does not increment the count or update time. A duplicate or rejected event does not increment the count. `last_updated` is the `occurred_at` of the final projecting event in normative replay order, so the same immutable log reproduces all six canonical fields exactly.
+`UserSkillState` уникален по `(user, skill)`. Канонические поля: `mastery`, `confidence`,
+`evidence_count`, `status`, `last_updated`, `reducer_version`. Исходные значения соответственно
+`0.00`, `0.00`, `0`, `NOT_STARTED`, `null`, `progress-v1`. Старый ярлык `last_evaluated_at`
+из переноса baseline не является вторым полем R03; каноническое имя в Technical Specification —
+`last_updated`. `reducer_version` определяет reducer проекции и в R03 равен `progress-v1`.
+Учитывается по одному каждому принятому проецируемому `SELF_REPORTED_KNOWN`, `CORRECT_FIRST_TRY`,
+`CORRECT_AFTER_HINT`, `WRONG_ATTEMPT`, `MISCONCEPTION_DETECTED`, `DIAGNOSTIC_CORRECT` и
+`DIAGNOSTIC_WRONG`. `ANSWER_REVEALED` принимается как факт attempt с нулевым эффектом,
+но не увеличивает счётчик и не меняет время. Повторное или отклонённое событие счётчик не увеличивает.
+`last_updated` равно `occurred_at` последнего проецируемого события в нормативном порядке replay;
+такой же immutable log точно воспроизводит все шесть канонических полей.
 
-The pure reference returns the six-field `state` plus a separate `recent_window` diagnostic (`attempt_ids`, `independent_correct_count`) so tests can inspect status inputs. The diagnostic is derived from replay and is not an additional `UserSkillState` field.
+Pure reference возвращает шестипольное `state` и отдельную диагностическую `recent_window`
+(`attempt_ids`, `independent_correct_count`), чтобы tests могли проверить входные данные статуса.
+Диагностика вычисляется replay и не является дополнительным полем `UserSkillState`.
 
-Calculate status in this exact precedence:
+Статус вычисляется строго в следующем порядке приоритета:
 
 1. `evidence_count == 0` -> `NOT_STARTED`;
-2. mastery >= 80.00, confidence >= 60.00, and at least three recent independent correct attempts -> `MASTERED`;
-3. mastery < 50.00 and confidence >= 30.00 -> `WEAK`;
-4. otherwise -> `LEARNING`.
+2. mastery >= 80.00, confidence >= 60.00 и минимум три недавние независимые правильные attempts -> `MASTERED`;
+3. mastery < 50.00 и confidence >= 30.00 -> `WEAK`;
+4. иначе -> `LEARNING`.
 
-Self-report alone counts once and leaves the status `LEARNING`, not demonstrated mastery. A repeated or post-assessment self-report is rejected without a new projecting event. “Before assessed” is interpreted in the normative replay order, not network arrival order; a valid backfilled self-report before the first assessed event may reproject the state. The same user/skill may never have two accepted self-reports.
+Только self-report учитывается один раз и оставляет статус `LEARNING`, он не доказывает знание.
+Повторный self-report или self-report после assessed evidence отклоняется без нового проецируемого
+события. «До assessed» определяется нормативным порядком replay, а не порядком поступления по сети;
+валидный self-report, добавленный задним числом до первого assessed event, может привести к повторной
+проекции состояния. У одного user/skill никогда не бывает двух принятых self-reports.
 
-## Recent ten completed attempts
+## Последние десять завершённых attempts
 
-The window is the **last ten distinct completed attempts for the user/skill**, ordered by `(completed_at, attempt_id)` with UTC times. An event's `completed_at` is an authoritative immutable Assessment completion fact; absence means the attempt is not yet counted in this window. Multiple events for one attempt/skill must agree on its completion time after UTC normalization. `completed_at` may be before or after the event's `occurred_at`: evidence can be produced, normalized, analyzed, or backfilled at a different time. No ordering constraint between these two facts is imposed. This completion fact is required in the replay input for any completed pilot attempt that participates in Progress status; an Assessment completion path with no ProgressEvent completion fact is an integration gap to resolve before persistence, not a reason to fabricate a wrong event.
+Окно — **последние десять разных завершённых attempts для user/skill** в порядке
+`(completed_at, attempt_id)` по UTC. `completed_at` события — авторитетный неизменяемый факт
+завершения Assessment; если его нет, attempt пока не учитывается в этом окне. Несколько событий
+одной attempt/skill должны совпадать по времени completion после нормализации UTC.
+`completed_at` может быть раньше или позже `occurred_at`: evidence создаётся, нормализуется,
+анализируется или добавляется задним числом в другое время. Порядок между этими фактами
+не ограничен. Этот completion fact обязателен во входе replay для любой завершённой пилотной attempt,
+участвующей в статусе Progress; путь завершения Assessment без completion fact Progress является
+пробелом интеграции, который нужно устранить до persistence, а не поводом выдумывать неверное событие.
 
-A completed attempt qualifies as independently correct if it has `CORRECT_FIRST_TRY` or `DIAGNOSTIC_CORRECT` before any hint/reveal for that attempt. It must be a distinct attempt ID. Unassisted `DIAGNOSTIC_CORRECT` qualifies; helped diagnostics, `CORRECT_AFTER_HINT`, and revealed work do not. A later reveal does not retroactively erase a correct result that preceded it. Only the ten most recent completed attempts are inspected for the baseline requirement of at least three independent correct attempts. The projection derives the window from immutable event completion facts; no time decay is applied.
+Завершённая attempt считается независимо правильной, если в ней есть `CORRECT_FIRST_TRY`
+или `DIAGNOSTIC_CORRECT` до любого hint/reveal этой attempt. Учитывается уникальный attempt ID.
+Правильная диагностика без помощи подходит; помогавшая диагностика, `CORRECT_AFTER_HINT` и
+раскрытая работа — нет. Последующий reveal не отменяет задним числом правильный результат,
+полученный до него. Для базового требования минимум трёх независимых правильных ответов
+проверяются только десять самых новых завершённых attempts. Проекция строит окно из неизменяемых
+completion facts событий; временной decay не применяется.
 
-## Misconception repeat and single penalty
+## Повтор misconception и единственный штраф
 
-For `(user, skill, misconception_code)`, successive confirmed `MISCONCEPTION_DETECTED` events use 1.0, 1.25, then 1.5 for the third and later. Other wrong events neither increment nor reset that code's counter. An independent correct completed attempt for the skill resets **all** misconception-code counters for that user/skill. Hint-assisted correct work does not reset them. The repeat multiplier affects only the misconception's negative mastery delta, not confidence.
+Для `(user, skill, misconception_code)` последовательные подтверждённые
+`MISCONCEPTION_DETECTED` используют коэффициенты 1.0, 1.25, затем 1.5 для третьего и последующих.
+Прочие wrong events ни увеличивают, ни сбрасывают счётчик данного кода. Независимая правильная
+завершённая attempt по skill сбрасывает **все** счётчики misconception codes этого user/skill.
+Правильный ответ с hint их не сбрасывает. Множитель repeat влияет только на отрицательную delta
+mastery события misconception, не на confidence.
 
-An evidence unit is `(user_id, skill_id, attempt_id, evidence_ref)`. For one unit, emit **one normalized negative `ProgressEvent`**: `MISCONCEPTION_DETECTED` if a specific misconception is confirmed, otherwise `WRONG_ATTEMPT`. A pair of these kinds with the same unit is an invalid event-log combination and is rejected; the underlying wrong Assessment/Analyzer fact may remain outside Progress, but it is not a second `ProgressEvent`. Different completed attempts are separate evidence by attempt identity. Within one attempt, two different negative units may both project only when their `evidence_ref` values differ and **both** records carry the explicit Assessment rule `independent_evidence_rule = distinct_validated_steps`; the reference rejects an unmarked pair. A wrong `FINAL_ANSWER` alone remains `WRONG_ATTEMPT`, never a fabricated misconception.
+Единица evidence — `(user_id, skill_id, attempt_id, evidence_ref)`. Для одной единицы создаётся
+**одно нормализованное отрицательное `ProgressEvent`**: `MISCONCEPTION_DETECTED`, если конкретное
+заблуждение подтверждено, иначе `WRONG_ATTEMPT`. Пара этих типов на одной единице — недопустимая
+комбинация event log и отклоняется; исходный неверный факт Assessment/Analyzer может храниться вне
+Progress, но вторым `ProgressEvent` не становится. Разные завершённые attempts — отдельные свидетельства
+по identity attempt. В одной attempt допускаются две проецируемые отрицательные единицы только если
+их `evidence_ref` различаются и **обе** записи содержат явное правило Assessment
+`independent_evidence_rule = distinct_validated_steps`; reference отклоняет пару без этой отметки.
+Один неверный `FINAL_ANSWER` остаётся `WRONG_ATTEMPT` и никогда не превращается в выдуманное misconception.
 
-## Idempotency, ordering and replay
+## Idempotency, порядок и replay
 
-`event_id` is globally unique. For attempt-derived events, `(attempt_id, skill_id, event_kind, evidence_ref)` is also unique. A retry with the exact same identity and payload returns the existing result without appending or reprojecting. Reuse of either identity with conflicting payload is a conflict, not a new event. Self-report has its own once-per-user/skill guard. A later Django implementation must enforce these identities and the event/projection write atomically under concurrency; this reference verifies logical behavior, not DB locking.
+`event_id` глобально уникален. Для событий из attempt также уникальна пара
+`(attempt_id, skill_id, event_kind, evidence_ref)`. Retry с точно той же identity и payload
+возвращает существующий результат без добавления или повторной проекции. Повтор identity
+с конфликтующим payload — конфликт, а не новое событие. Для self-report действует отдельная
+защита «один раз на user/skill». Будущая Django implementation обязана при concurrency
+обеспечивать эти identities и атомарную запись события/проекции; этот reference проверяет
+логическое поведение, а не DB locking.
 
-The **normative total-order key is `(occurred_at, event_id, policy_version)`**. UTC normalization is required; accepted timestamp precision is at most six fractional digits, so the reference never silently truncates an ordering difference. Ordering must not depend on input timezone formatting. `event_id` is unique, but `policy_version` remains an explicit third key as required by the Technical Specification. Each immutable event is applied using its own recorded `policy_version`. The current reference registers `progress-v1`; an unregistered policy fails clearly rather than silently using the newest policy. A valid late/backfilled event causes reprojection of the affected user/skill from the complete ordered immutable log. Replaying the same log in any delivery order yields the same `UserSkillState`, including mastery, confidence, evidence count, status, `last_updated` and `reducer_version`.
+**Нормативный ключ полного порядка — `(occurred_at, event_id, policy_version)`**.
+Требуется нормализация UTC; принятая точность timestamp не превышает шесть десятичных знаков,
+поэтому reference никогда молча не отбрасывает различия в порядке. Сортировка не должна зависеть
+от формата timezone входа. `event_id` уникален, но `policy_version` остаётся явным третьим ключом,
+как требует Technical Specification. Каждое immutable event применяется с собственной записанной
+`policy_version`. Текущий reference регистрирует `progress-v1`; незарегистрированная policy
+выдаёт ясный отказ, а не молча использует новейшую. Валидное событие, добавленное поздно/задним
+числом, вызывает повторную проекцию затронутого user/skill по полному упорядоченному immutable log.
+Повтор того же log при любом порядке доставки даёт тот же `UserSkillState`, включая mastery,
+confidence, evidence count, status, `last_updated` и `reducer_version`.
 
-## Contract-level acceptance
+## Критерии приёмки контракта
 
-`tests/test_r03_contract.py` must exercise all eight kinds, exact deltas, difficulty, confidence, Decimal rounding/clamp, status boundaries, self-report, recent ten attempts, repeat/reset, reveal, source idempotency, rejection of a same-evidence negative pair, both valid temporal relationships between completion and occurrence, and deterministic late-event replay of every canonical state field. The pilot codes, edges, and event kinds have independent literal test expectations. `scripts/verify_repo.py` runs that pure suite alongside existing checks. This spec does not claim PostgreSQL, Django persistence, API, or runtime Knowledge/Progress verification. Final human contract gate: ACCEPTED. R03 remains active until its PR is merged into main.
+`tests/test_r03_contract.py` должен проверять все восемь видов, точные deltas, difficulty,
+confidence, Decimal rounding/clamp, границы статусов, self-report, последние десять attempts,
+повторы/reset, reveal, source idempotency, отклонение пары отрицательных событий с одним evidence,
+оба допустимых временных порядка completion и occurrence, а также детерминированный replay
+события, добавленного поздно, для каждого канонического поля состояния. Для pilot codes, edges
+и event kinds ожидаемые значения в tests задаются независимыми literal constants.
+`scripts/verify_repo.py` запускает эту pure suite вместе с существующими checks.
+Спецификация не заявляет проверку PostgreSQL, Django persistence, API или runtime Knowledge/Progress.
+Итоговый human contract gate: ACCEPTED. R03 остаётся активным, пока её PR не слит в main.

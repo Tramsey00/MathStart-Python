@@ -1,45 +1,45 @@
-# §17 framework adapter contracts v1.0.0
+# §17 Контракты framework adapters v1.0.0
 
-PROPOSED; original_result, historical task IDs, scopes, approvals, original PRs,
-frozen manifests/pins/tests and bytes are preserved. New framework references
-are here only. [Old-to-new index](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
-binds source input to R02 evidence and future implementation obligations.
-Historical pending R02A/R03A wording is not current rejection: R01 D08 receipt
-verified Vladimir's07.10 comments; no approval is backdated/transferred to R02.
+PROPOSED; original_result, исторические task IDs, scopes, approvals, исходные PR,
+замороженные manifests/pins/tests и байты сохранены. Новые ссылки на framework
+находятся только здесь. [Индекс old-to-new](https://github.com/Tramsey00/MathStart-Python/blob/3a290a46d991e22269a17dde41e39f0637576071/docs/acceptance/MS7-MIG-R02/old-to-new-evidence.json)
+связывает исходный вход со свидетельствами R02 и будущими обязательствами по реализации.
+Исторические формулировки о pending R02A/R03A не означают текущий отказ: квитанция R01 D08
+подтвердила комментарии Владимира от 07.10; никакое одобрение не переносится задним числом на R02.
 
-| Original | Framework-facing contract | Preserved authority / required future proof |
+| Original | Контракт для framework | Сохраняемые полномочия / требуемые будущие доказательства |
 | --- | --- | --- |
-| R02 | public DTO -> React mode dispatcher; server validation -> isolated Python service, HTTP controller only orchestration; no Django serializer/model assumption | Four exact modes and typed ordered steps; input_schema UI vs step_schema representation, raw/normalized separation, hint/reveal/secret split, immutable bound version. I01 dispatcher remains fixture-only; no assessed runtime claim. |
-| R03 | Content topic read/reference adapter uses existing ContentPage ID; future Knowledge repository, Progress evidence/replay service |10 skills/13 prerequisite->dependent edges, external basic_arithmetic, Decimal ROUND_HALF_UP after each event, global identities/replay ordering and single penalty. No future ORM tables created. Content owns TopicSkill -> Knowledge, Knowledge never imports Content. |
-| MS7-R02A | strict raw-body FastAPI boundary plus cookie/session/CSRF bridge; separate content/staff delivery addendum; explicit route registration | canonical37 operations, DTO/status limits, owner404, revisions, receipts/exposure/permanent source identity; only8 API operations currently implemented. No generated OAS takeover/default422/307/coercion. |
-| MS7-R03A | Assessment authoritative CompletionFact -> immutable internal DTO -> Progress mirror/replay; future SQLAlchemy units of work | Dual global completion_id and attempt+skill uniqueness, immutable owner/outcome/time/independent flag, server trusted context, neutral history doesn't alter numbers; no public write API or invented runtime. |
+| R02 | public DTO -> React mode dispatcher; server validation -> изолированный Python service, HTTP controller только для orchestration; без допущений о Django serializer/model | Ровно четыре режима и типизированные упорядоченные шаги; input_schema для UI и step_schema для представления, разделение raw/normalized, hint/reveal/secret, immutable bound version. I01 dispatcher остаётся только для fixture; заявление о наличии assessed runtime не делается. |
+| R03 | Content topic read/reference adapter использует существующий ContentPage ID; будущие Knowledge repository и Progress evidence/replay service | 10 skills/13 рёбер prerequisite->dependent, external basic_arithmetic, Decimal ROUND_HALF_UP после каждого события, глобальные identity/replay ordering и один штраф. Таблицы ORM в будущем не создаются. Content владеет TopicSkill -> Knowledge; Knowledge не импортирует Content. |
+| MS7-R02A | строгая граница FastAPI raw-body и мост cookie/session/CSRF; отдельное дополнение о доставке content/staff; явная регистрация routes | Канонические 37 операций, ограничения DTO/status, owner404, revisions, receipts/exposure/permanent source identity; сейчас реализованы только 8 API operations. Нет перехода владения OAS генератору и поведения default422/307/coercion. |
+| MS7-R03A | авторитетный Assessment CompletionFact -> immutable internal DTO -> Progress mirror/replay; будущие SQLAlchemy units of work | Двойная уникальность global completion_id и attempt+skill, immutable owner/outcome/time/independent flag, доверенный server context, нейтральная история не меняет числовые показатели; нет публичного write API и выдуманного runtime. |
 
-Future dependencies: content -> knowledge for Content-owned mapping; knowledge
-has no content dependency; math_validation pure; progress -> users/knowledge;
+Будущие зависимости: content -> knowledge для mapping под владением Content; knowledge
+не зависит от content; math_validation — чистый модуль; progress -> users/knowledge;
 assessment -> users/content/knowledge/math_validation/solution_analyzer/progress;
 solution_analyzer -> math_validation/knowledge/llm/progress service;
-adaptive_practice -> progress/knowledge/assessment reads;
-ai_tutor -> content/knowledge/progress/assessment/llm reads; llm -> infrastructure.
-Dependency DAG and negative-cycle check are in the package verifier. This is
-accepted domain direction represented as a contract, not imports of absent apps.
+adaptive_practice -> чтение progress/knowledge/assessment;
+ai_tutor -> чтение content/knowledge/progress/assessment/llm; llm -> infrastructure.
+DAG зависимостей и проверка отрицательных циклов входят в package verifier. Это принятое
+направление домена, представленное контрактом, а не импортами отсутствующих apps.
 
-Future assessed acquisition: owner/version exposure before attempt; exact replay
-before revision/state; immutable draft snapshot/version/step ordering; finalized
-positive-credit guard permanent; help committed before finalization disqualifies
-independence, later help doesn't revoke completed decisions. R03A dual identities
-checked before scope filtering; facts require server Assessment authority and
-COMPLETED lifecycle, never client independent_correct. Neutral outcome remains
-history; only validated ProgressEvent affects numbers. Use frozen pure oracles
-directly for synthetic comparison; implementing a copied formula here is forbidden.
+Будущий assessed acquisition: раскрытие owner/version до попытки; точный replay до revision/state;
+неизменяемый снимок черновика/version/порядка шагов; постоянный guard положительного credit после финализации;
+помощь, зафиксированная до финализации, лишает независимости, последующая помощь не отменяет
+завершённые решения. Двойные identity R03A проверяются до scope filtering; факты требуют
+полномочий server Assessment и lifecycle COMPLETED, никогда client independent_correct.
+Нейтральный результат остаётся в истории; на числа влияет только проверенный ProgressEvent.
+Для синтетического сравнения напрямую используйте замороженные чистые oracle; реализовывать
+здесь скопированную формулу запрещено.
 
-Raw input bytes/Unicode/array order survive transport before normalization;
-unsupported syntax -> UNSUPPORTED, not WRONG/misconception. A final wrong answer
-alone cannot identify misconception. Synthetic exchanges do not execute target
-HTTP, database locks, renderer or LLM. Current migration real identity/content
-tests and later V/I API/PG/browser tests are independent additional evidence.
+Байты raw input/Unicode/порядок массива сохраняются при передаче до нормализации;
+неподдерживаемый синтаксис -> UNSUPPORTED, а не WRONG/misconception. Один неверный финальный ответ
+не позволяет определить misconception. Синтетические обмены не выполняют target HTTP, блокировки базы данных,
+renderer или LLM. Реальные тесты identity/content текущей миграции и последующие API/PG/browser-тесты V/I
+являются независимыми дополнительными свидетельствами.
 
-Old verification IDs map to future adapters in the matrix: Django check ->
+Старые verification IDs сопоставлены с будущими adapters в матрице: Django check ->
 config/startup/routes; migration check -> metadata/Alembic drift/one head/reviewed
-SQL; source/quality/integrity keep full semantics; fresh smoke -> target
-fresh+bootstrap twice+assets/SSG; current Node semantic tests -> React lifecycle/
-browser evidence. This is an R03 handoff only, not a Harness/CI rewrite in R02.
+SQL; source/quality/integrity сохраняют полный смысл; fresh smoke -> target
+fresh+bootstrap дважды+assets/SSG; текущие Node semantic tests -> React lifecycle/
+browser evidence. Это передача в R03, а не переписывание Harness/CI в R02.

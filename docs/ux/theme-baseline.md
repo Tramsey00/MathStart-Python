@@ -51,7 +51,7 @@
 
 ExploreMiam/QraftHive CSS и registry, архивная копия Professional, страница
 сравнения, URL-переключатель и неиспользуемый Inter удалены из актуальных файлов.
-История вариантов остаётся в Git и хронологическом audit.
+История вариантов и завершённых дизайн-аудитов остаётся в Git.
 По следующему запросу пользователя добавлена новая главная на
 `http://127.0.0.1:5173/`; утверждённый каталог перенесён на `/materials.html`.
 Обе страницы используют тот же неизменённый theme.css и локальные шрифты.
@@ -65,3 +65,19 @@ hero, сетку разделов, поиск и диалоги. Шапка гл
 frontend/src/shared/styles/fonts/, подключения и reset — в base.css.
 Тема и шрифты перенесены без изменения bytes; исторические хеши выше сохраняются.
 Общие правила компонентов: [shared-ui-contract](shared-ui-contract.md).
+
+## Математическая запись, утверждённое дополнение 25.10.2026
+
+Пользователь утвердил единый вид дробей и корней и добавил смешанные числа
+и дробные степени. Только для математической разметки используется локальный
+STIX Two Math v2.13b171; он дополняет Professional Theme / QraftHive.
+Основные sans/serif stacks, Outfit и Merriweather и их лицензии не заменяются.
+
+- Font: `frontend/src/shared/styles/fonts/stix-two-math.woff2`.
+- Лицензия: `frontend/src/shared/styles/fonts/STIX-OFL.txt` (SIL OFL).
+- Закреплённый источник: [STIX v2.13b171](https://github.com/stipub/stixfonts/releases/tag/v2.13b171),
+  `fonts/static_otf_woff2/STIXTwoMath-Regular.woff2`.
+- Подключение — lesson.css, без CDN и новых JS-библиотек. Формулы используют
+  MathML и класс lesson-math; SVG остаются авторскими рисунками.
+- Принятые формы и общие helpers — раздел «Единая математическая запись»
+  [стандарта переноса](../frontend/lesson-migration.md).

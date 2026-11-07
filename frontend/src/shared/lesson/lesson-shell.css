@@ -1,3 +1,26 @@
+/* Shared page chrome: usable independently of lesson body styles. */
+.lesson-header, .lesson-footer {
+  --lesson-header-height: 76px;
+  --lesson-header-surface: #ffffff;
+  --lesson-footer-surface: #e2e8f1;
+  --lesson-ink: #202632;
+  --lesson-accent: var(--primary);
+  --lesson-accent-text: var(--primary);
+  --lesson-chrome-hover: #dde4ef;
+  --lesson-footer-muted: #505b6a;
+  --lesson-footer-accent-text: oklch(0.42 0.16 260);
+}
+[data-theme=dark] .lesson-header, [data-theme=dark] .lesson-footer {
+  --lesson-header-surface: #252e3c;
+  --lesson-footer-surface: #222c39;
+  --lesson-ink: #e5e7eb;
+  --lesson-accent-text: oklch(0.68 0.1879 259.7964);
+  --lesson-chrome-hover: #323e51;
+  --lesson-footer-muted: #a1aab5;
+  --lesson-footer-accent-text: var(--lesson-accent-text);
+}
+.lesson-header, .lesson-footer { -webkit-user-select: none; user-select: none; }
+.lesson-header a, .lesson-footer a { text-decoration: none; }
 .lesson-header {
   position: sticky;
   top: 0;
@@ -92,4 +115,22 @@
 @media (prefers-reduced-motion: reduce) {
   .lesson-login, .lesson-login-arrow { transition: none; }
   .lesson-login:hover, .lesson-login:hover .lesson-login-arrow { transform: none; }
+}
+
+/* Shared theme control: restrained hover motion on every page. */
+.lesson-theme-toggle {
+  transition: background-color 180ms ease-out, color 180ms ease-out;
+}
+.lesson-theme-toggle svg {
+  transform-origin: center;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+@media (hover: hover) {
+  .lesson-theme-toggle:hover { color: var(--lesson-accent-text); }
+  .lesson-theme-toggle:hover svg { transform: rotate(-14deg) scale(1.08); }
+}
+.lesson-theme-toggle:active svg { transform: scale(.94); }
+@media (prefers-reduced-motion: reduce) {
+  .lesson-theme-toggle, .lesson-theme-toggle svg { transition: none; }
+  .lesson-theme-toggle:hover svg, .lesson-theme-toggle:active svg { transform: none; }
 }

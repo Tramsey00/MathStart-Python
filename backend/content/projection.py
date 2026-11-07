@@ -22,9 +22,12 @@ class ReviewedSource:
     path: str
     source_digest: str
     assets: tuple
+    renderer_version: str = 'legacy'
+    lesson_document: dict | None = None
+    canonical_path: str | None = None
 
 
-def seo(page):
+def seo(page, canonical_path=None):
     title = (page.seo_title or '').strip()
     if not title:
         title = 'MathStart — математика для 5–10 классов' if page.page_type == 'home' else f'{page.title} | MathStart'
@@ -42,7 +45,7 @@ def seo(page):
         else:
             description = f'{page.title} — информация на образовательном сайте MathStart.'
     return {'title': title, 'description': description,
-            'canonical_path': '/' if page.page_type == 'home' else f'/{page.slug}/'}
+            'canonical_path': canonical_path or ('/' if page.page_type == 'home' else f'/{page.slug}/')}
 
 
 def delivery_candidate(uow, slug, reviewed_source):
@@ -59,10 +62,15 @@ def delivery_for_page(page, reviewed_source):
         raise TypeError('Reviewed published page required')
     data = {field: getattr(page, field) for field in ['id', 'slug', 'page_type', 'title', 'grade_id',
             'subject_id', 'section_id', 'order', 'body_html', 'is_published']}
-    data.update(delivery_version='content-delivery-v1', seo=seo(page), created_at=stamp(page.created_at),
+    data.update(delivery_version='content-delivery-v1', renderer_version=reviewed_source.renderer_version,
+        lesson_document=reviewed_source.lesson_document,
+        seo=seo(page, reviewed_source.canonical_path), created_at=stamp(page.created_at),
         updated_at=stamp(page.updated_at), source={'path': reviewed_source.path,
         'source_digest': reviewed_source.source_digest, 'render_digest': sha256(page.body_html.encode('utf-8')).hexdigest()},
         assets=list(reviewed_source.assets))
+    if reviewed_source.renderer_version == 'react-v1':
+        from backend.content.sources import compatibility_assets_digest
+        data['source']['compatibility_assets_digest'] = compatibility_assets_digest(page.page_css, page.page_js)
     return validate(data, 'ContentDelivery', True)
 
 
@@ -120,7 +128,14 @@ def build_index_candidate(uow, release_id, deliveries):
     """Complete read-only candidate; V04 validates/stages/activates it separately."""
     published = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
     redirects = list(uow.session.scalars(sa.select(Redirect).where(Redirect.is_active.is_(True)).order_by(Redirect.old_path)))
-    return index_for_pages(published, release_id, deliveries, catalogue_candidate(uow), redirects)
+    catalogue = catalogue_candidate(uow)
+    page_by_slug = {item['slug']: item for item in deliveries.values()}
+    for topic in catalogue['topics']:
+        delivery = page_by_slug.get(topic['slug'])
+        if delivery is None:
+            raise unavailable()
+        topic['url'] = delivery['seo']['canonical_path']
+    return index_for_pages(published, release_id, deliveries, catalogue, redirects)
 
 
 def index_for_pages(published, release_id, deliveries, catalogue, redirect_rows):
@@ -130,7 +145,7 @@ def index_for_pages(published, release_id, deliveries, catalogue, redirect_rows)
     for page in published:
         data = validate(deliveries[page.id], 'ContentDelivery', True)
         if (data['id'] != page.id or data['slug'] != page.slug or data['page_type'] != page.page_type
-                or data['seo'] != seo(page) or data['body_html'] != page.body_html):
+                or data['seo'] != seo(page, data['seo']['canonical_path']) or data['body_html'] != page.body_html):
             raise unavailable()
         canonical = data['seo']['canonical_path']
         pages.append({'id': page.id, 'slug': page.slug, 'page_type': page.page_type, 'url': canonical,

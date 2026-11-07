@@ -139,7 +139,15 @@ def inspect_site(session, *, static_roots, media_root):
     return report, errors
 
 
-def inspect_public_quality(session, origin, *, timeout=10):
+def active_quality_release(uow, release_root):
+    """Pin canonical paths to the same publication authority as public HTTP."""
+    from backend.content.releases import active_descriptor, ReleaseStore
+    if not release_root:
+        raise SourceError('Verified release root required for installed HTTP inspection')
+    return ReleaseStore(release_root).load(active_descriptor(uow, 'public'))
+
+
+def inspect_public_quality(session, origin, *, timeout=10, release=None):
     parsed = urlparse(origin)
     if (parsed.scheme not in {'http', 'https'} or not parsed.netloc or parsed.username is not None
             or parsed.password is not None or parsed.path or parsed.query or parsed.fragment):
@@ -147,13 +155,16 @@ def inspect_public_quality(session, origin, *, timeout=10):
     pages = list(session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
     if not pages:
         raise SourceError('Content quality requires nonempty published content')
+    if release is not None and ({page.id for page in pages} != set(release.pages)
+            or any(release.pages[page.id]['slug'] != page.slug for page in pages)):
+        raise SourceError('Published database and pinned HTTP inventory differ')
     report = {'pages_checked': 0, 'svg_checked': 0, 'issues': []}
     class NoRedirect(HTTPRedirectHandler):
         def redirect_request(self, *args, **kwargs):
             return None
     opener = build_opener(NoRedirect())
     for page in pages:
-        path = '/' if page.page_type == 'home' else '/' + page.slug + '/'
+        path = release.pages[page.id]['seo']['canonical_path'] if release is not None else '/' if page.page_type == 'home' else '/' + page.slug + '/'
         report['pages_checked'] += 1
         try:
             with opener.open(Request(origin + path, headers={'Accept': 'text/html'}), timeout=timeout) as response:

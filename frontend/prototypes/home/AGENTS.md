@@ -1,37 +1,32 @@
-# Approved visual baseline
+# Утверждённая визуальная основа
 
-The user approved Professional Theme colors and QraftHive typography on
-2026-10-22. Preserve that baseline for cosmetic/component work. See
-`../../../docs/ux/theme-baseline.md` for sources and exact font stacks.
+Пользователь утвердил цвета Professional Theme и типографику QraftHive
+22.10.2026. Сохраняй основу при работе с компонентами и оформлением.
+Источники и точные font stacks — ../../../docs/ux/theme-baseline.md.
 
-Do not replace the palette, font families, theme tokens, or reintroduce theme
-comparison pages unless the user explicitly requests another style experiment.
-Changes to spacing, responsive layout and component density may use this
-baseline. Keep the page's existing hero, catalogue, search and dialogs.
+Не заменяй палитру, семейства шрифтов и theme tokens, не возвращай страницы
+сравнения тем без явного запроса нового эксперимента. Размеры, адаптивность
+и плотность компонентов можно менять в рамках этой основы. Сохраняй текущие
+hero, каталог, поиск и диалоги.
 
-The user approved the catalogue on 2026-10-22 and requested a separate homepage.
-`index.html` / `landing.tsx` own that homepage; `materials.html` / `main.tsx`
-retain the approved navigation catalogue. Shared navigation/footer live in
-`site-shell.tsx`. Homepage materials links must open the real catalogue;
-actual authentication stays on the existing local site's account route. Do not invent future
-tutor, progress, mastery, exercise or authentication features.
+Каталог принят 22.10.2026, главная создавалась отдельно. index.html/landing.tsx
+отвечают за главную, materials.html/main.tsx — за каталог. Общая шапка и подвал
+подключаются через site-shell.tsx. Ссылки материалов главной ведут в реальный
+каталог; авторизация пока принадлежит существующему account runtime. Не выдумывай
+работающие Tutor, Progress, mastery, exercises или новую authentication.
 
-Latest homepage revision: the user explicitly authorized one additional muted
-green accent on the homepage only; keep it scoped to `.landing-page`, never
-replace the shared theme tokens. The repeated class/subject selector and square
-demo were rejected. Use a simple transition to materials instead. The user
-approved an email/password form PREVIEW now and email-auth integration later.
-Do not submit, persist or log credentials, simulate a signed-in session, add
-OAuth providers, or change identity/security contracts in this design task.
+На главной отдельно разрешён приглушённый зелёный акцент, ограниченный
+.landing-page; не заменяй им общие tokens. Повторный выбор класса/предмета и
+квадратный demo отклонены. Используй простой переход к материалам. Email/password
+форма принята как PREVIEW, подключение настоящего email-auth — позже. Не отправляй,
+не сохраняй и не логируй credentials, не имитируй вход, не добавляй OAuth providers
+и не меняй identity/security contracts в задаче дизайна.
 
-Section rows show a number, complete section title and topic count. Do not
-restore topic preview descriptions, repeated action labels, or decorative
-arrows. Preserve keyboard focus, accessible controls and content-driven height.
+Строка раздела содержит номер, полное название и число тем. Не возвращай preview
+описаний, повторные подписи действий и декоративные стрелки. Сохраняй keyboard
+focus, доступность controls и высоту, зависящую от содержимого.
 
-Lesson pilot revision, 2026-10-23: the user permits a small neutral-palette
-experiment on the lesson only. Use scoped --lesson-* surfaces; preserve shared
-theme.css, QraftHive fonts, homepage and catalogue. The current preview uses a
-flat reading surface without article/example cards, a full-height contents
-panel following the supplied video, inline self-check disclosures and compact
-page controls. Keep the graph and its computed values visible together on
-desktop. These lesson experiments are pending visual acceptance.
+Примеры урока, главной и каталога приняты 23.10.2026. Текущий источник решений —
+../../../docs/ux/shared-ui-contract.md. Перенос runtime задают
+../../../docs/tasks/INDEX.md и стандарт lesson-migration. Не выбирай визуальное
+направление повторно и не считай preview доказательством SSG-интеграции.

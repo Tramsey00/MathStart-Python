@@ -1,102 +1,102 @@
-# SPEC <ID>: <Feature name>
+# SPEC <ID>: <Название функции>
 
 - **Status:** Draft | Ready | In progress | Implemented | Superseded
-- **Owner:** <name>
-- **Related issue:** <issue/link>
-- **Related ADRs:** <paths or none>
-- **Related exec plan:** <path or none>
-- **Target milestone:** M0 | M1 | M2 | M3 | M4
-- **Last updated:** YYYY-MM-DD
+- **Task:** <current registry ID>
+- **Связанная задача:** <задача/ссылка>
+- **Связанные ADR:** <пути или нет>
+- **Связанный план выполнения:** <путь или нет>
+- **Область/приёмка:** <результат текущей задачи>
+- **Последнее обновление:** YYYY-MM-DD
 
 ---
 
-## 1. Goal
+## 1. Цель
 
-Describe the user-visible or domain-level result this feature must deliver.
+Опишите видимый пользователю или относящийся к домену результат, который должна обеспечить функция.
 
-The goal should be testable and narrow enough to implement as a coherent change.
+Цель должна допускать проверку и быть достаточно узкой для реализации как связного изменения.
 
 ---
 
-## 2. Why this belongs in MathStart
+## 2. Почему это относится к MathStart
 
-Connect the feature to the v3.1 product baseline.
+Свяжите функцию с PRODUCT.md и текущей карточкой задачи.
 
-Reference the relevant product behavior, such as:
+Укажите соответствующее поведение продукта, например:
 
-- student onboarding;
-- exercise interaction modes;
-- knowledge graph;
-- deterministic validation;
+- знакомство учащегося с продуктом;
+- режимы взаимодействия с упражнениями;
+- граф знаний;
+- детерминированная проверка;
 - Solution Analyzer;
 - Progress Engine;
 - AI Tutor;
 - Adaptive Practice;
-- public deployment;
-- development process/task skills (only if this spec concerns them).
+- публичное развёртывание;
+- процесс разработки/task skills (только если эта спецификация относится к ним).
 
-Avoid implementation detail in this section.
-
----
-
-## 3. Scope
-
-### In scope
-
-- ...
-- ...
-- ...
-
-### Out of scope
-
-- ...
-- ...
-- ...
-
-Do not silently expand scope during implementation.
+Не включайте в этот раздел подробности реализации.
 
 ---
 
-## 4. Actors / entry points
+## 3. Область работ
 
-Describe who or what starts the flow.
+### Входит в область работ
 
-Examples:
+- ...
+- ...
+- ...
 
-- authenticated student;
-- content administrator;
-- explicit backend CLI;
-- internal service;
-- scheduled/internal verification.
+### Не входит в область работ
 
-List relevant entry points:
+- ...
+- ...
+- ...
 
-- page;
+Не расширяйте область работ незаметно в ходе реализации.
+
+---
+
+## 4. Участники и точки входа
+
+Опишите, кто или что запускает процесс.
+
+Примеры:
+
+- аутентифицированный учащийся;
+- администратор контента;
+- явная backend CLI;
+- внутренний сервис;
+- запланированная/внутренняя проверка.
+
+Перечислите соответствующие точки входа:
+
+- страница;
 - endpoint;
-- command;
-- service call;
-- seed/bootstrap step.
+- команда;
+- вызов сервиса;
+- шаг seed/bootstrap.
 
 ---
 
-## 5. Domain rules and invariants
+## 5. Правила домена и инварианты
 
-List all rules that must remain true.
+Перечислите все правила, которые должны всегда соблюдаться.
 
-Examples:
+Примеры:
 
-- only Progress may mutate long-term mastery/confidence;
-- page view must not increase mastery;
-- wrong `FINAL_ANSWER` alone must not create a specific misconception;
-- public exercise DTO must not expose `answer_key`;
-- full reveal prevents `CORRECT_FIRST_TRY`;
-- graph must remain acyclic;
-- raw input must be preserved;
-- unsupported parse state must remain explicit;
-- LLM structured output must pass schema validation;
-- low-confidence output must not create strong negative evidence.
+- только Progress может изменять долгосрочные mastery/confidence;
+- просмотр страницы не должен повышать mastery;
+- неверный `FINAL_ANSWER` сам по себе не должен создавать конкретное заблуждение;
+- публичный exercise DTO не должен раскрывать `answer_key`;
+- полный reveal исключает `CORRECT_FIRST_TRY`;
+- граф должен оставаться ацикличным;
+- исходный ввод должен сохраняться;
+- неподдерживаемый статус разбора должен оставаться явным;
+- структурированный вывод LLM должен проходить проверку schema;
+- вывод с низкой уверенностью не должен создавать сильное отрицательное свидетельство.
 
-Add feature-specific rules below:
+Ниже добавьте правила, относящиеся к функции:
 
 1. ...
 2. ...
@@ -104,86 +104,86 @@ Add feature-specific rules below:
 
 ---
 
-## 6. Interaction / workflow
+## 6. Взаимодействие и рабочий процесс
 
-Describe the end-to-end flow step by step.
+Опишите процесс от начала до конца по шагам.
 
-Example:
+Пример:
 
 1. ...
 2. ...
 3. ...
 
-For complex flows, include state transitions.
+Для сложных процессов укажите переходы состояний.
 
 ---
 
-## 7. Data model changes
+## 7. Изменения модели данных
 
-### New models
+### Новые модели
 
-| Model | Purpose | Owner domain |
+| Модель | Назначение | Владеющий домен |
 | --- | --- | --- |
 | `<Model>` | ... | ... |
 
-### Changed models
+### Изменённые модели
 
-| Model | Change | Reason |
+| Модель | Изменение | Причина |
 | --- | --- | --- |
 | `<Model>` | ... | ... |
 
-### Constraints / indexes
+### Ограничения и индексы
 
 - ...
 - ...
 - ...
 
-### Migration expectations
+### Требования к миграциям
 
-- Alembic migration required: Yes | No
-- Data migration required: Yes | No
-- Fresh DB migration smoke required: Yes | No
+- Миграция Alembic требуется: Yes | No
+- Миграция данных требуется: Yes | No
+- Проверка миграции на новой БД требуется: Yes | No
 
-If schema changes are involved, implementation is not Done until migration verification passes.
+Если меняется schema, реализация не считается Done, пока не пройдена проверка миграции.
 
 ---
 
-## 8. Public vs server-only data
+## 8. Публичные данные и данные только на сервере
 
-This section is mandatory for exercise, assessment, tutor, or API work.
+Этот раздел обязателен для работ с exercise, assessment, tutor или API.
 
-### Public/client-visible fields
-
-- ...
-- ...
-- ...
-
-### Server-only fields
+### Публичные поля, видимые клиенту
 
 - ...
 - ...
 - ...
 
-For exercise flows, server-only fields normally include:
+### Поля только для сервера
+
+- ...
+- ...
+- ...
+
+Для процессов exercise к полям только для сервера обычно относятся:
 
 - `answer_key`;
 - `validation_spec`;
 - `canonical_solution`;
 - secret accepted variants.
 
-Do not expose server-only fields through HTML, JSON, JavaScript fixtures, or template data before reveal.
+Не раскрывайте поля только для сервера через HTML, JSON, JavaScript fixtures или данные шаблона до reveal.
 
 ---
 
-## 9. API / input contract
+## 9. Контракт API и входных данных
 
-### Endpoint(s)
+### Endpoint(ы)
 
 ```text
 METHOD /api/v1/...
 ```
 
-### Request
+### Запрос
 
 ```json
 {
@@ -191,7 +191,7 @@ METHOD /api/v1/...
 }
 ```
 
-### Response
+### Ответ
 
 ```json
 {
@@ -199,108 +199,108 @@ METHOD /api/v1/...
 }
 ```
 
-### Validation errors
+### Ошибки проверки
 
-| Code | Meaning | HTTP status |
+| Код | Значение | Статус HTTP |
 | --- | --- | --- |
 | `<CODE>` | ... | ... |
 
-If no HTTP API is involved, describe the relevant service/command contract instead.
+Если HTTP API не используется, вместо него опишите контракт соответствующего сервиса/команды.
 
 ---
 
-## 10. Interaction mode contract
+## 10. Контракт режима взаимодействия
 
-If this feature touches exercises, specify the applicable mode:
+Если функция затрагивает упражнения, укажите применимый режим:
 
 - `SELF_CHECK`
 - `FINAL_ANSWER`
 - `STEP_BY_STEP`
 - `STRUCTURED_SOLUTION`
 
-Define:
+Определите:
 
-- input schema;
-- step schema;
-- parser profile;
-- reveal policy;
-- hint behavior;
-- validation path;
-- progress/evidence behavior.
+- schema входных данных;
+- schema шага;
+- профиль parser;
+- правила reveal;
+- поведение hint;
+- путь проверки;
+- поведение progress/evidence.
 
-A new interaction mode or step type requires explicit spec + validator/test contract.
+Новый режим взаимодействия или тип шага требует явной spec и контракта validator/test.
 
 ---
 
-## 11. Validation behavior
+## 11. Поведение проверки
 
-Describe deterministic/domain validation first.
+Сначала опишите детерминированную проверку и проверку доменных правил.
 
-### Deterministic validation
+### Детерминированная проверка
 
 - ...
 - ...
 - ...
 
-### Unsupported / ambiguous behavior
+### Неподдерживаемое или неоднозначное поведение
 
-Define what happens when the parser/validator cannot decide.
+Определите поведение на случай, когда parser/validator не может принять решение.
 
-Do not invent a misconception.
+Не придумывайте математическое заблуждение.
 
-### LLM involvement
+### Участие LLM
 
 - Required: Yes | No
-- Purpose: ...
-- Structured schema: ...
-- Prompt version: ...
-- Confidence threshold/gate: ...
-- Fallback behavior: ...
+- Назначение: ...
+- Структурированная schema: ...
+- Версия prompt: ...
+- Порог/шлюз уверенности: ...
+- Резервное поведение: ...
 
-LLM output must never be the only source of mathematical truth for supported MVP mathematics.
+Вывод LLM никогда не должен быть единственным источником математической истины для поддерживаемой математики MVP.
 
 ---
 
-## 12. Progress / evidence semantics
+## 12. Семантика Progress и evidence
 
-If the feature can affect progress, define the exact knowledge-event behavior.
+Если функция может влиять на progress, точно определите поведение события знаний.
 
-| Condition | Event | Mastery effect | Confidence effect | Notes |
+| Условие | Событие | Влияние на mastery | Влияние на confidence | Примечания |
 | --- | --- | --- | --- | --- |
 | ... | ... | ... | ... | ... |
 
-State explicitly:
+Явно укажите:
 
-- which service emits evidence;
-- what source identity is used;
-- how duplicate evidence is prevented;
-- whether hints/reveal modify evidence;
-- whether misconception evidence is strong or weak.
+- какой сервис создаёт evidence;
+- какая идентичность источника используется;
+- как предотвращается дублирование evidence;
+- изменяют ли hint/reveal evidence;
+- является ли свидетельство заблуждения сильным или слабым.
 
-If no progress impact exists, write:
+Если влияния на progress нет, напишите:
 
 `This feature does not create or mutate knowledge evidence.`
 
 ---
 
-## 13. Security / ownership
+## 13. Безопасность и владение данными
 
-Describe:
+Опишите:
 
-- auth requirement;
-- object ownership;
-- CSRF/session behavior;
-- secret exposure constraints;
-- rate limits if AI endpoint;
-- payload/step/message size limits if relevant.
+- требования auth;
+- владение объектами;
+- поведение CSRF/session;
+- ограничения на раскрытие секретов;
+- ограничения частоты запросов для endpoint AI;
+- ограничения размера payload/step/message, если применимо.
 
 ---
 
-## 14. Observability
+## 14. Наблюдаемость
 
-Specify what must be observable.
+Укажите, что должно быть доступно для наблюдения.
 
-Examples:
+Примеры:
 
 - request/attempt ID;
 - exercise/version/mode;
@@ -311,30 +311,30 @@ Examples:
 - latency/tokens/status;
 - hint/reveal flags.
 
-Do not log secrets.
+Не записывайте секреты в журналы.
 
 ---
 
-## 15. Acceptance criteria
+## 15. Критерии приёмки
 
 - [ ] ...
 - [ ] ...
 - [ ] ...
 - [ ] ...
 
-Acceptance criteria must describe externally verifiable behavior, not implementation activity.
+Критерии приёмки должны описывать поведение, проверяемое извне, а не ход реализации.
 
-Bad:
+Плохо:
 
 - [ ] Create serializer.
 
-Good:
+Хорошо:
 
 - [ ] Ordinary exercise GET does not return `answer_key`, `validation_spec`, or `canonical_solution`.
 
 ---
 
-## 16. Tests
+## 16. Тесты
 
 ### Unit
 
@@ -351,7 +351,7 @@ Good:
 - [ ] ...
 - [ ] ...
 
-### Golden / analyzer eval
+### Golden-тесты и eval Analyzer
 
 - [ ] ...
 - [ ] ...
@@ -361,15 +361,15 @@ Good:
 - [ ] ...
 - [ ] ...
 
-Use only the categories relevant to this feature.
+Используйте только категории, относящиеся к этой функции.
 
 ---
 
-## 17. Verification matrix
+## 17. Матрица проверок
 
-Run all applicable checks. The current baseline is documented in
+Запустите все применимые проверки. Текущая базовая конфигурация описана в
 `skills/verification/SKILL.md` and executed by `python scripts/verify_repo.py`.
-Future checks below apply only after their tooling exists.
+Перечисленные ниже будущие проверки применяются только после появления соответствующих инструментов.
 
 ### Backend
 
@@ -377,94 +377,93 @@ Future checks below apply only after their tooling exists.
 python scripts/verify_repo.py --group backend --group tests
 ```
 
-Ruff, mypy, and pytest are not assumed to be configured. Introduce them through a
-dedicated tooling change before making them required or reporting results.
+Не предполагайте, что Ruff, mypy и pytest настроены. Прежде чем делать их обязательными или сообщать результаты, добавьте их отдельным изменением инструментов.
 
 ### Database
 
-For schema changes:
+При изменении schema:
 
 ```bash
 python scripts/target_check.py migrations
 ```
 
-Also verify migrations on a fresh PostgreSQL database and run migration smoke.
+Также проверьте миграции на новой базе PostgreSQL и выполните smoke-проверку миграции.
 
-### Existing content
+### Существующий контент
 
-When content/runtime is affected:
+Если затронуты content/runtime:
 
 ```bash
 python scripts/verify_repo.py --group content
 ```
 
-### Knowledge graph
+### Граф знаний
 
-- no cycles;
-- no self-edge;
-- no missing skill codes.
+- циклы отсутствуют;
+- self-edge отсутствует;
+- отсутствующие коды skill отсутствуют.
 
-### Exercise contracts
+### Контракты exercise
 
-- schema fixtures valid;
-- public DTO secret-leak regression passes.
+- schema fixtures корректны;
+- regression-проверка утечки секретов через публичный DTO проходит.
 
 ### Frontend
 
-- relevant JS/template/unit checks;
-- responsive behavior where applicable.
+- относящиеся к задаче проверки JS/template/unit;
+- адаптивное поведение, если применимо.
 
-### LLM / Analyzer
+### LLM и Analyzer
 
-- structured-output validation;
-- relevant golden eval subset;
-- fake provider paths;
-- timeout/error behavior.
+- проверка структурированного вывода;
+- относящаяся к задаче часть golden eval;
+- сценарии fake provider;
+- поведение при timeout/error.
 
 ---
 
-## 18. Risks
+## 18. Риски
 
-| Risk | Impact | Mitigation |
+| Риск | Влияние | Снижение риска |
 | --- | --- | --- |
 | ... | ... | ... |
 
-Include relevant project risks when applicable:
+При необходимости укажите соответствующие риски проекта:
 
-- LLM misclassification;
-- answer leakage;
-- over-general exercise model;
-- accidental diagnosis from weak evidence;
-- scope expansion;
-- coupling between backend domain packages;
-- migration/data-loss risk.
-
----
-
-## 19. Definition of Done
-
-This spec is Done only when:
-
-- [ ] acceptance criteria pass;
-- [ ] implementation matches architecture boundaries;
-- [ ] migrations exist and pass when required;
-- [ ] tests pass;
-- [ ] verification matrix passes for affected areas;
-- [ ] docs/ADR are updated if behavior/architecture changed;
-- [ ] trace summary exists for a significant agent task;
-- [ ] no server validation secrets leak;
-- [ ] no unrelated files were changed without reason;
-- [ ] human gate is completed where required.
+- ошибочная классификация LLM;
+- утечка ответа;
+- чрезмерно обобщённая модель exercise;
+- случайная диагностика по слабым свидетельствам;
+- расширение области работ;
+- связанность доменных пакетов backend;
+- риск миграции/потери данных.
 
 ---
 
-## 20. Trace / implementation links
+## 19. Критерии завершения
 
-- Issue: <link>
-- PR: <link>
-- Exec plan: <path>
-- Trace: <path>
-- Demo/screenshot: <link/path>
+Эта spec считается Done только при выполнении условий:
+
+- [ ] критерии приёмки выполнены;
+- [ ] реализация соответствует границам архитектуры;
+- [ ] необходимые миграции созданы и проходят проверку;
+- [ ] тесты проходят;
+- [ ] матрица проверок пройдена для затронутых областей;
+- [ ] docs/ADR обновлены при изменении поведения/архитектуры;
+- [ ] для существенной задачи агента имеется сводка trace;
+- [ ] секреты серверной проверки не раскрываются;
+- [ ] посторонние файлы не менялись без причины;
+- [ ] необходимые этапы human gate завершены.
+
+---
+
+## 20. Ссылки на trace и реализацию
+
+- Задача: <ссылка>
+- PR: <ссылка>
+- План выполнения: <путь>
+- Trace: <путь>
+- Демонстрация/снимок экрана: <ссылка/путь>
 
 Текущий процесс и стек — AGENTS.md/ARCHITECTURE.md; подготовленный disposable runtime
 обязателен для target commands. Не наследуйте исторические owners/deadlines/Harness

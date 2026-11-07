@@ -136,4 +136,58 @@ describe("preservation during contract generation", () => {
     fixtures.files.set(resolve(root, "old/helper.py"), original);
     expect(() => preservedContract(root, "old/helper.py")).toThrow("reintroduced");
   });
+  it("keeps historical documentation digests while validating exact Russian working text", () => {
+    manifest([]);
+    const path = "guide.md", origin = "b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea";
+    const translated = Buffer.from("Русский перевод требований\n");
+    const map = {source_commit: origin, authority: "explicit translation task", files: [{
+      path, action: "updated", reason: "Russian prose, unchanged contract", before_bytes: original.length,
+      before_sha256: sha(original), after_sha256: sha(translated),
+    }]};
+    fixtures.files.set(resolve(root, "specs/maintenance/repository-cleanup.json"), Buffer.from(JSON.stringify(map)));
+    fixtures.blobs.set(origin + ":" + path, original);
+    fixtures.blobs.set("HEAD:" + path, original);
+    fixtures.files.set(resolve(root, path), translated);
+    expect(preservedContract(root, path)).toEqual(original);
+    fixtures.files.set(resolve(root, path), Buffer.from("unknown changed requirement"));
+    expect(() => preservedContract(root, path)).toThrow("Unreviewed repository change");
+    fixtures.files.set(resolve(root, path), translated);
+    map.source_commit = "main";
+    fixtures.files.set(resolve(root, "specs/maintenance/repository-cleanup.json"), Buffer.from(JSON.stringify(map)));
+    expect(() => preservedContract(root, path)).toThrow("Unexpected repository change provenance");
+  });
+  it("requires an exact cleanup continuation for a dirty or committed CI adapter", () => {
+    const path = ".github/workflows/ci.yml", origin = "b29a7ccdd07784cfcfd19278cbe59b30c83cd4ea";
+    const baseline = Buffer.from("previous explicit workflow adapter\n");
+    const next = Buffer.from("current explicit workflow adapter\n");
+    manifest([{path, action: "updated", sha256: sha(original), bytes: original.length,
+      current_sha256: sha(updated)}]);
+    fixtures.blobs.set(source + ":" + path, original);
+    workflow(path, updated, baseline);
+    const row = {path, action: "updated", reason: "explicit user cleanup", before_bytes: baseline.length,
+      before_sha256: sha(baseline), after_sha256: sha(next)};
+    const mapPath = resolve(root, "specs/maintenance/repository-cleanup.json");
+    const save = () => fixtures.files.set(mapPath, Buffer.from(JSON.stringify({
+      source_commit: origin, authority: "user cleanup", files: [row],
+    })));
+    save();
+    fixtures.blobs.set(origin + ":" + path, baseline);
+    fixtures.blobs.set("HEAD:" + path, baseline);
+    fixtures.files.set(resolve(root, path), next);
+    expect(preservedContract(root, path)).toEqual(original);
+    fixtures.blobs.set("HEAD:" + path, next);
+    expect(preservedContract(root, path)).toEqual(original);
+    fixtures.blobs.set("HEAD:" + path, updated);
+    expect(() => preservedContract(root, path)).toThrow("Unreviewed current adapter chain");
+    fixtures.blobs.set("HEAD:" + path, baseline);
+    fixtures.files.set(resolve(root, path), Buffer.from("unreviewed working edit"));
+    expect(() => preservedContract(root, path)).toThrow("Unreviewed repository change");
+    fixtures.files.set(resolve(root, path), next);
+    row.before_bytes = updated.length;
+    row.before_sha256 = sha(updated);
+    fixtures.blobs.set(origin + ":" + path, updated);
+    save();
+    expect(() => preservedContract(root, path)).toThrow("Unreviewed current adapter chain");
+  });
+
 });

@@ -3,13 +3,18 @@ import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { productionBoundaryPlugin } from "./scripts/production-boundary.mjs";
 import { shellReferencePlugin } from "./scripts/shell-reference.mjs";
+import { developmentContentPlugin, developmentServerOptions } from './scripts/dev-proxy.mjs';
 
 export default defineConfig({
-  plugins: [shellReferencePlugin(), productionBoundaryPlugin(), reactRouter()],
+  plugins: [shellReferencePlugin(), productionBoundaryPlugin(), developmentContentPlugin(process.env), reactRouter()],
   server: {
     host: "127.0.0.1",
     port: 5171,
     strictPort: true,
-    fs: { allow: [fileURLToPath(new URL("..", import.meta.url))] },
+    ...developmentServerOptions(process.env),
+    fs: {
+      allow: [fileURLToPath(new URL("..", import.meta.url))],
+      deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/var/**'],
+    },
   },
 });

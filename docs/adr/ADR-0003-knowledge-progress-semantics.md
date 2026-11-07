@@ -1,4 +1,4 @@
-# ADR-0003: Pilot Knowledge Graph and ProgressEvent Semantics
+# ADR-0003: Семантика пилотного графа знаний и ProgressEvent
 
 - **Status:** Accepted
 - **Date:** 2026-09-24
@@ -8,25 +8,25 @@
 - **Related specs:** `specs/knowledge/R03-knowledge-graph.md`, `specs/progress/R03-progress-contract.md`
 - **Supersedes:** the `KnowledgeEvent` name in current architecture wording; no event data or numerical rule is replaced
 
-## Context
+## Контекст
 
-R01 preserved the exact MathStart v3.1 Progress Algorithm v1 in `specs/progress/BASELINE-v1.md`. R02 established the exercise, hint, reveal, and validation boundaries. R03 must make the pilot graph and event projection reproducible before Django persistence exists. The R03 human review approved the decisions below; this ADR records them for the final contract gate.
+R01 сохранил алгоритм прогресса MathStart v3.1 Progress Algorithm v1 без изменений в `specs/progress/BASELINE-v1.md`. R02 установил границы упражнений, подсказок, раскрытия ответа и проверки. R03 должен обеспечить воспроизводимость пилотного графа и проекции событий до появления persistence в Django. Человек, проводивший ревью R03, одобрил приведённые ниже решения; этот ADR фиксирует их для итоговой проверки контракта.
 
-## Decision: objective pilot graph
+## Решение: объективный пилотный граф
 
-The canonical graph version is `pilot-v1`. It contains exactly the ten stable Skill codes in `specs/knowledge/fixtures/pilot-skills-v1.json` and exactly the thirteen edges in `specs/knowledge/fixtures/pilot-dependencies-v1.json`. Every edge has weight 1.0 and points **prerequisite -> dependent**. The graph is a DAG. Duplicate edges, references to missing skills, self-edges, and cycles are invalid.
+Каноническая версия графа — `pilot-v1`. Она содержит ровно десять стабильных Skill codes из `specs/knowledge/fixtures/pilot-skills-v1.json` и ровно тринадцать связей из `specs/knowledge/fixtures/pilot-dependencies-v1.json`. Вес каждой связи — 1.0; направление — **prerequisite -> dependent**. Граф является DAG. Дублирующиеся связи, ссылки на отсутствующие skills, связи навыка с самим собой и циклы недопустимы.
 
-`basic_arithmetic` is an external prerequisite for entering the pilot. It is not one of the ten `pilot-v1` Skills and cannot be a `SkillDependency` endpoint. External entrance eligibility must be represented separately, with no dangling skill reference. `interaction_mode` remains Assessment metadata, never a Skill.
+`basic_arithmetic` — внешнее предварительное условие для входа в пилот. Это не один из десяти Skills версии `pilot-v1`, и он не может быть конечной точкой `SkillDependency`. Внешнюю возможность входа необходимо представлять отдельно, без висячих ссылок на skill. `interaction_mode` остаётся метаданными Assessment и никогда не является Skill.
 
-FR-16's pilot ancestor query traverses these stored edges backward from dependent to prerequisite through depth 2. It returns each code at minimum depth in deterministic `(depth, code)` order and rejects an unknown Skill. The stored edge direction remains prerequisite to dependent.
+Запрос предков пилота из FR-16 проходит по сохранённым связям в обратном направлении — от dependent к prerequisite — на глубину 2. Он возвращает каждый код на минимальной глубине в детерминированном порядке `(depth, code)` и отклоняет неизвестный Skill. Направление сохранённых связей остаётся prerequisite -> dependent.
 
-Topic and Skill are different concepts. R03 references the Content-owned topic abstraction, currently `ContentPage(page_type=topic)`, without creating another Topic model. Content owns eventual `TopicSkill` mapping. Exact Django FK/persistence design is deferred to a later implementation task.
+Topic и Skill — разные понятия. R03 ссылается на принадлежащую Content абстракцию темы, сейчас представленную как `ContentPage(page_type=topic)`, и не создаёт отдельную модель Topic. Будущая связь `TopicSkill` принадлежит Content. Точная схема Django FK/persistence отложена до последующей задачи реализации.
 
-## Decision: one canonical progress event
+## Решение: одно каноническое событие прогресса
 
-`ProgressEvent` is the sole current name for the persisted progress-evidence event. The old `KnowledgeEvent` wording in accepted historical material is superseded terminology, **not** a second event type, model, log, or source of truth. Only Progress may mutate `UserSkillState` through accepted, validated `ProgressEvent`s. An exercise view, Tutor, Analyzer, frontend, or LLM provider cannot write the projection directly.
+`ProgressEvent` — единственное актуальное название сохраняемого события-доказательства прогресса. Формулировка `KnowledgeEvent` в одобренных исторических материалах заменена и является лишь прежней терминологией, **а не** вторым типом события, моделью, журналом или источником истины. Только Progress может изменять `UserSkillState` посредством принятых и проверенных `ProgressEvent`. Просмотр упражнения, Tutor, Analyzer, frontend или LLM provider не могут напрямую записывать проекцию.
 
-Progress v1 keeps all numerical effects, the mastery formula, difficulty coefficients, repeat cap, and status thresholds in `specs/progress/BASELINE-v1.md` **unchanged**. This ADR adds no replacement formula. The R03 contract specifies the accepted operational rules:
+Progress v1 сохраняет **без изменений** все числовые эффекты, формулу mastery, коэффициенты сложности, предел повторов и пороги статусов из `specs/progress/BASELINE-v1.md`. Этот ADR не вводит заменяющую формулу. Контракт R03 задаёт принятые операционные правила:
 
 - evidence_count includes accepted self-report, correct, wrong, misconception, and diagnostic events, but excludes `ANSWER_REVEALED`;
 - confidence adds its baseline delta directly and is clamped to 0..100; difficulty and repeat multipliers apply only to mastery;
@@ -40,16 +40,16 @@ Progress v1 keeps all numerical effects, the mastery formula, difficulty coeffic
 - one evidence unit emits one normalized negative `ProgressEvent`: a confirmed `MISCONCEPTION_DETECTED`, otherwise `WRONG_ATTEMPT`; a same-evidence pair is rejected, while raw Assessment/Analyzer facts may remain outside Progress;
 - replay sorts by `(occurred_at, event_id, policy_version)`, applies each event using its recorded policy version, and reprojects a user/skill after a valid late event.
 
-The canonical `UserSkillState` fields are `mastery`, `confidence`, `evidence_count`, `status`, `last_updated`, and `reducer_version`. R03 sets `reducer_version` to `progress-v1`, initializes `last_updated` to null, and sets it to the final projecting event's `occurred_at` in replay order. This follows the Technical Specification; the `last_evaluated_at` label in the older baseline transcription is not introduced as a second state field. An immutable Assessment `completed_at` fact may be before or after a `ProgressEvent`'s `occurred_at`; only timezone-aware normalization and same-attempt/skill consistency constrain it.
+Канонические поля `UserSkillState`: `mastery`, `confidence`, `evidence_count`, `status`, `last_updated` и `reducer_version`. В R03 для `reducer_version` устанавливается `progress-v1`, `last_updated` изначально равен null, а затем получает `occurred_at` последнего проецирующего события в порядке replay. Это соответствует Technical Specification; метка `last_evaluated_at` из старой транскрипции baseline не вводится как второе поле состояния. Неизменяемый факт Assessment `completed_at` может быть раньше или позже `occurred_at` события `ProgressEvent`; ограничения задают только нормализация с часовым поясом и согласованность attempt/skill.
 
-The same immutable event log must always replay to the same `UserSkillState`. R03's pure Python verifier tests this contract without Django models, database persistence, or a live LLM.
+Один и тот же неизменяемый журнал событий всегда должен воспроизводить один и тот же `UserSkillState`. Чистая проверка на Python из R03 проверяет этот контракт без моделей Django, database persistence или работающего LLM.
 
-## Alternatives and consequences
+## Альтернативы и последствия
 
-Placing `basic_arithmetic` as an unseeded edge endpoint was rejected because it would violate referential integrity. Making it an eleventh pilot node was rejected by the approved ten-skill scope. Reversing edge direction would invert remediation queries. Keeping both `KnowledgeEvent` and `ProgressEvent` as separate current concepts was rejected because one action could be double counted or replayed inconsistently.
+Вариант с `basic_arithmetic` как незаведённой конечной точкой связи отклонён, поскольку он нарушал бы referential integrity. Вариант с ним как одиннадцатым узлом пилота отклонён утверждённым ограничением в десять skills. Обратное направление связей меняло бы на противоположное направление запросов на исправление пробелов. Сохранение `KnowledgeEvent` и `ProgressEvent` как двух отдельных актуальных понятий отклонено: одно действие могло бы учитываться дважды или воспроизводиться непоследовательно.
 
-The contract now requires event identity, source facts, immutable policy version, deterministic ordering, and completed-attempt metadata. Later Django work must choose schema, transaction, concurrency, migration, and PostgreSQL details without changing these semantics. Repository-managed catalogue bootstrap must never overwrite historical student evidence.
+Контракт теперь требует идентификатор события, исходные факты, неизменяемую версию политики, детерминированный порядок и метаданные завершённой попытки. При дальнейшей работе с Django нужно выбрать схему, транзакции, concurrency, миграции и детали PostgreSQL, не меняя эту семантику. Bootstrap каталога, управляемый репозиторием, никогда не должен перезаписывать исторические данные об обучении.
 
-## Verification and human gate
+## Проверка и решение человека
 
-The R03 contract suite must cover the graph and every Progress rule above; the full repository verification remains required. This ADR does not claim runtime persistence verification. Final R03 human contract gate: ACCEPTED. R03 closure awaits PR merge into main. Official C-16 submission is a separate human gate.
+Набор проверок контракта R03 должен охватывать граф и каждое приведённое выше правило Progress; полная проверка репозитория остаётся обязательной. Этот ADR не заявляет о проверке persistence в runtime. Итоговый human contract gate R03: ACCEPTED. Закрытие R03 ожидает слияния PR в main. Официальная отправка C-16 требует отдельного решения человека.

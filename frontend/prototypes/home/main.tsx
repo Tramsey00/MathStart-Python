@@ -1,10 +1,10 @@
-import { StrictMode, useRef, useState, type ReactNode } from 'react';
+import { StrictMode, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalogue from 'virtual:mathstart-catalogue';
 import { materialPathForSlug } from '../../src/shared/routing/material-routes.mjs';
 import '../../src/shared/styles/theme.css';
 import './style.css';
-import { Brand, SiteFooter, site, useSiteTheme } from './site-shell';
+import { LandingHeader, SiteFooter, site, useSiteTheme } from './site-shell';
 
 const route = new URLSearchParams(location.search);
 const initialGrade = catalogue.grades.find(item => item.slug === route.get('grade'))?.slug ?? '7-klass';
@@ -102,29 +102,44 @@ function App() {
   const [subject, setSubject] = useState(initialSubject);
   const [expandedSubject, setExpandedSubject] = useState<string | null>(initialSubject);
   const [query, setQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchToggle = useRef<HTMLButtonElement>(null);
+  const searchPanel = useRef<HTMLDivElement>(null);
   const [dark, setDark] = useSiteTheme();
   const [activeSection, setActiveSection] = useState<Section | null>(null);
-  const [sectionQuery, setSectionQuery] = useState('');
   const topicDialog = useRef<HTMLDialogElement>(null);
   const topicBackdropPress = useRef(false);
   const menuDialog = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLInputElement>(null);
-  const sectionSearch = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (!searchOpen) return;
+    search.current?.focus();
+    function dismissOutside(event: PointerEvent) {
+      if (!(event.target instanceof Node)) return;
+      if (searchPanel.current?.contains(event.target) || searchToggle.current?.contains(event.target)) return;
+      setSearchOpen(false);
+    }
+    document.addEventListener('pointerdown', dismissOutside);
+    return () => document.removeEventListener('pointerdown', dismissOutside);
+  }, [searchOpen]);
+  function closeSearch() {
+    setSearchOpen(false);
+    searchToggle.current?.focus();
+  }
   const subjects = catalogue.subjects.filter(item => item.grade === grade).sort((a, b) => a.order - b.order);
   const selected = subjects.find(item => item.slug === subject)!;
   const sections = catalogue.sections.filter(item => item.grade === grade && item.subject === subject && catalogue.topics.some(topic => topic.grade === grade && topic.subject === subject && topic.section === item.slug)).sort((a, b) => a.order - b.order);
   const topics = catalogue.topics.filter(item => item.grade === grade && item.subject === subject);
   const results = query.trim() ? catalogue.topics.filter(item => item.title.toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru'))) : [];
-  const visibleSections = sections.filter(item => !sectionQuery || item.title.toLocaleLowerCase('ru').includes(sectionQuery.toLocaleLowerCase('ru')));
   const sectionTopics = activeSection ? catalogue.topics.filter(item => item.grade === activeSection.grade && item.subject === activeSection.subject && item.section === activeSection.slug) : [];
 
   function chooseGrade(next: string) {
     setGrade(next);
     const first = catalogue.subjects.filter(item => item.grade === next).sort((a, b) => a.order - b.order)[0]!.slug;
     setSubject(first); setExpandedSubject(first);
-    setQuery(''); setSectionQuery('');
+    setQuery('');
   }
-  function chooseSubject(next: string) { setSubject(next); setExpandedSubject(next); setQuery(''); setSectionQuery(''); }
+  function chooseSubject(next: string) { setSubject(next); setExpandedSubject(next); setQuery(''); }
   function toggleSubject(next: string) {
     if (next !== subject) chooseSubject(next);
     else setExpandedSubject(value => value === next ? null : next);
@@ -143,17 +158,20 @@ function App() {
       <button className={`subject-button ${subject === item.slug ? 'is-selected' : ''}`} aria-current={subject === item.slug ? 'true' : undefined} aria-expanded={subject === item.slug && expandedSubject === item.slug} aria-controls={`${surface}-sections-${item.slug}`} onClick={() => toggleSubject(item.slug)}>
         <SubjectMark subject={item.slug}/><span>{item.title}</span><Icon name="chevron" size={14}/>
       </button>
-      <div id={`${surface}-sections-${item.slug}`} className="section-navigation" hidden={subject !== item.slug || expandedSubject !== item.slug}>{subject === item.slug && sections.map(section => <button key={section.slug} onClick={() => { menuDialog.current?.close(); openSection(section); }}>{section.title}</button>)}</div>
+      <div id={`${surface}-sections-${item.slug}`} className="section-navigation" data-expanded={subject === item.slug && expandedSubject === item.slug} inert={subject !== item.slug || expandedSubject !== item.slug}><div className="section-navigation-inner">{subject === item.slug && sections.map(section => <button key={section.slug} onClick={() => { menuDialog.current?.close(); openSection(section); }}>{section.title}</button>)}</div></div>
     </div>)}</nav>
   </>;
 
   return <>
     <a className="skip-link" href="#learning">К учебным материалам</a>
-    <header className="topbar">
-      <div className="topbar-brand"><button className="icon-button mobile-menu" aria-label="Открыть меню" onClick={() => menuDialog.current?.showModal()}><Icon name="menu"/></button><Brand/></div>
-      <div className="global-search"><Icon name="search"/><label className="sr-only" htmlFor="topic-search">Поиск по всем темам</label><input ref={search} id="topic-search" placeholder="Какую тему хочешь разобрать?" value={query} onChange={e => { setQuery(e.target.value); setSectionQuery(''); }} onKeyDown={e => { if (e.key === 'Escape') setQuery(''); }}/>{query && <button className="icon-button" aria-label="Очистить поиск" onClick={() => { setQuery(''); search.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>
-      <div className="header-actions"><a className="all-topics" href="/">Главная</a><button className="icon-button theme-button" aria-label={dark ? 'Включить светлую тему' : 'Включить тёмную тему'} onClick={() => setDark(value => !value)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="login-button" href={`${site}/account/`}>Войти</a></div>
-    </header>
+    <LandingHeader dark={dark} onTheme={() => setDark(value => !value)} showCatalogueLink={false}
+      leading={<button className="icon-button mobile-menu" aria-label="Открыть меню" onClick={() => menuDialog.current?.showModal()}><Icon name="menu"/></button>}
+      actions={<div ref={searchPanel} className="catalogue-inline-search" data-open={searchOpen} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); closeSearch(); } }}>
+        <div id="catalogue-search-panel" className="catalogue-search-expand" inert={!searchOpen}>
+          <div className="catalogue-search-field" role="search"><label className="sr-only" htmlFor="topic-search">Поиск по всем темам</label><input ref={search} id="topic-search" type="search" placeholder="Найти тему по математике" value={query} onChange={e => setQuery(e.target.value)}/>{query && <button className="icon-button" type="button" aria-label="Очистить поиск" onClick={() => { setQuery(''); search.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>
+        </div>
+        <button ref={searchToggle} className="catalogue-search-toggle" type="button" aria-label={searchOpen ? 'Закрыть поиск' : 'Поиск по материалам'} aria-expanded={searchOpen} aria-controls="catalogue-search-panel" onClick={() => { if (searchOpen) closeSearch(); else setSearchOpen(true); }}><Icon name="search" size={23}/></button>
+      </div>}/>
     <aside className="sidebar">{navigation('desktop')}</aside>
     <dialog ref={menuDialog} className="menu-dialog" aria-labelledby="menu-title"><div className="dialog-heading"><h2 id="menu-title">Навигация</h2><button className="icon-button" aria-label="Закрыть меню" onClick={() => menuDialog.current?.close()}><Icon name="close"/></button></div>{navigation('mobile')}</dialog>
     <main id="learning" tabIndex={-1}>
@@ -163,12 +181,12 @@ function App() {
         <MathIllustration/>
       </section>
       <section className="materials" aria-labelledby="materials-title">
-        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div>{!query.trim() && <div className="section-filter"><Icon name="search" size={18}/><label className="sr-only" htmlFor="section-search">Найти раздел</label><input ref={sectionSearch} id="section-search" placeholder="Найти раздел" value={sectionQuery} onChange={e => setSectionQuery(e.target.value)} onKeyDown={e => { if (e.key === 'Escape') setSectionQuery(''); }}/>{sectionQuery && <button className="icon-button search-clear" aria-label="Очистить фильтр разделов" onClick={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>}</div>
+        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div></div>
         {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
-        : <><div className="section-grid">{visibleSections.map(section => {
+        : <><div className="section-grid">{sections.map(section => {
           const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}</span><div className="card-copy"><h3>{section.title}</h3></div><span className="card-topic-count">{children.length} {plural(children.length)}</span></button>;
-        })}</div>{visibleSections.length === 0 && <SearchEmpty scope="sections" onReset={() => { setSectionQuery(''); sectionSearch.current?.focus(); }}/>}</>}
+          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}.</span><div className="card-copy"><h3>{section.title}</h3></div><span className="card-topic-count">{children.length} {plural(children.length)}</span></button>;
+        })}</div></>}
       </section>
     </main>
     <SiteFooter cataloguePage/>
@@ -181,7 +199,7 @@ function App() {
         if (startedOutside && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY)) event.currentTarget.close();
       }}>
       <div className="topics-dialog-header"><div className="topics-context"><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {catalogue.subjects.find(item => item.grade === activeSection?.grade && item.slug === activeSection?.subject)?.title}</p><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><h2 id="topics-dialog-title">{activeSection?.title}</h2></div>
-      <div className="topics-dialog-body"><div className="topics-list-heading"><h3 id="topics-dialog-help">Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{index + 1}</span><span>{topic.title}</span></a></li>)}</ol></div>
+      <div className="topics-dialog-body"><div className="topics-list-heading"><h3 id="topics-dialog-help">Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{index + 1}.</span><span>{topic.title}</span></a></li>)}</ol></div>
     </dialog>
   </>;
 }

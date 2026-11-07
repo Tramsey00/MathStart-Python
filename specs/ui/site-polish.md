@@ -1,53 +1,53 @@
-# SPEC: Bounded public-site polish
+# SPEC: Ограниченная полировка публичного сайта
 
-- Status: Applied locally; automated checks passed; human acceptance pending
-- Date: 2026-10-04
-- Owner/reviewer: repository owner
-- Plan: `docs/exec-plans/active/site-polish.md`
-- Compatibility: ADR-0001, MS7-I02, `topics-catalogue.md`
+- Статус: Применено локально; автоматические проверки пройдены; ожидается человеческая приёмка
+- Дата: 2026-10-04
+- Владелец/ревьюер: владелец репозитория
+- План: `docs/exec-plans/active/site-polish.md`
+- Совместимость: ADR-0001, MS7-I02, `topics-catalogue.md`
 
-## Contract and scope
+## Контракт и scope
 
-Preserve Django, Content ownership, lesson/class/subject content and styles,
-catalogue GET search/filter/grouping, home hero and class selector behavior.
-Polish only the catalogue introduction, shared brand/footer, About, Contacts,
-and two home information sections. No schema, dependencies, API, account,
-exercise, evidence or deployment changes. No branch, agents, commit or push.
-This feature does not create or mutate knowledge evidence.
+Сохранять Django, владение Content, содержимое уроков/классов/предметов и их стили,
+GET-поиск/фильтры/группировку каталога, hero главной страницы и поведение выбора класса.
+Полировать только вступление каталога, общий бренд/footer, страницы About и Contacts,
+а также два информационных раздела главной. Без изменений schema, dependencies, API,
+account, exercises, evidence или deployment. Не создавать ветку, агентов, commit или push.
+Функция не создаёт и не меняет свидетельства знаний.
 
-Catalogue has one compact «Все темы» heading and short search guidance. The
-header brand links to `/`, with a decorative hidden math symbol and visible
-focus. Footer links to catalogue/About/Contacts with one concise purpose line.
-About describes actual reading/examples/available self-checks and the partial
-grade-10 algebra coverage; remove the whole illustrative gallery, retain media.
-Contacts preserves `mailto:rr06@mail.ru` and explains what to report/include.
-Home benefits become concise columns; lesson structure becomes a distinct
-sequence. Remove the final class-selection note; retain hero/classes verbatim.
-All new styles must stay inside shell/page/block roots.
+В каталоге используется один компактный заголовок «Все темы» и короткая подсказка поиска.
+Ссылка на бренд в header ведёт на `/`, содержит декоративный скрытый математический символ
+и видимый focus. Ссылки footer ведут на каталог/About/Contacts с одной короткой строкой о назначении.
+About описывает фактическое чтение/примеры/доступные самопроверки и неполный охват алгебры 10-го класса;
+удаляется вся иллюстративная галерея, media сохраняются. Contacts сохраняет
+`mailto:rr06@mail.ru` и объясняет, что следует сообщить/приложить.
+Преимущества главной становятся компактными колонками; структура урока оформляется отдельной
+последовательностью. Удаляется заключительная заметка о выборе класса; hero/classes сохраняются
+дословно. Все новые стили ограничиваются корнями shell/page/block.
 
-## Publication contract
+## Контракт публикации
 
-The user explicitly authorizes updating the existing local PostgreSQL site.
-Use a scoped source-driven update of `glavnaya`, `karta-sajta`, `o-proekte`,
-`kontakty`, the existing powers lesson/PDF relationship, exactly four retired
-URL redirects, and the two static-page publication flags. Retain retired rows.
-Full bootstrap must not recreate their deleted sources. Do not sweep missing
-sources or overwrite other lessons/catalogue/media/users. Keep conflict-safe
-lesson publication; a conflict prevents the update. Snapshot affected records,
-verify on isolated PostgreSQL first, collect static and verify actual port 8000.
-No production/remote update is authorized.
+Пользователь явно разрешил обновить существующий локальный PostgreSQL сайт.
+Выполнить ограниченное обновление на основе sources для `glavnaya`, `karta-sajta`,
+`o-proekte`, `kontakty`, существующего урока степеней/PDF relationship,
+ровно четырёх устаревших URL redirects и flags публикации двух static pages.
+Устаревшие rows сохранить. Полный bootstrap не должен заново создавать удалённые sources.
+Не очищать другие отсутствующие sources и не перезаписывать другие lessons/catalogue/media/users.
+Сохранить conflict-safe публикацию уроков; conflict блокирует обновление. Снять snapshot
+затрагиваемых records, сначала проверить на изолированной PostgreSQL, собрать static и
+проверить реальный port 8000. Обновление production/remote не разрешено.
 
-## Acceptance and verification
+## Приёмка и проверка
 
-Meaningful tests cover scoped upgrade/repeat/dry-run/conflict rollback,
-unrelated/user/media preservation, rendered links/text/metadata, direct 301s,
-fresh bootstrap, catalogue behavior, and manifest storage. Required verification:
+Содержательные tests охватывают ограниченный upgrade/repeat/dry-run/conflict rollback,
+сохранность unrelated/user/media, rendered links/text/metadata, прямые 301, fresh bootstrap,
+поведение каталога и manifest storage. Обязательные проверки:
 `.venv312/Scripts/python.exe scripts/verify_repo.py`, `git diff --check`, disposable
-PostgreSQL fresh smoke, browser 360/768/1440 on six representative pages.
-Compare lesson/class component markup and dimensions and home protected areas.
-Report unused gallery media honestly; never weaken integrity checks. Keep
-plan active and implementation uncommitted until the owner's human review.
+PostgreSQL fresh smoke, browser 360/768/1440 для шести представительных страниц.
+Сравнить разметку и размеры lesson/class components и защищённые области главной.
+Честно отчитаться о неиспользуемых gallery media; проверки integrity не ослаблять.
+Оставить plan активным, реализацию без commit до человеческого ревью владельцем.
 
-Local media limitation: the unchanged DEBUG=False runserver does not serve
-`/media/`. The PDF is preserved and linked correctly but live PDF HTTP is 404;
-no claim of successful media delivery or deployment configuration change.
+Локальное ограничение media: неизменённый запуск runserver с DEBUG=False не отдаёт
+`/media/`. PDF сохранён и корректно связан, но live PDF HTTP возвращает 404;
+успешная доставка media и изменение deployment configuration не заявляются.

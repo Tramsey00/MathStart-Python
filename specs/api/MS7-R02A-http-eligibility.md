@@ -1,264 +1,251 @@
-# SPEC MS7-R02A: HTTP and eligibility addendum v1
+# SPEC MS7-R02A: Дополнение к HTTP и eligibility v1
 
-- **Status:** Candidate for independent human review; acceptance PENDING
-- **Owner:** Руслан
+- **Статус:** Кандидат на независимое человеческое ревью; приёмка PENDING
+- **Владелец:** Руслан
 - **Reviewer / Task Approver:** Владимир
-- **Milestone:** G1 contract closeout
-- **Relation:** FOLLOW-UP / ADDENDUM TO FROZEN R02
-- **Normative source:** MathStart Technical Specification v7.1, G0 ACCEPTED
+- **Этап:** Завершение контракта G1
+- **Связь:** FOLLOW-UP / ДОПОЛНЕНИЕ К ЗАМОРОЖЕННОМУ R02
+- **Нормативный источник:** MathStart Technical Specification v7.1, принят G0
   2026-09-30, §§4–11,15–17,21–22,25–27,30,32.
-- **Frozen inputs:** ADR-0002 and `../exercises/R02-exercise-architecture.md`;
-  R03/ADR-0003 supplies unchanged event names and numerical semantics.
-- **Proposed ADR:** `../../docs/adr/ADR-0004-http-eligibility-addendum.md`
-- **Plan:** `../../docs/exec-plans/active/MS7-R02A-http-eligibility.md`
+- **Замороженные входы:** ADR-0002 и `../exercises/R02-exercise-architecture.md`;
+  R03/ADR-0003 задаёт неизменённые имена событий и числовую семантику.
+- **Предлагаемый ADR:** `../../docs/adr/ADR-0004-http-eligibility-addendum.md`
+- **План:** `../../docs/exec-plans/active/MS7-R02A-http-eligibility.md`
 
-## Deliverables and authority
+## Deliverables и полномочия
 
-`openapi-v1.json` is the sole canonical OpenAPI artifact. OAS 3.1 JSON uses
-JSON Schema 2020-12; `schemas/dto-v1.schema.json` owns reusable wire DTOs.
-`http-policy-v1.json` owns machine-readable operation, revision, lifecycle,
-idempotency, exposure and limit rules. `schemas/scenario-v1.schema.json` is a
-fixture-only contract, not a public API component. Fixtures are synthetic
-specification examples, not seeds or persisted runtime evidence.
+`openapi-v1.json` — единственный канонический OpenAPI artifact. OAS 3.1 JSON использует
+JSON Schema 2020-12; `schemas/dto-v1.schema.json` определяет повторно используемые wire DTO.
+`http-policy-v1.json` задаёт машиночитаемые правила operations, revision, lifecycle,
+idempotency, exposure и limits. `schemas/scenario-v1.schema.json` — контракт только для fixtures,
+не компонент публичного API. Fixtures — синтетические примеры спецификации, а не seeds
+или сохранённые runtime evidence.
 
-Version `1.0.0` / metadata `http-v1` identifies this HTTP artifact. Exercise
-`contract_version` and additive `version` are equal aliases of one immutable
-exercise version counter, as required by R02. They are not independent counters.
-The server-bound ExerciseVersion id, exercise id and version are authoritative.
-Public difficulty bands easy/medium/hard map to difficulty_level 1–2/3/4.
+Версия `1.0.0` / metadata `http-v1` идентифицирует этот HTTP artifact. Exercise
+`contract_version` и дополнительный `version` — равные alias одного счётчика неизменяемых
+версий упражнения, как требует R02. Это не независимые счётчики. Привязанные к серверу
+ExerciseVersion id, exercise id и version являются авторитетными. Публичные difficulty bands
+easy/medium/hard сопоставляются с difficulty_level 1–2/3/4.
 
-This document specifies future endpoints; no endpoint, model, database migration,
-Progress reducer, CompletionFact implementation or provider is supplied here.
-Frozen R02 stays accepted. The new artifact and D-022/023 require Vladimir's
-acceptance of their precise digest before V02/I02 use them as accepted upstream.
+Документ задаёт будущие endpoints; реализации endpoints, models, database migration,
+Progress reducer, CompletionFact или provider здесь нет. Замороженный R02 остаётся принятым.
+Новый artifact и D-022/023 требуют принятия Владимиром их точного digest до использования
+как принятого upstream в V02/I02.
 
-## HTTP surface and common rules
+## Поверхность HTTP и общие правила
 
-The OpenAPI contains all 37 method/route operations from §11: Identity,
-Content, Attempts, Diagnostics, Progress, Practice, Tutor and Operations.
-Namespace `/api/v1/`, snake_case, trailing slash, UTF-8 JSON. No API v2 or
-alternative canonical route is introduced.
+OpenAPI содержит все 37 операций method/route из §11: Identity, Content, Attempts,
+Diagnostics, Progress, Practice, Tutor и Operations. Namespace `/api/v1/`, snake_case,
+конечный slash, UTF-8 JSON. API v2 и альтернативный канонический route не вводятся.
 
-Django Session Auth applies to student data and assessed exercises. Published
-grades/topics/theory, CSRF bootstrap and minimal health are anonymous-readable.
-Registration/login bootstrap a session; email is optional and no unverified
-recovery channel is promised. Login failure is indistinguishable for missing
-username and bad password. Session cookies rotate at login. Every mutation,
-including registration/login/logout, requires `X-CSRFToken` matched to the CSRF
-cookie obtained through GET auth/csrf/. The CSRF bootstrap may set a cookie;
-GET creates no Attempt, selected session item or domain evidence.
+Django Session Auth применяется к данным ученика и assessed exercises. Опубликованные
+grades/topics/theory, CSRF bootstrap и минимальная health доступны анонимно для чтения.
+Registration/login создают session; email необязателен, обещания канала восстановления
+без верификации нет. Ошибка login не различает отсутствующий username и неверный password.
+Cookie session ротируется при login. Каждая mutation, включая registration/login/logout,
+требует `X-CSRFToken`, совпадающий с CSRF cookie, полученной через GET auth/csrf/.
+CSRF bootstrap может установить cookie; GET не создаёт Attempt, выбранный элемент session
+или доменное evidence.
 
-Owner-scoped lookups include attempts, sessions, conversations, progress/history,
-and referenced previous_attempt/context IDs. First authenticate, then restrict
-lookup to the owner. Missing and foreign owned objects share a generic 404
-envelope. Never expose foreign revision, identifier, action or eligibility in
-errors. Unauthenticated student requests produce generic 401 independent of
-object existence. 403 is reserved for CSRF and roles without disclosing an
-owner-secret resource. Content topic IDs preserve ContentPage identities/slugs;
-new resource identifiers are UUIDs. All timestamps are aware UTC, precision up
-to six fractional digits; deterministic examples use fixed UUIDs and timestamps.
+Поиск с ограничением владельца применяется к attempts, sessions, conversations,
+progress/history и переданным previous_attempt/context IDs. Сначала выполнить authentication,
+затем ограничить поиск владельцем. Отсутствующий и чужой owned object дают общий 404 envelope.
+В ошибках нельзя раскрывать чужую revision, identifier, action или eligibility. Неаутентифицированный
+запрос ученика получает общий 401 независимо от существования объекта. 403 зарезервирован для
+CSRF и ролей, не раскрывая resource с секретом владельца. IDs тем Content сохраняют идентичность/
+slugs ContentPage; новые resource identifiers — UUID. Все timestamps — aware UTC с точностью
+до шести дробных цифр; детерминированные примеры используют фиксированные UUID/timestamps.
 
-Paginated GET responses carry meta.pagination: next_cursor (null at end),
-page_size, has_more. Default 20, maximum 100; invalid sizes/cursors are 400.
-Stable ascending `(created_at,id)` order and opaque owner/filter-bound cursors
-prevent overlap/drift when fetching the next page. Catalogue resources without
-public created_at still have server-side stable ordering facts; timestamps need
-not be disclosed solely for pagination. Private responses are not cached in a
-public shared cache.
+Ответы GET с pagination содержат `meta.pagination`: `next_cursor` (null в конце), `page_size`,
+`has_more`. По умолчанию 20, максимум 100; неверные размеры/cursors — 400.
+Стабильная сортировка `(created_at,id)` по возрастанию и непрозрачные cursors,
+связанные с owner/filter, предотвращают пересечения/сдвиги между страницами.
+У ресурсов каталога, где нет публичного created_at, сервер всё равно сохраняет устойчивые
+факты порядка; раскрывать timestamps только ради pagination не нужно. Private responses
+не кэшируются в публичном shared cache.
 
-Success is `{data,meta}` with mandatory meta.request_id, optional artifact
-version, mandatory pagination only for list operations. Error is
-`{error:{code,message,field_errors,retryable,request_id}}`. The revision conflict
-subtype adds current_revision and canonical owner-safe reload_url; other conflicts
-do not disclose digests, private response bodies or foreign resource facts.
+Успех — `{data,meta}` с обязательным `meta.request_id`, необязательной версией artifact
+и обязательной pagination только у list operations. Ошибка —
+`{error:{code,message,field_errors,retryable,request_id}}`. В subtype конфликта revision
+добавляются `current_revision` и канонический безопасный для владельца `reload_url`;
+прочие конфликты не раскрывают digests, private response bodies или факты о чужом resource.
 
-| HTTP | Meaning |
+| HTTP | Значение |
 | --- | --- |
-| 400 | malformed/schema-invalid request, size/shape limit exceeded |
-| 401 | session authentication required |
-| 403 | CSRF failure / forbidden role without owner-secret disclosure |
-| 404 | missing or foreign owned resource |
-| 409 | revision / idempotency / exercise version / state conflict |
-| 429 | rate limited, mandatory Retry-After seconds |
-| 503 | safe completion unavailable; retry/reconcile explicitly |
+| 400 | Некорректный запрос/схема, превышено ограничение размера/формы |
+| 401 | Требуется аутентификация session |
+| 403 | Ошибка CSRF / запрещённая роль без раскрытия секрета владельца |
+| 404 | Ресурс отсутствует или принадлежит другому владельцу |
+| 409 | Конфликт revision / idempotency / версии exercise / state |
+| 429 | Ограничение частоты; обязателен Retry-After seconds |
+| 503 | Безопасно завершить операцию нельзя; retry/reconcile выполняются явно |
 
-UNSUPPORTED is a 200 assessed business result, never automatically HTTP error
-or WRONG. Safe provider fallback is 200 with service_state DEGRADED. Tutor
-message creation may return 201 when a message was created; a fallback response
-uses 200 DEGRADED explicitly. Health readiness returns a typed safe health
-envelope with 503 when necessary DB/config are unavailable; provider outage with
-working core fallback returns 200 READY and provider DEGRADED/UNAVAILABLE.
-Health never returns credentials, SQL, exception text, model keys or prompt data.
+UNSUPPORTED — результат assessed-бизнес-логики с HTTP 200, а не автоматическая HTTP-ошибка
+или WRONG. Безопасный fallback provider — 200 с `service_state DEGRADED`. Создание Tutor message
+может вернуть 201, если message создан; fallback response явно возвращает 200 DEGRADED.
+Health readiness возвращает типизированный безопасный health envelope с 503, если нужные
+DB/config недоступны; сбой provider при работающем основном fallback даёт 200 READY и
+provider DEGRADED/UNAVAILABLE. Health никогда не возвращает credentials, SQL, текст исключения,
+model keys или данные prompts.
 
-Submit may return 202 only for a persisted SUBMITTED Attempt with nonnull
-operation_id, snapshot_digest and submitted_at. GET `/api/v1/attempts/{id}/`
-is its repeatable status route. Poll at 1/2/4 seconds, then manual retry using
-the original submit key. A transient failure leaves a recoverable operation;
-network failure does not mean WRONG. No background queue is asserted to exist.
-Other actions are synchronous in this contract; no unpollable 202 is offered.
+Submit может вернуть 202 только для сохранённого SUBMITTED Attempt с ненулевыми
+`operation_id`, `snapshot_digest` и `submitted_at`. GET `/api/v1/attempts/{id}/` — повторно
+доступный route статуса. Poll через 1/2/4 секунды, затем ручной retry с исходным submit key.
+Временный сбой оставляет операцию восстановимой; network failure не означает WRONG.
+Наличие background queue не заявляется. Остальные actions по этому контракту синхронны;
+неполучаемый через polling 202 не выдаётся.
 
-## Revision, ordered input and version binding (D-022)
+## Revision, упорядоченный ввод и привязка версии (D-022)
 
-Assessed lifecycle: STARTED -> SUBMITTED -> COMPLETED, or STARTED -> ABANDONED.
-COMPLETED has outcome CORRECT/WRONG/UNSUPPORTED/INDETERMINATE; outcomes are not
-states. SELF_CHECK uses STARTED -> REVIEWED via explicit confirmed reveal,
-or STARTED -> ABANDONED. It cannot submit for mathematical assessment.
+Lifecycle assessed: STARTED -> SUBMITTED -> COMPLETED либо STARTED -> ABANDONED.
+COMPLETED имеет outcome CORRECT/WRONG/UNSUPPORTED/INDETERMINATE; outcomes не являются
+states. SELF_CHECK использует STARTED -> REVIEWED через явное подтверждённое reveal либо
+STARTED -> ABANDONED. Его нельзя отправить на математическую оценку.
 
-Initial revision is 1. PUT draft sends a complete valid `{payload,steps}` draft,
-contract_version and expected_revision. Server validates mode/input/step schemas
-and limits before replacing; expected_revision must equal current revision.
-Successful draft, submit and abandon advance revision by one. Help updates
-exposure, not draft revision. Stale saves return 409 REVISION_CONFLICT with
-current_revision and GET reload_url; clients retain raw input for reconciliation.
-State is checked after exact idempotent replay and before editing a frozen draft.
+Начальная revision равна 1. PUT draft передаёт полный корректный draft `{payload,steps}`,
+`contract_version` и `expected_revision`. Сервер проверяет mode/input/step schemas и limits
+до замены; expected_revision должен совпадать с текущей revision. Успешные draft, submit и
+abandon увеличивают revision на единицу. Help меняет exposure, а не revision draft.
+Устаревшие saves возвращают 409 REVISION_CONFLICT с `current_revision` и GET `reload_url`;
+clients сохраняют raw input для согласования. State проверяется после точного idempotent replay,
+но до редактирования замороженного draft.
 
-Submit sends expected_revision and contract_version, requires Idempotency-Key,
-and freezes exactly the existing draft, version, resulting revision and ordered
-steps into snapshot_digest. Submit does not accept a second ambiguous answer
-payload. Clients first PUT their complete draft, then submit its acknowledged
-revision. Edits and submit serialize; for the same expected_revision exactly one
-wins. Late draft after submit is STATE_CONFLICT. Draft-winning submit at old
-revision is REVISION_CONFLICT. SUBMITTED and terminal drafts never change.
+Submit передаёт `expected_revision` и `contract_version`, требует Idempotency-Key и замораживает
+в `snapshot_digest` точный существующий draft, версию, итоговую revision и упорядоченные steps.
+Submit не принимает второй неоднозначный payload ответа. Сначала client отправляет полный draft через PUT,
+затем submit с подтверждённой revision. Edits и submit сериализуются; для одного expected_revision
+побеждает ровно один. Поздний draft после submit даёт STATE_CONFLICT. Если draft выиграл,
+submit со старой revision получает REVISION_CONFLICT. SUBMITTED и терминальные drafts не меняются.
 
-Client steps retain step_no, step_type, payload, raw_text. step_no is one-based,
-contiguous, unique and ordered ascending in the submitted array. Reordering is
-allowed by replacing/renumbering the full STARTED draft. Clients do not set
-step_id, normalized_repr or parse_status. Server returns stable step_id and all
-six R02 fields; types and parse enums are unchanged. Subject payload fields are
-untrusted dynamic data, validated against the frozen exercise public schema.
-No arbitrary payload is permission to run code or accept mathematical truth.
-Raw strings and array order are preserved before normalization and digesting.
+Client steps сохраняют `step_no`, `step_type`, `payload`, `raw_text`. Нумерация `step_no` начинается
+с единицы, непрерывна, уникальна, в массиве submit идёт по возрастанию. Перестановка разрешена заменой/
+перенумерацией всего STARTED draft. Client не задаёт `step_id`, `normalized_repr` или `parse_status`.
+Server возвращает стабильный `step_id` и все шесть полей R02; типы и parse enums неизменны.
+Поля subject payload — недоверенные динамические данные, проверяемые по публичной schema
+замороженного exercise. Произвольный payload не даёт права запускать код или принимать
+математическую истинность. Raw strings и порядок array сохраняются до normalization/digest.
 
-ExerciseVersion is immutable after publication. A started attempt continues to
-use its bound frozen version even if archived or superseded. Archival prohibits
-new attempts; it never swaps the checker/version of an open or historical
-attempt. Client version mismatch deterministically returns VERSION_CONFLICT.
-Post-submit correction creates a new owner-scoped Attempt referencing
-previous_attempt_id; the original snapshot is untouched. A substantive new
-published version is a distinct exposure key; a version bump to evade eligibility
-is prohibited and requires publication review.
+ExerciseVersion неизменяема после publication. Started attempt продолжает использовать
+привязанную замороженную версию, даже если её архивировали или заменили. Archival запрещает
+новые attempts; checker/version открытой или исторической attempt никогда не заменяется.
+Несовпадение версии client предсказуемо даёт VERSION_CONFLICT. Исправление после submit создаёт
+новую Attempt в scope владельца со ссылкой `previous_attempt_id`; исходный snapshot не меняется.
+Новая содержательная опубликованная версия имеет отдельный exposure key; повышать version,
+чтобы обойти eligibility, запрещено и требует review публикации.
 
-## Help, disclosure and positive credit (D-022)
+## Help, раскрытие и положительный credit (D-022)
 
-Exposure is keyed by `(user,exercise_version)`, carrying maximum help level,
-reveal time and prior positive credit. A new Attempt does not clear any of it.
-Hint/reveal is persisted transactionally before disclosing reviewed content.
-Level 0 means no help; requested levels 1–3 remain bounded hints. Level 3 must
-not secretly reveal a complete one-step solution. A full solution is returned
-only by the explicit confirmed reveal response, never exercise GET, ordinary
-Attempt/result, prompt/context, public metadata, cached bundle or source map.
+Exposure привязан к `(user,exercise_version)` и хранит максимальный help level,
+время reveal и предшествующий positive credit. Новая Attempt не очищает эти значения.
+Hint/reveal записывается транзакционно до раскрытия проверенного content.
+Уровень 0 означает отсутствие помощи; запрошенные уровни 1–3 остаются ограниченными подсказками.
+Уровень 3 не должен скрытно раскрывать полное решение одношаговой задачи. Полное решение
+возвращается только в явном подтверждённом reveal response и никогда через exercise GET,
+обычные Attempt/result, prompt/context, public metadata, cached bundle или source map.
 
-Before reveal, Tutor chooses a schema-valid reviewed hint-bank action belonging
-to the bound version. Assessment checks owner/exposure/level and records the
-help before returning prepared text; arbitrary generated math is not shown.
-After reveal bounded explanations are escaped, with safe fallback. Tutor cannot
-write Progress or override eligibility. Context binds topic/version/attempt
-server-side. Bounded output/input limits and rates are inherited from §§9–10/16,
-not an authorization to use a live model.
+До reveal Tutor выбирает действие hint-bank, принадлежащее привязанной версии и прошедшее
+проверку schema. Assessment проверяет owner/exposure/level и записывает help до возврата
+подготовленного текста; произвольная сгенерированная математика не показывается.
+После reveal ограниченные объяснения экранируются и имеют безопасный fallback.
+Tutor не может записывать в Progress или переопределять eligibility. Context привязывается
+на сервере к topic/version/attempt. Ограничения ввода/вывода и частоты наследуются из §§9–10/16;
+это не разрешение использовать live model.
 
-Help, submit and finalization serialize on Exposure. Submit freezes raw solution;
-finalization freezes the eligibility decision under the Exposure lock and
-reserves any positive credit atomically. A hint/reveal committed before submit
-or while SUBMITTED before finalization is considered by finalization. Pending
-submit does not grant independence. Once COMPLETED, its recorded decision is
-immutable; subsequent help/reveal cannot revoke an earlier independent result.
-Exposure shown on later GET can change while the recorded completed eligibility
-and award remain frozen. `eligibility.independent` and `positive_credit_eligible`
-describe the frozen decision for COMPLETED, prospective server eligibility for
-STARTED, and false/PENDING before evaluation of SUBMITTED.
+Help, submit и finalization сериализуются по Exposure. Submit замораживает raw solution;
+finalization под lock Exposure фиксирует eligibility decision и атомарно резервирует любой
+positive credit. Hint/reveal, сохранённые до submit либо пока Attempt SUBMITTED до finalization,
+учитываются при finalization. Pending submit не даёт независимость. После COMPLETED
+сохранённое решение неизменяемо; последующий help/reveal не отменяет ранее полученный
+independent result. Exposure, показанный последующим GET, может измениться, но записанная
+eligibility и награда завершённой attempt остаются замороженными. `eligibility.independent` и
+`positive_credit_eligible` описывают замороженное решение для COMPLETED, перспективную server
+eligibility для STARTED и false/PENDING до оценки SUBMITTED.
 
-Independent correct requires CORRECT, supported validated input, no earlier
-hint/reveal exposure for the version and no prior positive credit. Any earlier
-hint makes later same-version correct work helped (CORRECT_AFTER_HINT where
-applicable). Reveal prevents new positive credit, including diagnostic correct;
-neutral completion/history remain. An unassisted supported DIAGNOSTIC_CORRECT
-qualifies as independent, as inherited from R03. At most one credited positive
-event per user/version: repeated correct completion remains CORRECT and is
-recorded without another mastery gain or fake WRONG. SELF_CHECK/view/reveal,
-UNSUPPORTED and INDETERMINATE do not become assessed positive success.
-Only validated domain evidence can enter Progress; numeric deltas, reducers and
-CompletionFact schema remain in R03/R03A scope.
+Для independent correct необходимы CORRECT, поддерживаемый проверенный input, отсутствие
+более раннего hint/reveal exposure данной версии и предыдущего positive credit. Любой более ранний
+hint делает последующую верную работу по той же версии assisted (если применимо —
+CORRECT_AFTER_HINT). Reveal блокирует новый positive credit, включая diagnostic correct;
+нейтральные completion/history сохраняются. Поддерживаемый DIAGNOSTIC_CORRECT без помощи
+считается independent согласно R03. Максимум одно зачтённое positive event на user/version:
+повторное завершение с верным ответом остаётся CORRECT и записывается без нового прироста
+mastery и без фиктивного WRONG. SELF_CHECK/view/reveal, UNSUPPORTED и INDETERMINATE
+не становятся положительным assessed успехом. В Progress поступают только проверенные доменные
+свидетельства; числовые deltas, reducers и schema CompletionFact остаются в scope R03/R03A.
 
-## Request identity, crash recovery and retry (D-023)
+## Request identity, восстановление после сбоя и retry (D-023)
 
-The operation policy explicitly identifies idempotent mutations: creates,
-submit, hints, reveal, next, finish, self-report; abandon and onboarding complete
-also preserve stable action identity. Draft PUT instead uses full replacement
-with expected_revision; a lost acknowledgement reconciles through GET. Login,
-logout and profile patch use their stated session/update semantics, not receipts.
-GET never requires Idempotency-Key.
+Policy операций явно перечисляет idempotent mutations: creates, submit, hints, reveal, next,
+finish, self-report; abandon и onboarding complete также сохраняют стабильную identity действия.
+PUT draft вместо этого полностью заменяет данные с `expected_revision`; потерянное подтверждение
+согласуется через GET. Login, logout и profile patch используют заданную для них семантику
+session/update, а не receipts. GET никогда не требует Idempotency-Key.
 
-Receipt scope is owner+operation+key; concrete resource route is part of digest,
-so reusing a key for a different object in the same operation conflicts. Register
-before identity exists scopes the bootstrap key to its CSRF/session identity;
-after creation the receipt binds to the created user. No credentials are logged.
-The request_digest includes owner, operation identity, concrete canonical route,
-request body and expected_revision (null when absent). Canonical UTF-8 JSON
-sorts object keys with compact separators; array order/raw text are retained,
-NaN/Infinity rejected. It does not mathematically or Unicode-normalize input.
-Passwords in identity requests are processed privately; receipts/digests are
-never public DTOs or logging fields.
+Receipt scope — owner+operation+key; конкретный resource route включён в digest, поэтому повторный
+key для другого объекта той же operation даёт conflict. Если при регистрации identity ещё нет,
+bootstrap key связывается с CSRF/session identity; после создания receipt привязывается к новому user.
+Credentials не записываются в logs. `request_digest` включает owner, identity operation,
+конкретный canonical route, request body и expected_revision (null, если отсутствует).
+Канонический UTF-8 JSON сортирует object keys и использует compact separators; порядок array/raw text
+сохраняется, NaN/Infinity отклоняются. Математической/Unicode-normalization input не происходит.
+Пароли identity requests обрабатываются приватно; receipts/digests никогда не входят в public DTO
+или поля логов.
 
-Same key and digest returns the persisted previous HTTP status/body/operation,
-without another domain action, hint escalation or evidence. Replay is checked
-after auth/owner/CSRF/schema gates but before current revision/state checks.
-Different digest under that key returns 409 IDEMPOTENCY_CONFLICT. Processing
-receipts refer to the same operation; clients poll canonical state. Finalization
-is itself permanently unique by immutable source identity and snapshot/version.
+Тот же key и digest возвращает сохранённые HTTP status/body/operation без повторного доменного
+действия, повышения подсказки или evidence. Replay проверяется после auth/owner/CSRF/schema gates,
+но до текущих проверок revision/state. Другой digest под тем же key возвращает 409
+IDEMPOTENCY_CONFLICT. Processing receipts относятся к той же operation; clients опрашивают
+каноническое состояние. Finalization также навсегда уникален по неизменяемой identity source и
+snapshot/version.
 
-Receipts survive >=604800 seconds (seven days). Expiry can remove short-lived
-HTTP replay data, never permanent action/evidence source uniqueness or the
-user/version positive-credit guard. A retry of a completed attempt after expiry
-cannot resubmit its snapshot. A new correct Attempt after expiry cannot credit
-the same version again. Future persistence must enforce these guards with DB
-constraints and short atomic transactions, keeping computation/LLM outside locks.
-Reference fixtures prove allowed serial outcomes, not PostgreSQL locking.
+Receipts сохраняются >=604800 секунд (семь дней). Expiry может удалить краткосрочные данные
+HTTP replay, но никогда постоянную уникальность source действия/evidence или guard positive credit
+на user/version. Retry завершённой attempt после expiry не может повторно отправить её snapshot.
+Новая верная Attempt после expiry не может снова начислить credit за ту же версию.
+Будущая persistence обязана обеспечивать эти guards через DB constraints и короткие атомарные
+transactions, оставляя computation/LLM вне locks. Reference fixtures доказывают допустимые
+последовательные исходы, но не PostgreSQL locking.
 
-## Minimal downstream DTO decisions
+## Минимальные решения по downstream DTO
 
-DTOs describe wire information needed by §11 and accepted I01, without inventing
-future ORM fields. Session schemas expose state/policy/current item/counters and
-terminal reason. POST next accepts current_item_id and ADVANCE/SKIP: a retry or
-refresh preserves the selected item, does not reserve another. GET restores it.
-Different-key next for a consumed/stale current_item_id conflicts rather than
-skipping two items. Finish is permanently terminal; retry cannot select a new
-item. Diagnostics cap 10; helped/revealed/skip results remain neutral as §10
-requires. NO_CANDIDATE permits START_ZERO by explicit onboarding choice.
+DTO описывают wire-данные для §11 и принятого I01, не выдумывая будущие поля ORM.
+Session schemas раскрывают state/policy/current item/counters и terminal reason.
+POST next принимает `current_item_id` и ADVANCE/SKIP: retry/refresh сохраняет выбранный элемент
+и не резервирует следующий. GET восстанавливает его. Next с другим key для уже использованного/
+устаревшего `current_item_id` конфликтует вместо пропуска двух элементов. Finish окончателен;
+retry не может выбрать новый item. Diagnostics ограничены 10; результаты с help/reveal/skip остаются
+нейтральными, как требует §10. NO_CANDIDATE разрешает START_ZERO по явному выбору onboarding.
 
-Practice exposes immutable target/origin, selection reason, server streak and
-safe return route. One active session per user; create when one is active returns
-STATE_CONFLICT (exact receipt retry returns the original session). Max seven
-items including skip. Success is three independent correct on distinct versions,
-or mastery>=70/confidence>=60 after >=1 item. Wrong/help/reveal/unsupported/skip
-reset streak. Server chooses parent/catalogue when origin is archived. Client
-does not select an arbitrary checker, candidate, streak or success verdict.
-Finish reason is an intention checked against server policy, not a client truth.
+Practice раскрывает неизменяемые target/origin, причину выбора, server streak и безопасный return route.
+У пользователя одна активная session; create при уже активной возвращает STATE_CONFLICT
+(точный receipt retry возвращает исходную session). Не более семи items, включая skip.
+Успех — три независимых правильных ответа на разных версиях либо mastery>=70/confidence>=60
+после >=1 item. Wrong/help/reveal/unsupported/skip сбрасывают streak. Если origin архивирован,
+родителя/catalogue выбирает server. Client не выбирает произвольный checker, candidate, streak или
+вердикт успеха. Finish reason — намерение, проверяемое server policy, а не истина, заданная client.
 
-Progress DTOs return server projections/history; no client-authored mastery,
-confidence or events. Self-reports are once per skill, only before assessed
-evidence under onboarding policy; repeats return already_reported_skill_codes
-without another event. They do not prove mastery. Topic aggregate is weighted by
-Content-owned mappings. Dynamic raw payload is the only intentionally open data
-object; metadata and response DTOs are closed against extra fields. Further
-subject/UI fields need an additive reviewed contract; this schema defines no
-hidden correctness rules or broad opaque response objects.
+Progress DTO возвращают server projections/history; client не задаёт mastery, confidence или events.
+Self-reports допускаются один раз на skill только до assessed evidence согласно onboarding policy;
+повторы возвращают `already_reported_skill_codes` без дополнительного event. Они не доказывают mastery.
+Агрегат Topic взвешивается по mappings во владении Content. Dynamic raw payload — единственный
+преднамеренно открытый объект данных; metadata и response DTO закрыты от дополнительных полей.
+Дополнительные subject/UI fields требуют additive contract review; эта schema не определяет
+скрытые правила корректности или широкие непрозрачные response objects.
 
-## Verification and handoff
+## Проверка и передача
 
-`python -m unittest discover -s tests -p test_r02a_contract.py -v` validates the
-official vendored OAS 3.1 structural schema (source noted beside schemas), DTO
-meta-schemas, offline resolvable refs, all §11 routes, wire fixtures and negative
-shapes, frozen R02 names/examples, auth/CSRF/header/revision requirements,
-secret leakage and health allowlists. Serial scenarios cover both edit/submit
-orders, help/reveal before/after pending/completed submit, cross-attempt exposure,
-same/different-digest retry, safe owner 404, version archival, SELF_CHECK,
-neutral outcomes, diagnostic independence, repeated finalization and receipt
-expiry. Schema validation alone cannot prove absence of answer-equivalent prose;
-publication/hint-bank human review and downstream leakage tests remain required.
+`python -m unittest discover -s tests -p test_r02a_contract.py -v` проверяет официальную
+структурную schema OAS 3.1 (источник указан рядом со schemas), meta-schemas DTO,
+разрешение refs offline, все routes §11, wire fixtures и негативные формы, замороженные имена/
+примеры R02, требования auth/CSRF/header/revision, утечки secrets и health allowlists.
+Последовательные сценарии охватывают оба порядка edit/submit, help/reveal до/после pending/
+completed submit, exposure между attempts, retry с совпадающим/разным digest, безопасный owner 404,
+архивацию version, SELF_CHECK, нейтральные исходы, независимость диагностики, повторную
+finalization и expiry receipt. Одна проверка schema не доказывает отсутствие prose,
+эквивалентной ответу; по-прежнему нужны человеческое ревью публикации/hint-bank и последующие
+leakage tests.
 
-The existing eight canonical checks remain unchanged. A separate reviewed CI
-step runs this suite; PostgreSQL fresh-install and locking/runtime integration
-belong to downstream implementation, not this reference. The candidate digest,
-actual commands/results/limitations and human gate are in
-`../../docs/agent-traces/MS7-R02A.md`. Accepted digest is recorded only after
-Vladimir reviews the final artifact, with applicable green CI at final SHA.
+Восемь существующих канонических checks не меняются. Отдельный проверенный шаг CI запускает
+эту suite; PostgreSQL fresh-install и интеграция locking/runtime относятся к последующей реализации,
+а не этому reference. Digest candidate, фактические команды/результаты/ограничения и human gate
+указаны в `../../docs/agent-traces/MS7-R02A.md`. Принятый digest записывается только после
+ревью финального artifact Владимиром и соответствующего успешного CI на итоговом SHA.
