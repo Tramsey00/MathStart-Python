@@ -220,7 +220,7 @@
       "host_dev_decision": {
         "date": "2026-11-07",
         "mode": "PRIMARY_WINDOWS_HOST_DEV",
-        "authority": "После сообщений об успешном запуске у Владимира и Ильи пользователь поручил сделать host-dev постоянным режимом в основной рабочей папке каждого.",
+        "authority": "Пользователь явно принял Windows host-dev как основной режим и разрешил merge PR #58 после отдельного review.",
         "peer_start_reports": {
           "Vladimir": "a44c5f72e4cc7d9958f03c84dbfb79dac697be6c; главная и урок открылись после включения длинных путей и восстановления публикации",
           "Ilya": "Пользователь сообщил об успешном запуске; точный SHA не сообщён"
@@ -229,15 +229,16 @@
         "checks": "NOT_RUN_BY_USER_REQUEST"
       },
       "workflow": "bootstrap",
-      "implementation": "CONTAINER_DEV_COMPLETE_PRE_MERGE",
-      "scope_authority": "Явное поручение 26.10.2026: реализовать контейнерный dev, четыре операции и провести только целевой независимый clone/pull/update/HMR контроль; продолжить ui/ux и PR #58 без merge/production/MS-T003.",
-      "checks": "COMPLETE_SCOPED_CONTAINER_WORKFLOW; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
+      "implementation": "WINDOWS_HOST_DEV_COMPLETE_PRE_MERGE",
+      "scope_authority": "Явное поручение 07.11.2026: итоговый candidate в ui/ux, отдельное read-only review/fixes, обычный merge PR #58, независимый GitHub clone опубликованного main и только узкий контроль; schema/Content планы утверждает человек.",
+      "checks": "USER_REPORTED_MAIN_CHECKOUT_PREPARED_PUBLICATION_COMPLETE_AND_HMR; PUBLISHED_MAIN_CLONE_PENDING; GENERAL_SUITES_NOT_RUN_BY_USER_REQUEST",
       "review": "PENDING_SEPARATE_REVIEW",
       "human_acceptance": "PENDING",
       "remaining": [
-        "Отдельное review/fixes и человеческая приёмка контейнерного пути",
-        "Отдельное решение пользователя о merge ui/ux → main",
-        "Повтор запуска из clone опубликованного main до приёмки всей MS-T002A и MS-T003"
+        "Отдельное review/fixes итогового candidate",
+        "Merge PR #58 по явному разрешению пользователя после review",
+        "Подготовка и целевой контроль независимого clone опубликованного main с человеческим утверждением schema/Content digests",
+        "Человеческая приёмка новых результатов"
       ],
       "historical_host_verified_code_sha": "9f4fce49b275a41bf27936e0f2e4d3b3360ad1ec",
       "historical_host_verified_tree": "fa98a52d327d8c4993d246dc617d985cb009f2fd",
@@ -249,7 +250,7 @@
         "code_sha": "282a1e6b98b7d12754f57755fed74837fc06da2c"
       },
       "upstream_bootstrap": "MS-T001/MS-T002 ACCEPTED 25.10.2026; это не приёмка MS-T002A.",
-      "next_scope": "Отдельное review/fixes и человеческая приёмка части до merge; решение пользователя о merge и запуск clone опубликованного main до завершения всей MS-T002A.",
+      "next_scope": "Отдельное review итогового candidate, разрешённый merge PR #58 и узкий контроль clone main; MS-T003 не начинать.",
       "pull_request": "https://github.com/Tramsey00/MathStart-Python/pull/58",
       "container_dev_revision": {
         "date": "2026-10-26",
@@ -325,6 +326,14 @@
         "original_dev": "RESTORED",
         "full_task_acceptance": "PENDING_MAIN_MERGE_AND_PUBLISHED_MAIN_CLONE",
         "general_suites": "NOT_RUN_BY_USER_REQUEST"
+      },
+      "handoff_2026_11_07": {
+        "initial_sha": "cb0e1d361e0f20cb3657f08250a14bd5507d20c6",
+        "base_sha": "49b1240c495cb7c657cbb5ba9ea592bd9cb6c1d0",
+        "main_checkout": "USER_REPORTED_SCHEMA_APPLIED_CONTENT_COMPLETE_AFTER_RESUME_HMR_CONFIRMED",
+        "merge_authority": "EXPLICIT_USER_AUTHORIZATION_AFTER_SEPARATE_REVIEW",
+        "published_main_clone": "PENDING",
+        "new_results_human_acceptance": "PENDING"
       }
     },
     {

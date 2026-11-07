@@ -8,8 +8,8 @@ const subjectNotes: Record<string, string> = {
   geometriya: 'Что можно узнать по рисунку, а что нужно доказать? Разбираем свойства фигур, связываем условия задачи и шаг за шагом находим решение. Работаем с углами, длинами и площадями, учимся выбирать нужную теорему и объяснять, почему её можно применить. Чертёж помогает увидеть связи, а доказательство — обосновать вывод',
   'veroyatnost-i-statistika': 'Как прочитать диаграмму и сравнить данные? Разбираем случайные события, считаем вероятности и проверяем, какие выводы действительно следуют из чисел. Переходим от таблиц и отдельных наблюдений к общим характеристикам, различаем возможные исходы и учимся объяснять результат вычислений',
 };
-const symbol: Record<string, string> = { matematika: '±', algebra: 'ƒ', geometriya: '△', 'veroyatnost-i-statistika': '▥' };
-function Icon({ name, size = 20 }: { name: 'search' | 'chevron' | 'book' | 'sun' | 'moon' | 'menu' | 'close' | 'math'; size?: number }) {
+const symbol: Record<string, ReactNode> = { matematika: '±', algebra: 'ƒ', geometriya: <Icon name="geometry"/>, 'veroyatnost-i-statistika': <Icon name="statistics"/> };
+function Icon({ name, size = 20 }: { name: 'search' | 'chevron' | 'book' | 'sun' | 'moon' | 'menu' | 'close' | 'math' | 'statistics' | 'geometry'; size?: number }) {
   const paths: Record<typeof name, ReactNode> = {
     search: <><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></>,
     chevron: <path d="m9 5 7 7-7 7"/>,
@@ -19,6 +19,8 @@ function Icon({ name, size = 20 }: { name: 'search' | 'chevron' | 'book' | 'sun'
     menu: <path d="M4 6h16M4 12h16M4 18h16"/>,
     close: <path d="m6 6 12 12M6 18 18 6"/>,
     math: <path d="M6 8h12M12 3v10M6 19h12"/>,
+    statistics: <><path d="M3 20h18"/><rect x="5" y="12" width="3" height="8" rx=".5"/><rect x="10.5" y="5" width="3" height="15" rx=".5"/><rect x="16" y="9" width="3" height="11" rx=".5"/></>,
+    geometry: <path d="M4 4v16h16ZM4 15h5v5"/>,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
