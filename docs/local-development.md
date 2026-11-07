@@ -13,7 +13,7 @@ Vite/FastAPI работают на Windows, PostgreSQL — в Docker. Кажды
 
 Нужны **Git, Docker Desktop с Linux engine/Compose и PowerShell**. Python,
 Node/npm и PostgreSQL на хосте не нужны. Примеры ниже используют `main` после
-merge PR #58; до merge candidate доступен в `ui/ux`.
+merge PR #58. Точный проверенный SHA и ограничения — в карточке MS-T002A.
 Windows entry point `dev.cmd` вызывает локальный dev.ps1 через системный
 PowerShell; execution policy задаётся только этому процессу, глобальные настройки
 Windows не меняются. Все четыре операции реализованы в одном PowerShell workflow.
@@ -121,8 +121,7 @@ git pull --ff-only origin main
 .\dev.cmd start
 ```
 
-Сейчас действует bootstrap-исключение ui/ux и PR #58. После отдельной приёмки и
-merge baseline в main команда получает main; с MS-T003 — Issue → task branch
+PR #58 слит; MS-T002A принята 08.11.2026. С MS-T003 — Issue → task branch
 от origin/main → commit/push → PR → review → человеческое решение о merge.
 Update не делает Git pull/reset/checkout и не переключает ветки самостоятельно.
 Непринятые source/build-input правки перед publication нужно закоммитить;
@@ -161,7 +160,7 @@ Update не делает Git pull/reset/checkout и не переключает 
 project предотвращают неявное присоединение к другому локальному экземпляру.
 Удаление volumes не входит ни в одну из четырёх операций.
 
-## Альтернативный host-dev и собранный режим
+## Host-dev и собранный режим
 
 Основной режим на Windows — [host-dev](local-development-host.md).
 Vite и FastAPI работают на хосте, PostgreSQL — в Docker. После отдельной первой
@@ -178,10 +177,10 @@ publication probes; production targets/Compose не заменены dev-кон�
 source/docs/preservation gates не являются частью этих операций и не запускаются.
 [Политика](frontend/testing-policy.md). Разрешённый конкретный clone/pull/update/
 startup/HMR контроль и его точные SHA фиксируются отдельно в карточке MS-T002A.
-До отдельного review/приёмки, решения о merge и запуска clone опубликованного
-main вся MS-T002A не ACCEPTED; MS-T003 и production deploy не начинаются.
+MS-T002A принята 08.11.2026 после review, merge и контроля clone main.
+MS-T003–MS-T008 могут назначаться параллельно по очереди; production deploy требует отдельного поручения.
 
-## Ежедневный цикл (candidate 04.11.2026)
+## Ежедневный цикл полного Compose
 
 После первоначальных clone → `dev.cmd prepare` (review точных schema/Content
 планов) → `dev.cmd start` обычный рабочий день: `dev.cmd start`, правки через
@@ -190,12 +189,12 @@ HMR, `dev.cmd stop`. Данные и credentials остаются в прежн�
 
 После merge, который выполняет человек: сохраните свои изменения, выполните
 `git pull --ff-only origin main`, затем `dev.cmd update` → `dev.cmd start`.
-До принятия bootstrap используется ui/ux и PR #58. После принятия main:
+PR #58 уже слит. Для новых порученных задач после приёмки MS-T002A:
 `git fetch origin` → новая task branch от origin/main → commit/push → PR →
 отдельное review → человеческое решение merge → pull main → update → start.
 Update не выполняет Git-команды изменения checkout.
 
-Candidate разделяет fingerprint опубликованной сборки и dev Content inputs.
+Compose разделяет fingerprint опубликованной сборки и dev Content inputs.
 React/CSS читаются Vite без новой публикации; routing registry, server projection,
 уроки, каталог и остальные build inputs сохраняют полный prepare/review путь.
 Новый dev fingerprint существующего окружения записывается при совпадении старого
@@ -208,9 +207,7 @@ Compose выводит TIMING для DB readiness, проверки ready и app
 измеряет доступность сокета, а не HTTP. Интервал healthcheck входит в app timing.
 Не складывайте вложенные этапы как независимые измерения.
 
-WSL2 candidate: исходники должны находиться в Linux filesystem (`~/projects`),
-а не `/mnt/c`. Сначала требуется Docker Desktop WSL Integration для Ubuntu.
-На 04.11.2026 Ubuntu WSL2 установлена, integration отключена, pwsh отсутствует;
-запуск через Linux filesystem ещё не проверен. Windows dev.cmd нельзя объявлять
-проверенным Linux launcher. Не копируйте var/credentials между checkout и не
-удаляйте старые volumes при эксперименте. Ускорение WSL пока не измерено.
+WSL/Linux запуск и его ускорение не подтверждены текущим Windows-контролем.
+Исторические эксперименты и точные ограничения — в
+[истории MS-T002A](../skills/tasks/t002a-team-local-start/HISTORY.md).
+Не копируйте var/credentials между checkout и не удаляйте volumes при эксперименте.

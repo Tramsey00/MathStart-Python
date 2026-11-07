@@ -1,7 +1,9 @@
 # Архитектура MathStart
 
-Редакция 20.10.2026, Europe/Moscow. Единственный основной архитектурный документ.
-Состояние реализации проверено на `1a015f7513933901e8bb252e94c660e4383b6b0e`;
+Единственный основной архитектурный документ. Базовое состояние платформы
+зафиксировано 20.10.2026 на `1a015f7513933901e8bb252e94c660e4383b6b0e`;
+это не SHA проверки последующих изменений. Передача main и локальный запуск
+07.11.2026 описаны в [MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md),
 принятая история — в [maintenance](docs/maintenance.md).
 Назначение продукта — [PRODUCT.md](PRODUCT.md), полные требования —
 [сохранённые требования учебного цикла](specs/product/learning-requirements.md), порядок разработки —
@@ -406,6 +408,10 @@ binding. Physical backup/restore сохраняет DB/role OIDs. После tar
 старый snapshot не подменяет текущие данные. Совместимый app switch или reviewed
 forward recovery выполняется по [RECOVERY](deploy/RECOVERY.md); pre-admission
 legacy return — отдельная узкая процедура с fencing, не разрешение dual writer.
+
+Перечень ниже описывает инструменты, а не разрешение их запускать. Для текущей
+UI-миграции действует [политика проверок](docs/frontend/testing-policy.md):
+автопрогоны только по отдельному поручению; иначе NOT_RUN_BY_USER_REQUEST.
 
 `python scripts/verify_repo.py` — 15 product checks; `--profile pure` —
 5 portable suites. Математические reference, schema/protocol, auth/security,

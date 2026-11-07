@@ -69,8 +69,9 @@ Dev/setup их не вызывают; доменные validators и publication
 
 Статус конкретных candidate и целевого контроля —
 [карточка MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md), [PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58).
-Отдельные review/приёмка, решение о merge и запуск clone опубликованного main
-ещё необходимы. Вся MS-T002A не ACCEPTED, MS-T003 и production deploy не начаты.
+Review, merge PR #58 и контроль независимого clone main завершены. MS-T002A
+принята пользователем 08.11.2026. MS-T003–MS-T008 можно назначать параллельно
+по правилам очереди; сами переносы ещё не начаты. Production deploy — отдельное поручение.
 
 [AGENTS](AGENTS.md), [архитектура/версии](ARCHITECTURE.md), [продукт](PRODUCT.md),
 [очередь](docs/tasks/INDEX.md), [история](docs/maintenance.md),
