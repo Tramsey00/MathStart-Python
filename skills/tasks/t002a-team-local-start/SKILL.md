@@ -19,8 +19,9 @@ description: Выполнить MS-T002A — Windows host-dev в обычном 
 папке проекта. Vite/FastAPI на Windows, PostgreSQL в Docker. Отдельный clone для
 ежедневной разработки не нужен; готовые установки коллег остаются в своих
 папках. Подготовка новой папки создаёт собственные credentials/БД; var не копируется.
-Результаты пилота и текущих изменений — в конце карточки. Проверка опубликованного
-main, review новых изменений и решение о merge остаются отдельными этапами.
+Результаты пилота и текущих изменений — в конце карточки. Итоговое review, merge
+и контроль независимого clone main завершены 07.11.2026; новые результаты ожидают
+человеческой приёмки (см. итоговый раздел ниже).
 
 ## История решения 26.10.2026 — READY_FOR_REVIEW части до merge
 
@@ -703,3 +704,119 @@ stop/restart и сохранение данных; отдельно время �
 Schema/Content apply требуют человеческого утверждения точных SHA256 новых планов.
 Общие suites/typecheck/Playwright/source/docs gates — NOT_RUN_BY_USER_REQUEST.
 Production и MS-T003 не поручены.
+
+
+## Итог передачи и контроль опубликованного main — 07.11.2026
+
+Текущий статус — **HUMAN_ACCEPTANCE_PENDING**: реализация, отдельное статическое
+review/fixes, разрешённый merge и порученный целевой runtime-контроль завершены.
+Это не человеческая приёмка новых результатов и не разрешение начинать MS-T003.
+Предыдущие разделы содержат историю этапов; их PENDING не описывает текущий итог.
+
+### Самопроверка, отдельное review и пользовательское решение
+
+Самопроверка исходников завершена отдельно от review. Один read-only reviewer
+рассмотрел `4e29959d4c7fe11bb28d6649a29f335140a0f864`: блокирующих code findings
+не найдено. Замечание P2: после merge команды clone/pull должны использовать main.
+README и руководства исправлены в `c1b0657eaec2c2a3ae4a18e5893c871359b9cd9a`,
+повторно рассмотрены тем же reviewer; итоговое review без блокеров.
+Рассмотренный tree `6e537ba888525774a7cc8922f6412e7c1a50511d`.
+Scope: team/legacy private config и готовые установки коллег, long paths,
+DSN/checkout/container/volume ownership, startup rollback, UUID stop/cleanup,
+FastAPI restart, фактические entry points/Vite/build inputs и SVG значки.
+Reviewer ничего не менял и не запускал. Это статическое review, не runtime PASS.
+
+Пользователь явно принял Windows host-dev как основной режим и разрешил merge
+PR #58 после review/fixes. Перед merge свежие head/base совпали с reviewed
+candidate и `49b1240c495cb7c657cbb5ba9ea592bd9cb6c1d0`. Обычный merge-коммит
+[PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58):
+`45e6e6532572f64780e21610d9f319c7e7fc4c42`, родители — эти base и candidate.
+Свежий origin/main совпал с merge SHA. Auto-merge/force push/прямых commit в main нет.
+
+### Независимый clone и первая подготовка
+
+Полный независимый GitHub clone `main` в `C:/Projects/MS-main-20261107`:
+HEAD `45e6e6532572f64780e21610d9f319c7e7fc4c42`, tree
+`6e537ba888525774a7cc8922f6412e7c1a50511d`, shallow=false, tracked tree чистый
+после контроля. Это не local clone/worktree. Собственные .venv, npm dependencies,
+private config, PostgreSQL container/volume на 55450; var/БД/builds автора не копировались.
+Обычные package/image caches использованы; полностью холодные registries не проверены.
+Windows LongPathsEnabled=1, Python 3.12.10, Node 24.19.0/npm 11.17.0,
+Docker 29.8.1 уже работал. pip check и npm ci успешны; warning allow-scripts esbuild
+сохранён, locks и глобальные настройки не менялись.
+
+Пользователь отдельно утвердил каждый новый точный SHA256:
+
+- Schema `50708a0902eceb71cb54f06d75e6f5a3d4495abb2fad74c9f1de3185f1c07ffc`:
+  FRESH, 0 таблиц, mathstart_dev/local_schema, PostgreSQL 16, target v01_0002.
+  Apply выполнен в срок, штатный physical schema CHECKED успешен.
+- Content `06214b94494984ee0f20c6f5863aab4d889cdefa6e594aebd457cbe97050cdc5`:
+  release local-00c73ba97398, previous=null, origin 127.0.0.1:8131; 935 изменений
+  только Content (6 grades, 12 subjects, 63 sections, 279 pages, 263 publications,
+  29 media, 283 redirects). Immutable build: 279 pages, 282 URL, 451 file;
+  output digest `20060fb146771fcd58bb88bae65408a0782e42fb9bb2a9544b6707686e5b528d`.
+
+Первая попытка publish отказала до gateway: порт 8131 занят известным host-dev
+основной папки; status clone active=null/operation=null. Основной режим штатно
+остановлен, после контроля восстановлен до «Host-dev готов»; данные сохранены.
+Повтор с утверждённым планом получил cold PUBLIC_VERIFICATION_FAILED после
+commit/activation. Штатный recovery проверил operation/owner/fence и exact index
+(warmup 0,672 с), ordinary fenced resume завершился COMPLETE, generation=1.
+Один domain commit; guards не ослаблялись. Временный gateway штатно остановлен.
+
+| Этап первой подготовки | Фактическое время |
+| --- | ---: |
+| Полный GitHub clone | 28,782 с |
+| Locked pip/npm install (включая venv и pip check) | 73,759 с |
+| Schema apply/check | 8,693 с |
+| Content prepare/build/plan | 194,316 с |
+| Publication с cold отказом и штатным resume | 409,562 с |
+| От начала clone до publication COMPLETE | 19 мин 03,012 с |
+
+Последний интервал — wall time 16:46:44,610 → 17:05:47,622 UTC: включает
+ожидание двух человеческих подтверждений, паузы orchestration и освобождение порта.
+Это не чистое машинное время и не время повторного старта. Init/schema preview
+не имели отдельных секундомеров; сумма строк не выдаётся за полное чистое время.
+Отказ занятого порта занял отдельно 1,945 с. Docker Desktop уже работал.
+
+### Порученный runtime-контроль
+
+Реальные команды: `npm.cmd --prefix frontend run dev:host` и
+`npm.cmd --prefix frontend run dev:host:stop`. HTTP измерялся от запуска команды
+параллельно для трёх согласованных адресов через 8131; message readiness
+обнаруживался с шагом 200 мс. Старт не выполнял DDL/seed/build/publication.
+
+| Адрес/событие | Первый старт после подготовки | Повторный старт после stop |
+| --- | ---: | ---: |
+| `/` HTTP 200 | 32,297 с | 24,657 с |
+| `/api/v1/grades/` HTTP 200 | 27,672 с | 19,313 с |
+| `/materials/7-algebra-8` HTTP 200 | 32,688 с | 24,875 с |
+| «Host-dev готов» | 32,438 с | 25,000 с |
+
+В браузере (in-app Chromium) отдельно открыты все три адреса: главная с текстом
+«Математика для 5–10 классов», JSON шести классов и наполненный урок линейной
+функции с примерами/таблицами/самопроверкой. Визуально просмотрен график y=x
+в интерактивной лаборатории. Это не полный прогон интерактивов или visual QA.
+
+Штатный stop завершился exit 0, 8131/8132 освободились, своя PostgreSQL stopped.
+Повторный start — 25,000 с при работающем Docker Desktop, в пределах ориентира 30 с.
+Хеш нормализованного `pg_dump --data-only --no-owner` (без случайных restrict
+маркеров) одинаков после публикации, перед stop и после restart:
+`6bdf8502eb95135159ed82f6cc0f66962f55c2f64e3e05ead93f08337dd072df`.
+Дамп непустой (21 333 891 байт полезных строк), искусственная user history не создавалась.
+Active release и байты installation.json/runtime/schema/postgres config одинаковы.
+Финальный stop exit 0; ресурсы клона сохранены, основной host-dev восстановлен.
+
+### Ограничения и передача
+
+Логи, планы, timings и snapshot hashes находятся только в ignored var собственного
+клона. В Git/PR нет credentials, cookies или дампа БД. Проверенный runtime exact
+SHA — merge main выше; последующая фиксация отчёта меняет только документацию.
+Новых дефектов клона, требующих code fix, контроль не выявил. Cold HTTP recovery
+и отказ занятого порта отражены как реальные этапы, а не скрыты общим PASS.
+Общие suites/typecheck/Playwright suites/source/docs gates — NOT_RUN_BY_USER_REQUEST.
+Новые HMR/reload/negative ownership прогоны не выполнялись: их статическое review
+и прежнее exact evidence не выдаются за новые runtime проверки. Другие ОС,
+все интерактивы, accessibility/mobile/cross-browser и production не проверялись.
+Остаётся человеческая приёмка новых результатов MS-T002A; MS-T003 PLANNED,
+Issue/ветка не создавались, переход только по отдельному поручению.
