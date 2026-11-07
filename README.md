@@ -7,10 +7,10 @@ React/TypeScript с immutable Content/SSG. Главная, каталог и ч�
 Основной командный dev на Windows — **host-dev**. Нужны Git, Python 3.12,
 Node 24/npm 11, PowerShell, Docker Desktop и включённые длинные пути Windows.
 Vite/FastAPI работают на Windows, PostgreSQL — в Docker. Используйте одну обычную
-папку проекта. До отдельного merge используйте опубликованную ui/ux:
+папку проекта. После merge PR #58 используйте опубликованный main:
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-Python
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch main --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-Python
 Set-Location MathStart-Python
 git config core.longpaths true
 git config core.autocrlf false
@@ -34,7 +34,7 @@ Content планы с review полного SHA256. Пошаговые кома�
 ```powershell
 npm.cmd --prefix frontend run dev:host
 # После сохранения своих изменений и отдельного Git pull:
-git pull --ff-only origin ui/ux
+git pull --ff-only origin main
 # Изменения зависимостей/схемы/Content подготавливаются явно по инструкции.
 # Для повторного запуска остановленного окружения:
 npm.cmd --prefix frontend run dev:host

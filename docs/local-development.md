@@ -12,7 +12,8 @@ Vite/FastAPI работают на Windows, PostgreSQL — в Docker. Кажды
 ## Альтернативный полный Docker Compose
 
 Нужны **Git, Docker Desktop с Linux engine/Compose и PowerShell**. Python,
-Node/npm и PostgreSQL на хосте не нужны. До отдельного merge клонируйте `ui/ux`.
+Node/npm и PostgreSQL на хосте не нужны. Примеры ниже используют `main` после
+merge PR #58; до merge candidate доступен в `ui/ux`.
 Windows entry point `dev.cmd` вызывает локальный dev.ps1 через системный
 PowerShell; execution policy задаётся только этому процессу, глобальные настройки
 Windows не меняются. Все четыре операции реализованы в одном PowerShell workflow.
@@ -24,7 +25,7 @@ Windows не меняются. Все четыре операции реализ
 Из родительской папки PowerShell, в собственный новый каталог:
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch main --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-team
 Set-Location MathStart-team
 git config core.longpaths true
 git config core.autocrlf false
@@ -115,7 +116,7 @@ validated dev-only refresh; опубликованная БД/API при это�
 
 ```powershell
 # Сначала сохраните собственные правки обычным commit; не сбрасывайте dirty tree.
-git pull --ff-only origin ui/ux
+git pull --ff-only origin main
 .\dev.cmd update
 .\dev.cmd start
 ```
@@ -188,7 +189,7 @@ HMR, `dev.cmd stop`. Данные и credentials остаются в прежн�
 Не выполняйте prepare после каждой правки React/CSS.
 
 После merge, который выполняет человек: сохраните свои изменения, выполните
-`git pull --ff-only origin ui/ux`, затем `dev.cmd update` → `dev.cmd start`.
+`git pull --ff-only origin main`, затем `dev.cmd update` → `dev.cmd start`.
 До принятия bootstrap используется ui/ux и PR #58. После принятия main:
 `git fetch origin` → новая task branch от origin/main → commit/push → PR →
 отдельное review → человеческое решение merge → pull main → update → start.

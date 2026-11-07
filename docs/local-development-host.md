@@ -21,8 +21,8 @@ npm.cmd --prefix frontend run dev:host
 npm.cmd --prefix frontend run dev:host:stop
 ```
 
-До отдельного merge bootstrap клонируйте опубликованную **ui/ux**. Main пока
-не содержит новые страницы. Основной сайт — React + Content + FastAPI + PostgreSQL,
+Команды ниже рассчитаны на опубликованный **main после merge PR #58**.
+До этого merge candidate доступен в `ui/ux`; не используйте старый main для подготовки. Основной сайт — React + Content + FastAPI + PostgreSQL,
 один browser origin **http://127.0.0.1:8131**. Это локальная установка, не production.
 
 ## Требования
@@ -55,7 +55,7 @@ package-lock.json. Django/DRF и oracle не нужны. Assets/шрифты/cur
 В PowerShell из родительского каталога (выберите своё новое имя папки):
 
 ```powershell
-git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch ui/ux --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-Python
+git -c http.version=HTTP/1.1 -c core.longpaths=true -c core.autocrlf=false clone --branch main --single-branch https://github.com/Tramsey00/MathStart-Python.git MathStart-Python
 Set-Location MathStart-Python
 git config core.longpaths true
 git config core.autocrlf false
@@ -206,7 +206,7 @@ Supervisor завершает Vite и FastAPI и останавливает св
 
 ## После git pull
 
-Сохраните свои правки и выполните `git pull --ff-only origin ui/ux`.
+Сохраните свои правки и выполните `git pull --ff-only origin main`.
 
 - Обычные изменения React/CSS и Python в `backend/` подхватываются в работающем
   режиме. Если окружение остановлено, выполните `dev:host`. Для изменений
