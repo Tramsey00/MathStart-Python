@@ -161,7 +161,7 @@ Tests/typecheck/browser/validators/gates/QA и повторная конверт
 [Текущий отчёт](../../../docs/audits/ms-t005-svg-gradient-static.md).
 Независимое review и human acceptance PENDING; дальнейшая работа — отдельное поручение.
 
-## Актуальный этап — шесть тем статистики, source-активация
+## Предыдущий этап — шесть тем статистики, source-активация
 
 По отдельному поручению пользователя выполнена штатная конвертация и встроенная
 validate_lesson_document для statistics-4/7/8/9/18/27: 6/6 OK. Документы вручную
@@ -176,3 +176,22 @@ Tests/typecheck/Playwright/smoke/отдельные QA/gates — NOT_RUN_BY_USER
 Browser visual acceptance PENDING_NOT_PERFORMED; source review не заменяет её.
 Snapshot/БД/.venv/var/local не менялись; публикация/build/merge не выполнялись.
 После передачи результата остановиться; отдельное review и human acceptance PENDING.
+
+## Актуальный этап — последние две темы, локально 75/75
+
+Перенесены только согласованные fixes Владимира: d919429 → 00e1be5,
+7ab82ee → ca8041d, по одному cherry-pick -x, без конфликтов. Старые untracked
+локальные adapters сохранены в адресном stash и не использовались/не коммитились.
+Statistics-25/26 заново конвертированы непосредственно из оригиналов: 2/2 OK,
+штатная встроенная validate_lesson_document: 2/2 OK. После ручной source-сверки
+активированы react-v1 и два собственных Content route assignments.
+Оба SVG, 18 заданий с полными решениями, таблицы, original ids и порядок
+сохранены. Root figure — последний nodes элемент section-3, не отдельная
+синтетическая секция. Lab heading 26 извлечён один раз; цель/equipment/badge сохранены.
+Локально 75/75, READY_FOR_REVIEW; визуальная и человеческая приёмка PENDING.
+[Локальный отчёт](../../../docs/audits/ms-t005-final-two-local.md).
+Автоматический QA NOT_RUN_BY_USER_REQUEST. Предыдущие 73 документа, body.html,
+backend validator/renderer/CSS/helper, БД/.venv/var/local и snapshot не менялись.
+**Push запрещён и не выполнен**; Draft PR #62/remote остаются на 39545fd.
+После локальных коммитов остановиться для согласования; не восстанавливать stash
+поверх новых файлов и не начинать другую задачу. Merge/Issue closure не выполнять.

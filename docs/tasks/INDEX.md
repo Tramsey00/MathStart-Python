@@ -19,19 +19,22 @@ MS-T003–MS-T008 доступны для параллельного назна�
 Окончательное решение Руслана 08.11.2026 для MS-T005: первая тема —
 `/materials/7-algebra-1`, линейный пилот — `/materials/7-algebra-8`.
 Прежний alias между ними отменён до публичного выпуска; адрес `7-algebra-37`
-не создаётся. Сейчас 73/75 source activations, остаются только statistics-25/26.
+не создаётся. Локально 75/75 source activations, source blockers отсутствуют; push запрещён.
 Текущие проверки **NOT_RUN_BY_USER_REQUEST**, installed snapshot не обновлён.
 [Решение и страницы для ручного просмотра](../audits/ms-t005-algebra-route-decision.md).
 Предыдущие записи ниже — история, а не текущая политика alias или новый PASS.
 
-Текущий этап MS-T005: активированы statistics-4/7/8/9/18/27 после фактической
-штатной конвертации, встроенной валидации (6/6 OK) и ручной source-сверки.
-Сделаны поформульные MathML overrides 9/27 и минимальный runtime CSS диаграмм 7/8/9.
-Итого **73/75**; statistics-25/26 не менялись, остаются BLOCKED_DEPENDENCY.
-Отдельные автоматические проверки — **NOT_RUN_BY_USER_REQUEST**;
-визуальная браузерная приёмка **PENDING_NOT_PERFORMED**, snapshot не обновлён.
-[Текущий execution record](../audits/ms-t005-six-statistics-activation.md),
-[оставшиеся две темы](ms-t005-remaining.md).
+Текущий локальный этап MS-T005: перенесены только fixes Владимира d919429 и
+7ab82ee, затем statistics-25/26 конвертированы из оригиналов, встроенно
+валидированы (2/2 OK), вручную сверены и source-активированы. Итого **75/75**
+локально (74 MIGRATED + 1 REUSED_PILOT), без оставшихся source blockers.
+Старые untracked adapters сохранены в stash и не применялись. Предыдущие 73
+документа не менялись. READY_FOR_REVIEW относится к локальному candidate,
+визуальная/человеческая приёмка PENDING, не ACCEPTED.
+Автоматический QA — **NOT_RUN_BY_USER_REQUEST**; snapshot не обновлён.
+**Push не выполнен**: remote/Draft PR #62 остаются на 39545fd, 73/75.
+[Текущий локальный отчёт](../audits/ms-t005-final-two-local.md),
+[оставшиеся действия](ms-t005-remaining.md).
 
 ## Как пользоваться очередью
 
@@ -55,7 +58,7 @@ BLOCKED_DECISION сопровождаются причиной. Merge фикси
 | 03 | MS-T002A — Подготовить воспроизводимый запуск после clone и передать baseline команде | ACCEPTED | MS-T002 | [SKILL.md](../../skills/tasks/t002a-team-local-start/SKILL.md) | Windows host-dev в обычной рабочей папке: Vite/FastAPI на хосте, PostgreSQL в Docker; HMR/авторелоад, сохранение данных, подготовка и обновление по инструкции; review, merge #58 и clone main завершены; приёмка пользователя 08.11.2026. |
 | 04 | MS-T003 — Полностью перенести 5 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t003-grade-5/SKILL.md) | Все 35 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
 | 05 | MS-T004 — Полностью перенести 6 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t004-grade-6/SKILL.md) | Все 28 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
-| 06 | MS-T005 — Полностью перенести 7 класс | BLOCKED_DEPENDENCY | MS-T002A | [SKILL.md](../../skills/tasks/t005-grade-7/SKILL.md) | Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
+| 06 | MS-T005 — Полностью перенести 7 класс | READY_FOR_REVIEW | MS-T002A | [SKILL.md](../../skills/tasks/t005-grade-7/SKILL.md) | Все 75 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
 | 07 | MS-T006 — Полностью перенести 8 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t006-grade-8/SKILL.md) | Все 66 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
 | 08 | MS-T007 — Полностью перенести 9 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t007-grade-9/SKILL.md) | Все 46 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
 | 09 | MS-T008 — Полностью перенести 10 класс | PLANNED | MS-T002A | [SKILL.md](../../skills/tasks/t008-grade-10/SKILL.md) | Все 13 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и вручную проверен, пользователь принял cohort. |
