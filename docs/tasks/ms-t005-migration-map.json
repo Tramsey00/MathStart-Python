@@ -6968,7 +6968,18 @@
           "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/izvlechenie-i-interpretacziya-tablichnyh-dannyh/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/graficheskoe-pre"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:42 «Практические задания» теперь распознаётся как terminal self-check; потенциально исключает поздний root div :112.",
+        "remaining": "Конвертация/валидация не повторялись; сверить все задания/ответы внутри terminal section и границу исключения следующих разделов.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "graficheskoe-predstavlenie-dannyh-v-vide-krugovyh-diagramm",
@@ -7277,7 +7288,18 @@
           "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:47–52: div.ms-bar-fill, width 37.5/62.5/50/75/100/50% совпадают с новым узким допуском.",
+        "remaining": "Оформление ms-bars/ms-bar-track/ms-bar-fill отсутствует в текущих lesson/runtime CSS. Нужны отдельно согласованное scoped оформление, фактическая конвертация/валидация и визуальная сверка данных.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "prakticheskaya-rabota-diagrammy",
@@ -7442,7 +7464,18 @@
           "snippet": "<div class=\"ms-bar-fill\" style=\"width:33.333%\"></div>"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:46 «Задания и проверка» теперь terminal; :80 width 100/83.333/66.667/50/33.333% совпадают с допуском. Потенциально обходится поздний root div :128.",
+        "remaining": "Нет полного scoped оформления столбцов и authored ms-pie-practice. page.css:2–10 задаёт доли 30/25/20/15/10%, которые нельзя подменять generic pie. Сверить задания/ответы и исключаемые «Заполненная таблица» :107 / «Результат работы» :124; конвертация/валидация не выполнялись.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "chislovye-nabory-srednee-arifmeticheskoe",
@@ -7610,7 +7643,18 @@
         }
       ],
       "mathml_overrides": "docs/tasks/ms-t005-mathml-overrides.json",
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:55–59: div.ms-equalizer-bar height 72/96/120/96/96px совпадают с новым допуском.",
+        "remaining": "В source :41 словесная ms-frac («сумма всех чисел» / «количество чисел») требует поформульного MathML, без изменения helper; прежние overrides не доказывают новый candidate. Scoped equalizer CSS отсутствует. Нужны конвертация/валидация и визуальная сверка.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "mediana-chislovogo-nabora-ustojchivost-mediany",
@@ -8500,7 +8544,18 @@
           "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/gruppirovka-gistogrammy/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/vvedenie-v-teoriyu-grafov/\">Следующая те"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:121–122 section#lesson-section-6 «Проверь исследование» теперь terminal; потенциально обходятся section без id :133 и root div :143.",
+        "remaining": "Сверить все 8 заданий/ответов и согласованную границу terminal section. Реальные конвертация/валидация не выполнялись.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "vvedenie-v-teoriyu-grafov",
@@ -9101,7 +9156,18 @@
           "snippet": "<div class=\"ms-figure\">\n      <p class=\"ms-figure-title\">Две простые вероятностные модели</p>\n      <div class=\"ms-svg-wrap\">\n        <svg class=\"ms-svg\" viewBox=\"0 0 920 520\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Математическая монета с двумя исходами и правильная игральная кост"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "Новые правила не устраняют прежнюю раннюю структурную причину; «5. Задания для самопроверки» :114 распознавалось ранее.",
+        "remaining": "body.html:68 meaningful root div.ms-figure с SVG монеты/кости находится до self-check. Нужен согласованный структурный адаптер с сохранением SVG, подписи и порядка; не удалять figure.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-sobytiya",
@@ -9234,7 +9300,18 @@
           "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/moneta-i-igralnaya-kost-v-teorii-veroyatnostej/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/obobshhenie-siste"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:164 «6. Задания по результатам опыта» распознаётся после удаления номера; потенциально исключает поздний nav :232, если достигнут.",
+        "remaining": "body.html:21 section#theory имеет h2 :24 внутри ms-lab-header, а converter требует direct h2. Root div.ms-figure :76 с SVG тоже остаётся неподдержанным. Нужен согласованный адаптер структуры; terminal fix не устраняет эти ранние препятствия.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     },
     {
       "slug": "obobshhenie-sistematizacziya-znanij",
@@ -9463,20 +9540,35 @@
           "snippet": "<h2>7. Итоговая самопроверка</h2>"
         }
       ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
+      "static_assessment": {
+        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "method": "MANUAL_SOURCE_REVIEW_ONLY",
+        "potential_effect": "body.html:465 «7. Итоговая самопроверка» распознаётся после удаления номера; потенциально исключает поздний section без id :606.",
+        "remaining": "body.html:250–252 linearGradient/stop и offset/stop-color по-прежнему не поддержаны. Дополнительно по исходникам :492/:494/:582/:584 ms-frac-num/ms-frac-den не совпадают с ожидаемыми helper ms-num/ms-den (math-notation.mjs:61–63): прогноз последующей ошибки Incomplete legacy fraction, не результат запуска. Нужны согласованная поддержка градиента и поформульный MathML/адаптация без потери математики.",
+        "conversion": "NOT_RUN_BY_USER_REQUEST",
+        "validation": "NOT_RUN_BY_USER_REQUEST",
+        "activation": "NOT_PERFORMED",
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      }
     }
   ],
   "runtime": "NOT_PUBLISHED; no DB mutation, release build or Content publication performed",
   "review": "INDEPENDENT_REVIEW_PENDING",
   "human_acceptance": "PENDING",
   "merge": "NOT_PERFORMED",
-  "remaining_topics_assessment": "Expected 67/75 source activations after final algebra route decision; only 8 statistics topics remain. No automatic checks run for this route change.",
+  "remaining_topics_assessment": "67/75 source activations unchanged. All eight statistics topics remain BLOCKED_DEPENDENCY; manual static assessment of two shared fixes only, no conversion/validation or activation. Prior observed blockers retained as historical evidence.",
   "latest_change": {
-    "kind": "FINAL_ALGEBRA_ROUTE_DECISION",
-    "authority": "Руслан via explicit user instruction 2026-11-08",
-    "input_sha": "d3f183fca9208ed0ff542e3611ae443c2e752bd9",
+    "kind": "STATISTICS_SHARED_FIXES_STATIC_REVIEW",
+    "authority": "Explicit user instruction; static analysis only",
+    "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+    "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
     "expected_source_activations": 67,
     "checks": "NOT_RUN_BY_USER_REQUEST",
-    "snapshot_update": "NOT_PERFORMED"
+    "conversion": "NOT_RUN_BY_USER_REQUEST",
+    "activation": "NOT_PERFORMED",
+    "snapshot_update": "NOT_PERFORMED",
+    "execution_record": "docs/audits/ms-t005-statistics-shared-static.md"
   }
 }
