@@ -17,3 +17,98 @@
   .lesson-reveal-expander { grid-template-rows: 1fr; visibility: visible; }
   .lesson-reveal-clip { overflow: visible; }
 }
+/* Authored data diagrams: retain their proportions without loading legacy lesson CSS. */
+.lesson-section .ms-pie-layout {
+  --lesson-pie-1: #2563eb;
+  --lesson-pie-2: #7c3aed;
+  --lesson-pie-3: #0ea5e9;
+  --lesson-pie-4: #14b8a6;
+  --lesson-pie-5: #f59e0b;
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: center;
+}
+.lesson-section .ms-pie-layout > * { min-width: 0; }
+.lesson-section .ms-pie {
+  width: min(290px, 100%);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border: 10px solid var(--lesson-plot);
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--lesson-pie-1) 0 35%,
+    var(--lesson-pie-2) 35% 60%,
+    var(--lesson-pie-3) 60% 80%,
+    var(--lesson-pie-4) 80% 95%,
+    var(--lesson-pie-5) 95% 100%
+  );
+}
+.lesson-section .ms-pie-layout .ms-legend-list { display: grid; gap: 10px; min-width: 0; }
+.lesson-section .ms-pie-layout .ms-legend-item {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--lesson-divider);
+  border-radius: 14px;
+  background: var(--lesson-plot);
+  color: var(--lesson-ink);
+  font-size: 14.5px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.lesson-section .ms-pie-layout .ms-legend-swatch { width: 16px; height: 16px; border-radius: 5px; }
+.lesson-section .ms-pie-layout .ms-swatch-1 { background: var(--lesson-pie-1); }
+.lesson-section .ms-pie-layout .ms-swatch-2 { background: var(--lesson-pie-2); }
+.lesson-section .ms-pie-layout .ms-swatch-3 { background: var(--lesson-pie-3); }
+.lesson-section .ms-pie-layout .ms-swatch-4 { background: var(--lesson-pie-4); }
+.lesson-section .ms-pie-layout .ms-swatch-5 { background: var(--lesson-pie-5); }
+.lesson-section .ms-probability-scale {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0;
+}
+.lesson-section .ms-probability-scale .ms-scale-end {
+  min-width: 100px;
+  padding: 12px 14px;
+  border: 1px solid var(--lesson-divider);
+  border-radius: 16px;
+  background: var(--lesson-plot);
+  color: var(--lesson-ink);
+  text-align: center;
+}
+.lesson-section .ms-probability-scale .ms-scale-end strong { display: block; color: var(--lesson-accent-text); font-size: 20px; }
+.lesson-section .ms-probability-scale .ms-scale-end span { color: var(--lesson-muted); font-size: 13.5px; }
+.lesson-section .ms-probability-scale .ms-scale-track {
+  position: relative;
+  min-width: 0;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fee2e2 0%, #dbeafe 50%, #dcfce7 100%);
+  border: 1px solid var(--lesson-divider);
+}
+.lesson-section .ms-probability-scale .ms-scale-track::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 2px;
+  height: 26px;
+  background: var(--lesson-accent-text);
+}
+[data-theme=dark] .lesson-section .ms-probability-scale .ms-scale-track {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, #fee2e2 25%, var(--lesson-plot)) 0%,
+    color-mix(in srgb, #dbeafe 25%, var(--lesson-plot)) 50%,
+    color-mix(in srgb, #dcfce7 25%, var(--lesson-plot)) 100%);
+}
+@media (max-width: 720px) {
+  .lesson-section .ms-pie-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .lesson-section .ms-probability-scale { grid-template-columns: minmax(0, 1fr); }
+}
