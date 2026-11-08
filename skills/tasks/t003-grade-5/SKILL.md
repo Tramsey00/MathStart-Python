@@ -632,3 +632,43 @@ page.css (ms-calc-wrap, ms-calc, ms-calc-line: white-space:pre, monospace,
 Docker/новая БД/dependencies/content/publication/build не запускались.
 Автоматические проверки: NOT_RUN_BY_USER_REQUEST. Merge/закрытие Issue:
 NOT_PERFORMED. После этого handoff не переходить к runtime-этапу автоматически.
+
+## R1 — согласованный CSS-кандидат 08.11.2026
+
+Илья согласовал два правила lesson.css, Владимир явно разрешил реализацию.
+Последующее согласование заменяет только запрет на эти два CSS-правила выше;
+другие ограничения остаются в силе.
+
+Commit: `f5f3924332be153bfa9f6a82a0e94a44297c7de2` — только
+frontend/src/shared/lesson/lesson.css, +10 строк, ровно два CSS-правила.
+Точный diff относительно исходного origin/main:
+`git diff cf869079 f5f3924 -- frontend/src/shared/lesson/lesson.css`.
+
+1. `.lesson-section .ms-calc`: inline-block, white-space:pre, системный
+   monospace stack, text-align:right. Сохраняет newline/пробелы и фиксированную
+   ширину цифр без нового font asset; выравнивание справа как в исходном page.css.
+2. `.lesson-section .ms-calc-line`: display:block и border-top:1px solid currentColor.
+   Результат/промежуточный блок начинается отдельно с чертой; цвет наследуется
+   из действующей темы. Новая рамка/таблица/глобальные pre/code правила не добавлены.
+
+Сверка по коду: content.json и body.html темы №4 не изменены. В 428×36 сохранены
+`  428\n×  36\n`, ` 2568\n1284\n` и вложенный результат `15408`.
+Нули/пробелы/арифметика/объяснение про 12840 не исправлялись. CSS возвращает
+тот же white-space/pre и right alignment, который задавал frozen page.css.
+Фактическое разрядное расположение строки 1284, размеры, переносы и две черты
+ещё нужно сравнить с исходником в браузере. Совпадение на экране не заявлено.
+
+R1: OPEN — CSS_FIX_IMPLEMENTED / VISUAL_CHECK_PENDING.
+Это не полное закрытие замечания и не human acceptance. Если при ручном просмотре
+двух правил окажется недостаточно, остановиться и согласовать дополнительный scope.
+
+Возможное влияние на 7 класс: только элементы с ms-calc/ms-calc-line внутри
+lesson-section. Страницы без этих классов не затронуты селекторами. Илье передать
+для независимой проверки; его renderer/runtime.css правки не включались.
+
+Готовый текст Илье:
+> Илья, согласованный R1 CSS fix находится в отдельном commit f5f3924332be153bfa9f6a82a0e94a44297c7de2: https://github.com/Tramsey00/MathStart-Python/commit/f5f3924332be153bfa9f6a82a0e94a44297c7de2 . Ровно два scoped правила в lesson.css (+10 строк): сохранение переносов/пробелов, monospace/right alignment для ms-calc и block/top border для ms-calc-line. Другие общие файлы и материалы не менялись. Точный diff: git diff cf869079 f5f3924 -- frontend/src/shared/lesson/lesson.css . Статус R1 — CSS_FIX_IMPLEMENTED / VISUAL_CHECK_PENDING; особенно предстоит сверить 1284 в 428×36. Просьба проверить совместимость с MS-T005. Автопроверки NOT_RUN_BY_USER_REQUEST.
+
+Сообщения Илье инструментами не отправлялись. Dependencies/Docker/schema/content/
+publication/dev/build не запускались. Tests/typecheck/Playwright/smoke/QA/source/
+preservation gates: NOT_RUN_BY_USER_REQUEST. Merge и закрытие Issue не выполнялись.
