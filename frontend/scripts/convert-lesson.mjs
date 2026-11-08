@@ -30,7 +30,11 @@ function convert(n) {
   }
   if (!tags.has(n.tagName)) throw Error(`Unsupported source tag: ${n.tagName}`);
   for (const [key, value] of Object.entries(a)) {
-    if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-')) throw Error(`Unsupported attribute: ${key}`);
+    const svgAttribute = key === 'marker-start'
+      ? n.tagName === 'line' && /^url\(#[A-Za-z0-9_-]+\)$/.test(value)
+      : key === 'dy' ? n.tagName === 'tspan' && /^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) && Number.isFinite(Number(value))
+      : key === 'data-hidden-edges' && n.tagName === 'path' && value === 'true';
+    if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-') && !svgAttribute) throw Error(`Unsupported attribute: ${key}`);
     if (/^on/i.test(key) || /(?:javascript:|expression\(|@import|url\(\s*[^#])/i.test(value)) throw Error('Active source markup');
     if (key === 'href' && !/^(?:\/(?!\/)|#|https:\/\/)/.test(value)) throw Error('Unsupported source link');
   }
