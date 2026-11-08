@@ -134,7 +134,7 @@ Human acceptance и независимое review PENDING, публикация/
 [Решение и ручной список страниц](../../../docs/audits/ms-t005-algebra-route-decision.md).
 Independent review и human acceptance остаются PENDING; merge не выполняется.
 
-## Актуальный этап — общие fixes статистики, статический разбор
+## Предыдущий этап — общие fixes статистики, статический разбор
 
 По отдельному поручению интегрированы только b57b692 и ee2c1d3, строго в порядке
 через cherry-pick -x (85b30aa, 05e42b9), без конфликтов. Общая реализация сверх
@@ -146,3 +146,17 @@ Independent review и human acceptance остаются PENDING; merge не вы
 [по каждой теме и следующие решения](../../../docs/tasks/ms-t005-remaining.md).
 Маршруты алгебры 1/8 не менялись. Snapshot, БД, окружение, renderer/CSS/helper
 и учебные исходники не изменены. Independent review/human acceptance PENDING.
+
+## Актуальный этап — SVG Linear Gradient, статический разбор
+
+Отдельно перенесён только `193c378` → `1be06c9` через cherry-pick -x,
+без конфликтов; изменены только converter и backend sources.py в составе commit.
+Прежние terminal/chart dimensions fixes сохранены. Renderer/CSS/helper и контент
+не менялись. Ручное чтение SVG темы statistics-27 показывает соответствие
+новым узким правилам и generic renderer; фактический результат не подтверждён.
+Четыре дроби с ms-frac-num/ms-frac-den остаются несовместимыми с helper по исходникам.
+67/75 source activations, все восемь оставшихся BLOCKED_DEPENDENCY сохранены.
+Tests/typecheck/browser/validators/gates/QA и повторная конвертация —
+**NOT_RUN_BY_USER_REQUEST**; активация/snapshot/publication/merge не выполнялись.
+[Текущий отчёт](../../../docs/audits/ms-t005-svg-gradient-static.md).
+Независимое review и human acceptance PENDING; дальнейшая работа — отдельное поручение.

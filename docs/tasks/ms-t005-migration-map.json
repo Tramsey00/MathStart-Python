@@ -9542,15 +9542,17 @@
       ],
       "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
       "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+        "input_sha": "b9086ff07fcc65c3cb530471f94d3ff26524b61a",
+        "shared_fixes_sha": "1be06c90952c774565780f15211cc69acfacf5b4",
         "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:465 «7. Итоговая самопроверка» распознаётся после удаления номера; потенциально исключает поздний section без id :606.",
-        "remaining": "body.html:250–252 linearGradient/stop и offset/stop-color по-прежнему не поддержаны. Дополнительно по исходникам :492/:494/:582/:584 ms-frac-num/ms-frac-den не совпадают с ожидаемыми helper ms-num/ms-den (math-notation.mjs:61–63): прогноз последующей ошибки Incomplete legacy fraction, не результат запуска. Нужны согласованная поддержка градиента и поформульный MathML/адаптация без потери математики.",
+        "potential_effect": "body.html:250–253 defs > linearGradient#barGrad > stop соответствует новым узким правилам по исходникам: координаты 0/0/0/1, offset 0%/100%, цвета #60a5fa/#2563eb. Существующий renderer сохраняет теги, id, fill=url(#barGrad), преобразует stop-color в stopColor. Семь rect :213/:218/:223/:228/:233/:238/:243 сохраняют геометрию и подписи по исходникам. Terminal title :465 поддержан предыдущим fix.",
+        "remaining": "body.html:492/:494/:582/:584: ms-frac-num/ms-frac-den не совпадают с ms-num/ms-den helper (math-notation.mjs:61–63); прогноз Incomplete legacy fraction, не результат запуска. Нужна согласованная поформульная MathML-адаптация без изменения helper. Фактическая конвертация, валидация, SSR/browser, мобильная и светлая/тёмная визуальная сохранность ещё не подтверждены; проверить локальный id/reference, все семь столбцов, задачи/ответы и terminal boundary.",
         "conversion": "NOT_RUN_BY_USER_REQUEST",
         "validation": "NOT_RUN_BY_USER_REQUEST",
         "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun",
+        "gradient_review": "MANUAL_SOURCE_REVIEW_ONLY; potentially addressed, not confirmed by execution",
+        "execution_record": "docs/audits/ms-t005-svg-gradient-static.md"
       }
     }
   ],
@@ -9558,17 +9560,17 @@
   "review": "INDEPENDENT_REVIEW_PENDING",
   "human_acceptance": "PENDING",
   "merge": "NOT_PERFORMED",
-  "remaining_topics_assessment": "67/75 source activations unchanged. All eight statistics topics remain BLOCKED_DEPENDENCY; manual static assessment of two shared fixes only, no conversion/validation or activation. Prior observed blockers retained as historical evidence.",
+  "remaining_topics_assessment": "67/75 source activations unchanged; all eight statistics topics remain BLOCKED_DEPENDENCY. Gradient support integrated and statically reviewed for topic 27, fractions still need adaptation; no actual conversion/validation/activation. Prior observed errors remain historical.",
   "latest_change": {
-    "kind": "STATISTICS_SHARED_FIXES_STATIC_REVIEW",
-    "authority": "Explicit user instruction; static analysis only",
-    "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-    "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+    "kind": "SVG_LINEAR_GRADIENT_STATIC_REVIEW",
+    "input_sha": "b9086ff07fcc65c3cb530471f94d3ff26524b61a",
+    "source_commit": "193c378525f5e2a736eed26c812758b855324ed9",
+    "shared_fixes_sha": "1be06c90952c774565780f15211cc69acfacf5b4",
     "expected_source_activations": 67,
     "checks": "NOT_RUN_BY_USER_REQUEST",
     "conversion": "NOT_RUN_BY_USER_REQUEST",
     "activation": "NOT_PERFORMED",
     "snapshot_update": "NOT_PERFORMED",
-    "execution_record": "docs/audits/ms-t005-statistics-shared-static.md"
+    "execution_record": "docs/audits/ms-t005-svg-gradient-static.md"
   }
 }
