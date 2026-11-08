@@ -19,19 +19,19 @@ MS-T003–MS-T008 доступны для параллельного назна�
 Окончательное решение Руслана 08.11.2026 для MS-T005: первая тема —
 `/materials/7-algebra-1`, линейный пилот — `/materials/7-algebra-8`.
 Прежний alias между ними отменён до публичного выпуска; адрес `7-algebra-37`
-не создаётся. Ожидаются 67/75 source activations, остаются 8 тем статистики.
+не создаётся. Сейчас 73/75 source activations, остаются только statistics-25/26.
 Текущие проверки **NOT_RUN_BY_USER_REQUEST**, installed snapshot не обновлён.
 [Решение и страницы для ручного просмотра](../audits/ms-t005-algebra-route-decision.md).
 Предыдущие записи ниже — история, а не текущая политика alias или новый PASS.
 
-Текущий этап MS-T005: отдельно интегрирован SVG gradient fix `193c378` →
-`1be06c9` через cherry-pick -x, без конфликтов. Предыдущие `85b30aa`/`05e42b9`
-сохранены. Статически сопоставлены SVG темы statistics-27 и существующий renderer;
-градиент потенциально поддержан, несовместимая разметка четырёх дробей остаётся.
-67/75 source activations и восемь BLOCKED_DEPENDENCY не меняются.
-Автопроверки и повторная конвертация — **NOT_RUN_BY_USER_REQUEST**.
-[Текущий execution record](../audits/ms-t005-svg-gradient-static.md),
-[восемь тем и необходимые решения](ms-t005-remaining.md).
+Текущий этап MS-T005: активированы statistics-4/7/8/9/18/27 после фактической
+штатной конвертации, встроенной валидации (6/6 OK) и ручной source-сверки.
+Сделаны поформульные MathML overrides 9/27 и минимальный runtime CSS диаграмм 7/8/9.
+Итого **73/75**; statistics-25/26 не менялись, остаются BLOCKED_DEPENDENCY.
+Отдельные автоматические проверки — **NOT_RUN_BY_USER_REQUEST**;
+визуальная браузерная приёмка **PENDING_NOT_PERFORMED**, snapshot не обновлён.
+[Текущий execution record](../audits/ms-t005-six-statistics-activation.md),
+[оставшиеся две темы](ms-t005-remaining.md).
 
 ## Как пользоваться очередью
 

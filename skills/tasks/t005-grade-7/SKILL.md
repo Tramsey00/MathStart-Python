@@ -147,7 +147,7 @@ Independent review и human acceptance остаются PENDING; merge не вы
 Маршруты алгебры 1/8 не менялись. Snapshot, БД, окружение, renderer/CSS/helper
 и учебные исходники не изменены. Independent review/human acceptance PENDING.
 
-## Актуальный этап — SVG Linear Gradient, статический разбор
+## Предыдущий этап — SVG Linear Gradient, статический разбор
 
 Отдельно перенесён только `193c378` → `1be06c9` через cherry-pick -x,
 без конфликтов; изменены только converter и backend sources.py в составе commit.
@@ -160,3 +160,19 @@ Tests/typecheck/browser/validators/gates/QA и повторная конверт
 **NOT_RUN_BY_USER_REQUEST**; активация/snapshot/publication/merge не выполнялись.
 [Текущий отчёт](../../../docs/audits/ms-t005-svg-gradient-static.md).
 Независимое review и human acceptance PENDING; дальнейшая работа — отдельное поручение.
+
+## Актуальный этап — шесть тем статистики, source-активация
+
+По отдельному поручению пользователя выполнена штатная конвертация и встроенная
+validate_lesson_document для statistics-4/7/8/9/18/27: 6/6 OK. Документы вручную
+сопоставлены с источниками; 50 заданий/ответов, четыре таблицы и три SVG сохранены.
+Для 9/27 использован existing поформульный MathML ledger, frozen body.html не менялся.
+В runtime.css добавлено только оформление bar/pie-practice/equalizer 7/8/9;
+renderer/lesson.css/shared helper/converter/validator не менялись.
+Активированы шесть react-v1 документов и их постоянные назначения в Content registry;
+итого 73/75. Statistics-25/26 не менялись, не обрабатывались и остаются blockers.
+[Текущий отчёт](../../../docs/audits/ms-t005-six-statistics-activation.md).
+Tests/typecheck/Playwright/smoke/отдельные QA/gates — NOT_RUN_BY_USER_REQUEST.
+Browser visual acceptance PENDING_NOT_PERFORMED; source review не заменяет её.
+Snapshot/БД/.venv/var/local не менялись; публикация/build/merge не выполнялись.
+После передачи результата остановиться; отдельное review и human acceptance PENDING.
