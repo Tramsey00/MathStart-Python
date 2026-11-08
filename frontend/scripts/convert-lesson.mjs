@@ -87,6 +87,32 @@ function convert(n) {
     : has(n, 'ms-example') || has(n, 'ms-math-box') ? 'example' : n.tagName === 'table' ? 'table' : n.tagName === 'svg' ? 'figure' : 'element';
   return { kind, tag: n.tagName, attrs: a, children: children(n).map(convert).filter(Boolean) };
 }
+function nestedLaboratoryHeading(n) {
+  const parts = node => children(node).filter(c => c.nodeName !== '#comment' && !(c.nodeName === '#text' && !c.value.trim()));
+  const exact = (node, tag, className) => node?.tagName === tag
+    && node.namespaceURI === 'http://www.w3.org/1999/xhtml'
+    && Object.keys(attrs(node)).length === (className === undefined ? 0 : 1)
+    && attrs(node).class === className;
+  const [header] = parts(n);
+  const headerParts = header ? parts(header) : [];
+  const [intro, badge] = headerParts;
+  const introParts = intro ? parts(intro) : [];
+  const [heading, goal, equipment] = introParts;
+  const badgeParts = badge ? parts(badge) : [];
+  if (attrs(n).id !== 'theory' || attrs(n).class !== 'ms-section' || Object.keys(attrs(n)).length !== 2
+      || parts(n).length !== 1 || !exact(header, 'div', 'ms-lab-header ms-lab-header--overview')
+      || headerParts.length !== 2 || !exact(intro, 'div') || introParts.length !== 3
+      || !exact(heading, 'h2') || cleanSectionTitle(text(heading)) !== 'Цель и оборудование'
+      || children(heading).some(c => c.nodeName !== '#text' && c.nodeName !== '#comment')
+      || !exact(goal, 'p', 'ms-text') || !exact(equipment, 'div', 'ms-chip-row')
+      || parts(equipment).length !== 4 || parts(equipment).some(c => !exact(c, 'span', 'ms-chip'))
+      || !exact(badge, 'div', 'ms-lab-badge') || badgeParts.length !== 2
+      || !exact(badgeParts[0], 'strong') || text(badgeParts[0]).trim() !== '50'
+      || !exact(badgeParts[1], 'span')) throw Error('Unreviewed nested laboratory heading structure');
+  const introCopy = { ...intro, childNodes: children(intro).filter(c => c !== heading) };
+  const headerCopy = { ...header, childNodes: children(header).map(c => c === intro ? introCopy : c) };
+  return { heading, nodes: children(n).map(c => c === header ? headerCopy : c) };
+}
 function convertRootFigure(n) {
   const parts = node => children(node).filter(c => c.nodeName !== '#comment' && !(c.nodeName === '#text' && !c.value.trim()));
   const exact = (node, tag, className) => node?.tagName === tag
@@ -127,13 +153,19 @@ export function convertLesson(directory) {
       continue;
     }
     if (n.tagName !== 'section') throw Error(`Unreviewed lesson root block: ${n.tagName}`);
-    const heading = children(n).find(c => c.tagName === 'h2');
+    let heading = children(n).find(c => c.tagName === 'h2');
+    let sectionNodes = children(n).filter(c => c !== heading);
+    if (!heading && attrs(n).id === 'theory') {
+      const laboratory = nestedLaboratoryHeading(n);
+      heading = laboratory.heading;
+      sectionNodes = laboratory.nodes;
+    }
     if (!heading || !attrs(n).id) throw Error('Missing section heading or anchor');
     const title = cleanSectionTitle(text(heading));
     if (isPrerequisiteSection(title)) continue;
     const selfCheck = isSelfCheckSection(title);
     sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title,
-      nodes: normalizeMathNotation(children(n).filter(c => c !== heading).map(convert).filter(Boolean)) });
+      nodes: normalizeMathNotation(sectionNodes.map(convert).filter(Boolean)) });
     lastSection = n;
     if (selfCheck) afterSelfCheck = true;
   }
