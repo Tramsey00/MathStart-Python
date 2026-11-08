@@ -107,7 +107,7 @@ renderer, компоненты и CSS не изменены. Независим�
 MathML авторская и поформульная, shared code не изменён. Независимое review и
 human acceptance PENDING, публикация/merge не выполнялись.
 
-## Актуальный этап — семь геометрических тем
+## Предыдущий этап — семь геометрических тем
 
 Семь geometry documents активированы после сверки исходников, SSR, SVG/code/media,
 адаптивности и URL. Всего 66/75 source routes, geometry 12/12. По отдельному
@@ -116,3 +116,20 @@ human acceptance PENDING, публикация/merge не выполнялись
 [Отчёт](../../../docs/audits/ms-t005-geometry-activation.md),
 [оставшиеся 9](../../../docs/tasks/ms-t005-remaining.md).
 Human acceptance и независимое review PENDING, публикация/build/merge не выполнялись.
+
+## Актуальный этап — окончательное решение маршрутов алгебры
+
+Руслан утвердил 08.11.2026 до публичного выпуска:
+`/materials/7-algebra-1` — «Числовые выражения. Алгебраические выражения»;
+`/materials/7-algebra-8` — принятый линейный пилот. Прежний permanent alias
+между ними отменён: исторический адрес пилота освобождён для первой темы.
+`/materials/7-algebra-37` не создавать. Подготовленный content.json и MathML
+не переписываются; source renderer metadata и Content registry активированы.
+Ожидаются 67/75 source activations; остаются 8 тем статистики.
+
+Проверки текущего шага — **NOT_RUN_BY_USER_REQUEST**. Только ручное чтение
+исходников/diff: без tests/typecheck/Playwright/smoke/валидаторов/gates/новых QA.
+Штатные guards сохраняются. Build/publication и обновление installed snapshot
+ради адреса запрещены. Старые receipts/принятия не переписываются.
+[Решение и ручной список страниц](../../../docs/audits/ms-t005-algebra-route-decision.md).
+Independent review и human acceptance остаются PENDING; merge не выполняется.

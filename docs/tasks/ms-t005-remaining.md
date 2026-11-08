@@ -1,13 +1,8 @@
-# MS-T005 — оставшиеся 9 тем
+# MS-T005 — оставшиеся 8 тем статистики
 
-После активации семи geometry sources на основании 3449030 зарегистрированы 66/75 тем. Семь геометрических blockers из прежнего списка разрешены и не являются текущими.
+После окончательного решения Руслана о маршрутах и source-активации первой темы ожидаются 67/75 тем. /materials/7-algebra-1 закреплён за первой темой; пилот сохраняет /materials/7-algebra-8, прежний alias отменён до публичного выпуска. Семь геометрических blockers разрешены ранее.
 
-Ниже 8 статистических тем и 1 URL-решение. Их source blockers взяты из карты повторной обработки 46 тем; в текущем geometry-only этапе они заново не конвертировались. История и прежние строки остаются в [followups предыдущего этапа](ms-t005-converter-followups.md).
-
-## /materials/7-algebra-1 — Числовые выражения. Алгебраические выражения
-
-Source: `curriculum/7-klass/algebra/01-matematicheskie-modeli/01-chislovye-vyrazheniya-algebraicheskie-vyrazheniya`. Статус `PREPARED_BLOCKED_URL`.
-- Proposed /materials/7-algebra-1 is the preserved permanent alias of the linear pilot; user URL decision required
+Ниже только 8 статистических тем. URL-решение принято; /materials/7-algebra-37 не создаётся. Автоматические проверки текущей коррекции — NOT_RUN_BY_USER_REQUEST. Их source blockers взяты из карты повторной обработки 46 тем; в текущем шаге изменения маршрутов они заново не конвертировались. История и прежние строки остаются в [followups предыдущего этапа](ms-t005-converter-followups.md).
 
 ## /materials/7-statistics-4 — Практическая работа «Таблицы»
 
@@ -89,4 +84,4 @@ Source: `curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizac
 - `curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html:252`: converter does not support attribute stop-color.
 - `curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html:465`: Terminal self-check heading is Итоговая самопроверка; exact converter predicate does not recognize it, so subsequent ms-course-complete is not excluded by the standard.
 
-Для Владимира/согласования остаются meaningful root figures/navigation/nested headings, terminal self-check variants, SVG gradient definitions и безопасный контракт data-encoded размеров CSS-диаграмм. Общие изменения не поручаются автоматически. URL /materials/7-algebra-1 решает пользователь; существующий alias не менялся. Публикация и human acceptance отдельно.
+Для Владимира/согласования остаются meaningful root figures/navigation/nested headings, terminal self-check variants, SVG gradient definitions и безопасный контракт data-encoded размеров CSS-диаграмм. Общие изменения не поручаются автоматически. URL /materials/7-algebra-1 уже утверждён Русланом для первой темы; исторические отчёты о прежнем конфликте не переписываются. Публикация и human acceptance отдельно.
