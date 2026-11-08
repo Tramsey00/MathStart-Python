@@ -586,3 +586,49 @@ Issue #60 не закрывать. Draft PR служит передачей не
 - `frontend/scripts/convert-lesson.mjs`
 - `site_content/material-routes.json`
 - `skills/tasks/t003-grade-5/SKILL.md`
+
+## Передача общих исправлений Илье и открытое замечание R1 — 08.11.2026
+
+Для существующей ветки MS-T005 `ms-t005-grade-7` (Draft PR #62) подготовлены
+два самостоятельных общих commit из Draft PR #63:
+
+1. `f5cfddd429d1162c13afe9b1c3baab7ce7458c84`: только
+   frontend/scripts/convert-lesson.mjs и backend/content/sources.py; marker-start,
+   конечный десятичный dy и data-hidden-edges=true.
+2. `65a51a1901da5c9ebcfcd4c0e804e8c32ce554ae`: только
+   frontend/scripts/convert-lesson.mjs; data-net-face=true строго на SVG rect.
+
+Переносить именно эти два SHA в указанном порядке, НЕ диапазон между ними
+и НЕ всю ветку: промежуточный `0e1c39a` содержит материалы 5 класса.
+Суммарный diff относительно origin/main cf869079: два файла, +13/-1.
+Source materials/маршруты/metadata в выбранных commits отсутствуют.
+Текущий HEAD PR #62 наблюдался как ebc3c4a0ea75f362ed3f2d3cbae5a5482b649a0e;
+это не разрешение менять чужую ветку и не предположение о её локальном dirty tree.
+Перенос должен выполнить Codex Ильи после сохранения его правок, с чистого
+дерева и без reset/force/автоматического выбора ours/theirs при конфликтах.
+Ветка Ильи этим агентом не изменялась; сообщение ему инструментами не отправлялось.
+
+Эти commits НЕ решают font-style, fill-opacity, составные дроби, поведение SVG
+`title` в renderer или CSS-диаграммы. title/desc уже принимались конвертером
+до исправления; renderer не менялся. Составные дроби требуют явного MathML
+в документах соответствующих тем, не расширения математического helper по догадке.
+Остальные общие расширения требуют отдельного согласования.
+
+### R1 — OPEN / UNRESOLVED
+
+Тема №4, /materials/5-math-4, «Законы арифметических действий. Вычисления
+с многозначными числами»: четыре вычисления столбиком зависят от frozen
+page.css (ms-calc-wrap, ms-calc, ms-calc-line: white-space:pre, monospace,
+выравнивание и черта результата). Эти узлы/числа сохранены в content.json,
+но React assets не исполняют legacy page.css, эквивалентных правил в
+подключённом runtime CSS не найдено. Риск потери разрядного расположения
+установлен статическим чтением; визуальный результат ещё не проверен.
+
+Статус: OPEN / UNRESOLVED. Исправление не согласовано и НЕ выполнено.
+Не изменять общий CSS/renderer без отдельного согласования. Это замечание
+остаётся препятствием приёмке соответствующей темы; наличие source document
+и маршрутного назначения не означает её готовность.
+
+Docker/новая БД/dependencies/content/publication/build не запускались.
+Автоматические проверки: NOT_RUN_BY_USER_REQUEST. Merge/закрытие Issue:
+NOT_PERFORMED. После этого handoff не переходить к runtime-этапу автоматически.
