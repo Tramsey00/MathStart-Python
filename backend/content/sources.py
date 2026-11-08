@@ -204,8 +204,24 @@ def validate_lesson_document(document, slug):
         if 'clip-path' in attrs and (not isinstance(attrs['clip-path'], str) or not re.fullmatch(r'url\(#[A-Za-z0-9_-]+\)', attrs['clip-path'])):
             raise SourceError('Unsupported authored clipping reference')
         allowed.update({'title', 'desc', 'small', 'clipPath'})
-        if 'style' in attrs and (not isinstance(attrs['style'], str) or not re.fullmatch(r'\s*margin-top:\s*\d+(?:px|rem);?\s*', attrs['style'])):
-            raise SourceError('Unsupported authored layout style')
+        if 'style' in attrs:
+            style = attrs['style']
+            class_value = attrs.get('class', '')
+            classes = set(class_value.split()) if isinstance(class_value, str) else set()
+            margin_style = isinstance(style, str) and re.fullmatch(
+                r'\s*margin-top:\s*\d+(?:px|rem);?\s*', style)
+            chart_style = (
+                isinstance(style, str) and tag == 'div' and not in_svg
+                and (
+                    (classes == {'ms-bar-fill'} and re.fullmatch(
+                        r'\s*width:\s*(?:37\.5|62\.5|50|75|100|83\.333|66\.667|33\.333)%;?\s*',
+                        style))
+                    or (classes == {'ms-equalizer-bar'} and re.fullmatch(
+                        r'\s*height:\s*(?:72|96|120)px;?\s*', style))
+                )
+            )
+            if not (margin_style or chart_style):
+                raise SourceError('Unsupported authored layout style')
         if (not isinstance(tag, str) or tag not in allowed or type(attrs) is not dict
                 or any(not isinstance(k, str) or not isinstance(v, (str, int, float)) or isinstance(v, bool)
                        for k, v in attrs.items()) or any(k not in attr_names and not k.startswith(('aria-', 'data-')) for k in attrs)
