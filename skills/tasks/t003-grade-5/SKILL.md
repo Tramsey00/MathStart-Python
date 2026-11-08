@@ -332,3 +332,257 @@ https://github.com/Tramsey00/MathStart-Python/commit/f5cfddd
 блокера и завершения переноса, согласно поручению. Commit/push не означают review
 или приёмку. Tests/typecheck/Playwright/backend/smoke/source/docs/preservation gates
 и release build: NOT_RUN_BY_USER_REQUEST. Merge/закрытие Issue: NOT_PERFORMED.
+
+
+## Карта состава источников для ручной сверки — 35 тем
+
+Карта описывает frozen body.html, не является preservation gate или подтверждением полной сверки. Номера соответствуют /materials/5-math-N. Все исходные HTML/media сохранены. Исключения следуют принятому правилу prerequisite и блоков после самопроверки.
+
+| № | Тема | Сохраняемые section anchors | Исключаемые anchors, включая вложенные |
+| --- | --- | --- | --- |
+| 1 | Числовые и буквенные выражения | theory, lesson-section-2, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6 | lesson-section-7 |
+| 2 | Определение координатного луча | theory, lesson-section-2, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-9 |
+| 3 | Округление чисел. Прикидка и оценка результатов вычислений | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 4 | Законы арифметических действий. Вычисления с многозначными числами | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 5 | Сравнение натуральных чисел | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 6 | Решение текстовых задач арифметическим способом | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 7 | Формулы. Уравнения. Упрощение выражений | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 8 | Математический язык и математическая модель | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 9 | Делимость натуральных чисел | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 10 | Признаки делимости | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 11 | Простые и составные числа. Разложение натурального числа на простые множители | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9, lesson-section-10 | lesson-section-1, lesson-section-11 |
+| 12 | Деление с остатком. Понятие обыкновенной дроби | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 13 | Основное свойство дроби. Сокращение дробей | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 14 | Правильные и неправильные дроби. Смешанные числа. Понятие, запись и чтение | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 15 | Сравнение обыкновенных дробей | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 16 | Сложение и вычитание обыкновенных дробей и смешанных чисел | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 17 | Умножение и деление обыкновенной дроби на натуральное число | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 18 | Нахождение части от целого и числа по его части | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 19 | Понятие десятичной дроби. Представление десятичной дроби в виде обыкновенной дроби и наоборот | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 20 | Десятичные дроби. Сравнение | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 21 | Десятичные дроби. Сложение и вычитание | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 22 | Десятичные дроби. Умножение | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 23 | Степень с натуральным показателем | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 24 | Десятичные дроби. Среднее арифметическое, деление на натуральное число | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 25 | Десятичные дроби. Деление на десятичную дробь | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 26 | Округление десятичных дробей | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9, lesson-section-10 | lesson-section-1, lesson-section-11 |
+| 27 | Начальные геометрические понятия: прямая, отрезок, луч, ломаная, прямоугольник | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9 | lesson-section-1, lesson-section-10 |
+| 28 | Угол. Измерение углов | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8, lesson-section-9, lesson-section-10 | lesson-section-1, lesson-section-11 |
+| 29 | Биссектриса угла. Свойство биссектрисы угла | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 30 | Треугольник. Площадь треугольника | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 31 | Свойство углов треугольника | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 32 | Геометрические понятия: окружность и круг | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+| 33 | Прямоугольный параллелепипед. Определение, свойства | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 34 | Прямоугольный параллелепипед. Развёртка | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7 | lesson-section-1, lesson-section-8 |
+| 35 | Прямоугольный параллелепипед. Объём | theory, lesson-section-3, lesson-section-4, lesson-section-5, lesson-section-6, lesson-section-7, lesson-section-8 | lesson-section-1, lesson-section-9 |
+
+## Текущий handoff MS-T003 — 08.11.2026
+
+Эта запись задаёт актуальный статус; предыдущие разделы описывают промежуточные
+черновики и уже снятые blockers. Последнее разрешение Владимира: сохранять только
+`data-net-face="true"` на SVG rect. Оно реализовано отдельным commit `65a51a1`.
+Иных общих изменений не внесено и не требуется по текущим диагностическим данным.
+
+### Подготовленная реализация
+
+- 34 новых content.json; принятый пилот №12 переиспользован без изменения файлов.
+- У 34 тем выставлен renderer_version=react-v1. Всего 35 тем 5 класса назначены
+  один раз в site_content/material-routes.json; docs/tasks/lesson-inventory.json
+  отражает те же назначения. Номера закреплены по полному исходному curriculum,
+  пилот /materials/5-math-12 сохранён, записи других классов не переписывались.
+- Общая LessonPage/SourceRenderer уже принимают документ; новых UI-компонентов,
+  CSS, renderer, math helper, endpoint, schema migration, LLM или механик нет.
+- Составные дроби пяти тем размечены явно существующими MathML узлами, без
+  вычислений. Дополнительный h2 «Признаки делимости» сохранён подзаголовком h3.
+- Прямоугольники развёртки: 30 data-net-face=true в пяти группах по шесть
+  сохранены как rect с исходными attrs; исходное дерево SVG проходит тот же
+  children.map(convert), attrs возвращаются без переименования/замены значений.
+  Просмотрены исходные строки 70–75, 146–151, 212–217, 283–288, 349–354 и
+  соответствующие группы content.json. Число 30 относится к помеченным граням,
+  не ко всем rect страницы: фон/рамки/другие прямоугольники также сохранены.
+- Исключения только по принятому стандарту: prerequisite, все блоки после
+  самопроверки, legacy navigation. Карта anchors всех 35 исходников выше.
+  HTML/media не удалялись; исходные SVG, таблицы, ответы, ссылки и формулы
+  остаются материалом для полного ручного сравнения с новым документом.
+
+### Diff для Ильи
+
+Исходный origin/main: `cf8690794644fe5f90c42d5aae2c1c5f7ca9b888`.
+Общие исправления: `f5cfddd` и `65a51a1` (совокупно два файла, +13/-1).
+Команда точного diff:
+`git diff cf869079 65a51a1 -- frontend/scripts/convert-lesson.mjs backend/content/sources.py`
+Patch в ignored `var/handoff/ms-t003-shared-svg.diff`; после push доступен через
+https://github.com/Tramsey00/MathStart-Python/compare/cf869079...65a51a1
+
+Новое дополнение — одна ветка условия converter: точный key data-net-face,
+SVG namespace, tag rect и value строго true. Не изменяет общий attrs allowlist,
+не разрешает другие значения/теги/data-атрибуты, не изменяет backend. Условие
+не удаляет и не переписывает attrs; за ним сохраняются existing active-markup
+и URL guards. Старые допустимые SVG проходят прежний путь обработки.
+Пилоты и 7 класс не регенерировались; runtime-совместимость ещё не проверена.
+
+Текст для передачи Илье:
+
+> Илья, итоговый точный общий diff MS-T003: `git diff cf869079 65a51a1 -- frontend/scripts/convert-lesson.mjs backend/content/sources.py`. Коммиты: f5cfddd и 65a51a1. К согласованным marker-start на line с локальным url(#id), конечному десятичному dy на tspan и data-hidden-edges=true на path добавлена отдельно разрешённая поддержка data-net-face=true только на SVG rect: она нужна для 30 граней развёрток темы №34. Backend дополнительно не менялся. UI/CSS/renderer/math helper и материалы 7 класса сохранены. Просьба независимо оценить совместимость с MS-T005; автоматические проверки NOT_RUN_BY_USER_REQUEST.
+
+Сообщения Илье инструментами не отправлялись; это готовый текст для владельца.
+
+### Адреса и статусы
+
+Все адреса в следующей таблице назначены в исходном реестре. Они ещё НЕ
+подтверждены на текущем localhost: рабочая host-check публикация намеренно
+сохранена. После штатной подготовки Content в предназначенной установке адрес
+для ручного просмотра — `http://127.0.0.1:8131` + canonical path из таблицы.
+Старые /<slug>/ перенаправляются существующим apply_material_redirects при
+построении/публикации нового verified release; отдельно новый redirect engine
+не добавлялся. Прямой вход/reload/Back/query/fragment предстоит проверить вручную.
+
+Implementation: SOURCE_DOCUMENTS_AND_ROUTES_PREPARED.
+Статическая самопроверка кода и разрешённых изменений: выполнена чтением diff.
+Полное построчное сравнение всех текстов/формул/ответов/media: INCOMPLETE.
+Независимое review Ильи: PENDING. Ручная визуальная/человеческая приёмка: PENDING.
+Content prepare/publication: NOT_PERFORMED; release build: NOT_RUN_BY_USER_REQUEST.
+Tests/typecheck/Playwright/backend/smoke/source/docs/preservation gates:
+NOT_RUN_BY_USER_REQUEST. Ни один из этих статусов не означает PASS.
+
+### Ручное review / оставшаяся работа
+
+1. Сравнить все 35 тем с frozen HTML и картой состава: сохранённые тексты,
+   математические знаки, числа, таблицы, задания/ответы/решения, links и anchors.
+   Для пяти authored MathML тем особенно проверить порядок операций, смешанные
+   числа, знаменатели, знак вопроса и отсутствие вычисления исходных выражений.
+2. Илье независимо прочитать два общих diff и проверить влияние на 7 класс.
+3. Подготовить новые Content inputs/публикацию штатно по docs/local-development-host.md
+   с reviewed plans/guards в предназначенной установке; не копировать host-check
+   settings/БД и не подменять immutable release. Автобилд сейчас не запускался.
+4. Вручную открыть все canonical URLs и старые slug redirects, каталог и соседей
+   по темам/разделам. Посмотреть раскрытие всех самопроверок, desktop/mobile,
+   viewport без горизонтального overflow, light/dark и переносы формул/таблиц.
+5. Особое внимание SVG №7 (начальные стрелки), №30 (двухстрочные подписи), №33–35
+   (скрытые рёбра), №34 (все пять развёрток/30 граней). Индивидуальных page.js,
+   canvas/input controls в исходниках 5 класса не обнаружено чтением файлов;
+   основное интерактивное поведение — общий self-check disclosure/contents/navigation.
+
+Новые документы есть для всех 34 тем, source blockers сняты; runtime-перенос
+и приёмка целого класса пока не завершены. Отсутствие source blockers не является
+подтверждением полноты ручной сверки или release readiness. Task остаётся IN_PROGRESS.
+Issue #60 не закрывать. Draft PR служит передачей незавершённого результата на review,
+не свидетельством приёмки. Merge и переход к следующей задаче не выполнялись.
+
+| № | Тема | Canonical path | Текущий статус |
+| --- | --- | --- | --- |
+| 1 | Числовые и буквенные выражения | /materials/5-math-1 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 2 | Определение координатного луча | /materials/5-math-2 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 3 | Округление чисел. Прикидка и оценка результатов вычислений | /materials/5-math-3 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 4 | Законы арифметических действий. Вычисления с многозначными числами | /materials/5-math-4 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 5 | Сравнение натуральных чисел | /materials/5-math-5 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 6 | Решение текстовых задач арифметическим способом | /materials/5-math-6 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 7 | Формулы. Уравнения. Упрощение выражений | /materials/5-math-7 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 8 | Математический язык и математическая модель | /materials/5-math-8 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 9 | Делимость натуральных чисел | /materials/5-math-9 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 10 | Признаки делимости | /materials/5-math-10 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 11 | Простые и составные числа. Разложение натурального числа на простые множители | /materials/5-math-11 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 12 | Деление с остатком. Понятие обыкновенной дроби | /materials/5-math-12 | ACCEPTED_PILOT_REUSED |
+| 13 | Основное свойство дроби. Сокращение дробей | /materials/5-math-13 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 14 | Правильные и неправильные дроби. Смешанные числа. Понятие, запись и чтение | /materials/5-math-14 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 15 | Сравнение обыкновенных дробей | /materials/5-math-15 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 16 | Сложение и вычитание обыкновенных дробей и смешанных чисел | /materials/5-math-16 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 17 | Умножение и деление обыкновенной дроби на натуральное число | /materials/5-math-17 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 18 | Нахождение части от целого и числа по его части | /materials/5-math-18 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 19 | Понятие десятичной дроби. Представление десятичной дроби в виде обыкновенной дроби и наоборот | /materials/5-math-19 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 20 | Десятичные дроби. Сравнение | /materials/5-math-20 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 21 | Десятичные дроби. Сложение и вычитание | /materials/5-math-21 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 22 | Десятичные дроби. Умножение | /materials/5-math-22 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 23 | Степень с натуральным показателем | /materials/5-math-23 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 24 | Десятичные дроби. Среднее арифметическое, деление на натуральное число | /materials/5-math-24 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 25 | Десятичные дроби. Деление на десятичную дробь | /materials/5-math-25 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 26 | Округление десятичных дробей | /materials/5-math-26 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 27 | Начальные геометрические понятия: прямая, отрезок, луч, ломаная, прямоугольник | /materials/5-math-27 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 28 | Угол. Измерение углов | /materials/5-math-28 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 29 | Биссектриса угла. Свойство биссектрисы угла | /materials/5-math-29 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 30 | Треугольник. Площадь треугольника | /materials/5-math-30 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 31 | Свойство углов треугольника | /materials/5-math-31 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 32 | Геометрические понятия: окружность и круг | /materials/5-math-32 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 33 | Прямоугольный параллелепипед. Определение, свойства | /materials/5-math-33 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 34 | Прямоугольный параллелепипед. Развёртка | /materials/5-math-34 | SOURCE_CONFIGURED_REVIEW_PENDING |
+| 35 | Прямоугольный параллелепипед. Объём | /materials/5-math-35 | SOURCE_CONFIGURED_REVIEW_PENDING |
+
+### Полный список изменённых файлов source candidate
+
+Относительно cf869079; список включает текущие staged изменения. Точная ревизия будет указана в Draft PR.
+
+- `backend/content/sources.py`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/01-5-klass-chislovye-i-bukvennye-vyrazheniya/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/01-5-klass-chislovye-i-bukvennye-vyrazheniya/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/02-5-klass-koordinatnyy-luch/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/02-5-klass-koordinatnyy-luch/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/03-5-klass-okruglenie-chisel-prikidka/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/03-5-klass-okruglenie-chisel-prikidka/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/04-5-klass-zakony-arifmeticheskih-deystviy/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/04-5-klass-zakony-arifmeticheskih-deystviy/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/05-5-klass-sravnenie-naturalnyh-chisel/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/05-5-klass-sravnenie-naturalnyh-chisel/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/06-5-klass-tekstovye-zadachi-arifmeticheskiy-sposob/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/06-5-klass-tekstovye-zadachi-arifmeticheskiy-sposob/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/07-5-klass-formuly-uravneniya-uproshchenie-vyrazheniy/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/07-5-klass-formuly-uravneniya-uproshchenie-vyrazheniy/lesson.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/08-5-klass-matematicheskiy-yazyk-model/content.json`
+- `curriculum/5-klass/matematika/01-naturalnye-chisla/08-5-klass-matematicheskiy-yazyk-model/lesson.json`
+- `curriculum/5-klass/matematika/02-razlozhenie-chisla-na-prostye-mnozhiteli/01-5-klass-delimost-naturalnyh-chisel/content.json`
+- `curriculum/5-klass/matematika/02-razlozhenie-chisla-na-prostye-mnozhiteli/01-5-klass-delimost-naturalnyh-chisel/lesson.json`
+- `curriculum/5-klass/matematika/02-razlozhenie-chisla-na-prostye-mnozhiteli/02-5-klass-priznaki-delimosti/content.json`
+- `curriculum/5-klass/matematika/02-razlozhenie-chisla-na-prostye-mnozhiteli/02-5-klass-priznaki-delimosti/lesson.json`
+- `curriculum/5-klass/matematika/02-razlozhenie-chisla-na-prostye-mnozhiteli/03-5-klass-prostye-i-sostavnye-chisla/content.json`
+- `curriculum/5-klass/matematika/02-razlozhenie-chisla-na-prostye-mnozhiteli/03-5-klass-prostye-i-sostavnye-chisla/lesson.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/02-osnovnoe-svojstvo-drobi-sokrashhenie-drobej/content.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/02-osnovnoe-svojstvo-drobi-sokrashhenie-drobej/lesson.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/03-pravilnye-i-nepravilnye-drobi-smeshannye-chisla-ponyatie-5c2ab626/content.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/03-pravilnye-i-nepravilnye-drobi-smeshannye-chisla-ponyatie-5c2ab626/lesson.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/04-sravnenie-obyknovennyh-drobej/content.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/04-sravnenie-obyknovennyh-drobej/lesson.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/05-slozhenie-i-vychitanie-obyknovennyh-drobej-i-smeshannyh-ee005929/content.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/05-slozhenie-i-vychitanie-obyknovennyh-drobej-i-smeshannyh-ee005929/lesson.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/06-umnozhenie-i-delenie-obyknovennoj-drobi-na-naturalnoe-ch-ef032d25/content.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/06-umnozhenie-i-delenie-obyknovennoj-drobi-na-naturalnoe-ch-ef032d25/lesson.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/07-nahozhdenie-chasti-ot-czelogo-i-chisla-po-ego-chasti/content.json`
+- `curriculum/5-klass/matematika/03-obyknovennye-drobi/07-nahozhdenie-chasti-ot-czelogo-i-chisla-po-ego-chasti/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/01-ponyatie-desyatichnoj-drobi-predstavlenie-desyatichnoj-d-b71f2061/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/01-ponyatie-desyatichnoj-drobi-predstavlenie-desyatichnoj-d-b71f2061/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/02-desyatichnye-drobi-sravnenie/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/02-desyatichnye-drobi-sravnenie/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/03-desyatichnye-drobi-slozhenie-i-vychitanie/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/03-desyatichnye-drobi-slozhenie-i-vychitanie/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/04-desyatichnye-drobi-umnozhenie/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/04-desyatichnye-drobi-umnozhenie/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/05-stepen-s-naturalnym-pokazatelem/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/05-stepen-s-naturalnym-pokazatelem/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/06-desyatichnye-drobi-srednee-arifmeticheskoe-delenie-na-na-2b7d66e9/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/06-desyatichnye-drobi-srednee-arifmeticheskoe-delenie-na-na-2b7d66e9/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/07-desyatichnye-drobi-delenie-na-desyatichnuyu-drob/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/07-desyatichnye-drobi-delenie-na-desyatichnuyu-drob/lesson.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/08-okruglenie-desyatichnyh-drobej/content.json`
+- `curriculum/5-klass/matematika/04-desyatichnye-drobi/08-okruglenie-desyatichnyh-drobej/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/01-nachalnye-geometricheskie-ponyatiya-pryamaya-otrezok-luc-32a7b967/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/01-nachalnye-geometricheskie-ponyatiya-pryamaya-otrezok-luc-32a7b967/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/02-ugol-izmerenie-uglov/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/02-ugol-izmerenie-uglov/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/03-bissektrisa-ugla-svojstvo-bissektrisy-ugla/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/03-bissektrisa-ugla-svojstvo-bissektrisy-ugla/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/04-treugolnik-ploshhad-treugolnika/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/04-treugolnik-ploshhad-treugolnika/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/05-svojstvo-uglov-treugolnika/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/05-svojstvo-uglov-treugolnika/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/06-geometricheskie-ponyatiya-okruzhnost-i-krug/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/06-geometricheskie-ponyatiya-okruzhnost-i-krug/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/07-pryamougolnyj-parallelepiped-opredelenie-svojstva/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/07-pryamougolnyj-parallelepiped-opredelenie-svojstva/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/08-pryamougolnyj-parallelepiped-razvyortka/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/08-pryamougolnyj-parallelepiped-razvyortka/lesson.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/09-pryamougolnyj-parallelepiped-obyom/content.json`
+- `curriculum/5-klass/matematika/05-vvedenie-v-geometriyu/09-pryamougolnyj-parallelepiped-obyom/lesson.json`
+- `docs/tasks/INDEX.md`
+- `docs/tasks/lesson-inventory.json`
+- `docs/tasks/registry.json`
+- `frontend/scripts/convert-lesson.mjs`
+- `site_content/material-routes.json`
+- `skills/tasks/t003-grade-5/SKILL.md`
