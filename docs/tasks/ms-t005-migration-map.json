@@ -5,9 +5,9 @@
   "base_sha": "cf8690794644fe5f90c42d5aae2c1c5f7ca9b888",
   "implementation": "PARTIAL_BLOCKED_DEPENDENCY",
   "counts": {
-    "MIGRATED": 65,
+    "MIGRATED": 66,
     "REUSED_PILOT": 1,
-    "PREPARED_BLOCKED_URL": 1,
+    "PREPARED_BLOCKED_URL": 0,
     "BLOCKED_DEPENDENCY": 8
   },
   "source_exclusion_authority": "docs/frontend/lesson-migration.md: prerequisite section and all sections after self-check; legacy navigation replaced by shared navigation",
@@ -18,12 +18,10 @@
       "subject": "algebra",
       "section": "matematicheskie-modeli",
       "source": "curriculum/7-klass/algebra/01-matematicheskie-modeli/01-chislovye-vyrazheniya-algebraicheskie-vyrazheniya",
-      "status": "PREPARED_BLOCKED_URL",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-algebra-1",
       "proposed_path": "/materials/7-algebra-1",
-      "blockers": [
-        "Proposed /materials/7-algebra-1 is the preserved permanent alias of the linear pilot; user URL decision required"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "f3f224e5a39304c9538295a8bf6a2b813023ed65a3b438f0895fd2ec3e6ada48"
       },
@@ -132,7 +130,7 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "URL decision; document valid and prepared, renderer/route remain legacy",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Composite legacy term needs explicit authored MathML",
         "URL already reserved as a permanent alias of the linear pilot; human route decision required"
@@ -143,7 +141,21 @@
       "validation_result": "OK",
       "blocker_details": [],
       "mathml_overrides": "docs/tasks/ms-t005-mathml-overrides.json",
-      "section_inventory_status": "prepared document follows existing section/anchor rules; only URL approval remains"
+      "section_inventory_status": "Previously prepared content activated by final URL decision; academic content and MathML unchanged",
+      "route_decision": {
+        "authority": "Руслан; explicit user instruction 2026-11-08",
+        "reason": "Historical pilot address freed for the first algebra topic before public release",
+        "cancelled_alias": "/materials/7-algebra-1 -> /materials/7-algebra-8",
+        "canonical_path": "/materials/7-algebra-1",
+        "pilot_canonical_path": "/materials/7-algebra-8",
+        "no_material_37": true,
+        "previous_status": "PREPARED_BLOCKED_URL",
+        "previous_blockers": [
+          "Proposed /materials/7-algebra-1 is the preserved permanent alias of the linear pilot; user URL decision required"
+        ],
+        "checks": "NOT_RUN_BY_USER_REQUEST"
+      },
+      "validation_result_scope": "Historical prepared-document result at assessment_sha; not rerun for this route change"
     },
     {
       "slug": "matematicheskij-yazyk",
@@ -9458,5 +9470,13 @@
   "review": "INDEPENDENT_REVIEW_PENDING",
   "human_acceptance": "PENDING",
   "merge": "NOT_PERFORMED",
-  "remaining_topics_assessment": "Seven geometry documents fully source/SSR/media/browser checked and activated; 66/75 source routes total. Eight statistics blockers and one algebra URL decision remain; those nine were not reprocessed in this geometry task."
+  "remaining_topics_assessment": "Expected 67/75 source activations after final algebra route decision; only 8 statistics topics remain. No automatic checks run for this route change.",
+  "latest_change": {
+    "kind": "FINAL_ALGEBRA_ROUTE_DECISION",
+    "authority": "Руслан via explicit user instruction 2026-11-08",
+    "input_sha": "d3f183fca9208ed0ff542e3611ae443c2e752bd9",
+    "expected_source_activations": 67,
+    "checks": "NOT_RUN_BY_USER_REQUEST",
+    "snapshot_update": "NOT_PERFORMED"
+  }
 }
