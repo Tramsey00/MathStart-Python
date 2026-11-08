@@ -12,7 +12,7 @@ const text = n => n.nodeName === '#text' ? n.value : children(n).map(text).join(
 export const cleanSectionTitle = title => title.replace(/^\s*\d+[.)]\s*/, '').trim();
 export const isPrerequisiteSection = title => /^Что нужно знать перед темой$/iu.test(cleanSectionTitle(title));
 export const isSelfCheckSection = title => /^(?:Задания для самопроверки|Самопроверка)$/iu.test(cleanSectionTitle(title));
-const tags = new Set('div p span strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mspace mtext semantics annotation small clipPath'.split(' '));
+const tags = new Set('div p span code strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mspace mtext semantics annotation small clipPath'.split(' '));
 const attributes = new Set('class id role style href title scope colspan rowspan xmlns viewBox viewbox width height x y x1 y1 x2 y2 cx cy r rx ry d points fill stroke stroke-width stroke-linecap stroke-linejoin stroke-dasharray font-size font-weight font-family text-anchor dominant-baseline transform opacity marker-end refX refY markerWidth markerHeight markerUnits orient mathvariant display encoding clip-path'.toLowerCase().split(' '));
 function convert(n) {
   if (n.nodeName === '#text') return { kind: 'text', text: n.value };
@@ -28,6 +28,7 @@ function convert(n) {
       ...children(n).filter(c => c.tagName === 'p').map(convert),
     ] };
   }
+  if (n.tagName === 'code' && n.namespaceURI !== 'http://www.w3.org/1999/xhtml') throw Error('Unsupported source code namespace');
   if (!tags.has(n.tagName)) throw Error(`Unsupported source tag: ${n.tagName}`);
   for (const [key, value] of Object.entries(a)) {
     const svgAttribute = key === 'marker-start'
