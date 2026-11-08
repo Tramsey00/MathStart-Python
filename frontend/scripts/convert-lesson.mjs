@@ -15,6 +15,8 @@ export const isSelfCheckSection = title => /^(?:Задания для самоп
 const tags = new Set('div p span code strong em b i br h3 h4 ul ol li a table thead tbody tfoot tr th td caption sup sub svg g rect circle line path polyline polygon text tspan defs marker title desc math mi mn mo mrow msup msub mfrac msqrt mroot mspace mtext semantics annotation small clipPath'.split(' '));
 const attributes = new Set('class id role style href title scope colspan rowspan xmlns viewBox viewbox width height x y x1 y1 x2 y2 cx cy r rx ry d points fill stroke stroke-width stroke-linecap stroke-linejoin stroke-dasharray font-size font-weight font-family text-anchor dominant-baseline transform opacity marker-end refX refY markerWidth markerHeight markerUnits orient mathvariant display encoding clip-path'.toLowerCase().split(' '));
 tags.add('img');
+tags.add('linearGradient');
+tags.add('stop');
 function safeImageUrl(value) {
   // Match the backend URL policy, rejecting controls before trimming as well.
   if (/[\\\u0000-\u001f\u007f-\u009f]/.test(value)) return false;
@@ -27,6 +29,23 @@ function convert(n) {
   if (n.nodeName === '#comment') return null;
   if (!n.tagName) throw Error(`Unsupported source node: ${n.nodeName}`);
   const a = attrs(n);
+  if (n.tagName === 'linearGradient' || n.tagName === 'stop') {
+    const gradient = n.tagName === 'linearGradient';
+    const allowed = gradient ? ['id', 'x1', 'y1', 'x2', 'y2'] : ['offset', 'stop-color'];
+    if (n.namespaceURI !== 'http://www.w3.org/2000/svg'
+        || n.parentNode?.tagName !== (gradient ? 'defs' : 'linearGradient')
+        || Object.keys(a).some(key => !allowed.includes(key))) throw Error('Unsupported source SVG gradient');
+    if (gradient) {
+      if (!/^[A-Za-z0-9_-]+$/.test(a.id ?? '') || a.id !== a.id.trim()
+          || ['x1', 'y1', 'x2', 'y2'].some(key => key in a && !['0', '1'].includes(a[key]))
+          || children(n).some(c => c.nodeName !== '#comment' && !(c.nodeName === '#text' && !c.value.trim())
+            && c.tagName !== 'stop')) throw Error('Unsupported source linear gradient');
+    } else if (!['0%', '100%'].includes(a.offset)
+        || !/^#[0-9A-Fa-f]{6}$/.test(a['stop-color'] ?? '') || a['stop-color'] !== a['stop-color'].trim()
+        || children(n).some(c => c.nodeName !== '#comment' && !(c.nodeName === '#text' && !c.value.trim()))) {
+      throw Error('Unsupported source gradient stop');
+    }
+  }
   if (['ms-nav', 'ms-lesson-nav', 'ms-quadratic-number', 'ms-next-topic'].some(name => has(n, name))) return null;
   if (a.id === 'ms-quadratic-lab-660') return { kind: 'interactive', name: 'quadratic', id: a.id };
   if (a.id === 'ms-linear-lab-723') {
@@ -50,7 +69,8 @@ function convert(n) {
       : key === 'data-net-face' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'rect' && value === 'true'
       : key === 'data-hidden-edges' && n.tagName === 'path' && value === 'true';
     const imageAttribute = n.tagName === 'img' && (key === 'src' || key === 'alt');
-    if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-') && !svgAttribute && !imageAttribute) throw Error(`Unsupported attribute: ${key}`);
+    const gradientAttribute = n.tagName === 'stop' && (key === 'offset' || key === 'stop-color');
+    if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-') && !svgAttribute && !imageAttribute && !gradientAttribute) throw Error(`Unsupported attribute: ${key}`);
     if (/^on/i.test(key) || /(?:javascript:|expression\(|@import|url\(\s*[^#])/i.test(value)) throw Error('Active source markup');
     if (key === 'href' && !/^(?:\/(?!\/)|#|https:\/\/)/.test(value)) throw Error('Unsupported source link');
     if (key === 'src' && !safeImageUrl(value)) throw Error('Unsupported source image URL');
