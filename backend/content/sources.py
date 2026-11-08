@@ -146,7 +146,7 @@ def validate_lesson_document(document, slug):
             or not document['sections']):
         raise SourceError('Invalid React lesson document identity')
     ids = set()
-    def nodes(values, depth=0, in_svg=False):
+    def nodes(values, depth=0, in_svg=False, parent_tag=None):
         if type(values) is not list or depth > 64:
             raise SourceError('Invalid React lesson node list')
         for node in values:
@@ -162,20 +162,20 @@ def validate_lesson_document(document, slug):
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
                     raise SourceError('Invalid element node')
-                element(node, depth, in_svg)
+                element(node, depth, in_svg, parent_tag)
             elif kind in {'paragraph', 'note', 'example', 'table', 'figure'}:
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
                     raise SourceError('Invalid semantic node')
-                element(node, depth, in_svg)
+                element(node, depth, in_svg, parent_tag)
             elif kind == 'selfCheck':
                 if (set(node) != {'kind', 'attrs', 'question', 'answer', 'disclosure'}
                         or node['disclosure'] not in {'answer', 'solution'}):
                     raise SourceError('Invalid self-check node')
-                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth, in_svg)
-                nodes(node['question'], depth + 1, in_svg); nodes(node['answer'], depth + 1, in_svg)
+                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth, in_svg, parent_tag)
+                nodes(node['question'], depth + 1, in_svg, 'div'); nodes(node['answer'], depth + 1, in_svg, 'div')
             else:
                 raise SourceError('Unknown React lesson node')
-    def element(node, depth, in_svg):
+    def element(node, depth, in_svg, parent_tag):
         tag, attrs = node['tag'], node['attrs']
         if tag == 'code' and in_svg:
             raise SourceError('Unsupported authored code namespace')
@@ -183,6 +183,29 @@ def validate_lesson_document(document, slug):
         attr_names = {'id','class','title','role','aria-label','aria-labelledby','aria-describedby','href','src','alt','width','height','loading','decoding','colspan','rowspan','scope','start','type','datetime','cite','mathvariant','display','xmlns','viewBox','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','stroke-dasharray','opacity','d','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','points','transform','marker-end','marker-start','markerWidth','markerHeight','refX','refY','orient','font-size','font-weight','text-anchor','preserveAspectRatio'}
         if type(attrs) is not dict:
             raise SourceError('Unsupported authored attributes')
+        if tag in ('linearGradient', 'stop'):
+            gradient = tag == 'linearGradient'
+            gradient_attrs = {'id', 'x1', 'y1', 'x2', 'y2'} if gradient else {'offset', 'stop-color'}
+            if (not in_svg or parent_tag != ('defs' if gradient else 'linearGradient')
+                    or any(key not in gradient_attrs for key in attrs) or type(node['children']) is not list):
+                raise SourceError('Unsupported authored SVG gradient')
+            if gradient:
+                if (not isinstance(attrs.get('id'), str) or not re.fullmatch(r'[A-Za-z0-9_-]+', attrs['id'])
+                        or any(key in attrs and attrs[key] not in ('0', '1') for key in ('x1', 'y1', 'x2', 'y2'))
+                        or any(not (isinstance(child, dict) and (
+                            (child.get('kind') == 'text' and isinstance(child.get('text'), str) and not child['text'].strip())
+                            or (child.get('kind') == 'element' and child.get('tag') == 'stop')))
+                            for child in node['children'])):
+                    raise SourceError('Unsupported authored linear gradient')
+            elif (attrs.get('offset') not in ('0%', '100%')
+                    or not isinstance(attrs.get('stop-color'), str)
+                    or not re.fullmatch(r'#[0-9A-Fa-f]{6}', attrs['stop-color'])
+                    or any(not (isinstance(child, dict) and child.get('kind') == 'text'
+                                and isinstance(child.get('text'), str) and not child['text'].strip())
+                           for child in node['children'])):
+                raise SourceError('Unsupported authored gradient stop')
+            allowed.add(tag)
+            attr_names.update(gradient_attrs)
         attr_names.update({'font-family', 'style', 'markerUnits', 'dominant-baseline', 'encoding', 'clip-path'})
         if 'font-style' in attrs:
             if not in_svg or tag != 'text' or attrs['font-style'] != 'italic':
@@ -227,7 +250,7 @@ def validate_lesson_document(document, slug):
                        for k, v in attrs.items()) or any(k not in attr_names and not k.startswith(('aria-', 'data-')) for k in attrs)
                 or any(k.lower() in {'href','src','xlink:href'} and (not isinstance(v, str) or not _safe_lesson_url(v)) for k,v in attrs.items())):
             raise SourceError('Unsupported authored element/attribute')
-        nodes(node['children'], depth + 1, in_svg or tag == 'svg')
+        nodes(node['children'], depth + 1, in_svg or tag == 'svg', tag)
     for section in document['sections']:
         if (type(section) is not dict or set(section) != {'id', 'title', 'nodes'}
                 or not isinstance(section['id'], str) or not section['id'] or section['id'] in ids
