@@ -5,10 +5,10 @@
   "base_sha": "cf8690794644fe5f90c42d5aae2c1c5f7ca9b888",
   "implementation": "PARTIAL_BLOCKED_DEPENDENCY",
   "counts": {
-    "MIGRATED": 66,
+    "MIGRATED": 72,
     "REUSED_PILOT": 1,
     "PREPARED_BLOCKED_URL": 0,
-    "BLOCKED_DEPENDENCY": 8
+    "BLOCKED_DEPENDENCY": 2
   },
   "source_exclusion_authority": "docs/frontend/lesson-migration.md: prerequisite section and all sections after self-check; legacy navigation replaced by shared navigation",
   "topics": [
@@ -6886,27 +6886,15 @@
       "subject": "veroyatnost-i-statistika",
       "section": "predstavlenie-dannyh",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/04-prakticheskaya-rabota-tabliczy",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-4",
       "proposed_path": "/materials/7-statistics-4",
-      "blockers": [
-        "Unreviewed lesson root block: div",
-        "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "1390ef62761eca47aefbea81718de930b1e58069d94c5169987cf64284e3ce87",
         "page.css": "d5a39b33e6cde45ad983ff38399abda3c220b36f7fa6576b5b91475a8096ac2e"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "lesson-section-1",
           "title": "Цель работы",
@@ -6932,53 +6920,70 @@
           "tables": 1,
           "images": [],
           "tasks": 8,
-          "controls": []
-        },
+          "controls": [],
+          "rendered_title": "Самопроверка"
+        }
+      ],
+      "excluded_sections": [
         {
           "id": "lesson-section-4",
           "title": "Проверка результата",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
+          "reason": "after-self-check"
         }
       ],
-      "excluded_sections": [],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unreviewed lesson root block: div"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unreviewed lesson root block: div",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/04-prakticheskaya-rabota-tabliczy/body.html",
-          "line": 112,
-          "column": 3,
-          "section": null,
-          "tag": "div",
-          "attributes": {
-            "class": "ms-nav"
-          },
-          "reason": "root block is div; converter requires a section with direct h2 and stable id",
-          "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/izvlechenie-i-interpretacziya-tablichnyh-dannyh/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/graficheskoe-pre"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reconciled against converted document; terminal self-check retained in full; subsequent blocks explicitly excluded by current standard",
+      "previous_blockers_before_six_activation": {
+        "blockers": [
+          "Unreviewed lesson root block: div",
+          "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
+        ],
+        "conversion_result": "Unreviewed lesson root block: div",
+        "validation_result": "NOT_RUN_CONVERSION_FAILED",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/04-prakticheskaya-rabota-tabliczy/body.html",
+            "line": 112,
+            "column": 3,
+            "section": null,
+            "tag": "div",
+            "attributes": {
+              "class": "ms-nav"
+            },
+            "reason": "root block is div; converter requires a section with direct h2 and stable id",
+            "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/izvlechenie-i-interpretacziya-tablichnyh-dannyh/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/graficheskoe-pre"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:42 «Практические задания» теперь распознаётся как terminal self-check; потенциально исключает поздний root div :112.",
+          "remaining": "Конвертация/валидация не повторялись; сверить все задания/ответы внутри terminal section и границу исключения следующих разделов.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:42 «Практические задания» теперь распознаётся как terminal self-check; потенциально исключает поздний root div :112.",
-        "remaining": "Конвертация/валидация не повторялись; сверить все задания/ответы внутри terminal section и границу исключения следующих разделов.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      },
+      "source_shell_disposition": "Hero/toc and legacy navigation replaced by shared LessonPage heading/contents/navigation; source bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-six-statistics-activation.md",
+        "conversion": "OK",
+        "validation": "OK via backend.content.sources.validate_lesson_document; no guards disabled",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED"
       }
     },
     {
@@ -7135,26 +7140,14 @@
       "subject": "veroyatnost-i-statistika",
       "section": "predstavlenie-dannyh",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-7",
       "proposed_path": "/materials/7-statistics-7",
-      "blockers": [
-        "Unsupported authored layout style",
-        "CSS-only data diagram also requires a separately agreed scoped renderer/CSS solution; do not remove dimensions or drawn data"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "1d1d547a11c6933a8e188146cb0cd7216a9ee8995e1f216b0899457468c2e35c"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "lesson-section-1",
           "title": "От таблицы к диаграмме",
@@ -7200,105 +7193,124 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported authored layout style"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
       "assessment_date": "2026-11-08",
       "conversion_result": "OK",
-      "validation_result": "Unsupported authored layout style",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
-          "line": 47,
-          "column": 95,
-          "section": "theory",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:37.5%"
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reconciled against converted document; terminal self-check retained in full; subsequent blocks explicitly excluded by current standard",
+      "previous_blockers_before_six_activation": {
+        "blockers": [
+          "Unsupported authored layout style",
+          "CSS-only data diagram also requires a separately agreed scoped renderer/CSS solution; do not remove dimensions or drawn data"
+        ],
+        "conversion_result": "OK",
+        "validation_result": "Unsupported authored layout style",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
+            "line": 47,
+            "column": 95,
+            "section": "theory",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:37.5%"
+            },
+            "reason": "server validator rejects layout style width:37.5%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:37.5%\"></div>"
           },
-          "reason": "server validator rejects layout style width:37.5%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:37.5%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
-          "line": 48,
-          "column": 95,
-          "section": "theory",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:62.5%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
+            "line": 48,
+            "column": 95,
+            "section": "theory",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:62.5%"
+            },
+            "reason": "server validator rejects layout style width:62.5%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:62.5%\"></div>"
           },
-          "reason": "server validator rejects layout style width:62.5%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:62.5%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
-          "line": 49,
-          "column": 95,
-          "section": "theory",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:50%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
+            "line": 49,
+            "column": 95,
+            "section": "theory",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:50%"
+            },
+            "reason": "server validator rejects layout style width:50%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
           },
-          "reason": "server validator rejects layout style width:50%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
-          "line": 50,
-          "column": 95,
-          "section": "theory",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:75%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
+            "line": 50,
+            "column": 95,
+            "section": "theory",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:75%"
+            },
+            "reason": "server validator rejects layout style width:75%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:75%\"></div>"
           },
-          "reason": "server validator rejects layout style width:75%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:75%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
-          "line": 51,
-          "column": 95,
-          "section": "theory",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:100%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
+            "line": 51,
+            "column": 95,
+            "section": "theory",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:100%"
+            },
+            "reason": "server validator rejects layout style width:100%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:100%\"></div>"
           },
-          "reason": "server validator rejects layout style width:100%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:100%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
-          "line": 52,
-          "column": 95,
-          "section": "theory",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:50%"
-          },
-          "reason": "server validator rejects layout style width:50%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/07-chtenie-i-postroenie-diagramm/body.html",
+            "line": 52,
+            "column": 95,
+            "section": "theory",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:50%"
+            },
+            "reason": "server validator rejects layout style width:50%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:47–52: div.ms-bar-fill, width 37.5/62.5/50/75/100/50% совпадают с новым узким допуском.",
+          "remaining": "Оформление ms-bars/ms-bar-track/ms-bar-fill отсутствует в текущих lesson/runtime CSS. Нужны отдельно согласованное scoped оформление, фактическая конвертация/валидация и визуальная сверка данных.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:47–52: div.ms-bar-fill, width 37.5/62.5/50/75/100/50% совпадают с новым узким допуском.",
-        "remaining": "Оформление ms-bars/ms-bar-track/ms-bar-fill отсутствует в текущих lesson/runtime CSS. Нужны отдельно согласованное scoped оформление, фактическая конвертация/валидация и визуальная сверка данных.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      },
+      "source_shell_disposition": "Hero/toc and legacy navigation replaced by shared LessonPage heading/contents/navigation; source bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-six-statistics-activation.md",
+        "conversion": "OK",
+        "validation": "OK via backend.content.sources.validate_lesson_document; no guards disabled",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED"
       }
     },
     {
@@ -7307,28 +7319,15 @@
       "subject": "veroyatnost-i-statistika",
       "section": "predstavlenie-dannyh",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-8",
       "proposed_path": "/materials/7-statistics-8",
-      "blockers": [
-        "Unreviewed lesson root block: div",
-        "CSS-only data diagram also requires a separately agreed scoped renderer/CSS solution; do not remove dimensions or drawn data",
-        "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "0b216fea6bfd3ff6b0a4e653576f351c2ac76571bf5b47896efb4d1fa3b591e3",
         "page.css": "8d40cdfa9f01c40177a3e58c575434e992bebfb3a791a6d90f74d234b92c5675"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "lesson-section-1",
           "title": "Цель практической работы",
@@ -7354,127 +7353,141 @@
           "tables": 0,
           "images": [],
           "tasks": 8,
-          "controls": []
-        },
+          "controls": [],
+          "rendered_title": "Самопроверка"
+        }
+      ],
+      "excluded_sections": [
         {
           "id": "lesson-section-4",
           "title": "Заполненная таблица",
-          "svg": 0,
-          "tables": 1,
-          "images": [],
-          "tasks": 0,
-          "controls": []
+          "reason": "after-self-check"
         },
         {
           "id": "lesson-section-5",
           "title": "Результат работы",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
+          "reason": "after-self-check"
         }
       ],
-      "excluded_sections": [],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unreviewed lesson root block: div"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unreviewed lesson root block: div",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
-          "line": 128,
-          "column": 3,
-          "section": null,
-          "tag": "div",
-          "attributes": {
-            "class": "ms-nav"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reconciled against converted document; terminal self-check retained in full; subsequent blocks explicitly excluded by current standard",
+      "previous_blockers_before_six_activation": {
+        "blockers": [
+          "Unreviewed lesson root block: div",
+          "CSS-only data diagram also requires a separately agreed scoped renderer/CSS solution; do not remove dimensions or drawn data",
+          "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
+        ],
+        "conversion_result": "Unreviewed lesson root block: div",
+        "validation_result": "NOT_RUN_CONVERSION_FAILED",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
+            "line": 128,
+            "column": 3,
+            "section": null,
+            "tag": "div",
+            "attributes": {
+              "class": "ms-nav"
+            },
+            "reason": "root block is div; converter requires a section with direct h2 and stable id",
+            "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/chtenie-i-postroenie-diagramm/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/chislovye-nabory-srednee-arifmetic"
           },
-          "reason": "root block is div; converter requires a section with direct h2 and stable id",
-          "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/chtenie-i-postroenie-diagramm/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/chislovye-nabory-srednee-arifmetic"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
-          "line": 80,
-          "column": 220,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:100%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
+            "line": 80,
+            "column": 220,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:100%"
+            },
+            "reason": "server validator rejects layout style width:100%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:100%\"></div>"
           },
-          "reason": "server validator rejects layout style width:100%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:100%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
-          "line": 80,
-          "column": 414,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:83.333%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
+            "line": 80,
+            "column": 414,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:83.333%"
+            },
+            "reason": "server validator rejects layout style width:83.333%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:83.333%\"></div>"
           },
-          "reason": "server validator rejects layout style width:83.333%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:83.333%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
-          "line": 80,
-          "column": 603,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:66.667%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
+            "line": 80,
+            "column": 603,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:66.667%"
+            },
+            "reason": "server validator rejects layout style width:66.667%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:66.667%\"></div>"
           },
-          "reason": "server validator rejects layout style width:66.667%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:66.667%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
-          "line": 80,
-          "column": 792,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:50%"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
+            "line": 80,
+            "column": 792,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:50%"
+            },
+            "reason": "server validator rejects layout style width:50%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
           },
-          "reason": "server validator rejects layout style width:50%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:50%\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
-          "line": 80,
-          "column": 979,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-bar-fill",
-            "style": "width:33.333%"
-          },
-          "reason": "server validator rejects layout style width:33.333%",
-          "snippet": "<div class=\"ms-bar-fill\" style=\"width:33.333%\"></div>"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/01-predstavlenie-dannyh/08-prakticheskaya-rabota-diagrammy/body.html",
+            "line": 80,
+            "column": 979,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-bar-fill",
+              "style": "width:33.333%"
+            },
+            "reason": "server validator rejects layout style width:33.333%",
+            "snippet": "<div class=\"ms-bar-fill\" style=\"width:33.333%\"></div>"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:46 «Задания и проверка» теперь terminal; :80 width 100/83.333/66.667/50/33.333% совпадают с допуском. Потенциально обходится поздний root div :128.",
+          "remaining": "Нет полного scoped оформления столбцов и authored ms-pie-practice. page.css:2–10 задаёт доли 30/25/20/15/10%, которые нельзя подменять generic pie. Сверить задания/ответы и исключаемые «Заполненная таблица» :107 / «Результат работы» :124; конвертация/валидация не выполнялись.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:46 «Задания и проверка» теперь terminal; :80 width 100/83.333/66.667/50/33.333% совпадают с допуском. Потенциально обходится поздний root div :128.",
-        "remaining": "Нет полного scoped оформления столбцов и authored ms-pie-practice. page.css:2–10 задаёт доли 30/25/20/15/10%, которые нельзя подменять generic pie. Сверить задания/ответы и исключаемые «Заполненная таблица» :107 / «Результат работы» :124; конвертация/валидация не выполнялись.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      },
+      "source_shell_disposition": "Hero/toc and legacy navigation replaced by shared LessonPage heading/contents/navigation; source bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-six-statistics-activation.md",
+        "conversion": "OK",
+        "validation": "OK via backend.content.sources.validate_lesson_document; no guards disabled",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED"
       }
     },
     {
@@ -7483,27 +7496,15 @@
       "subject": "veroyatnost-i-statistika",
       "section": "opisatelnaya-statistika",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-9",
       "proposed_path": "/materials/7-statistics-9",
-      "blockers": [
-        "Unsupported authored layout style",
-        "CSS-only data diagram also requires a separately agreed scoped renderer/CSS solution; do not remove dimensions or drawn data"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "70928371a704f6d8254c42de59d7bc93496ad3d27fbdf83e8f2d82ce01819026",
         "page.css": "f51ec46922731086848d7b88993817a59ff787fa53398504999673721ef92376"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "lesson-section-1",
           "title": "Что такое числовой набор",
@@ -7567,93 +7568,112 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Composite legacy term needs explicit authored MathML"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
       "assessment_date": "2026-11-08",
       "conversion_result": "OK",
-      "validation_result": "Unsupported authored layout style",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
-          "line": 55,
-          "column": 38,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-equalizer-bar",
-            "style": "height:72px"
-          },
-          "reason": "server validator rejects layout style height:72px",
-          "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:72px\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
-          "line": 56,
-          "column": 38,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-equalizer-bar",
-            "style": "height:96px"
-          },
-          "reason": "server validator rejects layout style height:96px",
-          "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:96px\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
-          "line": 57,
-          "column": 38,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-equalizer-bar",
-            "style": "height:120px"
-          },
-          "reason": "server validator rejects layout style height:120px",
-          "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:120px\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
-          "line": 58,
-          "column": 38,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-equalizer-bar",
-            "style": "height:96px"
-          },
-          "reason": "server validator rejects layout style height:96px",
-          "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:96px\"></div>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
-          "line": 59,
-          "column": 38,
-          "section": "lesson-section-3",
-          "tag": "div",
-          "attributes": {
-            "class": "ms-equalizer-bar",
-            "style": "height:96px"
-          },
-          "reason": "server validator rejects layout style height:96px",
-          "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:96px\"></div>"
-        }
-      ],
+      "validation_result": "OK",
+      "blocker_details": [],
       "mathml_overrides": "docs/tasks/ms-t005-mathml-overrides.json",
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:55–59: div.ms-equalizer-bar height 72/96/120/96/96px совпадают с новым допуском.",
-        "remaining": "В source :41 словесная ms-frac («сумма всех чисел» / «количество чисел») требует поформульного MathML, без изменения helper; прежние overrides не доказывают новый candidate. Scoped equalizer CSS отсутствует. Нужны конвертация/валидация и визуальная сверка.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      "section_inventory_status": "Manually reconciled against converted document; terminal self-check retained in full; subsequent blocks explicitly excluded by current standard",
+      "previous_blockers_before_six_activation": {
+        "blockers": [
+          "Unsupported authored layout style",
+          "CSS-only data diagram also requires a separately agreed scoped renderer/CSS solution; do not remove dimensions or drawn data"
+        ],
+        "conversion_result": "OK",
+        "validation_result": "Unsupported authored layout style",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
+            "line": 55,
+            "column": 38,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-equalizer-bar",
+              "style": "height:72px"
+            },
+            "reason": "server validator rejects layout style height:72px",
+            "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:72px\"></div>"
+          },
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
+            "line": 56,
+            "column": 38,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-equalizer-bar",
+              "style": "height:96px"
+            },
+            "reason": "server validator rejects layout style height:96px",
+            "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:96px\"></div>"
+          },
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
+            "line": 57,
+            "column": 38,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-equalizer-bar",
+              "style": "height:120px"
+            },
+            "reason": "server validator rejects layout style height:120px",
+            "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:120px\"></div>"
+          },
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
+            "line": 58,
+            "column": 38,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-equalizer-bar",
+              "style": "height:96px"
+            },
+            "reason": "server validator rejects layout style height:96px",
+            "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:96px\"></div>"
+          },
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/02-opisatelnaya-statistika/01-chislovye-nabory-srednee-arifmeticheskoe/body.html",
+            "line": 59,
+            "column": 38,
+            "section": "lesson-section-3",
+            "tag": "div",
+            "attributes": {
+              "class": "ms-equalizer-bar",
+              "style": "height:96px"
+            },
+            "reason": "server validator rejects layout style height:96px",
+            "snippet": "<div class=\"ms-equalizer-bar\" style=\"height:96px\"></div>"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:55–59: div.ms-equalizer-bar height 72/96/120/96/96px совпадают с новым допуском.",
+          "remaining": "В source :41 словесная ms-frac («сумма всех чисел» / «количество чисел») требует поформульного MathML, без изменения helper; прежние overrides не доказывают новый candidate. Scoped equalizer CSS отсутствует. Нужны конвертация/валидация и визуальная сверка.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+        }
+      },
+      "source_shell_disposition": "Hero/toc and legacy navigation replaced by shared LessonPage heading/contents/navigation; source bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-six-statistics-activation.md",
+        "conversion": "OK",
+        "validation": "OK via backend.content.sources.validate_lesson_document; no guards disabled",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED"
       }
     },
     {
@@ -8423,27 +8443,15 @@
       "subject": "veroyatnost-i-statistika",
       "section": "sluchajnaya-izmenchivost",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/03-sluchajnaya-izmenchivost/04-prakticheskaya-rabota-sluchajnaya-izmenchivost",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-18",
       "proposed_path": "/materials/7-statistics-18",
-      "blockers": [
-        "Missing section heading or anchor",
-        "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "c9596a823a38009edd9eadbc50835b07ecc7206a2cb0a1da164750158b22fe9f",
         "page.css": "7406ed141aef7954670f929d788a8ec8831d07cd965358a60e77a8f0c6c5a31d"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "lesson-section-1",
           "title": "Исследовательская задача",
@@ -8496,65 +8504,82 @@
           "tables": 0,
           "images": [],
           "tasks": 8,
-          "controls": []
-        },
+          "controls": [],
+          "rendered_title": "Самопроверка"
+        }
+      ],
+      "excluded_sections": [
         {
           "id": null,
           "title": "Лабораторный вывод",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
+          "reason": "after-self-check"
         }
       ],
-      "excluded_sections": [],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Missing section heading or anchor"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Missing section heading or anchor",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/03-sluchajnaya-izmenchivost/04-prakticheskaya-rabota-sluchajnaya-izmenchivost/body.html",
-          "line": 133,
-          "column": 3,
-          "section": null,
-          "tag": "section",
-          "attributes": {
-            "class": "ms-lab-result"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reconciled against converted document; terminal self-check retained in full; subsequent blocks explicitly excluded by current standard",
+      "previous_blockers_before_six_activation": {
+        "blockers": [
+          "Missing section heading or anchor",
+          "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
+        ],
+        "conversion_result": "Missing section heading or anchor",
+        "validation_result": "NOT_RUN_CONVERSION_FAILED",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/03-sluchajnaya-izmenchivost/04-prakticheskaya-rabota-sluchajnaya-izmenchivost/body.html",
+            "line": 133,
+            "column": 3,
+            "section": null,
+            "tag": "section",
+            "attributes": {
+              "class": "ms-lab-result"
+            },
+            "reason": "section lacks id",
+            "snippet": "<section class=\"ms-lab-result\">\n    <h2>Лабораторный вывод</h2>\n    <div class=\"ms-lab-fields\">\n      <div class=\"ms-lab-field\"><strong>Что обнаружено</strong><span>Отдельные поездки различаются, но большая часть значений сосредоточена около 21–23 минут.</span></div>\n      <div class=\"ms-lab-field\">"
           },
-          "reason": "section lacks id",
-          "snippet": "<section class=\"ms-lab-result\">\n    <h2>Лабораторный вывод</h2>\n    <div class=\"ms-lab-fields\">\n      <div class=\"ms-lab-field\"><strong>Что обнаружено</strong><span>Отдельные поездки различаются, но большая часть значений сосредоточена около 21–23 минут.</span></div>\n      <div class=\"ms-lab-field\">"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/03-sluchajnaya-izmenchivost/04-prakticheskaya-rabota-sluchajnaya-izmenchivost/body.html",
-          "line": 143,
-          "column": 3,
-          "section": null,
-          "tag": "div",
-          "attributes": {
-            "class": "ms-nav"
-          },
-          "reason": "root block is div; converter requires a section with direct h2 and stable id",
-          "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/gruppirovka-gistogrammy/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/vvedenie-v-teoriyu-grafov/\">Следующая те"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/03-sluchajnaya-izmenchivost/04-prakticheskaya-rabota-sluchajnaya-izmenchivost/body.html",
+            "line": 143,
+            "column": 3,
+            "section": null,
+            "tag": "div",
+            "attributes": {
+              "class": "ms-nav"
+            },
+            "reason": "root block is div; converter requires a section with direct h2 and stable id",
+            "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/gruppirovka-gistogrammy/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/vvedenie-v-teoriyu-grafov/\">Следующая те"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:121–122 section#lesson-section-6 «Проверь исследование» теперь terminal; потенциально обходятся section без id :133 и root div :143.",
+          "remaining": "Сверить все 8 заданий/ответов и согласованную границу terminal section. Реальные конвертация/валидация не выполнялись.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:121–122 section#lesson-section-6 «Проверь исследование» теперь terminal; потенциально обходятся section без id :133 и root div :143.",
-        "remaining": "Сверить все 8 заданий/ответов и согласованную границу terminal section. Реальные конвертация/валидация не выполнялись.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      },
+      "source_shell_disposition": "Hero/toc and legacy navigation replaced by shared LessonPage heading/contents/navigation; source bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-six-statistics-activation.md",
+        "conversion": "OK",
+        "validation": "OK via backend.content.sources.validate_lesson_document; no guards disabled",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED"
       }
     },
     {
@@ -9319,26 +9344,15 @@
       "subject": "veroyatnost-i-statistika",
       "section": "obobshhenie-sistematizaciya-znanij",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-27",
       "proposed_path": "/materials/7-statistics-27",
-      "blockers": [
-        "Unsupported source tag: linearGradient"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "2f47ed2581b822e5db0f0da74a00c04a3af491a7077d3be4b20919928ad242d3",
         "page.css": "66b60156a4e94b67831a4d290a343462358dfbf175c3378a39ea5ea909d39835"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "course-map",
           "title": "Карта курса",
@@ -9400,177 +9414,193 @@
           "tables": 0,
           "images": [],
           "tasks": 10,
-          "controls": []
-        },
+          "controls": [],
+          "rendered_title": "Самопроверка"
+        }
+      ],
+      "excluded_sections": [
         {
           "id": null,
           "title": "Что вы теперь умеете",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
+          "reason": "after-self-check"
         }
       ],
-      "excluded_sections": [],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported source tag: linearGradient"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported source tag: linearGradient",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 606,
-          "column": 3,
-          "section": null,
-          "tag": "section",
-          "attributes": {
-            "class": "ms-course-complete"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reconciled against converted document; terminal self-check retained in full; subsequent blocks explicitly excluded by current standard",
+      "previous_blockers_before_six_activation": {
+        "blockers": [
+          "Unsupported source tag: linearGradient"
+        ],
+        "conversion_result": "Unsupported source tag: linearGradient",
+        "validation_result": "NOT_RUN_CONVERSION_FAILED",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 606,
+            "column": 3,
+            "section": null,
+            "tag": "section",
+            "attributes": {
+              "class": "ms-course-complete"
+            },
+            "reason": "section lacks id",
+            "snippet": "<section class=\"ms-course-complete\">\n    <h2>Что вы теперь умеете</h2>\n\n    <p>\n      Вы можете читать и строить таблицы и диаграммы, описывать числовые\n      данные с помощью среднего, медианы и размаха, исследовать частоты,\n      работать с гистограммами, анализировать графы, находить простейшие\n "
           },
-          "reason": "section lacks id",
-          "snippet": "<section class=\"ms-course-complete\">\n    <h2>Что вы теперь умеете</h2>\n\n    <p>\n      Вы можете читать и строить таблицы и диаграммы, описывать числовые\n      данные с помощью среднего, медианы и размаха, исследовать частоты,\n      работать с гистограммами, анализировать графы, находить простейшие\n "
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 250,
-          "column": 15,
-          "section": "lesson-section-3",
-          "tag": "linearGradient",
-          "attributes": {
-            "id": "barGrad",
-            "x1": "0",
-            "y1": "0",
-            "x2": "0",
-            "y2": "1"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 250,
+            "column": 15,
+            "section": "lesson-section-3",
+            "tag": "linearGradient",
+            "attributes": {
+              "id": "barGrad",
+              "x1": "0",
+              "y1": "0",
+              "x2": "0",
+              "y2": "1"
+            },
+            "reason": "converter does not support tag linearGradient",
+            "snippet": "<linearGradient id=\"barGrad\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n                <stop offset=\"0%\" stop-color=\"#60a5fa\"/>\n                <stop offset=\"100%\" stop-color=\"#2563eb\"/>\n              </linearGradient>"
           },
-          "reason": "converter does not support tag linearGradient",
-          "snippet": "<linearGradient id=\"barGrad\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n                <stop offset=\"0%\" stop-color=\"#60a5fa\"/>\n                <stop offset=\"100%\" stop-color=\"#2563eb\"/>\n              </linearGradient>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 251,
-          "column": 17,
-          "section": "lesson-section-3",
-          "tag": "stop",
-          "attributes": {
-            "offset": "0%",
-            "stop-color": "#60a5fa"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 251,
+            "column": 17,
+            "section": "lesson-section-3",
+            "tag": "stop",
+            "attributes": {
+              "offset": "0%",
+              "stop-color": "#60a5fa"
+            },
+            "reason": "converter does not support tag stop",
+            "snippet": "<stop offset=\"0%\" stop-color=\"#60a5fa\"/>"
           },
-          "reason": "converter does not support tag stop",
-          "snippet": "<stop offset=\"0%\" stop-color=\"#60a5fa\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 251,
-          "column": 17,
-          "section": "lesson-section-3",
-          "tag": "stop",
-          "attributes": {
-            "offset": "0%",
-            "stop-color": "#60a5fa"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 251,
+            "column": 17,
+            "section": "lesson-section-3",
+            "tag": "stop",
+            "attributes": {
+              "offset": "0%",
+              "stop-color": "#60a5fa"
+            },
+            "reason": "converter does not support attribute offset",
+            "snippet": "<stop offset=\"0%\" stop-color=\"#60a5fa\"/>"
           },
-          "reason": "converter does not support attribute offset",
-          "snippet": "<stop offset=\"0%\" stop-color=\"#60a5fa\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 251,
-          "column": 17,
-          "section": "lesson-section-3",
-          "tag": "stop",
-          "attributes": {
-            "offset": "0%",
-            "stop-color": "#60a5fa"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 251,
+            "column": 17,
+            "section": "lesson-section-3",
+            "tag": "stop",
+            "attributes": {
+              "offset": "0%",
+              "stop-color": "#60a5fa"
+            },
+            "reason": "converter does not support attribute stop-color",
+            "snippet": "<stop offset=\"0%\" stop-color=\"#60a5fa\"/>"
           },
-          "reason": "converter does not support attribute stop-color",
-          "snippet": "<stop offset=\"0%\" stop-color=\"#60a5fa\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 252,
-          "column": 17,
-          "section": "lesson-section-3",
-          "tag": "stop",
-          "attributes": {
-            "offset": "100%",
-            "stop-color": "#2563eb"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 252,
+            "column": 17,
+            "section": "lesson-section-3",
+            "tag": "stop",
+            "attributes": {
+              "offset": "100%",
+              "stop-color": "#2563eb"
+            },
+            "reason": "converter does not support tag stop",
+            "snippet": "<stop offset=\"100%\" stop-color=\"#2563eb\"/>"
           },
-          "reason": "converter does not support tag stop",
-          "snippet": "<stop offset=\"100%\" stop-color=\"#2563eb\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 252,
-          "column": 17,
-          "section": "lesson-section-3",
-          "tag": "stop",
-          "attributes": {
-            "offset": "100%",
-            "stop-color": "#2563eb"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 252,
+            "column": 17,
+            "section": "lesson-section-3",
+            "tag": "stop",
+            "attributes": {
+              "offset": "100%",
+              "stop-color": "#2563eb"
+            },
+            "reason": "converter does not support attribute offset",
+            "snippet": "<stop offset=\"100%\" stop-color=\"#2563eb\"/>"
           },
-          "reason": "converter does not support attribute offset",
-          "snippet": "<stop offset=\"100%\" stop-color=\"#2563eb\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 252,
-          "column": 17,
-          "section": "lesson-section-3",
-          "tag": "stop",
-          "attributes": {
-            "offset": "100%",
-            "stop-color": "#2563eb"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 252,
+            "column": 17,
+            "section": "lesson-section-3",
+            "tag": "stop",
+            "attributes": {
+              "offset": "100%",
+              "stop-color": "#2563eb"
+            },
+            "reason": "converter does not support attribute stop-color",
+            "snippet": "<stop offset=\"100%\" stop-color=\"#2563eb\"/>"
           },
-          "reason": "converter does not support attribute stop-color",
-          "snippet": "<stop offset=\"100%\" stop-color=\"#2563eb\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
-          "line": 465,
-          "column": 5,
-          "section": "lesson-section-7",
-          "tag": "h2",
-          "attributes": {},
-          "reason": "Terminal self-check heading is Итоговая самопроверка; exact converter predicate does not recognize it, so subsequent ms-course-complete is not excluded by the standard",
-          "snippet": "<h2>7. Итоговая самопроверка</h2>"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/06-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij/body.html",
+            "line": 465,
+            "column": 5,
+            "section": "lesson-section-7",
+            "tag": "h2",
+            "attributes": {},
+            "reason": "Terminal self-check heading is Итоговая самопроверка; exact converter predicate does not recognize it, so subsequent ms-course-complete is not excluded by the standard",
+            "snippet": "<h2>7. Итоговая самопроверка</h2>"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "b9086ff07fcc65c3cb530471f94d3ff26524b61a",
+          "shared_fixes_sha": "1be06c90952c774565780f15211cc69acfacf5b4",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:250–253 defs > linearGradient#barGrad > stop соответствует новым узким правилам по исходникам: координаты 0/0/0/1, offset 0%/100%, цвета #60a5fa/#2563eb. Существующий renderer сохраняет теги, id, fill=url(#barGrad), преобразует stop-color в stopColor. Семь rect :213/:218/:223/:228/:233/:238/:243 сохраняют геометрию и подписи по исходникам. Terminal title :465 поддержан предыдущим fix.",
+          "remaining": "body.html:492/:494/:582/:584: ms-frac-num/ms-frac-den не совпадают с ms-num/ms-den helper (math-notation.mjs:61–63); прогноз Incomplete legacy fraction, не результат запуска. Нужна согласованная поформульная MathML-адаптация без изменения helper. Фактическая конвертация, валидация, SSR/browser, мобильная и светлая/тёмная визуальная сохранность ещё не подтверждены; проверить локальный id/reference, все семь столбцов, задачи/ответы и terminal boundary.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun",
+          "gradient_review": "MANUAL_SOURCE_REVIEW_ONLY; potentially addressed, not confirmed by execution",
+          "execution_record": "docs/audits/ms-t005-svg-gradient-static.md"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "b9086ff07fcc65c3cb530471f94d3ff26524b61a",
-        "shared_fixes_sha": "1be06c90952c774565780f15211cc69acfacf5b4",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:250–253 defs > linearGradient#barGrad > stop соответствует новым узким правилам по исходникам: координаты 0/0/0/1, offset 0%/100%, цвета #60a5fa/#2563eb. Существующий renderer сохраняет теги, id, fill=url(#barGrad), преобразует stop-color в stopColor. Семь rect :213/:218/:223/:228/:233/:238/:243 сохраняют геометрию и подписи по исходникам. Terminal title :465 поддержан предыдущим fix.",
-        "remaining": "body.html:492/:494/:582/:584: ms-frac-num/ms-frac-den не совпадают с ms-num/ms-den helper (math-notation.mjs:61–63); прогноз Incomplete legacy fraction, не результат запуска. Нужна согласованная поформульная MathML-адаптация без изменения helper. Фактическая конвертация, валидация, SSR/browser, мобильная и светлая/тёмная визуальная сохранность ещё не подтверждены; проверить локальный id/reference, все семь столбцов, задачи/ответы и terminal boundary.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun",
-        "gradient_review": "MANUAL_SOURCE_REVIEW_ONLY; potentially addressed, not confirmed by execution",
-        "execution_record": "docs/audits/ms-t005-svg-gradient-static.md"
-      }
+      },
+      "source_shell_disposition": "Hero/toc and legacy navigation replaced by shared LessonPage heading/contents/navigation; source bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-six-statistics-activation.md",
+        "conversion": "OK",
+        "validation": "OK via backend.content.sources.validate_lesson_document; no guards disabled",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED"
+      },
+      "mathml_overrides": "docs/tasks/ms-t005-mathml-overrides.json"
     }
   ],
   "runtime": "NOT_PUBLISHED; no DB mutation, release build or Content publication performed",
   "review": "INDEPENDENT_REVIEW_PENDING",
   "human_acceptance": "PENDING",
   "merge": "NOT_PERFORMED",
-  "remaining_topics_assessment": "67/75 source activations unchanged; all eight statistics topics remain BLOCKED_DEPENDENCY. Gradient support integrated and statically reviewed for topic 27, fractions still need adaptation; no actual conversion/validation/activation. Prior observed errors remain historical.",
+  "remaining_topics_assessment": "73/75 source activations (72 migrated + 1 reused pilot). Six statistics documents converted, built-in validated and manually source-reviewed; visual/browser acceptance pending. Only statistics-25/26 remain unchanged blocked; not retried in this stage.",
   "latest_change": {
-    "kind": "SVG_LINEAR_GRADIENT_STATIC_REVIEW",
-    "input_sha": "b9086ff07fcc65c3cb530471f94d3ff26524b61a",
-    "source_commit": "193c378525f5e2a736eed26c812758b855324ed9",
-    "shared_fixes_sha": "1be06c90952c774565780f15211cc69acfacf5b4",
-    "expected_source_activations": 67,
-    "checks": "NOT_RUN_BY_USER_REQUEST",
-    "conversion": "NOT_RUN_BY_USER_REQUEST",
-    "activation": "NOT_PERFORMED",
+    "kind": "SIX_STATISTICS_SOURCE_ACTIVATIONS",
+    "input_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
+    "source_activations": 73,
+    "conversion": "6/6 OK",
+    "built_in_validation": "6/6 OK",
+    "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+    "visual_acceptance": "PENDING_NOT_PERFORMED",
     "snapshot_update": "NOT_PERFORMED",
-    "execution_record": "docs/audits/ms-t005-svg-gradient-static.md"
+    "execution_record": "docs/audits/ms-t005-six-statistics-activation.md"
   }
 }
