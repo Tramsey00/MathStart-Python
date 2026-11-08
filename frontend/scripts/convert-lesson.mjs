@@ -33,6 +33,7 @@ function convert(n) {
     const svgAttribute = key === 'marker-start'
       ? n.tagName === 'line' && /^url\(#[A-Za-z0-9_-]+\)$/.test(value)
       : key === 'dy' ? n.tagName === 'tspan' && /^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) && Number.isFinite(Number(value))
+      : key === 'data-net-face' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'rect' && value === 'true'
       : key === 'data-hidden-edges' && n.tagName === 'path' && value === 'true';
     if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-') && !svgAttribute) throw Error(`Unsupported attribute: ${key}`);
     if (/^on/i.test(key) || /(?:javascript:|expression\(|@import|url\(\s*[^#])/i.test(value)) throw Error('Active source markup');
