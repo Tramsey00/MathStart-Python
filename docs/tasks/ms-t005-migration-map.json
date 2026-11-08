@@ -3,12 +3,12 @@
   "task": "MS-T005",
   "issue": "https://github.com/Tramsey00/MathStart-Python/issues/61",
   "base_sha": "cf8690794644fe5f90c42d5aae2c1c5f7ca9b888",
-  "implementation": "PARTIAL_BLOCKED_DEPENDENCY",
+  "implementation": "SOURCE_COMPLETE_REVIEW_PENDING",
   "counts": {
-    "MIGRATED": 72,
+    "MIGRATED": 74,
     "REUSED_PILOT": 1,
     "PREPARED_BLOCKED_URL": 0,
-    "BLOCKED_DEPENDENCY": 2
+    "BLOCKED_DEPENDENCY": 0
   },
   "source_exclusion_authority": "docs/frontend/lesson-migration.md: prerequisite section and all sections after self-check; legacy navigation replaced by shared navigation",
   "topics": [
@@ -9091,26 +9091,15 @@
       "subject": "veroyatnost-i-statistika",
       "section": "veroyatnost-i-chastota-sluchajnogo-sobytiya",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/03-moneta-i-igralnaya-kost-v-teorii-veroyatnostej",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-25",
       "proposed_path": "/materials/7-statistics-25",
-      "blockers": [
-        "Unreviewed lesson root block: div"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "ecfaf81a1f52385fd796725c0cee03a992459b932cb0f894131aa84e2e8e1c84",
         "page.css": "93a6a8e5d9676fa4f1feb1e44648080b2518074c2ef135a5d33aa779a12452cb"
       },
       "retained_sections": [
-        {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
         {
           "id": "theory",
           "title": "Что означает «математическая монета»",
@@ -9132,7 +9121,7 @@
         {
           "id": "lesson-section-3",
           "title": "Правильная игральная кость",
-          "svg": 0,
+          "svg": 1,
           "tables": 1,
           "images": [],
           "tasks": 0,
@@ -9154,44 +9143,72 @@
           "tables": 0,
           "images": [],
           "tasks": 10,
-          "controls": []
+          "controls": [],
+          "rendered_title": "Самопроверка"
         }
       ],
-      "excluded_sections": [],
+      "excluded_sections": [
+        {
+          "id": null,
+          "title": "В задачах с монетой и костью не угадывают ответ: сначала строят полный набор равновозможных исходов, затем отмечают благоприятные.",
+          "tag": "div",
+          "class": "ms-note",
+          "reason": "after-self-check"
+        }
+      ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unreviewed lesson root block: div"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "ca8041dcc2b68b7784e5bce020423e3897586e96",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unreviewed lesson root block: div",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/03-moneta-i-igralnaya-kost-v-teorii-veroyatnostej/body.html",
-          "line": 68,
-          "column": 5,
-          "section": null,
-          "tag": "div",
-          "attributes": {
-            "class": "ms-figure"
-          },
-          "reason": "root block is div; converter requires a section with direct h2 and stable id",
-          "snippet": "<div class=\"ms-figure\">\n      <p class=\"ms-figure-title\">Две простые вероятностные модели</p>\n      <div class=\"ms-svg-wrap\">\n        <svg class=\"ms-svg\" viewBox=\"0 0 920 520\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Математическая монета с двумя исходами и правильная игральная кост"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reviewed against original source and freshly converted document; original section ids retained, root figure attached once as last section-3 node, no synthetic sections",
+      "previous_blockers_before_final_activation": {
+        "blockers": [
+          "Unreviewed lesson root block: div"
+        ],
+        "conversion_result": "Unreviewed lesson root block: div",
+        "validation_result": "NOT_RUN_CONVERSION_FAILED",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/03-moneta-i-igralnaya-kost-v-teorii-veroyatnostej/body.html",
+            "line": 68,
+            "column": 5,
+            "section": null,
+            "tag": "div",
+            "attributes": {
+              "class": "ms-figure"
+            },
+            "reason": "root block is div; converter requires a section with direct h2 and stable id",
+            "snippet": "<div class=\"ms-figure\">\n      <p class=\"ms-figure-title\">Две простые вероятностные модели</p>\n      <div class=\"ms-svg-wrap\">\n        <svg class=\"ms-svg\" viewBox=\"0 0 920 520\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Математическая монета с двумя исходами и правильная игральная кост"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "Новые правила не устраняют прежнюю раннюю структурную причину; «5. Задания для самопроверки» :114 распознавалось ранее.",
+          "remaining": "body.html:68 meaningful root div.ms-figure с SVG монеты/кости находится до self-check. Нужен согласованный структурный адаптер с сохранением SVG, подписи и порядка; не удалять figure.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "Новые правила не устраняют прежнюю раннюю структурную причину; «5. Задания для самопроверки» :114 распознавалось ранее.",
-        "remaining": "body.html:68 meaningful root div.ms-figure с SVG монеты/кости находится до self-check. Нужен согласованный структурный адаптер с сохранением SVG, подписи и порядка; не удалять figure.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      },
+      "source_shell_disposition": "Hero/toc/legacy navigation replaced by shared LessonPage shell; original bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-final-two-local.md",
+        "conversion": "OK directly from original source, no local adapter",
+        "built_in_validation": "OK via validate_lesson_document",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED",
+        "push": "NOT_PERFORMED_BY_USER_REQUEST"
       }
     },
     {
@@ -9200,30 +9217,18 @@
       "subject": "veroyatnost-i-statistika",
       "section": "veroyatnost-i-chastota-sluchajnogo-sobytiya",
       "source": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-statistics-26",
       "proposed_path": "/materials/7-statistics-26",
-      "blockers": [
-        "Missing section heading or anchor",
-        "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "ed6d8a7e79b21f6de1ec35129ee87e11e7fd719f434106808ed1b113a225b417",
         "page.css": "4158979e5b64ad9208305ea05eab3eb2a68176618020cfbede2fab3e86018135"
       },
       "retained_sections": [
         {
-          "id": null,
-          "title": "",
-          "svg": 0,
-          "tables": 0,
-          "images": [],
-          "tasks": 0,
-          "controls": []
-        },
-        {
           "id": "theory",
-          "title": "",
+          "title": "Цель и оборудование",
           "svg": 0,
           "tables": 0,
           "images": [],
@@ -9242,7 +9247,7 @@
         {
           "id": "lesson-section-3",
           "title": "Результаты серии наблюдений",
-          "svg": 0,
+          "svg": 1,
           "tables": 1,
           "images": [],
           "tasks": 0,
@@ -9273,69 +9278,90 @@
           "tables": 0,
           "images": [],
           "tasks": 8,
-          "controls": []
+          "controls": [],
+          "rendered_title": "Самопроверка"
         }
       ],
       "excluded_sections": [],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Missing section heading or anchor"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "ca8041dcc2b68b7784e5bce020423e3897586e96",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Missing section heading or anchor",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13/body.html",
-          "line": 21,
-          "column": 3,
-          "section": "theory",
-          "tag": "section",
-          "attributes": {
-            "id": "theory",
-            "class": "ms-section"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "section_inventory_status": "Manually reviewed against original source and freshly converted document; original section ids retained, root figure attached once as last section-3 node, no synthetic sections",
+      "previous_blockers_before_final_activation": {
+        "blockers": [
+          "Missing section heading or anchor",
+          "Terminal exercise section has a variant heading; converter must preserve all tasks/answers and apply the self-check-last rule before removing subsequent educational blocks"
+        ],
+        "conversion_result": "Missing section heading or anchor",
+        "validation_result": "NOT_RUN_CONVERSION_FAILED",
+        "blocker_details": [
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13/body.html",
+            "line": 21,
+            "column": 3,
+            "section": "theory",
+            "tag": "section",
+            "attributes": {
+              "id": "theory",
+              "class": "ms-section"
+            },
+            "reason": "section has no direct h2",
+            "snippet": "<section id=\"theory\" class=\"ms-section\">\n    <div class=\"ms-lab-header ms-lab-header--overview\">\n      <div>\n        <h2>1. Цель и оборудование</h2>\n        <p class=\"ms-text\">Цель работы — сравнить наблюдаемую частоту орла с теоретической вероятностью 1/2 и проследить, как накопленная частота меняе"
           },
-          "reason": "section has no direct h2",
-          "snippet": "<section id=\"theory\" class=\"ms-section\">\n    <div class=\"ms-lab-header ms-lab-header--overview\">\n      <div>\n        <h2>1. Цель и оборудование</h2>\n        <p class=\"ms-text\">Цель работы — сравнить наблюдаемую частоту орла с теоретической вероятностью 1/2 и проследить, как накопленная частота меняе"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13/body.html",
-          "line": 76,
-          "column": 5,
-          "section": null,
-          "tag": "div",
-          "attributes": {
-            "class": "ms-figure"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13/body.html",
+            "line": 76,
+            "column": 5,
+            "section": null,
+            "tag": "div",
+            "attributes": {
+              "class": "ms-figure"
+            },
+            "reason": "root block is div; converter requires a section with direct h2 and stable id",
+            "snippet": "<div class=\"ms-figure\">\n      <p class=\"ms-figure-title\">Как менялась накопленная частота орла</p>\n      <div class=\"ms-svg-wrap\">\n        <svg class=\"ms-svg\" viewBox=\"0 0 920 560\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Линейный график накопленной частоты орла после 10, 20, 30, 40"
           },
-          "reason": "root block is div; converter requires a section with direct h2 and stable id",
-          "snippet": "<div class=\"ms-figure\">\n      <p class=\"ms-figure-title\">Как менялась накопленная частота орла</p>\n      <div class=\"ms-svg-wrap\">\n        <svg class=\"ms-svg\" viewBox=\"0 0 920 560\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Линейный график накопленной частоты орла после 10, 20, 30, 40"
-        },
-        {
-          "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13/body.html",
-          "line": 232,
-          "column": 3,
-          "section": null,
-          "tag": "div",
-          "attributes": {
-            "class": "ms-nav"
-          },
-          "reason": "root block is div; converter requires a section with direct h2 and stable id",
-          "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/moneta-i-igralnaya-kost-v-teorii-veroyatnostej/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/obobshhenie-siste"
+          {
+            "file": "curriculum/7-klass/veroyatnost-i-statistika/05-veroyatnost-i-chastota-sluchajnogo-sobytiya/04-prakticheskaya-rabota-chastota-vypadeniya-sluchajnogo-so-451fbe13/body.html",
+            "line": 232,
+            "column": 3,
+            "section": null,
+            "tag": "div",
+            "attributes": {
+              "class": "ms-nav"
+            },
+            "reason": "root block is div; converter requires a section with direct h2 and stable id",
+            "snippet": "<div class=\"ms-nav\">\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/moneta-i-igralnaya-kost-v-teorii-veroyatnostej/\">Предыдущая тема</a>\n    <a class=\"ms-btn ms-btn-secondary\" href=\"/7-klass-veroyatnost-i-statistika/\">К темам вероятности и статистики</a>\n    <a class=\"ms-btn\" href=\"/obobshhenie-siste"
+          }
+        ],
+        "static_assessment": {
+          "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
+          "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
+          "method": "MANUAL_SOURCE_REVIEW_ONLY",
+          "potential_effect": "body.html:164 «6. Задания по результатам опыта» распознаётся после удаления номера; потенциально исключает поздний nav :232, если достигнут.",
+          "remaining": "body.html:21 section#theory имеет h2 :24 внутри ms-lab-header, а converter требует direct h2. Root div.ms-figure :76 с SVG тоже остаётся неподдержанным. Нужен согласованный адаптер структуры; terminal fix не устраняет эти ранние препятствия.",
+          "conversion": "NOT_RUN_BY_USER_REQUEST",
+          "validation": "NOT_RUN_BY_USER_REQUEST",
+          "activation": "NOT_PERFORMED",
+          "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
         }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation",
-      "static_assessment": {
-        "input_sha": "318b9d941a162bca6f8c9f428e53113cb25962a3",
-        "shared_fixes_sha": "05e42b9f6cb8a0fbe61ac5e8c6edd41118923ccc",
-        "method": "MANUAL_SOURCE_REVIEW_ONLY",
-        "potential_effect": "body.html:164 «6. Задания по результатам опыта» распознаётся после удаления номера; потенциально исключает поздний nav :232, если достигнут.",
-        "remaining": "body.html:21 section#theory имеет h2 :24 внутри ms-lab-header, а converter требует direct h2. Root div.ms-figure :76 с SVG тоже остаётся неподдержанным. Нужен согласованный адаптер структуры; terminal fix не устраняет эти ранние препятствия.",
-        "conversion": "NOT_RUN_BY_USER_REQUEST",
-        "validation": "NOT_RUN_BY_USER_REQUEST",
-        "activation": "NOT_PERFORMED",
-        "previous_blockers": "Historical observed results before these two fixes; retained, not rerun"
+      },
+      "source_shell_disposition": "Hero/toc/legacy navigation replaced by shared LessonPage shell; original bytes retained",
+      "activation_record": {
+        "execution_record": "docs/audits/ms-t005-final-two-local.md",
+        "conversion": "OK directly from original source, no local adapter",
+        "built_in_validation": "OK via validate_lesson_document",
+        "preservation": "MANUAL_SOURCE_REVIEW_COMPLETED",
+        "visual_acceptance": "PENDING_NOT_PERFORMED",
+        "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
+        "snapshot_update": "NOT_PERFORMED",
+        "push": "NOT_PERFORMED_BY_USER_REQUEST"
       }
     },
     {
@@ -9591,16 +9617,18 @@
   "review": "INDEPENDENT_REVIEW_PENDING",
   "human_acceptance": "PENDING",
   "merge": "NOT_PERFORMED",
-  "remaining_topics_assessment": "73/75 source activations (72 migrated + 1 reused pilot). Six statistics documents converted, built-in validated and manually source-reviewed; visual/browser acceptance pending. Only statistics-25/26 remain unchanged blocked; not retried in this stage.",
+  "remaining_topics_assessment": "75/75 local source activations: 74 migrated + 1 reused pilot, no remaining source blockers. Only statistics-25/26 freshly converted and built-in validated this stage; previous 73 documents untouched. Visual/human acceptance and independent review pending; no push/publication/snapshot update.",
   "latest_change": {
-    "kind": "SIX_STATISTICS_SOURCE_ACTIVATIONS",
-    "input_sha": "5aefce5c9b6cfb037ba9cca3816c7e0e84f97bfc",
-    "source_activations": 73,
-    "conversion": "6/6 OK",
-    "built_in_validation": "6/6 OK",
+    "kind": "FINAL_TWO_LOCAL_SOURCE_ACTIVATIONS",
+    "input_sha": "39545fd8d68057a9a76fe2f2635e544fc62a9f51",
+    "converter_sha": "ca8041dcc2b68b7784e5bce020423e3897586e96",
+    "source_activations": 75,
+    "conversion": "2/2 OK",
+    "built_in_validation": "2/2 OK",
     "automatic_qa": "NOT_RUN_BY_USER_REQUEST",
     "visual_acceptance": "PENDING_NOT_PERFORMED",
     "snapshot_update": "NOT_PERFORMED",
-    "execution_record": "docs/audits/ms-t005-six-statistics-activation.md"
+    "push": "NOT_PERFORMED_BY_USER_REQUEST",
+    "execution_record": "docs/audits/ms-t005-final-two-local.md"
   }
 }
