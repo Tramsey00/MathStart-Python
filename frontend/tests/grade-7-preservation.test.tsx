@@ -66,6 +66,8 @@ describe('MS-T005 source preservation and explicit route assignments', () => {
         const academic = after.cloneNode(true) as Element;
         academic.querySelectorAll('.lesson-answer-toggle').forEach(n => n.remove());
         expect(normalize(academic.textContent), section.id).toBe(normalize(before.textContent));
+        expect([...after.querySelectorAll('img')].map(n => n.outerHTML)).toEqual([...before.querySelectorAll('img')].map(n => n.outerHTML));
+        expect([...after.querySelectorAll('code')].map(n => n.outerHTML)).toEqual([...before.querySelectorAll('code')].map(n => n.outerHTML));
         expect([...after.querySelectorAll('td,th')].map(n => normalize(n.textContent))).toEqual([...before.querySelectorAll('td,th')].map(n => normalize(n.textContent)));
         expect([...after.querySelectorAll('svg')].map(svgMarkup)).toEqual([...before.querySelectorAll('svg')].map(svgMarkup));
         for (const node of [before, ...before.querySelectorAll('[id]')]) if (node.id) expect(rendered.getElementById(node.id), node.id).not.toBeNull();

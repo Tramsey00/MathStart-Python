@@ -5,10 +5,10 @@
   "base_sha": "cf8690794644fe5f90c42d5aae2c1c5f7ca9b888",
   "implementation": "PARTIAL_BLOCKED_DEPENDENCY",
   "counts": {
-    "MIGRATED": 58,
+    "MIGRATED": 65,
     "REUSED_PILOT": 1,
     "PREPARED_BLOCKED_URL": 1,
-    "BLOCKED_DEPENDENCY": 15
+    "BLOCKED_DEPENDENCY": 8
   },
   "source_exclusion_authority": "docs/frontend/lesson-migration.md: prerequisite section and all sections after self-check; legacy navigation replaced by shared navigation",
   "topics": [
@@ -5029,12 +5029,10 @@
       "subject": "geometriya",
       "section": "osnovy-geometrii",
       "source": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-1",
       "proposed_path": "/materials/7-geometry-1",
-      "blockers": [
-        "Unsupported attribute: font-style"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "ac442fdbb97a6832033662ccb800a9138d6705cb954168fc5b73ad233761e9e4",
         "page.css": "b1ba34437758d890634debe29b12ebe6a38c50de267b48c5348c140af5f459ad"
@@ -5103,74 +5101,84 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported attribute: font-style"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported attribute: font-style",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
-          "line": 71,
-          "column": 11,
-          "section": "theory",
-          "tag": "text",
-          "attributes": {
-            "x": "778",
-            "y": "214",
-            "font-size": "21",
-            "font-style": "italic",
-            "font-weight": "800",
-            "fill": "#1d4ed8"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported attribute: font-style"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
+            "line": 71,
+            "column": 11,
+            "section": "theory",
+            "tag": "text",
+            "attributes": {
+              "x": "778",
+              "y": "214",
+              "font-size": "21",
+              "font-style": "italic",
+              "font-weight": "800",
+              "fill": "#1d4ed8"
+            },
+            "reason": "converter does not support attribute font-style",
+            "snippet": "<text x=\"778\" y=\"214\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#1d4ed8\">a</text>"
           },
-          "reason": "converter does not support attribute font-style",
-          "snippet": "<text x=\"778\" y=\"214\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#1d4ed8\">a</text>"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
-          "line": 84,
-          "column": 9,
-          "section": "theory",
-          "tag": "code",
-          "attributes": {},
-          "reason": "converter does not support tag code",
-          "snippet": "<code>A ∈ a</code>"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
-          "line": 89,
-          "column": 9,
-          "section": "theory",
-          "tag": "code",
-          "attributes": {},
-          "reason": "converter does not support tag code",
-          "snippet": "<code>C ∉ a</code>"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
-          "line": 94,
-          "column": 9,
-          "section": "theory",
-          "tag": "code",
-          "attributes": {},
-          "reason": "converter does not support tag code",
-          "snippet": "<code>AB</code>"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
-          "line": 99,
-          "column": 9,
-          "section": "theory",
-          "tag": "code",
-          "attributes": {},
-          "reason": "converter does not support tag code",
-          "snippet": "<code>a ∩ b = O</code>"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
+            "line": 84,
+            "column": 9,
+            "section": "theory",
+            "tag": "code",
+            "attributes": {},
+            "reason": "converter does not support tag code",
+            "snippet": "<code>A ∈ a</code>"
+          },
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
+            "line": 89,
+            "column": 9,
+            "section": "theory",
+            "tag": "code",
+            "attributes": {},
+            "reason": "converter does not support tag code",
+            "snippet": "<code>C ∉ a</code>"
+          },
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
+            "line": 94,
+            "column": 9,
+            "section": "theory",
+            "tag": "code",
+            "attributes": {},
+            "reason": "converter does not support tag code",
+            "snippet": "<code>AB</code>"
+          },
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/01-tochki-pryamye-otrezki-i-luchi-izmerenie-otrezkov/body.html",
+            "line": 99,
+            "column": 9,
+            "section": "theory",
+            "tag": "code",
+            "attributes": {},
+            "reason": "converter does not support tag code",
+            "snippet": "<code>a ∩ b = O</code>"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": null,
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "ugol-vidy-izmerenie-i-bissektrisa",
@@ -5258,12 +5266,10 @@
       "subject": "geometriya",
       "section": "osnovy-geometrii",
       "source": "curriculum/7-klass/geometriya/01-osnovy-geometrii/03-smezhnye-i-vertikalnye-ugly-perpendikulyarnye-pryamye",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-3",
       "proposed_path": "/materials/7-geometry-3",
-      "blockers": [
-        "Unsupported attribute: font-style"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "56199246594fa17c6131ef606e096325def16e1cf4a89eb7162a733f5b23764f"
       },
@@ -5331,51 +5337,61 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported attribute: font-style"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported attribute: font-style",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/03-smezhnye-i-vertikalnye-ugly-perpendikulyarnye-pryamye/body.html",
-          "line": 153,
-          "column": 11,
-          "section": "lesson-section-3",
-          "tag": "text",
-          "attributes": {
-            "x": "735",
-            "y": "190",
-            "font-size": "21",
-            "font-style": "italic",
-            "font-weight": "800",
-            "fill": "#1d4ed8"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported attribute: font-style"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/03-smezhnye-i-vertikalnye-ugly-perpendikulyarnye-pryamye/body.html",
+            "line": 153,
+            "column": 11,
+            "section": "lesson-section-3",
+            "tag": "text",
+            "attributes": {
+              "x": "735",
+              "y": "190",
+              "font-size": "21",
+              "font-style": "italic",
+              "font-weight": "800",
+              "fill": "#1d4ed8"
+            },
+            "reason": "converter does not support attribute font-style",
+            "snippet": "<text x=\"735\" y=\"190\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#1d4ed8\">a</text>"
           },
-          "reason": "converter does not support attribute font-style",
-          "snippet": "<text x=\"735\" y=\"190\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#1d4ed8\">a</text>"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/03-smezhnye-i-vertikalnye-ugly-perpendikulyarnye-pryamye/body.html",
-          "line": 154,
-          "column": 11,
-          "section": "lesson-section-3",
-          "tag": "text",
-          "attributes": {
-            "x": "463",
-            "y": "72",
-            "font-size": "21",
-            "font-style": "italic",
-            "font-weight": "800",
-            "fill": "#6d28d9"
-          },
-          "reason": "converter does not support attribute font-style",
-          "snippet": "<text x=\"463\" y=\"72\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#6d28d9\">b</text>"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+          {
+            "file": "curriculum/7-klass/geometriya/01-osnovy-geometrii/03-smezhnye-i-vertikalnye-ugly-perpendikulyarnye-pryamye/body.html",
+            "line": 154,
+            "column": 11,
+            "section": "lesson-section-3",
+            "tag": "text",
+            "attributes": {
+              "x": "463",
+              "y": "72",
+              "font-size": "21",
+              "font-style": "italic",
+              "font-weight": "800",
+              "fill": "#6d28d9"
+            },
+            "reason": "converter does not support attribute font-style",
+            "snippet": "<text x=\"463\" y=\"72\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#6d28d9\">b</text>"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": null,
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "treugolnik-i-ego-elementy-mediana-bissektrisa-i-vysota",
@@ -5383,12 +5399,10 @@
       "subject": "geometriya",
       "section": "treugolniki",
       "source": "curriculum/7-klass/geometriya/02-treugolniki/01-treugolnik-i-ego-elementy-mediana-bissektrisa-i-vysota",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-4",
       "proposed_path": "/materials/7-geometry-4",
-      "blockers": [
-        "Unsupported attribute: font-style"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "e407213a446d597bc339e3bb492ad0262df82b2f9ac3e880a1609bf594d744fb",
         "page.css": "d2f82a9bca0a3b2a29cd8868c866b5ea1deaa5c6d409f88ceebc540014d716e5"
@@ -5457,34 +5471,44 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported attribute: font-style"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported attribute: font-style",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/02-treugolniki/01-treugolnik-i-ego-elementy-mediana-bissektrisa-i-vysota/body.html",
-          "line": 81,
-          "column": 3,
-          "section": "lesson-section-3",
-          "tag": "text",
-          "attributes": {
-            "x": "763",
-            "y": "239",
-            "font-size": "21",
-            "font-style": "italic",
-            "font-weight": "800",
-            "fill": "#1d4ed8"
-          },
-          "reason": "converter does not support attribute font-style",
-          "snippet": "<text x=\"763\" y=\"239\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#1d4ed8\">a</text>"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported attribute: font-style"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/02-treugolniki/01-treugolnik-i-ego-elementy-mediana-bissektrisa-i-vysota/body.html",
+            "line": 81,
+            "column": 3,
+            "section": "lesson-section-3",
+            "tag": "text",
+            "attributes": {
+              "x": "763",
+              "y": "239",
+              "font-size": "21",
+              "font-style": "italic",
+              "font-weight": "800",
+              "fill": "#1d4ed8"
+            },
+            "reason": "converter does not support attribute font-style",
+            "snippet": "<text x=\"763\" y=\"239\" font-size=\"21\" font-style=\"italic\" font-weight=\"800\" fill=\"#1d4ed8\">a</text>"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": null,
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "tri-priznaka-ravenstva-treugolnikov",
@@ -5492,12 +5516,10 @@
       "subject": "geometriya",
       "section": "treugolniki",
       "source": "curriculum/7-klass/geometriya/02-treugolniki/02-tri-priznaka-ravenstva-treugolnikov",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-5",
       "proposed_path": "/materials/7-geometry-5",
-      "blockers": [
-        "Unsupported attribute: fill-opacity"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "70b0673ad58fc35a86a34e4741f72efc19b70eb725cf64fff03c2c756dfe9d7f",
         "page.css": "2f34907a4ab6cef671f07eeeddca28bad425d64f103cb7cdbb35115fd491b43f"
@@ -5584,51 +5606,61 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported attribute: fill-opacity"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported attribute: fill-opacity",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/02-treugolniki/02-tri-priznaka-ravenstva-treugolnikov/body.html",
-          "line": 48,
-          "column": 383,
-          "section": "lesson-section-5",
-          "tag": "polygon",
-          "attributes": {
-            "points": "180,270 700,270 420,100",
-            "fill": "#eff6ff",
-            "fill-opacity": ".85",
-            "stroke": "#2563eb",
-            "stroke-width": "6",
-            "stroke-linejoin": "round"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported attribute: fill-opacity"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/02-treugolniki/02-tri-priznaka-ravenstva-treugolnikov/body.html",
+            "line": 48,
+            "column": 383,
+            "section": "lesson-section-5",
+            "tag": "polygon",
+            "attributes": {
+              "points": "180,270 700,270 420,100",
+              "fill": "#eff6ff",
+              "fill-opacity": ".85",
+              "stroke": "#2563eb",
+              "stroke-width": "6",
+              "stroke-linejoin": "round"
+            },
+            "reason": "converter does not support attribute fill-opacity",
+            "snippet": "<polygon points=\"180,270 700,270 420,100\" fill=\"#eff6ff\" fill-opacity=\".85\" stroke=\"#2563eb\" stroke-width=\"6\" stroke-linejoin=\"round\"/>"
           },
-          "reason": "converter does not support attribute fill-opacity",
-          "snippet": "<polygon points=\"180,270 700,270 420,100\" fill=\"#eff6ff\" fill-opacity=\".85\" stroke=\"#2563eb\" stroke-width=\"6\" stroke-linejoin=\"round\"/>"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/02-treugolniki/02-tri-priznaka-ravenstva-treugolnikov/body.html",
-          "line": 48,
-          "column": 518,
-          "section": "lesson-section-5",
-          "tag": "polygon",
-          "attributes": {
-            "points": "180,270 700,270 420,430",
-            "fill": "#f7f4ff",
-            "fill-opacity": ".85",
-            "stroke": "#7c3aed",
-            "stroke-width": "6",
-            "stroke-linejoin": "round"
-          },
-          "reason": "converter does not support attribute fill-opacity",
-          "snippet": "<polygon points=\"180,270 700,270 420,430\" fill=\"#f7f4ff\" fill-opacity=\".85\" stroke=\"#7c3aed\" stroke-width=\"6\" stroke-linejoin=\"round\"/>"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+          {
+            "file": "curriculum/7-klass/geometriya/02-treugolniki/02-tri-priznaka-ravenstva-treugolnikov/body.html",
+            "line": 48,
+            "column": 518,
+            "section": "lesson-section-5",
+            "tag": "polygon",
+            "attributes": {
+              "points": "180,270 700,270 420,430",
+              "fill": "#f7f4ff",
+              "fill-opacity": ".85",
+              "stroke": "#7c3aed",
+              "stroke-width": "6",
+              "stroke-linejoin": "round"
+            },
+            "reason": "converter does not support attribute fill-opacity",
+            "snippet": "<polygon points=\"180,270 700,270 420,430\" fill=\"#f7f4ff\" fill-opacity=\".85\" stroke=\"#7c3aed\" stroke-width=\"6\" stroke-linejoin=\"round\"/>"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": null,
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "ravnobedrennyj-i-ravnostoronnij-treugolniki",
@@ -6089,12 +6121,10 @@
       "subject": "geometriya",
       "section": "sootnosheniya-v-treugolnike",
       "source": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/01-summa-uglov-treugolnika-vneshnij-ugol",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-10",
       "proposed_path": "/materials/7-geometry-10",
-      "blockers": [
-        "Unsupported attribute: font-style"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "fc2669999afeee0cfabf8eb7ce8778b4182d1fb77feb6c55891f2f72e02f5dcc"
       },
@@ -6171,31 +6201,41 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported attribute: font-style"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported attribute: font-style",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/01-summa-uglov-treugolnika-vneshnij-ugol/body.html",
-          "line": 67,
-          "column": 5,
-          "section": "theory",
-          "tag": "text",
-          "attributes": {
-            "x": "762",
-            "y": "137",
-            "font-style": "italic"
-          },
-          "reason": "converter does not support attribute font-style",
-          "snippet": "<text x=\"762\" y=\"137\" font-style=\"italic\">a</text>"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported attribute: font-style"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/01-summa-uglov-treugolnika-vneshnij-ugol/body.html",
+            "line": 67,
+            "column": 5,
+            "section": "theory",
+            "tag": "text",
+            "attributes": {
+              "x": "762",
+              "y": "137",
+              "font-style": "italic"
+            },
+            "reason": "converter does not support attribute font-style",
+            "snippet": "<text x=\"762\" y=\"137\" font-style=\"italic\">a</text>"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": null,
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treugolnika",
@@ -6203,12 +6243,10 @@
       "subject": "geometriya",
       "section": "sootnosheniya-v-treugolnike",
       "source": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-11",
       "proposed_path": "/materials/7-geometry-11",
-      "blockers": [
-        "Unsupported source tag: img"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "b23f43490dadb43f63a8a1f1e0e6bac0fa8d32e306680c81ad99d093e65c36ae",
         "page.css": "a434849823b35b244023625e263af73c8e423fc8a7502e23de7a61b707944e98"
@@ -6334,101 +6372,111 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported source tag: img"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported source tag: img",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
-          "line": 22,
-          "column": 120,
-          "section": "theory",
-          "tag": "img",
-          "attributes": {
-            "class": "ms-img",
-            "src": "/media/uploads/2026/07/image-14.png",
-            "alt": "Как связаны стороны и углы треугольника"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported source tag: img"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
+            "line": 22,
+            "column": 120,
+            "section": "theory",
+            "tag": "img",
+            "attributes": {
+              "class": "ms-img",
+              "src": "/media/uploads/2026/07/image-14.png",
+              "alt": "Как связаны стороны и углы треугольника"
+            },
+            "reason": "converter does not support tag img",
+            "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-14.png\" alt=\"Как связаны стороны и углы треугольника\">"
           },
-          "reason": "converter does not support tag img",
-          "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-14.png\" alt=\"Как связаны стороны и углы треугольника\">"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
-          "line": 22,
-          "column": 120,
-          "section": "theory",
-          "tag": "img",
-          "attributes": {
-            "class": "ms-img",
-            "src": "/media/uploads/2026/07/image-14.png",
-            "alt": "Как связаны стороны и углы треугольника"
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
+            "line": 22,
+            "column": 120,
+            "section": "theory",
+            "tag": "img",
+            "attributes": {
+              "class": "ms-img",
+              "src": "/media/uploads/2026/07/image-14.png",
+              "alt": "Как связаны стороны и углы треугольника"
+            },
+            "reason": "converter does not support attribute src",
+            "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-14.png\" alt=\"Как связаны стороны и углы треугольника\">"
           },
-          "reason": "converter does not support attribute src",
-          "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-14.png\" alt=\"Как связаны стороны и углы треугольника\">"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
-          "line": 22,
-          "column": 120,
-          "section": "theory",
-          "tag": "img",
-          "attributes": {
-            "class": "ms-img",
-            "src": "/media/uploads/2026/07/image-14.png",
-            "alt": "Как связаны стороны и углы треугольника"
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
+            "line": 22,
+            "column": 120,
+            "section": "theory",
+            "tag": "img",
+            "attributes": {
+              "class": "ms-img",
+              "src": "/media/uploads/2026/07/image-14.png",
+              "alt": "Как связаны стороны и углы треугольника"
+            },
+            "reason": "converter does not support attribute alt",
+            "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-14.png\" alt=\"Как связаны стороны и углы треугольника\">"
           },
-          "reason": "converter does not support attribute alt",
-          "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-14.png\" alt=\"Как связаны стороны и углы треугольника\">"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
-          "line": 130,
-          "column": 103,
-          "section": "lesson-section-8",
-          "tag": "img",
-          "attributes": {
-            "class": "ms-img",
-            "src": "/media/uploads/2026/07/image-13.png",
-            "alt": "Три возможные ситуации для неравенства треугольника"
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
+            "line": 130,
+            "column": 103,
+            "section": "lesson-section-8",
+            "tag": "img",
+            "attributes": {
+              "class": "ms-img",
+              "src": "/media/uploads/2026/07/image-13.png",
+              "alt": "Три возможные ситуации для неравенства треугольника"
+            },
+            "reason": "converter does not support tag img",
+            "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-13.png\" alt=\"Три возможные ситуации для неравенства треугольника\">"
           },
-          "reason": "converter does not support tag img",
-          "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-13.png\" alt=\"Три возможные ситуации для неравенства треугольника\">"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
-          "line": 130,
-          "column": 103,
-          "section": "lesson-section-8",
-          "tag": "img",
-          "attributes": {
-            "class": "ms-img",
-            "src": "/media/uploads/2026/07/image-13.png",
-            "alt": "Три возможные ситуации для неравенства треугольника"
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
+            "line": 130,
+            "column": 103,
+            "section": "lesson-section-8",
+            "tag": "img",
+            "attributes": {
+              "class": "ms-img",
+              "src": "/media/uploads/2026/07/image-13.png",
+              "alt": "Три возможные ситуации для неравенства треугольника"
+            },
+            "reason": "converter does not support attribute src",
+            "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-13.png\" alt=\"Три возможные ситуации для неравенства треугольника\">"
           },
-          "reason": "converter does not support attribute src",
-          "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-13.png\" alt=\"Три возможные ситуации для неравенства треугольника\">"
-        },
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
-          "line": 130,
-          "column": 103,
-          "section": "lesson-section-8",
-          "tag": "img",
-          "attributes": {
-            "class": "ms-img",
-            "src": "/media/uploads/2026/07/image-13.png",
-            "alt": "Три возможные ситуации для неравенства треугольника"
-          },
-          "reason": "converter does not support attribute alt",
-          "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-13.png\" alt=\"Три возможные ситуации для неравенства треугольника\">"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/02-sootnosheniya-mezhdu-storonami-i-uglami-neravenstvo-treu-7d5b3dc2/body.html",
+            "line": 130,
+            "column": 103,
+            "section": "lesson-section-8",
+            "tag": "img",
+            "attributes": {
+              "class": "ms-img",
+              "src": "/media/uploads/2026/07/image-13.png",
+              "alt": "Три возможные ситуации для неравенства треугольника"
+            },
+            "reason": "converter does not support attribute alt",
+            "snippet": "<img class=\"ms-img\" src=\"/media/uploads/2026/07/image-13.png\" alt=\"Три возможные ситуации для неравенства треугольника\">"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": "5250931ed31566bd4933e239be8853433e74b70d",
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "pryamougolnye-treugolniki-rasstoyaniya-i-postroenie-treugolnika",
@@ -6436,12 +6484,10 @@
       "subject": "geometriya",
       "section": "sootnosheniya-v-treugolnike",
       "source": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/03-pryamougolnye-treugolniki-rasstoyaniya-i-postroenie-treu-75214192",
-      "status": "BLOCKED_DEPENDENCY",
-      "canonical_path": null,
+      "status": "MIGRATED",
+      "canonical_path": "/materials/7-geometry-12",
       "proposed_path": "/materials/7-geometry-12",
-      "blockers": [
-        "Unsupported attribute: fill-opacity"
-      ],
+      "blockers": [],
       "source_files": {
         "body.html": "506ede7edac3c8b82c8b9bf8f96cb0e0f3b553b52fe91eedb32f129aa89bebfe",
         "page.css": "98010470f66d8293372d2ac8d48594e106171b53e989236a1445bb8e41616b90"
@@ -6573,34 +6619,44 @@
         }
       ],
       "legacy_assets_disposition": "RETAINED_UNCHANGED; no deletion before independent review and human acceptance",
-      "blocker_scope": "fresh retry with integrated shared fixes at 9804073; see exact source elements",
+      "blocker_scope": null,
       "previous_blockers_before_retry": [
         "Unsupported attribute: fill-opacity"
       ],
-      "assessment_sha": "9804073f1db5d9399caeccd121ced6a5a45bd2bc",
+      "assessment_sha": "3449030af0462cf94f701e86a2cffaf0d75539ed",
       "assessment_date": "2026-11-08",
-      "conversion_result": "Unsupported attribute: fill-opacity",
-      "validation_result": "NOT_RUN_CONVERSION_FAILED",
-      "blocker_details": [
-        {
-          "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/03-pryamougolnye-treugolniki-rasstoyaniya-i-postroenie-treu-75214192/body.html",
-          "line": 301,
-          "column": 3,
-          "section": "lesson-section-10",
-          "tag": "polygon",
-          "attributes": {
-            "points": "220,310 650,310 459.2,164.4",
-            "fill": "#eff6ff",
-            "fill-opacity": "0.9",
-            "stroke": "#2563eb",
-            "stroke-width": "6",
-            "stroke-linejoin": "round"
-          },
-          "reason": "converter does not support attribute fill-opacity",
-          "snippet": "<polygon points=\"220,310 650,310 459.2,164.4\" fill=\"#eff6ff\" fill-opacity=\"0.9\" stroke=\"#2563eb\" stroke-width=\"6\" stroke-linejoin=\"round\" />"
-        }
-      ],
-      "section_inventory_status": "source inventory retained; terminal self-check variant handling still requires review before activation"
+      "conversion_result": "OK",
+      "validation_result": "OK",
+      "blocker_details": [],
+      "geometry_activation": {
+        "source_head": "3449030af0462cf94f701e86a2cffaf0d75539ed",
+        "previous_blockers": [
+          "Unsupported attribute: fill-opacity"
+        ],
+        "previous_details": [
+          {
+            "file": "curriculum/7-klass/geometriya/04-sootnosheniya-v-treugolnike/03-pryamougolnye-treugolniki-rasstoyaniya-i-postroenie-treu-75214192/body.html",
+            "line": 301,
+            "column": 3,
+            "section": "lesson-section-10",
+            "tag": "polygon",
+            "attributes": {
+              "points": "220,310 650,310 459.2,164.4",
+              "fill": "#eff6ff",
+              "fill-opacity": "0.9",
+              "stroke": "#2563eb",
+              "stroke-width": "6",
+              "stroke-linejoin": "round"
+            },
+            "reason": "converter does not support attribute fill-opacity",
+            "snippet": "<polygon points=\"220,310 650,310 459.2,164.4\" fill=\"#eff6ff\" fill-opacity=\"0.9\" stroke=\"#2563eb\" stroke-width=\"6\" stroke-linejoin=\"round\" />"
+          }
+        ],
+        "source_preservation": "PASS",
+        "offline_browser": "PASS 8 cases per topic, four widths light/dark",
+        "media_responsive_css_commit": null,
+        "human_acceptance": "PENDING"
+      }
     },
     {
       "slug": "predstavlenie-dannyh-v-tabliczah",
@@ -9402,5 +9458,5 @@
   "review": "INDEPENDENT_REVIEW_PENDING",
   "human_acceptance": "PENDING",
   "merge": "NOT_PERFORMED",
-  "remaining_topics_assessment": "All 46 previous legacy topics re-converted at 9804073; exact current converter/validator errors and source locations recorded; first algebra topic prepared but blocked on URL decision"
+  "remaining_topics_assessment": "Seven geometry documents fully source/SSR/media/browser checked and activated; 66/75 source routes total. Eight statistics blockers and one algebra URL decision remain; those nine were not reprocessed in this geometry task."
 }
