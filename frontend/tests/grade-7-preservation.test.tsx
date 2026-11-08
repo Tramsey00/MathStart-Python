@@ -9,6 +9,8 @@ import { materialPathForSlug } from '../src/shared/routing/material-routes.mjs';
 const root = resolve('..');
 const load = (path: string) => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
 const map = load('docs/tasks/ms-t005-migration-map.json') as { topics: { slug: string; source: string; status: string; canonical_path: string | null; source_files: Record<string, string>; excluded_sections: { id: string | null }[] }[] };
+type MathOverride = { slug: string; source: string; changes: { start: number; end: number; old: string; mathml: string; section: string }[] };
+const mathOverrides = load('docs/tasks/ms-t005-mathml-overrides.json') as { topics: MathOverride[] };
 const normalize = (text: string | null) => (text ?? '').replace(/\s/gu, '').replaceAll('-', '−');
 const parse = (html: string) => new DOMParser().parseFromString(html, 'text/html');
 // Authored SVG comments are not geometry or academic labels; React adds its own boundary comments.
@@ -25,9 +27,33 @@ describe('MS-T005 source preservation and explicit route assignments', () => {
     const paths = load('site_content/material-routes.json').assignments.flatMap((r: { grade: number; subject: string; number: number; aliases?: string[] }) => [`/materials/${r.grade}-${r.subject}-${r.number}`, ...(r.aliases ?? [])]);
     expect(new Set(paths).size).toBe(paths.length);
   });
+  it('preserves every authored numerator/denominator and exact MathML fraction structure', () => {
+    const mathematicalText = (s: string) => normalize(s).replace(/[²³₁₂]/gu, c => ({'²':'2','³':'3','₁':'1','₂':'2'}[c]!));
+    for (const topic of mathOverrides.topics) {
+      const original = readFileSync(resolve(root, topic.source, 'body.html'), 'utf8');
+      const active = map.topics.find(t => t.slug === topic.slug)!;
+      const rendered = ['MIGRATED', 'PREPARED_BLOCKED_URL'].includes(active.status)
+        ? parse(renderToString(<LessonPage document={load(topic.source + '/content.json')} navigation={{previous:null,next:null}} gradeLinks={[]}/>)) : null;
+      for (const change of topic.changes) {
+        expect(original.slice(change.start, change.end)).toBe(change.old);
+        const before = parse(change.old); const after = parse(change.mathml);
+        const fraction = after.querySelector('math > mfrac')!;
+        expect(fraction.children).toHaveLength(2);
+        expect(mathematicalText(fraction.children[0]!.textContent!)).toBe(mathematicalText(before.querySelector('.ms-num')!.textContent!));
+        expect(mathematicalText(fraction.children[1]!.textContent!)).toBe(mathematicalText(before.querySelector('.ms-den')!.textContent!));
+        if (rendered) expect([...rendered.getElementById(change.section)!.querySelectorAll('mfrac')].some(n => svgMarkup(n) === svgMarkup(fraction))).toBe(true);
+      }
+    }
+  });
   for (const topic of map.topics.filter(t => t.status === 'MIGRATED')) {
     it(`preserves the visible academic content, SVG, tables, answers and anchors: ${topic.slug}`, () => {
-      const source = parse(readFileSync(resolve(root, topic.source, 'body.html'), 'utf8'));
+      let sourceHtml = readFileSync(resolve(root, topic.source, 'body.html'), 'utf8');
+      const authoredMath = mathOverrides.topics.find(t => t.slug === topic.slug);
+      for (const change of [...(authoredMath?.changes ?? [])].reverse()) {
+        expect(sourceHtml.slice(change.start, change.end)).toBe(change.old);
+        sourceHtml = sourceHtml.slice(0, change.start) + change.mathml + sourceHtml.slice(change.end);
+      }
+      const source = parse(sourceHtml);
       const lesson = load(topic.source + '/content.json') as LessonDocument;
       const rendered = parse(renderToString(<LessonPage document={lesson} navigation={{previous: null, next: null}} gradeLinks={[]}/>));
       expect(materialPathForSlug(topic.slug)).toBe(topic.canonical_path);

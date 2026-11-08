@@ -1,0 +1,2511 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "vvedenie-v-teoriyu-grafov",
+  "title": "Введение в теорию графов",
+  "subtitle": "Познакомимся с графом как с моделью связей. Научимся различать вершины и рёбра, определять смежные вершины, читать простые схемы и переводить жизненную ситуацию на язык графов.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "teoriya-grafov",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Графы помогают увидеть связи",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Во многих задачах важны не размеры и внешний вид объектов, а то, "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "какие объекты связаны между собой"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Города соединяют дороги, станции — маршруты, страницы сайта — ссылки, а людей — знакомства. Такие отношения удобно изображать графом."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Граф"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — это схема, состоящая из вершин и рёбер. Вершины обозначают объекты, а рёбра показывают связи между ними."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-definition-grid ms-card-grid ms-columns-3"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-definition-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Вершина"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Точка графа. Она представляет один объект: город, человека, станцию, страницу или состояние."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-definition-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ребро"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Линия, соединяющая две вершины. Она обозначает связь, дорогу, переход или другое отношение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-definition-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Смежные вершины"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Две вершины называют смежными, если они соединены одним ребром."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Читаем граф по рисунку",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "На схеме ниже пять объектов обозначены буквами A, B, C, D, E. Каждая проведённая линия означает, что между соответствующими объектами есть прямой маршрут."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Схема связей между объектами"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 900 520",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Граф с пятью вершинами, изображающий связи между школой, библиотекой, парком, стадионом и музеем"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "900",
+                        "height": "520",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "35",
+                        "y": "55",
+                        "width": "560",
+                        "height": "410",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "625",
+                        "y": "55",
+                        "width": "240",
+                        "height": "410",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "315",
+                        "y": "92",
+                        "text-anchor": "middle",
+                        "font-size": "20",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Граф маршрутов"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "745",
+                        "y": "83",
+                        "text-anchor": "middle",
+                        "font-size": "20",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "tspan",
+                          "attrs": {
+                            "x": "745",
+                            "dy": "0"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Что обозначают "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "tspan",
+                          "attrs": {
+                            "x": "745",
+                            "dy": "23"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "вершины"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#94a3b8",
+                        "stroke-width": "6",
+                        "stroke-linecap": "round"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "135",
+                            "y1": "260",
+                            "x2": "300",
+                            "y2": "130"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "135",
+                            "y1": "260",
+                            "x2": "300",
+                            "y2": "390"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "300",
+                            "y1": "130",
+                            "x2": "300",
+                            "y2": "390"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "300",
+                            "y1": "130",
+                            "x2": "500",
+                            "y2": "130"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "300",
+                            "y1": "390",
+                            "x2": "500",
+                            "y2": "390"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "500",
+                            "y1": "130",
+                            "x2": "500",
+                            "y2": "390"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "135",
+                            "cy": "260",
+                            "r": "29",
+                            "fill": "#2563eb",
+                            "stroke": "#ffffff",
+                            "stroke-width": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "300",
+                            "cy": "130",
+                            "r": "29",
+                            "fill": "#7c3aed",
+                            "stroke": "#ffffff",
+                            "stroke-width": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "300",
+                            "cy": "390",
+                            "r": "29",
+                            "fill": "#0f766e",
+                            "stroke": "#ffffff",
+                            "stroke-width": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "500",
+                            "cy": "130",
+                            "r": "29",
+                            "fill": "#f97316",
+                            "stroke": "#ffffff",
+                            "stroke-width": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "500",
+                            "cy": "390",
+                            "r": "29",
+                            "fill": "#15803d",
+                            "stroke": "#ffffff",
+                            "stroke-width": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {
+                            "fill": "#ffffff",
+                            "font-size": "19",
+                            "font-weight": "800",
+                            "text-anchor": "middle",
+                            "dominant-baseline": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "\n              "
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "135",
+                                "y": "261"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "A"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "300",
+                                "y": "131"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "B"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "300",
+                                "y": "391"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "C"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "500",
+                                "y": "131"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "D"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "500",
+                                "y": "391"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "E"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": "\n            "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "font-size": "15.5",
+                        "font-weight": "700",
+                        "fill": "#374151"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "650",
+                            "y": "120",
+                            "width": "190",
+                            "height": "48",
+                            "rx": "14",
+                            "fill": "#eff6ff",
+                            "stroke": "#bfdbfe"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "675",
+                            "y": "151"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A — школа"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "650",
+                            "y": "180",
+                            "width": "190",
+                            "height": "48",
+                            "rx": "14",
+                            "fill": "#f7f4ff",
+                            "stroke": "#ddd6fe"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "675",
+                            "y": "211"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B — библиотека"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "650",
+                            "y": "240",
+                            "width": "190",
+                            "height": "48",
+                            "rx": "14",
+                            "fill": "#ecfeff",
+                            "stroke": "#a5f3fc"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "675",
+                            "y": "271"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "C — парк"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "650",
+                            "y": "300",
+                            "width": "190",
+                            "height": "48",
+                            "rx": "14",
+                            "fill": "#fff7ed",
+                            "stroke": "#fed7aa"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "675",
+                            "y": "331"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "D — стадион"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "650",
+                            "y": "360",
+                            "width": "190",
+                            "height": "48",
+                            "rx": "14",
+                            "fill": "#ecfdf5",
+                            "stroke": "#bbf7d0"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "675",
+                            "y": "391"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "E — музей"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "165",
+                        "y": "435",
+                        "width": "300",
+                        "height": "30",
+                        "rx": "12",
+                        "fill": "#eff6ff"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "315",
+                        "y": "456",
+                        "text-anchor": "middle",
+                        "font-size": "14.5",
+                        "font-weight": "700",
+                        "fill": "#1d4ed8"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ребро означает прямой маршрут"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Например, вершины A и B смежны, потому что между ними есть ребро AB. Вершины A и E не смежны: прямого ребра AE нет, хотя из A в E можно добраться через другие вершины."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Как записывают граф",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Небольшой граф можно задать перечислением вершин и рёбер. Для схемы выше получим:"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Вершины:"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " A, B, C, D, E."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Рёбра:"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " AB, AC, BC, BD, CE, DE."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Вершина"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "С какими вершинами она смежна"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B, C"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A, C, D"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "C"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A, B, E"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "D"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B, E"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "E"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "C, D"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Если две линии пересеклись на рисунке, но точка пересечения не обозначена как вершина, считать её вершиной нельзя. Рёбра просто проходят одно над другим."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Как построить граф по условию",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Перед рисунком нужно определить, что именно станет вершинами и какое условие означает наличие ребра."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "ul",
+          "attrs": {
+            "class": "ms-plain-checklist"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Выберите объекты."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Каждый объект обозначьте отдельной вершиной."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Сформулируйте правило связи."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Например: «проводим ребро, если между городами есть прямая дорога»."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Проведите только нужные рёбра."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Не добавляйте связь, которой нет в условии."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Проверьте подписи."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Названия вершин должны однозначно соответствовать объектам."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "В кружке четыре секции: шахматы, робототехника, театр и волейбол. Ребро соединяет две секции, если хотя бы один ученик посещает обе. Вершинами будут секции, а рёбрами — наличие общего участника."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Что в рисунке важно, а что нет",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-compare-strip"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-panel"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Важно"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Какие вершины есть в графе и какие пары вершин соединены рёбрами."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-panel"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Неважно"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Точная длина и изгиб рёбер, расстояния между вершинами и поворот всего рисунка."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text",
+            "style": "margin-top:16px;"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Поэтому один и тот же граф можно нарисовать по-разному. Если набор связей сохранился, математическая модель не изменилась."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В каждом задании сначала определяйте объекты, затем связи между ними."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Назовите вершины и рёбра графа, в котором вершины A, B, C, D, а рёбра AB, AC, BC и CD."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Вершины: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "A, B, C, D"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Рёбра: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "AB, AC, BC, CD"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Какие вершины смежны с вершиной B, если рёбра графа — AB, BC, BD и CD?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "С вершиной B соединены рёбра AB, BC и BD. Поэтому смежные с B вершины: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "A, C и D"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Можно ли считать точки пересечения двух рёбер вершиной, если на рисунке она не отмечена и в условии не названа?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Обычное пересечение линий на рисунке не становится вершиной автоматически. Вершина должна быть явно обозначена."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В классе четыре ученика. Ребро соединяет двух учеников, если они обменялись книгами. Что обозначают вершины и рёбра?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Вершины обозначают "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "учеников"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ", а рёбра — "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "факт обмена книгами между двумя учениками"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " У графа 6 вершин и 7 рёбер. Изменится ли граф, если его вершины расположить на рисунке иначе, но сохранить все соединения?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Форма рисунка может измениться, но граф остаётся тем же, если сохраняются вершины и пары соединённых вершин."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " По схеме из теории укажите два разных маршрута из A в E."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Например: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "A–C–E"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " и "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "A–B–D–E"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Возможен также маршрут A–B–C–E."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В графе есть рёбра MN, NP, PQ и MQ. Соседствуют ли вершины M и P?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Ребра MP нет. Между M и P существует путь M–N–P, но смежными эти вершины не являются."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Постройте граф для трёх станций A, B, C, если есть прямые дороги A–B и B–C, а дороги A–C нет."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Нужно изобразить три вершины A, B, C и провести два ребра: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "AB"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " и "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "BC"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Получится цепочка A–B–C."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}
