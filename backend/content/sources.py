@@ -177,7 +177,9 @@ def validate_lesson_document(document, slug):
                 raise SourceError('Unknown React lesson node')
     def element(node, depth, in_svg):
         tag, attrs = node['tag'], node['attrs']
-        allowed = {'p','span','strong','em','b','i','u','s','sub','sup','br','a','h2','h3','h4','ul','ol','li','blockquote','div','table','caption','thead','tbody','tr','th','td','figure','figcaption','img','math','mi','mn','mo','mrow','msup','msub','mfrac','msqrt','mroot','mspace','mtext','semantics','annotation','svg','g','path','circle','line','polyline','polygon','rect','ellipse','text','tspan','defs','marker'}
+        if tag == 'code' and in_svg:
+            raise SourceError('Unsupported authored code namespace')
+        allowed = {'p','span','code','strong','em','b','i','u','s','sub','sup','br','a','h2','h3','h4','ul','ol','li','blockquote','div','table','caption','thead','tbody','tr','th','td','figure','figcaption','img','math','mi','mn','mo','mrow','msup','msub','mfrac','msqrt','mroot','mspace','mtext','semantics','annotation','svg','g','path','circle','line','polyline','polygon','rect','ellipse','text','tspan','defs','marker'}
         attr_names = {'id','class','title','role','aria-label','aria-labelledby','aria-describedby','href','src','alt','width','height','loading','decoding','colspan','rowspan','scope','start','type','datetime','cite','mathvariant','display','xmlns','viewBox','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','stroke-dasharray','opacity','d','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','points','transform','marker-end','marker-start','markerWidth','markerHeight','refX','refY','orient','font-size','font-weight','text-anchor','preserveAspectRatio'}
         if type(attrs) is not dict:
             raise SourceError('Unsupported authored attributes')
