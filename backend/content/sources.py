@@ -5,6 +5,7 @@ The repository root is supplied by the operator, never by an HTTP request.
 """
 from dataclasses import dataclass
 from hashlib import sha256
+from math import isfinite
 import json
 from pathlib import Path
 import re
@@ -181,6 +182,12 @@ def validate_lesson_document(document, slug):
         if type(attrs) is not dict:
             raise SourceError('Unsupported authored attributes')
         attr_names.update({'font-family', 'style', 'markerUnits', 'dominant-baseline', 'encoding', 'clip-path'})
+        if 'dy' in attrs:
+            if (tag != 'tspan' or not isinstance(attrs['dy'], str)
+                    or not re.fullmatch(r'[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', attrs['dy'])
+                    or not isfinite(float(attrs['dy']))):
+                raise SourceError('Unsupported authored SVG text offset')
+            attr_names.add('dy')
         if 'clip-path' in attrs and (not isinstance(attrs['clip-path'], str) or not re.fullmatch(r'url\(#[A-Za-z0-9_-]+\)', attrs['clip-path'])):
             raise SourceError('Unsupported authored clipping reference')
         allowed.update({'title', 'desc', 'small', 'clipPath'})
