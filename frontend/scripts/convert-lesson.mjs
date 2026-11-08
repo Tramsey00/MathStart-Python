@@ -87,17 +87,45 @@ function convert(n) {
     : has(n, 'ms-example') || has(n, 'ms-math-box') ? 'example' : n.tagName === 'table' ? 'table' : n.tagName === 'svg' ? 'figure' : 'element';
   return { kind, tag: n.tagName, attrs: a, children: children(n).map(convert).filter(Boolean) };
 }
+function convertRootFigure(n) {
+  const parts = node => children(node).filter(c => c.nodeName !== '#comment' && !(c.nodeName === '#text' && !c.value.trim()));
+  const exact = (node, tag, className) => node?.tagName === tag
+    && node.namespaceURI === 'http://www.w3.org/1999/xhtml'
+    && Object.keys(attrs(node)).length === 1 && attrs(node).class === className;
+  const [caption, wrapper] = parts(n);
+  const drawing = wrapper && parts(wrapper);
+  if (!exact(n, 'div', 'ms-figure') || parts(n).length !== 2
+      || !exact(caption, 'p', 'ms-figure-title') || !text(caption).trim()
+      || children(caption).some(c => c.nodeName !== '#text' && c.nodeName !== '#comment')
+      || !exact(wrapper, 'div', 'ms-svg-wrap') || drawing.length !== 1
+      || drawing[0].tagName !== 'svg' || drawing[0].namespaceURI !== 'http://www.w3.org/2000/svg') {
+    throw Error('Unreviewed lesson root figure structure');
+  }
+  return convert(n);
+}
 export function convertLesson(directory) {
   const meta = JSON.parse(readFileSync(join(directory, 'lesson.json'), 'utf8')).page;
   const root = children(parseFragment(readFileSync(join(directory, 'body.html'), 'utf8'))).find(n => has(n, 'ms-lesson-page'));
   if (!root) throw Error('Missing authored lesson root');
   const hero = children(root).find(n => has(n, 'ms-hero'));
   let afterSelfCheck = false;
+  let lastSection;
   const sections = [];
   for (const n of children(root)) {
     // Самопроверка целиком завершает материал, независимо от названий следующих блоков.
     if (afterSelfCheck) break;
     if (!n.tagName || n === hero || has(n, 'ms-lesson-toc')) continue;
+    if (n.tagName === 'div' && has(n, 'ms-figure')) {
+      const blocks = children(root).filter(c => c.nodeName !== '#comment' && !(c.nodeName === '#text' && !c.value.trim()));
+      const index = blocks.indexOf(n);
+      const previous = blocks[index - 1], next = blocks[index + 1];
+      if (previous?.tagName !== 'section' || next?.tagName !== 'section'
+          || previous !== lastSection || !sections.length) {
+        throw Error('Root figure must follow a retained section and precede a section');
+      }
+      sections.at(-1).nodes.push(convertRootFigure(n));
+      continue;
+    }
     if (n.tagName !== 'section') throw Error(`Unreviewed lesson root block: ${n.tagName}`);
     const heading = children(n).find(c => c.tagName === 'h2');
     if (!heading || !attrs(n).id) throw Error('Missing section heading or anchor');
@@ -106,6 +134,7 @@ export function convertLesson(directory) {
     const selfCheck = isSelfCheckSection(title);
     sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title,
       nodes: normalizeMathNotation(children(n).filter(c => c !== heading).map(convert).filter(Boolean)) });
+    lastSection = n;
     if (selfCheck) afterSelfCheck = true;
   }
   return { version: 'lesson-document-v1', slug: meta.slug, title: meta.title,
