@@ -146,7 +146,7 @@ def validate_lesson_document(document, slug):
             or not document['sections']):
         raise SourceError('Invalid React lesson document identity')
     ids = set()
-    def nodes(values, depth=0):
+    def nodes(values, depth=0, in_svg=False):
         if type(values) is not list or depth > 64:
             raise SourceError('Invalid React lesson node list')
         for node in values:
@@ -162,26 +162,37 @@ def validate_lesson_document(document, slug):
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
                     raise SourceError('Invalid element node')
-                element(node, depth)
+                element(node, depth, in_svg)
             elif kind in {'paragraph', 'note', 'example', 'table', 'figure'}:
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
                     raise SourceError('Invalid semantic node')
-                element(node, depth)
+                element(node, depth, in_svg)
             elif kind == 'selfCheck':
                 if (set(node) != {'kind', 'attrs', 'question', 'answer', 'disclosure'}
                         or node['disclosure'] not in {'answer', 'solution'}):
                     raise SourceError('Invalid self-check node')
-                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth)
-                nodes(node['question'], depth + 1); nodes(node['answer'], depth + 1)
+                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth, in_svg)
+                nodes(node['question'], depth + 1, in_svg); nodes(node['answer'], depth + 1, in_svg)
             else:
                 raise SourceError('Unknown React lesson node')
-    def element(node, depth):
+    def element(node, depth, in_svg):
         tag, attrs = node['tag'], node['attrs']
         allowed = {'p','span','strong','em','b','i','u','s','sub','sup','br','a','h2','h3','h4','ul','ol','li','blockquote','div','table','caption','thead','tbody','tr','th','td','figure','figcaption','img','math','mi','mn','mo','mrow','msup','msub','mfrac','msqrt','mroot','mspace','mtext','semantics','annotation','svg','g','path','circle','line','polyline','polygon','rect','ellipse','text','tspan','defs','marker'}
         attr_names = {'id','class','title','role','aria-label','aria-labelledby','aria-describedby','href','src','alt','width','height','loading','decoding','colspan','rowspan','scope','start','type','datetime','cite','mathvariant','display','xmlns','viewBox','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','stroke-dasharray','opacity','d','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','points','transform','marker-end','marker-start','markerWidth','markerHeight','refX','refY','orient','font-size','font-weight','text-anchor','preserveAspectRatio'}
         if type(attrs) is not dict:
             raise SourceError('Unsupported authored attributes')
         attr_names.update({'font-family', 'style', 'markerUnits', 'dominant-baseline', 'encoding', 'clip-path'})
+        if 'font-style' in attrs:
+            if not in_svg or tag != 'text' or attrs['font-style'] != 'italic':
+                raise SourceError('Unsupported authored SVG font style')
+            attr_names.add('font-style')
+        if 'fill-opacity' in attrs:
+            value = attrs['fill-opacity']
+            if (not in_svg or tag != 'polygon' or not isinstance(value, str)
+                    or not re.fullmatch(r'(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', value)
+                    or not isfinite(float(value)) or not 0 <= float(value) <= 1):
+                raise SourceError('Unsupported authored SVG fill opacity')
+            attr_names.add('fill-opacity')
         if 'dy' in attrs:
             if (tag != 'tspan' or not isinstance(attrs['dy'], str)
                     or not re.fullmatch(r'[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', attrs['dy'])
@@ -198,7 +209,7 @@ def validate_lesson_document(document, slug):
                        for k, v in attrs.items()) or any(k not in attr_names and not k.startswith(('aria-', 'data-')) for k in attrs)
                 or any(k.lower() in {'href','src','xlink:href'} and (not isinstance(v, str) or not _safe_lesson_url(v)) for k,v in attrs.items())):
             raise SourceError('Unsupported authored element/attribute')
-        nodes(node['children'], depth + 1)
+        nodes(node['children'], depth + 1, in_svg or tag == 'svg')
     for section in document['sections']:
         if (type(section) is not dict or set(section) != {'id', 'title', 'nodes'}
                 or not isinstance(section['id'], str) or not section['id'] or section['id'] in ids
