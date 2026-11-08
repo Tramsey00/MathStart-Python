@@ -113,3 +113,73 @@
 @media (max-width: 760px) {
   .lesson-section .ms-probability-scale { grid-template-columns: minmax(0, 1fr); }
 }
+/* Authored statistics bars: inline dimensions carry the data and remain authoritative. */
+.lesson-section .ms-bars { display: grid; gap: 12px; min-width: 0; margin-top: 16px; }
+.lesson-section .ms-bars .ms-bar-row {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) 42px;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+.lesson-section .ms-bars .ms-bar-label,
+.lesson-section .ms-bars .ms-bar-value {
+  color: var(--lesson-ink);
+  font-size: 14.5px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.lesson-section .ms-bars .ms-bar-value { text-align: right; }
+.lesson-section .ms-bars .ms-bar-track {
+  min-width: 0;
+  height: 24px;
+  overflow: hidden;
+  border: 1px solid var(--lesson-divider);
+  border-radius: 999px;
+  background: var(--lesson-plot);
+}
+.lesson-section .ms-bars .ms-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+}
+/* Practice data is 30/25/20/15/10, distinct from the existing 35/25/20/15/5 lesson. */
+.lesson-section .ms-pie-layout .ms-pie-practice {
+  background: conic-gradient(
+    var(--lesson-pie-1) 0 30%,
+    var(--lesson-pie-2) 30% 55%,
+    var(--lesson-pie-3) 55% 75%,
+    var(--lesson-pie-4) 75% 90%,
+    var(--lesson-pie-5) 90% 100%
+  );
+}
+.lesson-section .ms-equalizer {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(4px, 1.5vw, 8px);
+  align-items: end;
+  min-width: 0;
+  min-height: 170px;
+  margin-top: 18px;
+  padding: clamp(8px, 2vw, 18px);
+  border: 1px solid var(--lesson-divider);
+  border-radius: 20px;
+  background: var(--lesson-plot);
+}
+.lesson-section .ms-equalizer .ms-equalizer-item {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+  align-items: end;
+  justify-items: center;
+}
+.lesson-section .ms-equalizer .ms-equalizer-bar {
+  width: 70%;
+  min-width: 0;
+  border-radius: 12px 12px 5px 5px;
+  background: linear-gradient(180deg, #7c3aed, #2563eb);
+}
+.lesson-section .ms-equalizer .ms-equalizer-label { color: var(--lesson-ink); font-size: 14px; font-weight: 800; }
+@media (max-width: 720px) {
+  .lesson-section .ms-bars .ms-bar-row { grid-template-columns: minmax(0, 82px) minmax(0, 1fr) 38px; gap: 8px; }
+}
