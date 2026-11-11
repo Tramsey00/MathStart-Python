@@ -5,6 +5,7 @@ The repository root is supplied by the operator, never by an HTTP request.
 """
 from dataclasses import dataclass
 from hashlib import sha256
+from math import isfinite
 import json
 from pathlib import Path
 import re
@@ -145,7 +146,7 @@ def validate_lesson_document(document, slug):
             or not document['sections']):
         raise SourceError('Invalid React lesson document identity')
     ids = set()
-    def nodes(values, depth=0):
+    def nodes(values, depth=0, in_svg=False, parent_tag=None):
         if type(values) is not list or depth > 64:
             raise SourceError('Invalid React lesson node list')
         for node in values:
@@ -161,37 +162,95 @@ def validate_lesson_document(document, slug):
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
                     raise SourceError('Invalid element node')
-                element(node, depth)
+                element(node, depth, in_svg, parent_tag)
             elif kind in {'paragraph', 'note', 'example', 'table', 'figure'}:
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
                     raise SourceError('Invalid semantic node')
-                element(node, depth)
+                element(node, depth, in_svg, parent_tag)
             elif kind == 'selfCheck':
                 if (set(node) != {'kind', 'attrs', 'question', 'answer', 'disclosure'}
                         or node['disclosure'] not in {'answer', 'solution'}):
                     raise SourceError('Invalid self-check node')
-                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth)
-                nodes(node['question'], depth + 1); nodes(node['answer'], depth + 1)
+                element({'tag': 'div', 'attrs': node['attrs'], 'children': []}, depth, in_svg, parent_tag)
+                nodes(node['question'], depth + 1, in_svg, 'div'); nodes(node['answer'], depth + 1, in_svg, 'div')
             else:
                 raise SourceError('Unknown React lesson node')
-    def element(node, depth):
+    def element(node, depth, in_svg, parent_tag):
         tag, attrs = node['tag'], node['attrs']
-        allowed = {'p','span','strong','em','b','i','u','s','sub','sup','br','a','h2','h3','h4','ul','ol','li','blockquote','div','table','caption','thead','tbody','tr','th','td','figure','figcaption','img','math','mi','mn','mo','mrow','msup','msub','mfrac','msqrt','mroot','mspace','mtext','semantics','annotation','svg','g','path','circle','line','polyline','polygon','rect','ellipse','text','tspan','defs','marker'}
+        if tag == 'code' and in_svg:
+            raise SourceError('Unsupported authored code namespace')
+        allowed = {'p','span','code','strong','em','b','i','u','s','sub','sup','br','a','h2','h3','h4','ul','ol','li','blockquote','div','table','caption','thead','tbody','tr','th','td','figure','figcaption','img','math','mi','mn','mo','mrow','msup','msub','mfrac','msqrt','mroot','mspace','mtext','semantics','annotation','svg','g','path','circle','line','polyline','polygon','rect','ellipse','text','tspan','defs','marker'}
         attr_names = {'id','class','title','role','aria-label','aria-labelledby','aria-describedby','href','src','alt','width','height','loading','decoding','colspan','rowspan','scope','start','type','datetime','cite','mathvariant','display','xmlns','viewBox','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','stroke-dasharray','opacity','d','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','points','transform','marker-end','marker-start','markerWidth','markerHeight','refX','refY','orient','font-size','font-weight','text-anchor','preserveAspectRatio'}
         if type(attrs) is not dict:
             raise SourceError('Unsupported authored attributes')
+        if tag in ('linearGradient', 'stop'):
+            gradient = tag == 'linearGradient'
+            gradient_attrs = {'id', 'x1', 'y1', 'x2', 'y2'} if gradient else {'offset', 'stop-color'}
+            if (not in_svg or parent_tag != ('defs' if gradient else 'linearGradient')
+                    or any(key not in gradient_attrs for key in attrs) or type(node['children']) is not list):
+                raise SourceError('Unsupported authored SVG gradient')
+            if gradient:
+                if (not isinstance(attrs.get('id'), str) or not re.fullmatch(r'[A-Za-z0-9_-]+', attrs['id'])
+                        or any(key in attrs and attrs[key] not in ('0', '1') for key in ('x1', 'y1', 'x2', 'y2'))
+                        or any(not (isinstance(child, dict) and (
+                            (child.get('kind') == 'text' and isinstance(child.get('text'), str) and not child['text'].strip())
+                            or (child.get('kind') == 'element' and child.get('tag') == 'stop')))
+                            for child in node['children'])):
+                    raise SourceError('Unsupported authored linear gradient')
+            elif (attrs.get('offset') not in ('0%', '100%')
+                    or not isinstance(attrs.get('stop-color'), str)
+                    or not re.fullmatch(r'#[0-9A-Fa-f]{6}', attrs['stop-color'])
+                    or any(not (isinstance(child, dict) and child.get('kind') == 'text'
+                                and isinstance(child.get('text'), str) and not child['text'].strip())
+                           for child in node['children'])):
+                raise SourceError('Unsupported authored gradient stop')
+            allowed.add(tag)
+            attr_names.update(gradient_attrs)
         attr_names.update({'font-family', 'style', 'markerUnits', 'dominant-baseline', 'encoding', 'clip-path'})
+        if 'font-style' in attrs:
+            if not in_svg or tag != 'text' or attrs['font-style'] != 'italic':
+                raise SourceError('Unsupported authored SVG font style')
+            attr_names.add('font-style')
+        if 'fill-opacity' in attrs:
+            value = attrs['fill-opacity']
+            if (not in_svg or tag != 'polygon' or not isinstance(value, str)
+                    or not re.fullmatch(r'(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', value)
+                    or not isfinite(float(value)) or not 0 <= float(value) <= 1):
+                raise SourceError('Unsupported authored SVG fill opacity')
+            attr_names.add('fill-opacity')
+        if 'dy' in attrs:
+            if (tag != 'tspan' or not isinstance(attrs['dy'], str)
+                    or not re.fullmatch(r'[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', attrs['dy'])
+                    or not isfinite(float(attrs['dy']))):
+                raise SourceError('Unsupported authored SVG text offset')
+            attr_names.add('dy')
         if 'clip-path' in attrs and (not isinstance(attrs['clip-path'], str) or not re.fullmatch(r'url\(#[A-Za-z0-9_-]+\)', attrs['clip-path'])):
             raise SourceError('Unsupported authored clipping reference')
         allowed.update({'title', 'desc', 'small', 'clipPath'})
-        if 'style' in attrs and (not isinstance(attrs['style'], str) or not re.fullmatch(r'\s*margin-top:\s*\d+(?:px|rem);?\s*', attrs['style'])):
-            raise SourceError('Unsupported authored layout style')
+        if 'style' in attrs:
+            style = attrs['style']
+            class_value = attrs.get('class', '')
+            classes = set(class_value.split()) if isinstance(class_value, str) else set()
+            margin_style = isinstance(style, str) and re.fullmatch(
+                r'\s*margin-top:\s*\d+(?:px|rem);?\s*', style)
+            chart_style = (
+                isinstance(style, str) and tag == 'div' and not in_svg
+                and (
+                    (classes == {'ms-bar-fill'} and re.fullmatch(
+                        r'\s*width:\s*(?:37\.5|62\.5|50|75|100|83\.333|66\.667|33\.333)%;?\s*',
+                        style))
+                    or (classes == {'ms-equalizer-bar'} and re.fullmatch(
+                        r'\s*height:\s*(?:72|96|120)px;?\s*', style))
+                )
+            )
+            if not (margin_style or chart_style):
+                raise SourceError('Unsupported authored layout style')
         if (not isinstance(tag, str) or tag not in allowed or type(attrs) is not dict
                 or any(not isinstance(k, str) or not isinstance(v, (str, int, float)) or isinstance(v, bool)
                        for k, v in attrs.items()) or any(k not in attr_names and not k.startswith(('aria-', 'data-')) for k in attrs)
                 or any(k.lower() in {'href','src','xlink:href'} and (not isinstance(v, str) or not _safe_lesson_url(v)) for k,v in attrs.items())):
             raise SourceError('Unsupported authored element/attribute')
-        nodes(node['children'], depth + 1)
+        nodes(node['children'], depth + 1, in_svg or tag == 'svg', tag)
     for section in document['sections']:
         if (type(section) is not dict or set(section) != {'id', 'title', 'nodes'}
                 or not isinstance(section['id'], str) or not section['id'] or section['id'] in ids

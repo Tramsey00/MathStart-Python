@@ -148,12 +148,27 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .worked-example .ms-math-row:last-child { margin-bottom: 0; }
 .ms-example-title { display: block; font-weight: 600; margin-bottom: 6px; }
 .ms-math-row { margin: 4px 0; line-height: 1.7; overflow-wrap: break-word; }
+.lesson-section .ms-calc {
+  display: inline-block;
+  white-space: pre;
+  font-family: ui-monospace, Consolas, monospace;
+  line-height: 1.35;
+  text-align: right;
+}
+.lesson-section .ms-calc-line {
+  display: block;
+  border-top: 1px solid currentColor;
+}
+.lesson-section .ms-calc > .ms-calc-line:has(> .ms-calc-line) {
+  text-align: left;
+}
 .ms-good { font-weight: 600; }
 .lesson-section .ms-proof { min-width: 0; margin-block: 20px 24px; }
 .lesson-section .ms-proof-title { display: block; font-weight: 600; margin-bottom: 12px; }
 .lesson-section .ms-proof-step { display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: baseline; gap: 10px; margin-block: 8px; }
 .lesson-section .ms-step-number { color: var(--lesson-muted); font-variant-numeric: tabular-nums; }
 .lesson-section .ms-step-number::after { content: '.'; }
+.lesson-section .ms-step-number--literal::after { content: none; }
 .lesson-math { font-family: 'STIX Two Math', math; font-size: max(1.1em, 18px); font-style: normal; font-weight: 400; letter-spacing: normal; line-height: normal; math-style: compact; color: inherit; }
 .lesson-math[display=inline] { white-space: nowrap; }
 .lesson-math[display=block] { margin-block: 12px; font-size: 1.25em; math-style: normal; text-align: left; }
