@@ -1,0 +1,3607 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "5-klass-delimost-naturalnyh-chisel",
+  "title": "Делимость натуральных чисел",
+  "subtitle": "В этой теме разберём, что значит «число делится на число», что такое делитель, кратное, частное и остаток. Эта тема нужна для признаков делимости, простых и составных чисел, разложения на множители и работы с дробями.",
+  "grade": "5-klass",
+  "subject": "matematika",
+  "section": "razlozhenie-chisla-na-prostye-mnozhiteli",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Что значит «число делится на число»",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Натуральное число делится на другое натуральное число, если при делении получается\n      натуральное число без остатка.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Число "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " делится на число "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "b"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", если существует такое натуральное число "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "c"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ",\n      что "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a = b · c"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ".\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Например, число 24 делится на 6, потому что 24 = 6 · 4.\n      А число 25 не делится на 6, потому что при делении получается остаток.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Деление без остатка и деление с остатком"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 820 300",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Деление без остатка и с остатком"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "820",
+                        "height": "300",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "70",
+                        "y": "60",
+                        "width": "310",
+                        "height": "170",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#bfdbfe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "440",
+                        "y": "60",
+                        "width": "310",
+                        "height": "170",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#fed7aa",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "225",
+                        "y": "98",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#15803d"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Делится"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "225",
+                        "y": "140",
+                        "text-anchor": "middle",
+                        "font-size": "28",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "24 : 6 = 4"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "225",
+                        "y": "178",
+                        "text-anchor": "middle",
+                        "font-size": "18",
+                        "font-weight": "700",
+                        "fill": "#4b5563"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "остаток 0"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "225",
+                        "y": "210",
+                        "text-anchor": "middle",
+                        "font-size": "18",
+                        "font-weight": "800",
+                        "fill": "#15803d"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "24 = 6 · 4"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "595",
+                        "y": "98",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#c2410c"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Не делится"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "595",
+                        "y": "140",
+                        "text-anchor": "middle",
+                        "font-size": "28",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "25 : 6 = 4 ост. 1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "595",
+                        "y": "178",
+                        "text-anchor": "middle",
+                        "font-size": "18",
+                        "font-weight": "700",
+                        "fill": "#4b5563"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "остаток 1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "595",
+                        "y": "210",
+                        "text-anchor": "middle",
+                        "font-size": "18",
+                        "font-weight": "800",
+                        "fill": "#c2410c"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "25 ≠ 6 · 4"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "270",
+                        "text-anchor": "middle",
+                        "font-size": "20",
+                        "font-weight": "800",
+                        "fill": "#374151"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            Главное отличие — есть остаток или нет\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 1. Проверим делимость"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Проверить, делится ли число 42 на 7.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "42 : 7 = 6."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Остатка нет."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Значит, 42 делится на 7."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: да, делится."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 2. Проверим число с остатком"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Проверить, делится ли число 38 на 5.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "38 : 5 = 7, остаток 3."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Остаток не равен 0."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Значит, 38 не делится на 5."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: нет, не делится."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Делитель и кратное",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      В теме делимости часто используют два важных слова: делитель и кратное.\n      Они описывают одну и ту же связь между числами, но с разных сторон.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Если число "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " делится на число "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "b"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", то:\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "b"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — делитель числа "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ";\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — кратное числа "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "b"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ".\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Например, 36 делится на 9. Значит, 9 — делитель числа 36, а 36 — кратное числа 9.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Связь делителя и кратного"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 820 260",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Делитель и кратное"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "820",
+                        "height": "260",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "110",
+                        "y": "78",
+                        "width": "220",
+                        "height": "92",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#bfdbfe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "490",
+                        "y": "78",
+                        "width": "220",
+                        "height": "92",
+                        "rx": "22",
+                        "fill": "#eff6ff",
+                        "stroke": "#bfdbfe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "220",
+                        "y": "115",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "9"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "220",
+                        "y": "145",
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "700",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "делитель числа 36"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "600",
+                        "y": "115",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "36"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "600",
+                        "y": "145",
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "700",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "кратное числа 9"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M330 124 L490 124",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M490 124 L476 116 L476 132 Z",
+                        "fill": "#2563eb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "210",
+                        "text-anchor": "middle",
+                        "font-size": "21",
+                        "font-weight": "800",
+                        "fill": "#374151"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            36 = 9 · 4\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 3. Назовём делитель и кратное"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Число 56 делится на 8. Назовите делитель и кратное.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "56 = 8 · 7."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Число 8 — делитель числа 56."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Число 56 — кратное числа 8."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 8 — делитель, 56 — кратное."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Как найти делители числа",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Делители числа можно искать с помощью умножения. Если число можно представить\n      как произведение двух натуральных чисел, то оба множителя являются делителями.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Чтобы найти делители числа, нужно подобрать пары множителей, произведение которых равно этому числу.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 4. Найдём делители числа 24"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Найти все делители числа 24.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Запишем 24 как произведение разных пар множителей:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24 = 1 · 24"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24 = 2 · 12"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24 = 3 · 8"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24 = 4 · 6"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Все найденные множители являются делителями числа 24."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 1, 2, 3, 4, 6, 8, 12, 24."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 5. Найдём делители числа 18"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Найти все делители числа 18.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "18 = 1 · 18"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "18 = 2 · 9"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "18 = 3 · 6"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 1, 2, 3, 6, 9, 18."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Как найти кратные числа",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Кратные числа находят умножением. Чтобы получить кратные числа, нужно умножать\n      данное число на 1, 2, 3, 4 и так далее.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Кратные числа числа "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " имеют вид:\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "kind": "text",
+              "text": "\n      a · 1, a · 2, a · 3, a · 4, ...\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 6. Найдём несколько кратных числа 6"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Записать первые семь кратных числа 6.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 1 = 6"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 2 = 12"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 3 = 18"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 4 = 24"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 5 = 30"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 6 = 36"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 7 = 42"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 6, 12, 18, 24, 30, 36, 42."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      У любого натурального числа бесконечно много кратных: можно умножать его на всё большие натуральные числа.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Делимость и остаток",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Если число не делится на другое нацело, при делении появляется остаток.\n      Остаток всегда меньше делителя.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      При делении с остатком:\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "делимое = делитель · частное + остаток"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "br",
+              "attrs": {},
+              "children": []
+            },
+            {
+              "kind": "text",
+              "text": "\n      При этом остаток меньше делителя.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 7. Деление с остатком"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Условие"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      Разделить 47 на 5 с остатком.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Решение."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Ближайшее число, которое меньше 47 и делится на 5, — это 45."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "45 = 5 · 9."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "47 − 45 = 2."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Значит, 47 : 5 = 9, остаток 2."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 9, остаток 2."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-7",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Решите задания самостоятельно, затем раскройте решение.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Делится ли число 63 на 9?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          63 : 9 = 7.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Остатка нет.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: да, делится."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Делится ли число 58 на 6?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          58 : 6 = 9, остаток 4.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Остаток не равен 0.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: нет, не делится."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите все делители числа 16."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          16 = 1 · 16.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          16 = 2 · 8.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          16 = 4 · 4.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 1, 2, 4, 8, 16."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите все делители числа 30."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          30 = 1 · 30.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          30 = 2 · 15.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          30 = 3 · 10.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          30 = 5 · 6.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 1, 2, 3, 5, 6, 10, 15, 30."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Запишите первые шесть кратных числа 7."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          7 · 1 = 7\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          7 · 2 = 14\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          7 · 3 = 21\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          7 · 4 = 28\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          7 · 5 = 35\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          7 · 6 = 42\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 7, 14, 21, 28, 35, 42."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Разделите 52 на 8 с остатком."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          8 · 6 = 48.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          52 − 48 = 4.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Значит, 52 : 8 = 6, остаток 4.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 6, остаток 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Верно ли, что 48 — кратное числа 12?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          48 : 12 = 4.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Значит, 48 делится на 12.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: да, 48 — кратное числа 12."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Верно ли, что 9 — делитель числа 72?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          72 : 9 = 8.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Значит, 72 делится на 9.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: да, 9 — делитель числа 72."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 9."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите число, которое является кратным 5 и находится между 42 и 49."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Кратные 5 рядом с этим промежутком: 40, 45, 50.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Между 42 и 49 находится число 45.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 45."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 10."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите два разных делителя числа 36, сумма которых равна 15."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Делители числа 36: 1, 2, 3, 4, 6, 9, 12, 18, 36.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          6 + 9 = 15.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 6 и 9."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

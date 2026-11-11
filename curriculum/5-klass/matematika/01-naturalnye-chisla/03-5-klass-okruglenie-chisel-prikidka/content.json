@@ -1,0 +1,5356 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "5-klass-okruglenie-chisel-prikidka",
+  "title": "Округление чисел. Прикидка и оценка результатов вычислений",
+  "subtitle": "В этой теме разберём, как округлять натуральные числа до десятков, сотен, тысяч и других разрядов. Научимся делать прикидку перед вычислением, проверять разумность ответа и быстро оценивать результат в задачах.",
+  "grade": "5-klass",
+  "subject": "matematika",
+  "section": "naturalnye-chisla",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Что значит округлить число",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      В жизни часто не нужна абсолютно точная величина. Например, если в городе живёт\n      498 732 человека, обычно говорят: «примерно 500 тысяч человек». Это и есть округление:\n      точное число заменяют близким, но более удобным числом.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округлить число"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — значит заменить его ближайшим удобным числом\n      с нужным количеством разрядов.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Округлять можно до разных разрядов:\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "До какого разряда округляем"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Что получаем"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Пример"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "До десятков"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число заканчивается на 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "347 ≈ 350"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "До сотен"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число заканчивается на два нуля"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "347 ≈ 300"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "До тысяч"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число заканчивается на три нуля"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "7348 ≈ 7000"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Знак "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "≈"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " читается как «приблизительно равно».\n      Например, запись "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "347 ≈ 350"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " означает: «347 приблизительно равно 350».\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Правило округления",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Главное правило округления зависит от цифры, которая стоит сразу справа\n      от нужного разряда. Именно она показывает, нужно ли увеличивать выбранный разряд.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "h3",
+              "attrs": {
+                "class": "ms-rule-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Правило"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "note",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-rule-box"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Если справа от нужного разряда стоит цифра "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "0, 1, 2, 3 или 4"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ",\n        то выбранный разряд "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "не изменяется"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ".\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        Если справа от нужного разряда стоит цифра "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "5, 6, 7, 8 или 9"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ",\n        то выбранный разряд "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "увеличивается на 1"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ".\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        Все цифры справа заменяются нулями.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округление числа 347 до десятков"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "class": "ms-svg",
+                    "viewBox": "0 0 820 250",
+                    "role": "img",
+                    "aria-label": "Округление числа 347 до десятков на числовом луче"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "defs",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d002-1-0-end",
+                            "viewBox": "0 0 10 8",
+                            "refX": "2",
+                            "refY": "4.0",
+                            "markerWidth": "10",
+                            "markerHeight": "8",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L10 4.0 L0 8 Z",
+                                "fill": "#111827",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d002-1-1-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "2",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#2563eb",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "820",
+                        "height": "250",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "90",
+                        "y1": "130",
+                        "x2": "722",
+                        "y2": "130",
+                        "stroke": "#111827",
+                        "stroke-width": "2",
+                        "marker-end": "url(#ms-arrow-r2-d002-1-0-end)",
+                        "stroke-linecap": "butt",
+                        "stroke-linejoin": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "120",
+                        "y1": "102",
+                        "x2": "120",
+                        "y2": "158",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "680",
+                        "y1": "102",
+                        "x2": "680",
+                        "y2": "158",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "102",
+                        "y": "188",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "340"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "662",
+                        "y": "188",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "350"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "176",
+                        "y1": "112",
+                        "x2": "176",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "232",
+                        "y1": "112",
+                        "x2": "232",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "288",
+                        "y1": "112",
+                        "x2": "288",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "344",
+                        "y1": "112",
+                        "x2": "344",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "400",
+                        "y1": "112",
+                        "x2": "400",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "456",
+                        "y1": "112",
+                        "x2": "456",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "512",
+                        "y1": "112",
+                        "x2": "512",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "568",
+                        "y1": "112",
+                        "x2": "568",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "624",
+                        "y1": "112",
+                        "x2": "624",
+                        "y2": "148",
+                        "stroke": "#9ca3af",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "circle",
+                      "attrs": {
+                        "cx": "512",
+                        "cy": "130",
+                        "r": "6.5",
+                        "fill": "#2563eb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "512",
+                        "y": "86",
+                        "text-anchor": "middle",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "347"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M 550 100 C 550 42 680 42 680 79",
+                        "fill": "none",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3",
+                        "marker-end": "url(#ms-arrow-r2-d002-1-1-end)",
+                        "stroke-linecap": "butt",
+                        "stroke-linejoin": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "226",
+                        "text-anchor": "middle",
+                        "font-size": "18",
+                        "font-weight": "700",
+                        "fill": "#374151"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            347 ближе к 350, чем к 340\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Если округляем число 347 до десятков, смотрим на цифру единиц. Это 7.\n      Так как 7 больше 5, число округляется вверх: 347 ≈ 350.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Алгоритм округления натурального числа",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Чтобы не ошибаться, лучше действовать по одному и тому же алгоритму.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "h3",
+              "attrs": {
+                "class": "ms-rule-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Алгоритм"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "note",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-rule-box"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        1. Определи, до какого разряда нужно округлить число.\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        2. Найди цифру в этом разряде.\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        3. Посмотри на цифру справа от этого разряда.\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        4. Если справа 0, 1, 2, 3 или 4 — выбранный разряд оставь без изменений.\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        5. Если справа 5, 6, 7, 8 или 9 — выбранный разряд увеличь на 1.\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        6. Все цифры справа замени нулями.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 1. Округлить 263 до десятков"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округляем до десятков. Цифра десятков в числе 263 — это 6."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Смотрим на цифру справа, то есть на цифру единиц: 3."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Так как 3 меньше 5, цифру десятков не меняем."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Цифру единиц заменяем нулём."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 263 ≈ 260."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 2. Округлить 478 до десятков"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округляем до десятков. Цифра десятков — 7."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Справа стоит цифра 8."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Так как 8 больше 5, увеличиваем цифру десятков на 1:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7 превращается в 8."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Цифру единиц заменяем нулём."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 478 ≈ 480."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 3. Округлить 2481 до сотен"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округляем до сотен. Цифра сотен — 4."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Смотрим на цифру справа, то есть на цифру десятков: 8."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Так как 8 больше 5, увеличиваем цифру сотен на 1:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4 превращается в 5."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Десятки и единицы заменяем нулями."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 2481 ≈ 2500."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 4. Округлить 7348 до тысяч"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округляем до тысяч. Цифра тысяч — 7."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Справа стоит цифра сотен: 3."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Так как 3 меньше 5, цифру тысяч не меняем."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Остальные цифры заменяем нулями."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 7348 ≈ 7000."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 5. Округлить 58 642 до тысяч"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округляем до тысяч. Цифра тысяч — 8."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Справа стоит цифра сотен: 6."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Так как 6 больше 5, увеличиваем цифру тысяч на 1:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8 превращается в 9."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Сотни, десятки и единицы заменяем нулями."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 58 642 ≈ 59 000."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Особый случай: когда справа стоит 5",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Если справа от нужного разряда стоит 5, число округляют вверх.\n      Это правило нужно запомнить отдельно, потому что в задачах часто проверяют именно этот случай.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Если справа от нужного разряда стоит "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", выбранный разряд увеличивается на 1.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Как округляем"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Результат"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "345"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "до десятков"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "350"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "650"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "до сотен"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "15 500"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "до тысяч"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "16 000"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Частая ошибка: округлить 345 до 340, потому что «5 посередине».\n      В школьном правиле округления при цифре 5 округляют вверх: 345 ≈ 350.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Прикидка результата",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Прикидка — это быстрый приблизительный расчёт. Она нужна, чтобы заранее понять,\n      каким примерно должен быть ответ. Прикидка особенно полезна в текстовых задачах,\n      задачах на покупки, больших числах и проверке вычислений.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Прикидка"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — это приближённое вычисление, при котором числа заменяют\n      более удобными числами.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Например, нужно примерно найти сумму 397 + 612. Можно округлить числа:\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "397 ≈ 400"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "612 ≈ 600"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "400 + 600 = 1000"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Значит, 397 + 612 примерно равно 1000."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 6. Прикидка суммы"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Оценить результат: 482 + 319."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округлим числа до сотен:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "482 ≈ 500"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "319 ≈ 300"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "500 + 300 = 800"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: результат примерно равен 800."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пример 7. Прикидка разности"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Оценить результат: 912 − 386."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Округлим числа до сотен:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "912 ≈ 900"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "386 ≈ 400"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "900 − 400 = 500"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: результат примерно равен 500."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "h3",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 8. Прикидка покупки"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Рюкзак стоит 1987 рублей, пенал — 412 рублей, набор тетрадей — 286 рублей.\n        Хватит ли примерно 2700 рублей на всю покупку?\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-answer"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          Сделаем прикидку:\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          1987 ≈ 2000\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          412 ≈ 400\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          286 ≈ 300\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          2000 + 400 + 300 = 2700.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          По прикидке получается около 2700 рублей.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          Проверим точнее:\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          1987 + 412 + 286 = 2685.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ответ: да, 2700 рублей хватит."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Прикидка стоимости покупки"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 820 280",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Прикидка стоимости покупки"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "820",
+                        "height": "280",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "70",
+                        "y": "50",
+                        "width": "190",
+                        "height": "110",
+                        "rx": "20",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "315",
+                        "y": "50",
+                        "width": "190",
+                        "height": "110",
+                        "rx": "20",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "560",
+                        "y": "50",
+                        "width": "190",
+                        "height": "110",
+                        "rx": "20",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "165",
+                        "y": "88",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Рюкзак"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "165",
+                        "y": "122",
+                        "text-anchor": "middle",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1987 ₽"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "165",
+                        "y": "148",
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "700",
+                        "fill": "#6b7280"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "≈ 2000 ₽"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "88",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Пенал"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "122",
+                        "text-anchor": "middle",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "412 ₽"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "148",
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "700",
+                        "fill": "#6b7280"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "≈ 400 ₽"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "655",
+                        "y": "88",
+                        "text-anchor": "middle",
+                        "font-size": "22",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Тетради"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "655",
+                        "y": "122",
+                        "text-anchor": "middle",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "286 ₽"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "655",
+                        "y": "148",
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "700",
+                        "fill": "#6b7280"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "≈ 300 ₽"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "165",
+                        "y1": "178",
+                        "x2": "165",
+                        "y2": "205",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "410",
+                        "y1": "178",
+                        "x2": "410",
+                        "y2": "205",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "655",
+                        "y1": "178",
+                        "x2": "655",
+                        "y2": "205",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M165 205 C250 235, 570 235, 655 205",
+                        "fill": "none",
+                        "stroke": "#2563eb",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "410",
+                        "y": "253",
+                        "text-anchor": "middle",
+                        "font-size": "24",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            2000 + 400 + 300 = 2700 ₽\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-7",
+      "title": "Оценка результата вычислений",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Оценка результата помогает понять, не ошиблись ли мы в вычислениях.\n      Если точный ответ сильно отличается от прикидки, нужно проверить решение.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Прикидка не заменяет точное решение, но помогает проверить,\n      выглядит ли ответ разумно.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "h3",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 9. Проверим ответ с помощью прикидки"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Ученик посчитал: 596 + 408 = 1904. Проверьте, может ли такой ответ быть верным.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-answer"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          Сделаем прикидку:\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          596 ≈ 600\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          408 ≈ 400\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          600 + 400 = 1000.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          Точный ответ должен быть около 1000, а не около 1900.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          Значит, ответ 1904 неверный.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          Проверим точно:\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          596 + 408 = 1004.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ответ: нет, 1904 — неверный ответ."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "h3",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 10. Выберем наиболее разумный ответ"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Не выполняя точного вычисления, выберите наиболее подходящий ответ для выражения\n        398 + 605:\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        А) 403; Б) 1003; В) 1803.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-answer"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          Сделаем прикидку:\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          398 ≈ 400\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          605 ≈ 600\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          400 + 600 = 1000.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          Самый близкий вариант — 1003.\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "br",
+                      "attrs": {},
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ответ: Б) 1003."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-8",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Решите задания самостоятельно, а затем раскройте ответ. Задания идут от простых\n      к более сложным, но без отдельного деления по уровням.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Округлите число 73 до десятков."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          В числе 73 цифра единиц — 3.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Так как 3 меньше 5, число округляем вниз.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 73 ≈ 70."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Округлите число 89 до десятков."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          В числе 89 цифра единиц — 9.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Так как 9 больше 5, увеличиваем число десятков.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 89 ≈ 90."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Округлите число 426 до сотен."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Округляем до сотен. Смотрим на цифру десятков: 2.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Так как 2 меньше 5, сотни не изменяются.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 426 ≈ 400."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Округлите число 681 до сотен."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Округляем до сотен. Смотрим на цифру десятков: 8.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Так как 8 больше 5, увеличиваем сотни на 1.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 681 ≈ 700."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Округлите число 3487 до десятков, сотен и тысяч."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          До десятков: смотрим на единицы, это 7, значит округляем вверх:\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          3487 ≈ 3490.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          До сотен: смотрим на десятки, это 8, значит округляем вверх:\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          3487 ≈ 3500.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          До тысяч: смотрим на сотни, это 4, значит тысячный разряд не меняем:\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          3487 ≈ 3000.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 3490; 3500; 3000."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Сделайте прикидку суммы 492 + 318, округлив числа до сотен."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          492 ≈ 500\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          318 ≈ 300\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          500 + 300 = 800.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: примерно 800."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Сделайте прикидку разности 1207 − 486, округлив числа до сотен."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          1207 ≈ 1200\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          486 ≈ 500\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          1200 − 500 = 700.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: примерно 700."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В магазине купили куртку за 3890 рублей и шапку за 740 рублей.\n        Оцените стоимость покупки, округляя цены до сотен.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          3890 ≈ 3900\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          740 ≈ 700\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          3900 + 700 = 4600.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: примерно 4600 рублей."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 9."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Ученик округлил число 657 до сотен и получил 600.\n        Верно ли он округлил? Объясните.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Округляем 657 до сотен. Смотрим на цифру десятков: 5.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Если справа стоит 5, округляем вверх.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Значит, 657 ≈ 700.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: ученик ошибся, правильно 700."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 10."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Не выполняя точного вычисления, выберите наиболее разумный ответ:\n        1987 + 3015.\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        А) 2002; Б) 5002; В) 8002.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Сделаем прикидку:\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          1987 ≈ 2000\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          3015 ≈ 3000\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          2000 + 3000 = 5000.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Наиболее разумный ответ — 5002.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: Б) 5002."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 11."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В школьной библиотеке 2496 учебников, 1184 сборника задач\n        и 806 художественных книг. Оцените, сколько всего книг, округляя каждое число до сотен.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          2496 ≈ 2500\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          1184 ≈ 1200\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          806 ≈ 800\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          2500 + 1200 + 800 = 4500.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: примерно 4500 книг."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "answer",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 12."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Придумайте два числа, которые при округлении до сотен дают 800:\n        одно меньше 800, другое больше 800.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Число меньше 800: 761. Оно округляется до 800, потому что цифра десятков 6.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Число больше 800: 824. Оно округляется до 800, потому что цифра десятков 2.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Один из возможных ответов: 761 и 824."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 13."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Поездка стоит 287 рублей в одну сторону.\n        Турист планирует 9 таких поездок. Оцените общую стоимость поездок,\n        округлив 287 до сотен. Какой вариант ближе всего?\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        А) 1800 рублей; Б) 2700 рублей; В) 3600 рублей.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Округлим 287 до сотен:\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          287 ≈ 300.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          Тогда 9 поездок будут стоить примерно:\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          300 · 9 = 2700.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: Б) 2700 рублей."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

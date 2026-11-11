@@ -389,7 +389,7 @@
       "id": "MS-T003",
       "order": 4,
       "title": "Полностью перенести 5 класс",
-      "status": "PLANNED",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T002A"
       ],
@@ -399,7 +399,12 @@
       "expected_topics": 35,
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
-      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
+      "implementation": "SOURCE_ACTIVATION_COMPLETE",
+      "checks": "NOT_RUN_BY_USER_REQUEST",
+      "review": "COMPLETED_BY_PEER",
+      "human_acceptance": "ACCEPTED",
+      "issue": "https://github.com/Tramsey00/MathStart-Python/issues/60"
     },
     {
       "id": "MS-T004",
@@ -421,7 +426,7 @@
       "id": "MS-T005",
       "order": 6,
       "title": "Полностью перенести 7 класс",
-      "status": "READY_FOR_REVIEW",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T002A"
       ],
@@ -432,13 +437,13 @@
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
       "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
-      "implementation": "LOCAL_SOURCE_COMPLETE: 74 migrated + 1 reused pilot (75/75); no source blockers; independent review and human acceptance pending",
+      "implementation": "SOURCE_ACTIVATION_COMPLETE",
       "issue": 61,
       "migration_map": "docs/tasks/ms-t005-migration-map.json",
       "execution_record": "docs/audits/ms-t005-final-two-local.md",
       "checks": "NOT_RUN_BY_USER_REQUEST",
-      "review": "INDEPENDENT_REVIEW_PENDING",
-      "human_acceptance": "PENDING",
+      "review": "COMPLETED_BY_PEER_REPORTED_BY_USER",
+      "human_acceptance": "ACCEPTED",
       "merge": "NOT_PERFORMED",
       "followups": "docs/tasks/ms-t005-remaining.md",
       "route_decision": {
