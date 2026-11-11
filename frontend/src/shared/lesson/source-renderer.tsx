@@ -126,7 +126,7 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
     const steps = context.preserveMarkup ? undefined : numberedRuleSteps(node);
     if (steps) return <div key={key} id={node.attrs.id}><LessonNote>{steps.map(step =>
       <div className="ms-proof-step" key={step.number}>
-        <span className="ms-step-number">{step.number}</span><span>{step.text}</span>
+        <span className="ms-step-number ms-step-number--literal">{`${step.number}.`}</span><span>{step.text}</span>
       </div>)}</LessonNote></div>;
     const first = node.children.findIndex(child => child.kind === 'text' && child.text.trim());
     const formula = node.children[first];
