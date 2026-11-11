@@ -160,6 +160,8 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
     props[property] = ['open', 'hidden', 'disabled'].includes(name) ? true : value;
   }
   const tag = classes.includes('ms-quadratic-steps') ? 'ol' : classes.includes('ms-quadratic-step') ? 'li' : node.tag;
+  // React treats title as text-only, including SVG titles; a component child becomes [object Object].
+  if (tag === 'title') return createElement(tag, props, childNodes.map(nodeText).join(''));
   if (tag === 'math') {
     props.className = [...new Set([...classes.filter(Boolean), 'lesson-math'])].join(' ');
     props.xmlns = 'http://www.w3.org/1998/Math/MathML';

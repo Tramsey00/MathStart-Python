@@ -1,0 +1,2847 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "ponyatie-ejlerova-grafa-orientirovannye-grafy",
+  "title": "Понятие эйлерова графа. Ориентированные графы",
+  "subtitle": "Узнаем, когда граф можно обвести одним росчерком без повторения рёбер, как степени вершин помогают заранее проверить возможность обхода и чем ориентированный граф отличается от обычного.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "teoriya-grafov",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Обход каждого ребра ровно один раз",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Во многих задачах требуется пройти по всем дорогам, линиям или участкам сети, не повторяя ни один из них. На языке графов нужно построить особую цепь, содержащую все рёбра."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Эйлеров путь"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " проходит по каждому ребру графа ровно один раз. Если он заканчивается в той же вершине, где начался, такой путь называют "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "эйлеровым циклом"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Эйлеров граф"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — связный граф, в котором существует эйлеров цикл."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Эйлеров цикл проходит по каждому ребру ровно один раз"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 900 500",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Два треугольника с общей вершиной C и последовательность обхода A B C D E C A"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "900",
+                        "height": "500",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "35",
+                        "y": "45",
+                        "width": "830",
+                        "height": "390",
+                        "rx": "24",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#2563eb",
+                        "stroke-width": "8",
+                        "stroke-linecap": "round"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "110",
+                            "y1": "280",
+                            "x2": "275",
+                            "y2": "120"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "275",
+                            "y1": "120",
+                            "x2": "450",
+                            "y2": "280"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "450",
+                            "y1": "280",
+                            "x2": "110",
+                            "y2": "280"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "450",
+                            "y1": "280",
+                            "x2": "625",
+                            "y2": "120"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "625",
+                            "y1": "120",
+                            "x2": "790",
+                            "y2": "280"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "790",
+                            "y1": "280",
+                            "x2": "450",
+                            "y2": "280"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#ffffff",
+                        "stroke-width": "4"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "110",
+                            "cy": "280",
+                            "r": "30",
+                            "fill": "#2563eb"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "275",
+                            "cy": "120",
+                            "r": "30",
+                            "fill": "#7c3aed"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "450",
+                            "cy": "280",
+                            "r": "34",
+                            "fill": "#15803d"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "625",
+                            "cy": "120",
+                            "r": "30",
+                            "fill": "#f97316"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "790",
+                            "cy": "280",
+                            "r": "30",
+                            "fill": "#0f766e"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#ffffff",
+                        "font-size": "19",
+                        "font-weight": "800",
+                        "text-anchor": "middle",
+                        "dominant-baseline": "middle"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "110",
+                            "y": "281"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "275",
+                            "y": "121"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "450",
+                            "y": "281"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "C"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "625",
+                            "y": "121"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "D"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "790",
+                            "y": "281"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "E"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "font-size": "14",
+                        "font-weight": "800",
+                        "text-anchor": "middle"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "circle",
+                              "attrs": {
+                                "cx": "190",
+                                "cy": "188",
+                                "r": "16",
+                                "fill": "#ffffff",
+                                "stroke": "#bfdbfe",
+                                "stroke-width": "2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "190",
+                                "y": "193",
+                                "fill": "#1d4ed8"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "circle",
+                              "attrs": {
+                                "cx": "360",
+                                "cy": "188",
+                                "r": "16",
+                                "fill": "#ffffff",
+                                "stroke": "#bfdbfe",
+                                "stroke-width": "2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "360",
+                                "y": "193",
+                                "fill": "#1d4ed8"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "circle",
+                              "attrs": {
+                                "cx": "535",
+                                "cy": "188",
+                                "r": "16",
+                                "fill": "#ffffff",
+                                "stroke": "#bfdbfe",
+                                "stroke-width": "2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "535",
+                                "y": "193",
+                                "fill": "#1d4ed8"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "circle",
+                              "attrs": {
+                                "cx": "710",
+                                "cy": "188",
+                                "r": "16",
+                                "fill": "#ffffff",
+                                "stroke": "#bfdbfe",
+                                "stroke-width": "2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "710",
+                                "y": "193",
+                                "fill": "#1d4ed8"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "circle",
+                              "attrs": {
+                                "cx": "620",
+                                "cy": "310",
+                                "r": "16",
+                                "fill": "#ffffff",
+                                "stroke": "#bfdbfe",
+                                "stroke-width": "2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "620",
+                                "y": "315",
+                                "fill": "#1d4ed8"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "5"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "g",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "circle",
+                              "attrs": {
+                                "cx": "280",
+                                "cy": "310",
+                                "r": "16",
+                                "fill": "#ffffff",
+                                "stroke": "#bfdbfe",
+                                "stroke-width": "2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "text",
+                              "attrs": {
+                                "x": "280",
+                                "y": "315",
+                                "fill": "#1d4ed8"
+                              },
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "225",
+                        "y": "370",
+                        "width": "450",
+                        "height": "42",
+                        "rx": "15",
+                        "fill": "#eff6ff",
+                        "stroke": "#bfdbfe"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "450",
+                        "y": "397",
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "800",
+                        "fill": "#1d4ed8"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "A–B–C–D–E–C–A"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "450",
+                        "y": "462",
+                        "text-anchor": "middle",
+                        "font-size": "15",
+                        "font-weight": "700",
+                        "fill": "#4b5563"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Степени вершин: 2, 2, 4, 2, 2 — все чётные"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-2",
+      "title": "Как степени вершин предсказывают обход",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В промежуточную вершину мы входим по одному ребру и выходим по другому. Использованные рёбра образуют пары, поэтому степень такой вершины должна быть чётной."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-card-grid ms-balanced-four"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Все степени чётные"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "В связном графе существует эйлеров цикл. Начать можно в любой вершине."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ровно две нечётные"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Существует открытый эйлеров путь: он начинается в одной нечётной вершине и заканчивается в другой."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Нечётных больше двух"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Пройти все рёбра ровно один раз невозможно."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Проверяем связность"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Все рёбра должны принадлежать одной связной части графа."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Вершины в эйлеровом обходе могут повторяться. Запрещено повторять именно рёбра."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Ориентированные графы",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Ориентированный граф"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — граф, у каждого ребра которого указано направление. Направленное ребро часто называют дугой и изображают стрелкой."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Такие графы используют для односторонних дорог, переходов между страницами, последовательности действий и перевозок, где направление имеет смысл."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "В ориентированном графе направление ребра обязательно"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "class": "ms-svg",
+                    "viewBox": "0 0 900 590",
+                    "role": "img",
+                    "aria-label": "Ориентированный граф из пяти вершин с направленными стрелками"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "defs",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-0-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#2563eb",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-1-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#2563eb",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-2-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#2563eb",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-3-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#2563eb",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-4-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#2563eb",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-5-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#7c3aed",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "marker",
+                          "attrs": {
+                            "id": "ms-arrow-r2-d102-2-6-end",
+                            "viewBox": "0 0 14 12",
+                            "refX": "14",
+                            "refY": "6.0",
+                            "markerWidth": "14",
+                            "markerHeight": "12",
+                            "markerUnits": "userSpaceOnUse",
+                            "orient": "auto-start-reverse"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "path",
+                              "attrs": {
+                                "d": "M0 0 L14 6.0 L0 12 Z",
+                                "fill": "#7c3aed",
+                                "stroke": "none"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "900",
+                        "height": "590",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "55",
+                        "y": "45",
+                        "width": "790",
+                        "height": "480",
+                        "rx": "24",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "none",
+                        "stroke": "#2563eb",
+                        "stroke-width": "4.5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "475",
+                            "y1": "122",
+                            "x2": "653",
+                            "y2": "221",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-0-end)",
+                            "stroke": "#2563eb",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "687",
+                            "y1": "267",
+                            "x2": "615.5993",
+                            "y2": "396.4732",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-1-end)",
+                            "stroke": "#2563eb",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "563",
+                            "y1": "428",
+                            "x2": "337",
+                            "y2": "428",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-2-end)",
+                            "stroke": "#2563eb",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "287",
+                            "y1": "402",
+                            "x2": "217.533",
+                            "y2": "272.5821",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-3-end)",
+                            "stroke": "#2563eb",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "246",
+                            "y1": "221",
+                            "x2": "424",
+                            "y2": "122",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-4-end)",
+                            "stroke": "#2563eb",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "none",
+                        "stroke": "#7c3aed",
+                        "stroke-width": "4.5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "460",
+                            "y1": "132",
+                            "x2": "572",
+                            "y2": "393",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-5-end)",
+                            "stroke": "#7c3aed",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "328",
+                            "y1": "392",
+                            "x2": "440",
+                            "y2": "132",
+                            "marker-end": "url(#ms-arrow-r2-d102-2-6-end)",
+                            "stroke": "#7c3aed",
+                            "stroke-width": "3",
+                            "stroke-linecap": "butt",
+                            "stroke-linejoin": "round"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#ffffff",
+                        "stroke-width": "4"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "450",
+                            "cy": "95",
+                            "r": "30",
+                            "fill": "#2563eb"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "700",
+                            "cy": "240",
+                            "r": "30",
+                            "fill": "#0f766e"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "600",
+                            "cy": "430",
+                            "r": "30",
+                            "fill": "#f97316"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "300",
+                            "cy": "430",
+                            "r": "30",
+                            "fill": "#15803d"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "200",
+                            "cy": "240",
+                            "r": "30",
+                            "fill": "#7c3aed"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#ffffff",
+                        "font-size": "19",
+                        "font-weight": "800",
+                        "text-anchor": "middle",
+                        "dominant-baseline": "middle"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "450",
+                            "y": "96"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "700",
+                            "y": "241"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "600",
+                            "y": "431"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "C"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "300",
+                            "y": "431"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "D"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "200",
+                            "y": "241"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "E"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "190",
+                        "y": "535",
+                        "width": "520",
+                        "height": "36",
+                        "rx": "14",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "450",
+                        "y": "559",
+                        "text-anchor": "middle",
+                        "font-size": "15",
+                        "font-weight": "700",
+                        "fill": "#374151"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Например, по стрелке A → B пройти можно, а B → A — нельзя"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-compare-strip"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-panel"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Неориентированное ребро AB"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Связь действует в обе стороны: из A в B и из B в A."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-panel"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Дуга A → B"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Переход разрешён из A в B. Обратное направление возможно только при наличии отдельной стрелки B → A."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Входящие и исходящие дуги",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Для вершины ориентированного графа отдельно считают стрелки, которые входят в неё, и стрелки, которые выходят из неё."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-definition-grid ms-card-grid ms-columns-3"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-definition-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Входящая степень"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Количество дуг, направленных к данной вершине."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-definition-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Исходящая степень"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Количество дуг, направленных из данной вершины."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-definition-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Направленный путь"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Последовательность дуг, по которым можно двигаться только по стрелкам."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Что называют эйлеровым циклом?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Это замкнутый обход, который проходит по "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "каждому ребру графа ровно один раз"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " и возвращается в начальную вершину."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Связный граф имеет степени вершин 2, 4, 2, 2. Является ли он эйлеровым?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Да."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Все степени чётные, поэтому в связном графе существует эйлеров цикл."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В связном графе ровно две нечётные вершины A и D. Где должен начинаться и заканчиваться эйлеров путь?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Он должен начаться в одной нечётной вершине и закончиться в другой: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "из A в D или из D в A"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Можно ли пройти каждое ребро ровно один раз, если в связном графе четыре нечётные вершины?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Для открытого эйлерова пути допустимы ровно две нечётные вершины, а для цикла — ни одной."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Для графа на рисунке запишите эйлеров цикл, начинающийся в A."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Один из вариантов: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "A–B–C–D–E–C–A"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В ориентированном графе есть стрелки A → B и B → C. Можно ли пройти из C в A по этим двум дугам?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Направления стрелок ведут из A в B и из B в C, а обратный проход не разрешён."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " У вершины P три входящие и две исходящие дуги. Назовите её входящую и исходящую степени."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Входящая степень равна "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "3"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ", исходящая — "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Почему при проверке эйлерова обхода нельзя считать только вершины?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Условие относится к "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "рёбрам"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ": каждое ребро должно быть пройдено ровно один раз. Вершины при этом могут встречаться несколько раз."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

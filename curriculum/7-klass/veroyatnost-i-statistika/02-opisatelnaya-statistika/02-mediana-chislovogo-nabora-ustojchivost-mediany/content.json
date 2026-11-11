@@ -1,0 +1,1937 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "mediana-chislovogo-nabora-ustojchivost-mediany",
+  "title": "Медиана числового набора. Устойчивость медианы",
+  "subtitle": "Научимся находить середину упорядоченного набора, различать случаи чётного и нечётного количества данных и сравнивать медиану со средним.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "opisatelnaya-statistika",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Зачем нужна медиана",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Среднее арифметическое учитывает каждое число, поэтому сильно реагирует на необычно большие или маленькие значения. Чтобы описать «середину» набора другим способом, используют "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "медиану"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Медиана"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — серединное значение упорядоченного числового набора. Перед её нахождением числа обязательно располагают по неубыванию: от меньшего к большему."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Главное правило:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " сначала упорядочить данные, затем определить одно или два центральных места. Искать середину в неупорядоченной записи нельзя."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Нечётное количество чисел",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Если элементов нечётное количество, после упорядочивания остаётся одно центральное число. Слева и справа от него находится одинаковое количество элементов."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-number-row"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip ms-center"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "11"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "19"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В наборе пять чисел. Третье число занимает центральное место, поэтому медиана равна "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-formula-panel"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "при 5 числах медиана находится на месте (5 + 1) : 2 = 3"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Чётное количество чисел",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Если элементов чётное количество, одного центрального места нет. В центре находятся два числа, а медиана равна их среднему арифметическому."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-number-row"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip ms-center"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip ms-center"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "10"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "13"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "20"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-formula-panel"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Me = (7 + 10) : 2 = 8,5"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При чётном количестве элементов медиана может отсутствовать среди исходных значений. Число 8,5 не записано в наборе, но правильно делит его на две равные по количеству части."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Алгоритм нахождения медианы",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-process"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-process-step"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-process-number"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "1"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Упорядочьте числа"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Расположите их от наименьшего к наибольшему, не удаляя повторов."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-process-step"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-process-number"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "2"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Посчитайте элементы"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Определите, чётное или нечётное количество чисел в наборе."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-process-step"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-process-number"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "3"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Выберите центр"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "При нечётном количестве возьмите одно центральное число; при чётном — два центральных."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-process-step"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-process-number"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "4"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Вычислите медиану"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "span",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Для двух центральных чисел найдите их среднее арифметическое."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Устойчивость медианы",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Выброс"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — значение, которое резко отличается от большинства остальных. Выброс заметно влияет на среднее арифметическое, но часто почти не меняет медиану."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-compare-grid ms-card-grid ms-columns-2"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Обычный набор"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "35, 38, 40, 42, 45"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее: 40"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Медиана: 40"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "После появления выброса"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "35, 38, 40, 42, 200"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее: 71"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Медиана: 40"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Среднее изменилось на 31, а медиана не изменилась. Такое свойство называют "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "устойчивостью медианы"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Поэтому медиану часто используют для цен, доходов, времени ожидания и других данных, где встречаются редкие экстремальные значения."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Среднее и медиана описывают набор по-разному",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Характеристика"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Как находится"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Что учитывает"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Реакция на выброс"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Среднее арифметическое"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Сумма делится на количество"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Все значения"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Может сильно измениться"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Медиана"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Берётся центр упорядоченного ряда"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Положение значений"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Обычно изменяется слабее"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Нельзя говорить, что одна характеристика всегда лучше другой. Выбор зависит от задачи: среднее удобно для общей суммы, медиана — для устойчивого описания типичного значения."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-7",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1. Найдите медиану набора 7, 2, 9, 4, 5."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Упорядочим: 2, 4, 5, 7, 9."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Центральное число — "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "5"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2. Найдите медиану набора 12, 3, 8, 10."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Упорядочим: 3, 8, 10, 12."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Два центральных числа — 8 и 10. Их среднее: (8 + 10) : 2 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "9"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3. Найдите медиану набора 4, 4, 4, 9, 12."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Набор уже упорядочен. Центральное, третье число равно "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "4"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4. В наборе 10, 11, 12, 13, 14 число 14 заменили числом 100. Как изменилась медиана?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "После замены получаем 10, 11, 12, 13, 100."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Центральное число осталось равным "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "12"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ", поэтому медиана не изменилась."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5. Упорядоченный набор имеет вид 2, 5, x, 11, 14. Его медиана равна 8. Найдите x."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "В наборе пять чисел, поэтому медиана — третье число."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Следовательно, "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = 8"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6. Найдите медиану температур 18, 18, 19, 20 и 35 °C."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Значения уже расположены по возрастанию. Центральное число — "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "19 °C"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7. Какую характеристику разумнее использовать для описания типичной цены квартир, если в наборе есть одна очень дорогая квартира?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Разумнее использовать "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "медиану"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ", потому что она устойчивее к единичному очень большому значению."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8. Сравните наборы A: 5, 6, 7 и B: 5, 6, 70. Найдите их медианы и средние."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Медиана обоих наборов равна "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "6"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее A: (5 + 6 + 7) : 3 = 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее B: (5 + 6 + 70) : 3 = 81 : 3 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "27"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Выброс 70 сильно изменил среднее, но не медиану."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

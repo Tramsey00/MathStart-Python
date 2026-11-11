@@ -1,0 +1,2253 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "prakticheskaya-rabota-sluchajnaya-izmenchivost",
+  "title": "Практическая работа «Случайная изменчивость»",
+  "subtitle": "Проведём небольшое статистическое исследование: обработаем 24 наблюдения, составим интервальную таблицу, построим гистограмму и сформулируем вывод без преувеличений.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "sluchajnaya-izmenchivost",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Исследовательская задача",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Ученик в течение 24 учебных дней записывал время пути от дома до школы. Нужно определить типичную продолжительность поездки, оценить изменчивость и представить данные в компактной форме."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-lab-header"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-lab-tag"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Объект"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "24 поездки по одному маршруту"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-lab-tag"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Признак"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "продолжительность пути"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-lab-tag"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Единица"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "минута"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-lab-tag"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Цель"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "описать центр и разброс"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Чтобы сравнение было корректным, наблюдения должны относиться к похожим условиям: одному маршруту и обычным учебным дням."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Шаг 1. Исходные данные",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-data-strip"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "18"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "20"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "22"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "19"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "21"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "20"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "23"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "25"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "19"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "22"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "21"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "18"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "26"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "20"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "23"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "22"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "19"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "25"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "21"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "20"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-data-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "23"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сначала проверяем количество значений, единицы измерения и диапазон. Здесь N = 24, минимум равен 18 минутам, максимум — 26 минутам."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Шаг 2. Числовые характеристики",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-three-grid ms-card-grid ms-columns-3"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "519 : 24 = 21,625 мин. При разумном округлении — около 21,6 мин."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Медиана"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "После упорядочивания два средних значения равны 21 и 22, поэтому медиана — 21,5 мин."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "26 − 18 = 8 мин. Именно на столько отличаются крайние наблюдения."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-insight"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Среднее 21,625 и медиана 21,5 близки. Это позволяет считать 21–22 минуты разумной оценкой типичного времени пути для данной серии наблюдений."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Шаг 3. Группировка и частоты",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Выберем три соседних интервала одинаковой длины — 3 минуты."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Интервал времени"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "[18; 21)"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "[21; 24)"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "[24; 27)"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Всего"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Абсолютная частота"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "24"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Относительная частота"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,375"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,375"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,25"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "В процентах"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "37,5%"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "37,5%"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "25%"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "100%"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-check-row"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-check-pill"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "9 + 9 + 6 = 24"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-check-pill"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "0,375 + 0,375 + 0,25 = 1"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-check-pill"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "37,5% + 37,5% + 25% = 100%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Шаг 4. Гистограмма",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Столбцы соприкасаются, потому что интервалы образуют непрерывную числовую шкалу. Их высоты равны числу дней в каждой группе."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Распределение времени пути за 24 дня"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 760 390",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Гистограмма времени пути до школы"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "0",
+                        "y": "0",
+                        "width": "760",
+                        "height": "390",
+                        "rx": "24",
+                        "fill": "#ffffff"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#e5e7eb",
+                        "stroke-width": "1"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "300",
+                            "x2": "670",
+                            "y2": "300"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "250",
+                            "x2": "670",
+                            "y2": "250"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "200",
+                            "x2": "670",
+                            "y2": "200"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "150",
+                            "x2": "670",
+                            "y2": "150"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "100",
+                            "x2": "670",
+                            "y2": "100"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "50",
+                            "x2": "670",
+                            "y2": "50"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#111827",
+                        "stroke-width": "2"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "320",
+                            "x2": "670",
+                            "y2": "320"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "100",
+                            "y1": "320",
+                            "x2": "100",
+                            "y2": "40"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#4b5563",
+                        "font-size": "14",
+                        "font-family": "Arial, sans-serif"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "80",
+                            "y": "325",
+                            "text-anchor": "end"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "80",
+                            "y": "275",
+                            "text-anchor": "end"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "80",
+                            "y": "225",
+                            "text-anchor": "end"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "80",
+                            "y": "175",
+                            "text-anchor": "end"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "80",
+                            "y": "125",
+                            "text-anchor": "end"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "8"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "80",
+                            "y": "75",
+                            "text-anchor": "end"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "10"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "195",
+                            "y": "350",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "[18; 21)"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "385",
+                            "y": "350",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "[21; 24)"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "575",
+                            "y": "350",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "[24; 27)"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "385",
+                            "y": "380",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Время, мин"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "25",
+                            "y": "185",
+                            "text-anchor": "middle",
+                            "transform": "rotate(-90 25 185)"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число дней"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#7c3aed"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "100",
+                            "y": "95",
+                            "width": "190",
+                            "height": "225",
+                            "rx": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "290",
+                            "y": "95",
+                            "width": "190",
+                            "height": "225",
+                            "rx": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "480",
+                            "y": "170",
+                            "width": "190",
+                            "height": "150",
+                            "rx": "4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#ffffff",
+                        "font-size": "18",
+                        "font-weight": "700",
+                        "font-family": "Arial, sans-serif"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "195",
+                            "y": "125",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "385",
+                            "y": "125",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "575",
+                            "y": "200",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Чтение результата"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "18 дней из 24, то есть 75%, поездка занимала меньше 24 минут. В 6 днях время находилось в интервале от 24 до 26 минут включительно."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1. Сколько наблюдений содержит исходный набор?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "24 наблюдения."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2. Найдите минимальное и максимальное время пути."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Минимум — 18 минут, максимум — 26 минут."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3. Чему равен размах?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "26 − 18 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "8 минут"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4. Сколько поездок попало в интервал [21; 24)?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "9 поездок."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " В интервал входят 21, 22 и 23 минуты."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5. Какова относительная частота интервала [24; 27)?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "6 : 24 = 0,25 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "25%"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6. Сколько дней путь занимал меньше 24 минут?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "9 + 9 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "18 дней"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7. Можно ли по этой выборке утверждать, что дорога всегда занимает не более 26 минут?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " В данной серии максимум равен 26 минутам, но в будущем может появиться большее значение."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8. Сформулируйте краткий корректный вывод по исследованию."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Например: «В исследованной серии типичное время пути составляло около 21–22 минут; 75% поездок заняли меньше 24 минут, а общий размах равен 8 минутам»."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

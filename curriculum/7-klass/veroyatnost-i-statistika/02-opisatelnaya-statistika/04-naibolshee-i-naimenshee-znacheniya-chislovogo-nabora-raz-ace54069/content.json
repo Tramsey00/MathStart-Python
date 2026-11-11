@@ -1,0 +1,1868 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "naibolshee-i-naimenshee-znacheniya-chislovogo-nabora-razmah",
+  "title": "Наибольшее и наименьшее значения числового набора. Размах",
+  "subtitle": "Научимся находить крайние значения, вычислять размах, сравнивать разброс разных наборов и проверять необычные результаты.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "opisatelnaya-statistika",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Крайние значения числового набора",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Наименьшее значение"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — самое маленькое число набора, а "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "наибольшее значение"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — самое большое. Их часто обозначают как "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "min"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " и "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "max"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-number-row"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip ms-center"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "12"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "15"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "15"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "17"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-number-chip ms-center"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "21"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-stat-grid ms-card-grid ms-columns-4 ms-balanced-four"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-stat-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "12"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "минимум"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-stat-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "21"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "максимум"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-stat-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "9"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "размах"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-stat-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "единицы"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "те же, что у данных"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Размах числового набора",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Размах"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " показывает расстояние между крайними значениями. Он является простой мерой разброса данных."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-formula-panel"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "размах = наибольшее значение − наименьшее значение"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-example"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-example-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Пример"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "В наборе 12, 15, 15, 17, 21 минимум равен 12, максимум равен 21. Размах: 21 − 12 = "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "9"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Размах не может быть отрицательным. Если все значения одинаковы, максимум совпадает с минимумом и размах равен нулю."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Что сообщает размах",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Среднее и медиана описывают центр набора, а размах показывает, насколько далеко друг от друга расположены крайние значения. Наборы могут иметь одинаковое среднее, но совершенно разный разброс."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-compare-grid ms-card-grid ms-columns-2"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Набор A"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "9, 10, 10, 10, 11"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее: 10"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах: 11 − 9 = 2"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compare-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Набор B"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "2, 10, 10, 10, 18"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Среднее: 10"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах: 18 − 2 = 16"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Набор A сосредоточен около 10, а в наборе B крайние значения сильно удалены от центра. Одного среднего недостаточно, чтобы увидеть это различие."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Устойчив ли размах",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Размах зависит только от двух чисел — минимального и максимального. Поэтому единичная ошибка или выброс на краю набора может резко изменить размах, даже если все остальные значения остались прежними."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Набор"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Минимум"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Максимум"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Размах"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "21, 23, 24, 25, 27"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "21"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "27"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "21, 23, 24, 25, 72"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "21"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "72"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "51"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Возможно, число 72 — реальный выброс, а возможно, опечатка вместо 27. Перед выводами необычное значение нужно проверить."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Обратные задачи с размахом",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-card-grid ms-balanced-four"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Найти максимум"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "max = min + размах. Например, при min = 12 и размахе 9 максимум равен 21."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Найти минимум"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "min = max − размах. Например, при max = 35 и размахе 18 минимум равен 17."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Проверить ответ"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Максимум не меньше минимума, а размах всегда неотрицателен."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Подписать единицу"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах температур измеряется в градусах, времени — в минутах, длины — в сантиметрах."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1. Для набора 4, 9, 7, 12, 5 найдите минимум, максимум и размах."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Минимум — 4, максимум — 12."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах: 12 − 4 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "8"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2. Температуры равны −3, −1, 2, 0 и 4 °C. Найдите размах."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Минимум равен −3 °C, максимум равен 4 °C."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах: 4 − (−3) = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "7 °C"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3. Чему равен размах набора 6, 6, 6, 6?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Минимум и максимум равны 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах: 6 − 6 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "0"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4. Наименьшее значение равно 12, а размах равен 9. Найдите наибольшее значение."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Максимум: 12 + 9 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "21"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5. Наибольшее значение равно 35, а размах равен 18. Найдите наименьшее значение."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Минимум: 35 − 18 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "17"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6. Сравните разброс наборов A: 5, 6, 7, 8 и B: 2, 6, 7, 10."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах A: 8 − 5 = 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах B: 10 − 2 = 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Больший разброс имеет "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "набор B"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7. К каждому числу набора прибавили 100. Изменится ли размах?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Нет. И минимум, и максимум увеличатся на 100, поэтому их разность останется прежней."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8. В наборе 21, 23, 24, 25, 27 последнее число ошибочно записали как 72. Как изменилась величина размаха?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Правильный размах: 27 − 21 = 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ошибочный размах: 72 − 21 = 51."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размах увеличился на 51 − 6 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "45"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

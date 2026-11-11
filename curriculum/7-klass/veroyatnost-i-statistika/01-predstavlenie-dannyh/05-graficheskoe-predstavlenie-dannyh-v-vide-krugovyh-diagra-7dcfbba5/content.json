@@ -1,0 +1,1340 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "graficheskoe-predstavlenie-dannyh-v-vide-krugovyh-diagramm",
+  "title": "Графическое представление данных в виде круговых диаграмм",
+  "subtitle": "Разберём, как круг делится на секторы, как переводить количества в проценты и градусы и как проверять правильность диаграммы.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "predstavlenie-dannyh",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Что показывает круговая диаграмма",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Круг изображает целое, а сектор — его часть. Поэтому все доли диаграммы вместе составляют 100%, а все центральные углы — 360°."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-compact-grid ms-card-grid ms-columns-3"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compact-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Весь круг"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "100% или 360°."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compact-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Размер сектора"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Пропорционален доле категории."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-compact-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Легенда"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Связывает цвет сектора с названием категории."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Пример опроса",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "40 учеников выбрали любимое направление внеурочных занятий."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Распределение ответов 40 учеников"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-pie-layout"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-pie",
+                    "role": "img",
+                    "aria-label": "Круговая диаграмма: спорт 35 процентов, музыка 25 процентов, рисование 20 процентов, программирование 15 процентов, другое 5 процентов"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-legend-list"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-legend-item"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-legend-swatch ms-swatch-1"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Спорт"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "14 · 35%"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-legend-item"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-legend-swatch ms-swatch-2"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Музыка"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "10 · 25%"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-legend-item"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-legend-swatch ms-swatch-3"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Рисование"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "8 · 20%"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-legend-item"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-legend-swatch ms-swatch-4"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Программирование"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6 · 15%"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-legend-item"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-legend-swatch ms-swatch-5"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Другое"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2 · 5%"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Как перейти от чисел к сектору",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Доля в процентах:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " количество в категории : общее количество · 100%."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Угол сектора:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " количество в категории : общее количество · 360°."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Спорт"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "14 : 40 · 100% = 35%;   14 : 40 · 360° = 126°."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Музыка"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "10 : 40 · 360° = 90°. Четверть круга соответствует 25%."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Перед построением обязательно проверьте: сумма процентов равна 100%, сумма углов равна 360°."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1. Чему соответствует весь круг?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Весь круг соответствует "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "100%"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " и "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "360°"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2. Какая категория занимает самый большой сектор?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Самая большая доля у спорта: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "35%"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3. Найдите угол сектора «Другое»."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "5% от 360°: 0,05 · 360° = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "18°"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4. Найдите угол сектора «Музыка»."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "25% круга — это четверть: 360° : 4 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "90°"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5. Сектор имеет угол 72°. Сколько учеников из 40 он представляет?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "72° : 360° = 0,2 = 20%. 20% от 40: 0,2 · 40 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "8 учеников"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6. Может ли правильная круговая диаграмма иметь сумму долей 95%?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " Все сектора должны составлять весь круг, то есть 100%."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7. В опросе участвовали 50 человек. Шахматы выбрали 20%. Сколько это человек?"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "0,2 · 50 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "10 человек"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8. Три сектора занимают 40%, 25% и 20%. Найдите долю и угол четвёртого сектора."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "100% − 40% − 25% − 20% = 15%. Угол: 0,15 · 360° = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "54°"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

@@ -73,3 +73,149 @@ production и provider/security решения требуют отдельног
 ## GitHub и ветка
 
 Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.
+
+## Исходный этап выполнения — 08.11.2026
+
+Issue [#61](https://github.com/Tramsey00/MathStart-Python/issues/61), ветка `ms-t005-grade-7`.
+Статус BLOCKED_DEPENDENCY: 24 новые темы переведены в react-v1, 1 принятый пилот
+переиспользован, 4 документа подготовлены без активации, 46 остаются legacy.
+[Пофайловая карта всех 75 тем](../../../docs/tasks/ms-t005-migration-map.json)
+содержит точные первые ошибки, сохранённые/исключённые секции и hashes исходников.
+[Execution record](../../../docs/audits/ms-t005-grade-7.md) содержит проверки и ограничения.
+Пользователь в текущем поручении явно разрешил профильные tests, typecheck,
+Playwright и проверки source/URL/preservation; это исключение только для этого
+выполнения, а не изменение общей testing policy. Владимир пока не передал общий
+commit; отдельная интеграция будет поручена позднее. Общие converter/sources.py,
+renderer, компоненты и CSS не изменены. Независимое review и приёмка ожидаются.
+
+## Предыдущий этап — renderer/CSS
+
+По отдельному поручению исправлены SVG title и только необходимые runtime CSS
+диаграмм. Четыре подготовленные темы активированы; итого 28 новых React-документов
+и 1 переиспользованный пилот. Остальные 46 тем остаются legacy и не пересматривались
+после shared fixes. [Execution record](../../../docs/audits/ms-t005-renderer-css.md)
+фиксирует новый candidate и результаты; прежний отчёт остаётся историческим.
+Ручная приёмка и независимое review PENDING, публикация/merge не выполнялись.
+
+## Предыдущий этап — повторная обработка 46 тем
+
+По отдельному поручению все прежние blockers перепроверены с общими fixes.
+Добавлены 30 активных документов; всего 58 новых + 1 принятый пилот. Один валидный
+документ ждёт URL-решения, 15 тем имеют точные текущие converter/validator blockers.
+[Отчёт](../../../docs/audits/ms-t005-retry-46.md) и
+[список для Владимира/пользователя](../../../docs/tasks/ms-t005-converter-followups.md).
+MathML авторская и поформульная, shared code не изменён. Независимое review и
+human acceptance PENDING, публикация/merge не выполнялись.
+
+## Предыдущий этап — семь геометрических тем
+
+Семь geometry documents активированы после сверки исходников, SSR, SVG/code/media,
+адаптивности и URL. Всего 66/75 source routes, geometry 12/12. По отдельному
+согласованию пользователя добавлено только responsive image rule в runtime.css;
+остальные protected shared files и прежние 59 документов не менялись.
+[Отчёт](../../../docs/audits/ms-t005-geometry-activation.md),
+[оставшиеся 9](../../../docs/tasks/ms-t005-remaining.md).
+Human acceptance и независимое review PENDING, публикация/build/merge не выполнялись.
+
+## Предыдущий этап — окончательное решение маршрутов алгебры
+
+Руслан утвердил 08.11.2026 до публичного выпуска:
+`/materials/7-algebra-1` — «Числовые выражения. Алгебраические выражения»;
+`/materials/7-algebra-8` — принятый линейный пилот. Прежний permanent alias
+между ними отменён: исторический адрес пилота освобождён для первой темы.
+`/materials/7-algebra-37` не создавать. Подготовленный content.json и MathML
+не переписываются; source renderer metadata и Content registry активированы.
+Ожидаются 67/75 source activations; остаются 8 тем статистики.
+
+Проверки текущего шага — **NOT_RUN_BY_USER_REQUEST**. Только ручное чтение
+исходников/diff: без tests/typecheck/Playwright/smoke/валидаторов/gates/новых QA.
+Штатные guards сохраняются. Build/publication и обновление installed snapshot
+ради адреса запрещены. Старые receipts/принятия не переписываются.
+[Решение и ручной список страниц](../../../docs/audits/ms-t005-algebra-route-decision.md).
+Independent review и human acceptance остаются PENDING; merge не выполняется.
+
+## Предыдущий этап — общие fixes статистики, статический разбор
+
+По отдельному поручению интегрированы только b57b692 и ee2c1d3, строго в порядке
+через cherry-pick -x (85b30aa, 05e42b9), без конфликтов. Общая реализация сверх
+этих commits не менялась. Только ручное чтение исходников восьми оставшихся тем:
+потенциальные эффекты отделены от неподтверждённой конвертации/валидации.
+67/75 source activations и восемь BLOCKED_DEPENDENCY сохранены; новые уроки не активированы.
+Все автоматические проверки и повторная конвертация — NOT_RUN_BY_USER_REQUEST.
+[Текущий отчёт](../../../docs/audits/ms-t005-statistics-shared-static.md),
+[по каждой теме и следующие решения](../../../docs/tasks/ms-t005-remaining.md).
+Маршруты алгебры 1/8 не менялись. Snapshot, БД, окружение, renderer/CSS/helper
+и учебные исходники не изменены. Independent review/human acceptance PENDING.
+
+## Предыдущий этап — SVG Linear Gradient, статический разбор
+
+Отдельно перенесён только `193c378` → `1be06c9` через cherry-pick -x,
+без конфликтов; изменены только converter и backend sources.py в составе commit.
+Прежние terminal/chart dimensions fixes сохранены. Renderer/CSS/helper и контент
+не менялись. Ручное чтение SVG темы statistics-27 показывает соответствие
+новым узким правилам и generic renderer; фактический результат не подтверждён.
+Четыре дроби с ms-frac-num/ms-frac-den остаются несовместимыми с helper по исходникам.
+67/75 source activations, все восемь оставшихся BLOCKED_DEPENDENCY сохранены.
+Tests/typecheck/browser/validators/gates/QA и повторная конвертация —
+**NOT_RUN_BY_USER_REQUEST**; активация/snapshot/publication/merge не выполнялись.
+[Текущий отчёт](../../../docs/audits/ms-t005-svg-gradient-static.md).
+Независимое review и human acceptance PENDING; дальнейшая работа — отдельное поручение.
+
+## Предыдущий этап — шесть тем статистики, source-активация
+
+По отдельному поручению пользователя выполнена штатная конвертация и встроенная
+validate_lesson_document для statistics-4/7/8/9/18/27: 6/6 OK. Документы вручную
+сопоставлены с источниками; 50 заданий/ответов, четыре таблицы и три SVG сохранены.
+Для 9/27 использован existing поформульный MathML ledger, frozen body.html не менялся.
+В runtime.css добавлено только оформление bar/pie-practice/equalizer 7/8/9;
+renderer/lesson.css/shared helper/converter/validator не менялись.
+Активированы шесть react-v1 документов и их постоянные назначения в Content registry;
+итого 73/75. Statistics-25/26 не менялись, не обрабатывались и остаются blockers.
+[Текущий отчёт](../../../docs/audits/ms-t005-six-statistics-activation.md).
+Tests/typecheck/Playwright/smoke/отдельные QA/gates — NOT_RUN_BY_USER_REQUEST.
+Browser visual acceptance PENDING_NOT_PERFORMED; source review не заменяет её.
+Snapshot/БД/.venv/var/local не менялись; публикация/build/merge не выполнялись.
+После передачи результата остановиться; отдельное review и human acceptance PENDING.
+
+## Актуальный этап — последние две темы, локально 75/75
+
+Перенесены только согласованные fixes Владимира: d919429 → 00e1be5,
+7ab82ee → ca8041d, по одному cherry-pick -x, без конфликтов. Старые untracked
+локальные adapters сохранены в адресном stash и не использовались/не коммитились.
+Statistics-25/26 заново конвертированы непосредственно из оригиналов: 2/2 OK,
+штатная встроенная validate_lesson_document: 2/2 OK. После ручной source-сверки
+активированы react-v1 и два собственных Content route assignments.
+Оба SVG, 18 заданий с полными решениями, таблицы, original ids и порядок
+сохранены. Root figure — последний nodes элемент section-3, не отдельная
+синтетическая секция. Lab heading 26 извлечён один раз; цель/equipment/badge сохранены.
+Локально 75/75, READY_FOR_REVIEW; визуальная и человеческая приёмка PENDING.
+[Локальный отчёт](../../../docs/audits/ms-t005-final-two-local.md).
+Автоматический QA NOT_RUN_BY_USER_REQUEST. Предыдущие 73 документа, body.html,
+backend validator/renderer/CSS/helper, БД/.venv/var/local и snapshot не менялись.
+**Push запрещён и не выполнен**; Draft PR #62/remote остаются на 39545fd.
+После локальных коммитов остановиться для согласования; не восстанавливать stash
+поверх новых файлов и не начинать другую задачу. Merge/Issue closure не выполнять.
+
+
+## Интеграция принятого 5-го класса — 12.11.2026
+
+По поручению Руслана в ветку PR #62 включён main
+`6a39500a1056b6310618c7ea991776db35daa5d8` после merge PR #63.
+Исходный HEAD 7-го класса: `e2aa448da8dbcf675428a00e4ff8ee0d73732e50`.
+Оба класса приняты Русланом на своих исходных SHA; merge PR #62 в main
+остаётся его отдельным действием.
+
+Разрешены четыре конфликта: стандарт переноса (сохранена выделенная версия
+того же правила), очередь (приёмка обоих классов и отдельная история),
+lesson.css (сохранено выравнивание вложенных строк вычислений из #63),
+material-routes.json (объединены назначения 35 и 75 тем).
+Отменённый alias 7-algebra-1 → 7-algebra-8 не возвращён.
+
+Статически просмотрен diff renderer: сохранены разделение самостоятельных
+примеров и нумерованные алгоритмы #63, а также текстовый SVG title из #62.
+По Git diff материалы curriculum/5-klass совпадают с main, curriculum/7-klass
+и runtime.css совпадают с исходным HEAD #62. Учебные данные не перерабатывались.
+Команды: git fetch, git merge --no-commit --no-ff, git diff; конфликты
+разрешены по смыслу с сохранением вкладов обоих классов.
+Автоматические tests/typecheck/Playwright/smoke/gates: NOT_RUN_BY_USER_REQUEST.
+Браузерный просмотр и Content publication объединённой версии не выполнялись.

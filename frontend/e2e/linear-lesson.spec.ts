@@ -1,15 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 const data = JSON.parse(readFileSync(process.env.MATHSTART_PUBLIC_VIEW!, 'utf8'));
-const canonical = Object.keys(data.routes).find(path => data.routes[path].page.renderer_version === 'react-v1')!;
+const canonical = Object.keys(data.routes).find(path => data.routes[path].page.slug === 'linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii')!;
 const oldPath = canonical ? `/${data.routes[canonical].page.slug}/` : '';
 
 test('linear pilot uses Content canonical, reload, Back and preserved anchors', async ({ page, request }) => {
   expect(canonical).toBe('/materials/7-algebra-8');
   const redirect = await request.get(oldPath + '?from=pilot', { maxRedirects: 0 });
   expect(redirect.status()).toBe(301); expect(redirect.headers().location).toBe(canonical + '?from=pilot');
-  const alias = await request.get('/materials/7-algebra-1?from=old', { maxRedirects: 0 });
-  expect(alias.status()).toBe(301); expect(alias.headers().location).toBe(canonical + '?from=old');
+  const firstTopic = await request.get('/materials/7-algebra-1?from=route-decision', { maxRedirects: 0 });
+  expect(firstTopic.status()).toBe(200);
+  expect(firstTopic.headers().location).toBeUndefined();
+  expect(await firstTopic.text()).toContain('Числовые выражения. Алгебраические выражения');
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto(oldPath + '?from=pilot#theory');

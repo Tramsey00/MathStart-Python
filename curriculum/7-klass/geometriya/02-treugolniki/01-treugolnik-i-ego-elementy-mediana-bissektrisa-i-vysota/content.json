@@ -1,0 +1,2266 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "treugolnik-i-ego-elementy-mediana-bissektrisa-i-vysota",
+  "title": "Треугольник и его элементы. Медиана, биссектриса и высота",
+  "subtitle": "Исправленная и расширенная запись: аккуратные чертежи, правильные обозначения углов и подробные объяснения того, как различать основные элементы треугольника.",
+  "grade": "7-klass",
+  "subject": "geometriya",
+  "section": "treugolniki",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Что называют треугольником",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Треугольник — это фигура, составленная из трёх точек, не лежащих на одной прямой, и трёх отрезков, соединяющих эти точки попарно. В треугольнике всегда три вершины, три стороны и три угла. Сторона лежит напротив соответствующей вершины: сторона BC — напротив вершины A, сторона AC — напротив вершины B, сторона AB — напротив вершины C."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Вершины, стороны и углы треугольника"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 920 520",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Треугольник ABC с вершинами, сторонами и внутренними углами"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "width": "920",
+                        "height": "520",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "55",
+                        "y": "45",
+                        "width": "810",
+                        "height": "430",
+                        "rx": "24",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "polygon",
+                      "attrs": {
+                        "points": "460,95 220,380 705,380",
+                        "fill": "#eff6ff",
+                        "stroke": "#2563eb",
+                        "stroke-width": "7",
+                        "stroke-linejoin": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M424.6 137.1 A55 55 0 0 0 495.9 136.7",
+                        "fill": "none",
+                        "stroke": "#f97316",
+                        "stroke-width": "5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M249 345.6 A45 45 0 0 1 265 380",
+                        "fill": "none",
+                        "stroke": "#15803d",
+                        "stroke-width": "5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M660 380 A45 45 0 0 1 675.7 345.9",
+                        "fill": "none",
+                        "stroke": "#7c3aed",
+                        "stroke-width": "5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#2563eb",
+                        "stroke": "#ffffff",
+                        "stroke-width": "3"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "460",
+                            "cy": "95",
+                            "r": "11"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "220",
+                            "cy": "380",
+                            "r": "11"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "circle",
+                          "attrs": {
+                            "cx": "705",
+                            "cy": "380",
+                            "r": "11"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#111827",
+                        "font-size": "22",
+                        "font-weight": "800"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "452",
+                            "y": "77"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "195",
+                            "y": "412"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "B"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "715",
+                            "y": "412"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "C"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#1d4ed8",
+                        "font-size": "17",
+                        "font-weight": "800"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "325",
+                            "y": "230",
+                            "transform": "rotate(-49 325 230)"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "AB"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "457",
+                            "y": "410",
+                            "text-anchor": "middle"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "BC"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "605",
+                            "y": "230",
+                            "transform": "rotate(49 605 230)"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "AC"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "190",
+                        "y": "425",
+                        "width": "540",
+                        "height": "32",
+                        "rx": "14",
+                        "fill": "#eff6ff",
+                        "stroke": "#bfdbfe"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "460",
+                        "y": "446",
+                        "text-anchor": "middle",
+                        "font-size": "15",
+                        "font-weight": "800",
+                        "fill": "#1d4ed8"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "P = AB + BC + AC — периметр треугольника"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note-grid ms-card-grid ms-columns-3"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-note-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Вершины"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Точки A, B, C. В записи угла буква вершины стоит посередине."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-note-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Стороны"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Отрезки AB, BC, AC соединяют пары вершин."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-note-card ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Углы"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Углы при вершинах можно обозначать как ∠A, ∠B, ∠C."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-2",
+      "title": "Как понимать запись теоремы и доказательства",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В геометрии мало увидеть рисунок — нужно уметь объяснить, почему вывод верен. Поэтому любую теорему читают по схеме: условие, то есть что дано; заключение, то есть что нужно получить; доказательство, то есть цепочка рассуждений."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-proof-duo"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Условие"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Это все исходные данные задачи: равные стороны, прямые углы, середины отрезков, параллельность, принадлежность точек и другие известные факты."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Заключение"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Это то, что нужно доказать или найти: равенство углов, перпендикулярность, параллельность, равенство треугольников, длины отрезков."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-proof-grid"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-proof-box"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Как строить доказательство"
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Сначала выписывают известные данные. Затем для каждого шага указывают причину: определение, аксиому, теорему, признак равенства. В конце отдельной фразой записывают вывод: «что и требовалось доказать»."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Перпендикуляр из точки к прямой",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Перпендикуляром, проведённым из точки A к прямой a, называют отрезок AH, если H лежит на прямой a и угол между AH и a равен 90°. Основанием перпендикуляра называют точку H. Через точку, не лежащую на прямой, можно провести к ней только один перпендикуляр."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Перпендикуляр AH к прямой a"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 920 360",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Перпендикуляр AH к прямой a с открытым знаком прямого угла"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "width": "920",
+                        "height": "360",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "70",
+                        "y": "45",
+                        "width": "780",
+                        "height": "260",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "170",
+                        "y1": "245",
+                        "x2": "750",
+                        "y2": "245",
+                        "stroke": "#2563eb",
+                        "stroke-width": "7",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "470",
+                        "y1": "105",
+                        "x2": "470",
+                        "y2": "245",
+                        "stroke": "#7c3aed",
+                        "stroke-width": "7",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M470 221 H494 V245",
+                        "fill": "none",
+                        "stroke": "#f97316",
+                        "stroke-width": "4",
+                        "stroke-linejoin": "miter",
+                        "stroke-linecap": "butt"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "circle",
+                      "attrs": {
+                        "cx": "470",
+                        "cy": "105",
+                        "r": "11",
+                        "fill": "#7c3aed",
+                        "stroke": "#ffffff",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#111827",
+                        "font-size": "21",
+                        "font-weight": "800"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "452",
+                            "y": "92"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "A"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "452",
+                            "y": "278"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "H"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "763",
+                        "y": "239",
+                        "font-size": "21",
+                        "font-style": "italic",
+                        "font-weight": "800",
+                        "fill": "#1d4ed8"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "a"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Медиана, биссектриса и высота",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-lite"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell ms-head"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Название"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell ms-head"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Определение"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell ms-head"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Главный признак на чертеже"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Медиана"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Отрезок, соединяющий вершину треугольника с серединой противоположной стороны."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "На стороне стоят отметки равных частей."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Биссектриса"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Отрезок, выходящий из вершины и делящий угол треугольника пополам."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Внутри угла стоят две одинаковые дуги."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Высота"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Перпендикуляр, опущенный из вершины на прямую, содержащую противоположную сторону."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-cell"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Есть значок прямого угла."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Три специальных отрезка"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 960 520",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Медиана, биссектриса и высота треугольника"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "width": "960",
+                        "height": "520",
+                        "rx": "24",
+                        "fill": "#f9fafb"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "25",
+                        "y": "55",
+                        "width": "290",
+                        "height": "405",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "335",
+                        "y": "55",
+                        "width": "290",
+                        "height": "405",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "645",
+                        "y": "55",
+                        "width": "290",
+                        "height": "405",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#111827",
+                        "font-size": "20",
+                        "font-weight": "800",
+                        "text-anchor": "middle"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "170",
+                            "y": "92"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Медиана"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "480",
+                            "y": "92"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Биссектриса"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "790",
+                            "y": "92"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Высота"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#eff6ff",
+                        "stroke": "#2563eb",
+                        "stroke-width": "5",
+                        "stroke-linejoin": "round"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "polygon",
+                          "attrs": {
+                            "points": "170,125 70,355 270,355"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "polygon",
+                          "attrs": {
+                            "points": "480,125 385,355 575,355"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "polygon",
+                          "attrs": {
+                            "points": "790,125 690,355 890,355"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "170",
+                        "y1": "125",
+                        "x2": "170",
+                        "y2": "355",
+                        "stroke": "#7c3aed",
+                        "stroke-width": "5"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "120",
+                        "y1": "347",
+                        "x2": "120",
+                        "y2": "363",
+                        "stroke": "#15803d",
+                        "stroke-width": "4"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "220",
+                        "y1": "347",
+                        "x2": "220",
+                        "y2": "363",
+                        "stroke": "#15803d",
+                        "stroke-width": "4"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "480",
+                        "y1": "125",
+                        "x2": "480",
+                        "y2": "355",
+                        "stroke": "#7c3aed",
+                        "stroke-width": "5"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M460.15 173.06 A52 52 0 0 0 480 177",
+                        "fill": "none",
+                        "stroke": "#f97316",
+                        "stroke-width": "5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M480 177 A52 52 0 0 0 499.85 173.06",
+                        "fill": "none",
+                        "stroke": "#f97316",
+                        "stroke-width": "5",
+                        "stroke-linecap": "round"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "790",
+                        "y1": "125",
+                        "x2": "790",
+                        "y2": "355",
+                        "stroke": "#7c3aed",
+                        "stroke-width": "5"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "path",
+                      "attrs": {
+                        "d": "M768 355 V333 H790",
+                        "fill": "none",
+                        "stroke": "#f97316",
+                        "stroke-width": "3.5",
+                        "stroke-linejoin": "miter",
+                        "stroke-linecap": "butt"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n  "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#1d4ed8",
+                        "font-size": "15",
+                        "font-weight": "800",
+                        "text-anchor": "middle"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "170",
+                            "y": "405"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "BM = MC"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "480",
+                            "y": "405"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "∠ABK = ∠KBC"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n    "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "790",
+                            "y": "405"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "CH ⟂ AB"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n  "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-flex-list"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "медиана → середина стороны"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "биссектриса → равные части угла"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-chip"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "высота → угол 90°"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n  "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Назовите стороны и углы треугольника ABC."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Стороны: AB, BC, AC. Углы: ∠A, ∠B, ∠C."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Стороны треугольника равны 6 см, 8 см и 11 см. Найдите периметр."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "P = 6 + 8 + 11 = 25 см."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ответ: 25 см."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Точка M — середина стороны BC. Как называется отрезок AM?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Отрезок AM — медиана треугольника."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Точка K лежит на стороне AC, а отрезок BK делит угол B пополам. Как называется BK?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "BK — биссектриса треугольника."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Из вершины A к прямой BC проведён отрезок AH, причём AH ⟂ BC. Как называется AH?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "AH — высота треугольника."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В треугольнике ABC биссектриса AD делит угол A = 64°. Найдите углы BAD и DAC."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Биссектриса делит угол пополам: 64° : 2 = 32°."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ответ: 32° и 32°."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " В треугольнике ABC медиана BM проведена к стороне AC. Известно AC = 18 см. Найдите AM и MC."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Медиана делит сторону AC пополам, поэтому AM = MC = 9 см."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Высота CK опущена на сторону AB. Какие углы равны 90°?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Поскольку CK ⟂ AB, то углы CKA и CKB равны 90°."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 9."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Периметр треугольника равен 31 см. Две стороны равны 9 см и 12 см. Найдите третью сторону."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "31 − 9 − 12 = 10 см."
+                    }
+                  ]
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Ответ: 10 см."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 10."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Какие отметки на рисунке помогают отличить медиану, биссектрису и высоту?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Равные отрезки на стороне показывают медиану, равные дуги — биссектрису, значок прямого угла — высоту."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

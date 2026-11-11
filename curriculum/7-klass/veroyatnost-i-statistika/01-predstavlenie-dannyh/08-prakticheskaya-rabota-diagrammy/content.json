@@ -1,0 +1,1575 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "prakticheskaya-rabota-diagrammy",
+  "title": "Практическая работа «Диаграммы»",
+  "subtitle": "Выполним полный цикл работы с данными: расчёты, выбор масштаба, построение двух диаграмм, проверка и формулировка выводов.",
+  "grade": "7-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "predstavlenie-dannyh",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Цель практической работы",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "По результатам опроса построить столбчатую и круговую диаграммы, проверить проценты и углы, а затем сделать выводы."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Опрос:"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " 40 учеников выбрали наиболее интересный формат школьного мероприятия."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Исходные данные",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Формат"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Количество учеников"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Доля, %"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Угол сектора"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Экскурсия"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "12"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Мастер-класс"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "10"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Квиз"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "8"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Спортивная игра"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Концерт"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "?"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Всего"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "40"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "100%"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "360°"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1. Проверьте общее число участников опроса."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "12 + 10 + 8 + 6 + 4 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "40 учеников"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2. Заполните столбец «Доля, %»."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Экскурсия — 30%; мастер-класс — 25%; квиз — 20%; спортивная игра — 15%; концерт — 10%. Сумма: 100%."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3. Вычислите углы секторов."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Экскурсия — 108°; мастер-класс — 90°; квиз — 72°; спортивная игра — 54°; концерт — 36°. Сумма: 360°."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4. Выберите удобную вертикальную шкалу для столбчатой диаграммы."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Например, от 0 до 12 с шагом 2 ученика. Все значения будут отмечаться точно."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "5. Постройте столбчатую диаграмму и сравните её с образцом."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-bars",
+                    "role": "img",
+                    "aria-label": "Экскурсия 12, мастер-класс 10, квиз 8, спортивная игра 6, концерт 4"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-bar-row"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-label"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Экскурсия"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-bar-track"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "div",
+                              "attrs": {
+                                "class": "ms-bar-fill",
+                                "style": "width:100%"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-value"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "12"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-bar-row"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-label"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Мастер-класс"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-bar-track"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "div",
+                              "attrs": {
+                                "class": "ms-bar-fill",
+                                "style": "width:83.333%"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-value"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "10"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-bar-row"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-label"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Квиз"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-bar-track"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "div",
+                              "attrs": {
+                                "class": "ms-bar-fill",
+                                "style": "width:66.667%"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-value"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "8"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-bar-row"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-label"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Спорт"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-bar-track"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "div",
+                              "attrs": {
+                                "class": "ms-bar-fill",
+                                "style": "width:50%"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-value"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-bar-row"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-label"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Концерт"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-bar-track"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "div",
+                              "attrs": {
+                                "class": "ms-bar-fill",
+                                "style": "width:33.333%"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ms-bar-value"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6. Постройте круговую диаграмму и сравните её с образцом."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-pie-layout"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-pie ms-pie-practice",
+                        "role": "img",
+                        "aria-label": "Круговая диаграмма: экскурсия 30 процентов, мастер-класс 25 процентов, квиз 20 процентов, спортивная игра 15 процентов, концерт 10 процентов"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ms-legend-list"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-legend-item"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {
+                                "class": "ms-legend-swatch ms-swatch-1"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "Экскурсия"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "30%"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-legend-item"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {
+                                "class": "ms-legend-swatch ms-swatch-2"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "Мастер-класс"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "25%"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-legend-item"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {
+                                "class": "ms-legend-swatch ms-swatch-3"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "Квиз"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "20%"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-legend-item"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {
+                                "class": "ms-legend-swatch ms-swatch-4"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "Спортивная игра"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "15%"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "div",
+                          "attrs": {
+                            "class": "ms-legend-item"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {
+                                "class": "ms-legend-swatch ms-swatch-5"
+                              },
+                              "children": []
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "span",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "Концерт"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "10%"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7. Сформулируйте два вывода по диаграммам."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Например: «Экскурсия получила больше всего голосов — 12»; «За квиз и спортивную игру вместе проголосовали 14 учеников»."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8. Проведите итоговую проверку диаграмм."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Количество: 40; проценты: 100%; углы: 360°. Подписи совпадают с категориями, столбцы начинаются от нуля, легенда соответствует цветам."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}

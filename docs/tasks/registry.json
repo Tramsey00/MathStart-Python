@@ -28,7 +28,7 @@
         "MS-T000"
       ],
       "skill": "skills/tasks/t001-lesson-pilot/SKILL.md",
-      "acceptance": "Линейный урок обновлён согласно действующим решениям пользователя; canonical /materials/7-algebra-8 обслуживается основным Content/FastAPI release, /materials/7-algebra-1 перенаправляется 301; проверки, review и human acceptance фиксируются раздельно.",
+      "acceptance": "Линейный пилот сохраняет canonical /materials/7-algebra-8; окончательное решение Руслана 08.11.2026 отдаёт /materials/7-algebra-1 первой теме, прежний alias отменён до публичного выпуска. /materials/7-algebra-37 не создаётся; прежняя приёмка пилота и исторические receipts не переписываются.",
       "workflow": "bootstrap",
       "pilot_slug": "linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
       "pilot_source": "curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii",
@@ -389,7 +389,7 @@
       "id": "MS-T003",
       "order": 4,
       "title": "Полностью перенести 5 класс",
-      "status": "IN_PROGRESS",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T002A"
       ],
@@ -400,10 +400,10 @@
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
       "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
-      "implementation": "SOURCE_DOCUMENTS_AND_ROUTES_PREPARED",
+      "implementation": "SOURCE_ACTIVATION_COMPLETE",
       "checks": "NOT_RUN_BY_USER_REQUEST",
-      "review": "PENDING_INDEPENDENT_MANUAL_REVIEW",
-      "human_acceptance": "PENDING",
+      "review": "COMPLETED_BY_PEER",
+      "human_acceptance": "ACCEPTED",
       "issue": "https://github.com/Tramsey00/MathStart-Python/issues/60"
     },
     {
@@ -426,7 +426,7 @@
       "id": "MS-T005",
       "order": 6,
       "title": "Полностью перенести 7 класс",
-      "status": "PLANNED",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T002A"
       ],
@@ -436,7 +436,28 @@
       "expected_topics": 75,
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
-      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются"
+      "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
+      "implementation": "SOURCE_ACTIVATION_COMPLETE",
+      "issue": 61,
+      "migration_map": "docs/tasks/ms-t005-migration-map.json",
+      "execution_record": "docs/audits/ms-t005-final-two-local.md",
+      "checks": "NOT_RUN_BY_USER_REQUEST",
+      "review": "COMPLETED_BY_PEER_REPORTED_BY_USER",
+      "human_acceptance": "ACCEPTED",
+      "merge": "NOT_PERFORMED",
+      "followups": "docs/tasks/ms-t005-remaining.md",
+      "route_decision": {
+        "authority": "Руслан; explicit final instruction 2026-11-08 before public release",
+        "first_algebra": "/materials/7-algebra-1",
+        "linear_pilot": "/materials/7-algebra-8",
+        "previous_alias": "CANCELLED",
+        "material_37": "DO_NOT_CREATE"
+      },
+      "shared_fixes_review": "d919429 -> 00e1be5; 7ab82ee -> ca8041d, exact ordered cherry-pick -x without conflicts; no other shared implementation changes",
+      "processing": "Only statistics-25/26 freshly converted directly from original sources and built-in validated 2/2 OK; manual source preservation review complete; previous 73 documents unchanged",
+      "visual_acceptance": "PENDING_NOT_PERFORMED",
+      "push": "NOT_PERFORMED_BY_USER_REQUEST",
+      "remote_candidate": "39545fd8d68057a9a76fe2f2635e544fc62a9f51; 73/75 source activations; Draft PR #62 not updated"
     },
     {
       "id": "MS-T006",
