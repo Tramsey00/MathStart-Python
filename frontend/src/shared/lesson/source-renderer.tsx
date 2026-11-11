@@ -48,14 +48,19 @@ function compactFlow(nodes: readonly LessonNode[]): readonly LessonNode[] {
   });
 }
 function isExampleHeading(node: LessonNode): boolean {
-  return isElement(node) && ['h3', 'h4'].includes(node.tag) && /^Пример(?:\s+\d+)?[.\s:]/u.test(nodeText(node).trim());
+  return isElement(node) && ['h3', 'h4'].includes(node.tag) && /^Пример(?:\s+\d+)?(?:[.\s:]|$)/u.test(nodeText(node).trim());
 }
 function hasAuthoredFrame(node: ElementNode): boolean {
   const style = inlineStyle(node.attrs.style ?? '');
   return [style.border, style.borderWidth].some(value => value !== undefined && !/^(?:0(?:px)?|none)(?:\s|$)/.test(String(value).trim()));
 }
+function isStandaloneExample(node: LessonNode): boolean {
+  if (!isElement(node) || !hasClass(node, 'ms-example') || hasAuthoredFrame(node)) return false;
+  const title = node.children.find(child => hasClass(child, 'ms-example-title'));
+  return !!title && /^Пример(?:\s+\d+)?(?:[.\s:]|$)/u.test(nodeText(title).trim());
+}
 function endsExample(node: LessonNode): boolean {
-  return isDiagramContainer(node) || node.kind === 'figure' || node.kind === 'graph' || node.kind === 'interactive' || node.kind === 'selfCheck' ||
+  return isStandaloneExample(node) || isDiagramContainer(node) || node.kind === 'figure' || node.kind === 'graph' || node.kind === 'interactive' || node.kind === 'selfCheck' ||
     (isElement(node) && ['h2', 'h3', 'h4', 'svg'].includes(node.tag)) || node.kind === 'note' || hasClass(node, 'ms-rule-box');
 }
 // Only complete plain-text numbered rules; every other authored shape stays intact.
@@ -143,8 +148,7 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   }
   if (node.kind === 'note' || classes.includes('ms-note') || classes.includes('ms-rule-box')) return <div key={key} id={node.attrs.id}><LessonNote>{body}</LessonNote></div>;
   // Some authored examples carry their own title, condition and solution in one block.
-  const exampleTitle = childNodes.find(child => hasClass(child, 'ms-example-title'));
-  if (!context.inExample && classes.includes('ms-example') && exampleTitle && /^Пример(?:\s+\d+)?[.\s:]/u.test(nodeText(exampleTitle).trim()) && !hasAuthoredFrame(node)) {
+  if (!context.inExample && isStandaloneExample(node)) {
     return <div key={key} id={node.attrs.id}><WorkedExample><LessonSource nodes={childNodes} context={{ ...childContext, inExample: true }}/></WorkedExample></div>;
   }
   // Legacy ms-math-box can be ordinary theory; only actual examples receive a frame.
