@@ -203,8 +203,8 @@ Auth/account feature отдельно от generic layout; общий API client
 `4eddd0d6aaf9374a51bfd28456cff71b5349a6a1`. Семь исходных dirty-файлов
 ms-t009-spec сохранены и включены в commit `583000cf04f38897e23f65696393bd1edec4991a`.
 Проверенный код после исправления саморевью:
-`83609c3adc5077e6f3956933ff1bf8d241e8df59`, tree
-`4a1af2e6a2f39f72cc7e81cf5550328837bf6a12`.
+`ba247f4418aaf9f687bee239f748edd8b2bfcc1f`, tree
+`9c67a0467aff11e9396180b8748171a4bd50172a`.
 Последующее изменение этой сводки/статусов — документационное.
 
 Реализованы единые login/register формы на главной и /auth, серверная сессия
