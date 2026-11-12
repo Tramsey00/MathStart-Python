@@ -12,12 +12,11 @@
 
 ## Проверки и ограничения
 
-Actual команды/результаты/CI links на candidate SHA. Указать portable/runtime
-scope и не выполненные проверки. Empty/skipped/missing/timeout не PASS.
-Основная команда `python scripts/verify_repo.py`; prerequisites —
-docs/target-runtime.md, staged checks — skills/verification/SKILL.md.
-При schema changes: reviewed Alembic, fresh/upgrade/concurrency; при content/UI:
-semantic source/URL/math/assets и actual browser/visual checks.
+Следовать docs/frontend/testing-policy.md. Для текущего переноса автоматические
+прогоны не запускать: NOT_RUN_BY_USER_REQUEST, не PASS. Указать source SHA,
+самопроверку diff, фактический охват ручного ревью и непроверенные места.
+Штатные валидаторы публикации сохраняются. Для отдельно порученных проверок
+указать только разрешённый scope и фактические результаты.
 
 ## Данные, API, безопасность
 
@@ -35,4 +34,4 @@ DSN/passwords/cookies/PII в evidence. Для снятых файлов — expl
 
 PASS и создание PR не означают human acceptance. Merge только по решению
 пользователя после review/checks; force push и auto-merge запрещены.
-После передачи текущего поручения следующая карточка не выполняется автоматически.
+Для оставшихся классов переход по согласованной очереди разрешён после взаимного ревью; итоговая приёмка Русланом одна.

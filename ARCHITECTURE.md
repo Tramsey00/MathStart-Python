@@ -9,6 +9,14 @@
 [сохранённые требования учебного цикла](specs/product/learning-requirements.md), порядок разработки —
 [AGENTS.md](AGENTS.md), очередь — [docs/tasks/INDEX.md](docs/tasks/INDEX.md).
 
+## Навигация по реализации
+
+[Карта папок и владельцев](docs/repository-map.md), [учебные источники](curriculum/INDEX.md).
+Данные урока — curriculum/.../content.json, общая отрисовка — frontend/src/shared/lesson.
+CLI разработки остаётся scripts/dev_server.py; read-only подготовка и локальный
+кеш вынесены в scripts/dev/projection.py. Публичный runtime и протокол Content
+не используют этот кеш. Старые исходники сохраняются до вывода их потребителей.
+
 ## Реализованная текущая архитектура
 
 Перенос существующего сайта на FastAPI/React принят в PR54, консолидация PR55

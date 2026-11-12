@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { readQuadraticLesson } from '../prototypes/home/lesson-source.mjs';
+import { readQuadraticLesson } from './helpers/lesson-source.mjs';
 import { LessonSource } from '../src/shared/lesson/source-renderer';
 
 const repository = resolve(process.cwd(), '..');
@@ -52,12 +52,12 @@ describe('canonical quadratic lesson adapter', () => {
     expect(snapshots(rendered, '.ms-values-table td,.ms-values-table th')).toEqual(snapshots(source, '.ms-values-table td,.ms-values-table th'));
     expect([...rendered.querySelectorAll('.ms-quadratic-svg')].map(node => node.outerHTML)).toEqual([...source.querySelectorAll('.ms-quadratic-svg')].map(node => node.outerHTML));
   });
-  it('omits exactly the recap section and its next-topic teaser at the user’s request', () => {
+  it('omits exactly the recap section and its next-topic teaser at the userвЂ™s request', () => {
     const authored = [...source.querySelectorAll('.ms-lesson-page > section:not(.ms-hero)')].map(node => node.id);
     expect(authored).toHaveLength(9);
     expect(lesson.sections.map(section => section.id)).toEqual(authored.filter(id => id !== 'lesson-section-9'));
     const preview = JSON.stringify(lesson.sections);
-    expect(preview).not.toContain('Паспорт параболы');
+    expect(preview).not.toContain('РџР°СЃРїРѕСЂС‚ РїР°СЂР°Р±РѕР»С‹');
     expect(preview).not.toContain('ms-next-topic');
   });
   it('takes adjacent lessons from the authored section ordering', () => {
