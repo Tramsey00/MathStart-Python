@@ -511,19 +511,16 @@
     {
       "id": "MS-T009",
       "order": 10,
-      "title": "Заменить старый интерфейс авторизации и профиля",
+      "title": "Вход по логину, личный кабинет и защита аккаунта",
       "status": "PLANNED",
       "dependencies": [
-        "MS-T003",
-        "MS-T004",
-        "MS-T005",
-        "MS-T006",
-        "MS-T007",
-        "MS-T008"
+        "MS-T002A"
       ],
       "skill": "skills/tasks/t009-identity-ui/SKILL.md",
-      "acceptance": "Человек выбрал email/username и маршруты до API изменений; новый UI работает с реальной Identity; заменённые old forms/controllers/styles/tests удалены без потери auth/CSRF/session/owner/privacy поведения; нет двух независимых реализаций входа.",
-      "workflow": "regular"
+      "acceptance": "Вход по логину, единая страница auth, новый ЛК и подтверждённая необязательная почта восстановления; главная сохраняет дизайн, навигация учитывает сессию; серверная защита и профильные проверки, сохранены пользователи; настоящая доставка почты и локальная готовность учтены отдельно.",
+      "workflow": "regular",
+      "verification_policy": "SCOPED_AUTH_SECURITY; PostgreSQL fresh/upgrade при изменении схемы; без full suites, startup tests и live mail",
+      "parallel_scope": "13.11.2026: параллельно MS-T003–MS-T008; без материалов/renderer; общая auth-навигация согласуется"
     },
     {
       "id": "MS-T010",
@@ -830,7 +827,7 @@
       "common_dependency": "MS-T002A",
       "assignment": "Отдельное поручение, Issue, ветка и PR для каждого исполнителя/класса; задачи остаются PLANNED до назначения.",
       "coordination": "Материалы своего класса; добавления URL только для своих тем; изменения renderer/конвертера/общих компонентов согласовать и интегрировать отдельно. PR объединять последовательно по решению пользователя.",
-      "downstream_join": "MS-T009 зависит от всех MS-T003–MS-T008",
+      "downstream_join": "13.11.2026: MS-T009 зависит от MS-T002A и разрешена параллельно классам; приёмка классов отдельная",
       "checks": "MANUAL_ONLY; automatic runs NOT_RUN_BY_USER_REQUEST"
     }
   },
@@ -839,7 +836,7 @@
     "automatic_runs": "DISABLED",
     "default_result": "NOT_RUN_BY_USER_REQUEST",
     "explicit_user_request_required": true,
-    "restoration": "Отдельное решение пользователя; пересмотреть scope в MS-T009/MS-T011, не включать автоматически.",
+    "restoration": "13.11.2026: узкое исключение для auth/security MS-T009 по карточке; остальное только по отдельному поручению, без startup suites.",
     "lesson_migration": "08.11.2026: MS-T003–MS-T008 — перенос по принятому стандарту и ручная приёмка; без автоматических прогонов; не отключать штатные guards."
   }
 }

@@ -1,6 +1,9 @@
-import { identityOperations } from "./generated/identity-operations";
-import type { IdentityContracts } from "./generated/identity-contracts";
+import {accountOperations,type AccountContracts} from './account-contracts';
+import { identityOperations as baselineOperations } from "./generated/identity-operations";
+import type { IdentityContracts as BaselineContracts } from "./generated/identity-contracts";
 import { isJsonTree, parseJson } from "./json-boundary";
+export type IdentityContracts = BaselineContracts & AccountContracts;
+const identityOperations={...baselineOperations,...accountOperations};
 export type Operation = keyof IdentityContracts;
 type Contracts<K extends Operation> = IdentityContracts[K];
 type CommonOptions = { signal?:AbortSignal; timeoutMs?:number };

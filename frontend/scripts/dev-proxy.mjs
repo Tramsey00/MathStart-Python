@@ -12,7 +12,7 @@ export function developmentServerOptions(environment) {
   if (origin.port === backend.port) throw Error('Development frontend/backend ports must differ');
   const view = JSON.parse(readFileSync(environment.MATHSTART_PUBLIC_VIEW, 'utf8'));
   const escape = value => RegExp.escape(value);
-  const proxy = { '^/(?:api|_content|static|media|assets|account|admin)(?:/|\\?|$)': { target: backend.origin, changeOrigin: false } };
+  const proxy = { '^/(?:api|_content|static|media|assets|admin)(?:/|\\?|$)': { target: backend.origin, changeOrigin: false } };
   const paths = view.backend_paths ?? [];
   if (paths.length) proxy['^(?:' + paths.map(escape).join('|') + ')(?:\\?|$)'] = { target: backend.origin, changeOrigin: false };
   return {
@@ -20,7 +20,7 @@ export function developmentServerOptions(environment) {
     ...(environment.MATHSTART_DEV_CONTAINER === '1' ? { watch: { usePolling: true, interval: 250 } } : {}),
     hmr: { host: origin.hostname, clientPort: Number(origin.port), protocol: 'ws' },
     cors: { origin: origin.origin },
-    headers: { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow' },
+    headers: { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', 'Referrer-Policy':'no-referrer' },
     proxy,
   };
 }
