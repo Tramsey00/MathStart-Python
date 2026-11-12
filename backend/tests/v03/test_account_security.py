@@ -146,5 +146,13 @@ class AccountSecurityTests(unittest.TestCase):
   self.assertEqual(raised.exception.status,429)
   with self.engine.begin() as c:c.execute(window.update().values(started_at=sa.func.clock_timestamp()-timedelta(days=3)))
   self.service.account.budget('recover','remote','someone')
+ def test_concurrent_failed_logins_audit_without_nested_connections(self):
+  def failed(i):
+   try:self.service.login({'username':'missing-'+str(i),'password':PASSWORD},'synthetic-ip',None);return 200
+   except Exception as e:return getattr(e,'status',500)
+  with ThreadPoolExecutor(max_workers=8) as pool:results=list(pool.map(failed,range(8)))
+  self.assertEqual(results,[401]*8)
+  with self.engine.begin() as c:
+   self.assertEqual(c.scalar(sa.text("SELECT count(*) FROM identity_security_event WHERE kind='login_failed'")),8)
 
 if __name__=='__main__':unittest.main()

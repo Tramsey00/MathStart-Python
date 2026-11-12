@@ -240,7 +240,12 @@ class IdentityService:
             encoded = candidate.password if candidate else self.dummy_hash
             valid = passwords.verify(body['password'], encoded)
             if candidate is None or not candidate.is_active or not valid:
-                self.account.record('login_failed', body['username'])
+                # Audit on this connection: a nested UoW here could exhaust the
+                # pool when concurrent failed logins all hold a read connection.
+                self.security.writer(uow.session)
+                self.account.audit(uow.session, 'login_failed', body['username'],
+                                   uow.session.scalar(sa.select(sa.func.clock_timestamp())))
+                uow.commit()
                 raise wire.authentication_required()
             candidate_id, candidate_hash = candidate.id, candidate.password
             observed = None
