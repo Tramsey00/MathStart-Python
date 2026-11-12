@@ -1,8 +1,9 @@
 # MathStart
 
+**[Найти и изменить урок](curriculum/INDEX.md)** · [Карта папок](docs/repository-map.md) · [Задачи команды](docs/tasks/INDEX.md)
+
 Образовательный сайт: FastAPI/Pydantic, SQLAlchemy/Alembic, PostgreSQL и
-React/TypeScript с immutable Content/SSG. Главная, каталог и четыре React-урока
-приняты в bootstrap scope; будущий интеллектуальный учебный цикл не реализован.
+React/TypeScript с immutable Content/SSG. Главная, каталог, 5-й и 7-й классы приняты; будущий интеллектуальный учебный цикл не реализован.
 
 Основной командный dev на Windows — **host-dev**. Нужны Git, Python 3.12,
 Node 24/npm 11, PowerShell, Docker Desktop и включённые длинные пути Windows.
@@ -71,7 +72,7 @@ Dev/setup их не вызывают; доменные validators и publication
 [карточка MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md), [PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58).
 Review, merge PR #58 и контроль независимого clone main завершены. MS-T002A
 принята пользователем 08.11.2026. MS-T003–MS-T008 можно назначать параллельно
-по правилам очереди; сами переносы ещё не начаты. Production deploy — отдельное поручение.
+по правилам очереди; 5-й и 7-й классы приняты и объединены в main. Production deploy — отдельное поручение.
 
 [AGENTS](AGENTS.md), [архитектура/версии](ARCHITECTURE.md), [продукт](PRODUCT.md),
 [очередь](docs/tasks/INDEX.md), [история](docs/maintenance.md),

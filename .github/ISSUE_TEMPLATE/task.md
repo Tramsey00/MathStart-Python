@@ -31,16 +31,13 @@ upstream artifacts и решения. Backend/frontend порядок опред
 Сохранить Content ownership, raw input, server-only validation, только Progress
 через validated events. Перечислить stop conditions и недостающие решения.
 
-## Проверки
+## Проверки и ограничения
 
-- Аffected product checks по skills/verification/SKILL.md и docs/target-runtime.md.
-- `python scripts/verify_repo.py` с необходимым disposable runtime;
-  `--profile pure` — только portable subset.
-- Schema change: reviewed Alembic + PostgreSQL fresh/upgrade/concurrency.
-- Content/frontend: source/URL/math/assets/SSG/browser checks по scope.
-- `python scripts/check_workflow_docs.py`, source/preservation checks при затрагивании документации/реестров.
-
-Записать actual SHA/tree, commands/results, failures/missing/skipped и ограничения.
+Следовать docs/frontend/testing-policy.md. Для текущего переноса автоматические
+прогоны не запускать: NOT_RUN_BY_USER_REQUEST, не PASS. Указать source SHA,
+самопроверку diff, фактический охват ручного ревью и непроверенные места.
+Штатные валидаторы публикации сохраняются. Для отдельно порученных проверок
+указать только разрешённый scope и фактические результаты.
 
 ## Передача
 
