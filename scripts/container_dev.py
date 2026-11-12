@@ -63,7 +63,7 @@ def fingerprint(paths):
     names = git('ls-files', '-z', '--', *paths).split('\0')
     rows = {}
     for name in names:
-        if name and not name.startswith(('frontend/tests/', 'frontend/e2e/', 'frontend/prototypes/')):
+        if name and not name.startswith(('frontend/tests/', 'frontend/e2e/', 'docs/ux/theme.registry.json')):
             path = ROOT / name
             rows[name] = sha256(path.read_bytes()).hexdigest()
     return sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest()

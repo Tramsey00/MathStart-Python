@@ -21,8 +21,7 @@ npm.cmd --prefix frontend run dev:host
 npm.cmd --prefix frontend run dev:host:stop
 ```
 
-Команды ниже рассчитаны на опубликованный **main после merge PR #58**.
-До этого merge candidate доступен в `ui/ux`; не используйте старый main для подготовки. Основной сайт — React + Content + FastAPI + PostgreSQL,
+Команды ниже рассчитаны на актуальный опубликованный main. Основной сайт — React + Content + FastAPI + PostgreSQL,
 один browser origin **http://127.0.0.1:8131**. Это локальная установка, не production.
 
 ## Требования

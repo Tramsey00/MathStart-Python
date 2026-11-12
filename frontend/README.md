@@ -30,7 +30,7 @@ Production API/edge targets и deploy/compose.yaml остаются отдель
 
 [Полный Compose](../docs/local-development.md#альтернативный-полный-docker-compose) —
 альтернативный dev. Собранный FastAPI режим через lesson_server.py сохранён.
-Dev:design — исторический prototype, не основной сайт. Квадратичная функция
+Отдельная команда dev:design удалена; используется основной host-dev. Квадратичная функция
 уже подключена к runtime; MS-T006 переиспользует её.
 
 Tests/typecheck/Playwright/check:dev/gates не запускаются этими операциями.

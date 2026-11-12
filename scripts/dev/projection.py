@@ -17,6 +17,7 @@ def fingerprint(settings, descriptor):
     files = list(release.rglob('*'))
     for folder in ('backend', 'scripts'):
         files.extend((ROOT / folder).rglob('*.py'))
+        files.extend((ROOT / folder).rglob('*.json'))
     files.extend((ROOT / 'frontend').glob('*.py'))
     files.extend((ROOT / 'specs').rglob('*.json'))
     for folder in ('backend',):

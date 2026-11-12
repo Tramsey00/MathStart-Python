@@ -19,7 +19,7 @@ description: Выполнить MS-T011 — Завершить перенос и
 ## Объём работы
 
 1. Сверить inventory всех классов, canonical/sitemap/redirects и asset lifecycle.
-2. Удалить prototypes/home только после миграции всех действующих consumers.
+2. Отдельный prototypes/home выведен в Issue #66; тестовый адаптер сохранён в frontend/tests/helpers. Проверить оставшихся legacy consumers перед их выводом.
 3. Выполнить карту testing-policy: obsolete exact-Django visual assertions убрать, protocol/security/content проверки сохранить, дубли объединить.
 4. Ввести scoped local команды без молчаливого сужения mandatory CI и без фиксированных прежних case counts.
 5. Отделить generic tooling regressions от UI набора. Каждый удалённый тест связать с выведенным consumer или сохраняющим invariant новым тестом.

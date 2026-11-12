@@ -129,8 +129,8 @@ curriculum/<grade>/<subject>/<section>/<topic>/
 `shared/lesson/lesson-page.tsx`, блоки — `source-renderer.tsx` того же модуля.
 Квадратичный график находится там же, линейный — в `features/lesson-interactives/`;
 главная и каталог — в `features/public-pages/`. Основной runtime получает
-типизированный документ через Content. `prototypes/home/lesson-source.mjs`
-сохраняется как адаптер исходного эталона, не как вход для всех новых уроков.
+типизированный документ через Content. `tests/helpers/lesson-source.mjs`
+сохраняется только для сравнения в тесте, не как вход сборки новых уроков.
 Не создавать пустые директории или второй комплект UI ради целевой схемы.
 
 ## 3. Источник и формат материала

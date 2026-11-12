@@ -217,9 +217,8 @@ materialPathForSlug возвращает только назначенный п�
 Для legacy уроков canonical остаются lesson.json/body.html/page.css/page.js.
 Для перенесённых уроков canonical новой редакции — lesson.json + content.json;
 старые HTML/CSS/JS сохраняются замороженными до приёмки и проверки потребителей.
-lesson-source.mjs — действующий build adapter пилота, не мусор. quadratic.html,
-virtual modules и Vite entry пока нужны для просмотра; удалять их можно после
-проверенной интеграции в основной route. Math и authored SVG не переписываются.
+Тестовый адаптер пилота сохранён в frontend/tests/helpers/lesson-source.mjs.
+Отдельный Vite preview удалён после интеграции в основной route. Math и authored SVG не переписываются.
 Legacy self-check не становится серверной проверкой попыток или mastery.
 Ранний прототип на 5173 не является способом запуска текущих уроков. Обычная
 разработка — `npm --prefix frontend run dev`, один browser origin 8131 с HMR
