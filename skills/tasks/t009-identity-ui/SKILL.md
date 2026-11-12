@@ -7,7 +7,8 @@ description: Выполнить MS-T009 — вход по логину, личн
 
 ## Решение Руслана — 13.11.2026
 
-Статус PLANNED: требования согласованы, реализация не начата.
+Статус READY_FOR_REVIEW: реализация передана в PR #69; независимое ревью
+и человеческая приёмка PENDING, merge не выполнен.
 Зависимость — принятая MS-T002A. Разрешена отдельная работа параллельно
 MS-T003–MS-T008; ожидание приёмки всех классов снято для этой карточки.
 Материалы, URL тем, renderer и вычисления уроков не менять. Общие header/auth
@@ -193,3 +194,82 @@ Auth/account feature отдельно от generic layout; общий API client
 ограничения, ревью. Не создавать отчёт на каждый шаг.
 Не трогать protected acceptance DB, не запускать следующую карточку,
 не выполнять merge, закрытие Issue или production deployment самостоятельно.
+
+## Сводка реализации — 13.11.2026
+
+[Issue #68](https://github.com/Tramsey00/MathStart-Python/issues/68),
+[PR #69](https://github.com/Tramsey00/MathStart-Python/pull/69),
+ветка ms-t009-identity-ui, основной checkout. Исходный main:
+`4eddd0d6aaf9374a51bfd28456cff71b5349a6a1`. Семь исходных dirty-файлов
+ms-t009-spec сохранены и включены в commit `583000cf04f38897e23f65696393bd1edec4991a`.
+Проверенный код после исправления саморевью:
+`83609c3adc5077e6f3956933ff1bf8d241e8df59`, tree
+`4a1af2e6a2f39f72cc7e81cf5550328837bf6a12`.
+Последующее изменение этой сводки/статусов — документационное.
+
+Реализованы единые login/register формы на главной и /auth, серверная сессия
+в общей навигации и /account/ с классом, recovery email и безопасностью.
+Email-preview на главной выведен; локальная функция EmailLogin имела только
+одного потребителя в home-page.tsx и заменена HomeIdentity. Старый account route
+сохранил путь и экспортирует новый feature; старые UI assets/fixtures/controllers
+сохранены для оставшихся compatibility/test потребителей. Файлы учебных
+материалов и renderer не изменены. Общий LessonHeader меняет только auth entry;
+loginHref prop сохранён для совместимости интеграции веток классов. При проверке
+GitHub не обнаружены открытые параллельные PR; никаких чужих веток/правок не
+перезаписывали. При интеграции общей навигации требуется сохранить обе стороны.
+
+[Identity addendum](../../../specs/api/identity-t009.md) фиксирует новые API,
+onboarding stage, пароли, адреса/коллизии, лимиты, TTL, доставку и rollout.
+Модуль Identity и общий API client расширены; auth backend не дублируется.
+Additive v01_0003 не меняет старые таблицы или применённые v01_0001/0002.
+
+Профильные проверки (совокупно **20 backend + 5 frontend**, все PASS):
+- `python -m unittest backend.tests.v03.test_account_security` — новые PG
+  scenarios: password/revocation, verified-only recovery, одноразовость,
+  expiry/concurrent consume, owner/CSRF/closed DTO, email uniqueness,
+  legacy login, IP/account budgets, proxy trust, отказ provider без enumeration.
+  Фактически выполнялись 12 сценариев, затем отдельно добавленный 13-й audit
+  concurrency после исправления; полные suites не запускались.
+- Семь явно выбранных методов PostgreSQLIdentityTests: register/login/rotation/
+  profile/logout, receipt conflict/replay, lost body/cookies recovery, CSRF/Host/
+  Origin, strict JSON, expired session и concurrent same-proof registration.
+  Запускались через unittest.TestSuite с перечисленными именами, не весь класс.
+- `node node_modules/vitest/vitest.mjs run tests/account-security.test.ts tests/identity-ui.test.tsx`
+  (cwd frontend): 5 PASS — безопасный return, generic login error, password
+  clearing, unknown outcome reconciliation/no blind replay и Retry-After.
+- PostgreSQL16 disposable fresh v01_0003 с exact physical comparison и upgrade
+  v01_0002 → v01_0003 с неизменными synthetic user ID/login/hash/email — PASS.
+  Рабочая/защищённая acceptance БД для тестов не использовалась.
+
+Ручной просмотр штатного host-dev: default/1280×900 desktop и 390×844 mobile;
+login light/dark, mobile register/account dark, desktop account/home light;
+регистрация → ЛК, сохранение класса/refresh и правильный materials query,
+login generic error/success, logout, guest account return, вошедший /auth → ЛК,
+истечение только synthetic review sessions → вход, клавиатурный Tab/focus,
+API ECONNREFUSED → нейтральная ошибка → успешное восстановление после autoreload.
+Recovery при ненастроенной почте честно показывает недоступность доставки.
+Это ручной просмотр автором, не независимое ревью и не человеческая приёмка.
+
+Host-dev оставлен работающим: http://127.0.0.1:8131/ и /auth?mode=login.
+Локальная схема отдельно обновлена signed TARGET_0002 plan
+`1967ebab52ba795ce1cf50b90be8b811fe9ecfaa92206207b99c09b4c47565bc`;
+APPLIED/CHECKED. План сохранён в ignored var/local/team; startup не запускает
+DDL/tests/seed. Content publication и production deployment не выполнялись.
+Временные scripts/config и собственная disposable DB удалены после проверок;
+планы и существующие runtime данные сохранены.
+
+Саморевью выявило и исправило: SQL погашения verify token, запрет GET mutations
+при AllMethodRoute, grade.number вместо отсутствующего slug, восстановление
+select после async options, uniform recovery response при provider failure,
+и audit на том же соединении при concurrent failed login (без вложенной UoW).
+Профильные затронутые проверки повторены; assertions не ослаблены.
+
+Ограничения: mail provider/sender/live delivery не подключены; fake только в tests.
+Предложение — Unisender Go transactional HTTPS API, sender на домене MathStart,
+SPF/DKIM/DMARC, tracking off, secret только runtime. Выбор и контролируемая live
+проверка остаются за Русланом. Durable mail queue/retry не реализована; loss
+процесса может потребовать новый запрос после окна лимита. Production edge/TLS,
+новая immutable SSG publication и реальная доставляемость не проверены.
+Полные suites, общий typecheck и массовый QA уроков: NOT_RUN_BY_USER_REQUEST.
+Независимое security/architecture review PENDING; human acceptance PENDING;
+merge NOT_PERFORMED. Следующая карточка не начата, Issue не закрыт.
