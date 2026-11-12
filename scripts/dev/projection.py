@@ -96,4 +96,3 @@ def prepare_view(settings, output):
     pending.write_text(json.dumps({'key': key,
         'sha256': sha256(output.read_bytes()).hexdigest()}), encoding='utf-8')
     pending.replace(stamp)
-
