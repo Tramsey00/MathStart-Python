@@ -48,6 +48,12 @@ function convert(n) {
     }
   }
   if (['ms-nav', 'ms-lesson-nav', 'ms-quadratic-number', 'ms-next-topic'].some(name => has(n, name))) return null;
+  if (n.tagName === 'div' && a.id === 'ms-power-lab-935' && has(n, 'ms-power-lab')) {
+    return { kind: 'interactive', name: 'power-positive', id: a.id };
+  }
+  if (n.tagName === 'div' && a.id === 'ms-negative-power-lab-936' && has(n, 'ms-negative-lab')) {
+    return { kind: 'interactive', name: 'power-negative', id: a.id };
+  }
   if (a.id === 'ms-quadratic-lab-660') return { kind: 'interactive', name: 'quadratic', id: a.id };
   if (a.id === 'ms-linear-lab-723') {
     // Instructional prose remains document content, outside the replacement UI.
