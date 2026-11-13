@@ -17,6 +17,7 @@ const attributes = new Set('class id role style href title scope colspan rowspan
 tags.add('img');
 tags.add('linearGradient');
 tags.add('stop');
+tags.add('ellipse');
 function safeImageUrl(value) {
   // Match the backend URL policy, rejecting controls before trimming as well.
   if (/[\\\u0000-\u001f\u007f-\u009f]/.test(value)) return false;
