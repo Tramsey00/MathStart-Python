@@ -19,7 +19,17 @@ def install(app, service):
             security.host_check(request)
         except wire.APIError as error:
             return wire.error_response(request, error)
-        return await call_next(request)
+        response = await call_next(request)
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        if request.url.path.startswith(('/auth', '/account', '/api/')):
+            response.headers['Cache-Control'] = 'private, no-store'
+            response.headers['Referrer-Policy'] = 'no-referrer'
+            response.headers['X-Frame-Options'] = 'DENY'
+            if security.secure and request.url.path.startswith(('/auth', '/account')):
+                response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+        if security.secure:
+            response.headers['Strict-Transport-Security'] = 'max-age=31536000'
+        return response
 
     paths = {
         '/api/v1/auth/csrf/': ('csrf', {'GET'}, None, False),
@@ -52,14 +62,20 @@ def install(app, service):
             else:
                 schema_name = schema
             body = await wire.parse_request(request, schema_name)
+            try:
+                if any(len(value.encode('utf-8')) > 4096 for value in body.values() if isinstance(value, str)):
+                    raise wire.invalid()
+            except UnicodeError:
+                raise wire.invalid() from None
             if action == 'register':
+                await run_in_threadpool(service.account.budget, 'register', security.remote(request))
                 response, status, cookies = await run_in_threadpool(service.register, body,
                     request.headers.get('idempotency-key'), request.cookies.get('csrftoken'), identity, wire.request_id(request))
                 result = wire.json_response(response, status)
                 return security.cookies(result, *cookies) if cookies else result
             if action == 'login':
                 # Forwarded headers never supply REMOTE_ADDR authority.
-                remote = request.client.host if request.client else ''
+                remote = security.remote(request)
                 data, cookies = await run_in_threadpool(service.login, body, remote, identity,
                     legacy_session_key=request.cookies.get('sessionid'))
                 return security.cookies(wire.success(request, data, schema='UserResponse'), *cookies)
@@ -90,3 +106,6 @@ def install(app, service):
             return Response(status_code=301, headers={'Location': request.url.path + '/' + query})
         app.add_api_route(path[:-1], slashless,
                 methods=['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'TRACE'], include_in_schema=False)
+
+    from backend.users.account_http import install as install_account
+    install_account(app, service)

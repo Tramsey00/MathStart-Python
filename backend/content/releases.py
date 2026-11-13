@@ -25,7 +25,7 @@ def safe_public_path(path):
             and not decoded.startswith('//') and '%' not in decoded
             and not any(ord(c) <= 32 or ord(c) == 127 for c in decoded)
             and not any(part in {'.', '..'} for part in decoded.split('/'))
-            and not re.match(r'^/(?:admin|account|api|__ui__|_private)(?:/|$)', decoded))
+            and not re.match(r'^/(?:auth|admin|account|api|__ui__|_private)(?:/|$)', decoded))
 
 
 def inside(root, relative):

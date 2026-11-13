@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import './lesson-shell.css';
+import {AuthLink} from '../../features/identity/session';
 
 type LessonHeaderProps = {
   brand: ReactNode;
@@ -26,9 +27,7 @@ export function LessonHeader({ brand, catalogueHref, loginHref, dark, onTheme, l
           ? <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></>
           : <path d="M20 14a8 8 0 0 1-10-10 8.5 8.5 0 1 0 10 10Z"/>}</svg>
       </button>
-      <a className="lesson-login" href={loginHref} aria-label="Войти" title="Войти">
-        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 4h7a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-7"/><path className="lesson-login-arrow" d="M3 12h11m-4-4 4 4-4 4"/></svg>
-      </a>
+      <AuthLink/>
     </div>
   </div>{panel}</header>;
 }

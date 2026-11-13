@@ -6,6 +6,7 @@ import hmac
 import secrets
 import string
 import uuid
+import ipaddress
 from urllib.parse import urlsplit
 
 import sqlalchemy as sa
@@ -59,7 +60,7 @@ class SessionIdentity:
 
 class Security:
     def __init__(self, engine, key, origin, *, fallback_keys=(), secure=True, session_ttl=1209600,
-                 cutover_digest=None, legacy_writer_role=None):
+                 cutover_digest=None, legacy_writer_role=None, trusted_proxies=()):
         parsed = urlsplit(origin)
         if parsed.scheme not in {'http', 'https'} or not parsed.netloc or parsed.path or parsed.query or parsed.fragment:
             raise ValueError('Trusted origin required')
@@ -68,6 +69,18 @@ class Security:
         self.host = parsed.netloc.lower()
         self.secure, self.session_ttl = secure, session_ttl
         self.cutover_digest, self.legacy_writer_role = cutover_digest, legacy_writer_role
+        self.trusted_proxies = tuple(ipaddress.ip_network(value) for value in trusted_proxies)
+
+    def remote(self, request):
+        remote = request.client.host if request.client else ''
+        try:
+            address = ipaddress.ip_address(remote)
+            if any(address in network for network in self.trusted_proxies):
+                forwarded = request.headers.get('x-forwarded-for', '')
+                return str(ipaddress.ip_address(forwarded))
+        except ValueError:
+            pass
+        return remote
 
     def writer(self, session):
         from backend.users.cutover import guard

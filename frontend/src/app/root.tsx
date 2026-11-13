@@ -1,5 +1,6 @@
+import {SessionProvider} from '../features/identity/session';
 import type { ReactNode } from "react";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useMatches } from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useMatches, useLocation } from "react-router";
 import type { Route } from "./+types/root";
 import { SiteShell } from "../shared/ui/site-shell";
 import { SkipLink } from "../shared/ui/components";
@@ -48,7 +49,7 @@ export function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-export default function App() {
+function AppContent() {
   const view = useMatches().map(match => match.data).find((data): data is PublicPageView => !!data && typeof data === 'object' && 'canonical_url' in data && 'page' in data);
   const skip = useMatches().flatMap(match => {
     const handle = match.handle;
@@ -58,12 +59,15 @@ export default function App() {
       && typeof value.target === "string" && typeof value.label === "string"
       ? [{target: value.target, label: value.label}] : [];
   }).at(-1);
+  if (useMatches().some(m => (m.handle as {boundary?:string}|undefined)?.boundary === 'account')) return <Outlet/>;
   if (view?.public_design || view?.page.renderer_version === 'react-v1') return <Outlet/>;
   return <SiteShell skipLink={skip ? <SkipLink target={skip.target}>{skip.label}</SkipLink> : undefined}><Outlet /></SiteShell>;
 }
 
 // Build-time shell has no user/session/API state.
 export function HydrateFallback() {
+  const path=useLocation().pathname;
+  if(path==='/auth'||path.startsWith('/account/'))return <main id="identity-main" aria-busy="true" aria-label="Загрузка"/>;
   return <SiteShell><main id="main-content" tabIndex={-1} aria-busy="true" /></SiteShell>;
 }
 
@@ -71,3 +75,5 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const missing = isRouteErrorResponse(error) && error.status === 404;
   return <SiteShell><main id="main-content" tabIndex={-1}><h1>{missing ? "Страница не найдена" : "Не удалось открыть страницу"}</h1></main></SiteShell>;
 }
+
+export default function App(){return <SessionProvider><AppContent/></SessionProvider>;}

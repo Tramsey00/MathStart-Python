@@ -123,7 +123,7 @@ def artifact_bytes(root, manifest, relative):
 
 
 PRIVATE_READ = re.compile(
-    r'^(?:/account/|/admin/(?:password_change/|password_change/done/|'
+    r'^(?:/auth/?|/account/|/admin/(?:password_change/|password_change/done/|'
     r'content/(?:grade|subject|section|contentpage|lessonpublication|mediaasset|redirect)/(?:[1-9][0-9]*/(?:change/|history/))?|'
     r'auth/(?:user|group)/(?:add/|[1-9][0-9]*/(?:change/|history/|delete/))?|'
     r'auth/user/[1-9][0-9]*/password/)?)$')
@@ -170,7 +170,10 @@ def create_public_app(engine, signer, *, release_root, artifact_root, artifact_d
         return Response(raw if request.method == 'GET' else b'', media_type=mime,
                         headers={'Cache-Control': 'private, no-store' if private else 'no-cache',
                                  **({'X-Robots-Tag': 'noindex, nofollow'} if private else {}),
-                                 'X-Content-Type-Options': 'nosniff'})
+                                 'X-Content-Type-Options': 'nosniff',
+                                 **({'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY'} if private else {}),
+                                 **({'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'",
+                                     'Strict-Transport-Security': 'max-age=31536000'} if private and origin.startswith('https:') else {})})
 
     @app.middleware('http')
     async def verified_auxiliary(request, call_next):
@@ -207,6 +210,7 @@ def application():
     from backend.users.service import IdentityService
     identity = IdentityService(Security(engine, key, origin, fallback_keys=fallbacks,
                                         secure=origin.startswith('https:'),
+                                        trusted_proxies=json.loads(os.environ.get('MATHSTART_TRUSTED_PROXIES', '[]')),
                                         cutover_digest=os.environ.get('MATHSTART_IDENTITY_CUTOVER_DIGEST'),
                                         legacy_writer_role=os.environ.get('MATHSTART_LEGACY_WRITER_ROLE')))
     return create_public_app(engine, Signer(key, fallbacks), release_root=os.environ['MATHSTART_RELEASE_ROOT'],

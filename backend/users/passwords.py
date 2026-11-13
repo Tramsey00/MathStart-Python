@@ -64,7 +64,7 @@ def encode(password, salt=None, iterations=ITERATIONS):
 
 
 def verify(password, encoded):
-    if not isinstance(password, str) or not isinstance(encoded, str) or encoded.startswith('!'):
+    if not isinstance(password, str) or len(password.encode('utf-8')) > 4096 or not isinstance(encoded, str) or encoded.startswith('!'):
         return False
     try:
         algorithm = encoded.split('$', 1)[0]
@@ -120,6 +120,11 @@ def validate_password(password, user):
 
 def valid_username(value):
     return isinstance(value, str) and 1 <= len(value) <= 150 and re.fullmatch(r'[\w.@+-]+', value) is not None
+
+
+def validate_new_password(password, user):
+    return (isinstance(password, str) and 15 <= len(password) <= 128
+            and len(password.encode('utf-8')) <= 512 and validate_password(password, user))
 
 
 def valid_email(value):
