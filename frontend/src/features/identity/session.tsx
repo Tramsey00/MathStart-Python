@@ -24,5 +24,5 @@ export function safeReturn(value:string|null){
  try{const url=new URL(value,'https://mathstart.invalid');if(url.origin!=='https://mathstart.invalid'||/^\/auth(?:\/|$)/i.test(decodeURIComponent(url.pathname)))return '/account/';return url.pathname+url.search+url.hash;}catch{return '/account/';}
 }
 export function AuthLink(){const {user,status}=useSession();const label=status==='ready'?(user?'Личный кабинет':'Войти'):'Аккаунт';
- return <a className="site-auth-link" href={user||status!=='ready'?'/account/':'/auth?mode=login'} aria-busy={status==='checking'}><IdentityIcon name="user"/><span>{label}</span></a>;
+ return <a className="site-auth-link" href={user||status!=='ready'?'/account/':'/auth?mode=login'} aria-label={label} data-authenticated={Boolean(user)} aria-busy={status==='checking'}><IdentityIcon name="user"/><span className="site-auth-full">{label}</span>{user&&<span className="site-auth-short" aria-hidden="true">Кабинет</span>}</a>;
 }

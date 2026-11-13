@@ -69,7 +69,8 @@
 .site-auth-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; min-width: 96px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--lesson-ink); font-size: 14px; font-weight: 500; white-space: nowrap; }
 .site-auth-link:hover { color: var(--lesson-accent-text); }
 .site-auth-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
-@media(max-width:640px) { .lesson-header-end { gap: 8px; } .site-auth-link { font-size: 12px; padding-inline: 10px; min-width: 0; } .site-auth-link svg { display: none; } }
+.site-auth-short { display: none; }
+@media(max-width:640px) { .lesson-header-end { gap: 8px; } .site-auth-link { font-size: 12px; padding-inline: 10px; min-width: 0; } .site-auth-link svg { display: none; } .site-auth-link[data-authenticated=true] .site-auth-full { display: none; } .site-auth-short { display: inline; } }
 .lesson-theme-toggle { display: grid; place-items: center; flex: none; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--lesson-ink); cursor: pointer; }
 .lesson-theme-toggle:hover { background: var(--lesson-chrome-hover); }
 .lesson-footer { margin-top: 16px; background: var(--lesson-footer-surface); color: var(--lesson-ink); }
