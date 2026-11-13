@@ -389,17 +389,17 @@
 - 3.4 [Чётные и нечётные функции. Определение чётности и нечётности](9-klass/algebra/03-chislovye-funkcii/04-chyotnye-i-nechyotnye-funkczii-opredelenie-chyotnosti-i-221a9576/content.json) — React · `/materials/9-algebra-12`
 - 3.5 [Степенная функция с натуральным показателем](9-klass/algebra/03-chislovye-funkcii/05-stepennaya-funkcziya-s-naturalnym-pokazatelem/content.json) — React · `/materials/9-algebra-13`
 - 3.6 [Степенная функция с отрицательным целым показателем](9-klass/algebra/03-chislovye-funkcii/06-stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/content.json) — React · `/materials/9-algebra-14`
-- 3.7 [Функция кубического корня](9-klass/algebra/03-chislovye-funkcii/07-funkcziya-kubicheskogo-kornya/body.html) — HTML
+- 3.7 [Функция кубического корня](9-klass/algebra/03-chislovye-funkcii/07-funkcziya-kubicheskogo-kornya/content.json) — React · `/materials/9-algebra-15`
 
 **4. Числовые последовательности. Прогрессии**
 
-- 4.1 [Понятие числовой последовательности. Способы задания последовательностей](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/01-ponyatie-chislovoj-posledovatelnosti-sposoby-zadaniya-po-493b267e/body.html) — HTML
-- 4.2 [Арифметическая прогрессия. Свойства арифметической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/02-arifmeticheskaya-progressiya-svojstva-arifmeticheskoj-pr-1f603286/body.html) — HTML
-- 4.3 [Геометрическая прогрессия. Свойства геометрической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/03-geometricheskaya-progressiya-svojstva-geometricheskoj-pr-9db073a4/body.html) — HTML
+- 4.1 [Понятие числовой последовательности. Способы задания последовательностей](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/01-ponyatie-chislovoj-posledovatelnosti-sposoby-zadaniya-po-493b267e/content.json) — React · `/materials/9-algebra-16`
+- 4.2 [Арифметическая прогрессия. Свойства арифметической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/02-arifmeticheskaya-progressiya-svojstva-arifmeticheskoj-pr-1f603286/content.json) — React · `/materials/9-algebra-17`
+- 4.3 [Геометрическая прогрессия. Свойства геометрической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/03-geometricheskaya-progressiya-svojstva-geometricheskoj-pr-9db073a4/content.json) — React · `/materials/9-algebra-18`
 
 **5. Элементы комбинаторики, статистики и теории вероятностей**
 
-- 5.1 [Элементы комбинаторики. Комбинаторные задачи](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/01-elementy-kombinatoriki-kombinatornye-zadachi/body.html) — HTML
+- 5.1 [Элементы комбинаторики. Комбинаторные задачи](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/01-elementy-kombinatoriki-kombinatornye-zadachi/content.json) — React · `/materials/9-algebra-19`
 - 5.2 [Элементы статистики. Методы обработки информации](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/02-elementy-statistiki-metody-obrabotki-informaczii/body.html) — HTML
 - 5.3 [Элементы теории вероятности. Нахождение вероятности](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/03-elementy-teorii-veroyatnosti-nahozhdenie-veroyatnosti/body.html) — HTML
 - 5.4 [Относительная частота и статистическая вероятность события](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/04-otnositelnaya-chastota-i-statisticheskaya-veroyatnost-so-be78fb18/body.html) — HTML
