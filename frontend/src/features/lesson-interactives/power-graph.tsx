@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { POWER_TABLE_X, powerBranches, powerProperties, powerValue, type PowerMode } from './power-math';
 
 const format = (value: number | null) => value === null ? 'не определено'
@@ -10,6 +10,30 @@ export function PowerGraph({ id, mode }: { id: string; mode: PowerMode }) {
   const initial = negative ? -2 : 2;
   const [n, setN] = useState(initial);
   const [x, setX] = useState(1);
+  const resetFrame = useRef<number | null>(null);
+  function stopReset() {
+    if (resetFrame.current !== null) cancelAnimationFrame(resetFrame.current);
+    resetFrame.current = null;
+  }
+  useEffect(() => stopReset, []);
+  function reset() {
+    stopReset();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setN(initial);
+      setX(1);
+      return;
+    }
+    const start = performance.now();
+    const frame = (now: number) => {
+      const progress = Math.min((now - start) / 360, 1);
+      const eased = 1 - (1 - progress) ** 3;
+      const steps = Math.round(Math.abs(initial - n) * eased);
+      setN(n + Math.sign(initial - n) * steps);
+      setX(Math.round((x + (1 - x) * eased) * 20) / 20);
+      resetFrame.current = progress < 1 ? requestAnimationFrame(frame) : null;
+    };
+    resetFrame.current = requestAnimationFrame(frame);
+  }
   const xLimit = negative ? 4 : 2.25;
   const yLimit = negative ? 6 : 7;
   const y = powerValue(x, n);
@@ -21,7 +45,7 @@ export function PowerGraph({ id, mode }: { id: string; mode: PowerMode }) {
   return <div id={id} className="quadratic-lab">
     <div className="quadratic-toolbar">
       <p className="quadratic-current" aria-live="polite">y = x<sup>{format(n)}</sup></p>
-      <button className="quadratic-reset" type="button" onClick={() => { setN(initial); setX(1); }}>
+      <button className="quadratic-reset" type="button" onClick={reset}>
         Вернуть n = {format(initial)}
       </button>
     </div>
@@ -50,7 +74,8 @@ export function PowerGraph({ id, mode }: { id: string; mode: PowerMode }) {
             <output htmlFor={`${identity}-x`}>x = {format(x)}, y = {format(y)}</output>
           </div>
           <input id={`${identity}-x`} type="range" min={-xLimit} max={xLimit} step={0.05} value={x}
-            onChange={event => setX(Number(event.target.value))}/>
+            onPointerDown={stopReset} onKeyDown={stopReset}
+            onChange={event => { stopReset(); setX(Number(event.target.value)); }}/>
           {negative && <p>Около x = 0 значения быстро возрастают по модулю. Точка x = 0 графику не принадлежит.</p>}
           {y !== null && Math.abs(y) > yLimit && <p>Точка вне окна графика.</p>}
         </figcaption>
@@ -59,7 +84,8 @@ export function PowerGraph({ id, mode }: { id: string; mode: PowerMode }) {
         <div className="coefficient-control">
           <label htmlFor={`${identity}-n`}>Показатель n <output htmlFor={`${identity}-n`}>{format(n)}</output></label>
           <input id={`${identity}-n`} type="range" min={negative ? -10 : 1} max={negative ? -1 : 10} step={1} value={n}
-            onChange={event => setN(Number(event.target.value))}/>
+            onPointerDown={stopReset} onKeyDown={stopReset}
+            onChange={event => { stopReset(); setN(Number(event.target.value)); }}/>
         </div>
         <dl className="quadratic-properties">{powerProperties(n).map(([label, value]) =>
           <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
