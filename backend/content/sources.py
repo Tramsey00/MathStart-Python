@@ -213,7 +213,7 @@ def validate_lesson_document(document, slug):
             attr_names.add('font-style')
         if 'fill-opacity' in attrs:
             value = attrs['fill-opacity']
-            if (not in_svg or tag not in {'polygon', 'circle'} or not isinstance(value, str)
+            if (not in_svg or tag not in {'polygon', 'circle', 'path'} or not isinstance(value, str)
                     or not re.fullmatch(r'(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', value)
                     or not isfinite(float(value)) or not 0 <= float(value) <= 1):
                 raise SourceError('Unsupported authored SVG fill opacity')

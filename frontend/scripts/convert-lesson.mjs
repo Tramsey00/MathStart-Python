@@ -70,7 +70,7 @@ function convert(n) {
       ? n.tagName === 'line' && /^url\(#[A-Za-z0-9_-]+\)$/.test(value)
       : key === 'dy' ? n.tagName === 'tspan' && /^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) && Number.isFinite(Number(value))
       : key === 'font-style' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'text' && value === 'italic'
-      : key === 'fill-opacity' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && ['polygon', 'circle'].includes(n.tagName)
+      : key === 'fill-opacity' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && ['polygon', 'circle', 'path'].includes(n.tagName)
         && /^(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) && value === value.trim()
         && Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 1
       : key === 'data-net-face' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'rect' && value === 'true'
