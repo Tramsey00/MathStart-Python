@@ -58,6 +58,38 @@ function isAuthoredFigure(n) {
     && html(caption) && caption.tagName === 'figcaption';
 }
 
+const circleSteps = /^(?:0|2|3|4|6|8|9|10|12|14|15|16|18|20|21|22)$/;
+
+function isCircleTask(n) {
+  if (!html(n) || n.tagName !== 'article' || attrs(n).class !== 'v2-task ms-task'
+      || n.parentNode?.tagName !== 'section' || attrs(n.parentNode).id !== 'practice') return false;
+  const blocks = parts(n);
+  const [label, question, answer] = blocks;
+  const [summary, ...solution] = answer ? parts(answer) : [];
+  return blocks.length === 3 && html(label) && label.tagName === 'div' && attrs(label).class === 'v2-task-label'
+    && html(question) && question.tagName === 'p' && html(answer) && answer.tagName === 'details'
+    && attrs(answer).class === 'v2-answer ms-answer' && Object.keys(attrs(answer)).length === 1
+    && html(summary) && summary.tagName === 'summary' && Object.keys(attrs(summary)).length === 0
+    && children(summary).every(node => node.nodeName === '#text') && /^Разбор задания (?:[1-9]|1[0-2])$/u.test(text(summary))
+    && solution.length > 0;
+}
+
+function circleSectionHeading(section) {
+  const [wrapper] = parts(section);
+  if (!html(wrapper) || wrapper.tagName !== 'div' || attrs(wrapper).class !== 'v2-section-heading'
+      || Object.keys(attrs(wrapper)).length !== 1) return null;
+  const blocks = parts(wrapper);
+  const [label, heading] = blocks;
+  if (blocks.length !== 2 || !html(label) || label.tagName !== 'span'
+      || attrs(label).class !== 'ms-section-number' || Object.keys(attrs(label)).length !== 1
+      || !/^(?:0[1-9]|10|✓)$/u.test(text(label)) || !html(heading) || heading.tagName !== 'h2'
+      || Object.keys(attrs(heading)).length !== 0
+      || [...children(label), ...children(heading)].some(node => node.nodeName !== '#text')) {
+    throw Error('Unsupported number circle section heading');
+  }
+  return { heading, nodes: children(section).filter(node => node !== wrapper) };
+}
+
 function convert(n) {
   if (n.nodeName === '#text') return { kind: 'text', text: n.value };
   if (n.nodeName === '#comment') return null;
@@ -91,6 +123,11 @@ function convert(n) {
       && a['data-ms-power-lab'] === 'true' && Object.keys(a).length === 3) {
     return { kind: 'interactive', name: 'power-rational', id: a.id };
   }
+  if (html(n) && n.tagName === 'div' && a.id === 'circle-lab-v2' && a.class === 'v2-lab'
+      && Object.keys(a).length === 2 && n.parentNode?.tagName === 'section'
+      && attrs(n.parentNode).id === 'interactive-lab') {
+    return { kind: 'interactive', name: 'number-circle', id: a.id };
+  }
   if (a.id === 'ms-quadratic-lab-660') return { kind: 'interactive', name: 'quadratic', id: a.id };
   if (a.id === 'ms-linear-lab-723') {
     // Instructional prose remains document content, outside the replacement UI.
@@ -101,7 +138,8 @@ function convert(n) {
   }
   if (n.tagName === 'code' && n.namespaceURI !== 'http://www.w3.org/1999/xhtml') throw Error('Unsupported source code namespace');
   if (n.tagName === 'img' && n.namespaceURI !== 'http://www.w3.org/1999/xhtml') throw Error('Unsupported source image namespace');
-  const tag = staticSourceTag(n);
+  const circleTask = isCircleTask(n);
+  const tag = circleTask ? 'div' : staticSourceTag(n);
   if (!tags.has(tag) && !isAuthoredFigure(n)
       && !(tag === 'figcaption' && isAuthoredFigure(n.parentNode))) throw Error(`Unsupported source tag: ${n.tagName}`);
   for (const [key, value] of Object.entries(a)) {
@@ -117,6 +155,7 @@ function convert(n) {
     const imageAttribute = n.tagName === 'img' && (key === 'src' || key === 'alt');
     const gradientAttribute = n.tagName === 'stop' && (key === 'offset' || key === 'stop-color');
     const staticAttribute = key === 'tabindex' ? isNamedTableRegion(n, a)
+      : key === 'data-angle-step' ? svg(n) && tag === 'circle' && circleSteps.test(value) && value === value.trim()
       : svg(n) && tag === 'path' && (key === 'data-function' ? !!value.trim()
         : key === 'data-power' && /^(?:2|3),1$/.test(value));
     if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-') && !svgAttribute && !imageAttribute && !gradientAttribute && !staticAttribute) throw Error(`Unsupported attribute: ${key}`);
@@ -128,7 +167,7 @@ function convert(n) {
     const answer = children(n).find(c => has(c, 'ms-answer'));
     if (!answer) throw Error('Missing self-check answer');
     const summary = children(answer).find(c => c.tagName === 'summary');
-    return { kind: 'selfCheck', attrs: a, disclosure: text(summary).includes('решение') ? 'solution' : 'answer',
+    return { kind: 'selfCheck', attrs: a, disclosure: circleTask || text(summary).includes('решение') ? 'solution' : 'answer',
       question: children(n).filter(c => c !== answer).map(convert).filter(Boolean),
       answer: children(answer).filter(c => c !== summary).map(convert).filter(Boolean) };
   }
@@ -223,6 +262,10 @@ export function convertLesson(directory) {
     if (n.tagName !== 'section') throw Error(`Unreviewed lesson root block: ${n.tagName}`);
     let heading = children(n).find(c => c.tagName === 'h2');
     let sectionNodes = children(n).filter(c => c !== heading);
+    if (!heading && meta.slug === '10-klass-chislovaya-okruzhnost-2-0') {
+      const nested = circleSectionHeading(n);
+      if (nested) ({ heading, nodes: sectionNodes } = nested);
+    }
     if (!heading && attrs(n).id === 'theory') {
       const laboratory = nestedLaboratoryHeading(n);
       heading = laboratory.heading;

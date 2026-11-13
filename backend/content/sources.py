@@ -157,7 +157,7 @@ def validate_lesson_document(document, slug):
                 if set(node) != {'kind', 'text'} or not isinstance(node['text'], str):
                     raise SourceError('Invalid text node')
             elif kind == 'interactive':
-                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic', 'power-positive', 'power-negative', 'power-rational'} or not isinstance(node['id'], str) or not node['id']:
+                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic', 'power-positive', 'power-negative', 'power-rational', 'number-circle'} or not isinstance(node['id'], str) or not node['id']:
                     raise SourceError('Unsupported React interactive')
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
@@ -241,6 +241,11 @@ def validate_lesson_document(document, slug):
                     or len(blocks) != 1 or not isinstance(blocks[0], dict) or blocks[0].get('tag') != 'table'):
                 raise SourceError('Unsupported authored table focus region')
             attr_names.add('tabindex')
+        if 'data-angle-step' in attrs:
+            value = attrs['data-angle-step']
+            if (not in_svg or tag != 'circle' or not isinstance(value, str)
+                    or not re.fullmatch(r'0|2|3|4|6|8|9|10|12|14|15|16|18|20|21|22', value)):
+                raise SourceError('Unsupported authored SVG angle step')
         if 'data-power' in attrs:
             value = attrs['data-power']
             if not in_svg or tag != 'path' or not isinstance(value, str) or not re.fullmatch(r'(?:2|3),1', value):
