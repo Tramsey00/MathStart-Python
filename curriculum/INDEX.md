@@ -63,46 +63,46 @@
 
 **1. Натуральные числа**
 
-- 1.1 [Наибольший общий делитель и наименьшее общее кратное](6-klass/matematika/01-naturalnye-chisla/01-naibolshij-obshhij-delitel-i-naimenshee-obshhee-kratnoe/body.html) — HTML
+- 1.1 [Наибольший общий делитель и наименьшее общее кратное](6-klass/matematika/01-naturalnye-chisla/01-naibolshij-obshhij-delitel-i-naimenshee-obshhee-kratnoe/content.json) — React · `/materials/6-math-1`
 
 **2. Отношения, пропорции, проценты**
 
-- 2.1 [Отношение двух чисел](6-klass/matematika/02-otnosheniya-proporcii-procenty/01-otnoshenie-dvuh-chisel/body.html) — HTML
-- 2.2 [Пропорция. Основное свойство пропорции](6-klass/matematika/02-otnosheniya-proporcii-procenty/02-proporcziya-osnovnoe-svojstvo-proporczii/body.html) — HTML
-- 2.3 [Прямая и обратная пропорциональность](6-klass/matematika/02-otnosheniya-proporcii-procenty/03-pryamaya-i-obratnaya-proporczionalnost/body.html) — HTML
-- 2.4 [Проценты. Задачи на проценты: нахождение процента от величины и величины по её проценту](6-klass/matematika/02-otnosheniya-proporcii-procenty/04-proczenty-zadachi-na-proczenty-nahozhdenie-proczenta-ot-5041b252/body.html) — HTML
-- 2.5 [Решение задач с помощью пропорций](6-klass/matematika/02-otnosheniya-proporcii-procenty/05-reshenie-zadach-s-pomoshhyu-proporczij/body.html) — HTML
-- 2.6 [Разные задачи](6-klass/matematika/02-otnosheniya-proporcii-procenty/06-raznye-zadachi/body.html) — HTML
-- 2.7 [Расстояния между двумя точками. Масштаб. Виды масштаба](6-klass/matematika/02-otnosheniya-proporcii-procenty/07-rasstoyaniya-mezhdu-dvumya-tochkami-masshtab-vidy-massht-66ce2627/body.html) — HTML
+- 2.1 [Отношение двух чисел](6-klass/matematika/02-otnosheniya-proporcii-procenty/01-otnoshenie-dvuh-chisel/content.json) — React · `/materials/6-math-2`
+- 2.2 [Пропорция. Основное свойство пропорции](6-klass/matematika/02-otnosheniya-proporcii-procenty/02-proporcziya-osnovnoe-svojstvo-proporczii/content.json) — React · `/materials/6-math-3`
+- 2.3 [Прямая и обратная пропорциональность](6-klass/matematika/02-otnosheniya-proporcii-procenty/03-pryamaya-i-obratnaya-proporczionalnost/content.json) — React · `/materials/6-math-4`
+- 2.4 [Проценты. Задачи на проценты: нахождение процента от величины и величины по её проценту](6-klass/matematika/02-otnosheniya-proporcii-procenty/04-proczenty-zadachi-na-proczenty-nahozhdenie-proczenta-ot-5041b252/content.json) — React · `/materials/6-math-5`
+- 2.5 [Решение задач с помощью пропорций](6-klass/matematika/02-otnosheniya-proporcii-procenty/05-reshenie-zadach-s-pomoshhyu-proporczij/content.json) — React · `/materials/6-math-6`
+- 2.6 [Разные задачи](6-klass/matematika/02-otnosheniya-proporcii-procenty/06-raznye-zadachi/content.json) — React · `/materials/6-math-7`
+- 2.7 [Расстояния между двумя точками. Масштаб. Виды масштаба](6-klass/matematika/02-otnosheniya-proporcii-procenty/07-rasstoyaniya-mezhdu-dvumya-tochkami-masshtab-vidy-massht-66ce2627/content.json) — React · `/materials/6-math-8`
 
 **3. Рациональные числа**
 
-- 3.1 [Положительные и отрицательные числа. Определение координатной прямой](6-klass/matematika/03-racionalnye-chisla/01-polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordin-60d081f0/body.html) — HTML
-- 3.2 [Противоположные числа. Модуль числа. Целые и рациональные числа](6-klass/matematika/03-racionalnye-chisla/02-protivopolozhnye-chisla-modul-chisla-czelye-i-raczionaln-ae5348c9/body.html) — HTML
-- 3.3 [Сравнение рациональных чисел](6-klass/matematika/03-racionalnye-chisla/03-sravnenie-raczionalnyh-chisel/body.html) — HTML
-- 3.4 [Сложение рациональных чисел с помощью координатной прямой](6-klass/matematika/03-racionalnye-chisla/04-slozhenie-raczionalnyh-chisel-s-pomoshhyu-koordinatnoj-p-95c60669/body.html) — HTML
-- 3.5 [Алгебраическая сумма. Свойства](6-klass/matematika/03-racionalnye-chisla/05-algebraicheskaya-summa-svojstva/body.html) — HTML
-- 3.6 [Алгебраическая сумма рациональных чисел с одинаковыми знаками](6-klass/matematika/03-racionalnye-chisla/06-algebraicheskaya-summa-raczionalnyh-chisel-s-odinakovymi-32bce4c2/body.html) — HTML
-- 3.7 [Алгебраическая сумма рациональных чисел с разными знаками](6-klass/matematika/03-racionalnye-chisla/07-algebraicheskaya-summa-raczionalnyh-chisel-s-raznymi-zna-a599032a/body.html) — HTML
-- 3.8 [Умножение и деление рациональных чисел](6-klass/matematika/03-racionalnye-chisla/08-umnozhenie-i-delenie-raczionalnyh-chisel/body.html) — HTML
-- 3.9 [Умножение и деление обыкновенных дробей](6-klass/matematika/03-racionalnye-chisla/09-umnozhenie-i-delenie-obyknovennyh-drobej/body.html) — HTML
-- 3.10 [Дробные выражения](6-klass/matematika/03-racionalnye-chisla/10-drobnye-vyrazheniya/body.html) — HTML
-- 3.11 [Координаты. Координатная плоскость, координаты точки](6-klass/matematika/03-racionalnye-chisla/11-koordinaty-koordinatnaya-ploskost-koordinaty-tochki/body.html) — HTML
+- 3.1 [Положительные и отрицательные числа. Определение координатной прямой](6-klass/matematika/03-racionalnye-chisla/01-polozhitelnye-i-otriczatelnye-chisla-opredelenie-koordin-60d081f0/content.json) — React · `/materials/6-math-9`
+- 3.2 [Противоположные числа. Модуль числа. Целые и рациональные числа](6-klass/matematika/03-racionalnye-chisla/02-protivopolozhnye-chisla-modul-chisla-czelye-i-raczionaln-ae5348c9/content.json) — React · `/materials/6-math-10`
+- 3.3 [Сравнение рациональных чисел](6-klass/matematika/03-racionalnye-chisla/03-sravnenie-raczionalnyh-chisel/content.json) — React · `/materials/6-math-11`
+- 3.4 [Сложение рациональных чисел с помощью координатной прямой](6-klass/matematika/03-racionalnye-chisla/04-slozhenie-raczionalnyh-chisel-s-pomoshhyu-koordinatnoj-p-95c60669/content.json) — React · `/materials/6-math-12`
+- 3.5 [Алгебраическая сумма. Свойства](6-klass/matematika/03-racionalnye-chisla/05-algebraicheskaya-summa-svojstva/content.json) — React · `/materials/6-math-13`
+- 3.6 [Алгебраическая сумма рациональных чисел с одинаковыми знаками](6-klass/matematika/03-racionalnye-chisla/06-algebraicheskaya-summa-raczionalnyh-chisel-s-odinakovymi-32bce4c2/content.json) — React · `/materials/6-math-14`
+- 3.7 [Алгебраическая сумма рациональных чисел с разными знаками](6-klass/matematika/03-racionalnye-chisla/07-algebraicheskaya-summa-raczionalnyh-chisel-s-raznymi-zna-a599032a/content.json) — React · `/materials/6-math-15`
+- 3.8 [Умножение и деление рациональных чисел](6-klass/matematika/03-racionalnye-chisla/08-umnozhenie-i-delenie-raczionalnyh-chisel/content.json) — React · `/materials/6-math-16`
+- 3.9 [Умножение и деление обыкновенных дробей](6-klass/matematika/03-racionalnye-chisla/09-umnozhenie-i-delenie-obyknovennyh-drobej/content.json) — React · `/materials/6-math-17`
+- 3.10 [Дробные выражения](6-klass/matematika/03-racionalnye-chisla/10-drobnye-vyrazheniya/content.json) — React · `/materials/6-math-18`
+- 3.11 [Координаты. Координатная плоскость, координаты точки](6-klass/matematika/03-racionalnye-chisla/11-koordinaty-koordinatnaya-ploskost-koordinaty-tochki/content.json) — React · `/materials/6-math-19`
 
 **4. Преобразование буквенных выражений**
 
-- 4.1 [Упрощение выражений, раскрытие скобок](6-klass/matematika/04-preobrazovanie-bukvennyh-vyrazhenij/01-uproshhenie-vyrazhenij-raskrytie-skobok/body.html) — HTML
-- 4.2 [Решение линейных уравнений](6-klass/matematika/04-preobrazovanie-bukvennyh-vyrazhenij/02-reshenie-linejnyh-uravnenij/body.html) — HTML
-- 4.3 [Этапы решения линейных уравнений](6-klass/matematika/04-preobrazovanie-bukvennyh-vyrazhenij/03-etapy-resheniya-linejnyh-uravnenij/body.html) — HTML
+- 4.1 [Упрощение выражений, раскрытие скобок](6-klass/matematika/04-preobrazovanie-bukvennyh-vyrazhenij/01-uproshhenie-vyrazhenij-raskrytie-skobok/content.json) — React · `/materials/6-math-20`
+- 4.2 [Решение линейных уравнений](6-klass/matematika/04-preobrazovanie-bukvennyh-vyrazhenij/02-reshenie-linejnyh-uravnenij/content.json) — React · `/materials/6-math-21`
+- 4.3 [Этапы решения линейных уравнений](6-klass/matematika/04-preobrazovanie-bukvennyh-vyrazhenij/03-etapy-resheniya-linejnyh-uravnenij/content.json) — React · `/materials/6-math-22`
 
 **5. Геометрические фигуры и тела. Симметрия на плоскости**
 
-- 5.1 [Начальные понятия и факты курса геометрии](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/01-nachalnye-ponyatiya-i-fakty-kursa-geometrii/body.html) — HTML
-- 5.2 [Параллельность прямых](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/02-parallelnost-pryamyh/body.html) — HTML
-- 5.3 [Перпендикулярность прямых. Расстояние от точки до прямой. Серединный перпендикуляр](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/03-perpendikulyarnost-pryamyh-rasstoyanie-ot-tochki-do-prya-67326670/body.html) — HTML
-- 5.4 [Центральная и осевая симметрия](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/04-czentralnaya-i-osevaya-simmetriya/body.html) — HTML
-- 5.5 [Окружность и круг. Число Пи. Длина окружности. Площадь круга](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/05-okruzhnost-i-krug-chislo-pi-dlina-okruzhnosti-ploshhad-k-672acaae/body.html) — HTML
-- 5.6 [Наглядные представления о шаре, сфере. Формулы площади поверхности сферы и объёма шара](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/06-naglyadnye-predstavleniya-o-share-sfere-formuly-ploshhad-09a0e9ee/body.html) — HTML
+- 5.1 [Начальные понятия и факты курса геометрии](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/01-nachalnye-ponyatiya-i-fakty-kursa-geometrii/content.json) — React · `/materials/6-math-23`
+- 5.2 [Параллельность прямых](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/02-parallelnost-pryamyh/content.json) — React · `/materials/6-math-24`
+- 5.3 [Перпендикулярность прямых. Расстояние от точки до прямой. Серединный перпендикуляр](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/03-perpendikulyarnost-pryamyh-rasstoyanie-ot-tochki-do-prya-67326670/content.json) — React · `/materials/6-math-25`
+- 5.4 [Центральная и осевая симметрия](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/04-czentralnaya-i-osevaya-simmetriya/content.json) — React · `/materials/6-math-26`
+- 5.5 [Окружность и круг. Число Пи. Длина окружности. Площадь круга](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/05-okruzhnost-i-krug-chislo-pi-dlina-okruzhnosti-ploshhad-k-672acaae/content.json) — React · `/materials/6-math-27`
+- 5.6 [Наглядные представления о шаре, сфере. Формулы площади поверхности сферы и объёма шара](6-klass/matematika/05-geometricheskie-figury-i-tela-simmetriya-na-ploskosti/06-naglyadnye-predstavleniya-o-share-sfere-formuly-ploshhad-09a0e9ee/content.json) — React · `/materials/6-math-28`
 
 ## 7 класс
 
