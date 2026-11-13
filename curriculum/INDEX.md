@@ -418,14 +418,14 @@
 
 **3. Соотношения между сторонами и углами треугольника**
 
-- 3.1 [Синус, косинус, тангенс и котангенс углов от 0° до 180°](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/01-sinus-kosinus-tangens-i-kotangens-uglov-ot-0-do-180/body.html) — HTML
+- 3.1 [Синус, косинус, тангенс и котангенс углов от 0° до 180°](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/01-sinus-kosinus-tangens-i-kotangens-uglov-ot-0-do-180/content.json) — React · `/materials/9-geometry-5`
 - 3.2 [Теоремы синусов и косинусов. Решение треугольников](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/02-teoremy-sinusov-i-kosinusov-reshenie-treugolnikov/content.json) — React · `/materials/9-geometry-6`
 - 3.3 [Площадь треугольника и её применение](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/03-ploshhad-treugolnika-i-eyo-primenenie/content.json) — React · `/materials/9-geometry-7`
 
 **4. Правильные многоугольники и окружность**
 
 - 4.1 [Правильные многоугольники. Вписанная и описанная окружности](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/01-pravilnye-mnogougolniki-vpisannaya-i-opisannaya-okruzhno-d48b262a/content.json) — React · `/materials/9-geometry-8`
-- 4.2 [Длина окружности и дуги. Площадь круга. Хорды, секущие и касательные](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/02-dlina-okruzhnosti-i-dugi-ploshhad-kruga-hordy-sekushhie-992365fc/body.html) — HTML
+- 4.2 [Длина окружности и дуги. Площадь круга. Хорды, секущие и касательные](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/02-dlina-okruzhnosti-i-dugi-ploshhad-kruga-hordy-sekushhie-992365fc/content.json) — React · `/materials/9-geometry-9`
 
 **5. Геометрические преобразования**
 
