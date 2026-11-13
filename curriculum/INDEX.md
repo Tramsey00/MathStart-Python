@@ -491,6 +491,6 @@
 
 **4. Синус и косинус. Тангенс и котангенс. Свойства и графики тригонометрических функций**
 
-- 4.1 [Числовая окружность на координатной плоскости 2.0](10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/body.html) — HTML
+- 4.1 [Числовая окружность на координатной плоскости 2.0](10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/content.json) — react-v1, `/materials/10-algebra-13`
 
 Всего исходников в указателе: 263.
