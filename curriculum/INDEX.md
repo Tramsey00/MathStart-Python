@@ -372,19 +372,19 @@
 - 1.1 [Методы решения квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/01-metody-resheniya-kvadratnyh-neravenstv/content.json) — React · `/materials/9-algebra-1`
 - 1.2 [Повторение способов решения линейных и квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/02-povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-nera-f3595445/content.json) — React · `/materials/9-algebra-2`
 - 1.3 [Решение рациональных неравенств методом интервалов](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/03-reshenie-raczionalnyh-neravenstv-metodom-intervalov/content.json) — React · `/materials/9-algebra-3`
-- 1.4 [Множества и подмножества. Объединение и пересечение множеств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/04-mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mno-b42dc74a/body.html) — HTML
+- 1.4 [Множества и подмножества. Объединение и пересечение множеств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/04-mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mno-b42dc74a/content.json) — React · `/materials/9-algebra-4`
 - 1.5 [Системы рациональных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/05-sistemy-raczionalnyh-neravenstv/content.json) — React · `/materials/9-algebra-5`
 
 **2. Системы уравнений. Равносильные преобразования**
 
-- 2.1 [Понятие системы рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/01-ponyatie-sistemy-raczionalnyh-uravnenij/body.html) — HTML
-- 2.2 [Методы решения систем рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/02-metody-resheniya-sistem-raczionalnyh-uravnenij/body.html) — HTML
-- 2.3 [Использование систем рациональных уравнений для решения задач](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/03-ispolzovanie-sistem-raczionalnyh-uravnenij-dlya-resheniy-b251cdf2/body.html) — HTML
+- 2.1 [Понятие системы рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/01-ponyatie-sistemy-raczionalnyh-uravnenij/content.json) — React · `/materials/9-algebra-6`
+- 2.2 [Методы решения систем рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/02-metody-resheniya-sistem-raczionalnyh-uravnenij/content.json) — React · `/materials/9-algebra-7`
+- 2.3 [Использование систем рациональных уравнений для решения задач](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/03-ispolzovanie-sistem-raczionalnyh-uravnenij-dlya-resheniy-b251cdf2/content.json) — React · `/materials/9-algebra-8`
 
 **3. Числовые функции. Свойства числовых функций**
 
 - 3.1 [Определение числовой функции и способы её задания](9-klass/algebra/03-chislovye-funkcii/01-opredelenie-chislovoj-funkczii-i-sposoby-eyo-zadaniya/body.html) — HTML
-- 3.2 [Свойства основных функций](9-klass/algebra/03-chislovye-funkcii/02-svojstva-osnovnyh-funkczij/body.html) — HTML
+- 3.2 [Свойства основных функций](9-klass/algebra/03-chislovye-funkcii/02-svojstva-osnovnyh-funkczij/content.json) — React · `/materials/9-algebra-10`
 - 3.3 [Возрастание и убывание функции](9-klass/algebra/03-chislovye-funkcii/03-vozrastanie-i-ubyvanie-funkczii/body.html) — HTML
 - 3.4 [Чётные и нечётные функции. Определение чётности и нечётности](9-klass/algebra/03-chislovye-funkcii/04-chyotnye-i-nechyotnye-funkczii-opredelenie-chyotnosti-i-221a9576/body.html) — HTML
 - 3.5 [Степенная функция с натуральным показателем](9-klass/algebra/03-chislovye-funkcii/05-stepennaya-funkcziya-s-naturalnym-pokazatelem/body.html) — HTML
