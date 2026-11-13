@@ -241,6 +241,10 @@ def validate_lesson_document(document, slug):
                     or len(blocks) != 1 or not isinstance(blocks[0], dict) or blocks[0].get('tag') != 'table'):
                 raise SourceError('Unsupported authored table focus region')
             attr_names.add('tabindex')
+        if 'data-power' in attrs:
+            value = attrs['data-power']
+            if not in_svg or tag != 'path' or not isinstance(value, str) or not re.fullmatch(r'(?:2|3),1', value):
+                raise SourceError('Unsupported authored SVG power label')
         if 'data-function' in attrs:
             value = attrs['data-function']
             if (not in_svg or tag != 'path' or not isinstance(value, str) or not value.strip()

@@ -112,7 +112,8 @@ function convert(n) {
     const imageAttribute = n.tagName === 'img' && (key === 'src' || key === 'alt');
     const gradientAttribute = n.tagName === 'stop' && (key === 'offset' || key === 'stop-color');
     const staticAttribute = key === 'tabindex' ? isNamedTableRegion(n, a)
-      : key === 'data-function' && svg(n) && tag === 'path' && !!value.trim();
+      : svg(n) && tag === 'path' && (key === 'data-function' ? !!value.trim()
+        : key === 'data-power' && /^(?:2|3),1$/.test(value));
     if (!attributes.has(key.toLowerCase()) && !key.startsWith('aria-') && !svgAttribute && !imageAttribute && !gradientAttribute && !staticAttribute) throw Error(`Unsupported attribute: ${key}`);
     if (/^on/i.test(key) || /(?:javascript:|expression\(|@import|url\(\s*[^#])/i.test(value)) throw Error('Active source markup');
     if (key === 'href' && !/^(?:\/(?!\/)|#|https:\/\/)/.test(value)) throw Error('Unsupported source link');
