@@ -45,6 +45,11 @@ function staticSourceTag(n) {
 function isAuthoredFigure(n) {
   if (!html(n) || n.tagName !== 'figure' || !has(n, 'ms-figure')) return false;
   const blocks = parts(n);
+  if (attrs(n).class === 'v2-figure ms-figure' && blocks.length === 2) {
+    const [drawing, caption] = blocks;
+    return svg(drawing) && drawing.tagName === 'svg'
+      && html(caption) && caption.tagName === 'figcaption';
+  }
   const [title, wrapper, caption] = blocks;
   const drawing = wrapper ? parts(wrapper) : [];
   return blocks.length === 3 && html(title) && title.tagName === 'p' && has(title, 'ms-figure-title')
