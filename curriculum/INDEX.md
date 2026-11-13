@@ -471,6 +471,8 @@
 
 **1. Действительные числа**
 
+Состояние переноса и постоянные адреса всех 13 тем — в [сводке MS-T008](../docs/tasks/ms-t008-migration-summary.md).
+
 - 1.1 [Натуральные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie/body.html) — HTML
 - 1.1 [Натуральные числа. Повторение 2.0](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie-2-0/body.html) — HTML
 - 1.2 [Рациональные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/02-10-klass-racionalnye-chisla-povtorenie/body.html) — HTML
