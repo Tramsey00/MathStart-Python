@@ -1,0 +1,2531 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "naibolshij-obshhij-delitel-i-naimenshee-obshhee-kratnoe",
+  "title": "Наибольший общий делитель и наименьшее общее кратное",
+  "subtitle": "В этой теме разберём, что такое делители и кратные числа, как находить НОД и НОК, зачем они нужны в задачах и как использовать разложение на простые множители.",
+  "grade": "6-klass",
+  "subject": "matematika",
+  "section": "naturalnye-chisla",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "Что нужно вспомнить",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Чтобы уверенно находить НОД и НОК, нужно помнить признаки делимости,\n      уметь раскладывать числа на простые множители и понимать разницу между делителем и кратным.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "element",
+          "tag": "ul",
+          "attrs": {
+            "class": "ms-list"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Делитель числа"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " — это число, на которое данное число делится без остатка."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Кратное числа"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " — это число, которое делится на данное число без остатка."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Простое число"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " имеет ровно два делителя: 1 и само себя."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Составное число"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " имеет больше двух делителей."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Делители и кратные",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Делители помогают понять, из каких частей можно составить число.\n      Кратные показывают, какие числа получаются при умножении данного числа на натуральные числа.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Схема по теме"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "figure",
+              "tag": "svg",
+              "attrs": {
+                "xmlns": "http://www.w3.org/2000/svg",
+                "aria-label": "Схема по теме НОД и НОК",
+                "class": "ms-svg",
+                "fill": "none",
+                "role": "img",
+                "viewBox": "0 0 1280 720"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "#F8FAFC",
+                    "height": "720",
+                    "rx": "36",
+                    "width": "1280"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "white",
+                    "height": "640",
+                    "rx": "32",
+                    "stroke": "#DBEAFE",
+                    "stroke-width": "2",
+                    "width": "1200",
+                    "x": "40",
+                    "y": "40"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "#EFF6FF",
+                    "height": "140",
+                    "rx": "28",
+                    "stroke": "#BFDBFE",
+                    "stroke-width": "3",
+                    "width": "360",
+                    "x": "90",
+                    "y": "88"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#111827",
+                    "font-family": "inherit",
+                    "font-size": "42",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "270",
+                    "y": "150"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Делители"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#2563EB",
+                    "font-family": "inherit",
+                    "font-size": "24",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "270",
+                    "y": "192"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "на что делится число"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "#FFF7ED",
+                    "height": "140",
+                    "rx": "28",
+                    "stroke": "#FED7AA",
+                    "stroke-width": "3",
+                    "width": "360",
+                    "x": "830",
+                    "y": "88"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#111827",
+                    "font-family": "inherit",
+                    "font-size": "42",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "1010",
+                    "y": "150"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Кратные"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#D97706",
+                    "font-family": "inherit",
+                    "font-size": "24",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "1010",
+                    "y": "192"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "что делится на число"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "#ECFDF5",
+                    "height": "120",
+                    "rx": "24",
+                    "stroke": "#BBF7D0",
+                    "stroke-width": "3",
+                    "width": "200",
+                    "x": "420",
+                    "y": "332"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#15803D",
+                    "font-family": "inherit",
+                    "font-size": "42",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "520",
+                    "y": "387"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОД"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#15803D",
+                    "font-family": "inherit",
+                    "font-size": "22",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "520",
+                    "y": "420"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "общий делитель"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "#F5F3FF",
+                    "height": "120",
+                    "rx": "24",
+                    "stroke": "#DDD6FE",
+                    "stroke-width": "3",
+                    "width": "210",
+                    "x": "660",
+                    "y": "332"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#7C3AED",
+                    "font-family": "inherit",
+                    "font-size": "42",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "765",
+                    "y": "387"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОК"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#7C3AED",
+                    "font-family": "inherit",
+                    "font-size": "22",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "765",
+                    "y": "420"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "общее кратное"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "path",
+                  "attrs": {
+                    "d": "M450 160C560 170 560 250 530 330",
+                    "stroke": "#93C5FD",
+                    "stroke-linecap": "round",
+                    "stroke-width": "8"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "path",
+                  "attrs": {
+                    "d": "M830 160C720 170 720 250 750 330",
+                    "stroke": "#FDBA74",
+                    "stroke-linecap": "round",
+                    "stroke-width": "8"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "circle",
+                  "attrs": {
+                    "cx": "220",
+                    "cy": "430",
+                    "fill": "#EFF6FF",
+                    "r": "66",
+                    "stroke": "#BFDBFE",
+                    "stroke-width": "3"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#2563EB",
+                    "font-family": "inherit",
+                    "font-size": "44",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "220",
+                    "y": "442"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "24"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#4B5563",
+                    "font-family": "inherit",
+                    "font-size": "24",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "220",
+                    "y": "540"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "1, 2, 3, 4, 6, 8..."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "circle",
+                  "attrs": {
+                    "cx": "1060",
+                    "cy": "430",
+                    "fill": "#FFF7ED",
+                    "r": "66",
+                    "stroke": "#FED7AA",
+                    "stroke-width": "3"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#D97706",
+                    "font-family": "inherit",
+                    "font-size": "44",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "1060",
+                    "y": "442"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "6"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#4B5563",
+                    "font-family": "inherit",
+                    "font-size": "24",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "1060",
+                    "y": "540"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "6, 12, 18, 24..."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "rect",
+                  "attrs": {
+                    "fill": "#F9FAFB",
+                    "height": "74",
+                    "rx": "20",
+                    "stroke": "#E5E7EB",
+                    "stroke-width": "2",
+                    "width": "980",
+                    "x": "150",
+                    "y": "590"
+                  },
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "text",
+                  "attrs": {
+                    "fill": "#111827",
+                    "font-family": "inherit",
+                    "font-size": "24",
+                    "font-weight": "700",
+                    "text-anchor": "middle",
+                    "x": "640",
+                    "y": "619"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tspan",
+                      "attrs": {
+                        "x": "640",
+                        "dy": "0"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "НОД — самый большой общий делитель"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tspan",
+                      "attrs": {
+                        "x": "640",
+                        "dy": "30"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "НОК — самое маленькое общее кратное"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 1. Делители числа 24"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "24 делится на 1, 2, 3, 4, 6, 8, 12 и 24."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Делители числа 24:"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " 1, 2, 3, 4, 6, 8, 12, 24."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 2. Кратные числа 6"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 1 = 6, 6 · 2 = 12, 6 · 3 = 18, 6 · 4 = 24, 6 · 5 = 30."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Первые кратные числа 6:"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " 6, 12, 18, 24, 30, 36, ..."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Делителей у натурального числа конечное количество, а кратных — бесконечно много.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Наибольший общий делитель",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Общий делитель двух чисел — это число, на которое оба данных числа делятся без остатка.\n      Самый большой из общих делителей называется наибольшим общим делителем.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОД"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — это наибольший общий делитель нескольких чисел.\n      Запись "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОД(18; 24) = 6"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " означает, что 6 — самый большой делитель,\n      который подходит и для 18, и для 24.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 3. Найдём НОД(18; 24) через делители"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Делители 18: 1, 2, 3, 6, 9, 18."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Делители 24: 1, 2, 3, 4, 6, 8, 12, 24."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Общие делители: 1, 2, 3, 6."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОД(18; 24) = 6."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Наименьшее общее кратное",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Общее кратное двух чисел — это число, которое делится на каждое из данных чисел.\n      Самое маленькое из общих кратных называется наименьшим общим кратным.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОК"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — это наименьшее общее кратное нескольких чисел.\n      Запись "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОК(6; 8) = 24"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " означает, что 24 — наименьшее положительное число,\n      которое делится и на 6, и на 8.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 4. Найдём НОК(6; 8) через кратные"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Кратные 6: 6, 12, 18, 24, 30, 36, ..."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Кратные 8: 8, 16, 24, 32, 40, ..."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Первое общее кратное: 24."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОК(6; 8) = 24."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "НОД и НОК через простые множители",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Для больших чисел удобнее не выписывать все делители и кратные, а разложить числа на простые множители.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Чтобы найти "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОД"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", берут только общие простые множители в наименьших степенях.\n      Чтобы найти "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОК"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", берут все простые множители, которые встретились в разложениях,\n      в наибольших степенях.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 5. Найдём НОД(36; 48) и НОК(36; 48)"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "36 = 2 · 2 · 3 · 3 = 2² · 3²."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "48 = 2 · 2 · 2 · 2 · 3 = 2⁴ · 3."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОД: берём общие множители в меньших степенях: 2² · 3 = 12."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОК: берём все множители в больших степенях: 2⁴ · 3² = 144."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: НОД(36; 48) = 12, НОК(36; 48) = 144."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Что ищем"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Какие множители берём"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Смысл"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "НОД"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Только общие множители"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Самый большой общий делитель чисел"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "НОК"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Все множители, которые нужны хотя бы одному числу"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Наименьшее положительное число, которое делится на каждое из данных"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Взаимно простые числа."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " Если общих простых множителей нет, НОД равен 1. Такие числа называют взаимно простыми. Например, 8 = 2³ и 15 = 3 · 5, поэтому НОД(8; 15) = 1, а НОК(8; 15) = 8 · 15 = 120. Если одно натуральное число делится на другое, их НОД равен меньшему, а НОК — большему."
+            }
+          ]
+        },
+        {
+          "kind": "element",
+          "tag": "h3",
+          "attrs": {},
+          "children": [
+            {
+              "kind": "text",
+              "text": "Как выбрать НОД или НОК в задаче"
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Одинаковые наборы."
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Из 18 карандашей и 24 ручек составляют наибольшее число одинаковых наборов без остатка. Число наборов должно делить и 18, и 24, поэтому нужно найти НОД(18; 24) = 6. В каждом наборе 18 : 6 = 3 карандаша и 24 : 6 = 4 ручки."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Повторяющиеся события."
+                }
+              ]
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Два сигнала звучат каждые 6 и 8 минут. Сейчас они прозвучали вместе. Следующее совпадение наступит через НОК(6; 8) = 24 минуты: это наименьшее положительное время, кратное обоим периодам."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Связь НОД и НОК двух чисел",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Для двух натуральных чисел удобно помнить связь: произведение чисел равно произведению их НОД и НОК.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Для натуральных чисел a и b верно:\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a · b = НОД(a; b) · НОК(a; b)"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ".\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 6. Проверим связь для чисел 18 и 24"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОД(18; 24) = 6."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "НОК(18; 24) = 72."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "18 · 24 = 432."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "6 · 72 = 432."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {
+                    "class": "ms-good"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Произведения совпали, значит вычисления согласованы."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-7",
+      "title": "Где это используется",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "element",
+          "tag": "ul",
+          "attrs": {
+            "class": "ms-list"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОД"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " помогает сокращать дроби и делить предметы на одинаковые группы."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОК"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " помогает приводить дроби к общему знаменателю."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОК"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " встречается в задачах про повторяющиеся события: расписания, сигналы, круги, интервалы."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "li",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОД"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " встречается в задачах про одинаковые наборы, упаковки, разбиение на равные части."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-8",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Выпишите все делители числа 30."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          Проверяем натуральные числа, на которые 30 делится без остатка:\n          1, 2, 3, 5, 6, 10, 15, 30.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: 1, 2, 3, 5, 6, 10, 15, 30."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите НОД(42; 70)."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          42 = 2 · 3 · 7.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "70 = 2 · 5 · 7.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "Общие множители: 2 и 7.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "2 · 7 = 14.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: НОД(42; 70) = 14."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите НОК(18; 24)."
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          18 = 2 · 3².\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "24 = 2³ · 3.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "text",
+                  "text": "Для НОК берём множители в наибольших степенях: 2³ · 3² = 8 · 9 = 72.\n          "
+                },
+                {
+                  "kind": "element",
+                  "tag": "br",
+                  "attrs": {},
+                  "children": []
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Ответ: НОК(18; 24) = 72."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n"
+        }
+      ]
+    }
+  ]
+}
