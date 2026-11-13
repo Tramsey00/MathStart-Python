@@ -369,11 +369,11 @@
 
 **1. Неравенства и системы неравенств**
 
-- 1.1 [Методы решения квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/01-metody-resheniya-kvadratnyh-neravenstv/body.html) — HTML
-- 1.2 [Повторение способов решения линейных и квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/02-povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-nera-f3595445/body.html) — HTML
-- 1.3 [Решение рациональных неравенств методом интервалов](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/03-reshenie-raczionalnyh-neravenstv-metodom-intervalov/body.html) — HTML
+- 1.1 [Методы решения квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/01-metody-resheniya-kvadratnyh-neravenstv/content.json) — React · `/materials/9-algebra-1`
+- 1.2 [Повторение способов решения линейных и квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/02-povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-nera-f3595445/content.json) — React · `/materials/9-algebra-2`
+- 1.3 [Решение рациональных неравенств методом интервалов](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/03-reshenie-raczionalnyh-neravenstv-metodom-intervalov/content.json) — React · `/materials/9-algebra-3`
 - 1.4 [Множества и подмножества. Объединение и пересечение множеств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/04-mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mno-b42dc74a/body.html) — HTML
-- 1.5 [Системы рациональных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/05-sistemy-raczionalnyh-neravenstv/body.html) — HTML
+- 1.5 [Системы рациональных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/05-sistemy-raczionalnyh-neravenstv/content.json) — React · `/materials/9-algebra-5`
 
 **2. Системы уравнений. Равносильные преобразования**
 
