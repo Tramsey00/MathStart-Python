@@ -387,8 +387,8 @@
 - 3.2 [Свойства основных функций](9-klass/algebra/03-chislovye-funkcii/02-svojstva-osnovnyh-funkczij/content.json) — React · `/materials/9-algebra-10`
 - 3.3 [Возрастание и убывание функции](9-klass/algebra/03-chislovye-funkcii/03-vozrastanie-i-ubyvanie-funkczii/content.json) — React · `/materials/9-algebra-11`
 - 3.4 [Чётные и нечётные функции. Определение чётности и нечётности](9-klass/algebra/03-chislovye-funkcii/04-chyotnye-i-nechyotnye-funkczii-opredelenie-chyotnosti-i-221a9576/content.json) — React · `/materials/9-algebra-12`
-- 3.5 [Степенная функция с натуральным показателем](9-klass/algebra/03-chislovye-funkcii/05-stepennaya-funkcziya-s-naturalnym-pokazatelem/body.html) — HTML
-- 3.6 [Степенная функция с отрицательным целым показателем](9-klass/algebra/03-chislovye-funkcii/06-stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/body.html) — HTML
+- 3.5 [Степенная функция с натуральным показателем](9-klass/algebra/03-chislovye-funkcii/05-stepennaya-funkcziya-s-naturalnym-pokazatelem/content.json) — React · `/materials/9-algebra-13`
+- 3.6 [Степенная функция с отрицательным целым показателем](9-klass/algebra/03-chislovye-funkcii/06-stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/content.json) — React · `/materials/9-algebra-14`
 - 3.7 [Функция кубического корня](9-klass/algebra/03-chislovye-funkcii/07-funkcziya-kubicheskogo-kornya/body.html) — HTML
 
 **4. Числовые последовательности. Прогрессии**
