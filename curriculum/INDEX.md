@@ -400,9 +400,9 @@
 **5. Элементы комбинаторики, статистики и теории вероятностей**
 
 - 5.1 [Элементы комбинаторики. Комбинаторные задачи](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/01-elementy-kombinatoriki-kombinatornye-zadachi/content.json) — React · `/materials/9-algebra-19`
-- 5.2 [Элементы статистики. Методы обработки информации](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/02-elementy-statistiki-metody-obrabotki-informaczii/body.html) — HTML
-- 5.3 [Элементы теории вероятности. Нахождение вероятности](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/03-elementy-teorii-veroyatnosti-nahozhdenie-veroyatnosti/body.html) — HTML
-- 5.4 [Относительная частота и статистическая вероятность события](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/04-otnositelnaya-chastota-i-statisticheskaya-veroyatnost-so-be78fb18/body.html) — HTML
+- 5.2 [Элементы статистики. Методы обработки информации](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/02-elementy-statistiki-metody-obrabotki-informaczii/content.json) — React · `/materials/9-algebra-20`
+- 5.3 [Элементы теории вероятности. Нахождение вероятности](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/03-elementy-teorii-veroyatnosti-nahozhdenie-veroyatnosti/content.json) — React · `/materials/9-algebra-21`
+- 5.4 [Относительная частота и статистическая вероятность события](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/04-otnositelnaya-chastota-i-statisticheskaya-veroyatnost-so-be78fb18/content.json) — React · `/materials/9-algebra-22`
 
 ### Геометрия
 
