@@ -487,7 +487,7 @@
 - 2.4 [Способы упрощения выражений, содержащих радикалы](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/04-10-klass-uproshchenie-vyrazheniy-s-radikalami/content.json) — react-v1, `/materials/10-algebra-9`
 - 2.5 [Понятие степени с рациональным показателем, свойства степеней](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/05-10-klass-stepen-s-racionalnym-pokazatelem/content.json) — react-v1, `/materials/10-algebra-10`
 - 2.6 [Свойства степенных функций и их графики](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/06-10-klass-stepennye-funkcii-i-grafiki/content.json) — react-v1, `/materials/10-algebra-11`
-- 2.7 [Свойства степенных функций и их графики 2.0](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/07-10-klass-stepennye-funkcii-i-grafiki-2-0/body.html) — HTML
+- 2.7 [Свойства степенных функций и их графики 2.0](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/07-10-klass-stepennye-funkcii-i-grafiki-2-0/content.json) — react-v1, `/materials/10-algebra-12`
 
 **4. Синус и косинус. Тангенс и котангенс. Свойства и графики тригонометрических функций**
 
