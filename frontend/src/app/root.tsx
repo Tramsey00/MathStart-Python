@@ -67,7 +67,7 @@ function AppContent() {
 // Build-time shell has no user/session/API state.
 export function HydrateFallback() {
   const path=useLocation().pathname;
-  if(path==='/auth'||path.startsWith('/account/'))return <main id="identity-main" aria-busy="true"><p role="status">Загружаем страницу…</p></main>;
+  if(path==='/auth'||path.startsWith('/account/'))return <main id="identity-main" aria-busy="true" aria-label="Загрузка"/>;
   return <SiteShell><main id="main-content" tabIndex={-1} aria-busy="true" /></SiteShell>;
 }
 
