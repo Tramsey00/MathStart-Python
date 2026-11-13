@@ -227,6 +227,25 @@ def validate_lesson_document(document, slug):
         if 'clip-path' in attrs and (not isinstance(attrs['clip-path'], str) or not re.fullmatch(r'url\(#[A-Za-z0-9_-]+\)', attrs['clip-path'])):
             raise SourceError('Unsupported authored clipping reference')
         allowed.update({'title', 'desc', 'small', 'clipPath'})
+        if 'tabindex' in attrs:
+            classes = attrs.get('class')
+            label = attrs.get('aria-label')
+            children = node['children']
+            blocks = [child for child in children if not (
+                isinstance(child, dict) and child.get('kind') == 'text'
+                and isinstance(child.get('text'), str) and not child['text'].strip()
+            )] if isinstance(children, list) else []
+            if (in_svg or tag != 'div' or attrs['tabindex'] != '0' or attrs.get('role') != 'region'
+                    or not isinstance(label, str) or not label.strip()
+                    or not isinstance(classes, str) or 'ms-table-wrap' not in classes.split()
+                    or len(blocks) != 1 or not isinstance(blocks[0], dict) or blocks[0].get('tag') != 'table'):
+                raise SourceError('Unsupported authored table focus region')
+            attr_names.add('tabindex')
+        if 'data-function' in attrs:
+            value = attrs['data-function']
+            if (not in_svg or tag != 'path' or not isinstance(value, str) or not value.strip()
+                    or re.search(r'javascript:|expression\(|@import|url\(\s*[^#]', value, re.I)):
+                raise SourceError('Unsupported authored SVG function label')
         if 'style' in attrs:
             style = attrs['style']
             class_value = attrs.get('class', '')
