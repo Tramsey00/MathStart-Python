@@ -103,8 +103,8 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   if (node.kind === 'text') return node.text;
   if (node.kind === 'graph') return <QuadraticGraph key={key}/>;
   if (node.kind === 'interactive') {
-    if (node.name === 'power-positive' || node.name === 'power-negative') {
-      return <PowerGraph key={key} id={node.id} mode={node.name === 'power-positive' ? 'positive' : 'negative'}/>;
+    if (node.name === 'power-positive' || node.name === 'power-negative' || node.name === 'power-rational') {
+      return <PowerGraph key={key} id={node.id} mode={node.name === 'power-rational' ? 'rational' : node.name === 'power-positive' ? 'positive' : 'negative'}/>;
     }
     const interactives = { linear: LinearGraph, quadratic: QuadraticGraph };
     const Interactive = interactives[node.name];

@@ -82,6 +82,10 @@ function convert(n) {
   if (n.tagName === 'div' && a.id === 'ms-negative-power-lab-936' && has(n, 'ms-negative-lab')) {
     return { kind: 'interactive', name: 'power-negative', id: a.id };
   }
+  if (html(n) && n.tagName === 'div' && a.id === 'power-lab-v2' && a.class === 'ms-graph-lab'
+      && a['data-ms-power-lab'] === 'true' && Object.keys(a).length === 3) {
+    return { kind: 'interactive', name: 'power-rational', id: a.id };
+  }
   if (a.id === 'ms-quadratic-lab-660') return { kind: 'interactive', name: 'quadratic', id: a.id };
   if (a.id === 'ms-linear-lab-723') {
     // Instructional prose remains document content, outside the replacement UI.
