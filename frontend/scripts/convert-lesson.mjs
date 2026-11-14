@@ -45,6 +45,8 @@ function gradeEightLabSnapshot(n) {
 // not a general expression parser: parentheses and sup/sub in the source own
 // grouping; no operations are evaluated, simplified or inferred from display.
 const gradeEightAuthoredMath = new Map([
+  ["8-klass/geometriya/chetyrehugolniki/mnogougolniki-i-parallelogramm-opredeleniya-svojstva-i-priznaki", "ee20d002851ca092389c5f5c4461740f9124591717509e6286aaa13ff51536c1"],
+  ["8-klass/geometriya/chetyrehugolniki/trapecziya-srednyaya-liniya-trapeczii", "95f7168b640cfe4ee85a68b15f2d03c98cefef7a5a4f0f5396507540e74ab81c"],
   ["8-klass/algebra/algebraicheskie-drobi/ponyatie-algebraicheskoj-drobi", "adc58f40393f2eabf9a2cfee257623cb812d84face507beb23181ebe0b781f6e"],
   ["8-klass/algebra/algebraicheskie-drobi/primenenie-osnovnogo-svojstva-algebraicheskoj-drobi", "d50ca6fe837f1b06ba9feb41405498dbed0b5ebadb1570c08c2787574e21f884"],
   ["8-klass/algebra/algebraicheskie-drobi/kak-skladyvat-i-vychitat-algebraicheskie-drobi-s-ravnymi-znamenatelyami", "f2bcd25f04eed40045a8eb8f6386318fcd1dcc0aec48a4ddf628ca070b5cf912"],
