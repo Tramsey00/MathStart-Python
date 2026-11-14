@@ -225,9 +225,9 @@ def schema_apply(values, reviewed):
     # Only schema CLI does DDL. Runtime has DML permissions, never DDL ownership.
     import psycopg
     url = values['MATHSTART_DATABASE_URL'].replace('postgresql+psycopg:', 'postgresql:', 1)
+    from backend.migrations.runtime_privileges import grant_runtime_privileges
     with psycopg.connect(url) as connection:
-        connection.execute('GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO local_runtime')
-        connection.execute('GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO local_runtime')
+        grant_runtime_privileges(connection)
     print(cli('backend.release_migrate', ['check'], 'schema-check', values))
 
 
