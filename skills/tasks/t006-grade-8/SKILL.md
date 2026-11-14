@@ -14,6 +14,107 @@ description: Выполнить MS-T006 — Полностью перенест�
 Статус — в [реестре](../../../docs/tasks/INDEX.md).
 Карточка описывает будущий результат, не выдаёт наличие прототипа за готовность.
 
+## Текущее состояние — 15.11.2026, этап 10
+
+Issue: [#76](https://github.com/Tramsey00/MathStart-Python/issues/76).
+Ветка: `ms-t006-grade8-migration`. Статус задачи: IN_PROGRESS.
+Исходный SHA этапа 10: `07a89acef0166ffb18811c95996f72a759a35e3d`.
+
+- Подготовлены все 66 тем: 39 алгебры, 12 геометрии, 15 вероятности и статистики,
+  17 разделов; 64 перенесённых документа и 2 переиспользуемых пилота, BLOCKED=0.
+  У всех есть content.json и renderer_version=react-v1. Это реализация и статическое
+  сопоставление источников, не подтверждение runtime-готовности или приёмки.
+- По точной таблице Issue #76 закреплены 64 новых назначения material-routes;
+  сохранены `/materials/8-algebra-32` и `/materials/8-geometry-6`.
+  Inventory assigned_path синхронизирован; все 66 ссылок curriculum ведут на Content.
+  Темы algebra-24, algebra-27 и algebra-32 остаются разными identities.
+- Старые `/<slug>/` и существующие `/mathstart/<slug>/` обрабатываются штатным
+  прямым redirect при подготовке опубликованного индекса. Новых aliases и ручных
+  redirects нет; работа переходов в опубликованном приложении ещё не проверена.
+- Добавлены предметные интерактивы `square-root` и `hyperbola`. Для sqrt X=0…18,
+  шаг 0.1, initial/reset=0; для hyperbola X=−10…10, шаг 0.1, initial/reset=1.
+  X выбирается slider, hover-инструкции заменены; x=0 неопределён, ненулевые X
+  не запрещены старым epsilon. Вне окна показывается соответствующее состояние.
+- Согласованная математика: при k=0 у y=k/x+b область x≠0, горизонтальная прямая
+  y=b с выколотой точкой (0;b), без вертикальной асимптоты. Исправлены React-график
+  и одно примечание Content после него; исходный HTML не изменён.
+- Необходимые общие дополнения: регистрация двух интерактивов в типах/schema,
+  generated contracts/backend/renderer; converter adapters с identity/fingerprint,
+  authored MathML составных и вложенных дробей, степеней, индексов, корней и модулей;
+  figure > svg, ellipse и ограниченный fill-opacity для circle/ellipse;
+  scoped ms-g8 CSS осей, шкалы, вложенных множеств и определения модуля.
+  В №50 сохранён PNG с исходным URL/alt и пропорциями; hints decoding/loading
+  обработаны адресно. В №10 CSS-квадрат передан существующими SVG-узлами.
+- №66 распознаёт точную самопроверку из 8 задач; следующие учебные блоки и legacy
+  navigation исключены по действующим решениям стандарта. Остальные исключения —
+  только согласованные prerequisite и материал после самопроверки.
+- Исходные HTML/JS/CSS, media и два пилота сохранены. Оптимизация contracts.py
+  в обязательный scope не включена. Общие изменения заранее координировались
+  с Ильёй; интеграция PR #71/#74 ещё не выполнялась.
+
+Локальные WIP-коммиты предыдущих этапов (не опубликованы):
+`875d85c`, `0350ef2`, `fe6578c`, `7148c61`, `495dee5`, `c08671a`,
+`fcdc5b1`, `4f31e66`, `5044131`, `07a89ac`.
+Коммит этапа 10 содержит только маршруты, inventory, curriculum index и task docs;
+его exact SHA фиксируется в итоговом отчёте, без циклической ссылки внутри коммита.
+
+Проверки: NOT_RUN_BY_USER_REQUEST. Content validation, frontend build, браузерная
+и мобильная проверка, независимое ревью Ильи, просмотр всех 66 тем Владимиром,
+финальная приёмка Русланом, merge и публикация — НЕ выполнены.
+Новые URL ещё не объявляются доступными в активном release. Push/PR отсутствуют.
+
+### Следующие этапы и immutable handoff — только по отдельному поручению
+
+1. Отдельно поручить штатную Content validation и review общих пересечений
+   с PR #71/#74. Не подменять её статическим сопоставлением этого этапа.
+2. Утвердить exact source SHA после коммита маршрутов и всех будущих исправлений;
+   использовать чистый tracked checkout этого SHA. verify_source_checkout требует
+   совпадения curriculum/site_content/static с SHA и отсутствия untracked inputs.
+   Для frontend/build также сохранить точный commit кода и чистоту всего checkout.
+3. Отдельно согласовать изолированную целевую PostgreSQL БД с подходящей schema
+   и проверенным snapshot/identity. prepare-bootstrap читает её состояние, чтобы
+   вычислить before/after; несовместимость SOURCE_CONFLICT не обходить seed/reset.
+   На этом этапе БД не создавалась, schema не применялась, соединений не было.
+4. Только после разрешения выполнить отдельный prepare-bootstrap с новым release-id,
+   эксклюзивными input-root и changes-path. Он охватывает весь текущий Content,
+   а не только 8-й класс; --slug/--all не являются фильтром этого режима.
+   Нужны lesson.json/content.json и исходные bundle-файлы, site_content metadata,
+   material-routes/material-subjects, redirects, media manifest и tracked assets/static.
+5. Будущий handoff: prepared-source-edition-v1 с before_digest/after_digest/changes,
+   immutable index.json/pages/assets и receipt.json (build-input-receipt-v1), source_sha,
+   hashes/size/source_files, manifest_digest и input_receipt_digest. Activation остаётся
+   NOT_PERFORMED, DB rows/sequences не меняются подготовкой. Сейчас candidate,
+   input manifest и receipt НЕ СОЗДАНЫ, проверка их integrity НЕ ВЫПОЛНЕНА.
+6. PNG требует исходного файла, совпадения SHA-256 с media.json и включения в
+   immutable assets; inline SVG остаются частью Content. Доставку assets, шрифты,
+   no-JS и гидратацию проверить отдельно на exact candidate, не по старому PASS.
+7. Build с verified receipt, output manifest, отдельный publication plan и явное
+   разрешение публикации — последующие шаги. Publisher guards, owner/lease/generation,
+   fences, DB/source/asset identity и HTTP publication probes не отключаются.
+   scripts/team_local.py content объединяет prepare/build/plan и сейчас НЕ разрешён.
+8. Владимир вручную просматривает все 66 тем; затем Draft PR по отдельному поручению,
+   независимое ревью Ильи, исправления, финальная приёмка Русланом и решение о merge.
+
+### Карта будущей интеграции #71/#74 (прочитано 15.11.2026)
+
+Оба PR OPEN: #71 `1b30041b8b9131b08c31f63bcddb5b6c347f7ee8`,
+#74 `98dacef0b507635014d8c0452024b884aa29ac18`. Без merge/rebase/cherry-pick.
+
+- Enum согласованно объединить в backend, schema, generated contracts, types и
+  renderer: linear/quadratic/square-root/hyperbola/power-positive/power-negative/
+  power-rational/number-circle. Нельзя заменить одним списком другого PR.
+- SVG: сохранить figure > svg и ellipse MS-T006, специальные figure/figcaption
+  и guarded SVG-атрибуты #74. Для fill-opacity объединить polygon/circle/ellipse
+  MS-T006 с path #71 при одинаковых namespace/range/finite guards в converter/backend.
+- Converter: объединить source-specific helpers и точки root/self-check, не теряя
+  fingerprint MS-T006 или структурные проверки #74. Не копировать общий файл целиком.
+- Renderer: сохранить новые предметные dispatch и MathML/diagram поведение MS-T006,
+  а также table-region/figcaption #74. Generated contracts синхронизировать после
+  review схемы; это не ручная замена файла старым вариантом.
+- CSS: сохранить ms-g8-селекторы и отдельные scoped правила 9-го класса #71,
+  а также дополнения lesson.css #74. Текстовый анализ не подтверждает runtime merge.
+  Фактическая интеграция и её проверки ещё не выполнялись.
+
 ## Порядок завершения — 12.11.2026
 
 Приоритет над прежними указаниями этой карточки: [общее решение команды](../../../docs/tasks/INDEX.md#завершение-переноса--решение-руслана-12112026).
@@ -42,9 +143,9 @@ description: Выполнить MS-T006 — Полностью перенест�
 Квадратичная функция входит в эти 66 тем. По отдельному поручению пользователя
 24.10.2026 её Content/FastAPI-интеграция выполняется раньше, вместе с MS-T002.
 Переиспользовать подключённый документ и график; повторный перенос не выполнять.
-После отдельно выполненного и принятого этапа C MS-T001 урок о теореме Пифагора
-также переиспользуется в составе этих 66 тем. Сейчас это только выбранный
-следующий пилот; его перенос ещё не начат.
+Урок о теореме Пифагора также переиспользуется как существующий React-пилот
+в составе этих 66 тем с адресом /materials/8-geometry-6. Новая приёмка MS-T006
+не следует автоматически из прежнего статуса пилота.
 Отложенные проверки текущего подключения не считать автоматически пройденными.
 Сохранить /materials/8-algebra-32 и принятый дизайн; готовые компоненты не писать
 заново. График следует общему контракту: x задаётся только slider-ом, без
