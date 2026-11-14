@@ -350,3 +350,64 @@
     }
   }
 }
+
+/* MS-T007 — preserve authored system rows and numbered teaching groups. */
+:where(html:has(> head > link[rel="canonical"][href*="/materials/9-algebra-"])) .lesson-section {
+  .ms-system {
+    display: inline-grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    gap: 0.35em;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    vertical-align: middle;
+  }
+
+  .ms-system-brace {
+    color: var(--lesson-accent-text);
+    font-family: 'STIX Two Math', math;
+    font-size: 3.6em;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .ms-system:has(.ms-system-line ~ .ms-system-line ~ .ms-system-line) > .ms-system-brace {
+    font-size: 5.2em;
+  }
+
+  .ms-system-line {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+:where(html:has(> head > link[rel="canonical"][href$="/materials/9-statistics-12"])) .lesson-section {
+  :is(.ms-course-card, .ms-check-step-row) {
+    display: grid;
+    grid-template-columns: 1.25em minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0 0.65em;
+  }
+
+  :is(.ms-course-number, .ms-check-icon) {
+    grid-column: 1;
+    grid-row: 1;
+    color: var(--lesson-accent-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ms-course-card > :is(.ms-card-title, .ms-card-text),
+  .ms-check-step-row > div {
+    grid-column: 2;
+  }
+
+  .ms-check-step-row,
+  .ms-method-step {
+    margin-block-end: 0.9em;
+  }
+
+  :is(.ms-check-step-row > div, .ms-method-step) > strong {
+    display: block;
+    margin-block-end: 0.2em;
+  }
+}
