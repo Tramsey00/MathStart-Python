@@ -3,7 +3,8 @@ param(
     [ValidateSet('prepare','start','update','stop')][string]$Action,
     [string]$SchemaDigest,
     [string]$ContentDigest,
-    [switch]$NonInteractive
+    [switch]$NonInteractive,
+    [ValidateRange(1024,65535)][int]$PublicPort = 8131
 )
 $ErrorActionPreference = 'Stop'
 $taskRoot = $PSScriptRoot
@@ -38,6 +39,7 @@ function Get-ImageFingerprint {
 
 try {
     Set-Location -LiteralPath $taskRoot
+    if ($PublicPort -eq 8132) { throw 'Public port 8132 is reserved for internal FastAPI.' }
     if (-not (Get-Command docker -ErrorAction SilentlyContinue)) { throw 'Install Docker Desktop with Linux engine and Compose.' }
     if (-not (Test-Path -LiteralPath $taskProfilePath)) {
         if ($Action -ne 'prepare') { throw 'Run .\dev.cmd prepare first.' }
@@ -51,12 +53,23 @@ try {
         $taskPassword = [Convert]::ToBase64String($taskRandom).TrimEnd('=').Replace('+','-').Replace('/','_')
         [IO.File]::WriteAllText((Join-Path $taskLocal 'postgres.env'), "POSTGRES_USER=local_admin`nPOSTGRES_DB=mathstart_dev`nPOSTGRES_PASSWORD=$taskPassword`n", [Text.UTF8Encoding]::new($false))
         $taskPassword = $null
-        Write-LocalJson $taskProfilePath @{version=1; owner=$taskRoot; project=('msdev-' + $taskId.Substring(0,12)); id=$taskId}
+        Write-LocalJson $taskProfilePath @{version=1; owner=$taskRoot; project=('msdev-' + $taskId.Substring(0,12)); id=$taskId; public_port=$PublicPort}
     }
     $script:taskProfile = Get-Content -LiteralPath $taskProfilePath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($taskProfile.version -ne 1 -or $taskProfile.owner -ne $taskRoot -or $taskProfile.project -notmatch '^msdev-[a-f0-9]{12}$') {
         throw 'Local setup belongs to another checkout or has an unsupported format. Do not copy var/.'
     }
+    $savedPort = 8131
+    if ($taskProfile.PSObject.Properties['public_port']) {
+        $savedPort = $taskProfile.public_port
+        if (($savedPort -isnot [int] -and $savedPort -isnot [long]) -or $savedPort -lt 1024 -or $savedPort -gt 65535 -or $savedPort -eq 8132) {
+            throw 'Invalid public port in checkout profile.'
+        }
+    }
+    if ($PSBoundParameters.ContainsKey('PublicPort') -and $PublicPort -ne $savedPort) {
+        throw "This checkout is bound to public port $savedPort. Omit -PublicPort or use the saved port."
+    }
+    $env:MATHSTART_DEV_PUBLIC_PORT = [string]$savedPort
     $env:MATHSTART_DEV_PROJECT = $taskProfile.project
     $env:MATHSTART_DEV_CHECKOUT = $taskRoot
     $taskImageRecord = Join-Path $taskLocal 'image.json'
@@ -106,10 +119,26 @@ try {
     } else {
         if (-not $taskImage) { throw 'Run .\dev.cmd prepare first.' }
         if ($taskImage.fingerprint -ne $taskFingerprint) { throw 'Image inputs changed. Run .\dev.cmd update; start never rebuilds or migrates.' }
+        $app = & docker compose --project-name $taskProfile.project --project-directory $taskRoot -f $taskCompose ps --status running -q app
+        if ($LASTEXITCODE -ne 0) { throw 'Could not check the current app container.' }
+        if ($app) {
+            $binding = & docker port $app "$savedPort/tcp"
+            if ($LASTEXITCODE -ne 0 -or $binding -cne "127.0.0.1:${savedPort}") {
+                throw 'Running app does not match the saved loopback port.'
+            }
+        } else {
+            $listener = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback, $savedPort)
+            try {
+                $listener.ExclusiveAddressUse = $true
+                $listener.Start()
+            } catch [Net.Sockets.SocketException] {
+                throw "Cannot bind 127.0.0.1:${savedPort}. Check the port owner before starting."
+            } finally { $listener.Stop() }
+        }
         Invoke-Compose @('up','-d','--wait','--wait-timeout','90','db')
         Invoke-Compose @('run','--rm','--no-deps','tools','ready')
         Invoke-Compose @('up','-d','--no-build','--wait','--wait-timeout','300','app')
-        Write-Output 'Dev: http://127.0.0.1:8131 ; logs: docker compose via this checkout configuration. Stop: .\dev.cmd stop'
+        Write-Output "Dev: http://127.0.0.1:$savedPort ; logs: docker compose via this checkout configuration. Stop: .\dev.cmd stop"
     }
 } catch {
     Write-Error $_.Exception.Message

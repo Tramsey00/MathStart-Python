@@ -18,6 +18,7 @@ import subprocess
 import sys
 import time
 import uuid
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL = ROOT / 'var/local/team'
@@ -286,15 +287,29 @@ def finish_cold_publication(values, state):
     return cli('backend.content.publish', ['resume', *owner, *roots()], 'resume-content', values, 900)
 
 
+def publication_gateway_port(plan, values, runtime_values):
+    origin = plan.get('origin')
+    if not isinstance(origin, str) or any(
+            config.get('MATHSTART_PUBLIC_ORIGIN') != origin for config in (values, runtime_values)):
+        raise RuntimeError('Publication plan and gateway origin must match')
+    port = urlsplit(origin).port
+    if not port or origin != f'http://127.0.0.1:{port}':
+        raise RuntimeError('Publication requires an explicit loopback HTTP origin')
+    return port
+
+
 def publish(values, state, reviewed):
     require_windows_long_paths()
     plan_path = LOCAL / 'publication.json'
     # Same canonical digest used by the domain publisher; do not re-encode differently.
     sys.path.insert(0, str(ROOT))
     from backend.content.participant import digest
-    if not secrets.compare_digest(digest(read_json(plan_path)), reviewed):
+    plan = read_json(plan_path)
+    if not secrets.compare_digest(digest(plan), reviewed):
         raise RuntimeError('Reviewed publication plan digest mismatch')
-    free_port(8131)
+    runtime_values = read_json(PRIVATE)
+    port = publication_gateway_port(plan, values, runtime_values)
+    free_port(port)
     log_path = LOCAL / 'logs/publication-server.log'
     with log_path.open('w', encoding='utf-8') as log:
         options = {'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}
@@ -305,12 +320,12 @@ def publish(values, state, reviewed):
                 if server.poll() is not None:
                     raise RuntimeError('Temporary publication gateway exited')
                 with socket.socket() as client:
-                    if client.connect_ex(('127.0.0.1', 8131)) == 0:
+                    if client.connect_ex(('127.0.0.1', port)) == 0:
                         break
                 time.sleep(.2)
             else:
                 raise RuntimeError('Temporary publication gateway did not start')
-            publisher_values = {**values, **{k: v for k, v in read_json(PRIVATE).items()
+            publisher_values = {**values, **{k: v for k, v in runtime_values.items()
                                           if k != 'MATHSTART_DATABASE_URL'}}
             try:
                 result = cli('backend.content.publish', ['publish', '--plan', str(plan_path),

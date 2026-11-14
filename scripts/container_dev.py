@@ -95,10 +95,24 @@ def content_digest(*, dev=False):
         'specs/migration/r02-v1'])
 
 
+def public_origin():
+    raw = os.environ.get('MATHSTART_DEV_PUBLIC_PORT', '8131')
+    if not raw.isascii() or not raw.isdecimal() or not 1024 <= int(raw) <= 65535 or int(raw) == 8132:
+        raise RuntimeError('Invalid Compose public port')
+    return f'http://127.0.0.1:{int(raw)}'
+
+
+def check_public_origin():
+    origin = public_origin()
+    if any(read(path).get('MATHSTART_PUBLIC_ORIGIN') != origin for path in (PRIVATE, SCHEMA)):
+        raise RuntimeError('Saved publication origin does not match the Compose public port')
+
+
 def configure():
     if PRIVATE.exists() or SCHEMA.exists() or SECRETS.exists():
         if not all(path.exists() for path in (PRIVATE, SCHEMA, SECRETS, STATE)):
             raise RuntimeError('Partial private configuration; inspect it instead of regenerating credentials')
+        check_public_origin()
         return read(STATE)
     import psycopg
     from psycopg import sql
@@ -119,7 +133,7 @@ def configure():
     values = {'MATHSTART_DB_BACKEND': 'postgresql',
         'MATHSTART_DATABASE_URL': 'postgresql+psycopg://local_runtime:' + passwords['runtime'] + '@db:5432/mathstart_dev',
         'MATHSTART_HTTP_SIGNING_KEY': secrets.token_urlsafe(48),
-        'MATHSTART_PUBLIC_ORIGIN': 'http://127.0.0.1:8131',
+        'MATHSTART_PUBLIC_ORIGIN': public_origin(),
         'MATHSTART_RELEASE_ROOT': str(SERVING / 'releases'),
         'MATHSTART_PUBLIC_ARTIFACT_ROOT': str(SERVING / 'frontend'),
         'MATHSTART_PUBLIC_ARTIFACT_DIGESTS': '{}'}
@@ -267,6 +281,7 @@ def prepare(args):
 def ready():
     if not all(path.exists() for path in (STATE, PRIVATE, SCHEMA)):
         raise RuntimeError('Run dev.cmd prepare first')
+    check_public_origin()
     state = read(STATE)
     if REVIEW.exists():
         raise RuntimeError('A concrete plan still awaits review; complete prepare/update before start')
