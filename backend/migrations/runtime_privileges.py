@@ -59,9 +59,9 @@ def check_runtime_privileges(connection):
     if not allowed:
         raise RuntimeError('Unsafe local_runtime role, ownership or DDL privileges')
     tables = connection.execute("""
-        SELECT c.relname, p.right, has_table_privilege(%s, c.oid, p.right)
+        SELECT c.relname, p.privilege_name, has_table_privilege(%s, c.oid, p.privilege_name)
         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        CROSS JOIN unnest(%s::text[]) AS p(right)
+        CROSS JOIN unnest(%s::text[]) AS p(privilege_name)
         WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p', 'v', 'm', 'f')
     """, (ROLE, list(TABLE_RIGHTS)))
     seen = set()
@@ -72,10 +72,10 @@ def check_runtime_privileges(connection):
     if TABLE_PRIVILEGES.keys() - seen or 'alembic_version' not in seen:
         raise RuntimeError('Missing tables in local_runtime privilege audit')
     columns = connection.execute("""
-        SELECT c.relname, a.attname, p.right, has_column_privilege(%s, c.oid, a.attnum, p.right)
+        SELECT c.relname, a.attname, p.privilege_name, has_column_privilege(%s, c.oid, a.attnum, p.privilege_name)
         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
         JOIN pg_attribute a ON a.attrelid = c.oid AND a.attnum > 0 AND NOT a.attisdropped
-        CROSS JOIN unnest(ARRAY['INSERT','UPDATE','REFERENCES']) AS p(right)
+        CROSS JOIN unnest(ARRAY['INSERT','UPDATE','REFERENCES']) AS p(privilege_name)
         WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p', 'v', 'm', 'f')
     """, (ROLE,))
     for table, column, right, actual in columns:
@@ -86,8 +86,8 @@ def check_runtime_privileges(connection):
     sequences, = connection.execute("""
         SELECT EXISTS (
             SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-            CROSS JOIN unnest(%s::text[]) AS p(right)
-            WHERE n.nspname = 'public' AND c.relkind = 'S' AND has_sequence_privilege(%s, c.oid, p.right)
+            CROSS JOIN unnest(%s::text[]) AS p(privilege_name)
+            WHERE n.nspname = 'public' AND c.relkind = 'S' AND has_sequence_privilege(%s, c.oid, p.privilege_name)
         )
     """, (list(SEQUENCE_RIGHTS), ROLE)).fetchone()
     if sequences:
