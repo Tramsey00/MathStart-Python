@@ -55,7 +55,15 @@ def exclusive():
 
 def git(*arguments):
     result = subprocess.run(['git', '-c', 'safe.directory=' + str(ROOT), *arguments], cwd=ROOT,
-                            capture_output=True, check=True, timeout=180)
+                            capture_output=True, timeout=180)
+    if result.returncode:
+        # Report only known Git diagnoses. Stderr may contain URLs, paths or config values.
+        stderr = result.stderr[:4096].decode('utf-8', errors='replace')
+        diagnosis = next((message for message in (
+            'not a git repository', 'detected dubious ownership', 'unknown revision',
+            'bad object', 'index file corrupt', 'Permission denied',
+        ) if message in stderr), 'Git stderr omitted')
+        raise RuntimeError(f'Git {arguments[0]} failed (exit {result.returncode}): {diagnosis}')
     return result.stdout.decode('utf-8').strip()
 
 

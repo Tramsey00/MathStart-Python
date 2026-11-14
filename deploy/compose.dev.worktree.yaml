@@ -1,0 +1,19 @@
+# Applied by dev.ps1 only for a verified linked Git worktree.
+x-worktree-git: &worktree-git
+  GIT_DIR: '${MATHSTART_DEV_GIT_DIR:?Use dev.ps1}'
+  GIT_WORK_TREE: /workspace
+  GIT_OPTIONAL_LOCKS: '0'
+x-worktree-mount: &worktree-mount
+  type: bind
+  source: '${MATHSTART_DEV_GIT_COMMON:?Use dev.ps1}'
+  target: /git-common
+  read_only: true
+  bind:
+    create_host_path: false
+services:
+  app:
+    environment: *worktree-git
+    volumes: [*worktree-mount]
+  tools:
+    environment: *worktree-git
+    volumes: [*worktree-mount]

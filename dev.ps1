@@ -16,9 +16,31 @@ function Write-LocalJson($Path, $Value) {
     $json = $Value | ConvertTo-Json -Depth 12
     [IO.File]::WriteAllText($Path, $json + "`n", [Text.UTF8Encoding]::new($false))
 }
+function Get-ComposeFiles {
+    $paths = @(& git -C $taskRoot rev-parse --path-format=absolute --show-toplevel --git-dir --git-common-dir)
+    if ($LASTEXITCODE -ne 0 -or $paths.Count -ne 3) { throw 'Cannot resolve checkout Git metadata.' }
+    $root, $gitDir, $commonDir = $paths | ForEach-Object { (Resolve-Path -LiteralPath $_).ProviderPath }
+    if ($root -ne $taskRoot -or -not (Test-Path -LiteralPath $gitDir -PathType Container) -or
+        -not (Test-Path -LiteralPath $commonDir -PathType Container)) { throw 'Git metadata does not belong to this checkout.' }
+    '-f'
+    $taskCompose
+    if ($gitDir -eq $commonDir -and $gitDir -eq (Join-Path $root '.git')) { return }
+
+    $worktrees = Join-Path $commonDir 'worktrees'
+    if ((Split-Path $gitDir -Parent) -ne $worktrees) { throw 'Unsupported Git metadata layout.' }
+    $backlink = (Get-Content -LiteralPath (Join-Path $gitDir 'gitdir') -Raw).Trim()
+    $relativeCommon = (Get-Content -LiteralPath (Join-Path $gitDir 'commondir') -Raw).Trim()
+    if ((Resolve-Path -LiteralPath $backlink).ProviderPath -ne (Join-Path $root '.git') -or
+        $relativeCommon -ne '../..') { throw 'Linked worktree Git metadata does not match this checkout.' }
+    $env:MATHSTART_DEV_GIT_COMMON = $commonDir
+    $env:MATHSTART_DEV_GIT_DIR = '/git-common/worktrees/' + (Split-Path $gitDir -Leaf)
+    '-f'
+    Join-Path $taskRoot 'deploy/compose.dev.worktree.yaml'
+}
+
 function Invoke-Compose([string[]]$Arguments) {
     $stageTimer = [Diagnostics.Stopwatch]::StartNew()
-    & docker compose --project-name $script:taskProfile.project --project-directory $taskRoot -f $taskCompose @Arguments
+    & docker compose --project-name $script:taskProfile.project --project-directory $taskRoot @taskComposeFiles @Arguments
     if ($LASTEXITCODE -ne 0) { throw "Docker Compose failed (exit $LASTEXITCODE). State and data retained." }
     Write-Output ('TIMING compose {0}: {1:N3}s' -f ($Arguments -join ' '), $stageTimer.Elapsed.TotalSeconds)
 }
@@ -41,6 +63,7 @@ try {
     Set-Location -LiteralPath $taskRoot
     if ($PublicPort -eq 8132) { throw 'Public port 8132 is reserved for internal FastAPI.' }
     if (-not (Get-Command docker -ErrorAction SilentlyContinue)) { throw 'Install Docker Desktop with Linux engine and Compose.' }
+    $taskComposeFiles = @(Get-ComposeFiles)
     if (-not (Test-Path -LiteralPath $taskProfilePath)) {
         if ($Action -ne 'prepare') { throw 'Run .\dev.cmd prepare first.' }
         if (Test-Path -LiteralPath $taskLocal) { throw 'Partial local setup exists. Inspect var/compose; configuration will not be replaced.' }
@@ -103,7 +126,7 @@ try {
             $taskArgs = @('run','--rm','--no-deps','tools','prepare')
             if ($SchemaDigest) { $taskArgs += @('--schema-digest', $SchemaDigest) }
             if ($ContentDigest) { $taskArgs += @('--content-digest', $ContentDigest) }
-            & docker compose --project-name $taskProfile.project --project-directory $taskRoot -f $taskCompose @taskArgs
+            & docker compose --project-name $taskProfile.project --project-directory $taskRoot @taskComposeFiles @taskArgs
             $taskExit = $LASTEXITCODE
             if ($taskExit -eq 0) { break }
             if ($taskExit -ne 42) { throw "Preparation stopped (exit $taskExit). Inspect ignored var/compose/logs; do not blindly repeat an uncertain write." }
@@ -119,7 +142,7 @@ try {
     } else {
         if (-not $taskImage) { throw 'Run .\dev.cmd prepare first.' }
         if ($taskImage.fingerprint -ne $taskFingerprint) { throw 'Image inputs changed. Run .\dev.cmd update; start never rebuilds or migrates.' }
-        $app = & docker compose --project-name $taskProfile.project --project-directory $taskRoot -f $taskCompose ps --status running -q app
+        $app = & docker compose --project-name $taskProfile.project --project-directory $taskRoot @taskComposeFiles ps --status running -q app
         if ($LASTEXITCODE -ne 0) { throw 'Could not check the current app container.' }
         if ($app) {
             $binding = & docker port $app "$savedPort/tcp"
