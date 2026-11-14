@@ -8,7 +8,8 @@ TABLE_PRIVILEGES = {
     **dict.fromkeys(('auth_user_groups', 'auth_user_user_permissions', 'auth_group_permissions',
                      'django_admin_log'), 'SELECT, INSERT, DELETE'),
     # The staff deletion collector locks referenced permission and content-type
-    # rows with SELECT FOR UPDATE, which PostgreSQL gates on UPDATE privilege.
+    # rows with SELECT FOR UPDATE, which needs UPDATE on at least one column.
+    # Grant only a non-PK field on each table; keep the original lock strength.
     'auth_permission': 'SELECT',
     'django_content_type': 'SELECT',
     # Runtime writes use row locks, including idempotency and login throttling.
@@ -21,7 +22,7 @@ TABLE_PRIVILEGES = {
                      'target_publication_journal', 'target_publication_gate', 'target_active_release',
                      'target_identity_cutover', 'django_session', 'django_migrations'), 'SELECT'),
 }
-LOCK_COLUMNS = {'auth_permission': 'id', 'django_content_type': 'id'}
+LOCK_COLUMNS = {'auth_permission': 'name', 'django_content_type': 'model'}
 TABLE_RIGHTS = ('SELECT', 'INSERT', 'UPDATE', 'DELETE', 'TRUNCATE', 'REFERENCES', 'TRIGGER')
 SEQUENCE_RIGHTS = ('USAGE', 'SELECT', 'UPDATE')
 
@@ -29,7 +30,8 @@ SEQUENCE_RIGHTS = ('USAGE', 'SELECT', 'UPDATE')
 def grant_runtime_privileges(connection):
     # PostgreSQL identity columns generate values as part of INSERT and do not
     # require an independent sequence grant. This also denies nextval/setval.
-    connection.execute('REVOKE TEMPORARY ON DATABASE mathstart_dev FROM PUBLIC')
+    connection.execute(sql.SQL('REVOKE TEMPORARY ON DATABASE {} FROM PUBLIC').format(
+        sql.Identifier(connection.info.dbname)))
     for table, privileges in TABLE_PRIVILEGES.items():
         connection.execute(sql.SQL('GRANT {} ON TABLE public.{} TO {}').format(
             sql.SQL(privileges), sql.Identifier(table), sql.Identifier(ROLE)))

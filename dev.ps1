@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory=$true, Position=0)]
-    [ValidateSet('prepare','start','update','stop')][string]$Action,
+    [ValidateSet('prepare','start','update','stop','finish-acl')][string]$Action,
     [string]$SchemaDigest,
     [string]$ContentDigest,
     [switch]$NonInteractive,
@@ -109,7 +109,12 @@ try {
     }
     $taskEngineType = & docker info --format '{{.OSType}}'
     if ($LASTEXITCODE -ne 0 -or $taskEngineType -ne 'linux') { throw 'Start Docker Desktop Linux engine, then repeat the command.' }
-    if ($Action -in @('prepare','update')) {
+    if ($Action -eq 'finish-acl') {
+        if ($SchemaDigest -cnotmatch '^[a-f0-9]{64}$' -or -not $taskImage -or $taskImage.fingerprint -ne $taskFingerprint) {
+            throw 'ACL completion requires the reviewed -SchemaDigest and existing matching image.'
+        }
+        Invoke-Compose @('run','--rm','--no-deps','tools','finish-acl','--schema-digest',$SchemaDigest)
+    } elseif ($Action -in @('prepare','update')) {
         Invoke-Compose @('stop','app')
         $taskImageExists = $false
         if ($taskImage) {

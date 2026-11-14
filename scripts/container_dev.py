@@ -189,6 +189,10 @@ def prepare(args):
     from backend.release_migrate import code_digest as schema_code, plan_digest
     from backend.content.participant import digest as plan_hash
     state = configure()
+    previous_work = state.get('work')
+    pending = Path(previous_work['path']) / 'schema-apply-pending.json' if previous_work else None
+    if pending and pending.exists():
+        raise RuntimeError('Prior schema apply requires operator review; do not rerun DDL')
     dependencies = dependency_digest()
     marker = ROOT / 'frontend/node_modules/.mathstart-lock'
     if not marker.exists() or marker.read_text() != dependencies:
@@ -235,6 +239,7 @@ def prepare(args):
             state['schema_code'] = current_schema
             state['applied_migrations'] = current_migrations
             save(STATE, state)
+            (work / 'schema-apply-pending.json').unlink()
         elif state['schema_code'] != current_schema:
             # The current canonical chain has only v01_0001/v01_0002 and its
             # release CLI explicitly rejects unknown revisions. Never fall back
@@ -286,6 +291,26 @@ def prepare(args):
     return 0
 
 
+def finish_acl(args):
+    from backend.release_migrate import code_digest
+
+    state = read(STATE)
+    work = state.get('work')
+    schema = code_digest()
+    if not args.schema_digest or not work or work['key'] != schema + ':' + content_digest():
+        raise RuntimeError('ACL completion requires the reviewed schema digest and unchanged work inputs')
+    if state.get('release'):
+        raise RuntimeError('ACL completion is limited to an unpublished installation')
+    path = Path(work['path'])
+    with team.installation_paths(path, PRIVATE, SECRETS, SERVING):
+        team.finish_schema_privileges(read(SCHEMA), args.schema_digest)
+    state.update(schema_code=schema, applied_migrations=migration_files())
+    save(STATE, state)
+    (path / 'schema-apply-pending.json').unlink()
+    print('Schema checked and runtime ACL completed. No DDL or Content publication performed.', flush=True)
+    return 0
+
+
 def ready():
     if not all(path.exists() for path in (STATE, PRIVATE, SCHEMA)):
         raise RuntimeError('Run dev.cmd prepare first')
@@ -301,7 +326,7 @@ def ready():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare', 'ready', 'serve'])
+    parser.add_argument('action', choices=['prepare', 'ready', 'serve', 'finish-acl'])
     parser.add_argument('--schema-digest')
     parser.add_argument('--content-digest')
     args = parser.parse_args()
@@ -319,6 +344,9 @@ def main():
             ready()
             return 0
         with exclusive():
+            if args.action == 'finish-acl':
+                check_public_origin()
+                return finish_acl(args)
             return prepare(args)
     except Exception as error:
         message = str(error) if type(error) is RuntimeError else type(error).__name__

@@ -105,6 +105,21 @@ activated owner/fence/release проверяются, exact index прогрев
 затем выполняется обычный fenced resume. Domain commit не повторяется; HTTP
 publication guards остаются 5 секунд. Успех — только COMPLETE после всех probes.
 
+### Прерывание между схемой и выдачей runtime-прав
+
+Перед apply установщик записывает schema-apply-pending.json. При ошибке
+сохраните маркер, schema.json и logs/schema-apply.log в рабочем каталоге
+операции. При подтверждённом APPLIED для того же digest, той же установки
+и неизменённого кода оператор отдельно запускает
+`.\dev.cmd finish-acl -SchemaDigest <reviewed-schema-sha256>`.
+Для host-dev эквивалент — `team_local.py finish-acl --reviewed-plan-sha256 <digest>`.
+
+Команда сверяет подписанный план, квитанцию APPLIED, БД и роль, проверяет
+физическую схему и транзакционно выдаёт и проверяет только runtime-права.
+Схема и Content не применяются повторно. В Compose состояние сохраняется
+до снятия маркера. Если квитанция отсутствует или состояние неоднозначно,
+остановитесь для отдельной сверки оператором; apply не повторяйте.
+
 ## Работа с исходниками и GitHub
 
 Исходники bind-mounted из обычной папки checkout. Редактируйте их своим editor,
