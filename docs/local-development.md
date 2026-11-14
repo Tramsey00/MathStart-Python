@@ -35,6 +35,7 @@ git config http.version HTTP/1.1
 ```
 
 Откройте **http://127.0.0.1:8131**. На хосте публикуется только этот loopback-порт.
+Для новой отдельной установки можно выбрать порт командой `.\dev.cmd prepare -NonInteractive -PublicPort 8133`. Выбранный порт сохраняется в профиле. В следующих командах параметр можно опустить. Профили без настройки используют 8131. Внутренний FastAPI остаётся на 8132.
 Своя PostgreSQL работает без host-порта. В app-контейнере существующий supervisor
 запускает Vite и внутренний FastAPI на loopback 8132; API/private/legacy routes
 и WebSocket используют тот же browser origin 8131 с исходными Host/Origin/cookies.
@@ -103,6 +104,21 @@ COMMIT или оставшегося pending journal не повторяйте a
 activated owner/fence/release проверяются, exact index прогревается read-only,
 затем выполняется обычный fenced resume. Domain commit не повторяется; HTTP
 publication guards остаются 5 секунд. Успех — только COMPLETE после всех probes.
+
+### Прерывание между схемой и выдачей runtime-прав
+
+Перед apply установщик записывает schema-apply-pending.json. При ошибке
+сохраните маркер, schema.json и logs/schema-apply.log в рабочем каталоге
+операции. При подтверждённом APPLIED для того же digest, той же установки
+и неизменённого кода оператор отдельно запускает
+`.\dev.cmd finish-acl -SchemaDigest <reviewed-schema-sha256>`.
+Для host-dev эквивалент — `team_local.py finish-acl --reviewed-plan-sha256 <digest>`.
+
+Команда сверяет подписанный план, квитанцию APPLIED, БД и роль, проверяет
+физическую схему и транзакционно выдаёт и проверяет только runtime-права.
+Схема и Content не применяются повторно. В Compose состояние сохраняется
+до снятия маркера. Если квитанция отсутствует или состояние неоднозначно,
+остановитесь для отдельной сверки оператором; apply не повторяйте.
 
 ## Работа с исходниками и GitHub
 
@@ -211,3 +227,12 @@ WSL/Linux запуск и его ускорение не подтвержден�
 Исторические эксперименты и точные ограничения — в
 [истории MS-T002A](../skills/tasks/t002a-team-local-start/HISTORY.md).
 Не копируйте var/credentials между checkout и не удаляйте volumes при эксперименте.
+
+### Завершение установщика после внешнего recovery
+
+Если PostgreSQL уже подтвердил `COMPLETE / APPLIED`, а Content review ещё ожидает
+подтверждения, выполните `dev.cmd reconcile -OperationId <UUID> -ContentDigest <SHA256>`.
+Команда сверяет сохранённый план, обе копии immutable handoff, активный указатель
+и свободный publication gate. Она атомарно сохраняет состояние установщика и
+снимает review после записи. При сбое удаления review тот же вызов завершит
+согласование. БД и релиз открываются только для чтения.

@@ -30,6 +30,7 @@ SCHEMA = LOCAL / 'schema-env.json'
 SECRETS = LOCAL / 'secrets.json'
 REVIEW = LOCAL / 'review.json'
 SERVING = Path('/runtime/serving')
+RUNTIME_WORK = Path('/runtime/work')
 
 
 def save(path, value):
@@ -55,7 +56,15 @@ def exclusive():
 
 def git(*arguments):
     result = subprocess.run(['git', '-c', 'safe.directory=' + str(ROOT), *arguments], cwd=ROOT,
-                            capture_output=True, check=True, timeout=180)
+                            capture_output=True, timeout=180)
+    if result.returncode:
+        # Report only known Git diagnoses. Stderr may contain URLs, paths or config values.
+        stderr = result.stderr[:4096].decode('utf-8', errors='replace')
+        diagnosis = next((message for message in (
+            'not a git repository', 'detected dubious ownership', 'unknown revision',
+            'bad object', 'index file corrupt', 'Permission denied',
+        ) if message in stderr), 'Git stderr omitted')
+        raise RuntimeError(f'Git {arguments[0]} failed (exit {result.returncode}): {diagnosis}')
     return result.stdout.decode('utf-8').strip()
 
 
@@ -95,10 +104,24 @@ def content_digest(*, dev=False):
         'specs/migration/r02-v1'])
 
 
+def public_origin():
+    raw = os.environ.get('MATHSTART_DEV_PUBLIC_PORT', '8131')
+    if not raw.isascii() or not raw.isdecimal() or not 1024 <= int(raw) <= 65535 or int(raw) == 8132:
+        raise RuntimeError('Invalid Compose public port')
+    return f'http://127.0.0.1:{int(raw)}'
+
+
+def check_public_origin():
+    origin = public_origin()
+    if any(read(path).get('MATHSTART_PUBLIC_ORIGIN') != origin for path in (PRIVATE, SCHEMA)):
+        raise RuntimeError('Saved publication origin does not match the Compose public port')
+
+
 def configure():
     if PRIVATE.exists() or SCHEMA.exists() or SECRETS.exists():
         if not all(path.exists() for path in (PRIVATE, SCHEMA, SECRETS, STATE)):
             raise RuntimeError('Partial private configuration; inspect it instead of regenerating credentials')
+        check_public_origin()
         return read(STATE)
     import psycopg
     from psycopg import sql
@@ -119,7 +142,7 @@ def configure():
     values = {'MATHSTART_DB_BACKEND': 'postgresql',
         'MATHSTART_DATABASE_URL': 'postgresql+psycopg://local_runtime:' + passwords['runtime'] + '@db:5432/mathstart_dev',
         'MATHSTART_HTTP_SIGNING_KEY': secrets.token_urlsafe(48),
-        'MATHSTART_PUBLIC_ORIGIN': 'http://127.0.0.1:8131',
+        'MATHSTART_PUBLIC_ORIGIN': public_origin(),
         'MATHSTART_RELEASE_ROOT': str(SERVING / 'releases'),
         'MATHSTART_PUBLIC_ARTIFACT_ROOT': str(SERVING / 'frontend'),
         'MATHSTART_PUBLIC_ARTIFACT_DIGESTS': '{}'}
@@ -138,7 +161,7 @@ def configure():
 def work_directory(state, key):
     if state.get('work') and state['work']['key'] == key:
         return Path(state['work']['path'])
-    work = Path('/runtime/work') / uuid.uuid4().hex
+    work = RUNTIME_WORK / uuid.uuid4().hex
     work.mkdir(parents=True)
     logs = LOCAL / 'logs' / work.name
     logs.mkdir(parents=True)
@@ -167,6 +190,10 @@ def prepare(args):
     from backend.release_migrate import code_digest as schema_code, plan_digest
     from backend.content.participant import digest as plan_hash
     state = configure()
+    previous_work = state.get('work')
+    pending = Path(previous_work['path']) / 'schema-apply-pending.json' if previous_work else None
+    if pending and pending.exists():
+        raise RuntimeError('Prior schema apply requires operator review; do not rerun DDL')
     dependencies = dependency_digest()
     marker = ROOT / 'frontend/node_modules/.mathstart-lock'
     if not marker.exists() or marker.read_text() != dependencies:
@@ -213,6 +240,7 @@ def prepare(args):
             state['schema_code'] = current_schema
             state['applied_migrations'] = current_migrations
             save(STATE, state)
+            (work / 'schema-apply-pending.json').unlink()
         elif state['schema_code'] != current_schema:
             # The current canonical chain has only v01_0001/v01_0002 and its
             # release CLI explicitly rejects unknown revisions. Never fall back
@@ -264,9 +292,128 @@ def prepare(args):
     return 0
 
 
+def finish_acl(args):
+    from backend.release_migrate import code_digest
+
+    state = read(STATE)
+    work = state.get('work')
+    schema = code_digest()
+    if not args.schema_digest or not work or work['key'] != schema + ':' + content_digest():
+        raise RuntimeError('ACL completion requires the reviewed schema digest and unchanged work inputs')
+    if state.get('release'):
+        raise RuntimeError('ACL completion is limited to an unpublished installation')
+    path = Path(work['path'])
+    with team.installation_paths(path, PRIVATE, SECRETS, SERVING):
+        team.finish_schema_privileges(read(SCHEMA), args.schema_digest)
+    state.update(schema_code=schema, applied_migrations=migration_files())
+    save(STATE, state)
+    (path / 'schema-apply-pending.json').unlink()
+    print('Schema checked and runtime ACL completed. No DDL or Content publication performed.', flush=True)
+    return 0
+
+
+def reconcile(args):
+    from re import fullmatch
+    from sqlalchemy import text
+    from sqlalchemy.engine import make_url
+    from backend.content.artifacts import verify_public_artifacts
+    from backend.content.participant import digest
+    from backend.infrastructure.database import DatabaseConfig, create_engine
+
+    if not args.operation_id or not args.content_digest:
+        raise RuntimeError('Reconcile requires an operation ID and the reviewed Content digest')
+    state = read(STATE)
+    operation = state['work']
+    work = Path(operation['path']).resolve()
+    content = content_digest()
+    schema = state['schema_code']
+    if (work.parent != RUNTIME_WORK or not schema
+            or operation['key'] != schema + ':' + content
+            or git('status', '--porcelain')):
+        raise RuntimeError('Saved work does not match the current schema and Content inputs')
+    if (work / 'schema-apply-pending.json').exists():
+        raise RuntimeError('Schema apply is pending review')
+    check_public_origin()
+    plan_path = work / 'publication.json'
+    plan = read(plan_path)
+    pin = digest(plan)
+    release = operation['release']
+    runtime = read(PRIVATE)
+    if (pin != args.content_digest or plan['release_id'] != release
+            or plan['origin'] != runtime['MATHSTART_PUBLIC_ORIGIN']
+            or json.loads(runtime['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']).get(release) != plan['output_manifest_digest']):
+        raise RuntimeError('Saved publication plan does not match the requested digest, release or origin')
+    expected = dict(release=release, content_digest=content, dev_content_digest=content_digest(dev=True))
+    if any(state.get(key) not in (None, value) for key, value in expected.items()):
+        raise RuntimeError('Installer state conflicts with completed publication')
+    recorded = all(state.get(key) == value for key, value in expected.items())
+    if REVIEW.exists():
+        review = read(REVIEW)
+        copy = LOCAL / 'plans' / work.name / plan_path.name
+        if ((review['kind'], review['digest'], review['path']) != ('content', pin, str(copy.relative_to(ROOT)))
+                or copy.read_bytes() != plan_path.read_bytes()):
+            raise RuntimeError('Saved Content review does not match the immutable plan')
+    elif not recorded:
+        raise RuntimeError('Missing Content review for an unreconciled installation')
+
+    receipt = read(work / 'inputs' / release / 'receipt.json')
+    installed_receipt = SERVING / 'releases' / release / 'receipt.json'
+    # A reconcile implementation may be committed after this release was built.
+    # Permit only installer/docs/test changes since the exact receipt source.
+    source = receipt['source_sha']
+    if (not fullmatch(r'[a-f0-9]{40}', source)
+            or git('merge-base', source, 'HEAD') != source
+            or git('diff', '--name-only', source, 'HEAD', '--', '.', ':!dev.ps1',
+                   ':!scripts/container_dev.py', ':!docs/local-development.md',
+                   ':!scripts/tests/test_container_reconcile.py')
+            or installed_receipt.read_bytes() != (work / 'inputs' / release / 'receipt.json').read_bytes()
+            or receipt['manifest_digest'] != plan['manifest_digest']
+            or sha256((work / 'output' / 'output-manifest.json').read_bytes()).hexdigest()
+            != plan['output_manifest_digest']):
+        raise RuntimeError('Immutable receipt does not match the current source or reviewed manifest')
+    verify_public_artifacts(work / 'inputs', release, plan['input_receipt_digest'],
+                            work / 'output', plan['output_manifest_digest'], plan['origin'])
+    verify_public_artifacts(SERVING / 'releases', release, plan['input_receipt_digest'],
+                            SERVING / 'frontend' / release, plan['output_manifest_digest'], plan['origin'])
+
+    url = make_url(read(SCHEMA)['MATHSTART_DATABASE_URL'])
+    if (url.host, url.port, url.database, url.username) != ('db', 5432, 'mathstart_dev', 'local_schema'):
+        raise RuntimeError('Schema connection does not point to this Compose installation')
+    engine = create_engine(DatabaseConfig(url))
+    try:
+        with engine.begin() as connection:
+            connection.execute(text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
+            row = connection.execute(text("""
+                SELECT j.phase, j.activation_status, j.db_committed, j.error_code, j.plan_digest,
+                       j.release_id, j.manifest_digest, j.fence_generation,
+                       a.operation_id, a.release_id, a.manifest_digest,
+                       g.pending_operation_id, g.owner_id, g.lease_until, g.fence_generation,
+                       a.fence_generation, j.plan,
+                       EXISTS (SELECT 1 FROM target_publication_journal
+                               WHERE phase NOT IN ('COMPLETE', 'FAILED_PRECOMMIT'))
+                FROM target_publication_journal j
+                JOIN target_publication_gate g USING (namespace)
+                JOIN target_active_release a USING (namespace)
+                WHERE j.namespace = 'public' AND j.id = CAST(:operation_id AS uuid)
+            """), {'operation_id': args.operation_id}).one_or_none()
+            manifest = plan['manifest_digest']
+            if (row is None or tuple(row[:7]) != ('COMPLETE', 'APPLIED', True, None, pin, release, manifest)
+                    or tuple(row[8:15]) != (args.operation_id, release, manifest, None, None, None, row[7])
+                    or not 0 < row[15] <= row[7] or row[16] != plan or row[17]):
+                raise RuntimeError('Publication journal, active release or gate does not match completed work')
+            if not recorded:
+                save(STATE, {**state, **expected})
+            REVIEW.unlink(missing_ok=True)
+    finally:
+        engine.dispose()
+    print(f'Reconciled completed publication {args.operation_id}: {release}.', flush=True)
+    return 0
+
+
 def ready():
     if not all(path.exists() for path in (STATE, PRIVATE, SCHEMA)):
         raise RuntimeError('Run dev.cmd prepare first')
+    check_public_origin()
     state = read(STATE)
     if REVIEW.exists():
         raise RuntimeError('A concrete plan still awaits review; complete prepare/update before start')
@@ -278,9 +425,10 @@ def ready():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare', 'ready', 'serve'])
+    parser.add_argument('action', choices=['prepare', 'ready', 'serve', 'finish-acl', 'reconcile'])
     parser.add_argument('--schema-digest')
     parser.add_argument('--content-digest')
+    parser.add_argument('--operation-id', type=uuid.UUID)
     args = parser.parse_args()
     os.chdir(ROOT)
     try:
@@ -296,6 +444,11 @@ def main():
             ready()
             return 0
         with exclusive():
+            if args.action == 'reconcile':
+                return reconcile(args)
+            if args.action == 'finish-acl':
+                check_public_origin()
+                return finish_acl(args)
             return prepare(args)
     except Exception as error:
         message = str(error) if type(error) is RuntimeError else type(error).__name__

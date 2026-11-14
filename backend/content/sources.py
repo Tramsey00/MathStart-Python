@@ -157,7 +157,7 @@ def validate_lesson_document(document, slug):
                 if set(node) != {'kind', 'text'} or not isinstance(node['text'], str):
                     raise SourceError('Invalid text node')
             elif kind == 'interactive':
-                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic'} or not isinstance(node['id'], str) or not node['id']:
+                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic', 'power-positive', 'power-negative', 'power-rational', 'number-circle'} or not isinstance(node['id'], str) or not node['id']:
                     raise SourceError('Unsupported React interactive')
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
@@ -227,6 +227,34 @@ def validate_lesson_document(document, slug):
         if 'clip-path' in attrs and (not isinstance(attrs['clip-path'], str) or not re.fullmatch(r'url\(#[A-Za-z0-9_-]+\)', attrs['clip-path'])):
             raise SourceError('Unsupported authored clipping reference')
         allowed.update({'title', 'desc', 'small', 'clipPath'})
+        if 'tabindex' in attrs:
+            classes = attrs.get('class')
+            label = attrs.get('aria-label')
+            children = node['children']
+            blocks = [child for child in children if not (
+                isinstance(child, dict) and child.get('kind') == 'text'
+                and isinstance(child.get('text'), str) and not child['text'].strip()
+            )] if isinstance(children, list) else []
+            if (in_svg or tag != 'div' or attrs['tabindex'] != '0' or attrs.get('role') != 'region'
+                    or not isinstance(label, str) or not label.strip()
+                    or not isinstance(classes, str) or 'ms-table-wrap' not in classes.split()
+                    or len(blocks) != 1 or not isinstance(blocks[0], dict) or blocks[0].get('tag') != 'table'):
+                raise SourceError('Unsupported authored table focus region')
+            attr_names.add('tabindex')
+        if 'data-angle-step' in attrs:
+            value = attrs['data-angle-step']
+            if (not in_svg or tag != 'circle' or not isinstance(value, str)
+                    or not re.fullmatch(r'0|2|3|4|6|8|9|10|12|14|15|16|18|20|21|22', value)):
+                raise SourceError('Unsupported authored SVG angle step')
+        if 'data-power' in attrs:
+            value = attrs['data-power']
+            if not in_svg or tag != 'path' or not isinstance(value, str) or not re.fullmatch(r'(?:2|3),1', value):
+                raise SourceError('Unsupported authored SVG power label')
+        if 'data-function' in attrs:
+            value = attrs['data-function']
+            if (not in_svg or tag != 'path' or not isinstance(value, str) or not value.strip()
+                    or re.search(r'javascript:|expression\(|@import|url\(\s*[^#]', value, re.I)):
+                raise SourceError('Unsupported authored SVG function label')
         if 'style' in attrs:
             style = attrs['style']
             class_value = attrs.get('class', '')

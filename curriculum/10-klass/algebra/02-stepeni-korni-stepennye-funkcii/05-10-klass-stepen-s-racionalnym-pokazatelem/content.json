@@ -1,0 +1,5579 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "10-klass-stepen-s-racionalnym-pokazatelem",
+  "title": "Понятие степени с рациональным показателем, свойства степеней",
+  "subtitle": "Определим дробный показатель через корень, свяжем положительные и отрицательные показатели и научимся упрощать выражения. Отдельно разберём допустимые основания и работу с десятичными показателями.",
+  "grade": "10-klass",
+  "subject": "algebra",
+  "section": "stepeni-korni-stepennye-funkcii",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Зачем нужен дробный показатель",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Квадрат числа "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "msup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "9"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " должен равняться 9. Поэтому естественно связать показатель 1/2 с квадратным корнем, показатель 1/3 — с кубическим, а показатель m/n — с корнем n-й степени и возведением в степень m."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Для a > 0, целого m и натурального n ≥ 2: "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mi",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "m"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mi",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "n"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = ⁿ√(aᵐ) = (ⁿ√a)ᵐ"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Знаменатель показателя задаёт степень корня, числитель — степень числа."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 1. Два равносильных порядка"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "27"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = (∛27)² = 3² = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "9"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Можно сначала получить 27², но извлечь корень до возведения в квадрат проще."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Дроби 1/2 и 2/4 задают одно и то же число, поэтому при a > 0 степени a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " и a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " равны. Перед вычислением показатель удобно сократить."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Основание и школьное соглашение",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Здесь используем то же соглашение, что и в школьных материалах ЯКласс: степень с нецелым рациональным показателем определяем для положительного основания. Для положительного показателя дополнительно полагаем 0ʳ = 0."
+            }
+          ]
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap",
+            "tabindex": "0",
+            "role": "region",
+            "aria-label": "Таблица: прокрутите при необходимости"
+          },
+          "children": [
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Показатель r"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Допустимое основание"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "r — положительное целое"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Любое действительное a"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "r = 0 или отрицательное целое"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a ≠ 0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "r — положительное нецелое рациональное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a ≥ 0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "r — отрицательное нецелое рациональное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a > 0"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Не подменяйте без условия ∛(x²) выражением x"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ": первый корень существует и при отрицательных x, а дробную степень в принятом здесь соглашении рассматриваем при x ≥ 0. Сам нечётный корень из отрицательного числа существует: ∛(−8) = −2."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Нулевой и отрицательный показатели",
+      "nodes": [
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "При a > 0: a⁰ = 1; a⁻ʳ = 1/aʳ."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "16"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mrow",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "−"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mfrac",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "3"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "4"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = "
+                },
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "msup",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mrow",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "("
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mroot",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "16"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "4"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": ")"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = "
+                },
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "msup",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = "
+                },
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "1/8"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 2. Дробное основание"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "(4/9)"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "−"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "msqrt",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mrow",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "("
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mfrac",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "4"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "9"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": ")"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "("
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": ")"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3/2"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Минус в показателе не делает ответ отрицательным. При положительном основании любая рациональная степень положительна. Записи 0⁰ и 0⁻ʳ при r > 0 не определены."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "Основные свойства",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При a > 0, b > 0 и рациональных r, s действуют знакомые правила. Условия на основания позволяют применять их без отдельных случаев для знаков."
+            }
+          ]
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap",
+            "tabindex": "0",
+            "role": "region",
+            "aria-label": "Таблица: прокрутите при необходимости"
+          },
+          "children": [
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Операция"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Формула"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Пример"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Произведение одинаковых оснований"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "aʳ · aˢ = aʳ⁺ˢ"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "3"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " · a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "3"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = a"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Частное одинаковых оснований"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "msup",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "a"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "r"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "msup",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "a"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "s"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = aʳ⁻ˢ"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "5"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "4"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " / a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "4"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = a"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Степень степени"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "(aʳ)ˢ = aʳˢ"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "(a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "3"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": ")"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "3"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "4"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Степень произведения"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "(ab)ʳ = aʳbʳ"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "(4a)"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = 2a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Степень частного"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "msup",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mrow",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mo",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "("
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mfrac",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "element",
+                                              "tag": "mi",
+                                              "attrs": {},
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "text": "a"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "tag": "mi",
+                                              "attrs": {},
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "text": "b"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mo",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": ")"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mi",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "r"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = "
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "msup",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "a"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "r"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "msup",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "b"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "r"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "(a/9)"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": " = a"
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "sup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "math",
+                                  "attrs": {
+                                    "class": "lesson-math",
+                                    "display": "inline"
+                                  },
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mfrac",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": "/3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 3. Сложение показателей"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "5"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " · a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " / a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "5"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "+"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "−"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " при a > 0."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В сумме aʳ + aˢ эти правила не применяются. Складывать показатели можно при умножении степеней одного основания."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "Десятичные показатели и общее основание",
+      "nodes": [
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 4. Перевести показатель в дробь"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "32"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "0,4"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = 32"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "5"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = (⁵√32)² = 2² = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "4"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Здесь 0,4 = 4/10 = 2/5."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 5. Привести к одному основанию"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "9"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1,25"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " / 3"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "0,5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = (3²)"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1,25"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " / 3"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "0,5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = 3"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2,5−0,5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "9"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 6. Числовой и буквенный множители"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "(16b)"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1,5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " · b"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "0,7"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " / b"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2,2"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = 16"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1,5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " · b"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1,5+0,7−2,2"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = 64 · b⁰ = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "64 при b > 0"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Значение не зависит от положительного b."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "Переход между корнями и степенями",
+      "nodes": [
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 7. Общая форма записи"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "При x > 0: "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "msqrt",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mi",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "x"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "·"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mroot",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mrow",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "("
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "msup",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mi",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "x"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": ")"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mroot",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mi",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "x"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "6"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = x"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "+"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "−"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = x"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "+"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "−"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Условие x > 0 учитывает и чётные корни, и знаменатель."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 8. Разность квадратов"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "(a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " − 2)(a"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " + 2) = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " − 4"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " при a ≥ 0. Это та же формула (u − v)(u + v) = u² − v²."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Выбирайте запись, которая упрощает действие: степени удобны для произведений и частных, радикалы — для выделения полной степени и работы с сопряжёнными выражениями."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "Сравнение и простое уравнение",
+      "nodes": [
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При a > 1 большему показателю соответствует большая степень. При 0 < a < 1 — меньшая. Для a = 1 все степени равны 1."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 9. Основание меньше единицы"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "(1/4)"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = 1/2, а (1/4)"
+            },
+            {
+              "kind": "element",
+              "tag": "sup",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = 1/8. Хотя 1/2 < 3/2, первая степень "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "больше"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 10. Решить x"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = 8"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "По определению x ≥ 0. Положим t = √x ≥ 0. Тогда t³ = 8, t = 2 и "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x = 4"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Проверка: (√4)³ = 8."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Если возводите обе части равенства в степень, проверяйте, сохраняется ли равносильность. Область допустимых значений нужно записать до этого действия."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сначала решите задания самостоятельно. Затем откройте решения и сравните не только ответ, но и условия применения формул."
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите 81"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "(⁴√81)³ = 3³ = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "27"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите 64"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mrow",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "−"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mfrac",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "2"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "3"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "msup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mrow",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mo",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "("
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mroot",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "64"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "3"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mo",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": ")"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "msup",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "4"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1/16"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите 25"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "0,5"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " · 5"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "−2"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "5 · (1/25) = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1/5"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Упростите a"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "7"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "12"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " · a"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "5"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "6"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " / a"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ", a > 0."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "7/12 + 10/12 − 3/12 = 14/12 = 7/6. Ответ: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "a"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "sup",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "7"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "6"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Упростите (x"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ")"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ", x ≥ 0."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "При x > 0 перемножаем показатели: 3/4 · 2/3 = 1/2. При x = 0 обе стороны равны 0. Ответ: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "√x"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Сравните (1/9)"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " и (1/9)"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Это 1/3 и 1/27. Поэтому "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "(1/9)"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "sup",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": " > (1/9)"
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "sup",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "3"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Основание находится между 0 и 1."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите ОДЗ (x − 2)"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mrow",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "−"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mfrac",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "1"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Это "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "msqrt",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mrow",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mo",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "("
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mrow",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "element",
+                                          "tag": "mi",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "x"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mo",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "−"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "tag": "mn",
+                                          "attrs": {},
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "text": "2"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mo",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": ")"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Подкоренное выражение должно быть положительным: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x > 2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Решите x"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = 27."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "x ≥ 0. При t = √x получаем t³ = 27, t = 3. Значит, "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = 9"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Проверка: (√9)³ = 27."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

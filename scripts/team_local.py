@@ -18,6 +18,7 @@ import subprocess
 import sys
 import time
 import uuid
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL = ROOT / 'var/local/team'
@@ -87,10 +88,22 @@ def environment(values=None):
 def run(command, stage, values=None, timeout=180):
     # Child failures may contain DBAPI details: capture privately, redact known
     # secrets, and show only the stage name. Never echo environment or SQL.
-    result = subprocess.run(list(map(str, command)), cwd=ROOT, env=environment(values),
-                            capture_output=True, timeout=timeout)
-    output = (result.stdout + result.stderr).decode('utf-8', errors='replace')
+    try:
+        result = subprocess.run(list(map(str, command)), cwd=ROOT, env=environment(values),
+                                capture_output=True, timeout=timeout)
+    except subprocess.TimeoutExpired as exc:
+        partial = (exc.stdout or b'') + (exc.stderr or b'')
+        write_stage_log(stage, partial, f'\nStage {stage} timed out after {timeout} seconds.\n')
+        raise
+    write_stage_log(stage, result.stdout + result.stderr)
+    if result.returncode:
+        raise RuntimeError('Stage failed: ' + stage + '; see ignored var/local/team/logs')
+    return result.stdout.decode('utf-8').strip()
+
+
+def write_stage_log(stage, raw, diagnostic=''):
     if LOCAL.exists():
+        output = raw.decode('utf-8', errors='replace') + diagnostic
         sensitive = []
         for path in (LOCAL / 'schema-env.json', PRIVATE):
             if path.exists():
@@ -104,9 +117,6 @@ def run(command, stage, values=None, timeout=180):
         logs = LOCAL / 'logs'
         logs.mkdir(exist_ok=True)
         (logs / (stage + '.log')).write_text(output, encoding='utf-8')
-    if result.returncode:
-        raise RuntimeError('Stage failed: ' + stage + '; see ignored var/local/team/logs')
-    return result.stdout.decode('utf-8').strip()
 
 
 def cli(module, arguments, stage, values, timeout=180):
@@ -219,24 +229,60 @@ def roots():
 
 
 def schema_apply(values, reviewed):
+    marker = LOCAL / 'schema-apply-pending.json'
+    if marker.exists():
+        raise RuntimeError('Prior schema apply requires operator review; do not rerun DDL')
+    write_json(marker, {'reviewed_plan_sha256': reviewed})
     cli('backend.release_migrate', ['apply', '--maintenance', '--plan-file', str(LOCAL / 'schema.json'),
         '--reviewed-plan-sha256', reviewed], 'schema-apply', values)
-    # Only schema CLI does DDL. Runtime has DML permissions, never DDL ownership.
+    finish_schema_privileges(values, reviewed)
+
+
+def finish_schema_privileges(values, reviewed):
+    """Finish only the ACL stage of a known, committed local schema apply."""
+    from backend.release_migrate import code_digest, database_fact, plan_digest, signed
+    from backend.migrations.runtime_privileges import grant_runtime_privileges
+    from backend.infrastructure.database import DatabaseConfig, create_engine
+    from sqlalchemy.engine import make_url
     import psycopg
-    url = values['MATHSTART_DATABASE_URL'].replace('postgresql+psycopg:', 'postgresql:', 1)
-    with psycopg.connect(url) as connection:
-        connection.execute('GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO local_runtime')
-        connection.execute('GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO local_runtime')
+
+    marker = LOCAL / 'schema-apply-pending.json'
+    plan = read_json(LOCAL / 'schema.json')
+    receipt = read_json(LOCAL / 'logs/schema-apply.log')
+    if (read_json(marker) != {'reviewed_plan_sha256': reviewed}
+            or receipt != {'status': 'APPLIED', 'head': plan['target_head'], 'reviewed_plan_sha256': reviewed}
+            or not secrets.compare_digest(plan_digest(plan), reviewed)
+            or plan['profile'] != 'FRESH' or plan['code_digest'] != code_digest()
+            or not secrets.compare_digest(plan['signature'], signed(values['MATHSTART_SCHEMA_SIGNING_KEY'],
+                'schema.plan.v1', {k: v for k, v in plan.items() if k != 'signature'}))):
+        raise RuntimeError('ACL completion requires the exact reviewed plan and APPLIED receipt')
+    url = make_url(values['MATHSTART_DATABASE_URL'])
+    engine = create_engine(DatabaseConfig(url))
+    try:
+        with engine.connect() as connection:
+            if database_fact(connection) != plan['database']:
+                raise RuntimeError('ACL completion database/role binding changed')
+    finally:
+        engine.dispose()
+    # Physical compatibility must be established before opening the ACL transaction.
     print(cli('backend.release_migrate', ['check'], 'schema-check', values))
+    try:
+        with psycopg.connect(url.set(drivername='postgresql').render_as_string(hide_password=False)) as connection:
+            grant_runtime_privileges(connection)
+    except Exception:
+        raise RuntimeError('Schema APPLIED; runtime ACL completion failed. Retain the receipt and pending marker.') from None
+
 
 
 def content(values, state):
+    if (LOCAL / 'schema-apply-pending.json').exists():
+        raise RuntimeError('Schema apply pending review; Content preparation is blocked')
     require_windows_long_paths()
     source_sha = run(['git', 'rev-parse', 'HEAD'], 'source-sha')
     # The ordinary preparation verifies committed source bytes itself.
     prepared = json.loads(cli('backend.content.publish', ['prepare-bootstrap', '--source-root', '.',
         '--source-sha', source_sha, '--release-id', state['release'], '--input-root', str(LOCAL / 'inputs'),
-        '--changes', str(LOCAL / 'edition.json')], 'prepare-content', values, 300))
+        '--changes', str(LOCAL / 'edition.json')], 'prepare-content', values, 600))
     built = json.loads(cli('frontend.build_public', ['--input-root', str(LOCAL / 'inputs'),
         '--release-id', state['release'], '--manifest-digest', prepared['manifest_digest'],
         '--receipt-digest', prepared['input_receipt_digest'], '--output', str(LOCAL / 'output'),
@@ -286,15 +332,31 @@ def finish_cold_publication(values, state):
     return cli('backend.content.publish', ['resume', *owner, *roots()], 'resume-content', values, 900)
 
 
+def publication_gateway_port(plan, values, runtime_values):
+    origin = plan.get('origin')
+    if not isinstance(origin, str) or any(
+            config.get('MATHSTART_PUBLIC_ORIGIN') != origin for config in (values, runtime_values)):
+        raise RuntimeError('Publication plan and gateway origin must match')
+    port = urlsplit(origin).port
+    if not port or origin != f'http://127.0.0.1:{port}':
+        raise RuntimeError('Publication requires an explicit loopback HTTP origin')
+    return port
+
+
 def publish(values, state, reviewed):
+    if (LOCAL / 'schema-apply-pending.json').exists():
+        raise RuntimeError('Schema apply pending review; Content publication is blocked')
     require_windows_long_paths()
     plan_path = LOCAL / 'publication.json'
     # Same canonical digest used by the domain publisher; do not re-encode differently.
     sys.path.insert(0, str(ROOT))
     from backend.content.participant import digest
-    if not secrets.compare_digest(digest(read_json(plan_path)), reviewed):
+    plan = read_json(plan_path)
+    if not secrets.compare_digest(digest(plan), reviewed):
         raise RuntimeError('Reviewed publication plan digest mismatch')
-    free_port(8131)
+    runtime_values = read_json(PRIVATE)
+    port = publication_gateway_port(plan, values, runtime_values)
+    free_port(port)
     log_path = LOCAL / 'logs/publication-server.log'
     with log_path.open('w', encoding='utf-8') as log:
         options = {'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}
@@ -305,12 +367,12 @@ def publish(values, state, reviewed):
                 if server.poll() is not None:
                     raise RuntimeError('Temporary publication gateway exited')
                 with socket.socket() as client:
-                    if client.connect_ex(('127.0.0.1', 8131)) == 0:
+                    if client.connect_ex(('127.0.0.1', port)) == 0:
                         break
                 time.sleep(.2)
             else:
                 raise RuntimeError('Temporary publication gateway did not start')
-            publisher_values = {**values, **{k: v for k, v in read_json(PRIVATE).items()
+            publisher_values = {**values, **{k: v for k, v in runtime_values.items()
                                           if k != 'MATHSTART_DATABASE_URL'}}
             try:
                 result = cli('backend.content.publish', ['publish', '--plan', str(plan_path),
@@ -331,7 +393,7 @@ def publish(values, state, reviewed):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['init', 'schema-preview', 'schema-apply', 'content', 'publish', 'db-start', 'db-stop'])
+    parser.add_argument('action', choices=['init', 'schema-preview', 'schema-apply', 'finish-acl', 'content', 'publish', 'db-start', 'db-stop'])
     parser.add_argument('--pg-port', type=int, default=55449)
     parser.add_argument('--reviewed-plan-sha256')
     args = parser.parse_args()
@@ -350,11 +412,15 @@ def main():
         if args.action == 'schema-preview':
             print(cli('backend.release_migrate', ['preview', '--profile', 'FRESH', '--plan-file', str(LOCAL / 'schema.json')], 'schema-preview', values))
             print('Review profile=FRESH, table_count=0, target_head, database/role binding in var/local/team/schema.json; apply within 30 minutes.')
-        elif args.action in ('schema-apply', 'publish'):
+        elif args.action in ('schema-apply', 'finish-acl', 'publish'):
             if not re.fullmatch('[a-f0-9]{64}', args.reviewed_plan_sha256 or ''):
                 raise RuntimeError('Explicit --reviewed-plan-sha256 required after reviewing the plan')
             if args.action == 'schema-apply':
                 schema_apply(values, args.reviewed_plan_sha256)
+                (LOCAL / 'schema-apply-pending.json').unlink()
+            elif args.action == 'finish-acl':
+                finish_schema_privileges(values, args.reviewed_plan_sha256)
+                (LOCAL / 'schema-apply-pending.json').unlink()
             else:
                 publish(values, state, args.reviewed_plan_sha256)
                 print('Start npm.cmd --prefix frontend run dev:host.')

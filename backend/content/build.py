@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import time
 import uuid
 
@@ -321,6 +322,7 @@ def install_build_inputs(output_root, release_id, descriptor, receipt, files):
         raise SourceError('Immutable release already exists')
     # Stage under the same filesystem; verification precedes one directory rename.
     stage = output_root / ('.staging-' + uuid.uuid4().hex)
+    started = time.monotonic()
     stage.mkdir(parents=True)
     for path, raw in files.items():
         destination = stage / path
@@ -337,7 +339,13 @@ def install_build_inputs(output_root, release_id, descriptor, receipt, files):
     for child in list(stage.iterdir()):
         if child != temporary:
             rename_build_path(child, temporary / child.name)
-    ReleaseStore(stage).load(descriptor)
+    print(f'TIMING immutable input staging: {time.monotonic() - started:.3f}s', file=sys.stderr, flush=True)
+    started = time.monotonic()
+    print('Checking staged immutable inputs with ReleaseStore.load()', file=sys.stderr, flush=True)
+    try:
+        ReleaseStore(stage).load(descriptor)
+    finally:
+        print(f'TIMING ReleaseStore.load: {time.monotonic() - started:.3f}s', file=sys.stderr, flush=True)
     rename_build_path(temporary, target)
     stage.rmdir()
 

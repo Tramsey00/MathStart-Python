@@ -471,24 +471,26 @@
 
 **1. Действительные числа**
 
-- 1.1 [Натуральные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie/body.html) — HTML
-- 1.1 [Натуральные числа. Повторение 2.0](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie-2-0/body.html) — HTML
-- 1.2 [Рациональные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/02-10-klass-racionalnye-chisla-povtorenie/body.html) — HTML
-- 1.2 [Рациональные числа. Повторение 2.0](10-klass/algebra/01-deistvitelnye-chisla/02-10-klass-racionalnye-chisla-povtorenie-2-0/body.html) — HTML
-- 1.3 [Иррациональные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/03-10-klass-irracionalnye-chisla-povtorenie/body.html) — HTML
+Состояние переноса и постоянные адреса всех 13 тем — в [сводке MS-T008](../docs/tasks/ms-t008-migration-summary.md).
+
+- 1.1 [Натуральные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie/content.json) — react-v1, `/materials/10-algebra-1`
+- 1.1 [Натуральные числа. Повторение 2.0](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie-2-0/content.json) — react-v1, `/materials/10-algebra-2`
+- 1.2 [Рациональные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/02-10-klass-racionalnye-chisla-povtorenie/content.json) — react-v1, `/materials/10-algebra-3`
+- 1.2 [Рациональные числа. Повторение 2.0](10-klass/algebra/01-deistvitelnye-chisla/02-10-klass-racionalnye-chisla-povtorenie-2-0/content.json) — react-v1, `/materials/10-algebra-4`
+- 1.3 [Иррациональные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/03-10-klass-irracionalnye-chisla-povtorenie/content.json) — react-v1, `/materials/10-algebra-5`
 
 **2. Степени с рациональным показателем. Корни. Степенные функции**
 
-- 2.1 [Понятие корня n-й степени из действительного числа](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/01-10-klass-ponyatie-kornya-n-stepeni/body.html) — HTML
-- 2.2 [Функция корня n-й степени](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/02-10-klass-funkciya-kornya-n-stepeni/body.html) — HTML
-- 2.3 [Свойства корня n-й степени. Преобразование иррациональных выражений](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/03-10-klass-svoystva-kornya-n-stepeni/body.html) — HTML
-- 2.4 [Способы упрощения выражений, содержащих радикалы](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/04-10-klass-uproshchenie-vyrazheniy-s-radikalami/body.html) — HTML
-- 2.5 [Понятие степени с рациональным показателем, свойства степеней](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/05-10-klass-stepen-s-racionalnym-pokazatelem/body.html) — HTML
-- 2.6 [Свойства степенных функций и их графики](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/06-10-klass-stepennye-funkcii-i-grafiki/body.html) — HTML
-- 2.7 [Свойства степенных функций и их графики 2.0](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/07-10-klass-stepennye-funkcii-i-grafiki-2-0/body.html) — HTML
+- 2.1 [Понятие корня n-й степени из действительного числа](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/01-10-klass-ponyatie-kornya-n-stepeni/content.json) — react-v1, `/materials/10-algebra-6`
+- 2.2 [Функция корня n-й степени](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/02-10-klass-funkciya-kornya-n-stepeni/content.json) — react-v1, `/materials/10-algebra-7`
+- 2.3 [Свойства корня n-й степени. Преобразование иррациональных выражений](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/03-10-klass-svoystva-kornya-n-stepeni/content.json) — react-v1, `/materials/10-algebra-8`
+- 2.4 [Способы упрощения выражений, содержащих радикалы](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/04-10-klass-uproshchenie-vyrazheniy-s-radikalami/content.json) — react-v1, `/materials/10-algebra-9`
+- 2.5 [Понятие степени с рациональным показателем, свойства степеней](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/05-10-klass-stepen-s-racionalnym-pokazatelem/content.json) — react-v1, `/materials/10-algebra-10`
+- 2.6 [Свойства степенных функций и их графики](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/06-10-klass-stepennye-funkcii-i-grafiki/content.json) — react-v1, `/materials/10-algebra-11`
+- 2.7 [Свойства степенных функций и их графики 2.0](10-klass/algebra/02-stepeni-korni-stepennye-funkcii/07-10-klass-stepennye-funkcii-i-grafiki-2-0/content.json) — react-v1, `/materials/10-algebra-12`
 
 **4. Синус и косинус. Тангенс и котангенс. Свойства и графики тригонометрических функций**
 
-- 4.1 [Числовая окружность на координатной плоскости 2.0](10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/body.html) — HTML
+- 4.1 [Числовая окружность на координатной плоскости 2.0](10-klass/algebra/04-sinus-kosinus-tangens-kotangens/01-10-klass-chislovaya-okruzhnost-2-0/content.json) — react-v1, `/materials/10-algebra-13`
 
 Всего исходников в указателе: 263.

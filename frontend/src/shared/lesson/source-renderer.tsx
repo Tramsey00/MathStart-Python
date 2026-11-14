@@ -3,6 +3,8 @@ import { LessonDisclosure, LessonNote, SelfCheck, WorkedExample } from './lesson
 import { QuadraticGraph } from './quadratic-graph';
 import { LessonDiagram } from './lesson-diagram';
 import type { LessonNode } from './lesson-types';
+import { NumberCircle } from '../../features/lesson-interactives/number-circle';
+import { PowerGraph } from '../../features/lesson-interactives/power-graph';
 import { LinearGraph } from '../../features/lesson-interactives/linear-graph';
 
 function inlineStyle(value: string): CSSProperties {
@@ -13,7 +15,7 @@ function inlineStyle(value: string): CSSProperties {
 }
 const propNames: Record<string, string> = { class: 'className', for: 'htmlFor', colspan: 'colSpan', rowspan: 'rowSpan', tabindex: 'tabIndex' };
 type ElementNode = Extract<LessonNode, { tag: string }>;
-type SourceContext = { inExample: boolean; inDiagram: boolean; preserveMarkup: boolean };
+type SourceContext = { inExample: boolean; inDiagram: boolean; preserveMarkup: boolean; tableRegion?: boolean };
 const defaultContext: SourceContext = { inExample: false, inDiagram: false, preserveMarkup: false };
 function isElement(node: LessonNode): node is ElementNode { return 'tag' in node; }
 function hasClass(node: LessonNode, name: string): boolean {
@@ -102,6 +104,10 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   if (node.kind === 'text') return node.text;
   if (node.kind === 'graph') return <QuadraticGraph key={key}/>;
   if (node.kind === 'interactive') {
+    if (node.name === 'power-positive' || node.name === 'power-negative' || node.name === 'power-rational') {
+      return <PowerGraph key={key} id={node.id} mode={node.name === 'power-rational' ? 'rational' : node.name === 'power-positive' ? 'positive' : 'negative'}/>;
+    }
+    if (node.name === 'number-circle') return <NumberCircle key={key} id={node.id}/>;
     const interactives = { linear: LinearGraph, quadratic: QuadraticGraph };
     const Interactive = interactives[node.name];
     if (!Interactive) throw Error('Unsupported lesson interactive');
@@ -112,7 +118,9 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   // React rejects indentation text inside table structure; it is not academic content.
   const childNodes = ['table', 'thead', 'tbody', 'tfoot', 'tr', 'colgroup'].includes(node.tag)
     ? node.children.filter(child => child.kind !== 'text' || child.text.trim()) : node.children;
-  const childContext = { ...context, preserveMarkup: context.preserveMarkup || ['svg', 'math'].includes(node.tag) };
+  const tableRegion = node.tag === 'div' && classes.includes('ms-table-wrap')
+    && node.attrs.tabindex === '0' && node.attrs.role === 'region' && !!node.attrs['aria-label']?.trim();
+  const childContext = { ...context, tableRegion, preserveMarkup: context.preserveMarkup || ['svg', 'math'].includes(node.tag) };
   const body = <LessonSource nodes={childNodes} context={childContext}/>;
   if (classes.includes('ms-task')) {
     const answer = node.children.find(child => child.kind === 'element' && (child.attrs.class ?? '').split(/\s+/).includes('ms-answer'));
@@ -167,14 +175,24 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
     props.xmlns = 'http://www.w3.org/1998/Math/MathML';
   }
   if (['br', 'hr', 'img', 'input', 'wbr'].includes(tag)) return createElement(tag, props);
-  if (tag === 'table') return <div className="lesson-table-scroll" key={key}>{createElement(tag, props, body)}</div>;
+  if (tableRegion) props.className = `${String(props.className)} lesson-table-scroll`;
+  if (tag === 'table' && !context.tableRegion) return <div className="lesson-table-scroll" key={key}>{createElement(tag, props, body)}</div>;
   if (!context.inDiagram && isDiagramContainer(node)) {
     const caption = node.children.find(child => hasClass(child, 'ms-figure-title') || hasClass(child, 'ms-quadratic-figure-title') || (isElement(child) && child.tag === 'figcaption'));
     const label = node.attrs['aria-label'] ?? ((caption && nodeText(caption).trim()) || 'Учебная схема');
     const existingFrame = hasAuthoredFrame(node);
     props.className = `${String(props.className ?? '')} lesson-figure-source`.trim();
+    const diagramContext = { ...childContext, inDiagram: true };
+    if (tag === 'figure' && classes.includes('ms-figure')) {
+      const figcaption = childNodes.filter(child => child.kind !== 'text' || child.text.trim()).at(-1);
+      if (figcaption && isElement(figcaption) && figcaption.tag === 'figcaption') return createElement(tag, props,
+        <LessonDiagram label={label} frame={!existingFrame}>
+          <LessonSource nodes={childNodes.filter(child => child !== figcaption)} context={diagramContext}/>
+        </LessonDiagram>,
+        renderNode(figcaption, childNodes.indexOf(figcaption), diagramContext));
+    }
     return createElement(tag, props, <LessonDiagram label={label} frame={!existingFrame}>
-      <LessonSource nodes={childNodes} context={{ ...childContext, inDiagram: true }}/>
+      <LessonSource nodes={childNodes} context={diagramContext}/>
     </LessonDiagram>);
   }
   if (node.kind === 'figure' || classes.includes('ms-quadratic-svg')) {

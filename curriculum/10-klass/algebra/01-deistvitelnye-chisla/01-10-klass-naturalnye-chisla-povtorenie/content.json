@@ -1,0 +1,1486 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "10-klass-naturalnye-chisla-povtorenie",
+  "title": "Натуральные числа. Повторение",
+  "subtitle": "Повторим свойства натуральных чисел, делимость, простые множители и деление с остатком. Научимся использовать эти идеи в вычислениях и задачах, где неизвестные должны быть натуральными.",
+  "grade": "10-klass",
+  "subject": "algebra",
+  "section": "deistvitelnye-chisla",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Натуральные числа и действия с ними",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Натуральные числа используют для счёта предметов. В этом курсе ℕ = {1, 2, 3, …}; нуль к натуральным числам не относим. Если нужны также нуль и отрицательные числа, используем множество целых чисел ℤ."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сумма и произведение натуральных чисел натуральны. Разность и частное могут не быть натуральными: 4 − 7 = −3, а 3 : 2 = 1,5."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Число и цифра — разные понятия: число 707 записано тремя цифрами, но в записи использованы только две разные цифры — 7 и 0."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 1. Подходящие значения"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Если n ∈ ℕ и 2 < n ≤ 6, то n принимает значения "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3, 4, 5, 6"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Левая граница не включена, правая включена."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Чётность и признаки делимости",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Число a делится на положительное b, если a = bk для некоторого целого k. Для натуральных a и b это означает, что остаток равен нулю. Чётные числа имеют вид 2k, нечётные — 2k + 1."
+            }
+          ]
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap",
+            "tabindex": "0",
+            "role": "region",
+            "aria-label": "Таблица: прокрутите при необходимости"
+          },
+          "children": [
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Делитель"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Признак"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Пример"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Последняя цифра чётная"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "738 делится на 2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3 или 9"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Сумма цифр делится на 3 или 9"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "7 + 3 + 8 = 18: 738 делится на 9"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число из двух последних цифр делится на 4"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1316: 16 делится на 4"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "5 или 10"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "На конце 0 или 5; для 10 — только 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "735 делится на 5, 730 — на 10"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 2. Восстановить цифру"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Число 52a должно делиться на 6. Тогда оно делится и на 2, и на 3: a — чётная цифра, а 7 + a кратно 3. Из 0, 2, 4, 6, 8 подходят "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a = 2 и a = 8"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сумма двух нечётных чисел чётна, а произведение нечётно. Чтобы доказать это, запишите числа как 2k + 1 и 2m + 1."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Простые числа и разложение на множители",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Простое число имеет ровно два натуральных делителя: 1 и само число. Составное имеет больше двух. Число 1 не является ни простым, ни составным; 2 — единственное чётное простое число."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Любое натуральное число, большее 1, единственным образом раскладывается в произведение простых множителей, если не учитывать порядок множителей."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 3. Разложить 420"
+                }
+              ]
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "420 = 42 · 10 = 2 · 3 · 7 · 2 · 5"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "420 = 2² · 3 · 5 · 7."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Проверка: 4 · 3 · 5 · 7 = 420. Остановиться на 42 · 10 нельзя: оба множителя ещё составные."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Для проверки простоты числа достаточно искать простые делители, не превосходящие его квадратного корня. Например, √97 < 10: число 97 не делится на 2, 3, 5 и 7, поэтому оно простое."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "НОД и НОК",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Наибольший общий делитель (НОД) — наибольшее натуральное число, на которое делятся оба числа. Наименьшее общее кратное (НОК) — наименьшее положительное число, делящееся на оба."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В НОД берём общие простые множители в меньших степенях. В НОК берём все простые множители в больших степенях."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 4. Найти НОД и НОК чисел 84 и 126"
+                }
+              ]
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "84 = 2² · 3 · 7; 126 = 2 · 3² · 7;"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОД(84, 126) = 2 · 3 · 7 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "42"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ";"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "НОК(84, 126) = 2² · 3² · 7 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "252"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Проверка: 42 · 252 = 84 · 126. Для любых двух натуральных чисел произведение НОД и НОК равно произведению самих чисел."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 5. Одинаковые наборы"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Из 84 карандашей и 126 ручек составляют максимальное число одинаковых наборов без остатка. Число наборов делит оба количества: это НОД, то есть "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "42 набора"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". В каждом — 2 карандаша и 3 ручки."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "Деление с остатком",
+      "nodes": [
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При делении целого a на натуральное b получаем a = bq + r, где q — целое число, а 0 ≤ r < b. Для натурального a частное q может быть нулём."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 6. Проверить запись"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "157 = 12 · 13 + 1, поэтому при делении 157 на 12 неполное частное равно 13, остаток — 1. Запись 157 = 12 · 12 + 13 верна как равенство, но не как деление с остатком: 13 ≥ 12."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 7. Остаток суммы"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Если a = 7k + 3 и b = 7m + 6, то a + b = 7(k + m) + 9 = 7(k + m + 1) + 2. Остаток суммы при делении на 7 равен "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "Степени и порядок вычислений",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Для натурального n степень aⁿ — произведение n одинаковых множителей a. Сначала выполняют действия в скобках, затем возведение в степень, затем умножение и деление, после них — сложение и вычитание."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "aᵐ · aⁿ = aᵐ⁺ⁿ; (aᵐ)ⁿ = aᵐⁿ; (ab)ⁿ = aⁿbⁿ."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "При a ≠ 0 и m > n: aᵐ : aⁿ = aᵐ⁻ⁿ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 8. Вычислить без больших чисел"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "2⁷ · 2⁴ : 2⁸ = 2⁷⁺⁴⁻⁸ = 2³ = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "8"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Складываем и вычитаем показатели, поскольку основания одинаковые."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Нельзя заменять 2³ + 2⁴ на 2⁷. Здесь сложение чисел: 8 + 16 = 24."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "Натуральные решения уравнения",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Условие x, y ∈ ℕ ограничивает возможные решения. Полезно разложить левую часть на множители и перечислить пары натуральных делителей."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 9. Найти x и y"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Пусть xy + x = 18, где x, y ∈ ℕ. Выносим x: x(y + 1) = 18. Поскольку y ≥ 1, имеем y + 1 ≥ 2. Для x подходят делители 1, 2, 3, 6, 9. Получаем пары "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "(1; 17), (2; 8), (3; 5), (6; 2), (9; 1)"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". При x = 18 получилось бы y = 0 — условие нарушено."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сначала решите задания самостоятельно. Затем откройте решения и сравните не только ответ, но и условия применения формул."
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Выпишите натуральные числа из списка: −4; 0; 7; 12/3; 5/2."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "7 и 12/3 = 4."
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": " В принятом определении 0 ∉ ℕ; отрицательные и нецелые числа также не подходят."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите цифру a, если число 43a делится на 9."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "4 + 3 + a = 7 + a. Между 7 и 16 единственное кратное 9 — число 9, поэтому "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "a = 2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Разложите 360 на простые множители."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "360 = 36 · 10 = 2² · 3² · 2 · 5 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "2³ · 3² · 5"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите НОД и НОК чисел 72 и 120."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "72 = 2³ · 3², 120 = 2³ · 3 · 5. "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "НОД = 24, НОК = 360"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Проверка: 24 · 360 = 72 · 120."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Запишите деление 203 на 15 с остатком."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "203 = 15 · 13 + 8"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Остаток 8 удовлетворяет условию 0 ≤ 8 < 15."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите 3⁶ · 3² : 3⁵."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "3⁶⁺²⁻⁵ = 3³ = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "27"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Число n при делении на 5 даёт остаток 4. Каков остаток числа 2n + 3?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "n = 5k + 4. Тогда 2n + 3 = 10k + 11 = 5(2k + 2) + 1. "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Остаток 1."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите все пары натуральных x и y, если x(y + 2) = 12."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "y + 2 ≥ 3, поэтому x ≤ 4 и x делит 12. При x = 1, 2, 3, 4 получаем соответственно y = 10, 4, 2, 1. "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "(1; 10), (2; 4), (3; 2), (4; 1)."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
