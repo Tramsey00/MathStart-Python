@@ -157,7 +157,7 @@ def validate_lesson_document(document, slug):
                 if set(node) != {'kind', 'text'} or not isinstance(node['text'], str):
                     raise SourceError('Invalid text node')
             elif kind == 'interactive':
-                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic'} or not isinstance(node['id'], str) or not node['id']:
+                if set(node) != {'kind', 'name', 'id'} or node['name'] not in {'linear', 'quadratic', 'power-positive', 'power-negative'} or not isinstance(node['id'], str) or not node['id']:
                     raise SourceError('Unsupported React interactive')
             elif kind == 'element':
                 if set(node) != {'kind', 'tag', 'attrs', 'children'}:
@@ -213,7 +213,7 @@ def validate_lesson_document(document, slug):
             attr_names.add('font-style')
         if 'fill-opacity' in attrs:
             value = attrs['fill-opacity']
-            if (not in_svg or tag != 'polygon' or not isinstance(value, str)
+            if (not in_svg or tag not in {'polygon', 'circle', 'path'} or not isinstance(value, str)
                     or not re.fullmatch(r'(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)', value)
                     or not isfinite(float(value)) or not 0 <= float(value) <= 1):
                 raise SourceError('Unsupported authored SVG fill opacity')

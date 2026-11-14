@@ -1,9 +1,10 @@
 param(
     [Parameter(Mandatory=$true, Position=0)]
-    [ValidateSet('prepare','start','update','stop')][string]$Action,
+    [ValidateSet('prepare','start','update','stop','reconcile')][string]$Action,
     [string]$SchemaDigest,
     [string]$ContentDigest,
-    [switch]$NonInteractive
+    [switch]$NonInteractive,
+    [string]$OperationId
 )
 $ErrorActionPreference = 'Stop'
 $taskRoot = $PSScriptRoot
@@ -73,7 +74,11 @@ try {
     }
     $taskEngineType = & docker info --format '{{.OSType}}'
     if ($LASTEXITCODE -ne 0 -or $taskEngineType -ne 'linux') { throw 'Start Docker Desktop Linux engine, then repeat the command.' }
-    if ($Action -in @('prepare','update')) {
+    if ($Action -eq 'reconcile') {
+        if (-not $taskImage -or $taskImage.fingerprint -ne $taskFingerprint) { throw 'Reconcile requires the existing matching dev image.' }
+        if (-not $OperationId -or -not $ContentDigest) { throw 'Reconcile requires -OperationId and -ContentDigest.' }
+        Invoke-Compose @('run','--rm','--no-deps','tools','reconcile','--operation-id',$OperationId,'--content-digest',$ContentDigest)
+    } elseif ($Action -in @('prepare','update')) {
         Invoke-Compose @('stop','app')
         $taskImageExists = $false
         if ($taskImage) {

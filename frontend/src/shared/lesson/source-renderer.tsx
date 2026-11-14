@@ -3,6 +3,7 @@ import { LessonDisclosure, LessonNote, SelfCheck, WorkedExample } from './lesson
 import { QuadraticGraph } from './quadratic-graph';
 import { LessonDiagram } from './lesson-diagram';
 import type { LessonNode } from './lesson-types';
+import { PowerGraph } from '../../features/lesson-interactives/power-graph';
 import { LinearGraph } from '../../features/lesson-interactives/linear-graph';
 
 function inlineStyle(value: string): CSSProperties {
@@ -102,6 +103,9 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   if (node.kind === 'text') return node.text;
   if (node.kind === 'graph') return <QuadraticGraph key={key}/>;
   if (node.kind === 'interactive') {
+    if (node.name === 'power-positive' || node.name === 'power-negative') {
+      return <PowerGraph key={key} id={node.id} mode={node.name === 'power-positive' ? 'positive' : 'negative'}/>;
+    }
     const interactives = { linear: LinearGraph, quadratic: QuadraticGraph };
     const Interactive = interactives[node.name];
     if (!Interactive) throw Error('Unsupported lesson interactive');
