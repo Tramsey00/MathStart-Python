@@ -162,6 +162,23 @@ function transcribeGradeEightMath(root, meta) {
   }
   visit(root);
 }
+function gradeEightCourseSelfCheck(root, meta) {
+  if (meta.slug !== 'obobshhenie-sistematizacziya-znanij-2') return null;
+  const section = children(root).find(n => attrs(n).id === 'lesson-section-8');
+  if (meta.grade !== '8-klass' || meta.subject !== 'veroyatnost-i-statistika'
+      || meta.section !== 'obobshhenie-sistematizaciya-znanij'
+      || createHash('sha256').update(JSON.stringify(gradeEightLabSnapshot(root))).digest('hex')
+        !== 'f834b657c345662003fdcaf14b7593ce8145dcee8cddf6dafee32a3f34ac2f25'
+      || section?.tagName !== 'section'
+      || text(children(section).find(n => n.tagName === 'h2')).trim() !== 'Самопроверка по всему курсу'
+      || children(section).filter(n => has(n, 'ms-task')).length !== 8) {
+    throw Error('Unreviewed grade-eight course self-check');
+  }
+  // The migration standard ends material at self-check and removes all legacy
+  // navigation. The following lesson-section-9 and root ms-nav are therefore
+  // excluded by the existing afterSelfCheck boundary, not a root-div allowlist.
+  return section;
+}
 function reviewedGradeEightLab(root, sectionId, labId, digest, name) {
   const find = n => [n, ...children(n).flatMap(find)].filter(node => attrs(node).id === labId);
   const matches = find(root);
@@ -372,6 +389,7 @@ export function convertLesson(directory) {
   const meta = JSON.parse(readFileSync(join(directory, 'lesson.json'), 'utf8')).page;
   const root = children(parseFragment(readFileSync(join(directory, 'body.html'), 'utf8'))).find(n => has(n, 'ms-lesson-page'));
   if (!root) throw Error('Missing authored lesson root');
+  const courseSelfCheck = gradeEightCourseSelfCheck(root, meta);
   transcribeGradeEightMath(root, meta);
   normalizeGradeEightCircleImage(root, meta);
   const gradeEightLab = gradeEightLessonLab(root, meta);
@@ -406,7 +424,7 @@ export function convertLesson(directory) {
     if (!heading || !attrs(n).id) throw Error('Missing section heading or anchor');
     const title = cleanSectionTitle(text(heading));
     if (isPrerequisiteSection(title)) continue;
-    const selfCheck = isSelfCheckSection(title);
+    const selfCheck = isSelfCheckSection(title) || n === courseSelfCheck;
     sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title,
       nodes: normalizeMathNotation(sectionNodes.map(source => source === gradeEightLab?.source
         ? gradeEightLab.node : source === irrationalAxis?.source
