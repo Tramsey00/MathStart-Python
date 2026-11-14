@@ -45,6 +45,7 @@ function gradeEightLabSnapshot(n) {
 // not a general expression parser: parentheses and sup/sub in the source own
 // grouping; no operations are evaluated, simplified or inferred from display.
 const gradeEightAuthoredMath = new Map([
+  ["8-klass/algebra/funkciya-modulya-i-kvadratnogo-kornya/modul-dejstvitelnogo-chisla-i-ego-geometricheskij-smysl", "8bf93305d532132dc7adc5467e71b50acd4bb4050cfd532deaaa789b06280355"],
   ["8-klass/geometriya/chetyrehugolniki/mnogougolniki-i-parallelogramm-opredeleniya-svojstva-i-priznaki", "ee20d002851ca092389c5f5c4461740f9124591717509e6286aaa13ff51536c1"],
   ["8-klass/geometriya/chetyrehugolniki/trapecziya-srednyaya-liniya-trapeczii", "95f7168b640cfe4ee85a68b15f2d03c98cefef7a5a4f0f5396507540e74ab81c"],
   ["8-klass/algebra/algebraicheskie-drobi/ponyatie-algebraicheskoj-drobi", "adc58f40393f2eabf9a2cfee257623cb812d84face507beb23181ebe0b781f6e"],

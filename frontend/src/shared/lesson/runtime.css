@@ -4,6 +4,62 @@
 @import './lesson-shell.css';
 @import './lesson.css';
 
+/* MS-T006: the reviewed N inside Z inside Q diagram (topic 8).
+ * Keep actual nested regions and real labels, rather than a flattened list. */
+.lesson-section .ms-g8-sets { margin-block: 1.25em; min-inline-size: 0; }
+.lesson-section .ms-g8-set {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: clamp(.6rem, 2.5%, 1.15rem);
+  border: 3px solid var(--lesson-accent-text);
+  border-radius: 1.5rem;
+  background: var(--lesson-plot);
+}
+.lesson-section .ms-g8-set-q { border-color: #b9a5ff; }
+.lesson-section .ms-g8-set-z { border-color: #7eb9f5; }
+.lesson-section .ms-g8-set-n { border-color: #4d97f3; }
+.lesson-section .ms-g8-set-label { margin-block-end: .85em; text-align: center; }
+.lesson-section :is(.ms-g8-set-letter, .ms-g8-set-title, .ms-g8-set-examples) {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.lesson-section .ms-g8-set-letter { font-size: 1.8em; font-weight: 700; }
+.lesson-section .ms-g8-set-title { font-weight: 700; }
+
+/* Topic 13: source x positions, in percent, remain 50/80 and 28/76.
+ * Existing plot/point/label primitives are reused. Only decorative strokes
+ * use pseudo-elements; O(0), A(a), B(b) and the moduli are real Content. */
+.lesson-section .ms-g8-real-axis.ms-g8-distance-axis { grid-template-columns: minmax(0, 50fr) minmax(0, 15fr) minmax(0, 15fr) minmax(0, 20fr); }
+.lesson-section .ms-g8-real-axis.ms-g8-pair-axis { grid-template-columns: minmax(0, 28fr) repeat(3, minmax(0, 24fr)); }
+.lesson-section .ms-g8-real-axis:is(.ms-g8-distance-axis, .ms-g8-pair-axis) {
+  grid-template-rows: auto 3.5em auto;
+}
+.lesson-section :is(.ms-g8-distance-axis, .ms-g8-pair-axis) .ms-g8-distance-segment {
+  position: absolute;
+  top: 50%;
+  border-top: 3px solid var(--lesson-accent-text);
+  transform: translateY(-1.5em);
+}
+.lesson-section .ms-g8-distance-axis .ms-g8-distance-segment { left: 50%; right: 20%; }
+.lesson-section .ms-g8-pair-axis .ms-g8-distance-segment { left: 28%; right: 24%; }
+.lesson-section .ms-g8-distance-segment::before,
+.lesson-section .ms-g8-distance-segment::after {
+  content: '';
+  position: absolute;
+  top: -.4em;
+  block-size: .7em;
+  border-left: 2px solid var(--lesson-accent-text);
+}
+.lesson-section .ms-g8-distance-segment::before { left: 0; }
+.lesson-section .ms-g8-distance-segment::after { right: 0; }
+.lesson-section .ms-g8-real-axis.ms-g8-pair-axis .ms-g8-line::after { content: none; }
+.lesson-section .ms-g8-distance-axis .ms-g8-at-50 { left: 50%; grid-column: 2; }
+.lesson-section .ms-g8-distance-axis .ms-g8-at-65 { grid-column: 3; }
+.lesson-section .ms-g8-distance-axis .ms-g8-at-80 { left: 80%; grid-column: 4; }
+.lesson-section .ms-g8-pair-axis .ms-g8-at-28 { left: 28%; grid-column: 2; }
+.lesson-section .ms-g8-pair-axis .ms-g8-at-52 { grid-column: 3; }
+.lesson-section .ms-g8-pair-axis .ms-g8-at-76 { left: 76%; grid-column: 4; }
+
 /* MS-T006: three authored grade-eight diagrams; labels are real Content nodes.
  * Grid boundaries and plot positions share the same finite source coordinates.
  * Label rows grow with wrapping/text zoom; no 720px minimum or clipped text. */
