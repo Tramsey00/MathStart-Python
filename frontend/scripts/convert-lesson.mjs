@@ -41,6 +41,124 @@ function gradeEightLabSnapshot(n) {
     Object.entries(attrs(n)).sort(([a], [b]) => a.localeCompare(b)),
     children(n).map(gradeEightLabSnapshot).filter(value => value !== null)];
 }
+// Authored transcription of closed, reviewed grade-eight sources only. This is
+// not a general expression parser: parentheses and sup/sub in the source own
+// grouping; no operations are evaluated, simplified or inferred from display.
+const gradeEightAuthoredMath = new Map([
+  ["8-klass/algebra/algebraicheskie-drobi/ponyatie-algebraicheskoj-drobi", "adc58f40393f2eabf9a2cfee257623cb812d84face507beb23181ebe0b781f6e"],
+  ["8-klass/algebra/algebraicheskie-drobi/primenenie-osnovnogo-svojstva-algebraicheskoj-drobi", "d50ca6fe837f1b06ba9feb41405498dbed0b5ebadb1570c08c2787574e21f884"],
+  ["8-klass/algebra/algebraicheskie-drobi/kak-skladyvat-i-vychitat-algebraicheskie-drobi-s-ravnymi-znamenatelyami", "f2bcd25f04eed40045a8eb8f6386318fcd1dcc0aec48a4ddf628ca070b5cf912"],
+  ["8-klass/algebra/algebraicheskie-drobi/kak-skladyvat-i-vychitat-algebraicheskie-drobi-s-raznymi-znamenatelyami", "05ed378b0f597565aa3e335f818d40d7d325b3e242f20a893e17f84a14377954"],
+  ["8-klass/algebra/algebraicheskie-drobi/kak-umnozhat-delit-i-vozvodit-v-stepen-algebraicheskie-drobi", "1740e30e2eab30b2da0033d995fe16e5b5a083bb6a6f4e81e9cee9edfe790cdf"],
+  ["8-klass/algebra/algebraicheskie-drobi/uproshhenie-raczionalnyh-vyrazhenij", "263b578c1d26c2ba41d618ea386dc16bc8fc6e045972bde74cd8193e3d1aae10"],
+  ["8-klass/algebra/algebraicheskie-drobi/reshenie-raczionalnyh-uravnenij", "1882f039e3e9d217636b9ec38f0616f0a6cb5f4253dc256d6a7d5373c7ad4124"],
+  ["8-klass/algebra/dejstvitelnye-chisla/ponyatie-kvadratnogo-kornya", "15ff6e4be19d21e0dc558d81d999f39c4845f719054f83af09a5baf6be154230"],
+  ["8-klass/algebra/neravenstva/ponyatie-stepeni-s-otriczatelnym-czelym-pokazatelem", "45b949a1444b6276e4e5fa8aed0b1a6a12ff7d583688caf58ffa397540a62578"],
+  ["8-klass/veroyatnost-i-statistika/opisatelnaya-statistika-rasseivanie-dannyh/otkloneniya-dispersiya-chislovogo-nabora", "ac52153ed1bc30f5306327c7348ae9708d2b3644671e0e4af397d91ad44b91c9"],
+]);
+function transcribeGradeEightMath(root, meta) {
+  const identity = [meta.grade, meta.subject, meta.section, meta.slug].join('/');
+  const digest = gradeEightAuthoredMath.get(identity);
+  if (!digest) return;
+  if (createHash('sha256').update(JSON.stringify(gradeEightLabSnapshot(root))).digest('hex') !== digest) {
+    throw Error('Unreviewed grade-eight authored mathematics; review the source before transcribing it');
+  }
+  const mathNode = (tagName, childNodes = [], attributes = {}) => {
+    const node = { nodeName: tagName, tagName, namespaceURI: 'http://www.w3.org/1998/Math/MathML',
+      attrs: Object.entries(attributes).map(([name, value]) => ({ name, value })), childNodes };
+    childNodes.forEach(child => { child.parentNode = node; });
+    return node;
+  };
+  const token = (tag, value) => mathNode(tag, [{ nodeName: '#text', value }]);
+  const row = values => mathNode('mrow', values);
+  function leaf(value) {
+    const nodes = [];
+    const tokens = value.match(/\d+(?:[.,]\d+)?|x\u0304|[A-Za-z]|[()+.·−…√]/gu) ?? [];
+    if (tokens.join('') !== value.replace(/\s+/g, '')) throw Error('Unreviewed authored mathematical leaf');
+    for (let i = 0; i < tokens.length; i++) {
+      const part = tokens[i];
+      if (part === '√') {
+        const radicand = tokens[++i];
+        if (!['49', '64'].includes(radicand)) throw Error('Unreviewed authored radical');
+        nodes.push(mathNode('msqrt', [token('mn', radicand)]));
+      } else nodes.push(token(/^\d/.test(part) ? 'mn' : /^[A-Za-z]/.test(part) ? 'mi' : 'mo', part));
+    }
+    return nodes;
+  }
+  function scriptBase(values) {
+    const last = values.pop();
+    if (!last) throw Error('Authored script has no base');
+    if (last.tagName !== 'mo' || text(last) !== ')') return last;
+    const group = [last];
+    let depth = 1;
+    while (values.length) {
+      const node = values.pop(); group.unshift(node);
+      if (node.tagName === 'mo' && text(node) === ')') depth++;
+      if (node.tagName === 'mo' && text(node) === '(' && --depth === 0) return row(group);
+    }
+    throw Error('Unbalanced authored script base');
+  }
+  function sequence(source) {
+    const result = [];
+    for (const child of children(source)) {
+      if (child.nodeName === '#comment') continue;
+      if (child.nodeName === '#text') { result.push(...leaf(child.value)); continue; }
+      if (child.tagName === 'sup' || child.tagName === 'sub') {
+        if (Object.keys(attrs(child)).length) throw Error('Unreviewed authored script attributes');
+        const base = scriptBase(result);
+        result.push(mathNode(child.tagName === 'sup' ? 'msup' : 'msub', [base, row(sequence(child))]));
+      } else if (has(child, 'ms-frac')) result.push(fraction(child));
+      else if (has(child, 'ms-abs')) result.push(absolute(child));
+      else if (child.tagName === 'span' && attrs(child).class === 'ms-power'
+          && Object.keys(attrs(child)).length === 1) result.push(...sequence(child));
+      else if (child.namespaceURI === 'http://www.w3.org/1998/Math/MathML') {
+        result.push(child.tagName === 'math' ? row(children(child)) : child);
+      } else throw Error('Unreviewed authored mathematical structure');
+    }
+    return result;
+  }
+  function fraction(source) {
+    const parts = children(source).filter(n => n.nodeName !== '#comment' && !(n.nodeName === '#text' && !n.value.trim()));
+    // One reviewed A^n/B^n formula ends with sentence punctuation inside the
+    // legacy wrapper. Keep the period after the fraction, never in its denominator.
+    const trailingPeriod = parts.length === 3 && parts[2].nodeName === '#text' && parts[2].value.trim() === '.';
+    if (trailingPeriod) parts.pop();
+    const [numerator, denominator] = parts;
+    if (source.tagName !== 'span' || attrs(source).class !== 'ms-frac'
+        || Object.keys(attrs(source)).length !== 1 || parts.length !== 2
+        || parts.some(n => n.tagName !== 'span' || Object.keys(attrs(n)).length !== 1)
+        || !['ms-num', 'ms-frac-num'].includes(attrs(numerator).class)
+        || !['ms-den', 'ms-frac-den'].includes(attrs(denominator).class)) {
+      throw Error('Unreviewed authored fraction structure');
+    }
+    const top = sequence(numerator), bottom = sequence(denominator);
+    if (!top.length || !bottom.length) throw Error('Empty authored fraction part');
+    const value = mathNode('mfrac', [row(top), row(bottom)]);
+    return trailingPeriod ? row([value, token('mo', '.')]) : value;
+  }
+  function absolute(source) {
+    const parts = children(source).filter(n => n.nodeName !== '#comment' && !(n.nodeName === '#text' && !n.value.trim()));
+    if (attrs(source).class !== 'ms-abs' || Object.keys(attrs(source)).length !== 1
+        || parts.length !== 1 || attrs(parts[0]).class !== 'ms-abs-value'
+        || Object.keys(attrs(parts[0])).length !== 1) throw Error('Unreviewed authored absolute value');
+    return row([token('mo', '|'), ...sequence(parts[0]), token('mo', '|')]);
+  }
+  function visit(parent) {
+    parent.childNodes = children(parent).map(child => {
+      if (has(child, 'ms-frac') || has(child, 'ms-abs') || has(child, 'ms-power')) {
+        const value = has(child, 'ms-frac') ? fraction(child)
+          : has(child, 'ms-abs') ? absolute(child) : row(sequence(child));
+        const replacement = mathNode('math', [value],
+          { class: 'lesson-math', display: 'inline' });
+        replacement.parentNode = parent;
+        return replacement;
+      }
+      if (child.tagName !== 'svg' && child.tagName !== 'math') visit(child);
+      return child;
+    });
+  }
+  visit(root);
+}
 function reviewedGradeEightLab(root, sectionId, labId, digest, name) {
   const find = n => [n, ...children(n).flatMap(find)].filter(node => attrs(node).id === labId);
   const matches = find(root);
@@ -251,6 +369,7 @@ export function convertLesson(directory) {
   const meta = JSON.parse(readFileSync(join(directory, 'lesson.json'), 'utf8')).page;
   const root = children(parseFragment(readFileSync(join(directory, 'body.html'), 'utf8'))).find(n => has(n, 'ms-lesson-page'));
   if (!root) throw Error('Missing authored lesson root');
+  transcribeGradeEightMath(root, meta);
   normalizeGradeEightCircleImage(root, meta);
   const gradeEightLab = gradeEightLessonLab(root, meta);
   const irrationalAxis = gradeEightIrrationalAxis(root, meta);
