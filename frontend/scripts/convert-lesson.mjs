@@ -1,5 +1,6 @@
 // Explicit build-time conversion. Unknown source markup is a review error.
 import { readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parseFragment } from 'parse5';
@@ -17,12 +18,128 @@ const attributes = new Set('class id role style href title scope colspan rowspan
 tags.add('img');
 tags.add('linearGradient');
 tags.add('stop');
+tags.add('ellipse');
 function safeImageUrl(value) {
   // Match the backend URL policy, rejecting controls before trimming as well.
   if (/[\\\u0000-\u001f\u007f-\u009f]/.test(value)) return false;
   const url = value.trim();
   if (/^(?:javascript:|data:|vbscript:|\/\/)/i.test(url)) return false;
   return /^(?:\/|#|https:\/\/|mailto:)/i.test(url);
+}
+
+// Closed snapshots of the two reviewed lab containers, not of their sections.
+// Include text, attributes, namespaces and child order so new instructional
+// content cannot silently disappear behind an interactive replacement. Only
+// comments, indentation and attribute order are insignificant for this review.
+function gradeEightLabSnapshot(n) {
+  if (n.nodeName === '#comment') return null;
+  if (n.nodeName === '#text') {
+    const value = n.value.replace(/\s+/g, ' ').trim();
+    return value ? ['text', value] : null;
+  }
+  return [n.namespaceURI, n.tagName,
+    Object.entries(attrs(n)).sort(([a], [b]) => a.localeCompare(b)),
+    children(n).map(gradeEightLabSnapshot).filter(value => value !== null)];
+}
+function reviewedGradeEightLab(root, sectionId, labId, digest, name) {
+  const find = n => [n, ...children(n).flatMap(find)].filter(node => attrs(node).id === labId);
+  const matches = find(root);
+  const source = matches[0];
+  const section = source?.parentNode;
+  if (matches.length !== 1 || source.tagName !== 'div'
+      || source.namespaceURI !== 'http://www.w3.org/1999/xhtml'
+      || section?.tagName !== 'section' || section.parentNode !== root
+      || attrs(section).id !== sectionId || attrs(section).class !== 'ms-section'
+      || createHash('sha256').update(JSON.stringify(gradeEightLabSnapshot(source))).digest('hex') !== digest) {
+    throw Error(`Unreviewed ${name} lab structure/content (${labId}); review its preservation map before replacing it`);
+  }
+  return { source, node: { kind: 'interactive', name, id: labId } };
+}
+function gradeEightLessonLab(root, meta) {
+  if (meta.slug === 'funkcziya-kvadratnogo-kornya-eyo-svojstva-i-grafik') {
+    if (meta.grade !== '8-klass' || meta.subject !== 'algebra'
+        || meta.section !== 'funkciya-modulya-i-kvadratnogo-kornya') throw Error('Square-root lesson identity mismatch');
+    return reviewedGradeEightLab(root, 'theory', 'ms-root-lab-832',
+      'a77feb84ece1835ec6da623c52f419bd8e9e76c0d8a51c41ee4d8d6209183169', 'square-root');
+  }
+  if (meta.slug === 'funkcziya-y-k-x-i-eyo-svojstva-giperbola') {
+    if (meta.grade !== '8-klass' || meta.subject !== 'algebra'
+        || meta.section !== 'kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x') throw Error('Hyperbola lesson identity mismatch');
+    return reviewedGradeEightLab(root, 'interactive-lab', 'ms-hyperbola-lab-621',
+      '4c4db9ebab4f7f79c4d13bd07e739a0fdad163b0df45a2718e477cc5c49b8b8a', 'hyperbola');
+  }
+  return null;
+}
+// Browser scheduling hints are not lesson content. Omit them only on the
+// fingerprinted PNG of this lesson; all other image attributes use convert().
+function normalizeGradeEightCircleImage(root, meta) {
+  if (meta.slug !== 'czentralnye-i-vpisannye-ugly-dugi-hordy-sekushhie-i-kasatelnye') return;
+  if (meta.grade !== '8-klass' || meta.subject !== 'geometriya'
+      || meta.section !== 'okruzhnost') throw Error('Circle angles lesson identity mismatch');
+  const find = n => [n, ...children(n).flatMap(find)].filter(node => node.tagName === 'img');
+  const images = find(root);
+  const image = images[0];
+  const wrapper = image?.parentNode;
+  const figure = wrapper?.parentNode;
+  const section = figure?.parentNode;
+  if (images.length !== 1 || image.namespaceURI !== 'http://www.w3.org/1999/xhtml'
+      || wrapper?.tagName !== 'div' || attrs(wrapper).class !== 'ms-image-wrap'
+      || figure?.tagName !== 'div' || attrs(figure).class !== 'ms-figure'
+      || section?.tagName !== 'section' || attrs(section).id !== 'lesson-section-5'
+      || attrs(section).class !== 'ms-section' || section.parentNode !== root
+      || createHash('sha256').update(JSON.stringify(gradeEightLabSnapshot(image))).digest('hex')
+        !== 'f9c7b7a235f021588f6a62c5bf81eb46b24fff52051719405a695d21cc8ffbf2') {
+    throw Error('Unreviewed circle angles PNG structure/attributes; review the image before normalizing it');
+  }
+  // Mutate only the fresh parse tree, never the authored body.html file.
+  image.attrs = image.attrs.filter(attribute => !['decoding', 'loading'].includes(attribute.name));
+}
+// Materialize the three CSS-generated labels before the general attribute guard.
+// Only this reviewed source identity/container may bypass raw data-label markup.
+function gradeEightIrrationalAxis(root, meta) {
+  if (meta.slug !== 'ponyatie-irraczionalnogo-chisla') return null;
+  if (meta.grade !== '8-klass' || meta.subject !== 'algebra'
+      || meta.section !== 'dejstvitelnye-chisla') throw Error('Irrational lesson identity mismatch');
+  const find = n => [n, ...children(n).flatMap(find)].filter(node => has(node, 'ms-interval-visual'));
+  const matches = find(root);
+  const source = matches[0];
+  const section = source?.parentNode;
+  if (matches.length !== 1 || source.tagName !== 'div'
+      || source.namespaceURI !== 'http://www.w3.org/1999/xhtml'
+      || section?.tagName !== 'section' || section.parentNode !== root
+      || attrs(section).id !== 'lesson-section-5' || attrs(section).class !== 'ms-section-soft'
+      || createHash('sha256').update(JSON.stringify(gradeEightLabSnapshot(source))).digest('hex')
+        !== '9d4703de6c34133dfec75af27939641b6cbf92d09f3605b3095e3cb185b8ad07') {
+    throw Error('Unreviewed irrational number axis structure/content; review labels and positions before replacing it');
+  }
+  const literal = value => ({ kind: 'text', text: value });
+  const element = (tag, children = [], attrs = {}) => ({ kind: 'element', tag, attrs, children });
+  const span = (classes, children = []) => element('span', children, { class: classes });
+  const axis = children(source).find(n => n.tagName === 'div');
+  const marks = children(axis).filter(n => n.tagName === 'span');
+  const labels = marks.map(n => attrs(n)['data-label']);
+  return { source, node: element('div', [
+    element('div', [span('ms-g8-line'), span('ms-g8-tick ms-g8-pos-0'),
+      span('ms-g8-point ms-g8-pos-162'), span('ms-g8-tick ms-g8-pos-100')],
+    { class: 'ms-g8-plot', 'aria-hidden': 'true' }),
+    span('ms-g8-label ms-g8-pos-0', [literal(labels[0])]),
+    span('ms-g8-label ms-g8-point-label ms-g8-pos-162', [
+      element('math', [element('msqrt', [element('mn', [literal('10')])])],
+        { class: 'lesson-math', display: 'inline', 'aria-label': 'квадратный корень из 10' }),
+      literal(labels[1].slice('√10'.length)),
+    ]),
+    span('ms-g8-label ms-g8-pos-100', [literal(labels[2])]),
+  ], { class: 'ms-g8-root-axis', role: 'group', 'aria-label': 'Числовая ось от 3 до 4 с отмеченным квадратным корнем из 10' }) };
+}
+// The reviewed grade-eight figures contain one direct SVG and no caption.
+// Keep the authored wrapper; other figure shapes require their own adapter.
+function isBareSvgFigure(n) {
+  if (n.namespaceURI !== 'http://www.w3.org/1999/xhtml'
+      || n.tagName !== 'figure' || attrs(n).class !== 'ms-figure') return false;
+  const parts = children(n).filter(c => c.nodeName !== '#comment'
+    && !(c.nodeName === '#text' && !c.value.trim()));
+  return parts.length === 1 && parts[0].tagName === 'svg'
+    && parts[0].namespaceURI === 'http://www.w3.org/2000/svg';
 }
 function convert(n) {
   if (n.nodeName === '#text') return { kind: 'text', text: n.value };
@@ -57,13 +174,14 @@ function convert(n) {
   }
   if (n.tagName === 'code' && n.namespaceURI !== 'http://www.w3.org/1999/xhtml') throw Error('Unsupported source code namespace');
   if (n.tagName === 'img' && n.namespaceURI !== 'http://www.w3.org/1999/xhtml') throw Error('Unsupported source image namespace');
-  if (!tags.has(n.tagName)) throw Error(`Unsupported source tag: ${n.tagName}`);
+  if (n.tagName === 'ellipse' && n.namespaceURI !== 'http://www.w3.org/2000/svg') throw Error('Unsupported source ellipse namespace');
+  if (!tags.has(n.tagName) && !isBareSvgFigure(n)) throw Error(`Unsupported source tag: ${n.tagName}`);
   for (const [key, value] of Object.entries(a)) {
     const svgAttribute = key === 'marker-start'
       ? n.tagName === 'line' && /^url\(#[A-Za-z0-9_-]+\)$/.test(value)
       : key === 'dy' ? n.tagName === 'tspan' && /^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) && Number.isFinite(Number(value))
       : key === 'font-style' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'text' && value === 'italic'
-      : key === 'fill-opacity' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'polygon'
+      : key === 'fill-opacity' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && ['polygon', 'circle', 'ellipse'].includes(n.tagName)
         && /^(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) && value === value.trim()
         && Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 1
       : key === 'data-net-face' ? n.namespaceURI === 'http://www.w3.org/2000/svg' && n.tagName === 'rect' && value === 'true'
@@ -133,6 +251,9 @@ export function convertLesson(directory) {
   const meta = JSON.parse(readFileSync(join(directory, 'lesson.json'), 'utf8')).page;
   const root = children(parseFragment(readFileSync(join(directory, 'body.html'), 'utf8'))).find(n => has(n, 'ms-lesson-page'));
   if (!root) throw Error('Missing authored lesson root');
+  normalizeGradeEightCircleImage(root, meta);
+  const gradeEightLab = gradeEightLessonLab(root, meta);
+  const irrationalAxis = gradeEightIrrationalAxis(root, meta);
   const hero = children(root).find(n => has(n, 'ms-hero'));
   let afterSelfCheck = false;
   let lastSection;
@@ -165,7 +286,9 @@ export function convertLesson(directory) {
     if (isPrerequisiteSection(title)) continue;
     const selfCheck = isSelfCheckSection(title);
     sections.push({ id: attrs(n).id, title: selfCheck ? 'Самопроверка' : title,
-      nodes: normalizeMathNotation(sectionNodes.map(convert).filter(Boolean)) });
+      nodes: normalizeMathNotation(sectionNodes.map(source => source === gradeEightLab?.source
+        ? gradeEightLab.node : source === irrationalAxis?.source
+          ? irrationalAxis.node : convert(source)).filter(Boolean)) });
     lastSection = n;
     if (selfCheck) afterSelfCheck = true;
   }
