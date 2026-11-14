@@ -227,3 +227,12 @@ WSL/Linux запуск и его ускорение не подтвержден�
 Исторические эксперименты и точные ограничения — в
 [истории MS-T002A](../skills/tasks/t002a-team-local-start/HISTORY.md).
 Не копируйте var/credentials между checkout и не удаляйте volumes при эксперименте.
+
+### Завершение установщика после внешнего recovery
+
+Если PostgreSQL уже подтвердил `COMPLETE / APPLIED`, а Content review ещё ожидает
+подтверждения, выполните `dev.cmd reconcile -OperationId <UUID> -ContentDigest <SHA256>`.
+Команда сверяет сохранённый план, обе копии immutable handoff, активный указатель
+и свободный publication gate. Она атомарно сохраняет состояние установщика и
+снимает review после записи. При сбое удаления review тот же вызов завершит
+согласование. БД и релиз открываются только для чтения.

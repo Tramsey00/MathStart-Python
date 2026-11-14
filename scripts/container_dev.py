@@ -30,6 +30,7 @@ SCHEMA = LOCAL / 'schema-env.json'
 SECRETS = LOCAL / 'secrets.json'
 REVIEW = LOCAL / 'review.json'
 SERVING = Path('/runtime/serving')
+RUNTIME_WORK = Path('/runtime/work')
 
 
 def save(path, value):
@@ -160,7 +161,7 @@ def configure():
 def work_directory(state, key):
     if state.get('work') and state['work']['key'] == key:
         return Path(state['work']['path'])
-    work = Path('/runtime/work') / uuid.uuid4().hex
+    work = RUNTIME_WORK / uuid.uuid4().hex
     work.mkdir(parents=True)
     logs = LOCAL / 'logs' / work.name
     logs.mkdir(parents=True)
@@ -311,6 +312,104 @@ def finish_acl(args):
     return 0
 
 
+def reconcile(args):
+    from re import fullmatch
+    from sqlalchemy import text
+    from sqlalchemy.engine import make_url
+    from backend.content.artifacts import verify_public_artifacts
+    from backend.content.participant import digest
+    from backend.infrastructure.database import DatabaseConfig, create_engine
+
+    if not args.operation_id or not args.content_digest:
+        raise RuntimeError('Reconcile requires an operation ID and the reviewed Content digest')
+    state = read(STATE)
+    operation = state['work']
+    work = Path(operation['path']).resolve()
+    content = content_digest()
+    schema = state['schema_code']
+    if (work.parent != RUNTIME_WORK or not schema
+            or operation['key'] != schema + ':' + content
+            or git('status', '--porcelain')):
+        raise RuntimeError('Saved work does not match the current schema and Content inputs')
+    if (work / 'schema-apply-pending.json').exists():
+        raise RuntimeError('Schema apply is pending review')
+    check_public_origin()
+    plan_path = work / 'publication.json'
+    plan = read(plan_path)
+    pin = digest(plan)
+    release = operation['release']
+    runtime = read(PRIVATE)
+    if (pin != args.content_digest or plan['release_id'] != release
+            or plan['origin'] != runtime['MATHSTART_PUBLIC_ORIGIN']
+            or json.loads(runtime['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']).get(release) != plan['output_manifest_digest']):
+        raise RuntimeError('Saved publication plan does not match the requested digest, release or origin')
+    expected = dict(release=release, content_digest=content, dev_content_digest=content_digest(dev=True))
+    if any(state.get(key) not in (None, value) for key, value in expected.items()):
+        raise RuntimeError('Installer state conflicts with completed publication')
+    recorded = all(state.get(key) == value for key, value in expected.items())
+    if REVIEW.exists():
+        review = read(REVIEW)
+        copy = LOCAL / 'plans' / work.name / plan_path.name
+        if ((review['kind'], review['digest'], review['path']) != ('content', pin, str(copy.relative_to(ROOT)))
+                or copy.read_bytes() != plan_path.read_bytes()):
+            raise RuntimeError('Saved Content review does not match the immutable plan')
+    elif not recorded:
+        raise RuntimeError('Missing Content review for an unreconciled installation')
+
+    receipt = read(work / 'inputs' / release / 'receipt.json')
+    installed_receipt = SERVING / 'releases' / release / 'receipt.json'
+    # A reconcile implementation may be committed after this release was built.
+    # Permit only installer/docs/test changes since the exact receipt source.
+    source = receipt['source_sha']
+    if (not fullmatch(r'[a-f0-9]{40}', source)
+            or git('merge-base', source, 'HEAD') != source
+            or git('diff', '--name-only', source, 'HEAD', '--', '.', ':!dev.ps1',
+                   ':!scripts/container_dev.py', ':!docs/local-development.md',
+                   ':!scripts/tests/test_container_reconcile.py')
+            or installed_receipt.read_bytes() != (work / 'inputs' / release / 'receipt.json').read_bytes()
+            or receipt['manifest_digest'] != plan['manifest_digest']
+            or sha256((work / 'output' / 'output-manifest.json').read_bytes()).hexdigest()
+            != plan['output_manifest_digest']):
+        raise RuntimeError('Immutable receipt does not match the current source or reviewed manifest')
+    verify_public_artifacts(work / 'inputs', release, plan['input_receipt_digest'],
+                            work / 'output', plan['output_manifest_digest'], plan['origin'])
+    verify_public_artifacts(SERVING / 'releases', release, plan['input_receipt_digest'],
+                            SERVING / 'frontend' / release, plan['output_manifest_digest'], plan['origin'])
+
+    url = make_url(read(SCHEMA)['MATHSTART_DATABASE_URL'])
+    if (url.host, url.port, url.database, url.username) != ('db', 5432, 'mathstart_dev', 'local_schema'):
+        raise RuntimeError('Schema connection does not point to this Compose installation')
+    engine = create_engine(DatabaseConfig(url))
+    try:
+        with engine.begin() as connection:
+            connection.execute(text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
+            row = connection.execute(text("""
+                SELECT j.phase, j.activation_status, j.db_committed, j.error_code, j.plan_digest,
+                       j.release_id, j.manifest_digest, j.fence_generation,
+                       a.operation_id, a.release_id, a.manifest_digest,
+                       g.pending_operation_id, g.owner_id, g.lease_until, g.fence_generation,
+                       a.fence_generation, j.plan,
+                       EXISTS (SELECT 1 FROM target_publication_journal
+                               WHERE phase NOT IN ('COMPLETE', 'FAILED_PRECOMMIT'))
+                FROM target_publication_journal j
+                JOIN target_publication_gate g USING (namespace)
+                JOIN target_active_release a USING (namespace)
+                WHERE j.namespace = 'public' AND j.id = CAST(:operation_id AS uuid)
+            """), {'operation_id': args.operation_id}).one_or_none()
+            manifest = plan['manifest_digest']
+            if (row is None or tuple(row[:7]) != ('COMPLETE', 'APPLIED', True, None, pin, release, manifest)
+                    or tuple(row[8:15]) != (args.operation_id, release, manifest, None, None, None, row[7])
+                    or not 0 < row[15] <= row[7] or row[16] != plan or row[17]):
+                raise RuntimeError('Publication journal, active release or gate does not match completed work')
+            if not recorded:
+                save(STATE, {**state, **expected})
+            REVIEW.unlink(missing_ok=True)
+    finally:
+        engine.dispose()
+    print(f'Reconciled completed publication {args.operation_id}: {release}.', flush=True)
+    return 0
+
+
 def ready():
     if not all(path.exists() for path in (STATE, PRIVATE, SCHEMA)):
         raise RuntimeError('Run dev.cmd prepare first')
@@ -326,9 +425,10 @@ def ready():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare', 'ready', 'serve', 'finish-acl'])
+    parser.add_argument('action', choices=['prepare', 'ready', 'serve', 'finish-acl', 'reconcile'])
     parser.add_argument('--schema-digest')
     parser.add_argument('--content-digest')
+    parser.add_argument('--operation-id', type=uuid.UUID)
     args = parser.parse_args()
     os.chdir(ROOT)
     try:
@@ -344,6 +444,8 @@ def main():
             ready()
             return 0
         with exclusive():
+            if args.action == 'reconcile':
+                return reconcile(args)
             if args.action == 'finish-acl':
                 check_public_origin()
                 return finish_acl(args)

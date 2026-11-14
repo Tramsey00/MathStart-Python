@@ -1,8 +1,9 @@
 param(
     [Parameter(Mandatory=$true, Position=0)]
-    [ValidateSet('prepare','start','update','stop','finish-acl')][string]$Action,
+    [ValidateSet('prepare','start','update','stop','finish-acl','reconcile')][string]$Action,
     [string]$SchemaDigest,
     [string]$ContentDigest,
+    [string]$OperationId,
     [switch]$NonInteractive,
     [ValidateRange(1024,65535)][int]$PublicPort = 8131
 )
@@ -109,7 +110,11 @@ try {
     }
     $taskEngineType = & docker info --format '{{.OSType}}'
     if ($LASTEXITCODE -ne 0 -or $taskEngineType -ne 'linux') { throw 'Start Docker Desktop Linux engine, then repeat the command.' }
-    if ($Action -eq 'finish-acl') {
+    if ($Action -eq 'reconcile') {
+        if (-not $taskImage -or $taskImage.fingerprint -ne $taskFingerprint) { throw 'Reconcile requires the existing matching dev image.' }
+        if (-not $OperationId -or $ContentDigest -cnotmatch '^[a-f0-9]{64}$') { throw 'Reconcile requires -OperationId and the reviewed -ContentDigest.' }
+        Invoke-Compose @('run','--rm','--no-deps','tools','reconcile','--operation-id',$OperationId,'--content-digest',$ContentDigest)
+    } elseif ($Action -eq 'finish-acl') {
         if ($SchemaDigest -cnotmatch '^[a-f0-9]{64}$' -or -not $taskImage -or $taskImage.fingerprint -ne $taskFingerprint) {
             throw 'ACL completion requires the reviewed -SchemaDigest and existing matching image.'
         }
