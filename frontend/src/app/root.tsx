@@ -17,12 +17,15 @@ export const meta: Route.MetaFunction = () => [{ title: "MathStart" }];
 
 // Keep document Layout identical during fallback and hydration.
 export function Layout({ children }: { children: ReactNode }) {
+  const path=useLocation().pathname;
   const view=useMatches().map(m=>m.data).find((d):d is PublicPageView=>!!d && typeof d === "object" && "canonical_url" in d && "page" in d);
   return (
-    <html lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script dangerouslySetInnerHTML={{__html:"try{var m=localStorage.getItem('mathstart-mode');document.documentElement.dataset.theme=m==='dark'||m!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch(e){document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}"}}/>
+        {(path==='/'||path.startsWith('/account/'))&&<style>{'body{margin:0;background:#f1f3fc}html[data-theme=dark] body{background:#141a31}'}</style>}
         {view ? <>
           <title>{view.page.seo.title}</title>
           <meta name="description" content={view.page.seo.description}/>
@@ -67,7 +70,7 @@ function AppContent() {
 // Build-time shell has no user/session/API state.
 export function HydrateFallback() {
   const path=useLocation().pathname;
-  if(path==='/auth'||path.startsWith('/account/'))return <main id="identity-main" aria-busy="true" aria-label="Загрузка"/>;
+  if(path==='/auth'||path.startsWith('/account/'))return <main id="identity-main" aria-busy="true"/>;
   return <SiteShell><main id="main-content" tabIndex={-1} aria-busy="true" /></SiteShell>;
 }
 
