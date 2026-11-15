@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
+import {useSession} from '../../features/identity/session';
 
 export function SiteHeader() {
+  const {user,status}=useSession();
   return (
     <nav className="ms-site-header" aria-label="Основная навигация">
       <a className="ms-site-brand" href="/">
@@ -12,7 +14,7 @@ export function SiteHeader() {
       </a>
       <div>
         <a href="/karta-sajta/">Все темы</a>
-        <a href="/account/">Личный кабинет</a>
+        <a href={status==='ready'&&user?'/account/':'/auth?mode=login'}>{status==='ready'?(user?'Личный кабинет':'Войти'):'Аккаунт'}</a>
       </div>
     </nav>
   );

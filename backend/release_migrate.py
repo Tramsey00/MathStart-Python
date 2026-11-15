@@ -64,6 +64,8 @@ def database_fact(connection):
 
 
 def validate_source(connection, profile):
+    if profile == 'TARGET_0002':
+        return assert_baseline(connection, 'B', allow_protocol=True, require_history=False, target_head='v01_0002')
     if profile == 'FRESH':
         state = inventory(connection)
         if state['tables'] or state['sequences'] or state['unexpected_objects']:
@@ -88,7 +90,7 @@ def source_digest(connection, key, state):
 
 
 def preview(engine, key, profile, legacy_role=None):
-    if profile not in {'FRESH', 'A', 'B', 'C'} or (profile == 'FRESH') != (legacy_role is None):
+    if profile not in {'FRESH', 'A', 'B', 'C', 'TARGET_0002'} or (profile in {'FRESH', 'TARGET_0002'}) != (legacy_role is None):
         raise SchemaMismatch('Legacy adoption requires the sole drained writer role; fresh has no legacy role')
     with engine.connect().execution_options(isolation_level='REPEATABLE READ') as connection, connection.begin():
         connection.execute(sa.text('SET TRANSACTION READ ONLY'))
@@ -112,7 +114,7 @@ def apply(engine, key, plan, reviewed_digest, *, maintenance=False):
     if not hmac.compare_digest(signed(key, 'schema.plan.v1', unsigned), plan.get('signature', '')):
         raise SchemaMismatch('Schema plan signature mismatch')
     if (plan.get('version') != VERSION or plan.get('target_head') != HEAD
-            or plan.get('code_digest') != code_digest() or plan.get('profile') not in {'FRESH', 'A', 'B', 'C'}):
+            or plan.get('code_digest') != code_digest() or plan.get('profile') not in {'FRESH', 'A', 'B', 'C', 'TARGET_0002'}):
         raise SchemaMismatch('Unknown or stale schema plan/code')
     with engine.begin() as connection:
         fact = database_fact(connection)
@@ -147,6 +149,10 @@ def apply(engine, key, plan, reviewed_digest, *, maintenance=False):
             with Session(bind=connection, join_transaction_mode='rollback_only') as session:
                 seed_permissions(session)
                 session.flush()
+        elif plan['profile'] == 'TARGET_0002':
+            from alembic import command
+            from backend.migrations.upgrade import configuration
+            command.upgrade(configuration(connection), HEAD)
         else:
             _upgrade_profile(connection, plan['profile'])
         assert_baseline(connection, 'B', allow_protocol=True, require_history=False)
@@ -157,7 +163,7 @@ def apply(engine, key, plan, reviewed_digest, *, maintenance=False):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['preview', 'apply', 'check'])
-    parser.add_argument('--profile', choices=['FRESH', 'A', 'B', 'C'])
+    parser.add_argument('--profile', choices=['FRESH', 'A', 'B', 'C', 'TARGET_0002'])
     parser.add_argument('--legacy-role')
     parser.add_argument('--plan-file', type=Path)
     parser.add_argument('--reviewed-plan-sha256')

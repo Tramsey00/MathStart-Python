@@ -13,7 +13,7 @@ from backend.models.baseline import metadata, SNAPSHOT, GRADE_EPOCH, utc_now
 from backend.models.protocol import PROTOCOL_TABLES
 from .schema import assert_baseline, assert_revision_graph, SchemaMismatch, inventory
 
-HEAD = 'v01_0002'
+HEAD = 'v01_0003'
 BASE = 'v01_0001'
 
 
