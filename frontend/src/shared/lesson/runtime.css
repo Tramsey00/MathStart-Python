@@ -4,6 +4,25 @@
 @import './lesson-shell.css';
 @import './lesson.css';
 
+/* MS-T006 review: opt-in presentation for the affected grade-8 sources only. */
+.lesson-section .lesson-math.ms-g8-algebra-fraction {
+  math-style: normal;
+  vertical-align: baseline;
+}
+.lesson-section .ms-g8-plot-label {
+  paint-order: stroke fill;
+  stroke: var(--lesson-plot);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.lesson-section .ms-g8-circle-angles-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 /* MS-T006: the reviewed N inside Z inside Q diagram (topic 8).
  * Keep actual nested regions and real labels, rather than a flattened list. */
 .lesson-section .ms-g8-sets { margin-block: 1.25em; min-inline-size: 0; }
