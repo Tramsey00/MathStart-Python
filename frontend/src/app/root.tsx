@@ -26,6 +26,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script dangerouslySetInnerHTML={{__html:"try{var m=localStorage.getItem('mathstart-mode');document.documentElement.dataset.theme=m==='dark'||m!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch(e){document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}"}}/>
         {(path==='/'||path.startsWith('/account/'))&&<style>{'body{margin:0;background:#f1f3fc}html[data-theme=dark] body{background:#141a31}'}</style>}
+        {path.startsWith('/admin/')&&<style>{'body{margin:0;background:#e7f0f8}html[data-theme=dark] body{background:#141a31}'}</style>}
         {view ? <>
           <title>{view.page.seo.title}</title>
           <meta name="description" content={view.page.seo.description}/>

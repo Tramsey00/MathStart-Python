@@ -45,7 +45,107 @@ production и provider/security решения требуют отдельног
 
 Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.
 
-## Актуальная передача — 16.11.2026
+## Актуальная доработка — 16.11.2026, стиль и загрузка
+
+Реализация: READY_FOR_REVIEW, Issue #78 / PR #79, та же ms-t010-staff-ui.
+Входной local SHA: 3e1ac93c70dd1da29dcc0aecaa6fbe90b1b8dcca; published
+5860c6e92ec671f203535acdaaa4ad806e4299a0; у обоих tree
+d23bd7b36d537cdab19f89010b341cd634157ab3. Итоговые SHA/tree фиксируются в PR.
+Четыре исходные dirty-правки приёмки T009 сохранены вне коммита этой задачи.
+
+**Последнее решение Руслана:** вернуть прежнюю компоновку админки и менять её
+стиль по главной и ЛК. Оно уточняет исходное поручение о перестройке композиции.
+Сохранены плоское боковое меню, двухколоночный указатель разделов, breadcrumbs,
+toolbar, все видимые фильтры и прежний порядок полей форм. Фон #e7f0f8 / #141a31,
+поверхности, границы и action-цвета взяты из текущих OrbitShell/orbit.css ЛК;
+Golos Text, Brand/Outfit, общие шапка и подвал — из принятого MathStart.
+Кнопки, поля, таблицы, состояния и focus оформлены scoped staff.css. На узком
+экране меню переносится, details складываются, широкая таблица прокручивается
+в собственной keyboard-focusable области. Нового UI kit, motion и dependencies нет.
+Root получил только начальный фон /admin/, чтобы не было белого кадра до staff CSS.
+
+**Подтверждённое избыточное ожидание.** Несколько начальных/focus эффектов
+одновременно читали сессию; staff перезапускал и отменял собственную проверку,
+а внутренние anchors полностью перезагружали документ. SessionProvider теперь
+объединяет только одновременно выполняющиеся автоматические чтения; явный refresh
+после login/logout/мутации всегда начинает новый запрос. Результат старого запроса
+не заменяет новую сессию. Все потребители проверены: root, SiteShell, account,
+AuthForm и StaffWorkspace; публичные страницы staff capabilities/стили не загружают.
+Staff использует только что законченный первоначальный общий session read как
+первую проверку actor; затем новые capabilities и новый actor read. При navigation,
+focus/return/retry выполняются свежие проверки до и после capabilities. Одновременные
+события возврата объединяются лишь на время этой проверки. Кеша прав/TTL нет.
+Внутренние Link/navigate сохраняют свежий gate и исключают перезагрузку JS/CSS.
+Данные следующего pathname монтируются только после его проверки; старый child
+не показывается на новом адресе. Контекст прав вынесен в стабильный модуль для HMR.
+Ошибка соединения блокирует скрытую/inert форму того же actor, сохраняя ordinary
+draft до успешного retry; подтверждённый denial/смена actor или scope очищает subtree.
+CSRF, no-store, API permissions, revision, confirmation и unknown outcome сохранены.
+
+**Измерения:** один работающий Windows host-dev, этот checkout, Vite PID14044
+(parent20304) на8131 и FastAPI PID24832 (parent21424) на8132; origin127.0.0.1:8131.
+По два открытия до/после при1280×900, без throttle, очистки кеша и рестарта процессов.
+Уже прогретый dev-server; запуск и первый запрос после запуска не измерялись.
+Performance navigation/resource timings и появление реального DOM формы/данных
+сняты временным dev-only инструментом; он и его import удалены. Измерение DOM
+не равно TTI/Core Web Vitals. Sanitized локальные timings — только ignored var/tmp.
+
+| Страница / показатель, мс | До | После |
+| --- | --- | --- |
+| /admin/ — доступный index DOM | 756–791 | 624–680 |
+| /admin/content/grade/ — доступная таблица при полном открытии | 891–1021 | 664–697 |
+| /account/ — доступная форма выбора класса | 578–620 | 475–513 |
+| / — загрузка HTML-документа | 210–267 | 226–308 |
+| /materials — загрузка HTML-документа | 223–266 | 270–293 |
+
+Первоначальный staff: 6 session fetch (включая отменённые) и1–2 capability fetch;
+после: 2 session fetch всего (общий initial + свежий after) и1 capabilities.
+ЛК: 2 одновременных session fetch →1, state/grades остаются параллельными.
+Внутренний index→список:394мс, список→запись:380мс, без нового документа;
+это отдельные SPA-наблюдения, не сравнение с полным reload. Финальные API reads
+в этих наблюдениях: session67–96мс, capabilities54–61мс, таблица/запись73–139мс.
+JS/CSS/шрифты наблюдались отдельно: например, staff index первый повтор до —
+JS до329мс, CSS до336мс, шрифты до395мс; после —390/408/457мс. Улучшение загрузки
+assets не заявляется. Public DOM мог появляться до hydration: он не использовался
+как доказательство интерактивной готовности. В public нет staff fetch/assets.
+Общее заметное замедление главной/Материалов **не воспроизведено**; ускорение этих
+страниц не заявляется. Существующее чтение/JSON.parse public-view на сервере
+обнаружено в исходнике, но его причинная связь с жалобой не доказана; не изменялось.
+Текущего сохранённого server stdout нет; исторические логи не выданы за измерения.
+
+**Профильная перепроверка этого изменения (разрешена отдельным поручением):**
+
+- `node frontend/node_modules/vitest/vitest.mjs run tests/staff-access.test.tsx tests/staff-session.test.tsx tests/staff-form.test.tsx tests/staff-read.test.ts tests/staff-write.test.ts tests/staff-capabilities.test.ts tests/staff-return.test.tsx --root frontend`:
+  **57/57 PASS, 7 файлов**. Новые случаи: initial shared readiness, совмещение
+  событий возврата, gate нового pathname, transport failure/retry с сохранением
+  draft, StrictMode readiness и свежий post-mutation read поверх старого запроса.
+  Существующие assertions доступа, revision/409, unknown outcome, int64 и return сохранены.
+- `.venv/Scripts/python.exe var/tmp/ms-t010/access_scope.py`: **3/3 PASS** —
+  `test_admin_read_privacy_denies_anonymous_nonstaff_and_limits_staff_scope`,
+  `test_expired_staff_session_cannot_read_or_write_private_data`,
+  `test_private_ui_capabilities_preserve_combined_gate_and_content_readonly`.
+  Отдельный disposable PostgreSQL16 наloopback55462, fresh fixture; runner,
+  контейнер и временные env очищены. Target/protected DB для тестов не использовались.
+- Самопроверка imports/consumers/diff и `git diff --check`. Full suites, typecheck,
+  release build, lesson QA/smoke, mass captures, live mail и scans:
+  **NOT_RUN_BY_USER_REQUEST**.
+
+Финальный ручной просмотр: принятые главная, Материалы, ЛК как реальные источники;
+staff index/list/detail/history, пустой поиск, User/Group add, собственный password
+и отказ delete ограниченному staff; обе темы, desktop и390px. Обычный input
+не отправлялся. Logout→закрытый /admin/→auth с safe return→login→/admin/ подтверждены
+после изменения SessionProvider. Удаление и изменение прав/паролей действующих
+аккаунтов не выполнялись. Delete preview недоступен этому staff и визуально заново
+не проверен; его прежний protocol и профильные проверки остаются историческим receipt.
+Локальный staff, созданный ранее по разрешению Руслана, не пересоздавался и права
+не расширялись. Данные входа остаются вне Git. Диагностический код удалён,
+финальный браузерный reload выполнен, viewport override сброшен.
+
+Независимое review и human acceptance: **PENDING**. Замеры малой выборки не
+подтверждают cold start/production performance; полный QA не разрешён. Merge,
+deploy, закрытие Issue и T011 не выполнялись.
+
+## Историческая передача — 16.11.2026, кандидат 5860c6e
 
 Реализация: READY_FOR_REVIEW. Issue #78, ветка ms-t010-staff-ui; PR связан с Issue.
 Исходный main: e5da1e73f08fe6d974ac712e5d46c8380d9949ff; итоговые SHA/tree — в PR.

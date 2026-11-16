@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react';
+import {Link} from 'react-router';
 
 // Native list_display fields, mapped to the closed target DTO. Relations remain
 // exact identifiers: fetching labels must never require broader permissions.
@@ -12,6 +13,7 @@ export const staffColumns:Record<string,readonly string[]>={
 };
 const labels:Record<string,string>={ids:'Идентификаторы записей',selected:'Выбранные записи',protected:'Есть защищённые связи',id:'Идентификатор',title:'Название',name:'Название',slug:'Адрес',order:'Порядок',description:'Описание',username:'Имя пользователя',email:'Электронная почта',first_name:'Имя',last_name:'Фамилия',is_staff:'Доступ к администрированию',is_superuser:'Суперпользователь',is_active:'Активен',last_login:'Последний вход',date_joined:'Дата регистрации',groups:'Группы',user_permissions:'Прямые права',permissions:'Права',has_usable_password:'Вход по паролю доступен',grade_id:'Класс',subject_id:'Предмет',section_id:'Раздел',page_id:'Страница',related_page_id:'Связанная страница',page_type:'Тип страницы',is_published:'Опубликовано',body_html:'Содержимое HTML',page_css:'Стили страницы',page_js:'Сценарий страницы',seo_title:'Заголовок SEO',seo_description:'Описание SEO',source_location:'Расположение исходника',source_path:'Путь исходника',published_digest:'Контрольная сумма публикации',published_at:'Дата публикации',created_at:'Дата создания',updated_at:'Дата изменения',file:'Файл',alt_text:'Альтернативный текст',old_path:'Исходный адрес',new_path:'Новый адрес',is_permanent:'Постоянное перенаправление',actor_id:'Пользователь',object_id:'Объект',action:'Действие',occurred_at:'Дата',summary:'Описание',publication:'Публикация',operation_id:'Операция',release_id:'Версия',phase:'Состояние',pending:'Ожидает завершения',active:'Активная версия',namespace:'Область',generation:'Поколение',fence_generation:'Поколение блокировки',manifest_digest:'Контрольная сумма манифеста',plan_digest:'Контрольная сумма плана',owner_id:'Владелец операции',lease_until:'Срок аренды',lease_expires_at:'Срок аренды',error_code:'Код ошибки'};
 export function staffLabel(field:string){return labels[field]??field;}
+
 type RecordData=Record<string,unknown>;
 function Value({value,field,unbroken=false}:{value:unknown;field?:string;unbroken?:boolean}){
  if(value===null||value===undefined||value==='')return <>Не указано</>;
@@ -37,7 +39,7 @@ function Table({caption,children}:{caption:string;children:ReactNode}){
 export function StaffList({resource,rows,base,caption,selection}:{resource:string;rows:RecordData[];base:string;caption:string;selection?:{ids:string[];disabled:boolean;change:(id:string,checked:boolean)=>void}}){
  const columns=staffColumns[resource]??['id'];
  if(!rows.length)return <p>Записей нет.</p>;
- return <Table caption={caption}><thead><tr>{selection&&<th scope="col">Выбор</th>}{columns.map(field=><th scope="col" key={field}>{staffLabel(field)}</th>)}</tr></thead><tbody>{rows.map(row=>{const id=String(row.id),name=String(row.username??row.name??row.title??row.source_path??row.old_path??id);return <tr key={id}>{selection&&<td><input type="checkbox" aria-label={'Выбрать '+name} checked={selection.ids.includes(id)} disabled={selection.disabled} onChange={e=>selection.change(id,e.target.checked)}/></td>}{columns.map((field,index)=>index===0?<th scope="row" key={field}><a href={base+id+'/change/'}><Value field={field} value={row[field]} unbroken/></a></th>:<td key={field}><Value field={field} value={row[field]} unbroken/></td>)}</tr>;})}</tbody></Table>;
+ return <Table caption={caption}><thead><tr>{selection&&<th scope="col">Выбор</th>}{columns.map(field=><th scope="col" key={field}>{staffLabel(field)}</th>)}</tr></thead><tbody>{rows.map(row=>{const id=String(row.id),name=String(row.username??row.name??row.title??row.source_path??row.old_path??id);return <tr key={id}>{selection&&<td><input type="checkbox" aria-label={'Выбрать '+name} checked={selection.ids.includes(id)} disabled={selection.disabled} onChange={e=>selection.change(id,e.target.checked)}/></td>}{columns.map((field,index)=>index===0?<th scope="row" key={field}><Link to={base+id+'/change/'}><Value field={field} value={row[field]} unbroken/></Link></th>:<td key={field}><Value field={field} value={row[field]} unbroken/></td>)}</tr>;})}</tbody></Table>;
 }
 export function StaffHistory({rows}:{rows:RecordData[]}){
  const columns=['occurred_at','actor_id','action','object_id','summary'];

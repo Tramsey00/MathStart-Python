@@ -3,7 +3,7 @@ import {render,screen,fireEvent,waitFor} from '@testing-library/react';
 const {call,location,grants}=vi.hoisted(()=>({call:vi.fn(),location:{pathname:'/admin/auth/user/2/change/'},grants:{view:true,add:true,change:true,delete:true}}));
 vi.mock('../src/shared/api/staff-write-client',()=>({createStaffWriteClient:()=>({call})}));
 vi.mock('../src/shared/ui/staff-workspace',()=>({staffResources:[['users','auth/user','Пользователи'],['groups','auth/group','Группы']],StaffHeading:({title}:{title:string})=><h1>{title}</h1>,useStaffCapabilities:()=>({version:1,own_password:true,resources:Object.fromEntries(['grades','subjects','sections','pages','publications','media_assets','redirects','users','groups'].map(name=>[name,grants]))})}));
-vi.mock('react-router',()=>({useLocation:()=>location,useNavigate:()=>vi.fn()}));
+vi.mock('react-router',()=>({useLocation:()=>location,useNavigate:()=>vi.fn(),Link:({to,...props}:any)=><a href={to} {...props}/>}));
 import StaffPage from '../src/app/routes/staff-write';
 
 it('allows existing blank profile fields while preserving username, dates and explicit confirmation',async()=>{
