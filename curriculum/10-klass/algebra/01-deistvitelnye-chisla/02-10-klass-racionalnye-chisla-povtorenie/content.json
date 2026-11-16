@@ -1,0 +1,1488 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "10-klass-racionalnye-chisla-povtorenie",
+  "title": "Рациональные числа. Повторение",
+  "subtitle": "Свяжем обыкновенные дроби с конечными и периодическими десятичными записями. Повторим вычисления, сравнение, нахождение середины отрезка и точные преобразования периодических дробей.",
+  "grade": "10-klass",
+  "subject": "algebra",
+  "section": "deistvitelnye-chisla",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Что значит «рациональное число»",
+      "nodes": [
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Рациональное число представляется дробью m/n, где m ∈ ℤ, n ∈ ℕ. Множество рациональных чисел обозначают ℚ."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Целые числа тоже рациональны: −7 = −7/1, а 0 = 0/1. Разные дроби могут задавать одно число: 2/3 = 4/6 = 10/15. Чтобы получить несократимую дробь, делят числитель и знаменатель на их НОД."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 1. Сократить дробь"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "−84/126 = −(84 : 42)/(126 : 42) = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "−2/3"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Знак минус можно поставить перед дробью или в числителе."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Какая десятичная запись получится",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Деление числителя на знаменатель либо заканчивается, либо даёт повторяющуюся группу цифр — период. Запись 0,(27) означает 0,272727…; запись 0,1(6) означает 0,16666…."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В несократимой дроби десятичная запись конечна тогда и только тогда, когда знаменатель имеет только простые множители 2 и 5 (или равен 1). В остальных случаях запись бесконечная периодическая."
+            }
+          ]
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap",
+            "tabindex": "0",
+            "role": "region",
+            "aria-label": "Таблица: прокрутите при необходимости"
+          },
+          "children": [
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Дробь"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Знаменатель"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Десятичная запись"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "7/40"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "40 = 2³ · 5"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,175"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "5/12"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "12 = 2² · 3"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,41(6)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2/11"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "11"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,(18)"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Почему обязательно возникает период? При делении на n возможны лишь остатки 0, 1, …, n − 1. Нулевой остаток завершает деление, а повтор ненулевого остатка запускает повтор тех же цифр."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Перед проверкой знаменателя сократите дробь: 6/15 = 2/5 = 0,4, хотя исходный знаменатель делится на 3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Из периодической дроби в обыкновенную",
+      "nodes": [
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 2. Чистый период"
+                }
+              ]
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "x = 0,(27); 100x = 27,(27);"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "100x − x = 27; 99x = 27;"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = 27/99 = 3/11."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Умножили на 100, поскольку в периоде две цифры. Бесконечные одинаковые хвосты при вычитании исчезают."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 3. Есть цифра до периода"
+                }
+              ]
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "x = 0,2(7); 10x = 2,(7); 100x = 27,(7);"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "100x − 10x = 25; 90x = 25;"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = 5/18."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Обе записи сдвинули так, чтобы повторяющиеся хвосты начинались сразу после запятой."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Равенство 0,(9) = 1 — точное. Если x = 0,(9), то 10x − x = 9, откуда x = 1. Число может иметь две десятичные записи."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "Действия с дробями",
+      "nodes": [
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a/b + c/d = (ad + bc)/(bd);"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "a/b · c/d = ac/(bd);"
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "(a/b) : (c/d) = ad/(bc), если c ≠ 0."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Во всех формулах b ≠ 0 и d ≠ 0."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При сложении удобно выбирать наименьший общий знаменатель. При умножении можно сократить множители числителя и знаменателя до вычислений. Деление заменяют умножением на обратную дробь."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 4. Несколько действий"
+                }
+              ]
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "(5/6 − 3/4) : (−1/8)"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "= (10/12 − 9/12) · (−8)"
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "= (1/12) · (−8) = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "−2/3."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "Сравнение и середина отрезка",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Для дробей с положительными знаменателями сравнивают перекрёстные произведения. Например, 5/8 < 7/11, поскольку 55 < 56. Среди отрицательных чисел больше то, у которого меньше модуль: −5/8 > −7/11."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Число, равноудалённое от различных a и b на числовой прямой, равно (a + b)/2. Если a < b, эта середина строго между ними."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 5. Найти середину"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Для a = −2/3 и b = 5/6 получаем (−2/3 + 5/6)/2 = (1/6)/2 = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "1/12"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Расстояния до концов равны 3/4."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Между любыми двумя различными рациональными числами есть рациональное число — их середина. Повторяя этот приём, получаем бесконечно много рациональных чисел в любом непустом интервале."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "Дроби и целые показатели степени",
+      "nodes": [
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При a ≠ 0: a⁰ = 1 и a⁻ⁿ = 1/aⁿ, где n ∈ ℕ. Отрицательный показатель означает переход к обратному числу, а не отрицательный результат."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 6. Знак и обратная дробь"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "(−2/3)⁻² = (−3/2)² = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "9/4"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Чётная степень отрицательного основания положительна. При нечётном показателе знак остаётся отрицательным."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "−2² = −4, но (−2)² = 4. В первой записи степень относится только к 2, во второй — ко всему числу −2. Нуль нельзя возводить в нулевую или отрицательную степень в используемых школьных правилах."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "Точные вычисления с периодом",
+      "nodes": [
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 7. Корень из периодической дроби"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Вычислим √(0,(4)). Сначала 0,(4) = 4/9, затем √(4/9) = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2/3"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Замена на 0,444 даёт только приближение и меняет условие."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 8. Уравнение"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Решим x + 0,1(6) = 0,75. Здесь 0,1(6) = 1/6 и 0,75 = 3/4. Значит, x = 3/4 − 1/6 = "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "7/12"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Проверка: 7/12 + 2/12 = 9/12 = 3/4."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сначала переходите к точным дробям, затем выполняйте действия. Округление используйте только тогда, когда в задаче требуется приближённый ответ."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сначала решите задания самостоятельно. Затем откройте решения и сравните не только ответ, но и условия применения формул."
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Какие из чисел −8; 0; 0,(13); √49 рациональны?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Все четыре"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ": −8/1; 0/1; 13/99; √49 = 7."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Какие дроби имеют конечную десятичную запись: 9/24; 7/30; 11/125?"
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "9/24 = 3/8 = 0,375; 11/125 = 0,088. "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Первая и третья"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Дробь 7/30 несократима, знаменатель содержит 3."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Переведите 0,(36) в обыкновенную дробь."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "100x − x = 36, откуда x = 36/99 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "4/11"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Переведите 0,3(6) в обыкновенную дробь."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "100x = 36,(6), 10x = 3,(6). Значит, 90x = 33 и "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = 11/30"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите (7/12 − 1/3) : (−3/8)."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "7/12 − 4/12 = 1/4. Далее (1/4) · (−8/3) = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "−2/3"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите число, равноудалённое от −3/4 и 5/6."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "(−3/4 + 5/6)/2 = (1/12)/2 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1/24"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите (−3/5)⁻²."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "(−5/3)² = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "25/9"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Минус в показателе переворачивает дробь, а чётная степень делает результат положительным."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите √(0,(1)) + 0,(6)."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "√(1/9) + 2/3 = 1/3 + 2/3 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -239,6 +239,8 @@ html:has(:is(.lesson-page, .lesson-preview-page)) { scroll-padding-top: 0; }
 .quadratic-toolbar .quadratic-current { font-family: var(--font-serif); font-style: italic; font-size: 25px; line-height: 1.6; color: var(--lesson-accent-text); margin: 0; }
 .quadratic-reset { padding: 8px 12px; min-height: 44px; border: 1px solid var(--lesson-divider); border-radius: 8px; background: var(--lesson-plot); color: var(--lesson-accent-text); font-size: 13px; cursor: pointer; }
 .quadratic-reset:hover { background: var(--lesson-paper); border-color: var(--lesson-muted); }
+.power-presets { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; margin: 0; border: 0; padding: 0; }
+.power-presets .quadratic-reset[aria-pressed=true] { border-color: var(--lesson-accent); background: var(--lesson-paper); }
 .quadratic-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr); gap: 32px; align-items: start; }
 .quadratic-plot { margin: 0; min-width: 0; }
 .quadratic-plot svg { display: block; width: 100%; height: auto; touch-action: pan-y; background: var(--lesson-plot); border: 1px solid var(--lesson-divider); border-radius: var(--radius); }

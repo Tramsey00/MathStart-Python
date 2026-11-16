@@ -1,0 +1,2222 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "10-klass-ponyatie-kornya-n-stepeni",
+  "title": "Понятие корня n-й степени из действительного числа",
+  "subtitle": "Обобщим квадратный и кубический корни. Разберём чётные и нечётные показатели, научимся находить значения корней и отличать значение радикала от всех решений степенного уравнения.",
+  "grade": "10-klass",
+  "subject": "algebra",
+  "section": "stepeni-korni-stepennye-funkcii",
+  "sections": [
+    {
+      "id": "theory",
+      "title": "Что означает корень n-й степени",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Пусть n — натуральное число, n ≥ 2. Корнем n-й степени из действительного числа a называют такое действительное число b, что bⁿ = a. Число n — показатель корня, a — подкоренное число."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Запись ⁿ√a обозначает определённое значение: при чётном n выбирают неотрицательный корень, при нечётном n корень единственный и имеет тот же знак, что a."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 1. Проверяем определением"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "⁴√81 = 3, поскольку 3⁴ = 81 и 3 ≥ 0. А ⁵√(−32) = −2, поскольку (−2)⁵ = −32. Показатель квадратного корня обычно не пишут: √a = ²√a."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "В записи ⁿ√(A) скобки показывают всё подкоренное выражение. Например, ∛(x + 1) и ∛x + 1 — разные выражения."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Чётный показатель",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Любая чётная степень действительного числа неотрицательна: b²ᵏ ≥ 0. Поэтому действительного корня чётной степени из отрицательного числа нет. Из положительного числа выбирают неотрицательное значение радикала."
+            }
+          ]
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap",
+            "tabindex": "0",
+            "role": "region",
+            "aria-label": "Таблица: прокрутите при необходимости"
+          },
+          "children": [
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Подкоренное число a"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Значение ²ᵏ√a"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Пример"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a > 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Положительное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "⁴√16 = 2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a = 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Нуль"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "⁶√0 = 0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a < 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "В ℝ не определено"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "⁴√(−16) не существует в ℝ"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Арифметический корень чётной степени всегда неотрицателен. Знак ± не является частью значения радикала."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Нечётный показатель",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Функция b ↦ b²ᵏ⁺¹ возрастает на всей числовой прямой и принимает все действительные значения. Поэтому для любого a существует ровно один действительный корень нечётной степени."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "∛(−125) = −5; ⁵√243 = 3; ⁷√0 = 0."
+                }
+              ]
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Для нечётного n: ⁿ√(−a) = −ⁿ√a."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 2. Дроби и десятичные числа"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "∛(−0,064) = −0,4, потому что (−0,4)³ = −0,064. А "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mroot",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "("
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "16"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "81"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": ")"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "4"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", потому что "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "msup",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mrow",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "("
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mo",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": ")"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "4"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "16"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "81"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " и "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " > 0."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "Корень и уравнение xⁿ = a",
+      "nodes": [
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap",
+            "tabindex": "0",
+            "role": "region",
+            "aria-label": "Таблица: прокрутите при необходимости"
+          },
+          "children": [
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Показатель"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Условие"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {
+                            "scope": "col"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Все действительные решения"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "n нечётное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Любое a"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "x = ⁿ√a"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "n чётное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a > 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "x = ±ⁿ√a"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "n чётное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a = 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "x = 0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "n чётное"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "a < 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Решений нет"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 3. Сравним задания"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Вычислить ⁴√81: ответ "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "3"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Решить x⁴ = 81: ответ "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x = −3 или x = 3"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Отрицательное решение уравнения не меняет определение арифметического корня."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 4. Степенное уравнение"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "(x − 1)⁴ = 16 ⇒ x − 1 = ±2 ⇒ "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x = −1 или x = 3"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Обе подстановки дают 16."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "Корень из степени и модуль",
+      "nodes": [
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Для любого действительного a: ²ᵏ√(a²ᵏ) = |a|. Для нечётного n: ⁿ√(aⁿ) = a. А равенство (ⁿ√a)ⁿ = a верно там, где сам корень определён."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 5. Переменная без ограничения на знак"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "⁴√((x − 3)⁴) = |x − 3|. При x ≥ 3 это x − 3; при x < 3 это 3 − x. Например, при x = 1 корень равен 2, а выражение x − 3 равно −2."
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-note"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Формула ⁴√(x⁴) = x требует условия x ≥ 0. Если оно не дано, ответ |x|."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "Область допустимых значений",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Область допустимых значений (ОДЗ) — все значения переменной, при которых исходное выражение имеет смысл. Для каждого чётного корня требуем неотрицательное подкоренное выражение; для знаменателя — ненулевое значение."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 6. Корень в знаменателе"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "Для "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mroot",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mrow",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "("
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mrow",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mrow",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "2"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mi",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "x"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "−"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "6"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": ")"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " нужно 2x − 6 > 0: равенство нулю запрещено знаменателем. Получаем "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x > 3"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 7. Нечётный корень и дробь"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "В выражении "
+            },
+            {
+              "kind": "element",
+              "tag": "math",
+              "attrs": {
+                "class": "lesson-math",
+                "display": "inline"
+              },
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "mfrac",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mn",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "mroot",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mrow",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "("
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mrow",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mi",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "x"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "+"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mo",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": ")"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " сам корень определён для всех x, но знаменатель обращается в нуль при x = −2. Поэтому "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x ≠ −2"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "Простейшие уравнения с радикалом",
+      "nodes": [
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "При чётном n уравнение ⁿ√A = B равносильно A = Bⁿ вместе с условием B ≥ 0, если выражения A и B определены. При нечётном n ограничение B ≥ 0 не нужно."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 8. Чётный корень"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "⁴√(3x + 1) = 2 ⇒ 3x + 1 = 16 ⇒ "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "x = 5"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". Подстановка даёт ⁴√16 = 2. А уравнение ⁴√(3x + 1) = −2 сразу не имеет решений."
+            }
+          ]
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример 9. Постороннее решение"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "√(x + 2) = x. Правая часть должна быть неотрицательной, значит x ≥ 0. После возведения в квадрат: x + 2 = x² ⇒ (x − 2)(x + 1) = 0. Из кандидатов 2 и −1 подходит только "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "2"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ". При −1 слева 1, справа −1."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "Сначала решите задания самостоятельно. Затем откройте решения и сравните не только ответ, но и условия применения формул."
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите ⁴√256 и ⁵√(−243)."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "4 и −3"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ": 4⁴ = 256, (−3)⁵ = −243."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 2."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Вычислите ∛(−0,008) + ⁴√0,0016."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "−0,2 + 0,2 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "0"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Проверка: (−0,2)³ = −0,008 и 0,2⁴ = 0,0016."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 3."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Решите x⁶ = 64."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "6 — чётный показатель, 64 > 0. Поэтому "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = ±2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 4."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Решите x⁴ = −81."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Действительных решений нет"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ": четвёртая степень неотрицательна."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 5."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Упростите ⁶√((a + 2)⁶), если a < −2."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "⁶√((a + 2)⁶) = |a + 2|. По условию a + 2 < 0, поэтому ответ "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "−a − 2"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 6."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Найдите ОДЗ выражения "
+                },
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mroot",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mrow",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "("
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mrow",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "5"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mo",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "−"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mi",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "x"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mo",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": ")"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Нужно 5 − x > 0. Ответ: "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x < 5"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 7."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Решите ∛(2x + 3) = −3."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "2x + 3 = −27, 2x = −30, "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = −15"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ". Проверка: ∛(−27) = −3."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "element",
+                  "tag": "strong",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Задание 8."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " Решите √(2x + 3) = x."
+                }
+              ]
+            }
+          ],
+          "answer": [
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "x ≥ 0. Возводим в квадрат: x² − 2x − 3 = 0, (x − 3)(x + 1) = 0. Из 3 и −1 подходит только "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "x = 3"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ": √9 = 3."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -42,6 +42,10 @@ def signed(key, domain, value):
 
 def code_digest():
     paths = [Path(__file__), ROOT / 'backend/users/bootstrap.py']
+    # The standalone release image has no local-dev scripts. Local installers
+    # bind their grant callers too, in addition to the policy under migrations.
+    paths.extend(path for name in ('team_local.py', 'container_dev.py')
+                 if (path := ROOT / 'scripts' / name).is_file())
     for directory in ('backend/migrations', 'backend/models'):
         paths.extend(p for p in (ROOT / directory).rglob('*') if p.suffix in {'.py', '.json'})
     return hashlib.sha256(encoded({p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
