@@ -62,7 +62,7 @@ function AppContent() {
       && typeof value.target === "string" && typeof value.label === "string"
       ? [{target: value.target, label: value.label}] : [];
   }).at(-1);
-  if (useMatches().some(m => (m.handle as {boundary?:string}|undefined)?.boundary === 'account')) return <Outlet/>;
+  if (useMatches().some(m => (m.handle as {boundary?:string}|undefined)?.boundary === 'account' || (m.handle as {boundary?:string}|undefined)?.boundary === 'staff')) return <Outlet/>;
   if (view?.public_design || view?.page.renderer_version === 'react-v1') return <Outlet/>;
   return <SiteShell skipLink={skip ? <SkipLink target={skip.target}>{skip.label}</SkipLink> : undefined}><Outlet /></SiteShell>;
 }
@@ -70,7 +70,7 @@ function AppContent() {
 // Build-time shell has no user/session/API state.
 export function HydrateFallback() {
   const path=useLocation().pathname;
-  if(path==='/auth'||path.startsWith('/account/'))return <main id="identity-main" aria-busy="true"/>;
+  if(path==='/auth'||path.startsWith('/account/')||path.startsWith('/admin/'))return <main id="identity-main" aria-busy="true"/>;
   return <SiteShell><main id="main-content" tabIndex={-1} aria-busy="true" /></SiteShell>;
 }
 

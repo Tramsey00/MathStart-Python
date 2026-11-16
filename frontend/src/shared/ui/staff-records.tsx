@@ -29,20 +29,18 @@ function Value({value,field,unbroken=false}:{value:unknown;field?:string;unbroke
  return <>{text}</>;
 }
 export function StaffDetails({record}:{record:RecordData}){
- return <dl>{Object.entries(record).map(([field,value])=><div key={field}><dt>{staffLabel(field)}</dt><dd style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}><Value field={field} value={value}/></dd></div>)}</dl>;
+ return <dl className="staff-details">{Object.entries(record).map(([field,value])=><div key={field}><dt>{staffLabel(field)}</dt><dd><Value field={field} value={value}/></dd></div>)}</dl>;
 }
-const cellStyle={padding:'.5rem',textAlign:'left',verticalAlign:'top',whiteSpace:'nowrap',borderBottom:'1px solid var(--ms-ui-border)'} as const;
-const headingStyle={...cellStyle,whiteSpace:'nowrap'} as const;
 function Table({caption,children}:{caption:string;children:ReactNode}){
- return <div role="region" aria-label={caption} tabIndex={0} style={{overflowX:'auto',maxWidth:'100%'}}><table style={{width:'100%',borderCollapse:'collapse'}}><caption style={{textAlign:'left',paddingBlock:'.5rem'}}>{caption}</caption>{children}</table></div>;
+ return <div className="staff-table-region" role="region" aria-label={caption} tabIndex={0}><table className="staff-table"><caption>{caption}</caption>{children}</table></div>;
 }
 export function StaffList({resource,rows,base,caption,selection}:{resource:string;rows:RecordData[];base:string;caption:string;selection?:{ids:string[];disabled:boolean;change:(id:string,checked:boolean)=>void}}){
  const columns=staffColumns[resource]??['id'];
  if(!rows.length)return <p>Записей нет.</p>;
- return <Table caption={caption}><thead><tr>{selection&&<th scope="col" style={headingStyle}>Выбор</th>}{columns.map(field=><th scope="col" key={field} style={headingStyle}>{staffLabel(field)}</th>)}</tr></thead><tbody>{rows.map(row=>{const id=String(row.id),name=String(row.username??row.name??row.title??row.source_path??row.old_path??id);return <tr key={id}>{selection&&<td style={cellStyle}><input type="checkbox" aria-label={'Выбрать '+name} checked={selection.ids.includes(id)} disabled={selection.disabled} onChange={e=>selection.change(id,e.target.checked)}/></td>}{columns.map((field,index)=>index===0?<th scope="row" style={cellStyle} key={field}><a href={base+id+'/change/'}><Value field={field} value={row[field]} unbroken/></a></th>:<td style={cellStyle} key={field}><Value field={field} value={row[field]} unbroken/></td>)}</tr>;})}</tbody></Table>;
+ return <Table caption={caption}><thead><tr>{selection&&<th scope="col">Выбор</th>}{columns.map(field=><th scope="col" key={field}>{staffLabel(field)}</th>)}</tr></thead><tbody>{rows.map(row=>{const id=String(row.id),name=String(row.username??row.name??row.title??row.source_path??row.old_path??id);return <tr key={id}>{selection&&<td><input type="checkbox" aria-label={'Выбрать '+name} checked={selection.ids.includes(id)} disabled={selection.disabled} onChange={e=>selection.change(id,e.target.checked)}/></td>}{columns.map((field,index)=>index===0?<th scope="row" key={field}><a href={base+id+'/change/'}><Value field={field} value={row[field]} unbroken/></a></th>:<td key={field}><Value field={field} value={row[field]} unbroken/></td>)}</tr>;})}</tbody></Table>;
 }
 export function StaffHistory({rows}:{rows:RecordData[]}){
  const columns=['occurred_at','actor_id','action','object_id','summary'];
  if(!rows.length)return <p>История изменений пуста.</p>;
- return <Table caption="История изменений"><thead><tr>{columns.map(field=><th scope="col" style={headingStyle} key={field}>{staffLabel(field)}</th>)}</tr></thead><tbody>{rows.map(row=><tr key={String(row.id)}>{columns.map(field=><td style={cellStyle} key={field}><Value field={field} value={row[field]} unbroken/></td>)}</tr>)}</tbody></Table>;
+ return <Table caption="История изменений"><thead><tr>{columns.map(field=><th scope="col" key={field}>{staffLabel(field)}</th>)}</tr></thead><tbody>{rows.map(row=><tr key={String(row.id)}>{columns.map(field=><td key={field}><Value field={field} value={row[field]} unbroken/></td>)}</tr>)}</tbody></Table>;
 }
