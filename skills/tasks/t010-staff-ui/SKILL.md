@@ -45,7 +45,41 @@ production и provider/security решения требуют отдельног
 
 Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.
 
-## Актуальная доработка — 16.11.2026, стиль и загрузка
+## Актуальная передача — 16.11.2026, только User/Group
+
+Новое явное решение Руслана заменяет требование девяти ресурсов в UI: остаются
+только Пользователи и Группы со всеми существующими разрешёнными операциями.
+/admin/ выбирает первый разрешённый ресурс (users, затем groups); при отсутствии
+обоих сохраняется отказ без пустого рабочего frame и без расширения прав.
+Content UI удалён из staff-foundation, меню и прямых маршрутов; неизвестные /admin/*
+передаются существующему root 404 boundary. Для защиты от старого dev route manifest
+StaffWorkspace также использует ту же существующую error presentation, вынесенную
+без изменения разметки в RouteErrorPage. Дизайн/политика 404/403 не менялись.
+Backend Content API, данные, публикации, redirects, схема БД и shared clients сохранены.
+Самостоятельная own-password форма и её done UI удалены; оба старых адреса ведут
+через Navigate replace в действующий /account/?section=security. Административный
+пароль User, backend password/session API и отзыв сеансов сохранены.
+Staff использует непосредственно OrbitHeader из orbit-shell.tsx, как главная;
+staff overrides header удалены, header находится вне staff-workspace styles.
+Главная и подвал не переоформлялись. Общий компонент уже существовал.
+
+Вход: local e43e99d / published b4dd42d, tree97d94bf38603fc9aa2731e65e0af2c986f2b3be1.
+Итоговые SHA/tree — в PR #79. Четыре исходных dirty-файла T009 сохранены вне коммита.
+Саморевью diff/imports/routes и git diff --check. Новые прогоны, typecheck, build,
+automated browser QA и QA scripts: NOT_RUN_BY_USER_REQUEST. Исторические 57/3
+и замеры загрузки ниже не являются новым прогоном сокращённого UI.
+Ручной просмотр: /admin/→users, users search с пустым результатом, Group add с
+permissions, обе темы, mobile390px/desktop, сравнение общей шапки с главной,
+старый Content URL без staff форм, password_change→безопасность ЛК. Записи,
+права и пароли не менялись. Свежая ручная nonstaff-сессия в этом проходе не
+проверена; сохранён gate и исторический receipt, новый PASS не заявляется.
+Проверка публикации ограничена файлами/материалами T010: текущий diff и staged,
+новые файлы и два итоговых снимка без пользователей. Секреты/реальные аккаунты
+не добавлены в fixtures/документацию; локальные credentials и старые captures
+остаются ignored и не включены. Полный GitHub/history audit не проводился.
+Независимое review и human acceptance PENDING. Merge/deploy/Issue close/T011 нет.
+
+## Историческая доработка — 16.11.2026, стиль и загрузка
 
 Реализация: READY_FOR_REVIEW, Issue #78 / PR #79, та же ms-t010-staff-ui.
 Входной local SHA: 3e1ac93c70dd1da29dcc0aecaa6fbe90b1b8dcca; published

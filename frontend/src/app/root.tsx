@@ -1,3 +1,4 @@
+import {RouteErrorPage} from '../shared/ui/route-error-page';
 import {SessionProvider} from '../features/identity/session';
 import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useMatches, useLocation } from "react-router";
@@ -77,7 +78,7 @@ export function HydrateFallback() {
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const missing = isRouteErrorResponse(error) && error.status === 404;
-  return <SiteShell><main id="main-content" tabIndex={-1}><h1>{missing ? "Страница не найдена" : "Не удалось открыть страницу"}</h1></main></SiteShell>;
+  return <RouteErrorPage missing={missing}/>;
 }
 
 export default function App(){return <SessionProvider><AppContent/></SessionProvider>;}

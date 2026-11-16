@@ -8,7 +8,8 @@ export default [
     ...publicPaths.map((path,i) => path === "/" ? index("routes/public-foundation.tsx",{id:"public-home"}) : route(path.slice(1),"routes/public-foundation.tsx",{id:`public-${i}`})),
   ]),
   layout("layouts/account.tsx",[route("account/","routes/account-foundation.tsx"),route("auth","routes/auth.tsx")]),
-  layout("layouts/staff.tsx",[route("admin/*","routes/staff-foundation.tsx")]),
+  layout("layouts/staff.tsx",[route("admin/","routes/staff-foundation.tsx",{id:"staff-index"}),route("admin/auth/user/*","routes/staff-foundation.tsx",{id:"staff-users"}),route("admin/auth/group/*","routes/staff-foundation.tsx",{id:"staff-groups"}),route("admin/password_change/*","routes/staff-foundation.tsx",{id:"staff-own-password-redirect"})]),
+  route("admin/*","routes/staff-unavailable.tsx"),
   ...(debugRoutesEnabled(process.env.NODE_ENV)?[
     layout("layouts/debug.tsx",[route("__ui__/foundation/","routes/foundation-gallery.tsx")]),
   ]:[]),

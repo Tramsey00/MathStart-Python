@@ -1,7 +1,9 @@
+import {RouteErrorPage} from './route-error-page';
 import {useEffect,useRef,useState,type ReactNode} from 'react';
 import {Link,useLocation} from 'react-router';
 import {Brand} from './brand';
-import {LessonHeader,LessonFooter} from '../lesson/lesson-shell';
+import {OrbitHeader} from '../../features/public-pages/orbit-shell';
+import {LessonFooter} from '../lesson/lesson-shell';
 import {useSiteTheme} from './use-site-theme';
 import {useSession,safeReturn,api as identityApi} from '../../features/identity/session';
 import {loadStaffCapabilities,emptyStaffCapabilities,type StaffCapabilities} from '../api/staff-capabilities';
@@ -9,7 +11,7 @@ import {StaffAccess} from './staff-access-context';
 export {useStaffCapabilities} from './staff-access-context';
 import './staff.css';
 
-export const staffResources=[['grades','content/grade','Классы'],['subjects','content/subject','Предметы'],['sections','content/section','Разделы'],['pages','content/contentpage','Страницы'],['publications','content/lessonpublication','Публикации'],['media_assets','content/mediaasset','Медиафайлы'],['redirects','content/redirect','Перенаправления'],['users','auth/user','Пользователи'],['groups','auth/group','Группы']] as const;
+export const staffResources=[['users','auth/user','Пользователи'],['groups','auth/group','Группы']] as const;
 
 type Access={phase:'checking'|'staff'|'denied'|'error';actor:string|null;path:string;hints:StaffCapabilities};
 
@@ -57,7 +59,7 @@ export function StaffWorkspace({children}:{children:ReactNode}){
    if(String(before.value.data.id)!==String(after.value.data.id)){fail('error');window.location.reload();return;}
    if(!hints){fail('error');return;}
    if(String(after.value.data.id)!==identity||status!=='ready'){const current=await refresh();if(own!==sequence.current)return;if(!current){fail('error');return;}}
-   setAccess({phase:hints.own_password?'staff':'denied',actor:String(after.value.data.id),path:pathname,hints});setChecking(document.hidden);
+   setAccess({phase:hints.own_password&&staffResources.some(r=>Object.values(hints.resources[r[0]]).some(Boolean))?'staff':'denied',actor:String(after.value.data.id),path:pathname,hints});setChecking(document.hidden);
   }
   // Keep ordinary form state on blur. Hide it while revalidating on return;
   // discard it only after a real denial, identity or permission-scope change.
@@ -77,14 +79,12 @@ export function StaffWorkspace({children}:{children:ReactNode}){
  const stateKey=access.actor+':'+JSON.stringify(hints);
  const verifying=checking||failure||status!=='ready'||access.path!==pathname;
  const denied=access.phase==='denied'&&identity;
- return <div className="staff-workspace">
+ if(!/^\/admin\/(?:$|auth\/(?:user|group)\/|password_change\/)/.test(pathname))return <RouteErrorPage missing/>;
+ return <><OrbitHeader dark={dark} onTheme={()=>setDark(v=>!v)}/><div className="staff-workspace">
   <a className="skip-link" href={staff&&verifying?'#staff-access':'#staff-main'}>К содержимому</a>
-  <LessonHeader brand={<Brand/>} catalogueHref="/materials" loginHref={login} dark={dark} onTheme={()=>setDark(v=>!v)}/>
   {staff&&<div ref={frame} className="staff-frame" hidden={verifying} inert={verifying} key={stateKey}>
    <aside className="staff-sidebar"><nav aria-label="Администрирование">
-    <Link to="/admin/" aria-current={pathname==='/admin/'?'page':undefined}>Все разделы</Link>
     {staffResources.filter(r=>Object.values(hints.resources[r[0]]).some(Boolean)).map(r=><Link key={r[0]} to={'/admin/'+r[1]+'/'} aria-current={pathname.startsWith('/admin/'+r[1]+'/')?'page':undefined}>{r[2]}</Link>)}
-    <Link to="/admin/password_change/" aria-current={pathname.startsWith('/admin/password_change/')?'page':undefined}>Мой пароль</Link>
    </nav></aside>
    <div className="staff-content" key={pathname}><StaffAccess.Provider value={hints}>{access.path===pathname&&(permitted?children:<main id="staff-main" tabIndex={-1}><h1>Нет доступа</h1><p>У вас нет разрешения на это действие.</p><Link to="/admin/">К доступным разделам</Link></main>)}</StaffAccess.Provider></div>
   </div>}
@@ -94,7 +94,7 @@ export function StaffWorkspace({children}:{children:ReactNode}){
    <div className="staff-access-actions">{failure&&<button className="ms-ui-button" onClick={()=>setRetry(v=>v+1)}>Повторить проверку</button>}<a href="/account/">Личный кабинет</a><a href="/">На главную</a></div>
   </main>}
   <LessonFooter brand={<Brand/>} catalogueHref="/materials" accountHref="/account/" homeHref="/" gradeLinks={[5,6,7,8,9,10].map(n=>({title:n+' класс',href:'/materials?grade='+n+'-klass'}))}/>
- </div>;
+ </div></>;
 }
 
 export function StaffHeading({title,mode,children}:{title:string;mode?:string;children?:ReactNode}){
