@@ -5,6 +5,10 @@ description: Выполнить MS-N009 — Attempts, immutable revisions и rec
 
 # MS-N009 — Attempts, immutable revisions и recorded help/reveal
 
+## Решение о доступе — 16.11.2026
+
+Authentication/CSRF/owner проверяются сервером до создания assessed attempt, записи решения или запуска анализа. Guest mutations отклоняются без attempt/AIRun/LLM и расходов провайдера. Публичная самопроверка без LLM остаётся отдельным путём без persisted attempts/ProgressEvent; UI-граница и безопасный login return определены в MS-N014.
+
 ## Проблема, цель и текущее состояние
 
 Надёжно сохранять работу ученика и exposure между попытками до оценивания.

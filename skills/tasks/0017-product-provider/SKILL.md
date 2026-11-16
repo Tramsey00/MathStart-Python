@@ -5,6 +5,10 @@ description: Выполнить MS-N017 — Product LLM provider, AIRun и бе�
 
 # MS-N017 — Product LLM provider, AIRun и безопасный fallback
 
+## Доступ — 16.11.2026
+
+Provider adapter вызывается только из авторизованного owner-bound учебного сценария. Guest submission не создаёт AIRun, не ставит LLM-job и не расходует provider budget. Блюр на frontend не заменяет серверные guards; публичная самопроверка не вызывает LLM.
+
 ## Проблема, цель и текущее состояние
 
 Изолировать готовую LLM за bounded versioned product interface без прав на доменные данные.
