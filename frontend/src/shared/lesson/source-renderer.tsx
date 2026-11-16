@@ -3,6 +3,7 @@ import { LessonDisclosure, LessonNote, SelfCheck, WorkedExample } from './lesson
 import { QuadraticGraph } from './quadratic-graph';
 import { LessonDiagram } from './lesson-diagram';
 import type { LessonNode } from './lesson-types';
+import { PowerGraph } from '../../features/lesson-interactives/power-graph';
 import { LinearGraph } from '../../features/lesson-interactives/linear-graph';
 import { SquareRootGraph } from '../../features/lesson-interactives/square-root-graph';
 import { HyperbolaGraph } from '../../features/lesson-interactives/hyperbola-graph';
@@ -106,6 +107,9 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   if (node.kind === 'interactive') {
     if (node.name === 'square-root') return <SquareRootGraph key={key} id={node.id}/>;
     if (node.name === 'hyperbola') return <HyperbolaGraph key={key} id={node.id}/>;
+    if (node.name === 'power-positive' || node.name === 'power-negative') {
+      return <PowerGraph key={key} id={node.id} mode={node.name === 'power-positive' ? 'positive' : 'negative'}/>;
+    }
     const interactives = { linear: LinearGraph, quadratic: QuadraticGraph };
     const Interactive = interactives[node.name];
     if (!Interactive) throw Error('Unsupported lesson interactive');

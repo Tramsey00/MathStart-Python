@@ -369,101 +369,101 @@
 
 **1. Неравенства и системы неравенств**
 
-- 1.1 [Методы решения квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/01-metody-resheniya-kvadratnyh-neravenstv/body.html) — HTML
-- 1.2 [Повторение способов решения линейных и квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/02-povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-nera-f3595445/body.html) — HTML
-- 1.3 [Решение рациональных неравенств методом интервалов](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/03-reshenie-raczionalnyh-neravenstv-metodom-intervalov/body.html) — HTML
-- 1.4 [Множества и подмножества. Объединение и пересечение множеств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/04-mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mno-b42dc74a/body.html) — HTML
-- 1.5 [Системы рациональных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/05-sistemy-raczionalnyh-neravenstv/body.html) — HTML
+- 1.1 [Методы решения квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/01-metody-resheniya-kvadratnyh-neravenstv/content.json) — React · `/materials/9-algebra-1`
+- 1.2 [Повторение способов решения линейных и квадратных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/02-povtorenie-sposobov-resheniya-linejnyh-i-kvadratnyh-nera-f3595445/content.json) — React · `/materials/9-algebra-2`
+- 1.3 [Решение рациональных неравенств методом интервалов](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/03-reshenie-raczionalnyh-neravenstv-metodom-intervalov/content.json) — React · `/materials/9-algebra-3`
+- 1.4 [Множества и подмножества. Объединение и пересечение множеств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/04-mnozhestva-i-podmnozhestva-obedinenie-i-peresechenie-mno-b42dc74a/content.json) — React · `/materials/9-algebra-4`
+- 1.5 [Системы рациональных неравенств](9-klass/algebra/01-neravenstva-i-sistemy-neravenstv/05-sistemy-raczionalnyh-neravenstv/content.json) — React · `/materials/9-algebra-5`
 
 **2. Системы уравнений. Равносильные преобразования**
 
-- 2.1 [Понятие системы рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/01-ponyatie-sistemy-raczionalnyh-uravnenij/body.html) — HTML
-- 2.2 [Методы решения систем рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/02-metody-resheniya-sistem-raczionalnyh-uravnenij/body.html) — HTML
-- 2.3 [Использование систем рациональных уравнений для решения задач](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/03-ispolzovanie-sistem-raczionalnyh-uravnenij-dlya-resheniy-b251cdf2/body.html) — HTML
+- 2.1 [Понятие системы рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/01-ponyatie-sistemy-raczionalnyh-uravnenij/content.json) — React · `/materials/9-algebra-6`
+- 2.2 [Методы решения систем рациональных уравнений](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/02-metody-resheniya-sistem-raczionalnyh-uravnenij/content.json) — React · `/materials/9-algebra-7`
+- 2.3 [Использование систем рациональных уравнений для решения задач](9-klass/algebra/02-sistemy-uravnenij-ravnosilnye-preobrazovaniya/03-ispolzovanie-sistem-raczionalnyh-uravnenij-dlya-resheniy-b251cdf2/content.json) — React · `/materials/9-algebra-8`
 
 **3. Числовые функции. Свойства числовых функций**
 
-- 3.1 [Определение числовой функции и способы её задания](9-klass/algebra/03-chislovye-funkcii/01-opredelenie-chislovoj-funkczii-i-sposoby-eyo-zadaniya/body.html) — HTML
-- 3.2 [Свойства основных функций](9-klass/algebra/03-chislovye-funkcii/02-svojstva-osnovnyh-funkczij/body.html) — HTML
-- 3.3 [Возрастание и убывание функции](9-klass/algebra/03-chislovye-funkcii/03-vozrastanie-i-ubyvanie-funkczii/body.html) — HTML
-- 3.4 [Чётные и нечётные функции. Определение чётности и нечётности](9-klass/algebra/03-chislovye-funkcii/04-chyotnye-i-nechyotnye-funkczii-opredelenie-chyotnosti-i-221a9576/body.html) — HTML
-- 3.5 [Степенная функция с натуральным показателем](9-klass/algebra/03-chislovye-funkcii/05-stepennaya-funkcziya-s-naturalnym-pokazatelem/body.html) — HTML
-- 3.6 [Степенная функция с отрицательным целым показателем](9-klass/algebra/03-chislovye-funkcii/06-stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/body.html) — HTML
-- 3.7 [Функция кубического корня](9-klass/algebra/03-chislovye-funkcii/07-funkcziya-kubicheskogo-kornya/body.html) — HTML
+- 3.1 [Определение числовой функции и способы её задания](9-klass/algebra/03-chislovye-funkcii/01-opredelenie-chislovoj-funkczii-i-sposoby-eyo-zadaniya/content.json) — React · `/materials/9-algebra-9`
+- 3.2 [Свойства основных функций](9-klass/algebra/03-chislovye-funkcii/02-svojstva-osnovnyh-funkczij/content.json) — React · `/materials/9-algebra-10`
+- 3.3 [Возрастание и убывание функции](9-klass/algebra/03-chislovye-funkcii/03-vozrastanie-i-ubyvanie-funkczii/content.json) — React · `/materials/9-algebra-11`
+- 3.4 [Чётные и нечётные функции. Определение чётности и нечётности](9-klass/algebra/03-chislovye-funkcii/04-chyotnye-i-nechyotnye-funkczii-opredelenie-chyotnosti-i-221a9576/content.json) — React · `/materials/9-algebra-12`
+- 3.5 [Степенная функция с натуральным показателем](9-klass/algebra/03-chislovye-funkcii/05-stepennaya-funkcziya-s-naturalnym-pokazatelem/content.json) — React · `/materials/9-algebra-13`
+- 3.6 [Степенная функция с отрицательным целым показателем](9-klass/algebra/03-chislovye-funkcii/06-stepennaya-funkcziya-s-otriczatelnym-czelym-pokazatelem/content.json) — React · `/materials/9-algebra-14`
+- 3.7 [Функция кубического корня](9-klass/algebra/03-chislovye-funkcii/07-funkcziya-kubicheskogo-kornya/content.json) — React · `/materials/9-algebra-15`
 
 **4. Числовые последовательности. Прогрессии**
 
-- 4.1 [Понятие числовой последовательности. Способы задания последовательностей](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/01-ponyatie-chislovoj-posledovatelnosti-sposoby-zadaniya-po-493b267e/body.html) — HTML
-- 4.2 [Арифметическая прогрессия. Свойства арифметической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/02-arifmeticheskaya-progressiya-svojstva-arifmeticheskoj-pr-1f603286/body.html) — HTML
-- 4.3 [Геометрическая прогрессия. Свойства геометрической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/03-geometricheskaya-progressiya-svojstva-geometricheskoj-pr-9db073a4/body.html) — HTML
+- 4.1 [Понятие числовой последовательности. Способы задания последовательностей](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/01-ponyatie-chislovoj-posledovatelnosti-sposoby-zadaniya-po-493b267e/content.json) — React · `/materials/9-algebra-16`
+- 4.2 [Арифметическая прогрессия. Свойства арифметической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/02-arifmeticheskaya-progressiya-svojstva-arifmeticheskoj-pr-1f603286/content.json) — React · `/materials/9-algebra-17`
+- 4.3 [Геометрическая прогрессия. Свойства геометрической прогрессии](9-klass/algebra/04-chislovye-posledovatelnosti-progressii/03-geometricheskaya-progressiya-svojstva-geometricheskoj-pr-9db073a4/content.json) — React · `/materials/9-algebra-18`
 
 **5. Элементы комбинаторики, статистики и теории вероятностей**
 
-- 5.1 [Элементы комбинаторики. Комбинаторные задачи](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/01-elementy-kombinatoriki-kombinatornye-zadachi/body.html) — HTML
-- 5.2 [Элементы статистики. Методы обработки информации](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/02-elementy-statistiki-metody-obrabotki-informaczii/body.html) — HTML
-- 5.3 [Элементы теории вероятности. Нахождение вероятности](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/03-elementy-teorii-veroyatnosti-nahozhdenie-veroyatnosti/body.html) — HTML
-- 5.4 [Относительная частота и статистическая вероятность события](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/04-otnositelnaya-chastota-i-statisticheskaya-veroyatnost-so-be78fb18/body.html) — HTML
+- 5.1 [Элементы комбинаторики. Комбинаторные задачи](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/01-elementy-kombinatoriki-kombinatornye-zadachi/content.json) — React · `/materials/9-algebra-19`
+- 5.2 [Элементы статистики. Методы обработки информации](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/02-elementy-statistiki-metody-obrabotki-informaczii/content.json) — React · `/materials/9-algebra-20`
+- 5.3 [Элементы теории вероятности. Нахождение вероятности](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/03-elementy-teorii-veroyatnosti-nahozhdenie-veroyatnosti/content.json) — React · `/materials/9-algebra-21`
+- 5.4 [Относительная частота и статистическая вероятность события](9-klass/algebra/05-elementy-kombinatoriki-statistiki-i-teorii-veroyatnostej/04-otnositelnaya-chastota-i-statisticheskaya-veroyatnost-so-be78fb18/content.json) — React · `/materials/9-algebra-22`
 
 ### Геометрия
 
 **1. Векторы**
 
-- 1.1 [Понятие вектора. Сложение и вычитание векторов](9-klass/geometriya/01-vektory/01-ponyatie-vektora-slozhenie-i-vychitanie-vektorov/body.html) — HTML
-- 1.2 [Умножение вектора на число. Применение векторов к решению задач](9-klass/geometriya/01-vektory/02-umnozhenie-vektora-na-chislo-primenenie-vektorov-k-reshe-e69fbb44/body.html) — HTML
+- 1.1 [Понятие вектора. Сложение и вычитание векторов](9-klass/geometriya/01-vektory/01-ponyatie-vektora-slozhenie-i-vychitanie-vektorov/content.json) — React · `/materials/9-geometry-1`
+- 1.2 [Умножение вектора на число. Применение векторов к решению задач](9-klass/geometriya/01-vektory/02-umnozhenie-vektora-na-chislo-primenenie-vektorov-k-reshe-e69fbb44/content.json) — React · `/materials/9-geometry-2`
 
 **2. Метод координат**
 
-- 2.1 [Координаты вектора и координаты точек. Простейшие задачи в координатах](9-klass/geometriya/02-metod-koordinat/01-koordinaty-vektora-i-koordinaty-tochek-prostejshie-zadac-19d443f2/body.html) — HTML
-- 2.2 [Уравнения окружности и прямой. Координатный метод решения задач](9-klass/geometriya/02-metod-koordinat/02-uravneniya-okruzhnosti-i-pryamoj-koordinatnyj-metod-resh-c9a4b6d1/body.html) — HTML
+- 2.1 [Координаты вектора и координаты точек. Простейшие задачи в координатах](9-klass/geometriya/02-metod-koordinat/01-koordinaty-vektora-i-koordinaty-tochek-prostejshie-zadac-19d443f2/content.json) — React · `/materials/9-geometry-3`
+- 2.2 [Уравнения окружности и прямой. Координатный метод решения задач](9-klass/geometriya/02-metod-koordinat/02-uravneniya-okruzhnosti-i-pryamoj-koordinatnyj-metod-resh-c9a4b6d1/content.json) — React · `/materials/9-geometry-4`
 
 **3. Соотношения между сторонами и углами треугольника**
 
-- 3.1 [Синус, косинус, тангенс и котангенс углов от 0° до 180°](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/01-sinus-kosinus-tangens-i-kotangens-uglov-ot-0-do-180/body.html) — HTML
-- 3.2 [Теоремы синусов и косинусов. Решение треугольников](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/02-teoremy-sinusov-i-kosinusov-reshenie-treugolnikov/body.html) — HTML
-- 3.3 [Площадь треугольника и её применение](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/03-ploshhad-treugolnika-i-eyo-primenenie/body.html) — HTML
+- 3.1 [Синус, косинус, тангенс и котангенс углов от 0° до 180°](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/01-sinus-kosinus-tangens-i-kotangens-uglov-ot-0-do-180/content.json) — React · `/materials/9-geometry-5`
+- 3.2 [Теоремы синусов и косинусов. Решение треугольников](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/02-teoremy-sinusov-i-kosinusov-reshenie-treugolnikov/content.json) — React · `/materials/9-geometry-6`
+- 3.3 [Площадь треугольника и её применение](9-klass/geometriya/03-sootnosheniya-mezhdu-storonami-i-uglami-treugolnika/03-ploshhad-treugolnika-i-eyo-primenenie/content.json) — React · `/materials/9-geometry-7`
 
 **4. Правильные многоугольники и окружность**
 
-- 4.1 [Правильные многоугольники. Вписанная и описанная окружности](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/01-pravilnye-mnogougolniki-vpisannaya-i-opisannaya-okruzhno-d48b262a/body.html) — HTML
-- 4.2 [Длина окружности и дуги. Площадь круга. Хорды, секущие и касательные](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/02-dlina-okruzhnosti-i-dugi-ploshhad-kruga-hordy-sekushhie-992365fc/body.html) — HTML
+- 4.1 [Правильные многоугольники. Вписанная и описанная окружности](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/01-pravilnye-mnogougolniki-vpisannaya-i-opisannaya-okruzhno-d48b262a/content.json) — React · `/materials/9-geometry-8`
+- 4.2 [Длина окружности и дуги. Площадь круга. Хорды, секущие и касательные](9-klass/geometriya/04-pravilnye-mnogougolniki-i-okruzhnost/02-dlina-okruzhnosti-i-dugi-ploshhad-kruga-hordy-sekushhie-992365fc/content.json) — React · `/materials/9-geometry-9`
 
 **5. Геометрические преобразования**
 
-- 5.1 [Движения плоскости: симметрия, параллельный перенос и поворот](9-klass/geometriya/05-geometricheskie-preobrazovaniya/01-dvizheniya-ploskosti-simmetriya-parallelnyj-perenos-i-po-89daaac9/body.html) — HTML
-- 5.2 [Преобразование подобия и гомотетия](9-klass/geometriya/05-geometricheskie-preobrazovaniya/02-preobrazovanie-podobiya-i-gomotetiya/body.html) — HTML
+- 5.1 [Движения плоскости: симметрия, параллельный перенос и поворот](9-klass/geometriya/05-geometricheskie-preobrazovaniya/01-dvizheniya-ploskosti-simmetriya-parallelnyj-perenos-i-po-89daaac9/content.json) — React · `/materials/9-geometry-10`
+- 5.2 [Преобразование подобия и гомотетия](9-klass/geometriya/05-geometricheskie-preobrazovaniya/02-preobrazovanie-podobiya-i-gomotetiya/content.json) — React · `/materials/9-geometry-11`
 
 **6. Итоговое повторение**
 
-- 6.1 [Повторение курса геометрии 7–9 классов. Комплексные задачи](9-klass/geometriya/06-itogovoe-povtorenie/01-povtorenie-kursa-geometrii-7-9-klassov-kompleksnye-zadac-1a6ec03f/body.html) — HTML
+- 6.1 [Повторение курса геометрии 7–9 классов. Комплексные задачи](9-klass/geometriya/06-itogovoe-povtorenie/01-povtorenie-kursa-geometrii-7-9-klassov-kompleksnye-zadac-1a6ec03f/content.json) — React · `/materials/9-geometry-12`
 
 ### Вероятность и статистика
 
 **1. Элементы комбинаторики**
 
-- 1.1 [Комбинаторное правило умножения](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/01-kombinatornoe-pravilo-umnozheniya/body.html) — HTML
-- 1.2 [Перестановки. Факториал](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/02-perestanovki-faktorial/body.html) — HTML
-- 1.3 [Сочетания. Треугольник Паскаля](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/03-sochetaniya-treugolnik-paskalya/body.html) — HTML
-- 1.4 [Практическая работа «Вычисление вероятностей с использованием комбинаторных функций»](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/04-prakticheskaya-rabota-vychislenie-veroyatnostej-s-ispolz-3f9f8d37/body.html) — HTML
+- 1.1 [Комбинаторное правило умножения](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/01-kombinatornoe-pravilo-umnozheniya/content.json) — React · `/materials/9-statistics-1`
+- 1.2 [Перестановки. Факториал](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/02-perestanovki-faktorial/content.json) — React · `/materials/9-statistics-2`
+- 1.3 [Сочетания. Треугольник Паскаля](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/03-sochetaniya-treugolnik-paskalya/content.json) — React · `/materials/9-statistics-3`
+- 1.4 [Практическая работа «Вычисление вероятностей с использованием комбинаторных функций»](9-klass/veroyatnost-i-statistika/01-elementy-kombinatoriki/04-prakticheskaya-rabota-vychislenie-veroyatnostej-s-ispolz-3f9f8d37/content.json) — React · `/materials/9-statistics-4`
 
 **2. Геометрическая вероятность**
 
-- 2.1 [Геометрическая вероятность](9-klass/veroyatnost-i-statistika/02-geometricheskaya-veroyatnost/01-geometricheskaya-veroyatnost/body.html) — HTML
+- 2.1 [Геометрическая вероятность](9-klass/veroyatnost-i-statistika/02-geometricheskaya-veroyatnost/01-geometricheskaya-veroyatnost/content.json) — React · `/materials/9-statistics-5`
 
 **3. Испытания Бернулли**
 
-- 3.1 [Испытание. Успех и неудача. Серия испытаний до первого успеха](9-klass/veroyatnost-i-statistika/03-ispytaniya-bernulli/01-ispytanie-uspeh-i-neudacha-seriya-ispytanij-do-pervogo-u-0bdbdd08/body.html) — HTML
-- 3.2 [Испытания Бернулли. Вероятности событий в серии испытаний](9-klass/veroyatnost-i-statistika/03-ispytaniya-bernulli/02-ispytaniya-bernulli-veroyatnosti-sobytij-v-serii-ispytan-dff1adba/body.html) — HTML
-- 3.3 [Практическая работа «Испытания Бернулли»](9-klass/veroyatnost-i-statistika/03-ispytaniya-bernulli/03-prakticheskaya-rabota-ispytaniya-bernulli/body.html) — HTML
+- 3.1 [Испытание. Успех и неудача. Серия испытаний до первого успеха](9-klass/veroyatnost-i-statistika/03-ispytaniya-bernulli/01-ispytanie-uspeh-i-neudacha-seriya-ispytanij-do-pervogo-u-0bdbdd08/content.json) — React · `/materials/9-statistics-6`
+- 3.2 [Испытания Бернулли. Вероятности событий в серии испытаний](9-klass/veroyatnost-i-statistika/03-ispytaniya-bernulli/02-ispytaniya-bernulli-veroyatnosti-sobytij-v-serii-ispytan-dff1adba/content.json) — React · `/materials/9-statistics-7`
+- 3.3 [Практическая работа «Испытания Бернулли»](9-klass/veroyatnost-i-statistika/03-ispytaniya-bernulli/03-prakticheskaya-rabota-ispytaniya-bernulli/content.json) — React · `/materials/9-statistics-8`
 
 **4. Случайная величина**
 
-- 4.1 [Случайная величина и распределение вероятностей](9-klass/veroyatnost-i-statistika/04-sluchajnaya-velichina/01-sluchajnaya-velichina-i-raspredelenie-veroyatnostej/body.html) — HTML
-- 4.2 [Математическое ожидание и дисперсия случайной величины](9-klass/veroyatnost-i-statistika/04-sluchajnaya-velichina/02-matematicheskoe-ozhidanie-i-dispersiya-sluchajnoj-velich-89771910/body.html) — HTML
-- 4.3 [Понятие о законе больших чисел](9-klass/veroyatnost-i-statistika/04-sluchajnaya-velichina/03-ponyatie-o-zakone-bolshih-chisel/body.html) — HTML
+- 4.1 [Случайная величина и распределение вероятностей](9-klass/veroyatnost-i-statistika/04-sluchajnaya-velichina/01-sluchajnaya-velichina-i-raspredelenie-veroyatnostej/content.json) — React · `/materials/9-statistics-9`
+- 4.2 [Математическое ожидание и дисперсия случайной величины](9-klass/veroyatnost-i-statistika/04-sluchajnaya-velichina/02-matematicheskoe-ozhidanie-i-dispersiya-sluchajnoj-velich-89771910/content.json) — React · `/materials/9-statistics-10`
+- 4.3 [Понятие о законе больших чисел](9-klass/veroyatnost-i-statistika/04-sluchajnaya-velichina/03-ponyatie-o-zakone-bolshih-chisel/content.json) — React · `/materials/9-statistics-11`
 
 **5. Обобщение, систематизация знаний**
 
-- 5.1 [Обобщение, систематизация знаний](9-klass/veroyatnost-i-statistika/05-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij-9-klass/body.html) — HTML
+- 5.1 [Обобщение, систематизация знаний](9-klass/veroyatnost-i-statistika/05-obobshhenie-sistematizaciya-znanij/01-obobshhenie-sistematizacziya-znanij-9-klass/content.json) — React · `/materials/9-statistics-12`
 
 ## 10 класс
 

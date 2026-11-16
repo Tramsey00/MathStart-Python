@@ -87,10 +87,22 @@ def environment(values=None):
 def run(command, stage, values=None, timeout=180):
     # Child failures may contain DBAPI details: capture privately, redact known
     # secrets, and show only the stage name. Never echo environment or SQL.
-    result = subprocess.run(list(map(str, command)), cwd=ROOT, env=environment(values),
-                            capture_output=True, timeout=timeout)
-    output = (result.stdout + result.stderr).decode('utf-8', errors='replace')
+    try:
+        result = subprocess.run(list(map(str, command)), cwd=ROOT, env=environment(values),
+                                capture_output=True, timeout=timeout)
+    except subprocess.TimeoutExpired as exc:
+        partial = (exc.stdout or b'') + (exc.stderr or b'')
+        write_stage_log(stage, partial, f'\nStage {stage} timed out after {timeout} seconds.\n')
+        raise
+    write_stage_log(stage, result.stdout + result.stderr)
+    if result.returncode:
+        raise RuntimeError('Stage failed: ' + stage + '; see ignored var/local/team/logs')
+    return result.stdout.decode('utf-8').strip()
+
+
+def write_stage_log(stage, raw, diagnostic=''):
     if LOCAL.exists():
+        output = raw.decode('utf-8', errors='replace') + diagnostic
         sensitive = []
         for path in (LOCAL / 'schema-env.json', PRIVATE):
             if path.exists():
@@ -104,9 +116,6 @@ def run(command, stage, values=None, timeout=180):
         logs = LOCAL / 'logs'
         logs.mkdir(exist_ok=True)
         (logs / (stage + '.log')).write_text(output, encoding='utf-8')
-    if result.returncode:
-        raise RuntimeError('Stage failed: ' + stage + '; see ignored var/local/team/logs')
-    return result.stdout.decode('utf-8').strip()
 
 
 def cli(module, arguments, stage, values, timeout=180):
@@ -236,7 +245,7 @@ def content(values, state):
     # The ordinary preparation verifies committed source bytes itself.
     prepared = json.loads(cli('backend.content.publish', ['prepare-bootstrap', '--source-root', '.',
         '--source-sha', source_sha, '--release-id', state['release'], '--input-root', str(LOCAL / 'inputs'),
-        '--changes', str(LOCAL / 'edition.json')], 'prepare-content', values, 300))
+        '--changes', str(LOCAL / 'edition.json')], 'prepare-content', values, 600))
     built = json.loads(cli('frontend.build_public', ['--input-root', str(LOCAL / 'inputs'),
         '--release-id', state['release'], '--manifest-digest', prepared['manifest_digest'],
         '--receipt-digest', prepared['input_receipt_digest'], '--output', str(LOCAL / 'output'),

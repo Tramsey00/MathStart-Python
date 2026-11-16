@@ -1,0 +1,3658 @@
+{
+  "version": "lesson-document-v1",
+  "slug": "sluchajnaya-velichina-i-raspredelenie-veroyatnostej",
+  "title": "Случайная величина и распределение вероятностей",
+  "subtitle": "Научимся описывать числовой результат случайного опыта, находить возможные значения случайной величины, составлять таблицу распределения и вычислять вероятности событий по ней.",
+  "grade": "9-klass",
+  "subject": "veroyatnost-i-statistika",
+  "section": "sluchajnaya-velichina",
+  "sections": [
+    {
+      "id": "lesson-section-1",
+      "title": "От исхода опыта — к числу",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Результат случайного опыта не всегда удобно описывать словами.\n      Часто каждому исходу ставят в соответствие число. Например,\n      при двух бросках монеты можно подсчитать число выпавших орлов.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-card-grid"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-mini-label"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Случайный опыт"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Два броска монеты"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          Элементарные исходы: ОО, ОР, РО, РР, где О — орёл,\n          Р — решка.\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-card"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "span",
+                  "attrs": {
+                    "class": "ms-mini-label"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Числовой результат"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "h3",
+                  "attrs": {
+                    "class": "ms-card-title"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "Число орлов"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {
+                    "class": "ms-card-text"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          Величина X принимает значения 0, 1 или 2 в зависимости\n          от результата опыта.\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Случайная величина"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": " — числовая величина,\n      значение которой определяется результатом случайного опыта.\n      До проведения опыта её точное значение неизвестно.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "theory",
+      "title": "Возможные значения случайной величины",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Все числа, которые случайная величина может принять,\n      называют её возможными значениями.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Случайная величина X"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Возможные значения"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число орлов при двух бросках монеты"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0, 1, 2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число шестёрок при трёх бросках кубика"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0, 1, 2, 3"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число исправных деталей среди четырёх проверенных"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0, 1, 2, 3, 4"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Число очков при одном броске кубика"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1, 2, 3, 4, 5, 6"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Случайная величина — это не одно событие. Она объединяет\n      несколько событий вида X = x"
+            },
+            {
+              "kind": "element",
+              "tag": "sub",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "i"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ", каждое из которых\n      имеет свою вероятность.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-3",
+      "title": "Распределение вероятностей",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Чтобы полностью описать дискретную случайную величину,\n      указывают все её возможные значения и вероятность каждого\n      значения.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-row"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        P(X = x"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "1"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ") = p"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "1"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ",\n        P(X = x"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "2"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ") = p"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "2"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ", …,\n        P(X = x"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "n"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": ") = p"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "n"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-formula"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        p"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "1"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " + p"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "2"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " + … + p"
+                },
+                {
+                  "kind": "element",
+                  "tag": "sub",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "n"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": " = 1\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "note",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-rule-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Таблица, в которой каждому возможному значению случайной\n      величины сопоставлена его вероятность, называется\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "strong",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "распределением вероятностей"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": ".\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-4",
+      "title": "Распределение числа орлов",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Рассмотрим два броска симметричной монеты. Все четыре исхода\n      ОО, ОР, РО, РР равновозможны.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-table-wrap"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "table",
+              "tag": "table",
+              "attrs": {
+                "class": "ms-table"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "thead",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Значение X"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Благоприятные исходы"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "th",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "Вероятность"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "tbody",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "РР"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "\n              "
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "4"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": "\n            "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "ОР, РО"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "\n              "
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "2"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "4"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": "\n              =\n              "
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": "\n            "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "tr",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "ОО"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "\n              "
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "math",
+                              "attrs": {
+                                "class": "lesson-math",
+                                "display": "inline"
+                              },
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mfrac",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "tag": "mn",
+                                      "attrs": {},
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "text": "4"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "text": "\n            "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-math-box"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-formula"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        +\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        +\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "math",
+                  "attrs": {
+                    "class": "lesson-math",
+                    "display": "inline"
+                  },
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "mfrac",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "mn",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "4"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        = 1\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "element",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-figure"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {
+                "class": "ms-figure-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Распределение случайной величины X — числа орлов\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-svg-wrap"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "figure",
+                  "tag": "svg",
+                  "attrs": {
+                    "class": "ms-svg",
+                    "viewBox": "0 0 820 430",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                    "role": "img",
+                    "aria-label": "Столбчатая диаграмма распределения числа орлов при двух бросках монеты"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "rect",
+                      "attrs": {
+                        "x": "1",
+                        "y": "1",
+                        "width": "818",
+                        "height": "428",
+                        "rx": "22",
+                        "fill": "#ffffff",
+                        "stroke": "#dbeafe",
+                        "stroke-width": "2"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "110",
+                        "y1": "335",
+                        "x2": "750",
+                        "y2": "335",
+                        "stroke": "#94a3b8",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "line",
+                      "attrs": {
+                        "x1": "110",
+                        "y1": "75",
+                        "x2": "110",
+                        "y2": "335",
+                        "stroke": "#94a3b8",
+                        "stroke-width": "3"
+                      },
+                      "children": []
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "stroke": "#e2e8f0",
+                        "stroke-width": "1.5"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "110",
+                            "y1": "205",
+                            "x2": "750",
+                            "y2": "205"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "line",
+                          "attrs": {
+                            "x1": "110",
+                            "y1": "75",
+                            "x2": "750",
+                            "y2": "75"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "font-size": "15",
+                        "fill": "#64748b"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "62",
+                            "y": "340"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "52",
+                            "y": "210"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,25"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "52",
+                            "y": "80"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,50"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "fill": "#dbeafe",
+                        "stroke": "#60a5fa",
+                        "stroke-width": "2"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "190",
+                            "y": "205",
+                            "width": "110",
+                            "height": "130",
+                            "rx": "13"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "355",
+                            "y": "75",
+                            "width": "110",
+                            "height": "260",
+                            "rx": "13"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "rect",
+                          "attrs": {
+                            "x": "520",
+                            "y": "205",
+                            "width": "110",
+                            "height": "130",
+                            "rx": "13"
+                          },
+                          "children": []
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "text-anchor": "middle",
+                        "font-size": "16",
+                        "font-weight": "800",
+                        "fill": "#1e3a8a"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "245",
+                            "y": "192"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,25"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "410",
+                            "y": "62"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,50"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "575",
+                            "y": "192"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "0,25"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "g",
+                      "attrs": {
+                        "text-anchor": "middle",
+                        "font-size": "17",
+                        "font-weight": "800",
+                        "fill": "#111827"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "245",
+                            "y": "372"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "X = 0"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "410",
+                            "y": "372"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "X = 1"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "text",
+                          "attrs": {
+                            "x": "575",
+                            "y": "372"
+                          },
+                          "children": [
+                            {
+                              "kind": "text",
+                              "text": "X = 2"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "text",
+                      "attrs": {
+                        "x": "430",
+                        "y": "405",
+                        "text-anchor": "middle",
+                        "font-size": "16",
+                        "font-weight": "800",
+                        "fill": "#2563eb"
+                      },
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n            Высота столбца равна вероятности значения\n          "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-5",
+      "title": "Как находить вероятность события по таблице",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Если событие включает несколько возможных значений случайной\n      величины, соответствующие вероятности складывают.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Вероятность хотя бы одного орла\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      Событие X ≥ 1 включает значения X = 1 и X = 2:\n\n      "
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-formula"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          P(X ≥ 1) =\n          P(X = 1) + P(X = 2) =\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          +\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          =\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        Вероятность не более одного орла\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      Событие X ≤ 1 включает значения X = 0 и X = 1:\n\n      "
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-formula"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n          P(X ≤ 1) =\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          +\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n          =\n          "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "3"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n        "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-6",
+      "title": "Как восстановить неизвестную вероятность",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "paragraph",
+          "tag": "p",
+          "attrs": {
+            "class": "ms-text"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      Сумма всех вероятностей распределения равна единице.\n      Это свойство позволяет находить пропущенное значение.\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "example",
+          "tag": "div",
+          "attrs": {
+            "class": "ms-example"
+          },
+          "children": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "element",
+              "tag": "span",
+              "attrs": {
+                "class": "ms-example-title"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "Пример"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      Случайная величина принимает значения −1, 0 и 2\n      с вероятностями 0,2; 0,5 и a.\n\n      "
+            },
+            {
+              "kind": "example",
+              "tag": "div",
+              "attrs": {
+                "class": "ms-math-box"
+              },
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-math-row"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "0,2 + 0,5 + a = 1"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                },
+                {
+                  "kind": "element",
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ms-formula"
+                  },
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "a = 1 − 0,7 = 0,3"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    },
+    {
+      "id": "lesson-section-7",
+      "title": "Самопроверка",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "\n    "
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        1. Кубик бросают три раза. Случайная величина X равна числу\n        выпавших шестёрок. Какие значения может принимать X?\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            Шестёрка может не выпасть ни разу, выпасть один,\n            два или три раза.\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "X = 0, 1, 2, 3."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        2. Случайная величина принимает значения −1, 0 и 2\n        с вероятностями 0,2; 0,5 и a. Найдите a.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "0,2 + 0,5 + a = 1."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "a = 0,3."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        3. Для числа орлов при двух бросках монеты найдите\n        P(X ≥ 1).\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            P(X ≥ 1) = P(X = 1) + P(X = 2).\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            P =\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n            +\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "\n            =\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "\n              "
+                        },
+                        {
+                          "kind": "element",
+                          "tag": "math",
+                          "attrs": {
+                            "class": "lesson-math",
+                            "display": "inline"
+                          },
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mfrac",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "3"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "element",
+                                  "tag": "mn",
+                                  "attrs": {},
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "text": "4"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "text": "\n            "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ".\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        4. Составьте распределение числа решек при двух бросках\n        симметричной монеты.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            Возможные значения: 0, 1, 2.\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            Вероятности соответственно:\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ",\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ",\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "4"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ".\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        5. Кубик бросают один раз. X = 1, если выпало чётное число,\n        и X = 0, если выпало нечётное число. Найдите распределение X.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            Чётных и нечётных граней по три.\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            P(X = 0) =\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ",\n            P(X = 1) =\n            "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "math",
+                      "attrs": {
+                        "class": "lesson-math",
+                        "display": "inline"
+                      },
+                      "children": [
+                        {
+                          "kind": "element",
+                          "tag": "mfrac",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "element",
+                              "tag": "mn",
+                              "attrs": {},
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": ".\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        6. X принимает значения −2, 0 и 3 с вероятностями\n        0,15; 0,50 и 0,35. Найдите P(X ≠ 0).\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            P(X ≠ 0) = P(X = −2) + P(X = 3).\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "P = 0,15 + 0,35 = "
+                    },
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "0,50"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "text": "."
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        7. Может ли набор вероятностей 0,2; 0,3; 0,4 задавать\n        полное распределение случайной величины?\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            0,2 + 0,3 + 0,4 = 0,9, а сумма должна быть равна 1.\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "element",
+                      "tag": "strong",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "kind": "text",
+                          "text": "Нет, такое распределение неполно."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n\n    "
+        },
+        {
+          "kind": "selfCheck",
+          "attrs": {
+            "class": "ms-task"
+          },
+          "disclosure": "solution",
+          "question": [
+            {
+              "kind": "text",
+              "text": "\n      "
+            },
+            {
+              "kind": "paragraph",
+              "tag": "p",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n        8. Две монеты бросают одновременно. X = 1, если результаты\n        на монетах различны, и X = 0, если одинаковы.\n        Найдите распределение X.\n      "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n\n      "
+            },
+            {
+              "kind": "text",
+              "text": "\n    "
+            }
+          ],
+          "answer": [
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "text",
+              "text": "\n        "
+            },
+            {
+              "kind": "element",
+              "tag": "div",
+              "attrs": {},
+              "children": [
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            Одинаковые результаты: ОО, РР — два исхода из четырёх.\n            Различные: ОР, РО — также два исхода.\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n          "
+                },
+                {
+                  "kind": "paragraph",
+                  "tag": "p",
+                  "attrs": {},
+                  "children": [
+                    {
+                      "kind": "text",
+                      "text": "\n            P(X = 0) = 0,5, P(X = 1) = 0,5.\n          "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "text": "\n        "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "text": "\n      "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "\n  "
+        }
+      ]
+    }
+  ]
+}
