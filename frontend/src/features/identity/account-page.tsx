@@ -19,7 +19,7 @@ export function AuthPage(){
  const [params]=useSearchParams(),{user,status,refresh}=useSession();const raw=params.get('mode'),mode=['register','recover','verify','reset'].includes(raw??'')?raw:'login';
  const [token,setToken]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[locked,setLocked]=useState(false);
  useEffect(()=>{const value=new URLSearchParams(location.hash.slice(1)).get('token')??'';if(value)setToken(value);if(location.hash)history.replaceState(null,'',location.pathname+location.search);},[]);
- useEffect(()=>{if(status==='ready'&&user&&(mode==='login'||mode==='register'))location.replace('/account/');},[user,status,mode]);
+ useEffect(()=>{if(status==='ready'&&user&&(mode==='login'||mode==='register'))location.replace(mode==='login'?safeReturn(params.get('return')):'/account/');},[user,status,mode,params]);
  async function action(e:FormEvent<HTMLFormElement>){e.preventDefault();if(busy||locked)return;setBusy(true);const form=e.currentTarget,data=new FormData(form);
   const r=mode==='recover'?await api.call('account_recover',{body:{username:String(data.get('username'))}}):mode==='verify'?await api.call('account_verify',{body:{token}}):await api.call('account_reset',{body:{token,new_password:String(data.get('new_password'))}});
   form.reset();setBusy(false);

@@ -17,7 +17,7 @@ it('registers only the 28 I02 read interfaces and refuses a write before fetch',
  const fetch=vi.fn();expect(await createStaffClient(fetch).call('create_staff_users')).toMatchObject({ok:false,error:{code:'INVALID_REQUEST',outcome:'not-sent'}});expect(fetch).not.toHaveBeenCalled();
 });
 it('preserves max int64 read identifiers while using same-origin no-store GET',async()=>{
- const fetch=vi.fn().mockResolvedValue(new Response(stringifyExact({data:group,meta}),{headers}));
+ const fetch=vi.fn().mockResolvedValue(new Response(stringifyExact({data:{...group,expected_revision:'signed-revision'},meta}),{headers}));
  const r=await createStaffClient(fetch).call('staff_get_groups',{id:'9223372036854775807'});
  expect(r).toMatchObject({ok:true,value:{data:group}});
  expect(fetch).toHaveBeenCalledWith('/api/v1/staff/groups/9223372036854775807/',expect.objectContaining({method:'GET',credentials:'same-origin',cache:'no-store',redirect:'error'}));

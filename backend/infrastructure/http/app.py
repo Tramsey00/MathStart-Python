@@ -151,7 +151,14 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
                 pk = wire.identity(request.path_params['id'])
                 if action == 'detail':
                     wire.singleton_query(request.query_params, set())
-                    return wire.success(request, reads.detail(uow, resource, pk), delivery=True, schema=schema + 'Response')
+                    data=reads.detail(uow, resource, pk)
+                    response_schema=schema+'Response'
+                    if resource in ('users','groups'):
+                        from backend.staff.revisions import issue
+                        row=uow.repository(model).get(pk)
+                        data={**data,'expected_revision':issue(uow,resource,row,scope,signer,data)}
+                        response_schema='Staff'+('User' if resource=='users' else 'Group')+'DetailResponseT010'
+                    return wire.success(request,data,delivery=True,schema=response_schema)
                 data, pagination = reads.history(uow, resource, pk, request.query_params, signer, scope)
                 return wire.success(request, data, pagination=pagination, delivery=True, schema='StaffHistoryDTOListResponse')
         return handler

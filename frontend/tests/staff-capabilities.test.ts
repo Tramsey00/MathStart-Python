@@ -1,5 +1,5 @@
-import {afterEach,it,expect} from 'vitest';
-import {readStaffCapabilities} from '../src/shared/api/staff-capabilities';
+import {afterEach,it,expect,vi} from 'vitest';
+import {readStaffCapabilities,loadStaffCapabilities} from '../src/shared/api/staff-capabilities';
 const resources=['grades','subjects','sections','pages','publications','media_assets','redirects','users','groups'];
 afterEach(()=>document.querySelectorAll('#mathstart-staff-capabilities').forEach(node=>node.remove()));
 function add(value:unknown){const script=document.createElement('script');script.id='mathstart-staff-capabilities';script.type='application/json';script.textContent=JSON.stringify(value);document.head.append(script);}
@@ -15,4 +15,14 @@ it('reads the closed boolean-only private snapshot without rounding identifiers'
 it.each([null,{...hints(),user_id:1},{...hints(),version:2},{...hints(),resources:{}},{...hints(),own_password:'true'},{...hints(),resources:{...hints().resources,users:{view:true,add:true,change:true,delete:'false'}}}])('rejects malformed or expanded hints %j',value=>{
  add(value);expect(readStaffCapabilities().own_password).toBe(false);
  expect(Object.values(readStaffCapabilities().resources).every(row=>Object.values(row).every(flag=>flag===false))).toBe(true);
+});
+
+it('refreshes only closed boolean hints from a private inert document and fails closed on public/redirected HTML',async()=>{
+ const script='<script id="mathstart-staff-capabilities" type="application/json">'+JSON.stringify(hints())+'</script>';
+ const fetcher=vi.spyOn(globalThis,'fetch').mockResolvedValue(new Response('<html><head>'+script+'</head><body><script>throw new Error("must not execute")</script></body></html>',{headers:{'Content-Type':'text/html','Cache-Control':'private, no-store'}}));
+ expect(await loadStaffCapabilities(new AbortController().signal)).toEqual(hints());
+ expect(fetcher).toHaveBeenCalledWith('/admin/',expect.objectContaining({cache:'no-store',redirect:'error',credentials:'same-origin'}));
+ fetcher.mockResolvedValue(new Response(script,{headers:{'Content-Type':'text/html','Cache-Control':'public'}}));
+ expect(await loadStaffCapabilities(new AbortController().signal)).toBeNull();
+ fetcher.mockRestore();
 });

@@ -48,3 +48,10 @@ it('does not send a mutation after CSRF fails',async()=>{
  expect(await createStaffWriteClient(fetch).call('create_staff_groups',{body:{name:'x',permissions:[]}})).toMatchObject({ok:false,error:{outcome:'not-sent'}});
  expect(fetch).toHaveBeenCalledTimes(1);
 });
+
+it('requires expected revision before sending PUT and preserves server conflict without retry',async()=>{
+ const missing=vi.fn();expect(await createStaffWriteClient(missing).call('update_staff_groups',{id:'1',body:{name:'x',permissions:[]}})).toMatchObject({ok:false,error:{outcome:'not-sent'}});expect(missing).not.toHaveBeenCalled();
+ const fetch=vi.fn().mockResolvedValueOnce(csrf()).mockResolvedValueOnce(new Response(JSON.stringify({error:{code:'STATE_CONFLICT',message:'safe',field_errors:{},retryable:false,request_id:requestId}}),{status:409,headers}));
+ expect(await createStaffWriteClient(fetch).call('update_staff_groups',{id:'1',body:{name:'x',permissions:[],expected_revision:'signed-version'}})).toMatchObject({ok:false,error:{code:'STATE_CONFLICT',outcome:'rejected'}});
+ expect(fetch).toHaveBeenCalledTimes(2);expect(fetch.mock.calls[1][1].body).toContain('"expected_revision":"signed-version"');
+});

@@ -4,8 +4,15 @@ import {readFileSync,writeFileSync} from 'node:fs';
 const source=new URL('../../specs/migration/r02-v1/delivery-v1.schema.json',import.meta.url);
 const api=new URL('../../specs/migration/r02-v1/delivery-staff-v1.openapi.json',import.meta.url);
 const schema=JSON.parse(readFileSync(source,'utf8').replaceAll('9223372036854775807','"int64:9223372036854775807"'));
+const extension=JSON.parse(readFileSync(new URL('../../specs/api/staff-t010.json',import.meta.url),'utf8').replaceAll('9223372036854775807','"int64:9223372036854775807"'));
+Object.assign(schema.$defs,extension.$defs);
 const operations=[];
 for(const [path,item]of Object.entries(JSON.parse(readFileSync(api,'utf8').replaceAll('9223372036854775807','"int64:9223372036854775807"')).paths))for(const[method,op]of Object.entries(item))if(['get','post','put'].includes(method))operations.push({path,method:method.toUpperCase(),...op});
+for(const op of operations){
+ const override=extension.operations[op.operationId];if(!override)continue;
+ if(override.request)op.requestBody.content['application/json'].schema={$ref:'delivery-v1.schema.json#/$defs/'+override.request};
+ if(override.response)op.responses['200'].content['application/json'].schema={$ref:'delivery-v1.schema.json#/$defs/'+override.response};
+}
 const dto=JSON.parse(readFileSync(new URL('../../specs/api/schemas/dto-v1.schema.json',import.meta.url),'utf8'));
 const errors={};
 function collect(name){if(errors[name])return;errors[name]=dto.$defs[name];if(!errors[name])throw Error('Unknown error schema '+name);JSON.stringify(errors[name],(key,value)=>{if(key==='$ref')collect(value.split('/').at(-1));return value;});}

@@ -50,7 +50,7 @@ class StaffWriteTests(unittest.TestCase):
         group = self.post('groups/', {'name': 'synthetic group', 'permissions': []})
         self.assertEqual(group.status_code, 201, group.text)
         body = {k: v for k, v in user.items() if k not in {'id', 'has_usable_password'}}
-        body.update(groups=[group.json()['data']['id']], first_name='Synthetic', is_staff=True)
+        body.update(groups=[group.json()['data']['id']], first_name='Synthetic', is_staff=True, expected_revision=self.client.get(f"/api/v1/staff/users/{user['id']}/").json()['data']['expected_revision'])
         result = self.client.put(f"/api/v1/staff/users/{user['id']}/", json=body, headers=self.headers())
         self.assertEqual(result.status_code, 200, result.text)
         self.assertEqual(result.json()['data']['groups'], body['groups'])
@@ -117,6 +117,7 @@ class StaffWriteTests(unittest.TestCase):
                 replay_until=now + timedelta(days=7), ticket_version=0, transfer_binding_digest='f' * 64))
         body = {key: value for key, value in user.items() if key not in {'id', 'has_usable_password'}}
         for active in (False, True):
+            body['expected_revision']=self.client.get(f"/api/v1/staff/users/{user['id']}/").json()['data']['expected_revision']
             response = self.client.put(f"/api/v1/staff/users/{user['id']}/", json={**body, 'is_active': active}, headers=self.headers())
             self.assertEqual(response.status_code, 200, response.text)
         with self.engine.connect() as c:
@@ -193,9 +194,10 @@ class StaffWriteTests(unittest.TestCase):
                 entered.set()
                 if not proceed.wait(10):
                     raise RuntimeError('Concurrent authorization test coordination deadline')
+        revision=self.client.get(f'/api/v1/staff/groups/{group_id}/').json()['data']['expected_revision']
         def revoke():
             revocation_started.set()
-            result = service.mutate(operator, 'groups', 'update', {'name': 'Synthetic delegated authorization', 'permissions': []}, group_id)
+            result = service.mutate(operator, 'groups', 'update', {'name': 'Synthetic delegated authorization', 'permissions': [], 'expected_revision':revision}, group_id)
             revoked.set()
             return result
         body = {'username': 'syntheticInFlightAllowed', 'usable_password': False}
@@ -261,6 +263,110 @@ class StaffWriteTests(unittest.TestCase):
         self.assertEqual(result.status_code, 409, result.text)
         with UnitOfWork(self.engine) as uow:
             self.assertEqual(len(list(uow.session.scalars(sa.select(User.id).where(User.id.in_(ids))))), 2)
+
+    def test_admin_read_privacy_denies_anonymous_nonstaff_and_limits_staff_scope(self):
+        from starlette.testclient import TestClient
+        paths=['grades/','users/','users/1/','users/1/history/','permission_choices/','users/1/group_choices/','pages/1/publication_state/']
+        with TestClient(self.app,base_url=identity_fixture.ORIGIN) as anonymous:
+            for path in paths:
+                r=anonymous.get('/api/v1/staff/'+path)
+                self.assertEqual(r.status_code,401,path)
+                self.assertEqual(r.headers['cache-control'],'private, no-store')
+                self.assertEqual(set(r.json()),{'error'})
+        with UnitOfWork(self.engine) as uow:
+            actor=uow.session.get(User,self.actor);actor.is_superuser=False;actor.is_staff=False;uow.commit()
+        for path in paths:
+            r=self.client.get('/api/v1/staff/'+path)
+            self.assertEqual(r.status_code,403,path)
+            self.assertEqual(r.headers['cache-control'],'private, no-store')
+            self.assertEqual(set(r.json()),{'error'})
+        with UnitOfWork(self.engine) as uow:
+            uow.session.get(User,self.actor).is_staff=True
+            pk=uow.session.scalar(sa.select(Permission.id).join(ContentType).where(ContentType.app_label=='content',Permission.codename=='view_grade'))
+            uow.session.execute(sa.insert(metadata.tables['auth_user_user_permissions']).values(user_id=self.actor,permission_id=pk));uow.commit()
+        self.assertEqual(self.client.get('/api/v1/staff/grades/').status_code,200)
+        for path in paths[1:]:self.assertEqual(self.client.get('/api/v1/staff/'+path).status_code,403,path)
+        self.assertEqual(self.post('groups/',{'name':'denied','permissions':[]}).status_code,403)
+
+    def test_revision_rejects_stale_missing_forged_and_wrong_resource_without_partial_writes(self):
+        user=self.create_user()
+        group=self.post('groups/',{'name':'Revision group','permissions':[]}).json()['data']
+        user_url=f"/api/v1/staff/users/{user['id']}/"
+        group_url=f"/api/v1/staff/groups/{group['id']}/"
+        for url,change in [(user_url,{'first_name':'Latest'}),(group_url,{'name':'Latest group'})]:
+            with self.subTest(url=url):
+                detail=self.client.get(url).json()['data']
+                body={k:v for k,v in detail.items() if k not in {'id','has_usable_password'}}
+                missing={k:v for k,v in body.items() if k!='expected_revision'}
+                self.assertEqual(self.client.put(url,json=missing,headers=self.headers()).status_code,400)
+                self.assertEqual(self.client.put(url,json={**body,'expected_revision':'forged'},headers=self.headers()).status_code,409)
+                success=self.client.put(url,json={**body,**change},headers=self.headers())
+                self.assertEqual(success.status_code,200,success.text)
+                with UnitOfWork(self.engine) as uow:before=uow.session.scalar(sa.select(sa.func.count()).select_from(AdminLog))
+                stale=self.client.put(url,json=body,headers=self.headers())
+                self.assertEqual(stale.status_code,409,stale.text)
+                with UnitOfWork(self.engine) as uow:self.assertEqual(uow.session.scalar(sa.select(sa.func.count()).select_from(AdminLog)),before)
+                current=self.client.get(url).json()['data']
+                for k,v in change.items():self.assertEqual(current[k],v)
+        current=self.client.get(group_url).json()['data']
+        bad={k:v for k,v in current.items() if k!='id'}
+        bad['expected_revision']=self.client.get(user_url).json()['data']['expected_revision']
+        self.assertEqual(self.client.put(group_url,json=bad,headers=self.headers()).status_code,409)
+
+    def test_expired_staff_session_cannot_read_or_write_private_data(self):
+        from backend.models.protocol import TargetSession
+        headers=self.headers()
+        with self.engine.begin() as connection:
+            connection.execute(sa.update(TargetSession).values(expires_at=sa.func.clock_timestamp()-sa.text("interval '1 second'")))
+        for path in ['users/','users/1/','users/1/history/','permission_choices/']:
+            r=self.client.get('/api/v1/staff/'+path)
+            self.assertEqual(r.status_code,401,path)
+            self.assertEqual(r.headers['cache-control'],'private, no-store')
+            self.assertEqual(set(r.json()),{'error'})
+        r=self.client.post('/api/v1/staff/groups/',json={'name':'expired session','permissions':[]},headers=headers)
+        self.assertEqual(r.status_code,401,r.text)
+        with UnitOfWork(self.engine) as uow:
+            self.assertIsNone(uow.session.scalar(sa.select(Group).where(Group.name=='expired session')))
+
+    def test_revision_serializes_two_updates_from_the_same_snapshot(self):
+        from starlette.testclient import TestClient
+        user=self.create_user()
+        group=self.post('groups/',{'name':'Concurrent group','permissions':[]}).json()['data']
+        for resource,pk,key in [('users',user['id'],'first_name'),('groups',group['id'],'name')]:
+            with self.subTest(resource=resource):
+                url=f'/api/v1/staff/{resource}/{pk}/'
+                detail=self.client.get(url).json()['data']
+                body={k:v for k,v in detail.items() if k not in {'id','has_usable_password'}}
+                headers=self.headers()
+                def save(label):
+                    with TestClient(self.app,base_url=identity_fixture.ORIGIN) as client:
+                        client.cookies.update(self.client.cookies)
+                        return client.put(url,json={**body,key:label},headers=headers)
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    results=list(executor.map(save,['Snapshot A','Snapshot B']))
+                self.assertEqual(sorted(r.status_code for r in results),[200,409])
+                winner=next(r.json()['data'][key] for r in results if r.status_code==200)
+                self.assertEqual(self.client.get(url).json()['data'][key],winner)
+
+    def test_revision_tracks_relations_password_and_authorization_scope(self):
+        user=self.create_user()
+        url=f"/api/v1/staff/users/{user['id']}/"
+        detail=self.client.get(url).json()['data']
+        body={k:v for k,v in detail.items() if k not in {'id','has_usable_password'}}
+        self.assertEqual(self.post(f"users/{user['id']}/password/",{'usable_password':False,'confirm_disable':True}).status_code,200)
+        self.assertEqual(self.client.put(url,json=body,headers=self.headers()).status_code,409)
+        group=self.post('groups/',{'name':'Relation group','permissions':[]}).json()['data']
+        group_url=f"/api/v1/staff/groups/{group['id']}/"
+        detail=self.client.get(group_url).json()['data']
+        body={k:v for k,v in detail.items() if k!='id'}
+        with UnitOfWork(self.engine) as uow:
+            pk=uow.session.scalar(sa.select(Permission.id).limit(1))
+            uow.session.execute(sa.insert(metadata.tables['auth_group_permissions']).values(group_id=group['id'],permission_id=pk));uow.commit()
+        self.assertEqual(self.client.put(group_url,json=body,headers=self.headers()).status_code,409)
+        detail=self.client.get(group_url).json()['data'];body={k:v for k,v in detail.items() if k!='id'}
+        with UnitOfWork(self.engine) as uow:
+            uow.session.execute(sa.insert(metadata.tables['auth_user_user_permissions']).values(user_id=self.actor,permission_id=pk));uow.commit()
+        self.assertEqual(self.client.put(group_url,json=body,headers=self.headers()).status_code,409)
 
 
 if __name__ == '__main__':

@@ -81,45 +81,92 @@ active staff без change_user; done показывает успех тольк
 ответа, переданного React Router state. Permission choices и user group choices
 не дают отдельного CRUD Permission или права просмотра Group.
 
-**Безопасность и статическое саморевью.** Прочитаны реальные imports, route/build inputs,
-clients, DTO, backend staff authorization/presentation/writes и private shell adapter.
-Сервер, схема, API clients и generated contracts не менялись. Active/staff/superuser,
-model permissions, CSRF, exact int64 IDs, no-store/redirect/schema checks, Content
-source-managed запреты и actor/revision/expiry-bound delete token/PROTECT сохранены.
-Ответ 401/403 закрывает и размонтирует private view. При уходе фокуса/скрытии вкладки
-private state размонтируется, запросы abort; возврат сверяет сессию, смена actor
-перезагружает документ с новыми capabilities. Generation/request guards сохраняются.
-Такая очистка намеренно сбрасывает несохранённый ввод при уходе со страницы.
-Пароли очищаются перед отправкой, обычный ввод остаётся при исправимой ошибке.
-Synchronous pending ref блокирует повторную мутацию; unknown outcome блокирует запись,
-не повторяет её и не подменяет ошибку успешной загрузкой. Выборы permissions/groups
-должны загрузиться до отправки формы. Confirmation token не отображается.
+**Диагноз и исправление runtime.** Штатный Windows host-dev обслуживал этот
+checkout с PR #79, но dev proxy отправлял /admin/* в backend immutable private
+shell, обходя текущий React/HMR. Получены HTML старого entry без Vite и скриншот
+старого Brand с галочкой. Причина установлена по процессам, route/imports и HTTP,
+кеши не удалялись. Dev documents теперь проходят текущие React routes. Только
+явный same-origin fetch с X-MathStart-Staff-Presentation читает существующий private
+HTML adapter для свежих закрытых boolean hints; DOMParser инертен, HTML не вставляется.
+Production private adapter, no-store и запреты public/SSG остаются.
 
-**Конкретное существующее ограничение, требующее отдельного решения.**
-StaffUserUpdateRequest / StaffGroupWriteRequest не содержат expected revision;
-StaffWrites.mutate блокирует строки, но не сравнивает версию со снимком открытой формы.
-Поэтому обычный PUT может перезаписать более новое редактирование. Revision bound
-delete preview защищён, но полной защиты устаревшей формы User/Group здесь нет.
-Не расширяли DTO/backend под видом оформления. Для исправления требуется согласовать
-optimistic-concurrency контракт, серверное сравнение и профильные проверки отдельно.
-До решения нельзя заявлять выполнение этого критерия приёмки целиком.
+**Граница доступа.** До подтверждения сессии и capabilities private children не
+монтируются. Anonymous переходит на штатный /auth с safe return; nonstaff видит
+«Нет доступа», ЛК и главную, без sidebar/filters/forms. Прямые API независимо
+проверяют права. При visibility/pagehide private frame скрыт/inert; focus,
+visibility return, persisted pageshow и 401/403 сверяют сессию до/после новых hints.
+Подтверждённый тот же actor и права сохраняют ordinary input. Изменение actor,
+доступа или denial размонтирует private subtree. Пароли очищаются перед отправкой;
+обычные исправимые ошибки и 409 сохраняют черновик. Synchronous pending lock,
+abort/generation guards и блокировка unknown outcome без автоматического повтора
+сохранены. Password done без подтверждённого router state не заявляет успех.
+В существующем AuthPage исправлена гонка: после обновления сессии login использует
+тот же safeReturn, что AuthForm, вместо безусловного перехода в ЛК. Register сохраняет
+переход в ЛК; внешний return отклоняется. Дизайн и остальные auth-потоки не менялись.
 
-**Проверки:** NOT_RUN_BY_USER_REQUEST — tests, typecheck, build, Playwright,
-browser QA, smoke, gates и detector не запускались; QA scripts не создавались.
-Саморевью чтением diff не является PASS или независимым review. Не проверены runtime
-permission denial, stale revision, validation, sensitive input, session expiry,
-unknown-write/repeat submit, desktop/mobile, keyboard и обе темы.
+**Согласованная защита обычного PUT.** Руслан отдельно разрешил expected_revision
+и 409 в этом чате. Ранее обнаруженный last-write-wins User/Group исправлен через
+[addendum](../../../specs/api/staff-t010.md) и машиночитаемое расширение. GET detail
+возвращает подписанную ревизию показанного снимка, связанную с actor/scope/resource/id;
+PUT проверяет её под существующими authorization/row locks до изменений и audit.
+Один из двух конкурентных PUT изменённого снимка получает 409. Create/password,
+delete preview protocol и исходные frozen R02/R02A/delivery bytes не изменены.
+Миграций и DDL нет. Frontend и backend расширение следует выпускать вместе;
+старые формы без revision получают 400. Семантика ревизии по содержимому, no-op
+не обещает новую монотонную версию. Независимое security/architecture review PENDING.
 
-**Локальный запуск.** На 8131/8132 слушателей не было. Штатный
-`npm.cmd --prefix frontend run dev:host` остановился на inspect-db: Docker Desktop
-Linux Engine недоступен. БД/config не менялись, чужие процессы не останавливались.
-После запуска Docker Desktop повторить штатную команду. Параллельных серверов нет.
+**Проверки по отдельному разрешению Руслана:**
 
-**Ручной маршрут:** http://127.0.0.1:8131/admin/ → разрешённый ресурс → поиск/filters/sort
-→ следующая страница → запись /<id>/change/ → /<id>/history/; у User/Group также
-add/, password/ (User), delete/ с preview без финального удаления. Реальные id брать
-из списка. Проверить /admin/password_change/, светлую/тёмную тему, узкий экран и Tab.
-Изменения данных и разрушительные demo не выполнялись.
+- `node frontend/node_modules/vitest/vitest.mjs run tests/staff-access.test.tsx tests/staff-capabilities.test.ts tests/staff-form.test.tsx tests/staff-read.test.ts tests/staff-write.test.ts tests/staff-return.test.tsx --root frontend`:
+  6 файлов, 51/51 PASS. Включены gate до mount, view-only direct URL, сохранение
+  ordinary draft при focus, смена actor/отзыв доступа, инертные hints, exact int64,
+  required revision, 409 без повтора и потери черновика, unknown outcome, auth return
+  после обновления сессии и отказ внешнему адресу возврата.
+- `.venv/Scripts/python.exe var/tmp/ms-t010/run_staff_scope.py`: 16/16
+  StaffWriteTests PASS в одноразовом PostgreSQL 16 на отдельном loopback55461,
+  fresh setup и finally cleanup контейнера. Проверены anonymous401/nonstaff403,
+  ограниченные permissions, expiry401, CSRF, combined gates, relations, password
+  revocation, stale/forged/missing/wrong-resource revision, concurrent PUT,
+  отсутствие частичных writes/audit, delete preview stale/PROTECT.
+  Временный runner удалён после проверки; tracked tests остаются в backend/tests/v03.
+- Самопроверка diff/imports/consumers и `git diff --check` выполнены.
+- Full suites, typecheck, release build, lesson QA/smoke, массовые captures,
+  live mail, dependency scanning: NOT_RUN_BY_USER_REQUEST.
 
-Независимое review: PENDING. Ручной просмотр: PENDING. Human acceptance: PENDING.
-Merge/deploy/закрытие Issue/переход к T011 не выполнялись.
+**Ручной браузерный просмотр.** Принятые главная, Материалы и ЛК осмотрены в обеих
+темах до изменения staff. Затем открыты реальные /admin/, Content list/detail,
+User list/add, Group list/add, read-only Content и запрет delete для ограниченного
+staff; desktop и узкий390px, обе темы. Таблица имеет caption/scope и клавиатурную
+прокрутку, узкие details складываются вертикально. Проверены обычный nonstaff без
+staff оболочки, anonymous redirect и logout → Back к staff → auth с safe return;
+успешный повторный login возвращает на исходную staff страницу. Формы просматривались
+без изменения существующих пользователей, прав, паролей или удаления записей.
+Реальные expiry/revocation и конкурентные mutations проверены на изолированных
+данных тестами; в браузере не имитировались изменением действующих аккаунтов.
+
+**Использованные skills и источники.** Явно применены task skill, frontend-design,
+Impeccable Operate (без переустройства PRODUCT.md), ui-ux-pro-max, verification и
+computer-use. Визуально осмотрены [Khan Academy Integrated math 1](https://www.khanacademy.org/math/math1)
+(разделение навигации и основного содержания) и live-пример
+[Carbon v10 Data table](https://v10.carbondesignsystem.com/components/data-table/usage/)
+(компактный toolbar, шапка/строки и локальная прокрутка). Палитра и шрифты взяты
+из принятого MathStart. [WAI Tables](https://www.w3.org/WAI/tutorials/tables/)
+использован для caption/headers, [MDN pageshow](https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event)
+для persisted return, [OWASP Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+для независимого server-side gate. Статьи не выдаются за визуальный осмотр.
+
+**Локальный результат.** Штатный host-dev работает на общем origin
+http://127.0.0.1:8131/admin/ (API8132), с HMR; prototype/release build не запускались.
+По отдельному подтверждённому разрешению создан новый local staff: 9 view и
+add/change User/Group, без delete и superuser. Existing users не менялись.
+Credentials только в ignored var/tmp/ms-t010/local-staff-access.json, вне Git/PR.
+Основная local target DB использовалась только для этого разрешённого аккаунта
+и чтения; tests используют disposable DB, protected acceptance DB не затронута.
+
+Первый опубликованный кандидат fda5ace236a86d8f23c0cba4b9f39d21da24a1d1 не принят
+Русланом визуально; текущая доработка его заменяет. Локальная пауза сохранена
+checkpoint 1e13dfc6e3eee2243dd3ebaa4f93a30fcd02e5c0, затем отменена Русланом.
+Итоговые проверенные SHA/tree и способ публикации фиксируются в существующем PR #79.
+Независимое review: PENDING. Ручной просмотр исполнителем: выполнен в указанном
+объёме. Human acceptance: PENDING. Merge/deploy/закрытие Issue/переход к T011
+не выполнялись.

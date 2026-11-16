@@ -27,6 +27,7 @@ async def mutate(request, service, signer, resource, action):
     if request.method != ('POST' if creating else 'PUT') or action not in {'list', 'detail'}:
         raise wire.invalid()
     schema = ('StaffUserCreateRequest' if creating else 'StaffUserUpdateRequest') if resource == 'users' else 'StaffGroupWriteRequest'
+    if not creating:schema='Staff'+('User' if resource=='users' else 'Group')+'UpdateT010'
     body = await wire.parse_request(request, schema, delivery=True)
     pk = None if creating else wire.identity(request.path_params['id'])
     data = await run_in_threadpool(StaffWrites(service, signer).mutate, identity, resource, 'create' if creating else 'update', body, pk)

@@ -85,11 +85,14 @@ class StaffWrites:
     def mutate(self, identity, resource, action, body, record_id=None):
         with UnitOfWork(self.engine) as uow:
             s = uow.session
-            self._scope(uow, identity, resource, 'add' if action == 'create' else 'change', [record_id] if record_id else [])
+            scope = self._scope(uow, identity, resource, 'add' if action == 'create' else 'change', [record_id] if record_id else [])
             model = User if resource == 'users' else Group
             row = s.scalar(sa.select(model).where(model.id == record_id).with_for_update()) if record_id else model()
             if row is None:
                 raise wire.missing()
+            if action != 'create':
+                from backend.staff.revisions import require_current
+                require_current(uow,resource,row,scope,self.signer,body.get('expected_revision'))
             if resource == 'users':
                 if not passwords.valid_username(body['username']):
                     raise wire.invalid()

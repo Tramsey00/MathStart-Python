@@ -17,6 +17,8 @@ def document(path):
 def validator(name, delivery=False):
     path = "specs/migration/r02-v1/delivery-v1.schema.json" if delivery else "specs/api/schemas/dto-v1.schema.json"
     bundle = document(path)
+    if delivery:
+        bundle = {**bundle, "$defs": {**bundle["$defs"], **document("specs/api/staff-t010.json")["$defs"]}}
     return Draft202012Validator({"$defs": bundle["$defs"], "$ref": "#/$defs/" + name}, format_checker=FormatChecker())
 
 

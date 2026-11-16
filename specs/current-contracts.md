@@ -41,3 +41,9 @@ pending migration snapshots и Harness dependencies не создают нову
 [Identity addendum](api/identity-t009.md) расширяет действующую Identity: вход,
 ЛК, recovery, лимиты и v01_0003. Frozen R02 bytes остаются неизменными;
 новые решения ожидают отдельного ревью и приёмки по карточке MS-T009.
+
+## Staff MS-T010, 16.11.2026
+
+[Staff concurrency addendum](api/staff-t010.md) и [closed DTO extension](api/staff-t010.json)
+расширяют detail/PUT User и Group по прямому разрешению Руслана. Frozen baseline
+сохранён. Independent review/human acceptance PENDING.

@@ -14,7 +14,7 @@ const labels:Record<string,string>={ids:'Идентификаторы запис
 export function staffLabel(field:string){return labels[field]??field;}
 type RecordData=Record<string,unknown>;
 function Value({value,field,unbroken=false}:{value:unknown;field?:string;unbroken?:boolean}){
- if(value===null||value===undefined||value==='')return <>—</>;
+ if(value===null||value===undefined||value==='')return <>Не указано</>;
  if(typeof value==='boolean')return <>{value?'Да':'Нет'}</>;
  if(Array.isArray(value))return value.length?<ul>{value.map((item,index)=><li key={index}><Value value={item}/></li>)}</ul>:<>Нет</>;
  if(typeof value==='object')return <StaffDetails record={value as RecordData}/>;
@@ -29,7 +29,7 @@ function Value({value,field,unbroken=false}:{value:unknown;field?:string;unbroke
  return <>{text}</>;
 }
 export function StaffDetails({record}:{record:RecordData}){
- return <dl className="staff-details">{Object.entries(record).map(([field,value])=><div key={field}><dt>{staffLabel(field)}</dt><dd><Value field={field} value={value}/></dd></div>)}</dl>;
+ return <dl className="staff-details">{Object.entries(record).filter(([field])=>field!=='expected_revision').map(([field,value])=><div key={field}><dt>{staffLabel(field)}</dt><dd><Value field={field} value={value}/></dd></div>)}</dl>;
 }
 function Table({caption,children}:{caption:string;children:ReactNode}){
  return <div className="staff-table-region" role="region" aria-label={caption} tabIndex={0}><table className="staff-table"><caption>{caption}</caption>{children}</table></div>;
