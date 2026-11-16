@@ -1,40 +1,55 @@
-import { useEffect, useState, type FormEvent } from 'react';
-import { LandingHeader, SiteFooter, site, useSiteTheme } from './site-shell';
+import { useEffect, useRef, useState } from 'react';
+import { useCatalogue } from './catalogue-context';
+import { OrbitShell } from './orbit-shell';
 
-function EmailLogin() {
-  const [enhanced, setEnhanced] = useState(false);
-  useEffect(() => setEnhanced(true), []);
-  const [showPassword, setShowPassword] = useState(false);
-  const [emailError, setEmailError] = useState('');
-  const [message, setMessage] = useState('');
-  function preview(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    event.currentTarget.reset();
-    setShowPassword(false);
-    setMessage('Форма проверена. Вход по почте пока не подключён.');
-  }
-  return <section className="email-login" id="email-login" aria-labelledby="email-login-title" tabIndex={-1}>
-    <h2 id="email-login-title">Войти в MathStart</h2>
-    <p className="login-description">Вход по электронной почте</p>
-    <form onSubmit={preview} aria-describedby="login-preview-note">
-      <div className="login-field"><label htmlFor="login-email">Электронная почта</label><input disabled={!enhanced} id="login-email" name="email" type="email" autoComplete="email" placeholder="name@example.com" required aria-invalid={emailError ? 'true' : undefined} aria-describedby={emailError ? 'email-error' : undefined} onBlur={event => setEmailError(event.currentTarget.value && !event.currentTarget.validity.valid ? 'Проверь адрес: например, name@example.com' : '')} onInput={() => { setEmailError(''); setMessage(''); }}/>{emailError && <p id="email-error" className="field-error">{emailError}</p>}</div>
-      <div className="login-field"><label htmlFor="login-password">Пароль</label><div className="password-input"><input disabled={!enhanced} id="login-password" name="password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" required/><button className="password-toggle" type="button" onClick={() => setShowPassword(value => !value)} aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'} aria-pressed={showPassword}><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>{showPassword && <path d="m3 3 18 18"/>}</svg></button></div></div>
-      <button className="email-submit" type="submit" disabled={!enhanced}>Войти</button>
-      <p id="login-preview-note" className="login-preview-note">Предпросмотр формы. Подключение почты — следующим шагом.</p>
-      <p className="login-feedback" role="status">{message}</p>
-    </form>
-    <a className="existing-login" href={`${site}/account/`}>Войти по логину</a>
-  </section>;
+// One shared curve for both the visible ink and the travelling dot.
+const spiralTurns = 11, samplesPerTurn = 144;
+const spiralPoints = Array.from({ length: spiralTurns * samplesPerTurn + 1 }, (_, i) => {
+    const t = i / (spiralTurns * samplesPerTurn), angle = t * spiralTurns * Math.PI * 2;
+    return [(630 - 280 * t) * Math.cos(angle), (278 - 193 * t) * Math.sin(angle)];
+});
+const spiralPath = spiralPoints.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(3)} ${y.toFixed(3)}`).join(' ');
+function OrbitArtwork({ paused, onToggle }: { paused: boolean; onToggle: () => void }) {
+    return <button type="button" className="orbit-artwork orbit-artwork-control" onClick={onToggle}
+        aria-label={paused ? 'Продолжить движение спирали' : 'Остановить движение спирали'} aria-pressed={paused}>
+        <svg className="orbit-artwork-svg" viewBox="-100 -100 1500 850" fill="none" aria-hidden="true" focusable="false">
+        <ellipse className="orbit-hit-area" cx="0" cy="0" rx="680" ry="330" transform="translate(715 335) rotate(-26)" fill="transparent" />
+        <g className="orbit-field"><g transform="translate(715 335) rotate(-26)">
+            <path d={spiralPath} className="orbit-line" />
+            {[0, 4, 8].map(turn => <path key={turn} className="orbit-line orbit-line-major" d={spiralPoints.slice(turn * samplesPerTurn, (turn + 1) * samplesPerTurn + 1).map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(3)} ${y.toFixed(3)}`).join(' ')} />)}
+            <g className="orbit-traveller" style={{ offsetPath: `path("${spiralPath}")`, offsetRotate: '0deg' }}>
+                <circle r="6" fill="var(--orb-warm)" stroke="var(--background)" strokeWidth="2" />
+            </g>
+        </g></g>
+    </svg></button>;
 }
 
 export function HomePage() {
-  const [dark, setDark] = useSiteTheme();
-  return <><a className="skip-link" href="#home-main">К содержимому</a><LandingHeader dark={dark} onTheme={() => setDark(value => !value)}/>
-    <main className="landing-main" id="home-main" tabIndex={-1}>
-      <section className="homepage-intro" aria-labelledby="home-title">
-        <div className="home-intro-copy"><h1 id="home-title">Математика<br/>для 5–10 классов</h1><p>Дроби, уравнения, функции и геометрия. Объяснения правил и разборы задач из школьной программы.</p><div className="materials-entry"><a className="materials-entry-link" href="/materials">Открыть материалы</a><span className="open-access-note">Без регистрации</span></div></div>
-        <EmailLogin/>
-      </section>
-    </main><SiteFooter/>
-  </>;
+    const catalogue = useCatalogue(), hero = useRef<HTMLElement>(null);
+    const [paused, setPaused] = useState(false), [offscreen, setOffscreen] = useState(false);
+    useEffect(() => {
+        // Remember only an explicit pause. A normal first visit starts animated.
+        try { setPaused(localStorage.getItem('mathstart-orbit-paused') === 'true'); } catch {/* Optional storage. */ }
+        const element = hero.current; if (!element) return;
+        let visible = true;
+        const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; setOffscreen(!visible || document.hidden); }); observer.observe(element);
+        const visibility = () => setOffscreen(!visible || document.hidden); document.addEventListener('visibilitychange', visibility);
+        return () => { observer.disconnect(); document.removeEventListener('visibilitychange', visibility); };
+    }, []);
+    function toggleMotion() { const next = !paused; setPaused(next); try { localStorage.setItem('mathstart-orbit-paused', String(next)); } catch {/* Optional storage. */ } }
+    return <OrbitShell mainId="home-main" grades={catalogue.grades.map(g => ({ title: g.title, href: '/materials?grade=' + encodeURIComponent(g.slug) }))}>
+        <main id="home-main" className="orbit-home" tabIndex={-1}>
+            <div className="orbit-light" aria-hidden="true" />
+            <section ref={hero} className="orbit-hero" aria-labelledby="home-title" data-paused={paused || offscreen}>
+                <div className="orbit-copy"><h1 id="home-title">Разобраться в математике.<br />Тема за темой</h1>
+                    <p>Объяснения, примеры и самопроверка.<br />В своём темпе, с любой темы.</p>
+                    <a className="orbit-action orbit-materials-action" href="/materials">Открыть материалы</a>
+                </div>
+
+                <OrbitArtwork paused={paused} onToggle={toggleMotion} />
+                <section className="orbit-story" aria-labelledby="home-story-title"><h2 id="home-story-title">Есть тема –<br />будет понимание.</h2><div><p>Вспомнить правило перед уроком. Разобрать пример после школы. Вернуться к тому, что пока не получилось.</p><p>Выберите нужную тему и спокойно разберитесь в ней. Материалы доступны без регистрации.</p></div></section>
+
+            </section>
+        </main>
+    </OrbitShell>;
 }

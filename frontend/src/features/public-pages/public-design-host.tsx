@@ -7,11 +7,11 @@ export function PublicDesignHost({ kind, catalogue, fallback }: { kind: 'home' |
   const [enhanced, setEnhanced] = useState(false);
   useEffect(() => setEnhanced(true), []);
   return <PublicCatalogueProvider catalogue={catalogue}><div data-public-design={kind}>
-    {kind === 'home' ? <HomePage/> : <>
-      <MaterialsPage/>
+    {kind === 'home' ? <HomePage /> : <>
+      <MaterialsPage />
       <div className="catalogue-readable-fallback" hidden={enhanced}>
-        <section data-mathstart-catalogue="" className="ms-catalogue" dangerouslySetInnerHTML={{ __html: fallback ?? '' }}/>
-        <template data-mathstart-catalogue-end=""/>
+        <section data-mathstart-catalogue="" className="ms-catalogue" dangerouslySetInnerHTML={{ __html: fallback ?? '' }} />
+        <template data-mathstart-catalogue-end="" />
       </div>
     </>}
   </div></PublicCatalogueProvider>;

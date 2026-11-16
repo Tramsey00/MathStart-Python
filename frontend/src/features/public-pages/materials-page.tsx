@@ -1,31 +1,29 @@
-import { StrictMode, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useCatalogue, type CatalogueTopic as Topic, type CatalogueSection as Section } from './catalogue-context';
-import { LandingHeader, SiteFooter, site, useSiteTheme } from './site-shell';
+import { SiteFooter, useSiteTheme } from './site-shell';
+import { OrbitHeader } from './orbit-shell';
 
 const subjectNotes: Record<string, string> = {
-  matematika: 'Как сравнить дроби, найти неизвестное и записать условие задачи? Разбираем числа и действия с ними, учимся считать и объяснять своё решение. На примерах с дробями, процентами и величинами прослеживаем каждый шаг: от условия и выбора действия до вычислений и проверки ответа',
-  algebra: 'За формулами стоят знакомые действия с числами. Разбираем выражения, решаем уравнения и смотрим, как одна зависимость записывается словами, формулой и графиком. Выясняем, что обозначают буквы и какие преобразования допустимы. В примерах со степенями, уравнениями и системами прослеживаем решение от записи условия до проверки ответа',
-  geometriya: 'Что можно узнать по рисунку, а что нужно доказать? Разбираем свойства фигур, связываем условия задачи и шаг за шагом находим решение. Работаем с углами, длинами и площадями, учимся выбирать нужную теорему и объяснять, почему её можно применить. Чертёж помогает увидеть связи, а доказательство — обосновать вывод',
-  'veroyatnost-i-statistika': 'Как прочитать диаграмму и сравнить данные? Разбираем случайные события, считаем вероятности и проверяем, какие выводы действительно следуют из чисел. Переходим от таблиц и отдельных наблюдений к общим характеристикам, различаем возможные исходы и учимся объяснять результат вычислений',
+  matematika: 'Разбираем действия с числами, дроби и проценты. Примеры помогают пройти от условия задачи до вычислений и проверки ответа.',
+  algebra: 'Разбираем выражения, уравнения и зависимости. Связываем формулы с графиками и объясняем каждый шаг решения.',
+  geometriya: 'Изучаем свойства фигур, углы, длины и площади. Чертёж помогает увидеть связи, а доказательство обосновывает вывод.',
+  'veroyatnost-i-statistika': 'Учимся читать диаграммы, сравнивать данные и считать вероятности. Разбираем, какие выводы следуют из наблюдений и вычислений.',
 };
-const symbol: Record<string, ReactNode> = { matematika: '±', algebra: 'ƒ', geometriya: <Icon name="geometry"/>, 'veroyatnost-i-statistika': <Icon name="statistics"/> };
-function Icon({ name, size = 20 }: { name: 'search' | 'chevron' | 'book' | 'sun' | 'moon' | 'menu' | 'close' | 'math' | 'statistics' | 'geometry'; size?: number }) {
+const symbol: Record<string, ReactNode> = { matematika: '±', algebra: 'ƒ', geometriya: <Icon name="geometry" />, 'veroyatnost-i-statistika': <Icon name="statistics" /> };
+function Icon({ name, size = 20 }: { name: 'search' | 'chevron' | 'menu' | 'close' | 'math' | 'statistics' | 'geometry'; size?: number }) {
   const paths: Record<typeof name, ReactNode> = {
-    search: <><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></>,
-    chevron: <path d="m9 5 7 7-7 7"/>,
-    book: <><path d="M12 5v15M3 4h5a5 5 0 0 1 4 2 5 5 0 0 1 4-2h5v15h-5a5 5 0 0 0-4 2 5 5 0 0 0-4-2H3Z"/></>,
-    sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></>,
-    moon: <path d="M20 14a8 8 0 0 1-10-10 8.5 8.5 0 1 0 10 10Z"/>,
-    menu: <path d="M4 6h16M4 12h16M4 18h16"/>,
-    close: <path d="m6 6 12 12M6 18 18 6"/>,
-    math: <path d="M6 8h12M12 3v10M6 19h12"/>,
-    statistics: <><path d="M3 20h18"/><rect x="5" y="12" width="3" height="8" rx=".5"/><rect x="10.5" y="5" width="3" height="15" rx=".5"/><rect x="16" y="9" width="3" height="11" rx=".5"/></>,
-    geometry: <path d="M4 4v16h16ZM4 15h5v5"/>,
+    search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></>,
+    chevron: <path d="m9 5 7 7-7 7" />,
+    menu: <path d="M4 6h16M4 12h16M4 18h16" />,
+    close: <path d="m6 6 12 12M6 18 18 6" />,
+    math: <path d="M6 8h12M12 3v10M6 19h12" />,
+    statistics: <><path d="M3 20h18" /><rect x="5" y="12" width="3" height="8" rx=".5" /><rect x="10.5" y="5" width="3" height="15" rx=".5" /><rect x="16" y="9" width="3" height="11" rx=".5" /></>,
+    geometry: <path d="M4 4v16h16ZM4 15h5v5" />,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
 function SubjectMark({ subject }: { subject: string }) {
-  return <span className="subject-symbol" aria-hidden="true">{subject === 'matematika' ? <Icon name="math"/> : symbol[subject] ?? '∑'}</span>;
+  return <span className="subject-symbol" aria-hidden="true">{subject === 'matematika' ? <Icon name="math" /> : symbol[subject] ?? '∑'}</span>;
 }
 function GradePicker({ grade, onChange }: { grade: string; onChange: (value: string) => void }) {
   const catalogue = useCatalogue();
@@ -76,11 +74,11 @@ function MathIllustration() {
     </g>
   </svg>;
 }
-function SearchEmpty({ scope, onReset }: { scope: 'topics' | 'sections'; onReset: () => void }) {
+function SearchEmpty({ onReset }: { onReset: () => void }) {
   return <div className="empty-state" role="status">
-    <span className="empty-mark"><Icon name="search" size={26}/></span>
-    <div className="empty-copy"><h3>{scope === 'sections' ? 'Таких разделов нет' : 'Пока ничего не нашлось'}</h3><p>{scope === 'sections' ? 'Попробуй часть названия. Поиск здесь работает только по разделам выбранного предмета' : 'Попробуй другое слово или более короткий запрос — например, «дроби»'}</p></div>
-    <button className="reset-button" onClick={onReset}>{scope === 'sections' ? 'Показать все разделы' : 'Сбросить поиск'}</button>
+    <span className="empty-mark"><Icon name="search" size={26} /></span>
+    <div className="empty-copy"><h3>Пока ничего не нашлось</h3><p>Попробуйте другое слово или более короткий запрос, например «дроби».</p></div>
+    <button className="reset-button" onClick={onReset}>Сбросить поиск</button>
   </div>;
 }
 function plural(count: number, words: readonly [string, string, string] = ['тема', 'темы', 'тем']) {
@@ -133,6 +131,11 @@ export function MaterialsPage() {
     setSearchOpen(false);
     searchToggle.current?.focus();
   }
+  function clearSearch() {
+    setQuery('');
+    setSearchOpen(true);
+    search.current?.focus();
+  }
   const subjects = catalogue.subjects.filter(item => item.grade === grade).sort((a, b) => a.order - b.order);
   const selected = subjects.find(item => item.slug === subject)!;
   const sections = catalogue.sections.filter(item => item.grade === grade && item.subject === subject && catalogue.topics.some(topic => topic.grade === grade && topic.subject === subject && topic.section === item.slug)).sort((a, b) => a.order - b.order);
@@ -159,11 +162,11 @@ export function MaterialsPage() {
   }
   function topicLink(topic: Topic) { return topic.url; }
   const navigation = (surface: 'desktop' | 'mobile') => <>
-    <GradePicker grade={grade} onChange={chooseGrade}/>
+    <GradePicker grade={grade} onChange={chooseGrade} />
     <p className="nav-label subject-label">ПРЕДМЕТЫ</p>
     <nav aria-label="Предметы">{subjects.map(item => <div key={item.slug}>
       <button className={`subject-button ${subject === item.slug ? 'is-selected' : ''}`} aria-current={subject === item.slug ? 'true' : undefined} aria-expanded={subject === item.slug && expandedSubject === item.slug} aria-controls={`${surface}-sections-${item.slug}`} onClick={() => toggleSubject(item.slug)}>
-        <SubjectMark subject={item.slug}/><span>{item.title}</span><Icon name="chevron" size={14}/>
+        <SubjectMark subject={item.slug} /><span>{item.title}</span><Icon name="chevron" size={14} />
       </button>
       <div id={`${surface}-sections-${item.slug}`} className="section-navigation" data-expanded={subject === item.slug && expandedSubject === item.slug} inert={subject !== item.slug || expandedSubject !== item.slug}><div className="section-navigation-inner">{subject === item.slug && sections.map(section => <button key={section.slug} onClick={() => { menuDialog.current?.close(); openSection(section); }}>{section.title}</button>)}</div></div>
     </div>)}</nav>
@@ -171,32 +174,32 @@ export function MaterialsPage() {
 
   return <>
     <a className="skip-link" href="#learning">К учебным материалам</a>
-    <LandingHeader dark={dark} onTheme={() => setDark(value => !value)} showCatalogueLink={false}
-      leading={<button className="icon-button mobile-menu" aria-label="Открыть меню" onClick={() => menuDialog.current?.showModal()}><Icon name="menu"/></button>}
-      actions={<div ref={searchPanel} className="catalogue-inline-search" data-open={searchOpen} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); closeSearch(); } }}>
-        <div id="catalogue-search-panel" className="catalogue-search-expand" inert={!searchOpen}>
-          <div className="catalogue-search-field" role="search"><label className="sr-only" htmlFor="topic-search">Поиск по всем темам</label><input ref={search} id="topic-search" type="search" placeholder="Найти тему по математике" value={query} onChange={e => setQuery(e.target.value)}/>{query && <button className="icon-button" type="button" aria-label="Очистить поиск" onClick={() => { setQuery(''); search.current?.focus(); }}><Icon name="close" size={16}/></button>}</div>
-        </div>
-        <button ref={searchToggle} className="catalogue-search-toggle" type="button" aria-label={searchOpen ? 'Закрыть поиск' : 'Поиск по материалам'} aria-expanded={searchOpen} aria-controls="catalogue-search-panel" onClick={() => { if (searchOpen) closeSearch(); else setSearchOpen(true); }}><Icon name="search" size={23}/></button>
-      </div>}/>
+    <OrbitHeader dark={dark} onTheme={() => setDark(value => !value)} showCatalogueLink={false}
+      leading={<button className="icon-button mobile-menu" aria-label="Открыть меню" onClick={() => menuDialog.current?.showModal()}><Icon name="menu" /></button>}
+      actions={<div className="catalogue-inline-search" data-open={searchOpen}>
+        <div ref={searchPanel} id="catalogue-search-panel" className="catalogue-search-panel" inert={!searchOpen} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); closeSearch(); } }}>
+        <div className="catalogue-search-field" role="search"><Icon name="search" size={20} /><label className="sr-only" htmlFor="topic-search">Поиск по всем классам и предметам</label><input ref={search} id="topic-search" type="search" placeholder="Найти тему" value={query} onChange={e => setQuery(e.target.value)} />{query && <button className="icon-button" type="button" aria-label="Очистить поиск" onClick={clearSearch}><Icon name="close" size={16} /></button>}</div>
+      </div>
+        <button ref={searchToggle} className="catalogue-search-toggle" type="button" aria-label={searchOpen ? 'Закрыть поиск' : 'Поиск по материалам'} aria-expanded={searchOpen} aria-controls="catalogue-search-panel" onClick={() => { if (searchOpen) closeSearch(); else setSearchOpen(true); }}><Icon name="search" size={23} /></button>
+      </div>} />
     <aside className="sidebar">{navigation('desktop')}</aside>
-    <dialog ref={menuDialog} className="menu-dialog" aria-labelledby="menu-title"><div className="dialog-heading"><h2 id="menu-title">Навигация</h2><button className="icon-button" aria-label="Закрыть меню" onClick={() => menuDialog.current?.close()}><Icon name="close"/></button></div>{navigation('mobile')}</dialog>
+    <dialog ref={menuDialog} className="menu-dialog" aria-labelledby="menu-title"><div className="dialog-heading"><h2 id="menu-title">Навигация</h2><button className="icon-button" aria-label="Закрыть меню" onClick={() => menuDialog.current?.close()}><Icon name="close" /></button></div>{navigation('mobile')}</dialog>
     <main id="learning" tabIndex={-1}>
-      <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade}/></div>
-      <section className="hero" aria-labelledby="subject-title">
-        <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject}/>{catalogue.grades.find(item => item.slug === grade)!.title}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выбирай тему и начинай разбираться — в своём темпе'}</p></div>
-        <MathIllustration/>
-      </section>
+        <div className="mobile-grade-selector"><GradePicker grade={grade} onChange={chooseGrade} /></div>
+        <section className="hero" aria-labelledby="subject-title">
+          <div className="hero-copy"><div className="subject-kicker"><SubjectMark subject={subject} />{catalogue.grades.find(item => item.slug === grade)!.title}</div><h1 id="subject-title">{selected.title}</h1><p>{subjectNotes[subject] ?? 'Выберите тему и разбирайтесь в своём темпе.'}</p></div>
+          <MathIllustration />
+        </section>
       <section className="materials" aria-labelledby="materials-title">
-        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? 'Результаты по всем классам и предметам' : 'Выбери раздел — внутри всё разложено по темам'}</p></div></div>
-        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div></a>) : <SearchEmpty scope="topics" onReset={() => { setQuery(''); search.current?.focus(); }}/>}</div>
-        : <><div className="section-grid">{sections.map(section => {
-          const children = topics.filter(topic => topic.section === section.slug);
-          return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}.</span><div className="card-copy"><h3>{section.title}</h3></div><span className="card-topic-count">{children.length} {plural(children.length)}</span></button>;
-        })}</div></>}
+        <div className="materials-heading"><div><h2 id="materials-title">{query.trim() ? 'Найденные темы' : 'С чего начнём?'}</h2><p>{query.trim() ? `${results.length} ${plural(results.length)}` : 'Выберите раздел, затем нужную тему.'}</p></div></div>
+        {query.trim() ? <div className="search-results" aria-live="polite">{results.length ? results.map(topic => <a key={topic.slug} className="result-row" href={topicLink(topic)}><div><span className="result-grade">{catalogue.grades.find(item => item.slug === topic.grade)?.title} · {catalogue.subjects.find(item => item.grade === topic.grade && item.slug === topic.subject)?.title}</span><h3>{topic.title}</h3></div></a>) : <SearchEmpty onReset={clearSearch} />}</div>
+          : <><div className="section-grid">{sections.map(section => {
+            const children = topics.filter(topic => topic.section === section.slug);
+            return <button key={section.slug} className="section-card" onClick={() => openSection(section)}><span className="card-number">{sections.indexOf(section) + 1}.</span><div className="card-copy"><h3>{section.title}</h3></div><span className="card-topic-count">{children.length} {plural(children.length)}</span></button>;
+          })}</div></>}
       </section>
     </main>
-    <SiteFooter cataloguePage/>
+    <SiteFooter cataloguePage />
     <dialog ref={topicDialog} className="topics-dialog" aria-labelledby="topics-dialog-title" aria-describedby="topics-dialog-help"
       onPointerDown={event => { topicBackdropPress.current = event.button === 0 && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY); }}
       onPointerCancel={() => { topicBackdropPress.current = false; }}
@@ -205,7 +208,7 @@ export function MaterialsPage() {
         topicBackdropPress.current = false;
         if (startedOutside && event.target === event.currentTarget && isOutsideDialog(event.currentTarget, event.clientX, event.clientY)) event.currentTarget.close();
       }}>
-      <div className="topics-dialog-header"><div className="topics-context"><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {catalogue.subjects.find(item => item.grade === activeSection?.grade && item.slug === activeSection?.subject)?.title}</p><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close"/></button></div><h2 id="topics-dialog-title">{activeSection?.title}</h2></div>
+      <div className="topics-dialog-header"><div className="topics-context"><p className="eyebrow">{catalogue.grades.find(item => item.slug === activeSection?.grade)?.title} · {catalogue.subjects.find(item => item.grade === activeSection?.grade && item.slug === activeSection?.subject)?.title}</p><button className="icon-button" aria-label="Закрыть раздел" onClick={() => topicDialog.current?.close()}><Icon name="close" /></button></div><h2 id="topics-dialog-title">{activeSection?.title}</h2></div>
       <div className="topics-dialog-body"><div className="topics-list-heading"><h3 id="topics-dialog-help">Темы раздела</h3><span>{sectionTopics.length} {plural(sectionTopics.length)}</span></div><ol className="dialog-topic-list">{sectionTopics.map((topic, index) => <li key={topic.slug}><a href={topicLink(topic)}><span className="topic-index" aria-hidden="true">{index + 1}.</span><span>{topic.title}</span></a></li>)}</ol></div>
     </dialog>
   </>;

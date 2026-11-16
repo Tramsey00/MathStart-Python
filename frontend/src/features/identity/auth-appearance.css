@@ -1,0 +1,108 @@
+/* Auth-only adaptation of the final home surface and CTA palette. */
+.identity-page.auth-page {
+    --background: #e7f0f8;
+    --foreground: #252943;
+    --muted-foreground: #405779;
+    --card: #edf4fa;
+    --muted: #dce8f5;
+    --border: #b9cadf;
+    --primary: #233f70;
+    --ring: #233f70;
+    --auth-action: #c9ddfa;
+    --auth-hover: #bbd3f7;
+    --auth-press: #aac7ef;
+    --auth-ink: #233f70;
+    --destructive: #a33336;
+    font-family: 'Golos Text', sans-serif;
+    background: radial-gradient(ellipse at 85% 15%, #e2f4fa 0%, transparent 65%), var(--background)
+}
+[data-theme=dark] .identity-page.auth-page {
+    --background: #141a31;
+    --foreground: #eef0ff;
+    --muted-foreground: #bdcde3;
+    --card: #1b2941;
+    --muted: #293d5e;
+    --border: #526787;
+    --primary: #c9ddfa;
+    --ring: #c9ddfa;
+    --auth-action: #344c78;
+    --auth-hover: #405b8a;
+    --auth-press: #2b4068;
+    --auth-ink: #edf3ff;
+    --destructive: #f1a4a6;
+    color-scheme: dark;
+    background: radial-gradient(ellipse at 85% 15%, #1e294d 0%, transparent 65%), var(--background)
+}
+.auth-page .auth-surface { background: var(--card); border: 1px solid var(--border); border-radius: 8px; box-shadow: none }
+.auth-page .auth-tabs { position: relative; isolation: isolate; background: var(--muted); border-radius: 14px; gap: 5px }
+.auth-page .auth-tabs a { border-radius: 10px; color: var(--muted-foreground); min-height: 44px }
+.auth-page .auth-tabs a[aria-current=page] { background: transparent; color: var(--auth-ink); box-shadow: none; font-weight: 550 }
+.auth-page .login-field input { background: var(--background); color: var(--foreground); border: 1px solid var(--border); border-radius: 12px; min-height: 48px; caret-color: var(--primary) }
+.auth-page .login-field input:hover { border-color: var(--muted-foreground) }
+.auth-page .login-field input[aria-invalid=true] { border-color: var(--destructive) }
+.auth-page .login-field input::placeholder { color: var(--muted-foreground); opacity: 1 }
+.auth-page .login-field input:autofill { background: var(--muted); color: var(--foreground) }
+.auth-page .login-field input:-webkit-autofill { -webkit-text-fill-color: var(--foreground); -webkit-box-shadow: 0 0 0 1000px var(--muted) inset; caret-color: var(--foreground) }
+.auth-page :is(.email-submit, .identity-button) { background: var(--auth-action); color: var(--auth-ink); border: 1px solid transparent; border-radius: 22px; min-height: 48px; box-shadow: none; transition: none; font-weight: 550 }
+.auth-page :is(.email-submit, .identity-button):hover:not(:disabled) { background: var(--auth-hover) }
+.auth-page :is(.email-submit, .identity-button):active:not(:disabled) { background: var(--auth-press); transform: none }
+.auth-page button:disabled { opacity: .6; cursor: not-allowed }
+.auth-page :is(.existing-login, .auth-surface a:not(.brand, .auth-back, .identity-forgot)) { color: var(--primary) }
+.auth-page :is(.existing-login):hover { text-decoration: underline; text-underline-offset: 4px }
+.auth-page :is(button,a):focus-visible { outline: 2px solid var(--ring); outline-offset: 4px }
+.auth-page .login-feedback:not(:empty) { padding: 12px 14px; background: var(--muted); color: var(--foreground); border: 1px solid var(--border); border-radius: 10px; overflow-wrap: anywhere }
+.auth-page .field-error { color: var(--destructive) }
+.auth-page .auth-back {
+    display: flex;
+    width: fit-content;
+    min-width: min(180px, 100%);
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 24px;
+    margin: 24px auto 0;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    background: #2b4068;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500
+}
+.auth-page .auth-back:hover { background: #344c78 }
+.auth-page .auth-back:active { background: #2b4068 }
+[data-theme=dark] .auth-page .auth-back { background: #344c78 }
+[data-theme=dark] .auth-page .auth-back:hover { background: #405b8a }
+[data-theme=dark] .auth-page .auth-back:active { background: #2b4068 }
+.auth-page .identity-forgot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 44px;
+    margin: 10px auto 0;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 550;
+    color: var(--primary);
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: none;
+    text-decoration: none
+}
+.auth-page .identity-forgot:hover { color: color-mix(in srgb, var(--primary) 75%, var(--foreground)); text-decoration: none }
+.auth-page .identity-forgot:active { color: var(--foreground) }
+.auth-page .identity-forgot:focus:not(:focus-visible) { outline: none }
+.auth-page .auth-brand .brand { color: var(--foreground); font-size: 26px }
+
+
+.auth-page .auth-main { align-items: start; padding-top: clamp(32px, 8vh, 88px) }
+.auth-page .auth-surface { align-self: start }
+.auth-page .auth-tabs:before { content: ''; position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 13px) / 2); border-radius: 10px; background: var(--auth-action); transition: transform 220ms cubic-bezier(.4,0,.2,1) }
+.auth-page .auth-tabs[data-mode=register]:before { transform: translateX(calc(100% + 5px)) }
+.auth-page .auth-mode-frame { overflow: clip }
+.auth-page .auth-mode-content { display: flow-root }
+.auth-page .auth-mode-content h1:focus { outline: none }
+@media(prefers-reduced-motion:reduce) { .auth-page .auth-tabs:before { transition: none } }

@@ -23,6 +23,7 @@ def application():
     from backend.users.service import IdentityService
     identity = IdentityService(Security(engine, key, origin, fallback_keys=fallback,
                                         secure=origin.startswith('https:'),
+                                        trusted_proxies=json.loads(os.environ.get('MATHSTART_TRUSTED_PROXIES', '[]')),
                                         cutover_digest=os.environ.get('MATHSTART_IDENTITY_CUTOVER_DIGEST'),
                                         legacy_writer_role=os.environ.get('MATHSTART_LEGACY_WRITER_ROLE')))
     return create_app(engine, Signer(key, fallback), release_store=ReleaseStore(root) if root else None,
