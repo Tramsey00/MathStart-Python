@@ -161,6 +161,22 @@ Init/schema/content — первая установка: существующи�
 
 ## 4. Ежедневный старт и остановка
 
+MS-T009 добавляет reviewed Alembic v01_0003. Для существующей схемы v01_0002
+используйте явный `backend.release_migrate preview --profile TARGET_0002`
+с отдельным новым plan-file и schema environment, затем review точного digest,
+`apply --maintenance --reviewed-plan-sha256` и `check`. Остановите host-dev
+штатно перед maintenance. После применения schema-role выдаёт runtime-role
+те же DML/sequence grants для новых таблиц, как при первой schema-apply.
+Не повторяйте FRESH поверх существующих пользователей и не перезаписывайте
+старый schema.json. Startup не выполняет миграцию. Контракт —
+[Identity addendum](../specs/api/identity-t009.md).
+
+В host-dev `/auth` и `/account/` обслуживаются текущим React через Vite;
+API остаётся на FastAPI через тот же origin. В собранной версии эти маршруты
+получают verified anonymous private shell. Обновление UI в host-dev не является
+публикацией нового immutable release. Почтовая доставка по умолчанию не настроена;
+fake существует только в профильных тестах, не в запущенном сайте.
+
 ```powershell
 npm.cmd --prefix frontend run dev:host
 ```

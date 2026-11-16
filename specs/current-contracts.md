@@ -35,3 +35,9 @@ pending migration snapshots и Harness dependencies не создают нову
 Текущие API/domain fixtures в specs сохранены, поскольку их читают код/тесты.
 Старые UI MD не задают внешний вид: применяй [принятый UI](../docs/ux/shared-ui-contract.md).
 Будущая семантика/численные требования сохранены в [learning requirements](product/learning-requirements.md).
+
+## Identity MS-T009 — 13.11.2026
+
+[Identity addendum](api/identity-t009.md) расширяет действующую Identity: вход,
+ЛК, recovery, лимиты и v01_0003. Frozen R02 bytes остаются неизменными;
+новые решения ожидают отдельного ревью и приёмки по карточке MS-T009.

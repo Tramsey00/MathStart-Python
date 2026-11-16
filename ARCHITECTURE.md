@@ -115,8 +115,8 @@ CSRF/Origin/Host, owner-bound idempotency receipts и cutover bridge прове�
 сервером. Принятый cutover допускает явный повторный login; старые sessions
 не превращаются в target authentication без предусмотренного proof.
 
-Регистрация UI ограничена 30 символами username, backend сохраняет предел 150
-и вход существующих длинных имён. Пароли не передаются в argv, public build,
+MS-T009 ограничивает новую регистрацию 30 символами username в UI/API;
+вход сохраняет существующие имена до 150 символов без нормализации. Пароли не передаются в argv, public build,
 browser storage или отчёты. Onboarding хранит START_ZERO/SELF_REPORT/DIAGNOSTIC
 как выбор; текущий сайт не запускает будущую диагностику и не пишет mastery.
 
@@ -452,8 +452,12 @@ MS-T001 вводит renderer_version/lesson_document в validated immutable del
 единый Content route registry и React LessonPage для линейного пилота. Проверки,
 review и человеческая приёмка учитываются отдельно. Полноценные карточки
 MS-T001–MS-T011 задают pilot, public pages, классы, auth/staff и очистку.
-Новых UI kits/Next.js не вводить. Server Identity сохраняется; старые account
-UI/fixtures не являются образцом и заменяются в MS-T009 после email/username решения.
+Новых UI kits/Next.js не вводить. Старые account UI/fixtures не являются образцом.
+Решение 13.11.2026 для MS-T009: вход по логину/паролю, необязательная подтверждённая
+почта только для восстановления; новый ЛК и защита аккаунта. Backend Identity
+расширена с сохранением пользователей/данных; [Identity addendum](specs/api/identity-t009.md)
+фиксирует API, recovery, лимиты и additive v01_0003. Независимое ревью и приёмка pending. Навигация, границы
+параллельной работы и приёмка — в skills/tasks/t009-identity-ui/SKILL.md.
 
 Геймификация — новое направление проектирования. XP, уровни, достижения,
 серии, daily tasks, персонаж/награды — кандидаты. Педагогическая цель, начисления,

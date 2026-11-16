@@ -1,0 +1,97 @@
+.orbit-account .account-feedback[data-tone=success] {
+    width: fit-content;
+    max-width: 100%;
+    padding: 9px 14px;
+    background: color-mix(in srgb, var(--account-action) 42%, transparent);
+    color: var(--muted-foreground);
+    border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    border-radius: 10px
+}
+
+:is(.orbit-account, .auth-page) .password-toggle .password-eye {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: opacity 150ms ease
+}
+:is(.orbit-account, .auth-page) .password-toggle[aria-pressed=true] .password-eye-open,
+:is(.orbit-account, .auth-page) .password-toggle[aria-pressed=false] .password-eye-closed { opacity: 0 }
+
+@media(prefers-reduced-motion:reduce) {
+    :is(.orbit-account, .auth-page) .password-toggle .password-eye { transition: none }
+}
+
+/* Icon-only toggle; the transparent button keeps its full hit area. */
+:is(.orbit-account, .auth-page) .password-toggle {
+    width: 43px;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: none;
+    background: transparent;
+    color: var(--muted-foreground)
+}
+:is(.orbit-account, .auth-page) .password-toggle:focus:not(:focus-visible) { outline: none }
+:is(.orbit-account, .auth-page) .password-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: -4px }
+:is(.orbit-account, .auth-page) .password-toggle:hover { color: var(--primary) }
+/* The outline sits on the existing input boundary, inside its box. No gap,
+   no layout change, and no dependency on shadows in forced-colour modes. */
+.identity-page .login-field input:focus-visible {
+    border-color: var(--ring);
+    outline: 2px solid var(--ring);
+    outline-offset: -2px
+}
+.identity-page .login-field input[aria-invalid=true]:focus-visible {
+    border-color: var(--destructive);
+    outline-color: var(--destructive)
+}
+@media(forced-colors:active) {
+    .identity-page .login-field input:focus-visible {
+        border-color: Highlight;
+        outline: 2px solid Highlight;
+        outline-offset: -2px
+    }
+}
+
+.orbit-account .password-change-form fieldset>.login-field { margin-bottom: 32px }
+.orbit-account .password-change-form .password-new-group>.login-field { margin-bottom: 18px }
+.orbit-account .password-change-form .password-new-group .identity-hint { margin-bottom: 0 }
+
+:is(.orbit-account, .auth-page) .login-field .field-error {
+    margin: 8px 0 0;
+    color: var(--destructive);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left
+}
+
+/* Errors belong to the account palette, independently of lesson tokens. */
+.orbit-account { --destructive: #a12636; }
+[data-theme=dark] .orbit-account { --destructive: #ffb4be; }
+.orbit-account .orbit-grade input[aria-invalid=true]+.orbit-grade-disc {
+    border-color: var(--destructive);
+}
+.orbit-account .orbit-grade input[aria-invalid=true]:focus-visible+.orbit-grade-disc {
+    outline-color: var(--destructive);
+}
+
+/* Keep the materials route available in the account's narrow header. The
+   visually hidden text still supplies the book link's accessible name. */
+@media(max-width:440px) {
+    .account-page-content .lesson-header-nav { display: block; }
+    .account-page-content .lesson-header-nav a { width: 44px; height: 44px; padding: 10px; gap: 0; }
+    .account-page-content .lesson-header-nav a svg { width: 20px; height: 20px; }
+    .account-page-content .lesson-header-nav a span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+}
+@media(max-width:360px) {
+    .account-page-content .lesson-header-inner { padding-inline: 16px; gap: 8px; }
+}
