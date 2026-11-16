@@ -1,0 +1,274 @@
+{
+  "tables": [
+    "identity_action_token",
+    "identity_recovery_address",
+    "identity_request_window",
+    "identity_security_event"
+  ],
+  "columns": [
+    {
+      "table_name": "identity_action_token",
+      "column_name": "digest",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_action_token",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_action_token",
+      "column_name": "purpose",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 12,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_action_token",
+      "column_name": "email",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 254,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_action_token",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "column_name": "user_id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "column_name": "email",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 254,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "column_name": "verified_email",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": 254,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "column_name": "verified_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "identity_request_window",
+      "column_name": "key",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_request_window",
+      "column_name": "started_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    },
+    {
+      "table_name": "identity_request_window",
+      "column_name": "count",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_security_event",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_security_event",
+      "column_name": "kind",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 32,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_security_event",
+      "column_name": "subject",
+      "data_type": "character varying",
+      "udt_name": "varchar",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": 64,
+      "datetime_precision": null
+    },
+    {
+      "table_name": "identity_security_event",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null,
+      "character_maximum_length": null,
+      "datetime_precision": 6
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "identity_action_token",
+      "name": "identity_action_token_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (digest)"
+    },
+    {
+      "table_name": "identity_action_token",
+      "name": "identity_action_token_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "identity_action_token",
+      "name": "identity_token_purpose",
+      "type": "c",
+      "definition": "CHECK (((purpose)::text = ANY ((ARRAY['verify'::character varying, 'reset'::character varying])::text[])))"
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "name": "identity_recovery_address_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id)"
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "name": "identity_recovery_address_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "identity_recovery_address",
+      "name": "identity_recovery_address_verified_email_key",
+      "type": "u",
+      "definition": "UNIQUE (verified_email)"
+    },
+    {
+      "table_name": "identity_request_window",
+      "name": "identity_request_window_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (key)"
+    },
+    {
+      "table_name": "identity_request_window",
+      "name": "identity_window_count",
+      "type": "c",
+      "definition": "CHECK ((count >= 0))"
+    },
+    {
+      "table_name": "identity_security_event",
+      "name": "identity_security_event_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "identity_action_token",
+      "indexname": "identity_action_token_pkey",
+      "indexdef": "CREATE UNIQUE INDEX identity_action_token_pkey ON public.identity_action_token USING btree (digest)"
+    },
+    {
+      "tablename": "identity_action_token",
+      "indexname": "ix_identity_action_token_expires_at",
+      "indexdef": "CREATE INDEX ix_identity_action_token_expires_at ON public.identity_action_token USING btree (expires_at)"
+    },
+    {
+      "tablename": "identity_action_token",
+      "indexname": "ix_identity_action_token_user_id",
+      "indexdef": "CREATE INDEX ix_identity_action_token_user_id ON public.identity_action_token USING btree (user_id)"
+    },
+    {
+      "tablename": "identity_recovery_address",
+      "indexname": "identity_recovery_address_pkey",
+      "indexdef": "CREATE UNIQUE INDEX identity_recovery_address_pkey ON public.identity_recovery_address USING btree (user_id)"
+    },
+    {
+      "tablename": "identity_recovery_address",
+      "indexname": "identity_recovery_address_verified_email_key",
+      "indexdef": "CREATE UNIQUE INDEX identity_recovery_address_verified_email_key ON public.identity_recovery_address USING btree (verified_email)"
+    },
+    {
+      "tablename": "identity_request_window",
+      "indexname": "identity_request_window_pkey",
+      "indexdef": "CREATE UNIQUE INDEX identity_request_window_pkey ON public.identity_request_window USING btree (key)"
+    },
+    {
+      "tablename": "identity_request_window",
+      "indexname": "ix_identity_request_window_started_at",
+      "indexdef": "CREATE INDEX ix_identity_request_window_started_at ON public.identity_request_window USING btree (started_at)"
+    },
+    {
+      "tablename": "identity_security_event",
+      "indexname": "identity_security_event_pkey",
+      "indexdef": "CREATE UNIQUE INDEX identity_security_event_pkey ON public.identity_security_event USING btree (id)"
+    },
+    {
+      "tablename": "identity_security_event",
+      "indexname": "ix_identity_security_event_created_at",
+      "indexdef": "CREATE INDEX ix_identity_security_event_created_at ON public.identity_security_event USING btree (created_at)"
+    }
+  ],
+  "identity_columns": []
+}

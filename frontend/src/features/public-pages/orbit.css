@@ -1,0 +1,1340 @@
+@font-face {
+    font-family: 'Golos Text';
+    src: url('../../shared/styles/fonts/golos-text-variable.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400 900;
+    font-display: swap;
+}
+
+@keyframes orbit-field-turn {
+
+    from {
+        transform: rotate(-5deg) translateY(8px);
+    }
+
+    to {
+        transform: rotate(7deg) translateY(-10px);
+    }
+}
+
+@keyframes orbit-light-drift {
+
+    to {
+        transform: translate(-3%, 5%) scale(1.08);
+        opacity: .65;
+    }
+}
+
+@keyframes orbit-spiral-travel {
+
+    0% {
+        offset-distance: 0%;
+        animation-timing-function: cubic-bezier(.333, 0, .667, .333);
+    }
+
+    2% {
+        offset-distance: 1%;
+        animation-timing-function: linear;
+    }
+
+    98% {
+        offset-distance: 99%;
+        animation-timing-function: cubic-bezier(.333, .667, .667, 1);
+    }
+
+    100% {
+        offset-distance: 100%;
+    }
+}
+
+/* Shared header and base */
+
+.orbit-site {
+    --background: #f1f3fc;
+    --foreground: #252943;
+    --card: #fafbff;
+    --muted: #e8ecfa;
+    --muted-foreground: #5c6381;
+    --border: #d3daf0;
+    --primary: #4655c6;
+    --primary-foreground: #fff;
+    --ring: #5366db;
+    min-height: 100dvh;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'Golos Text', sans-serif;
+    line-height: 1.6;
+    isolation: isolate;
+}
+
+[data-theme=dark] .orbit-site {
+    --background: #141a31;
+    --foreground: #eef0ff;
+    --card: #1d2542;
+    --muted: #232d4e;
+    --muted-foreground: #b9c2e1;
+    --border: #3b476e;
+    --primary: #b5bfff;
+    --primary-foreground: #1c2448;
+    --ring: #b5bfff;
+    color-scheme: dark;
+}
+
+.orbit-site * {
+    box-sizing: border-box;
+}
+
+.orbit-site button {
+    font-family: inherit;
+}
+
+.orbit-site input {
+    font-family: inherit;
+    caret-color: var(--primary);
+}
+
+.orbit-site .brand {
+    font-family: Outfit, sans-serif;
+    --primary: #2d62de;
+}
+
+.auth-page .brand {
+    font-family: Outfit, sans-serif;
+    --primary: #2d62de;
+}
+
+.orbit-site :is(a, button, input:not(.login-field input)):focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 5px;
+}
+
+.orbit-site ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.orbit-site :is(main, h1, h2, h3, p) {
+    scroll-margin-top: 100px;
+}
+
+.orbit-site main:focus {
+    outline: none;
+}
+
+.orbit-site .lesson-header {
+    --lesson-header-surface: var(--background);
+    --lesson-ink: var(--foreground);
+    --lesson-accent: var(--primary);
+    --lesson-accent-text: var(--primary);
+    position: relative;
+    background: linear-gradient(180deg, var(--card), var(--background));
+    z-index: 10;
+}
+
+.orbit-site .lesson-header-inner {
+    max-width: 1380px;
+    min-height: 98px;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+.orbit-site .lesson-header-end {
+    gap: 16px;
+}
+
+.orbit-site .lesson-header a {
+    text-decoration: none;
+}
+
+.orbit-site .lesson-header a:hover {
+    text-decoration: none;
+}
+
+.orbit-site .lesson-header button:hover {
+    text-decoration: none;
+}
+
+.orbit-site .lesson-header-nav a {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 24px;
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+.orbit-site .lesson-theme-toggle {
+    width: 46px;
+    height: 46px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--foreground);
+}
+
+.orbit-site .site-auth-link {
+    border: 0;
+    background: transparent;
+    font-weight: 500;
+    min-width: 0;
+    border-radius: 24px;
+    font-size: 14px;
+    gap: 10px;
+    padding: 10px 15px;
+    color: var(--foreground);
+}
+
+.orbit-site .site-auth-link>.identity-icon {
+    width: 21px;
+    height: 21px;
+    color: var(--primary);
+}
+
+.orbit-site.orbit-header-only {
+    min-height: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+[data-public-design=catalogue] .sidebar {
+    top: 98px;
+}
+
+/* Home */
+
+.orbit-site .orbit-home {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    color: var(--foreground);
+    --background: #e7f0f8c4;
+    --foreground: #252943;
+    --muted: #e8ecfa;
+    --muted-foreground: #5c6381;
+    --border: #d3daf0;
+    --primary: #4f22f1;
+    --primary-foreground: #fff;
+    --ring: #5366db;
+    --orb-line: #0004ff65;
+    --orb-light: #d2f0f646;
+    --orb-warm: #000000e4;
+    --orb-depth: #e2f4fad7;
+    background: radial-gradient(ellipse at 76% 42%, var(--orb-depth), transparent 65%), var(--background);
+}
+
+.orbit-home .orbit-hero {
+    position: relative;
+    background: transparent;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 330px);
+    gap: 32px 48px;
+    max-width: 1380px;
+    margin: auto;
+    padding: 68px 4% 24px;
+    min-height: 0;
+    overflow: visible;
+}
+
+.orbit-light {
+    position: absolute;
+    inset: -15%;
+    background: radial-gradient(ellipse at 65% 55%, var(--orb-light), transparent 49%);
+    opacity: .85;
+    animation: orbit-light-drift 12s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.orbit-home .orbit-artwork {
+    pointer-events: none;
+    position: relative;
+    inset: auto;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    height: 430px;
+    max-width: 100%;
+    align-self: center;
+}
+
+.orbit-field {
+    transform-origin: 715px 335px;
+    animation: orbit-field-turn 12s ease-in-out infinite alternate;
+}
+
+.orbit-home .orbit-line {
+    stroke: var(--orb-line);
+    stroke-width: 1.1;
+    opacity: .78;
+}
+
+.orbit-home .orbit-copy {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+    grid-column: 1/-1;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+}
+
+.orbit-home .orbit-copy h1 {
+    font: 600 clamp(36px, 4.3vw, 62px)/1.13 'Golos Text', sans-serif;
+    letter-spacing: -.04em;
+    max-width: 1100px;
+    margin: 0;
+    text-wrap: balance;
+}
+
+.orbit-home .orbit-copy p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--muted-foreground);
+    margin: 32px 0;
+    max-width: 45ch;
+}
+
+.orbit-home .orbit-copy a {
+    pointer-events: auto;
+}
+
+.orbit-home .orbit-materials-action {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 56px;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+    padding: 16px 26px;
+    gap: 0;
+    border: 1px solid transparent;
+    border-radius: 22px;
+    font-size: 16px;
+    font-weight: 550;
+    line-height: 1.5;
+    transition: none;
+    --cta-fill: #c9ddfa;
+    --cta-hover: #bbd3f7;
+    --cta-press: #aac7ef;
+    --cta-edge: transparent;
+    --cta-ink: #233f70;
+    border-color: var(--cta-edge);
+    background: var(--cta-fill);
+    color: var(--cta-ink);
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.orbit-home .orbit-hero[data-paused=true] :is(.orbit-field, .orbit-light) {
+    animation-play-state: paused;
+}
+
+.orbit-home .orbit-story {
+    position: relative;
+    grid-column: 2;
+    grid-row: 2;
+    display: block;
+    align-self: center;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+}
+
+.orbit-home .orbit-story h2 {
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -.03em;
+    font-size: 30px;
+    margin: 0 0 25px;
+}
+
+.orbit-home .orbit-story p {
+    line-height: 1.75;
+    color: var(--muted-foreground);
+    margin: 0 0 18px;
+    font-size: 16px;
+    max-width: 36ch;
+}
+
+.orbit-home .orbit-story p:last-child {
+    margin: 0;
+}
+
+.orbit-home>.orbit-light {
+    inset: -95px -15% auto;
+    height: 820px;
+    display: block;
+    background: radial-gradient(ellipse at 65% 55%, var(--orb-light), transparent 49%);
+}
+
+.orbit-home:has(>.orbit-hero[data-paused=true])>.orbit-light {
+    animation-play-state: paused;
+}
+
+.orbit-traveller {
+    offset-distance: 0%;
+    animation: orbit-spiral-travel 360s linear infinite alternate;
+}
+
+.orbit-home .orbit-hero[data-paused=true] .orbit-traveller {
+    animation-play-state: paused;
+}
+
+.orbit-home .orbit-materials-action:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 5px;
+}
+
+.orbit-home .orbit-line-major {
+    stroke-width: 1.6;
+    opacity: .95;
+}
+
+.orbit-home .orbit-artwork-control {
+    display: block;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    appearance: none;
+    line-height: 0;
+    pointer-events: none;
+    cursor: pointer;
+}
+
+.orbit-artwork-control .orbit-artwork-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.orbit-artwork-control .orbit-hit-area {
+    pointer-events: fill;
+}
+
+.orbit-artwork-control:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 5px;
+}
+
+.orbit-site.orbit-home-site {
+    min-height: 0;
+}
+
+[data-theme=dark] .orbit-site .orbit-home {
+    --background: #141a31;
+    --foreground: #eef0ff;
+    --muted: #232d4e;
+    --muted-foreground: #b9c2e1;
+    --border: #3b476e;
+    --primary: #b5bfff;
+    --primary-foreground: #1c2448;
+    --ring: #b5bfff;
+    --orb-line: #7e91e4;
+    --orb-light: #283568;
+    --orb-warm: #ffffff;
+    --orb-depth: #1e294d;
+    background: radial-gradient(ellipse at 76% 42%, var(--orb-depth), transparent 65%), var(--background);
+}
+
+[data-theme=dark] .orbit-home .orbit-materials-action {
+    --cta-fill: #344c78;
+    --cta-hover: #405b8a;
+    --cta-press: #2b4068;
+    --cta-edge: transparent;
+    --cta-ink: #edf3ff;
+    border-color: var(--cta-edge);
+    color: var(--cta-ink);
+    text-shadow: none;
+}
+
+.orbit-site .orbit-home .orbit-materials-action:active {
+    background: var(--cta-press);
+    border-color: var(--cta-edge);
+    color: var(--cta-ink);
+    box-shadow: none;
+}
+
+/* Account */
+
+.orbit-site .account-main {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+}
+
+.orbit-site .orbit-account {
+    font-family: 'Golos Text', sans-serif;
+    min-height: 680px;
+    padding: 35px 6% 65px;
+    display: block;
+    --background: #e7f0f8c4;
+    --foreground: #252943;
+    --card: color-mix(in srgb, #fff 78%, #e7f0f8);
+    --muted: #c9ddfa;
+    --muted-foreground: #233f70;
+    --border: color-mix(in srgb, #233f70 24%, #e7f0f8);
+    --primary: #233f70;
+    --primary-foreground: #fff;
+    --ring: #233f70;
+    --orb-line: color-mix(in srgb, #233f70 55%, transparent);
+    --account-action: #c9ddfa;
+    --account-action-hover: #bbd3f7;
+    --account-action-press: #aac7ef;
+    --account-action-ink: #233f70;
+    --account-selected: color-mix(in srgb, #c9ddfa 60%, #e7f0f8);
+    --account-selected-ink: #233f70;
+    --account-nav-active: color-mix(in srgb, #c9ddfa 55%, #e7f0f8);
+    background: transparent;
+    color: var(--foreground);
+}
+
+.orbit-account-heading {
+    max-width: 1220px;
+    margin: 0 auto 38px;
+}
+
+.orbit-account-heading h1 {
+    font-size: 38px;
+    font-weight: 500;
+    letter-spacing: -.035em;
+    margin: 0 0 10px;
+    line-height: 1.25;
+}
+
+.orbit-account-heading p {
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 15px;
+}
+
+.orbit-account .account-layout {
+    max-width: 1220px;
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 40px;
+    background: none;
+    margin: auto;
+}
+
+.orbit-account .account-sidebar {
+    padding: 0;
+    border: 0;
+    background: none;
+}
+
+.orbit-account .account-profile {
+    padding: 0 14px 20px;
+    border-bottom: 0;
+}
+
+.orbit-account .account-profile strong {
+    font-size: 15px;
+}
+
+.orbit-account .account-nav {
+    gap: 8px;
+}
+
+.orbit-account .account-nav button {
+    border-radius: 24px;
+    gap: 12px;
+    padding: 12px 15px;
+    position: relative;
+    font-size: 14px;
+}
+
+.orbit-account .account-logout {
+    border-radius: 24px;
+    gap: 12px;
+    padding: 12px 15px;
+    position: relative;
+    font-size: 14px;
+}
+
+.orbit-account .account-nav button[aria-current=page] {
+    color: var(--primary);
+    background: var(--account-nav-active);
+    font-weight: 550;
+    box-shadow: none;
+}
+
+.orbit-account .account-main {
+    padding: 0 0 0 38px;
+    border-left: 1px solid var(--border);
+    min-height: 410px;
+}
+
+.orbit-account .account-intro {
+    margin-bottom: 30px;
+}
+
+.orbit-account .account-intro h2 {
+    font-size: 27px;
+    font-weight: 500;
+}
+
+.orbit-account .account-pane {
+    max-width: 850px;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+.orbit-account .account-pane :is(h2, h3) {
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: -.025em;
+}
+
+.orbit-account .orbit-learning .orbit-learning-intro h2 {
+    font-size: 34px;
+}
+
+.orbit-account .orbit-learning-intro .identity-hint {
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.orbit-account .account-intro:has(~ .orbit-learning) {
+    display: none;
+}
+
+.orbit-account .account-pane form {
+    max-width: 530px;
+}
+
+.orbit-account .account-pane .orbit-grade-form {
+    max-width: none;
+    margin-top: 30px;
+}
+
+.orbit-account .orbit-grade-form legend {
+    font-size: 13px;
+    color: var(--muted-foreground);
+    margin-bottom: 24px;
+}
+
+.orbit-account .orbit-grades {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    position: relative;
+    max-width: 550px;
+    gap: 14px;
+    padding: 14px 0;
+}
+
+.orbit-account .orbit-grades:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--border);
+}
+
+.orbit-account .orbit-grade {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.orbit-account .orbit-grade input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin: 0;
+    cursor: inherit;
+}
+
+.orbit-account .orbit-grade-disc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    aspect-ratio: 1;
+    margin: auto;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    position: relative;
+    pointer-events: none;
+    max-width: 79px;
+    min-height: 0;
+    background: var(--card);
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.orbit-account .orbit-grade-disc:before {
+    content: '';
+    position: absolute;
+    border: 1px solid transparent;
+    border-top-color: var(--orb-line);
+    border-radius: 50%;
+    transform: rotate(-32deg);
+    inset: -3px;
+    transition: transform 240ms ease, border-color 240ms ease;
+}
+
+.orbit-account .orbit-grade-disc strong {
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -.04em;
+    font-size: 21px;
+}
+
+.orbit-account .orbit-grade-disc>span {
+    color: var(--muted-foreground);
+    font-size: 11.5px;
+}
+
+.orbit-account .orbit-grade input:checked+.orbit-grade-disc:before {
+    content: none;
+}
+
+.orbit-account .orbit-grade input:focus-visible+.orbit-grade-disc {
+    outline: 3px solid var(--ring);
+    outline-offset: 7px;
+}
+
+/* Dim labels, keeping the opaque disc over the connector during saving. */
+.orbit-account .orbit-grade input:disabled+.orbit-grade-disc {
+    opacity: 1;
+}
+.orbit-account .orbit-grade input:disabled+.orbit-grade-disc>strong,
+.orbit-account .orbit-grade input:disabled+.orbit-grade-disc>span {
+    opacity: .65;
+}
+
+.orbit-account .orbit-grade-save {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+}
+
+.orbit-account .orbit-grade-save .identity-hint {
+    margin: 0;
+    max-width: 27ch;
+}
+
+.orbit-account .identity-secondary {
+    position: relative;
+    min-height: 48px;
+    border-radius: 25px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    background: transparent;
+    color: var(--foreground);
+    border-color: var(--border);
+    gap: 0;
+    transition: none;
+}
+
+.orbit-account .identity-button {
+    position: relative;
+    min-height: 48px;
+    border-radius: 25px;
+    gap: 14px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.orbit-account .identity-button:active {
+    border-color: var(--primary);
+    filter: brightness(.94);
+}
+
+.orbit-account .identity-secondary:active {
+    border-color: var(--primary);
+    filter: brightness(.94);
+}
+
+.orbit-account .login-field input {
+    background: var(--card);
+    border-radius: 12px;
+    min-height: 50px;
+    caret-color: var(--primary);
+}
+
+.orbit-account .account-feedback {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card);
+    padding: 14px 18px;
+    max-width: 700px;
+}
+
+.orbit-account .identity-notice {
+    background: var(--muted);
+    border-radius: 12px;
+    max-width: 530px;
+}
+
+.orbit-account .account-login {
+    max-width: 530px;
+}
+
+.orbit-account .account-devices {
+    max-width: 530px;
+}
+
+.orbit-account .account-devices h3 {
+    font-size: 20px;
+}
+
+[data-theme=dark] .orbit-site .orbit-account {
+    --background: #141a31;
+    --foreground: #eef0ff;
+    --card: color-mix(in srgb, #344c78 32%, #141a31);
+    --muted: #344c78;
+    --muted-foreground: #c9ddfa;
+    --border: color-mix(in srgb, #c9ddfa 30%, #141a31);
+    --primary: #c9ddfa;
+    --primary-foreground: #233f70;
+    --ring: #c9ddfa;
+    --orb-line: color-mix(in srgb, #c9ddfa 65%, transparent);
+    --account-action: #344c78;
+    --account-action-hover: #405b8a;
+    --account-action-press: #2b4068;
+    --account-action-ink: #edf3ff;
+    --account-selected: color-mix(in srgb, #344c78 65%, #141a31);
+    --account-selected-ink: #edf3ff;
+    --account-nav-active: color-mix(in srgb, #344c78 55%, #141a31);
+}
+
+.orbit-account .orbit-grade input:checked+.orbit-grade-disc {
+    background: var(--account-selected);
+    color: var(--account-selected-ink);
+    border-color: var(--primary);
+}
+
+.orbit-account .orbit-grade input:checked+.orbit-grade-disc>span {
+    color: var(--account-selected-ink);
+}
+
+.orbit-account .orbit-grade input:focus-visible {
+    outline: none;
+}
+
+.orbit-site .orbit-account .identity-button {
+    background: var(--account-action);
+    color: var(--account-action-ink);
+    border: 1px solid transparent;
+    transition: none;
+    box-shadow: none;
+    filter: none;
+}
+
+.orbit-account .login-field input::placeholder {
+    color: var(--muted-foreground);
+    opacity: 1;
+}
+
+.orbit-account ::selection {
+    background: var(--account-action);
+    color: var(--account-action-ink);
+}
+
+.orbit-site .orbit-account .identity-button:active:not(:disabled) {
+    background: var(--account-action-press);
+    color: var(--account-action-ink);
+}
+
+.orbit-account :is(button, input):disabled {
+    cursor: not-allowed;
+}
+
+.orbit-account .identity-secondary:disabled {
+    background: transparent;
+    color: var(--muted-foreground);
+    border-color: var(--border);
+    filter: none;
+}
+
+.orbit-account .orbit-grade:has(input:disabled) {
+    cursor: not-allowed;
+}
+
+.orbit-account .orbit-grade:has(input:disabled) .orbit-grade-disc:before {
+    border-top-color: var(--orb-line);
+    transform: rotate(-32deg);
+}
+
+.account-page-shell {
+    --account-page-base: #e7f0f8;
+    --account-page-spot: #c9ddfa;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(ellipse 75% 560px at 94% 100px, color-mix(in srgb, var(--account-page-spot) 65%, transparent), transparent 82%), var(--account-page-base);
+}
+
+[data-theme=dark] .account-page-shell {
+    --account-page-base: #141a31;
+    --account-page-spot: #344c78;
+}
+
+.account-page-shell>.account-page-content {
+    min-height: 0;
+    flex: 1;
+    background: transparent;
+}
+
+/* Shared footer wrapper */
+
+.home-lesson-footer {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.85;
+    display: flow-root;
+    background: var(--lesson-footer-surface, #e2e8f1);
+}
+
+[data-theme=dark] .home-lesson-footer {
+    background: #222c39;
+}
+
+@media (min-width:1101px) {
+
+    .orbit-home .orbit-hero {
+        display: block;
+        padding-top: 44px;
+        min-height: 636px;
+        padding-bottom: 24px;
+    }
+
+    .orbit-home .orbit-copy {
+        transform: translateX(-12px);
+    }
+
+    .orbit-home .orbit-artwork {
+        position: absolute;
+        inset: 156px auto auto 16%;
+        width: 60%;
+        height: 470px;
+        max-width: none;
+        transform: scale(1.05);
+        transform-origin: 54.333% 51.176%;
+        --orbit-screen-scale: calc(min(60vw, 828px, 829.4118px) / 1500px * 1.05);
+    }
+
+    .orbit-home .orbit-line {
+        stroke-width: calc(1.1px + 1px / var(--orbit-screen-scale));
+    }
+
+    .orbit-home .orbit-line-major {
+        stroke-width: calc(1.6px + 1px / var(--orbit-screen-scale));
+    }
+
+    .orbit-home .orbit-story {
+        position: absolute;
+        top: 206px;
+        right: 1%;
+        width: 25%;
+        max-width: 330px;
+    }
+}
+
+@media (min-width:1500px) {
+
+    .orbit-home .orbit-story {
+        right: 0;
+    }
+}
+
+@media (max-width:1100px) {
+
+    .orbit-home .orbit-copy h1 {
+        font-size: 48px;
+        max-width: 900px;
+    }
+
+    .orbit-account .account-layout {
+        gap: 25px;
+        grid-template-columns: 165px minmax(0, 1fr);
+    }
+
+    .orbit-account .account-main {
+        padding-left: 25px;
+    }
+
+    .orbit-account .orbit-grades {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 300px;
+        gap: 20px 14px;
+    }
+
+    .orbit-account .orbit-grades:before {
+        display: none;
+    }
+
+    .orbit-account .orbit-grade-disc {
+        max-width: 69px;
+    }
+}
+
+@media (max-width:1000px) {
+
+    .orbit-home .orbit-hero {
+        column-gap: 28px;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
+    }
+
+    .orbit-home .orbit-artwork {
+        height: 370px;
+    }
+}
+
+@media (max-width:760px) {
+
+    .orbit-site .lesson-header-inner {
+        padding-left: 22px;
+        padding-right: 22px;
+        min-height: 80px;
+        gap: 15px;
+    }
+
+    .orbit-site .lesson-header-end {
+        gap: 5px;
+    }
+
+    .orbit-site .lesson-header-nav a {
+        padding: 9px;
+    }
+
+    .orbit-site .site-auth-link {
+        padding: 9px;
+        font-size: 13px;
+    }
+
+    .orbit-site .lesson-theme-toggle {
+        width: 44px;
+        height: 44px;
+    }
+
+    [data-public-design=catalogue] .sidebar {
+        top: 80px;
+    }
+
+    .orbit-home .orbit-copy h1 {
+        font-size: 39px;
+        line-height: 1.13;
+        max-width: 650px;
+        letter-spacing: -.035em;
+    }
+
+    .orbit-home .orbit-copy p {
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 26px 0;
+    }
+
+    .orbit-home .orbit-story {
+        padding: 0;
+        max-width: 48ch;
+        align-self: start;
+    }
+
+    .orbit-home>.orbit-light {
+        inset: 148px -60% auto;
+        height: 740px;
+    }
+
+    .orbit-home .orbit-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding-top: 35px;
+        padding-right: 26px;
+        padding-left: 26px;
+    }
+
+    .orbit-home .orbit-copy {
+        padding: 0;
+    }
+
+    .orbit-home .orbit-artwork {
+        position: relative;
+        inset: auto;
+        height: auto;
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 1500/850;
+        align-self: center;
+    }
+
+    .orbit-home .orbit-story h2 {
+        font-size: 29px;
+        margin-bottom: 22px;
+    }
+
+    .orbit-home .orbit-story p {
+        font-size: 15px;
+        max-width: none;
+    }
+
+    .orbit-site .orbit-account {
+        padding: 28px 22px 45px;
+    }
+
+    .orbit-account-heading {
+        margin-bottom: 26px;
+    }
+
+    .orbit-account-heading h1 {
+        font-size: 30px;
+    }
+
+    .orbit-account-heading p {
+        font-size: 13px;
+    }
+
+    .orbit-account .account-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .orbit-account .account-sidebar {
+        padding: 0 0 14px;
+        border-bottom: 0;
+        display: block;
+    }
+
+    .orbit-account .account-profile {
+        display: none;
+    }
+
+    .orbit-account .account-nav {
+        flex-direction: row;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .orbit-account .account-nav button {
+        padding: 10px 13px;
+        font-size: 12px;
+        flex: 0 1 auto;
+        min-height: 44px;
+        gap: 7px;
+    }
+
+    .orbit-account .account-nav button svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+    }
+
+    .orbit-account .account-logout {
+        margin: 6px 0 0;
+        padding: 9px 12px;
+        font-size: 12px;
+        min-height: 40px;
+        display: inline-flex;
+    }
+
+    .orbit-account .account-main {
+        border: 0;
+        padding: 0;
+        min-height: 350px;
+    }
+
+    .orbit-account .account-intro h2 {
+        font-size: 25px;
+    }
+
+    .orbit-account .orbit-learning .orbit-learning-intro h2 {
+        font-size: 29px;
+    }
+
+    .orbit-account .orbit-learning-intro .identity-hint {
+        font-size: 14px;
+    }
+
+    .orbit-account .orbit-grade-form legend {
+        margin-bottom: 12px;
+    }
+
+    .orbit-account .orbit-grade-save {
+        gap: 15px;
+        align-items: start;
+    }
+
+    .orbit-account .orbit-grade-save .identity-hint {
+        max-width: 32ch;
+        font-size: 12px;
+    }
+
+    .orbit-account .account-pane :is(h2, h3) {
+        font-size: 23px;
+    }
+
+    .orbit-account .account-pane .identity-button {
+        width: auto;
+    }
+
+    .orbit-account .account-pane form .identity-secondary {
+        width: auto;
+    }
+
+    .orbit-account .orbit-grades {
+        max-width: 290px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .orbit-account .orbit-grade-disc strong {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:440px) {
+
+    .orbit-site .lesson-header-nav {
+        display: none;
+    }
+
+    .orbit-site .lesson-header .brand {
+        font-size: 24px;
+    }
+
+    .orbit-site .site-auth-full {
+        display: inline;
+    }
+
+    .orbit-site .site-auth-short {
+        display: none;
+    }
+
+    .orbit-site .site-auth-link[data-authenticated=true] .site-auth-full {
+        display: none;
+    }
+
+    .orbit-site .site-auth-link[data-authenticated=true] .site-auth-short {
+        display: inline;
+    }
+
+    .orbit-site .lesson-header-end {
+        gap: 1px;
+    }
+
+    .orbit-home .orbit-copy h1 {
+        font-size: 35px;
+    }
+
+    .orbit-account .account-nav button {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .orbit-account .account-nav button svg {
+        display: none;
+    }
+}
+
+@media (max-width:360px) {
+
+    .orbit-account .orbit-grades {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+    .orbit-site .lesson-header-nav a:hover {
+        background: var(--muted);
+    }
+
+    .orbit-site .site-auth-link:hover {
+        background: var(--muted);
+    }
+
+    .orbit-site .lesson-theme-toggle:hover {
+        background: var(--muted);
+    }
+
+    .orbit-site .orbit-home .orbit-materials-action:hover {
+        text-decoration: none;
+        background: var(--cta-hover);
+        border-color: var(--cta-edge);
+        color: var(--cta-ink);
+    }
+
+    .orbit-account .identity-secondary:hover {
+        background: var(--muted);
+        border-color: var(--primary);
+    }
+
+    .orbit-account .orbit-grade:hover .orbit-grade-disc:before {
+        transform: rotate(35deg);
+        border-top-color: var(--primary);
+    }
+
+    .orbit-site .orbit-account .identity-button:hover:not(:disabled) {
+        background: var(--account-action-hover);
+        color: var(--account-action-ink);
+        border-color: transparent;
+    }
+
+    .orbit-account .account-logout:hover:not(:disabled) {
+        background: var(--muted);
+        color: var(--foreground);
+    }
+
+    .orbit-account .orbit-grade:hover input:not(:disabled)+.orbit-grade-disc:before {
+        transform: rotate(35deg);
+        border-top-color: var(--primary);
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+    .orbit-site :is(.orbit-light, .orbit-field) {
+        animation: none;
+    }
+
+    .orbit-traveller {
+        animation: none;
+    }
+
+    .orbit-site :is(.orbit-action, .lesson-header-nav a, .site-auth-link, .identity-button, .identity-secondary, .orbit-grade-disc, .orbit-grade-disc:before) {
+        transition: none;
+    }
+
+    .orbit-account .orbit-grade-disc {
+        transition: none;
+    }
+
+    .orbit-account .orbit-grade-disc:before {
+        transition: none;
+    }
+
+    .orbit-account .orbit-grade:hover input:not(:disabled)+.orbit-grade-disc:before {
+        transform: rotate(-32deg);
+    }
+}

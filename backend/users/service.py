@@ -3,17 +3,15 @@ from datetime import timedelta
 import hashlib
 import hmac
 import json
-import math
 import uuid
 
 import sqlalchemy as sa
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.dialects.postgresql import insert
 
 from backend.infrastructure.uow import UnitOfWork
 from backend.infrastructure.locks import OrderedLocks
 from backend.infrastructure.http import transport as wire
-from backend.models.baseline import User, Grade, StudentProfile, IdentityReceipt, LoginWindow, metadata
+from backend.models.baseline import User, Grade, StudentProfile, IdentityReceipt
 from backend.models.protocol import TargetSession, ReceiptBridge
 from backend.users import passwords
 from backend.users.security import salted_hmac, unmask, revoke_lineage, auth_hash
@@ -92,40 +90,19 @@ def validate_current(session, identity, user, keys, *, lock=True):
 
 
 class IdentityService:
-    def __init__(self, security):
+    def __init__(self, security, mail=None):
         self.security = security
         self.engine = security.engine
         self.dummy_hash = passwords.encode('synthetic-dummy-not-an-account')
+        from backend.users.account import AccountService
+        from backend.users.mail import UnconfiguredMail
+        self.account = AccountService(self, mail if mail is not None else UnconfiguredMail())
 
     def authenticated(self, request):
         identity = self.security.authenticate(request)
         if identity is None:
             raise wire.authentication_required()
         return identity
-
-    def budget(self, remote):
-        digest = salted_hmac('users.login.ip', remote, self.security.key)
-        retry = None
-        with UnitOfWork(self.engine) as uow:
-            s = uow.session
-            self.security.writer(s)
-            now = s.scalar(sa.select(sa.func.clock_timestamp()))
-            s.execute(insert(metadata.tables['users_loginwindow']).values(id=uuid.uuid4(), ip_digest=digest, started_at=now, count=0)
-                      .on_conflict_do_nothing(index_elements=['ip_digest']))
-            row = s.scalar(sa.select(LoginWindow).where(LoginWindow.ip_digest == digest).with_for_update())
-            now = s.scalar(sa.select(sa.func.clock_timestamp()))
-            elapsed = (now - row.started_at).total_seconds()
-            if elapsed >= 300:
-                row.started_at, row.count, elapsed = now, 0, 0
-            if row.count >= 10:
-                retry = max(1, math.ceil(300 - elapsed))
-            else:
-                row.count += 1
-            uow.commit()
-        if retry:
-            error = wire.APIError(429, 'RATE_LIMITED', 'Too many login requests.')
-            error.retry_after = retry
-            raise error
 
     def get_me(self, identity):
         with UnitOfWork(self.engine) as uow:
@@ -232,7 +209,8 @@ class IdentityService:
             if row.request_digest != digest:
                 raise conflict('IDEMPOTENCY_CONFLICT')
             user = User(username=body['username'], email=body.get('email', ''))
-            if not passwords.valid_username(user.username) or not passwords.valid_email(user.email) or not passwords.validate_password(body['password'], user):
+            if (not passwords.valid_username(user.username) or len(user.username) > 30
+                    or not passwords.valid_email(user.email) or not passwords.validate_new_password(body['password'], user)):
                 raise wire.invalid()
             user.password = passwords.encode(body['password'])
             try:
@@ -251,16 +229,23 @@ class IdentityService:
                         transfer_binding_digest=None)
             s.add(bridge)
             row.user_id, row.response, row.status = user.id, envelope(request_id, user_data(s, user)), 201
+            self.account.audit(s, 'registered', user.id, now)
             uow.commit()
             return row.response, row.status, (token, csrf_next)
 
     def login(self, body, remote, identity, *, legacy_session_key=None):
-        self.budget(remote)
+        self.account.budget('login', remote, body['username'])
         with UnitOfWork(self.engine) as uow:
             candidate = uow.session.scalar(sa.select(User).where(User.username == body['username']))
             encoded = candidate.password if candidate else self.dummy_hash
             valid = passwords.verify(body['password'], encoded)
             if candidate is None or not candidate.is_active or not valid:
+                # Audit on this connection: a nested UoW here could exhaust the
+                # pool when concurrent failed logins all hold a read connection.
+                self.security.writer(uow.session)
+                self.account.audit(uow.session, 'login_failed', body['username'],
+                                   uow.session.scalar(sa.select(sa.func.clock_timestamp())))
+                uow.commit()
                 raise wire.authentication_required()
             candidate_id, candidate_hash = candidate.id, candidate.password
             observed = None
@@ -329,6 +314,7 @@ class IdentityService:
                     bridge.ticket_revoked_at = now
                     issued.revocation_epoch = bridge.revocation_epoch
             user.last_login = now
+            self.account.audit(s, 'login_succeeded', user.id, now)
             profile_for(s, user)
             result = user_data(s, user)
             uow.commit()
@@ -343,6 +329,7 @@ class IdentityService:
             validate_current(s, identity, user, self.security.keys, lock=False)
             now = s.scalar(sa.select(sa.func.clock_timestamp()))
             revoke_lineage(s, identity.lineage_id, now)
+            self.account.audit(s, 'logout', user.id, now)
             uow.commit()
 
     def update_profile(self, identity, body, *, key=None, request_id=None):

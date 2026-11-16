@@ -4,6 +4,242 @@
 @import './lesson-shell.css';
 @import './lesson.css';
 
+/* MS-T006 review: opt-in presentation for the affected grade-8 sources only. */
+.lesson-section .lesson-math.ms-g8-algebra-fraction {
+  math-style: normal;
+  vertical-align: baseline;
+}
+.lesson-section .ms-g8-plot-label {
+  paint-order: stroke fill;
+  stroke: var(--lesson-plot);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.lesson-section .ms-g8-circle-angles-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+/* The original 1536×1024 PNG repeats the section/figure titles in its top 220px.
+ * Keep the source intact and expose all three panels below that title band. */
+.lesson-section .ms-g8-circle-angles-viewport {
+  position: relative;
+  aspect-ratio: 1536 / 804;
+  overflow: hidden;
+}
+.lesson-section .ms-g8-circle-angles-viewport > .ms-g8-circle-angles-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-21.484375%);
+}
+
+/* MS-T006: the reviewed N inside Z inside Q diagram (topic 8).
+ * Keep actual nested regions and real labels, rather than a flattened list. */
+.lesson-section .ms-g8-sets { margin-block: 1.25em; min-inline-size: 0; }
+.lesson-section .ms-g8-set {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: clamp(.6rem, 2.5%, 1.15rem);
+  border: 3px solid var(--lesson-accent-text);
+  border-radius: 1.5rem;
+  background: var(--lesson-plot);
+}
+.lesson-section .ms-g8-set-q { border-color: #b9a5ff; }
+.lesson-section .ms-g8-set-z { border-color: #7eb9f5; }
+.lesson-section .ms-g8-set-n { border-color: #4d97f3; }
+.lesson-section .ms-g8-set-label { margin-block-end: .85em; text-align: center; }
+.lesson-section :is(.ms-g8-set-letter, .ms-g8-set-title, .ms-g8-set-examples) {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.lesson-section .ms-g8-set-letter { font-size: 1.8em; font-weight: 700; }
+.lesson-section .ms-g8-set-title { font-weight: 700; }
+
+/* Topic 13: source x positions, in percent, remain 50/80 and 28/76.
+ * Existing plot/point/label primitives are reused. Only decorative strokes
+ * use pseudo-elements; O(0), A(a), B(b) and the moduli are real Content. */
+.lesson-section .ms-g8-real-axis.ms-g8-distance-axis { grid-template-columns: minmax(0, 50fr) minmax(0, 15fr) minmax(0, 15fr) minmax(0, 20fr); }
+.lesson-section .ms-g8-real-axis.ms-g8-pair-axis { grid-template-columns: minmax(0, 28fr) repeat(3, minmax(0, 24fr)); }
+.lesson-section .ms-g8-real-axis:is(.ms-g8-distance-axis, .ms-g8-pair-axis) {
+  grid-template-rows: auto 3.5em auto;
+}
+.lesson-section :is(.ms-g8-distance-axis, .ms-g8-pair-axis) .ms-g8-distance-segment {
+  position: absolute;
+  top: 50%;
+  border-top: 3px solid var(--lesson-accent-text);
+  transform: translateY(-1.5em);
+}
+.lesson-section .ms-g8-distance-axis .ms-g8-distance-segment { left: 50%; right: 20%; }
+.lesson-section .ms-g8-pair-axis .ms-g8-distance-segment { left: 28%; right: 24%; }
+.lesson-section .ms-g8-distance-segment::before,
+.lesson-section .ms-g8-distance-segment::after {
+  content: '';
+  position: absolute;
+  top: -.4em;
+  block-size: .7em;
+  border-left: 2px solid var(--lesson-accent-text);
+}
+.lesson-section .ms-g8-distance-segment::before { left: 0; }
+.lesson-section .ms-g8-distance-segment::after { right: 0; }
+.lesson-section .ms-g8-real-axis.ms-g8-pair-axis .ms-g8-line::after { content: none; }
+.lesson-section .ms-g8-distance-axis .ms-g8-at-50 { left: 50%; grid-column: 2; }
+.lesson-section .ms-g8-distance-axis .ms-g8-at-65 { grid-column: 3; }
+.lesson-section .ms-g8-distance-axis .ms-g8-at-80 { left: 80%; grid-column: 4; }
+.lesson-section .ms-g8-pair-axis .ms-g8-at-28 { left: 28%; grid-column: 2; }
+.lesson-section .ms-g8-pair-axis .ms-g8-at-52 { grid-column: 3; }
+.lesson-section .ms-g8-pair-axis .ms-g8-at-76 { left: 76%; grid-column: 4; }
+.lesson-section .ms-g8-piecewise {
+  display: inline-grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
+  column-gap: .25em;
+  max-inline-size: 100%;
+  vertical-align: middle;
+}
+.lesson-section .ms-g8-piecewise-brace { font-family: 'STIX Two Math', math; font-size: 2.8em; line-height: 1; }
+.lesson-section .ms-g8-piecewise-lines { display: grid; row-gap: .35em; min-inline-size: 0; }
+.lesson-section .ms-g8-piecewise-line { display: block; }
+
+/* MS-T006: three authored grade-eight diagrams; labels are real Content nodes.
+ * Grid boundaries and plot positions share the same finite source coordinates.
+ * Label rows grow with wrapping/text zoom; no 720px minimum or clipped text. */
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis, .ms-g8-prob-scale) {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: auto 2em auto auto;
+  row-gap: .5em;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  margin-block: 1.25em;
+  padding: 1em clamp(1rem, 4%, 2rem);
+  border: 1px solid var(--lesson-divider);
+  border-radius: 1rem;
+  background: var(--lesson-plot);
+  color: var(--lesson-ink);
+}
+.lesson-section .ms-g8-root-axis { grid-template-columns: minmax(0, 16.2fr) minmax(0, 83.8fr); }
+.lesson-section .ms-g8-real-axis {
+  grid-template-columns: minmax(0, 11fr) minmax(0, 11.4fr) minmax(0, 3.6fr)
+    repeat(3, minmax(0, 15fr)) minmax(0, 6.2fr) minmax(0, 8.8fr) minmax(0, 14fr);
+}
+.lesson-section .ms-g8-prob-scale {
+  grid-template-columns: minmax(0, 4fr) repeat(4, minmax(0, 23fr)) minmax(0, 4fr);
+  grid-template-rows: 2em auto auto;
+}
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis, .ms-g8-prob-scale) > .ms-g8-plot {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  position: relative;
+  min-inline-size: 0;
+}
+.lesson-section .ms-g8-prob-scale > .ms-g8-plot { grid-row: 1; }
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis, .ms-g8-prob-scale) .ms-g8-line {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  block-size: .18em;
+  background: var(--lesson-muted);
+  transform: translateY(-50%);
+}
+.lesson-section .ms-g8-real-axis .ms-g8-line::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  inline-size: .65em;
+  block-size: .65em;
+  border-top: .18em solid var(--lesson-muted);
+  border-right: .18em solid var(--lesson-muted);
+  transform: translateY(-50%) rotate(45deg);
+}
+.lesson-section .ms-g8-prob-scale .ms-g8-line {
+  inset-inline: 4%;
+  block-size: .6em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #dbeafe 0%, #93c5fd 45%, #7c3aed 100%);
+}
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis) .ms-g8-tick {
+  position: absolute;
+  top: 50%;
+  inline-size: 2px;
+  block-size: 1.5em;
+  background: var(--lesson-ink);
+  transform: translate(-50%, -50%);
+}
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis, .ms-g8-prob-scale) .ms-g8-point {
+  position: absolute;
+  top: 50%;
+  box-sizing: border-box;
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  border: .22em solid var(--lesson-accent-text);
+  border-radius: 50%;
+  background: var(--lesson-plot);
+  transform: translate(-50%, -50%);
+}
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis, .ms-g8-prob-scale) > .ms-g8-label {
+  grid-row: 3;
+  justify-self: start;
+  align-self: start;
+  inline-size: max-content;
+  max-inline-size: min(12ch, 26cqi);
+  min-inline-size: 0;
+  font-size: .9em;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-align: center;
+  transform: translateX(-50%);
+}
+.lesson-section :is(.ms-g8-root-axis, .ms-g8-real-axis) > .ms-g8-point-label {
+  grid-row: 1;
+  align-self: end;
+  color: var(--lesson-accent-text);
+}
+/* The short interval's point label starts above its point and wraps rightward. */
+.lesson-section .ms-g8-root-axis > .ms-g8-point-label {
+  max-inline-size: min(18ch, 60cqi);
+  text-align: start;
+  transform: none;
+}
+.lesson-section .ms-g8-root-axis .ms-g8-pos-0 { left: 0%; grid-column: 1; }
+.lesson-section .ms-g8-root-axis .ms-g8-pos-162 { left: 16.2%; grid-column: 2; }
+.lesson-section .ms-g8-root-axis .ms-g8-pos-100 { left: 100%; grid-column: 2; }
+.lesson-section .ms-g8-root-axis > .ms-g8-label.ms-g8-pos-100 { justify-self: end; transform: translateX(50%); }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-11 { left: 11%; grid-column: 2; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-224 { left: 22.4%; grid-column: 3; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-26 { left: 26%; grid-column: 4; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-41 { left: 41%; grid-column: 5; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-56 { left: 56%; grid-column: 6; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-71 { left: 71%; grid-column: 7; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-772 { left: 77.2%; grid-column: 8; }
+.lesson-section .ms-g8-real-axis .ms-g8-pos-86 { left: 86%; grid-column: 9; }
+/* Five probability labels use two growing rows, keeping neighbours apart. */
+.lesson-section .ms-g8-prob-scale > .ms-g8-label {
+  grid-row: 2;
+  max-inline-size: min(12ch, 18cqi);
+}
+.lesson-section .ms-g8-prob-scale > .ms-g8-label > strong { display: block; color: var(--lesson-ink); }
+.lesson-section .ms-g8-prob-scale .ms-g8-point { border-color: var(--lesson-plot); }
+.lesson-section .ms-g8-prob-scale .ms-g8-pos-4 { left: 4%; grid-column: 2; }
+.lesson-section .ms-g8-prob-scale .ms-g8-pos-27 { left: 27%; grid-column: 3; }
+.lesson-section .ms-g8-prob-scale .ms-g8-pos-50 { left: 50%; grid-column: 4; }
+.lesson-section .ms-g8-prob-scale .ms-g8-pos-73 { left: 73%; grid-column: 5; }
+.lesson-section .ms-g8-prob-scale .ms-g8-pos-96 { left: 96%; grid-column: 6; }
+.lesson-section .ms-g8-prob-scale .ms-g8-point.ms-g8-pos-4 { background: #2563eb; }
+.lesson-section .ms-g8-prob-scale .ms-g8-point.ms-g8-pos-27 { background: #60a5fa; }
+.lesson-section .ms-g8-prob-scale .ms-g8-point.ms-g8-pos-50 { background: #3b82f6; }
+.lesson-section .ms-g8-prob-scale .ms-g8-point.ms-g8-pos-73 { background: #6366f1; }
+.lesson-section .ms-g8-prob-scale .ms-g8-point.ms-g8-pos-96 { background: #7c3aed; }
+.lesson-section .ms-g8-prob-scale > .ms-g8-label.ms-g8-pos-4 { text-align: start; transform: none; }
+.lesson-section .ms-g8-prob-scale > .ms-g8-label.ms-g8-pos-96 { text-align: end; transform: translateX(-100%); }
+.lesson-section .ms-g8-prob-scale > .ms-g8-label:is(.ms-g8-pos-27, .ms-g8-pos-73) { grid-row: 3; }
+@container (max-width: 32.5em) {
+  .lesson-section .ms-g8-real-axis > .ms-g8-label:is(.ms-g8-pos-26, .ms-g8-pos-56, .ms-g8-pos-86) { grid-row: 4; }
+}
+
 .linear-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .lesson-section .ms-svg-wrap { max-width: 100%; min-width: 0; }
 .lesson-section .ms-svg { display: block; width: 100%; height: auto; }
@@ -348,5 +584,66 @@
     :is(.ms-notation-item, .ms-kicker, .ms-factor-line, .ms-balance-item, .ms-stat-box) {
       grid-template-columns: minmax(0, 1fr);
     }
+  }
+}
+
+/* MS-T007 — preserve authored system rows and numbered teaching groups. */
+:where(html:has(> head > link[rel="canonical"][href*="/materials/9-algebra-"])) .lesson-section {
+  .ms-system {
+    display: inline-grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    gap: 0.35em;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    vertical-align: middle;
+  }
+
+  .ms-system-brace {
+    color: var(--lesson-accent-text);
+    font-family: 'STIX Two Math', math;
+    font-size: 3.6em;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .ms-system:has(.ms-system-line ~ .ms-system-line ~ .ms-system-line) > .ms-system-brace {
+    font-size: 5.2em;
+  }
+
+  .ms-system-line {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+:where(html:has(> head > link[rel="canonical"][href$="/materials/9-statistics-12"])) .lesson-section {
+  :is(.ms-course-card, .ms-check-step-row) {
+    display: grid;
+    grid-template-columns: 1.25em minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0 0.65em;
+  }
+
+  :is(.ms-course-number, .ms-check-icon) {
+    grid-column: 1;
+    grid-row: 1;
+    color: var(--lesson-accent-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ms-course-card > :is(.ms-card-title, .ms-card-text),
+  .ms-check-step-row > div {
+    grid-column: 2;
+  }
+
+  .ms-check-step-row,
+  .ms-method-step {
+    margin-block-end: 0.9em;
+  }
+
+  :is(.ms-check-step-row > div, .ms-method-step) > strong {
+    display: block;
+    margin-block-end: 0.2em;
   }
 }

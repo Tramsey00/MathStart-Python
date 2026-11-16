@@ -6,6 +6,8 @@ import type { LessonNode } from './lesson-types';
 import { NumberCircle } from '../../features/lesson-interactives/number-circle';
 import { PowerGraph } from '../../features/lesson-interactives/power-graph';
 import { LinearGraph } from '../../features/lesson-interactives/linear-graph';
+import { SquareRootGraph } from '../../features/lesson-interactives/square-root-graph';
+import { HyperbolaGraph } from '../../features/lesson-interactives/hyperbola-graph';
 
 function inlineStyle(value: string): CSSProperties {
   return Object.fromEntries(value.split(';').filter(part => part.includes(':')).map(part => {
@@ -104,6 +106,8 @@ function renderNode(node: LessonNode, key: number, context: SourceContext): Reac
   if (node.kind === 'text') return node.text;
   if (node.kind === 'graph') return <QuadraticGraph key={key}/>;
   if (node.kind === 'interactive') {
+    if (node.name === 'square-root') return <SquareRootGraph key={key} id={node.id}/>;
+    if (node.name === 'hyperbola') return <HyperbolaGraph key={key} id={node.id}/>;
     if (node.name === 'power-positive' || node.name === 'power-negative' || node.name === 'power-rational') {
       return <PowerGraph key={key} id={node.id} mode={node.name === 'power-rational' ? 'rational' : node.name === 'power-positive' ? 'positive' : 'negative'}/>;
     }

@@ -16,6 +16,10 @@ TABLE_PRIVILEGES = {
     **dict.fromkeys(('users_studentprofile', 'users_identityreceipt', 'users_loginwindow',
                      'target_receipt_bridge'), 'SELECT, INSERT, UPDATE'),
     'target_session': 'SELECT, INSERT, UPDATE, DELETE',
+    # Identity account/recovery, row locks, throttling and retention cleanup.
+    **dict.fromkeys(('identity_recovery_address', 'identity_action_token',
+                     'identity_request_window'), 'SELECT, INSERT, UPDATE, DELETE'),
+    'identity_security_event': 'SELECT, INSERT, DELETE',
     # The publication authority uses the separate schema role for writes.
     **dict.fromkeys(('content_grade', 'content_subject', 'content_section', 'content_contentpage',
                      'content_lessonpublication', 'content_mediaasset', 'content_redirect',
