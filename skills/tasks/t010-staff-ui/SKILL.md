@@ -45,6 +45,18 @@ production и provider/security решения требуют отдельног
 
 Перед реализацией создать или продолжить GitHub Issue этого задания и отдельную ветку от актуального origin/main после fetch; без codex/ и /codex. Изменения передаются через PR со ссылкой на Issue. Не создавать дубли и не выполнять merge/закрытие Issue автоматически. Подробности — AGENTS.md.
 
+## Исправление запуска — 17.11.2026
+
+На local731b2b9 / published56ec60f воспроизведён отказ dev:host после API socket:
+React Router отклонил server loader в routes/staff-unavailable при ssr:false.
+Это дефект предыдущего изменения T010, не ошибка PostgreSQL или dev projection.
+Обработчик заменён clientLoader с hydrate=true; root 404 boundary сохранён.
+Повторный npm.cmd --prefix frontend run dev:host завершил штатные readiness /
+и /api/v1/grades/ и напечатал Host-dev готов на8131. Сервер оставлен работающим.
+DDL, публикация Content, cache clear и переустановка не выполнялись.
+git diff --check выполнен; suites/typecheck/build: NOT_RUN_BY_USER_REQUEST.
+SHA/tree исправления — в PR #79; отдельное review/human acceptance PENDING.
+
 ## Актуальная передача — 16.11.2026, только User/Group
 
 Новое явное решение Руслана заменяет требование девяти ресурсов в UI: остаются
