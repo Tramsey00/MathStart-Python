@@ -160,7 +160,19 @@ def main(argv=None):
         health = command(['exec', api, 'python', '-m', 'backend.health'], expected=1, log='uninitialized-health.log')
         check(health == 'UNREADY', 'missing_publication_is_unready')
         # API startup may read the schema, but may not seed content or migrate.
-        query = "import sqlalchemy as s; from backend.infrastructure.database import *; e=create_engine(DatabaseConfig.from_environment()); c=e.connect(); assert c.scalar(s.text('SELECT count(*) FROM content_contentpage'))==0; assert c.scalar(s.text('SELECT count(*) FROM auth_user'))==0; assert c.scalar(s.text('SELECT version_num FROM alembic_version'))=='v01_0002'; c.close(); e.dispose(); print('NO_STARTUP_WRITES')"
+        query = """
+import sqlalchemy as sa
+from backend.infrastructure.database import DatabaseConfig, create_engine
+from backend.migrations.schema import HEAD
+engine = create_engine(DatabaseConfig.from_environment())
+with engine.connect() as connection:
+    for table in ('content_contentpage', 'auth_user', 'knowledge_skill',
+                  'knowledge_skill_dependency', 'content_topic_skill'):
+        assert connection.scalar(sa.text(f'SELECT count(*) FROM {table}')) == 0
+    assert connection.scalar(sa.text('SELECT version_num FROM alembic_version')) == HEAD
+engine.dispose()
+print('NO_STARTUP_WRITES')
+"""
         command(['exec', api, 'python', '-c', query], log='startup-rows.log')
         check(True, 'api_startup_no_content_auth_or_schema_writes')
         job(['-t'], 'edge-config', service='edge')

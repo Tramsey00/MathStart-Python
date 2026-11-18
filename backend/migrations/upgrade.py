@@ -11,9 +11,8 @@ from alembic.config import Config
 from alembic.script import ScriptDirectory
 from backend.models.baseline import metadata, SNAPSHOT, GRADE_EPOCH, utc_now
 from backend.models.protocol import PROTOCOL_TABLES
-from .schema import assert_baseline, assert_revision_graph, SchemaMismatch, inventory
+from .schema import HEAD, assert_baseline, assert_revision_graph, SchemaMismatch, inventory
 
-HEAD = 'v01_0003'
 BASE = 'v01_0001'
 
 
