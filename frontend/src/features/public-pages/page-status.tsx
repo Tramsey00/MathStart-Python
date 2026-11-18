@@ -1,9 +1,8 @@
-import { useEffect, useRef } from 'react';
 import { Brand } from '../../shared/ui/brand';
 import { LessonFooter } from '../../shared/lesson/lesson-shell';
 import { OrbitHeader } from '../../shared/ui/orbit-header';
 import { useSiteTheme } from '../../shared/ui/use-site-theme';
-import { OrbitGeometry } from './orbit-geometry';
+import { MongeArtwork } from './monge-artwork';
 import './page-status.css';
 
 const gradeLinks = [5, 6, 7, 8, 9, 10].map(grade => ({
@@ -13,16 +12,6 @@ const gradeLinks = [5, 6, 7, 8, 9, 10].map(grade => ({
 
 export function PageStatus({ missing }: { missing: boolean }) {
   const [dark, setDark] = useSiteTheme();
-  const artwork = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const element = artwork.current;
-    if (!element) return;
-    const syncVisibility = () => { element.dataset.motion = document.hidden ? 'paused' : 'visible'; };
-    syncVisibility();
-    document.addEventListener('visibilitychange', syncVisibility);
-    return () => document.removeEventListener('visibilitychange', syncVisibility);
-  }, [missing]);
-
   return <div className="orbit-site public-status">
     <a className="skip-link" href="#main-content">К сообщению</a>
     <OrbitHeader contained dark={dark} onTheme={() => setDark(value => !value)} />
@@ -37,7 +26,7 @@ export function PageStatus({ missing }: { missing: boolean }) {
             <a className="public-status-home" href="/">На главную</a>
           </div>
         </div>
-        {missing && <div className="public-status-art" ref={artwork} aria-hidden="true"><OrbitGeometry compact /></div>}
+        {missing && <div className="public-status-art"><MongeArtwork /></div>}
       </div>
     </main>
     <LessonFooter brand={<Brand />} catalogueHref="/materials" accountHref="/account/" homeHref="/" gradeLinks={gradeLinks} />

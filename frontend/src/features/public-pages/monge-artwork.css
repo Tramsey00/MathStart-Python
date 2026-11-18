@@ -1,0 +1,51 @@
+.monge-artwork {
+  --monge-circle-a: #3868ac;
+  --monge-circle-b: #277d77;
+  --monge-circle-c: #9d642b;
+  --monge-tangent: #687d9b;
+  --monge-axis: #34445c;
+  display: grid;
+  justify-items: end;
+  min-width: 0;
+  margin: 0;
+}
+
+[data-theme=dark] .monge-artwork {
+  --monge-circle-a: #91b8ed;
+  --monge-circle-b: #83cbbf;
+  --monge-circle-c: #e8b779;
+  --monge-tangent: #8298b8;
+  --monge-axis: #eef1f7;
+}
+
+.monge-artwork-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.monge-artwork-svg :is(circle, line) { vector-effect: non-scaling-stroke; }
+.monge-tangents { stroke: var(--monge-tangent); stroke-width: 1.25; stroke-linecap: butt; }
+.monge-circles { stroke-width: 1.8; }
+.monge-artwork-svg [data-monge-owner='0'] { --monge-ink: var(--monge-circle-a); }
+.monge-artwork-svg [data-monge-owner='1'] { --monge-ink: var(--monge-circle-b); }
+.monge-artwork-svg [data-monge-owner='2'] { --monge-ink: var(--monge-circle-c); }
+.monge-circles > circle { stroke: var(--monge-ink); }
+.monge-contacts > circle { fill: var(--monge-ink); stroke: var(--monge-ink); stroke-width: .6; }
+.monge-axis { stroke: var(--monge-axis); stroke-width: 1.9; stroke-linecap: butt; }
+.monge-points { fill: var(--monge-axis); stroke: var(--monge-axis); stroke-width: .65; }
+
+.monge-pause {
+  min-block-size: 44px;
+  padding: .375rem .875rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.monge-pause[aria-pressed='true'] { background: var(--muted); }

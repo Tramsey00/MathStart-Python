@@ -32,13 +32,11 @@ MISSING_PAGE_SCRIPT = """<script>
     try { localStorage.setItem('mathstart-mode', root.dataset.theme); } catch {}
     updateLabel();
   });
-  const artwork = document.querySelector('.public-status-art');
-  const syncVisibility = () => {
-    artwork.dataset.motion = document.hidden ? 'paused' : 'visible';
-  };
+  const artwork = document.querySelector('[data-monge-module]');
   if (artwork) {
-    syncVisibility();
-    document.addEventListener('visibilitychange', syncVisibility);
+    import(artwork.dataset.mongeModule)
+      .then(({mountMongeArtwork}) => mountMongeArtwork(artwork))
+      .catch(() => {}); // The complete diagram is visible before this module loads.
   }
 })();
 </script>"""
@@ -150,6 +148,9 @@ def build_public(input_root, release_id, manifest_digest, output, origin, receip
     # branch. Keep the prerender independent of router hydration on that path.
     if missing.count('</body>') != 1:
         raise ValueError('Incomplete 404 document body')
+    motion_assets = re.findall(r'data-monge-module="/(assets/monge-motion-[A-Za-z0-9_-]+\.js)"', missing)
+    if len(motion_assets) != 1 or not any(file['path'] == motion_assets[0] for file in files):
+        raise ValueError('Missing standalone Monge asset for the 404 document')
     missing = without_router_runtime(missing).replace('</body>', MISSING_PAGE_SCRIPT + '</body>')
     write('404.html', missing.encode('utf-8'))
     receipt = {'version':'frontend-public-output-v1', 'release_id':release_id,
