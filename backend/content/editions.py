@@ -18,8 +18,12 @@ from backend.content.publication import PublicationConflict
 from backend.infrastructure.locks import TABLE_ORDER
 from backend.models.baseline import metadata
 
-TABLES = tuple(sorted((name for name in metadata.tables if name.startswith('content_')),
-                      key=lambda name: TABLE_ORDER[name]))
+# Catalogue and publication sources only. Runtime TopicSkill mappings have
+# their own lifecycle and must never enter an edition snapshot or write plan.
+TABLES = (
+    'content_grade', 'content_subject', 'content_section', 'content_contentpage',
+    'content_lessonpublication', 'content_mediaasset', 'content_redirect',
+)
 
 
 def normalized(row):

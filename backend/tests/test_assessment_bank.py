@@ -65,6 +65,12 @@ def seed(engine):
 
 
 class PublicContractTests(unittest.TestCase):
+    def test_runtime_topic_skills_do_not_enter_content_edition_snapshots(self):
+        from backend.content.editions import TABLES
+
+        self.assertIn(content_page.name, TABLES)
+        self.assertNotIn(topic_skill.name, TABLES)
+
     def test_all_templates_match_contract_and_reject_unknown_or_nested_private_values(self):
         exercise_id = uuid4()
         for code, template in TEMPLATES.items():
