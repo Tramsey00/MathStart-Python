@@ -7,8 +7,10 @@ const paths = input ? Object.keys(JSON.parse(readFileSync(input, "utf8")).routes
 export default {
   appDirectory: "src/app",
   buildDirectory: process.env.MATHSTART_ROUTER_BUILD || "build",
-  ssr: false,
+  // Render wildcard errors at the requested URL in host-dev. The release
+  // build still emits static public documents and a private SPA shell.
+  ssr: process.env.MATHSTART_DEV_MODE === '1',
   routeDiscovery: { mode: 'initial' },
-  prerender: paths,
+  prerender: input ? [...paths, "/404"] : paths,
   future: { v8_trailingSlashAwareDataRequests: true },
 } satisfies Config;

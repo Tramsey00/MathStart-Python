@@ -59,6 +59,6 @@ Raw candidates/reports/PNG находятся в ignored var/ms-t005-geometry; b
 
 ## Ограничения и оставшиеся задачи
 
-[Карта всех 75 тем](../tasks/ms-t005-migration-map.json) обновлена, [оставшиеся 9 тем](../tasks/ms-t005-remaining.md) перечислены отдельно. Это 8 статистических тем и первая тема алгебры до URL-решения; эти девять в данном этапе повторно не конвертировались.
+[Карта всех 75 тем](../tasks/ms-t005-migration-map.json) обновлена, [оставшиеся 9 тем](ms-t005-remaining.md) перечислены отдельно. Это 8 статистических тем и первая тема алгебры до URL-решения; эти девять в данном этапе повторно не конвертировались.
 Source activation не обновляет установленный immutable Content snapshot. Полная HTTP route/reload/Back/no-JS publication проверка не выполнялась: origin недоступен и публикация/build запрещены. Media-handler fixture не выдаётся за production/runtime readiness.
 Independent review **PENDING**, human visual/pedagogical acceptance **PENDING**, MS-T005 целиком **INCOMPLETE**, merge **NOT PERFORMED**. Release build, публикация и server lifecycle не запускались. Следующая задача не начинается.

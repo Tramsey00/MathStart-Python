@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { resolve, sep, extname } from "node:path";
 
 // Local artifact verifier only. V05 owns serving/gateway; not a deployment server.
-const routes = new Set(["/", "/karta-sajta/", "/o-proekte/", "/kontakty/", "/account/", "/admin/"]);
+const routes = new Set(["/", "/materials", "/o-proekte/", "/kontakty/", "/account/", "/admin/"]);
 const types = {".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".css":"text/css; charset=utf-8", ".svg":"image/svg+xml"};
 
 export function createPreviewServer(directory = fileURLToPath(new URL("../build/client/", import.meta.url))) {

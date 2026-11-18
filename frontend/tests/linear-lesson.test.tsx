@@ -4,19 +4,23 @@ import { act } from 'react';
 import { renderToString } from 'react-dom/server';
 import { hydrateRoot } from 'react-dom/client';
 import { describe, expect, it, vi } from 'vitest';
-import { convertLesson } from '../scripts/convert-lesson.mjs';
+import { convertLesson } from './helpers/convert-lesson.mjs';
+import { reviewedLessonFile } from './helpers/lesson-source.mjs';
 import { LessonPage } from '../src/shared/lesson/lesson-page';
 import type { LessonDocument } from '../src/shared/lesson/lesson-types';
 
-const directory = resolve('../curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii');
+const repository = resolve('..');
+const path = 'curriculum/7-klass/algebra/02-linejnaya-funkciya-y-kx-b/03-linejnaya-funkcziya-y-kx-b-grafik-linejnoj-funkczii';
+const directory = resolve(repository, path);
+const html = reviewedLessonFile(repository, path + '/body.html').toString('utf8');
 const document = JSON.parse(readFileSync(directory + '/content.json', 'utf8')) as LessonDocument;
-const source = new DOMParser().parseFromString(readFileSync(directory + '/body.html', 'utf8'), 'text/html');
+const source = new DOMParser().parseFromString(html, 'text/html');
 const page = <LessonPage document={document} navigation={{ previous: null, next: null }} gradeLinks={[]}/>;
 const normalize = (s: string | null) => (s ?? '').replace(/\s+/g, ' ').trim();
 
 describe('linear lesson document preservation and SSG', () => {
   it('is the complete reviewed conversion, including all source sections and academic blocks', () => {
-    expect(document).toEqual(convertLesson(directory));
+    expect(document).toEqual(convertLesson(html, JSON.parse(readFileSync(directory + '/lesson.json', 'utf8')).page));
     expect(document.sections).toHaveLength(11);
     const rendered = new DOMParser().parseFromString(renderToString(page), 'text/html');
     expect(rendered.querySelectorAll('.self-check')).toHaveLength(13);

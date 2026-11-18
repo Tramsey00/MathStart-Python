@@ -3,10 +3,12 @@
 The operator supplies a reviewed source checkout; HTTP callers cannot attest
 trust or select files. No active descriptor or publication state is changed.
 """
+from dataclasses import dataclass
 from hashlib import sha256
 import json
 import os
 from pathlib import Path
+from urllib.parse import unquote
 import re
 import subprocess
 import sys
@@ -17,7 +19,7 @@ import sqlalchemy as sa
 
 from backend.content.sources import SourceError, file_inside, load_sources, read_json, publication_digest
 from backend.content.projection import ReviewedSource, delivery_candidate, build_index_candidate
-from backend.content.releases import Descriptor, ReleaseStore, safe_public_path, inside
+from backend.content.releases import Descriptor, ReleaseStore, canonical_public_edition, safe_public_path, inside
 from backend.models.baseline import ContentPage, LessonPublication
 from backend.infrastructure.http.contracts import validate
 
@@ -70,33 +72,41 @@ def verify_build_inputs(root, release_id, receipt_digest):
 def assets_for(root, bundle):
     page = bundle.snapshot
     react = bundle.renderer_version == 'react-v1'
-    css = [] if react else ['site.css', 'lesson.css', 'lesson-math.css', 'lesson-components.css', 'lesson-diagrams.css', 'lesson-contents.css']
-    scripts = [] if react else ['lesson-diagrams.js']
-    if not react and page['page_type'] != 'topic':
+    has_html = not react and bool(page['body_html'])
+    current_info = has_html and page['slug'] in {'o-proekte', 'kontakty'} and (
+        Path(root) / 'site_content/retired-public-routes.json').is_file()
+    if current_info:
+        css = ['site.css', 'site-pages.css', 'ui/tokens.css']
+    else:
+        css = [] if not has_html else ['site.css', 'lesson.css', 'lesson-math.css', 'lesson-components.css',
+                                      'lesson-diagrams.css', 'lesson-contents.css']
+    legacy_html = has_html and not current_info
+    scripts = ['lesson-diagrams.js'] if legacy_html else []
+    if legacy_html and page['page_type'] != 'topic':
         css.append('site-pages.css')
-    if not react and page['slug'] == 'karta-sajta':
+    if legacy_html and page['slug'] == 'karta-sajta':
         css += ['ui/tokens.css', 'catalogue.css']
-    if not react and page['slug'] in {'glavnaya', 'o-proekte', 'kontakty'}:
+    if legacy_html and page['slug'] in {'glavnaya', 'o-proekte', 'kontakty'}:
         css.append('ui/tokens.css')
-    if not react and 'data-lesson-widget="power-functions"' in page['body_html']:
+    if legacy_html and 'data-lesson-widget="power-functions"' in page['body_html']:
         css.append('widgets/power-functions.css')
-    elif not react and 'ms-graph-layout' in page['body_html']:
+    elif legacy_html and 'ms-graph-layout' in page['body_html']:
         css.append('widgets/function-graphs.css')
     rows = []
     for item in css:
         path = 'static/mathstart/css/' + item
         rows.append((path, '/' + path, 'style', file_inside(root, path).read_bytes()))
-    if page['page_css'] and not react:
+    if page['page_css'] and has_html:
         path = f'static/mathstart/pages/{page["slug"]}/page.css'
         rows.append((path, '/' + path, 'style', page['page_css'].encode('utf-8')))
     for item in scripts:
         path = 'static/mathstart/js/' + item
         rows.append((path, '/' + path, 'script', file_inside(root, path).read_bytes()))
-    if page['page_js'] and not react:
+    if page['page_js'] and has_html:
         path = f'static/mathstart/pages/{page["slug"]}/page.js'
         rows.append((path, '/' + path, 'script', page['page_js'].encode('utf-8')))
-    scripts = [] if react else ['lesson-navigation.js']
-    if not react and 'data-lesson-widget="power-functions"' in page['body_html']:
+    scripts = ['lesson-navigation.js'] if legacy_html else []
+    if legacy_html and 'data-lesson-widget="power-functions"' in page['body_html']:
         scripts += ['math.js', 'widgets/power-functions.js']
     for item in scripts:
         path = 'static/mathstart/js/' + item
@@ -175,6 +185,7 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
         raise SourceError('Build requires one repeatable PostgreSQL snapshot')
     bundles = {b.snapshot['slug']: b for b in load_sources(source_root)}
     routes = load_material_routes(source_root, bundles)
+    retirement = load_public_retirement(source_root, routes)
     pages = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
     deliveries, files = {}, {}
     for page in pages:
@@ -204,8 +215,8 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
             '/materials' if page.slug == 'karta-sajta' else route['path'] if route and route['renderer_version'] == 'react-v1' else None)
         deliveries[page.id] = delivery_candidate(uow, page.slug, reviewed)
         files[f'pages/{page.id}.json'] = encoded(deliveries[page.id])
-    index = build_index_candidate(uow, release_id, deliveries)
-    apply_material_redirects(index, routes)
+    index = build_index_candidate(uow, release_id, deliveries, include_home_alias=retirement is None)
+    finalize_public_index(index, deliveries, routes, retirement)
     index = validate(index, 'PublicBuildIndex', True)
     files['index.json'] = encoded(index)
     descriptor = Descriptor(uuid.uuid4(), release_id, sha256(files['index.json']).hexdigest(), 1)
@@ -214,8 +225,7 @@ def write_build_inputs(uow, source_root, output_root, release_id, source_sha):
                'manifest_digest': descriptor.manifest_digest, 'pages': len(pages),
                'topics': len(index['catalogue']['topics']), 'assets': len(files) - len(pages) - 1,
                'files': inventory, 'source_files': [f for b in bundles.values() for f in b.files]
-                   + [source_file_record(source_root, path) for path in
-                      ('site_content/material-routes.json', 'site_content/material-subjects.json')],
+                   + public_route_source_records(source_root, retirement),
                'activation': 'NOT_PERFORMED'}
     install_build_inputs(output_root, release_id, descriptor, receipt, files)
     return descriptor, receipt
@@ -286,8 +296,63 @@ def source_file_record(root, relative):
     return {'path': relative, 'sha256': sha256(raw).hexdigest(), 'size': len(raw)}
 
 
+def public_route_source_records(root, retirement):
+    paths = ['site_content/material-routes.json', 'site_content/material-subjects.json']
+    if retirement is not None:
+        paths += ['site_content/retired-public-routes.json', 'site_content/redirects.json']
+    return [source_file_record(root, path) for path in paths]
+
+
+@dataclass(frozen=True)
+class PublicRetirement:
+    pages: frozenset
+    paths: frozenset
+    canonical: frozenset
+
+
+def load_public_retirement(root, routes):
+    path = Path(root) / 'site_content/retired-public-routes.json'
+    if not path.is_file():
+        return None  # Historical source checkout.
+    data = read_json(path)
+    if (type(data) is not dict or set(data) != {'version', 'pages', 'aliases', 'removed_files', 'source_commit'} or data['version'] != 1
+            or type(data['pages']) is not dict or type(data['aliases']) is not dict
+            or type(data['removed_files']) is not dict or not re.fullmatch(r'[a-f0-9]{40}', data['source_commit'])):
+        raise SourceError('Invalid public retirement inventory')
+    pages = data['pages']
+    if any(not re.fullmatch(r'[A-Za-z0-9_-]+', slug) or slug in routes for slug in pages):
+        raise SourceError('Retirement may not remove a topic identity')
+    removed = {f'/{slug}/' for slug in pages} | set(data['aliases'])
+    removed |= {old for slug, route in routes.items() for old in (f'/{slug}/', *route['aliases'])}
+    canonical = {route['path'] for route in routes.values()} | {'/', '/materials', '/o-proekte/', '/kontakty/'}
+    if (not all(safe_public_path(old) for old in removed) or removed & canonical
+            or any(route['renderer_version'] != 'react-v1' or route['aliases'] for route in routes.values())):
+        raise SourceError('Retirement conflicts with the canonical route inventory')
+    return PublicRetirement(frozenset(pages),
+        frozenset((removed | {path.rstrip('/') for path in removed}) - canonical), frozenset(canonical))
+
+
+def retired_public_path(path, retired):
+    decoded = unquote(path)
+    return (decoded in retired or decoded.rstrip('/') in {'/mathstart', '/category'}
+            or decoded.startswith(('/mathstart/', '/category/')))
+
+
+def finalize_public_index(index, deliveries, routes, retirement):
+    if retirement is None:
+        apply_material_redirects(index, routes)
+        return
+    retired = retirement.paths
+    if (not canonical_public_edition(deliveries.values()) or index['aliases']
+            or any(retired_public_path(row['url'], retired) for row in index['pages'])
+            or any(unquote(row['old_path']) in retirement.canonical for row in index['redirects'])
+            or any(retired_public_path(row[key], retired) for row in index['redirects']
+                   for key in ('old_path', 'new_path'))):
+        raise SourceError('Retired public path is still in the current edition')
+
+
 def apply_material_redirects(index, routes):
-    """Point all known legacy aliases at the assigned canonical path directly."""
+    """Reconstruct the exact pre-rollout index for a retained edition."""
     # The source registry and DB delivery reconstruction enumerate lessons in
     # different orders. The derived redirects must have one stable byte order.
     moved = {old: route['path'] for route in sorted(routes.values(), key=lambda route: route['slug'])

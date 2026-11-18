@@ -47,6 +47,7 @@ def reusable(output, key):
 
 def prepare_view(settings, output):
     from sqlalchemy.engine import make_url
+    from backend.content.artifact_pins import PublicationArtifactPins
     from backend.infrastructure.database import DatabaseConfig, create_engine
     from backend.infrastructure.uow import UnitOfWork
     from backend.content.releases import active_descriptor
@@ -62,8 +63,10 @@ def prepare_view(settings, output):
             import sqlalchemy as sa
             uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
             descriptor = active_descriptor(uow, 'public')
-        _, manifest = artifact_for_descriptor(settings['MATHSTART_PUBLIC_ARTIFACT_ROOT'],
-            json.loads(settings['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']), descriptor)
+        # Use the same authority as FastAPI. The local pins cover older
+        # installs, while reviewed publications carry their own output digest.
+        pins = PublicationArtifactPins(engine, json.loads(settings['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']))
+        _, manifest = artifact_for_descriptor(settings['MATHSTART_PUBLIC_ARTIFACT_ROOT'], pins, descriptor)
         key = fingerprint(settings, descriptor)
         if reusable(output, key):
             print('Dev projection: reused unchanged inputs', flush=True)
@@ -73,10 +76,13 @@ def prepare_view(settings, output):
     finally:
         engine.dispose()
     data = json.loads(output.read_text(encoding='utf-8'))
-    legacy = [path for path, view in data['routes'].items()
-              if not view.get('public_design') and view['page'].get('renderer_version') != 'react-v1']
-    data['backend_paths'] = sorted(set(legacy + [r['old_path'] for r in manifest['redirects']]
-        + ['/glavnaya/', '/sitemap.xml', '/robots.txt', '/favicon.ico']))
+    information_paths = {'/kontakty/', '/o-proekte/'}
+    documents = set(data['routes']) & information_paths
+    if any(not view.get('public_design') and view['page'].get('renderer_version') != 'react-v1'
+           and path not in documents for path, view in data['routes'].items()):
+        raise ValueError('Active release contains retired public documents; prepare and review the current Content release')
+    redirects = [r['old_path'] for r in manifest['redirects'] if r['old_path'] not in data['routes']]
+    data['backend_paths'] = sorted(documents | set(redirects) | {'/sitemap.xml', '/robots.txt', '/favicon.ico'})
     curriculum = (ROOT / 'curriculum').resolve()
     paths = []
     for view in data['routes'].values():

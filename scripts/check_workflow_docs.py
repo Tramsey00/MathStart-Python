@@ -12,13 +12,16 @@ sys.path.insert(0, str(ROOT))
 RETIRED = {'MS7-R05', 'MS7-R06A', 'MS7-R06B', 'MS7-R04A', 'MS7-R07', 'MS7-R08', 'MS7-V07', 'MS7-I08'}
 STATUSES = {'PLANNED', 'IN_PROGRESS', 'READY_FOR_REVIEW', 'CHANGES_REQUESTED',
             'HUMAN_ACCEPTANCE_PENDING', 'ACCEPTED', 'BLOCKED_DEPENDENCY',
-            'BLOCKED_DECISION', 'REMOVED_FROM_PLAN'}
+            'BLOCKED_DECISION', 'REMOVED_FROM_PLAN', 'DEFERRED_BY_USER'}
 
 
 def validate_queue(data, source=None):
     rows = data['tasks']
     ids = [r['id'] for r in rows]
-    if not rows or len(set(ids)) != len(ids) or [r['order'] for r in rows] != list(range(len(rows))):
+    orders = [r['order'] for r in rows]
+    active = [r['order'] for r in rows if r['status'] != 'DEFERRED_BY_USER']
+    if (not active or len(set(ids)) != len(ids) or orders != sorted(set(orders))
+            or active != list(range(len(active)))):
         raise ValueError('Queue IDs/order must be unique and consecutive')
     position = {value: i for i, value in enumerate(ids)}
     for row in rows:
@@ -31,6 +34,8 @@ def validate_queue(data, source=None):
                 raise ValueError('Missing, cyclic or forward dependency: ' + row['id'])
             if rows[position[dependency]]['status'] == 'REMOVED_FROM_PLAN':
                 raise ValueError('Dependency on retired task: ' + row['id'])
+            if row['status'] != 'DEFERRED_BY_USER' and rows[position[dependency]]['status'] == 'DEFERRED_BY_USER':
+                raise ValueError('Active task depends on deferred task: ' + row['id'])
     return rows
 
 
@@ -95,13 +100,19 @@ def verify(root=ROOT):
         raise ValueError('Expected current task registry v2')
     validate_workflow(queue)
     index = (root / 'docs/tasks/INDEX.md').read_text(encoding='utf-8')
+    deferred_list = root / queue['deferred_list']
+    if deferred_list.resolve() != (root / 'docs/backlog/README.md').resolve():
+        raise ValueError('Unexpected backlog index')
+    backlog = deferred_list.read_text(encoding='utf-8')
     checks = ['queue unique/order/dependencies/no cycles']
     skills = set()
     for row in rows:
-        if f"| {row['order']:02} | {row['id']} — {row['title']} | {row['status']} |" not in index:
+        deferred = row['status'] == 'DEFERRED_BY_USER'
+        if not deferred and f"| {row['order']:02} | {row['id']} — {row['title']} | {row['status']} |" not in index:
             raise ValueError('Markdown/JSON registry differs: ' + row['id'])
         path = root / row['skill']
-        if not path.resolve().is_relative_to((root / 'skills/tasks').resolve()) or path in skills:
+        directory = root / ('skills/backlog' if deferred else 'skills/tasks')
+        if not path.resolve().is_relative_to(directory.resolve()) or path in skills:
             raise ValueError('Task skill escaped or duplicated')
         skills.add(path)
         text = path.read_text(encoding='utf-8')
@@ -113,11 +124,14 @@ def verify(root=ROOT):
             raise ValueError('Task skill dependency differs: ' + row['id'])
         if any(value in text for value in ['Owner:', 'Reviewer:', 'Task Approver:']):
             raise ValueError('Permanent personal assignment in task')
-        if f"[SKILL.md](../../{row['skill']})" not in index:
+        link = f"[{row['id']}](../../{row['skill']})" if deferred else f"[SKILL.md](../../{row['skill']})"
+        if link not in (backlog if deferred else index):
             raise ValueError('Task skill not discoverable')
         checks.append('linked task skill: ' + row['id'])
-    if set((root / 'skills/tasks').glob('*/SKILL.md')) != skills:
-        raise ValueError('Unregistered active task skill')
+    discovered = {path for directory in ('tasks', 'backlog')
+                  for path in (root / 'skills' / directory).glob('*/SKILL.md')}
+    if discovered != skills:
+        raise ValueError('Unregistered task skill')
     inventory = json.loads((root / 'docs/tasks/lesson-inventory.json').read_text(encoding='utf-8'))['topics']
     by_slug = {r['slug']: r for r in inventory}
     if len(by_slug) != len(inventory):

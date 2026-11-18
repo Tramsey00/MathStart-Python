@@ -37,7 +37,7 @@ git config http.version HTTP/1.1
 Откройте **http://127.0.0.1:8131**. На хосте публикуется только этот loopback-порт.
 Для новой отдельной установки можно выбрать порт командой `.\dev.cmd prepare -NonInteractive -PublicPort 8133`. Выбранный порт сохраняется в профиле. В следующих командах параметр можно опустить. Профили без настройки используют 8131. Внутренний FastAPI остаётся на 8132.
 Своя PostgreSQL работает без host-порта. В app-контейнере существующий supervisor
-запускает Vite и внутренний FastAPI на loopback 8132; API/private/legacy routes
+запускает Vite и внутренний FastAPI на loopback 8132; API, приватные страницы, ресурсы выпуска
 и WebSocket используют тот же browser origin 8131 с исходными Host/Origin/cookies.
 Подготовка использует отдельный одноразовый tools-контейнер того же dev image.
 

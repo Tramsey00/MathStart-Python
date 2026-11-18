@@ -78,7 +78,10 @@ def publication_digest(bundle, snapshot):
     return digest(snapshot)
 
 
-def load_bundle(root, path):
+def load_bundle(root, path, *, document_only=None):
+    root = Path(root).resolve()
+    if document_only is None:
+        document_only = (root / 'site_content/retired-public-routes.json').is_file()
     path = Path(path)
     location = path.resolve().relative_to(Path(root).resolve()).as_posix()
     path = file_inside(root, location)
@@ -113,8 +116,15 @@ def load_bundle(root, path):
     snapshot = dict(page)
     files = []
     content_path = file_inside(root, (path.parent / 'content.json').relative_to(root).as_posix()) if renderer_version == 'react-v1' else None
-    source_items = [path] + [file_inside(root, (path.parent / filename).relative_to(root).as_posix())
-                              for filename in ['body.html', 'page.css', 'page.js']]
+    source_without_html = document_only and (
+        renderer_version == 'react-v1' or (not lesson and page['slug'] in {'glavnaya', 'karta-sajta'}))
+    # Keep the required compatibility columns of the frozen schema. The React
+    # presentation comes from content.json or the approved public components.
+    snapshot.update(body_html='', page_css='', page_js='')
+    source_items = [path]
+    if not source_without_html:
+        source_items.extend(file_inside(root, (path.parent / name).relative_to(root).as_posix())
+                            for name in ('body.html', 'page.css', 'page.js'))
     if content_path is not None:
         source_items.append(content_path)
     for item in source_items:
@@ -130,7 +140,7 @@ def load_bundle(root, path):
         validate_lesson_document(lesson_document, page['slug'])
         if any(lesson_document[key] != page[key] for key in ('title', 'grade', 'subject', 'section')):
             raise SourceError('React lesson document metadata differs from its source identity')
-    if lesson and data['format'] != 'html':
+    if lesson and not source_without_html and data['format'] != 'html':
         renderer = render_component_lesson if data['format'] == 'component_html' else render_themed_contents
         snapshot['body_html'] = renderer(snapshot['body_html'])
     return Bundle(location, snapshot, tuple(files), renderer_version, lesson_document)
@@ -361,8 +371,10 @@ def lesson_document_is_rendered(document, html):
 
 def load_sources(root):
     root = Path(root).resolve()
-    bundles = [load_bundle(root, path) for path in sorted((root / 'curriculum').rglob('lesson.json'))]
-    bundles += [load_bundle(root, path) for path in sorted((root / 'site_content/pages').glob('*/page.json'))]
+    document_only = (root / 'site_content/retired-public-routes.json').is_file()
+    paths = [*sorted((root / 'curriculum').rglob('lesson.json')),
+             *sorted((root / 'site_content/pages').glob('*/page.json'))]
+    bundles = [load_bundle(root, path, document_only=document_only) for path in paths]
     identities = [b.snapshot['slug'] for b in bundles]
     if not bundles or len(identities) != len(set(identities)):
         raise SourceError('Missing sources or duplicate slug')

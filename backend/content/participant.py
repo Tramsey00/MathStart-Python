@@ -20,7 +20,7 @@ from backend.content.build import encoded, apply_material_redirects
 from backend.content.editions import snapshot, fingerprint, project_updates, apply_updates
 from backend.content.projection import build_index_candidate
 from backend.content.publication import PublicationConflict, WorkReceipt, frozen
-from backend.content.releases import Descriptor, ReleaseStore, inside
+from backend.content.releases import Descriptor, ReleaseStore, canonical_public_edition, inside
 from backend.infrastructure.http.transport import timestamp
 from backend.models.baseline import ContentPage
 
@@ -49,10 +49,13 @@ def check_database(session, release):
             if getattr(row, key).encode('utf-8') != (asset[1] if asset else b''):
                 raise PublicationConflict('EDITION_CONFLICT')
     # Includes DB collation/order, catalogue parents, SEO, aliases and redirects.
-    index = build_index_candidate(SimpleNamespace(session=session), release.descriptor.release_id, release.pages)
-    routes = {page['slug']: {'slug': page['slug'], 'path': page['seo']['canonical_path'], 'renderer_version': 'react-v1'}
-              for page in release.pages.values() if page.get('renderer_version') == 'react-v1'}
-    apply_material_redirects(index, routes)
+    canonical_only = not release.index['aliases'] and canonical_public_edition(release.pages.values())
+    index = build_index_candidate(SimpleNamespace(session=session), release.descriptor.release_id, release.pages,
+                                  include_home_alias=not canonical_only)
+    if not canonical_only:
+        routes = {page['slug']: {'slug': page['slug'], 'path': page['seo']['canonical_path'], 'renderer_version': 'react-v1'}
+                  for page in release.pages.values() if page.get('renderer_version') == 'react-v1'}
+        apply_material_redirects(index, routes)
     if encoded(index) != release.index_raw:
         raise PublicationConflict('EDITION_CONFLICT')
 

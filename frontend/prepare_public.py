@@ -6,7 +6,6 @@ text after Python validates exact int64 numbers, avoiding JavaScript rounding.
 import argparse
 import json
 from pathlib import Path
-from uuid import UUID
 from frontend.build_input import verified_release
 from frontend.rendering import catalogue_html
 from frontend.public_design import public_design_kind, public_catalogue
@@ -23,24 +22,28 @@ def view_model(value, key=''):
 
 
 def prepare(input_root, release_id, manifest_digest, origin, output, receipt_digest):
-    release = verified_release(input_root, release_id, manifest_digest, receipt_digest)
+    return write_view(verified_release(input_root, release_id, manifest_digest, receipt_digest), origin, output, include_catalogue_html=True)
+
+
+def write_view(release, origin, output, *, include_catalogue_html=False):
     data = {}
     for entry in release.index['pages']:
         page = release.pages[entry['id']]
         context = release.renderer_context(page, {})
         view = {'page':page, 'context':context,
-            'catalogue_html':catalogue_html(context) if page['slug'] == 'karta-sajta' else None,
+            'catalogue_html':catalogue_html(context) if include_catalogue_html and page['slug'] == 'karta-sajta' else None,
             'canonical_url':origin.rstrip('/') + page['seo']['canonical_path']}
         kind = public_design_kind(page)
         if kind:
             view.update(public_design=kind, public_catalogue=public_catalogue(release.index['catalogue']))
+            view['context'] = {'pinned_release': context['pinned_release']}
         data[entry['url']] = view_model(view)
     for alias in release.index['aliases']:
         data[alias['url']] = data[release.pages[alias['page_id']]['seo']['canonical_path']]
     path = Path(output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({'version':'react-public-view-v1','release_id':release_id,
-        'manifest_digest':manifest_digest,'routes':data}, ensure_ascii=False), encoding='utf-8')
+    path.write_text(json.dumps({'version':'react-public-view-v1','release_id':release.descriptor.release_id,
+        'manifest_digest':release.descriptor.manifest_digest,'routes':data}, ensure_ascii=False), encoding='utf-8')
     return len(data)
 
 

@@ -135,14 +135,14 @@ actual login/readiness/sources/repeat bootstrap и cleanup; это не final ta
 Synthetic_setup prepare/activate-initial используется только для controlled QA
 fixtures. Не применять его вместо обычной установки или поверх existing authority.
 
-Existing `update_public_pages` имеет отдельный target action
+До MS-T011 у `update_public_pages` был отдельный target action
 `backend.content.publish prepare-public-update`: только четыре public pages,
 существующий POWER lesson, два retirement flags, четыре redirects и один PDF.
 Reviewed media manifest целиком включён в immutable delivery главной: все29
 public media URL доступны независимо от прямых ссылок в HTML/CSS, hash-verified.
 Dry-run не пишет файлы/SQL/sequences; normal prepare сохраняет exclusive public-only
 backup до immutable inputs. Затем обычные build/plan/publish и recovery authority.
-Точные команды и границы: [READ_RUNTIME.md](../backend/READ_RUNTIME.md#scoped-update-of-installed-public-pages).
+Для текущего выпуска используйте [план MS-T011](../backend/READ_RUNTIME.md#обновление-публичного-выпуска-ms-t011).
 
 ## Edge, maintenance и восстановление
 

@@ -13,7 +13,7 @@ export function SiteHeader() {
         <span>MathStart</span>
       </a>
       <div>
-        <a href="/karta-sajta/">Все темы</a>
+        <a href="/materials">Все темы</a>
         <a href={status==='ready'&&user?'/account/':'/auth?mode=login'}>{status==='ready'?(user?'Личный кабинет':'Войти'):'Аккаунт'}</a>
       </div>
     </nav>
@@ -28,7 +28,7 @@ export function SiteFooter() {
         <p>Математика для 5–10 классов: объяснения, примеры и самопроверка.</p>
       </div>
       <nav className="ms-footer-links" aria-label="Навигация в подвале">
-        <a href="/karta-sajta/">Все темы</a>
+        <a href="/materials">Все темы</a>
         <a href="/o-proekte/">О проекте</a>
         <a href="/kontakty/">Контакты</a>
       </nav>

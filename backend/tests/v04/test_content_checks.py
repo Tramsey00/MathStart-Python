@@ -103,14 +103,14 @@ class PostgreSQLInspectionTests(unittest.TestCase):
 
     def test_integrity_reports_existing_inventory_and_real_negative_references(self):
         with UnitOfWork(self.engine) as uow:
-            report, errors = checks.inspect_site(uow.session, static_roots=[ROOT / 'static'], media_root=ROOT / 'site_content/media')
-            self.assertEqual(report['summary']['pages_total'], 279)
+            report, errors = checks.inspect_site(uow.session, static_roots=[ROOT / 'static'], media_root=ROOT / 'site_content/media', source_root=ROOT)
+            self.assertEqual(report['summary']['pages_total'], 267)
             self.assertEqual(report['summary']['topics_total'], 263)
             self.assertGreater(report['summary']['checked_references'], 0)
             self.assertEqual(errors, 0, json.dumps(report['summary']))
             page = uow.session.scalar(sa.select(ContentPage).where(ContentPage.page_type == 'topic').order_by(ContentPage.id))
             page.body_html += '<img src="/media/absent-negative.png"><a href="/absent-negative/">Missing</a><link href="/static/absent-negative.css">'
-            report, errors = checks.inspect_site(uow.session, static_roots=[ROOT / 'static'], media_root=ROOT / 'site_content/media')
+            report, errors = checks.inspect_site(uow.session, static_roots=[ROOT / 'static'], media_root=ROOT / 'site_content/media', source_root=ROOT)
             self.assertEqual(errors, 3)
             for kind in ['broken_internal_links', 'broken_static_references', 'broken_media_references']:
                 self.assertEqual(report[kind][0]['page'], page.slug)
@@ -148,13 +148,13 @@ class PostgreSQLInspectionTests(unittest.TestCase):
                     '--static-root', str(ROOT / 'static'), '--media-root', str(ROOT / 'site_content/media')]
             positive = subprocess.run(base, cwd=ROOT, env=environment, capture_output=True, timeout=90)
             self.assertEqual(positive.returncode, 0, positive.stdout.decode(errors='replace'))
-            self.assertEqual(json.loads((report_root / 'site_integrity_report.json').read_text(encoding='utf-8'))['summary']['pages_total'], 279)
+            self.assertEqual(json.loads((report_root / 'site_integrity_report.json').read_text(encoding='utf-8'))['summary']['pages_total'], 267)
             with public_server() as origin:
                 quality = subprocess.run([sys.executable, '-c', code, 'check-content-quality', '--origin', origin,
                                           '--report-root', str(report_root)], cwd=ROOT, env=environment,
                                          capture_output=True, timeout=90)
                 self.assertEqual(quality.returncode, 0, quality.stderr.decode(errors='replace'))
-                self.assertEqual(json.loads(quality.stdout)['pages_checked'], 279)
+                self.assertEqual(json.loads(quality.stdout)['pages_checked'], 267)
                 self.assertEqual(json.loads((report_root / 'content_quality_report.json').read_text(encoding='utf-8'))['issues'], [])
             # Missing storage must produce both a durable report and nonzero exit.
             negative = subprocess.run([*base[:-1], str(Path(directory) / 'absent-media')], cwd=ROOT,

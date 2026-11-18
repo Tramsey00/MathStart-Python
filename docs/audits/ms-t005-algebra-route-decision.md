@@ -46,7 +46,7 @@ Source/связи:
 Действующие решения/статус:
 - `docs/frontend/lesson-migration.md`, `docs/ux/shared-ui-contract.md`;
 - `skills/tasks/t001-lesson-pilot/SKILL.md`, `skills/tasks/t005-grade-7/SKILL.md`;
-- `docs/tasks/INDEX.md`, `docs/tasks/registry.json`, `docs/tasks/ms-t005-remaining.md`;
+- `docs/tasks/INDEX.md`, `docs/tasks/registry.json`, `docs/audits/ms-t005-remaining.md`;
 - этот новый execution record.
 
 Исторические audit files, HISTORY.md, receipts, logs и прежние human approvals не редактировались. Старый MathML ledger сохранён целиком: его прежний document_status относится к моменту подготовки; актуальное состояние темы задаёт migration map.

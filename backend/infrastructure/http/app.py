@@ -19,7 +19,7 @@ from backend.infrastructure.uow import UnitOfWork
 from backend.infrastructure.http import transport as wire
 from backend.infrastructure.http.contracts import validate
 from backend.content.grades import list_grades
-from backend.content.releases import active_release, safe_public_path
+from backend.content.releases import active_descriptor, active_release, safe_public_path
 from backend.content.releases import Descriptor
 from backend.models.protocol import PublicationJournal
 from backend.staff.authorization import authorize
@@ -59,7 +59,7 @@ def public_redirect_or_missing(release, path, query=b''):
 
 def create_app(engine, signer, *, release_store=None, namespace='public', authenticate=None,
                csrf_check=None, render_page=None, observe_publication=None, public_origin='https://mathstart.example',
-               identity_service=None):
+               identity_service=None, render_missing=None):
     if not re.fullmatch(r'https?://[A-Za-z0-9.-]+(?::[0-9]+)?', public_origin):
         raise ValueError('Explicit trusted public origin required')
     app = FastAPI(redirect_slashes=False, openapi_url=None, docs_url=None, redoc_url=None)
@@ -218,6 +218,11 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         except UnicodeError:
             raise wire.missing() from None
         if not safe_public_path(path) and not path.startswith('/_content/'):
+            if (render_missing is not None and request.method in {'GET', 'HEAD'}
+                    and not re.match(r'^/+(?:api|auth|admin|account|__ui__|_private|_content|assets|static|media)(?:/|$)', path)):
+                with operation() as uow:
+                    descriptor = active_descriptor(uow, namespace)
+                return render_missing(request, descriptor)
             raise wire.missing()
         immutable = re.fullmatch(r'/_content/releases/([A-Za-z0-9_-]+)/(index\.json|pages/([1-9][0-9]*)\.json)', path)
         with operation() as uow:
@@ -277,6 +282,9 @@ def create_app(engine, signer, *, release_store=None, namespace='public', authen
         except wire.APIError as error:
             if error.status != 404:
                 raise
+            if (render_missing is not None and request.method in {'GET', 'HEAD'}
+                    and not path.startswith('/_content/') and release.redirect(path) is None):
+                return render_missing(request, release.descriptor)
             return public_redirect_or_missing(release, path, request.scope.get('query_string', b''))
         if render_page is None:
             raise wire.unavailable()

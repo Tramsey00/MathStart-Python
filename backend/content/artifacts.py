@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 
 from backend.content.build import encoded, verify_build_inputs
-from backend.content.releases import inside
+from backend.content.releases import canonical_public_edition, inside
 from backend.content.sources import lesson_document_is_rendered
 from backend.content.sources import SourceError, read_json
 
@@ -84,6 +84,11 @@ def verify_public_artifacts(release_root, release_id, receipt_digest, artifact_r
         raise SourceError('Incomplete output file coverage')
     if {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()} != paths | {'output-manifest.json'}:
         raise SourceError('Unlisted output artifact')
+    if not release.index['aliases'] and canonical_public_edition(release.pages.values()):
+        missing = payloads['404.html'].decode('utf-8')
+        if ('data-page-status="404"' not in missing or 'name="robots" content="noindex, nofollow"' not in missing
+                or 'rel="canonical"' in missing or 'property="og:' in missing or '__reactRouter' in missing):
+            raise SourceError('Invalid shared error document')
     shell = payloads['_private/shell.html'].decode('utf-8')
     if ('window.__reactRouterContext' not in shell
             or any(marker in shell for marker in ('canonical_url', 'data-lesson-host', 'rel="canonical"'))):

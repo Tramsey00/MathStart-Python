@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useCatalogue, type CatalogueTopic as Topic, type CatalogueSection as Section } from './catalogue-context';
 import { SiteFooter, useSiteTheme } from './site-shell';
-import { OrbitHeader } from './orbit-shell';
+import { OrbitHeader } from '../../shared/ui/orbit-header';
 
 const subjectNotes: Record<string, string> = {
   matematika: 'Разбираем действия с числами, дроби и проценты. Примеры помогают пройти от условия задачи до вычислений и проверки ответа.',

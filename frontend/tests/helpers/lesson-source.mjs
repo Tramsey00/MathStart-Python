@@ -1,8 +1,15 @@
 // Build-only adapter for the first lesson. The authored curriculum stays canonical.
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parseFragment } from 'parse5';
 import { quadraticRoute } from '../../src/shared/routing/material-routes.mjs';
+
+// Explicit pre-rollout evidence used only by existing preservation tests.
+const reviewedSource = '618075d9a6b8d5a8bc2f84b15386556a6acac8ca';
+export function reviewedLessonFile(repository, path) {
+  return execFileSync('git', ['show', reviewedSource + ':' + path], { cwd: repository });
+}
 
 export const quadraticSlug = quadraticRoute.slug;
 const relative = 'curriculum/8-klass/algebra/06-kvadratichnaya-funkciya-y-ax2-funkciya-y-k-x/06-kvadratichnaya-funkcziya-y-ax2-bx-c';
@@ -31,7 +38,7 @@ export function readQuadraticLesson(repository, catalogue) {
   const directory = join(repository, relative);
   const metadata = JSON.parse(readFileSync(join(directory, 'lesson.json'), 'utf8')).page;
   if (metadata.slug !== quadraticSlug || !metadata.is_published) throw Error('Unexpected pilot lesson');
-  const html = readFileSync(join(directory, 'body.html'), 'utf8');
+  const html = reviewedLessonFile(repository, relative + '/body.html').toString('utf8');
   const root = children(parseFragment(html)).find(node => hasClass(node, 'ms-lesson-page'));
   if (!root) throw Error('Missing authored lesson');
   const hero = children(root).find(node => hasClass(node, 'ms-hero'));

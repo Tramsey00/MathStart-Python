@@ -1,9 +1,11 @@
 """Target build input coverage plus independent legacy component golden parity."""
 from hashlib import sha256
+from io import BytesIO
 import json
 import os
 from pathlib import Path
 import subprocess
+import tarfile
 import tempfile
 import unittest
 from unittest.mock import Mock, patch
@@ -55,11 +57,12 @@ class SourceTests(unittest.TestCase):
 
     def test_complete_source_set_and_authored_assets(self):
         bundles = load_sources(ROOT)
-        self.assertEqual(len(bundles), 279)
+        self.assertEqual(len(bundles), 267)
         self.assertEqual(sum(b.snapshot['page_type'] == 'topic' for b in bundles), 263)
         topics = [b for b in bundles if b.snapshot['page_type'] == 'topic']
-        self.assertEqual(sum(bool(b.snapshot['page_css']) for b in topics), 97)
-        self.assertEqual(sum(bool(b.snapshot['page_js']) for b in topics), 7)
+        self.assertEqual(sum(bool(b.snapshot['page_css']) for b in topics), 0)
+        self.assertEqual(sum(bool(b.snapshot['page_js']) for b in topics), 0)
+        self.assertEqual(sum(b.lesson_document is not None for b in topics), 263)
         from backend.content.build import assets_for
         home = next(bundle for bundle in bundles if bundle.snapshot['page_type'] == 'home')
         exported = {asset['url']: (asset, raw) for asset, raw in assets_for(ROOT, home) if asset['kind'] == 'media'}
@@ -87,8 +90,15 @@ class SourceTests(unittest.TestCase):
         result = subprocess.run([python, '-m', 'backend.tests.v04.golden_oracle'], cwd=oracle_root(), env=oracle_environment(),
                                 capture_output=True, timeout=60, check=True)
         expected = json.loads(result.stdout)
-        actual = {b.snapshot['slug']: sha256(b.snapshot['body_html'].encode()).hexdigest()
-                  for b in load_sources(ROOT) if b.snapshot['page_type'] == 'topic'}
+        source = read_json(ROOT / 'site_content/retired-public-routes.json')['source_commit']
+        archive = subprocess.check_output(['git', 'archive', source, 'curriculum'], cwd=ROOT)
+        with tempfile.TemporaryDirectory() as directory:
+            with tarfile.open(fileobj=BytesIO(archive)) as captured:
+                captured.extractall(directory, filter='data')
+            topics = [b for b in load_sources(directory) if b.snapshot['page_type'] == 'topic']
+        self.assertEqual(sum(bool(b.snapshot['page_css']) for b in topics), 97)
+        self.assertEqual(sum(bool(b.snapshot['page_js']) for b in topics), 7)
+        actual = {b.snapshot['slug']: sha256(b.snapshot['body_html'].encode()).hexdigest() for b in topics}
         self.assertEqual(actual, expected)
 
     def test_paths_duplicate_json_and_nonfinite_fail_closed(self):
@@ -119,7 +129,7 @@ class BuildTests(unittest.TestCase):
 
     def test_full_manifest_inventory_and_private_exclusion(self):
         release = ReleaseStore(self.root).load(self.descriptor)
-        self.assertEqual(len(release.pages), 279)
+        self.assertEqual(len(release.pages), 267)
         self.assertEqual(len(release.index['catalogue']['topics']), 263)
         for item in self.receipt['files']:
             raw = (self.root / self.descriptor.release_id / item['path']).read_bytes()
@@ -135,7 +145,7 @@ class BuildTests(unittest.TestCase):
     def test_trusted_receipt_rejects_metadata_edit_and_unlisted_private_export(self):
         base = self.root / self.descriptor.release_id
         receipt_digest = sha256((base / 'receipt.json').read_bytes()).hexdigest()
-        self.assertEqual(len(verify_build_inputs(self.root, self.descriptor.release_id, receipt_digest).pages), 279)
+        self.assertEqual(len(verify_build_inputs(self.root, self.descriptor.release_id, receipt_digest).pages), 267)
         with self.assertRaises(SourceError):
             verify_build_inputs(self.root, self.descriptor.release_id, '0' * 64)
         path = base / 'pages/1.json'

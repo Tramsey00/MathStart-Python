@@ -1,13 +1,45 @@
 """Pure full-site bootstrap edition; preserve runtime edits and all old rows."""
 from hashlib import sha256
+from pathlib import Path
+from urllib.parse import unquote
 
 from backend.content.editions import decoded, normalized, project_updates
-from backend.content.sources import SourceError, file_inside, read_json, digest
+from backend.content.sources import SourceError, file_inside, read_json
 from backend.content.publication import PublicationConflict
 from backend.models.baseline import GRADE_EPOCH, metadata
 
 
-def bootstrap_changes(before, bundles, root, instant):
+def reviewed_previous_page(current, bundle, prior_files):
+    """Allow presentation changes only from the verified published source bytes."""
+    location = Path(bundle.path)
+    previous = {Path(item['path']).name: item['sha256']
+                for item in (prior_files or {}).get(location.parent.as_posix(), ())}
+    fields = {'body_html': 'body.html', 'page_css': 'page.css', 'page_js': 'page.js'}
+    return (location.name in previous
+            and all(current[key] == bundle.snapshot[key] for key in current.keys() - fields.keys())
+            and all(sha256(current[key].encode()).hexdigest() == previous[name] if name in previous
+                    else current[key] == '' for key, name in fields.items()))
+
+
+def retire_redirects(rows, retirement, changes):
+    """Deactivate known public paths and chains to them without losing rows."""
+    from backend.content.build import retired_public_path
+    pending = [row for row in rows if row['is_active']]
+    removed = set(retirement.paths)
+    while pending:
+        matches = [row for row in pending if unquote(row['old_path']) in retirement.canonical
+                   or any(retired_public_path(row[key], removed) for key in ('old_path', 'new_path'))]
+        if not matches:
+            return
+        for row in matches:
+            changes.append({'table': 'content_redirect', 'before': row, 'after': {**row, 'is_active': False}})
+            path = unquote(row['old_path'])
+            if path not in retirement.canonical:
+                removed.add(path)
+            pending.remove(row)
+
+
+def bootstrap_changes(before, bundles, root, instant, *, retirement=None, previous_sources=None):
     from backend.content.preparation import source_changes, related, source_snapshot
     catalogue = read_json(root / 'site_content/catalog.json')
     if set(catalogue) != {'schema_version', 'grades', 'subjects', 'sections'} or catalogue['schema_version'] != 1:
@@ -56,16 +88,26 @@ def bootstrap_changes(before, bundles, root, instant):
     # Bootstrap refuses a runtime edit instead of treating it as an update.
     for page in state['content_contentpage']:
         bundle = sources.get(page['slug'])
-        if bundle is not None and page['page_type'] != 'topic' and digest(source_snapshot(page, relations)) != digest(bundle.snapshot):
+        if bundle is None or page['page_type'] == 'topic':
+            continue
+        current = source_snapshot(page, relations)
+        if current != bundle.snapshot and not (
+                previous_sources is not None and reviewed_previous_page(current, bundle, previous_sources.files)):
             raise PublicationConflict('SOURCE_CONFLICT')
-    pages = source_changes(state, bundles, list(sources), instant)
+    pages = source_changes(state, bundles, list(sources), instant, previous_sources=previous_sources)
     changes.extend(pages)
     state = project_updates(state, pages)
-    # Same two explicitly retired baseline pages, retained with their PKs,
-    # content, timestamps and references. Missing sources imply no other delete.
+    # Retire presentation with the same PKs, content and references. An
+    # absent source on its own is never permission to retire a database row.
+    retired_pages = retirement.pages if retirement is not None else {'materialy', 'pamyatki'}
     for page in state['content_contentpage']:
-        if page['slug'] in {'materialy', 'pamyatki'} and page['page_type'] == 'static' and page['is_published']:
-            changes.append({'table': 'content_contentpage', 'before': page, 'after': {**page, 'is_published': False}})
+        if page['slug'] not in retired_pages or not page['is_published']:
+            continue
+        if page['page_type'] not in {'grade', 'subject', 'static'} or page['slug'] in sources:
+            raise PublicationConflict('SOURCE_IDENTITY_CONFLICT')
+        changes.append({'table': 'content_contentpage', 'before': page, 'after': {**page, 'is_published': False}})
+    if retirement is not None:
+        retire_redirects(before['content_redirect'], retirement, changes)
     page_ids = {page['slug']: page['id'] for page in state['content_contentpage']}
     media = read_json(root / 'site_content/media.json')
     if set(media) != {'schema_version', 'assets'} or media['schema_version'] != 1:
@@ -98,7 +140,7 @@ def bootstrap_changes(before, bundles, root, instant):
     # reconstruction from DB rows and immutable page deliveries.
     from backend.content.build import load_material_routes
     routes = load_material_routes(root, sources)
-    material_aliases = [{'old_path': alias, 'new_path': route['path'],
+    material_aliases = [] if retirement is not None else [{'old_path': alias, 'new_path': route['path'],
                          'is_permanent': True, 'is_active': True}
                         for route in routes.values() if route['renderer_version'] == 'react-v1'
                         for alias in route.get('aliases', [])]

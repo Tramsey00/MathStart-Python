@@ -3,12 +3,11 @@ import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useMatches, useLocation } from "react-router";
 import type { Route } from "./+types/root";
 import { SiteShell } from "../shared/ui/site-shell";
+import { readStaffCapabilities } from "../shared/api/staff-capabilities";
+import { PageStatus } from "../features/public-pages/page-status";
 import { SkipLink } from "../shared/ui/components";
 import siteCss from "../../../static/mathstart/css/site.css?url";
 import type { PublicPageView } from "../server/public-types";
-import migrationCss from "../public-migration.css?url";
-// Compile-time repository CSS only; never request, author or account strings.
-import migrationInlineCss from "../public-migration.css?inline";
 import lessonRuntimeCss from '../shared/lesson/runtime.css?url';
 import publicDesignCss from '../features/public-pages/public-design.css?url';
 
@@ -40,7 +39,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <meta property="og:type" content={view.page.page_type === "topic" ? "article" : "website"}/>
           <meta name="twitter:card" content="summary"/>
           {!view.public_design && view.page.assets.filter(a=>a.kind === "style").map(a=><link key={a.url} rel="stylesheet" href={a.url}/>)}
-          {view.public_design ? <link rel="stylesheet" href={publicDesignCss}/> : view.page.renderer_version === 'react-v1' ? <link rel="stylesheet" href={lessonRuntimeCss}/> : view.page.page_type === "topic" ? <link rel="stylesheet" href={migrationCss}/> : <style data-public-migration="" dangerouslySetInnerHTML={{__html:migrationInlineCss}}/>}
+          {view.public_design ? <link rel="stylesheet" href={publicDesignCss}/> : view.page.renderer_version === 'react-v1' ? <link rel="stylesheet" href={lessonRuntimeCss}/> : null}
         </> : <><Meta/><Links/></>}
       </head>
       <body className={view?.public_design === 'home' ? 'landing-page' : view?.public_design === 'catalogue' ? 'catalogue-page' : view?.page.renderer_version === 'react-v1' ? 'lesson-page' : undefined}>
@@ -62,7 +61,9 @@ function AppContent() {
       && typeof value.target === "string" && typeof value.label === "string"
       ? [{target: value.target, label: value.label}] : [];
   }).at(-1);
-  if (useMatches().some(m => (m.handle as {boundary?:string}|undefined)?.boundary === 'account')) return <Outlet/>;
+  if (useMatches().some(m => m.id === 'public-not-found' ||
+      (m.handle as {boundary?:string}|undefined)?.boundary === 'account' ||
+      (m.handle as {boundary?:string}|undefined)?.boundary === 'staff' && !readStaffCapabilities().own_password)) return <Outlet/>;
   if (view?.public_design || view?.page.renderer_version === 'react-v1') return <Outlet/>;
   return <SiteShell skipLink={skip ? <SkipLink target={skip.target}>{skip.label}</SkipLink> : undefined}><Outlet /></SiteShell>;
 }
@@ -76,7 +77,11 @@ export function HydrateFallback() {
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const missing = isRouteErrorResponse(error) && error.status === 404;
-  return <SiteShell><main id="main-content" tabIndex={-1}><h1>{missing ? "Страница не найдена" : "Не удалось открыть страницу"}</h1></main></SiteShell>;
+  return <>
+    <title>{missing ? 'Страница не найдена | MathStart' : 'Не удалось открыть страницу | MathStart'}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <PageStatus missing={missing} />
+  </>;
 }
 
 export default function App(){return <SessionProvider><AppContent/></SessionProvider>;}

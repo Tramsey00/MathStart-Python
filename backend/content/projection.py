@@ -124,7 +124,7 @@ def catalogue_from_snapshot(session, state):
     return catalogue_query(session, *tables)
 
 
-def build_index_candidate(uow, release_id, deliveries):
+def build_index_candidate(uow, release_id, deliveries, *, include_home_alias=True):
     """Complete read-only candidate; V04 validates/stages/activates it separately."""
     published = list(uow.session.scalars(sa.select(ContentPage).where(ContentPage.is_published.is_(True)).order_by(ContentPage.id)))
     redirects = list(uow.session.scalars(sa.select(Redirect).where(Redirect.is_active.is_(True)).order_by(Redirect.old_path)))
@@ -135,10 +135,10 @@ def build_index_candidate(uow, release_id, deliveries):
         if delivery is None:
             raise unavailable()
         topic['url'] = delivery['seo']['canonical_path']
-    return index_for_pages(published, release_id, deliveries, catalogue, redirects)
+    return index_for_pages(published, release_id, deliveries, catalogue, redirects, include_home_alias=include_home_alias)
 
 
-def index_for_pages(published, release_id, deliveries, catalogue, redirect_rows):
+def index_for_pages(published, release_id, deliveries, catalogue, redirect_rows, *, include_home_alias=True):
     if set(deliveries) != {p.id for p in published}:
         raise unavailable()
     pages, aliases = [], []
@@ -152,7 +152,7 @@ def index_for_pages(published, release_id, deliveries, catalogue, redirect_rows)
             'canonical_path': canonical, 'delivery_path': f'pages/{page.id}.json', 'updated_at': stamp(page.updated_at),
             'sitemap_changefreq': 'weekly' if page.page_type in {'home', 'grade', 'subject'} else 'monthly',
             'sitemap_priority': 1.0 if page.page_type == 'home' else 0.8 if page.page_type in {'grade', 'subject'} else 0.7 if page.page_type == 'topic' else 0.5})
-        if page.page_type == 'home':
+        if include_home_alias and page.page_type == 'home':
             aliases.append({'url': f'/{page.slug}/', 'page_id': page.id, 'status': 200, 'canonical_path': '/'})
     redirects = []
     for row in redirect_rows:

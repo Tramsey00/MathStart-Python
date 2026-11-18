@@ -1,0 +1,94 @@
+@import '../../shared/styles/theme.css';
+@import '../../shared/styles/base.css';
+
+.public-status {
+  display: flex;
+  flex-direction: column;
+}
+
+.public-status .public-status-main {
+  display: grid;
+  align-items: center;
+  flex: 1;
+}
+
+.public-status-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  width: min(100%, 1380px);
+  margin-inline: auto;
+  padding: clamp(3rem, 8vw, 7rem) 6%;
+}
+
+.orbit-site.public-status-missing {
+  min-height: 0;
+}
+
+.public-status-missing .public-status-main {
+  flex: 0 0 auto;
+}
+
+.public-status-missing .public-status-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  padding-block: clamp(1.25rem, 3vw, 2.75rem) clamp(1rem, 2vw, 2rem);
+}
+
+.public-status-code {
+  margin-block-end: .125em;
+  color: var(--primary);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.public-status-copy h1 {
+  max-inline-size: 15ch;
+  margin: 0;
+  font-size: clamp(2rem, 4.8vw, 4rem);
+  font-weight: 640;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.public-status-copy p {
+  margin: 1.25rem 0 1.75rem;
+  max-inline-size: 38ch;
+  color: var(--muted-foreground);
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+}
+
+.public-status-actions {
+  display: flex;
+  gap: .5rem 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.public-status-home {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  color: var(--foreground);
+  font-weight: 550;
+  text-underline-offset: .25em;
+}
+
+.public-status .lesson-footer {
+  margin-top: 0;
+}
+
+@media (max-width: 760px) {
+  .public-status-missing .public-status-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 1.75rem 1.25rem;
+  }
+
+  .public-status-art {
+    inline-size: min(100%, 29rem);
+    justify-self: center;
+  }
+}

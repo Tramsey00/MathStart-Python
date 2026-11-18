@@ -1,3 +1,4 @@
+import { reviewedLessonFile } from './helpers/lesson-source.mjs';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -22,7 +23,7 @@ describe('MS-T005 source preservation and explicit route assignments', () => {
     expect(map.topics.map(t => t.slug).sort()).toEqual(inventory.map((t: {slug: string}) => t.slug).sort());
     expect(map.topics).toHaveLength(75);
     for (const topic of map.topics) for (const [file, sha] of Object.entries(topic.source_files)) {
-      expect(createHash('sha256').update(readFileSync(resolve(root, topic.source, file))).digest('hex'), topic.slug + '/' + file).toBe(sha);
+      expect(createHash('sha256').update(reviewedLessonFile(root, topic.source + '/' + file)).digest('hex'), topic.slug + '/' + file).toBe(sha);
     }
     const paths = load('site_content/material-routes.json').assignments.flatMap((r: { grade: number; subject: string; number: number; aliases?: string[] }) => [`/materials/${r.grade}-${r.subject}-${r.number}`, ...(r.aliases ?? [])]);
     expect(new Set(paths).size).toBe(paths.length);
@@ -30,7 +31,7 @@ describe('MS-T005 source preservation and explicit route assignments', () => {
   it('preserves every authored numerator/denominator and exact MathML fraction structure', () => {
     const mathematicalText = (s: string) => normalize(s).replace(/[²³₁₂]/gu, c => ({'²':'2','³':'3','₁':'1','₂':'2'}[c]!));
     for (const topic of mathOverrides.topics) {
-      const original = readFileSync(resolve(root, topic.source, 'body.html'), 'utf8');
+      const original = reviewedLessonFile(root, topic.source + '/body.html').toString('utf8');
       const active = map.topics.find(t => t.slug === topic.slug)!;
       const rendered = ['MIGRATED', 'PREPARED_BLOCKED_URL'].includes(active.status)
         ? parse(renderToString(<LessonPage document={load(topic.source + '/content.json')} navigation={{previous:null,next:null}} gradeLinks={[]}/>)) : null;
@@ -47,7 +48,7 @@ describe('MS-T005 source preservation and explicit route assignments', () => {
   });
   for (const topic of map.topics.filter(t => t.status === 'MIGRATED')) {
     it(`preserves the visible academic content, SVG, tables, answers and anchors: ${topic.slug}`, () => {
-      let sourceHtml = readFileSync(resolve(root, topic.source, 'body.html'), 'utf8');
+      let sourceHtml = reviewedLessonFile(root, topic.source + '/body.html').toString('utf8');
       const authoredMath = mathOverrides.topics.find(t => t.slug === topic.slug);
       for (const change of [...(authoredMath?.changes ?? [])].reverse()) {
         expect(sourceHtml.slice(change.start, change.end)).toBe(change.old);

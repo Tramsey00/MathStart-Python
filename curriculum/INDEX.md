@@ -1,6 +1,6 @@
 # Уроки MathStart
 
-Исходники сгруппированы по классу, предмету и разделу. Ссылка открывает актуальный учебный источник: content.json для React или body.html для ещё не перенесённой темы. Рядом — lesson.json с метаданными. Статус здесь обозначает формат исходника, не приёмку и не установленный локальный release.
+Исходники сгруппированы по классу, предмету и разделу. Все ссылки открывают учебные документы content.json. Рядом — lesson.json с метаданными. Статус здесь обозначает формат исходника, не приёмку и не установленный локальный release.
 
 
 ## 5 класс
@@ -471,7 +471,7 @@
 
 **1. Действительные числа**
 
-Состояние переноса и постоянные адреса всех 13 тем — в [сводке MS-T008](../docs/tasks/ms-t008-migration-summary.md).
+Состояние переноса и постоянные адреса всех 13 тем — в [сводке MS-T008](../docs/audits/ms-t008-migration-summary.md).
 
 - 1.1 [Натуральные числа. Повторение](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie/content.json) — react-v1, `/materials/10-algebra-1`
 - 1.1 [Натуральные числа. Повторение 2.0](10-klass/algebra/01-deistvitelnye-chisla/01-10-klass-naturalnye-chisla-povtorenie-2-0/content.json) — react-v1, `/materials/10-algebra-2`

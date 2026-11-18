@@ -60,7 +60,7 @@ class SourcePreparationTests(unittest.TestCase):
                 uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
                 descriptor, _ = write_build_inputs(uow, ROOT, root / 'baseline', 'prepared-full', self.sha)
             self.assertEqual(prepared.descriptor.manifest_digest, descriptor.manifest_digest)
-            self.assertEqual(len(prepared.pages), 279)
+            self.assertEqual(len(prepared.pages), 267)
             with self.assertRaises(SourceError):
                 prepare_sources(self.engine, ROOT, root / 'prepared', 'prepared-full', self.sha, all_lessons=True)
         self.assertEqual(self.state(), before)
@@ -118,18 +118,21 @@ class SourcePreparationTests(unittest.TestCase):
 
     def test_unpublish_candidate_omits_page_and_topic_but_keeps_database_row(self):
         before = self.state()
-        targets = {row['new_path'] for row in before['content_redirect'] if row['is_active']}
-        bundle = next(b for b in self.bundles if b.snapshot['page_type'] == 'topic' and '/' + b.snapshot['slug'] + '/' in targets)
-        slug = bundle.snapshot['slug']
+        from backend.content.build import load_material_routes
+        routes = load_material_routes(ROOT, {b.snapshot['slug']: b for b in self.bundles})
+        slug, route = next(iter(routes.items()))
         pk = next(row['id'] for row in before['content_contentpage'] if row['slug'] == slug)
-        with tempfile.TemporaryDirectory() as temporary:
+        with_redirect = deepcopy(before)
+        with_redirect['content_redirect'].append({'id': max((r['id'] for r in before['content_redirect']), default=0) + 1,
+            'old_path': '/synthetic-preparation-alias/', 'new_path': route['path'], 'is_active': True, 'is_permanent': True})
+        with tempfile.TemporaryDirectory() as temporary, patch('backend.content.preparation.snapshot', return_value=with_redirect):
             result = prepare_sources(self.engine, ROOT, temporary, 'prepared-unpublish', self.sha, slugs=[slug], unpublish=True)
             release = verify_build_inputs(temporary, result['release_id'], result['input_receipt_digest'])
             self.assertNotIn(pk, release.pages)
             self.assertNotIn(pk, {row['id'] for row in release.index['catalogue']['topics']})
-            self.assertEqual(len(release.pages), 278)
+            self.assertEqual(len(release.pages), 266)
             self.assertEqual(len(release.index['catalogue']['topics']), 262)
-            self.assertNotIn('/' + slug + '/', {row['new_path'] for row in release.index['redirects']})
+            self.assertNotIn(route['path'], {row['new_path'] for row in release.index['redirects']})
             retired = [change for change in result['changes'] if change['table'] == 'content_redirect']
             self.assertTrue(retired)
             self.assertTrue(all(change['before']['is_active'] and not change['after']['is_active'] for change in retired))

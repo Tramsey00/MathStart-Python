@@ -157,6 +157,7 @@ def main(argv=None):
                         slugs=args.slug, all_lessons=args.all_lessons, unpublish=args.kind == 'unpublish',
                         dry_run=args.dry_run, bootstrap=args.action == 'prepare-bootstrap',
                         public_update=args.action == 'prepare-public-update',
+                        release_root=args.release_root or os.environ.get('MATHSTART_RELEASE_ROOT'), namespace=args.namespace,
                         public_backup_path=args.backup or (args.changes.with_name(args.changes.stem + '-before.json') if args.changes else None))
             if not args.dry_run:
                 handoff = {'version': 'prepared-source-edition-v1', **{key: result[key] for key in ('before_digest', 'after_digest', 'changes')}}

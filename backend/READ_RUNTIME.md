@@ -104,7 +104,7 @@ python -m unittest backend.tests.v04.test_read_runtime -v
 python -m backend.cli check-lesson-sources --source-root . --all
 python -m backend.cli check-lesson-sources --source-root . --slug <existing lesson slug>
 python -m backend.cli check-site-integrity --static-root static --media-root site_content/media --report-root var/inspection-reports
-python -m backend.cli check-content-quality --origin http://127.0.0.1:8121 --report-root var/inspection-reports
+python -m backend.cli check-content-quality --origin http://127.0.0.1:8121 --release-root var/serving/releases --report-root var/inspection-reports
 ```
 
 Они используют явно настроенную target DB. Проверка урока сравнивает все
@@ -300,7 +300,7 @@ Writer barrier cutover применяется как к публикации, т
 
 ## Ограниченное обновление установленных публичных страниц
 
-Операция legacy `update_public_pages` соответствует действию обычного publisher
+На историческом checkout до MS-T011 операция `update_public_pages` соответствовала действию publisher
 `prepare-public-update`. Она требует существующего урока о свойствах степеней;
 новая программа не устанавливается, несвязанные строки каталога/media не переписываются.
 Используя то же окружение target DB и проверенную копию исходников, выполните:
@@ -337,3 +337,45 @@ public uploads в проверенном media manifest, включая25 фай
 без явного указания. Если опубликованная страница, не входящая в проверенные sources, была отредактирована,
 полная передача сборки завершается с `SOURCE_CONFLICT`; перед публикацией согласуйте этот source.
 Повторный dry-run при совпадающих данных предлагает ноль изменений.
+
+## Обновление публичного выпуска MS-T011
+
+Используйте текущую локальную PostgreSQL и существующие serving roots.
+Остановите свой host-dev, оставьте свой PostgreSQL включённым. Возьмите
+commit SHA из проверенного PR и новый уникальный release ID. Выберите новые
+пути для input handoff, output и edition/plan в ignored var. Не используйте
+существующие release IDs и файлы планов.
+
+1. Запустите `python -m backend.content.publish prepare-bootstrap` с
+   `--source-root . --source-sha <SHA> --release-id <ID> --input-root <inputs>
+   --changes <edition> --release-root <installed-releases>`. Команда сверяет
+   предыдущие source bytes по receipt активного выпуска и строит предлагаемые
+   изменения. Если receipt отсутствует или его digest расходится, подготовка
+   останавливается. Для восстановления нужен штатный разбор прежней публикации.
+   Если прежний выпуск отдавал legacy-урок с React-привязкой из более ранней
+   публикации, переход возможен только при совпадении всего текущего снимка
+   Content с результатом прежнего утверждённого плана. ID темы должен быть
+   в закреплённом индексе этого выпуска по её legacy-адресу.
+2. Выполните `python -m frontend.build_public` для тех же input root, release ID,
+   manifest digest и receipt digest. Передайте реальный локальный origin и новый
+   output. Соберите plan по команде выше с полученным output manifest SHA256.
+   В плане проверьте previous и next, 263 topic IDs, сохранность grade/subject/section,
+   деактивацию только старых публичных представлений и их redirects, отсутствие
+   изменений Identity. Для просмотра этого плана предварительно согласуйте
+   подготовку и сборку.
+3. После отдельного утверждения точного digest активируйте через штатный
+   `backend.content.publish publish` с reviewed plan, stable owner и idempotency
+   key. Сервис на том же origin должен быть доступен для обязательных probes.
+   Дождитесь COMPLETE и запишите активные release ID и manifest SHA256. При
+   неопределённом результате используйте [регламент восстановления](../deploy/RECOVERY.md).
+4. Запустите обычный host-dev или FastAPI на локальном origin. Просмотр
+   начинайте с `/`, `/materials`, `/materials/5-math-1`, `/account/`,
+   `/5-klass-chislovye-i-bukvennye-vyrazheniya/`, `/category/5-класс/` и
+   произвольного неизвестного пути. Ручная приёмка проверяет обе темы,
+   узкий экран, прямые GET/HEAD, React-навигацию, самопроверку и вход.
+
+При перезапуске host-dev строит проекцию Vite из активного дескриптора Content.
+Vite и FastAPI берут digest публичного артефакта из утверждённого журнала.
+Для перехода между выпусками остановите прежний host-dev до активации и
+запустите его после COMPLETE, чтобы новый Vite сразу получил актуальные
+маршруты и список проксируемых адресов.
