@@ -7,6 +7,8 @@ from datetime import timezone
 
 from starlette.responses import Response
 
+from backend.infrastructure.json_input import decode_json
+
 
 class APIError(Exception):
     def __init__(self, status, code, message):
@@ -61,21 +63,6 @@ def error_response(request, error):
     if error.status == 429 and hasattr(error, 'retry_after'):
         response.headers['Retry-After'] = str(error.retry_after)
     return response
-
-
-def unique_object(pairs):
-    value = {}
-    for key, item in pairs:
-        if key in value:
-            raise ValueError("Duplicate key")
-        value[key] = item
-    return value
-
-
-def decode_json(raw):
-    def reject_constant(_):
-        raise ValueError("Nonfinite value")
-    return json.loads(raw.decode("utf-8"), object_pairs_hook=unique_object, parse_constant=reject_constant)
 
 
 async def parse_request(request, schema, *, delivery=False):

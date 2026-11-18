@@ -56,7 +56,7 @@ Windows/PowerShell — целевой хост; другие ОС не объя�
 | `.\dev.cmd prepare` | Первая подготовка; повторно сохраняет DB/credentials и пропускает неизменившиеся шаги |
 | `.\dev.cmd start` | Запуск подготовленной БД и Vite/FastAPI; без install, DDL, seed, build/publication |
 | `.\dev.cmd update` | Явная подготовка изменений после вашего pull; останавливает только свой app |
-| `.\dev.cmd schema-update` | Обновление установленной схемы `v01_0003` до `v01_0004` с отдельным review и выдачей runtime-прав |
+| `.\dev.cmd schema-update` | Обновление установленной схемы `v01_0003` или `v01_0004` до `v01_0005` с отдельным review и выдачей runtime-прав |
 | `.\dev.cmd stop` | Остановка своего app/DB с сохранением volumes, credentials и Content |
 | `.\dev.cmd reconcile -OperationId <UUID> -ContentDigest <SHA256>` | Согласование локальной отметки готовности после завершённого внешнего recovery |
 
@@ -128,13 +128,16 @@ publication guards остаются 5 секунд. Успех — только 
 до снятия маркера. Если квитанция отсутствует или состояние неоднозначно,
 остановитесь для отдельной сверки оператором; apply не повторяйте.
 
-### Обновление установленной Compose базы до v01_0004
+<a id="обновление-установленной-compose-базы-до-v01_0004"></a>
 
-Из checkout с кодом MS-N007 выполните:
+### Обновление установленной Compose базы до v01_0005
+
+Из checkout с кодом MS-N008 выполните команды ниже. Источник N007 даёт план
+`TARGET_0004`, более ранняя схема `v01_0003` даёт `TARGET_0003`.
 
 ```powershell
 .\dev.cmd schema-update -NonInteractive
-# Просмотрите план TARGET_0003 в var/compose и подтвердите его точный SHA256.
+# Просмотрите план установленной схемы в var/compose и подтвердите его точный SHA256.
 .\dev.cmd schema-update -NonInteractive -SchemaDigest <SCHEMA_SHA256>
 .\dev.cmd start
 ```

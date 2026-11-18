@@ -8,14 +8,15 @@ from alembic.script import ScriptDirectory
 from backend.models.baseline import SNAPSHOT
 
 
-HEAD = 'v01_0004'
+HEAD = 'v01_0005'
 REVISION_PARENTS = {
-    'v01_0001': None, 'v01_0002': 'v01_0001', 'v01_0003': 'v01_0002', HEAD: 'v01_0003',
+    'v01_0001': None, 'v01_0002': 'v01_0001', 'v01_0003': 'v01_0002', 'v01_0004': 'v01_0003', HEAD: 'v01_0004',
 }
 ADDITIVE_MANIFESTS = {
     'v01_0002': 'protocol-schema-v1.json',
     'v01_0003': 'identity-schema-v1.json',
-    HEAD: 'knowledge-schema-v1.json',
+    'v01_0004': 'knowledge-schema-v1.json',
+    HEAD: 'assessment-schema-v1.json',
 }
 
 
@@ -89,13 +90,13 @@ def inventory(connection):
         'sequences': """SELECT schemaname,sequencename,data_type,start_value,min_value,max_value,
             increment_by,cycle,cache_size,last_value FROM pg_sequences
             WHERE schemaname='public' ORDER BY sequencename""",
-        'unexpected_objects': """SELECT 'schema' kind,nspname name FROM pg_namespace
+        'unexpected_objects': """SELECT 'schema' kind,nspname name,NULL::text definition FROM pg_namespace
             WHERE nspname NOT IN ('public','information_schema') AND nspname NOT LIKE 'pg_%'
-            UNION ALL SELECT 'relation',c.relname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+            UNION ALL SELECT 'relation',c.relname,NULL::text FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
             WHERE n.nspname='public' AND c.relkind IN ('v','m','f')
-            UNION ALL SELECT 'trigger',t.tgname FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid
+            UNION ALL SELECT 'trigger',t.tgname,pg_get_triggerdef(t.oid) FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid
             JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND NOT t.tgisinternal
-            UNION ALL SELECT 'routine',p.proname FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
+            UNION ALL SELECT 'routine',p.proname,CASE WHEN p.prokind <> 'a' THEN pg_get_functiondef(p.oid) END FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
             WHERE n.nspname='public' ORDER BY kind,name""",
     }
     result = {key: [dict(row) for row in connection.execute(sa.text(query)).mappings()] for key, query in queries.items()}
@@ -145,8 +146,9 @@ def assert_baseline(connection, profile, *, allow_protocol=False, require_histor
             allowed.update(manifest['tables'])
             if revision == target_head:
                 break
-    if actual['unexpected_objects']:
-        raise SchemaMismatch('Unknown schema objects')
+    objects = [row for _, manifest in manifests for row in manifest.get('schema_objects', [])]
+    if sorted(actual['unexpected_objects'], key=str) != sorted(objects, key=str):
+        raise SchemaMismatch('Unknown, missing or changed schema objects')
     if set(actual['tables']) - allowed or baseline_tables - set(actual['tables']):
         raise SchemaMismatch('Unknown/missing table set')
     for key, table_key in [('columns', 'table_name'), ('constraints', 'table_name'), ('indexes', 'tablename'), ('identity_columns', 'table_name')]:

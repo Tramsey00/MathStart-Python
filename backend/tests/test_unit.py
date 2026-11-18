@@ -35,9 +35,9 @@ class UnitTests(unittest.TestCase):
     def test_single_chain(self):
         config = Config('backend/alembic.ini')
         script = ScriptDirectory.from_config(config)
-        self.assertEqual(script.get_heads(), ['v01_0004'])
+        self.assertEqual(script.get_heads(), ['v01_0005'])
         self.assertEqual([x.revision for x in script.walk_revisions()],
-                         ['v01_0004', 'v01_0003', 'v01_0002', 'v01_0001'])
+                         ['v01_0005', 'v01_0004', 'v01_0003', 'v01_0002', 'v01_0001'])
 
     def test_snapshot_exact_frozen_copy_and_field_mapping(self):
         source = Path('specs/migration/r02-v1/schema-mapping-v1.json').read_bytes()

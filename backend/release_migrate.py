@@ -7,6 +7,7 @@ after an uncertain commit. Disposable rehearsal wrappers retain their guards.
 """
 import argparse
 from datetime import timedelta
+from decimal import Decimal
 import hashlib
 import hmac
 import json
@@ -23,13 +24,20 @@ from backend.users.cutover import LOCK, _normal, writer_fact
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'reviewed-schema-plan-v1'
-TARGET_SOURCES = {'TARGET_0002': 'v01_0002', 'TARGET_0003': 'v01_0003'}
+TARGET_SOURCES = {'TARGET_0002': 'v01_0002', 'TARGET_0003': 'v01_0003', 'TARGET_0004': 'v01_0004'}
 PROFILES = ('FRESH', 'A', 'B', 'C', *TARGET_SOURCES)
+
+
+def encode_database_number(value):
+    if not isinstance(value, Decimal) or not value.is_finite():
+        raise TypeError('Unsupported value in reviewed schema plan')
+    # PostgreSQL NUMERIC is exact. Keep its precision and scale in the plan input.
+    return {'postgres_numeric': str(value)}
 
 
 def encoded(value):
     return (json.dumps(_normal(value), sort_keys=True, ensure_ascii=False,
-                       separators=(',', ':'), allow_nan=False) + '\n').encode('utf-8')
+                       separators=(',', ':'), allow_nan=False, default=encode_database_number) + '\n').encode('utf-8')
 
 
 def plan_digest(plan):
@@ -44,7 +52,8 @@ def signed(key, domain, value):
 
 def code_digest():
     paths = [Path(__file__), ROOT / 'backend/users/bootstrap.py',
-             ROOT / 'backend/knowledge/models.py', ROOT / 'backend/content/topic_skill_model.py']
+             ROOT / 'backend/knowledge/models.py', ROOT / 'backend/content/topic_skill_model.py',
+             ROOT / 'backend/assessment/models.py']
     # The standalone release image has no local-dev scripts. Local installers
     # bind their grant callers too, in addition to the policy under migrations.
     paths.extend(path for name in ('team_local.py', 'container_dev.py')
