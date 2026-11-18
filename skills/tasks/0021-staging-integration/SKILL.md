@@ -5,6 +5,10 @@ description: Выполнить MS-N021 — Полный учебный цикл
 
 # MS-N021 — Полный учебный цикл на staging
 
+## Решение 16.11.2026
+
+Геймификация N006/N020 отложена и не блокирует staging. Сквозной сценарий включает публичную самопроверку без входа и авторизованный submit/Analyzer/Tutor; у гостя блок помощника закрыт, прямые API-запросы не вызывают LLM. Не добавлять XP/награды ради формального прохождения этапа.
+
 ## Проблема, цель и текущее состояние
 
 Собрать coherent candidate с реальными domain/API/UI путями и доказанной эксплуатацией.
@@ -15,7 +19,7 @@ description: Выполнить MS-N021 — Полный учебный цикл
 
 ## Зависимости и обязательные источники
 
-Зависимости: MS-N020. Путь skill каждой — в едином реестре.
+Зависимости: MS-N019. Путь skill каждой — в едином реестре.
 Открой от Git root: `AGENTS.md`, `ARCHITECTURE.md`, `PRODUCT.md`, `specs/product/learning-requirements.md`, `docs/tasks/INDEX.md`, `skills/verification/SKILL.md`, `docs/target-runtime.md`.
 Связанные domain/API/UI contracts выбирай по перечисленным ниже модулям;
 статус proposed не превращай в accepted по наличию tests.

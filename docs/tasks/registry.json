@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "updated": "2026-11-16",
+  "updated": "2026-11-18",
   "status": "ACTIVE",
-  "execution": "Параллельные согласованные очереди Владимира и Ильи; один активный класс, взаимное ревью; одна итоговая приёмка Русланом; merge отдельно",
+  "execution": "Основной путь MVP по dependencies; отложенные задачи не запускаются автоматически. Стабильные ID сохранены; order задаёт порядок, не номер задания.",
   "tasks": [
     {
       "id": "MS-T000",
@@ -359,7 +359,7 @@
           "publish_and_resume": 409.5621,
           "preparation_wall_including_human_waits": 1143.0123807,
           "first_start_ready": 32.438,
-          "repeat_start_ready": 25.0
+          "repeat_start_ready": 25
         },
         "repeat_http_seconds": {
           "/": 24.657,
@@ -412,7 +412,7 @@
       "id": "MS-T004",
       "order": 5,
       "title": "Полностью перенести 6 класс",
-      "status": "IN_PROGRESS",
+      "status": "HUMAN_ACCEPTANCE_PENDING",
       "dependencies": [
         "MS-T002A"
       ],
@@ -423,7 +423,15 @@
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
       "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
-      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE"
+      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE",
+      "integration": {
+        "source_complete": true,
+        "peer_review": "COMPLETE",
+        "pr": 75,
+        "merged": true,
+        "merge_sha": "3f2097d327e005902b0e6bc3f7b51dee481376f5",
+        "combined_runtime_acceptance": "PENDING_IN_T011"
+      }
     },
     {
       "id": "MS-T005",
@@ -461,7 +469,7 @@
       "id": "MS-T006",
       "order": 7,
       "title": "Полностью перенести 8 класс",
-      "status": "IN_PROGRESS",
+      "status": "HUMAN_ACCEPTANCE_PENDING",
       "dependencies": [
         "MS-T002A"
       ],
@@ -472,13 +480,21 @@
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
       "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
-      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE"
+      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE",
+      "integration": {
+        "source_complete": true,
+        "peer_review": "COMPLETE",
+        "pr": 77,
+        "merged": true,
+        "merge_sha": "e952689861835cf02ae4e1cd5e4733f6ffbc4663",
+        "combined_runtime_acceptance": "PENDING_IN_T011"
+      }
     },
     {
       "id": "MS-T007",
       "order": 8,
       "title": "Полностью перенести 9 класс",
-      "status": "PLANNED",
+      "status": "HUMAN_ACCEPTANCE_PENDING",
       "dependencies": [
         "MS-T002A"
       ],
@@ -489,13 +505,21 @@
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
       "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
-      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE"
+      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE",
+      "integration": {
+        "source_complete": true,
+        "peer_review": "COMPLETE",
+        "pr": 71,
+        "merged": true,
+        "merge_sha": "cc8e33d5df6d80f3127dfe5c7769cacf61a96ffd",
+        "combined_runtime_acceptance": "PENDING_IN_T011"
+      }
     },
     {
       "id": "MS-T008",
       "order": 9,
       "title": "Полностью перенести 10 класс",
-      "status": "PLANNED",
+      "status": "HUMAN_ACCEPTANCE_PENDING",
       "dependencies": [
         "MS-T002A"
       ],
@@ -506,13 +530,21 @@
       "inventory": "docs/tasks/lesson-inventory.json",
       "workflow": "regular",
       "verification_policy": "MANUAL_ONLY; automated tests/typecheck/Playwright/smoke/source/docs/preservation gates NOT_RUN_BY_USER_REQUEST; штатные runtime/publication guards сохраняются",
-      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE"
+      "completion_policy": "PEER_REVIEW_THEN_NEXT_ASSIGNED_CLASS; FINAL_COMBINED_USER_ACCEPTANCE; MAIN_MERGE_SEPARATE",
+      "integration": {
+        "source_complete": true,
+        "peer_review": "COMPLETE",
+        "pr": 74,
+        "merged": true,
+        "merge_sha": "eb53e10bf0744f151dfdbd50a465ba6f6e4161ef",
+        "combined_runtime_acceptance": "PENDING_IN_T011"
+      }
     },
     {
       "id": "MS-T009",
       "order": 10,
       "title": "Вход по логину, личный кабинет и защита аккаунта",
-      "status": "READY_FOR_REVIEW",
+      "status": "ACCEPTED",
       "dependencies": [
         "MS-T002A"
       ],
@@ -523,44 +555,46 @@
       "parallel_scope": "13.11.2026: параллельно MS-T003–MS-T008; без материалов/renderer; общая auth-навигация согласуется"
     },
     {
-      "id": "MS-T010",
+      "id": "MS-T011",
       "order": 11,
-      "title": "Применить общую систему к staff без изменения прав",
+      "title": "Завершить интеграцию сайта и вывести старые публичные страницы",
       "status": "PLANNED",
       "dependencies": [
         "MS-T009"
       ],
-      "skill": "skills/tasks/t010-staff-ui/SKILL.md",
-      "acceptance": "Все действующие staff resources сохраняют server permissions, read/write ограничения, revision conflicts и подтверждения; новый UI использует общий chrome без утечки данных в public artifact.",
-      "workflow": "regular"
-    },
-    {
-      "id": "MS-T011",
-      "order": 12,
-      "title": "Завершить перенос и сократить переходные проверки",
-      "status": "PLANNED",
-      "dependencies": [
-        "MS-T010"
-      ],
       "skill": "skills/tasks/t011-rollout-finalization/SKILL.md",
-      "acceptance": "Все 263 темы и public links/redirects разрешаются; нет prototype runtime/старого UI; тесты распределены по policy, meaningful assertions сохранены, обязательный combined candidate не подменён быстрым профилем.",
-      "workflow": "regular"
-    },
-    {
-      "id": "MS-N006",
-      "order": 13,
-      "title": "Педагогическая спецификация геймификации",
-      "status": "PLANNED",
-      "dependencies": [
-        "MS-T011"
+      "acceptance": "Объединённые 263 React-темы доступны по прямым новым canonical URL; внутренние ссылки не используют старые адреса; выведенные публичные учебные URL возвращают 404 без старой страницы и без legacy redirect. Staff redesign и реорганизация QA не блокируют интеграцию; профиль проверок согласуется отдельно.",
+      "workflow": "regular",
+      "source_prerequisites": [
+        "MS-T003",
+        "MS-T004",
+        "MS-T005",
+        "MS-T006",
+        "MS-T007",
+        "MS-T008"
       ],
-      "skill": "skills/tasks/0006-gamification-spec/SKILL.md",
-      "acceptance": "Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной.",
-      "workflow": "regular"
+      "url_policy": {
+        "internal_links": "DIRECT_EXISTING_CANONICAL",
+        "retired_public_educational_paths": "HTTP_404_NO_REDIRECT_NO_LEGACY_UI",
+        "scope": [
+          "lesson slugs",
+          "legacy categories/catalogues",
+          "legacy prefixes and aliases"
+        ],
+        "preserve": [
+          "canonical identities and anchors",
+          "auth safe return",
+          "technical HTTPS/origin redirects",
+          "required assets and APIs"
+        ],
+        "runtime": "Source changes and activated pinned Content release are separate; use reviewed publication workflow",
+        "details": "skills/tasks/t011-rollout-finalization/SKILL.md",
+        "retired_page_removal": "Remove retired public page/route entries and unused legacy files after consumer/content mapping; direct 404 on original URL, no redirect to /404; preserve topic identity, shared assets and immutable release history."
+      }
     },
     {
       "id": "MS-N007",
-      "order": 14,
+      "order": 12,
       "title": "Knowledge и Content-owned TopicSkill",
       "status": "PLANNED",
       "dependencies": [
@@ -572,7 +606,7 @@
     },
     {
       "id": "MS-N008",
-      "order": 15,
+      "order": 13,
       "title": "Immutable exercise versions и pilot bank",
       "status": "PLANNED",
       "dependencies": [
@@ -584,19 +618,19 @@
     },
     {
       "id": "MS-N009",
-      "order": 16,
+      "order": 14,
       "title": "Attempts, immutable revisions и recorded help/reveal",
       "status": "PLANNED",
       "dependencies": [
         "MS-N008"
       ],
       "skill": "skills/tasks/0009-attempt-help-lifecycle/SKILL.md",
-      "acceptance": "Immutable submitted snapshot, duplicate no-op/conflict, reveal только после recorded exposure, permanent uniqueness и owner privacy.",
+      "acceptance": "Immutable submitted snapshot, duplicate no-op/conflict, reveal только после recorded exposure, permanent uniqueness и owner privacy. Неавторизованные запросы не создают попытки, записи решений или LLM-запуски.",
       "workflow": "regular"
     },
     {
       "id": "MS-N010",
-      "order": 17,
+      "order": 15,
       "title": "Ограниченный математический parser и normalizer",
       "status": "PLANNED",
       "dependencies": [
@@ -608,7 +642,7 @@
     },
     {
       "id": "MS-N011",
-      "order": 18,
+      "order": 16,
       "title": "Детерминированные validators и первый доказанный дефект",
       "status": "PLANNED",
       "dependencies": [
@@ -620,7 +654,7 @@
     },
     {
       "id": "MS-N012",
-      "order": 19,
+      "order": 17,
       "title": "ProgressEvent, CompletionFact, проекция и replay",
       "status": "PLANNED",
       "dependencies": [
@@ -632,7 +666,7 @@
     },
     {
       "id": "MS-N013",
-      "order": 20,
+      "order": 18,
       "title": "Atomic Analysis → Progress и аудит persisted loop",
       "status": "PLANNED",
       "dependencies": [
@@ -644,7 +678,7 @@
     },
     {
       "id": "MS-N014",
-      "order": 21,
+      "order": 19,
       "title": "Четыре exercise UI, typed steps и help/reveal recovery",
       "status": "PLANNED",
       "dependencies": [
@@ -652,12 +686,12 @@
         "MS-T009"
       ],
       "skill": "skills/tasks/0014-exercise-ui/SKILL.md",
-      "acceptance": "Все четыре режима работают с реальным backend, no secret in HTML/JSON/JS/network до reveal, новый attempt не сбрасывает exposure.",
+      "acceptance": "Все четыре режима работают с реальным backend, no secret in HTML/JSON/JS/network до reveal, новый attempt не сбрасывает exposure. Публичная самопроверка без LLM доступна без входа и не создаёт attempts/mastery. Задания с помощником для гостя размыты и неинтерактивны; сервер запрещает guest submit/LLM calls.",
       "workflow": "regular"
     },
     {
       "id": "MS-N015",
-      "order": 22,
+      "order": 20,
       "title": "Прогресс, история и завершение onboarding",
       "status": "PLANNED",
       "dependencies": [
@@ -669,7 +703,7 @@
     },
     {
       "id": "MS-N016",
-      "order": 23,
+      "order": 21,
       "title": "Диагностика и adaptive practice с возвратом",
       "status": "PLANNED",
       "dependencies": [
@@ -681,7 +715,7 @@
     },
     {
       "id": "MS-N017",
-      "order": 24,
+      "order": 22,
       "title": "Product LLM provider, AIRun и безопасный fallback",
       "status": "PLANNED",
       "dependencies": [
@@ -693,7 +727,7 @@
     },
     {
       "id": "MS-N018",
-      "order": 25,
+      "order": 23,
       "title": "Tutor policy, reviewed hint bank и conversations UI",
       "status": "PLANNED",
       "dependencies": [
@@ -705,7 +739,7 @@
     },
     {
       "id": "MS-N019",
-      "order": 26,
+      "order": 24,
       "title": "Golden evaluation Analyzer/Tutor и safety gates",
       "status": "PLANNED",
       "dependencies": [
@@ -716,25 +750,12 @@
       "workflow": "regular"
     },
     {
-      "id": "MS-N020",
-      "order": 27,
-      "title": "Реализация только принятых игровых механик",
-      "status": "PLANNED",
-      "dependencies": [
-        "MS-N006",
-        "MS-N019"
-      ],
-      "skill": "skills/tasks/0020-gamification-implementation/SKILL.md",
-      "acceptance": "Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят.",
-      "workflow": "regular"
-    },
-    {
       "id": "MS-N021",
-      "order": 28,
+      "order": 25,
       "title": "Полный учебный цикл на staging",
       "status": "PLANNED",
       "dependencies": [
-        "MS-N020"
+        "MS-N019"
       ],
       "skill": "skills/tasks/0021-staging-integration/SKILL.md",
       "acceptance": "Один source SHA/image/public tuple, полный цикл без fixture substitutes и skipped, понятный список remaining human gates.",
@@ -742,7 +763,7 @@
     },
     {
       "id": "MS-N022",
-      "order": 29,
+      "order": 26,
       "title": "Security/privacy, производительность и доступность RC",
       "status": "PLANNED",
       "dependencies": [
@@ -754,7 +775,7 @@
     },
     {
       "id": "MS-N023",
-      "order": 30,
+      "order": 27,
       "title": "Upgrade/restore, публичный RC и browser rehearsal",
       "status": "PLANNED",
       "dependencies": [
@@ -766,7 +787,7 @@
     },
     {
       "id": "MS-N024",
-      "order": 31,
+      "order": 28,
       "title": "Отчёт о реальном AI-процессе, demo и freeze/handover",
       "status": "PLANNED",
       "dependencies": [
@@ -775,6 +796,49 @@
       "skill": "skills/tasks/0024-report-handover/SKILL.md",
       "acceptance": "Полный reproducible artifact/evidence index, final SHA, реальные ограничения и actual contributions; C-08 описывает применённые AI tools, не обязательство собственного Harness.",
       "workflow": "regular"
+    },
+    {
+      "id": "MS-T010",
+      "order": 100,
+      "title": "Применить общую систему к staff без изменения прав",
+      "status": "DEFERRED_BY_USER",
+      "dependencies": [
+        "MS-T009"
+      ],
+      "skill": "skills/tasks/t010-staff-ui/SKILL.md",
+      "acceptance": "Все действующие staff resources сохраняют server permissions, read/write ограничения, revision conflicts и подтверждения; новый UI использует общий chrome без утечки данных в public artifact.",
+      "workflow": "regular",
+      "mvp_required": false,
+      "deferred_reason": "Решение Руслана 16.11.2026: после основного учебного MVP, только при наличии времени и отдельном поручении."
+    },
+    {
+      "id": "MS-N006",
+      "order": 101,
+      "title": "Педагогическая спецификация геймификации",
+      "status": "DEFERRED_BY_USER",
+      "dependencies": [
+        "MS-T011"
+      ],
+      "skill": "skills/tasks/0006-gamification-spec/SKILL.md",
+      "acceptance": "Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной.",
+      "workflow": "regular",
+      "mvp_required": false,
+      "deferred_reason": "Решение Руслана 16.11.2026: после основного учебного MVP, только при наличии времени и отдельном поручении."
+    },
+    {
+      "id": "MS-N020",
+      "order": 102,
+      "title": "Реализация только принятых игровых механик",
+      "status": "DEFERRED_BY_USER",
+      "dependencies": [
+        "MS-N006",
+        "MS-N019"
+      ],
+      "skill": "skills/tasks/0020-gamification-implementation/SKILL.md",
+      "acceptance": "Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят.",
+      "workflow": "regular",
+      "mvp_required": false,
+      "deferred_reason": "Решение Руслана 16.11.2026: после основного учебного MVP, только при наличии времени и отдельном поручении."
     }
   ],
   "superseded": {
@@ -838,6 +902,8 @@
     "explicit_user_request_required": true,
     "restoration": "13.11.2026: узкое исключение для auth/security MS-T009 по карточке; остальное только по отдельному поручению, без startup suites.",
     "lesson_migration": "08.11.2026: MS-T003–MS-T008 — перенос по принятому стандарту и ручная приёмка; без автоматических прогонов; не отключать штатные guards."
-  }
+  },
+  "deferred_list": "docs/tasks/DEFERRED.md",
+  "next_task": "MS-T011",
+  "next_task_note": "После завершения T011: N007 → N008 → N009 → N010 → N011. Реализация начинается только по отдельному поручению."
 }
-

@@ -598,3 +598,10 @@ A HARD INVARIANT
 
 ---
 
+
+
+## Действующее уточнение MVP — 16.11.2026
+
+Решение Руслана: T010 и N006/N020 отложены (docs/tasks/DEFERRED.md); N021 зависит от N019, не от наград. Численные критерии учебного анализа, privacy/security и pilot coverage не ослабляются. Требование авторизации assessed exercises сохраняется. Публичная самопроверка без LLM — отдельный путь без assessed Attempts/ProgressEvent/mastery; существующие авторские ответы не превращают новые secret checker данные в публичные. Для helper заданий guest UI закрыт blur-overlay; server-side guest submit/LLM denial и safe login return заданы в MS-N009/N014/N017.
+
+Старые публичные учебные адреса выводятся в T011: все внутренние ссылки прямо на новые canonical URLs, выведенные адреса дают 404, без старого UI и legacy redirect. Технические HTTPS/auth redirects сохраняются. Frozen domain/API fixtures не переписываются, необходимые HTTP-изменения оформляются отдельным addendum при реализации.
