@@ -22,8 +22,17 @@
   padding: clamp(3rem, 8vw, 7rem) 6%;
 }
 
-.public-status-main[data-page-status='404'] .public-status-layout {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+.orbit-site.public-status-missing {
+  min-height: 0;
+}
+
+.public-status-missing .public-status-main {
+  flex: 0 0 auto;
+}
+
+.public-status-missing .public-status-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  padding-block: clamp(1.25rem, 3vw, 2.75rem) clamp(1rem, 2vw, 2rem);
 }
 
 .public-status-code {
@@ -73,13 +82,13 @@
 }
 
 @media (max-width: 760px) {
-  .public-status-main[data-page-status='404'] .public-status-layout {
+  .public-status-missing .public-status-layout {
     grid-template-columns: minmax(0, 1fr);
-    padding-block: 2.75rem 1.75rem;
+    padding-block: 1.75rem 1.25rem;
   }
 
   .public-status-art {
-    inline-size: min(100%, 32rem);
+    inline-size: min(100%, 29rem);
     justify-self: center;
   }
 }
