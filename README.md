@@ -3,7 +3,10 @@
 **[Найти и изменить урок](curriculum/INDEX.md)** · [Карта папок](docs/repository-map.md) · [Задачи команды](docs/tasks/INDEX.md)
 
 Образовательный сайт: FastAPI/Pydantic, SQLAlchemy/Alembic, PostgreSQL и
-React/TypeScript с immutable Content/SSG. Главная, каталог, 5-й и 7-й классы приняты; будущий интеллектуальный учебный цикл не реализован.
+React/TypeScript с immutable Content/SSG. Исходники 263 тем 5–10 классов объединены
+в main. Текущая публичная интеграция и общая ручная приёмка ведутся в
+[MS-T011](skills/tasks/t011-rollout-finalization/SKILL.md). Дальнейший учебный
+цикл описан в обязательной очереди, а отложенные задачи — в [backlog](docs/backlog/README.md).
 
 Основной командный dev на Windows — **host-dev**. Нужны Git, Python 3.12,
 Node 24/npm 11, PowerShell, Docker Desktop и включённые длинные пути Windows.
@@ -60,7 +63,8 @@ Python в backend/ перезапускает только FastAPI. Сущест
 | deploy/ | Production images/Compose/runbooks и отдельный Compose dev |
 | dev.ps1, scripts/container_dev.py | Четыре операции командного local workflow |
 | specs/ | Доменные контракты и manifests |
-| docs/tasks/, skills/tasks/ | Единая очередь и карточки |
+| docs/tasks/, skills/tasks/ | Единый реестр и карточки основной программы |
+| docs/backlog/, skills/backlog/ | Представление реестра и карточки отложенных задач |
 | var/ | Игнорируемые private config/plans/logs; БД/dependencies/builds в volumes |
 
 Автоматические suites выключены решением пользователя 25.10.2026. Npm test
@@ -71,8 +75,9 @@ Dev/setup их не вызывают; доменные validators и publication
 Статус конкретных candidate и целевого контроля —
 [карточка MS-T002A](skills/tasks/t002a-team-local-start/SKILL.md), [PR #58](https://github.com/Tramsey00/MathStart-Python/pull/58).
 Review, merge PR #58 и контроль независимого clone main завершены. MS-T002A
-принята пользователем 08.11.2026. MS-T003–MS-T008 можно назначать параллельно
-по правилам очереди; 5-й и 7-й классы приняты и объединены в main. Production deploy — отдельное поручение.
+принята пользователем 08.11.2026. Статусы классов, активный локальный выпуск,
+кандидат и отдельные этапы ручной приёмки указаны в
+[текущей очереди](docs/tasks/INDEX.md) и карточке MS-T011.
 
 [AGENTS](AGENTS.md), [архитектура/версии](ARCHITECTURE.md), [продукт](PRODUCT.md),
 [очередь](docs/tasks/INDEX.md), [история](docs/maintenance.md),

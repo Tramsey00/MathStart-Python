@@ -1,6 +1,8 @@
 const turns = 11;
 
-function makeSpiral(samplesPerTurn: number) {
+const samplesPerTurn = 144;
+
+function makeSpiral() {
     const sampleCount = turns * samplesPerTurn;
     const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
         const t = index / sampleCount, angle = t * turns * Math.PI * 2;
@@ -14,19 +16,17 @@ function makeSpiral(samplesPerTurn: number) {
     };
 }
 
-const homeSpiral = makeSpiral(144);
-const compactSpiral = makeSpiral(36);
+const { path, majorPaths } = makeSpiral();
 
-export function OrbitGeometry({ compact = false }: { compact?: boolean }) {
-    const { path, majorPaths } = compact ? compactSpiral : homeSpiral;
+export function OrbitGeometry() {
     return <svg className="orbit-artwork-svg" viewBox="-100 -100 1500 850" fill="none" aria-hidden="true" focusable="false">
-        {!compact && <ellipse className="orbit-hit-area" cx="0" cy="0" rx="680" ry="330" transform="translate(715 335) rotate(-26)" fill="transparent" />}
+        <ellipse className="orbit-hit-area" cx="0" cy="0" rx="680" ry="330" transform="translate(715 335) rotate(-26)" fill="transparent" />
         <g className="orbit-field"><g transform="translate(715 335) rotate(-26)">
             <path d={path} className="orbit-line" />
             {majorPaths.map(segment => <path key={segment} d={segment} className="orbit-line orbit-line-major" />)}
-            {!compact && <g className="orbit-traveller" style={{ offsetPath: `path("${path}")`, offsetRotate: '0deg' }}>
+            <g className="orbit-traveller" style={{ offsetPath: `path("${path}")`, offsetRotate: '0deg' }}>
                 <circle r="6" fill="var(--orb-warm)" stroke="var(--background)" strokeWidth="2" />
-            </g>}
+            </g>
         </g></g>
     </svg>;
 }
