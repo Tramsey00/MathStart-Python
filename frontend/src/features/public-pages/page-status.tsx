@@ -12,7 +12,7 @@ const gradeLinks = [5, 6, 7, 8, 9, 10].map(grade => ({
 
 export function PageStatus({ missing }: { missing: boolean }) {
   const [dark, setDark] = useSiteTheme();
-  return <div className="orbit-site public-status">
+  return <div className={missing ? 'orbit-site public-status public-status-missing' : 'orbit-site public-status'}>
     <a className="skip-link" href="#main-content">К сообщению</a>
     <OrbitHeader contained dark={dark} onTheme={() => setDark(value => !value)} />
     <main className="orbit-home public-status-main" id="main-content" tabIndex={-1} data-page-status={missing ? 404 : 500}>

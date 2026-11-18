@@ -51,12 +51,10 @@ function mongeFrame(elapsed) {
     // H_AC lies between H_AB and H_BC. Its position still comes from its own pair.
     const axis = { start: intersections[0], end: intersections[2] };
     const tangents = constructions.flatMap(pair => pair.tangents);
-    const contacts = tangents.flatMap(line => line.contacts);
-    return { circles, tangents, intersections, contacts, axis };
+    return { circles, tangents, intersections, axis };
 }
 
 export const initialMongeFrame = mongeFrame(0);
-export const mongeContactOwners = pairs.flatMap(pair => [...pair, ...pair]);
 
 /** @param {number} time @param {number} start @param {number} duration */
 function smoothProgress(time, start, duration) {
@@ -83,14 +81,12 @@ export function mountMongeArtwork(artwork) {
     const drawing = artwork.querySelector('svg');
     const scene = artwork.querySelector('[data-monge-scene]');
     const circleGroup = artwork.querySelector('[data-monge-circles]');
-    const contactGroup = artwork.querySelector('[data-monge-contacts]');
     const pointGroup = artwork.querySelector('[data-monge-points]');
     const axis = artwork.querySelector('[data-monge-axis]');
     const toggle = artwork.querySelector('button[data-monge-pause]');
-    if (!drawing || !scene || !circleGroup || !contactGroup || !pointGroup || !axis || !toggle
+    if (!drawing || !scene || !circleGroup || !pointGroup || !axis || !toggle
         || typeof IntersectionObserver !== 'function' || typeof matchMedia !== 'function') return;
     const circles = circleGroup.querySelectorAll('circle');
-    const contacts = contactGroup.querySelectorAll('circle');
     const points = pointGroup.querySelectorAll('circle');
     const tangents = scene.querySelectorAll('[data-monge-tangent]');
     const media = matchMedia('(prefers-reduced-motion: reduce)');
@@ -104,11 +100,9 @@ export function mountMongeArtwork(artwork) {
         const geometry = mongeFrame(phase);
         scene.setAttribute('opacity', String(complete ? 1 : 1 - smoothProgress(elapsed, buildDuration + motionDuration, fadeDuration)));
         circleGroup.setAttribute('opacity', String(complete ? 1 : smoothProgress(elapsed, 0, 900)));
-        contactGroup.setAttribute('opacity', String(complete ? 1 : smoothProgress(elapsed, 1_500, 350)));
         pointGroup.setAttribute('opacity', String(complete ? 1 : smoothProgress(elapsed, 1_800, 350)));
         const tangentReveal = complete ? 1 : smoothProgress(elapsed, 750, 1_100);
         circles.forEach((circle, index) => setPoint(circle, geometry.circles[index]));
-        contacts.forEach((contact, index) => setPoint(contact, geometry.contacts[index]));
         points.forEach((point, index) => setPoint(point, geometry.intersections[index]));
         tangents.forEach((tangent, index) => setLine(tangent, geometry.tangents[index], tangentReveal));
         setLine(axis, geometry.axis, complete ? 1 : smoothProgress(elapsed, 2_050, 550));
@@ -133,8 +127,10 @@ export function mountMongeArtwork(artwork) {
         reconcile();
     }
     function updateControl() {
-        toggle.hidden = media.matches;
-        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.disabled = media.matches;
+        toggle.setAttribute('aria-label', media.matches ? 'Построение Монжа' : 'Пауза анимации построения Монжа');
+        if (media.matches) toggle.removeAttribute('aria-pressed');
+        else toggle.setAttribute('aria-pressed', String(paused));
     }
     function togglePause() {
         if (media.matches) return;
@@ -165,6 +161,8 @@ export function mountMongeArtwork(artwork) {
         media.removeEventListener('change', motionPreference);
         document.removeEventListener('visibilitychange', reconcile);
         toggle.removeEventListener('click', togglePause);
-        toggle.hidden = true;
+        toggle.disabled = true;
+        toggle.setAttribute('aria-label', 'Построение Монжа');
+        toggle.removeAttribute('aria-pressed');
     };
 }
