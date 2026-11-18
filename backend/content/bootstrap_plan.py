@@ -39,7 +39,7 @@ def retire_redirects(rows, retirement, changes):
             pending.remove(row)
 
 
-def bootstrap_changes(before, bundles, root, instant, *, retirement=None, prior_files=None):
+def bootstrap_changes(before, bundles, root, instant, *, retirement=None, previous_sources=None):
     from backend.content.preparation import source_changes, related, source_snapshot
     catalogue = read_json(root / 'site_content/catalog.json')
     if set(catalogue) != {'schema_version', 'grades', 'subjects', 'sections'} or catalogue['schema_version'] != 1:
@@ -92,9 +92,9 @@ def bootstrap_changes(before, bundles, root, instant, *, retirement=None, prior_
             continue
         current = source_snapshot(page, relations)
         if current != bundle.snapshot and not (
-                retirement is not None and reviewed_previous_page(current, bundle, prior_files)):
+                previous_sources is not None and reviewed_previous_page(current, bundle, previous_sources.files)):
             raise PublicationConflict('SOURCE_CONFLICT')
-    pages = source_changes(state, bundles, list(sources), instant, prior_files=prior_files)
+    pages = source_changes(state, bundles, list(sources), instant, previous_sources=previous_sources)
     changes.extend(pages)
     state = project_updates(state, pages)
     # Retire presentation with the same PKs, content and references. An

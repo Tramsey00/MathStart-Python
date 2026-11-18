@@ -47,6 +47,7 @@ def reusable(output, key):
 
 def prepare_view(settings, output):
     from sqlalchemy.engine import make_url
+    from backend.content.artifact_pins import PublicationArtifactPins
     from backend.infrastructure.database import DatabaseConfig, create_engine
     from backend.infrastructure.uow import UnitOfWork
     from backend.content.releases import active_descriptor
@@ -62,8 +63,10 @@ def prepare_view(settings, output):
             import sqlalchemy as sa
             uow.session.execute(sa.text('SET TRANSACTION READ ONLY'))
             descriptor = active_descriptor(uow, 'public')
-        _, manifest = artifact_for_descriptor(settings['MATHSTART_PUBLIC_ARTIFACT_ROOT'],
-            json.loads(settings['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']), descriptor)
+        # Use the same authority as FastAPI. The local pins cover older
+        # installs, while reviewed publications carry their own output digest.
+        pins = PublicationArtifactPins(engine, json.loads(settings['MATHSTART_PUBLIC_ARTIFACT_DIGESTS']))
+        _, manifest = artifact_for_descriptor(settings['MATHSTART_PUBLIC_ARTIFACT_ROOT'], pins, descriptor)
         key = fingerprint(settings, descriptor)
         if reusable(output, key):
             print('Dev projection: reused unchanged inputs', flush=True)

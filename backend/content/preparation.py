@@ -7,7 +7,7 @@ Preparation and dry-run never consume sequences or register rows.
 """
 from collections import defaultdict
 from copy import deepcopy
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -50,15 +50,24 @@ def source_snapshot(row, relations):
     return data
 
 
-def previous_source_inventory(uow, release_root, namespace):
-    """Bind prior file records to the installed receipt named in the applied plan."""
+@dataclass(frozen=True)
+class PreviousSources:
+    files: dict
+    reviewed_legacy_topics: frozenset
+
+
+def previous_source_inventory(uow, release_root, namespace, before_digest):
+    """Verify the installed source receipt and identify an unchanged legacy edition."""
     if uow.session.get(ActiveReleaseDescriptor, namespace) is None:
-        return {}
+        return None
     descriptor = active_descriptor(uow, namespace)
-    expected = uow.session.scalar(sa.select(PublicationJournal.plan['input_receipt_digest'].as_string())
-                                   .where(PublicationJournal.id == descriptor.operation_id))
+    plan, plan_digest = uow.session.execute(sa.select(PublicationJournal.plan, PublicationJournal.plan_digest)
+                                            .where(PublicationJournal.id == descriptor.operation_id)).one()
+    if (sha256(encoded(plan)).hexdigest() != plan_digest or plan.get('version') != 'prepared-publication-v1'
+            or plan.get('release_id') != descriptor.release_id or plan.get('manifest_digest') != descriptor.manifest_digest):
+        raise SourceError('Untrusted prior publication plan')
     raw = inside(release_root, f'{descriptor.release_id}/receipt.json').read_bytes()
-    if sha256(raw).hexdigest() != expected:
+    if sha256(raw).hexdigest() != plan.get('input_receipt_digest'):
         raise SourceError('Untrusted prior source receipt')
     receipt = json.loads(raw)
     if (receipt['release_id'] != descriptor.release_id or receipt['manifest_digest'] != descriptor.manifest_digest):
@@ -66,10 +75,20 @@ def previous_source_inventory(uow, release_root, namespace):
     files = defaultdict(list)
     for entry in receipt['source_files']:
         files[Path(entry['path']).parent.as_posix()].append(entry)
-    return files
+    legacy_topics = frozenset()
+    if plan.get('after_digest') == before_digest:
+        # Older scoped releases could serve a legacy page with a React binding
+        # from an earlier publication. Only the exact reviewed DB edition can
+        # supply the predecessor in that case.
+        index_raw = inside(release_root, f'{descriptor.release_id}/index.json').read_bytes()
+        if sha256(index_raw).hexdigest() != descriptor.manifest_digest:
+            raise SourceError('Untrusted prior public index')
+        legacy_topics = frozenset(page['id'] for page in json.loads(index_raw)['pages']
+                                  if page['page_type'] == 'topic' and page['url'] == f'/{page["slug"]}/')
+    return PreviousSources(files, legacy_topics)
 
 
-def source_changes(before, bundles, selected, instant, *, unpublish=False, prior_files=None, routes=None):
+def source_changes(before, bundles, selected, instant, *, unpublish=False, previous_sources=None, routes=None):
     """Pure proposed identities; no sequences, source rebind or runtime overwrite."""
     if not selected or len(selected) != len(set(selected)):
         raise SourceError('Explicit nonempty unique selection required')
@@ -126,9 +145,12 @@ def source_changes(before, bundles, selected, instant, *, unpublish=False, prior
                 raise PublicationConflict('SOURCE_REGISTRATION_REQUIRED')
             accepted = (publication['published_digest'], digest(desired), publication_digest(bundle, desired)) if publication else (digest(desired), publication_digest(bundle, desired))
             if digest(current) not in accepted:
-                prior = (prior_files or {}).get(Path(bundle.path).parent.as_posix())
-                if (not prior or publication is None or bundle.renderer_version != 'react-v1'
-                        or publication_digest(replace(bundle, files=tuple(prior)), current) != publication['published_digest']):
+                prior = previous_sources.files.get(Path(bundle.path).parent.as_posix()) if previous_sources else None
+                if not prior or publication is None or bundle.renderer_version != 'react-v1':
+                    raise PublicationConflict('SOURCE_CONFLICT')
+                matches_binding = publication_digest(replace(bundle, files=tuple(prior)), current) == publication['published_digest']
+                reviewed_legacy = not unpublish and row['id'] in previous_sources.reviewed_legacy_topics
+                if not (matches_binding or reviewed_legacy):
                     raise PublicationConflict('SOURCE_CONFLICT')
         after = {**row, **({key: desired[key] for key in EDITABLE} if not unpublish else {'is_published': False})}
         if original is None or after != row:
@@ -201,16 +223,16 @@ def prepare_sources(engine, source_root, output_root, release_id, source_sha, *,
         uow.session.execute(sa.text('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY'))
         before = snapshot(uow.session)
         instant = normalized({'at': uow.session.scalar(sa.select(sa.func.clock_timestamp()))})['at']
-        prior_files = (previous_source_inventory(uow, release_root, namespace)
-                       if retirement is not None and release_root is not None else {})
+        previous_sources = (previous_source_inventory(uow, release_root, namespace, digest(before))
+                            if retirement is not None and release_root is not None else None)
     if public_update:
         from backend.content.public_update import public_update_changes
         changes = public_update_changes(before, bundles, source_root, instant)
     elif bootstrap:
         from backend.content.bootstrap_plan import bootstrap_changes
-        changes = bootstrap_changes(before, bundles, source_root, instant, retirement=retirement, prior_files=prior_files)
+        changes = bootstrap_changes(before, bundles, source_root, instant, retirement=retirement, previous_sources=previous_sources)
     else:
-        changes = source_changes(before, bundles, selected, instant, unpublish=unpublish, prior_files=prior_files, routes=routes)
+        changes = source_changes(before, bundles, selected, instant, unpublish=unpublish, previous_sources=previous_sources, routes=routes)
     after = project_updates(before, changes)
     if dry_run:
         return {'selected': len(selected), 'changes': len(changes), 'effects': 'NONE', 'activation': 'NOT_PERFORMED'}
