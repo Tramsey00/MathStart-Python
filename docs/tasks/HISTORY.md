@@ -100,9 +100,9 @@ N006 имеет отдельное педагогическое решение, 
 | 08 | MS-T007 — Полностью перенести 9 класс | PLANNED | MS-T006 | [SKILL.md](../../skills/tasks/t007-grade-9/SKILL.md) | Все 46 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
 | 09 | MS-T008 — Полностью перенести 10 класс | PLANNED | MS-T007 | [SKILL.md](../../skills/tasks/t008-grade-10/SKILL.md) | Все 13 тем класса собраны через новый renderer, имеют устойчивые URL/redirects и доступны из каталога; ни одна тема/формула/таблица/ответ/media/anchor не потеряна; каждый уникальный interactive перенесён и проверен, пользователь принял cohort. |
 | 10 | MS-T009 — Заменить старый интерфейс авторизации и профиля | PLANNED | MS-T008 | [SKILL.md](../../skills/tasks/t009-identity-ui/SKILL.md) | Человек выбрал email/username и маршруты до API изменений; новый UI работает с реальной Identity; заменённые old forms/controllers/styles/tests удалены без потери auth/CSRF/session/owner/privacy поведения; нет двух независимых реализаций входа. |
-| 11 | MS-T010 — Применить общую систему к staff без изменения прав | PLANNED | MS-T009 | [SKILL.md](../../skills/tasks/t010-staff-ui/SKILL.md) | Все действующие staff resources сохраняют server permissions, read/write ограничения, revision conflicts и подтверждения; новый UI использует общий chrome без утечки данных в public artifact. |
+| 11 | MS-T010 — Применить общую систему к staff без изменения прав | PLANNED | MS-T009 | [SKILL.md](../../skills/backlog/t010-staff-ui/SKILL.md) | Все действующие staff resources сохраняют server permissions, read/write ограничения, revision conflicts и подтверждения; новый UI использует общий chrome без утечки данных в public artifact. |
 | 12 | MS-T011 — Завершить перенос и сократить переходные проверки | PLANNED | MS-T010 | [SKILL.md](../../skills/tasks/t011-rollout-finalization/SKILL.md) | Все 263 темы и public links/redirects разрешаются; нет prototype runtime/старого UI; тесты распределены по policy, meaningful assertions сохранены, обязательный combined candidate не подменён быстрым профилем. |
-| 13 | MS-N006 — Педагогическая спецификация геймификации | PLANNED | MS-T011 | [SKILL.md](../../skills/tasks/0006-gamification-spec/SKILL.md) | Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной. |
+| 13 | MS-N006 — Педагогическая спецификация геймификации | PLANNED | MS-T011 | [SKILL.md](../../skills/backlog/0006-gamification-spec/SKILL.md) | Утверждённый набор механик либо явно отложенное решение; формальные positive/negative начисления, idempotency и отдельность знания; модель хранения не объявлена реализованной. |
 | 14 | MS-N007 — Knowledge и Content-owned TopicSkill | PLANNED | MS-T011 | [SKILL.md](../../skills/tasks/0007-knowledge-persistence/SKILL.md) | Exact pilot inventory и deterministic depth2 ancestor query, сохранность user history, fresh+upgrade PostgreSQL и идемпотентный импорт. |
 | 15 | MS-N008 — Immutable exercise versions и pilot bank | PLANNED | MS-N007 | [SKILL.md](../../skills/tasks/0008-exercise-bank/SKILL.md) | Точные coverage quotas и две содержательно разные structured forms; offline deterministic verification и explicit review учебной математики; без конвертации всех263 уроков. |
 | 16 | MS-N009 — Attempts, immutable revisions и recorded help/reveal | PLANNED | MS-N008 | [SKILL.md](../../skills/tasks/0009-attempt-help-lifecycle/SKILL.md) | Immutable submitted snapshot, duplicate no-op/conflict, reveal только после recorded exposure, permanent uniqueness и owner privacy. |
@@ -116,7 +116,7 @@ N006 имеет отдельное педагогическое решение, 
 | 24 | MS-N017 — Product LLM provider, AIRun и безопасный fallback | PLANNED | MS-N016 | [SKILL.md](../../skills/tasks/0017-product-provider/SKILL.md) | Обычные tests offline; bad output не создаёт strong negative; actual metadata без PII, provider outage не скрывает working core. |
 | 25 | MS-N018 — Tutor policy, reviewed hint bank и conversations UI | PLANNED | MS-N017 | [SKILL.md](../../skills/tasks/0018-tutor/SKILL.md) | No pre-reveal arbitrary mathematical prose leakage; exact context budgets, user/version scope и correct exposure; frontend не bypass-ит сервер. |
 | 26 | MS-N019 — Golden evaluation Analyzer/Tutor и safety gates | PLANNED | MS-N018 | [SKILL.md](../../skills/tasks/0019-product-evaluation/SKILL.md) | Сохранены количественные product thresholds/cohorts; failed/timeouts не исключены; модель/prompt/schema/version и бюджет указаны; результаты одного SHA не присвоены другому. |
-| 27 | MS-N020 — Реализация только принятых игровых механик | PLANNED | MS-N006, MS-N019 | [SKILL.md](../../skills/tasks/0020-gamification-implementation/SKILL.md) | Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят. |
+| 27 | MS-N020 — Реализация только принятых игровых механик | PLANNED | MS-N006, MS-N019 | [SKILL.md](../../skills/backlog/0020-gamification-implementation/SKILL.md) | Каждое начисление объяснимо source/rule/version, двойное невозможно; XP/streak/reading не создают ProgressEvent/mastery, выбранный UX принят. |
 | 28 | MS-N021 — Полный учебный цикл на staging | PLANNED | MS-N020 | [SKILL.md](../../skills/tasks/0021-staging-integration/SKILL.md) | Один source SHA/image/public tuple, полный цикл без fixture substitutes и skipped, понятный список remaining human gates. |
 | 29 | MS-N022 — Security/privacy, производительность и доступность RC | PLANNED | MS-N021 | [SKILL.md](../../skills/tasks/0022-release-quality/SKILL.md) | Нет открытых blocking security/accessibility findings; >=200 ordinary/10 concurrent и >=30 AI/2 concurrent с согласованным budget; failures включены в metrics. |
 | 30 | MS-N023 — Upgrade/restore, публичный RC и browser rehearsal | PLANNED | MS-N022 | [SKILL.md](../../skills/tasks/0023-release-recovery/SKILL.md) | Exact release tuple и unskipped CI, measured restore, successful external full-loop только после разрешения; локальный loopback не называется публичной готовностью. |
@@ -192,3 +192,76 @@ scope. Probes восстановлены, БД startup/HMR не изменена
 Общие suites NOT_RUN_BY_USER_REQUEST. Отдельное review, human acceptance и merge
 ещё впереди. Вся MS-T002A не ACCEPTED до запуска clone опубликованного main;
 MS-T003 не начата. Production вне scope.
+
+## Промежуточные передачи из очереди
+
+Эти записи перенесены из INDEX.md редакции MS-T011. Статусы относятся к моменту записи.
+
+## Передача MS-T009 — 16.11.2026
+
+Руслан подтвердил текущий UI и поручил финальную очистку и отправку в существующий
+[PR #69](https://github.com/Tramsey00/MathStart-Python/pull/69), Issue #68 остаётся открытым.
+Главная — восстановленная «Орбита»; ЛК и самостоятельная auth сохраняют принятые
+формы. У каталога возвращена прежняя композиция и общий рисунок, оставлены короткие
+тексты, новый фон и актуальная тёмная тема. Поиск раскрывается влево в шапке,
+на mobile — полноширинно ниже неё; прежняя анимация и доступный focus сохранены.
+Текущий статус READY_FOR_REVIEW: визуальное согласование пользователем не заменяет
+независимое security/architecture review. Merge выполняет Руслан; deploy и реальная
+доставка почты не заявлены. Подробности и ограничения — в актуальной сводке карточки.
+
+
+## История решений
+
+### Предыдущие этапы подготовки — 08.11.2026
+
+Ниже сохранён контекст прежних этапов. Указания о запрете push, неполной
+готовности и ожидании приёмки не описывают текущий статус принятых классов.
+
+MS-T000, MS-T001, MS-T002 и **MS-T002A — ACCEPTED**.
+Пользователь явно принял MS-T002A 08.11.2026. Review/fixes, merge PR #58 в main
+`45e6e6532572f64780e21610d9f319c7e7fc4c42` и контроль независимого clone завершены.
+Повторный host-dev старт — 25,000 с; данные/config сохранены после stop/restart.
+Точные результаты и ограничения — в [карточке MS-T002A](../../skills/tasks/t002a-team-local-start/SKILL.md).
+Пользователь 08.11.2026 явно разрешил публикацию этой редакции в main через PR #59.
+MS-T003–MS-T008 доступны для параллельного назначения; актуальный статус каждого
+задания — в реестре ниже.
+
+Основной Windows dev — host-dev в своей обычной папке, полный Compose — альтернатива.
+[Инструкция](../local-development-host.md) описывает первую подготовку и обновление.
+Автопрогоны — только по отдельному поручению; [политика](../frontend/testing-policy.md)
+приоритетнее старых checklist. Отложенные проверки — NOT_RUN_BY_USER_REQUEST.
+
+Окончательное решение Руслана 08.11.2026 для MS-T005: первая тема —
+`/materials/7-algebra-1`, линейный пилот — `/materials/7-algebra-8`.
+Прежний alias между ними отменён до публичного выпуска; адрес `7-algebra-37`
+не создаётся. Локально 75/75 source activations, source blockers отсутствуют; push запрещён.
+Текущие проверки **NOT_RUN_BY_USER_REQUEST**, installed snapshot не обновлён.
+[Решение и страницы для ручного просмотра](../audits/ms-t005-algebra-route-decision.md).
+Предыдущие записи ниже — история, а не текущая политика alias или новый PASS.
+
+Текущий локальный этап MS-T005: перенесены только fixes Владимира d919429 и
+7ab82ee, затем statistics-25/26 конвертированы из оригиналов, встроенно
+валидированы (2/2 OK), вручную сверены и source-активированы. Итого **75/75**
+локально (74 MIGRATED + 1 REUSED_PILOT), без оставшихся source blockers.
+Старые untracked adapters сохранены в stash и не применялись. Предыдущие 73
+документа не менялись. READY_FOR_REVIEW относится к локальному candidate,
+визуальная/человеческая приёмка PENDING, не ACCEPTED.
+Автоматический QA — **NOT_RUN_BY_USER_REQUEST**; snapshot не обновлён.
+**Push не выполнен**: remote/Draft PR #62 остаются на 39545fd, 73/75.
+[Текущий локальный отчёт](../audits/ms-t005-final-two-local.md),
+[оставшиеся действия](../audits/ms-t005-remaining.md).
+
+
+
+[Исходная очередь с хронологией](HISTORY.md) сохранена без изменения текста.
+Старые PENDING, планы merge и промежуточные candidates описывают прошлые этапы.
+Подробные receipts находятся в историях соответствующих карточек; они не являются
+поручением повторить работу или доказательством нового SHA.
+
+08.11.2026, MS-T005 / Issue #61: перенесены 24 новые темы 7 класса, линейный пилот переиспользован; 4 документа подготовлены, но не активированы из-за общего renderer/CSS, 46 тем блокируются конвертером/validator. Класс целиком не готов. [Карта всех 75 тем](ms-t005-migration-map.json), [результаты и ограничения](../audits/ms-t005-grade-7.md). Независимое review и ручная приёмка ожидаются; merge не выполнялся. Текущее поручение пользователя отдельно разрешило scoped tests/typecheck/Playwright/source/URL checks; глобальная политика прогонов не меняется.
+
+08.11.2026, MS-T005 — исправление renderer/CSS: активированы ещё 4 подготовленных урока (7-geometry-8/9, 7-statistics-5/24). Всего 28 новых React-документов + 1 принятый пилот, 46 legacy-тем не пересматривались после shared fixes. [Актуальный execution record](../audits/ms-t005-renderer-css.md). БД/publication не обновлялись; ручная приёмка и независимое review ожидаются.
+
+08.11.2026, MS-T005 — повторная обработка 46 прежних blockers: ещё 30 тем перенесены. Всего 58 новых React-документов + 1 пилот; 1 валидный документ ждёт URL, 15 тем имеют текущие converter/validator blockers. [Отчёт](../audits/ms-t005-retry-46.md), [список для Владимира/пользователя](../audits/ms-t005-converter-followups.md). 74 профильных теста, 186 offline browser scenarios, прямой TypeScript и Content routes PASS; публикация и human acceptance не выполнялись.
+
+08.11.2026, MS-T005 — активированы семь геометрических тем: всего 66/75 source routes (65 новых + пилот), geometry 12/12. Остались 8 тем статистики и URL первой алгебраической темы. [Отчёт](../audits/ms-t005-geometry-activation.md), [оставшиеся 9](../audits/ms-t005-remaining.md). 81 тест, 56 offline browser scenarios, TypeScript, Content routes и media checks PASS; установленный snapshot не публиковался, ручная приёмка PENDING. Узкое responsive image rule в runtime.css отдельно согласовано пользователем.

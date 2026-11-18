@@ -7,7 +7,10 @@ description: Упорядочивание проекта после объеди
 
 [Issue](https://github.com/Tramsey00/MathStart-Python/issues/66).
 Исходный main: 5a5ef883f1017d646ad0ff8f849a0af97a6078fa.
-Ветка project-organization. Статус READY_FOR_REVIEW, приёмка и merge PENDING.
+Исходная работа выполнена в ветке project-organization. В GitHub Issue #66
+закрыт как completed. Ниже — отчёт исходного этапа с его статусами на дату
+передачи. Дополнительная очистка 18.11.2026 ведётся в
+[MS-T011](../t011-rollout-finalization/SKILL.md) и PR #85.
 
 ## Результат
 

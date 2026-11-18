@@ -45,7 +45,7 @@ pending migration snapshots и Harness dependencies не создают нову
 
 ## Приоритеты и публичный доступ — решение 16.11.2026
 
-T010 (включая staff concurrency addendum из закрытого PR #79) отложена; этот addendum не объявляется внедрённым в main. Обязательный путь и отложенные задачи — docs/tasks/INDEX.md и DEFERRED.md. В T011 новый canonical URL используется напрямую; выведенный старый публичный учебный URL возвращает 404 без legacy redirect. Это заменяет прежнее правило сохранения legacy lesson URL/redirects, не технические HTTPS/auth redirects. Нужные transport-изменения оформляются addendum при реализации, frozen fixtures не переписываются.
+T010 (включая staff concurrency addendum из закрытого PR #79) отложена; этот addendum не объявляется внедрённым в main. Обязательный путь и отложенные задачи — docs/tasks/INDEX.md и docs/backlog/README.md. В T011 новый canonical URL используется напрямую; выведенный старый публичный учебный URL возвращает 404 без legacy redirect. Это заменяет прежнее правило сохранения legacy lesson URL/redirects, не технические HTTPS/auth redirects. Нужные transport-изменения оформляются addendum при реализации, frozen fixtures не переписываются.
 
 Публичная самопроверка без LLM не требует входа и не создаёт assessed Attempt/ProgressEvent/mastery. Assessed API остаётся авторизованным. Guest helper блокируется UI и сервером до submit/Analyzer/Tutor/provider; подробности в N009/N014/N017.
 
