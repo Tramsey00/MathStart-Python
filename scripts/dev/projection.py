@@ -78,7 +78,8 @@ def prepare_view(settings, output):
     data = json.loads(output.read_text(encoding='utf-8'))
     legacy = [path for path, view in data['routes'].items()
               if not view.get('public_design') and view['page'].get('renderer_version') != 'react-v1']
-    data['backend_paths'] = sorted(set(legacy + [r['old_path'] for r in manifest['redirects']]
+    redirects = [r['old_path'] for r in manifest['redirects'] if r['old_path'] not in data['routes']]
+    data['backend_paths'] = sorted(set(legacy + redirects
         + ['/sitemap.xml', '/robots.txt', '/favicon.ico']))
     curriculum = (ROOT / 'curriculum').resolve()
     paths = []

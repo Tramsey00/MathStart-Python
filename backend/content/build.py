@@ -345,6 +345,7 @@ def finalize_public_index(index, deliveries, routes, retirement):
     retired = retirement.paths
     if (not canonical_public_edition(deliveries.values()) or index['aliases']
             or any(retired_public_path(row['url'], retired) for row in index['pages'])
+            or any(unquote(row['old_path']) in retirement.canonical for row in index['redirects'])
             or any(retired_public_path(row[key], retired) for row in index['redirects']
                    for key in ('old_path', 'new_path'))):
         raise SourceError('Retired public path is still in the current edition')

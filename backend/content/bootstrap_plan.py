@@ -27,8 +27,8 @@ def retire_redirects(rows, retirement, changes):
     pending = [row for row in rows if row['is_active']]
     removed = set(retirement.paths)
     while pending:
-        matches = [row for row in pending if any(retired_public_path(row[key], removed)
-                                                for key in ('old_path', 'new_path'))]
+        matches = [row for row in pending if unquote(row['old_path']) in retirement.canonical
+                   or any(retired_public_path(row[key], removed) for key in ('old_path', 'new_path'))]
         if not matches:
             return
         for row in matches:
